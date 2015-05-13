@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a045101_eb604837",
+        "filename": "yardstick/cmdparser.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 254
+      },
+      "writtenOn": "2015-05-13T17:43:52Z",
+      "side": 1,
+      "message": "this is perhaps early to comment on the details but as as user, I didn\u0027t see -h/--help arguments. Perhaps new help argument should go into backlog so it is not a blocker for this change.",
+      "revId": "432430aa31d826a5cb4bf3960a6b22c05c8affeb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
