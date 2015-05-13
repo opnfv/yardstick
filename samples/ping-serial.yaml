@@ -1,0 +1,49 @@
+---
+# Sample benchmark task config file
+# Two scenarios run serially using different types of runners
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Ping
+  options:
+    packetsize: 100
+  host: client.demo
+  target: server.demo
+  runner:
+    type: Duration
+    duration: 20
+    interval: 1
+  sla:
+    max_rtt: 10
+    action: monitor
+-
+  type: Ping
+  options:
+    packetsize: 100
+  client: ping-client.demo
+  server: ping-server.demo
+  runner:
+    type: Arithmetic
+    name: packetsize
+    interval: 0.2
+    stop: 60000
+    step: 100
+
+context:
+  name: demo
+  image: cirros-0.3.3
+  flavor: m1.tiny
+  user: cirros
+
+  servers:
+    client:
+      floating_ip: true
+    server:
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+      external_network: "net04_ext"
+
