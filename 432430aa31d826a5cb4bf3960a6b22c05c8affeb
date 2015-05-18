@@ -16,6 +16,24 @@
       "revId": "432430aa31d826a5cb4bf3960a6b22c05c8affeb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a045101_e9b610dc",
+        "filename": "yardstick/cmdparser.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-05-18T09:22:21Z",
+      "side": 1,
+      "message": "Rudimentary help is built in supported by the ArgumentParser class. We should improve that later on we have the pieces in place. Now it looks like:\n\nyardstick@66b81dd0f6b5:~$ yardstick -h\nusage: yardstick [-h] [-d] [-v] [-V] [--keep-deploy] [--parse-only]\n                 [--output-file OUTPUT_FILE]\n                 taskfile\n\npositional arguments:\n  taskfile              path to taskfile\n\noptional arguments:\n  -h, --help            show this help message and exit\n  -d, --debug           increase output verbosity to debug\n  -v, --verbose         increase output verbosity to info\n  -V, --version         display version\n  --keep-deploy         keep context deployed in cloud (do not undeploy)\n  --parse-only          parse the benchmark task file and exit\n  --output-file OUTPUT_FILE\n                        file where output is stored, default\n                        /tmp/yardstick.out\n\nOK for now?",
+      "parentUuid": "3a045101_eb604837",
+      "revId": "432430aa31d826a5cb4bf3960a6b22c05c8affeb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
