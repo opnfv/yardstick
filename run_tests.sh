@@ -17,6 +17,7 @@ run_flake8() {
     flake8 yardstick > $logfile
     if [ $? -ne 0 ]; then
         echo "FAILED, result in $logfile"
+        exit 1
     else
         echo "OK, result in $logfile"
     fi
@@ -28,6 +29,7 @@ run_tests() {
     python -m unittest discover -s yardstick/tests &> $logfile
     if [ $? -ne 0 ]; then
         echo "FAILED, result in $logfile"
+        exit 1
     else
         echo "OK, result in $logfile"
     fi
