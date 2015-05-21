@@ -1,0 +1,4 @@
+This directory contains file resources (other then source code) that can be
+found and extracted using the pkg_resources module. This is currently used to
+locate ssh keys used when creating VMs and logging in to them.
+
