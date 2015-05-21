@@ -12,7 +12,7 @@ import logging.config
 
 logging.basicConfig(
     level=logging.WARNING,
-    format='[%(asctime)s] %(name)-20s %(filename)s:%(lineno)d %(levelname)s %(message)s',#noqa
+    format='[%(asctime)s] %(name)-20s %(filename)s:%(lineno)d '
+        '%(levelname)s %(message)s',  # noqa
     datefmt='%m/%d/%y %H:%M:%S')
 logging.getLogger(__name__).setLevel(logging.INFO)
-
