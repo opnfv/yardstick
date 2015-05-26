@@ -82,7 +82,7 @@ class Network(Object):
         super(Network, self).__init__(name, context)
         self.stack_name = context.name + "-" + self.name
         self.subnet_stack_name = self.stack_name + "-subnet"
-        self.subnet_cidr = attrs["cidr"]
+        self.subnet_cidr = attrs.get('cidr', '10.0.1.0/24')    
         self.router = None
 
         if "external_network" in attrs:
