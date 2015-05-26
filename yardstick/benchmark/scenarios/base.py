@@ -15,7 +15,16 @@ import yardstick.common.utils as utils
 
 class Scenario(object):
 
+    def setup(self):
+        ''' default impl for scenario setup '''
+        pass
+
     def run(self, args):
+        ''' catcher for not implemented run methods in subclasses '''
+        raise RuntimeError("run method not implemented")
+
+    def teardown(self):
+        ''' default impl for scenario teardown '''
         pass
 
     @staticmethod

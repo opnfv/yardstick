@@ -25,13 +25,15 @@ def _worker_process(queue, cls, method_name, context, scenario_args):
 
     sequence = 1
 
-    benchmark = cls(context)
-    method = getattr(benchmark, method_name)
     interval = context.get("interval", 1)
     duration = context.get("duration", 60)
+    LOG.info("worker START, duration %d sec, class %s", duration, cls)
+
     context['runner'] = os.getpid()
 
-    LOG.info("worker START, duration %d sec, class %s", duration, cls)
+    benchmark = cls(context)
+    benchmark.setup()
+    method = getattr(benchmark, method_name)
 
     record_context = {"runner": context["runner"],
                       "host": context["host"]}
@@ -81,7 +83,9 @@ def _worker_process(queue, cls, method_name, context, scenario_args):
 
         if (errors and sla_action is None) or (time.time() - start > duration):
             LOG.info("worker END")
-            return
+            break
+
+    benchmark.teardown()
 
 
 class DurationRunner(base.Runner):
