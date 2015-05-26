@@ -1,0 +1,44 @@
+---
+# Sample benchmark task config file
+# measure network throughput using iperf3
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Iperf3
+  options:
+  host: client.demo
+  target: server.demo
+
+  runner:
+    type: Duration
+    duration: 60
+
+  sla:
+    bytes_per_second: 2900000000
+    action: monitor
+
+context:
+  name: demo
+  image: iperf3
+  flavor: m1.tiny
+  user: cirros
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    client:
+      floating_ip: true
+      placement: "pgrp1"
+    server:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+      external_network: "net04_ext"
+
