@@ -36,5 +36,5 @@ run_tests() {
 }
 
 run_flake8
-run_tests
+#run_tests
 
