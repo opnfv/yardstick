@@ -1,0 +1,44 @@
+---
+# Sample benchmark task config file to measure network latency using ping
+# An external HOT template (file) is configured in the context section using
+# the heat_template attribute. Parameters for the template is specified with the
+# heat_parameters attribute.
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Ping
+  options:
+    packetsize: 200
+  host:
+    name: "server1.demo"
+    public_ip_attr: "server1_public_ip"
+  target:
+    name: "server2.demo"
+    private_ip_attr: "server2_private_ip"
+
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+
+  sla:
+    max_rtt: 10
+    action: monitor
+
+context:
+  name: demo
+  user: cirros
+  heat_template: /tmp/heat-templates/hot/servers_in_new_neutron_net.yaml
+  heat_parameters:
+    image: cirros-0.3.3
+    flavor: m1.tiny
+    key_name: yardstick
+    public_net: "660fc7c3-7a56-4faf-91e5-3c9ebdda0104"
+    private_net_name: "test"
+    private_net_cidr: "10.0.1.0/24"
+    private_net_gateway: "10.0.1.1"
+    private_net_pool_start: "10.0.1.2"
+    private_net_pool_end: "10.0.1.200"
+

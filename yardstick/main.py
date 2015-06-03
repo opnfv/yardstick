@@ -13,6 +13,30 @@
 
     Example invocation:
     $ yardstick samples/ping-task.yaml
+
+    Servers are the same as VMs (Nova call them servers in the API)
+
+    Many tests use a client/server architecture. A test client is configured
+    to use a specific test server e.g. using an IP address. This is true for
+    example iperf. In some cases the test server is included in the kernel
+    (ping, pktgen) and no additional software is needed on the server. In other
+    cases (iperf) a server process needs to be installed and started
+
+    One server is required to host the test client program (such as ping or
+    iperf). In the task file this server is called host.
+
+    A server can be the _target_ of a test client (think ping destination
+    argument). A target server is optional but needed in most test scenarios.
+    In the task file this server is called target. This is probably the same
+    as DUT in existing terminology.
+
+    Existing terminology:
+    https://www.ietf.org/rfc/rfc1242.txt (throughput/latency)
+    https://www.ietf.org/rfc/rfc2285.txt (DUT/SUT)
+
+    New terminology:
+    NFV TST
+
 """
 
 import sys
@@ -77,23 +101,25 @@ def run_one_scenario(scenario_cfg, output_file):
     host = Context.get_server(scenario_cfg["host"])
 
     runner_cfg = scenario_cfg["runner"]
-    runner_cfg['host'] = host.floating_ip["ipaddr"]
+    runner_cfg['host'] = host.public_ip
     runner_cfg['user'] = host.context.user
     runner_cfg['key_filename'] = key_filename
     runner_cfg['output_filename'] = output_file
 
-    # TODO target should be optional to support single VM scenarios
-    target = Context.get_server(scenario_cfg["target"])
-    if target.floating_ip:
-        runner_cfg['target'] = target.floating_ip["ipaddr"]
+    if "target" in scenario_cfg:
+        target = Context.get_server(scenario_cfg["target"])
 
-    # TODO scenario_cfg["ipaddr"] is bad, "dest_ip" is better
-    if host.context != target.context:
-        # target is in another context, get its public IP
-        scenario_cfg["ipaddr"] = target.floating_ip["ipaddr"]
-    else:
-        # TODO hardcoded name below, a server can be attached to several nets
-        scenario_cfg["ipaddr"] = target.ports["test"]["ipaddr"]
+        # get public IP for target server, some scenarios require it
+        if target.public_ip:
+            runner_cfg['target'] = target.public_ip
+
+        # TODO scenario_cfg["ipaddr"] is bad naming
+        if host.context != target.context:
+            # target is in another context, get its public IP
+            scenario_cfg["ipaddr"] = target.public_ip
+        else:
+            # target is in the same context, get its private IP
+            scenario_cfg["ipaddr"] = target.private_ip
 
     runner = base_runner.Runner.get(runner_cfg)
 
