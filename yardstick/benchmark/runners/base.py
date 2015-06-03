@@ -92,3 +92,4 @@ class Runner(object):
 
     def join(self):
         self.process.join()
+        return self.process.exitcode

@@ -87,6 +87,14 @@ def run_one_scenario(scenario_cfg, context, output_file):
     return runner
 
 
+def runner_join(runner):
+    '''join (wait for) a runner, exit process at runner failure'''
+    status = runner.join()
+    base_runner.Runner.release(runner)
+    if status != 0:
+        sys.exit("Runner failed")
+
+
 def main():
     '''yardstick main'''
 
@@ -110,16 +118,14 @@ def main():
 
         # Wait for runners to finish
         for runner in runners:
-            runner.join()
+            runner_join(runner)
             print "Runner ended, output in", prog_args.output_file
-            base_runner.Runner.release(runner)
     else:
         # run serially
         for scenario in scenarios:
             runner = run_one_scenario(scenario, context, prog_args.output_file)
-            runner.join()
+            runner_join(runner)
             print "Runner ended, output in", prog_args.output_file
-            base_runner.Runner.release(runner)
 
     if prog_args.keep_deploy:
         # keep deployment, forget about stack (hide it for exit handler)
