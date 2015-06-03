@@ -123,6 +123,8 @@ class Server(Object):
         self.stack_name = context.name + "-" + self.name
         self.keypair_name = context.keypair_name
         self.secgroup_name = context.secgroup_name
+        self.public_ip = None
+        self.private_ip = None
 
         if attrs is None:
             attrs = {}
@@ -372,13 +374,15 @@ class Context(object):
         except Exception as err:
             sys.exit("error: failed to deploy stack: '%s'" % err)
 
-        # copy some vital stack output into context
+        # copy some vital stack output into server objects
         for server in Server.list:
-            for port in server.ports.itervalues():
-                port["ipaddr"] = self.stack.outputs[port["stack_name"]]
+            if len(server.ports) > 0:
+                # TODO(hafe) can only handle one network for now
+                port = server.ports.values()[0]
+                server.private_ip = self.stack.outputs[port["stack_name"]]
 
             if server.floating_ip:
-                server.floating_ip["ipaddr"] = \
+                server.public_ip = \
                     self.stack.outputs[server.floating_ip["stack_name"]]
 
         print "Context deployed"

@@ -64,20 +64,42 @@ def run_one_scenario(scenario_cfg, context, output_file):
     key_filename = pkg_resources.resource_filename(
         'yardstick.resources', 'files/yardstick_key')
 
+    '''
+    Concepts:
+
+    Servers are the same as VMs (Nova call them servers in the API)
+
+    Many tests use a client/server architecture. A test client is configured
+    to use a specific test server e.g. using an IP address. This is true for
+    example iperf. In some cases the test server is included in the kernel
+    (ping, pktgen) and no additional software is needed on the server. In other
+    cases (iperf) a server process needs to be started
+
+    A server can _host_ a test client program (such as ping or iperf). At least
+    one server is needed for a test (meaningless otherwise)
+
+    A server can be the _target_ of a test client (think ping destination
+    argument). A target server is optional but needed in most test scenarios.
+    A server can ping itself but that is not so interesting.
+    '''
+
     host = context.get_server(scenario_cfg["host"])
 
     runner_cfg = scenario_cfg["runner"]
-    runner_cfg['host'] = host.floating_ip["ipaddr"]
+    runner_cfg['host'] = host.public_ip
     runner_cfg['user'] = context.user
     runner_cfg['key_filename'] = key_filename
     runner_cfg['output_filename'] = output_file
 
-    target = context.get_server(scenario_cfg["target"])
-    if target.floating_ip:
-        runner_cfg['target'] = target.floating_ip["ipaddr"]
+    if "target" in scenario_cfg:
+        target = context.get_server(scenario_cfg["target"])
 
-    # TODO hardcoded name below, a server can be attached to several nets
-    scenario_cfg["ipaddr"] = target.ports["test"]["ipaddr"]
+        # TODO(hafe) a server could be attached to several nets
+        scenario_cfg["ipaddr"] = target.private_ip
+
+        # get public IP for target server, some scenarios require it for ssh
+        if target.public_ip:
+            runner_cfg['target'] = target.public_ip
 
     runner = base_runner.Runner.get(runner_cfg)
 

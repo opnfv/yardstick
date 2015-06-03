@@ -142,12 +142,16 @@ class HeatStack(HeatObject):
 class HeatTemplate(HeatObject):
     '''Describes a Heat template and a method to deploy template to a stack'''
 
-    def __init__(self, name):
+    def __init__(self, name, heat_parameters={}):
         super(HeatTemplate, self).__init__()
         self.name = name
         self.state = "NOT_CREATED"
         self.keystone_client = None
         self.heat_client = None
+
+        # heat_parameters is passed to heat in stack create, empty when
+        # yardstick creates the template (no get_param in resources part)
+        self.heat_parameters = heat_parameters
 
         # Heat template
         self._template = {}
@@ -397,8 +401,9 @@ class HeatTemplate(HeatObject):
         heat = self._get_heat_client()
         json_template = json.dumps(self._template)
         start_time = time.time()
-        self.uuid = heat.stacks.create(stack_name=self.name,
-                                       template=json_template)['stack']['id']
+        self.uuid = heat.stacks.create(
+            stack_name=self.name, template=json_template,
+            parameters=self.heat_parameters)['stack']['id']
 
         # create stack early to support cleanup, e.g. ctrl-c while waiting
         stack = HeatStack(self.uuid, self.name)
