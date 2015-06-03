@@ -12,7 +12,6 @@
 """
 
 import sys
-import os
 
 from yardstick.orchestrator.heat import HeatTemplate
 
@@ -124,6 +123,8 @@ class Server(Object):
         self.keypair_name = context.keypair_name
         self.secgroup_name = context.secgroup_name
         self.context = context
+        self.public_ip = None
+        self.private_ip = None
 
         if attrs is None:
             attrs = {}
@@ -256,11 +257,22 @@ class Context(object):
         self._image = None
         self._flavor = None
         self._user = None
+        self.template_file = None
+        self.heat_parameters = None
         Context.list.append(self)
 
     def init(self, attrs):
         '''initializes itself from the supplied arguments'''
         self.name = attrs["name"]
+
+        if "user" in attrs:
+            self._user = attrs["user"]
+
+        if "heat_template" in attrs:
+            self.template_file = attrs["heat_template"]
+            self.heat_parameters = attrs.get("heat_parameters", None)
+            return
+
         self.keypair_name = self.name + "-key"
         self.secgroup_name = self.name + "-secgroup"
 
@@ -269,9 +281,6 @@ class Context(object):
 
         if "flavor" in attrs:
             self._flavor = attrs["flavor"]
-
-        if "user" in attrs:
-            self._user = attrs["user"]
 
         if "placement_groups" in attrs:
             for name, pgattrs in attrs["placement_groups"].items():
@@ -370,14 +379,16 @@ class Context(object):
 
     def deploy(self):
         '''deploys template into a stack using cloud'''
-        print "Deploying context as stack '%s' using auth_url %s" % (
-            self.name, os.environ.get('OS_AUTH_URL'))
+        print "Deploying context '%s'" % self.name
 
-        template = HeatTemplate(self.name)
-        self._add_resources_to_template(template)
+        heat_template = HeatTemplate(self.name, self.template_file,
+                                     self.heat_parameters)
+
+        if self.template_file is None:
+            self._add_resources_to_template(heat_template)
 
         try:
-            self.stack = template.create()
+            self.stack = heat_template.create()
         except KeyboardInterrupt:
             sys.exit("\nStack create interrupted")
         except RuntimeError as err:
@@ -385,27 +396,29 @@ class Context(object):
         except Exception as err:
             sys.exit("error: failed to deploy stack: '%s'" % err)
 
-        # Iterate the servers in this context and copy out needed info
+        # copy some vital stack output into server objects
         for server in self.servers:
-            for port in server.ports.itervalues():
-                port["ipaddr"] = self.stack.outputs[port["stack_name"]]
+            if len(server.ports) > 0:
+                # TODO(hafe) can only handle one internal network for now
+                port = server.ports.values()[0]
+                server.private_ip = self.stack.outputs[port["stack_name"]]
 
             if server.floating_ip:
-                server.floating_ip["ipaddr"] = \
+                server.public_ip = \
                     self.stack.outputs[server.floating_ip["stack_name"]]
 
-        print "Context deployed"
+        print "Context '%s' deployed" % self.name
 
     def undeploy(self):
         '''undeploys stack from cloud'''
         if self.stack:
-            print "Undeploying context (stack) '%s'" % self.name
+            print "Undeploying context '%s'" % self.name
             self.stack.delete()
             self.stack = None
-            print "Context undeployed"
+            print "Context '%s' undeployed" % self.name
 
     @staticmethod
-    def get_server(dn):
+    def get_server_by_name(dn):
         '''lookup server object by DN
 
         dn is a distinguished name including the context name'''
@@ -417,3 +430,39 @@ class Context(object):
                 return context._server_map[dn]
 
         return None
+
+    @staticmethod
+    def get_context_by_name(name):
+        for context in Context.list:
+            if name == context.name:
+                return context
+        return None
+
+    @staticmethod
+    def get_server(attr_name):
+        '''lookup server object by name from context
+        attr_name: either a name for a server created by yardstick or a dict
+        with attribute name mapping when using external heat templates
+        '''
+        if type(attr_name) is dict:
+            cname = attr_name["name"].split(".")[1]
+            context = Context.get_context_by_name(cname)
+            if context is None:
+                raise ValueError("context not found for server '%s'" %
+                                 attr_name["name"])
+
+            public_ip = None
+            private_ip = None
+            if "public_ip_attr" in attr_name:
+                public_ip = context.stack.outputs[attr_name["public_ip_attr"]]
+            if "private_ip_attr" in attr_name:
+                private_ip = context.stack.outputs[
+                    attr_name["private_ip_attr"]]
+
+            # Create a dummy server instance for holding the *_ip attributes
+            server = Server(attr_name["name"].split(".")[0], context, {})
+            server.public_ip = public_ip
+            server.private_ip = private_ip
+            return server
+        else:
+            return Context.get_server_by_name(attr_name)
