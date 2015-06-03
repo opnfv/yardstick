@@ -21,6 +21,9 @@ import json
 import heatclient.client
 import keystoneclient
 
+from yardstick.common import template_format
+
+
 log = logging.getLogger(__name__)
 
 
@@ -145,14 +148,7 @@ class HeatStack(HeatObject):
 class HeatTemplate(HeatObject):
     '''Describes a Heat template and a method to deploy template to a stack'''
 
-    def __init__(self, name):
-        super(HeatTemplate, self).__init__()
-        self.name = name
-        self.state = "NOT_CREATED"
-        self.keystone_client = None
-        self.heat_client = None
-
-        # Heat template
+    def _init_template(self):
         self._template = {}
         self._template['heat_template_version'] = '2013-05-23'
 
@@ -161,12 +157,34 @@ class HeatTemplate(HeatObject):
             '''Stack built by the yardstick framework for %s on host %s %s.
             All referred generated resources are prefixed with the template
             name (i.e. %s).''' % (getpass.getuser(), socket.gethostname(),
-                                  timestamp, name)
+                                  timestamp, self.name)
 
         # short hand for resources part of template
         self.resources = self._template['resources'] = {}
 
         self._template['outputs'] = {}
+
+    def __init__(self, name, template_file=None, heat_parameters=None):
+        super(HeatTemplate, self).__init__()
+        self.name = name
+        self.state = "NOT_CREATED"
+        self.keystone_client = None
+        self.heat_client = None
+        self.heat_parameters = {}
+
+        # heat_parameters is passed to heat in stack create, empty dict when
+        # yardstick creates the template (no get_param in resources part)
+        if heat_parameters:
+            self.heat_parameters = heat_parameters
+
+        if template_file:
+            with open(template_file) as stream:
+                print "Parsing external template:", template_file
+                template_str = stream.read()
+                self._template = template_format.parse(template_str)
+            self._parameters = heat_parameters
+        else:
+            self._init_template()
 
         # holds results of requested output after deployment
         self.outputs = {}
@@ -404,7 +422,8 @@ class HeatTemplate(HeatObject):
         json_template = json.dumps(self._template)
         start_time = time.time()
         stack.uuid = self.uuid = heat.stacks.create(
-            stack_name=self.name, template=json_template)['stack']['id']
+            stack_name=self.name, template=json_template,
+            parameters=self.heat_parameters)['stack']['id']
 
         status = self.status()
 
