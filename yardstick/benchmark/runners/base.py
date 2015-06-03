@@ -74,6 +74,15 @@ class Runner(object):
             Runner.queue.put('_TERMINATE_')
             Runner.dump_process.join()
 
+    @staticmethod
+    def terminate_all():
+        '''Terminate all runners (subprocesses)'''
+        log.debug("Terminating all runners")
+        for runner in Runner.runners:
+            runner.process.terminate()
+            runner.process.join()
+            Runner.release(runner)
+
     def __init__(self, config, queue):
         self.context = {}
         self.config = config
@@ -92,3 +101,4 @@ class Runner(object):
 
     def join(self):
         self.process.join()
+        return self.process.exitcode

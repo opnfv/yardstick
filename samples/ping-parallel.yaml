@@ -17,14 +17,14 @@ scenarios:
     duration: 60
     interval: 1
   sla:
-    max_rtt: 15
-    action: monitor
+    max_rtt: 10
+    action: assert
 -
   type: Ping
   options:
     packetsize: 200
-  client: client.demo
-  server: server.demo
+  host: client.demo
+  target: server.demo
   runner:
     type: Duration
     duration: 60
@@ -39,10 +39,16 @@ context:
   flavor: m1.tiny
   user: cirros
 
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
   servers:
     client:
       floating_ip: true
+      placement: "pgrp1"
     server:
+      placement: "pgrp1"
 
   networks:
     test:
