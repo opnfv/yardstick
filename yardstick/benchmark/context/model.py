@@ -114,8 +114,19 @@ class Network(Object):
         return None
 
 
+class FakeServer(object):
+    '''Represents a server in the logical model.
+    Used when a context is described with an external Heat template
+    '''
+    def __init__(self, public_ip=None, private_ip=None):
+        self.public_ip = public_ip
+        self.private_ip = private_ip
+
+
 class Server(Object):
-    '''Class that represents a server in the logical model'''
+    '''Class that represents a server in the logical model.
+    Used when a context is described inside the task config file
+    '''
     list = []
 
     def __init__(self, name, context, attrs):
@@ -257,11 +268,23 @@ class Context(object):
         self._image = None
         self._flavor = None
         self._user = None
+        self.template_file = None
+        self.heat_parameters = None
         Context.list.append(self)
 
     def init(self, attrs):
         '''initializes itself from the supplied arguments'''
         self.name = attrs["name"]
+
+        if "user" in attrs:
+            self._user = attrs["user"]
+
+        if "heat_template" in attrs:
+            self.template_file = attrs["heat_template"]
+            self.heat_parameters = attrs.get("heat_parameters", None)
+            print "Using template file: %s" % self.template_file
+            return
+
         self.keypair_name = self.name + "-key"
         self.secgroup_name = self.name + "-secgroup"
 
@@ -270,9 +293,6 @@ class Context(object):
 
         if "flavor" in attrs:
             self._flavor = attrs["flavor"]
-
-        if "user" in attrs:
-            self._user = attrs["user"]
 
         if "placement_groups" in attrs:
             for name, pgattrs in attrs["placement_groups"].items():
@@ -362,11 +382,17 @@ class Context(object):
         print "Deploying context as stack '%s' using auth_url %s" % (
             self.name, os.environ.get('OS_AUTH_URL'))
 
-        template = HeatTemplate(self.name)
-        self._add_resources_to_template(template)
+        heat_template = HeatTemplate(self.name,
+                                     template_file=self.template_file,
+                                     heat_parameters=self.heat_parameters)
+
+        # In case the context is described in yardstick's task file,
+        # populate the template now with resources.
+        if self.template_file is None:
+            self._add_resources_to_template(heat_template)
 
         try:
-            self.stack = template.create()
+            self.stack = heat_template.create()
         except KeyboardInterrupt:
             sys.exit("\nStack create interrupted")
         except RuntimeError as err:
@@ -395,6 +421,19 @@ class Context(object):
             self.stack = None
             print "Context undeployed"
 
-    def get_server(self, name):
-        '''lookup server object by name from context'''
-        return self._server_map[name]
+    def get_server(self, attr_name):
+        '''lookup server object by name from context
+        attr_name: either a name for a server created by yardstick or a dict
+        with attribute name mapping when using external heat templates
+        '''
+        if type(attr_name) is dict:
+            public_ip = None
+            private_ip = None
+            if "public_ip_attr" in attr_name:
+                public_ip = self.stack.outputs[attr_name["public_ip_attr"]]
+            if "private_ip_attr" in attr_name:
+                private_ip = self.stack.outputs[attr_name["private_ip_attr"]]
+
+            return FakeServer(public_ip, private_ip)
+        else:
+            return self._server_map[attr_name]
