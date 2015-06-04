@@ -49,7 +49,7 @@ def _worker_process(queue, cls, method_name, context, scenario_args):
     if "sla" in scenario_args:
         sla_action = scenario_args["sla"].get("action", "assert")
 
-    for value in range(start, stop, step):
+    for value in range(start, stop+step, step):
 
         options[arg_name] = value
 
