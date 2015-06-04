@@ -16,6 +16,24 @@
       "revId": "bf220311f379dd74aaf588e873009e6c67f35711",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a045101_67cb3d73",
+        "filename": "yardstick/main.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-06-04T12:46:23Z",
+      "side": 1,
+      "message": "Sounds reasonable! If a runner fails it could be due to an SLA assert and then it should be OK to kill them all.",
+      "parentUuid": "3a045101_a7b945eb",
+      "revId": "bf220311f379dd74aaf588e873009e6c67f35711",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
