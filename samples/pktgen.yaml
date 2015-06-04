@@ -17,11 +17,13 @@ scenarios:
   runner:
     type: Arithmetic
     name: number_of_ports
-    stop: 100
+    # run twice with values 10 and 20
+    stop: 20
     step: 10
 
   sla:
-    max_ppm: 1
+    max_ppm: 1000
+    action: monitor
 
 context:
   name: demo
@@ -29,15 +31,21 @@ context:
   flavor: yardstick-flavor
   user: ec2-user
 
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
   servers:
     client:
-      instances: 1
       floating_ip: true
+      placement: "pgrp1"
     server:
       floating_ip: true
+      placement: "pgrp1"
 
   networks:
     test:
       cidr: '10.0.1.0/24'
       external_network: "net04_ext"
+
 
