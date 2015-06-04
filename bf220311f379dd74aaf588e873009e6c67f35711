@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a045101_a7b945eb",
+        "filename": "yardstick/main.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-06-04T12:38:10Z",
+      "side": 1,
+      "message": "For the case we have parallell scenario processes: What happens when the main process dies? Will init be the new parent to orphaned scenario processes?  Maybe we should kill and join ALL scenario processes instead of exiting right away?",
+      "revId": "bf220311f379dd74aaf588e873009e6c67f35711",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
