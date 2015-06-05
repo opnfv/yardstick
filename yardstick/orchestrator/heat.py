@@ -66,9 +66,9 @@ class HeatStack(HeatObject):
     ''' Represents a Heat stack (deployed template) '''
     stacks = []
 
-    def __init__(self, uuid, name):
+    def __init__(self, name):
         super(HeatStack, self).__init__()
-        self.uuid = uuid
+        self.uuid = None
         self.name = name
         self.outputs = None
         HeatStack.stacks.append(self)
@@ -80,6 +80,9 @@ class HeatStack(HeatObject):
 
     def _delete(self):
         '''deletes a stack from the target cloud using heat'''
+        if self.uuid is None:
+            return
+
         log.info("Deleting stack '%s', uuid:%s", self.name, self.uuid)
         heat = self._get_heat_client()
         template = heat.stacks.get(self.uuid)
@@ -131,7 +134,7 @@ class HeatStack(HeatObject):
 
     @staticmethod
     def delete_all():
-        for stack in HeatStack.stacks:
+        for stack in HeatStack.stacks[:]:
             stack.delete()
 
     def update(self):
@@ -394,14 +397,14 @@ class HeatTemplate(HeatObject):
         returns a dict with the requested output values from the template'''
         log.info("Creating stack '%s'", self.name)
 
+        # create stack early to support cleanup, e.g. ctrl-c while waiting
+        stack = HeatStack(self.name)
+
         heat = self._get_heat_client()
         json_template = json.dumps(self._template)
         start_time = time.time()
-        self.uuid = heat.stacks.create(stack_name=self.name,
-                                       template=json_template)['stack']['id']
-
-        # create stack early to support cleanup, e.g. ctrl-c while waiting
-        stack = HeatStack(self.uuid, self.name)
+        stack.uuid = self.uuid = heat.stacks.create(
+            stack_name=self.name, template=json_template)['stack']['id']
 
         status = self.status()
 
