@@ -1,0 +1,56 @@
+---
+# Sample benchmark task config file to measure network latency using ping
+# Client/server parts are located in different contexts(stacks)
+# => longer communication path and higher latency
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Ping
+  options:
+    packetsize: 100
+  host: client.demo1
+  target: server.demo2
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+  sla:
+    max_rtt: 15
+    action: monitor
+
+contexts:
+-
+  name: demo1
+  image: cirros-0.3.3
+  flavor: m1.tiny
+  user: cirros
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+  servers:
+    client:
+      floating_ip: true
+      placement: "pgrp1"
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+      external_network: "net04_ext"
+-
+  name: demo2
+  image: cirros-0.3.3
+  flavor: m1.tiny
+  user: cirros
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+  servers:
+    server:
+      floating_ip: true
+      placement: "pgrp1"
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+      external_network: "net04_ext"
+

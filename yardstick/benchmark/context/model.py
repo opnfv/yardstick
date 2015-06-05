@@ -123,6 +123,7 @@ class Server(Object):
         self.stack_name = context.name + "-" + self.name
         self.keypair_name = context.keypair_name
         self.secgroup_name = context.secgroup_name
+        self.context = context
 
         if attrs is None:
             attrs = {}
@@ -372,8 +373,8 @@ class Context(object):
         except Exception as err:
             sys.exit("error: failed to deploy stack: '%s'" % err)
 
-        # copy some vital stack output into context
-        for server in Server.list:
+        # Iterate the servers in this context and copy out needed info
+        for server in self.servers:
             for port in server.ports.itervalues():
                 port["ipaddr"] = self.stack.outputs[port["stack_name"]]
 
@@ -391,6 +392,16 @@ class Context(object):
             self.stack = None
             print "Context undeployed"
 
-    def get_server(self, name):
-        '''lookup server object by name from context'''
-        return self._server_map[name]
+    @staticmethod
+    def get_server(dn):
+        '''lookup server object by DN
+
+        dn is a distinguished name including the context name'''
+        if "." not in dn:
+            raise ValueError("dn '%s' is malformed" % dn)
+
+        for context in Context.list:
+            if dn in context._server_map:
+                return context._server_map[dn]
+
+        return None
