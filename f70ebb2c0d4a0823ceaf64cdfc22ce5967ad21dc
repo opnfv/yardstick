@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a045101_1dc1682e",
+        "filename": "yardstick/benchmark/context/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-06-10T16:04:26Z",
+      "side": 1,
+      "message": "you could add comment before the loop saying \"add remaining servers with no placement group configured\"\n\nactually each loop in this algorithm needs to be commented similarity, not so understandable as is",
+      "range": {
+        "startLine": 359,
+        "startChar": 37,
+        "endLine": 359,
+        "endChar": 38
+      },
+      "revId": "f70ebb2c0d4a0823ceaf64cdfc22ce5967ad21dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
