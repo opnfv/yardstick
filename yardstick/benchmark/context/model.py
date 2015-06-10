@@ -356,6 +356,10 @@ class Context(object):
             server.add_to_template(template, self.networks, scheduler_hints)
             added_servers.append(server.stack_name)
 
+        for server in list_of_servers:
+            if len(server.placement_groups) == 0:
+                server.add_to_template(template, self.networks, {})
+
     def deploy(self):
         '''deploys template into a stack using cloud'''
         print "Deploying context as stack '%s' using auth_url %s" % (
