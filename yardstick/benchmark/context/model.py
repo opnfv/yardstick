@@ -324,6 +324,11 @@ class Context(object):
         list_of_servers = sorted(self.servers,
                                  key=lambda s: len(s.placement_groups))
 
+        #
+        # add servers with scheduler hints derived from placement groups
+        #
+
+        # create list of servers with availability policy
         availability_servers = []
         for server in list_of_servers:
             for pg in server.placement_groups:
@@ -331,7 +336,7 @@ class Context(object):
                     availability_servers.append(server)
                     break
 
-        # add servers with scheduler hints derived from placement groups
+        # add servers with availability policy
         added_servers = []
         for server in availability_servers:
             scheduler_hints = {}
@@ -340,6 +345,7 @@ class Context(object):
             server.add_to_template(template, self.networks, scheduler_hints)
             added_servers.append(server.stack_name)
 
+        # create list of servers with affinity policy
         affinity_servers = []
         for server in list_of_servers:
             for pg in server.placement_groups:
@@ -347,6 +353,7 @@ class Context(object):
                     affinity_servers.append(server)
                     break
 
+        # add servers with affinity policy
         for server in affinity_servers:
             if server.stack_name in added_servers:
                 continue
@@ -355,6 +362,11 @@ class Context(object):
                 update_scheduler_hints(scheduler_hints, added_servers, pg)
             server.add_to_template(template, self.networks, scheduler_hints)
             added_servers.append(server.stack_name)
+
+        # add remaining servers with no placement group configured
+        for server in list_of_servers:
+            if len(server.placement_groups) == 0:
+                server.add_to_template(template, self.networks, {})
 
     def deploy(self):
         '''deploys template into a stack using cloud'''
