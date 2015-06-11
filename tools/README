@@ -1,0 +1,20 @@
+##############################################################################
+# Copyright (c) 2015 Ericsson AB and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+This directory contains various utilities needed in the yardstick environment.
+
+yardstick-img-modify is a generic script (but ubuntu cloud image specific) that
+takes a another script as an argument. This second script does the actual
+modifications of the image. sudo is required since the base image is mounted
+using qemu's network block device support.
+
+Usage example:
+
+$ sudo yardstick-img-modify $HOME/yardstick/tools/ubuntu-server-cloudimg-modify.sh
+
