@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a045101_dd7e60e4",
+        "filename": "samples/ping-hot.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-06-11T07:13:48Z",
+      "side": 1,
+      "message": "should add a comment here about what is special with this task file",
+      "range": {
+        "startLine": 2,
+        "startChar": 31,
+        "endLine": 2,
+        "endChar": 35
+      },
+      "revId": "02fbfdf4275b9d2110473ae5eefe50c18bd76d7c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a045101_bd8394cb",
+        "filename": "yardstick/benchmark/context/model.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-06-11T07:13:48Z",
+      "side": 1,
+      "message": "might not be needed, use \"normal\" Server class instead?",
+      "range": {
+        "startLine": 455,
+        "startChar": 23,
+        "endLine": 455,
+        "endChar": 25
+      },
+      "revId": "02fbfdf4275b9d2110473ae5eefe50c18bd76d7c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
