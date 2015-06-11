@@ -26,5 +26,6 @@ setup(
         'console_scripts': [
             'yardstick=yardstick.main:main',
         ],
-    }
+    },
+    scripts =['tools/yardstick-img-modify']
 )
