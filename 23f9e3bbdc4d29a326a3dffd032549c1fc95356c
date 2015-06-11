@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a045101_dd654046",
+        "filename": "samples/ping-hot.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-06-11T07:59:41Z",
+      "side": 1,
+      "message": "This HOT template is the same as https://github.com/openstack/heat-templates/blob/master/hot/servers_in_new_neutron_net.yaml ?",
+      "range": {
+        "startLine": 33,
+        "startChar": 40,
+        "endLine": 33,
+        "endChar": 72
+      },
+      "revId": "23f9e3bbdc4d29a326a3dffd032549c1fc95356c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
