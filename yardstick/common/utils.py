@@ -22,6 +22,14 @@ from oslo_utils import importutils
 import yardstick
 
 
+# Decorator for cli-args
+def cliargs(*args, **kwargs):
+    def _decorator(func):
+        func.__dict__.setdefault('arguments', []).insert(0, (args, kwargs))
+        return func
+    return _decorator
+
+
 def itersubclasses(cls, _seen=None):
     """Generator over all subclasses of a given class in depth first order."""
 
