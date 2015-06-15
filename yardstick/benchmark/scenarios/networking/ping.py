@@ -59,20 +59,3 @@ class Ping(base.Scenario):
             assert rtt <= sla_max_rtt, "rtt %f > sla_max_rtt" % rtt
 
         return rtt
-
-
-def _test():
-    '''internal test function'''
-    key_filename = pkg_resources.resource_filename('yardstick.resources',
-                                                   'files/yardstick_key')
-    ctx = {'host': '172.16.0.137',
-           'user': 'cirros',
-           'key_filename': key_filename}
-    p = Ping(ctx)
-    args = {'options': '-c 2 -s 200',
-            'ipaddr': '172.16.0.138'}
-    result = p.run(args)
-    print result
-
-if __name__ == '__main__':
-    _test()

@@ -26,7 +26,7 @@ run_flake8() {
 run_tests() {
     echo -n "Running unittest ... "
     logfile=test.log
-    python -m unittest discover -s yardstick/tests &> $logfile
+    python -m unittest discover -s tests/unit &> $logfile
     if [ $? -ne 0 ]; then
         echo "FAILED, result in $logfile"
         exit 1
@@ -36,5 +36,5 @@ run_tests() {
 }
 
 run_flake8
-#run_tests
+run_tests
 
