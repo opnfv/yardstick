@@ -78,6 +78,7 @@ Development Environment
 Example setup known to work for development and test:
 - Development environment: Ubuntu14.04, eclipse, virtual environment
 - Cloud: Mirantis OpenStack 6.0 deployed using Virtualbox
+- Compute nodes: At least 2 compute nodes needed
 
 Create a virtual environment:
 $ sudo apt-get install python-virtualenv
