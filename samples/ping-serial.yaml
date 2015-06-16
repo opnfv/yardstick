@@ -22,13 +22,13 @@ scenarios:
   type: Ping
   options:
     packetsize: 100
-  client: ping-client.demo
-  server: ping-server.demo
+  host: client.demo
+  target: server.demo
   runner:
     type: Arithmetic
     name: packetsize
     interval: 0.2
-    stop: 60000
+    stop: 6000
     step: 100
 
 context:
