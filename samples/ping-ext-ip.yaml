@@ -1,22 +1,22 @@
 ---
 # Sample benchmark task config file
-# measure network latency using ping
+# Measure network latency using ping, destination is an external server
+# Make sure servers have internet access before running this test.
+# For example using virtual MOS do something this on the host:
+# sudo iptables -t nat -A POSTROUTING -s 172.16.0.0/24 \! -d 172.16.0.0/24 -j MASQUERADE
+#
 
 schema: "yardstick:task:0.1"
 
 scenarios:
 -
   type: Ping
-  options:
-    packetsize: 200
   host: client.demo
-  target: server.demo
-
+  target: 8.8.8.8
   runner:
     type: Duration
     duration: 60
     interval: 1
-
   sla:
     max_rtt: 10
     action: monitor
@@ -26,18 +26,9 @@ context:
   image: cirros-0.3.3
   flavor: m1.tiny
   user: cirros
-
-  placement_groups:
-    pgrp1:
-      policy: "availability"
-
   servers:
     client:
       floating_ip: true
-      placement: "pgrp1"
-    server:
-      placement: "pgrp1"
-
   networks:
     test:
       cidr: '10.0.1.0/24'

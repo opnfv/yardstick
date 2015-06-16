@@ -40,13 +40,17 @@ class Ping(base.Scenario):
     def run(self, args):
         """execute the benchmark"""
 
-        self.options = "-s %s" % args['options'].get("packetsize", '56')
-        self.ipaddr = args.get("ipaddr", '127.0.0.1')
+        if "options" in args:
+            options = "-s %s" % args['options'].get("packetsize", '56')
+        else:
+            options = ""
 
-        LOG.debug("ping %s %s", self.options, self.ipaddr)
+        destination = args.get("ipaddr", '127.0.0.1')
+
+        LOG.debug("ping '%s' '%s'", options, destination)
 
         exit_status, stdout, stderr = self.connection.execute(
-            "/bin/sh -s {0} {1}".format(self.ipaddr, self.options),
+            "/bin/sh -s {0} {1}".format(options, destination),
             stdin=open(self.target_script, "r"))
 
         if exit_status != 0:
@@ -56,6 +60,7 @@ class Ping(base.Scenario):
 
         if "sla" in args:
             sla_max_rtt = int(args["sla"]["max_rtt"])
-            assert rtt <= sla_max_rtt, "rtt %f > sla_max_rtt" % rtt
+            assert rtt <= sla_max_rtt, "rtt %f > sla:max_rtt(%f)" % \
+                (rtt, sla_max_rtt)
 
         return rtt
