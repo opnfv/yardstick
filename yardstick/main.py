@@ -43,6 +43,7 @@ import sys
 import yaml
 import atexit
 import pkg_resources
+import ipaddress
 
 from yardstick.benchmark.context.model import Context
 from yardstick.benchmark.runners import base as base_runner
@@ -93,6 +94,15 @@ def atexit_handler():
             context.undeploy()
 
 
+def is_ip_addr(addr):
+    '''check if string addr is an IP address'''
+    try:
+        ipaddress.ip_address(addr)
+        return True
+    except ValueError:
+        return False
+
+
 def run_one_scenario(scenario_cfg, output_file):
     '''run one scenario using context'''
     key_filename = pkg_resources.resource_filename(
@@ -107,19 +117,22 @@ def run_one_scenario(scenario_cfg, output_file):
     runner_cfg['output_filename'] = output_file
 
     if "target" in scenario_cfg:
-        target = Context.get_server(scenario_cfg["target"])
-
-        # get public IP for target server, some scenarios require it
-        if target.public_ip:
-            runner_cfg['target'] = target.public_ip
-
-        # TODO scenario_cfg["ipaddr"] is bad naming
-        if host.context != target.context:
-            # target is in another context, get its public IP
-            scenario_cfg["ipaddr"] = target.public_ip
+        if is_ip_addr(scenario_cfg["target"]):
+            scenario_cfg["ipaddr"] = scenario_cfg["target"]
         else:
-            # target is in the same context, get its private IP
-            scenario_cfg["ipaddr"] = target.private_ip
+            target = Context.get_server(scenario_cfg["target"])
+
+            # get public IP for target server, some scenarios require it
+            if target.public_ip:
+                runner_cfg['target'] = target.public_ip
+
+            # TODO scenario_cfg["ipaddr"] is bad naming
+            if host.context != target.context:
+                # target is in another context, get its public IP
+                scenario_cfg["ipaddr"] = target.public_ip
+            else:
+                # target is in the same context, get its private IP
+                scenario_cfg["ipaddr"] = target.private_ip
 
     runner = base_runner.Runner.get(runner_cfg)
 
