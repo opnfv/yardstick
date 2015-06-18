@@ -97,7 +97,7 @@ def atexit_handler():
 def is_ip_addr(addr):
     '''check if string addr is an IP address'''
     try:
-        ipaddress.ip_address(addr)
+        ipaddress.ip_address(unicode(addr))
         return True
     except ValueError:
         return False
