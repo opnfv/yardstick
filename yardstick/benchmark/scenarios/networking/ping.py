@@ -50,7 +50,7 @@ class Ping(base.Scenario):
         LOG.debug("ping '%s' '%s'", options, destination)
 
         exit_status, stdout, stderr = self.connection.execute(
-            "/bin/sh -s {0} {1}".format(options, destination),
+            "/bin/sh -s {0} {1}".format(destination, options),
             stdin=open(self.target_script, "r"))
 
         if exit_status != 0:
