@@ -10,6 +10,7 @@ scenarios:
   options:
     packetsize: 60
     number_of_ports: 10
+    duration: 20
 
   host: client.demo
   target: server.demo

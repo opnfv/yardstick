@@ -13,17 +13,15 @@ set -e
 
 # Commandline arguments
 DST_IP=$1         # destination IP address
-shift
-NUM_PORTS=$1      # number of source ports
-shift
-PKT_SIZE=$1       # packet size
+NUM_PORTS=$2      # number of source ports
+PKT_SIZE=$3       # packet size
+DURATION=$4       # test duration (seconds)
 
 # Configuration
 UDP_SRC_MIN=1000                               # UDP source port min
 UDP_SRC_MAX=$(( UDP_SRC_MIN + NUM_PORTS - 1 )) # UDP source port max
 UDP_DST_MIN=1000                               # UDP destination port min
 UDP_DST_MAX=$(( UDP_DST_MIN + NUM_PORTS ))     # UDP destination port max
-DURATION=20                                    # test duration (seconds)
 
 # helper function to send commands to pktgen
 pgset()

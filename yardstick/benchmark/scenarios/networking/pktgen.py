@@ -21,7 +21,18 @@ class Pktgen(base.Scenario):
     """Execute pktgen between two hosts
 
   Parameters
-    TBD
+    packetsize - packet size in bytes without the CRC
+        type:    int
+        unit:    bytes
+        default: 60
+    number_of_ports - number of UDP ports to test
+        type:    int
+        unit:    na
+        default: 10
+    duration - duration of the test
+        type:    int
+        unit:    seconds
+        default: 20
     """
     __scenario_type__ = "Pktgen"
 
@@ -87,11 +98,22 @@ class Pktgen(base.Scenario):
         options = args['options']
         packetsize = options.get("packetsize", 60)
         self.number_of_ports = options.get("number_of_ports", 10)
+        # if run by a duration runner
+        duration_time = self.context.get("duration", None)
+        # if run by an arithmetic runner
+        arithmetic_time = options.get("duration", None)
+
+        if duration_time:
+            duration = duration_time
+        elif arithmetic_time:
+            duration = arithmetic_time
+        else:
+            duration = 20
 
         self._iptables_setup()
 
-        cmd = "sudo bash pktgen.sh %s %s %s" \
-            % (ipaddr, self.number_of_ports, packetsize)
+        cmd = "sudo bash pktgen.sh %s %s %s %s" \
+            % (ipaddr, self.number_of_ports, packetsize, duration)
         LOG.debug("Executing command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
 
