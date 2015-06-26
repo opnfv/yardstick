@@ -41,11 +41,20 @@ class Runner(object):
     runners = []
 
     @staticmethod
-    def _get_cls(runner_type):
+    def get_cls(runner_type):
+        '''return class of specified type'''
         for runner in utils.itersubclasses(Runner):
             if runner_type == runner.__execution_type__:
                 return runner
         raise RuntimeError("No such runner_type %s" % runner_type)
+
+    @staticmethod
+    def get_types():
+        '''return a list of known runner type (class) names'''
+        types = []
+        for runner in utils.itersubclasses(Runner):
+            types.append(runner)
+        return types
 
     @staticmethod
     def get(config):
@@ -62,7 +71,7 @@ class Runner(object):
                 args=(config["output_filename"], Runner.queue))
             Runner.dump_process.start()
 
-        return Runner._get_cls(config["type"])(config, Runner.queue)
+        return Runner.get_cls(config["type"])(config, Runner.queue)
 
     @staticmethod
     def release(runner):

@@ -22,7 +22,31 @@ LOG.setLevel(logging.DEBUG)
 
 
 class Iperf(base.Scenario):
-    """Executes an iperf3 benchmark between two hosts"""
+    """Execute iperf3 between two hosts
+
+By default TCP is used but UDP can also be configured.
+For more info see http://software.es.net/iperf
+
+  Parameters
+    bytes - number of bytes to transmit
+      only valid with a non duration runner, mutually exclusive with blockcount
+        type:    int
+        unit:    bytes
+        default: 56
+    udp - use UDP rather than TCP
+        type:    bool
+        unit:    na
+        default: false
+    nodelay - set TCP no delay, disabling Nagle's Algorithm
+        type:    bool
+        unit:    na
+        default: false
+    blockcount - number of blocks (packets) to transmit,
+      only valid with a non duration runner, mutually exclusive with bytes
+        type:    int
+        unit:    bytes
+        default: -
+    """
     __scenario_type__ = "Iperf3"
 
     def __init__(self, context):

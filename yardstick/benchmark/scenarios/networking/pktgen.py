@@ -18,7 +18,11 @@ LOG.setLevel(logging.DEBUG)
 
 
 class Pktgen(base.Scenario):
-    """Executes a pktgen benchmark between two hosts"""
+    """Execute pktgen between two hosts
+
+  Parameters
+    TBD
+    """
     __scenario_type__ = "Pktgen"
 
     TARGET_SCRIPT = 'pktgen_benchmark.bash'

@@ -28,6 +28,23 @@ class Scenario(object):
         pass
 
     @staticmethod
+    def get_types():
+        '''return a list of known runner type (class) names'''
+        scenarios = []
+        for scenario in utils.itersubclasses(Scenario):
+            scenarios.append(scenario)
+        return scenarios
+
+    @staticmethod
+    def get_cls(scenario_type):
+        '''return class of specified type'''
+        for scenario in utils.itersubclasses(Scenario):
+            if scenario_type == scenario.__scenario_type__:
+                return scenario
+
+        raise RuntimeError("No such scenario type %s" % scenario_type)
+
+    @staticmethod
     def get(scenario_type):
         """Returns instance of a scenario runner for execution type.
         """
