@@ -19,7 +19,15 @@ LOG = logging.getLogger(__name__)
 
 
 class Ping(base.Scenario):
-    """Executes a ping benchmark between two hosts"""
+    """Execute ping between two hosts
+
+  Parameters
+    packetsize - number of data bytes to send
+        type:    int
+        unit:    bytes
+        default: 56
+    """
+
     __scenario_type__ = "Ping"
 
     TARGET_SCRIPT = 'ping_benchmark.bash'
