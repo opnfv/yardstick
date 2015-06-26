@@ -87,11 +87,12 @@ class Pktgen(base.Scenario):
         options = args['options']
         packetsize = options.get("packetsize", 60)
         self.number_of_ports = options.get("number_of_ports", 10)
+        step_duration = options.get("step_duration", 20)
 
         self._iptables_setup()
 
-        cmd = "sudo bash pktgen.sh %s %s %s" \
-            % (ipaddr, self.number_of_ports, packetsize)
+        cmd = "sudo bash pktgen.sh %s %s %s %s" \
+            % (ipaddr, self.number_of_ports, packetsize, step_duration)
         LOG.debug("Executing command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
 
