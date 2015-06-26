@@ -97,6 +97,30 @@ def _worker_process(queue, cls, method_name, context, scenario_args):
 
 
 class ArithmeticRunner(base.Runner):
+    '''Run a scenario arithmetically stepping an input value
+
+  Parameters
+    interval - time to wait between each scenario invocation
+        type:    int
+        unit:    seconds
+        default: 1 sec
+    name - name of scenario option that will be increased for each invocation
+        type:    string
+        unit:    na
+        default: none
+    start - value to use in first invocation of scenario
+        type:    int
+        unit:    na
+        default: none
+    step - value added to start value in next invocation of scenario
+        type:    int
+        unit:    na
+        default: none
+    stop - value indicating end of invocation
+        type:    int
+        unit:    na
+        default: none
+    '''
 
     __execution_type__ = 'Arithmetic'
 

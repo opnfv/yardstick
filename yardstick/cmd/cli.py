@@ -18,6 +18,8 @@ from pkg_resources import get_distribution
 from argparse import RawDescriptionHelpFormatter
 
 from yardstick.cmd.commands import task
+from yardstick.cmd.commands import runner
+from yardstick.cmd.commands import scenario
 
 
 class YardstickCLI():
@@ -25,7 +27,9 @@ class YardstickCLI():
 
     # Command categories
     categories = {
-        'task': task.TaskCommands
+        'task': task.TaskCommands,
+        'runner': runner.RunnerCommands,
+        'scenario': scenario.ScenarioCommands
     }
 
     def __init__(self):

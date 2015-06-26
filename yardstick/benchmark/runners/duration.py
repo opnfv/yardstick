@@ -89,7 +89,20 @@ def _worker_process(queue, cls, method_name, context, scenario_args):
 
 
 class DurationRunner(base.Runner):
+    '''Run a scenario for a certain amount of time
 
+If the scenario ends before the time has elapsed, it will be started again.
+
+  Parameters
+    duration - amount of time the scenario will be run for
+        type:    int
+        unit:    seconds
+        default: 1 sec
+    interval - time to wait between each scenario invocation
+        type:    int
+        unit:    seconds
+        default: 1 sec
+    '''
     __execution_type__ = 'Duration'
 
     def _run_benchmark(self, cls, method, scenario_args):
