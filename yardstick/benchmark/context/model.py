@@ -119,7 +119,7 @@ class Server(Object):
 
     def __init__(self, name, context, attrs):
         super(Server, self).__init__(name, context)
-        self.stack_name = context.name + "-" + self.name
+        self.stack_name = self.name + "." + context.name
         self.keypair_name = context.keypair_name
         self.secgroup_name = context.secgroup_name
         self.context = context
@@ -211,12 +211,13 @@ class Server(Object):
     def add_to_template(self, template, networks, scheduler_hints=None):
         '''adds to the template one or more servers (instances)'''
         if self.instances == 1:
-            server_name = "%s-%s" % (template.name, self.name)
+            server_name = self.stack_name
             self._add_instance(template, server_name, networks,
                                scheduler_hints=scheduler_hints)
         else:
+            # TODO(hafe) fix or remove, no test/sample for this
             for i in range(self.instances):
-                server_name = "%s-%s-%d" % (template.name, self.name, i)
+                server_name = "%s-%d" % (self.stack_name, i)
                 self._add_instance(template, server_name, networks,
                                    scheduler_hints=scheduler_hints)
 
