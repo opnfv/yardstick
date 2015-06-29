@@ -8,9 +8,11 @@
 ##############################################################################
 
 import importlib
-import multiprocessing
 import json
 import logging
+import multiprocessing
+import subprocess
+import time
 
 log = logging.getLogger(__name__)
 
@@ -33,6 +35,27 @@ def _output_serializer_main(filename, queue):
             else:
                 json.dump(record, outfile)
                 outfile.write('\n')
+
+
+def _single_action(seconds, command, queue):
+    '''entrypoint for the single action process'''
+    log.debug("single action, fires after %d seconds (from now)", seconds)
+    time.sleep(seconds)
+    log.debug("single action: executing command: '%s'", command)
+    data = subprocess.check_output(command, shell=True)
+    log.debug("\n%s" % data)
+
+
+def _periodic_action(interval, command, queue):
+    '''entrypoint for the periodic action process'''
+    log.debug("periodic action, fires every: %d seconds", interval)
+    time_spent = 0
+    while True:
+        time.sleep(interval)
+        time_spent += interval
+        log.debug("periodic action, executing command: '%s'", command)
+        data = subprocess.check_output(command, shell=True)
+        log.debug("\n%s" % data)
 
 
 class Runner(object):
@@ -88,6 +111,10 @@ class Runner(object):
         '''Terminate all runners (subprocesses)'''
         log.debug("Terminating all runners")
         for runner in Runner.runners:
+            if runner.periodic_action_process:
+                log.debug("Terminating periodic action process")
+                runner.periodic_action_process.terminate()
+                runner.periodic_action_process = None
             runner.process.terminate()
             runner.process.join()
             Runner.release(runner)
@@ -95,8 +122,29 @@ class Runner(object):
     def __init__(self, config, queue):
         self.context = {}
         self.config = config
+        self.periodic_action_process = None
         self.result_queue = queue
         Runner.runners.append(self)
+
+    def run_pre_start_action(self):
+        '''run a potentially configured pre-start action'''
+        if "pre-start-action" in self.config:
+            command = self.config["pre-start-action"]["command"]
+            log.debug("pre start action: command: '%s'" % command)
+            data = subprocess.check_output(command, shell=True)
+            log.debug("pre-start data: \n%s" % data)
+            output = "{'pre-start-action-data': %s}" % data
+            self.result_queue.put(output)
+
+    def run_post_stop_action(self):
+        '''run a potentially configured post-stop action'''
+        if "post-stop-action" in self.config:
+            command = self.config["post-stop-action"]["command"]
+            log.debug("post stop action: command: '%s'" % command)
+            data = subprocess.check_output(command, shell=True)
+            log.debug("post-stop data: \n%s" % data)
+            output = "{'post-stop-action-data': %s}" % data
+            self.result_queue.put(output)
 
     def run(self, scenario_type, scenario_args):
         class_name = base_scenario.Scenario.get(scenario_type)
@@ -106,8 +154,33 @@ class Runner(object):
         cls = getattr(module, path_split[-1])
 
         self.config['object'] = class_name
+
+        self.run_pre_start_action()
+
+        if "single-shot-action" in self.config:
+            single_action_process = multiprocessing.Process(
+                target=_single_action,
+                name="single-shot-action",
+                args=(self.config["single-shot-action"]["after"],
+                      self.config["single-shot-action"]["command"],
+                      self.result_queue))
+            single_action_process.start()
+
+        if "periodic-action" in self.config:
+            self.periodic_action_process = multiprocessing.Process(
+                target=_periodic_action,
+                name="periodic-action",
+                args=(self.config["periodic-action"]["interval"],
+                      self.config["periodic-action"]["command"],
+                      self.result_queue))
+            self.periodic_action_process.start()
+
         self._run_benchmark(cls, "run", scenario_args)
 
     def join(self):
         self.process.join()
+        if self.periodic_action_process:
+            self.periodic_action_process.terminate()
+            self.periodic_action_process = None
+        self.run_post_stop_action()
         return self.process.exitcode
