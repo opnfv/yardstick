@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a1a2d67_d95a1350",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-06-29T08:08:18Z",
+      "side": 1,
+      "message": "For the requirement \" In case a Duration runner is used, the duration (time) should be as specified in the input task file.\"\n\nCheck the iperf3 scenario, it checks if run by a Duration runner and uses that duration time. Yes this is a bit ugly but is what we have right now.\n\nPlease add the same to this scenario so that the above requirement gets satisfied.\n\nActually it is only a step_duration if run by the Arithmetic runner, better call it just duration.",
+      "revId": "e7920e965ebcb1cd6c992263202cdeddb0864732",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_b9575726",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen_benchmark.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-06-29T08:08:18Z",
+      "side": 1,
+      "message": "It would be clearer what the positional arguments are without the shift command. Please remove shift and change arg numbers accordingly.",
+      "range": {
+        "startLine": 21,
+        "startChar": 42,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "e7920e965ebcb1cd6c992263202cdeddb0864732",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
