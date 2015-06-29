@@ -1,0 +1,49 @@
+---
+# Sample benchmark task config file
+# Measure network latency using ping, destination is an external server
+# Make sure servers have internet access before running this test.
+# For example using virtual MOS do something this on the host:
+# sudo iptables -t nat -A POSTROUTING -s 172.16.0.0/24 \! -d 172.16.0.0/24 -j MASQUERADE
+#
+# This sample demonstrates the use of runner actions - hooks inserted in
+# diffrent places of the runner execution.
+#
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Ping
+  host: goofy.demo
+  target: 8.8.8.8
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+    pre-start-action:
+        command: "heat stack-show demo"
+    periodic-action:
+        interval: 10
+        command: "ifconfig vboxnet1"
+    single-shot-action:
+        after: 30
+        command: "nova show goofy.demo"
+    post-stop-action:
+        command: "nova list"
+  sla:
+    max_rtt: 10
+    action: monitor
+
+context:
+  name: demo
+  image: cirros-0.3.3
+  flavor: m1.tiny
+  user: cirros
+  servers:
+    goofy:
+      floating_ip: true
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+      external_network: "net04_ext"
+
