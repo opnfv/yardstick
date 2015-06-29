@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a1a2d67_994a5bab",
+        "filename": "yardstick/cmd/__init__.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-06-29T06:25:09Z",
+      "side": 1,
+      "message": "maybe you can change this to sys.stdout.write(\"-\" * barlen)\n \nalso I\u0027m a little hesitate why use sys.stdout.write instead  of print hear",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 30
+      },
+      "revId": "80345d8b11cd2e2cd3994ee011a476fb050ea903",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_79609f35",
+        "filename": "yardstick/cmd/commands/scenario.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-06-29T06:25:09Z",
+      "side": 1,
+      "message": "maybe you can just use types hear, like runner.py. :)",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "80345d8b11cd2e2cd3994ee011a476fb050ea903",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
