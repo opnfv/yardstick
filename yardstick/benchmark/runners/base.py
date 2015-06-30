@@ -23,7 +23,7 @@ def _output_serializer_main(filename, queue):
     Use of this process enables multiple instances of a scenario without
     messing up the output file.
     '''
-    with open(filename, 'w') as outfile:
+    with open(filename, 'a+') as outfile:
         while True:
             # blocks until data becomes available
             record = queue.get()
