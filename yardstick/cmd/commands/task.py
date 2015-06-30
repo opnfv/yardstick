@@ -10,6 +10,7 @@
 """ Handler for yardstick command 'task' """
 
 import sys
+import os
 import yaml
 import atexit
 import pkg_resources
@@ -46,6 +47,9 @@ class TaskCommands(object):
 
         if args.parse_only:
             sys.exit(0)
+
+        if os.path.isfile(args.output_file):
+            os.remove(args.output_file)
 
         for context in Context.list:
             context.deploy()
