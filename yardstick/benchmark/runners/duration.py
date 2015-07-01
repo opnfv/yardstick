@@ -17,11 +17,12 @@ import traceback
 import time
 
 from yardstick.benchmark.runners import base
+from yardstick.output.output import OutputMgr as output_mgr
 
 LOG = logging.getLogger(__name__)
 
 
-def _worker_process(queue, cls, method_name, context, scenario_args):
+def _worker_process(cls, method_name, context, scenario_args):
 
     sequence = 1
 
@@ -73,8 +74,8 @@ def _worker_process(queue, cls, method_name, context, scenario_args):
             'errors': errors
         }
 
-        queue.put({'context': record_context, 'sargs': scenario_args,
-                   'benchmark': benchmark_output})
+        output_mgr.write({'context': record_context, 'sargs': scenario_args,
+                          'benchmark': benchmark_output})
 
         LOG.debug("runner=%(runner)s seq=%(sequence)s END" %
                   {"runner": context["runner"], "sequence": sequence})
@@ -108,5 +109,5 @@ If the scenario ends before the time has elapsed, it will be started again.
     def _run_benchmark(self, cls, method, scenario_args):
         self.process = multiprocessing.Process(
             target=_worker_process,
-            args=(self.result_queue, cls, method, self.config, scenario_args))
+            args=(cls, method, self.config, scenario_args))
         self.process.start()
