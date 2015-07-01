@@ -17,16 +17,17 @@ import ipaddress
 
 from yardstick.benchmark.context.model import Context
 from yardstick.benchmark.runners import base as base_runner
+from yardstick.output.output import OutputMgr as output_mgr
 
 from yardstick.common.utils import cliargs
 
 output_file_default = "/tmp/yardstick.out"
+number_of_runs_default = 1
 
 
 class TaskCommands(object):
     '''Task commands.
-
-       Set of commands to manage benchmark tasks.
+    Set of commands to manage benchmark tasks.
     '''
 
     @cliargs("taskfile", type=str, help="path to taskfile", nargs=1)
@@ -41,6 +42,8 @@ class TaskCommands(object):
 
         atexit.register(atexit_handler)
 
+        output_mgr.init(args)
+
         parser = TaskParser(args.taskfile[0])
         scenarios, run_in_parallel = parser.parse()
 
@@ -50,22 +53,28 @@ class TaskCommands(object):
         for context in Context.list:
             context.deploy()
 
+        # Run the scenarios, repeating "runs" times
+
         runners = []
         if run_in_parallel:
             for scenario in scenarios:
-                runner = run_one_scenario(scenario, args.output_file)
+                runner = run_one_scenario(scenario)
                 runners.append(runner)
 
             # Wait for runners to finish
             for runner in runners:
                 runner_join(runner)
-                print "Runner ended, output in", args.output_file
+                # TODO fix print, possibly wrong file
+                print "Runner ended, output in", \
+                      output_mgr.output_descriptor
         else:
             # run serially
             for scenario in scenarios:
-                runner = run_one_scenario(scenario, args.output_file)
+                runner = run_one_scenario(scenario)
                 runner_join(runner)
-                print "Runner ended, output in", args.output_file
+                print "Runner ended, output in", \
+                      output_mgr.output_descriptor
+        output_mgr.all_done()
 
         if args.keep_deploy:
             # keep deployment, forget about stack (hide it for exit handler)
@@ -122,6 +131,8 @@ def atexit_handler():
         for context in Context.list:
             context.undeploy()
 
+    output_mgr.shut_down()
+
 
 def is_ip_addr(addr):
     '''check if string addr is an IP address'''
@@ -132,7 +143,7 @@ def is_ip_addr(addr):
         return False
 
 
-def run_one_scenario(scenario_cfg, output_file):
+def run_one_scenario(scenario_cfg):
     '''run one scenario using context'''
     key_filename = pkg_resources.resource_filename(
         'yardstick.resources', 'files/yardstick_key')
@@ -143,7 +154,6 @@ def run_one_scenario(scenario_cfg, output_file):
     runner_cfg['host'] = host.public_ip
     runner_cfg['user'] = host.context.user
     runner_cfg['key_filename'] = key_filename
-    runner_cfg['output_filename'] = output_file
 
     if "target" in scenario_cfg:
         if is_ip_addr(scenario_cfg["target"]):
