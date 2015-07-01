@@ -8,7 +8,6 @@
 ##############################################################################
 
 import importlib
-import json
 import logging
 import multiprocessing
 import subprocess
@@ -18,26 +17,10 @@ log = logging.getLogger(__name__)
 
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base as base_scenario
+from yardstick.output.output import OutputMgr
 
 
-def _output_serializer_main(filename, queue):
-    '''entrypoint for the singleton subprocess writing to outfile
-    Use of this process enables multiple instances of a scenario without
-    messing up the output file.
-    '''
-    with open(filename, 'a+') as outfile:
-        while True:
-            # blocks until data becomes available
-            record = queue.get()
-            if record == '_TERMINATE_':
-                outfile.close()
-                break
-            else:
-                json.dump(record, outfile)
-                outfile.write('\n')
-
-
-def _single_action(seconds, command, queue):
+def _single_action(seconds, command):
     '''entrypoint for the single action process'''
     log.debug("single action, fires after %d seconds (from now)", seconds)
     time.sleep(seconds)
@@ -46,7 +29,7 @@ def _single_action(seconds, command, queue):
     log.debug("\n%s" % data)
 
 
-def _periodic_action(interval, command, queue):
+def _periodic_action(interval, command):
     '''entrypoint for the periodic action process'''
     log.debug("periodic action, fires every: %d seconds", interval)
     time_spent = 0
@@ -59,7 +42,6 @@ def _periodic_action(interval, command, queue):
 
 
 class Runner(object):
-    queue = None
     dump_process = None
     runners = []
 
@@ -81,30 +63,14 @@ class Runner(object):
 
     @staticmethod
     def get(config):
-        """Returns instance of a scenario runner for execution type.
-        """
-        # if there is no runner, start the output serializer subprocess
-        if len(Runner.runners) == 0:
-            log.debug("Starting dump process file '%s'" %
-                      config["output_filename"])
-            Runner.queue = multiprocessing.Queue()
-            Runner.dump_process = multiprocessing.Process(
-                target=_output_serializer_main,
-                name="Dumper",
-                args=(config["output_filename"], Runner.queue))
-            Runner.dump_process.start()
-
-        return Runner.get_cls(config["type"])(config, Runner.queue)
+        '''Returns instance of a scenario runner for execution type.
+        '''
+        return Runner.get_cls(config["type"])(config)
 
     @staticmethod
     def release(runner):
         '''Release the runner'''
         Runner.runners.remove(runner)
-        # if this was the last runner, stop the output serializer subprocess
-        if len(Runner.runners) == 0:
-            log.debug("Stopping dump process")
-            Runner.queue.put('_TERMINATE_')
-            Runner.dump_process.join()
 
     @staticmethod
     def terminate_all():
@@ -119,11 +85,10 @@ class Runner(object):
             runner.process.join()
             Runner.release(runner)
 
-    def __init__(self, config, queue):
+    def __init__(self, config):
         self.context = {}
         self.config = config
         self.periodic_action_process = None
-        self.result_queue = queue
         Runner.runners.append(self)
 
     def run_pre_start_action(self):
@@ -133,8 +98,8 @@ class Runner(object):
             log.debug("pre start action: command: '%s'" % command)
             data = subprocess.check_output(command, shell=True)
             log.debug("pre-start data: \n%s" % data)
-            output = "{'pre-start-action-data': %s}" % data
-            self.result_queue.put(output)
+            output = {'pre-start-action-data': data}
+            OutputMgr.write(output)
 
     def run_post_stop_action(self):
         '''run a potentially configured post-stop action'''
@@ -143,8 +108,8 @@ class Runner(object):
             log.debug("post stop action: command: '%s'" % command)
             data = subprocess.check_output(command, shell=True)
             log.debug("post-stop data: \n%s" % data)
-            output = "{'post-stop-action-data': %s}" % data
-            self.result_queue.put(output)
+            output = {'post-stop-action-data': data}
+            OutputMgr.write(output)
 
     def run(self, scenario_type, scenario_args):
         class_name = base_scenario.Scenario.get(scenario_type)
@@ -162,8 +127,7 @@ class Runner(object):
                 target=_single_action,
                 name="single-shot-action",
                 args=(self.config["single-shot-action"]["after"],
-                      self.config["single-shot-action"]["command"],
-                      self.result_queue))
+                      self.config["single-shot-action"]["command"]))
             single_action_process.start()
 
         if "periodic-action" in self.config:
@@ -171,8 +135,7 @@ class Runner(object):
                 target=_periodic_action,
                 name="periodic-action",
                 args=(self.config["periodic-action"]["interval"],
-                      self.config["periodic-action"]["command"],
-                      self.result_queue))
+                      self.config["periodic-action"]["command"]))
             self.periodic_action_process.start()
 
         self._run_benchmark(cls, "run", scenario_args)
