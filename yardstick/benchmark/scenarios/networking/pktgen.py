@@ -76,6 +76,14 @@ class Pktgen(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
+    def _iptables_clear_counters(self):
+        """Zero iptables packet and byte counters"""
+        cmd = "sudo iptables -Z;"
+        LOG.debug("Executing command: %s", cmd)
+        status, _, stderr = self.server.execute(cmd)
+        if status:
+            raise RuntimeError(stderr)
+
     def _iptables_get_result(self):
         """Get packet statistics from server"""
         cmd = "sudo iptables -L INPUT -vnx |" \
@@ -96,7 +104,12 @@ class Pktgen(base.Scenario):
         ipaddr = args.get("ipaddr", '127.0.0.1')
 
         options = args['options']
-        packetsize = options.get("packetsize", 60)
+        packetsizes = options.get("packetsize", 60)
+
+        # If there is only one packet size specified in a non-list format
+        if isinstance(packetsizes, int):
+            packetsizes = [packetsizes]
+
         self.number_of_ports = options.get("number_of_ports", 10)
         # if run by a duration runner
         duration_time = self.context.get("duration", None)
@@ -112,27 +125,35 @@ class Pktgen(base.Scenario):
 
         self._iptables_setup()
 
-        cmd = "sudo bash pktgen.sh %s %s %s %s" \
-            % (ipaddr, self.number_of_ports, packetsize, duration)
-        LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        results = []
+        for packetsize in packetsizes:
+            self._iptables_clear_counters()
 
-        if status:
-            raise RuntimeError(stderr)
+            cmd = "sudo bash pktgen.sh %s %s %s %s" \
+                % (ipaddr, self.number_of_ports, packetsize, duration)
+            LOG.debug("Executing command: %s", cmd)
+            status, stdout, stderr = self.client.execute(cmd)
 
-        data = json.loads(stdout)
+            if status:
+                raise RuntimeError(stderr)
 
-        data['packets_received'] = self._iptables_get_result()
+            data = json.loads(stdout)
+            data['packets_received'] = self._iptables_get_result()
 
-        if "sla" in args:
-            sent = data['packets_sent']
-            received = data['packets_received']
-            ppm = 1000000 * (sent - received) / sent
-            sla_max_ppm = int(args["sla"]["max_ppm"])
-            assert ppm <= sla_max_ppm, "ppm %d > sla_max_ppm %d" \
-                % (ppm, sla_max_ppm)
+            if "sla" in args:
+                sent = data['packets_sent']
+                received = data['packets_received']
+                ppm = 1000000 * (sent - received) / sent
+                sla_max_ppm = int(args["sla"]["max_ppm"])
+                assert ppm <= sla_max_ppm, "ppm %d > sla_max_ppm %d" \
+                    % (ppm, sla_max_ppm)
 
-        return data
+            results.append(data)
+
+        # No need for a list output if there is a single resultset
+        if len(results) == 1:
+            results = results[0]
+        return results
 
 
 def _test():

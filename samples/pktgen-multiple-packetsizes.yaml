@@ -1,0 +1,58 @@
+---
+# Sample benchmark task config file
+# measure network throughput using pktgen
+# for various packet sizes
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Pktgen
+  options:
+    packetsize:
+    - 60
+    - 124
+    - 252
+    - 508
+    - 1020
+    - 1514
+    number_of_ports: 10
+    duration: 15
+
+  host: client.demo
+  target: server.demo
+
+  runner:
+    type: Arithmetic
+    name: number_of_ports
+    # run twice with values 10 and 20
+    stop: 20
+    step: 10
+
+  sla:
+    max_ppm: 1000
+    action: monitor
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    client:
+      floating_ip: true
+      placement: "pgrp1"
+    server:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+      external_network: "net04_ext"
+
