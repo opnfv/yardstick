@@ -8,8 +8,6 @@
 ##############################################################################
 
 import importlib
-import multiprocessing
-import json
 import logging
 
 log = logging.getLogger(__name__)
@@ -18,25 +16,7 @@ import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base as base_scenario
 
 
-def _output_serializer_main(filename, queue):
-    '''entrypoint for the singleton subprocess writing to outfile
-    Use of this process enables multiple instances of a scenario without
-    messing up the output file.
-    '''
-    with open(filename, 'w') as outfile:
-        while True:
-            # blocks until data becomes available
-            record = queue.get()
-            if record == '_TERMINATE_':
-                outfile.close()
-                break
-            else:
-                json.dump(record, outfile)
-                outfile.write('\n')
-
-
 class Runner(object):
-    queue = None
     dump_process = None
     runners = []
 
@@ -58,30 +38,14 @@ class Runner(object):
 
     @staticmethod
     def get(config):
-        """Returns instance of a scenario runner for execution type.
-        """
-        # if there is no runner, start the output serializer subprocess
-        if len(Runner.runners) == 0:
-            log.debug("Starting dump process file '%s'" %
-                      config["output_filename"])
-            Runner.queue = multiprocessing.Queue()
-            Runner.dump_process = multiprocessing.Process(
-                target=_output_serializer_main,
-                name="Dumper",
-                args=(config["output_filename"], Runner.queue))
-            Runner.dump_process.start()
-
-        return Runner.get_cls(config["type"])(config, Runner.queue)
+        '''Returns instance of a scenario runner for execution type.
+        '''
+        return Runner._get_cls(config["type"])(config)
 
     @staticmethod
     def release(runner):
         '''Release the runner'''
         Runner.runners.remove(runner)
-        # if this was the last runner, stop the output serializer subprocess
-        if len(Runner.runners) == 0:
-            log.debug("Stopping dump process")
-            Runner.queue.put('_TERMINATE_')
-            Runner.dump_process.join()
 
     @staticmethod
     def terminate_all():
@@ -92,10 +56,9 @@ class Runner(object):
             runner.process.join()
             Runner.release(runner)
 
-    def __init__(self, config, queue):
+    def __init__(self, config):
         self.context = {}
         self.config = config
-        self.result_queue = queue
         Runner.runners.append(self)
 
     def run(self, scenario_type, scenario_args):
