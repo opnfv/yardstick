@@ -1,0 +1,53 @@
+---
+# Sample benchmark task config file
+# A list of steps for a chosen parameter using Stepper runner
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Pktgen
+  options:
+    packetsize: 60
+    number_of_ports: 5
+    duration: 20
+
+  host: client.demo
+  target: server.demo
+
+  runner:
+    type: Stepper
+    scenario_option_name: number_of_ports
+    steps:
+    - 10
+    - 15
+    - 20
+
+  sla:
+    max_ppm: 1000
+    action: monitor
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    client:
+      floating_ip: true
+      placement: "pgrp1"
+    server:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+      external_network: "net04_ext"
+
+
