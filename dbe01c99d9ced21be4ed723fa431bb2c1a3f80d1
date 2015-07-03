@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_d50f6e2d",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1383
+      },
+      "writtenOn": "2015-07-03T11:05:40Z",
+      "side": 1,
+      "message": "Am I correct in interpreting the code, as this being sidestepped (never called) if it is called to \"terminate all runners\" or similar abort? If not, would be bad to have this run even if something fails - unnecessary runtime.",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 35
+      },
+      "revId": "dbe01c99d9ced21be4ed723fa431bb2c1a3f80d1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
