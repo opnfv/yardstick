@@ -29,7 +29,8 @@ apt-get update
 apt-get install -y \
     iperf3 \
     lmbench \
-    stress
+    stress \
+    fio
 
 # restore symlink
 ln -sf /run/resolvconf/resolv.conf /etc/resolv.conf
