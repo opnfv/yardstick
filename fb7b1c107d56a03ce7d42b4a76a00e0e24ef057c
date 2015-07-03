@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_f53952d9",
+        "filename": "samples/ping-option-list.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-07-03T11:12:53Z",
+      "side": 1,
+      "message": "I think you should remove the SLA section since becomes tricky when the input values change and sort of does not make much sense. Maybe we need to rethink so that SLA eventually also can be a list of limits.",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 15
+      },
+      "revId": "fb7b1c107d56a03ce7d42b4a76a00e0e24ef057c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_d5364ee7",
+        "filename": "samples/ping-option-list.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-07-03T11:12:53Z",
+      "side": 1,
+      "message": "Could you name the servers with some phony names instead of client \u0026 server?\n\nThis is something I would like to change for all samples. It can be confusing that servers are named client \u0026 server.",
+      "revId": "fb7b1c107d56a03ce7d42b4a76a00e0e24ef057c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
