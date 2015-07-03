@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_b292c0f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-07-03T08:05:10Z",
+      "side": 1,
+      "message": "Could we name it \"Sequence\" instead of \"Stepper\"? \"Stepper\" could instead be used to give the \"Arithmetic\" runner a better name.",
+      "range": {
+        "startLine": 7,
+        "startChar": 16,
+        "endLine": 7,
+        "endChar": 22
+      },
+      "revId": "8ec47ca48ce4262fff374114e5cf36231ee79db7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_d28544ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-07-03T08:05:10Z",
+      "side": 1,
+      "message": "I think this is confusing and makes it hard to explain and document. I prefer to remove this \"feature\". The sequence of values is all the input there will be.",
+      "range": {
+        "startLine": 21,
+        "startChar": 46,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "8ec47ca48ce4262fff374114e5cf36231ee79db7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_12a4ec55",
+        "filename": "samples/pktgen-option-list.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-07-03T08:05:10Z",
+      "side": 1,
+      "message": "Maybe instead use Ping to make it easier to test on a low budget cloud (like my laptop)?",
+      "range": {
+        "startLine": 9,
+        "startChar": 8,
+        "endLine": 9,
+        "endChar": 14
+      },
+      "revId": "8ec47ca48ce4262fff374114e5cf36231ee79db7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_f28848c8",
+        "filename": "samples/pktgen-option-list.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-07-03T08:05:10Z",
+      "side": 1,
+      "message": "I think this one should be removed, only the steps/sequence option should control",
+      "range": {
+        "startLine": 12,
+        "startChar": 21,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "8ec47ca48ce4262fff374114e5cf36231ee79db7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_329ff005",
+        "filename": "samples/pktgen-option-list.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-07-03T08:05:10Z",
+      "side": 1,
+      "message": "I think I prefer sequence (instead of steps) which is more aligned with mathematics and also means ordering",
+      "range": {
+        "startLine": 21,
+        "startChar": 9,
+        "endLine": 21,
+        "endChar": 10
+      },
+      "revId": "8ec47ca48ce4262fff374114e5cf36231ee79db7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_928fbccc",
+        "filename": "samples/pktgen-option-list.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-07-03T08:05:10Z",
+      "side": 1,
+      "message": "using Ping change to cirros",
+      "range": {
+        "startLine": 32,
+        "startChar": 26,
+        "endLine": 32,
+        "endChar": 32
+      },
+      "revId": "8ec47ca48ce4262fff374114e5cf36231ee79db7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_32b6d08b",
+        "filename": "yardstick/benchmark/runners/stepper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-07-03T08:05:10Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 33,
+        "startChar": 35,
+        "endLine": 33,
+        "endChar": 36
+      },
+      "revId": "8ec47ca48ce4262fff374114e5cf36231ee79db7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_52c154e3",
+        "filename": "yardstick/benchmark/runners/stepper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-07-03T08:05:10Z",
+      "side": 1,
+      "message": "please remove this logic",
+      "range": {
+        "startLine": 37,
+        "startChar": 29,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "8ec47ca48ce4262fff374114e5cf36231ee79db7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_72bc586d",
+        "filename": "yardstick/benchmark/runners/stepper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-07-03T08:05:10Z",
+      "side": 1,
+      "message": "as said, I prefer to name it sequence",
+      "range": {
+        "startLine": 113,
+        "startChar": 66,
+        "endLine": 113,
+        "endChar": 75
+      },
+      "revId": "8ec47ca48ce4262fff374114e5cf36231ee79db7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
