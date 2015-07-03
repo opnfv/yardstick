@@ -27,6 +27,7 @@ grep trusty /etc/apt/sources.list && \
     echo "deb http://archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
 apt-get update
 apt-get install -y \
+    fio \
     iperf3 \
     lmbench \
     stress
