@@ -1,0 +1,32 @@
+---
+# Sample benchmark task config file
+# measure storage performance using fio
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Fio
+  options:
+    filename: /home/ec2-user/data.raw
+    bs: 4k
+    rw: write
+    ramp_time: 10
+  host: fio.demo
+  runner:
+    type: Duration
+    duration: 60
+    interval: 60
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
+  servers:
+    fio:
+      floating_ip: true
+  networks:
+    test:
+      cidr: "10.0.1.0/24"
+      external_network: "net04_ext"

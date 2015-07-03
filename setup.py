@@ -8,7 +8,12 @@ setup(
     version="0.1.dev0",
     packages=find_packages(),
     include_package_data=True,
-    package_data={'yardstick': ['benchmark/scenarios/networking/*.bash']},
+    package_data={
+        'yardstick': [
+            'benchmark/scenarios/networking/*.bash',
+            'benchmark/scenarios/storage/*.bash'
+         ]
+    },
     url="https://www.opnfv.org",
     install_requires=["backport_ipaddress",  # remove with python3
                       "flake8",
