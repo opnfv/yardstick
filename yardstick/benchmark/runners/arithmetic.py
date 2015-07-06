@@ -82,7 +82,7 @@ def _worker_process(cls, method_name, context, scenario_args):
             'errors': errors
         }
 
-        output_mgr.write({'context': record_context, 'sargs:': scenario_args,
+        output_mgr.write({'context': record_context, 'sargs': scenario_args,
                           'benchmark': benchmark_output})
 
         LOG.debug("runner=%(runner)s seq=%(sequence)s END" %

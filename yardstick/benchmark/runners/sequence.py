@@ -82,7 +82,7 @@ def _worker_process(queue, cls, method_name, context, scenario_args):
             'errors': errors
         }
 
-        queue.put({'context': record_context, 'sargs:': scenario_args,
+        queue.put({'context': record_context, 'sargs': scenario_args,
                    'benchmark': benchmark_output})
 
         LOG.debug("runner=%(runner)s seq=%(sequence)s END" %
