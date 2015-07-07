@@ -68,16 +68,17 @@ class TaskCommands(object):
                 # Wait for runners to finish
                 for runner in runners:
                     runner_join(runner)
-                    # TODO fix print, possibly wrong file
+                    pid = runner.process.pid
                     print "Runner ended, output in", \
-                          output_mgr.output_descriptor
+                          output_mgr.output_descriptors.get(pid)
             else:
                 # run serially
                 for scenario in scenarios:
                     runner = run_one_scenario(scenario)
                     runner_join(runner)
+                    pid = runner.process.pid
                     print "Runner ended, output in", \
-                          output_mgr.output_descriptor
+                          output_mgr.output_descriptors.get(pid)
             output_mgr.loop_done()
         output_mgr.all_done()
 

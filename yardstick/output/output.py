@@ -28,7 +28,7 @@ class OutputMgr(object):
     with the exception of where the stream is directed.
     '''
 
-    output_descriptor = ""
+    output_descriptors = multiprocessing.Manager().dict()
     output_filename = ""
 
     # NOTE: changing won't affect already started dump process
@@ -77,11 +77,8 @@ class OutputMgr(object):
                     outfile.close()
                     break
                 else:
-                    # TODO: this is one of several possible actions
-                    record['loopnum'] = it.value
-
                     json.dump(record, outfile)
-                    outfile.write('\n')
+                    outfile.write(OutputMgr.separator)
 
     @staticmethod
     def loop_done():
@@ -90,12 +87,13 @@ class OutputMgr(object):
         allowing it to take any actions necessary for the
         current mode and output destination.
         '''
+        OutputMgr._it.value = OutputMgr._it.value + 1
+        # conduct decided behaviour for loop_done
         OutputMgr._functions['_LOOP_DONE_']()
         pass
 
     @staticmethod
     def _loop_done_one_file():
-        OutputMgr._it.value = OutputMgr._it.value + 1
         pass
 
     @staticmethod
@@ -129,6 +127,26 @@ class OutputMgr(object):
             OutputMgr.dump_process.join()
 
     @staticmethod
+    def _register_runner_one_file(pid, message):
+        # TODO: this is one of several possible actions
+        message['loopnum'] = OutputMgr._it.value
+        return OutputMgr.target
+
+    @staticmethod
+    def register_runner(pid, message):
+        '''
+        Registers the runner with the output handler. This is generally
+        used for making sure context and scenario data is printed exactly
+        once per runner.
+        '''
+        # get output destination from mode-dependent function
+        OutputMgr.output_descriptors[pid] = \
+            OutputMgr._functions['_REGISTER_RUNNER_'](pid, message)
+
+        message['runnerID'] = pid
+        OutputMgr.queue.put(message)
+
+    @staticmethod
     def init(args):
         '''
         Sets starting values and sets up a thread-safe queue for
@@ -152,5 +170,7 @@ class OutputMgr(object):
         OutputMgr.output_descriptor = OutputMgr.target
         OutputMgr._functions['_ALL_DONE_'] = OutputMgr._all_done_one_file
         OutputMgr._functions['_LOOP_DONE_'] = OutputMgr._loop_done_one_file
+        OutputMgr._functions['_REGISTER_RUNNER_'] = \
+            OutputMgr._register_runner_one_file
 
         OutputMgr.dump_process.start()
