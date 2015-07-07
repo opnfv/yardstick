@@ -9,8 +9,8 @@ scenarios:
   type: Ping
   options:
     packetsize: 200
-  host: client.demo
-  target: server.demo
+  host: athena.demo
+  target: ares.demo
 
   runner:
     type: Duration
@@ -32,10 +32,10 @@ context:
       policy: "availability"
 
   servers:
-    client:
+    athena:
       floating_ip: true
       placement: "pgrp1"
-    server:
+    ares:
       placement: "pgrp1"
 
   networks:

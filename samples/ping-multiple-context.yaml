@@ -10,8 +10,8 @@ scenarios:
   type: Ping
   options:
     packetsize: 100
-  host: client.demo1
-  target: server.demo2
+  host: athena.demo1
+  target: hades.demo2
   runner:
     type: Duration
     duration: 60
@@ -30,7 +30,7 @@ contexts:
     pgrp1:
       policy: "availability"
   servers:
-    client:
+    athena:
       floating_ip: true
       placement: "pgrp1"
   networks:
@@ -46,7 +46,7 @@ contexts:
     pgrp1:
       policy: "availability"
   servers:
-    server:
+    hades:
       floating_ip: true
       placement: "pgrp1"
   networks:
