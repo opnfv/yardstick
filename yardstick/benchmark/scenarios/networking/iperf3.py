@@ -53,7 +53,7 @@ For more info see http://software.es.net/iperf
         self.context = context
         self.user = context.get('user', 'ubuntu')
         self.host_ipaddr = context['host']
-        self.target_ipaddr = context['target_ipaddr']
+        self.target_ipaddr = context['target']
         self.key_filename = self.context.get('key_filename', '~/.ssh/id_rsa')
         self.setup_done = False
 
@@ -91,6 +91,10 @@ For more info see http://software.es.net/iperf
         options = args['options']
 
         cmd = "iperf3 -c %s --json" % (self.target_ipaddr)
+
+        # If there are no options specified
+        if not options:
+            options = ""
 
         if "udp" in options:
             cmd += " --udp"
