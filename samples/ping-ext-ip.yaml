@@ -11,7 +11,7 @@ schema: "yardstick:task:0.1"
 scenarios:
 -
   type: Ping
-  host: client.demo
+  host: hermes.demo
   target: 8.8.8.8
   runner:
     type: Duration
@@ -27,7 +27,7 @@ context:
   flavor: m1.tiny
   user: cirros
   servers:
-    client:
+    hermes:
       floating_ip: true
   networks:
     test:
