@@ -60,16 +60,17 @@ class TaskCommands(object):
             # Wait for runners to finish
             for runner in runners:
                 runner_join(runner)
-                # TODO fix print, possible race condition
+                pid = runner.process.pid
                 print "Runner ended, output in", \
-                      OutputMgr.output_descriptor
+                      OutputMgr.output_descriptors.get(pid)
         else:
             # run serially
             for scenario in scenarios:
                 runner = run_one_scenario(scenario)
                 runner_join(runner)
+                pid = runner.process.pid
                 print "Runner ended, output in", \
-                      OutputMgr.output_descriptor
+                      OutputMgr.output_descriptors.get(pid)
         OutputMgr.all_done()
 
         if args.keep_deploy:

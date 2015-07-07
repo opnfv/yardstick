@@ -25,12 +25,12 @@ class OutputMgr(object):
     dump_process = None
     mode = "ONE_FILE"
 
-    output_descriptor = ""
+    output_descriptors = multiprocessing.Manager().dict()
     output_filename = ""
 
     # NOTE: any changes need to happen before starting sub-process,
     # since it is not synced across multiple threads
-    separator = '\n'
+    separator = ',\n\t'
 
     '''maps text strings to functions intended to
     hold the behaviour for a situation
@@ -55,19 +55,29 @@ class OutputMgr(object):
         Use of this process enables multiple instances of a scenario without
         messing up the output file.
         '''
+        OutputMgr._functions['_INIT_DUMP_']()
         # TODO change to general target statement
         with open(target, 'w') as outfile:
             log.debug('Initialised listener process.')
             log.debug('Write target is '+target)
+            separate = False  # avoid printing separator for first element
             while True:
                 # blocks until data becomes available
                 record = queue.get()
                 if record == '_CLOSE_STREAM_':
                     outfile.close()
                     break
+                elif record == '_OPEN_LIST_':
+                    outfile.write('[\n\t')
+                    separate = False
+                elif record == '_CLOSE_LIST_':
+                    outfile.write('\n]')
+                    separate = True
                 else:
+                    if separate:
+                        outfile.write(OutputMgr.separator)
                     json.dump(record, outfile)
-                    outfile.write(OutputMgr.separator)
+                    separate = True
 
     @staticmethod
     def all_done():
@@ -82,6 +92,7 @@ class OutputMgr(object):
 
     @staticmethod
     def _all_done_one_file():
+        OutputMgr.write('_CLOSE_LIST_')
         pass
 
     @staticmethod
@@ -98,6 +109,28 @@ class OutputMgr(object):
             log.debug("Stopping dump process")
             OutputMgr.write('_CLOSE_STREAM_')
             OutputMgr.dump_process.join()
+
+    @staticmethod
+    def _register_runner_one_file(pid, message):
+        return OutputMgr.target
+
+    @staticmethod
+    def register_runner(pid, message):
+        '''
+        Registers the runner with the output handler. This is generally
+        used for making sure context and scenario data is printed exactly
+        once per runner.
+        '''
+        # get output destination from mode-dependent function
+        OutputMgr.output_descriptors[pid] = \
+            OutputMgr._functions['_REGISTER_RUNNER_'](pid, message)
+
+        message['runnerID'] = pid
+        OutputMgr.queue.put(message)
+
+    @staticmethod
+    def _init_dump_one_file():
+        OutputMgr.write('_OPEN_LIST_')
 
     @staticmethod
     def init(args):
@@ -120,6 +153,10 @@ class OutputMgr(object):
         # TODO: Read output mode from args
         # and select these values appropriately
         OutputMgr.output_descriptor = OutputMgr.target
-        OutputMgr._functions['_ALL_DONE_'] = OutputMgr._all_done_one_file
-
+        OutputMgr._functions['_ALL_DONE_'] = \
+            OutputMgr._all_done_one_file
+        OutputMgr._functions['_REGISTER_RUNNER_'] = \
+            OutputMgr._register_runner_one_file
+        OutputMgr._functions['_INIT_DUMP_'] = \
+            OutputMgr._init_dump_one_file
         OutputMgr.dump_process.start()
