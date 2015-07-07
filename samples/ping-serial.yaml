@@ -9,8 +9,8 @@ scenarios:
   type: Ping
   options:
     packetsize: 100
-  host: client.demo
-  target: server.demo
+  host: apollo.demo
+  target: artemis.demo
   runner:
     type: Duration
     duration: 20
@@ -22,8 +22,8 @@ scenarios:
   type: Ping
   options:
     packetsize: 100
-  host: client.demo
-  target: server.demo
+  host: apollo.demo
+  target: artemis.demo
   runner:
     type: Arithmetic
     name: packetsize
@@ -38,9 +38,9 @@ context:
   user: cirros
 
   servers:
-    client:
+    apollo:
       floating_ip: true
-    server:
+    artemis:
 
   networks:
     test:
