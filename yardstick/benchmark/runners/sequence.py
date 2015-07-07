@@ -52,6 +52,9 @@ def _worker_process(cls, method_name, context, scenario_args):
     if "sla" in scenario_args:
         sla_action = scenario_args["sla"].get("action", "assert")
 
+    OutputMgr.register_runner(context['runner'],
+                              {'context': record_context,
+                               'sargs': scenario_args})
     for value in sequence_values:
         options[arg_name] = value
 
@@ -83,8 +86,9 @@ def _worker_process(cls, method_name, context, scenario_args):
             'errors': errors
         }
 
-        OutputMgr.write({'context': record_context, 'sargs': scenario_args,
-                         'benchmark': benchmark_output})
+        record = {'runnerID': context['runner'],
+                  'benchmark': benchmark_output}
+        OutputMgr.write(record)
 
         LOG.debug("runner=%(runner)s seq=%(sequence)s END" %
                   {"runner": context["runner"], "sequence": sequence})
