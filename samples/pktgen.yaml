@@ -12,8 +12,8 @@ scenarios:
     number_of_ports: 10
     duration: 20
 
-  host: client.demo
-  target: server.demo
+  host: demeter.demo
+  target: poseidon.demo
 
   runner:
     type: Arithmetic
@@ -37,10 +37,10 @@ context:
       policy: "availability"
 
   servers:
-    client:
+    demeter:
       floating_ip: true
       placement: "pgrp1"
-    server:
+    poseidon:
       floating_ip: true
       placement: "pgrp1"
 

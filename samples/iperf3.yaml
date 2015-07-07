@@ -8,8 +8,8 @@ scenarios:
 -
   type: Iperf3
   options:
-  host: client.demo
-  target: server.demo
+  host: zeus.demo
+  target: hera.demo
 
   runner:
     type: Duration
@@ -30,10 +30,10 @@ context:
       policy: "availability"
 
   servers:
-    client:
+    zeus:
       floating_ip: true
       placement: "pgrp1"
-    server:
+    hera:
       floating_ip: true
       placement: "pgrp1"
 
