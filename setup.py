@@ -11,7 +11,8 @@ setup(
     package_data={
         'yardstick': [
             'benchmark/scenarios/networking/*.bash',
-            'benchmark/scenarios/storage/*.bash'
+            'benchmark/scenarios/storage/*.bash',
+            'resources/files/*'
          ]
     },
     url="https://www.opnfv.org",
