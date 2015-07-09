@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "fa3479d7_1b0e4735",
+        "filename": "yardstick/output/output.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1383
+      },
+      "writtenOn": "2015-07-09T15:22:00Z",
+      "side": 1,
+      "message": "Thank you, I\u0027m new to the specifics on how Python handles that kind of formatting.",
+      "parentUuid": "fa3479d7_f824a9c7",
+      "range": {
+        "startLine": 55,
+        "startChar": 41,
+        "endLine": 56,
+        "endChar": 7
+      },
+      "revId": "c120290c415addead3995b70d47dd3987574b4f3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa3479d7_982b5d94",
         "filename": "yardstick/output/output.py",
         "patchSetId": 4
