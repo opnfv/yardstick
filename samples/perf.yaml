@@ -1,0 +1,43 @@
+---
+# Sample benchmark task config file
+# use perf to perform Linux performance measurements
+# this sample demonstrates measurements of various software perf events
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Perf
+  options:
+    load: true
+    events:
+    - task-clock
+    - cpu-clock
+    - context-switches
+    - page-faults
+    - cpu-migrations
+  host: hades.demo
+
+  runner:
+    type: Duration
+    duration: 30
+
+  sla:
+    metric: context-switches
+    smaller_than_expected: true
+    expected_value: 300
+    action: monitor
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
+
+  servers:
+    hades:
+      floating_ip: true
+  networks:
+    test:
+      cidr: "10.0.1.0/24"
+      external_network: "net04_ext"
