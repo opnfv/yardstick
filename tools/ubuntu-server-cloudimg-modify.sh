@@ -29,6 +29,8 @@ apt-get update
 apt-get install -y \
     fio \
     iperf3 \
+    linux-tools-common \
+    linux-tools-generic \
     lmbench \
     stress
 
