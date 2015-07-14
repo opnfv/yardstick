@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_bbf17b97",
+        "filename": "docs/templates/testcase_description_template.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 254
+      },
+      "writtenOn": "2015-07-14T10:09:09Z",
+      "side": 1,
+      "message": "there are some whitespaces here and there but otherwise it looks good.",
+      "revId": "59a1172b2b51009d5d548ea2d4ce5591f6a986d4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
