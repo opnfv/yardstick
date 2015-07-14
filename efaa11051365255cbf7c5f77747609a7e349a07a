@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_5b65ef43",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-07-14T13:29:43Z",
+      "side": 1,
+      "message": "First line of the commit message should be limited to 50 characters and not end with a period according to OPNFV commit etiquette (https://wiki.opnfv.org/developer).",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 76
+      },
+      "revId": "efaa11051365255cbf7c5f77747609a7e349a07a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
