@@ -123,7 +123,7 @@ class YardstickCLI():
         logger.setLevel(logging.WARNING)
 
         if args.verbose:
-            logger.getLogger('yardstick').setLevel(logging.INFO)
+            logger.setLevel(logging.INFO)
 
         if args.debug:
             logger.setLevel(logging.DEBUG)
