@@ -13,7 +13,7 @@ setup(
             'benchmark/scenarios/networking/*.bash',
             'benchmark/scenarios/storage/*.bash',
             'resources/files/*'
-         ]
+        ]
     },
     url="https://www.opnfv.org",
     install_requires=["backport_ipaddress",  # remove with python3
@@ -29,9 +29,13 @@ setup(
                       "paramiko",
                       "six"
                       ],
+    extras_require={
+        'plot': ["matplotlib>=1.4.2"]
+    },
     entry_points={
         'console_scripts': [
             'yardstick=yardstick.main:main',
+            'yardstick-plot=yardstick.plot.plotter:main [plot]'
         ],
     },
     scripts=['tools/yardstick-img-modify']
