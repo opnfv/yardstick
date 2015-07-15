@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_46dd1242",
+        "filename": "yardstick/benchmark/scenarios/compute/perf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1383
+      },
+      "writtenOn": "2015-07-15T13:15:28Z",
+      "side": 1,
+      "message": "Would be nice to standardize where these options are stored (or have a strict heirarchy where they could be found in either but one takes strict precedence over the other), so n+m workaround like this aren\u0027t needed.\nThat\u0027s not an issue with your code specifically, just with the project in general I think.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 55
+      },
+      "revId": "f5b755dba750f10d7efdd28630a0059373054f6a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_26e20e04",
+        "filename": "yardstick/benchmark/scenarios/compute/perf_benchmark.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1383
+      },
+      "writtenOn": "2015-07-15T13:15:28Z",
+      "side": 1,
+      "message": "What version of Perf are we supposed to be using, I assume as new a version as possible, i.e. after 3.0. If we want to avoid needing to pass the output through a file, there seems to be a way to do that here: http://unix.stackexchange.com/questions/89591/what-stream-does-perf-use\n\n(It might, for example, be possible to redirect for example 3\u003e\u00261 then redirect 1\u003e/dev/null)",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 28
+      },
+      "revId": "f5b755dba750f10d7efdd28630a0059373054f6a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_c60222b4",
+        "filename": "yardstick/benchmark/scenarios/compute/perf_benchmark.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1383
+      },
+      "writtenOn": "2015-07-15T13:15:28Z",
+      "side": 1,
+      "message": "couple of trailing whitespace here and there, marks red automatically in gerrit",
+      "revId": "f5b755dba750f10d7efdd28630a0059373054f6a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
