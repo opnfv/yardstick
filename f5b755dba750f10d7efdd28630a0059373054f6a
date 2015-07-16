@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fa3479d7_66bff6d1",
+        "filename": "yardstick/benchmark/scenarios/compute/perf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-07-16T08:29:24Z",
+      "side": 1,
+      "message": "I agree that this is not a nice way to go about it, but this is currently a common issue with almost all scenarios and I think it would be out of the scope of this patch to incorporate the changes required to remove this workaround.",
+      "parentUuid": "fa3479d7_46dd1242",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 55
+      },
+      "revId": "f5b755dba750f10d7efdd28630a0059373054f6a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa3479d7_26e20e04",
         "filename": "yardstick/benchmark/scenarios/compute/perf_benchmark.bash",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fa3479d7_86b65adb",
+        "filename": "yardstick/benchmark/scenarios/compute/perf_benchmark.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-07-16T08:29:24Z",
+      "side": 1,
+      "message": "As we need to read the output multiple times, then it is not viable to stream the output directly to output_json() function.",
+      "parentUuid": "fa3479d7_26e20e04",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 28
+      },
+      "revId": "f5b755dba750f10d7efdd28630a0059373054f6a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa3479d7_c60222b4",
         "filename": "yardstick/benchmark/scenarios/compute/perf_benchmark.bash",
         "patchSetId": 1
@@ -59,6 +107,24 @@
       "writtenOn": "2015-07-15T13:15:28Z",
       "side": 1,
       "message": "couple of trailing whitespace here and there, marks red automatically in gerrit",
+      "revId": "f5b755dba750f10d7efdd28630a0059373054f6a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_66bb76c5",
+        "filename": "yardstick/benchmark/scenarios/compute/perf_benchmark.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-07-16T08:29:24Z",
+      "side": 1,
+      "message": "fixed",
+      "parentUuid": "fa3479d7_c60222b4",
       "revId": "f5b755dba750f10d7efdd28630a0059373054f6a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
