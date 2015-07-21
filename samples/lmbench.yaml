@@ -1,0 +1,46 @@
+---
+# Sample benchmark task config file
+# measure memory read latency using lmbench
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Lmbench
+  options:
+    stride: 64
+    stop_size: 32
+
+  host: demeter.demo
+
+  runner:
+    type: Arithmetic
+    name: stride
+    stop: 128
+    step: 64
+
+  sla:
+    max_latency: 35
+    action: monitor
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    demeter:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+      external_network: "net04_ext"
+
+
