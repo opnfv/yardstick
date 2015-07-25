@@ -19,7 +19,7 @@ setup(
     install_requires=["backport_ipaddress",  # remove with python3
                       "flake8",
                       "PyYAML>=3.10",
-                      "pbr!=0.7,<1.0,>=0.6",
+                      "pbr<2.0,>=1.3",
                       "python-glanceclient>=0.12.0",
                       "python-heatclient>=0.2.12",
                       "python-keystoneclient>=0.11.1",
