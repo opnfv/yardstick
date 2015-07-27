@@ -36,7 +36,6 @@ contexts:
   networks:
     test:
       cidr: '10.0.1.0/24'
-      external_network: "net04_ext"
 -
   name: demo2
   image: cirros-0.3.3
@@ -52,5 +51,4 @@ contexts:
   networks:
     test:
       cidr: '10.0.1.0/24'
-      external_network: "net04_ext"
 

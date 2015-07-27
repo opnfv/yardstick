@@ -108,6 +108,10 @@ class TaskParser(object):
             context_cfgs = cfg["contexts"]
 
         for cfg_attrs in context_cfgs:
+            # config external_network based on env var
+            for _, attrs in cfg_attrs["networks"].items():
+                attrs["external_network"] = os.environ.get('EXTERNAL_NETWORK',
+                                                           'net04_ext')
             context = Context()
             context.init(cfg_attrs)
 

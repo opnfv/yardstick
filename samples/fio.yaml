@@ -73,4 +73,3 @@ context:
   networks:
     test:
       cidr: "10.0.1.0/24"
-      external_network: "net04_ext"
