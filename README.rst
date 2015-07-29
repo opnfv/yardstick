@@ -79,8 +79,10 @@ Example setup known to work for development and test:
 - Development environment: Ubuntu14.04, eclipse, virtual environment
 - Cloud: Mirantis OpenStack 6.0 deployed using Virtualbox
 
+Install dependencies:
+$ sudo apt-get install python-virtualenv python-dev libffi-dev libssl-dev
+
 Create a virtual environment:
-$ sudo apt-get install python-virtualenv
 $ virtualenv ~/yardstick_venv
 $ source ~/yardstick_venv/bin/activate
 $ python setup.py develop
