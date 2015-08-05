@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da3975d1_baf17597",
+        "filename": "yardstick/benchmark/scenarios/compute/perf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-05T02:39:23Z",
+      "side": 1,
+      "message": "I agree that this is a common issue. pktgen.py\\fio.py also should be modified. And i think it would be nice that this part is abstracted into runner base.py. But not for this patch,a new JIRA-task should be created.",
+      "range": {
+        "startLine": 75,
+        "startChar": 6,
+        "endLine": 78,
+        "endChar": 55
+      },
+      "revId": "b2379e65f90402257e172fab846e0c5c1fe4d7ff",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
