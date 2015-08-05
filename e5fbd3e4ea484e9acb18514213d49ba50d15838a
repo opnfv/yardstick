@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da3975d1_7a60ad35",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-08-05T08:20:47Z",
+      "side": 1,
+      "message": "number_of_runs_default is not used",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 26
+      },
+      "revId": "e5fbd3e4ea484e9acb18514213d49ba50d15838a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da3975d1_fa6c9d38",
+        "filename": "yardstick/output/output.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-08-05T08:20:47Z",
+      "side": 1,
+      "message": "mult -\u003e multi  :)",
+      "range": {
+        "startLine": 26,
+        "startChar": 35,
+        "endLine": 26,
+        "endChar": 39
+      },
+      "revId": "e5fbd3e4ea484e9acb18514213d49ba50d15838a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da3975d1_da69d926",
+        "filename": "yardstick/output/output.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-08-05T08:20:47Z",
+      "side": 1,
+      "message": "i think it\u0027s better to put this above   mode \u003d \"ONE_FILE\"",
+      "range": {
+        "startLine": 27,
+        "startChar": 7,
+        "endLine": 29,
+        "endChar": 7
+      },
+      "revId": "e5fbd3e4ea484e9acb18514213d49ba50d15838a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da3975d1_ba761505",
+        "filename": "yardstick/output/output.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-08-05T08:20:47Z",
+      "side": 1,
+      "message": "can we just delete this to make code clean ?",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 41
+      },
+      "revId": "e5fbd3e4ea484e9acb18514213d49ba50d15838a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
