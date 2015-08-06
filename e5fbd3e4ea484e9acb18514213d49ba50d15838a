@@ -48,6 +48,76 @@
     },
     {
       "key": {
+        "uuid": "ba3e81b7_9030d4e9",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1383
+      },
+      "writtenOn": "2015-08-06T11:06:21Z",
+      "side": 1,
+      "message": "Putting this so early in the file is a debug change; I forgot to move to its proper place. Thank you for catching this.\n\nos.remove(args.output_file) logic should be inside OutputMgr.init().",
+      "parentUuid": "da3975d1_5a4f2993",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "e5fbd3e4ea484e9acb18514213d49ba50d15838a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba3e81b7_d0365ce7",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1383
+      },
+      "writtenOn": "2015-08-06T11:06:21Z",
+      "side": 1,
+      "message": "cleanup",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 51
+      },
+      "revId": "e5fbd3e4ea484e9acb18514213d49ba50d15838a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba3e81b7_b033d8f5",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1383
+      },
+      "writtenOn": "2015-08-06T11:06:21Z",
+      "side": 1,
+      "message": "clarify (possible race condition)",
+      "range": {
+        "startLine": 71,
+        "startChar": 16,
+        "endLine": 71,
+        "endChar": 53
+      },
+      "revId": "e5fbd3e4ea484e9acb18514213d49ba50d15838a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da3975d1_fa6c9d38",
         "filename": "yardstick/output/output.py",
         "patchSetId": 9
@@ -94,6 +164,30 @@
     },
     {
       "key": {
+        "uuid": "ba3e81b7_9019f47b",
+        "filename": "yardstick/output/output.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1383
+      },
+      "writtenOn": "2015-08-06T11:06:21Z",
+      "side": 1,
+      "message": "It is really not up to me to decide this - this comment should not exist at all.",
+      "parentUuid": "da3975d1_da69d926",
+      "range": {
+        "startLine": 27,
+        "startChar": 7,
+        "endLine": 29,
+        "endChar": 7
+      },
+      "revId": "e5fbd3e4ea484e9acb18514213d49ba50d15838a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da3975d1_ba761505",
         "filename": "yardstick/output/output.py",
         "patchSetId": 9
@@ -105,6 +199,30 @@
       "writtenOn": "2015-08-05T08:20:47Z",
       "side": 1,
       "message": "can we just delete this to make code clean ?",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 41
+      },
+      "revId": "e5fbd3e4ea484e9acb18514213d49ba50d15838a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba3e81b7_f03960d9",
+        "filename": "yardstick/output/output.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1383
+      },
+      "writtenOn": "2015-08-06T11:06:21Z",
+      "side": 1,
+      "message": "I will cleanup all commented-out code since it no longer serves a purpose.\n\nseparator variable should be used in the write function - will also clarify the comment.",
+      "parentUuid": "da3975d1_ba761505",
       "range": {
         "startLine": 34,
         "startChar": 2,
