@@ -22,6 +22,30 @@
       "revId": "b2379e65f90402257e172fab846e0c5c1fe4d7ff",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba3e81b7_3026c869",
+        "filename": "yardstick/benchmark/scenarios/compute/perf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1383
+      },
+      "writtenOn": "2015-08-07T08:21:45Z",
+      "side": 1,
+      "message": "Yes - there\u0027s a lot of redundancy in the different runners. A lot of different things should be broken into runners.base, and standardised there.",
+      "parentUuid": "da3975d1_baf17597",
+      "range": {
+        "startLine": 75,
+        "startChar": 6,
+        "endLine": 78,
+        "endChar": 55
+      },
+      "revId": "b2379e65f90402257e172fab846e0c5c1fe4d7ff",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
