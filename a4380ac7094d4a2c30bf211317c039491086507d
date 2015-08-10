@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a437d4f_8f30b5e9",
+        "filename": "setup.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-08-10T03:23:09Z",
+      "side": 1,
+      "message": "just a question, how could this requirement package be installed.\nit seems that `python setup.py install` could not install matplotlib correctly.\n\ni manually installed the package:\n\napt-get install -y g++ libfreetype6-dev libpng-dev pkg-config\n\npip install \"matplotlib\u003e\u003d1.4.2\"",
+      "range": {
+        "startLine": 32,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 6
+      },
+      "revId": "a4380ac7094d4a2c30bf211317c039491086507d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba3e81b7_d0477c1c",
+        "filename": "yardstick/plot/plotter.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-08-10T03:23:09Z",
+      "side": 1,
+      "message": "i think here use with statement could be better.",
+      "range": {
+        "startLine": 83,
+        "startChar": 11,
+        "endLine": 83,
+        "endChar": 41
+      },
+      "revId": "a4380ac7094d4a2c30bf211317c039491086507d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
