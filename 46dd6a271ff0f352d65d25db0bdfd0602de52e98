@@ -93,6 +93,30 @@
       "revId": "46dd6a271ff0f352d65d25db0bdfd0602de52e98",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a437d4f_aff13997",
+        "filename": "yardstick/benchmark/runners/iteration.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-08-11T07:01:19Z",
+      "side": 1,
+      "message": "Thank you for pointing this out. I think 60 is a bit too much. In my opinion, the best would be if it was 1, then it is similar to Duration runner, where the default is 1 second.",
+      "parentUuid": "9a437d4f_6fdd9114",
+      "range": {
+        "startLine": 98,
+        "startChar": 17,
+        "endLine": 98,
+        "endChar": 22
+      },
+      "revId": "46dd6a271ff0f352d65d25db0bdfd0602de52e98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
