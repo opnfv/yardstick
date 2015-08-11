@@ -117,6 +117,30 @@
       "revId": "46dd6a271ff0f352d65d25db0bdfd0602de52e98",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a437d4f_cf3b5d37",
+        "filename": "yardstick/benchmark/runners/iteration.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-11T08:09:13Z",
+      "side": 1,
+      "message": "thank you for your suggestion. Actually,the default value of duration runner is 60 seconds,please see line 29 in duration.py \"duration \u003d context.get(\"duration\", 60)\". i think there is a mistake in  line 100 \"default: 1 sec\",However, As a iteration runner, i totally agree with you, \"1\" is the best choice,60 is a bit too much.thank you~",
+      "parentUuid": "9a437d4f_aff13997",
+      "range": {
+        "startLine": 98,
+        "startChar": 17,
+        "endLine": 98,
+        "endChar": 22
+      },
+      "revId": "46dd6a271ff0f352d65d25db0bdfd0602de52e98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
