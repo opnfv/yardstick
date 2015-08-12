@@ -11,29 +11,46 @@
 
 # Run yardstick's test suite(s)
 
+getopts ":f" FILE_OPTION
+
 run_flake8() {
-    echo -n "Running flake8 ... "
-    logfile=pep8.log
-    flake8 yardstick > $logfile
+    echo "Running flake8 ... "
+    logfile=test_results.log
+    if [ $FILE_OPTION == "f" ]; then
+        flake8 yardstick > $logfile
+    else
+        flake8 yardstick
+    fi
+
     if [ $? -ne 0 ]; then
-        echo "FAILED, result in $logfile"
+        echo "FAILED"
+        if [ $FILE_OPTION == "f" ]; then
+            echo "Results in $logfile"
+        fi
         exit 1
     else
-        echo "OK, result in $logfile"
+        echo "OK"
     fi
 }
 
 run_tests() {
-    echo -n "Running unittest ... "
-    python -m unittest discover -s tests/unit
+    echo "Running unittest ... "
+    if [ $FILE_OPTION == "f" ]; then
+        python -m unittest discover -s tests/unit > $logfile 2>&1
+    else
+        python -m unittest discover -s tests/unit
+    fi
+
     if [ $? -ne 0 ]; then
-        echo "FAILED, result in $logfile"
+        if [ $FILE_OPTION == "f" ]; then
+            echo "FAILED, results in $logfile"
+        fi
         exit 1
     else
-        echo "OK, result in $logfile"
+        echo "OK"
     fi
 }
 
 run_flake8
-#run_tests
+run_tests
 
