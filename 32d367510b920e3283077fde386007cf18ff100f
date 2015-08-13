@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a437d4f_f58830c8",
+        "filename": "yardstick/benchmark/runners/iteration.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-08-13T10:51:31Z",
+      "side": 1,
+      "message": "a tiny comment, pls rename to \u0027iterations\u0027 or \u0027count\u0027",
+      "range": {
+        "startLine": 29,
+        "startChar": 42,
+        "endLine": 29,
+        "endChar": 43
+      },
+      "revId": "32d367510b920e3283077fde386007cf18ff100f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
