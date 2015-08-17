@@ -1,0 +1,45 @@
+---
+# Sample benchmark task config file
+# measure network latency using ping
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Ping
+  options:
+    packetsize: 200
+  host: athena.demo
+  target: ares.demo
+
+  runner:
+    type: Iteration
+    iterations: 60
+    interval: 1
+
+  sla:
+    max_rtt: 10
+    action: monitor
+
+context:
+  name: demo
+  image: cirros-0.3.3
+  flavor: m1.tiny
+  user: cirros
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    athena:
+      floating_ip: true
+      placement: "pgrp1"
+    ares:
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+      external_network: "net04_ext"
+
