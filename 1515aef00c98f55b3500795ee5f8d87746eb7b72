@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a288981_ae5497ca",
+        "filename": "ci/run_tasks.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-08-18T02:11:29Z",
+      "side": 1,
+      "message": "Can we just use for statement :)",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 15
+      },
+      "revId": "1515aef00c98f55b3500795ee5f8d87746eb7b72",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
