@@ -1,0 +1,40 @@
+# Sample benchmark task config file
+# measure storage performance using fio
+# Jinja2 Syntax is supported
+# using built-in functions ( Jinja2 for-endfor construct ) to test complex task 
+# Test block sizes of 4KB, 8KB, 64KB, 1MB
+# Test 5 workloads: 4 corners and 1 mixed :read, write, randwrite, randread, rw
+schema: "yardstick:task:0.1"
+
+scenarios:
+{% for rw in ['read', 'write', 'randwrite', 'randread', 'rw'] %}
+  {% for bs in ['4k', '8k', '64k', '1024k'] %}
+-
+  type: Fio
+  options:
+    filename: /home/ec2-user/data.raw
+    bs: {{bs}}
+    rw: {{rw}}
+    ramp_time: 10
+    duration: 20
+  host: fio.demo
+  runner:
+    type: Iteration
+    iterations: 2
+    interval: 1
+  {% endfor %}
+{% endfor %}
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
+  servers:
+    fio:
+      floating_ip: true
+  networks:
+    test:
+      cidr: "10.0.1.0/24"
+      external_network: "net04_ext"
+
