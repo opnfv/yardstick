@@ -1,0 +1,49 @@
+# Sample benchmark task config file
+# measure network latency using ping
+# Jinja2 Syntax is supported
+# parameterize this task,{{packetsize}} is passed to the scenario as an argument
+# If you don't pass the value for {{packetsize}} while starting a task,
+# the default one will be used
+
+
+schema: "yardstick:task:0.1"
+{% set packetsize = packetsize or "100" %}
+scenarios:
+-
+  type: Ping
+  options:
+    packetsize: {{packetsize}}
+  host: athena.demo
+  target: ares.demo
+
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+
+  sla:
+    max_rtt: 10
+    action: monitor
+
+context:
+  name: demo
+  image: cirros-0.3.3
+  flavor: m1.tiny
+  user: cirros
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    athena:
+      floating_ip: true
+      placement: "pgrp1"
+    ares:
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+      external_network: "net04_ext"
+
