@@ -18,7 +18,7 @@ import ipaddress
 
 from yardstick.benchmark.context.model import Context
 from yardstick.benchmark.runners import base as base_runner
-
+from yardstick.common.task_template import TaskTemplate
 from yardstick.common.utils import cliargs
 
 output_file_default = "/tmp/yardstick.out"
@@ -31,6 +31,13 @@ class TaskCommands(object):
     '''
 
     @cliargs("taskfile", type=str, help="path to taskfile", nargs=1)
+    @cliargs("--task-args", dest="task_args",
+             help="Input task args (dict in json).These args are used"
+             "to render input task that is jinja2 template.")
+    @cliargs("--task-args-file", dest="task_args_file",
+             help="Path to the file with input task args(dict in "
+             "json/yaml).There args are used to render input"
+             "task that is jinja2 template.")
     @cliargs("--keep-deploy", help="keep context deployed in cloud",
              action="store_true")
     @cliargs("--parse-only", help="parse the benchmark config file and exit",
@@ -43,7 +50,8 @@ class TaskCommands(object):
         atexit.register(atexit_handler)
 
         parser = TaskParser(args.taskfile[0])
-        scenarios, run_in_parallel = parser.parse()
+        scenarios, run_in_parallel = parser.parse(args.task_args,
+                                                  args.task_args_file)
 
         if args.parse_only:
             sys.exit(0)
@@ -80,20 +88,39 @@ class TaskCommands(object):
 
         print "Done, exiting"
 
-
 # TODO: Move stuff below into TaskCommands class !?
+
 
 class TaskParser(object):
     '''Parser for task config files in yaml format'''
     def __init__(self, path):
         self.path = path
 
-    def parse(self):
+    def parse(self, task_args=None, task_args_file=None):
         '''parses the task file and return an context and scenario instances'''
         print "Parsing task config:", self.path
+
         try:
-            with open(self.path) as stream:
-                cfg = yaml.load(stream)
+            kw = {}
+            if task_args_file:
+                with open(task_args_file) as f:
+                    kw.update(parse_task_args("task_args_file", f.read()))
+            kw.update(parse_task_args("task_args", task_args))
+        except TypeError:
+            raise TypeError()
+
+        try:
+            with open(self.path) as f:
+                try:
+                    input_task = f.read()
+                    rendered_task = TaskTemplate.render(input_task, **kw)
+                except Exception as e:
+                    print(("Failed to render template:\n%(task)s\n%(err)s\n")
+                          % {"task": input_task, "err": e})
+                    raise e
+                print(("Input task is:\n%s\n") % rendered_task)
+
+                cfg = yaml.load(rendered_task)
         except IOError as ioerror:
             sys.exit(ioerror)
 
@@ -181,3 +208,26 @@ def runner_join(runner):
     base_runner.Runner.release(runner)
     if status != 0:
         sys.exit("Runner failed")
+
+
+def print_invalid_header(source_name, args):
+    print(("Invalid %(source)s passed:\n\n %(args)s\n")
+          % {"source": source_name, "args": args})
+
+
+def parse_task_args(src_name, args):
+    try:
+        kw = args and yaml.safe_load(args)
+        kw = {} if kw is None else kw
+    except yaml.parser.ParserError as e:
+        print_invalid_header(src_name, args)
+        print(("%(source)s has to be YAML. Details:\n\n%(err)s\n")
+              % {"source": src_name, "err": e})
+        raise TypeError()
+
+    if not isinstance(kw, dict):
+        print_invalid_header(src_name, args)
+        print(("%(src)s had to be dict, actually %(src_type)s\n")
+              % {"src": src_name, "src_type": type(kw)})
+        raise TypeError()
+    return kw

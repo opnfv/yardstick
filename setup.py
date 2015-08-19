@@ -19,6 +19,7 @@ setup(
     url="https://www.opnfv.org",
     install_requires=["backport_ipaddress",  # remove with python3
                       "flake8",
+                      "Jinja2>=2.6",
                       "PyYAML>=3.10",
                       "pbr<2.0,>=1.3",
                       "python-glanceclient>=0.12.0",
