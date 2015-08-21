@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a288981_d76416e7",
+        "filename": "docs/Yardstick_task_templates.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-08-21T07:24:15Z",
+      "side": 1,
+      "message": "you can use some rst markup in this doc\n\nref: https://en.wikipedia.org/wiki/ReStructuredText",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_f76712e9",
+        "filename": "docs/Yardstick_task_templates.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-08-21T07:24:15Z",
+      "side": 1,
+      "message": "i think use config file fragment not the whole config file to indicate template usage could be better for reading.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 35
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_1773beb2",
+        "filename": "docs/Yardstick_task_templates.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-08-21T07:24:15Z",
+      "side": 1,
+      "message": "Here is an auto red, need delete unnecessary space",
+      "range": {
+        "startLine": 52,
+        "startChar": 85,
+        "endLine": 52,
+        "endChar": 86
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_376ebaca",
+        "filename": "docs/Yardstick_task_templates.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-08-21T07:24:15Z",
+      "side": 1,
+      "message": "Here is an auto red, need delete unnecessary space",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 1
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_57794692",
+        "filename": "samples/fio-template.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-08-21T07:24:15Z",
+      "side": 1,
+      "message": "And an blank line to seperate scenarios and context part could be better",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 12
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
