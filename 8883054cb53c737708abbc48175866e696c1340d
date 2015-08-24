@@ -252,6 +252,23 @@
       "revId": "8883054cb53c737708abbc48175866e696c1340d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_d773f6e5",
+        "filename": "yardstick/common/task_template.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-08-24T12:41:00Z",
+      "side": 1,
+      "message": "This file is in DOS format with CRLF line terminators. I suggest you convert it to standard Unix line breaks.",
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
