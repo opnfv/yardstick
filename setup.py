@@ -18,6 +18,7 @@ setup(
     },
     url="https://www.opnfv.org",
     install_requires=["backport_ipaddress",  # remove with python3
+                      "coverage>=3.6",
                       "flake8",
                       "Jinja2>=2.6",
                       "PyYAML>=3.10",
@@ -29,7 +30,9 @@ setup(
                       "python-novaclient>=2.24.1",
                       "mock>=1.0.1",  # remove with python3
                       "paramiko",
-                      "six"
+                      "six",
+                      "testrepository>=0.0.18",
+                      "testtools>=1.4.0"
                       ],
     extras_require={
         'plot': ["matplotlib>=1.4.2"]
