@@ -5,9 +5,10 @@
 # For this sample just like running the command below on the test vm and 
 # getting benchmark info back to the yardstick.
 #
-# sudo fio -filename=/home/ec2-user/data.raw -bs=4k -rw=write -ramp_time=10 \
-#          -runtime=60 -name=yardstick-fio -ioengine=libaio -direct=1 \
-#          -group_reporting -numjobs=1 -time_based --output=yardstick-fio.log
+# sudo fio -filename=/home/ec2-user/data.raw -bs=4k -ipdepth=1 -rw=write \
+#          -ramp_time=10 -runtime=60 -name=yardstick-fio -ioengine=libaio \
+#          -direct=1 -group_reporting -numjobs=1 -time_based \
+#          --output=yardstick-fio.log
 #
 # When the above fio command done, the yardstick-fio.log file will contain 
 # information like below and the benchmark script will take iops, throughput 
@@ -52,13 +53,14 @@ scenarios:
   options:
     filename: /home/ec2-user/data.raw
     bs: 4k
+    iodepth: 1
     rw: write
     ramp_time: 10
   host: fio.demo
   runner:
     type: Duration
     duration: 60
-    interval: 60
+    interval: 1
 
 context:
   name: demo
