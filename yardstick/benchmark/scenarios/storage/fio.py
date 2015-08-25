@@ -29,6 +29,10 @@ class Fio(base.Scenario):
         type:    int
         unit:    bytes
         default: 4k
+    iodepth - number of iobuffers to keep in flight
+        type:    int
+        unit:    na
+        default: 1
     rw - type of io pattern [read, write, randwrite, randread, rw, randrw]
         type:    string
         unit:    na
@@ -79,6 +83,7 @@ class Fio(base.Scenario):
         options = args["options"]
         filename = options.get("filename", "/home/ec2-user/data.raw")
         bs = options.get("bs", "4k")
+        iodepth = options.get("iodepth", "1")
         rw = options.get("rw", "write")
         ramp_time = options.get("ramp_time", 20)
         name = "yardstick-fio"
@@ -93,10 +98,11 @@ class Fio(base.Scenario):
         else:
             runtime = 30
 
-        args = "-filename=%s -bs=%s -rw=%s -ramp_time=%s -runtime=%s -name=%s" \
-            % (filename, bs, rw, ramp_time, runtime, name)
+        args = "-filename=%s -bs=%s -iodepth=%s -rw=%s -ramp_time=%s " \
+               "-runtime=%s -name=%s" \
+               % (filename, bs, iodepth, rw, ramp_time, runtime, name)
         cmd = "sudo bash fio.sh %s %s %s" \
-            % (filename, args, default_args)
+              % (filename, args, default_args)
         LOG.debug("Executing command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
         if status:
@@ -127,6 +133,7 @@ def _test():
     options = {
         "filename": "/home/ec2-user/data.raw",
         "bs": "4k",
+        "iodepth": "1",
         "rw": "write",
         "ramp_time": 10,
     }
