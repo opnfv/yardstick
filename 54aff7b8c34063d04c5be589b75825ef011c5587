@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a288981_9dc46f60",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_iperf3.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2015-08-25T14:56:30Z",
+      "side": 1,
+      "message": "you can do this instead:\n\nwith open(output) as f:\n    sample_output \u003d f.read()",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 17
+      },
+      "revId": "54aff7b8c34063d04c5be589b75825ef011c5587",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
