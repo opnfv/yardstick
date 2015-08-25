@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "7a288981_426d0204",
+        "filename": "docs/Yardstick_task_templates.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-25T09:19:49Z",
+      "side": 1,
+      "message": "thank you for your kindly remind,i will do it",
+      "parentUuid": "7a288981_d76416e7",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a288981_f76712e9",
         "filename": "docs/Yardstick_task_templates.rst",
         "patchSetId": 3
@@ -59,6 +83,30 @@
       "writtenOn": "2015-08-21T07:24:15Z",
       "side": 1,
       "message": "i think use config file fragment not the whole config file to indicate template usage could be better for reading.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 35
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_2272f6e5",
+        "filename": "docs/Yardstick_task_templates.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-25T09:19:49Z",
+      "side": 1,
+      "message": "good idea, i will use \"...\" instead of common part",
+      "parentUuid": "7a288981_f76712e9",
       "range": {
         "startLine": 7,
         "startChar": 0,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "7a288981_0277fad5",
+        "filename": "docs/Yardstick_task_templates.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-25T09:19:49Z",
+      "side": 1,
+      "message": "yes, thanks",
+      "parentUuid": "7a288981_1773beb2",
+      "range": {
+        "startLine": 52,
+        "startChar": 85,
+        "endLine": 52,
+        "endChar": 86
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a288981_779562e3",
         "filename": "docs/Yardstick_task_templates.rst",
         "patchSetId": 3
@@ -105,6 +177,30 @@
       "writtenOn": "2015-08-24T09:57:20Z",
       "side": 1,
       "message": "Maybe put this sentence on a new line, because currently this line is very long.",
+      "range": {
+        "startLine": 99,
+        "startChar": 103,
+        "endLine": 99,
+        "endChar": 157
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_e273cee5",
+        "filename": "docs/Yardstick_task_templates.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-25T09:19:49Z",
+      "side": 1,
+      "message": "yes ,good idea ,thanks",
+      "parentUuid": "7a288981_779562e3",
       "range": {
         "startLine": 99,
         "startChar": 103,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "7a288981_c280d28d",
+        "filename": "docs/Yardstick_task_templates.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-25T09:19:49Z",
+      "side": 1,
+      "message": "yes, thanks",
+      "parentUuid": "7a288981_376ebaca",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 1
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a288981_579a6615",
         "filename": "samples/fio-template.yaml",
         "patchSetId": 3
@@ -151,6 +271,30 @@
       "writtenOn": "2015-08-24T09:57:20Z",
       "side": 1,
       "message": "I think this section should also in addition to the file name reflect the purpose of this file (that this file demonstrates the ability to use Jinja2 syntax). The same thing applies to the ping-template.yaml file.",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 4,
+        "endChar": 79
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_a27dc6b3",
+        "filename": "samples/fio-template.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-25T09:19:49Z",
+      "side": 1,
+      "message": "good suggestion, thank you,i will add more information about purpose",
+      "parentUuid": "7a288981_579a6615",
       "range": {
         "startLine": 1,
         "startChar": 1,
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "7a288981_624fde93",
+        "filename": "samples/fio-template.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-25T09:19:49Z",
+      "side": 1,
+      "message": "yes, you are correct,thank you",
+      "parentUuid": "7a288981_57794692",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 12
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a288981_17a4de55",
         "filename": "yardstick/cmd/commands/task.py",
         "patchSetId": 3
@@ -197,6 +365,30 @@
       "writtenOn": "2015-08-24T09:57:20Z",
       "side": 1,
       "message": "Please add a space after the dot.",
+      "range": {
+        "startLine": 35,
+        "startChar": 48,
+        "endLine": 35,
+        "endChar": 51
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_2249d68b",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-25T09:19:49Z",
+      "side": 1,
+      "message": "yes, thank you",
+      "parentUuid": "7a288981_17a4de55",
       "range": {
         "startLine": 35,
         "startChar": 48,
@@ -232,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "7a288981_025eda45",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-25T09:19:49Z",
+      "side": 1,
+      "message": "thank you",
+      "parentUuid": "7a288981_f78832c8",
+      "range": {
+        "startLine": 38,
+        "startChar": 56,
+        "endLine": 38,
+        "endChar": 57
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a288981_379fda05",
         "filename": "yardstick/cmd/commands/task.py",
         "patchSetId": 3
@@ -255,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "7a288981_e25aae4f",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-25T09:19:49Z",
+      "side": 1,
+      "message": "thank you very much",
+      "parentUuid": "7a288981_379fda05",
+      "range": {
+        "startLine": 39,
+        "startChar": 25,
+        "endLine": 39,
+        "endChar": 30
+      },
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a288981_d773f6e5",
         "filename": "yardstick/common/task_template.py",
         "patchSetId": 3
@@ -266,6 +506,24 @@
       "writtenOn": "2015-08-24T12:41:00Z",
       "side": 1,
       "message": "This file is in DOS format with CRLF line terminators. I suggest you convert it to standard Unix line breaks.",
+      "revId": "8883054cb53c737708abbc48175866e696c1340d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_8231aa0d",
+        "filename": "yardstick/common/task_template.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-25T09:19:49Z",
+      "side": 1,
+      "message": "great suggestion, thank you very much",
+      "parentUuid": "7a288981_d773f6e5",
       "revId": "8883054cb53c737708abbc48175866e696c1340d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
