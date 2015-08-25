@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a288981_bd33abf5",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 359
+      },
+      "writtenOn": "2015-08-25T12:48:46Z",
+      "side": 1,
+      "message": "I think this statement is missing a comment what it is about.\nWhat overrides what? The yaml value or the env var",
+      "range": {
+        "startLine": 111,
+        "startChar": 55,
+        "endLine": 111,
+        "endChar": 58
+      },
+      "revId": "1128b6b62ee562c62f7e38b10c71210e5f70c4b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
