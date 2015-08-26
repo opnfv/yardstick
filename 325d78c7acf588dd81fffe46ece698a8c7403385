@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7a288981_1d251fab",
+        "filename": "docs/Yardstick_task_templates.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-26T04:06:26Z",
+      "side": 1,
+      "message": "oh, yes, many thanks",
+      "parentUuid": "7a288981_5d04c714",
+      "revId": "325d78c7acf588dd81fffe46ece698a8c7403385",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a288981_3d09fb2c",
         "filename": "docs/Yardstick_task_templates.rst",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "7a288981_fd3933d9",
+        "filename": "docs/Yardstick_task_templates.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-26T04:06:26Z",
+      "side": 1,
+      "message": "ok,thank you",
+      "parentUuid": "7a288981_3d09fb2c",
+      "revId": "325d78c7acf588dd81fffe46ece698a8c7403385",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a288981_3d7c5b72",
         "filename": "yardstick/cmd/commands/task.py",
         "patchSetId": 4
@@ -47,6 +83,30 @@
       "writtenOn": "2015-08-25T13:52:16Z",
       "side": 1,
       "message": "This should be \"these\" instead of \"there\"",
+      "range": {
+        "startLine": 39,
+        "startChar": 26,
+        "endLine": 39,
+        "endChar": 30
+      },
+      "revId": "325d78c7acf588dd81fffe46ece698a8c7403385",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_bd760b05",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-08-26T04:06:26Z",
+      "side": 1,
+      "message": "yes, thank you",
+      "parentUuid": "7a288981_3d7c5b72",
       "range": {
         "startLine": 39,
         "startChar": 26,
