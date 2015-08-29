@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a288981_f5ca676d",
+        "filename": "yardstick/output/output.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 780
+      },
+      "writtenOn": "2015-08-29T04:00:11Z",
+      "side": 1,
+      "message": "should be a blank space after \"+\"",
+      "range": {
+        "startLine": 61,
+        "startChar": 40,
+        "endLine": 61,
+        "endChar": 47
+      },
+      "revId": "a348f5d62120d1a2bd1bdc61629b740292c518cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
