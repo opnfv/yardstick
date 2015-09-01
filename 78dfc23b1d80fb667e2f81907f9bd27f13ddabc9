@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a288981_3881064b",
+        "filename": "samples/fio-template.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-09-01T10:28:09Z",
+      "side": 1,
+      "message": "Trailing red",
+      "revId": "78dfc23b1d80fb667e2f81907f9bd27f13ddabc9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
