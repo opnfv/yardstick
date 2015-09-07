@@ -40,6 +40,7 @@ apt-get install -y \
     linux-tools-generic \
     lmbench \
     netperf \
+    rt-tests \
     stress
 
 # restore symlink

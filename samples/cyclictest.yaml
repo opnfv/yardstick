@@ -1,0 +1,44 @@
+---
+# Sample benchmark task config file
+# Measure system high resolution by using Cyclictest
+#
+# For this sample just like running the command below on the test vm and
+# getting latencies info back to the yardstick.
+#
+# sudo bash cyclictest -a 1 -i 1000 -p 99 -l 1000 -t 1 -h 90 -m -n -q
+#
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Cyclictest
+  options:
+    affinity: 1
+    interval: 1000
+    priority: 99
+    loops: 1000
+    threads: 1
+    histogram: 90
+  host: kvm.demo
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+  sla:
+    max_min_latency: 50
+    max_avg_latency: 100
+    max_max_latency: 1000
+    action: monitor
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
+  servers:
+    kvm:
+      floating_ip: true
+  networks:
+    test:
+      cidr: "10.0.1.0/24"
