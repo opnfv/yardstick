@@ -32,6 +32,7 @@ apt-get install -y \
     linux-tools-common \
     linux-tools-generic \
     lmbench \
+    rt-tests \
     stress
 
 # restore symlink
