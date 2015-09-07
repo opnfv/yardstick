@@ -22,6 +22,7 @@ from yardstick.common.task_template import TaskTemplate
 from yardstick.common.utils import cliargs
 
 output_file_default = "/tmp/yardstick.out"
+test_cases_dir_default = "tests/opnfv/test_cases/"
 
 
 class TaskCommands(object):
@@ -30,7 +31,7 @@ class TaskCommands(object):
        Set of commands to manage benchmark tasks.
     '''
 
-    @cliargs("taskfile", type=str, help="path to taskfile", nargs=1)
+    @cliargs("inputfile", type=str, help="path to task or suite file", nargs=1)
     @cliargs("--task-args", dest="task_args",
              help="Input task args (dict in json). These args are used"
              "to render input task that is jinja2 template.")
@@ -40,18 +41,33 @@ class TaskCommands(object):
              "task that is jinja2 template.")
     @cliargs("--keep-deploy", help="keep context deployed in cloud",
              action="store_true")
-    @cliargs("--parse-only", help="parse the benchmark config file and exit",
+    @cliargs("--parse-only", help="parse the config file and exit",
              action="store_true")
     @cliargs("--output-file", help="file where output is stored, default %s" %
              output_file_default, default=output_file_default)
+    @cliargs("--suite", help="process test suite file instead of a task file",
+             action="store_true")
     def do_start(self, args):
         '''Start a benchmark scenario.'''
 
         atexit.register(atexit_handler)
 
-        parser = TaskParser(args.taskfile[0])
-        scenarios, run_in_parallel = parser.parse(args.task_args,
-                                                  args.task_args_file)
+        parser = TaskParser(args.inputfile[0])
+
+        suite_params = {}
+        if args.suite:
+            suite_params = parser.parse_suite()
+            test_cases_dir = suite_params["test_cases_dir"]
+            if test_cases_dir[-1] != os.sep:
+                test_cases_dir += os.sep
+            task_files = [test_cases_dir + task
+                          for task in suite_params["task_fnames"]]
+        else:
+            task_files = [parser.path]
+
+        task_args = suite_params.get("task_args", [args.task_args])
+        task_args_fnames = suite_params.get("task_args_fnames",
+                                            [args.task_args_file])
 
         if args.parse_only:
             sys.exit(0)
@@ -59,34 +75,45 @@ class TaskCommands(object):
         if os.path.isfile(args.output_file):
             os.remove(args.output_file)
 
+        for i in range(0, len(task_files)):
+            parser.path = task_files[i]
+            scenarios, run_in_parallel = parser.parse_task(task_args[i],
+                                                           task_args_fnames[i])
+
+            self._run(scenarios, run_in_parallel, args.output_file)
+
+            if args.keep_deploy:
+                # keep deployment, forget about stack
+                # (hide it for exit handler)
+                Context.list = []
+            else:
+                for context in Context.list:
+                    context.undeploy()
+                Context.list = []
+
+        print "Done, exiting"
+
+    def _run(self, scenarios, run_in_parallel, output_file):
+        '''Deploys context and calls runners'''
         for context in Context.list:
             context.deploy()
 
         runners = []
         if run_in_parallel:
             for scenario in scenarios:
-                runner = run_one_scenario(scenario, args.output_file)
+                runner = run_one_scenario(scenario, output_file)
                 runners.append(runner)
 
             # Wait for runners to finish
             for runner in runners:
                 runner_join(runner)
-                print "Runner ended, output in", args.output_file
+                print "Runner ended, output in", output_file
         else:
             # run serially
             for scenario in scenarios:
-                runner = run_one_scenario(scenario, args.output_file)
+                runner = run_one_scenario(scenario, output_file)
                 runner_join(runner)
-                print "Runner ended, output in", args.output_file
-
-        if args.keep_deploy:
-            # keep deployment, forget about stack (hide it for exit handler)
-            Context.list = []
-        else:
-            for context in Context.list:
-                context.undeploy()
-
-        print "Done, exiting"
+                print "Runner ended, output in", output_file
 
 # TODO: Move stuff below into TaskCommands class !?
 
@@ -96,7 +123,47 @@ class TaskParser(object):
     def __init__(self, path):
         self.path = path
 
-    def parse(self, task_args=None, task_args_file=None):
+    def parse_suite(self):
+        '''parse the suite file and return a list of task config file paths
+           and lists of optional parameters if present'''
+        print "Parsing suite file:", self.path
+
+        try:
+            with open(self.path) as stream:
+                cfg = yaml.load(stream)
+        except IOError as ioerror:
+            sys.exit(ioerror)
+
+        self._check_schema(cfg["schema"], "suite")
+        print "Starting suite:", cfg["name"]
+
+        test_cases_dir = cfg.get("test_cases_dir", test_cases_dir_default)
+        task_fnames = []
+        task_args = []
+        task_args_fnames = []
+
+        for task in cfg["test_cases"]:
+            task_fnames.append(task["file_name"])
+            if "task_args" in task:
+                task_args.append(task["task_args"])
+            else:
+                task_args.append(None)
+
+            if "task_args_file" in task:
+                task_args_fnames.append(task["task_args_file"])
+            else:
+                task_args_fnames.append(None)
+
+        suite_params = {
+            "test_cases_dir": test_cases_dir,
+            "task_fnames": task_fnames,
+            "task_args": task_args,
+            "task_args_fnames": task_args_fnames
+        }
+
+        return suite_params
+
+    def parse_task(self, task_args=None, task_args_file=None):
         '''parses the task file and return an context and scenario instances'''
         print "Parsing task config:", self.path
 
@@ -124,9 +191,7 @@ class TaskParser(object):
         except IOError as ioerror:
             sys.exit(ioerror)
 
-        if cfg["schema"] != "yardstick:task:0.1":
-            sys.exit("error: file %s has unknown schema %s" % (self.path,
-                                                               cfg["schema"]))
+        self._check_schema(cfg["schema"], "task")
 
         # TODO: support one or many contexts? Many would simpler and precise
         if "context" in cfg:
@@ -147,6 +212,13 @@ class TaskParser(object):
 
         # TODO we need something better here, a class that represent the file
         return cfg["scenarios"], run_in_parallel
+
+    def _check_schema(self, cfg_schema, schema_type):
+        '''Check if config file is using the correct schema type'''
+
+        if cfg_schema != "yardstick:" + schema_type + ":0.1":
+            sys.exit("error: file %s has unknown schema %s" % (self.path,
+                                                               cfg_schema))
 
 
 def atexit_handler():
