@@ -1,0 +1,17 @@
+---
+# Sample test suite file
+# Test cases listed here should be in the tests/OPNFV/test_cases directory or
+# specified using a --test-cases-dir argument when running the suite
+
+schema: "yardstick:suite:0.1"
+
+name: "Sample test suite"
+test_cases:
+-
+  file_name: ping.yaml
+-
+  file_name: ping-template.yaml
+  task_args: '{"packetsize": "200"}'
+-
+  file_name: ping-template.yaml
+  task_args_file: "/tmp/test-args-file.json"
