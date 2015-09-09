@@ -66,15 +66,21 @@ download() {
     cd -
 }
 
-# mount image using qemu-nbd
+# mount image
 setup() {
-    modprobe nbd max_part=16
-    qemu-nbd -c /dev/nbd0 $imgfile
-    partprobe /dev/nbd0
-
     mkdir -p $mountdir
-    mount /dev/nbd0p1 $mountdir
+    if [ -f /etc/centos-release ]; then
+        # CentOS, mount image using guestmount.
+        # (needs libguestfs-tools installed)
+        guestmount -a $imgfile -i --rw $mountdir
+    else
+        # mount image using qemu-nbd
+        modprobe nbd max_part=16
+        qemu-nbd -c /dev/nbd0 $imgfile
+        partprobe /dev/nbd0
 
+        mount /dev/nbd0p1 $mountdir
+    fi
     cp $cmd $mountdir/$(basename $cmd)
 }
 
