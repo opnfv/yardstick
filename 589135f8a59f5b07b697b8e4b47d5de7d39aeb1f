@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a2585a7_135f5474",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-09-09T02:16:27Z",
+      "side": 1,
+      "message": "yardstick can support different linux distribution. \n\nHere is the common steps to run yardstick test cases:\n\n1) you should have an openstack env, at least install nova, neutron, glance, keystone and heat.\n2) build guest image with related test tools, and load the image use glance into the openstack;\n3) install yardstick and create test config yaml file\n4) run the test case\n    a. use heat create vm, network, etc.\n    b. use ssh login to the guest vm and run the test script\n    c. output the test result\n\nThe image name specified in cyclictest.yaml \"image: yardstick-trusty-server\" should be create by openstack glance before run the test case. Also the image should support related test cmd. Here the image is no linux distribution lock-in.\n\nubuntu-server-cloudimg-modify.sh is a tool script to build the guest image. Currently, only support build ubuntu14.04 guest image under ubuntu, we can support build other linux image if needed.\n\nwe are going to support build guest image under centos: https://jira.opnfv.org/browse/YARDSTICK-136",
+      "parentUuid": "5a2585a7_93c46460",
+      "revId": "589135f8a59f5b07b697b8e4b47d5de7d39aeb1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a2585a7_73a1f8a8",
         "filename": "yardstick/benchmark/scenarios/compute/cyclictest.py",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-09-08T18:41:06Z",
       "side": 1,
       "message": "A bit curios. Will this be executed on host or guest? I noticed you change the ubuntu image for the rt-tests.",
+      "revId": "589135f8a59f5b07b697b8e4b47d5de7d39aeb1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a2585a7_f353a86a",
+        "filename": "yardstick/benchmark/scenarios/compute/cyclictest.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-09-09T02:16:27Z",
+      "side": 1,
+      "message": "The cylictest test script will be executed on guest system, here host just means test vm. Sorry for confusion.",
+      "parentUuid": "5a2585a7_73a1f8a8",
       "revId": "589135f8a59f5b07b697b8e4b47d5de7d39aeb1f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
