@@ -1,0 +1,7 @@
+[run]
+branch = True
+source = yardstick
+
+[report]
+ignore_errors = True
+precision = 3
