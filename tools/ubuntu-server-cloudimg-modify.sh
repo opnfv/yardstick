@@ -29,6 +29,9 @@ grep trusty /etc/apt/sources.list && \
 # Workaround for building on CentOS (apt-get is not working with http sources)
 sed -i 's/http/ftp/' /etc/apt/sources.list
 
+# Force apt to use ipv4 due to build problems on LF POD.
+echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4
+
 apt-get update
 apt-get install -y \
     fio \
