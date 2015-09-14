@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a2f8d8d_ab8fe974",
+        "filename": "docs/to-be-reorganized/index.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-09-14T03:56:57Z",
+      "side": 1,
+      "message": "trailing spaces",
+      "range": {
+        "startLine": 22,
+        "startChar": 36,
+        "endLine": 22,
+        "endChar": 38
+      },
+      "revId": "36efd04b7694ff88a6104a73c5a063999580469e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
