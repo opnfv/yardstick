@@ -23,4 +23,5 @@ setuptools*zip
 dist/
 pep8.log
 test.log
-
+.testrepository/
+cover/
