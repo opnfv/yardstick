@@ -52,7 +52,10 @@ run_tests() {
         fi
     fi
 }
-
+run_coverage() {
+    source ci/cover.sh
+    run_coverage_test
+}
 run_flake8
 run_tests
-
+run_coverage
