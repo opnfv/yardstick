@@ -8,7 +8,6 @@
 ##############################################################################
 
 import importlib
-import json
 import logging
 import multiprocessing
 import subprocess
@@ -18,6 +17,7 @@ log = logging.getLogger(__name__)
 
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base as base_scenario
+from yardstick.dispatcher.base import Base as DispatcherBase
 
 
 def _output_serializer_main(filename, queue):
@@ -25,16 +25,18 @@ def _output_serializer_main(filename, queue):
     Use of this process enables multiple instances of a scenario without
     messing up the output file.
     '''
-    with open(filename, 'a+') as outfile:
-        while True:
-            # blocks until data becomes available
-            record = queue.get()
-            if record == '_TERMINATE_':
-                outfile.close()
-                break
-            else:
-                json.dump(record, outfile)
-                outfile.write('\n')
+    config = {}
+    config["type"] = "File"
+    config["file_path"] = filename
+    dispatcher = DispatcherBase.get(config)
+
+    while True:
+        # blocks until data becomes available
+        record = queue.get()
+        if record == '_TERMINATE_':
+            break
+        else:
+            dispatcher.record_result_data(record)
 
 
 def _single_action(seconds, command, queue):
