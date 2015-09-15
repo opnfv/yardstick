@@ -53,6 +53,17 @@ run_tests() {
     fi
 }
 
+run_functional_test() {
+
+    mkdir -p .testrepository
+    python -m subunit.run discover tests/functional > .testrepository/subunit.log
+
+    subunit2pyunit < .testrepository/subunit.log
+    EXIT_CODE=$?
+    subunit-stats < .testrepository/subunit.log
+
+    exit $EXIT_CODE
+}
 run_flake8
 run_tests
-
+run_functional_test

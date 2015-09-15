@@ -29,7 +29,8 @@ setup(
                       "python-novaclient>=2.24.1",
                       "mock>=1.0.1",  # remove with python3
                       "paramiko",
-                      "six"
+                      "six",
+                      "testrepository>=0.0.18"
                       ],
     extras_require={
         'plot': ["matplotlib>=1.4.2"]
