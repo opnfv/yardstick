@@ -22,32 +22,34 @@ from yardstick.benchmark.runners import base
 LOG = logging.getLogger(__name__)
 
 
-def _worker_process(queue, cls, method_name, context, scenario_args):
+def _worker_process(queue, cls, method_name, scenario_cfg):
 
     sequence = 1
 
-    interval = context.get("interval", 1)
-    arg_name = context.get('name')
-    stop = context.get('stop')
-    step = context.get('step')
-    options = scenario_args['options']
+    runner_cfg = scenario_cfg['runner']
+
+    interval = runner_cfg.get("interval", 1)
+    arg_name = runner_cfg.get('name')
+    stop = runner_cfg.get('stop')
+    step = runner_cfg.get('step')
+    options = scenario_cfg['options']
     start = options.get(arg_name, 0)
 
-    context['runner'] = os.getpid()
+    runner_cfg['runner_id'] = os.getpid()
 
     LOG.info("worker START, step(%s, %d, %d, %d), class %s",
              arg_name, start, stop, step, cls)
 
-    benchmark = cls(context)
+    benchmark = cls(runner_cfg)
     benchmark.setup()
     method = getattr(benchmark, method_name)
 
-    record_context = {"runner": context["runner"],
-                      "host": context["host"]}
+    queue.put({'runner_id': runner_cfg['runner_id'],
+               'scenario_cfg': scenario_cfg})
 
     sla_action = None
-    if "sla" in scenario_args:
-        sla_action = scenario_args["sla"].get("action", "assert")
+    if "sla" in scenario_cfg:
+        sla_action = scenario_cfg["sla"].get("action", "assert")
     margin = 1 if step > 0 else -1
 
     for value in range(start, stop+margin, step):
@@ -55,13 +57,13 @@ def _worker_process(queue, cls, method_name, context, scenario_args):
         options[arg_name] = value
 
         LOG.debug("runner=%(runner)s seq=%(sequence)s START" %
-                  {"runner": context["runner"], "sequence": sequence})
+                  {"runner": runner_cfg["runner_id"], "sequence": sequence})
 
         data = {}
         errors = ""
 
         try:
-            data = method(scenario_args)
+            data = method(scenario_cfg)
         except AssertionError as assertion:
             # SLA validation failed in scenario, determine what to do now
             if sla_action == "assert":
@@ -82,11 +84,13 @@ def _worker_process(queue, cls, method_name, context, scenario_args):
             'errors': errors
         }
 
-        queue.put({'context': record_context, 'sargs': scenario_args,
-                   'benchmark': benchmark_output})
+        record = {'runner_id': runner_cfg['runner_id'],
+                  'benchmark': benchmark_output}
+
+        queue.put(record)
 
         LOG.debug("runner=%(runner)s seq=%(sequence)s END" %
-                  {"runner": context["runner"], "sequence": sequence})
+                  {"runner": runner_cfg["runner_id"], "sequence": sequence})
 
         sequence += 1
 
@@ -125,8 +129,8 @@ class ArithmeticRunner(base.Runner):
 
     __execution_type__ = 'Arithmetic'
 
-    def _run_benchmark(self, cls, method, scenario_args):
+    def _run_benchmark(self, cls, method, scenario_cfg):
         self.process = multiprocessing.Process(
             target=_worker_process,
-            args=(self.result_queue, cls, method, self.config, scenario_args))
+            args=(self.result_queue, cls, method, scenario_cfg))
         self.process.start()
