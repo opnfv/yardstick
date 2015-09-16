@@ -14,7 +14,6 @@ import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
 
 LOG = logging.getLogger(__name__)
-LOG.setLevel(logging.DEBUG)
 
 
 class Perf(base.Scenario):
@@ -49,7 +48,7 @@ class Perf(base.Scenario):
         host = self.context.get('host', None)
         key_filename = self.context.get('key_filename', '~/.ssh/id_rsa')
 
-        LOG.debug("user:%s, host:%s", user, host)
+        LOG.info("user:%s, host:%s", user, host)
         self.client = ssh.SSH(user, host, key_filename=key_filename)
         self.client.wait(timeout=600)
 
