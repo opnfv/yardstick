@@ -17,7 +17,7 @@ LOG = logging.getLogger(__name__)
 
 
 class Fio(base.Scenario):
-    """Execute fio benchmark on host
+    """Execute fio benchmark in a host
 
   Parameters
     filename - file name for fio workload
@@ -73,8 +73,9 @@ class Fio(base.Scenario):
 
     def run(self, args):
         """execute the benchmark"""
-        default_args = "-ioengine=libaio -direct=1 " \
-            "-group_reporting -numjobs=1 -time_based"
+        default_args = "-ioengine=libaio -direct=1 -group_reporting " \
+            "-numjobs=1 -time_based --output-format=json"
+        result = {}
 
         if not self.setup_done:
             self.setup()
@@ -97,21 +98,32 @@ class Fio(base.Scenario):
         else:
             runtime = 30
 
-        args = "-filename=%s -bs=%s -iodepth=%s -rw=%s -ramp_time=%s " \
-               "-runtime=%s -name=%s" \
-               % (filename, bs, iodepth, rw, ramp_time, runtime, name)
-        cmd = "sudo bash fio.sh %s %s %s" \
-              % (filename, args, default_args)
+        cmd_args = "-filename=%s -bs=%s -iodepth=%s -rw=%s -ramp_time=%s " \
+                   "-runtime=%s -name=%s %s" \
+                   % (filename, bs, iodepth, rw, ramp_time, runtime, name,
+                      default_args)
+        cmd = "sudo bash fio.sh %s %s" % (filename, cmd_args)
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        # Set timeout, so that the cmd execution does not exit incorrectly
+        # when the test run time is last long
+        timeout = int(ramp_time) + int(runtime) + 600
+        status, stdout, stderr = self.client.execute(cmd, timeout=timeout)
         if status:
             raise RuntimeError(stderr)
 
-        data = json.loads(stdout)
+        raw_data = json.loads(stdout)
+
+        # The bandwidth unit is KB/s, and latency unit is us
+        result["read_bw"] = raw_data["jobs"][0]["read"]["bw"]
+        result["read_iops"] = raw_data["jobs"][0]["read"]["iops"]
+        result["read_lat"] = raw_data["jobs"][0]["read"]["lat"]["mean"]
+        result["write_bw"] = raw_data["jobs"][0]["write"]["bw"]
+        result["write_iops"] = raw_data["jobs"][0]["write"]["iops"]
+        result["write_lat"] = raw_data["jobs"][0]["write"]["lat"]["mean"]
 
         # TODO: add sla check
 
-        return data
+        return result
 
 
 def _test():
@@ -133,8 +145,9 @@ def _test():
         "filename": "/home/ec2-user/data.raw",
         "bs": "4k",
         "iodepth": "1",
-        "rw": "write",
-        "ramp_time": 10,
+        "rw": "rw",
+        "ramp_time": 1,
+        "duration": 10
     }
     args = {"options": options}
 
