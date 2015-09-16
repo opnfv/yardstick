@@ -8,6 +8,7 @@
 ##############################################################################
 
 import logging
+import json
 
 from yardstick.dispatcher.base import Base as DispatchBase
 
@@ -50,4 +51,4 @@ class FileDispatcher(DispatchBase):
 
     def record_result_data(self, data):
         if self.log:
-            self.log.info(data)
+            self.log.info(json.dumps(data))

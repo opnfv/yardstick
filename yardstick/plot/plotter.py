@@ -213,16 +213,16 @@ class Plotter(object):
             is_rw_type = rw_types[i] == "rw" or rw_types[i] == "randrw"
 
             if is_r_type or is_rw_type:
-                # Remove trailing 'usec' and convert to float
+                # Convert to float
                 data['read_lat'] = \
-                    [r['benchmark']['data']['read_lat'][:-4] for r in records]
+                    [r['benchmark']['data']['read_lat'] for r in records]
                 data['read_lat'] = \
                     [float(i) for i in data['read_lat']]
-                # Remove trailing 'KB/s' and convert to float
+                # Convert to int
                 data['read_bw'] = \
-                    [r['benchmark']['data']['read_bw'][:-4] for r in records]
+                    [r['benchmark']['data']['read_bw'] for r in records]
                 data['read_bw'] =  \
-                    [float(i) for i in data['read_bw']]
+                    [int(i) for i in data['read_bw']]
                 # Convert to int
                 data['read_iops'] = \
                     [r['benchmark']['data']['read_iops'] for r in records]
@@ -231,14 +231,14 @@ class Plotter(object):
 
             if is_w_type or is_rw_type:
                 data['write_lat'] = \
-                    [r['benchmark']['data']['write_lat'][:-4] for r in records]
+                    [r['benchmark']['data']['write_lat'] for r in records]
                 data['write_lat'] = \
                     [float(i) for i in data['write_lat']]
 
                 data['write_bw'] = \
-                    [r['benchmark']['data']['write_bw'][:-4] for r in records]
+                    [r['benchmark']['data']['write_bw'] for r in records]
                 data['write_bw'] = \
-                    [float(i) for i in data['write_bw']]
+                    [int(i) for i in data['write_bw']]
 
                 data['write_iops'] = \
                     [r['benchmark']['data']['write_iops'] for r in records]

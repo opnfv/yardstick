@@ -5,45 +5,10 @@
 # For this sample just like running the command below on the test vm and 
 # getting benchmark info back to the yardstick.
 #
-# sudo fio -filename=/home/ec2-user/data.raw -bs=4k -ipdepth=1 -rw=write \
+# sudo fio -filename=/home/ec2-user/data.raw -bs=4k -ipdepth=1 -rw=rw \
 #          -ramp_time=10 -runtime=60 -name=yardstick-fio -ioengine=libaio \
 #          -direct=1 -group_reporting -numjobs=1 -time_based \
-#          --output=yardstick-fio.log
-#
-# When the above fio command done, the yardstick-fio.log file will contain 
-# information like below and the benchmark script will take iops, throughput 
-# and latency info marked with "" to create json style output.
-#
-# yardstick-fio: (g=0): rw=write, bs=4K-4K/4K-4K/4K-4K, ioengine=libaio, iodepth=1
-# fio-2.1.3
-# Starting 1 process
-#
-# yardstick-fio: (groupid=0, jobs=1): err= 0: pid=1421: Mon Jul  6 01:25:41 2015
-#   write: io=1985.4MB, bw=33882KB/s, iops="8470", runt= 60001msec
-#     slat (usec): min=6, max=15049, avg=10.29, stdev=19.42
-#     clat (usec): min=1, max=18517, avg=105.68, stdev=37.76
-#      lat ("usec"): min=85, max=18528, avg="116.30", stdev=43.57
-#     clat percentiles (usec):
-#      |  1.00th=[   83],  5.00th=[   85], 10.00th=[   87], 20.00th=[   88],
-#      | 30.00th=[   90], 40.00th=[   93], 50.00th=[   98], 60.00th=[  102],
-#      | 70.00th=[  110], 80.00th=[  124], 90.00th=[  137], 95.00th=[  149],
-#      | 99.00th=[  173], 99.50th=[  181], 99.90th=[  203], 99.95th=[  290],
-#      | 99.99th=[  604]
-#     bw (KB  /s): min=    0, max=39816, per=99.26%, avg=33631.46, stdev=4369.58
-#     lat (usec) : 2=0.01%, 50=0.01%, 100=55.44%, 250=44.50%, 500=0.02%
-#     lat (usec) : 750=0.04%, 1000=0.01%
-#     lat (msec) : 2=0.01%, 4=0.01%, 10=0.01%, 20=0.01%
-#   cpu          : usr=4.09%, sys=16.38%, ctx=604931, majf=0, minf=27
-#   IO depths    : 1=118.9%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
-#      submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-#      complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-#      issued    : total=r=0/w=508237/d=0, short=r=0/w=0/d=0
-#
-# Run status group 0 (all jobs):
-#   WRITE: io=1985.4MB, aggrb="33881KB/s", minb=33881KB/s, maxb=33881KB/s, mint=60001msec, maxt=60001msec
-#
-# Disk stats (read/write):
-#   vda: ios=0/604235, merge=0/211, ticks=0/61964, in_queue=61804, util=86.25%
+#          --output-format=json
 
 schema: "yardstick:task:0.1"
 
@@ -54,7 +19,7 @@ scenarios:
     filename: /home/ec2-user/data.raw
     bs: 4k
     iodepth: 1
-    rw: write
+    rw: rw
     ramp_time: 10
   host: fio.demo
   runner:

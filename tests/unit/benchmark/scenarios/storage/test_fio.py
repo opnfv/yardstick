@@ -14,6 +14,7 @@
 import mock
 import unittest
 import json
+import os
 
 from yardstick.benchmark.scenarios.storage import fio
 
@@ -34,7 +35,7 @@ class FioTestCase(unittest.TestCase):
         options = {
             'filename': "/home/ec2-user/data.raw",
             'bs': "4k",
-            'rw': "write",
+            'rw': "rw",
             'ramp_time': 10
         }
         args = {'options': options}
@@ -50,19 +51,21 @@ class FioTestCase(unittest.TestCase):
         options = {
             'filename': "/home/ec2-user/data.raw",
             'bs': "4k",
-            'rw': "write",
+            'rw': "rw",
             'ramp_time': 10
         }
         args = {'options': options}
         p.client = mock_ssh.SSH()
 
-        sample_output = '{"read_bw": "N/A", "write_lat": "407.08usec", \
-            "read_iops": "N/A", "write_bw": "9507KB/s", \
-            "write_iops": "2376", "read_lat": "N/A"}'
+        sample_output = self._read_sample_output()
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
         result = p.run(args)
-        expected_result = json.loads(sample_output)
+
+        expected_result = '{"read_bw": 83888, "read_iops": 20972,' \
+            '"read_lat": 236.8, "write_bw": 84182, "write_iops": 21045,'\
+            '"write_lat": 233.55}'
+        expected_result = json.loads(expected_result)
         self.assertEqual(result, expected_result)
 
     def test_fio_unsuccessful_script_error(self, mock_ssh):
@@ -71,7 +74,7 @@ class FioTestCase(unittest.TestCase):
         options = {
             'filename': "/home/ec2-user/data.raw",
             'bs': "4k",
-            'rw': "write",
+            'rw': "rw",
             'ramp_time': 10
         }
         args = {'options': options}
@@ -80,6 +83,12 @@ class FioTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p.run, args)
 
+    def _read_sample_output(self):
+        curr_path = os.path.dirname(os.path.abspath(__file__))
+        output = os.path.join(curr_path, 'fio_sample_output.json')
+        with open(output) as f:
+            sample_output = f.read()
+        return sample_output
 
 def main():
     unittest.main()
