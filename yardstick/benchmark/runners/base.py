@@ -148,7 +148,7 @@ class Runner(object):
             output = "{'post-stop-action-data': %s}" % data
             self.result_queue.put(output)
 
-    def run(self, scenario_type, scenario_args):
+    def run(self, scenario_type, scenario_cfg):
         class_name = base_scenario.Scenario.get(scenario_type)
         path_split = class_name.split(".")
         module_path = ".".join(path_split[:-1])
@@ -177,7 +177,7 @@ class Runner(object):
                       self.result_queue))
             self.periodic_action_process.start()
 
-        self._run_benchmark(cls, "run", scenario_args)
+        self._run_benchmark(cls, "run", scenario_cfg)
 
     def join(self):
         self.process.join()
