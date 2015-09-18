@@ -14,7 +14,6 @@ import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
 
 LOG = logging.getLogger(__name__)
-LOG.setLevel(logging.DEBUG)
 
 
 class Pktgen(base.Scenario):
@@ -52,11 +51,11 @@ class Pktgen(base.Scenario):
         target = self.context.get('target', None)
         key_filename = self.context.get('key_filename', '~/.ssh/id_rsa')
 
-        LOG.debug("user:%s, target:%s", user, target)
+        LOG.info("user:%s, target:%s", user, target)
         self.server = ssh.SSH(user, target, key_filename=key_filename)
         self.server.wait(timeout=600)
 
-        LOG.debug("user:%s, host:%s", user, host)
+        LOG.info("user:%s, host:%s", user, host)
         self.client = ssh.SSH(user, host, key_filename=key_filename)
         self.client.wait(timeout=600)
 

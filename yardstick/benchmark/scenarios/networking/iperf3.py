@@ -18,7 +18,6 @@ import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
 
 LOG = logging.getLogger(__name__)
-LOG.setLevel(logging.DEBUG)
 
 
 class Iperf(base.Scenario):
@@ -59,12 +58,12 @@ For more info see http://software.es.net/iperf
 
     def setup(self):
         LOG.debug("setup, key %s", self.key_filename)
-        LOG.debug("host:%s, user:%s", self.host_ipaddr, self.user)
+        LOG.info("host:%s, user:%s", self.host_ipaddr, self.user)
         self.host = ssh.SSH(self.user, self.host_ipaddr,
                             key_filename=self.key_filename)
         self.host.wait(timeout=600)
 
-        LOG.debug("target:%s, user:%s", self.target_ipaddr, self.user)
+        LOG.info("target:%s, user:%s", self.target_ipaddr, self.user)
         self.target = ssh.SSH(self.user, self.target_ipaddr,
                               key_filename=self.key_filename)
         self.target.wait(timeout=600)

@@ -40,7 +40,7 @@ class Ping(base.Scenario):
         host = self.context.get('host', None)
         key_filename = self.context.get('key_filename', '~/.ssh/id_rsa')
 
-        LOG.debug("user:%s, host:%s", user, host)
+        LOG.info("user:%s, host:%s", user, host)
 
         self.connection = ssh.SSH(user, host, key_filename=key_filename)
         self.connection.wait()
