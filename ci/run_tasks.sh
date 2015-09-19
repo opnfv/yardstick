@@ -28,6 +28,7 @@ TASK_FILE_NAMES[0]='samples/ping.yaml'
 TASK_FILE_NAMES[1]='samples/iperf3.yaml'
 TASK_FILE_NAMES[2]='samples/pktgen.yaml'
 TASK_FILE_NAMES[3]='samples/fio.yaml'
+TASK_FILE_NAMES[4]='samples/netperf.yaml'
 
 # Execute tasks
 for TASK_FILE in ${TASK_FILE_NAMES[@]}
