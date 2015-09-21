@@ -21,9 +21,9 @@ scenarios:
 
 context:
   name: demo
-  image: iperf3
-  flavor: m1.tiny
-  user: cirros
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
 
   placement_groups:
     pgrp1:
