@@ -1,3 +1,4 @@
+---
 # Sample benchmark task config file
 # measure storage performance using fio
 # Jinja2 Syntax is supported

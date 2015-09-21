@@ -1,3 +1,4 @@
+---
 # Sample benchmark task config file
 # measure network latency using ping
 # Jinja2 Syntax is supported
