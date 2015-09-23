@@ -95,8 +95,12 @@ For more info see http://software.es.net/iperf
         if not options:
             options = ""
 
+        use_UDP = False
         if "udp" in options:
             cmd += " --udp"
+            use_UDP = True
+            if "bandwidth" in options:
+                cmd += " --bandwidth %s" % options["bandwidth"]
         else:
             # tcp obviously
             if "nodelay" in options:
@@ -120,15 +124,25 @@ For more info see http://software.es.net/iperf
 
         output = json.loads(stdout)
 
-        # convert bits per second to bytes per second
-        bytes_per_second = \
-            int((output["end"]["sum_received"]["bits_per_second"])) / 8
-
         if "sla" in args:
-            sla_bytes_per_second = int(args["sla"]["bytes_per_second"])
-            assert bytes_per_second >= sla_bytes_per_second, \
-                "bytes_per_second %d < sla (%d)" % \
-                (bytes_per_second, sla_bytes_per_second)
+            sla_iperf = args["sla"]
+            if not use_UDP:
+                sla_bytes_per_second = int(sla_iperf["bytes_per_second"])
+
+                # convert bits per second to bytes per second
+                bit_per_second = \
+                    int(output["end"]["sum_received"]["bits_per_second"])
+                bytes_per_second = bit_per_second / 8
+                assert bytes_per_second >= sla_bytes_per_second, \
+                    "bytes_per_second %d < sla:bytes_per_second (%d)" % \
+                    (bytes_per_second, sla_bytes_per_second)
+            else:
+                sla_jitter = float(sla_iperf["jitter"])
+
+                jitter_ms = float(output["end"]["sum"]["jitter_ms"])
+                assert jitter_ms <= sla_jitter, \
+                    "jitter_ms  %f > sla:jitter %f" % \
+                    (jitter_ms, sla_jitter)
 
         return output
 

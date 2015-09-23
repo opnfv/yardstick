@@ -21,6 +21,8 @@ from yardstick.benchmark.scenarios.networking import iperf3
 
 @mock.patch('yardstick.benchmark.scenarios.networking.iperf3.ssh')
 class IperfTestCase(unittest.TestCase):
+    output_name_tcp = 'iperf3_sample_output.json'
+    output_name_udp = 'iperf3_sample_output_udp.json'
 
     def setUp(self):
         self.ctx = {
@@ -66,7 +68,7 @@ class IperfTestCase(unittest.TestCase):
         options = {}
         args = {'options': options}
 
-        sample_output = self._read_sample_output()
+        sample_output = self._read_sample_output(self.output_name_tcp)
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         expected_result = json.loads(sample_output)
         result = p.run(args)
@@ -84,7 +86,7 @@ class IperfTestCase(unittest.TestCase):
             'sla': {'bytes_per_second': 15000000}
         }
 
-        sample_output = self._read_sample_output()
+        sample_output = self._read_sample_output(self.output_name_tcp)
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         expected_result = json.loads(sample_output)
         result = p.run(args)
@@ -102,7 +104,41 @@ class IperfTestCase(unittest.TestCase):
             'sla': {'bytes_per_second': 25000000}
         }
 
-        sample_output = self._read_sample_output()
+        sample_output = self._read_sample_output(self.output_name_tcp)
+        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        self.assertRaises(AssertionError, p.run, args)
+
+    def test_iperf_successful_sla_jitter(self, mock_ssh):
+
+        p = iperf3.Iperf(self.ctx)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        p.host = mock_ssh.SSH()
+
+        options = {"udp":"udp","bandwidth":"20m"}
+        args = {
+            'options': options,
+            'sla': {'jitter': 10}
+        }
+
+        sample_output = self._read_sample_output(self.output_name_udp)
+        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        expected_result = json.loads(sample_output)
+        result = p.run(args)
+        self.assertEqual(result, expected_result)
+
+    def test_iperf_unsuccessful_sla_jitter(self, mock_ssh):
+
+        p = iperf3.Iperf(self.ctx)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        p.host = mock_ssh.SSH()
+
+        options = {"udp":"udp","bandwidth":"20m"}
+        args = {
+            'options': options,
+            'sla': {'jitter': 0.0001}
+        }
+
+        sample_output = self._read_sample_output(self.output_name_udp)
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, p.run, args)
 
@@ -118,9 +154,9 @@ class IperfTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p.run, args)
 
-    def _read_sample_output(self):
+    def _read_sample_output(self,filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
-        output = os.path.join(curr_path, 'iperf3_sample_output.json')
+        output = os.path.join(curr_path, filename)
         with open(output) as f:
             sample_output = f.read()
         return sample_output
