@@ -1,0 +1,45 @@
+---
+# Sample benchmark task config file
+# measure network throughput using iperf3
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Iperf3
+  options:
+    udp: udp
+    bandwidth: 20m
+  host: zeus.demo
+  target: hera.demo
+
+  runner:
+    type: Duration
+    duration: 3
+
+  sla:
+    jitter: 0.001
+    action: monitor
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    zeus:
+      floating_ip: true
+      placement: "pgrp1"
+    hera:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+
