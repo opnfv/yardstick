@@ -81,6 +81,7 @@ Example setup known to work for development and test:
 
 Install dependencies:
 $ sudo apt-get install python-virtualenv python-dev libffi-dev libssl-dev
+$ sudo easy_install -U setuptools
 
 Create a virtual environment:
 $ virtualenv ~/yardstick_venv
