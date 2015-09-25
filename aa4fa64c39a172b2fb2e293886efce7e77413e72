@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a2f8d8d_6a657244",
+        "filename": "samples/iperf3-jitter.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 781
+      },
+      "writtenOn": "2015-09-25T08:24:19Z",
+      "side": 1,
+      "message": "This value is too small.\nThe result has error,like this:\nerrors\u0027: (\u0027jitter_ms  0.012716 \u003e sla:jitter 0.001000\u0027\nmaybe sla\u003e5ms?",
+      "range": {
+        "startLine": 21,
+        "startChar": 13,
+        "endLine": 21,
+        "endChar": 14
+      },
+      "revId": "aa4fa64c39a172b2fb2e293886efce7e77413e72",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
