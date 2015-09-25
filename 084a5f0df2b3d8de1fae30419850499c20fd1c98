@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a2f8d8d_0adb8eee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 781
+      },
+      "writtenOn": "2015-09-25T09:36:26Z",
+      "side": 1,
+      "message": "YARDSTICK-107 ?",
+      "range": {
+        "startLine": 10,
+        "startChar": 14,
+        "endLine": 10,
+        "endChar": 27
+      },
+      "revId": "084a5f0df2b3d8de1fae30419850499c20fd1c98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
