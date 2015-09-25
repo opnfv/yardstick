@@ -22,6 +22,23 @@
       "revId": "084a5f0df2b3d8de1fae30419850499c20fd1c98",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a2f8d8d_2a176a53",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-09-25T10:19:36Z",
+      "side": 1,
+      "message": "The etherpad says opnfv (non capitals). I think lower case is prefered as it is easier to type.",
+      "revId": "084a5f0df2b3d8de1fae30419850499c20fd1c98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
