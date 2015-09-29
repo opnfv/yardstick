@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_b2e64643",
+        "filename": "samples/netperf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-09-29T09:26:02Z",
+      "side": 1,
+      "message": "I think this should be \u0027There are two sample scenarios\u0027 to make it clear, that there are not two sample files but rather two sample scenarios.",
+      "range": {
+        "startLine": 4,
+        "startChar": 8,
+        "endLine": 4,
+        "endChar": 10
+      },
+      "revId": "8db781043555351a551461f691a32f2a610e0cfe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_72d0ce53",
+        "filename": "yardstick/benchmark/scenarios/networking/netperf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-09-29T09:26:02Z",
+      "side": 1,
+      "message": "I think this comment section should include a link to netperf homepage (for example like in fio and iperf3 scenarios) so the users could go to that web page to find out what the other valid test names are.",
+      "range": {
+        "startLine": 25,
+        "startChar": 67,
+        "endLine": 25,
+        "endChar": 76
+      },
+      "revId": "8db781043555351a551461f691a32f2a610e0cfe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_925102db",
+        "filename": "yardstick/benchmark/scenarios/networking/netperf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-09-29T09:26:02Z",
+      "side": 1,
+      "message": "I think this could be replaced with a for loop, so we don\u0027t have to have a huge set of if sentences, which would grow if there was need for exposing new arguments. So instead I propose something like this:\n\n        option_pair_list \u003d [(\"send_msg_size\", \"-m\"),\n                            (\"recv_msg_size\", \"-M\"),\n                            (\"req_rsp_size\", \"-r\")]\n\n        for option_pair in option_pair_list:\n            if option_pair[0] in options:\n                cmd_args +\u003d \" %s %s\" % option_pair[1], options[option_pair[0]]\n\nWhat are the thoughts on that?",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 58
+      },
+      "revId": "8db781043555351a551461f691a32f2a610e0cfe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
