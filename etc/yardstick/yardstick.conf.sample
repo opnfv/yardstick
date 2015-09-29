@@ -1,0 +1,13 @@
+[DEFAULT]
+# verbose = True
+# debug = True
+# dispatcher = http
+
+[dispatcher_http]
+# timeout = 5
+# target = http://127.0.0.1:8000/results
+
+[dispatcher_file]
+# file_path = /tmp/yardstick.out
+# max_bytes = 0
+# backup_count = 0

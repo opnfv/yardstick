@@ -7,6 +7,16 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+from oslo_config import cfg
+
 import yardstick.common.utils as utils
 
 utils.import_modules_from_package("yardstick.dispatcher")
+
+CONF = cfg.CONF
+OPTS = [
+    cfg.StrOpt('dispatcher',
+               default='file',
+               help='Dispatcher to store data.'),
+]
+CONF.register_opts(OPTS)
