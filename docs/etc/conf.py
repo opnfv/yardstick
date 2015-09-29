@@ -18,7 +18,7 @@ master_doc = 'index'
 pygments_style = 'sphinx'
 html_use_index = False
 
-pdf_documents = [('index', u'OPNFV', u'OPNFV Project', u'OPNFV')]
+pdf_documents = [('index', u'OPNFV', u'OPNFV Yardstick', u'OPNFV')]
 pdf_fit_mode = "shrink"
 pdf_stylesheets = ['sphinx','kerning','a4']
 #latex_domain_indices = False
@@ -28,7 +28,7 @@ latex_elements = {
     'printindex': '',
 }
 
-project = u'OPNFV: Template documentation config'
+project = u'OPNFV Yardstick: NFV Infrastructure Verification'
 copyright = u'%s, OPNFV' % datetime.date.today().year
 version = u'1.0.0'
 release = u'1.0.0'
