@@ -11,15 +11,44 @@
 Command-line interface to yardstick
 '''
 
-import argparse
 import logging
+import os
+import sys
 
 from pkg_resources import get_distribution
 from argparse import RawDescriptionHelpFormatter
+from oslo_config import cfg
 
 from yardstick.cmd.commands import task
 from yardstick.cmd.commands import runner
 from yardstick.cmd.commands import scenario
+
+CONF = cfg.CONF
+cli_opts = [
+    cfg.BoolOpt('debug',
+                short='d',
+                default=False,
+                help='increase output verbosity to debug'),
+    cfg.BoolOpt('verbose',
+                short='v',
+                default=False,
+                help='increase output verbosity to info')
+]
+CONF.register_cli_opts(cli_opts)
+
+CONFIG_SEARCH_PATHS = [sys.prefix + "/etc/yardstick",
+                       "~/.yardstick",
+                       "/etc/yardstick"]
+
+
+def find_config_files(path_list):
+    for path in path_list:
+        abspath = os.path.abspath(os.path.expanduser(path))
+        confname = abspath + "/yardstick.conf"
+        if os.path.isfile(confname):
+            return [confname]
+
+    return None
 
 
 class YardstickCLI():
@@ -35,38 +64,6 @@ class YardstickCLI():
     def __init__(self):
         self._version = 'yardstick version %s ' % \
             get_distribution('yardstick').version
-
-    def _get_base_parser(self):
-        '''get base (top level) parser'''
-
-        parser = argparse.ArgumentParser(
-            prog='yardstick',
-            formatter_class=RawDescriptionHelpFormatter,
-            description=YardstickCLI.__doc__ or ''
-        )
-
-        # Global options
-
-        parser.add_argument(
-            "-V", "--version",
-            help="display version",
-            version=self._version,
-            action="version"
-        )
-
-        parser.add_argument(
-            "-d", "--debug",
-            help="increase output verbosity to debug",
-            action="store_true"
-        )
-
-        parser.add_argument(
-            "-v", "--verbose",
-            help="increase output verbosity to info",
-            action="store_true"
-        )
-
-        return parser
 
     def _find_actions(self, subparsers, actions_module):
         '''find action methods'''
@@ -87,17 +84,10 @@ class YardstickCLI():
                 subparser.add_argument(*args, **kwargs)
             subparser.set_defaults(func=callback)
 
-    def _get_parser(self):
-        '''get a command-line parser'''
-        parser = self._get_base_parser()
-
-        subparsers = parser.add_subparsers(
-            title='subcommands',
-        )
-
-        # add subcommands
-        for category in YardstickCLI.categories:
-            command_object = YardstickCLI.categories[category]()
+    def _add_command_parsers(self, categories, subparsers):
+        '''add commands to command-line parser'''
+        for category in categories:
+            command_object = categories[category]()
             desc = command_object.__doc__ or ''
             subparser = subparsers.add_parser(
                 category, description=desc,
@@ -107,26 +97,32 @@ class YardstickCLI():
             cmd_subparsers = subparser.add_subparsers(title='subcommands')
             self._find_actions(cmd_subparsers, command_object)
 
-        return parser
-
     def main(self, argv):
         '''run the command line interface'''
 
-        # get argument parser
-        parser = self._get_parser()
+        # register subcommands to parse additional command line arguments
+        parser = lambda subparsers: self._add_command_parsers(
+            YardstickCLI.categories, subparsers)
+        category_opt = cfg.SubCommandOpt("category",
+                                         title="Command categories",
+                                         help="Available categories",
+                                         handler=parser)
+        CONF.register_cli_opt(category_opt)
 
-        # parse command-line
-        args = parser.parse_args(argv)
+        # load CLI args and config files
+        CONF(argv, project="yardstick", version=self._version,
+             default_config_files=find_config_files(CONFIG_SEARCH_PATHS))
 
         # handle global opts
         logger = logging.getLogger('yardstick')
         logger.setLevel(logging.WARNING)
 
-        if args.verbose:
+        if CONF.verbose:
             logger.setLevel(logging.INFO)
 
-        if args.debug:
+        if CONF.debug:
             logger.setLevel(logging.DEBUG)
 
         # dispatch to category parser
-        args.func(args)
+        func = CONF.category.func
+        func(CONF.category)

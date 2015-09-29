@@ -15,9 +15,13 @@ import time
 
 log = logging.getLogger(__name__)
 
+from oslo_config import cfg
+
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base as base_scenario
 from yardstick.dispatcher.base import Base as DispatcherBase
+
+CONF = cfg.CONF
 
 
 def _output_serializer_main(filename, queue):
@@ -26,7 +30,7 @@ def _output_serializer_main(filename, queue):
     messing up the output file.
     '''
     config = {}
-    config["type"] = "File"
+    config["type"] = CONF.dispatcher.capitalize()
     config["file_path"] = filename
     dispatcher = DispatcherBase.get(config)
 
