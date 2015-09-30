@@ -22,6 +22,29 @@
       "revId": "bc314cf8db3e7f7c91cfcf00195a6ccc9c6ba728",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_f2af1e2a",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-09-30T01:38:24Z",
+      "side": 1,
+      "message": "I guess the undeploy may be out of the \"for\"",
+      "range": {
+        "startLine": 83,
+        "startChar": 12,
+        "endLine": 83,
+        "endChar": 32
+      },
+      "revId": "bc314cf8db3e7f7c91cfcf00195a6ccc9c6ba728",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
