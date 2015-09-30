@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_dd3d4bbd",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_iperf3.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-09-30T08:45:13Z",
+      "side": 1,
+      "message": "maybe you can modify _read_sample_output(put file name as an arg) and reuse it.",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 38
+      },
+      "revId": "1c742058f41e0c971ac225a4af3fa367bb8a3f5b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
