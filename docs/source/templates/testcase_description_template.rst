@@ -1,7 +1,13 @@
-.. NOTE::
-   Template to be used for test case descriptions in Yardstick Project.
+.. Template to be used for test case descriptions in Yardstick Project.
    Write one .rst per test case.
-   Upload the .rst for the test case in /docs directory. Review in Gerrit.
+   Upload the .rst for the test case in /docs/source/yardstick directory.
+   Review in Gerrit.
+
+.. image:: ../etc/opnfv-logo.png
+  :height: 40
+  :width: 200
+  :alt: OPNFV
+  :align: left
 
 ******************
 Test Case <slogan>
@@ -63,9 +69,12 @@ Configuration
 
 State the .yaml file to use.
 
-State default configuration in the tool(s) used to perform the measurements (e.g. fio, pktgen).
+State default configuration in the tool(s) used to perform the measurements
+(e.g. fio, pktgen).
 
-State what POD-specific configuration is required to enable running the test case in different PODs.
+State what POD-specific configuration is required to enable running the test
+case in different PODs.
+
 
 State SLA, if applicable.
 
@@ -83,6 +92,3 @@ State applicable graphical presentation
 State applicable output details
 
 State expected Value, behavior, pass/fail criteria
-
-
-
