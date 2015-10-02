@@ -1,0 +1,180 @@
+#!/bin/bash
+##############################################################################
+# Copyright (c) 2015 Ericsson AB and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+YARDSTICK_IMAGE_ID=
+CIRROS_IMAGE_ID=
+
+QCOW_IMAGE="/tmp/workspace/yardstick/yardstick-trusty-server.img"
+
+cleanup()
+{
+    echo
+    echo "========== Cleanup =========="
+
+    if ! glance image-list; then
+        return
+    fi
+
+    for image in $(glance image-list | grep -e cirros-0.3.3 -e yardstick-trusty-server | awk '{print $2}'); do
+        echo "Deleting image $image..."
+        glance image-delete $image || true
+    done
+}
+
+exitcode=""
+
+error_exit()
+{
+    local rc=$?
+
+    if [ -z "$exitcode" ]; then
+        # In case of recursive traps (!?)
+        exitcode=$rc
+    fi
+
+    cleanup
+
+    echo "Exiting with RC=$exitcode"
+
+    exit $exitcode
+}
+
+set -o errexit
+set -o pipefail
+
+install_yardstick()
+{
+    echo
+    echo "========== Installing yardstick =========="
+
+    if ! sudo python setup.py install; then
+        echo 'Yardstick installation failed!'
+        exit 1
+    fi
+}
+
+build_yardstick_image()
+{
+    echo
+    echo "========== Build yardstick cloud image =========="
+
+    sudo $(which yardstick-img-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh
+    if [ ! -f $QCOW_IMAGE ]; then
+        echo "Failed building QCOW image"
+        exit 1
+    fi
+}
+
+load_cirros_image()
+{
+    echo
+    echo "========== Loading cirros cloud image =========="
+
+    local image_file=
+
+    wget http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img -O /tmp/cirros.img
+
+    output=$(glance image-create \
+        --name  cirros-0.3.3 \
+        --disk-format qcow2 \
+        --container-format bare \
+        --file /tmp/cirros.img)
+    echo "$output"
+
+    CIRROS_IMAGE_ID=$(echo "$output" | grep " id " | awk '{print $(NF-1)}')
+    if [ -z "$CIRROS_IMAGE_ID" ]; then
+        echo 'Failed uploading cirros image to cloud'.
+        exit 1
+    fi
+
+    echo "Cirros image id: $CIRROS_IMAGE_ID"
+}
+
+load_yardstick_image()
+{
+    echo
+    echo "========== Loading yardstick cloud image =========="
+
+    output=$(glance --os-image-api-version 1 image-create \
+        --name yardstick-trusty-server \
+        --is-public true --disk-format qcow2 \
+        --container-format bare \
+        --file $QCOW_IMAGE)
+    echo "$output"
+
+    GLANCE_IMAGE_ID=$(echo "$output" | grep " id " | awk '{print $(NF-1)}')
+
+    if [ -z "$GLANCE_IMAGE_ID" ]; then
+        echo 'Failed uploading image to cloud'.
+        exit 1
+    fi
+
+    sudo rm -f $QCOW_IMAGE
+
+    echo "Glance image id: $GLANCE_IMAGE_ID"
+}
+
+run_test()
+{
+    echo
+    echo "========== Running yardstick test suite =========="
+
+    # Just run sample ping for now.
+    if ! yardstick -d task start samples/ping.yaml; then
+        echo "Yardstick test FAILED"
+        exit 1
+    fi
+}
+
+main()
+{
+    # need to install yardstick first to get glanceclient
+    install_yardstick
+
+    # check if some necessary variables is set
+    if [ -z "$OS_AUTH_URL" ]; then
+        echo "OS_AUTH_URL is unset or empty"
+        exit 1
+    fi
+
+    env | grep OS_
+
+    # extract auth ip
+    ip=$(echo $OS_AUTH_URL | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+')
+
+    # check if the auth port is open
+    echo "Checking if tcp port $ip:5000 is open..."
+    nc -zv -w 10 $ip 5000; rc=$?;
+    if [ $rc -eq 0 ]; then
+        echo "$ip:5000 is open for tcp connections"
+    else
+        echo "$ip:5000 is closed"
+        exit 1
+    fi
+
+    # check if the api is up
+    echo "Checking if OS API is working..."
+    if ! glance image-list > /dev/null; then
+        echo "OS API is down"
+        exit 1
+    fi
+
+    cleanup
+
+    trap "error_exit" EXIT SIGTERM
+
+    build_yardstick_image
+    load_yardstick_image
+    load_cirros_image
+
+    run_test
+}
+
+main
