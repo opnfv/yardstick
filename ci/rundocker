@@ -1,0 +1,51 @@
+#!/bin/bash
+##############################################################################
+# Copyright (c) 2015 Ericsson AB and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+DOCKER_IMAGE=jnon/yardstick-ci:14.04
+
+SETUSER=$(whoami)
+SETGID=$(id -g)
+SETUID=$(id -u)
+
+GITROOT=`git rev-parse --show-toplevel`
+
+DOCKER_ENV=(-e "EXTERNAL_NET_ID=$EXTERNAL_NET_ID")
+
+for var in $(env | grep OS_); do
+    DOCKER_ENV+=(-e "$var")
+done
+
+CREATE_USER()
+{
+    echo \
+        groupadd --gid $SETGID $SETUSER '&&' \
+        adduser --system --no-create-home --uid=$SETUID --gid=$SETGID --home $HOME --shell /bin/bash $SETUSER '&&' \
+        mkdir -p $HOME '&&' \
+        chown $SETUID:$SETUID $HOME
+}
+
+EXECUTE_AS()
+{
+    echo \
+        sudo -E -u $SETUSER HOME=$HOME
+}
+set -x
+docker run \
+    -it \
+    --rm=true \
+    --privileged=true \
+    "${DOCKER_ENV[@]}" \
+    -v $GITROOT:$GITROOT \
+    -w $GITROOT \
+    $DOCKER_IMAGE /bin/bash -ci "
+        $(CREATE_USER)
+        $(EXECUTE_AS) $*"
+
+exit $?
