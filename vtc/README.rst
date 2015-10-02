@@ -6,7 +6,7 @@ Overview of the virtual Traffic Classifier
 ========
 The virtual Traffic Classifier VNF, comprises in the current version of 1 VNFC.
 The VNFC contains both the Traffic Inspection module, and the Traffic forwarding module, needed to run the VNF.
-
+Related to Jira Issues 37,137
 
 Concepts
 ========
