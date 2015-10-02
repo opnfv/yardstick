@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+: ${YARDSTICK_REPO:='https://gerrit.opnfv.org/gerrit/yardstick'}
+: ${YARDSTICK_REPO_DIR:='/home/yardstick'}
+: ${YARDSTICK_BRANCH:='master'}
+
+#git clone YARDSTICK_REPO $YARDSTICK_REPO_DIR
+
+cd $YARDSTICK_REPO_DIR 
+#git pull && git checkout $YARDSTICK_BRANCH
+git fetch https://gerrit.opnfv.org/gerrit/yardstick refs/changes/01/2201/4 && git checkout FETCH_HEAD
+
+$YARDSTICK_REPO_DIR/ci/yardstick_verify
+
