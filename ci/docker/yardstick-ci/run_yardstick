@@ -1,0 +1,60 @@
+#!/bin/bash
+##############################################################################
+# Copyright (c) 2015 Ericsson AB and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+set -e
+
+: ${YARDSTICK_REPO:='https://gerrit.opnfv.org/gerrit/yardstick'}
+: ${YARDSTICK_REPO_DIR:='/home/yardstick'}
+: ${YARDSTICK_BRANCH:='master'}
+
+: ${RELENG_REPO:='https://gerrit.opnfv.org/gerrit/releng'}
+: ${RELENG_REPO_DIR:='/home/releng'}
+: ${RELENG_BRANCH:='master'}
+
+: ${INSTALLER_TYPE:='fuel'}
+: ${INSTALLER_IP:='10.20.0.2'}
+
+: ${OPNFV_PLAYGROUND:='no'}
+
+# Only for test and development
+: ${DEBUG_CMD:=''}
+
+# clone releng 
+if [ ! -d $RELENG_REPO_DIR ]; then
+    git clone $RELENG_REPO $RELENG_REPO_DIR
+fi
+cd $RELENG_REPO_DIR 
+git fetch && git checkout $RELENG_BRANCH
+
+# clone yardstick
+if [ ! -d $YARDSTICK_REPO_DIR ]; then
+    git clone YARDSTICK_REPO $YARDSTICK_REPO_DIR
+fi
+cd $YARDSTICK_REPO_DIR 
+git fetch && git checkout $YARDSTICK_BRANCH
+
+# Create openstack credentials
+$RELENG_REPO_DIR/utils/fetch_os_creds.sh \
+    -d /tmp/openrc \
+    -i ${INSTALLER_TYPE} -a ${INSTALLER_IP} 
+
+source /tmp/openrc
+
+if [ "$OPNFV_PLAYGROUND" = "yes" ]; then
+    export OS_ENDPOINT_TYPE='publicURL'
+fi
+
+# Only for test and development
+if [ -n "$DEBUG_CMD" ]; then
+    eval "$DEBUG_CMD"
+fi
+
+$YARDSTICK_REPO_DIR/ci/yardstick-verify
+
