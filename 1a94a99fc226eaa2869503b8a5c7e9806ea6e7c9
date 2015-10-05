@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_63bb5ec5",
+        "filename": "vtc/build.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-10-05T08:21:12Z",
+      "side": 1,
+      "message": "I think this way of cloning is not very good from security perspective as you are essentially giving away your username/password combination. Whoever reads this build file can now read/write/delete this repository and any other repositories you have under your Bitbucket account even if they are private.\n\nI suggest you take a look at Bitbucket\u0027s access tokens, with the help of refresh tokens. This way you are not giving away your password and control over your repositories. Link to documentation:\nhttps://confluence.atlassian.com/bitbucket/oauth-on-bitbucket-cloud-238027431.html\n\nThis way the clone command becomes something like this:\n\n  $ git clone https://x-token-auth:{access_token}@bitbucket.org/akiskourtis/vtc.git",
+      "range": {
+        "startLine": 8,
+        "startChar": 1,
+        "endLine": 8,
+        "endChar": 71
+      },
+      "revId": "1a94a99fc226eaa2869503b8a5c7e9806ea6e7c9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
