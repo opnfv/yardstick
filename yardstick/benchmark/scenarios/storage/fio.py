@@ -121,7 +121,21 @@ class Fio(base.Scenario):
         result["write_iops"] = raw_data["jobs"][0]["write"]["iops"]
         result["write_lat"] = raw_data["jobs"][0]["write"]["lat"]["mean"]
 
-        # TODO: add sla check
+        if "sla" in args:
+            for k, v in result.items():
+                if k not in args['sla']:
+                    continue
+
+                if "lat" in k:
+                    # For lattency small value is better
+                    max_v = float(args['sla'][k])
+                    assert v <= max_v, "%s %f > " \
+                        "sla:%s(%f)" % (k, v, k, max_v)
+                else:
+                    # For bandwidth and iops big value is better
+                    min_v = int(args['sla'][k])
+                    assert v >= min_v, "%s %f > " \
+                        "sla:%s(%f)" % (k, v, k, min_v)
 
         return result
 

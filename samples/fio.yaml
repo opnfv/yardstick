@@ -26,6 +26,17 @@ scenarios:
     type: Duration
     duration: 60
     interval: 1
+  sla:
+    metric: context-switches
+    smaller_than_expected: true
+    expected_value: 300
+    read_bw: 6000
+    read_iops: 1500
+    read_lat: 500.1
+    write_bw: 6000
+    write_iops: 1500
+    write_lat: 500.1
+    action: monitor
 
 context:
   name: demo

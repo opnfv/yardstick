@@ -68,6 +68,101 @@ class FioTestCase(unittest.TestCase):
         expected_result = json.loads(expected_result)
         self.assertEqual(result, expected_result)
 
+    def test_fio_successful_lat_sla(self, mock_ssh):
+
+        p = fio.Fio(self.ctx)
+        options = {
+            'filename': "/home/ec2-user/data.raw",
+            'bs': "4k",
+            'rw': "rw",
+            'ramp_time': 10
+        }
+        args = {
+            'options': options,
+            'sla': {'write_lat': 300.1}
+        }
+
+        p.client = mock_ssh.SSH()
+
+        sample_output = self._read_sample_output()
+        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+
+        result = p.run(args)
+
+        expected_result = '{"read_bw": 83888, "read_iops": 20972,' \
+            '"read_lat": 236.8, "write_bw": 84182, "write_iops": 21045,'\
+            '"write_lat": 233.55}'
+        expected_result = json.loads(expected_result)
+        self.assertEqual(result, expected_result)
+
+
+    def test_fio_unsuccessful_lat_sla(self, mock_ssh):
+
+        p = fio.Fio(self.ctx)
+        options = {
+            'filename': "/home/ec2-user/data.raw",
+            'bs': "4k",
+            'rw': "rw",
+            'ramp_time': 10
+        }
+        args = {
+            'options': options,
+            'sla': {'write_lat': 200.1}
+        }
+
+        p.client = mock_ssh.SSH()
+
+        sample_output = self._read_sample_output()
+        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        self.assertRaises(AssertionError, p.run, args)
+
+    def test_fio_successful_bw_iops_sla(self, mock_ssh):
+
+        p = fio.Fio(self.ctx)
+        options = {
+            'filename': "/home/ec2-user/data.raw",
+            'bs': "4k",
+            'rw': "rw",
+            'ramp_time': 10
+        }
+        args = {
+            'options': options,
+            'sla': {'read_iops': 20000}
+        }
+
+        p.client = mock_ssh.SSH()
+
+        sample_output = self._read_sample_output()
+        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+
+        result = p.run(args)
+
+        expected_result = '{"read_bw": 83888, "read_iops": 20972,' \
+            '"read_lat": 236.8, "write_bw": 84182, "write_iops": 21045,'\
+            '"write_lat": 233.55}'
+        expected_result = json.loads(expected_result)
+        self.assertEqual(result, expected_result)
+
+    def test_fio_unsuccessful_bw_iops_sla(self, mock_ssh):
+
+        p = fio.Fio(self.ctx)
+        options = {
+            'filename': "/home/ec2-user/data.raw",
+            'bs': "4k",
+            'rw': "rw",
+            'ramp_time': 10
+        }
+        args = {
+            'options': options,
+            'sla': {'read_iops': 30000}
+        }
+
+        p.client = mock_ssh.SSH()
+
+        sample_output = self._read_sample_output()
+        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        self.assertRaises(AssertionError, p.run, args)
+
     def test_fio_unsuccessful_script_error(self, mock_ssh):
 
         p = fio.Fio(self.ctx)
