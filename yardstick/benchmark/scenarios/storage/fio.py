@@ -114,14 +114,30 @@ class Fio(base.Scenario):
         raw_data = json.loads(stdout)
 
         # The bandwidth unit is KB/s, and latency unit is us
-        result["read_bw"] = raw_data["jobs"][0]["read"]["bw"]
-        result["read_iops"] = raw_data["jobs"][0]["read"]["iops"]
-        result["read_lat"] = raw_data["jobs"][0]["read"]["lat"]["mean"]
-        result["write_bw"] = raw_data["jobs"][0]["write"]["bw"]
-        result["write_iops"] = raw_data["jobs"][0]["write"]["iops"]
-        result["write_lat"] = raw_data["jobs"][0]["write"]["lat"]["mean"]
+        if rw in ["read", "randread", "rw", "randrw"]:
+            result["read_bw"] = raw_data["jobs"][0]["read"]["bw"]
+            result["read_iops"] = raw_data["jobs"][0]["read"]["iops"]
+            result["read_lat"] = raw_data["jobs"][0]["read"]["lat"]["mean"]
+        if rw in ["write", "randwrite", "rw", "randrw"]:
+            result["write_bw"] = raw_data["jobs"][0]["write"]["bw"]
+            result["write_iops"] = raw_data["jobs"][0]["write"]["iops"]
+            result["write_lat"] = raw_data["jobs"][0]["write"]["lat"]["mean"]
 
-        # TODO: add sla check
+        if "sla" in args:
+            for k, v in result.items():
+                if k not in args['sla']:
+                    continue
+
+                if "lat" in k:
+                    # For lattency small value is better
+                    max_v = float(args['sla'][k])
+                    assert v <= max_v, "%s %f > " \
+                        "sla:%s(%f)" % (k, v, k, max_v)
+                else:
+                    # For bandwidth and iops big value is better
+                    min_v = int(args['sla'][k])
+                    assert v >= min_v, "%s %d < " \
+                        "sla:%s(%d)" % (k, v, k, min_v)
 
         return result
 
