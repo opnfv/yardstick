@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_b5a62b52",
+        "filename": "ci/docker/Makefile",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2015-10-08T14:53:50Z",
+      "side": 1,
+      "message": "if we want to push it to the opnfv dockerhub, you have to put the account before:\n\nopnfv/yardstick-ci",
+      "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_d5a99f25",
+        "filename": "ci/docker/Makefile",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2015-10-08T14:53:50Z",
+      "side": 1,
+      "message": "what about deleting also the image?\n\n$ docker ps | grep opnfv/yardstick-ci | awk \u0027{print $1}\u0027 | xargs docker stop\n\n$ docker ps -a | grep opnfv/yardstick-ci | awk \u0027{print $1}\u0027 | xargs docker rm\n\n$ docker images | grep opnfv/yardstick-ci | awk \u0027{print $3}\u0027 | xargs docker rmi",
+      "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_556daf03",
+        "filename": "ci/docker/yardstick-ci/Dockerfile",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2015-10-08T14:53:50Z",
+      "side": 1,
+      "message": "Please use this here in case we want to change it later on:\n\nENV repo_dir /home/yardstick",
+      "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_7568b3f5",
+        "filename": "ci/docker/yardstick-ci/Dockerfile",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2015-10-08T14:53:50Z",
+      "side": 1,
+      "message": "RUN git clone https://gerrit.opnfv.org/gerrit/yardstick ${repo_dir}",
+      "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_35723be6",
+        "filename": "ci/docker/yardstick-ci/Dockerfile",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2015-10-08T14:53:50Z",
+      "side": 1,
+      "message": "why do you copy this, if when you clone the repository, this file will be altready there. \n\nYou could use:\n\nRUN chmod 744  ${repo_dir}/ci/docker/yardstick-ci/run_benchmarks\n\nRUN cp ${repo_dir}/ci/docker/yardstick-ci/run_benchmarks /usr/local/bin/",
+      "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_157737d6",
+        "filename": "ci/docker/yardstick-ci/run_benchmarks",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2015-10-08T14:53:50Z",
+      "side": 1,
+      "message": "whitespaces",
+      "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_f57383e5",
+        "filename": "ci/yardstick-verify",
+        "patchSetId": 7
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2015-10-08T14:53:50Z",
+      "side": 1,
+      "message": "whitespace",
+      "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
