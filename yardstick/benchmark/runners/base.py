@@ -39,6 +39,7 @@ def _output_serializer_main(filename, queue):
         # blocks until data becomes available
         record = queue.get()
         if record == '_TERMINATE_':
+            dispatcher.flush_result_data()
             break
         else:
             dispatcher.record_result_data(record)
