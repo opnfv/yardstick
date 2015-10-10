@@ -61,3 +61,6 @@ class FileDispatcher(DispatchBase):
     def record_result_data(self, data):
         if self.log:
             self.log.info(json.dumps(data))
+
+    def flush_result_data(self):
+        pass
