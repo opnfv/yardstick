@@ -44,27 +44,48 @@ class HttpDispatcher(DispatchBase):
         self.headers = {'Content-type': 'application/json'}
         self.timeout = CONF.dispatcher_http.timeout
         self.target = CONF.dispatcher_http.target
+        self.raw_result = []
+        # TODO set pod_name, installer, version based on pod info
+        self.result = {
+            "project_name": "yardstick",
+            "description": "yardstick test cases result",
+            "pod_name": "opnfv-jump-2",
+            "installer": "compass",
+            "version": "Brahmaputra-dev"
+        }
 
     def record_result_data(self, data):
+        self.raw_result.append(data)
+
+    def flush_result_data(self):
         if self.target == '':
             # if the target was not set, do not do anything
             LOG.error('Dispatcher target was not set, no data will'
                       'be posted.')
             return
 
-        # We may have receive only one counter on the wire
-        if not isinstance(data, list):
-            data = [data]
+        self.result["details"] = self.raw_result
 
-        for result in data:
-            try:
-                LOG.debug('Message : %s' % result)
-                res = requests.post(self.target,
-                                    data=json.dumps(result),
-                                    headers=self.headers,
-                                    timeout=self.timeout)
-                LOG.debug('Message posting finished with status code'
-                          '%d.' % res.status_code)
-            except Exception as err:
-                LOG.exception('Failed to record result data: %s',
-                              err)
+        case_name = ""
+        for v in self.raw_result:
+            if isinstance(v, dict) and "scenario_cfg" in v:
+                case_name = v["scenario_cfg"]["type"]
+                break
+        if case_name == "":
+            LOG.error('Test result : %s' % json.dumps(self.result))
+            LOG.error('The case_name cannot be found, no data will be posted.')
+            return
+
+        self.result["case_name"] = case_name
+
+        try:
+            LOG.debug('Test result : %s' % json.dumps(self.result))
+            res = requests.post(self.target,
+                                data=json.dumps(self.result),
+                                headers=self.headers,
+                                timeout=self.timeout)
+            LOG.debug('Test result posting finished with status code'
+                      ' %d.' % res.status_code)
+        except Exception as err:
+            LOG.exception('Failed to record result data: %s',
+                          err)
