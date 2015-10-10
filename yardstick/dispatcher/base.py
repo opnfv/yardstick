@@ -36,3 +36,7 @@ class Base(object):
     @abc.abstractmethod
     def record_result_data(self, data):
         """Recording result data interface."""
+
+    @abc.abstractmethod
+    def flush_result_data(self):
+        """Flush result data into permanent storage media interface."""
