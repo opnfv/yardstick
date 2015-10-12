@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_aba6c851",
+        "filename": "vtc/README.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 781
+      },
+      "writtenOn": "2015-10-12T09:14:19Z",
+      "side": 1,
+      "message": "maybe JIRA: YARDSTICK-37 is better? :)",
+      "range": {
+        "startLine": 9,
+        "startChar": 11,
+        "endLine": 9,
+        "endChar": 25
+      },
+      "revId": "1b4a5314941031d5f7c962657bbfe706980fa6de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_8b63041a",
+        "filename": "vtc/README.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 781
+      },
+      "writtenOn": "2015-10-12T09:14:19Z",
+      "side": 1,
+      "message": "whitespaces",
+      "range": {
+        "startLine": 20,
+        "startChar": 89,
+        "endLine": 20,
+        "endChar": 90
+      },
+      "revId": "1b4a5314941031d5f7c962657bbfe706980fa6de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
