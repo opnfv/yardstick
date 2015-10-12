@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_8652db11",
+        "filename": "yardstick/dispatcher/http.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-12T12:30:49Z",
+      "side": 1,
+      "message": "\"pod_name\" and \"installer\" is the attr of the SUT, so we can add them into the poc.yaml(pod.yaml?) in the future. About the value of \"version\", could we use the yardstick version from \"get_distribution(\u0027yardstick\u0027).version\", is this the same mean?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 30
+      },
+      "revId": "70acbf06f1f90c2d5720d8bdfc173b364216e5c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_e64ab754",
+        "filename": "yardstick/dispatcher/http.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-12T12:30:49Z",
+      "side": 1,
+      "message": "if the raw_result is empty or there is no \"scenario_cfg\" field, the case_name is not assignment, so the \"self.result[\"case_name\"] \u003d case_name\" will raise a error. \nIt\u0027s prefer to write like this:\n\nself.case_name \u003d \"\"\n        for v in self.raw_result:\n            if isinstance(v, dict) and \"scenario_cfg\" in v:\n                self.case_name \u003d v[\"scenario_cfg\"][\"type\"]\n                break\n\n        if self.case_name \u003d\u003d \"\":\n        \tLOG.error(\u0027The case name cannot be found, \nno data will be posted.\u0027)\n            return\n        \n        self.result[\"case_name\"] \u003d self.case_name",
+      "range": {
+        "startLine": 67,
+        "startChar": 7,
+        "endLine": 71,
+        "endChar": 44
+      },
+      "revId": "70acbf06f1f90c2d5720d8bdfc173b364216e5c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
