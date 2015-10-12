@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "da6255ed_e66197d4",
+        "filename": "ci/docker/yardstick-ci/Dockerfile",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2015-10-12T13:06:18Z",
+      "side": 1,
+      "message": "But as long as you merge this patch, you will have the script already there :)\nI went through the same dependency and as long as the commit contains both files it\u0027s fine.",
+      "revId": "178439f8735da5028cc2a2cad7062895e04398d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6255ed_eb2160b5",
         "filename": "ci/yardstick-verify",
         "patchSetId": 8
