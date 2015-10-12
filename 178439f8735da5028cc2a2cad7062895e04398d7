@@ -22,6 +22,30 @@
       "revId": "178439f8735da5028cc2a2cad7062895e04398d7",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_ab2b6893",
+        "filename": "ci/yardstick-verify",
+        "patchSetId": 8
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-10-12T11:16:13Z",
+      "side": 1,
+      "message": "run_tasks.sh",
+      "parentUuid": "da6255ed_eb2160b5",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 35
+      },
+      "revId": "178439f8735da5028cc2a2cad7062895e04398d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
