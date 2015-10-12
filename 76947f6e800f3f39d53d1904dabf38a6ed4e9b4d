@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da6255ed_cb80dc8d",
+        "filename": "ci/docker/Makefile",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-10-12T09:49:12Z",
+      "side": 1,
+      "message": "Thanks. Done",
+      "parentUuid": "da6255ed_b5a62b52",
+      "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6255ed_d5a99f25",
         "filename": "ci/docker/Makefile",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "da6255ed_ab7da8b3",
+        "filename": "ci/docker/Makefile",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-10-12T09:49:12Z",
+      "side": 1,
+      "message": "Thanks i will add this.",
+      "parentUuid": "da6255ed_d5a99f25",
+      "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6255ed_556daf03",
         "filename": "ci/docker/yardstick-ci/Dockerfile",
         "patchSetId": 7
@@ -47,6 +83,24 @@
       "writtenOn": "2015-10-08T14:53:50Z",
       "side": 1,
       "message": "Please use this here in case we want to change it later on:\n\nENV repo_dir /home/yardstick",
+      "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_4b44ec73",
+        "filename": "ci/docker/yardstick-ci/Dockerfile",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-10-12T09:49:12Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "da6255ed_556daf03",
       "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "da6255ed_2b49b88b",
+        "filename": "ci/docker/yardstick-ci/Dockerfile",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-10-12T09:49:12Z",
+      "side": 1,
+      "message": "I cant do this yet as run_benchmarks does not exist in the master branch.",
+      "parentUuid": "da6255ed_35723be6",
+      "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6255ed_157737d6",
         "filename": "ci/docker/yardstick-ci/run_benchmarks",
         "patchSetId": 7
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "da6255ed_0b5ef445",
+        "filename": "ci/docker/yardstick-ci/run_benchmarks",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-10-12T09:49:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da6255ed_157737d6",
+      "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6255ed_f57383e5",
         "filename": "ci/yardstick-verify",
         "patchSetId": 7
@@ -115,6 +205,24 @@
       "writtenOn": "2015-10-08T14:53:50Z",
       "side": 1,
       "message": "whitespace",
+      "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_eb5a804f",
+        "filename": "ci/yardstick-verify",
+        "patchSetId": 7
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-10-12T09:49:12Z",
+      "side": 1,
+      "message": "ThanksDone",
+      "parentUuid": "da6255ed_f57383e5",
       "revId": "76947f6e800f3f39d53d1904dabf38a6ed4e9b4d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
