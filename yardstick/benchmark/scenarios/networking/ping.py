@@ -64,11 +64,13 @@ class Ping(base.Scenario):
         if exit_status != 0:
             raise RuntimeError(stderr)
 
-        rtt = float(stdout)
+        if stdout:
+            rtt = float(stdout)
+            if "sla" in args:
+                sla_max_rtt = int(args["sla"]["max_rtt"])
+                assert rtt <= sla_max_rtt, "rtt %f > sla:max_rtt(%f)" % \
+                    (rtt, sla_max_rtt)
 
-        if "sla" in args:
-            sla_max_rtt = int(args["sla"]["max_rtt"])
-            assert rtt <= sla_max_rtt, "rtt %f > sla:max_rtt(%f)" % \
-                (rtt, sla_max_rtt)
-
-        return rtt
+            return rtt
+        else:
+            LOG.error("ping '%s' '%s' timeout", options, destination)
