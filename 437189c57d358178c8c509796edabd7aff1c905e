@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_cbf1fc96",
+        "filename": "samples/fio.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-12T03:20:45Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 23
+      },
+      "revId": "437189c57d358178c8c509796edabd7aff1c905e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_abeec8b2",
+        "filename": "yardstick/benchmark/scenarios/storage/fio.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-12T03:20:45Z",
+      "side": 1,
+      "message": "could be better check rw type to generate result",
+      "range": {
+        "startLine": 117,
+        "startChar": 8,
+        "endLine": 117,
+        "endChar": 61
+      },
+      "revId": "437189c57d358178c8c509796edabd7aff1c905e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_ebf4c088",
+        "filename": "yardstick/benchmark/scenarios/storage/fio.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-12T03:20:45Z",
+      "side": 1,
+      "message": "\u003e to \u003c",
+      "range": {
+        "startLine": 137,
+        "startChar": 46,
+        "endLine": 137,
+        "endChar": 48
+      },
+      "revId": "437189c57d358178c8c509796edabd7aff1c905e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
