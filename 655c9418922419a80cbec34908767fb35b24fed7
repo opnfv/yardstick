@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_8b79c4fe",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-10-12T06:17:56Z",
+      "side": 1,
+      "message": "may be, you can delete this red space",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 8
+      },
+      "revId": "655c9418922419a80cbec34908767fb35b24fed7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_6b7e90e6",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-10-12T06:17:56Z",
+      "side": 1,
+      "message": "delete this space",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 5
+      },
+      "revId": "655c9418922419a80cbec34908767fb35b24fed7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
