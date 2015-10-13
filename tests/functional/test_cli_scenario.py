@@ -31,7 +31,8 @@ class ScenarioTestCase(unittest.TestCase):
 
     def test_scenario_show_Lmbench(self):
         res = self.yardstick("scenario show Lmbench")
-        lmbench = "Execute lmbench memory read latency benchmark in a host" in res
+        lmbench = "Execute lmbench memory read latency"
+        "or memory bandwidth benchmark in a host" in res
         self.assertTrue(lmbench)
 
     def test_scenario_show_Perf(self):
