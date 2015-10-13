@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "da6255ed_a6127fb2",
+        "filename": "ci/docker/Makefile",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-13T04:17:19Z",
+      "side": 1,
+      "message": "-\u003e $1",
+      "range": {
+        "startLine": 24,
+        "startChar": 41,
+        "endLine": 24,
+        "endChar": 43
+      },
+      "revId": "178439f8735da5028cc2a2cad7062895e04398d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6255ed_e66197d4",
         "filename": "ci/docker/yardstick-ci/Dockerfile",
         "patchSetId": 8
