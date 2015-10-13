@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_6635a745",
+        "filename": "yardstick/benchmark/scenarios/storage/fio.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-13T03:22:25Z",
+      "side": 1,
+      "message": "it\u0027s better to use %d instead of %f because the min_v is an integer",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 55
+      },
+      "revId": "780e902402f05d41f64e39146429834806f8a4e6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
