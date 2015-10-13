@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "da6255ed_2113195e",
+        "filename": "ci/docker/yardstick-ci/Dockerfile",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-10-13T10:50:11Z",
+      "side": 1,
+      "message": "Well im not sure if copying the script from the cloned yardstick repo is the best solution. To keep things simple I would like the script to be from the same commit as the Dockerfile and not from LATEST on master.",
+      "parentUuid": "da6255ed_e66197d4",
+      "revId": "178439f8735da5028cc2a2cad7062895e04398d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6255ed_eb2160b5",
         "filename": "ci/yardstick-verify",
         "patchSetId": 8
