@@ -1,6 +1,6 @@
 ---
 # Sample benchmark task config file
-# measure memory read latency using lmbench
+# measure memory read latency and memory bandwidth using lmbench
 
 schema: "yardstick:task:0.1"
 
@@ -8,6 +8,7 @@ scenarios:
 -
   type: Lmbench
   options:
+    test_type: "latency"
     stride: 64
     stop_size: 32
 
@@ -21,6 +22,24 @@ scenarios:
 
   sla:
     max_latency: 35
+    action: monitor
+-
+  type: Lmbench
+  options:
+    test_type: "bandwidth"
+    size: 500
+    benchmark: "wr"
+
+  host: demeter.demo
+
+  runner:
+    type: Arithmetic
+    name: size
+    stop: 2000
+    step: 500
+
+  sla:
+    min_bandwidth: 10000
     action: monitor
 
 context:
