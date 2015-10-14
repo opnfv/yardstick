@@ -47,6 +47,7 @@ md5sums_path="${release}/current/MD5SUMS"
 md5sums_url=${MD5SUMS_URL:-"https://${host}/${md5sums_path}"}
 
 imgfile="${workspace}/yardstick-${release}-server.img"
+raw_imgfile="${workspace}/yardstick-${release}-server.raw"
 filename=$(basename $image_url)
 
 # download and checksum base image, conditionally if local copy is outdated
@@ -62,26 +63,23 @@ download() {
         wget -nc $image_url
         grep $filename MD5SUMS | md5sum -c
     fi
-    cp $filename $imgfile
+    qemu-img convert $filename $raw_imgfile
     cd -
 }
 
 # mount image
 setup() {
     mkdir -p $mountdir
-    if [ -f /etc/centos-release ]; then
-        # CentOS, mount image using guestmount.
-        # (needs libguestfs-tools installed)
-        export LIBGUESTFS_BACKEND=direct
-        guestmount -a $imgfile -i --rw $mountdir
-    else
-        # mount image using qemu-nbd
-        modprobe nbd max_part=16
-        qemu-nbd -c /dev/nbd0 $imgfile
-        partprobe /dev/nbd0
 
-        mount /dev/nbd0p1 $mountdir
-    fi
+    for i in $(seq 0 9); do
+        [ -a /dev/loop$i ] || mknod -m 660 /dev/loop$i b 7 $i
+    done
+
+    loopdevice=$(kpartx -l $raw_imgfile | head -1 | cut -f1 -d ' ')
+
+    kpartx -a $raw_imgfile
+    mount /dev/mapper/$loopdevice $mountdir
+
     cp $cmd $mountdir/$(basename $cmd)
 }
 
@@ -90,19 +88,25 @@ modify() {
     # resolv.conf does not exist in base image, pass nameserver value from host
     nameserver_ip=$(grep -m 1 '^nameserver' \
         /etc/resolv.conf | awk '{ print $2 '})
+
     chroot $mountdir /$(basename $cmd) $nameserver_ip
+
+    umount $mountdir
+    qemu-img convert -c -o compat=0.10 -O qcow2 $raw_imgfile $imgfile
 }
 
 # cleanup (umount) the image
 cleanup() {
     # designed to be idempotent
     mount | grep $mountdir && umount $mountdir
-    test -b /dev/nbd0 && partprobe /dev/nbd0
-    pgrep qemu-nbd && qemu-nbd -d /dev/nbd0
+    if [ -f $raw_imgfile ]; then
+        kpartx -d $raw_imgfile || true
+    fi
+    rm -f $raw_imgfile
     rm -rf $mountdir
-    killall qemu-nbd 2> /dev/null || true
-    lsmod | grep nbd && rmmod nbd || true
 }
+
+set -x
 
 main() {
     cleanup
