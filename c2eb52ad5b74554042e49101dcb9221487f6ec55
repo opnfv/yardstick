@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_c1f8bd4b",
+        "filename": "yardstick/benchmark/scenarios/compute/cyclictest.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-14T08:57:41Z",
+      "side": 1,
+      "message": "it is preferable to use %d instead of %f because the latency and sla_latency are both integer.",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 75
+      },
+      "revId": "c2eb52ad5b74554042e49101dcb9221487f6ec55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
