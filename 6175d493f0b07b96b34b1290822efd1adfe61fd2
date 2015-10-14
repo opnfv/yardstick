@@ -16,6 +16,24 @@
       "revId": "6175d493f0b07b96b34b1290822efd1adfe61fd2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_c11c3dc4",
+        "filename": "yardstick/dispatcher/file.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-14T04:23:40Z",
+      "side": 0,
+      "message": "you commented on the base code, the new patch is already changed to CONF.dispatcher_file.file_path :)",
+      "parentUuid": "da6255ed_2668cfb9",
+      "revId": "6175d493f0b07b96b34b1290822efd1adfe61fd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
