@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_817e45e3",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-14T04:18:27Z",
+      "side": 1,
+      "message": "execute?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 25
+      },
+      "revId": "58a00e1091c77cfcee48e854f3b73f22b9b4e2a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_a17949fe",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-14T04:18:27Z",
+      "side": 1,
+      "message": "since this is a loop, so if in first interval the execute is successful, and the second is failed. the output queue has some data but not the whole. A suggestion is to put the output data into the result_queue no matter the execution of external script is successful or failed.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 25
+      },
+      "revId": "58a00e1091c77cfcee48e854f3b73f22b9b4e2a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_61359145",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-14T04:18:27Z",
+      "side": 1,
+      "message": "please add the description comments for this function.",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 31
+      },
+      "revId": "58a00e1091c77cfcee48e854f3b73f22b9b4e2a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_01237506",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-14T04:18:27Z",
+      "side": 1,
+      "message": "some functions have the log.debug for record the error, some don\u0027t have. it\u0027s preferable to unify the code style.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 22
+      },
+      "revId": "58a00e1091c77cfcee48e854f3b73f22b9b4e2a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_e11f41b6",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-14T04:18:27Z",
+      "side": 1,
+      "message": "the same reason as before.",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 22
+      },
+      "revId": "58a00e1091c77cfcee48e854f3b73f22b9b4e2a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
