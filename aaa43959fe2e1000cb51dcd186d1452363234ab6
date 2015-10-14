@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_c1d79dec",
+        "filename": "samples/netperf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-14T02:17:30Z",
+      "side": 1,
+      "message": "the description of netperf and its SLA are not equal.",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 42
+      },
+      "revId": "aaa43959fe2e1000cb51dcd186d1452363234ab6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
