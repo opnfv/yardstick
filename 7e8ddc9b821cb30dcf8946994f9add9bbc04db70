@@ -45,6 +45,52 @@
       "revId": "7e8ddc9b821cb30dcf8946994f9add9bbc04db70",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_37735bb3",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-15T11:18:08Z",
+      "side": 1,
+      "message": "this step seems needless because Runner.release(runner) has already release all the runners. so the Runner.dump_process should always be the None in this area.",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 41
+      },
+      "revId": "7e8ddc9b821cb30dcf8946994f9add9bbc04db70",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_176857b9",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-15T11:18:08Z",
+      "side": 1,
+      "message": "it\u0027s better to remove the brackets like the same code style above.",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 29
+      },
+      "revId": "7e8ddc9b821cb30dcf8946994f9add9bbc04db70",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
