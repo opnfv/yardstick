@@ -16,7 +16,8 @@ import atexit
 import pkg_resources
 import ipaddress
 
-from yardstick.benchmark.context.model import Context
+# from yardstick.benchmark.context.model import Context
+from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
 from yardstick.common.task_template import TaskTemplate
 from yardstick.common.utils import cliargs
@@ -194,18 +195,20 @@ class TaskParser(object):
         self._check_schema(cfg["schema"], "task")
 
         # TODO: support one or many contexts? Many would simpler and precise
+        # TODO: support hybrid context type
         if "context" in cfg:
             context_cfgs = [cfg["context"]]
         else:
             context_cfgs = cfg["contexts"]
 
         for cfg_attrs in context_cfgs:
-            # config external_network based on env var
-            if "networks" in cfg_attrs:
+            context_type = cfg_attrs.get("context_type", "Heat")
+            if "Heat" == context_type and "networks" in cfg_attrs:
+                # config external_network based on env var
                 for _, attrs in cfg_attrs["networks"].items():
                     attrs["external_network"] = os.environ.get(
                         'EXTERNAL_NETWORK', 'net04_ext')
-            context = Context()
+            context = Context.get(context_type)
             context.init(cfg_attrs)
 
         run_in_parallel = cfg.get("run_in_parallel", False)
@@ -245,7 +248,10 @@ def run_one_scenario(scenario_cfg, output_file):
     key_filename = pkg_resources.resource_filename(
         'yardstick.resources', 'files/yardstick_key')
 
-    host = Context.get_server(scenario_cfg["host"])
+    # TODO support get multi hosts/vms info
+    for context in Context.list:
+        host = context.get_server(scenario_cfg["host"])
+        break
 
     runner_cfg = scenario_cfg["runner"]
     runner_cfg['host'] = host.public_ip
@@ -257,7 +263,9 @@ def run_one_scenario(scenario_cfg, output_file):
         if is_ip_addr(scenario_cfg["target"]):
             scenario_cfg["ipaddr"] = scenario_cfg["target"]
         else:
-            target = Context.get_server(scenario_cfg["target"])
+            for context in Context.list:
+                target = context.get_server(scenario_cfg["target"])
+                break
 
             # get public IP for target server, some scenarios require it
             if target.public_ip:
