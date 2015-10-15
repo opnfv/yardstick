@@ -9,12 +9,28 @@
 
 import json
 import logging
-
 import requests
+
+from oslo_config import cfg
 
 from yardstick.dispatcher.base import Base as DispatchBase
 
 LOG = logging.getLogger(__name__)
+
+CONF = cfg.CONF
+http_dispatcher_opts = [
+    cfg.StrOpt('target',
+               default='http://127.0.0.1:8000/results',
+               help='The target where the http request will be sent. '
+                    'If this is not set, no data will be posted. For '
+                    'example: target = http://hostname:1234/path'),
+    cfg.IntOpt('timeout',
+               default=5,
+               help='The max time in seconds to wait for a request to '
+                    'timeout.'),
+]
+
+CONF.register_opts(http_dispatcher_opts, group="dispatcher_http")
 
 
 class HttpDispatcher(DispatchBase):
@@ -23,17 +39,11 @@ class HttpDispatcher(DispatchBase):
 
     __dispatcher_type__ = "Http"
 
-    # TODO: make parameters below configurable, currently just hard coded
-    # The target where the http request will be sent.
-    target = "http://127.0.0.1:8000/results"
-    # The max time in seconds to wait for a request to timeout.
-    timeout = 5
-
     def __init__(self, conf):
         super(HttpDispatcher, self).__init__(conf)
         self.headers = {'Content-type': 'application/json'}
-        self.timeout = self.timeout
-        self.target = self.target
+        self.timeout = CONF.dispatcher_http.timeout
+        self.target = CONF.dispatcher_http.target
 
     def record_result_data(self, data):
         if self.target == '':

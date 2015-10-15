@@ -10,7 +10,24 @@
 import logging
 import json
 
+from oslo_config import cfg
+
 from yardstick.dispatcher.base import Base as DispatchBase
+
+CONF = cfg.CONF
+OPTS = [
+    cfg.StrOpt('file_path',
+               default='/tmp/yardstick.out',
+               help='Name and the location of the file to record '
+                    'data.'),
+    cfg.IntOpt('max_bytes',
+               default=0,
+               help='The max size of the file.'),
+    cfg.IntOpt('backup_count',
+               default=0,
+               help='The max number of the files to keep.'),
+]
+CONF.register_opts(OPTS, group="dispatcher_file")
 
 
 class FileDispatcher(DispatchBase):
@@ -19,27 +36,19 @@ class FileDispatcher(DispatchBase):
 
     __dispatcher_type__ = "File"
 
-    # TODO: make parameters below configurable, currently just hard coded
-    # Path of the file to record the data
-    file_path = "/tmp/yardstick.out"
-    # The max size of the file
-    max_bytes = 0
-    # The max number of the files to keep
-    backup_count = 0
-
     def __init__(self, conf):
         super(FileDispatcher, self).__init__(conf)
         self.log = None
 
         # if the directory and path are configured, then log to the file
-        if self.file_path:
+        if CONF.dispatcher_file.file_path:
             dispatcher_logger = logging.Logger('dispatcher.file')
             dispatcher_logger.setLevel(logging.INFO)
             # create rotating file handler which logs result
             rfh = logging.handlers.RotatingFileHandler(
-                self.conf.get('file_path', self.file_path),
-                maxBytes=self.max_bytes,
-                backupCount=self.backup_count,
+                self.conf.get('file_path', CONF.dispatcher_file.file_path),
+                maxBytes=CONF.dispatcher_file.max_bytes,
+                backupCount=CONF.dispatcher_file.backup_count,
                 encoding='utf8')
 
             rfh.setLevel(logging.INFO)
