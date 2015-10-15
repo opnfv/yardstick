@@ -9,5 +9,6 @@
 
 import yardstick.common.utils as utils
 
+utils.import_modules_from_package("yardstick.benchmark.contexts")
 utils.import_modules_from_package("yardstick.benchmark.runners")
 utils.import_modules_from_package("yardstick.benchmark.scenarios")

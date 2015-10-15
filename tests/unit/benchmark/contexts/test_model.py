@@ -9,12 +9,12 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.context.model
+# Unittest for yardstick.benchmark.contexts.model
 
 import mock
 import unittest
 
-from yardstick.benchmark.context import model
+from yardstick.benchmark.contexts import model
 
 
 class ObjectTestCase(unittest.TestCase):
@@ -141,7 +141,7 @@ class NetworkTestCase(unittest.TestCase):
 
         self.assertFalse(test_network.has_route_to('ext_net'))
 
-    @mock.patch('yardstick.benchmark.context.model.Network.has_route_to')
+    @mock.patch('yardstick.benchmark.contexts.model.Network.has_route_to')
     def test_find_by_route_to(self, mock_has_route_to):
 
         mock_network = mock.Mock()
@@ -183,7 +183,7 @@ class ServerTestCase(unittest.TestCase):
         self.assertIsNone(test_server._flavor)
         self.assertIn(test_server, model.Server.list)
 
-    @mock.patch('yardstick.benchmark.context.model.PlacementGroup')
+    @mock.patch('yardstick.benchmark.contexts.model.PlacementGroup')
     def test_construct_get_wrong_placement_group(self, mock_pg):
 
         attrs = {'placement': 'baz'}
@@ -192,7 +192,7 @@ class ServerTestCase(unittest.TestCase):
         self.assertRaises(ValueError, model.Server, 'foo',
                           self.mock_context, attrs)
 
-    @mock.patch('yardstick.benchmark.context.model.HeatTemplate')
+    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_instance(self, mock_template):
 
         attrs = {'image': 'some-image', 'flavor': 'some-flavor'}
@@ -218,128 +218,3 @@ class ServerTestCase(unittest.TestCase):
             key_name=self.mock_context.keypair_name,
             scheduler_hints='hints')
 
-
-class ContextTestCase(unittest.TestCase):
-
-    def setUp(self):
-        self.test_context = model.Context()
-        self.mock_context = mock.Mock()
-
-    def tearDown(self):
-        model.Context.list = []
-
-    def test_construct(self):
-
-        self.assertIsNone(self.test_context.name)
-        self.assertIsNone(self.test_context.stack)
-        self.assertEqual(self.test_context.networks, [])
-        self.assertEqual(self.test_context.servers, [])
-        self.assertEqual(self.test_context.placement_groups, [])
-        self.assertIsNone(self.test_context.keypair_name)
-        self.assertIsNone(self.test_context.secgroup_name)
-        self.assertEqual(self.test_context._server_map, {})
-        self.assertIsNone(self.test_context._image)
-        self.assertIsNone(self.test_context._flavor)
-        self.assertIsNone(self.test_context._user)
-        self.assertIsNone(self.test_context.template_file)
-        self.assertIsNone(self.test_context.heat_parameters)
-        self.assertIn(self.test_context, model.Context.list)
-
-    @mock.patch('yardstick.benchmark.context.model.PlacementGroup')
-    @mock.patch('yardstick.benchmark.context.model.Network')
-    @mock.patch('yardstick.benchmark.context.model.Server')
-    def test_init(self, mock_server, mock_network, mock_pg):
-
-        pgs = {'pgrp1': {'policy': 'availability'}}
-        networks = {'bar': {'cidr': '10.0.1.0/24'}}
-        servers = {'baz': {'floating_ip': True, 'placement': 'pgrp1'}}
-        attrs = {'name': 'foo',
-                 'placement_groups': pgs,
-                 'networks': networks,
-                 'servers': servers}
-
-        self.test_context.init(attrs)
-
-        self.assertEqual(self.test_context.keypair_name, "foo-key")
-        self.assertEqual(self.test_context.secgroup_name, "foo-secgroup")
-
-        mock_pg.assert_called_with('pgrp1', self.test_context,
-                                   pgs['pgrp1']['policy'])
-        self.assertTrue(len(self.test_context.placement_groups) == 1)
-
-        mock_network.assert_called_with(
-            'bar', self.test_context, networks['bar'])
-        self.assertTrue(len(self.test_context.networks) == 1)
-
-        mock_server.assert_called_with('baz', self.test_context, servers['baz'])
-        self.assertTrue(len(self.test_context.servers) == 1)
-
-    @mock.patch('yardstick.benchmark.context.model.HeatTemplate')
-    def test__add_resources_to_template_no_servers(self, mock_template):
-
-        self.test_context.keypair_name = "foo-key"
-        self.test_context.secgroup_name = "foo-secgroup"
-
-        self.test_context._add_resources_to_template(mock_template)
-        mock_template.add_keypair.assert_called_with("foo-key")
-        mock_template.add_security_group.assert_called_with("foo-secgroup")
-
-    @mock.patch('yardstick.benchmark.context.model.HeatTemplate')
-    def test_deploy(self, mock_template):
-
-        self.test_context.name = 'foo'
-        self.test_context.template_file = '/bar/baz/some-heat-file'
-        self.test_context.heat_parameters = {'image': 'cirros'}
-        self.test_context.deploy()
-
-        mock_template.assert_called_with(self.test_context.name,
-                                         self.test_context.template_file,
-                                         self.test_context.heat_parameters)
-        self.assertIsNotNone(self.test_context.stack)
-
-    @mock.patch('yardstick.benchmark.context.model.HeatTemplate')
-    def test_undeploy(self, mock_template):
-
-        self.test_context.stack = mock_template
-        self.test_context.undeploy()
-
-        self.assertTrue(mock_template.delete.called)
-
-    def test_get_server_by_name(self):
-
-        self.mock_context._server_map = {'foo.bar': True}
-        model.Context.list = [self.mock_context]
-
-        self.assertTrue(model.Context.get_server_by_name('foo.bar'))
-
-    def test_get_server_by_wrong_name(self):
-
-        self.assertRaises(ValueError, model.Context.get_server_by_name, 'foo')
-
-    def test_get_context_by_name(self):
-
-        self.mock_context.name = 'foo'
-        model.Context.list = [self.mock_context]
-
-        self.assertIs(model.Context.get_context_by_name('foo'),
-                      self.mock_context)
-
-    def test_get_unknown_context_by_name(self):
-
-        model.Context.list = []
-        self.assertIsNone(model.Context.get_context_by_name('foo'))
-
-    @mock.patch('yardstick.benchmark.context.model.Server')
-    def test_get_server(self, mock_server):
-
-        self.mock_context.name = 'bar'
-        self.mock_context.stack.outputs = {'public_ip': '127.0.0.1',
-                                           'private_ip': '10.0.0.1'}
-        model.Context.list = [self.mock_context]
-        attr_name = {'name': 'foo.bar',
-                     'public_ip_attr': 'public_ip',
-                     'private_ip_attr': 'private_ip'}
-        result = model.Context.get_server(attr_name)
-
-        self.assertEqual(result.public_ip, '127.0.0.1')
-        self.assertEqual(result.private_ip, '10.0.0.1')
