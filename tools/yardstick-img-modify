@@ -78,7 +78,9 @@ setup() {
     loopdevice=$(kpartx -l $raw_imgfile | head -1 | cut -f1 -d ' ')
 
     kpartx -a $raw_imgfile
+
     mount /dev/mapper/$loopdevice $mountdir
+    mount -t proc none $mountdir/proc
 
     cp $cmd $mountdir/$(basename $cmd)
 }
@@ -89,15 +91,24 @@ modify() {
     nameserver_ip=$(grep -m 1 '^nameserver' \
         /etc/resolv.conf | awk '{ print $2 '})
 
+    # prevent init scripts from running during install
+    echo $'#!/bin/sh\nexit 101' >$mountdir/usr/sbin/policy-rc.d
+    chmod a+x $mountdir/usr/sbin/policy-rc.d
+
     chroot $mountdir /$(basename $cmd) $nameserver_ip
 
+    rm -rf $mountdir/usr/sbin/policy-rc.d
+
+    umount -f $mountdir/proc
     umount $mountdir
+
     qemu-img convert -c -o compat=0.10 -O qcow2 $raw_imgfile $imgfile
 }
 
 # cleanup (umount) the image
 cleanup() {
     # designed to be idempotent
+    mount | grep $mountdir/proc && umount $mountdir/proc
     mount | grep $mountdir && umount $mountdir
     if [ -f $raw_imgfile ]; then
         kpartx -d $raw_imgfile || true
