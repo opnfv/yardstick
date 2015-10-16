@@ -15,7 +15,8 @@ import yaml
 import atexit
 import pkg_resources
 import ipaddress
-
+import time
+import logging
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
 from yardstick.common.task_template import TaskTemplate
@@ -23,6 +24,7 @@ from yardstick.common.utils import cliargs
 
 output_file_default = "/tmp/yardstick.out"
 test_cases_dir_default = "tests/opnfv/test_cases/"
+log = logging.getLogger(__name__)
 
 
 class TaskCommands(object):
@@ -52,6 +54,7 @@ class TaskCommands(object):
 
         atexit.register(atexit_handler)
 
+        total_start_time = time.time()
         parser = TaskParser(args.inputfile[0])
 
         suite_params = {}
@@ -76,6 +79,7 @@ class TaskCommands(object):
             os.remove(args.output_file)
 
         for i in range(0, len(task_files)):
+            one_task_start_time = time.time()
             parser.path = task_files[i]
             scenarios, run_in_parallel = parser.parse_task(task_args[i],
                                                            task_args_fnames[i])
@@ -90,6 +94,13 @@ class TaskCommands(object):
                 for context in Context.list:
                     context.undeploy()
                 Context.list = []
+            one_task_end_time = time.time()
+            log.info("task %s finished in %d secs", task_files[i],
+                     one_task_end_time - one_task_start_time)
+
+        total_end_time = time.time()
+        log.info("total finished in %d secs",
+                 total_end_time - total_start_time)
 
         print "Done, exiting"
 
