@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_9730c657",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-16T03:03:27Z",
+      "side": 1,
+      "message": "you\u0027d better rewrite this commit message, like add add jira issue no. \nReference https://wiki.opnfv.org/developer for more details on commit message write ruels.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 0
+      },
+      "revId": "bf339bf95931d2ad93f4aa998feef44f4b50391f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_77355245",
+        "filename": "apexlake/experimental_framework/packet_generators/dpdk_pktgen/rfc2544.lua",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-16T03:03:27Z",
+      "side": 1,
+      "message": "i think you need change this file path.",
+      "range": {
+        "startLine": 114,
+        "startChar": 16,
+        "endLine": 114,
+        "endChar": 111
+      },
+      "revId": "bf339bf95931d2ad93f4aa998feef44f4b50391f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
