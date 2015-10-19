@@ -71,11 +71,10 @@ class Fio(base.Scenario):
 
         self.setup_done = True
 
-    def run(self, args):
+    def run(self, args, result):
         """execute the benchmark"""
         default_args = "-ioengine=libaio -direct=1 -group_reporting " \
             "-numjobs=1 -time_based --output-format=json"
-        result = {}
 
         if not self.setup_done:
             self.setup()
@@ -124,6 +123,7 @@ class Fio(base.Scenario):
             result["write_lat"] = raw_data["jobs"][0]["write"]["lat"]["mean"]
 
         if "sla" in args:
+            sla_error = ""
             for k, v in result.items():
                 if k not in args['sla']:
                     continue
@@ -131,15 +131,16 @@ class Fio(base.Scenario):
                 if "lat" in k:
                     # For lattency small value is better
                     max_v = float(args['sla'][k])
-                    assert v <= max_v, "%s %f > " \
-                        "sla:%s(%f)" % (k, v, k, max_v)
+                    if v > max_v:
+                        sla_error += "%s %f > sla:%s(%f); " % (k, v, k, max_v)
                 else:
                     # For bandwidth and iops big value is better
                     min_v = int(args['sla'][k])
-                    assert v >= min_v, "%s %d < " \
-                        "sla:%s(%d)" % (k, v, k, min_v)
+                    if v < min_v:
+                        sla_error += "%s %d < " \
+                            "sla:%s(%d); " % (k, v, k, min_v)
 
-        return result
+            assert sla_error == "", sla_error
 
 
 def _test():

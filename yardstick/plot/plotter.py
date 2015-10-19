@@ -125,7 +125,7 @@ class Plotter(object):
 
     def _plot_ping(self, records):
         '''ping test result interpretation and visualization on the graph'''
-        rtts = [r['benchmark']['data'] for r in records]
+        rtts = [r['benchmark']['data']['rtt'] for r in records]
         seqs = [r['benchmark']['sequence'] for r in records]
 
         for i in range(0, len(rtts)):

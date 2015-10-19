@@ -58,7 +58,7 @@ class Perf(base.Scenario):
 
         self.setup_done = True
 
-    def run(self, args):
+    def run(self, args, result):
         """execute the benchmark"""
 
         if not self.setup_done:
@@ -96,23 +96,22 @@ class Perf(base.Scenario):
         if status:
             raise RuntimeError(stdout)
 
-        output = json.loads(stdout)
+        result.update(json.loads(stdout))
 
         if "sla" in args:
             metric = args['sla']['metric']
             exp_val = args['sla']['expected_value']
             smaller_than_exp = 'smaller_than_expected' in args['sla']
 
-            if metric not in output:
+            if metric not in result:
                 assert False, "Metric (%s) not found." % metric
             else:
                 if smaller_than_exp:
-                    assert output[metric] < exp_val, "%s %d >= %d (sla)" \
-                        % (metric, output[metric], exp_val)
+                    assert result[metric] < exp_val, "%s %d >= %d (sla); " \
+                        % (metric, result[metric], exp_val)
                 else:
-                    assert output[metric] >= exp_val, "%s %d < %d (sla)" \
-                        % (metric, output[metric], exp_val)
-        return output
+                    assert result[metric] >= exp_val, "%s %d < %d (sla); " \
+                        % (metric, result[metric], exp_val)
 
 
 def _test():
