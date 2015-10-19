@@ -58,7 +58,7 @@ class Lmbench(base.Scenario):
 
         self.setup_done = True
 
-    def run(self, args):
+    def run(self, args, result):
         """execute the benchmark"""
 
         if not self.setup_done:
@@ -75,16 +75,17 @@ class Lmbench(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
-        data = json.loads(stdout)
+        result.update(json.loads(stdout))
 
         if "sla" in args:
+            sla_error = ""
             sla_max_latency = int(args['sla']['max_latency'])
-            for result in data:
-                latency = result['latency']
-                assert latency <= sla_max_latency, "latency %f > " \
-                    "sla:max_latency(%f)" % (latency, sla_max_latency)
-
-        return data
+            for t_latency in result:
+                latency = t_latency['latency']
+                if latency > sla_max_latency:
+                    sla_error += "latency %f > sla:max_latency(%f); " \
+                        % (latency, sla_max_latency)
+            assert sla_error == "", sla_error
 
 
 def _test():

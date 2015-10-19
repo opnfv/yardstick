@@ -79,7 +79,7 @@ class Netperf(base.Scenario):
 
         self.setup_done = True
 
-    def run(self, args):
+    def run(self, args, result):
         """execute the benchmark"""
 
         if not self.setup_done:
@@ -118,20 +118,19 @@ class Netperf(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
-        data = json.loads(stdout)
-        if data['mean_latency'] == '':
+        result.update(json.loads(stdout))
+
+        if result['mean_latency'] == '':
             raise RuntimeError(stdout)
 
         # sla check
-        mean_latency = float(data['mean_latency'])
+        mean_latency = float(result['mean_latency'])
         if "sla" in args:
             sla_max_mean_latency = int(args["sla"]["mean_latency"])
 
             assert mean_latency <= sla_max_mean_latency, \
-                "mean_latency %f > sla_max_mean_latency(%f)" % \
+                "mean_latency %f > sla_max_mean_latency(%f); " % \
                 (mean_latency, sla_max_mean_latency)
-
-        return data
 
 
 def _test():

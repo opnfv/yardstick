@@ -60,12 +60,14 @@ class FioTestCase(unittest.TestCase):
             'ramp_time': 10
         }
         args = {'options': options}
+        result = {}
+
         p.client = mock_ssh.SSH()
 
         sample_output = self._read_sample_output(self.sample_output['rw'])
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
-        result = p.run(args)
+        p.run(args, result)
 
         expected_result = '{"read_bw": 83888, "read_iops": 20972,' \
             '"read_lat": 236.8, "write_bw": 84182, "write_iops": 21045,'\
@@ -83,12 +85,14 @@ class FioTestCase(unittest.TestCase):
             'ramp_time': 10
         }
         args = {'options': options}
+        result = {}
+
         p.client = mock_ssh.SSH()
 
         sample_output = self._read_sample_output(self.sample_output['read'])
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
-        result = p.run(args)
+        p.run(args, result)
 
         expected_result = '{"read_bw": 36113, "read_iops": 9028,' \
             '"read_lat": 108.7}'
@@ -105,12 +109,14 @@ class FioTestCase(unittest.TestCase):
             'ramp_time': 10
         }
         args = {'options': options}
+        result = {}
+
         p.client = mock_ssh.SSH()
 
         sample_output = self._read_sample_output(self.sample_output['write'])
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
-        result = p.run(args)
+        p.run(args, result)
 
         expected_result = '{"write_bw": 35107, "write_iops": 8776,'\
             '"write_lat": 111.74}'
@@ -130,13 +136,14 @@ class FioTestCase(unittest.TestCase):
             'options': options,
             'sla': {'write_lat': 300.1}
         }
+        result = {}
 
         p.client = mock_ssh.SSH()
 
         sample_output = self._read_sample_output(self.sample_output['rw'])
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
-        result = p.run(args)
+        p.run(args, result)
 
         expected_result = '{"read_bw": 83888, "read_iops": 20972,' \
             '"read_lat": 236.8, "write_bw": 84182, "write_iops": 21045,'\
@@ -158,12 +165,13 @@ class FioTestCase(unittest.TestCase):
             'options': options,
             'sla': {'write_lat': 200.1}
         }
+        result = {}
 
         p.client = mock_ssh.SSH()
 
         sample_output = self._read_sample_output(self.sample_output['rw'])
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, p.run, args)
+        self.assertRaises(AssertionError, p.run, args, result)
 
     def test_fio_successful_bw_iops_sla(self, mock_ssh):
 
@@ -178,13 +186,14 @@ class FioTestCase(unittest.TestCase):
             'options': options,
             'sla': {'read_iops': 20000}
         }
+        result = {}
 
         p.client = mock_ssh.SSH()
 
         sample_output = self._read_sample_output(self.sample_output['rw'])
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
-        result = p.run(args)
+        p.run(args, result)
 
         expected_result = '{"read_bw": 83888, "read_iops": 20972,' \
             '"read_lat": 236.8, "write_bw": 84182, "write_iops": 21045,'\
@@ -205,12 +214,13 @@ class FioTestCase(unittest.TestCase):
             'options': options,
             'sla': {'read_iops': 30000}
         }
+        result = {}
 
         p.client = mock_ssh.SSH()
 
         sample_output = self._read_sample_output(self.sample_output['rw'])
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, p.run, args)
+        self.assertRaises(AssertionError, p.run, args, result)
 
     def test_fio_unsuccessful_script_error(self, mock_ssh):
 
@@ -222,10 +232,12 @@ class FioTestCase(unittest.TestCase):
             'ramp_time': 10
         }
         args = {'options': options}
+        result = {}
+
         p.client = mock_ssh.SSH()
 
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
-        self.assertRaises(RuntimeError, p.run, args)
+        self.assertRaises(RuntimeError, p.run, args, result)
 
     def _read_sample_output(self, file_name):
         curr_path = os.path.dirname(os.path.abspath(__file__))
