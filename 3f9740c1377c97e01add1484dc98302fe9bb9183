@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_1d79952f",
+        "filename": "yardstick/vTC/apexlake/experimental_framework/packet_generators/dpdk_pktgen/rfc2544.lua",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-10-19T13:06:36Z",
+      "side": 1,
+      "message": "some tabs here and below",
+      "range": {
+        "startLine": 35,
+        "startChar": 25,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "3f9740c1377c97e01add1484dc98302fe9bb9183",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_3d7c5920",
+        "filename": "yardstick/vTC/apexlake/experimental_framework/packet_generators/dpdk_pktgen/rfc2544.lua",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-10-19T13:06:36Z",
+      "side": 1,
+      "message": "I have a minor question about semi-colons. As I understand it is optional to use semi-colons in Lua. \nAre you following some Lua convention, where it is expected to use a semi-colon and where it is not? \nBecause currently they seem to be used quite randomly throughout the whole file.",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 26
+      },
+      "revId": "3f9740c1377c97e01add1484dc98302fe9bb9183",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
