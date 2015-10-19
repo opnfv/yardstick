@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_bd884923",
+        "filename": "tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-19T12:46:40Z",
+      "side": 1,
+      "message": "\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nERROR: test_init (benchmark.contexts.test_heat.HeatContextTestCase)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/usr/local/lib/python2.7/dist-packages/mock-1.3.0-py2.7.egg/mock/mock.py\", line 1305, in patched\n    return func(*args, **keywargs)\n  File \"/root/yardstick/tests/unit/benchmark/contexts/test_heat.py\", line 61, in test_init\n    self.test_context.init(attrs)\n  File \"yardstick/benchmark/contexts/heat.py\", line 68, in init\n    network \u003d Network(name, self, netattrs)\n  File \"yardstick/benchmark/contexts/model.py\", line 77, in __init__\n    super(Network, self).__init__(name, context)\nTypeError: must be type, not MagicMock",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 62
+      },
+      "revId": "6868d15fb704572ed8a4febc309c69d22723b0ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_9d8d8534",
+        "filename": "tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-19T12:46:40Z",
+      "side": 1,
+      "message": "\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nFAIL: test_get_server (benchmark.contexts.test_heat.HeatContextTestCase)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/usr/local/lib/python2.7/dist-packages/mock-1.3.0-py2.7.egg/mock/mock.py\", line 1305, in patched\n    return func(*args, **keywargs)\n  File \"/root/yardstick/tests/unit/benchmark/contexts/test_heat.py\", line 120, in test_get_server\n    self.assertEqual(result.public_ip, \u0027127.0.0.1\u0027)\nAssertionError: \u003cMock name\u003d\u0027mock._get_server().public_ip\u0027 id\u003d\u0027140668222759696\u0027\u003e !\u003d \u0027127.0.0.1\u0027",
+      "range": {
+        "startLine": 109,
+        "startChar": 6,
+        "endLine": 109,
+        "endChar": 45
+      },
+      "revId": "6868d15fb704572ed8a4febc309c69d22723b0ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
