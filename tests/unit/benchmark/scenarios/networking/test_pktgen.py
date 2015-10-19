@@ -113,6 +113,8 @@ class PktgenTestCase(unittest.TestCase):
             'options': {'packetsize': 60, 'number_of_ports': 10},
             'ipaddr': '172.16.0.139'
         }
+        result = {}
+
         p.server = mock_ssh.SSH()
         p.client = mock_ssh.SSH()
 
@@ -124,7 +126,7 @@ class PktgenTestCase(unittest.TestCase):
             "packets_sent": 149776, "flows": 110}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
-        result = p.run(args)
+        p.run(args, result)
         expected_result = json.loads(sample_output)
         expected_result["packets_received"] = 149300
         self.assertEqual(result, expected_result)
@@ -137,6 +139,7 @@ class PktgenTestCase(unittest.TestCase):
             'ipaddr': '172.16.0.139',
             'sla': {'max_ppm': 10000}
         }
+        result = {}
         p.server = mock_ssh.SSH()
         p.client = mock_ssh.SSH()
 
@@ -148,7 +151,7 @@ class PktgenTestCase(unittest.TestCase):
             "packets_sent": 149776, "flows": 110}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
-        result = p.run(args)
+        p.run(args, result)
         expected_result = json.loads(sample_output)
         expected_result["packets_received"] = 149300
         self.assertEqual(result, expected_result)
@@ -161,6 +164,8 @@ class PktgenTestCase(unittest.TestCase):
             'ipaddr': '172.16.0.139',
             'sla': {'max_ppm': 1000}
         }
+        result = {}
+
         p.server = mock_ssh.SSH()
         p.client = mock_ssh.SSH()
 
@@ -171,7 +176,7 @@ class PktgenTestCase(unittest.TestCase):
         sample_output = '{"packets_per_second": 9753, "errors": 0, \
             "packets_sent": 149776, "flows": 110}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, p.run, args)
+        self.assertRaises(AssertionError, p.run, args, result)
 
     def test_pktgen_unsuccessful_script_error(self, mock_ssh):
 
@@ -181,11 +186,13 @@ class PktgenTestCase(unittest.TestCase):
             'ipaddr': '172.16.0.139',
             'sla': {'max_ppm': 1000}
         }
+        result = {}
+
         p.server = mock_ssh.SSH()
         p.client = mock_ssh.SSH()
 
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
-        self.assertRaises(RuntimeError, p.run, args)
+        self.assertRaises(RuntimeError, p.run, args, result)
 
 
 def main():

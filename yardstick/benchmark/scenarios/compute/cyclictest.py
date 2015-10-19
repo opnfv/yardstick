@@ -78,7 +78,7 @@ class Cyclictest(base.Scenario):
 
         self.setup_done = True
 
-    def run(self, args):
+    def run(self, args, result):
         """execute the benchmark"""
         default_args = "-m -n -q"
 
@@ -102,19 +102,20 @@ class Cyclictest(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
-        data = json.loads(stdout)
+        result.update(json.loads(stdout))
 
         if "sla" in args:
-            for t, latency in data.items():
+            sla_error = ""
+            for t, latency in result.items():
                 if 'max_%s_latency' % t not in args['sla']:
                     continue
 
                 sla_latency = int(args['sla']['max_%s_latency' % t])
                 latency = int(latency)
-                assert latency <= sla_latency, "%s latency %d > " \
-                    "sla:max_%s_latency(%d)" % (t, latency, t, sla_latency)
-
-        return data
+                if latency > sla_latency:
+                    sla_error += "%s latency %d > sla:max_%s_latency(%d); " % \
+                        (t, latency, t, sla_latency)
+            assert sla_error == "", sla_error
 
 
 def _test():

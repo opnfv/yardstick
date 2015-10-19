@@ -82,7 +82,7 @@ For more info see http://software.es.net/iperf
             LOG.warn(stderr)
         self.target.close()
 
-    def run(self, args):
+    def run(self, args, result):
         """execute the benchmark"""
 
         # if run by a duration runner, get the duration time and setup as arg
@@ -122,7 +122,7 @@ For more info see http://software.es.net/iperf
             # error cause in json dict on stdout
             raise RuntimeError(stdout)
 
-        output = json.loads(stdout)
+        result.update(json.loads(stdout))
 
         if "sla" in args:
             sla_iperf = args["sla"]
@@ -131,20 +131,18 @@ For more info see http://software.es.net/iperf
 
                 # convert bits per second to bytes per second
                 bit_per_second = \
-                    int(output["end"]["sum_received"]["bits_per_second"])
+                    int(result["end"]["sum_received"]["bits_per_second"])
                 bytes_per_second = bit_per_second / 8
                 assert bytes_per_second >= sla_bytes_per_second, \
-                    "bytes_per_second %d < sla:bytes_per_second (%d)" % \
+                    "bytes_per_second %d < sla:bytes_per_second (%d); " % \
                     (bytes_per_second, sla_bytes_per_second)
             else:
                 sla_jitter = float(sla_iperf["jitter"])
 
-                jitter_ms = float(output["end"]["sum"]["jitter_ms"])
+                jitter_ms = float(result["end"]["sum"]["jitter_ms"])
                 assert jitter_ms <= sla_jitter, \
-                    "jitter_ms  %f > sla:jitter %f" % \
+                    "jitter_ms  %f > sla:jitter %f; " % \
                     (jitter_ms, sla_jitter)
-
-        return output
 
 
 def _test():

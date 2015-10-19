@@ -53,7 +53,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg):
         errors = ""
 
         try:
-            data = method(scenario_cfg)
+            method(scenario_cfg, data)
         except AssertionError as assertion:
             # SLA validation failed in scenario, determine what to do now
             if sla_action == "assert":

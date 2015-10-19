@@ -51,12 +51,14 @@ class CyclictestTestCase(unittest.TestCase):
         args = {
             "options": options,
         }
+        result = {}
+
         c.server = mock_ssh.SSH()
 
         sample_output = '{"min": 100, "avg": 500, "max": 1000}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
-        result = c.run(args)
+        c.run(args, result)
         expected_result = json.loads(sample_output)
         self.assertEqual(result, expected_result)
 
@@ -80,12 +82,14 @@ class CyclictestTestCase(unittest.TestCase):
             "options": options,
             "sla": sla
         }
+        result = {}
+
         c.server = mock_ssh.SSH()
 
         sample_output = '{"min": 100, "avg": 500, "max": 1000}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
-        result = c.run(args)
+        c.run(args, result)
         expected_result = json.loads(sample_output)
         self.assertEqual(result, expected_result)
 
@@ -96,11 +100,13 @@ class CyclictestTestCase(unittest.TestCase):
             "options": {},
             "sla": {"max_min_latency": 10}
         }
+        result = {}
+
         c.server = mock_ssh.SSH()
         sample_output = '{"min": 100, "avg": 500, "max": 1000}'
 
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, c.run, args)
+        self.assertRaises(AssertionError, c.run, args, result)
 
     def test_cyclictest_unsuccessful_sla_avg_latency(self, mock_ssh):
 
@@ -109,11 +115,13 @@ class CyclictestTestCase(unittest.TestCase):
             "options": {},
             "sla": {"max_avg_latency": 10}
         }
+        result = {}
+
         c.server = mock_ssh.SSH()
         sample_output = '{"min": 100, "avg": 500, "max": 1000}'
 
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, c.run, args)
+        self.assertRaises(AssertionError, c.run, args, result)
 
     def test_cyclictest_unsuccessful_sla_max_latency(self, mock_ssh):
 
@@ -122,11 +130,13 @@ class CyclictestTestCase(unittest.TestCase):
             "options": {},
             "sla": {"max_max_latency": 10}
         }
+        result = {}
+
         c.server = mock_ssh.SSH()
         sample_output = '{"min": 100, "avg": 500, "max": 1000}'
 
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, c.run, args)
+        self.assertRaises(AssertionError, c.run, args, result)
 
     def test_cyclictest_unsuccessful_script_error(self, mock_ssh):
 
@@ -148,10 +158,12 @@ class CyclictestTestCase(unittest.TestCase):
             "options": options,
             "sla": sla
         }
+        result = {}
+
         c.server = mock_ssh.SSH()
 
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
-        self.assertRaises(RuntimeError, c.run, args)
+        self.assertRaises(RuntimeError, c.run, args, result)
 
 
 def main():

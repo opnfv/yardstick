@@ -35,10 +35,11 @@ class PingTestCase(unittest.TestCase):
             'options': {'packetsize': 200},
             'ipaddr': '172.16.0.138'
             }
+        result = {}
 
         mock_ssh.SSH().execute.return_value = (0, '100', '')
-        result = p.run(args)
-        self.assertEqual(result, float(mock_ssh.SSH().execute.return_value[1]))
+        p.run(args, result)
+        self.assertEqual(result, {'rtt': 100.0})
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_successful_sla(self, mock_ssh):
@@ -50,10 +51,11 @@ class PingTestCase(unittest.TestCase):
             'ipaddr': '172.16.0.138',
             'sla': {'max_rtt': 150}
             }
+        result = {}
 
         mock_ssh.SSH().execute.return_value = (0, '100', '')
-        result = p.run(args)
-        self.assertEqual(result, float(mock_ssh.SSH().execute.return_value[1]))
+        p.run(args, result)
+        self.assertEqual(result, {'rtt': 100.0})
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_unsuccessful_sla(self, mock_ssh):
@@ -65,9 +67,10 @@ class PingTestCase(unittest.TestCase):
             'ipaddr': '172.16.0.138',
             'sla': {'max_rtt': 50}
             }
+        result = {}
 
         mock_ssh.SSH().execute.return_value = (0, '100', '')
-        self.assertRaises(AssertionError, p.run, args)
+        self.assertRaises(AssertionError, p.run, args, result)
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_unsuccessful_script_error(self, mock_ssh):
@@ -79,9 +82,10 @@ class PingTestCase(unittest.TestCase):
             'ipaddr': '172.16.0.138',
             'sla': {'max_rtt': 50}
             }
+        result = {}
 
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
-        self.assertRaises(RuntimeError, p.run, args)
+        self.assertRaises(RuntimeError, p.run, args, result)
 
 
 def main():
