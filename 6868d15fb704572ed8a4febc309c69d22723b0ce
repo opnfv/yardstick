@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "da6255ed_3df8d97b",
+        "filename": "tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-10-19T14:52:23Z",
+      "side": 1,
+      "message": "Change to:\n self.mock_context \u003d mock.Mock(spec\u003dheat.HeatContext())\n\nSo the mock can be of HeatContext instance for _get_server() method.",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 39
+      },
+      "revId": "6868d15fb704572ed8a4febc309c69d22723b0ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6255ed_bd884923",
         "filename": "tests/unit/benchmark/contexts/test_heat.py",
         "patchSetId": 3
@@ -59,6 +82,52 @@
         "startChar": 6,
         "endLine": 109,
         "endChar": 45
+      },
+      "revId": "6868d15fb704572ed8a4febc309c69d22723b0ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_9d090598",
+        "filename": "tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-10-19T14:52:23Z",
+      "side": 1,
+      "message": "You can delete this line, it is not needed.",
+      "range": {
+        "startLine": 114,
+        "startChar": 10,
+        "endLine": 114,
+        "endChar": 49
+      },
+      "revId": "6868d15fb704572ed8a4febc309c69d22723b0ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_bd04c97e",
+        "filename": "tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-10-19T14:52:23Z",
+      "side": 1,
+      "message": "As you actually want to test the function of this class instead of Base, then the result should be called directly from HeatContext:\n result \u003d heat.HeatContext._get_server(self.mock_context, attr_name)",
+      "range": {
+        "startLine": 118,
+        "startChar": 2,
+        "endLine": 118,
+        "endChar": 53
       },
       "revId": "6868d15fb704572ed8a4febc309c69d22723b0ce",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
