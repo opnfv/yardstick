@@ -45,7 +45,7 @@ class Ping(base.Scenario):
         self.connection = ssh.SSH(user, host, key_filename=key_filename)
         self.connection.wait()
 
-    def run(self, args):
+    def run(self, args, result):
         """execute the benchmark"""
 
         if "options" in args:
@@ -64,11 +64,13 @@ class Ping(base.Scenario):
         if exit_status != 0:
             raise RuntimeError(stderr)
 
-        rtt = float(stdout)
+        result["rtt"] = float(stdout)
 
         if "sla" in args:
+            sla_error = ""
             sla_max_rtt = int(args["sla"]["max_rtt"])
-            assert rtt <= sla_max_rtt, "rtt %f > sla:max_rtt(%f)" % \
-                (rtt, sla_max_rtt)
+            if result["rtt"] > sla_max_rtt:
+                sla_error += "rtt %f > sla:max_rtt(%f); " % \
+                             (result["rtt"], sla_max_rtt)
 
-        return rtt
+            assert sla_error == "", sla_error

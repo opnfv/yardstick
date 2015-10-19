@@ -86,7 +86,7 @@ class Pktgen(base.Scenario):
             raise RuntimeError(stderr)
         return int(stdout)
 
-    def run(self, args):
+    def run(self, args, result):
         """execute the benchmark"""
 
         if not self.setup_done:
@@ -119,19 +119,19 @@ class Pktgen(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
-        data = json.loads(stdout)
+        result.update(json.loads(stdout))
 
-        data['packets_received'] = self._iptables_get_result()
+        result['packets_received'] = self._iptables_get_result()
 
         if "sla" in args:
-            sent = data['packets_sent']
-            received = data['packets_received']
+            sla_error = ""
+            sent = result['packets_sent']
+            received = result['packets_received']
             ppm = 1000000 * (sent - received) / sent
             sla_max_ppm = int(args["sla"]["max_ppm"])
-            assert ppm <= sla_max_ppm, "ppm %d > sla_max_ppm %d" \
-                % (ppm, sla_max_ppm)
-
-        return data
+            if ppm > sla_max_ppm:
+                sla_error += "ppm %d > sla_max_ppm %d; " % (ppm, sla_max_ppm)
+            assert sla_error == "", sla_error
 
 
 def _test():
