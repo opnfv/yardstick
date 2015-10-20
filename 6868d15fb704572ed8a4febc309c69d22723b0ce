@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da6255ed_c082f251",
+        "filename": "tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-20T02:15:55Z",
+      "side": 1,
+      "message": "Done, Thanks!",
+      "parentUuid": "da6255ed_3df8d97b",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 39
+      },
+      "revId": "6868d15fb704572ed8a4febc309c69d22723b0ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6255ed_bd884923",
         "filename": "tests/unit/benchmark/contexts/test_heat.py",
         "patchSetId": 3
@@ -60,6 +84,24 @@
       "side": 1,
       "message": "Maybe in model.py:77 using \u0027super(self.__class__, ... )\u0027 instead of  \u0027super(Network, ... )\u0027 makes life easier !?\n\nSame on the other classes as well.",
       "parentUuid": "da6255ed_bd884923",
+      "revId": "6868d15fb704572ed8a4febc309c69d22723b0ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_e0b5f631",
+        "filename": "tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-20T02:15:55Z",
+      "side": 1,
+      "message": "Quite easier :), thanks!",
+      "parentUuid": "da6255ed_bd8f2923",
       "revId": "6868d15fb704572ed8a4febc309c69d22723b0ce",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -112,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "da6255ed_a087fe60",
+        "filename": "tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-20T02:15:55Z",
+      "side": 1,
+      "message": "Done, Thanks!",
+      "parentUuid": "da6255ed_9d090598",
+      "range": {
+        "startLine": 114,
+        "startChar": 10,
+        "endLine": 114,
+        "endChar": 49
+      },
+      "revId": "6868d15fb704572ed8a4febc309c69d22723b0ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6255ed_bd04c97e",
         "filename": "tests/unit/benchmark/contexts/test_heat.py",
         "patchSetId": 3
@@ -123,6 +189,30 @@
       "writtenOn": "2015-10-19T14:52:23Z",
       "side": 1,
       "message": "As you actually want to test the function of this class instead of Base, then the result should be called directly from HeatContext:\n result \u003d heat.HeatContext._get_server(self.mock_context, attr_name)",
+      "range": {
+        "startLine": 118,
+        "startChar": 2,
+        "endLine": 118,
+        "endChar": 53
+      },
+      "revId": "6868d15fb704572ed8a4febc309c69d22723b0ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_807cfa73",
+        "filename": "tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-20T02:15:55Z",
+      "side": 1,
+      "message": "Done, Thanks!",
+      "parentUuid": "da6255ed_bd04c97e",
       "range": {
         "startLine": 118,
         "startChar": 2,
