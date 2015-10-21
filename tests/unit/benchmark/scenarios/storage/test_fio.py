@@ -24,9 +24,11 @@ class FioTestCase(unittest.TestCase):
 
     def setUp(self):
         self.ctx = {
-            'host': '172.16.0.137',
-            'user': 'cirros',
-            'key_filename': 'mykey.key'
+            'host': {
+                'ip': '172.16.0.137',
+                'user': 'cirros',
+                'key_filename': 'mykey.key'
+            }
         }
         self.sample_output = {
             'read': 'fio_read_sample_output.json',

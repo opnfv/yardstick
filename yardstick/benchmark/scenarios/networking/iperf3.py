@@ -50,29 +50,35 @@ For more info see http://software.es.net/iperf
 
     def __init__(self, context):
         self.context = context
-        self.user = context.get('user', 'ubuntu')
-        self.host_ipaddr = context['host']
-        self.target_ipaddr = context['target']
-        self.key_filename = self.context.get('key_filename', '~/.ssh/id_rsa')
         self.setup_done = False
 
     def setup(self):
-        LOG.debug("setup, key %s", self.key_filename)
-        LOG.info("host:%s, user:%s", self.host_ipaddr, self.user)
-        self.host = ssh.SSH(self.user, self.host_ipaddr,
-                            key_filename=self.key_filename)
-        self.host.wait(timeout=600)
+        host = self.context['host']
+        host_user = host.get('user', 'ubuntu')
+        host_ip = host.get('ip', None)
+        host_key_filename = host.get('key_filename', '~/.ssh/id_rsa')
+        target = self.context['target']
+        target_user = target.get('user', 'ubuntu')
+        target_ip = target.get('ip', None)
+        target_key_filename = target.get('key_filename', '~/.ssh/id_rsa')
 
-        LOG.info("target:%s, user:%s", self.target_ipaddr, self.user)
-        self.target = ssh.SSH(self.user, self.target_ipaddr,
-                              key_filename=self.key_filename)
+        LOG.info("user:%s, target:%s", target_user, target_ip)
+        self.target = ssh.SSH(target_user, target_ip,
+                              key_filename=target_key_filename)
         self.target.wait(timeout=600)
+
+        LOG.info("user:%s, host:%s", host_user, host_ip)
+        self.host = ssh.SSH(host_user, host_ip,
+                            key_filename=host_key_filename)
+        self.host.wait(timeout=600)
 
         cmd = "iperf3 -s -D"
         LOG.debug("Starting iperf3 server with command: %s", cmd)
         status, _, stderr = self.target.execute(cmd)
         if status:
             raise RuntimeError(stderr)
+
+        self.setup_done = True
 
     def teardown(self):
         LOG.debug("teardown")
@@ -84,12 +90,14 @@ For more info see http://software.es.net/iperf
 
     def run(self, args):
         """execute the benchmark"""
+        if not self.setup_done:
+            self.setup()
 
         # if run by a duration runner, get the duration time and setup as arg
         time = self.context.get('duration', None)
         options = args['options']
 
-        cmd = "iperf3 -c %s --json" % (self.target_ipaddr)
+        cmd = "iperf3 -c %s --json" % (self.context['target']['ipaddr'])
 
         # If there are no options specified
         if not options:
@@ -149,31 +157,32 @@ For more info see http://software.es.net/iperf
 
 def _test():
     '''internal test function'''
+    key_filename = pkg_resources.resource_filename('yardstick.resources',
+                                                   'files/yardstick_key')
+    ctx = {
+        'host': {
+            'ip': '10.229.47.137',
+            'user': 'root',
+            'key_filename': key_filename
+        },
+        'target': {
+            'ip': '10.229.47.137',
+            'user': 'root',
+            'key_filename': key_filename,
+            'ipaddr': '10.229.47.137',
+        }
+    }
 
     logger = logging.getLogger('yardstick')
     logger.setLevel(logging.DEBUG)
 
-    key_filename = pkg_resources.resource_filename('yardstick.resources',
-                                                   'files/yardstick_key')
-    runner_cfg = {}
-    runner_cfg['type'] = 'Duration'
-    runner_cfg['duration'] = 5
-    runner_cfg['host'] = '10.0.2.33'
-    runner_cfg['target_ipaddr'] = '10.0.2.53'
-    runner_cfg['user'] = 'ubuntu'
-    runner_cfg['output_filename'] = "/tmp/yardstick.out"
-    runner_cfg['key_filename'] = key_filename
+    p = Iperf(ctx)
 
-    scenario_args = {}
-    scenario_args['options'] = {"bytes": 10000000000}
-    scenario_args['sla'] = \
-        {"bytes_per_second": 2900000000, "action": "monitor"}
+    options = {'packetsize': 120}
 
-    from yardstick.benchmark.runners import base as base_runner
-    runner = base_runner.Runner.get(runner_cfg)
-    runner.run("Iperf3", scenario_args)
-    runner.join()
-    base_runner.Runner.release(runner)
+    args = {'options': options}
+    result = p.run(args)
+    print result
 
 if __name__ == '__main__':
     _test()

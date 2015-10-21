@@ -23,9 +23,11 @@ class CyclictestTestCase(unittest.TestCase):
 
     def setUp(self):
         self.ctx = {
-            "host": "192.168.50.28",
-            "user": "root",
-            "key_filename": "mykey.key"
+            "host": {
+                "ip": "192.168.50.28",
+                "user": "root",
+                "key_filename": "mykey.key"
+            }
         }
 
     def test_cyclictest_successful_setup(self, mock_ssh):
