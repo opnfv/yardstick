@@ -35,8 +35,9 @@ class Lmbench(base.Scenario):
 
     TARGET_SCRIPT = "lmbench_benchmark.bash"
 
-    def __init__(self, context):
-        self.context = context
+    def __init__(self, scenario_cfg, context_cfg):
+        self.scenario_cfg = scenario_cfg
+        self.context_cfg = context_cfg
         self.setup_done = False
 
     def setup(self):
@@ -44,12 +45,13 @@ class Lmbench(base.Scenario):
         self.target_script = pkg_resources.resource_filename(
             "yardstick.benchmark.scenarios.compute",
             Lmbench.TARGET_SCRIPT)
-        user = self.context.get("user", "ubuntu")
-        host = self.context.get("host", None)
-        key_filename = self.context.get('key_filename', "~/.ssh/id_rsa")
+        host = self.context_cfg["host"]
+        user = host.get("user", "ubuntu")
+        ip = host.get("ip", None)
+        key_filename = host.get('key_filename', "~/.ssh/id_rsa")
 
-        LOG.info("user:%s, host:%s", user, host)
-        self.client = ssh.SSH(user, host, key_filename=key_filename)
+        LOG.info("user:%s, host:%s", user, ip)
+        self.client = ssh.SSH(user, ip, key_filename=key_filename)
         self.client.wait(timeout=600)
 
         # copy script to host
@@ -58,13 +60,13 @@ class Lmbench(base.Scenario):
 
         self.setup_done = True
 
-    def run(self, args, result):
+    def run(self, result):
         """execute the benchmark"""
 
         if not self.setup_done:
             self.setup()
 
-        options = args['options']
+        options = self.scenario_cfg['options']
         stride = options.get('stride', 128)
         stop_size = options.get('stop_size', 16)
 
@@ -75,11 +77,10 @@ class Lmbench(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
-        result.update(json.loads(stdout))
-
-        if "sla" in args:
+        result.update({"latencies": json.loads(stdout)})
+        if "sla" in self.scenario_cfg:
             sla_error = ""
-            sla_max_latency = int(args['sla']['max_latency'])
+            sla_max_latency = int(self.scenario_cfg['sla']['max_latency'])
             for t_latency in result:
                 latency = t_latency['latency']
                 if latency > sla_max_latency:
@@ -92,20 +93,23 @@ def _test():
     """internal test function"""
     key_filename = pkg_resources.resource_filename('yardstick.resources',
                                                    'files/yardstick_key')
-    ctx = {'host': '172.16.0.137',
-           'user': 'ubuntu',
-           'key_filename': key_filename
-           }
+    ctx = {
+        'host': {
+            'ip': '10.229.47.137',
+            'user': 'root',
+            'key_filename': key_filename
+        }
+    }
 
     logger = logging.getLogger('yardstick')
     logger.setLevel(logging.DEBUG)
 
-    p = Lmbench(ctx)
-
     options = {'stride': 128, 'stop_size': 16}
-
     args = {'options': options}
-    result = p.run(args)
+    result = {}
+
+    p = Lmbench(args, ctx)
+    p.run(result)
     print result
 
 if __name__ == '__main__':

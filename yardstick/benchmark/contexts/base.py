@@ -48,12 +48,12 @@ class Context(object):
 
     @abc.abstractmethod
     def _get_server(self, attr_name):
-        '''get server object by name from context
+        '''get server info by name from context
         '''
 
     @staticmethod
     def get_server(attr_name):
-        '''lookup server object by name from context
+        '''lookup server info by name from context
         attr_name: either a name for a server created by yardstick or a dict
         with attribute name mapping when using external heat templates
         '''
@@ -64,7 +64,36 @@ class Context(object):
                 break
 
         if server is None:
-            raise ValueError("context not found for server '%s'" %
-                             attr_name["name"])
+            raise ValueError("context not found for server '%r'" %
+                             attr_name)
 
         return server
+
+    @staticmethod
+    def is_same_heat_context(host_attr, target_attr):
+        '''check if two server is in the same heat context
+        host_attr: either a name for a server created by yardstick or a dict
+        with attribute name mapping when using external heat templates
+        target_attr: either a name for a server created by yardstick or a dict
+        with attribute name mapping when using external heat templates
+        '''
+        host = None
+        target = None
+        for context in Context.list:
+            try:
+                # Only HeatContext has _get_Server method.
+                host = context._get_Server(host_attr)
+                if host is None:
+                    continue
+
+                target = context._get_Server(target_attr)
+                if target is None:
+                    return False
+
+                # Both host and target is not None, then they are in the
+                # same heat context.
+                return True
+            except Exception:
+                continue
+
+        return False

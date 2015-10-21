@@ -22,7 +22,7 @@ from yardstick.benchmark.runners import base
 LOG = logging.getLogger(__name__)
 
 
-def _worker_process(queue, cls, method_name, scenario_cfg):
+def _worker_process(queue, cls, method_name, scenario_cfg, context_cfg):
 
     sequence = 1
 
@@ -42,12 +42,13 @@ def _worker_process(queue, cls, method_name, scenario_cfg):
     LOG.info("worker START, sequence_values(%s, %s), class %s",
              arg_name, sequence_values, cls)
 
-    benchmark = cls(runner_cfg)
+    benchmark = cls(scenario_cfg, context_cfg)
     benchmark.setup()
     method = getattr(benchmark, method_name)
 
     queue.put({'runner_id': runner_cfg['runner_id'],
-               'scenario_cfg': scenario_cfg})
+               'scenario_cfg': scenario_cfg,
+               'context_cfg': context_cfg})
 
     sla_action = None
     if "sla" in scenario_cfg:
@@ -63,7 +64,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg):
         errors = ""
 
         try:
-            method(scenario_cfg, data)
+            method(data)
         except AssertionError as assertion:
             # SLA validation failed in scenario, determine what to do now
             if sla_action == "assert":
@@ -121,8 +122,8 @@ class SequenceRunner(base.Runner):
 
     __execution_type__ = 'Sequence'
 
-    def _run_benchmark(self, cls, method, scenario_cfg):
+    def _run_benchmark(self, cls, method, scenario_cfg, context_cfg):
         self.process = multiprocessing.Process(
             target=_worker_process,
-            args=(self.result_queue, cls, method, scenario_cfg))
+            args=(self.result_queue, cls, method, scenario_cfg, context_cfg))
         self.process.start()
