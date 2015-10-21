@@ -13,7 +13,7 @@ import sys
 import os
 import yaml
 import atexit
-import pkg_resources
+# import pkg_resources
 import ipaddress
 
 from yardstick.benchmark.contexts.base import Context
@@ -244,40 +244,28 @@ def is_ip_addr(addr):
 
 def run_one_scenario(scenario_cfg, output_file):
     '''run one scenario using context'''
-    key_filename = pkg_resources.resource_filename(
-        'yardstick.resources', 'files/yardstick_key')
-
-    # TODO support get multi hosts/vms info
-    host = Context.get_server(scenario_cfg["host"])
+    # key_filename = pkg_resources.resource_filename(
+    #     'yardstick.resources', 'files/yardstick_key')
 
     runner_cfg = scenario_cfg["runner"]
-    runner_cfg['host'] = host.public_ip
-    runner_cfg['user'] = host.context.user
-    runner_cfg['key_filename'] = key_filename
     runner_cfg['output_filename'] = output_file
+
+    # TODO support get multi hosts/vms info
+    # TODO HeatContext._get_server needs refactoring
+    context_cfg = {}
+    context_cfg['host'] = Context.get_server(scenario_cfg["host"])
 
     if "target" in scenario_cfg:
         if is_ip_addr(scenario_cfg["target"]):
-            scenario_cfg["ipaddr"] = scenario_cfg["target"]
+            context_cfg['target'] = {}
+            context_cfg['target']["ipaddr"] = scenario_cfg["target"]
         else:
-            target = Context.get_server(scenario_cfg["target"])
-
-            # get public IP for target server, some scenarios require it
-            if target.public_ip:
-                runner_cfg['target'] = target.public_ip
-
-            # TODO scenario_cfg["ipaddr"] is bad naming
-            if host.context != target.context:
-                # target is in another context, get its public IP
-                scenario_cfg["ipaddr"] = target.public_ip
-            else:
-                # target is in the same context, get its private IP
-                scenario_cfg["ipaddr"] = target.private_ip
+            context_cfg['target'] = Context.get_server(scenario_cfg["target"])
 
     runner = base_runner.Runner.get(runner_cfg)
 
     print "Starting runner of type '%s'" % runner_cfg["type"]
-    runner.run(scenario_cfg["type"], scenario_cfg)
+    runner.run(scenario_cfg, context_cfg)
 
     return runner
 
