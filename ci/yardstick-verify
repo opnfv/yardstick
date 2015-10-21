@@ -151,15 +151,18 @@ main()
     # extract auth ip
     ip=$(echo $OS_AUTH_URL | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+')
 
+    ## FIXME: temporarily disabling this because
+    ## of timeout errors on LF-POD2.
+    ## Maybe we need a longer timeout ??
     # check if the auth port is open
-    echo "Checking if tcp port $ip:5000 is open..."
-    nc -zv -w 10 $ip 5000; rc=$?;
-    if [ $rc -eq 0 ]; then
-        echo "$ip:5000 is open for tcp connections"
-    else
-        echo "$ip:5000 is closed"
-        exit 1
-    fi
+    # echo "Checking if tcp port $ip:5000 is open..."
+    # nc -zv -w 10 $ip 5000; rc=$?;
+    # if [ $rc -eq 0 ]; then
+    #     echo "$ip:5000 is open for tcp connections"
+    # else
+    #     echo "$ip:5000 is closed"
+    #     exit 1
+    # fi
 
     # check if the api is up
     echo "Checking if OS API is working..."
