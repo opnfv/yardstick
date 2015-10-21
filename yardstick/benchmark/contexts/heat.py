@@ -8,6 +8,7 @@
 ##############################################################################
 
 import sys
+import pkg_resources
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts.model import Server
@@ -194,7 +195,7 @@ class HeatContext(Context):
             self.stack = None
             print "Context '%s' undeployed" % self.name
 
-    def _get_server(self, attr_name):
+    def _get_Server(self, attr_name):
         '''lookup server object by name from context
         attr_name: either a name for a server created by yardstick or a dict
         with attribute name mapping when using external heat templates
@@ -216,8 +217,32 @@ class HeatContext(Context):
             server = Server(attr_name["name"].split(".")[0], self, {})
             server.public_ip = public_ip
             server.private_ip = private_ip
-            return server
         else:
             if attr_name not in self._server_map:
                 return None
-            return self._server_map[attr_name]
+            server = self._server_map[attr_name]
+
+        return server
+
+    def _get_server(self, attr_name):
+        '''lookup server info by name from context
+        attr_name: either a name for a server created by yardstick or a dict
+        with attribute name mapping when using external heat templates
+        '''
+        key_filename = pkg_resources.resource_filename(
+            'yardstick.resources', 'files/yardstick_key')
+
+        server = self._get_Server(attr_name)
+        if server is None:
+            return None
+
+        result = {
+            "user": server.context.user,
+            "key_filename": key_filename,
+            "private_ip": server.private_ip
+        }
+        # Target server may only have private_ip
+        if server.public_ip:
+            result["ip"] = server.public_ip
+
+        return result

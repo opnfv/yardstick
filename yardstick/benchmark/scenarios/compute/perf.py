@@ -36,20 +36,22 @@ class Perf(base.Scenario):
 
     TARGET_SCRIPT = 'perf_benchmark.bash'
 
-    def __init__(self, context):
-        self.context = context
+    def __init__(self, scenario_cfg, context_cfg):
+        self.scenario_cfg = scenario_cfg
+        self.context_cfg = context_cfg
         self.setup_done = False
 
     def setup(self):
         """scenario setup"""
         self.target_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.compute', Perf.TARGET_SCRIPT)
-        user = self.context.get('user', 'ubuntu')
-        host = self.context.get('host', None)
-        key_filename = self.context.get('key_filename', '~/.ssh/id_rsa')
+        host = self.context_cfg['host']
+        user = host.get('user', 'ubuntu')
+        ip = host.get('ip', None)
+        key_filename = host.get('key_filename', '~/.ssh/id_rsa')
 
-        LOG.info("user:%s, host:%s", user, host)
-        self.client = ssh.SSH(user, host, key_filename=key_filename)
+        LOG.info("user:%s, host:%s", user, ip)
+        self.client = ssh.SSH(user, ip, key_filename=key_filename)
         self.client.wait(timeout=600)
 
         # copy script to host
@@ -58,13 +60,13 @@ class Perf(base.Scenario):
 
         self.setup_done = True
 
-    def run(self, args, result):
+    def run(self, result):
         """execute the benchmark"""
 
         if not self.setup_done:
             self.setup()
 
-        options = args['options']
+        options = self.scenario_cfg['options']
         events = options.get('events', ['task-clock'])
 
         events_string = ""
@@ -72,7 +74,8 @@ class Perf(base.Scenario):
             events_string += event + " "
 
         # if run by a duration runner
-        duration_time = self.context.get("duration", None)
+        duration_time = self.scenario_cfg["runner"].get("duration", None) \
+            if "runner" in self.scenario_cfg else None
         # if run by an arithmetic runner
         arithmetic_time = options.get("duration", None)
         if duration_time:
@@ -98,10 +101,11 @@ class Perf(base.Scenario):
 
         result.update(json.loads(stdout))
 
-        if "sla" in args:
-            metric = args['sla']['metric']
-            exp_val = args['sla']['expected_value']
-            smaller_than_exp = 'smaller_than_expected' in args['sla']
+        if "sla" in self.scenario_cfg:
+            metric = self.scenario_cfg['sla']['metric']
+            exp_val = self.scenario_cfg['sla']['expected_value']
+            smaller_than_exp = 'smaller_than_expected' \
+                               in self.scenario_cfg['sla']
 
             if metric not in result:
                 assert False, "Metric (%s) not found." % metric
@@ -118,20 +122,23 @@ def _test():
     """internal test function"""
     key_filename = pkg_resources.resource_filename('yardstick.resources',
                                                    'files/yardstick_key')
-    ctx = {'host': '172.16.0.137',
-           'user': 'ubuntu',
-           'key_filename': key_filename
-           }
+    ctx = {
+        'host': {
+            'ip': '10.229.47.137',
+            'user': 'root',
+            'key_filename': key_filename
+        }
+    }
 
     logger = logging.getLogger('yardstick')
     logger.setLevel(logging.DEBUG)
 
-    p = Perf(ctx)
-
     options = {'load': True}
     args = {'options': options}
+    result = {}
 
-    result = p.run(args)
+    p = Perf(args, ctx)
+    p.run(result)
     print result
 
 if __name__ == '__main__':

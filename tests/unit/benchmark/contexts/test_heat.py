@@ -100,7 +100,7 @@ class HeatContextTestCase(unittest.TestCase):
 
         self.assertTrue(mock_template.delete.called)
 
-    def test__get_server(self):
+    def test__get_Server(self):
 
         self.mock_context.name = 'bar'
         self.mock_context.stack.outputs = {'public_ip': '127.0.0.1',
@@ -108,7 +108,7 @@ class HeatContextTestCase(unittest.TestCase):
         attr_name = {'name': 'foo.bar',
                      'public_ip_attr': 'public_ip',
                      'private_ip_attr': 'private_ip'}
-        result = heat.HeatContext._get_server(self.mock_context, attr_name)
+        result = heat.HeatContext._get_Server(self.mock_context, attr_name)
 
         self.assertEqual(result.public_ip, '127.0.0.1')
         self.assertEqual(result.private_ip, '10.0.0.1')
