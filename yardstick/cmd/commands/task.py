@@ -251,12 +251,14 @@ def run_one_scenario(scenario_cfg, output_file):
     host = Context.get_server(scenario_cfg["host"])
 
     runner_cfg = scenario_cfg["runner"]
-    runner_cfg['host'] = host.public_ip
-    runner_cfg['user'] = host.context.user
-    runner_cfg['key_filename'] = key_filename
+    runner_cfg['host'] = {}
+    runner_cfg['host']['ip'] = host.public_ip
+    runner_cfg['host']['user'] = host.context.user
+    runner_cfg['host']['key_filename'] = key_filename
     runner_cfg['output_filename'] = output_file
 
     if "target" in scenario_cfg:
+        runner_cfg['target'] = {}
         if is_ip_addr(scenario_cfg["target"]):
             scenario_cfg["ipaddr"] = scenario_cfg["target"]
         else:
@@ -264,7 +266,9 @@ def run_one_scenario(scenario_cfg, output_file):
 
             # get public IP for target server, some scenarios require it
             if target.public_ip:
-                runner_cfg['target'] = target.public_ip
+                runner_cfg['target']['ip'] = target.public_ip
+                runner_cfg['target']['user'] = target.context.user
+                runner_cfg['target']['key_filename'] = key_filename
 
             # TODO scenario_cfg["ipaddr"] is bad naming
             if host.context != target.context:

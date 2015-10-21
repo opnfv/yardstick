@@ -63,13 +63,14 @@ class Cyclictest(base.Scenario):
         self.target_script = pkg_resources.resource_filename(
             "yardstick.benchmark.scenarios.compute",
             Cyclictest.TARGET_SCRIPT)
-        user = self.context.get("user", "root")
-        host = self.context.get("host", None)
-        key_filename = self.context.get("key_filename", "~/.ssh/id_rsa")
+        host = self.context["host"]
+        user = host.get("user", "root")
+        ip = host.get("ip", None)
+        key_filename = host.get("key_filename", "~/.ssh/id_rsa")
 
-        LOG.debug("user:%s, host:%s", user, host)
+        LOG.debug("user:%s, host:%s", user, ip)
         print "key_filename:" + key_filename
-        self.client = ssh.SSH(user, host, key_filename=key_filename)
+        self.client = ssh.SSH(user, ip, key_filename=key_filename)
         self.client.wait(timeout=600)
 
         # copy script to host
@@ -122,9 +123,11 @@ def _test():
     key_filename = pkg_resources.resource_filename("yardstick.resources",
                                                    "files/yardstick_key")
     ctx = {
-        "host": "192.168.50.28",
-        "user": "root",
-        "key_filename": key_filename
+        "host": {
+            "ip": "10.229.47.137",
+            "user": "root",
+            "key_filename": key_filename
+        }
     }
 
     logger = logging.getLogger("yardstick")

@@ -21,10 +21,12 @@ class PingTestCase(unittest.TestCase):
 
     def setUp(self):
         self.ctx = {
-            'host': '172.16.0.137',
-            'user': 'cirros',
-            'key_filename': "mykey.key"
+            'host': {
+                'ip': '172.16.0.137',
+                'user': 'cirros',
+                'key_filename': "mykey.key"
             }
+        }
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_successful_no_sla(self, mock_ssh):

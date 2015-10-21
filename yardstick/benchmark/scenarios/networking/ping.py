@@ -36,13 +36,14 @@ class Ping(base.Scenario):
         self.context = context
         self.target_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking', Ping.TARGET_SCRIPT)
-        user = self.context.get('user', 'ubuntu')
-        host = self.context.get('host', None)
-        key_filename = self.context.get('key_filename', '~/.ssh/id_rsa')
+        host = self.context['host']
+        user = host.get('user', 'ubuntu')
+        ip = host.get('ip', None)
+        key_filename = host.get('key_filename', '~/.ssh/id_rsa')
 
-        LOG.info("user:%s, host:%s", user, host)
+        LOG.info("user:%s, host:%s", user, ip)
 
-        self.connection = ssh.SSH(user, host, key_filename=key_filename)
+        self.connection = ssh.SSH(user, ip, key_filename=key_filename)
         self.connection.wait()
 
     def run(self, args):
@@ -72,3 +73,27 @@ class Ping(base.Scenario):
                 (rtt, sla_max_rtt)
 
         return rtt
+
+
+def _test():
+    '''internal test function'''
+    key_filename = pkg_resources.resource_filename("yardstick.resources",
+                                                   "files/yardstick_key")
+    ctx = {
+        "host": {
+            "ip": "10.229.47.137",
+            "user": "root",
+            "key_filename": key_filename
+        }
+    }
+
+    logger = logging.getLogger("yardstick")
+    logger.setLevel(logging.DEBUG)
+
+    p = Ping(ctx)
+    args = {}
+    result = p.run(args)
+    print result
+
+if __name__ == '__main__':
+    _test()

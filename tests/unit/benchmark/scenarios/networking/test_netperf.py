@@ -24,10 +24,16 @@ class NetperfTestCase(unittest.TestCase):
 
     def setUp(self):
         self.ctx = {
-            'host': '172.16.0.137',
-            'target': '172.16.0.138',
-            'user': 'cirros',
-            'key_filename': "mykey.key"
+            'host': {
+                'ip': '172.16.0.137',
+                'user': 'cirros',
+                'key_filename': "mykey.key"
+            },
+            'target': {
+                'ip': '172.16.0.138',
+                'user': 'cirros',
+                'key_filename': "mykey.key"
+            }
         }
 
     def test_netperf_successful_setup(self, mock_ssh):
