@@ -37,8 +37,9 @@ class Pktgen(base.Scenario):
 
     TARGET_SCRIPT = 'pktgen_benchmark.bash'
 
-    def __init__(self, context):
-        self.context = context
+    def __init__(self, scenario_cfg, context_cfg):
+        self.scenario_cfg = scenario_cfg
+        self.context_cfg = context_cfg
         self.setup_done = False
 
     def setup(self):
@@ -46,17 +47,23 @@ class Pktgen(base.Scenario):
         self.target_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
             Pktgen.TARGET_SCRIPT)
-        user = self.context.get('user', 'ubuntu')
-        host = self.context.get('host', None)
-        target = self.context.get('target', None)
-        key_filename = self.context.get('key_filename', '~/.ssh/id_rsa')
+        host = self.context_cfg['host']
+        host_user = host.get('user', 'ubuntu')
+        host_ip = host.get('ip', None)
+        host_key_filename = host.get('key_filename', '~/.ssh/id_rsa')
+        target = self.context_cfg['target']
+        target_user = target.get('user', 'ubuntu')
+        target_ip = target.get('ip', None)
+        target_key_filename = target.get('key_filename', '~/.ssh/id_rsa')
 
-        LOG.info("user:%s, target:%s", user, target)
-        self.server = ssh.SSH(user, target, key_filename=key_filename)
+        LOG.info("user:%s, target:%s", target_user, target_ip)
+        self.server = ssh.SSH(target_user, target_ip,
+                              key_filename=target_key_filename)
         self.server.wait(timeout=600)
 
-        LOG.info("user:%s, host:%s", user, host)
-        self.client = ssh.SSH(user, host, key_filename=key_filename)
+        LOG.info("user:%s, host:%s", host_user, host_ip)
+        self.client = ssh.SSH(host_user, host_ip,
+                              key_filename=host_key_filename)
         self.client.wait(timeout=600)
 
         # copy script to host
@@ -86,19 +93,20 @@ class Pktgen(base.Scenario):
             raise RuntimeError(stderr)
         return int(stdout)
 
-    def run(self, args, result):
+    def run(self, result):
         """execute the benchmark"""
 
         if not self.setup_done:
             self.setup()
 
-        ipaddr = args.get("ipaddr", '127.0.0.1')
+        ipaddr = self.context_cfg["target"].get("ipaddr", '127.0.0.1')
 
-        options = args['options']
+        options = self.scenario_cfg['options']
         packetsize = options.get("packetsize", 60)
         self.number_of_ports = options.get("number_of_ports", 10)
         # if run by a duration runner
-        duration_time = self.context.get("duration", None)
+        duration_time = self.scenario_cfg["runner"].get("duration", None) \
+            if "runner" in self.scenario_cfg else None
         # if run by an arithmetic runner
         arithmetic_time = options.get("duration", None)
 
@@ -123,11 +131,11 @@ class Pktgen(base.Scenario):
 
         result['packets_received'] = self._iptables_get_result()
 
-        if "sla" in args:
+        if "sla" in self.scenario_cfg:
             sent = result['packets_sent']
             received = result['packets_received']
             ppm = 1000000 * (sent - received) / sent
-            sla_max_ppm = int(args["sla"]["max_ppm"])
+            sla_max_ppm = int(self.scenario_cfg["sla"]["max_ppm"])
             assert ppm <= sla_max_ppm, "ppm %d > sla_max_ppm %d; " \
                 % (ppm, sla_max_ppm)
 
@@ -136,22 +144,29 @@ def _test():
     '''internal test function'''
     key_filename = pkg_resources.resource_filename('yardstick.resources',
                                                    'files/yardstick_key')
-    ctx = {'host': '172.16.0.137',
-           'target': '172.16.0.138',
-           'user': 'ubuntu',
-           'key_filename': key_filename
-           }
+    ctx = {
+        'host': {
+            'ip': '10.229.47.137',
+            'user': 'root',
+            'key_filename': key_filename
+        },
+        'target': {
+            'ip': '10.229.47.137',
+            'user': 'root',
+            'key_filename': key_filename,
+            'ipaddr': '10.229.47.137',
+        }
+    }
 
     logger = logging.getLogger('yardstick')
     logger.setLevel(logging.DEBUG)
 
-    p = Pktgen(ctx)
-
     options = {'packetsize': 120}
+    args = {'options': options}
+    result = {}
 
-    args = {'options': options,
-            'ipaddr': '192.168.111.31'}
-    result = p.run(args)
+    p = Pktgen(args, ctx)
+    p.run(result)
     print result
 
 if __name__ == '__main__':

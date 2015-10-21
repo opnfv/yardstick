@@ -48,12 +48,12 @@ class Context(object):
 
     @abc.abstractmethod
     def _get_server(self, attr_name):
-        '''get server object by name from context
+        '''get server info by name from context
         '''
 
     @staticmethod
     def get_server(attr_name):
-        '''lookup server object by name from context
+        '''lookup server info by name from context
         attr_name: either a name for a server created by yardstick or a dict
         with attribute name mapping when using external heat templates
         '''
@@ -64,7 +64,7 @@ class Context(object):
                 break
 
         if server is None:
-            raise ValueError("context not found for server '%s'" %
-                             attr_name["name"])
+            raise ValueError("context not found for server '%r'" %
+                             attr_name)
 
         return server

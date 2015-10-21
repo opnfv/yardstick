@@ -32,28 +32,31 @@ class Ping(base.Scenario):
 
     TARGET_SCRIPT = 'ping_benchmark.bash'
 
-    def __init__(self, context):
-        self.context = context
+    def __init__(self, scenario_cfg, context_cfg):
+        self.scenario_cfg = scenario_cfg
+        self.context_cfg = context_cfg
         self.target_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking', Ping.TARGET_SCRIPT)
-        user = self.context.get('user', 'ubuntu')
-        host = self.context.get('host', None)
-        key_filename = self.context.get('key_filename', '~/.ssh/id_rsa')
+        host = self.context_cfg['host']
+        user = host.get('user', 'ubuntu')
+        ip = host.get('ip', None)
+        key_filename = host.get('key_filename', '~/.ssh/id_rsa')
 
-        LOG.info("user:%s, host:%s", user, host)
+        LOG.info("user:%s, host:%s", user, ip)
 
-        self.connection = ssh.SSH(user, host, key_filename=key_filename)
+        self.connection = ssh.SSH(user, ip, key_filename=key_filename)
         self.connection.wait()
 
-    def run(self, args, result):
+    def run(self, result):
         """execute the benchmark"""
 
-        if "options" in args:
-            options = "-s %s" % args['options'].get("packetsize", '56')
+        if "options" in self.scenario_cfg:
+            options = "-s %s" % \
+                self.scenario_cfg['options'].get("packetsize", '56')
         else:
             options = ""
 
-        destination = args.get("ipaddr", '127.0.0.1')
+        destination = self.context_cfg['target'].get("ipaddr", '127.0.0.1')
 
         LOG.debug("ping '%s' '%s'", options, destination)
 
@@ -66,7 +69,36 @@ class Ping(base.Scenario):
 
         result["rtt"] = float(stdout)
 
-        if "sla" in args:
-            sla_max_rtt = int(args["sla"]["max_rtt"])
+        if "sla" in self.scenario_cfg:
+            sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
             assert result["rtt"] <= sla_max_rtt, "rtt %f > sla:max_rtt(%f); " % \
                 (result["rtt"], sla_max_rtt)
+
+
+def _test():
+    '''internal test function'''
+    key_filename = pkg_resources.resource_filename("yardstick.resources",
+                                                   "files/yardstick_key")
+    ctx = {
+        "host": {
+            "ip": "10.229.47.137",
+            "user": "root",
+            "key_filename": key_filename
+        },
+        "target": {
+            "ipaddr": "10.229.17.105",
+        }
+    }
+
+    logger = logging.getLogger("yardstick")
+    logger.setLevel(logging.DEBUG)
+
+    args = {}
+    result = {}
+
+    p = Ping(args, ctx)
+    p.run(result)
+    print result
+
+if __name__ == '__main__':
+    _test()
