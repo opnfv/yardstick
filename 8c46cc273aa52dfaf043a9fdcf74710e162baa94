@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_8b1d3b76",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-10-21T15:35:00Z",
+      "side": 1,
+      "message": "I wonder if it is a good idea to move scenario_cfg[\"ipaddr\"] (from below) to the runner_cfg[\u0027target\u0027] dictionary? It makes more sense to me too keep them all in the same place. And maybe also always include target.private_ip in the dictionary?\n\nE.g.\n    runner_cfg[\u0027target\u0027][\u0027private_ip\u0027] \u003d target.private_ip\n    runner_cfg[\u0027target\u0027][\u0027public_ip\u0027] \u003d target.public_ip (if exist)\n    runner_cfg[\u0027target\u0027][\u0027ip\u0027] \u003d public_ip OR private_ip (old ipaddr)\n\nNot neccessary to do it in this patch, but I think some improvements could be done here.",
+      "revId": "8c46cc273aa52dfaf043a9fdcf74710e162baa94",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
