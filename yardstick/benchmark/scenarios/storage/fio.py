@@ -48,8 +48,9 @@ class Fio(base.Scenario):
 
     TARGET_SCRIPT = "fio_benchmark.bash"
 
-    def __init__(self, context):
-        self.context = context
+    def __init__(self, scenario_cfg, context_cfg):
+        self.scenario_cfg = scenario_cfg
+        self.context_cfg = context_cfg
         self.setup_done = False
 
     def setup(self):
@@ -57,12 +58,13 @@ class Fio(base.Scenario):
         self.target_script = pkg_resources.resource_filename(
             "yardstick.benchmark.scenarios.storage",
             Fio.TARGET_SCRIPT)
-        user = self.context.get("user", "root")
-        host = self.context.get("host", None)
-        key_filename = self.context.get("key_filename", "~/.ssh/id_rsa")
+        host = self.context_cfg["host"]
+        user = host.get("user", "root")
+        ip = host.get("ip", None)
+        key_filename = host.get("key_filename", "~/.ssh/id_rsa")
 
-        LOG.info("user:%s, host:%s", user, host)
-        self.client = ssh.SSH(user, host, key_filename=key_filename)
+        LOG.info("user:%s, host:%s", user, ip)
+        self.client = ssh.SSH(user, ip, key_filename=key_filename)
         self.client.wait(timeout=600)
 
         # copy script to host
@@ -71,7 +73,7 @@ class Fio(base.Scenario):
 
         self.setup_done = True
 
-    def run(self, args, result):
+    def run(self, result):
         """execute the benchmark"""
         default_args = "-ioengine=libaio -direct=1 -group_reporting " \
             "-numjobs=1 -time_based --output-format=json"
@@ -79,7 +81,7 @@ class Fio(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        options = args["options"]
+        options = self.scenario_cfg["options"]
         filename = options.get("filename", "/home/ec2-user/data.raw")
         bs = options.get("bs", "4k")
         iodepth = options.get("iodepth", "1")
@@ -87,7 +89,8 @@ class Fio(base.Scenario):
         ramp_time = options.get("ramp_time", 20)
         name = "yardstick-fio"
         # if run by a duration runner
-        duration_time = self.context.get("duration", None)
+        duration_time = self.scenario_cfg["runner"].get("duration", None) \
+            if "runner" in self.scenario_cfg else None
         # if run by an arithmetic runner
         arithmetic_time = options.get("duration", None)
         if duration_time:
@@ -122,20 +125,20 @@ class Fio(base.Scenario):
             result["write_iops"] = raw_data["jobs"][0]["write"]["iops"]
             result["write_lat"] = raw_data["jobs"][0]["write"]["lat"]["mean"]
 
-        if "sla" in args:
+        if "sla" in self.scenario_cfg:
             sla_error = ""
             for k, v in result.items():
-                if k not in args['sla']:
+                if k not in self.scenario_cfg['sla']:
                     continue
 
                 if "lat" in k:
                     # For lattency small value is better
-                    max_v = float(args['sla'][k])
+                    max_v = float(self.scenario_cfg['sla'][k])
                     if v > max_v:
                         sla_error += "%s %f > sla:%s(%f); " % (k, v, k, max_v)
                 else:
                     # For bandwidth and iops big value is better
-                    min_v = int(args['sla'][k])
+                    min_v = int(self.scenario_cfg['sla'][k])
                     if v < min_v:
                         sla_error += "%s %d < " \
                             "sla:%s(%d); " % (k, v, k, min_v)
@@ -148,15 +151,15 @@ def _test():
     key_filename = pkg_resources.resource_filename("yardstick.resources",
                                                    "files/yardstick_key")
     ctx = {
-        "host": "10.0.0.101",
-        "user": "ec2-user",
-        "key_filename": key_filename
+        "host": {
+            "ip": "10.229.47.137",
+            "user": "root",
+            "key_filename": key_filename
+        }
     }
 
     logger = logging.getLogger("yardstick")
     logger.setLevel(logging.DEBUG)
-
-    fio = Fio(ctx)
 
     options = {
         "filename": "/home/ec2-user/data.raw",
@@ -166,9 +169,11 @@ def _test():
         "ramp_time": 1,
         "duration": 10
     }
+    result = {}
     args = {"options": options}
 
-    result = fio.run(args)
+    fio = Fio(args, ctx)
+    fio.run(result)
     print result
 
 if __name__ == '__main__':

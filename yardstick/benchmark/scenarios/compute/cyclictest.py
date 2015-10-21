@@ -54,8 +54,9 @@ class Cyclictest(base.Scenario):
 
     TARGET_SCRIPT = "cyclictest_benchmark.bash"
 
-    def __init__(self, context):
-        self.context = context
+    def __init__(self, scenario_cfg, context_cfg):
+        self.scenario_cfg = scenario_cfg
+        self.context_cfg = context_cfg
         self.setup_done = False
 
     def setup(self):
@@ -63,13 +64,14 @@ class Cyclictest(base.Scenario):
         self.target_script = pkg_resources.resource_filename(
             "yardstick.benchmark.scenarios.compute",
             Cyclictest.TARGET_SCRIPT)
-        user = self.context.get("user", "root")
-        host = self.context.get("host", None)
-        key_filename = self.context.get("key_filename", "~/.ssh/id_rsa")
+        host = self.context_cfg["host"]
+        user = host.get("user", "root")
+        ip = host.get("ip", None)
+        key_filename = host.get("key_filename", "~/.ssh/id_rsa")
 
-        LOG.debug("user:%s, host:%s", user, host)
+        LOG.debug("user:%s, host:%s", user, ip)
         print "key_filename:" + key_filename
-        self.client = ssh.SSH(user, host, key_filename=key_filename)
+        self.client = ssh.SSH(user, ip, key_filename=key_filename)
         self.client.wait(timeout=600)
 
         # copy script to host
@@ -78,14 +80,14 @@ class Cyclictest(base.Scenario):
 
         self.setup_done = True
 
-    def run(self, args, result):
+    def run(self, result):
         """execute the benchmark"""
         default_args = "-m -n -q"
 
         if not self.setup_done:
             self.setup()
 
-        options = args["options"]
+        options = self.scenario_cfg["options"]
         affinity = options.get("affinity", 1)
         interval = options.get("interval", 1000)
         priority = options.get("priority", 99)
@@ -104,13 +106,14 @@ class Cyclictest(base.Scenario):
 
         result.update(json.loads(stdout))
 
-        if "sla" in args:
+        if "sla" in self.scenario_cfg:
             sla_error = ""
             for t, latency in result.items():
-                if 'max_%s_latency' % t not in args['sla']:
+                if 'max_%s_latency' % t not in self.scenario_cfg['sla']:
                     continue
 
-                sla_latency = int(args['sla']['max_%s_latency' % t])
+                sla_latency = int(self.scenario_cfg['sla'][
+                                  'max_%s_latency' % t])
                 latency = int(latency)
                 if latency > sla_latency:
                     sla_error += "%s latency %d > sla:max_%s_latency(%d); " % \
@@ -123,15 +126,15 @@ def _test():
     key_filename = pkg_resources.resource_filename("yardstick.resources",
                                                    "files/yardstick_key")
     ctx = {
-        "host": "192.168.50.28",
-        "user": "root",
-        "key_filename": key_filename
+        "host": {
+            "ip": "10.229.47.137",
+            "user": "root",
+            "key_filename": key_filename
+        }
     }
 
     logger = logging.getLogger("yardstick")
     logger.setLevel(logging.DEBUG)
-
-    cyclictest = Cyclictest(ctx)
 
     options = {
         "affinity": 2,
@@ -150,8 +153,10 @@ def _test():
         "options": options,
         "sla": sla
     }
+    result = {}
 
-    result = cyclictest.run(args)
+    cyclictest = Cyclictest(args, ctx)
+    cyclictest.run(result)
     print result
 
 if __name__ == '__main__':

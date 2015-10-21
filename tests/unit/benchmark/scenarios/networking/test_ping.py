@@ -21,71 +21,72 @@ class PingTestCase(unittest.TestCase):
 
     def setUp(self):
         self.ctx = {
-            'host': '172.16.0.137',
-            'user': 'cirros',
-            'key_filename': "mykey.key"
+            'host': {
+                'ip': '172.16.0.137',
+                'user': 'cirros',
+                'key_filename': "mykey.key"
+            },
+            "target": {
+                "ipaddr": "10.229.17.105",
             }
+        }
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_successful_no_sla(self, mock_ssh):
 
-        p = ping.Ping(self.ctx)
-
         args = {
             'options': {'packetsize': 200},
-            'ipaddr': '172.16.0.138'
             }
         result = {}
 
+        p = ping.Ping(args, self.ctx)
+
         mock_ssh.SSH().execute.return_value = (0, '100', '')
-        p.run(args, result)
+        p.run(result)
         self.assertEqual(result, {'rtt': 100.0})
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_successful_sla(self, mock_ssh):
 
-        p = ping.Ping(self.ctx)
-
         args = {
             'options': {'packetsize': 200},
-            'ipaddr': '172.16.0.138',
             'sla': {'max_rtt': 150}
             }
         result = {}
 
+        p = ping.Ping(args, self.ctx)
+
         mock_ssh.SSH().execute.return_value = (0, '100', '')
-        p.run(args, result)
+        p.run(result)
         self.assertEqual(result, {'rtt': 100.0})
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_unsuccessful_sla(self, mock_ssh):
 
-        p = ping.Ping(self.ctx)
-
         args = {
             'options': {'packetsize': 200},
-            'ipaddr': '172.16.0.138',
             'sla': {'max_rtt': 50}
-            }
+        }
         result = {}
 
+        p = ping.Ping(args, self.ctx)
+
         mock_ssh.SSH().execute.return_value = (0, '100', '')
-        self.assertRaises(AssertionError, p.run, args, result)
+        self.assertRaises(AssertionError, p.run, result)
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_unsuccessful_script_error(self, mock_ssh):
 
-        p = ping.Ping(self.ctx)
-
         args = {
             'options': {'packetsize': 200},
-            'ipaddr': '172.16.0.138',
             'sla': {'max_rtt': 50}
-            }
+        }
         result = {}
 
+        p = ping.Ping(args, self.ctx)
+
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
-        self.assertRaises(RuntimeError, p.run, args, result)
+        self.assertRaises(RuntimeError, p.run, result)
 
 
 def main():

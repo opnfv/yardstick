@@ -110,5 +110,5 @@ class HeatContextTestCase(unittest.TestCase):
                      'private_ip_attr': 'private_ip'}
         result = heat.HeatContext._get_server(self.mock_context, attr_name)
 
-        self.assertEqual(result.public_ip, '127.0.0.1')
-        self.assertEqual(result.private_ip, '10.0.0.1')
+        self.assertEqual(result['ip'], '127.0.0.1')
+        self.assertEqual(result['private_ip'], '10.0.0.1')
