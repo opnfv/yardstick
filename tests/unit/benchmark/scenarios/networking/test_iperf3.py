@@ -26,15 +26,22 @@ class IperfTestCase(unittest.TestCase):
 
     def setUp(self):
         self.ctx = {
-            'host': '172.16.0.137',
-            'target': '172.16.0.138',
-            'user': 'cirros',
-            'key_filename': "mykey.key"
+            'host': {
+                'ip': '172.16.0.137',
+                'user': 'root',
+                'key_filename': 'mykey.key'
+            },
+            'target': {
+                'ip': '172.16.0.138',
+                'user': 'root',
+                'key_filename': 'mykey.key',
+                'ipaddr': '172.16.0.138',
+            }
         }
 
     def test_iperf_successful_setup(self, mock_ssh):
 
-        p = iperf3.Iperf(self.ctx)
+        p = iperf3.Iperf({}, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '', '')
 
         p.setup()
@@ -44,13 +51,13 @@ class IperfTestCase(unittest.TestCase):
 
     def test_iperf_unsuccessful_setup(self, mock_ssh):
 
-        p = iperf3.Iperf(self.ctx)
+        p = iperf3.Iperf({}, self.ctx)
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p.setup)
 
     def test_iperf_successful_teardown(self, mock_ssh):
 
-        p = iperf3.Iperf(self.ctx)
+        p = iperf3.Iperf({}, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '', '')
         p.host = mock_ssh.SSH()
         p.target = mock_ssh.SSH()
@@ -61,25 +68,21 @@ class IperfTestCase(unittest.TestCase):
 
     def test_iperf_successful_no_sla(self, mock_ssh):
 
-        p = iperf3.Iperf(self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
-        p.host = mock_ssh.SSH()
-
         options = {}
         args = {'options': options}
         result = {}
 
+        p = iperf3.Iperf(args, self.ctx)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        p.host = mock_ssh.SSH()
+
         sample_output = self._read_sample_output(self.output_name_tcp)
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         expected_result = json.loads(sample_output)
-        p.run(args, result)
+        p.run(result)
         self.assertEqual(result, expected_result)
 
     def test_iperf_successful_sla(self, mock_ssh):
-
-        p = iperf3.Iperf(self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
-        p.host = mock_ssh.SSH()
 
         options = {}
         args = {
@@ -88,17 +91,17 @@ class IperfTestCase(unittest.TestCase):
         }
         result = {}
 
+        p = iperf3.Iperf(args, self.ctx)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        p.host = mock_ssh.SSH()
+
         sample_output = self._read_sample_output(self.output_name_tcp)
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         expected_result = json.loads(sample_output)
-        p.run(args, result)
+        p.run(result)
         self.assertEqual(result, expected_result)
 
     def test_iperf_unsuccessful_sla(self, mock_ssh):
-
-        p = iperf3.Iperf(self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
-        p.host = mock_ssh.SSH()
 
         options = {}
         args = {
@@ -107,15 +110,15 @@ class IperfTestCase(unittest.TestCase):
         }
         result = {}
 
-        sample_output = self._read_sample_output(self.output_name_tcp)
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, p.run, args, result)
-
-    def test_iperf_successful_sla_jitter(self, mock_ssh):
-
-        p = iperf3.Iperf(self.ctx)
+        p = iperf3.Iperf(args, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '', '')
         p.host = mock_ssh.SSH()
+
+        sample_output = self._read_sample_output(self.output_name_tcp)
+        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        self.assertRaises(AssertionError, p.run, result)
+
+    def test_iperf_successful_sla_jitter(self, mock_ssh):
 
         options = {"udp":"udp","bandwidth":"20m"}
         args = {
@@ -124,17 +127,17 @@ class IperfTestCase(unittest.TestCase):
         }
         result = {}
 
+        p = iperf3.Iperf(args, self.ctx)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        p.host = mock_ssh.SSH()
+
         sample_output = self._read_sample_output(self.output_name_udp)
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         expected_result = json.loads(sample_output)
-        p.run(args, result)
+        p.run(result)
         self.assertEqual(result, expected_result)
 
     def test_iperf_unsuccessful_sla_jitter(self, mock_ssh):
-
-        p = iperf3.Iperf(self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
-        p.host = mock_ssh.SSH()
 
         options = {"udp":"udp","bandwidth":"20m"}
         args = {
@@ -143,22 +146,26 @@ class IperfTestCase(unittest.TestCase):
         }
         result = {}
 
-        sample_output = self._read_sample_output(self.output_name_udp)
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, p.run, args, result)
-
-    def test_iperf_unsuccessful_script_error(self, mock_ssh):
-
-        p = iperf3.Iperf(self.ctx)
+        p = iperf3.Iperf(args, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '', '')
         p.host = mock_ssh.SSH()
+
+        sample_output = self._read_sample_output(self.output_name_udp)
+        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        self.assertRaises(AssertionError, p.run, result)
+
+    def test_iperf_unsuccessful_script_error(self, mock_ssh):
 
         options = {}
         args = {'options': options}
         result = {}
 
+        p = iperf3.Iperf(args, self.ctx)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        p.host = mock_ssh.SSH()
+
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
-        self.assertRaises(RuntimeError, p.run, args, result)
+        self.assertRaises(RuntimeError, p.run, result)
 
     def _read_sample_output(self,filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))

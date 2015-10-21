@@ -169,8 +169,9 @@ class Runner(object):
             Runner.release(runner)
 
     def __init__(self, config, queue):
-        self.context = {}
         self.config = config
+        self.scenario_cfg = None
+        self.context_cfg = None
         self.periodic_action_process = None
         self.result_queue = queue
         self.process = None
@@ -189,7 +190,10 @@ class Runner(object):
             log.debug("post-stop data: \n%s" % data)
             self.result_queue.put({'post-stop-action-data': data})
 
-    def run(self, scenario_type, scenario_cfg):
+    def run(self, scenario_cfg, context_cfg):
+        self.scenario_cfg = scenario_cfg
+        self.context_cfg = context_cfg
+        scenario_type = self.scenario_cfg["type"]
         class_name = base_scenario.Scenario.get(scenario_type)
         path_split = class_name.split(".")
         module_path = ".".join(path_split[:-1])
@@ -228,7 +232,7 @@ class Runner(object):
                       self.result_queue))
             self.periodic_action_process.start()
 
-        self._run_benchmark(cls, "run", scenario_cfg)
+        self._run_benchmark(cls, "run", self.scenario_cfg, self.context_cfg)
 
     def join(self):
         self.process.join()

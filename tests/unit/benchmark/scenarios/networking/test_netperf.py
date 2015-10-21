@@ -24,15 +24,22 @@ class NetperfTestCase(unittest.TestCase):
 
     def setUp(self):
         self.ctx = {
-            'host': '172.16.0.137',
-            'target': '172.16.0.138',
-            'user': 'cirros',
-            'key_filename': "mykey.key"
+            'host': {
+                'ip': '172.16.0.137',
+                'user': 'cirros',
+                'key_filename': 'mykey.key'
+            },
+            'target': {
+                'ip': '172.16.0.138',
+                'user': 'cirros',
+                'key_filename': 'mykey.key',
+                'ipaddr': '172.16.0.138'
+            }
         }
 
     def test_netperf_successful_setup(self, mock_ssh):
 
-        p = netperf.Netperf(self.ctx)
+        p = netperf.Netperf({}, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '', '')
 
         p.setup()
@@ -42,25 +49,21 @@ class NetperfTestCase(unittest.TestCase):
 
     def test_netperf_successful_no_sla(self, mock_ssh):
 
-        p = netperf.Netperf(self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
-        p.host = mock_ssh.SSH()
-
         options = {}
         args = {'options': options}
         result = {}
 
+        p = netperf.Netperf(args, self.ctx)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        p.host = mock_ssh.SSH()
+
         sample_output = self._read_sample_output()
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         expected_result = json.loads(sample_output)
-        p.run(args, result)
+        p.run(result)
         self.assertEqual(result, expected_result)
 
     def test_netperf_successful_sla(self, mock_ssh):
-
-        p = netperf.Netperf(self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
-        p.host = mock_ssh.SSH()
 
         options = {}
         args = {
@@ -69,17 +72,17 @@ class NetperfTestCase(unittest.TestCase):
         }
         result = {}
 
+        p = netperf.Netperf(args, self.ctx)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        p.host = mock_ssh.SSH()
+
         sample_output = self._read_sample_output()
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         expected_result = json.loads(sample_output)
-        p.run(args, result)
+        p.run(result)
         self.assertEqual(result, expected_result)
 
     def test_netperf_unsuccessful_sla(self, mock_ssh):
-
-        p = netperf.Netperf(self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
-        p.host = mock_ssh.SSH()
 
         options = {}
         args = {
@@ -88,22 +91,26 @@ class NetperfTestCase(unittest.TestCase):
         }
         result = {}
 
-        sample_output = self._read_sample_output()
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, p.run, args, result)
-
-    def test_netperf_unsuccessful_script_error(self, mock_ssh):
-
-        p = netperf.Netperf(self.ctx)
+        p = netperf.Netperf(args, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '', '')
         p.host = mock_ssh.SSH()
+
+        sample_output = self._read_sample_output()
+        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        self.assertRaises(AssertionError, p.run, result)
+
+    def test_netperf_unsuccessful_script_error(self, mock_ssh):
 
         options = {}
         args = {'options': options}
         result = {}
 
+        p = netperf.Netperf(args, self.ctx)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        p.host = mock_ssh.SSH()
+
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
-        self.assertRaises(RuntimeError, p.run, args, result)
+        self.assertRaises(RuntimeError, p.run, result)
 
     def _read_sample_output(self):
         curr_path = os.path.dirname(os.path.abspath(__file__))
