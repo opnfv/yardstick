@@ -113,9 +113,10 @@ class Runner(object):
         return types
 
     @staticmethod
-    def get(config):
+    def get(scenario_cfg, context_cfg):
         """Returns instance of a scenario runner for execution type.
         """
+        config = scenario_cfg["runner"]
         # if there is no runner, start the output serializer subprocess
         if len(Runner.runners) == 0:
             log.debug("Starting dump process file '%s'" %
@@ -127,7 +128,9 @@ class Runner(object):
                 args=(config["output_filename"], Runner.queue))
             Runner.dump_process.start()
 
-        return Runner.get_cls(config["type"])(config, Runner.queue)
+        return Runner.get_cls(config["type"])(scenario_cfg,
+                                              context_cfg,
+                                              Runner.queue)
 
     @staticmethod
     def release_dump_process():
@@ -168,9 +171,11 @@ class Runner(object):
                 runner.periodic_action_process = None
             Runner.release(runner)
 
-    def __init__(self, config, queue):
+    def __init__(self, scenario_cfg, context_cfg, queue):
         self.context = {}
-        self.config = config
+        self.config = scenario_cfg["runner"]
+        self.scenario_cfg = scenario_cfg
+        self.context_cfg = context_cfg
         self.periodic_action_process = None
         self.result_queue = queue
         self.process = None
@@ -189,7 +194,8 @@ class Runner(object):
             log.debug("post-stop data: \n%s" % data)
             self.result_queue.put({'post-stop-action-data': data})
 
-    def run(self, scenario_type, scenario_cfg):
+    def run(self):
+        scenario_type = self.scenario_cfg["type"]
         class_name = base_scenario.Scenario.get(scenario_type)
         path_split = class_name.split(".")
         module_path = ".".join(path_split[:-1])
@@ -228,7 +234,7 @@ class Runner(object):
                       self.result_queue))
             self.periodic_action_process.start()
 
-        self._run_benchmark(cls, "run", scenario_cfg)
+        self._run_benchmark(cls, "run", self.scenario_cfg, self.context_cfg)
 
     def join(self):
         self.process.join()

@@ -59,18 +59,24 @@ class Netperf(base.Scenario):
         self.target_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
             Netperf.TARGET_SCRIPT)
-        user = self.context.get('user', 'ubuntu')
-        host = self.context.get('host', None)
-        target = self.context.get('target', None)
-        key_filename = self.context.get('key_filename', '~/.ssh/id_rsa')
+        host = self.context['host']
+        host_user = host.get('user', 'ubuntu')
+        host_ip = host.get('ip', None)
+        host_key_filename = host.get('key_filename', '~/.ssh/id_rsa')
+        target = self.context['target']
+        target_user = target.get('user', 'ubuntu')
+        target_ip = target.get('ip', None)
+        target_key_filename = target.get('key_filename', '~/.ssh/id_rsa')
 
         # netserver start automatically during the vm boot
-        LOG.info("user:%s, target:%s", user, target)
-        self.server = ssh.SSH(user, target, key_filename=key_filename)
+        LOG.info("user:%s, target:%s", target_user, target_ip)
+        self.server = ssh.SSH(target_user, target_ip,
+                              key_filename=target_key_filename)
         self.server.wait(timeout=600)
 
-        LOG.info("user:%s, host:%s", user, host)
-        self.client = ssh.SSH(user, host, key_filename=key_filename)
+        LOG.info("user:%s, host:%s", host_user, host_ip)
+        self.client = ssh.SSH(host_user, host_ip,
+                              key_filename=host_key_filename)
         self.client.wait(timeout=600)
 
         # copy script to host
@@ -86,7 +92,7 @@ class Netperf(base.Scenario):
             self.setup()
 
         # get global options
-        ipaddr = args.get("ipaddr", '127.0.0.1')
+        ipaddr = self.context['target'].get("ipaddr", '127.0.0.1')
         options = args['options']
         testname = options.get("testname", 'TCP_STREAM')
         duration_time = self.context.get("duration", None)
@@ -135,28 +141,35 @@ class Netperf(base.Scenario):
 
 def _test():
     '''internal test function'''
-    logger = logging.getLogger('yardstick')
+    key_filename = pkg_resources.resource_filename("yardstick.resources",
+                                                   "files/yardstick_key")
+    ctx = {
+        "host": {
+            "ip": "10.229.47.137",
+            "user": "root",
+            "key_filename": key_filename
+        },
+        "target": {
+            "ip": "10.229.47.137",
+            "user": "root",
+            "key_filename": key_filename,
+            "ipaddr": "10.229.47.137"
+        }
+    }
+
+    logger = logging.getLogger("yardstick")
     logger.setLevel(logging.DEBUG)
 
-    key_filename = pkg_resources.resource_filename('yardstick.resources',
-                                                   'files/yardstick_key')
-    runner_cfg = {}
-    runner_cfg['type'] = 'Duration'
-    runner_cfg['duration'] = 5
-    runner_cfg['clinet'] = '10.0.2.33'
-    runner_cfg['server'] = '10.0.2.53'
-    runner_cfg['user'] = 'ubuntu'
-    runner_cfg['output_filename'] = "/tmp/yardstick.out"
-    runner_cfg['key_filename'] = key_filename
+    netperf = Netperf(ctx)
 
-    scenario_args = {}
-    scenario_args['options'] = {"testname": 'TCP_STREAM'}
+    options = {
+        "testname": 'TCP_STREAM'
+    }
 
-    from yardstick.benchmark.runners import base as base_runner
-    runner = base_runner.Runner.get(runner_cfg)
-    runner.run("Netperf", scenario_args)
-    runner.join()
-    base_runner.Runner.release(runner)
+    args = {"options": options}
+
+    result = netperf.run(args)
+    print result
 
 if __name__ == '__main__':
     _test()

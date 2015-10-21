@@ -64,7 +64,7 @@ class Context(object):
                 break
 
         if server is None:
-            raise ValueError("context not found for server '%s'" %
-                             attr_name["name"])
+            raise ValueError("context not found for server '%r'" %
+                             attr_name)
 
         return server

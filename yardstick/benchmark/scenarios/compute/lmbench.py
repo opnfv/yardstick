@@ -44,12 +44,13 @@ class Lmbench(base.Scenario):
         self.target_script = pkg_resources.resource_filename(
             "yardstick.benchmark.scenarios.compute",
             Lmbench.TARGET_SCRIPT)
-        user = self.context.get("user", "ubuntu")
-        host = self.context.get("host", None)
-        key_filename = self.context.get('key_filename', "~/.ssh/id_rsa")
+        host = self.context["host"]
+        user = host.get("user", "ubuntu")
+        ip = host.get("ip", None)
+        key_filename = host.get('key_filename', "~/.ssh/id_rsa")
 
-        LOG.info("user:%s, host:%s", user, host)
-        self.client = ssh.SSH(user, host, key_filename=key_filename)
+        LOG.info("user:%s, host:%s", user, ip)
+        self.client = ssh.SSH(user, ip, key_filename=key_filename)
         self.client.wait(timeout=600)
 
         # copy script to host
@@ -92,10 +93,13 @@ def _test():
     """internal test function"""
     key_filename = pkg_resources.resource_filename('yardstick.resources',
                                                    'files/yardstick_key')
-    ctx = {'host': '172.16.0.137',
-           'user': 'ubuntu',
-           'key_filename': key_filename
-           }
+    ctx = {
+        'host': {
+            'ip': '10.229.47.137',
+            'user': 'root',
+            'key_filename': key_filename
+        }
+    }
 
     logger = logging.getLogger('yardstick')
     logger.setLevel(logging.DEBUG)
