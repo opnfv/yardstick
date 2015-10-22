@@ -16,6 +16,24 @@
       "revId": "8c46cc273aa52dfaf043a9fdcf74710e162baa94",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_86309257",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-22T04:36:22Z",
+      "side": 1,
+      "message": "private_ip is currently not used, so i don\u0027t add private_ip inof.\nAnd runner_cfg[\u0027target\u0027][\u0027ip\u0027] \u003d public_ip, yardstick can only use public_ip to access the guest vm.\nrunner_cfg[\u0027target\u0027][\"ipaddr\"] is the ip for host vm to access.",
+      "parentUuid": "da6255ed_8b1d3b76",
+      "revId": "8c46cc273aa52dfaf043a9fdcf74710e162baa94",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
