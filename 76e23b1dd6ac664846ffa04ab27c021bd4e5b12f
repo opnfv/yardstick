@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_b174f29c",
+        "filename": "yardstick/vTC/apexlake/experimental_framework/packet_generators/dpdk_pktgen/rfc2544.lua",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2309
+      },
+      "writtenOn": "2015-10-22T13:48:57Z",
+      "side": 1,
+      "message": "tabs removed",
+      "range": {
+        "startLine": 35,
+        "startChar": 25,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "76e23b1dd6ac664846ffa04ab27c021bd4e5b12f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_716e7acb",
+        "filename": "yardstick/vTC/apexlake/experimental_framework/packet_generators/dpdk_pktgen/rfc2544.lua",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2309
+      },
+      "writtenOn": "2015-10-22T13:48:57Z",
+      "side": 1,
+      "message": "semi columns added to all lines in order for the code to be uniform.",
+      "range": {
+        "startLine": 53,
+        "startChar": 31,
+        "endLine": 53,
+        "endChar": 34
+      },
+      "revId": "76e23b1dd6ac664846ffa04ab27c021bd4e5b12f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
