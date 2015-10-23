@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_719f9a04",
+        "filename": "yardstick/benchmark/scenarios/networking/iperf3.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-10-23T10:18:41Z",
+      "side": 0,
+      "message": "I think the the arguments to the scenarios also needs refactoring. It is very confusing as it is now. \n\nThe context argument in the __init__ method is named badly as it always contains the \u0027runner_cfg\u0027 dict. \n\nThe args argument in the run method contain the \u0027scenario_cfg\u0027 dictionary which includes the \u0027runner_cfg\u0027 dict. \n\nAs we have overlap in the data passed to the two methods I propose we use scenario_cfg at construction and remove args from the run method.",
+      "revId": "1e3e9b5d7ff40eb6921e60dc1a3254e8c984a08c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
