@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_1123be06",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-23T09:06:48Z",
+      "side": 1,
+      "message": "I have two question: \n1.why we push the context config into the runner_cfg? This variable should only store the runner segment options.\n2. we create a Server instance to store the context parsed from yaml, then we assign the value to a map one by one? So the Class Server seems unncessary?",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 47
+      },
+      "revId": "aacacfa89b0e18664dbe6d52d2ece89edfff0264",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
