@@ -255,6 +255,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_67825254",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-24T07:07:41Z",
+      "side": 1,
+      "message": "1. Agree. this step just want to get the correct runner type, the argument using runner_cfg is enough.\n\n2. using the two arguments seems more clear to understand. there are three types of cfg: runner_cfg to store runner info, context_cfg to store contexts info, and scenario_cfg to store the specific scenario info. Although this two arguments will be both used only in each scenario.py, and can be combined together, I still think divide to two arguments are better for read.",
+      "parentUuid": "9a5c5d37_077396b2",
+      "range": {
+        "startLine": 265,
+        "startChar": 4,
+        "endLine": 265,
+        "endChar": 62
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_e76762e9",
         "filename": "yardstick/cmd/commands/task.py",
         "patchSetId": 3
