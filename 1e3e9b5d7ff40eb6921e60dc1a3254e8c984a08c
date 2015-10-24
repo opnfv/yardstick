@@ -16,6 +16,24 @@
       "revId": "1e3e9b5d7ff40eb6921e60dc1a3254e8c984a08c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_e7408237",
+        "filename": "yardstick/benchmark/scenarios/networking/iperf3.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-24T05:52:44Z",
+      "side": 0,
+      "message": "Thanks for your suggestions, and pls check the newest patch.",
+      "parentUuid": "da6255ed_719f9a04",
+      "revId": "1e3e9b5d7ff40eb6921e60dc1a3254e8c984a08c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }

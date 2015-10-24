@@ -40,6 +40,24 @@
       "revId": "aacacfa89b0e18664dbe6d52d2ece89edfff0264",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c73d7ebd",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-24T05:52:44Z",
+      "side": 1,
+      "message": "Thanks for your suggestions, and pls check the newest patch.",
+      "parentUuid": "da6255ed_b14ab281",
+      "revId": "aacacfa89b0e18664dbe6d52d2ece89edfff0264",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
