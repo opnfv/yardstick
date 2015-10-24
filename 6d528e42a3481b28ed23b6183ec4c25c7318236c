@@ -117,6 +117,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_0781564a",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-24T07:35:38Z",
+      "side": 1,
+      "message": "ok, put it back now.",
+      "parentUuid": "9a5c5d37_c7645ee7",
+      "range": {
+        "startLine": 116,
+        "startChar": 12,
+        "endLine": 116,
+        "endChar": 37
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_a7616ad5",
         "filename": "yardstick/benchmark/runners/base.py",
         "patchSetId": 3
@@ -163,6 +187,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_277c5a72",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-24T07:35:38Z",
+      "side": 1,
+      "message": "Done!",
+      "parentUuid": "9a5c5d37_679b72ca",
+      "range": {
+        "startLine": 175,
+        "startChar": 8,
+        "endLine": 175,
+        "endChar": 25
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_875e6611",
         "filename": "yardstick/benchmark/runners/base.py",
         "patchSetId": 3
@@ -197,6 +245,30 @@
       "writtenOn": "2015-10-24T06:53:02Z",
       "side": 1,
       "message": "I think run(self, scenario_cfg) is more better",
+      "range": {
+        "startLine": 197,
+        "startChar": 8,
+        "endLine": 198,
+        "endChar": 49
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_e7952289",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-24T07:35:38Z",
+      "side": 1,
+      "message": "change to run(self. scenario_cfg, context_cfg) now",
+      "parentUuid": "9a5c5d37_47a06ef4",
       "range": {
         "startLine": 197,
         "startChar": 8,
@@ -279,6 +351,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_c7921e9f",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-24T07:35:38Z",
+      "side": 1,
+      "message": "1. point 1 runner_cfg agree, done.\n2. point 1 where to put context_cfg, i agree with panghao.",
+      "parentUuid": "9a5c5d37_67825254",
+      "range": {
+        "startLine": 265,
+        "startChar": 4,
+        "endLine": 265,
+        "endChar": 62
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_e76762e9",
         "filename": "yardstick/cmd/commands/task.py",
         "patchSetId": 3
@@ -290,6 +386,30 @@
       "writtenOn": "2015-10-24T06:53:02Z",
       "side": 1,
       "message": "see above",
+      "range": {
+        "startLine": 268,
+        "startChar": 4,
+        "endLine": 268,
+        "endChar": 16
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_a78f2a75",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-24T07:35:38Z",
+      "side": 1,
+      "message": "update now.",
+      "parentUuid": "9a5c5d37_e76762e9",
       "range": {
         "startLine": 268,
         "startChar": 4,
