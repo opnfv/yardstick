@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_07aa76d4",
+        "filename": "yardstick/benchmark/runners/arithmetic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-24T06:53:02Z",
+      "side": 1,
+      "message": "Suggested don\u0027t modify here",
+      "range": {
+        "startLine": 25,
+        "startChar": 45,
+        "endLine": 25,
+        "endChar": 70
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_e7ae42e7",
+        "filename": "yardstick/benchmark/runners/arithmetic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-24T06:53:02Z",
+      "side": 1,
+      "message": "I think one param \u0027scenario_cfg\u0027 is better",
+      "range": {
+        "startLine": 43,
+        "startChar": 20,
+        "endLine": 43,
+        "endChar": 45
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c7ab3ed5",
+        "filename": "yardstick/benchmark/runners/arithmetic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-24T06:53:02Z",
+      "side": 1,
+      "message": "the same as above",
+      "range": {
+        "startLine": 133,
+        "startChar": 54,
+        "endLine": 133,
+        "endChar": 67
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_a7b84a2b",
+        "filename": "yardstick/benchmark/runners/arithmetic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-24T06:53:02Z",
+      "side": 1,
+      "message": "see above",
+      "range": {
+        "startLine": 136,
+        "startChar": 62,
+        "endLine": 136,
+        "endChar": 75
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c7645ee7",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-24T06:53:02Z",
+      "side": 1,
+      "message": "suggested don\u0027t change here",
+      "range": {
+        "startLine": 116,
+        "startChar": 12,
+        "endLine": 116,
+        "endChar": 37
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_a7616ad5",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-24T06:53:02Z",
+      "side": 1,
+      "message": "suggested don\u0027t change",
+      "range": {
+        "startLine": 131,
+        "startChar": 45,
+        "endLine": 132,
+        "endChar": 58
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_679b72ca",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-24T06:53:02Z",
+      "side": 1,
+      "message": "this line can be deleted, as runner don\u0027t use it, please check again",
+      "range": {
+        "startLine": 175,
+        "startChar": 8,
+        "endLine": 175,
+        "endChar": 25
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_875e6611",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-24T06:53:02Z",
+      "side": 1,
+      "message": "suggested don\u0027t change here",
+      "range": {
+        "startLine": 176,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 38
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_47a06ef4",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-24T06:53:02Z",
+      "side": 1,
+      "message": "I think run(self, scenario_cfg) is more better",
+      "range": {
+        "startLine": 197,
+        "startChar": 8,
+        "endLine": 198,
+        "endChar": 49
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_27a57a04",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-24T06:53:02Z",
+      "side": 1,
+      "message": "I think this line don\u0027t need modify",
+      "range": {
+        "startLine": 237,
+        "startChar": 7,
+        "endLine": 237,
+        "endChar": 76
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_077396b2",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-24T06:53:02Z",
+      "side": 1,
+      "message": "1.I think the runner_cfg is better here, and the scenario_cfg can be used in runner.run(). \n\n2. is \"scenario_cfg[\u0027context\u0027] \u003d context_cfg\" more better?",
+      "range": {
+        "startLine": 265,
+        "startChar": 4,
+        "endLine": 265,
+        "endChar": 62
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_e76762e9",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-24T06:53:02Z",
+      "side": 1,
+      "message": "see above",
+      "range": {
+        "startLine": 268,
+        "startChar": 4,
+        "endLine": 268,
+        "endChar": 16
+      },
+      "revId": "6d528e42a3481b28ed23b6183ec4c25c7318236c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
