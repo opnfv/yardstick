@@ -1,0 +1,29 @@
+---
+# Sample benchmark task config file
+# measure network latency using ping
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Ping
+  options:
+    packetsize: 200
+  host: athena.LF
+  target: ares.LF
+
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+
+  sla:
+    max_rtt: 10
+    action: monitor
+
+
+context:
+  type: Node
+  name: LF
+  file: /etc/yardstick/nodes/pod.yaml
+
