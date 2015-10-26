@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_67ba52e3",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-26T03:59:36Z",
+      "side": 1,
+      "message": "this is an static class method, so i put it here.",
+      "parentUuid": "9a5c5d37_47318ea1",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 53
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_87ff86aa",
         "filename": "yardstick/benchmark/contexts/base.py",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_87ed46f2",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-26T03:59:36Z",
+      "side": 1,
+      "message": "1. yes, _get_Server is a common method, be called by context object.\n2. we can use target name, because the HeatContext._get_server can take dic as args.",
+      "parentUuid": "9a5c5d37_87ff86aa",
+      "range": {
+        "startLine": 84,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 53
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_e71f6208",
         "filename": "yardstick/benchmark/contexts/base.py",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2015-10-26T02:15:33Z",
       "side": 1,
       "message": "we got the host and target context, then just return True? I cannot understand this logic. Pls explain this, tks.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 27
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_a7f04aca",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-26T03:59:36Z",
+      "side": 1,
+      "message": "This code is a little trick, if we can find target/host server object(both not None) in the same context object then this function return true.",
+      "parentUuid": "9a5c5d37_e71f6208",
       "range": {
         "startLine": 91,
         "startChar": 0,
@@ -232,6 +304,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_47bf4ed1",
+        "filename": "yardstick/benchmark/runners/iteration.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-26T03:59:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a5c5d37_270fbae3",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 44
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_0714b6f3",
         "filename": "yardstick/benchmark/runners/sequence.py",
         "patchSetId": 6
@@ -243,6 +339,30 @@
       "writtenOn": "2015-10-26T02:15:33Z",
       "side": 1,
       "message": "it should use scenario_cfg instead of runner_cfg?",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_27b45af1",
+        "filename": "yardstick/benchmark/runners/sequence.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-26T03:59:36Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "9a5c5d37_0714b6f3",
       "range": {
         "startLine": 45,
         "startChar": 4,
