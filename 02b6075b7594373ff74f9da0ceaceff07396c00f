@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_47318ea1",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-26T02:15:33Z",
+      "side": 1,
+      "message": "I think this function should appears on the heat.py, base.py should only implements the common functions.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 53
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_e71f6208",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-26T02:15:33Z",
+      "side": 1,
+      "message": "we got the host and target context, then just return True? I cannot understand this logic. Pls explain this, tks.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 27
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_a7028ab2",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-26T02:15:33Z",
+      "side": 1,
+      "message": "1. this function name is almost the same with the above\u0027s. I suggest to combine these both functions, it seems also ok for the function: is_same_heat_context to use _get_server?\n\n2. attr_name is sometimes confused. server_name seems a better choice.",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 37
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_270fbae3",
+        "filename": "yardstick/benchmark/runners/iteration.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-26T02:15:33Z",
+      "side": 1,
+      "message": "this should use scenario_cfg instead of runner_cfg?",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 44
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_0714b6f3",
+        "filename": "yardstick/benchmark/runners/sequence.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-10-26T02:15:33Z",
+      "side": 1,
+      "message": "it should use scenario_cfg instead of runner_cfg?",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
