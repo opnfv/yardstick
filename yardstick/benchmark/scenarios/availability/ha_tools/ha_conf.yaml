@@ -1,0 +1,20 @@
+---
+# sample config file for ha test
+#
+#The options of this config file include:
+schema: "yardstick:task:0.1"
+
+nova-api:
+-
+ type: stop-service
+ inject: stop-service.bash
+ recovery: start-service.bash
+ check: status-service.bash
+ monitor: nova image-list
+
+-
+ type: kill-process
+ inject: kill-process.bash
+ recovery: start-process.bash
+ check: status-process.bash
+ monitor: nova image-list

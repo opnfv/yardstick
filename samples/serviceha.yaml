@@ -1,0 +1,29 @@
+---
+# Sample benchmark task config file
+# measure network latency using ping
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: ServiceHA
+  options:
+    fault_type: "kill"
+    process_name: "nova-api"
+
+  host: node1.LF
+
+  runner:
+    type: Duration
+    duration: 6
+  sla:
+    outage_time: 5
+    action: monitor
+
+
+context:
+  type: Node
+  name: LF
+  file: /root/yardstick/etc/pod.yaml
+
+
