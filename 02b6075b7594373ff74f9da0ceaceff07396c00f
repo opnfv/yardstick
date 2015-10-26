@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_87ff86aa",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-26T02:20:32Z",
+      "side": 1,
+      "message": "1.the _get_Server is not a class method\n2.I guess the host name and target name can be used for your purpose",
+      "range": {
+        "startLine": 84,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 53
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_e71f6208",
         "filename": "yardstick/benchmark/contexts/base.py",
         "patchSetId": 6
@@ -48,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_e7f882c6",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-26T02:20:32Z",
+      "side": 1,
+      "message": "I think the function name is similar with _get_server, please change the name or \"_get_server\".",
+      "range": {
+        "startLine": 198,
+        "startChar": 4,
+        "endLine": 198,
+        "endChar": 37
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_a7028ab2",
         "filename": "yardstick/benchmark/contexts/heat.py",
         "patchSetId": 6
@@ -64,6 +110,98 @@
         "startChar": 0,
         "endLine": 227,
         "endChar": 37
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c7f57ecc",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-26T02:20:32Z",
+      "side": 1,
+      "message": "see above",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 37
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_672c924b",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-26T02:20:32Z",
+      "side": 1,
+      "message": "I think the scenario_cfg and context_cfg are not needed to defined here",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 31
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_27269a69",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-26T02:20:32Z",
+      "side": 1,
+      "message": "I think these are not needed",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 38
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_072b9631",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-26T02:20:32Z",
+      "side": 1,
+      "message": "In my opinion, one param is better",
+      "range": {
+        "startLine": 235,
+        "startChar": 40,
+        "endLine": 235,
+        "endChar": 75
       },
       "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
