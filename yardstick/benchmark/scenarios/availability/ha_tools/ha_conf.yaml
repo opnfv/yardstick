@@ -1,0 +1,12 @@
+---
+# sample config file for ha test
+#
+schema: "yardstick:task:0.1"
+
+nova-api:
+-
+ type: stop-service
+ inject_script: ha_tools/stop_service.bash
+ recovery_script: ha_tools/start_service.bash
+ check_script: ha_tools/check_service.bash
+ monitor_cmd: nova image-list
