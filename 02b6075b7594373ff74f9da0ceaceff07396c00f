@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_87c42660",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-26T04:15:20Z",
+      "side": 1,
+      "message": "yes, bad name. Separate this func for is_same_heat_context to call",
+      "parentUuid": "9a5c5d37_e7f882c6",
+      "range": {
+        "startLine": 198,
+        "startChar": 4,
+        "endLine": 198,
+        "endChar": 37
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_a7028ab2",
         "filename": "yardstick/benchmark/contexts/heat.py",
         "patchSetId": 6
@@ -212,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_67a132a9",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-26T04:15:20Z",
+      "side": 1,
+      "message": "1. we can\u0027t use _get_server in is_same_heat_context because _get_sever only return a dic don\u0027t contain context info.\n2. yes attr_name is a little confusing.",
+      "parentUuid": "9a5c5d37_a7028ab2",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 37
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_672c924b",
         "filename": "yardstick/benchmark/runners/base.py",
         "patchSetId": 6
@@ -223,6 +271,30 @@
       "writtenOn": "2015-10-26T02:20:32Z",
       "side": 1,
       "message": "I think the scenario_cfg and context_cfg are not needed to defined here",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 31
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c7ca1e6e",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-26T04:15:20Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "9a5c5d37_672c924b",
       "range": {
         "startLine": 173,
         "startChar": 0,
@@ -258,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_e7cd2288",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-26T04:15:20Z",
+      "side": 1,
+      "message": "done.",
+      "parentUuid": "9a5c5d37_27269a69",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 38
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_072b9631",
         "filename": "yardstick/benchmark/runners/base.py",
         "patchSetId": 6
@@ -269,6 +365,30 @@
       "writtenOn": "2015-10-26T02:20:32Z",
       "side": 1,
       "message": "In my opinion, one param is better",
+      "range": {
+        "startLine": 235,
+        "startChar": 40,
+        "endLine": 235,
+        "endChar": 75
+      },
+      "revId": "02b6075b7594373ff74f9da0ceaceff07396c00f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_a7c72a64",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-26T04:15:20Z",
+      "side": 1,
+      "message": "sorry, i prefer separate this two args, easy to use and to read.",
+      "parentUuid": "9a5c5d37_072b9631",
       "range": {
         "startLine": 235,
         "startChar": 40,
