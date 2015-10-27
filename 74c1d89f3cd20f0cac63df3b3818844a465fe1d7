@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_4aee3324",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-27T06:08:48Z",
+      "side": 1,
+      "message": "This line should be wrapped at 72 characters. :)\nhttps://wiki.opnfv.org/developer/contribution_guidelines",
+      "range": {
+        "startLine": 9,
+        "startChar": 48,
+        "endLine": 9,
+        "endChar": 97
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_0af83be4",
+        "filename": "etc/pod.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-27T06:08:48Z",
+      "side": 1,
+      "message": "I create a directory etc/yardstick/nodes to put pod.yaml, may be you can rename \u003cpod\u003e.yaml and put there.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_eadcc776",
+        "filename": "etc/pod.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-27T06:08:48Z",
+      "side": 1,
+      "message": "add a blank after # could be better for reading.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 1
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_2af3ff0b",
+        "filename": "samples/serviceha.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-27T06:08:48Z",
+      "side": 1,
+      "message": "need modify :)",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 36
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_0a46fb23",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/ha_conf.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-27T06:08:48Z",
+      "side": 1,
+      "message": "It seems that this file does not be used.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_8ae30b33",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-27T06:08:48Z",
+      "side": 1,
+      "message": "delete this line",
+      "range": {
+        "startLine": 110,
+        "startChar": 21,
+        "endLine": 110,
+        "endChar": 44
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_6ad0d753",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-27T06:08:48Z",
+      "side": 1,
+      "message": "-\u003e LOG.debug",
+      "range": {
+        "startLine": 115,
+        "startChar": 8,
+        "endLine": 115,
+        "endChar": 13
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_6a37b7b1",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-27T06:08:48Z",
+      "side": 1,
+      "message": "-\u003e result.update(ret.get(\"outage_time\"))\nafter https://gerrit.opnfv.org/gerrit/#/c/2615/ this patch merged we need put the test result directly to result arg.",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 44
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
