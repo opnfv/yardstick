@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_2a0f7fe3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-27T09:01:09Z",
+      "side": 1,
+      "message": "Thanks for reminding",
+      "parentUuid": "9a5c5d37_4aee3324",
+      "range": {
+        "startLine": 9,
+        "startChar": 48,
+        "endLine": 9,
+        "endChar": 97
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_0af83be4",
         "filename": "etc/pod.yaml",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-10-27T06:08:48Z",
       "side": 1,
       "message": "I create a directory etc/yardstick/nodes to put pod.yaml, may be you can rename \u003cpod\u003e.yaml and put there.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_0a14bbf3",
+        "filename": "etc/pod.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-27T09:01:09Z",
+      "side": 1,
+      "message": "I will use the directory",
+      "parentUuid": "9a5c5d37_0af83be4",
       "range": {
         "startLine": 1,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_eaf847c6",
+        "filename": "etc/pod.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-27T09:01:09Z",
+      "side": 1,
+      "message": "OK",
+      "parentUuid": "9a5c5d37_eadcc776",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 1
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_2af3ff0b",
         "filename": "samples/serviceha.yaml",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2015-10-27T06:08:48Z",
       "side": 1,
       "message": "need modify :)",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 36
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_caf583cc",
+        "filename": "samples/serviceha.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-27T09:01:09Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "9a5c5d37_2af3ff0b",
       "range": {
         "startLine": 3,
         "startChar": 2,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_aa024fb2",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/ha_conf.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-27T09:01:09Z",
+      "side": 1,
+      "message": "It will be used in the new patch, Thanks",
+      "parentUuid": "9a5c5d37_0a46fb23",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_8ae30b33",
         "filename": "yardstick/benchmark/scenarios/availability/monitor.py",
         "patchSetId": 3
@@ -128,6 +248,30 @@
       "writtenOn": "2015-10-27T06:08:48Z",
       "side": 1,
       "message": "delete this line",
+      "range": {
+        "startLine": 110,
+        "startChar": 21,
+        "endLine": 110,
+        "endChar": 44
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_8aff8baa",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-27T09:01:09Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "9a5c5d37_8ae30b33",
       "range": {
         "startLine": 110,
         "startChar": 21,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_6a2c574b",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-27T09:01:09Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "9a5c5d37_6ad0d753",
+      "range": {
+        "startLine": 115,
+        "startChar": 8,
+        "endLine": 115,
+        "endChar": 13
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_6a37b7b1",
         "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
         "patchSetId": 3
@@ -174,6 +342,30 @@
       "writtenOn": "2015-10-27T06:08:48Z",
       "side": 1,
       "message": "-\u003e result.update(ret.get(\"outage_time\"))\nafter https://gerrit.opnfv.org/gerrit/#/c/2615/ this patch merged we need put the test result directly to result arg.",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 44
+      },
+      "revId": "74c1d89f3cd20f0cac63df3b3818844a465fe1d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_4a3193a1",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-27T09:01:09Z",
+      "side": 1,
+      "message": "I will modify it in new patch",
+      "parentUuid": "9a5c5d37_6a37b7b1",
       "range": {
         "startLine": 99,
         "startChar": 8,
