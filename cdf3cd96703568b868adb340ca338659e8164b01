@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_aa336ff5",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-10-27T01:20:53Z",
+      "side": 1,
+      "message": "How can scenarios use these info?\nMaybe you can add _get_context(self,scenario_cfg) function to paras all the nodes in the scenario_cfg and return the context_cfg.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 52
+      },
+      "revId": "cdf3cd96703568b868adb340ca338659e8164b01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
