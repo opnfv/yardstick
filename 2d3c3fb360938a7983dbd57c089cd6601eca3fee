@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_70b686de",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-28T12:48:37Z",
+      "side": 1,
+      "message": "clean the commented code if it is not used.",
+      "range": {
+        "startLine": 26,
+        "startChar": 7,
+        "endLine": 28,
+        "endChar": 10
+      },
+      "revId": "2d3c3fb360938a7983dbd57c089cd6601eca3fee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_f0c9565b",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-28T12:48:37Z",
+      "side": 1,
+      "message": "clean it.",
+      "range": {
+        "startLine": 101,
+        "startChar": 7,
+        "endLine": 108,
+        "endChar": 19
+      },
+      "revId": "2d3c3fb360938a7983dbd57c089cd6601eca3fee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_d0c65249",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-28T12:48:37Z",
+      "side": 1,
+      "message": "clean it.",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 5
+      },
+      "revId": "2d3c3fb360938a7983dbd57c089cd6601eca3fee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_90a9fa7d",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-28T12:48:37Z",
+      "side": 1,
+      "message": "[] to {} result is a dic",
+      "range": {
+        "startLine": 178,
+        "startChar": 14,
+        "endLine": 178,
+        "endChar": 15
+      },
+      "revId": "2d3c3fb360938a7983dbd57c089cd6601eca3fee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
