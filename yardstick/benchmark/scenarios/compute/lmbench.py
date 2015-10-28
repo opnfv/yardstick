@@ -81,7 +81,7 @@ class Lmbench(base.Scenario):
         if "sla" in self.scenario_cfg:
             sla_error = ""
             sla_max_latency = int(self.scenario_cfg['sla']['max_latency'])
-            for t_latency in result:
+            for t_latency in result["latencies"]:
                 latency = t_latency['latency']
                 if latency > sla_max_latency:
                     sla_error += "latency %f > sla:max_latency(%f); " \
@@ -105,7 +105,8 @@ def _test():
     logger.setLevel(logging.DEBUG)
 
     options = {'stride': 128, 'stop_size': 16}
-    args = {'options': options}
+    sla = {'max_latency': 35, 'action': 'monitor'}
+    args = {'options': options, 'sla': sla}
     result = {}
 
     p = Lmbench(args, ctx)
