@@ -46,6 +46,8 @@ User Guides
 .. toctree::
     :maxdepth: 1
 
+    user_guides/framework/03-installation
+
 Indices
 =======
 
