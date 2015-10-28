@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_501702a4",
+        "filename": "vtc/README.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-10-28T14:29:23Z",
+      "side": 1,
+      "message": "remove reference to Jira number",
+      "revId": "38d4aa4a90a0872595d29176980939173ea2b8e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_300c8e94",
+        "filename": "vtc/README.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-10-28T14:29:23Z",
+      "side": 1,
+      "message": "list abbreviations and the meaning, perhaps a separate .rst?",
+      "revId": "38d4aa4a90a0872595d29176980939173ea2b8e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_701206b6",
+        "filename": "vtc/README.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-10-28T14:29:23Z",
+      "side": 1,
+      "message": "please keep line length 80 characters in .rst files",
+      "revId": "38d4aa4a90a0872595d29176980939173ea2b8e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_d022d200",
+        "filename": "vtc/README.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-10-28T14:29:23Z",
+      "side": 1,
+      "message": "will you add definitions later?",
+      "revId": "38d4aa4a90a0872595d29176980939173ea2b8e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
