@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_90ee9ab3",
+        "filename": "docs/source/yardstick/opnfv_yardstick_tc001.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-10-28T14:16:44Z",
+      "side": 1,
+      "message": "isn\u0027t throughput also a metric ?",
+      "revId": "d447dfc34026ee7ec1f0aa527c240989a175243d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_702b26ec",
+        "filename": "docs/source/yardstick/opnfv_yardstick_tc001.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-10-28T14:16:44Z",
+      "side": 1,
+      "message": "please list the options in the scenario that are used in this TC",
+      "revId": "d447dfc34026ee7ec1f0aa527c240989a175243d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_b0487ecd",
+        "filename": "docs/source/yardstick/opnfv_yardstick_tc001.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-10-28T14:16:44Z",
+      "side": 1,
+      "message": "suggest to add another .rst with a variation of this TC, for example using list of packet sizes as input and/or test duration",
+      "revId": "d447dfc34026ee7ec1f0aa527c240989a175243d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_50302256",
+        "filename": "docs/source/yardstick/opnfv_yardstick_tc002.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-10-28T14:16:44Z",
+      "side": 1,
+      "message": "remove \"etcetera\"",
+      "revId": "d447dfc34026ee7ec1f0aa527c240989a175243d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_3035ae46",
+        "filename": "docs/source/yardstick/opnfv_yardstick_tc002.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-10-28T14:16:44Z",
+      "side": 1,
+      "message": "replace \"not an absolute truth\", could be \"an example\"",
+      "revId": "d447dfc34026ee7ec1f0aa527c240989a175243d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_d03bf236",
+        "filename": "docs/source/yardstick/opnfv_yardstick_tc002.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-10-28T14:16:44Z",
+      "side": 1,
+      "message": "is test duration configurable?",
+      "revId": "d447dfc34026ee7ec1f0aa527c240989a175243d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
