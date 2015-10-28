@@ -16,6 +16,24 @@
       "revId": "926589b10a945f9b6759f35309b03df506268ac4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_0decd5c6",
+        "filename": "samples/ping-node-context.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-28T01:47:21Z",
+      "side": 1,
+      "message": "Yes, i agree we need further discussion, current implementation is just for backward  compatibility (we can use NodeContext to run existing test scenarios) and HA initial test case. I will put your thoughts to https://etherpad.opnfv.org/p/yardstick_framework we can do further discussion there. Yiming and Patrick may also have some thoughts, I will ask them to put their comments.\n\nFor multicontext scenarios, I think that is interesting and in some circumstance (e.g. test network benchmark between BareMetal and vm) we need it. I have not tested multicontext scenarios but I think we almost support it.",
+      "parentUuid": "9a5c5d37_2ab65f8b",
+      "revId": "926589b10a945f9b6759f35309b03df506268ac4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
