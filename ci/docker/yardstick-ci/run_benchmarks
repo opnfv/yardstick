@@ -11,33 +11,51 @@
 set -e
 
 : ${YARDSTICK_REPO:='https://gerrit.opnfv.org/gerrit/yardstick'}
-: ${YARDSTICK_REPO_DIR:='/home/yardstick'}
-: ${YARDSTICK_BRANCH:='master'}
+: ${YARDSTICK_REPO_DIR:='/home/opnfv/yardstick'}
+: ${YARDSTICK_BRANCH:='master'} # branch, tag, sha1 or refspec
 
 : ${RELENG_REPO:='https://gerrit.opnfv.org/gerrit/releng'}
-: ${RELENG_REPO_DIR:='/home/releng'}
-: ${RELENG_BRANCH:='master'}
+: ${RELENG_REPO_DIR:='/home/opnfv/repos/releng'}
+: ${RELENG_BRANCH:='master'} # branch, tag, sha1 or refspec
 
 : ${INSTALLER_TYPE:='fuel'}
 : ${INSTALLER_IP:='10.20.0.2'}
 
-: ${EXTERNAL_NET_ID:='net04_ext'}
+: ${POD_NAME:='opnfv-jump-2'}
+: ${EXTERNAL_NET:='net04_ext'}
 
-# clone releng
+git_checkout()
+{
+    if git cat-file -e $1^{commit} 2>/dev/null; then
+        # branch, tag or sha1 object
+        git checkout $1
+    else
+        # refspec / changeset
+        git fetch --tags --progress $2 $1
+        git checkout FETCH_HEAD
+    fi
+}
+
+echo
+echo "INFO: Updating releng -> $RELENG_BRANCH"
 if [ ! -d $RELENG_REPO_DIR ]; then
     git clone $RELENG_REPO $RELENG_REPO_DIR
 fi
 cd $RELENG_REPO_DIR
-git fetch --tags --progress $RELENG_REPO $RELENG_BRANCH
-git checkout FETCH_HEAD
+git checkout master && git pull
+git_checkout $RELENG_BRANCH $RELENG_REPO
 
-# clone yardstick
+echo
+echo "INFO: Updating yardstick -> $YARDSTICK_BRANCH"
 if [ ! -d $YARDSTICK_REPO_DIR ]; then
     git clone YARDSTICK_REPO $YARDSTICK_REPO_DIR
 fi
 cd $YARDSTICK_REPO_DIR
-git fetch --tags --progress $YARDSTICK_REPO $YARDSTICK_BRANCH
-git checkout FETCH_HEAD
+git checkout master && git pull
+git_checkout $YARDSTICK_BRANCH $YARDSTICK_REPO
+
+echo
+echo "INFO: Creating openstack credentials .."
 
 # Create openstack credentials
 $RELENG_REPO_DIR/utils/fetch_os_creds.sh \
@@ -51,10 +69,11 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     ssh_opts="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
     if sshpass -p r00tme ssh 2>/dev/null $ssh_opts root@${INSTALLER_IP} \
         fuel environment --env 1 | grep opnfv-virt; then
+        echo "INFO: applying OPNFV playground hack"
         export OS_ENDPOINT_TYPE='publicURL'
     fi
 fi
 
-export EXTERNAL_NET_ID
+export EXTERNAL_NET INSTALLER_TYPE POD_NAME
 
-$YARDSTICK_REPO_DIR/ci/yardstick-verify
+$YARDSTICK_REPO_DIR/ci/yardstick-verify $@

@@ -11,7 +11,11 @@ FROM ubuntu:14.04
 
 LABEL image=opnfv/yardstick-ci
 
-ENV YARDSTICK_REPO_DIR /home/yardstick
+# GIT repo directory
+ENV REPOS_DIR /home/opnfv/repos
+
+# Yardstick repo
+ENV YARDSTICK_REPO_DIR ${REPOS_DIR}/yardstick
 
 RUN apt-get update && apt-get install -y \
     wget \
@@ -29,6 +33,9 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get -y autoremove && \
     apt-get clean
 
+RUN mkdir -p ${REPOS_DIR}
+
+RUN git config --global http.sslVerify false
 RUN git clone https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR}
 
 COPY ./run_benchmarks /usr/local/bin/
