@@ -8,10 +8,60 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-YARDSTICK_IMAGE_ID=
-CIRROS_IMAGE_ID=
+#
+# Set up the environment and run yardstick test suites.
+#
+# Example invocation: yardstick-verify -r 10.4.4.4 suite1.yaml suite2.yaml
+#
+# Openstack credentials must be set and the script must be run from its
+# original location in the yardstick repo.
+#
+# This script is intended to be used by the CI pipeline but it may also
+# be invoked manually.
+#
 
-QCOW_IMAGE="/tmp/workspace/yardstick/yardstick-trusty-server.img"
+SCRIPT=$0
+SCRIPT_ARGS=$@
+
+usage()
+{
+    cat << EOF
+usage: $0 options [TEST_SUITE ...]
+
+If no test suites are given ping.yaml is run.
+
+OPTIONS:
+   -h      Show this message
+   -r      IP address for Result API.
+           Default is to store the results to file ($DISPATCHER_FILE_NAME)
+           if this option is not present.
+
+EOF
+}
+
+DISPATCHER_TYPE=file
+DISPATCHER_FILE_NAME="/tmp/yardstick.out"
+DISPATCHER_HTTP_TARGET=
+
+while getopts "r:h" OPTION; do
+    case $OPTION in
+        h)
+            usage
+            exit 0
+            ;;
+        r)
+            DISPATCHER_TYPE=http
+            DISPATCHER_HTTP_TARGET=http://${OPTARG}/results
+            ;;
+        *)
+            echo "${OPTION} is not a valid argument"
+            exit 1
+            ;;
+    esac
+done
+
+shift $[OPTIND - 1]
+TEST_SUITES=$@
 
 cleanup()
 {
@@ -124,13 +174,63 @@ load_yardstick_image()
 run_test()
 {
     echo
-    echo "========== Running yardstick test suite =========="
+    echo "========== Running yardstick test suites =========="
 
-    # Just run sample ping for now.
-    if ! yardstick -d task start samples/ping.yaml; then
-        echo "Yardstick test FAILED"
-        exit 1
+    mkdir -p /etc/yardstick
+
+    cat << EOF >> /etc/yardstick/yardstick.conf
+[DEFAULT]
+debug = True
+dispatcher = ${DISPATCHER_TYPE}
+
+[dispatcher_file]
+file_name = ${DISPATCHER_FILE_NAME}
+
+[dispatcher_http]
+timeout = 5
+target = ${DISPATCHER_HTTP_TARGET}
+EOF
+
+    # FIXME: Temporary hack to set installer type
+    if [ -n "$INSTALLER_TYPE" ]; then
+        sed -i 's/"installer":.*/"installer":'" \"$INSTALLER_TYPE\",/"  \
+            $GITROOT/yardstick/dispatcher/http.py
     fi
+
+    # FIXME: Temporary hack to set pod name
+    if [ -n "$POD_NAME" ]; then
+        sed -i 's/"pod_name":.*/"pod_name":'" \"$POD_NAME\",/"  \
+            $GITROOT/yardstick/dispatcher/http.py
+    fi
+
+    if [ ${#SUITE_FILES[@]} -gt 0 ]; then
+
+        for suite in ${SUITE_FILES[*]}; do
+
+            echo "---------------------------"
+            echo "Running test suite: $suite"
+            echo "---------------------------"
+
+             if ! yardstick task start --suite $suite; then
+                 echo "Yardstick test FAILED"
+                 exit 1
+             fi
+
+         done
+
+    else
+
+        echo "---------------------------"
+        echo "Running samples/ping.yaml  "
+        echo "---------------------------"
+
+        if ! yardstick task start samples/ping.yaml; then
+            echo "Yardstick test FAILED"
+            exit 1
+        fi
+
+    fi
+
 }
 
 main()
@@ -138,6 +238,31 @@ main()
     GITROOT=$(cd $(dirname $0) && git rev-parse --show-toplevel)
 
     cd $GITROOT
+
+    SUITE_FILES=()
+
+    # find the test suites files
+    for suite in $TEST_SUITES; do
+        if [ -f $suite ]; then
+            SUITE_FILES+=($suite)
+        else
+            tsdir=$GITROOT/tests/opnfv/test_suites
+            if [ ! -f $tsdir/$suite ]; then
+                echo "Test suite \"$suite\" does not exist"
+                exit 1
+            fi
+            SUITE_FILES+=($tsdir/$suite)
+        fi
+    done
+
+    echo
+    echo "========== Running Yardstick CI with following parameters =========="
+    echo "Script options: ${SCRIPT} $SCRIPT_ARGS"
+    echo "Result API: ${DISPATCHER_HTTP_TARGET:-$DISPATCHER_FILE_NAME}"
+    echo "Number of test suites: ${#SUITE_FILES[@]}"
+    for suite in ${SUITE_FILES[*]}; do
+        echo "     $suite"
+    done
 
     # install yardstick
     install_yardstick
@@ -151,19 +276,6 @@ main()
     # extract auth ip
     ip=$(echo $OS_AUTH_URL | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+')
 
-    ## FIXME: temporarily disabling this because
-    ## of timeout errors on LF-POD2.
-    ## Maybe we need a longer timeout ??
-    # check if the auth port is open
-    # echo "Checking if tcp port $ip:5000 is open..."
-    # nc -zv -w 10 $ip 5000; rc=$?;
-    # if [ $rc -eq 0 ]; then
-    #     echo "$ip:5000 is open for tcp connections"
-    # else
-    #     echo "$ip:5000 is closed"
-    #     exit 1
-    # fi
-
     # check if the api is up
     echo "Checking if OS API is working..."
     if ! glance image-list > /dev/null; then
@@ -175,6 +287,8 @@ main()
 
     trap "error_exit" EXIT SIGTERM
 
+    QCOW_IMAGE="/tmp/workspace/yardstick/yardstick-trusty-server.img"
+
     build_yardstick_image
     load_yardstick_image
     load_cirros_image
@@ -182,4 +296,4 @@ main()
     run_test
 }
 
-main
+main $@
