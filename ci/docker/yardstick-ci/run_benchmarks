@@ -11,17 +11,20 @@
 set -e
 
 : ${YARDSTICK_REPO:='https://gerrit.opnfv.org/gerrit/yardstick'}
-: ${YARDSTICK_REPO_DIR:='/home/yardstick'}
+: ${YARDSTICK_REPO_DIR:='/home/opnfv/yardstick'}
 : ${YARDSTICK_BRANCH:='master'}
 
 : ${RELENG_REPO:='https://gerrit.opnfv.org/gerrit/releng'}
-: ${RELENG_REPO_DIR:='/home/releng'}
+: ${RELENG_REPO_DIR:='/home/opnfv/repos/releng'}
 : ${RELENG_BRANCH:='master'}
 
 : ${INSTALLER_TYPE:='fuel'}
 : ${INSTALLER_IP:='10.20.0.2'}
 
-: ${EXTERNAL_NET_ID:='net04_ext'}
+: ${POD_NAME:='opnfv-jump-2'}
+: ${EXTERNAL_NET:='net04_ext'}
+
+# TODO: fix git code below to be more general (e.g. handle git tags)
 
 # clone releng
 if [ ! -d $RELENG_REPO_DIR ]; then
@@ -39,6 +42,11 @@ cd $YARDSTICK_REPO_DIR
 git fetch --tags --progress $YARDSTICK_REPO $YARDSTICK_BRANCH
 git checkout FETCH_HEAD
 
+# assuming detached
+YARDSTICK_VERSION=$(git describe --contains --all HEAD 2>/dev/null || git rev-parse --short HEAD)
+
+echo "YARDSTIC_VERSION=$YARDSTICK_VERSION"
+
 # Create openstack credentials
 $RELENG_REPO_DIR/utils/fetch_os_creds.sh \
     -d /tmp/openrc \
@@ -55,6 +63,7 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     fi
 fi
 
-export EXTERNAL_NET_ID
 
-$YARDSTICK_REPO_DIR/ci/yardstick-verify
+export EXTERNAL_NET INSTALLER_TYPE POD_NAME YARDSTICK_VERSION
+
+$YARDSTICK_REPO_DIR/ci/yardstick-verify $@
