@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_7b12e7b5",
+        "filename": "ci/docker/yardstick-ci/run_benchmarks",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2015-10-29T16:27:39Z",
+      "side": 1,
+      "message": "In functest, and after some recommendations by CI experts, we were recommended to use this structure:\n\n/home/opnfv/ as a HOME directory\n\nThen,\n\n/home/opnfv/repos   for needed repositories  \n\n/home/opnfv/repos/releng   for example\n\n\nThen,\n\n/home/opnfv/yardstick for yardstick related things",
+      "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
