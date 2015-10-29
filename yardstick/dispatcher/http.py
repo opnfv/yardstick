@@ -7,6 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+import os
 import json
 import logging
 import requests
@@ -45,13 +46,12 @@ class HttpDispatcher(DispatchBase):
         self.timeout = CONF.dispatcher_http.timeout
         self.target = CONF.dispatcher_http.target
         self.raw_result = []
-        # TODO set pod_name, installer, version based on pod info
         self.result = {
             "project_name": "yardstick",
             "description": "yardstick test cases result",
-            "pod_name": "opnfv-jump-2",
-            "installer": "compass",
-            "version": "Brahmaputra-dev"
+            "pod_name": os.environ.get('POD_NAME', 'unknown'),
+            "installer": os.environ.get('INSTALLER_TYPE', 'unknown'),
+            "version": os.environ.get('YARDSTICK_VERSION', 'unknown')
         }
 
     def record_result_data(self, data):
