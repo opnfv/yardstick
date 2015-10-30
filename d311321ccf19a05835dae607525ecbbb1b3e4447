@@ -16,6 +16,75 @@
       "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_16cf42b2",
+        "filename": "ci/docker/yardstick-ci/run_benchmarks",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-30T08:19:19Z",
+      "side": 1,
+      "message": "can lf_pod2 change to opnfv-jump-2(the jenkins name) as functest did\nhttps://git.opnfv.org/cgit/functest/tree/testcases/vPing/CI/libraries/vPing.py#n469",
+      "range": {
+        "startLine": 24,
+        "startChar": 15,
+        "endLine": 24,
+        "endChar": 22
+      },
+      "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_d6c08a7e",
+        "filename": "ci/docker/yardstick-ci/run_benchmarks",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-30T08:19:19Z",
+      "side": 1,
+      "message": "please also export git branch name or YARDSTICK_REPO_DIR, need branch name to confige version https://git.opnfv.org/cgit/yardstick/tree/yardstick/dispatcher/http.py#n54. \nIn functest they export REPO_DIR and use GitPython lib to get branch name.\nhttps://git.opnfv.org/cgit/functest/tree/testcases/functest_utils.py#n425\nhttps://git.opnfv.org/cgit/functest/tree/testcases/vPing/CI/libraries/vPing.py#n467",
+      "range": {
+        "startLine": 61,
+        "startChar": 39,
+        "endLine": 61,
+        "endChar": 46
+      },
+      "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_96ba1209",
+        "filename": "ci/yardstick-verify",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-10-30T08:19:19Z",
+      "side": 1,
+      "message": "What does those info config in yardstick.conf dispatcher_http looks like?",
+      "range": {
+        "startLine": 195,
+        "startChar": 3,
+        "endLine": 204,
+        "endChar": 6
+      },
+      "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
