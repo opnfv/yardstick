@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_56313aa1",
+        "filename": "ci/docker/yardstick-ci/run_benchmarks",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-10-30T09:47:32Z",
+      "side": 1,
+      "message": "Thanks. I will change this so we follow the same structure.",
+      "parentUuid": "9a5c5d37_7b12e7b5",
+      "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_16cf42b2",
         "filename": "ci/docker/yardstick-ci/run_benchmarks",
         "patchSetId": 2
