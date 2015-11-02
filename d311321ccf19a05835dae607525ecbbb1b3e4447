@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_61d59a42",
+        "filename": "ci/docker/yardstick-ci/run_benchmarks",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-11-02T14:51:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a5c5d37_56313aa1",
+      "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_16cf42b2",
         "filename": "ci/docker/yardstick-ci/run_benchmarks",
         "patchSetId": 2
@@ -96,6 +114,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_01c49e90",
+        "filename": "ci/docker/yardstick-ci/run_benchmarks",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-11-02T14:51:01Z",
+      "side": 1,
+      "message": "Sorry on misplaced comment. Should be in yardstick-verify.",
+      "parentUuid": "9a5c5d37_16cf42b2",
+      "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_a13032e9",
         "filename": "ci/docker/yardstick-ci/run_benchmarks",
         "patchSetId": 2
@@ -113,6 +149,24 @@
         "endLine": 25,
         "endChar": 19
       },
+      "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_21cfa2b2",
+        "filename": "ci/docker/yardstick-ci/run_benchmarks",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-11-02T14:51:01Z",
+      "side": 1,
+      "message": "Thanks. Done",
+      "parentUuid": "9a5c5d37_a13032e9",
       "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -177,6 +231,24 @@
         "endLine": 204,
         "endChar": 6
       },
+      "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c1bd6604",
+        "filename": "ci/yardstick-verify",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-11-02T14:51:01Z",
+      "side": 1,
+      "message": "i removed the patching and updated http.py to read environment variables instead. Can you check if it is ok or if you had someting different in your mind.",
+      "parentUuid": "9a5c5d37_96ba1209",
       "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
