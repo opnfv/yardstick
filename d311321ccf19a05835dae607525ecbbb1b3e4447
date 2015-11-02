@@ -78,6 +78,29 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_a13032e9",
+        "filename": "ci/docker/yardstick-ci/run_benchmarks",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-11-02T09:36:12Z",
+      "side": 1,
+      "message": "EXTERNAL_NET_ID need to EXTERNAL_NET \nhttps://git.opnfv.org/cgit/yardstick/tree/yardstick/cmd/commands/task.py#n219",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 19
+      },
+      "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_d6c08a7e",
         "filename": "ci/docker/yardstick-ci/run_benchmarks",
         "patchSetId": 2
