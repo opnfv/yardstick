@@ -78,6 +78,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_01413e39",
+        "filename": "ci/docker/yardstick-ci/run_benchmarks",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-11-02T11:42:17Z",
+      "side": 1,
+      "message": "Here im trying to change pod_name and installer variables by patching http.py.\n\n        self.result \u003d {\n            \"project_name\": \"yardstick\",\n            \"description\": \"yardstick test cases result\",\n            \"pod_name\": \"opnfv-jump-2\",\n            \"installer\": \"compass\",\n            \"version\": \"Brahmaputra-dev\"\n        }\n\nIt is probably better that yardstick itself read these from environment variables !?",
+      "parentUuid": "9a5c5d37_16cf42b2",
+      "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_a13032e9",
         "filename": "ci/docker/yardstick-ci/run_benchmarks",
         "patchSetId": 2
@@ -118,6 +136,24 @@
         "endLine": 61,
         "endChar": 46
       },
+      "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_e13d0abd",
+        "filename": "ci/docker/yardstick-ci/run_benchmarks",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-11-02T11:42:17Z",
+      "side": 1,
+      "message": "YARDSTICK_REPO_DIR should already be set by ENV YARDSTICK_REPO_DIR in Dockerfile but I can export it here as well.",
+      "parentUuid": "9a5c5d37_d6c08a7e",
       "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
