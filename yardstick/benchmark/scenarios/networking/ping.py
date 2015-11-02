@@ -67,13 +67,15 @@ class Ping(base.Scenario):
         if exit_status != 0:
             raise RuntimeError(stderr)
 
-        result["rtt"] = float(stdout)
+        if stdout:
+           result["rtt"] = float(stdout)
 
-        if "sla" in self.scenario_cfg:
-            sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
-            assert result["rtt"] <= sla_max_rtt, "rtt %f > sla:max_rtt(%f); " % \
-                (result["rtt"], sla_max_rtt)
-
+           if "sla" in self.scenario_cfg:
+               sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
+               assert result["rtt"] <= sla_max_rtt, "rtt %f > sla:max_rtt(%f); " % \
+                   (result["rtt"], sla_max_rtt)
+        else:
+            LOG.error("ping '%s' '%s' timeout", options, destination)
 
 def _test():
     '''internal test function'''
