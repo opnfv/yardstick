@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_c13326f5",
+        "filename": "docs/source/user_guides/framework/03-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-11-02T09:53:33Z",
+      "side": 1,
+      "message": "Also need create a neutron external network, \nand export EXTERNAL_NETWORK\u003d\"external-network-name\", the default EXTERNAL_NETWORK is net04_ext.",
+      "range": {
+        "startLine": 14,
+        "startChar": 70,
+        "endLine": 14,
+        "endChar": 71
+      },
+      "revId": "0f37697164c2e1fe6a71620bcf7a748a1acac658",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_61523a15",
+        "filename": "docs/source/user_guides/framework/03-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-11-02T09:53:33Z",
+      "side": 1,
+      "message": "i think you\u0027d better add source openrc step, to export openstack credentials env.",
+      "range": {
+        "startLine": 138,
+        "startChar": 13,
+        "endLine": 138,
+        "endChar": 14
+      },
+      "revId": "0f37697164c2e1fe6a71620bcf7a748a1acac658",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
