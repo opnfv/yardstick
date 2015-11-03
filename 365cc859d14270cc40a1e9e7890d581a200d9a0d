@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_fc400d37",
+        "filename": "ci/docker/yardstick-ci/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2015-11-03T08:51:31Z",
+      "side": 1,
+      "message": "Why do you create a \"repos dir\" and don\u0027t put this repo inside it? :)\n\nI would do (if you like):\n\nENV YARDSTICK_REPO_DIR /home/opnfv/repos/yardstick\n\nor, if possible \n\nENV YARDSTICK_REPO_DIR ${REPOS_DIR}/yardstick",
+      "revId": "365cc859d14270cc40a1e9e7890d581a200d9a0d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_dc3d49bd",
+        "filename": "ci/docker/yardstick-ci/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2015-11-03T08:51:31Z",
+      "side": 1,
+      "message": "same. Why not yardstick?",
+      "revId": "365cc859d14270cc40a1e9e7890d581a200d9a0d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_bc4a9553",
+        "filename": "yardstick/dispatcher/http.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2015-11-03T08:51:31Z",
+      "side": 1,
+      "message": "Maybe this must be set as environment variable, but in case it is not, it would be easy to get it with a \u0027git log\u0027 and get the commit ID of the yardstick repo.",
+      "revId": "365cc859d14270cc40a1e9e7890d581a200d9a0d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
