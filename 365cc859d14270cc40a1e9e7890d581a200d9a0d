@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_3c41050c",
+        "filename": "ci/docker/yardstick-ci/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-11-03T11:56:53Z",
+      "side": 1,
+      "message": "This is maybe because of my misunderstanding of your last comments on the directory structure. But I agree i will put everything in repos_dir.",
+      "parentUuid": "9a5c5d37_fc400d37",
+      "revId": "365cc859d14270cc40a1e9e7890d581a200d9a0d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_dc3d49bd",
         "filename": "ci/docker/yardstick-ci/Dockerfile",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_1c464124",
+        "filename": "ci/docker/yardstick-ci/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-11-03T11:56:53Z",
+      "side": 1,
+      "message": "see above",
+      "parentUuid": "9a5c5d37_dc3d49bd",
+      "revId": "365cc859d14270cc40a1e9e7890d581a200d9a0d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_bc4a9553",
         "filename": "yardstick/dispatcher/http.py",
         "patchSetId": 4
@@ -47,6 +83,24 @@
       "writtenOn": "2015-11-03T08:51:31Z",
       "side": 1,
       "message": "Maybe this must be set as environment variable, but in case it is not, it would be easy to get it with a \u0027git log\u0027 and get the commit ID of the yardstick repo.",
+      "revId": "365cc859d14270cc40a1e9e7890d581a200d9a0d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_fc4a4d26",
+        "filename": "yardstick/dispatcher/http.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-11-03T11:56:53Z",
+      "side": 1,
+      "message": "It is currently set in run_benchmarks.  I will probably move it to the yardstick-verify script instead.\n\nIt is not clear atm exactly what we should put in version. We definitely want the sha1 and I also think we should include the branch name so we more easily can compare the results over time.\n\nMaybe something like: \u003cbranch name\u003e-\u003csha1\u003e. !!",
+      "parentUuid": "9a5c5d37_bc4a9553",
       "revId": "365cc859d14270cc40a1e9e7890d581a200d9a0d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
