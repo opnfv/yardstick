@@ -252,6 +252,24 @@
       "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_a1a9527d",
+        "filename": "ci/yardstick-verify",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-11-03T02:46:21Z",
+      "side": 1,
+      "message": "Looks good to me, thanks.",
+      "parentUuid": "9a5c5d37_c1bd6604",
+      "revId": "d311321ccf19a05835dae607525ecbbb1b3e4447",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
