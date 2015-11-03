@@ -104,6 +104,24 @@
       "revId": "365cc859d14270cc40a1e9e7890d581a200d9a0d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_5c6399b1",
+        "filename": "yardstick/dispatcher/http.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-11-03T12:11:55Z",
+      "side": 1,
+      "message": "I think I just put yardstick sha1 there to start with. \n\nQ. Is it the framework version we should put there.? May need other versions (fuel/installation/pod version etc.) there as well ?",
+      "parentUuid": "9a5c5d37_fc4a4d26",
+      "revId": "365cc859d14270cc40a1e9e7890d581a200d9a0d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
