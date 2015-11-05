@@ -53,6 +53,11 @@ run_tests() {
     fi
 }
 
+run_coverage() {
+    source ci/cover.sh
+    run_coverage_test
+}
+
 run_functional_test() {
 
     mkdir -p .testrepository
@@ -62,8 +67,14 @@ run_functional_test() {
     EXIT_CODE=$?
     subunit-stats < .testrepository/subunit.log
 
-    exit $EXIT_CODE
+    if [ $EXIT_CODE -ne 0 ]; then
+        exit 1
+    else
+        echo "OK"
+    fi
 }
+
 run_flake8
 run_tests
+run_coverage
 run_functional_test
