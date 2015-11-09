@@ -1,0 +1,41 @@
+---
+# Yardstick TC012 config file
+# Measure memory read and write bandwidth using lmbench
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Lmbench
+  options:
+    test_type: "bandwidth"
+    size: 10240
+    benchmark: "rdwr"
+    warmup: 0
+
+  host: demeter.demo
+
+  runner:
+    type: Iteration
+    iterations: 10
+    interval: 1
+
+  sla:
+    min_bandwidth: 15000
+    action: monitor
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: m1.small
+  user: ec2-user
+
+  servers:
+    demeter:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+
+
