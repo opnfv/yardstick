@@ -25,6 +25,7 @@
 #
 
 set -e
+set -x
 
 die() {
     echo "error: $1" >&2
@@ -117,13 +118,34 @@ cleanup() {
     rm -rf $mountdir
 }
 
-set -x
+exitcode=""
+error_trap()
+{
+    local rc=$?
+
+    set +e
+
+    if [ -z "$exitcode" ]; then
+        exitcode=$rc
+    fi
+
+    cleanup
+
+    echo "Image build failed with $exitcode"
+
+    exit $exitcode
+}
 
 main() {
     cleanup
+
+    trap "error_trap" EXIT SIGTERM
+
     download
     setup
     modify
+
+    trap - EXIT SIGTERM
     cleanup
 
     echo "the modified image is found here: $imgfile"
