@@ -1,0 +1,58 @@
+---
+# Yardstick TC001 config file
+# Measure network throughput using pktgen
+# Different amounts of flows are tested, from 110 up to 1001000 flows
+# All tests are run twice, 2 complete sets after another
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+{% for i in range(2) %}
+-
+  type: Pktgen
+  options:
+    packetsize: 64
+    duration: 20
+
+  host: demeter.demo
+  target: poseidon.demo
+
+  runner:
+    type: Sequence
+    interval: 1
+    scenario_option_name: number_of_ports
+    sequence:
+    - 10
+    - 50
+    - 100
+    - 500
+    - 1000
+
+  sla:
+    max_ppm: 1000
+    action: monitor
+{% endfor %}
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    demeter:
+      floating_ip: true
+      placement: "pgrp1"
+    poseidon:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+
+
