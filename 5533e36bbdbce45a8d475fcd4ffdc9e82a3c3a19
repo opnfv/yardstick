@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_ff3d9abc",
+        "filename": "docs/source/user_guides/framework/03-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-11-11T15:08:52Z",
+      "side": 1,
+      "message": "Q: Is this the best place to install setuptools? Maybe it should be done inside the virtual env below instead?",
+      "revId": "5533e36bbdbce45a8d475fcd4ffdc9e82a3c3a19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_1f418e39",
+        "filename": "docs/source/user_guides/framework/03-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-11-11T15:08:52Z",
+      "side": 1,
+      "message": "White space",
+      "revId": "5533e36bbdbce45a8d475fcd4ffdc9e82a3c3a19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
