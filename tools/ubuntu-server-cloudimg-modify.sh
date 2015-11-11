@@ -32,6 +32,11 @@ grep trusty /etc/apt/sources.list && \
 # Force apt to use ipv4 due to build problems on LF POD.
 echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4
 
+# Add hostname to /etc/hosts.
+cat <<EOF >/etc/cloud/cloud.cfg.d/10_etc_hosts.cfg
+manage_etc_hosts: True
+EOF
+
 apt-get update
 apt-get install -y \
     fio \
