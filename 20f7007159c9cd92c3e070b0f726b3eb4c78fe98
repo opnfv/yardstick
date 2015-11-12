@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_1fcaae4f",
+        "filename": "tests/unit/benchmark/scenarios/availability/test_monitor.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-11-12T06:28:18Z",
+      "side": 1,
+      "message": "red tail",
+      "range": {
+        "startLine": 40,
+        "startChar": 32,
+        "endLine": 40,
+        "endChar": 33
+      },
+      "revId": "20f7007159c9cd92c3e070b0f726b3eb4c78fe98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
