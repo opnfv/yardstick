@@ -56,7 +56,7 @@ def _monitor_process(config, queue, event):
         exit_status, stdout = _execute_shell_command(cmd)
         one_check_end_time = time.time()
 
-        LOG.info("the exit_status:%s stdout:%s" % (exit_status, stdout))
+        LOG.debug("the exit_status:%s stdout:%s" % (exit_status, stdout))
         if exit_status:
             outage_count = outage_count + 1
 
