@@ -6,13 +6,14 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-import pkg_resources
+#import pkg_resources
 import logging
-import time
-import yaml
-import yardstick.ssh as ssh
+# import time
+# import yaml
+# import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
-from yardstick.benchmark.scenarios.availability import monitor
+from yardstick.benchmark.scenarios.availability.monitor import basemonitor
+from yardstick.benchmark.scenarios.availability.attacker import attacker
 
 LOG = logging.getLogger(__name__)
 
@@ -22,87 +23,27 @@ class ServiceHA(base.Scenario):
     """
     __scenario_type__ = "ServiceHA"
 
-    HA_CONF = "ha_tools/ha_conf.yaml"
-
     def __init__(self, scenario_cfg, context_cfg):
+        LOG.debug("scenario_cfg:%s context_cfg:%s" % (scenario_cfg, context_cfg))
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
-        self.service_name = scenario_cfg["options"]["component"]
-        self.fault_type = scenario_cfg["options"]["fault_type"]
-        self.fault_time = scenario_cfg["options"].get("fault_time", 0)
-        self.fault_cfg = None
         self.setup_done = False
-        self.need_teardown = False
 
     def setup(self):
         '''scenario setup'''
-        self.ha_conf_file = pkg_resources.resource_filename(
-            "yardstick.benchmark.scenarios.availability",
-            ServiceHA.HA_CONF)
-        ha_cfg = []
-        with open(self.ha_conf_file) as stream:
-                ha_cfg = yaml.load(stream)
-        LOG.debug("ha_cfg content:%s" % ha_cfg)
-
-        # check the ha_conf contains the service defined in test cases yaml
-        service_cfg = ha_cfg.get(self.service_name, None)
-        if not service_cfg:
-            LOG.error(
-                "The component %s can not be supported!" % self.service_name)
-            return
-
-        for fault in service_cfg:
-            if fault["type"] == self.fault_type:
-                self.fault_cfg = fault
-                break
-        if not self.fault_cfg:
-            LOG.error(
-                "The fualt_type %s can not be supproted!" % self.fault_type)
-            return
-        LOG.debug("the fault_cfg :%s" % self.fault_cfg)
-
-        self.fault_script = pkg_resources.resource_filename(
-            "yardstick.benchmark.scenarios.availability",
-            self.fault_cfg["inject_script"])
-        self.recovery_script = pkg_resources.resource_filename(
-            "yardstick.benchmark.scenarios.availability",
-            self.fault_cfg["recovery_script"])
-        self.check_script = pkg_resources.resource_filename(
-            "yardstick.benchmark.scenarios.availability",
-            self.fault_cfg["check_script"])
-
         host = self.context_cfg.get("host", None)
-        ip = host.get("ip", None)
-        user = host.get("user", "root")
-        key_filename = host.get("key_filename", "~/.ssh/id_rsa")
-        LOG.info("The host: %s  the service: %s" % (ip, self.service_name))
-        LOG.debug("The params, host:%s  fault_cfg:%s" % (host, self.fault_cfg))
 
-        LOG.debug(
-            "ssh connection ip:%s, user:%s, key_file:%s",
-            ip, user, key_filename)
-        self.connection = ssh.SSH(user, ip, key_filename=key_filename)
-        self.connection.wait(timeout=600)
-        LOG.debug("ssh host success!")
+        attacker_cfgs = self.scenario_cfg["options"]["attackers"]
+        for attacker_cfg in attacker_cfgs:
+            attacker_cfg["host"] = host
 
-        # check the host envrioment
-        exit_status, stdout, stderr = self.connection.execute(
-            "/bin/sh -s {0}".format(self.service_name),
-            stdin=open(self.check_script, "r"))
-        LOG.info(
-            "the exit_status:%s stdout:%s stderr:%s" %
-            (exit_status, stdout, stderr))
-        if exit_status:
-            raise RuntimeError(stderr)
+        self.attacker_instance = attacker.AttackerMgr()
+        self.attacker_instance.setup(attacker_cfgs)
 
-        if stdout and "running" in stdout:
-            LOG.info("check the envrioment success!")
-        else:
-            LOG.error(
-                "the host envrioment is error, stdout:%s, stderr:%s" %
-                (stdout, stderr))
-            return
+        monitor_cfgs = self.scenario_cfg["options"]["monitors"]
 
+        self.monitorInstance = basemonitor.MonitorMgr()
+        self.monitorInstance.setup(monitor_cfgs)
         self.setup_done = True
 
     def run(self, result):
@@ -111,27 +52,15 @@ class ServiceHA(base.Scenario):
             LOG.error("The setup not finished!")
             return
 
-        monitorInstance = monitor.Monitor()
-        monitorInstance.setup(self.fault_cfg)
-        monitorInstance.start()
+        self.monitorInstance.do_monitor()
         LOG.info("monitor start!")
 
-        LOG.info("Inject fault!")
-        exit_status, stdout, stderr = self.connection.execute(
-            "/bin/sh -s {0}".format(self.service_name),
-            stdin=open(self.fault_script, "r"))
+        self.attacker_instance.do_attack()
 
-        if exit_status != 0:
-            monitorInstance.stop()
-            raise RuntimeError(stderr)
-
-        self.need_teardown = True
-        time.sleep(self.fault_time)
-
-        monitorInstance.stop()
+        self.monitorInstance.stop_monitor()
         LOG.info("monitor stop!")
 
-        ret = monitorInstance.get_result()
+        ret = self.monitorInstance.get_result()
         LOG.info("The monitor result:%s" % ret)
         outage_time = ret.get("outage_time")
         result["outage_time"] = outage_time
@@ -146,19 +75,9 @@ class ServiceHA(base.Scenario):
 
     def teardown(self):
         '''scenario teardown'''
-        LOG.info("recory the everiment!")
+        self.attacker_instance.stop()
 
-        if self.need_teardown:
-            exit_status, stdout, stderr = self.connection.execute(
-                "/bin/sh -s {0} ".format(self.service_name),
-                stdin=open(self.recovery_script, "r"))
 
-            if exit_status:
-                raise RuntimeError(stderr)
-            else:
-                self.need_teardown = False
-
-"""
 def _test():
     '''internal test function'''
     host = {
@@ -190,4 +109,3 @@ def _test():
 
 if __name__ == '__main__':
     _test()
-"""

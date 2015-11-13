@@ -1,0 +1,51 @@
+---
+# Sample test case for ha
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: ServiceHA
+  options:
+    attackers:
+    - fault_type: "stop-service"
+      duration: 5
+      service_name: "nova-api"
+      host: node1.LF
+    - fault_type: "stop-service"
+      fault_time: 5
+      service_name: "nova-api"
+      host: node2.LF
+
+    monitors:
+    - monitor_type: "openstack-api"
+      monitor_api: "nova image-list"
+      wait_time: 1
+      duration: 5
+      max_time: 1000
+      instance_count: 10
+      host: node4.LF
+    - monitor_type: "openstack-api"
+      monitor_api: "nova list"
+      wait_time: 1
+      duration: 5
+      max_time: 1000
+      instance_count: 5
+      host: node4.LF
+
+  host: node1.LF
+
+  runner:
+    type: Duration
+    duration: 6
+  sla:
+    outage_time: 5
+    action: monitor
+
+
+context:
+  type: Node
+  name: LF
+  file: /root/yardstick/etc/yardstick/nodes/fuel_virtual/pod.yaml
+
+
