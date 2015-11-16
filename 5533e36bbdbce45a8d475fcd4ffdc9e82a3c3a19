@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_1a775cd6",
+        "filename": "docs/source/user_guides/framework/03-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-11-16T09:22:09Z",
+      "side": 1,
+      "message": "Yes, you are right, it should be done in the virtual env",
+      "parentUuid": "9a5c5d37_ff3d9abc",
+      "revId": "5533e36bbdbce45a8d475fcd4ffdc9e82a3c3a19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_1f418e39",
         "filename": "docs/source/user_guides/framework/03-installation.rst",
         "patchSetId": 2
