@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_f585bbad",
+        "filename": "docs/source/user_guides/framework/03-installation.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-11-17T14:31:43Z",
+      "side": 1,
+      "message": "As this will change/be updated in the course of the development, can you add a TODO in the beginning of the document as a reminder of things we need to clean up/update before the release?",
+      "revId": "9a498bc0cefd074a369f1bc551c15186fc3a4631",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
