@@ -8,6 +8,7 @@ setup(
     include_package_data=True,
     package_data={
         'yardstick': [
+            'benchmark/scenarios/availability/ha_tools/*.bash',
             'benchmark/scenarios/compute/*.bash',
             'benchmark/scenarios/networking/*.bash',
             'benchmark/scenarios/storage/*.bash',
