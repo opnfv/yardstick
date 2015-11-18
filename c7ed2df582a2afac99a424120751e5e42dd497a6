@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_1cacf7ec",
+        "filename": "docs/source/yardstick/opnfv_yardstick_tc001.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-11-18T14:51:37Z",
+      "side": 1,
+      "message": "I think this part could maybe be in a bullet list, currently the output in the configuration part looks a bit cluttered: http://artifacts.opnfv.org/review/2879/source/yardstick/opnfv_yardstick_tc001.html",
+      "range": {
+        "startLine": 31,
+        "startChar": 17,
+        "endLine": 31,
+        "endChar": 39
+      },
+      "revId": "c7ed2df582a2afac99a424120751e5e42dd497a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_9c87c761",
+        "filename": "docs/source/yardstick/opnfv_yardstick_tc002.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-11-18T14:51:37Z",
+      "side": 1,
+      "message": "I think in this sentence it should be \u0027badly\u0027 as well, just like in the previous sentence.",
+      "range": {
+        "startLine": 52,
+        "startChar": 44,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "c7ed2df582a2afac99a424120751e5e42dd497a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
