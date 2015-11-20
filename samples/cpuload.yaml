@@ -1,0 +1,31 @@
+---
+# Sample benchmark task config file
+# Reading processor load/statistics
+
+schema: "yardstick:task:0.1"
+
+run_in_parallel: true
+
+scenarios:
+-
+  type: CPUload
+  options:
+    interval: 2
+  host: apollo.demo
+  runner:
+    type: Duration
+    duration: 60
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
+
+  servers:
+    apollo:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'

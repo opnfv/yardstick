@@ -46,8 +46,8 @@ apt-get install -y \
     lmbench \
     netperf \
     rt-tests \
-    stress
+    stress \
+    sysstat
 
 # restore symlink
 ln -sf /run/resolvconf/resolv.conf /etc/resolv.conf
-
