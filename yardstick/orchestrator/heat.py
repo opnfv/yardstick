@@ -257,7 +257,7 @@ class HeatTemplate(HeatObject):
             'properties': {
                 'name': name,
                 'fixed_ips': [{'subnet': {'get_resource': subnet_name}}],
-                'network': network_name,
+                'network_id': {'get_resource': network_name},
                 'replacement_policy': 'AUTO',
             }
         }
