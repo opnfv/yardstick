@@ -63,6 +63,7 @@ import socket
 import time
 
 import paramiko
+from scp import SCPClient
 import six
 import logging
 
@@ -254,3 +255,9 @@ class SSH(object):
                 time.sleep(interval)
             if time.time() > (start_time + timeout):
                 raise SSHTimeout("Timeout waiting for '%s'" % self.host)
+
+    def put(self, files, remote_path=b'.', recursive=False):
+        client = self._get_client()
+
+        with SCPClient(client.get_transport()) as scp:
+            scp.put(files, remote_path, recursive)
