@@ -9,6 +9,9 @@
 import pkg_resources
 import logging
 import json
+import re
+import time
+import os
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
@@ -53,30 +56,104 @@ class Cyclictest(base.Scenario):
     __scenario_type__ = "Cyclictest"
 
     TARGET_SCRIPT = "cyclictest_benchmark.bash"
+    WORKSPACE = "/root/workspace/"
+    REBOOT_CMD_PATTERN = r";\s*reboot\b"
 
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
         self.setup_done = False
 
-    def setup(self):
-        '''scenario setup'''
-        self.target_script = pkg_resources.resource_filename(
-            "yardstick.benchmark.scenarios.compute",
-            Cyclictest.TARGET_SCRIPT)
+    def _put_files(self, client):
+        setup_options = self.scenario_cfg["setup_options"]
+        rpm_dir = setup_options["rpm_dir"]
+        script_dir = setup_options["script_dir"]
+        image_dir = setup_options["image_dir"]
+        LOG.debug("Send RPMs from %s to workspace %s" %
+                  (rpm_dir, self.WORKSPACE))
+        client.put(rpm_dir, self.WORKSPACE, recursive=True)
+        LOG.debug("Send scripts from %s to workspace %s" %
+                  (script_dir, self.WORKSPACE))
+        client.put(script_dir, self.WORKSPACE, recursive=True)
+        LOG.debug("Send guest image from %s to workspace %s" %
+                  (image_dir, self.WORKSPACE))
+        client.put(image_dir, self.WORKSPACE, recursive=True)
+
+    def _connect_host(self):
         host = self.context_cfg["host"]
         user = host.get("user", "root")
         ip = host.get("ip", None)
         key_filename = host.get("key_filename", "~/.ssh/id_rsa")
 
         LOG.debug("user:%s, host:%s", user, ip)
-        print "key_filename:" + key_filename
-        self.client = ssh.SSH(user, ip, key_filename=key_filename)
-        self.client.wait(timeout=600)
+        self.host = ssh.SSH(user, ip, key_filename=key_filename)
+        self.host.wait(timeout=600)
+
+    def _connect_guest(self):
+        host = self.context_cfg["host"]
+        user = host.get("user", "root")
+        ip = host.get("ip", None)
+        key_filename = host.get("key_filename", "~/.ssh/id_rsa")
+
+        LOG.debug("user:%s, host:%s", user, ip)
+        self.guest = ssh.SSH(user, ip, port=5555, key_filename=key_filename)
+        self.guest.wait(timeout=600)
+
+    def _run_setup_cmd(self, client, cmd):
+        LOG.debug("Run cmd: %s" % cmd)
+        status, stdout, stderr = client.execute(cmd)
+        if status:
+            if re.search(self.REBOOT_CMD_PATTERN, cmd):
+                LOG.debug("Error on reboot")
+            else:
+                raise RuntimeError(stderr)
+
+    def _run_host_setup_scripts(self, scripts):
+        setup_options = self.scenario_cfg["setup_options"]
+        script_dir = os.path.basename(setup_options["script_dir"])
+
+        for script in scripts:
+            cmd = "cd %s/%s; export PATH=./:$PATH; %s" %\
+                  (self.WORKSPACE, script_dir, script)
+            self._run_setup_cmd(self.host, cmd)
+
+            if re.search(self.REBOOT_CMD_PATTERN, cmd):
+                time.sleep(3)
+                self._connect_host()
+
+    def _run_guest_setup_scripts(self, scripts):
+        setup_options = self.scenario_cfg["setup_options"]
+        script_dir = os.path.basename(setup_options["script_dir"])
+
+        for script in scripts:
+            cmd = "cd %s/%s; export PATH=./:$PATH; %s" %\
+                  (self.WORKSPACE, script_dir, script)
+            self._run_setup_cmd(self.guest, cmd)
+
+            if re.search(self.REBOOT_CMD_PATTERN, cmd):
+                time.sleep(3)
+                self._connect_guest()
+
+    def setup(self):
+        '''scenario setup'''
+        setup_options = self.scenario_cfg["setup_options"]
+        host_setup_seqs = setup_options["host_setup_seqs"]
+        guest_setup_seqs = setup_options["guest_setup_seqs"]
+
+        self._connect_host()
+        self._put_files(self.host)
+        self._run_host_setup_scripts(host_setup_seqs)
+
+        self._connect_guest()
+        self._put_files(self.guest)
+        self._run_guest_setup_scripts(guest_setup_seqs)
 
         # copy script to host
-        self.client.run("cat > ~/cyclictest_benchmark.sh",
-                        stdin=open(self.target_script, "rb"))
+        self.target_script = pkg_resources.resource_filename(
+            "yardstick.benchmark.scenarios.compute",
+            Cyclictest.TARGET_SCRIPT)
+        self.guest.run("cat > ~/cyclictest_benchmark.sh",
+                       stdin=open(self.target_script, "rb"))
 
         self.setup_done = True
 
@@ -98,9 +175,9 @@ class Cyclictest(base.Scenario):
         cmd_args = "-a %s -i %s -p %s -l %s -t %s -h %s %s" \
                    % (affinity, interval, priority, loops,
                       threads, histogram, default_args)
-        cmd = "sudo bash cyclictest_benchmark.sh %s" % (cmd_args)
+        cmd = "bash cyclictest_benchmark.sh %s" % (cmd_args)
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        status, stdout, stderr = self.guest.execute(cmd)
         if status:
             raise RuntimeError(stderr)
 
@@ -121,7 +198,7 @@ class Cyclictest(base.Scenario):
             assert sla_error == "", sla_error
 
 
-def _test():
+def _test():    # pragma: no cover
     '''internal test function'''
     key_filename = pkg_resources.resource_filename("yardstick.resources",
                                                    "files/yardstick_key")
@@ -159,5 +236,5 @@ def _test():
     cyclictest.run(result)
     print result
 
-if __name__ == '__main__':
+if __name__ == '__main__':    # pragma: no cover
     _test()

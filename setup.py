@@ -36,6 +36,7 @@ setup(
                       "mock>=1.0.1",  # remove with python3
                       "paramiko",
                       "netifaces",
+                      "scp",
                       "six",
                       "testrepository>=0.0.18",
                       "testtools>=1.4.0"

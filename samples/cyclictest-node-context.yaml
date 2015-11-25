@@ -1,0 +1,50 @@
+---
+# Sample benchmark task config file
+# Measure system high resolution by using Cyclictest
+#
+# For this sample just like running the command below on the test vm and
+# getting latencies info back to the yardstick.
+#
+# sudo bash cyclictest -a 1 -i 1000 -p 99 -l 1000 -t 1 -h 90 -m -n -q
+#
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Cyclictest
+  options:
+    affinity: 1
+    interval: 1000
+    priority: 99
+    loops: 1000
+    threads: 1
+    histogram: 90
+  host: kvm.LF
+  runner:
+    type: Duration
+    duration: 1
+    interval: 1
+  sla:
+    max_min_latency: 50
+    max_avg_latency: 100
+    max_max_latency: 1000
+    action: monitor
+  setup_options:
+    rpm_dir: "/opt/rpm"
+    script_dir: "/opt/scripts"
+    image_dir: "/opt/image"
+    host_setup_seqs:
+    - "host-setup0.sh"
+    - "reboot"
+    - "host-setup1.sh"
+    - "host-run-qemu.sh"
+    guest_setup_seqs:
+    - "guest-setup0.sh"
+    - "reboot"
+    - "guest-setup1.sh"
+
+context:
+  type: Node
+  name: LF
+  file: /root/yardstick/pod.yaml
