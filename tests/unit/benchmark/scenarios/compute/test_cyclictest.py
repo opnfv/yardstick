@@ -22,41 +22,65 @@ from yardstick.benchmark.scenarios.compute import cyclictest
 class CyclictestTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.ctx = {
+        self.scenario_cfg = {
+            "host": "kvm.LF",
+            "setup_options": {
+                "rpm_dir": "/opt/rpm",
+                "host_setup_seqs": [
+                    "host-setup0.sh",
+                    "host-setup1.sh",
+                    "host-run-qemu.sh"
+                ],
+                "script_dir": "/opt/scripts",
+                "image_dir": "/opt/image",
+                "guest_setup_seqs": [
+                    "guest-setup0.sh",
+                    "guest-setup1.sh"
+                ]
+            },
+            "sla": {
+                "action": "monitor",
+                "max_min_latency": 50,
+                "max_avg_latency": 100,
+                "max_max_latency": 1000
+            },
+            "options": {
+                "priority": 99,
+                "threads": 1,
+                "loops": 1000,
+                "affinity": 1,
+                "interval": 1000,
+                "histogram": 90
+            }
+        }
+        self.context_cfg = {
             "host": {
-                "ip": "192.168.50.28",
-                "user": "root",
-                "key_filename": "mykey.key"
+                "ip": "10.229.43.154",
+                "key_filename": "/yardstick/resources/files/yardstick_key",
+                "role": "BareMetal",
+                "name": "kvm.LF",
+                "user": "root"
             }
         }
 
     def test_cyclictest_successful_setup(self, mock_ssh):
 
-        c = cyclictest.Cyclictest({}, self.ctx)
-        c.setup()
-
+        c = cyclictest.Cyclictest(self.scenario_cfg, self.context_cfg)
         mock_ssh.SSH().execute.return_value = (0, '', '')
-        self.assertIsNotNone(c.client)
+
+        c.setup()
+        self.assertIsNotNone(c.guest)
+        self.assertIsNotNone(c.host)
         self.assertEqual(c.setup_done, True)
 
     def test_cyclictest_successful_no_sla(self, mock_ssh):
-
-        options = {
-            "affinity": 2,
-            "interval": 100,
-            "priority": 88,
-            "loops": 10000,
-            "threads": 2,
-            "histogram": 80
-        }
-        args = {
-            "options": options,
-        }
-        c = cyclictest.Cyclictest(args, self.ctx)
         result = {}
+        self.scenario_cfg.pop("sla", None)
+        c = cyclictest.Cyclictest(self.scenario_cfg, self.context_cfg)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        c.setup()
 
-        c.server = mock_ssh.SSH()
-
+        c.guest = mock_ssh.SSH()
         sample_output = '{"min": 100, "avg": 500, "max": 1000}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
@@ -65,29 +89,19 @@ class CyclictestTestCase(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     def test_cyclictest_successful_sla(self, mock_ssh):
-
-        options = {
-            "affinity": 2,
-            "interval": 100,
-            "priority": 88,
-            "loops": 10000,
-            "threads": 2,
-            "histogram": 80
-        }
-        sla = {
-            "max_min_latency": 100,
-            "max_avg_latency": 500,
-            "max_max_latency": 1000,
-        }
-        args = {
-            "options": options,
-            "sla": sla
-        }
-        c = cyclictest.Cyclictest(args, self.ctx)
         result = {}
+        self.scenario_cfg.update({"sla": {
+                "action": "monitor",
+                "max_min_latency": 100,
+                "max_avg_latency": 500,
+                "max_max_latency": 1000
+            }
+        })
+        c = cyclictest.Cyclictest(self.scenario_cfg, self.context_cfg)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        c.setup()
 
-        c.server = mock_ssh.SSH()
-
+        c.guest = mock_ssh.SSH()
         sample_output = '{"min": 100, "avg": 500, "max": 1000}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
@@ -97,14 +111,13 @@ class CyclictestTestCase(unittest.TestCase):
 
     def test_cyclictest_unsuccessful_sla_min_latency(self, mock_ssh):
 
-        args = {
-            "options": {},
-            "sla": {"max_min_latency": 10}
-        }
-        c = cyclictest.Cyclictest(args, self.ctx)
         result = {}
+        self.scenario_cfg.update({"sla": {"max_min_latency": 10}})
+        c = cyclictest.Cyclictest(self.scenario_cfg, self.context_cfg)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        c.setup()
 
-        c.server = mock_ssh.SSH()
+        c.guest = mock_ssh.SSH()
         sample_output = '{"min": 100, "avg": 500, "max": 1000}'
 
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
@@ -112,14 +125,13 @@ class CyclictestTestCase(unittest.TestCase):
 
     def test_cyclictest_unsuccessful_sla_avg_latency(self, mock_ssh):
 
-        args = {
-            "options": {},
-            "sla": {"max_avg_latency": 10}
-        }
-        c = cyclictest.Cyclictest(args, self.ctx)
         result = {}
+        self.scenario_cfg.update({"sla": {"max_avg_latency": 10}})
+        c = cyclictest.Cyclictest(self.scenario_cfg, self.context_cfg)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        c.setup()
 
-        c.server = mock_ssh.SSH()
+        c.guest = mock_ssh.SSH()
         sample_output = '{"min": 100, "avg": 500, "max": 1000}'
 
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
@@ -127,14 +139,13 @@ class CyclictestTestCase(unittest.TestCase):
 
     def test_cyclictest_unsuccessful_sla_max_latency(self, mock_ssh):
 
-        args = {
-            "options": {},
-            "sla": {"max_max_latency": 10}
-        }
-        c = cyclictest.Cyclictest(args, self.ctx)
         result = {}
+        self.scenario_cfg.update({"sla": {"max_max_latency": 10}})
+        c = cyclictest.Cyclictest(self.scenario_cfg, self.context_cfg)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        c.setup()
 
-        c.server = mock_ssh.SSH()
+        c.guest = mock_ssh.SSH()
         sample_output = '{"min": 100, "avg": 500, "max": 1000}'
 
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
@@ -142,27 +153,13 @@ class CyclictestTestCase(unittest.TestCase):
 
     def test_cyclictest_unsuccessful_script_error(self, mock_ssh):
 
-        options = {
-            "affinity": 2,
-            "interval": 100,
-            "priority": 88,
-            "loops": 10000,
-            "threads": 2,
-            "histogram": 80
-        }
-        sla = {
-            "max_min_latency": 100,
-            "max_avg_latency": 500,
-            "max_max_latency": 1000,
-        }
-        args = {
-            "options": options,
-            "sla": sla
-        }
-        c = cyclictest.Cyclictest(args, self.ctx)
         result = {}
+        self.scenario_cfg.update({"sla": {"max_max_latency": 10}})
+        c = cyclictest.Cyclictest(self.scenario_cfg, self.context_cfg)
+        mock_ssh.SSH().execute.return_value = (0, '', '')
+        c.setup()
 
-        c.server = mock_ssh.SSH()
+        c.guest = mock_ssh.SSH()
 
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, c.run, result)
