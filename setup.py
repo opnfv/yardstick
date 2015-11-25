@@ -29,6 +29,7 @@ setup(
                       "python-novaclient>=2.24.1",
                       "mock>=1.0.1",  # remove with python3
                       "paramiko",
+                      "scp",
                       "six",
                       "testrepository>=0.0.18",
                       "testtools>=1.4.0"
