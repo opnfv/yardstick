@@ -9,19 +9,28 @@
 
 SHELL = /bin/bash
 
-IMAGE = opnfv/yardstick-ci
+IMAGE = opnfv/yardstick
+
+DOCKER_TAG = brahmaputra.0
 
 .PHONY: all
 all: .docker
 
 .docker:
-	/usr/bin/docker build --rm=true --no-cache=true -t $(IMAGE):14.04 yardstick-ci
-	/usr/bin/docker tag -f $(IMAGE):14.04 $(IMAGE)
+	/usr/bin/docker build --rm=true --no-cache=true -t $(IMAGE):$(DOCKER_TAG) yardstick-ci
+	/usr/bin/docker tag -f $(IMAGE):$(DOCKER_TAG) $(IMAGE):latest
 	touch .docker
+
 
 .PHONY:	clean
 clean:
-	docker ps | grep $(IMAGE) | awk '{print $$1}' | xargs -r docker stop
-	docker ps -a | grep $(IMAGE) | awk '{print $$1}' | xargs -r docker rm
-	docker images -a | grep $(IMAGE) | awk '{print $$3}' | sort | uniq | xargs -r docker rmi
+	@docker ps | grep $(IMAGE) | awk '{print $$1}' | xargs -r docker stop
+	@docker ps -a | grep $(IMAGE) | awk '{print $$1}' | xargs -r docker rm
+	@echo "Docker images to remove:"
+	@docker images | head -1 && docker images | grep $(IMAGE) || true
+	@image_tags=($$(docker images | grep $(IMAGE) | awk '{print $$2}')) ; \
+	for tag in "$${image_tags[@]}"; do \
+	   echo "Removing docker image $(IMAGE):$$tag..." ; \
+	   docker rmi $(IMAGE):$$tag ; \
+	done
 	rm -f .docker

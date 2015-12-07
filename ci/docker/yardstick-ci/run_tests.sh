@@ -18,12 +18,6 @@ set -e
 : ${RELENG_REPO_DIR:='/home/opnfv/repos/releng'}
 : ${RELENG_BRANCH:='master'} # branch, tag, sha1 or refspec
 
-: ${INSTALLER_TYPE:='fuel'}
-: ${INSTALLER_IP:='10.20.0.2'}
-
-: ${POD_NAME:='opnfv-jump-2'}
-: ${EXTERNAL_NET:='net04_ext'}
-
 git_checkout()
 {
     if git cat-file -e $1^{commit} 2>/dev/null; then
@@ -54,26 +48,8 @@ cd $YARDSTICK_REPO_DIR
 git checkout master && git pull
 git_checkout $YARDSTICK_BRANCH $YARDSTICK_REPO
 
-echo
-echo "INFO: Creating openstack credentials .."
+# setup the environment
+source $YARDSTICK_REPO_DIR/ci/prepare_env.sh
 
-# Create openstack credentials
-$RELENG_REPO_DIR/utils/fetch_os_creds.sh \
-    -d /tmp/openrc \
-    -i ${INSTALLER_TYPE} -a ${INSTALLER_IP}
-
-source /tmp/openrc
-
-# FIXME: Temporary OPNFV playground hack
-if [ "$INSTALLER_TYPE" == "fuel" ]; then
-    ssh_opts="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-    if sshpass -p r00tme ssh 2>/dev/null $ssh_opts root@${INSTALLER_IP} \
-        fuel environment --env 1 | grep opnfv-virt; then
-        echo "INFO: applying OPNFV playground hack"
-        export OS_ENDPOINT_TYPE='publicURL'
-    fi
-fi
-
-export EXTERNAL_NET INSTALLER_TYPE POD_NAME
-
+# run tests
 $YARDSTICK_REPO_DIR/ci/yardstick-verify $@
