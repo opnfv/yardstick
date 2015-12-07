@@ -1,0 +1,10 @@
+---
+# LF POD 2 daily task suite
+
+schema: "yardstick:suite:0.1"
+
+name: "opnfv_pod2_daily"
+test_cases_dir: "tests/opnfv/test_cases/"
+test_cases:
+-
+  file_name: opnfv_yardstick_tc002.yaml
