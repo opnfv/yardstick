@@ -9,13 +9,14 @@
 
 FROM ubuntu:14.04
 
-LABEL image=opnfv/yardstick-ci
+LABEL image=opnfv/yardstick
 
 # GIT repo directory
 ENV REPOS_DIR /home/opnfv/repos
 
 # Yardstick repo
 ENV YARDSTICK_REPO_DIR ${REPOS_DIR}/yardstick
+ENV RELENG_REPO_DIR ${REPOS_DIR}/releng
 
 RUN apt-get update && apt-get install -y \
     wget \
@@ -37,5 +38,9 @@ RUN mkdir -p ${REPOS_DIR}
 
 RUN git config --global http.sslVerify false
 RUN git clone https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR}
+RUN git clone https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR}
 
-COPY ./run_benchmarks /usr/local/bin/
+ADD http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img /home/opnfv/images/
+
+COPY ./run_tests.sh /usr/local/bin/
+
