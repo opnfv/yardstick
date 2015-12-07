@@ -7,9 +7,8 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 import logging
-import time
 from yardstick.benchmark.scenarios import base
-from yardstick.benchmark.scenarios.availability import monitor
+from yardstick.benchmark.scenarios.availability.monitor import basemonitor
 from yardstick.benchmark.scenarios.availability.attacker import baseattacker
 
 LOG = logging.getLogger(__name__)
@@ -34,6 +33,7 @@ class ServiceHA(base.Scenario):
         if nodes is None:
             LOG.error("the nodes info is none")
             return
+
         self.attackers = []
         attacker_cfgs = self.scenario_cfg["options"]["attackers"]
         for attacker_cfg in attacker_cfgs:
@@ -45,9 +45,9 @@ class ServiceHA(base.Scenario):
 
         monitor_cfgs = self.scenario_cfg["options"]["monitors"]
 
-        self.monitor_ins = monitor.Monitor()
-        self.monitor_ins.setup(monitor_cfgs[0])
-        self.monitor_ins.monitor_time = monitor_cfgs[0]["monitor_time"]
+        self.monitorMgr = basemonitor.MonitorMgr()
+        self.monitorMgr.init_monitors(monitor_cfgs, nodes)
+
         self.setup_done = True
 
     def run(self, result):
@@ -56,35 +56,24 @@ class ServiceHA(base.Scenario):
             LOG.error("The setup not finished!")
             return
 
-        self.monitor_ins.start()
+        self.monitorMgr.start_monitors()
         LOG.info("monitor start!")
 
         for attacker in self.attackers:
             attacker.inject_fault()
 
-        time.sleep(self.monitor_ins.monitor_time)
-
-        self.monitor_ins.stop()
+        self.monitorMgr.wait_monitors()
         LOG.info("monitor stop!")
 
-        ret = self.monitor_ins.get_result()
-        LOG.info("The monitor result:%s" % ret)
-        outage_time = ret.get("outage_time")
-        result["outage_time"] = outage_time
-        LOG.info("the result:%s" % result)
-
-        if "sla" in self.scenario_cfg:
-            sla_outage_time = int(self.scenario_cfg["sla"]["outage_time"])
-            assert outage_time <= sla_outage_time, "outage_time %f > sla:outage_time(%f)" % \
-                (outage_time, sla_outage_time)
+        sla_pass = self.monitorMgr.verify_SLA()
+        assert sla_pass is True, "the test cases is not pass the SLA"
 
         return
 
     def teardown(self):
         '''scenario teardown'''
         for attacker in self.attackers:
-            if not attacker.check():
-                attacker.recover()
+            attacker.recover()
 
 
 def _test():    # pragma: no cover
@@ -103,14 +92,14 @@ def _test():    # pragma: no cover
     attacker_cfgs = []
     attacker_cfgs.append(attacker_cfg)
     monitor_cfg = {
-        "monitor_cmd": "nova image-list",
-        "monitor_tme": 10
+        "monitor_cmd": "nova image-list"
     }
     monitor_cfgs = []
     monitor_cfgs.append(monitor_cfg)
 
     options = {
         "attackers": attacker_cfgs,
+        "wait_time": 10,
         "monitors": monitor_cfgs
     }
     sla = {"outage_time": 5}
