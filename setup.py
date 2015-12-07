@@ -10,6 +10,8 @@ setup(
         'yardstick': [
             'benchmark/scenarios/availability/attacker/*.yaml',
             'benchmark/scenarios/availability/attacker/scripts/*.bash',
+            'benchmark/scenarios/availability/monitor/*.yaml',
+            'benchmark/scenarios/availability/monitor/script_tools/*.bash',
             'benchmark/scenarios/compute/*.bash',
             'benchmark/scenarios/networking/*.bash',
             'benchmark/scenarios/networking/*.txt',

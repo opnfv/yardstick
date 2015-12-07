@@ -13,8 +13,18 @@ scenarios:
       host: node1
 
     monitors:
-    - monitor_cmd: "nova image-list"
+    - monitor_type: "openstack-cmd"
+      command_name: "nova image-list"
       monitor_time: 10
+      sla:
+        max_outage_time: 5
+    - monitor_type: "process"
+      process_name: "nova-api"
+      host: node1
+      monitor_time: 10
+      sla:
+        max_recover_time: 5
+
   nodes:
     node1: node1.LF
 
@@ -30,5 +40,3 @@ context:
   type: Node
   name: LF
   file: /root/yardstick/etc/yardstick/nodes/fuel_virtual/pod.yaml
-
-

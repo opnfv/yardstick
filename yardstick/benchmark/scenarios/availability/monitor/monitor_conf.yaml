@@ -1,0 +1,9 @@
+---
+# sample config file for ha test
+#
+schema: "yardstick:task:0.1"
+
+kill-process:
+ inject_script: scripts/stop_service.bash
+ recovery_script: scripts/start_service.bash
+ check_script: scripts/check_service.bash
