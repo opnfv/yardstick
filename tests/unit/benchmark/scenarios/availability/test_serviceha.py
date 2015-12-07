@@ -16,138 +16,62 @@ import unittest
 
 from yardstick.benchmark.scenarios.availability import serviceha
 
-@mock.patch('yardstick.benchmark.scenarios.availability.serviceha.ssh')
+@mock.patch('yardstick.benchmark.scenarios.availability.serviceha.monitor')
+@mock.patch('yardstick.benchmark.scenarios.availability.serviceha.baseattacker')
 class ServicehaTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.args = {
-            'options':{
-                'component':'nova-api',
-                'fault_type':'stop-service',
-                'fault_time':0
-            },
-            'sla':{
-                'outage_time':'2'
-            }
+        host = {
+            "ip": "10.20.0.5",
+            "user": "root",
+            "key_filename": "/root/.ssh/id_rsa"
         }
-        self.ctx = {
-            'host': {
-                'ip': '10.20.0.3',
-                'user': 'cirros',
-                'key_filename': 'mykey.key'
-            }
+        self.ctx = {"nodes": {"node1": host}}
+        attacker_cfg = {
+            "fault_type": "stop-service",
+            "service_name": "nova-api",
+            "fault_time": 5,
+            "host": "node1"
         }
+        attacker_cfgs = []
+        attacker_cfgs.append(attacker_cfg)
+        monitor_cfg = {
+            "monitor_cmd": "nova image-list"
+        }
+        monitor_cfgs = []
+        monitor_cfgs.append(monitor_cfg)
 
-    def test__serviceha_setup_successful(self, mock_ssh):
+        options = {
+            "attackers": attacker_cfgs,
+            "wait_time": 0.1,
+            "monitors": monitor_cfgs
+        }
+        sla = {"outage_time": 5}
+        self.args = {"options": options, "sla": sla}
+
+    def test__serviceha_setup_run_successful(self, mock_attacker, mock_monitor):
         p = serviceha.ServiceHA(self.args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, 'running', '')
-        p.setup()
 
+        p.setup()
         self.assertEqual(p.setup_done, True)
 
-    def test__serviceha_setup_fail_service(self, mock_ssh):
-
-        self.args['options']['component'] = 'error'
-        p = serviceha.ServiceHA(self.args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, 'running', '')
-        p.setup()
-
-        self.assertEqual(p.setup_done, False)
-
-    def test__serviceha_setup_fail_fault_type(self, mock_ssh):
-
-        self.args['options']['fault_type'] = 'error'
-        p = serviceha.ServiceHA(self.args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, 'running', '')
-        p.setup()
-
-        self.assertEqual(p.setup_done, False)
-
-    def test__serviceha_setup_fail_check(self, mock_ssh):
-
-        p = serviceha.ServiceHA(self.args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, 'error', '')
-        p.setup()
-
-        self.assertEqual(p.setup_done, False)
-
-    def test__serviceha_setup_fail_script(self, mock_ssh):
-
-        p = serviceha.ServiceHA(self.args, self.ctx)
-
-        mock_ssh.SSH().execute.return_value = (-1, 'false', '')
-
-        self.assertRaises(RuntimeError, p.setup)
-        self.assertEqual(p.setup_done, False)
-
-    @mock.patch('yardstick.benchmark.scenarios.availability.serviceha.monitor')
-    def test__serviceha_run_successful(self, mock_monitor, mock_ssh):
-        p = serviceha.ServiceHA(self.args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, 'running', '')
-        p.setup()
-
-        monitor_result = {'total_time': 5, 'outage_time': 0, 'total_count': 16, 'outage_count': 0}
-        mock_monitor.Monitor().get_result.return_value = monitor_result
-
-        p.connection = mock_ssh.SSH()
-        mock_ssh.SSH().execute.return_value = (0, 'success', '')
-
         result = {}
-        p.run(result)
-        self.assertEqual(result,{ 'outage_time': 0})
-
-    def test__serviceha_run_fail_nosetup(self, mock_ssh):
-        p = serviceha.ServiceHA(self.args, self.ctx)
-        p.run(None)
-
-    @mock.patch('yardstick.benchmark.scenarios.availability.serviceha.monitor')
-    def test__serviceha_run_fail_script(self, mock_monitor, mock_ssh):
-        p = serviceha.ServiceHA(self.args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, 'running', '')
-        p.setup()
-
-        monitor_result = {'total_time': 5, 'outage_time': 0, 'total_count': 16, 'outage_count': 0}
-        mock_monitor.Monitor().get_result.return_value = monitor_result
-
-        p.connection = mock_ssh.SSH()
-        mock_ssh.SSH().execute.return_value = (-1, 'error', '')
-
-        result = {}
-        self.assertRaises(RuntimeError, p.run, result)
-
-    @mock.patch('yardstick.benchmark.scenarios.availability.serviceha.monitor')
-    def test__serviceha_run_fail_sla(self, mock_monitor, mock_ssh):
-        p = serviceha.ServiceHA(self.args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, 'running', '')
-        p.setup()
-
-        monitor_result = {'total_time': 10, 'outage_time': 5, 'total_count': 16, 'outage_count': 0}
-        mock_monitor.Monitor().get_result.return_value = monitor_result
-
-        p.connection = mock_ssh.SSH()
-        mock_ssh.SSH().execute.return_value = (0, 'success', '')
-
-        result = {}
-        self.assertRaises(AssertionError, p.run, result)
-
-    def test__serviceha_teardown_successful(self, mock_ssh):
-        p = serviceha.ServiceHA(self.args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, 'running', '')
-        p.setup()
-        p.need_teardown = True
-
-        mock_ssh.SSH().execute.return_value = (0, 'success', '')
+        result["outage_time"] = 0
+        mock_monitor.Monitor().get_result.return_value = result
+        ret = {}
+        p.run(ret)
+        self.assertEqual(ret, result)
         p.teardown()
 
-        self.assertEqual(p.need_teardown, False)
-
-    def test__serviceha_teardown_fail_script(self, mock_ssh):
+    def test__serviceha_run_sla_error(self, mock_attacker, mock_monitor):
         p = serviceha.ServiceHA(self.args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, 'running', '')
+
         p.setup()
-        p.need_teardown = True
+        self.assertEqual(p.setup_done, True)
 
-        mock_ssh.SSH().execute.return_value = (-1, 'false', '')
+        result = {}
+        result["outage_time"] = 10
+        mock_monitor.Monitor().get_result.return_value = result
 
-        self.assertRaises(RuntimeError, p.teardown)
-
+        ret = {}
+        self.assertRaises(AssertionError, p.run, ret)
