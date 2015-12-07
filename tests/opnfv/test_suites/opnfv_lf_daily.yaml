@@ -3,7 +3,7 @@
 
 schema: "yardstick:suite:0.1"
 
-name: "opnfv_pod2_daily"
+name: "opnfv_lf_daily"
 test_cases_dir: "tests/opnfv/test_cases/"
 test_cases:
 -
