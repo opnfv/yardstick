@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_8c3ae7cb",
+        "filename": "tests/opnfv/test_suites/ericsson_daily.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-08T09:02:56Z",
+      "side": 1,
+      "message": "Should this be the name of the POD according to Jenkins ? Should POD1 be added, as POD2 exists.",
+      "revId": "279f444cdfc93fba50710159ede46a3a4f2935bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_6c37b3e4",
+        "filename": "tests/opnfv/test_suites/lf_daily.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-08T09:02:56Z",
+      "side": 1,
+      "message": "Should POD2 be added as the Yardstick test will be executed on LF POD2 ?",
+      "revId": "279f444cdfc93fba50710159ede46a3a4f2935bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
