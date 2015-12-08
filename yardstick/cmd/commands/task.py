@@ -287,7 +287,8 @@ def run_one_scenario(scenario_cfg, output_file):
 
     # TODO support get multi hosts/vms info
     context_cfg = {}
-    context_cfg['host'] = Context.get_server(scenario_cfg["host"])
+    if "host" in scenario_cfg:
+        context_cfg['host'] = Context.get_server(scenario_cfg["host"])
 
     if "target" in scenario_cfg:
         if is_ip_addr(scenario_cfg["target"]):
@@ -303,12 +304,38 @@ def run_one_scenario(scenario_cfg, output_file):
                 context_cfg["target"]["ipaddr"] = \
                     context_cfg["target"]["ip"]
 
+    if "nodes" in scenario_cfg:
+        context_cfg["nodes"] = paras_nodes_with_context(scenario_cfg)
     runner = base_runner.Runner.get(runner_cfg)
 
     print "Starting runner of type '%s'" % runner_cfg["type"]
     runner.run(scenario_cfg, context_cfg)
 
     return runner
+
+
+def paras_nodes_with_context(scenario_cfg):
+    '''paras the 'nodes' fields in scenario '''
+    nodes = scenario_cfg["nodes"]
+
+    context_cfg = {}
+    for nodename in nodes:
+        if nodename == "target":
+            if is_ip_addr(nodes["target"]):
+                context_cfg['target'] = {}
+                context_cfg['target']["ipaddr"] = nodes["target"]
+            else:
+                context_cfg['target'] = Context.get_server(nodes["target"])
+                if _is_same_heat_context(nodes["host"], nodes["target"]):
+                    context_cfg["target"]["ipaddr"] = \
+                        context_cfg["target"]["private_ip"]
+                else:
+                    context_cfg["target"]["ipaddr"] = \
+                        context_cfg["target"]["ip"]
+        else:
+            context_cfg[nodename] = Context.get_server(nodes[nodename])
+
+    return context_cfg
 
 
 def runner_join(runner):
