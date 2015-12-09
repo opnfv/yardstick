@@ -45,6 +45,24 @@
       "revId": "0a911ef93342f03848d494543bfde93b45d6c658",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_12ef2e89",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-12-09T14:20:12Z",
+      "side": 1,
+      "message": "I think we should could keep the old style host/target to not break the old yaml files. And its usage is also shorter and maybe more clear when you have a host/target style scenario. So maybe nice to keep?\n\nSee also my new notes/comments on etherpad.",
+      "parentUuid": "9a5c5d37_773c1c30",
+      "revId": "0a911ef93342f03848d494543bfde93b45d6c658",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
