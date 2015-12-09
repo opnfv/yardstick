@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a5c5d37_5db9372d",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc012.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-12-09T16:33:28Z",
+      "side": 1,
+      "message": "I think we should use one of the standard flavors m1.tiny, small, medium etc. in our TCs unless the TC has specific requirements.",
+      "revId": "2c6ee10c7ba6f60f5d58f721a03e13b8f66b46fd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_1d9cdfbf",
         "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc012.yaml",
         "patchSetId": 1
