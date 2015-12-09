@@ -76,6 +76,8 @@ cleanup()
         echo "Deleting image $image..."
         glance image-delete $image || true
     done
+
+    nova flavor-delete yardstick-flavor &> /dev/null || true
 }
 
 exitcode=""
@@ -119,6 +121,16 @@ build_yardstick_image()
     if [ ! -f $QCOW_IMAGE ]; then
         echo "Failed building QCOW image"
         exit 1
+    fi
+}
+
+create_nova_flavor()
+{
+    if ! nova flavor-list | grep -q yardstick-flavor; then
+        echo
+        echo "========== Create nova flavor =========="
+        # Create the nova flavor used by some sample test cases
+        nova flavor-create yardstick-flavor 100 512 3 1
     fi
 }
 
@@ -291,6 +303,7 @@ main()
     build_yardstick_image
     load_yardstick_image
     load_cirros_image
+    create_nova_flavor
 
     run_test
 }
