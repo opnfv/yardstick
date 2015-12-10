@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_7dc75b46",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-10T01:33:10Z",
+      "side": 1,
+      "message": "Thanks for your careful review, I will modify it.",
+      "parentUuid": "9a5c5d37_973f9025",
+      "range": {
+        "startLine": 317,
+        "startChar": 4,
+        "endLine": 317,
+        "endChar": 9
+      },
+      "revId": "0a911ef93342f03848d494543bfde93b45d6c658",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_773c1c30",
         "filename": "yardstick/cmd/commands/task.py",
         "patchSetId": 1
@@ -60,6 +84,48 @@
       "side": 1,
       "message": "I think we should could keep the old style host/target to not break the old yaml files. And its usage is also shorter and maybe more clear when you have a host/target style scenario. So maybe nice to keep?\n\nSee also my new notes/comments on etherpad.",
       "parentUuid": "9a5c5d37_773c1c30",
+      "revId": "0a911ef93342f03848d494543bfde93b45d6c658",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_5dc4973f",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-10T01:33:10Z",
+      "side": 1,
+      "message": "It seems better to keep the host/target at present. I will just add the nodes attribution. Thanks!",
+      "parentUuid": "9a5c5d37_12ef2e89",
+      "revId": "0a911ef93342f03848d494543bfde93b45d6c658",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_3dc1e32e",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-10T01:33:10Z",
+      "side": 1,
+      "message": "I also think keeping the host/target and yaml files is better at present, so I will clean line 323 ~ 335. Thanks.",
+      "parentUuid": "9a5c5d37_773c1c30",
+      "range": {
+        "startLine": 322,
+        "startChar": 4,
+        "endLine": 322,
+        "endChar": 26
+      },
       "revId": "0a911ef93342f03848d494543bfde93b45d6c658",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
