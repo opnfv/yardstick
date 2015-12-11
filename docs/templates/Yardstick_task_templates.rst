@@ -3,10 +3,12 @@ Task Template Syntax
 
 Basic template syntax
 ---------------------
-A nice feature of the input task format used in Yardstick is that it supports the template syntax based on Jinja2.
-This turns out to be extremely useful when, say, you have a fixed structure of your task but you want to
-parameterize this task in some way.
-For example, imagine your input task file (task.yaml) runs a set of Ping scenarios:
+A nice feature of the input task format used in Yardstick is that it supports
+the template syntax based on Jinja2.
+This turns out to be extremely useful when, say, you have a fixed structure of
+your task but you want to parameterize this task in some way.
+For example, imagine your input task file (task.yaml) runs a set of Ping
+scenarios:
 
 ::
 
@@ -34,9 +36,10 @@ For example, imagine your input task file (task.yaml) runs a set of Ping scenari
   context:
       ...
 
-Let's say you want to run the same set of scenarios with the same runner/context/sla,
-but you want to try another packetsize to compare the performance.
-The most elegant solution is then to turn the packetsize name into a template variable:
+Let's say you want to run the same set of scenarios with the same runner/
+context/sla, but you want to try another packetsize to compare the performance.
+The most elegant solution is then to turn the packetsize name into a template
+variable:
 
 ::
 
@@ -64,14 +67,17 @@ The most elegant solution is then to turn the packetsize name into a template va
   context:
       ...
 
-and then pass the argument value for {{packetsize}} when starting a task with this configuration file.
+and then pass the argument value for {{packetsize}} when starting a task with
+this configuration file.
 Yardstick provides you with different ways to do that:
 
-1.Pass the argument values directly in the command-line interface (with either a JSON or YAML dictionary):
+1.Pass the argument values directly in the command-line interface (with either
+a JSON or YAML dictionary):
 
 ::
 
- yardstick task start samples/ping-template.yaml --task-args '{"packetsize": "200"}'
+ yardstick task start samples/ping-template.yaml
+ --task-args'{"packetsize":"200"}'
 
 2.Refer to a file that specifies the argument values (JSON/YAML):
 
@@ -81,9 +87,12 @@ Yardstick provides you with different ways to do that:
 
 Using the default values
 ------------------------
-Note that the Jinja2 template syntax allows you to set the default values for your parameters.
-With default values set, your task file will work even if you don't parameterize it explicitly while starting a task.
-The default values should be set using the {% set ... %} clause (task.yaml).For example:
+Note that the Jinja2 template syntax allows you to set the default values for
+your parameters.
+With default values set, your task file will work even if you don't
+parameterize it explicitly while starting a task.
+The default values should be set using the {% set ... %} clause (task.yaml).
+For example:
 
 ::
 
@@ -105,13 +114,18 @@ The default values should be set using the {% set ... %} clause (task.yaml).For 
       interval: 1
     ...
 
-If you don't pass the value for {{packetsize}} while starting a task, the default one will be used.
+If you don't pass the value for {{packetsize}} while starting a task, the
+default one will be used.
 
 Advanced templates
 ------------------
-Yardstick makes it possible to use all the power of Jinja2 template syntax, including the mechanism of built-in functions.
-As an example, let us make up a task file that will do a block storage performance test.
-The input task file (fio-template.yaml) below uses the Jinja2 for-endfor construct to accomplish that:
+
+Yardstick makes it possible to use all the power of Jinja2 template syntax,
+including the mechanism of built-in functions.
+As an example, let us make up a task file that will do a block storage
+performance test.
+The input task file (fio-template.yaml) below uses the Jinja2 for-endfor
+construct to accomplish that:
 
 ::
 

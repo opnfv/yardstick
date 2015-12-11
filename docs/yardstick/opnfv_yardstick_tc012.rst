@@ -1,4 +1,3 @@
-
 *************************************
 Yardstick Test Case Description TC012
 *************************************
@@ -15,7 +14,7 @@ Yardstick Test Case Description TC012
 +--------------+--------------------------------------------------------------+
 |configuration | File: opnfv_yardstick_tc012.yaml                             |
 |              |                                                              |
-|              | * SLA (optional): 15000 (MBps)                                |
+|              | * SLA (optional): 15000 (MBps)                               |
 |              |     min_bw: The minimum amount of memory bandwidth that is   |
 |              |     accepted.                                                |
 |              | * Size: 10 240 kB - test allocates twice that size (20 480kB)|
@@ -41,8 +40,8 @@ Yardstick Test Case Description TC012
 |references    | * http://manpages.ubuntu.com/manpages/trusty/bw_mem.8.html   |
 |              |                                                              |
 |              | * McVoy, Larry W., and Carl Staelin. "lmbench: Portable Tools|
-|              |   for Performance Analysis." *USENIX annual technical        |
-|              |   conference*. 1996.                                         |
+|              |   for Performance Analysis."                                 |
+|              | *USENIX annual technical conference. 1996.                   |
 +--------------+--------------------------------------------------------------+
 |applicability | Test can be configured with different                        |
 |              |   * memory sizes;                                            |
