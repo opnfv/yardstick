@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_0c5272dd",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2015-12-11T06:40:29Z",
+      "side": 1,
+      "message": "will we have test tools for each different service? or we can share a common test tool?",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_cc633ab0",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2015-12-11T06:40:29Z",
+      "side": 1,
+      "message": "is this just an example, or currently we can only work on the nova-api?",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_ac5806fb",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2015-12-11T06:40:29Z",
+      "side": 1,
+      "message": "Not quite understand what this means.",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_8c5d42ec",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2015-12-11T06:40:29Z",
+      "side": 1,
+      "message": "is it 5min or 5s?",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_6c720e7e",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2015-12-11T06:40:29Z",
+      "side": 1,
+      "message": "OK. this answers the questions above.\nBut what do you mean by \"if host is not defined, the monitor will be run where the yardstick framework run\", is there any specific usecase for this?",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
