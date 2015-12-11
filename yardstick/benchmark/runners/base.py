@@ -148,6 +148,14 @@ class Runner(object):
             Runner.release_dump_process()
 
     @staticmethod
+    def terminate(runner):
+        '''Terminate the runner'''
+        if runner.process and runner.process.is_alive():
+            runner.process.terminate()
+            runner.process.join()
+            Runner.release(runner)
+
+    @staticmethod
     def terminate_all():
         '''Terminate all runners (subprocesses)'''
         log.debug("Terminating all runners")
@@ -173,6 +181,7 @@ class Runner(object):
         self.periodic_action_process = None
         self.result_queue = queue
         self.process = None
+        self.aborted = multiprocessing.Event()
         Runner.runners.append(self)
 
     def run_post_stop_action(self):
@@ -197,6 +206,7 @@ class Runner(object):
         cls = getattr(module, path_split[-1])
 
         self.config['object'] = class_name
+        self.aborted.clear()
 
         # run a potentially configured pre-start action
         if "pre-start-action" in self.config:
@@ -230,8 +240,12 @@ class Runner(object):
 
         self._run_benchmark(cls, "run", scenario_cfg, context_cfg)
 
-    def join(self):
-        self.process.join()
+    def abort(self):
+        '''Abort the execution of a scenario'''
+        self.aborted.set()
+
+    def join(self, timeout=None):
+        self.process.join(timeout)
         if self.periodic_action_process:
             self.periodic_action_process.terminate()
             self.periodic_action_process = None
