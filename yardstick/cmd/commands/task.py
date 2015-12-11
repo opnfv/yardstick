@@ -16,6 +16,7 @@ import atexit
 import ipaddress
 import time
 import logging
+from itertools import ifilter, ifilterfalse
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
 from yardstick.common.task_template import TaskTemplate
@@ -108,11 +109,20 @@ class TaskCommands(object):
         for context in Context.list:
             context.deploy()
 
+        background_runners = []
+
+        # Start all background scenarios
+        for scenario in ifilter(_is_background_scenario, scenarios):
+            scenario["runner"] = dict(type="Duration", duration=1000000000)
+            runner = run_one_scenario(scenario, output_file)
+            background_runners.append(runner)
+
         runners = []
         if run_in_parallel:
             for scenario in scenarios:
-                runner = run_one_scenario(scenario, output_file)
-                runners.append(runner)
+                if not _is_background_scenario(scenario):
+                    runner = run_one_scenario(scenario, output_file)
+                    runners.append(runner)
 
             # Wait for runners to finish
             for runner in runners:
@@ -121,9 +131,23 @@ class TaskCommands(object):
         else:
             # run serially
             for scenario in scenarios:
-                runner = run_one_scenario(scenario, output_file)
-                runner_join(runner)
-                print "Runner ended, output in", output_file
+                if not _is_background_scenario(scenario):
+                    runner = run_one_scenario(scenario, output_file)
+                    runner_join(runner)
+                    print "Runner ended, output in", output_file
+
+        # Abort background runners
+        for runner in background_runners:
+            runner.abort()
+
+        # Wait for background runners to finish
+        for runner in background_runners:
+            if runner.join(timeout=60) is None:
+                # Nuke if it did not stop nicely
+                base_runner.Runner.terminate(runner)
+            base_runner.Runner.release(runner)
+            print "Background task ended"
+
 
 # TODO: Move stuff below into TaskCommands class !?
 
@@ -278,6 +302,13 @@ def _is_same_heat_context(host_attr, target_attr):
         return True
 
     return False
+
+
+def _is_background_scenario(scenario):
+    if "run_in_background" in scenario:
+        return scenario["run_in_background"]
+    else:
+        return False
 
 
 def run_one_scenario(scenario_cfg, output_file):
