@@ -16,6 +16,23 @@
       "revId": "6913cf18fdf21fdef9ea37c04d9a2f96c527ac86",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_22dbff1c",
+        "filename": "yardstick/benchmark/scenarios/compute/cyclictest.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 473
+      },
+      "writtenOn": "2015-12-11T21:04:47Z",
+      "side": 1,
+      "message": "I think we don\u0027t need push the guest image when we put files to guest?",
+      "revId": "6913cf18fdf21fdef9ea37c04d9a2f96c527ac86",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
