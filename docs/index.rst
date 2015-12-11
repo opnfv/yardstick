@@ -1,52 +1,15 @@
-.. OPNFV Yardstick documentation master file.
-   Add chapters and user guides using the
-   root `toctree` directive.
-
-=================
-Yardstick Project
-=================
-
-Welcome to Yardstick's documentation !
-
-.. _Yardstick: https://wiki.opnfv.org/yardstick
-
-Yardstick_ is an OPNFV testing project.
-
-The project goal is to verify infrastructure compliance, from the perspective
-of a VNF.
-
-The project scope is the development of a test framework, test cases and test
-stimuli.
-
-This document introduces the methodology applied in Yardstick_ project, which
-decomposes typical VNF work-load performance metrics into a number of
-characteristics/performance vectors, each of them can be represented by
-distinct test-cases.
-
-The user guides and test cases delivered for the release are included.
-
-Contents:
-
-Yardstick Project Description
-=============================
+=======================
+Yardstick Documentation
+=======================
 
 .. toctree::
-   :numbered:
-   :maxdepth: 2
+   :maxdepth: 1
+   :titlesonly:
 
-User Guides
-===========
-
-.. toctree::
-    :maxdepth: 1
-
-    user_guides/framework/03-installation
+   user_guides/framework/index
+   yardstick/index
 
 Indices
 =======
 
 * :ref:`search`
-
-Revision: _sha1_
-
-Build date: |today|
