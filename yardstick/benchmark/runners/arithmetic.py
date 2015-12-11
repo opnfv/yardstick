@@ -22,7 +22,8 @@ from yardstick.benchmark.runners import base
 LOG = logging.getLogger(__name__)
 
 
-def _worker_process(queue, cls, method_name, scenario_cfg, context_cfg):
+def _worker_process(queue, cls, method_name, scenario_cfg,
+                    context_cfg, aborted):
 
     sequence = 1
 
@@ -54,6 +55,9 @@ def _worker_process(queue, cls, method_name, scenario_cfg, context_cfg):
     margin = 1 if step > 0 else -1
 
     for value in range(start, stop+margin, step):
+
+        if aborted.is_set():
+            break
 
         options[arg_name] = value
 
@@ -133,5 +137,6 @@ class ArithmeticRunner(base.Runner):
     def _run_benchmark(self, cls, method, scenario_cfg, context_cfg):
         self.process = multiprocessing.Process(
             target=_worker_process,
-            args=(self.result_queue, cls, method, scenario_cfg, context_cfg))
+            args=(self.result_queue, cls, method, scenario_cfg,
+                  context_cfg, self.aborted))
         self.process.start()
