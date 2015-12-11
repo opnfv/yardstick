@@ -36,3 +36,23 @@ class TaskCommandsTestCase(unittest.TestCase):
 
         self.assertEqual(context_cfg["host"], server_info)
         self.assertEqual(context_cfg["target"], server_info)
+
+    @mock.patch('yardstick.cmd.commands.task.Context')
+    @mock.patch('yardstick.cmd.commands.task.base_runner')
+    def test_run(self, mock_base_runner, mock_ctx):
+        scenario = \
+            {'host': 'athena.demo',
+             'target': 'ares.demo',
+             'runner':
+                 {'duration': 60,
+                  'interval': 1,
+                  'type': 'Duration'
+                 },
+                 'type': 'Ping'}
+
+        t = task.TaskCommands()
+        runner = mock.Mock()
+        runner.join.return_value = 0
+        mock_base_runner.Runner.get.return_value = runner
+        t._run([scenario], False, "yardstick.out")
+        self.assertTrue(runner.run.called)
