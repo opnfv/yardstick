@@ -21,7 +21,7 @@ from yardstick.benchmark.runners import base
 LOG = logging.getLogger(__name__)
 
 
-def _worker_process(queue, cls, method_name, scenario_cfg, context_cfg):
+def _worker_process(queue, cls, method_name, scenario_cfg, context_cfg, aborted):
 
     sequence = 1
 
@@ -86,7 +86,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg, context_cfg):
 
         sequence += 1
 
-        if (errors and sla_action is None) or (time.time() - start > duration):
+        if (errors and sla_action is None) or (time.time() - start > duration or aborted.is_set()):
             LOG.info("worker END")
             break
 
@@ -113,5 +113,5 @@ If the scenario ends before the time has elapsed, it will be started again.
     def _run_benchmark(self, cls, method, scenario_cfg, context_cfg):
         self.process = multiprocessing.Process(
             target=_worker_process,
-            args=(self.result_queue, cls, method, scenario_cfg, context_cfg))
+            args=(self.result_queue, cls, method, scenario_cfg, context_cfg, self.aborted))
         self.process.start()
