@@ -25,3 +25,6 @@ pep8.log
 test.log
 .testrepository/
 cover/
+.*.sw?
+/output/
+/releng/
