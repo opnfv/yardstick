@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_c2c1c3e5",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 244
+      },
+      "writtenOn": "2015-12-12T00:52:34Z",
+      "side": 1,
+      "message": "Is this a script that will be run?",
+      "range": {
+        "startLine": 25,
+        "startChar": 31,
+        "endLine": 25,
+        "endChar": 43
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_cc633ab0",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 1
@@ -30,6 +53,52 @@
       "writtenOn": "2015-12-11T06:40:29Z",
       "side": 1,
       "message": "is this just an example, or currently we can only work on the nova-api?",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_42add330",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 244
+      },
+      "writtenOn": "2015-12-12T00:52:34Z",
+      "side": 1,
+      "message": "How many monitors can we have? E.g. to check if the process is there at the beginning and at the end and testing the service outage would require two monitors based on these parameters, i.e. one for the process and one for the api. Did I understan it correctly?\nIs there a coordination between the monitors and the attackers?",
+      "range": {
+        "startLine": 30,
+        "startChar": 17,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_e2bcc76e",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 244
+      },
+      "writtenOn": "2015-12-12T00:52:34Z",
+      "side": 1,
+      "message": "In this respect the frequence of the checks comes to mind. It determines the resolution of the SLA metric i.e. the outage time we can test. Should this be a parameter too?",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 33,
+        "endChar": 65
+      },
       "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -70,6 +139,52 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_c268a3f7",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 244
+      },
+      "writtenOn": "2015-12-12T00:52:34Z",
+      "side": 1,
+      "message": "Implicitly by the \"fault_time\" of the attacker we define an upper limit here, and actually I think this is the right place to do so, or is the attacker doing the recovery too? \nWhoever does it seems to need a coordination with the related monitor.",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 75
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_22aadf19",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 244
+      },
+      "writtenOn": "2015-12-12T00:52:34Z",
+      "side": 1,
+      "message": "What do you mean related? used together, e.g. fault_type tells what commad to use and \"process_name\" on what process.",
+      "range": {
+        "startLine": 48,
+        "startChar": 32,
+        "endLine": 48,
+        "endChar": 73
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_6c720e7e",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 1
@@ -81,6 +196,29 @@
       "writtenOn": "2015-12-11T06:40:29Z",
       "side": 1,
       "message": "OK. this answers the questions above.\nBut what do you mean by \"if host is not defined, the monitor will be run where the yardstick framework run\", is there any specific usecase for this?",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_02a7db50",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 244
+      },
+      "writtenOn": "2015-12-12T00:52:34Z",
+      "side": 1,
+      "message": "isn\u0027t that done by one of the monitors, i.e. the \"process\" type. I guess this is a pre-condition to run the test. If this fails that\u0027s not a failure of this test. If it is that\u0027s a different failure though than if the SLA is not meat and it would be good to be able to distinguish those.",
+      "range": {
+        "startLine": 60,
+        "startChar": 24,
+        "endLine": 62,
+        "endChar": 35
+      },
       "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
