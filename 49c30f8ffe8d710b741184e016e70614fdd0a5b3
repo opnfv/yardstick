@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_8faad4d2",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-14T02:56:26Z",
+      "side": 1,
+      "message": "yes, test tools will be share for different service test",
+      "parentUuid": "9a5c5d37_0c5272dd",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_c2c1c3e5",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2015-12-12T00:52:34Z",
       "side": 1,
       "message": "Is this a script that will be run?",
+      "range": {
+        "startLine": 25,
+        "startChar": 31,
+        "endLine": 25,
+        "endChar": 43
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_6568e1ba",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-14T02:56:26Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "9a5c5d37_c2c1c3e5",
       "range": {
         "startLine": 25,
         "startChar": 31,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_e59bb1c7",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-14T02:56:26Z",
+      "side": 1,
+      "message": "It is an example",
+      "parentUuid": "9a5c5d37_cc633ab0",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_42add330",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 1
@@ -70,6 +130,30 @@
       "writtenOn": "2015-12-12T00:52:34Z",
       "side": 1,
       "message": "How many monitors can we have? E.g. to check if the process is there at the beginning and at the end and testing the service outage would require two monitors based on these parameters, i.e. one for the process and one for the api. Did I understan it correctly?\nIs there a coordination between the monitors and the attackers?",
+      "range": {
+        "startLine": 30,
+        "startChar": 17,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_a5a5b905",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-14T02:56:26Z",
+      "side": 1,
+      "message": "You can define one or more monitors. Each monitor will run independently. Currently, process monitor and openstack-api monitor are supported. Many other monitor methods need be developed and added into the test framework. The test framework does not limit the monitors and attackers, the coordination between them is defined by test case files (each test case is a yaml file in yardstick).",
+      "parentUuid": "9a5c5d37_42add330",
       "range": {
         "startLine": 30,
         "startChar": 17,
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_65afc1e4",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-14T02:56:26Z",
+      "side": 1,
+      "message": "It is a good idea to define SLA for each monitor. Currently, the SLA is defined in another attribution (see below *SLA) as the same as other test cases of yardstick. We can discuss which method is better.",
+      "parentUuid": "9a5c5d37_e2bcc76e",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 33,
+        "endChar": 65
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_ac5806fb",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 1
@@ -116,6 +224,24 @@
       "writtenOn": "2015-12-11T06:40:29Z",
       "side": 1,
       "message": "Not quite understand what this means.",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_45acbded",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-14T02:56:26Z",
+      "side": 1,
+      "message": "\"nova image-list\" is an openstack command, which is used to list the images in the openstack glance, and the command need the \"nova-api\" service, so we can use the execute result of the command to verify the \"nova-api\" service",
+      "parentUuid": "9a5c5d37_ac5806fb",
       "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -139,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_25b9c92e",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-14T02:56:26Z",
+      "side": 1,
+      "message": "5 seconds. It is an example, the real value needs discussion with HA team",
+      "parentUuid": "9a5c5d37_8c5d42ec",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_c268a3f7",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 1
@@ -150,6 +294,30 @@
       "writtenOn": "2015-12-12T00:52:34Z",
       "side": 1,
       "message": "Implicitly by the \"fault_time\" of the attacker we define an upper limit here, and actually I think this is the right place to do so, or is the attacker doing the recovery too? \nWhoever does it seems to need a coordination with the related monitor.",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 75
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_6596a196",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-14T02:56:26Z",
+      "side": 1,
+      "message": "I think it is better that attackers and monitors are run independently. Attackers and monitors can use the same scripts, e.g. the script to check a specified process is running.",
+      "parentUuid": "9a5c5d37_c268a3f7",
       "range": {
         "startLine": 39,
         "startChar": 18,
@@ -185,6 +353,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_e5829151",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-14T02:56:26Z",
+      "side": 1,
+      "message": "yes, you are very smart. Additionally, as the fault_type is \"kill_process\" at present, \"process_name\" is needed. For others fault_type, another param will be needed. We can constantly improve the test framework.",
+      "parentUuid": "9a5c5d37_22aadf19",
+      "range": {
+        "startLine": 48,
+        "startChar": 32,
+        "endLine": 48,
+        "endChar": 73
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_6c720e7e",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 1
@@ -202,6 +394,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_c5878d60",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-14T02:56:26Z",
+      "side": 1,
+      "message": "The yardstick test framework runs on the jumper server. if host is not defined, monitor scrips or command will run on jumper server, if the monitor define a host, the test framework will connect the host by SSH and execute monitor scripts or command on the defined host.",
+      "parentUuid": "9a5c5d37_6c720e7e",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_02a7db50",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 1
@@ -213,6 +423,30 @@
       "writtenOn": "2015-12-12T00:52:34Z",
       "side": 1,
       "message": "isn\u0027t that done by one of the monitors, i.e. the \"process\" type. I guess this is a pre-condition to run the test. If this fails that\u0027s not a failure of this test. If it is that\u0027s a different failure though than if the SLA is not meat and it would be good to be able to distinguish those.",
+      "range": {
+        "startLine": 60,
+        "startChar": 24,
+        "endLine": 62,
+        "endChar": 35
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_a57c9973",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-14T02:56:26Z",
+      "side": 1,
+      "message": "They will use the same script.\n\"If it is that\u0027s a different failure though than if the SLA is not meat and it would be good to be able to distinguish those.\" What do you mean?",
+      "parentUuid": "9a5c5d37_02a7db50",
       "range": {
         "startLine": 60,
         "startChar": 24,
