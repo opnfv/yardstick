@@ -1,0 +1,35 @@
+---
+# Sample benchmark task config file
+# measure CPU performance  
+# There is one sample scenario for Dhrystone
+# Dhrystone (MIPS) - higher results are better, i.e. better integer performance. 
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: UnixBench
+  options:
+    run_mode: 'verbose'
+    test_type: 'dhry2reg'
+  host: Chang'e.demo
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
+
+  servers:
+    Chang'e:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+
