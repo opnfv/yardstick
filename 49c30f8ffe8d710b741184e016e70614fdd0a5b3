@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_40aa6b1a",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-12-14T16:08:16Z",
+      "side": 1,
+      "message": "In my opinion, the test tool is \"yardstick + opnfv_yardstick_tc019.yaml\", because if you want to test this case, you must run the command \"yardstick task start opnfv_yardstick_tc019.yaml\", then yardstick will run this scenario for testing controller service HA. So yes, all of different services can be tested by using this common test tool, if you want to test another service, like cinder-api, you will modify a parameter called \"process_name\" in opnfv_yardstick_tc019.yaml and run the command again.",
+      "parentUuid": "9a5c5d37_0c5272dd",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_c2c1c3e5",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 1
@@ -119,6 +137,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_40814b8e",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-12-14T16:08:16Z",
+      "side": 1,
+      "message": "this description leads to the misunderstanding, I suggest it is better to explain the mean of each parameter in the yaml file, and then give the example configuration. before you write the example, you should tell everyone this is a example for the configuration.",
+      "parentUuid": "9a5c5d37_e59bb1c7",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_42add330",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 1
@@ -153,6 +189,54 @@
       "writtenOn": "2015-12-14T02:56:26Z",
       "side": 1,
       "message": "You can define one or more monitors. Each monitor will run independently. Currently, process monitor and openstack-api monitor are supported. Many other monitor methods need be developed and added into the test framework. The test framework does not limit the monitors and attackers, the coordination between them is defined by test case files (each test case is a yaml file in yardstick).",
+      "parentUuid": "9a5c5d37_42add330",
+      "range": {
+        "startLine": 30,
+        "startChar": 17,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_7b13de5c",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-12-14T16:08:16Z",
+      "side": 1,
+      "message": "I suggest In each of the reliability testing cases description, we will add some lines about what do Attackers and Monitor mean and how to choose the appropriate one. This lines are same for each testing cases description of HA.\n\nA better idea is to add some help command into yardstick. So testers can just input the command like \"yardstick HA attacker list\" to get a basic explanation of Attacker and the list of supporting Attackers. What do you think?",
+      "parentUuid": "9a5c5d37_a5a5b905",
+      "range": {
+        "startLine": 30,
+        "startChar": 17,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_802503c4",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-12-14T16:08:16Z",
+      "side": 1,
+      "message": "Yes, In this test case, you can add two monitors for different monitoring, and you can use only one monitor or maybe three monitors. That depends the tester. The design of Monitor is flexible, we want the tester to choose which monitors are used in this scenario. because sometimes when you inject a fault, you don\u0027t make sure how the system react. So you can add a lot of monitor for collect the system reaction.  Yes, there is a coordination between the monitors and attackers, but from the framework perspective, we want to give the right of choice to testers, not framework implementers.",
       "parentUuid": "9a5c5d37_42add330",
       "range": {
         "startLine": 30,
