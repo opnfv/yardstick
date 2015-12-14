@@ -42,14 +42,21 @@ EOF
 apt-get update
 apt-get install -y \
     fio \
+    git \
+    gcc \
     iperf3 \
     linux-tools-common \
     linux-tools-generic \
     lmbench \
+    make \
     netperf \
+    patch \
+    perl \
     rt-tests \
     stress \
     sysstat
 
+git clone https://github.com/kdlucas/byte-unixbench.git /opt/tempT
+make --directory /opt/tempT/UnixBench/
 # restore symlink
 ln -sf /run/resolvconf/resolv.conf /etc/resolv.conf
