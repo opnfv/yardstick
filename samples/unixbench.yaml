@@ -1,0 +1,43 @@
+---
+# Sample benchmark task config file
+# measure network latency and throughput using netperf
+# There are two sample scenarios: bulk test and request/response test
+# In bulk test, UDP_STREAM and TCP_STREAM can be used
+# send_msg_size and recv_msg_size are options of bulk test
+# In req/rsp test, TCP_RR TCP_CRR UDP_RR can be used
+# req_rsp_size is option of req/rsp test
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: UnixBench
+  options:
+    run_mode: 'verbose'
+    test_type: 'dhry2reg'
+  host: Chang'e.demo
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+
+context:
+  name: demo
+  image: yardstick-unixbench-server
+  flavor: yardstick-flavor
+  user: ec2-user
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    Chang'e:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+
