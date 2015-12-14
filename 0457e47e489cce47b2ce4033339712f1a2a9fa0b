@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_e5d05155",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-14T03:29:58Z",
+      "side": 1,
+      "message": "The release process is also in terminate and will be execute twice in some cases",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 46
+      },
+      "revId": "0457e47e489cce47b2ce4033339712f1a2a9fa0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
