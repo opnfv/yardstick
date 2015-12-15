@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_f6bc856e",
+        "filename": "docs/index.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 253
+      },
+      "writtenOn": "2015-12-15T12:24:05Z",
+      "side": 1,
+      "message": "Search box will be created in side bar, so you don\u0027t need here.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 15
+      },
+      "revId": "528cf1bcea622538d1faa63dc32a7b19ac845a9c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_d6c181e5",
+        "filename": "docs/user_guides/framework/index.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 253
+      },
+      "writtenOn": "2015-12-15T12:24:05Z",
+      "side": 1,
+      "message": "you can delete line 10-14 as well",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 15
+      },
+      "revId": "528cf1bcea622538d1faa63dc32a7b19ac845a9c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_b6b60d89",
+        "filename": "docs/yardstick/index.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 253
+      },
+      "writtenOn": "2015-12-15T12:24:05Z",
+      "side": 1,
+      "message": "you can delete line 22-27",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 15
+      },
+      "revId": "528cf1bcea622538d1faa63dc32a7b19ac845a9c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
