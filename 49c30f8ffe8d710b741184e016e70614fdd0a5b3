@@ -332,6 +332,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_9890d396",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-12-16T03:24:50Z",
+      "side": 1,
+      "message": "actually, nova image-list is not the OpenStack API, but a OpenStack command. so the name of this parameter is not suitable. Maybe this reason causes the confusion of Qiao.",
+      "parentUuid": "9a5c5d37_45acbded",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_8c5d42ec",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 1
@@ -361,6 +379,24 @@
       "side": 1,
       "message": "5 seconds. It is an example, the real value needs discussion with HA team",
       "parentUuid": "9a5c5d37_8c5d42ec",
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_788d1f7b",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-12-16T03:24:50Z",
+      "side": 1,
+      "message": "It is better to add a unit of measurement in the comment.",
+      "parentUuid": "9a5c5d37_25b9c92e",
       "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -414,6 +450,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_18f4e3f0",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-12-16T03:24:50Z",
+      "side": 1,
+      "message": "In my opinion, it is better to use another metric like \"process_recover_time\" instead of \"process_recover\". if the process cannot recover by itself, the test case is failed; if the process can self-recover in the process_recover_time, the test case is successful. \nAnyway, at the end of the test case, a post-action is executed to make sure the process can restart if it cannot self-recover. The purpose of post-action is try to make the test environment is same with starting, even the test case is failed.",
+      "parentUuid": "9a5c5d37_c268a3f7",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 75
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_22aadf19",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 1
@@ -449,6 +509,30 @@
       "side": 1,
       "message": "yes, you are very smart. Additionally, as the fault_type is \"kill_process\" at present, \"process_name\" is needed. For others fault_type, another param will be needed. We can constantly improve the test framework.",
       "parentUuid": "9a5c5d37_22aadf19",
+      "range": {
+        "startLine": 48,
+        "startChar": 32,
+        "endLine": 48,
+        "endChar": 73
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_98e7b340",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-12-16T03:24:50Z",
+      "side": 1,
+      "message": "I am not sure what does this paragraph mean. Yes, this test case can be configured with different attackers and different monitors, but \"fault_type\", \"fault_time\", \"host\" and \"process_name\" is depend on the attackers design. \n\nMaybe we can remove the \"applicability\" or just to write the NA. if we find in this test cases, we should only choose from the two specific attackers and three specific monitors, then we can add this limitation here.",
+      "parentUuid": "9a5c5d37_e5829151",
       "range": {
         "startLine": 48,
         "startChar": 32,
@@ -530,6 +614,30 @@
       "writtenOn": "2015-12-14T02:56:26Z",
       "side": 1,
       "message": "They will use the same script.\n\"If it is that\u0027s a different failure though than if the SLA is not meat and it would be good to be able to distinguish those.\" What do you mean?",
+      "parentUuid": "9a5c5d37_02a7db50",
+      "range": {
+        "startLine": 60,
+        "startChar": 24,
+        "endLine": 62,
+        "endChar": 35
+      },
+      "revId": "49c30f8ffe8d710b741184e016e70614fdd0a5b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_58d13b56",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-12-16T03:24:50Z",
+      "side": 1,
+      "message": "Exactly, I am totally agree with you. This is a pre-confition to run the test. If it fails, the test cases will be skipped with the reason \"the environment is not ready.\" Skipped and failed is different modes for the HA test cases. \nBut now, we haven\u0027t support this function, so we just merged this action to the attacker tools, and if it fails, the test case is failed. And further we will integrate this pre-condition to the framework to distinguish those.",
       "parentUuid": "9a5c5d37_02a7db50",
       "range": {
         "startLine": 60,
