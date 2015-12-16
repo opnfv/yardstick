@@ -144,11 +144,13 @@ class TestHeatManager(unittest.TestCase):
     def test_delete_stack_for_success_2(self):
         self.assertTrue(self.heat_manager.delete_stack('stack_1'))
 
+    @mock.patch('experimental_framework.common.LOG')
     @mock.patch('heatclient.common.template_utils.get_template_contents')
     @mock.patch('heatclient.client.Client')
     # @mock.patch('heatclient.client.Client', side_effect=DummyHeatClient)
     def test_create_stack_for_success(self, mock_stack_create,
-                                      mock_get_template_contents):
+                                      mock_get_template_contents,
+                                      mock_log):
         return_value = ({'template': 'template'}, 'template')
         mock_get_template_contents.return_value = return_value
         self.heat_manager.create_stack('template', 'stack_n', 'parameters')

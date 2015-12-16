@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__author__ = 'gpetralx'
-
 
 import unittest
 import mock
+import os
+import experimental_framework.common as common
 from experimental_framework.benchmarks \
     import multi_tenancy_throughput_benchmark as bench
 
@@ -37,6 +37,7 @@ class TestMultiTenancyThroughputBenchmark(unittest.TestCase):
     def setUp(self):
         name = 'benchmark'
         params = dict()
+        common.BASE_DIR = os.getcwd()
         self.benchmark = bench.MultiTenancyThroughputBenchmark(name, params)
 
     def tearDown(self):

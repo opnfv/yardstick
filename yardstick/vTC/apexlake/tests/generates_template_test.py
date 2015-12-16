@@ -19,6 +19,29 @@ import os
 import experimental_framework.common as common
 
 
+def reset_common():
+    common.LOG = None
+    common.CONF_FILE = None
+    common.DEPLOYMENT_UNIT = None
+    common.ITERATIONS = None
+    common.BASE_DIR = None
+    common.RESULT_DIR = None
+    common.TEMPLATE_DIR = None
+    common.TEMPLATE_NAME = None
+    common.TEMPLATE_FILE_EXTENSION = None
+    common.PKTGEN = None
+    common.PKTGEN_DIR = None
+    common.PKTGEN_DPDK_DIRECTORY = None
+    common.PKTGEN_PROGRAM = None
+    common.PKTGEN_COREMASK = None
+    common.PKTGEN_MEMCHANNEL = None
+    common.PKTGEN_BUS_SLOT_NIC_1 = None
+    common.PKTGEN_BUS_SLOT_NIC_2 = None
+    common.INFLUXDB_IP = None
+    common.INFLUXDB_PORT = None
+    common.INFLUXDB_DB_NAME = None
+
+
 class TestGeneratesTemplate(unittest.TestCase):
     def setUp(self):
         self.deployment_configuration = {
@@ -27,16 +50,15 @@ class TestGeneratesTemplate(unittest.TestCase):
             'vcpus': ['2']
         }
         self.template_name = 'VTC_base_single_vm_wait.tmp'
-        common.init()
-
-    def test_dummy(self):
-        self.assertTrue(True)
+        # common.init()
 
     def tearDown(self):
-        pass
+        reset_common()
 
+    @mock.patch('experimental_framework.common.LOG')
     @mock.patch('experimental_framework.common.get_template_dir')
-    def test_generates_template_for_success(self, mock_template_dir):
+    def test_generates_template_for_success(self, mock_template_dir,
+                                            mock_log):
         generated_templates_dir = 'tests/data/generated_templates/'
         mock_template_dir.return_value = generated_templates_dir
         test_templates = 'tests/data/test_templates/'
@@ -50,7 +72,7 @@ class TestGeneratesTemplate(unittest.TestCase):
                                              generated.readlines())
 
         t_name = '/tests/data/generated_templates/VTC_base_single_vm_wait.tmp'
-        self.template_name = os.getcwd() + t_name
+        self.template_name = "{}{}".format(os.getcwd(), t_name)
         heat_gen.generates_templates(self.template_name,
                                      self.deployment_configuration)
         for dirname, dirnames, filenames in os.walk(test_templates):
