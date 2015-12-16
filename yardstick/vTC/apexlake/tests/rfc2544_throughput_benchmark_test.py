@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__author__ = 'vmriccox'
-
 
 import unittest
 import mock
+import os
 from experimental_framework.benchmarks import rfc2544_throughput_benchmark \
     as mut
 import experimental_framework.common as common
@@ -29,11 +28,11 @@ class RFC2544ThroughputBenchmarkRunTest(unittest.TestCase):
         params = dict()
         params[mut.VLAN_SENDER] = '1'
         params[mut.VLAN_RECEIVER] = '2'
+        common.BASE_DIR = os.getcwd()
         self.benchmark = mut.RFC2544ThroughputBenchmark(name, params)
-        common.init_log()
 
     def tearDown(self):
-        pass
+        common.BASE_DIR = None
 
     def test_get_features_for_sanity(self):
         output = self.benchmark.get_features()
@@ -51,6 +50,7 @@ class RFC2544ThroughputBenchmarkRunTest(unittest.TestCase):
     def test_finalize(self):
         self.assertEqual(self.benchmark.finalize(), None)
 
+    @mock.patch('experimental_framework.common.LOG')
     @mock.patch('experimental_framework.benchmarks.'
                 'rfc2544_throughput_benchmark.RFC2544ThroughputBenchmark.'
                 '_reset_lua_file')
@@ -67,7 +67,7 @@ class RFC2544ThroughputBenchmarkRunTest(unittest.TestCase):
                 'rfc2544_throughput_benchmark.dpdk.DpdkPacketGenerator')
     def test_run_for_success(self, mock_dpdk, mock_get_results,
                              mock_extract_size, conf_lua_file_mock,
-                             reset_lua_file_mock):
+                             reset_lua_file_mock, mock_common_log):
         expected = {'results': 0, 'packet_size': '1'}
         mock_extract_size.return_value = '1'
         mock_get_results.return_value = {'results': 0}
@@ -88,10 +88,11 @@ class RFC2544ThroughputBenchmarkOthers(unittest.TestCase):
     def setUp(self):
         name = 'benchmark'
         params = {'packet_size': '128'}
+        common.BASE_DIR = os.getcwd()
         self.benchmark = mut.RFC2544ThroughputBenchmark(name, params)
 
     def tearDown(self):
-        pass
+        common.BASE_DIR = None
 
     def test__extract_packet_size_from_params_for_success(self):
         expected = '128'
@@ -121,10 +122,10 @@ class RFC2544ThroughputBenchmarkOthers(unittest.TestCase):
 class RFC2544ThroughputBenchmarkGetResultsTest(unittest.TestCase):
 
     def setUp(self):
-        pass
+        common.BASE_DIR = os.getcwd()
 
     def tearDown(self):
-        pass
+        common.BASE_DIR = None
 
     @mock.patch('experimental_framework.common.get_file_first_line')
     def test__get_results_for_success(self, mock_common_file_line):
