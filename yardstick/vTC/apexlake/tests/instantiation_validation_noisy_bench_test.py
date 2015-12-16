@@ -14,8 +14,9 @@
 
 import unittest
 import mock
-
-
+import os
+import experimental_framework.common as common
+import experimental_framework.deployment_unit as deploy
 import experimental_framework.benchmarks.\
     instantiation_validation_noisy_neighbors_benchmark as mut
 
@@ -25,11 +26,22 @@ class InstantiationValidationInitTest(unittest.TestCase):
     def setUp(self):
         name = 'instantiation_validation_noisy'
         params = {'param': 'value'}
+        openstack_credentials = dict()
+        openstack_credentials['ip_controller'] = ''
+        openstack_credentials['project'] = ''
+        openstack_credentials['auth_uri'] = ''
+        openstack_credentials['user'] = ''
+        openstack_credentials['heat_url'] = ''
+        openstack_credentials['password'] = ''
+        common.DEPLOYMENT_UNIT = deploy.DeploymentUnit(openstack_credentials)
+        common.BASE_DIR = os.getcwd()
+        common.TEMPLATE_DIR = 'tests/data/generated_templates'
         self.iv = mut.\
             InstantiationValidationNoisyNeighborsBenchmark(name, params)
 
     def tearDown(self):
-        pass
+        common.BASE_DIR = None
+        common.TEMPLATE_DIR = None
 
     @mock.patch('experimental_framework.benchmarks.'
                 'instantiation_validation_benchmark.'
