@@ -14,7 +14,9 @@
 
 import unittest
 import mock
+import os
 import experimental_framework.constants.conf_file_sections as cfs
+import experimental_framework.common as common
 import experimental_framework.benchmarks.\
     instantiation_validation_benchmark as iv_module
 from experimental_framework.benchmarks.\
@@ -152,11 +154,12 @@ class DummyInstantiaionValidationBenchmark(InstantiationValidationBenchmark):
 class InstantiationValidationInitTest(unittest.TestCase):
 
     def setUp(self):
+        common.BASE_DIR = os.getcwd()
         self.iv = InstantiationValidationBenchmark('InstantiationValidation',
                                                    dict())
 
     def tearDown(self):
-        pass
+        common.BASE_DIR = None
 
     @mock.patch('experimental_framework.common.get_base_dir')
     def test___init___for_success(self, mock_base_dir):
@@ -301,11 +304,13 @@ class InstantiationValidationInitTest(unittest.TestCase):
         self.assertEqual(dummy_replace_in_file('', '', '', True),
                          [0, 0, 0, 1, 1, 1])
 
+    @mock.patch('experimental_framework.common.LOG')
     @mock.patch('experimental_framework.packet_generators.'
                 'dpdk_packet_generator.DpdkPacketGenerator',
                 side_effect=DummyDpdkPacketGenerator)
     @mock.patch('experimental_framework.common.get_dpdk_pktgen_vars')
-    def test_run_for_success(self, mock_common_get_vars, mock_pktgen):
+    def test_run_for_success(self, mock_common_get_vars, mock_pktgen,
+                             mock_log):
         rval = dict()
         rval[cfs.CFSP_DPDK_BUS_SLOT_NIC_2] = 'bus_2'
         rval[cfs.CFSP_DPDK_NAME_IF_2] = 'if_2'
