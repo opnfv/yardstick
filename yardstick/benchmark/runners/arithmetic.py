@@ -124,7 +124,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
         sequence += 1
 
-        if errors:
+        if (errors and sla_action is None):
             break
 
     benchmark.teardown()
