@@ -31,9 +31,9 @@ class Lmbench(base.Scenario):
             unit:       bytes
             default:    128
         stop_size - maximum array size to test (minimum value is 0.000512)
-            type:       int
+            type:       float
             unit:       megabytes
-            default:    16
+            default:    16.0
 
         Results are accurate to the ~2-5 nanosecond range.
 
@@ -98,8 +98,8 @@ class Lmbench(base.Scenario):
 
         if test_type == 'latency':
             stride = options.get('stride', 128)
-            stop_size = options.get('stop_size', 16)
-            cmd = "sudo bash lmbench_latency.sh %d %d" % (stop_size, stride)
+            stop_size = options.get('stop_size', 16.0)
+            cmd = "sudo bash lmbench_latency.sh %f %d" % (stop_size, stride)
         elif test_type == 'bandwidth':
             size = options.get('size', 128)
             benchmark = options.get('benchmark', 'rd')
