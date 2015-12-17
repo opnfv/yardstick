@@ -9,7 +9,7 @@ scenarios:
   type: Lmbench
   options:
     test_type: "latency"
-    stop_size: 32
+    stop_size: 32.0
 
   host: demeter.demo
 
