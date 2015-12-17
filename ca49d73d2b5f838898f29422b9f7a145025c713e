@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_29c07b4f",
+        "filename": "samples/serviceha.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-17T03:31:14Z",
+      "side": 1,
+      "message": "I see, I modify it to the parameter for each monitor.",
+      "parentUuid": "9a5c5d37_a91d8b11",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 17
+      },
+      "revId": "ca49d73d2b5f838898f29422b9f7a145025c713e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_a96fcb91",
         "filename": "samples/serviceha.yaml",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-12-17T03:01:43Z",
       "side": 1,
       "message": "Is it better to add a monitor_type to distinguish them?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 36
+      },
+      "revId": "ca49d73d2b5f838898f29422b9f7a145025c713e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_09b5b7ed",
+        "filename": "samples/serviceha.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-17T03:31:14Z",
+      "side": 1,
+      "message": "An old patch has monitor_type, but it is too big for reviewing, so I divided it to some some patches. I will add this parameter in another patch. Thanks?",
+      "parentUuid": "9a5c5d37_a96fcb91",
       "range": {
         "startLine": 16,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_a9cb4b71",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/attacker_conf.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-17T03:31:14Z",
+      "side": 1,
+      "message": "I think yaml is easiest format for this. I will study another format, what\u0027s your suggestions?",
+      "parentUuid": "9a5c5d37_c9e79f11",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "ca49d73d2b5f838898f29422b9f7a145025c713e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_c972ff7b",
         "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_e9b943ea",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-17T03:31:14Z",
+      "side": 1,
+      "message": "I will delete it, Thanks",
+      "parentUuid": "9a5c5d37_c972ff7b",
+      "range": {
+        "startLine": 45,
+        "startChar": 1,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "ca49d73d2b5f838898f29422b9f7a145025c713e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_691793ee",
         "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
         "patchSetId": 3
@@ -105,6 +201,30 @@
       "writtenOn": "2015-12-17T03:01:43Z",
       "side": 1,
       "message": "If the system is recovered by itself, the recover step should be ignored. So we need a additional action to check the if the killed processes are running normally. I think this action can also be used on the setup function, like an pre-action.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 30
+      },
+      "revId": "ca49d73d2b5f838898f29422b9f7a145025c713e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c9ce7f83",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-17T03:31:14Z",
+      "side": 1,
+      "message": "I will add some check action, thanks!",
+      "parentUuid": "9a5c5d37_691793ee",
       "range": {
         "startLine": 86,
         "startChar": 0,
