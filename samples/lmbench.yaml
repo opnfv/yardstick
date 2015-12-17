@@ -10,7 +10,7 @@ scenarios:
   options:
     test_type: "latency"
     stride: 64
-    stop_size: 32
+    stop_size: 32.0
 
   host: demeter.demo
 
