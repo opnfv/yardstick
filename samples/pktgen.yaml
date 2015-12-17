@@ -1,6 +1,8 @@
 ---
 # Sample benchmark task config file
 # measure network throughput using pktgen
+# with 2 stepping parameters. One stepping
+# in positive and the other in negative direction
 
 schema: "yardstick:task:0.1"
 
@@ -8,8 +10,6 @@ scenarios:
 -
   type: Pktgen
   options:
-    packetsize: 60
-    number_of_ports: 10
     duration: 20
 
   host: demeter.demo
@@ -17,10 +17,20 @@ scenarios:
 
   runner:
     type: Arithmetic
-    name: number_of_ports
-    # run twice with values 10 and 20
-    stop: 20
-    step: 10
+    interval: 2
+    iter_type: nested_for_loops
+    # run with packetsize/number_of_ports: 60,20; 60,10; ... 70,10
+    iterators:
+      -
+       name: packetsize
+       start: 60
+       stop: 70
+       step: 5
+      -
+       name: number_of_ports
+       start: 20
+       stop: 10
+       step: -10
 
   sla:
     max_ppm: 1000
