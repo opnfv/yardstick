@@ -9,16 +9,18 @@ scenarios:
   type: Lmbench
   options:
     test_type: "latency"
-    stride: 64
     stop_size: 32
 
   host: demeter.demo
 
   runner:
     type: Arithmetic
-    name: stride
-    stop: 128
-    step: 64
+    iterators:
+    -
+      name: stride
+      start: 64
+      stop: 128
+      step: 64
 
   sla:
     max_latency: 35
@@ -27,16 +29,18 @@ scenarios:
   type: Lmbench
   options:
     test_type: "bandwidth"
-    size: 500
     benchmark: "wr"
 
   host: demeter.demo
 
   runner:
     type: Arithmetic
-    name: size
-    stop: 2000
-    step: 500
+    iterators:
+    -
+      name: size
+      start: 500
+      stop: 2000
+      step: 500
 
   sla:
     min_bandwidth: 10000
