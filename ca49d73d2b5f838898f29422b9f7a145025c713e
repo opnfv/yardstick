@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_a91d8b11",
+        "filename": "samples/serviceha.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-12-17T03:01:43Z",
+      "side": 1,
+      "message": "I still don\u0027t understand what does the \"wait time\" mean. I sure knew that the monitor must stop on a specific time, but I suggest this time is an option of each monitor, not a common option. \nIf you insist on using a common option, maybe \"test_overtime\" is a more proper name.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 17
+      },
+      "revId": "ca49d73d2b5f838898f29422b9f7a145025c713e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_a96fcb91",
+        "filename": "samples/serviceha.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-12-17T03:01:43Z",
+      "side": 1,
+      "message": "Is it better to add a monitor_type to distinguish them?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 36
+      },
+      "revId": "ca49d73d2b5f838898f29422b9f7a145025c713e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c9e79f11",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/attacker_conf.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-12-17T03:01:43Z",
+      "side": 1,
+      "message": "I suggest to use conf format instead of yaml format. Because our test cases are using yaml format. Maybe lead to some confusion.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "ca49d73d2b5f838898f29422b9f7a145025c713e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c972ff7b",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-12-17T03:01:43Z",
+      "side": 1,
+      "message": "This line is useless.",
+      "range": {
+        "startLine": 45,
+        "startChar": 1,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "ca49d73d2b5f838898f29422b9f7a145025c713e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_691793ee",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2015-12-17T03:01:43Z",
+      "side": 1,
+      "message": "If the system is recovered by itself, the recover step should be ignored. So we need a additional action to check the if the killed processes are running normally. I think this action can also be used on the setup function, like an pre-action.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 30
+      },
+      "revId": "ca49d73d2b5f838898f29422b9f7a145025c713e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
