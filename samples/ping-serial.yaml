@@ -20,16 +20,17 @@ scenarios:
     action: monitor
 -
   type: Ping
-  options:
-    packetsize: 100
   host: apollo.demo
   target: artemis.demo
   runner:
     type: Arithmetic
-    name: packetsize
     interval: 0.2
-    stop: 6000
-    step: 100
+    iterators:
+    -
+      name: packetsize
+      start: 100
+      stop: 6000
+      step: 100
 
 context:
   name: demo
