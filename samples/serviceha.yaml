@@ -7,15 +7,20 @@ scenarios:
 -
   type: ServiceHA
   options:
-    component: "nova-api"
-    fault_type: "stop-service"
-    fault_time: 5
+    attackers:
+    - fault_type: "kill-process"
+      process_name: "nova-api"
+      host: node1
 
-  host: node1.LF
+    monitors:
+    - monitor_cmd: "nova image-list"
+      monitor_time: 10
+  nodes:
+    node1: node1.LF
 
   runner:
     type: Duration
-    duration: 6
+    duration: 1
   sla:
     outage_time: 5
     action: monitor
