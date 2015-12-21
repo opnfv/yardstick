@@ -16,6 +16,24 @@
       "revId": "accd4cea18a4f5b98996055b30de6e3264512fb5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c12533c3",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2015-12-21T02:12:33Z",
+      "side": 1,
+      "message": "yes, thank you for your kindly and professional reviews,let me know, if still any problem with building image.",
+      "parentUuid": "9a5c5d37_8493cef9",
+      "revId": "accd4cea18a4f5b98996055b30de6e3264512fb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
