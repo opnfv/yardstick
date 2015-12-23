@@ -108,7 +108,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         time.sleep(interval)
 
         benchmark_output = {
-            'timestamp': time.time(),
+            'timestamp': '%.9f' % time.time(),
             'sequence': sequence,
             'data': data,
             'errors': errors
