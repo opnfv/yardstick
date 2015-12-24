@@ -74,9 +74,15 @@ class FrameworkApi(object):
 
         :param test_cases: Test cases to be ran on the workload
                             (dict() of dict())
-                            Each string represents a test case and it is one
-                            of the strings provided by the
-                            "get_available_test_cases()" function output.
+
+                            Example:
+                            test_case = dict()
+                            test_case['name'] = 'module.Class'
+                            test_case['params'] = dict()
+                            test_case['params']['throughput'] = '1'
+                            test_case['params']['vlan_sender'] = '1007'
+                            test_case['params']['vlan_receiver'] = '1006'
+                            test_cases = [test_case]
 
         :param iterations: Number of cycles to be executed (int)
 
@@ -103,17 +109,21 @@ class FrameworkApi(object):
                             correspond to the place holders (#parameter_name)
                             specified in the heat template.
 
-        :return: None
+        :return: dict() Containing results
         """
+        common.init(api=True)
 
         # Input Validation
         common.InputValidation.validate_os_credentials(openstack_credentials)
         credentials = openstack_credentials
+
         msg = 'The provided heat_template does not exist'
         template = "{}{}".format(common.get_template_dir(), heat_template)
         common.InputValidation.validate_file_exist(template, msg)
+
         msg = 'The provided iterations variable must be an integer value'
         common.InputValidation.validate_integer(iterations, msg)
+
         msg = 'The provided heat_template_parameters variable must be a ' \
               'dictionary'
         common.InputValidation.validate_dictionary(heat_template_parameters,
@@ -131,7 +141,8 @@ class FrameworkApi(object):
             common.LOG.info("Benchmarking Unit initialization")
             benchmarking_unit.initialize()
             common.LOG.info("Benchmarking Unit Running")
-            benchmarking_unit.run_benchmarks()
+            results = benchmarking_unit.run_benchmarks()
         finally:
             common.LOG.info("Benchmarking Unit Finalization")
             benchmarking_unit.finalize()
+        return results

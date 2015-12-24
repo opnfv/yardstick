@@ -45,11 +45,11 @@ class InstantiationValidationNoisyNeighborsBenchmark(
         features['allowed_values'][NUMBER_OF_CORES] = \
             ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         features['allowed_values'][AMOUNT_OF_RAM] = \
-            ['250M', '1G', '2G', '3G', '4G', '5G', '6G', '7G', '8G', '9G',
+            ['256M', '1G', '2G', '3G', '4G', '5G', '6G', '7G', '8G', '9G',
              '10G']
         features['default_values'][NUM_OF_NEIGHBORS] = '1'
         features['default_values'][NUMBER_OF_CORES] = '1'
-        features['default_values'][AMOUNT_OF_RAM] = '250M'
+        features['default_values'][AMOUNT_OF_RAM] = '256M'
         return features
 
     def init(self):

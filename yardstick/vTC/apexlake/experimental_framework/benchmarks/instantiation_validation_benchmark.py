@@ -36,8 +36,9 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
 
     def __init__(self, name, params):
         base.BenchmarkBaseClass.__init__(self, name, params)
-        self.base_dir = common.get_base_dir() + \
-            fp.EXPERIMENTAL_FRAMEWORK_DIR + fp.DPDK_PKTGEN_DIR
+        self.base_dir = "{}{}{}".format(
+            common.get_base_dir(), fp.EXPERIMENTAL_FRAMEWORK_DIR,
+            fp.DPDK_PKTGEN_DIR)
         self.results_file = self.base_dir + PACKETS_FILE_NAME
         self.lua_file = self.base_dir + 'constant_traffic.lua'
         self.res_dir = ''
@@ -143,7 +144,7 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         if self.res_dir:
             packet_checker_res = \
                 int(common.get_file_first_line(self.res_dir +
-                                               '/packet_checker.res'))
+                                               'packet_checker.res'))
         pkt_gen_res = int(common.get_file_first_line(self.results_file))
         if pkt_gen_res <= packet_checker_res or \
            (float(pkt_gen_res - packet_checker_res) / pkt_gen_res) <= 0.1:
@@ -158,7 +159,7 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         :return:
         """
         # Kill any other process running from previous failed execution
-        self.res_dir = os.getcwd()
+        self.res_dir = common.get_result_dir()
         pids = self._get_pids()
         for pid in pids:
             os.kill(pid, signal.SIGTERM)
@@ -192,6 +193,9 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         common.run_command(command)
 
         # Start the packet checker
+        # TODO: Compile "make" the packet sniffer
+        command = "chmod +x {}".format(self.pkt_checker_command)
+        common.run_command(command)
         command = self.pkt_checker_command
         command += self.interface_name + '.' + self.params[VLAN_RECEIVER]
         command += ' 128'

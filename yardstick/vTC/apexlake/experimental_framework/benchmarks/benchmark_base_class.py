@@ -44,6 +44,9 @@ class BenchmarkBaseClass(object):
     def get_name(self):
         return self.name
 
+    def get_params(self):
+        return self.params
+
     def get_features(self):
         features = dict()
         features['description'] = 'Please implement the method ' \
