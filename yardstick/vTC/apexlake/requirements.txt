@@ -1,0 +1,4 @@
+mock==1.0.1
+wrapt==1.10.4
+python-heatclient==0.3.0
+python-keystoneclient==1.1.0
