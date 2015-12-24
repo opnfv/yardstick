@@ -72,7 +72,6 @@ def dummy_run_command_2(command, get_counters=None):
     elif command == "test_sniff interface.100 128 &":
         command_counter[4] += 1
         return
-    raise Exception(command)
 
 
 def dummy_replace_in_file(file, str_from, str_to, get_couters=None):

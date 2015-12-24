@@ -15,6 +15,7 @@
 import os
 import base_packet_generator
 import experimental_framework.common as common
+import time
 from experimental_framework.constants import conf_file_sections as conf_file
 from experimental_framework.constants import framework_parameters as fp
 
@@ -141,6 +142,8 @@ class DpdkPacketGenerator(base_packet_generator.BasePacketGenerator):
     def _change_vlan(pcap_directory, pcap_file, vlan):
         common.LOG.info("Changing VLAN Tag on Packet: " + pcap_file +
                         ". New VLAN Tag is " + vlan)
+        command = "chmod +x {}{}".format(pcap_directory, 'vlan_tag.sh')
+        common.run_command(command)
         command = pcap_directory + 'vlan_tag.sh '
         command += pcap_directory + pcap_file + ' ' + vlan
         common.run_command(command)
@@ -244,6 +247,7 @@ class DpdkPacketGenerator(base_packet_generator.BasePacketGenerator):
         common.run_command(dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
                            'tools/dpdk_nic_bind.py --unbind ' +
                            dpdk_vars[conf_file.CFSP_DPDK_BUS_SLOT_NIC_1])
+        time.sleep(5)
         common.run_command(dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
                            'tools/dpdk_nic_bind.py --bind=ixgbe ' +
                            dpdk_vars[conf_file.CFSP_DPDK_BUS_SLOT_NIC_1])
@@ -255,6 +259,7 @@ class DpdkPacketGenerator(base_packet_generator.BasePacketGenerator):
             common.run_command(dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
                                'tools/dpdk_nic_bind.py --unbind ' +
                                dpdk_vars[conf_file.CFSP_DPDK_BUS_SLOT_NIC_2])
+            time.sleep(5)
             common.run_command(dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
                                'tools/dpdk_nic_bind.py --bind=ixgbe ' +
                                dpdk_vars[conf_file.CFSP_DPDK_BUS_SLOT_NIC_2])

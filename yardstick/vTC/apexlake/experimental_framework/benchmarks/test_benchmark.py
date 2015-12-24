@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
 
 from experimental_framework.benchmarks import benchmark_base_class as base
 
@@ -33,4 +34,5 @@ class TestBenchmark(base.BenchmarkBaseClass):
         return features
 
     def run(self):
+        time.sleep(10)
         return dict()

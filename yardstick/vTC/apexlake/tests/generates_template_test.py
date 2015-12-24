@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+__author__ = 'gpetralx'
+
+
 import unittest
 import experimental_framework.heat_template_generation as heat_gen
 import mock
