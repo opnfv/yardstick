@@ -68,7 +68,7 @@ class RFC2544ThroughputBenchmarkRunTest(unittest.TestCase):
     def test_run_for_success(self, mock_dpdk, mock_get_results,
                              mock_extract_size, conf_lua_file_mock,
                              reset_lua_file_mock, mock_common_log):
-        expected = {'results': 0, 'packet_size': '1'}
+        expected = {'results': 0}
         mock_extract_size.return_value = '1'
         mock_get_results.return_value = {'results': 0}
         output = self.benchmark.run()

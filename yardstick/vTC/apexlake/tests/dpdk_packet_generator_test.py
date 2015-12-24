@@ -702,4 +702,4 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
     def test__change_vlan_for_success(self, mock_run_command, mock_log):
         mut.DpdkPacketGenerator._change_vlan('/directory/', 'pcap_file', '10')
         expected_param = '/directory/vlan_tag.sh /directory/pcap_file 10'
-        mock_run_command.assert_called_once_with(expected_param)
+        mock_run_command.assert_called_with(expected_param)

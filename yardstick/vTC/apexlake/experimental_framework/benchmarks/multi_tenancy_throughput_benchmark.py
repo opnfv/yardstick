@@ -40,11 +40,11 @@ class MultiTenancyThroughputBenchmark(base.RFC2544ThroughputBenchmark):
         features['allowed_values']['number_of_cores'] = \
             ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         features['allowed_values']['amount_of_ram'] = \
-            ['250M', '1G', '2G', '3G', '4G', '5G', '6G', '7G', '8G', '9G',
+            ['256M', '1G', '2G', '3G', '4G', '5G', '6G', '7G', '8G', '9G',
              '10G']
         features['default_values']['num_of_neighbours'] = '1'
         features['default_values']['number_of_cores'] = '1'
-        features['default_values']['amount_of_ram'] = '250M'
+        features['default_values']['amount_of_ram'] = '256M'
         return features
 
     def init(self):

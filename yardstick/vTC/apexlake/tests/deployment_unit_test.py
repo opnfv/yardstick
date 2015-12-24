@@ -20,6 +20,7 @@ import mock
 import experimental_framework.deployment_unit as mut
 
 
+
 class DummyHeatManager:
 
     def __init__(self, param):
@@ -202,11 +203,12 @@ class TestDeploymentUnit(unittest.TestCase):
                                          parameters, 0)
         self.assertEqual(output, True)
 
+    @mock.patch('experimental_framework.common.LOG')
     @mock.patch('experimental_framework.heat_manager.HeatManager',
                 side_effect=DummyHeatManagerFailed)
     @mock.patch('os.path.isfile')
     def test_deploy_heat_template_for_success_2(self, mock_os_is_file,
-                                                mock_heat_manager):
+                                                mock_heat_manager, mock_log):
         mock_os_is_file.return_value = True
         du = DummyDeploymentUnit(dict())
         template_file = ''
