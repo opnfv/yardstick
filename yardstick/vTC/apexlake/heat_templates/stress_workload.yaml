@@ -1,0 +1,112 @@
+heat_template_version: 2014-10-16
+description: HOT template to create a DPI
+
+parameters:
+   nic_type:
+      type: string
+      default: normal
+   name:
+      type: string
+      default: cpu_stress
+   cores:
+       type: string
+   memory:
+       type: string
+
+resources:
+   internal_net:
+      type: OS::Neutron::Net
+      properties:
+         name: traffic_network
+   internal_subnet:
+      type: OS::Neutron::Subnet
+      properties:
+         network_id: { get_resource: internal_net }
+         cidr: 10.100.0.0/24
+
+   router:
+      properties:
+         admin_state_up: true
+         name: router
+      type: OS::Neutron::Router
+
+   router_gateway:
+      properties:
+         network: external
+         router_id: { get_resource: router }
+      type: OS::Neutron::RouterGateway
+
+   router_interface_0:
+      properties:
+         router_id: { get_resource: router }
+         subnet_id: { get_resource: internal_subnet }
+      type: OS::Neutron::RouterInterface
+
+   vm1_port_1:
+      type: OS::Neutron::Port
+      properties:
+         network: { get_resource: internal_net }
+         binding:vnic_type: { get_param: nic_type }
+         fixed_ips:
+            - subnet: { get_resource: internal_subnet }
+
+   flavor_1:
+      type: OS::Nova::Flavor
+      properties:
+         disk: 20
+         ram: 4096
+         vcpus: 4
+
+   vm1:
+      type: OS::Nova::Server
+      properties:
+         name: traffic_vm1
+         key_name: test
+         image: ubuntu1404
+         user_data:
+            str_replace:
+               template: |
+                  #!/bin/sh
+                  echo "Creating custom user..."
+                  useradd clouduser -g admin -s /bin/bash -m
+                  echo clouduser:secrete | chpasswd
+                  echo "Enabling ssh password login..."
+                  sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+                  service ssh restart
+                  sleep 1
+
+                  ifconfig eth1 up
+                  dhclient eth1
+
+                  sed -i 's/localhost/localhost traffic_vm1/g' /etc/hosts
+                  touch /etc/resolfconf/resolv.conf.d/tail
+                  echo 'nameserver 8.8.8.8' > /etc/resolvconf/resolv.conf.d/tail
+                  resolvconf -u
+
+                  # Installation of stress
+                  apt-get install -y stress
+
+                  cd /home/clouduser
+                  # Setup merlin
+                  rm -rf merlin
+                  mkdir merlin
+                  cd merlin
+                  wget http://10.2.1.65/~iolie/merlin/MerlinAgent-12-06-2015-TNovaVM-001.zip
+                  apt-get install -y zip
+                  unzip MerlinAgent-12-06-2015-TNovaVM-001.zip
+                  ./updateConfiguration.py ./instrumentation.cfg tags source=tnova_vm
+                  ./updateConfiguration.py ./instrumentation.cfg tags role=cpu_stress
+                  nohup ./Agent.py ./instrumentation.cfg >log.out 2>&1 &
+                  cd ..
+
+                  # workload setup
+                  nohup stress -c #CORES --vm-bytes #MEMORY
+
+               params:
+                  $NAME: { get_param: name }
+                  $CORES: { get_param: cores }
+                  $MEMORY: { get_param: memory }
+
+         flavor: { get_resource: flavor_1 }
+         networks:
+            - port: { get_resource: vm1_port_1 }
