@@ -135,7 +135,7 @@ int main(int argc,char **argv)
 
 int write_file()
 {
-    FILE *f = fopen("packet_checker.res", "w");
+    FILE *f = fopen("/tmp/apexlake/results/packet_checker.res", "w");
     if (f == NULL)
     {
         printf("Error opening file!\n");

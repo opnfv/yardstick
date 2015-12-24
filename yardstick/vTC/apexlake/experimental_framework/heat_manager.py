@@ -19,7 +19,7 @@ from keystoneclient.v2_0 import client as keystoneClient
 from heatclient import client as heatClient
 from heatclient.common import template_utils
 
-from experimental_framework import common
+import experimental_framework.common as common
 
 
 class HeatManager:
@@ -33,15 +33,14 @@ class HeatManager:
         self.project_id = credentials['project']
         self.heat = None
 
-        # TODO: verify that init_heat is useless in the constructor
-        # self.init_heat()
-
     def init_heat(self):
         keystone = keystoneClient.Client(username=self.user,
                                          password=self.password,
                                          tenant_name=self.project_id,
                                          auth_url=self.auth_uri)
         auth_token = keystone.auth_token
+        self.heat_url = keystone.service_catalog.url_for(
+            service_type='orchestration')
         self.heat = heatClient.Client('1', endpoint=self.heat_url,
                                       token=auth_token)
 

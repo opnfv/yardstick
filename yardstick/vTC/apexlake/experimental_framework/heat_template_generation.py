@@ -14,8 +14,7 @@
 
 
 '''
-This file contains the code to Generate the heat templates from the base
-template
+Generation of the heat templates from the base template
 '''
 
 import json
@@ -160,7 +159,8 @@ def generates_templates(base_heat_template, deployment_configuration):
     # Delete the templates eventually generated in previous running of the
     # framework
     common.LOG.info("Removing the heat templates previously generated")
-    os.system("rm " + template_dir + template_name + "_*")
+    command = "rm {}{}_*".format(template_dir, template_name)
+    os.system(command)
 
     # Creation of the tree with all the new configurations
     common.LOG.info("Creation of the tree with all the new configurations")
@@ -188,10 +188,7 @@ def generates_templates(base_heat_template, deployment_configuration):
             base_template = template_base_name
         else:
             base_template = template_dir + template_base_name
-        if os.path.isabs(template_name):
-            new_template = template_name
-        else:
-            new_template = template_dir + template_name
+        new_template = template_dir + template_name
         new_template += "_" + str(counter) + template_file_extension
         shutil.copy(base_template, new_template)
 

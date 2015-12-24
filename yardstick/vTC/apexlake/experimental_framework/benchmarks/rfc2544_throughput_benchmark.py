@@ -1,3 +1,4 @@
+
 # Copyright (c) 2015 Intel Research and Development Ireland Ltd.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -74,9 +75,7 @@ class RFC2544ThroughputBenchmark(benchmark_base_class.BenchmarkBaseClass):
         to measure the throughput of the workload
         :return: Results of the testcase (type: dict)
         """
-        ret_val = dict()
         packet_size = self._extract_packet_size_from_params()
-        ret_val[PACKET_SIZE] = packet_size
 
         # Packetgen management
         packetgen = dpdk.DpdkPacketGenerator()
@@ -93,12 +92,7 @@ class RFC2544ThroughputBenchmark(benchmark_base_class.BenchmarkBaseClass):
         packetgen.send_traffic()
         common.LOG.debug('Stop the packet generator')
 
-        # Result Collection
-        results = self._get_results()
-        for metric_name in results.keys():
-            ret_val[metric_name] = results[metric_name]
-        self._reset_lua_file()
-        return ret_val
+        return self._get_results()
 
     def _extract_packet_size_from_params(self):
         """

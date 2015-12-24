@@ -176,10 +176,17 @@ class TestHeatManager_2(unittest.TestCase):
         self.assertFalse(self.heat_manager.delete_stack('stack_1'))
 
 
+class ServiceCatalog():
+    def url_for(self, service_type):
+        return 'http://heat_url'
+
+
 class KeystoneMock(object):
     @property
     def auth_token(self):
         return 'token'
+
+    service_catalog = ServiceCatalog()
 
 
 class TestHeatInit(unittest.TestCase):

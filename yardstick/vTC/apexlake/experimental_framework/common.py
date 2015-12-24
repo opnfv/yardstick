@@ -44,7 +44,10 @@ PKTGEN_COREMASK = None
 PKTGEN_MEMCHANNEL = None
 PKTGEN_BUS_SLOT_NIC_1 = None
 PKTGEN_BUS_SLOT_NIC_2 = None
+PKTGEN_NAME_NIC_1 = None
+PKTGEN_NAME_NIC_2 = None
 
+# TODO: remove Influx
 INFLUXDB_IP = None
 INFLUXDB_PORT = None
 INFLUXDB_DB_NAME = None
@@ -56,14 +59,15 @@ INFLUXDB_DB_NAME = None
 
 def init(api=False):
     global BASE_DIR
-    BASE_DIR = os.getcwd()
+    # BASE_DIR = os.getcwd()
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     BASE_DIR = BASE_DIR.replace('/experimental_framework', '')
     BASE_DIR = InputValidation.validate_directory_exist_and_format(
         BASE_DIR, "Error 000001")
 
     init_conf_file(api)
-    init_general_vars()
     init_log()
+    init_general_vars(api)
     if len(CONF_FILE.get_variable_list(cf.CFS_PKTGEN)) > 0:
         init_pktgen()
 
@@ -71,12 +75,14 @@ def init(api=False):
 def init_conf_file(api=False):
     global CONF_FILE
     if api:
-        CONF_FILE = ConfigurationFile(cf.get_sections_api())
+        CONF_FILE = ConfigurationFile(cf.get_sections_api(),
+                                      '/etc/apexlake/apexlake.conf')
     else:
-        CONF_FILE = ConfigurationFile(cf.get_sections())
+        CONF_FILE = ConfigurationFile(cf.get_sections(),
+                                      '/etc/apexlake/apexlake.conf')
 
 
-def init_general_vars():
+def init_general_vars(api=False):
     global TEMPLATE_FILE_EXTENSION
     global TEMPLATE_NAME
     global TEMPLATE_DIR
@@ -92,22 +98,27 @@ def init_general_vars():
             "Section " + cf.CFS_GENERAL +
             "is not present in configuration file")
 
-    TEMPLATE_DIR = BASE_DIR + 'heat_templates/'
+    TEMPLATE_DIR = '/tmp/apexlake/heat_templates/'
+    if not os.path.exists(TEMPLATE_DIR):
+        os.makedirs(TEMPLATE_DIR)
+    cmd = "cp /etc/apexlake/heat_templates/*.yaml {}".format(TEMPLATE_DIR)
+    run_command(cmd)
 
-    # Validate template name
-    InputValidation.\
-        validate_configuration_file_parameter(
-            cf.CFS_GENERAL,
-            cf.CFSG_TEMPLATE_NAME,
-            "Parameter " + cf.CFSG_TEMPLATE_NAME +
-            "is not present in configuration file")
+    if not api:
+        # Validate template name
+        InputValidation.\
+            validate_configuration_file_parameter(
+                cf.CFS_GENERAL,
+                cf.CFSG_TEMPLATE_NAME,
+                "Parameter " + cf.CFSG_TEMPLATE_NAME +
+                "is not present in configuration file")
+        TEMPLATE_NAME = CONF_FILE.get_variable(cf.CFS_GENERAL,
+                                               cf.CFSG_TEMPLATE_NAME)
+        InputValidation.validate_file_exist(
+            TEMPLATE_DIR + TEMPLATE_NAME,
+            "The provided template file does not exist")
 
-    TEMPLATE_NAME = CONF_FILE.get_variable(cf.CFS_GENERAL,
-                                           cf.CFSG_TEMPLATE_NAME)
-    InputValidation.validate_file_exist(
-        TEMPLATE_DIR + TEMPLATE_NAME,
-        "The provided template file does not exist")
-    RESULT_DIR = BASE_DIR + 'results/'
+    RESULT_DIR = "/tmp/apexlake/results/"
 
     # Validate and assign Iterations
     if cf.CFSG_ITERATIONS in CONF_FILE.get_variable_list(cf.CFS_GENERAL):
@@ -119,13 +130,8 @@ def init_general_vars():
 
 def init_log():
     global LOG
-    if cf.CFSG_DEBUG in CONF_FILE.get_variable_list(cf.CFS_GENERAL) and \
-            CONF_FILE.get_variable(cf.CFS_GENERAL, cf.CFSG_DEBUG):
-            logging.basicConfig(level=logging.DEBUG)
-    else:
-        logging.basicConfig(level=logging.INFO)
-
     LOG = logging.getLogger()
+    LOG.setLevel(level=logging.INFO)
     log_formatter = logging.Formatter("%(asctime)s --- %(message)s")
     file_handler = logging.FileHandler("{0}/{1}.log".format("./", "benchmark"))
     file_handler.setFormatter(log_formatter)
@@ -159,6 +165,8 @@ def init_pktgen():
     global PKTGEN_BUS_SLOT_NIC_1
     global PKTGEN_BUS_SLOT_NIC_2
     global PKTGEN_DPDK_DIRECTORY
+    global PKTGEN_NAME_NIC_1
+    global PKTGEN_NAME_NIC_2
 
     msg = "Section {} is not present in the configuration file".\
         format(cf.CFS_PKTGEN)
@@ -231,6 +239,22 @@ def init_pktgen():
         PKTGEN_BUS_SLOT_NIC_2 = CONF_FILE.get_variable(
             cf.CFS_PKTGEN, cf.CFSP_DPDK_BUS_SLOT_NIC_2)
 
+        # Validation of the DPDK NIC 1
+        msg = "Parameter {} is not present in section {}".format(
+            cf.CFSP_DPDK_NAME_IF_1, cf.CFS_PKTGEN)
+        InputValidation.validate_configuration_file_parameter(
+            cf.CFS_PKTGEN, cf.CFSP_DPDK_NAME_IF_1, msg)
+        PKTGEN_NAME_NIC_1 = CONF_FILE.get_variable(
+            cf.CFS_PKTGEN, cf.CFSP_DPDK_NAME_IF_1)
+
+        # Validation of the DPDK NIC 2
+        msg = "Parameter {} is not present in section {}".format(
+            cf.CFSP_DPDK_NAME_IF_2, cf.CFS_PKTGEN)
+        InputValidation.validate_configuration_file_parameter(
+            cf.CFS_PKTGEN, cf.CFSP_DPDK_NAME_IF_2, msg)
+        PKTGEN_NAME_NIC_2 = CONF_FILE.get_variable(
+            cf.CFS_PKTGEN, cf.CFSP_DPDK_NAME_IF_2)
+
         # Validation of DPDK directory parameter
         msg = "Parameter {} is not present in section {}".format(
             cf.CFSP_DPDK_DPDK_DIRECTORY, cf.CFS_PKTGEN)
@@ -264,7 +288,7 @@ class ConfigurationFile:
         """
         InputValidation.validate_string(
             config_file, "The configuration file name must be a string")
-        config_file = BASE_DIR + config_file
+        # config_file = BASE_DIR + config_file
         InputValidation.validate_file_exist(
             config_file, 'The provided configuration file does not exist')
         self.config = ConfigParser.ConfigParser()
@@ -304,8 +328,8 @@ class ConfigurationFile:
             sect = getattr(self, section)
             return sect[variable_name]
         else:
-            exc_msg = 'Parameter {} is not in the {} section of the conf file'
-            exc_msg.format(variable_name, section)
+            exc_msg = 'Parameter {} is not in the {} section of the ' \
+                      'conf file'.format(variable_name, section)
             raise ValueError(exc_msg)
 
     def get_variable_list(self, section):
@@ -420,7 +444,7 @@ def replace_in_file(file, text_to_search, text_to_replace):
 # Shell interaction
 # ------------------------------------------------------
 def run_command(command):
-    LOG.info("Running command: " + command)
+    LOG.info("Running command: {}".format(command))
     return os.system(command)
 
 
@@ -445,17 +469,23 @@ def get_template_dir():
     return TEMPLATE_DIR
 
 
+def get_result_dir():
+    return RESULT_DIR
+
+
 def get_dpdk_pktgen_vars():
     if not (PKTGEN == 'dpdk_pktgen'):
         return dict()
     ret_val = dict()
     ret_val[cf.CFSP_DPDK_PKTGEN_DIRECTORY] = PKTGEN_DIR
+    ret_val[cf.CFSP_DPDK_DPDK_DIRECTORY] = PKTGEN_DPDK_DIRECTORY
     ret_val[cf.CFSP_DPDK_PROGRAM_NAME] = PKTGEN_PROGRAM
     ret_val[cf.CFSP_DPDK_COREMASK] = PKTGEN_COREMASK
     ret_val[cf.CFSP_DPDK_MEMORY_CHANNEL] = PKTGEN_MEMCHANNEL
     ret_val[cf.CFSP_DPDK_BUS_SLOT_NIC_1] = PKTGEN_BUS_SLOT_NIC_1
     ret_val[cf.CFSP_DPDK_BUS_SLOT_NIC_2] = PKTGEN_BUS_SLOT_NIC_2
-    ret_val[cf.CFSP_DPDK_DPDK_DIRECTORY] = PKTGEN_DPDK_DIRECTORY
+    ret_val[cf.CFSP_DPDK_NAME_IF_1] = PKTGEN_NAME_NIC_1
+    ret_val[cf.CFSP_DPDK_NAME_IF_2] = PKTGEN_NAME_NIC_2
     return ret_val
 
 

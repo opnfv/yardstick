@@ -33,7 +33,7 @@ def reset_common():
 
 
 class DummyConfigurationFile(common.ConfigurationFile):
-    def __init__(self, sections):
+    def __init__(self, sections, conf_file=''):
         pass
 
     def get_variable(self, section, variable_name):
@@ -51,9 +51,9 @@ class DummyConfigurationFile2(common.ConfigurationFile):
         if variable_name == cf.CFSG_TEMPLATE_NAME:
             return 'vTC.yaml'
         if variable_name == cf.CFSG_ITERATIONS:
-            return 2
+            return '2'
         if variable_name == cf.CFSG_DEBUG:
-            return True
+            return 'True'
         if variable_name == cf.CFSP_PACKET_GENERATOR:
             if self.pktgen_counter == 1:
                 return 'non_supported'
@@ -124,17 +124,20 @@ class TestCommonInit(unittest.TestCase):
         expected = self.dir.split('experimental_framework/')[0]
         self.assertEqual(common.BASE_DIR, expected)
 
-    def test_init_general_vars_for_success(self):
+    @mock.patch('os.path.exists')
+    @mock.patch('os.makedirs')
+    @mock.patch('experimental_framework.common.LOG')
+    def test_init_general_vars_for_success(self, mock_log, mock_makedirs,
+                                           mock_path_exists):
         common.BASE_DIR = "{}/".format(os.getcwd())
+        mock_path_exists.return_value = False
         common.init_general_vars()
         self.assertEqual(common.TEMPLATE_FILE_EXTENSION, '.yaml')
-        heat_dir = self.dir.split('experimental_framework/')[0]
-        self.assertEqual(common.TEMPLATE_DIR,
-                         '{}{}'.format(heat_dir, 'heat_templates/'))
+        self.assertEqual(common.TEMPLATE_DIR, '/tmp/apexlake/heat_templates/')
         self.assertEqual(common.TEMPLATE_NAME, 'vTC.yaml')
-        self.assertEqual(common.RESULT_DIR,
-                         '{}{}'.format(heat_dir, 'results/'))
+        self.assertEqual(common.RESULT_DIR, '/tmp/apexlake/results/')
         self.assertEqual(common.ITERATIONS, 1)
+        mock_makedirs.assert_called_once_with('/tmp/apexlake/heat_templates/')
 
 
 class TestCommonInit2(unittest.TestCase):
@@ -147,16 +150,14 @@ class TestCommonInit2(unittest.TestCase):
         reset_common()
         common.CONF_FILE = None
 
-    def test_init_general_vars_2_for_success(self):
+    @mock.patch('experimental_framework.common.LOG')
+    def test_init_general_vars_2_for_success(self, mock_log):
         common.BASE_DIR = "{}/".format(os.getcwd())
         common.init_general_vars()
         self.assertEqual(common.TEMPLATE_FILE_EXTENSION, '.yaml')
-        heat_dir = self.dir.split('experimental_framework/')[0]
-        self.assertEqual(common.TEMPLATE_DIR,
-                         '{}{}'.format(heat_dir, 'heat_templates/'))
+        self.assertEqual(common.TEMPLATE_DIR, '/tmp/apexlake/heat_templates/')
         self.assertEqual(common.TEMPLATE_NAME, 'vTC.yaml')
-        self.assertEqual(common.RESULT_DIR,
-                         '{}{}'.format(heat_dir, 'results/'))
+        self.assertEqual(common.RESULT_DIR, '/tmp/apexlake/results/')
         self.assertEqual(common.ITERATIONS, 2)
 
     def test_init_log_2_for_success(self):
@@ -243,7 +244,7 @@ class TestConfigFileClass(unittest.TestCase):
             'Deployment-parameters',
             'Testcase-parameters'
         ]
-        c_file = '/tests/data/common/conf.cfg'
+        c_file = './tests/data/common/conf.cfg'
         common.BASE_DIR = os.getcwd()
         self.conf_file = common.ConfigurationFile(self.sections, c_file)
 
@@ -258,7 +259,7 @@ class TestConfigFileClass(unittest.TestCase):
         sections = ['General', 'OpenStack', 'Experiment-VNF', 'PacketGen',
                     'Deployment-parameters', 'Testcase-parameters']
         c = DummyConfigurationFile3(
-            sections, config_file='/tests/data/common/conf.cfg')
+            sections, config_file='./tests/data/common/conf.cfg')
         self.assertEqual(
             DummyConfigurationFile3._config_section_map('', '', True),
             6)
@@ -344,7 +345,7 @@ class TestCommonMethods(unittest.TestCase):
             'Deployment-parameters',
             'Testcase-parameters'
         ]
-        config_file = '/tests/data/common/conf.cfg'
+        config_file = './tests/data/common/conf.cfg'
         common.BASE_DIR = os.getcwd()
         common.CONF_FILE = DummyConfigurationFile4(self.sections, config_file)
 
@@ -436,10 +437,14 @@ class TestCommonMethods(unittest.TestCase):
         common.PKTGEN_MEMCHANNEL = 'var'
         common.PKTGEN_BUS_SLOT_NIC_1 = 'var'
         common.PKTGEN_BUS_SLOT_NIC_2 = 'var'
+        common.PKTGEN_NAME_NIC_1 = 'var'
+        common.PKTGEN_NAME_NIC_2 = 'var'
         common.PKTGEN_DPDK_DIRECTORY = 'var'
         expected = {
             'bus_slot_nic_1': 'var',
             'bus_slot_nic_2': 'var',
+            'name_if_1': 'var',
+            'name_if_2': 'var',
             'coremask': 'var',
             'dpdk_directory': 'var',
             'memory_channels': 'var',
