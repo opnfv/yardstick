@@ -7,3 +7,4 @@ Yardstick Framework Documentation
    :maxdepth: 2
 
    03-installation
+   opnfv_example
