@@ -6,4 +6,5 @@ Yardstick Framework Documentation
    :numbered:
    :maxdepth: 2
 
+   opnfv_yardstick_tc001
    03-installation
