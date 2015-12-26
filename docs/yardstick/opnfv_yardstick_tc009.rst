@@ -1,12 +1,18 @@
 *************************************
 Yardstick Test Case Description TC009
 *************************************
+
+.. _pktgen: https://www.kernel.org/doc/Documentation/networking/pktgen.txt
+
 +-----------------------------------------------------------------------------+
-|Network Performance                                                          |
-+==============+==============================================================+
-|test case id  | OPNFV_YARDSTICK_TC009_NW PERF, Packet loss                   |
+|Packet Loss                                                                  |
+|                                                                             |
 +--------------+--------------------------------------------------------------+
-|metric        | Number of flows and throughput                               |
+|test case id  | OPNFV_YARDSTICK_TC009_NW PERF, Packet loss                   |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|metric        | Number of flows, packets lost and throughput                 |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test purpose  | To evaluate the IaaS network performance with regards to     |
 |              | flows and throughput, such as if and how different amounts   |
@@ -20,6 +26,7 @@ Yardstick Test Case Description TC009
 |              | graphs ans similar shall be stored for comparison reasons and|
 |              | product evolution understanding between different OPNFV      |
 |              | versions and/or configurations.                              |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |configuration | file: opnfv_yardstick_tc009.yaml                             |
 |              |                                                              |
@@ -33,6 +40,7 @@ Yardstick Test Case Description TC009
 |              | The client and server are distributed on different HW.       |
 |              |                                                              |
 |              | For SLA max_ppm is set to 1000.                              |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test tool     | pktgen                                                       |
 |              |                                                              |
@@ -41,30 +49,36 @@ Yardstick Test Case Description TC009
 |              | image.                                                       |
 |              | As an example see the /yardstick/tools/ directory for how    |
 |              | to generate a Linux image with pktgen included.)             |
-+--------------+--------------------------------------------------------------+
-|references    |https://www.kernel.org/doc/Documentation/networking/pktgen.txt|
 |              |                                                              |
-|              |ETSI-NFV-TST001                                               |
++--------------+--------------------------------------------------------------+
+|references    | pktgen_                                                      |
+|              |                                                              |
+|              | ETSI-NFV-TST001                                              |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |applicability | Test can be configured with different packet sizes, amount   |
 |              | of flows and test duration. Default values exist.            |
 |              |                                                              |
-|              |SLA (optional):                                               |
-|              |    max_ppm: The number of packets per million packets sent   |
-|              |             that are acceptable to lose, i.e. not received.  |
+|              | SLA (optional): max_ppm: The number of packets per million   |
+|              | packets sent that are acceptable to loose, not received.     |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |pre-test      | The test case image needs to be installed into Glance        |
 |conditions    | with pktgen included in it.                                  |
 |              |                                                              |
 |              | No POD specific requirements have been identified.           |
-+--------------+------+----------------------------------+--------------------+
-|test sequence | step | description                      | result             |
-|              +------+----------------------------------+--------------------+
-|              |  1   | The hosts are installed, as      | Logs are stored    |
-|              |      | server and client. pktgen is     |                    |
-|              |      | invoked and logs are produced    |                    |
-|              |      | and stored.                      |                    |
-+--------------+------+----------------------------------+--------------------+
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|test sequence | description and expected result                              |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|step 1        | The hosts are installed, as server and client. pktgen is     |
+|              | invoked and logs are produced  and stored.                   |
+|              |                                                              |
+|              | Result: logs are stored.                                     |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
 |test verdict  | Fails only if SLA is not passed, or if there is a test case  |
 |              | execution problem.                                           |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+

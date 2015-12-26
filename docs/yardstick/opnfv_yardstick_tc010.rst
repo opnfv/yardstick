@@ -1,17 +1,23 @@
-
 *************************************
 Yardstick Test Case Description TC010
 *************************************
+
+.. _man-pages: http://manpages.ubuntu.com/manpages/trusty/lat_mem_rd.8.html
+
 +-----------------------------------------------------------------------------+
 |Memory Latency                                                               |
-+==============+==============================================================+
+|                                                                             |
++--------------+--------------------------------------------------------------+
 |test case id  | OPNFV_YARDSTICK_TC010_Memory Latency                         |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |metric        | Latency in nanoseconds                                       |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test purpose  | Measure the memory read latency for varying memory sizes and |
 |              | strides. Whole memory hierarchy is measured including all    |
 |              | levels of cache.                                             |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |configuration | File: opnfv_yardstick_tc010.yaml                             |
 |              |                                                              |
@@ -21,6 +27,7 @@ Yardstick Test Case Description TC010
 |              | * Iterations: 10 - test is run 10 times iteratively.         |
 |              | * Interval: 1 - there is 1 second delay between each         |
 |              |   iteration.                                                 |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test tool     | Lmbench                                                      |
 |              |                                                              |
@@ -30,36 +37,43 @@ Yardstick Test Case Description TC010
 |              | needs to be installed in the test image                      |
 |              | (See :ref:`guest-image` for how to generate a Linux image    |
 |              | for Glance with Lmbench included).                           |
-+--------------+--------------------------------------------------------------+
-|references    |* http://manpages.ubuntu.com/manpages/trusty/lat_mem_rd.8.html|
 |              |                                                              |
-|              |* McVoy, Larry W., and Carl Staelin. "lmbench: Portable Tools |
-|              |  for Performance Analysis." *USENIX annual technical         |
-|              |  conference*. 1996.                                          |
 +--------------+--------------------------------------------------------------+
-|applicability | Test can be configured with different                        |
-|              |   * strides;                                                 |
-|              |   * stop_size;                                               |
-|              |   * iterations and intervals;                                |
+|references    | man-pages_                                                   |
+|              |                                                              |
+|              | McVoy, Larry W.,and Carl Staelin. "lmbench: Portable Tools   |
+|              | for Performance Analysis." USENIX annual technical           |
+|              | conference 1996.                                             |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|applicability | Test can be configured with different:                       |
+|              |                                                              |
+|              | * strides;                                                   |
+|              | * stop_size;                                                 |
+|              | * iterations and intervals.                                  |
 |              |                                                              |
 |              | There are default values for each above-mentioned option.    |
 |              |                                                              |
-|              |   * SLA (optional).                                          |
-|              |         max_latency: The maximum memory latency that is      |
-|              |         accepted.                                            |
+|              | SLA (optional) : max_latency: The maximum memory latency     |
+|              | that is accepted.                                            |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |pre-test      | The test case image needs to be installed into Glance        |
 |conditions    | with Lmbench included in the image.                          |
 |              |                                                              |
 |              | No POD specific requirements have been identified.           |
-+--------------+------+----------------------------------+--------------------+
-|test sequence | step | description                      | result             |
-|              +------+----------------------------------+--------------------+
-|              |  1   | The host is installed as client. | Logs are stored    |
-|              |      | Lmbench's lat_mem_rd tool is     |                    |
-|              |      | invoked and logs are produced and|                    |
-|              |      | stored.                          |                    |
-+--------------+------+----------------------------------+--------------------+
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|test sequence | description and expected result                              |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|step 1        | The host is installed as client. Lmbench's lat_mem_rd tool   |
+|              | is invoked and logs are produced and stored.                 |
+|              |                                                              |
+|              | Result: logs are stored.                                     |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
 |test verdict  | Test fails if the measured memory latency is above the SLA   |
 |              | value or if there is a test case execution problem.          |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
