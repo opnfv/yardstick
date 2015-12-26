@@ -1,21 +1,11 @@
-======================
-Yardstick Config Guide
-======================
-
-Test Case Descriptions
-======================
+==================
+Yardstick Overview
+==================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
-   opnfv_yardstick_tc001.rst
-   opnfv_yardstick_tc002.rst
-
-Templates
-=========
-
-.. toctree::
-   :maxdepth: 1
-
-   ../templates/Yardstick_task_templates
-   ../templates/testcase_description_v2_template
+   01-introduction
+   02-methodology
+   03-list-of-tcs
+   glossary
