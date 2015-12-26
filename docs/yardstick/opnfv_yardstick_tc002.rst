@@ -2,12 +2,17 @@
 Yardstick Test Case Description TC002
 *************************************
 
+.. _cirros-image: https://download.cirros-cloud.net
+
 +-----------------------------------------------------------------------------+
 |Network Latency                                                              |
-+==============+==============================================================+
+|                                                                             |
++--------------+--------------------------------------------------------------+
 |test case id  | OPNFV_YARDSTICK_TC002_NW LATENCY                             |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |metric        | RTT, Round Trip Time                                         |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test purpose  | To do a basic verification that network latency is within    |
 |              | acceptable boundaries when packets travel between hosts      |
@@ -16,11 +21,13 @@ Yardstick Test Case Description TC002
 |              | graphs and similar shall be stored for comparison reasons and|
 |              | product evolution understanding between different OPNFV      |
 |              | versions and/or configurations.                              |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |configuration | file: opnfv_yardstick_tc002.yaml                             |
 |              |                                                              |
 |              | Packet size 100 bytes. Total test duration 600 seconds.      |
 |              | One ping each 10 seconds. SLA RTT is set to maximum 10 ms.   |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test tool     | ping                                                         |
 |              |                                                              |
@@ -28,11 +35,13 @@ Yardstick Test Case Description TC002
 |              | doesn't need to be installed. It is also part of the         |
 |              | Yardstick Docker image.                                      |
 |              | (For example also a Cirros image can be downloaded from      |
-|              | https://download.cirros-cloud.net, it includes ping)         |
+|              | cirros-image_, it includes ping)                             |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |references    | Ping man page                                                |
 |              |                                                              |
 |              | ETSI-NFV-TST001                                              |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |applicability | Test case can be configured with different packet sizes,     |
 |              | burst sizes, ping intervals and test duration.               |
@@ -46,20 +55,24 @@ Yardstick Test Case Description TC002
 |              | than this. Some may suffer bad also close to this RTT, while |
 |              | others may not suffer at all. It is a compromise that may    |
 |              | have to be tuned for different configuration purposes.       |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |pre-test      | The test case image needs to be installed into Glance        |
 |conditions    | with ping included in it.                                    |
 |              |                                                              |
 |              | No POD specific requirements have been identified.           |
-+--------------+------+----------------------------------+--------------------+
-|test sequence | step | description                      | result             |
-|              +------+----------------------------------+--------------------+
-|              |  1   | The hosts are installed, as      | Logs are stored    |
-|              |      | server and client. Ping is       |                    |
-|              |      | invoked and logs are produced    |                    |
-|              |      | and stored.                      |                    |
-+--------------+------+----------------------------------+--------------------+
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|test sequence | description and expected result                              |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|step 1        | The hosts are installed, as server and client. Ping is       |
+|              | invoked and logs are produced and stored.                    |
+|              |                                                              |
+|              | Result: Logs are stored.                                     |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
 |test verdict  | Test should not PASS if any RTT is above the optional SLA    |
 |              | value, or if there is a test case execution problem.         |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
-
