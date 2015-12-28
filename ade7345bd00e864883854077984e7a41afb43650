@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_a3035a0c",
+        "filename": "docs/yardstick/opnfv_yardstick_tc007.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:12:38Z",
+      "side": 1,
+      "message": "Remove the picture, logo is added by the docs toolchain  handled by releng now.",
+      "revId": "ade7345bd00e864883854077984e7a41afb43650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_630d6237",
+        "filename": "docs/yardstick/opnfv_yardstick_tc007.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:12:38Z",
+      "side": 1,
+      "message": "To make possible for pdf doc generation: add a blank line after each row in the table before the row delimiter, create a reference to the hyperlink outside the table and refer to it in the table, and modify \"test sequence\" part to 2 columns instead of 3, see the updated TCs in https://gerrit.opnfv.org/gerrit/#/c/5281/",
+      "revId": "ade7345bd00e864883854077984e7a41afb43650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_43149e43",
+        "filename": "docs/yardstick/opnfv_yardstick_tc007.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:12:38Z",
+      "side": 1,
+      "message": "add a blank line between title and the beginning of the table",
+      "revId": "ade7345bd00e864883854077984e7a41afb43650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_230f6a30",
+        "filename": "docs/yardstick/opnfv_yardstick_tc007.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:12:38Z",
+      "side": 1,
+      "message": "add blank line between row 11 and 12 (see comment above)",
+      "revId": "ade7345bd00e864883854077984e7a41afb43650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_031ea663",
+        "filename": "docs/yardstick/opnfv_yardstick_tc007.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:12:38Z",
+      "side": 1,
+      "message": "add blank line between row 14 and 15 (see comment above)",
+      "revId": "ade7345bd00e864883854077984e7a41afb43650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_e3183277",
+        "filename": "docs/yardstick/opnfv_yardstick_tc007.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:12:38Z",
+      "side": 1,
+      "message": "add blank line between row 16 and 17 (see comment above)",
+      "revId": "ade7345bd00e864883854077984e7a41afb43650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c3276eb5",
+        "filename": "docs/yardstick/opnfv_yardstick_tc007.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:12:38Z",
+      "side": 1,
+      "message": "add blank line between row 21 and 22 (see comment above)",
+      "revId": "ade7345bd00e864883854077984e7a41afb43650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_a32a3a7c",
+        "filename": "docs/yardstick/opnfv_yardstick_tc007.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:12:38Z",
+      "side": 1,
+      "message": "add blank line between row 85 and 86 (see comment above)",
+      "revId": "ade7345bd00e864883854077984e7a41afb43650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_832176a1",
+        "filename": "docs/yardstick/opnfv_yardstick_tc007.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:12:38Z",
+      "side": 1,
+      "message": "add blank line between row 89 and 90 (see comment above)\ncreate reference to the hyperlinks outside the table and refer to it inside the table",
+      "revId": "ade7345bd00e864883854077984e7a41afb43650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_632442af",
+        "filename": "docs/yardstick/opnfv_yardstick_tc007.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:12:38Z",
+      "side": 1,
+      "message": "add blank line between row 93 and 94 (see comment above)",
+      "revId": "ade7345bd00e864883854077984e7a41afb43650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_433b7ed1",
+        "filename": "docs/yardstick/opnfv_yardstick_tc007.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:12:38Z",
+      "side": 1,
+      "message": "add blank line between row 109 and 110 (see comment above)",
+      "revId": "ade7345bd00e864883854077984e7a41afb43650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_23364ae8",
+        "filename": "docs/yardstick/opnfv_yardstick_tc007.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:12:38Z",
+      "side": 1,
+      "message": "change to 2 columns, see comment above",
+      "revId": "ade7345bd00e864883854077984e7a41afb43650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_033586d9",
+        "filename": "docs/yardstick/opnfv_yardstick_tc007.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:12:38Z",
+      "side": 1,
+      "message": "add blank line between row 152 and 153 (see comment above)",
+      "revId": "ade7345bd00e864883854077984e7a41afb43650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
