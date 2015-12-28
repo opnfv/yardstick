@@ -92,7 +92,8 @@ via the OpenStack Dashboard.
 Example command:
 ::
 
-  glance image-create --name yardstick-trusty-server --is-public true \
+  glance --os-image-api-version 1 image-create \
+  --name yardstick-trusty-server --is-public true \
   --disk-format qcow2 --container-format bare \
   --file /tmp/workspace/yardstick/yardstick-trusty-server.img
 
