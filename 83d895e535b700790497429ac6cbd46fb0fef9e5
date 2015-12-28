@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_182171b4",
+        "filename": "docs/yardstick/opnfv_yardstick_tc025.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2015-12-28T07:38:45Z",
+      "side": 1,
+      "message": "in the test, we need to monitor all the process of openstack, right? so these 4 are just examples?",
+      "revId": "83d895e535b700790497429ac6cbd46fb0fef9e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_b819458a",
+        "filename": "samples/opnfv_yardstick_tc025.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2015-12-28T07:38:45Z",
+      "side": 1,
+      "message": "why we only monitor these 4 process? From my understanding, it should be all the process? I am not sure if 10s is long enough for the test.",
+      "revId": "83d895e535b700790497429ac6cbd46fb0fef9e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
