@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_1873b1e8",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2015-12-28T06:48:35Z",
+      "side": 1,
+      "message": "Confused with this Waiting time definition.\nwhat exactly do you refer to?",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_d87cf9b7",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2015-12-28T06:48:35Z",
+      "side": 1,
+      "message": "OK. So I assume here that the waiting time actually is the time of your test period. Is that right? So this time should be set long enough so that the service can successfully failover and also recover.",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
