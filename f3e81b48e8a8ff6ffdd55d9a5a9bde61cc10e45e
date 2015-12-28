@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_03ba2623",
+        "filename": "yardstick/dispatcher/influxdb.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-12-28T12:06:09Z",
+      "side": 1,
+      "message": "I think it makes sense to add the timestamp from Yardstick test case results as then the timestamp displayed in grafana will be when the measurement was taken not when influxdb received the data.",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 32
+      },
+      "revId": "f3e81b48e8a8ff6ffdd55d9a5a9bde61cc10e45e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_a3ed9a27",
+        "filename": "yardstick/dispatcher/influxdb.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1346
+      },
+      "writtenOn": "2015-12-28T12:06:09Z",
+      "side": 1,
+      "message": "Is this the list of supported test cases by Yardstick or by the dispatcher?\nIf it is the former then maybe we can use the same method for generating the list as in scenario.py. For example:\n\n  from yardstick.benchmark.scenarios.base import Scenario\n\n  def get_cases():\n\n\ttypes \u003d Scenario.get_types()\n\treturn [t.__scenario_type__ for t in types]",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 44
+      },
+      "revId": "f3e81b48e8a8ff6ffdd55d9a5a9bde61cc10e45e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
