@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a5c5d37_635b222f",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:33:07Z",
+      "side": 1,
+      "message": "Please remove the picture, this is now added automatically by the docs tool chain.",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_83585633",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:33:07Z",
+      "side": 1,
+      "message": "To enable automatic generation of the pdf doc, minor changes have to be done to the table, like adding blank line between title and table, adding blank line before the next row and adapting \"test sequence\" part to 2 columns instead of 3: see the updated TCs in https://gerrit.opnfv.org/gerrit/#/c/5281/",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_e346f24e",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:33:07Z",
+      "side": 1,
+      "message": "Will the attacker be reused by other test cases ? I suggest to expand this description to build supporting documentation, if not already done.",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c3752e99",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:33:07Z",
+      "side": 1,
+      "message": "Suggest to write \"developed by the project\" and add a reference to the code folder.",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_1873b1e8",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 3
@@ -30,6 +98,23 @@
       "writtenOn": "2015-12-28T06:48:35Z",
       "side": 1,
       "message": "OK. So I assume here that the waiting time actually is the time of your test period. Is that right? So this time should be set long enough so that the service can successfully failover and also recover.",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_034c666f",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2015-12-28T09:33:07Z",
+      "side": 1,
+      "message": "check line 107 format",
       "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
