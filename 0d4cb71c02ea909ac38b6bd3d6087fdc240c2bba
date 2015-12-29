@@ -212,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_e37cb2b7",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2015-12-29T06:38:06Z",
+      "side": 1,
+      "message": "I personally think we can use the same time. Since this waiting time actually only means the duration of time for us to do the test. It needs to be long enough so that we can monitor the failure and recovery of the service. Either the time is the same or different won\u0027t influence our test result, right?",
+      "parentUuid": "9a5c5d37_83361651",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_034c666f",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 3
