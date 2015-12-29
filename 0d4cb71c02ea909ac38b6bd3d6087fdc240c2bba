@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_43d25e01",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-29T01:29:35Z",
+      "side": 1,
+      "message": "ok, I will remove it in next patch, thanks!",
+      "parentUuid": "9a5c5d37_635b222f",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_83585633",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2015-12-28T09:33:07Z",
       "side": 1,
       "message": "To enable automatic generation of the pdf doc, minor changes have to be done to the table, like adding blank line between title and table, adding blank line before the next row and adapting \"test sequence\" part to 2 columns instead of 3: see the updated TCs in https://gerrit.opnfv.org/gerrit/#/c/5281/",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_23cd2a5e",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-29T01:29:35Z",
+      "side": 1,
+      "message": "I will follow the above link, thanks!",
+      "parentUuid": "9a5c5d37_83585633",
       "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_23f40a86",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-29T01:29:35Z",
+      "side": 1,
+      "message": "Yes, that\u0027s our idea. Currently, we only have implemented two test cases, which use different attackers, and the attackers may be modified under discussion with HA team. So, I think we can finish these two test cases first, and then give the description of these attackers in another document.",
+      "parentUuid": "9a5c5d37_e346f24e",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_c3752e99",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2015-12-28T09:33:07Z",
       "side": 1,
       "message": "Suggest to write \"developed by the project\" and add a reference to the code folder.",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_e3edd2b8",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-29T01:29:35Z",
+      "side": 1,
+      "message": "good, I will modify it",
+      "parentUuid": "9a5c5d37_c3752e99",
       "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_a32fdaf5",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-29T01:29:35Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "9a5c5d37_1873b1e8",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_d87cf9b7",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 3
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_83361651",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-29T01:29:35Z",
+      "side": 1,
+      "message": "Yes, It is the time period of running the test case. It used to stop monitors and all monitors stop at the same time. Another option is that each monitor uses a independently \"waiting_time\". Which is better in your opinion? We can discuss it in next join meeting",
+      "parentUuid": "9a5c5d37_d87cf9b7",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_034c666f",
         "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
         "patchSetId": 3
@@ -115,6 +223,24 @@
       "writtenOn": "2015-12-28T09:33:07Z",
       "side": 1,
       "message": "check line 107 format",
+      "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c32c0e05",
+        "filename": "docs/yardstick/opnfv_yardstick_tc019.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2015-12-29T01:29:35Z",
+      "side": 1,
+      "message": "Thanks for your careful reviews, I will modify it.",
+      "parentUuid": "9a5c5d37_034c666f",
       "revId": "0d4cb71c02ea909ac38b6bd3d6087fdc240c2bba",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
