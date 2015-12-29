@@ -52,11 +52,17 @@ apt-get install -y \
     netperf \
     patch \
     perl \
+    python-setuptools\
+    python-lxml\
     rt-tests \
     stress \
     sysstat
 
 git clone https://github.com/kdlucas/byte-unixbench.git /opt/tempT
 make --directory /opt/tempT/UnixBench/
+git clone https://github.com/mbj4668/pyang.git /opt/temp/pyang
+cd /opt/temp/pyang
+python setup.py install
+git clone https://gerrit.opnfv.org/gerrit/parser /opt/temp/parser
 # restore symlink
 ln -sf /run/resolvconf/resolv.conf /etc/resolv.conf

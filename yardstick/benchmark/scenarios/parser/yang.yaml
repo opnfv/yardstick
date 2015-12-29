@@ -1,0 +1,687 @@
+ module clearwater {
+
+       namespace "http://localhost/ietf-inet-types.yang";
+
+       prefix "yang";
+
+       organization "HP";
+
+       contact "TBD";
+
+       description "This module defines a VNF Deployment Unit.";
+     revision "2014-05-18" {
+
+         description
+
+           "Initial version";
+
+         reference
+
+           "RFC XXXX";
+
+       }
+      container clearwater {
+
+         description
+
+           "Vdus used in a vnfd";
+
+       list ellis {
+      key id;
+      leaf id{
+      type string;
+      description "key ID for vdu1";
+      }
+         description
+
+         "Vdu key";
+
+
+
+         leaf instance-num {
+
+         type uint16{
+         range 1..6;}
+                                 default 1;
+
+
+         description
+
+           "Number of instances of the said VDU which shall be
+     instantiated";
+
+         }
+
+         leaf vm-image {
+
+         type string;
+         reference  "uri";
+
+
+         description
+
+           "Reference to a VM image";
+
+         }
+         container resource {
+         description
+
+               "The required resource";
+
+             container cpu {
+
+               description
+
+                 "The required computation resource";
+
+
+
+               leaf vCPU_num {
+
+                 type uint32{
+         range 4;
+         }
+
+                 description
+
+                   "The number of virtual CPU units";
+
+               }
+
+
+
+               list vCPU-spec {
+
+                 key "name";
+
+
+
+                 description
+
+                   "Processor characteristics for the VDU";
+
+
+
+                 leaf name {
+
+                   type string;
+
+                   description
+
+                     "Name of vCPU-spec";
+
+                 }
+         leaf description {
+
+                   type string;
+
+                   description
+
+                     "Description of vCPU-spec";
+
+                 }
+
+                 leaf value {
+
+                   type uint32;
+
+                   description
+
+                     "Value of vCPU-spec";
+
+                 }
+
+               }
+
+             }
+
+             container memory {
+
+               description
+
+                 "The required memory resource";
+
+               leaf memory_size {
+
+                 type uint32{
+         range 4096;
+         }
+
+                 description
+
+                   "Memory size, unit:MBytes";
+
+               }
+
+               list memory-spec {
+
+                 key name;
+
+
+
+                 description
+
+                   "Memory characteristics for the VDU";
+
+
+
+                 leaf name {
+
+                   type string;
+
+                   description
+
+                     "Name of memory-spec";
+
+                 }
+
+
+
+                 leaf description {
+
+                   type string;
+
+                   description
+
+                     "Description of memory-spec";
+
+                 }
+
+
+
+                 leaf value {
+
+                   type uint32;
+
+                   description
+
+                     "Value of memory-spec";
+
+                 }
+
+          }
+
+             }
+
+
+
+             container disk {
+
+               description
+
+                 "The required storage resource";
+
+
+
+               leaf disk-size {
+
+                 type uint32{
+     range 2048;
+    }
+                 description
+
+                   "Virtual storage size, unit:MBytes";
+               }
+
+
+
+               list disk-KQI {
+
+                 key name;
+
+
+
+                 description
+
+                   "Storage characteristics in the VDU";
+
+
+
+                 leaf name {
+
+                   type string;
+
+                   description
+
+                     "Name of disk-KQI";
+
+                 }
+         leaf description {
+
+                   type string;
+
+                   description
+
+                     "Description of disk-KQI";
+
+                 }
+
+
+
+                 leaf value {
+
+                   type uint32;
+
+                   description
+
+                     "Value of disk-KQI";
+
+                 }
+
+               }
+
+             }
+
+
+
+             container vnic {
+
+               description
+
+                 "Virtual network interface card (vnic) resource";
+
+
+
+               leaf vnic-num {
+
+                 type uint32{
+         range 2;
+         }
+
+                 description
+
+                   "The total number of virtual vnic";
+
+               }
+          }
+
+           }
+
+
+
+           container workflow-script {
+
+             description
+
+               "VDU workflow script";
+
+
+
+             leaf init {
+
+               type string;
+         default "start.sh";
+
+
+               description
+
+                 "VDU initialization script";
+             }
+
+
+
+             leaf terminate {
+
+               type string;
+         default "stop.sh";
+
+
+               description
+
+                 "VDU termination script";
+        }
+
+             leaf graceful-shutdown {
+
+               type string;
+         default "shutdown.sh";
+
+
+               description
+
+                 "VDU graceful shutdown script";
+
+             }
+
+           }
+
+         }
+     list bono {
+      key id;
+      leaf id{
+      type string;
+      description "key ID for vdu2";
+      }
+         description
+
+         "Vdu key";
+
+
+
+         leaf instance-num {
+
+         type uint16;
+         default 3;
+
+
+         description
+
+           "Number of instances of the said VDU which shall be
+     instantiated";
+
+         }
+
+
+
+         leaf vm-image {
+
+         type string;
+         reference "URI";
+
+
+         description
+
+           "Reference to a VM image";
+
+         }
+
+
+
+         container resource {
+         description
+
+               "The required resource";
+
+
+
+             container cpu {
+
+               description
+
+                 "The required computation resource";
+
+
+
+               leaf vCPU_num {
+
+                 type uint32{
+         range 3;
+         }
+
+                 description
+
+                   "The number of virtual CPU units";
+
+               }
+
+
+
+               list vCPU-spec {
+
+                 key "name";
+
+
+
+                 description
+
+                   "Processor characteristics for the VDU";
+
+
+
+                 leaf name {
+
+                   type string;
+
+                   description
+
+                     "Name of vCPU-spec";
+
+                 }
+         leaf description {
+
+                   type string;
+
+                   description
+
+                     "Description of vCPU-spec";
+
+                 }
+
+
+
+                 leaf value {
+
+                   type uint32;
+
+                   description
+
+                     "Value of vCPU-spec";
+
+                 }
+
+               }
+
+             }
+
+
+
+             container memory {
+
+               description
+
+                 "The required memory resource";
+
+
+
+               leaf memory_size {
+
+                 type uint32{
+         range 2048;
+         }
+
+                 description
+
+                   "Memory size, unit:MBytes";
+
+               }
+
+               list memory-spec {
+
+                 key name;
+
+                 description
+
+                   "Memory characteristics for the VDU";
+
+
+
+                 leaf name {
+
+                   type string;
+
+                   description
+
+                     "Name of memory-spec";
+
+                 }
+
+
+
+                 leaf description {
+
+                   type string;
+
+                   description
+
+                     "Description of memory-spec";
+
+                 }
+
+
+
+                 leaf value {
+
+                   type uint32;
+
+                   description
+
+                     "Value of memory-spec";
+
+                 }
+
+          }
+
+             }
+
+
+
+             container disk {
+
+               description
+
+                 "The required storage resource";
+
+
+
+               leaf disk-size {
+
+                 type uint32{
+         range 3000;
+         }
+
+                 description
+
+                   "Virtual storage size, unit:MBytes";
+
+               }
+
+
+
+               list disk-KQI {
+
+                 key name;
+
+
+
+                 description
+
+                   "Storage characteristics in the VDU";
+
+
+
+                 leaf name {
+
+                   type string;
+
+                   description
+
+                     "Name of disk-KQI";
+
+                 }
+         leaf description {
+
+                   type string;
+
+                   description
+
+                     "Description of disk-KQI";
+
+                 }
+
+
+
+                 leaf value {
+
+                   type uint32;
+
+                   description
+
+                     "Value of disk-KQI";
+
+                 }
+
+               }
+
+             }
+
+
+
+             container vnic {
+
+               description
+
+                 "Virtual network interface card (vnic) resource";
+
+
+
+               leaf vnic-num {
+
+                 type uint32{
+         range 2;
+         }
+
+                 description
+
+                   "The total number of virtual vnic";
+
+               }
+          }
+
+           }
+
+
+
+           container workflow-script {
+
+             description
+
+               "VDU workflow script";
+
+
+
+             leaf init {
+
+               type string;
+         default "start.sh";
+
+
+               description
+
+                 "VDU initialization script";
+
+             }
+
+
+
+             leaf terminate {
+
+               type string;
+         default "stop.sh";
+
+
+               description
+
+                 "VDU termination script";
+
+             }
+
+             leaf graceful-shutdown {
+
+               type string;
+         default "shutdown.sh";
+
+
+               description
+
+                 "VDU graceful shutdown script";
+
+             }
+
+           }
+
+         }
+
+       }
+
+   }
+

@@ -1,0 +1,31 @@
+---
+# Sample task config file
+# running Parser Yang-to-Tosca module as a tool
+# validating output against expected outcome
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Parser
+  host: MonkeyKing.demo
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
+
+  servers:
+    MonkeyKing:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+
