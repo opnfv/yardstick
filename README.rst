@@ -80,7 +80,7 @@ Example setup known to work for development and test:
 - Cloud: Mirantis OpenStack 6.0 deployed using Virtualbox
 
 Install dependencies:
-$ sudo apt-get install python-virtualenv python-dev libffi-dev libssl-dev
+$ sudo apt-get install python-virtualenv python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev
 $ sudo easy_install -U setuptools
 
 Create a virtual environment:
