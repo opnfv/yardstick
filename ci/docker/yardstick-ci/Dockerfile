@@ -28,6 +28,8 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     python \
     python-dev \
+    libxml2-dev \
+    libxslt1-dev \
     python-setuptools && \
     easy_install -U setuptools
 

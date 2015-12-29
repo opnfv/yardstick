@@ -1,0 +1,21 @@
+---
+# Sample task config file
+# running Parser Yang-to-Tosca module as a tool
+# validating output against expected outcome
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Parser
+  options:
+    yangfile: /root/yardstick/samples/yang.yaml
+    toscafile: /root/yardstick/samples/tosca.yaml
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+
+context:
+  type: Dummy
