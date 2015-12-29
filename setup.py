@@ -13,6 +13,8 @@ setup(
             'benchmark/scenarios/compute/*.bash',
             'benchmark/scenarios/networking/*.bash',
             'benchmark/scenarios/storage/*.bash',
+            'benchmark/scenarios/parser/*.bash',
+            'benchmark/scenarios/parser/*.yaml',
             'resources/files/*'
         ]
     },
