@@ -53,6 +53,8 @@ class InfluxdbDispatcher(DispatchBase):
         self.influxdb_url = "%s/write?db=%s" % (self.target, self.db_name)
         self.raw_result = []
         self.case_name = ""
+        self.tc = ""
+        self.task_id = -1
         self.static_tags = {
             "pod_name": os.environ.get('POD_NAME', 'unknown'),
             "installer": os.environ.get('INSTALLER_TYPE', 'unknown'),
@@ -86,12 +88,22 @@ class InfluxdbDispatcher(DispatchBase):
 
         return str(int(float(timestamp) * 1000000000))
 
+    def _get_extended_tags(self, data):
+        tags = {
+            "runner_id": data["runner_id"],
+            "tc": self.tc,
+            "task_id": self.task_id
+        }
+
+        return tags
+
     def _data_to_line_protocol(self, data):
         msg = {}
         point = {}
         point["measurement"] = self.case_name
         point["fields"] = self._dict_key_flatten(data["benchmark"]["data"])
         point["time"] = self._get_nano_timestamp(data)
+        point["tags"] = self._get_extended_tags(data)
         msg["points"] = [point]
         msg["tags"] = self.static_tags
 
@@ -108,6 +120,8 @@ class InfluxdbDispatcher(DispatchBase):
 
         if isinstance(data, dict) and "scenario_cfg" in data:
             self.case_name = data["scenario_cfg"]["type"]
+            self.tc = data["scenario_cfg"]["tc"]
+            self.task_id = data["scenario_cfg"]["task_id"]
             return 0
 
         if self.case_name == "":
