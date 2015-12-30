@@ -49,7 +49,9 @@ class InfluxdbDispatcherTestCase(unittest.TestCase):
                 "sla": {
                     "action": "monitor",
                     "max_rtt": 10
-                }
+                },
+                "tc": "ping",
+                "task_id": "ea958583-c91e-461a-af14-2a7f9d7f79e7"
             }
         }
         self.data2 = {

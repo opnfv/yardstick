@@ -52,12 +52,23 @@ class InfluxdbDispatcher(DispatchBase):
         self.influxdb_url = "%s/write?db=%s" % (self.target, self.db_name)
         self.raw_result = []
         self.case_name = ""
+        self.tc = ""
+        self.task_id = -1
         tags = {
             "pod_name": os.environ.get('POD_NAME', 'unknown'),
             "installer": os.environ.get('INSTALLER_TYPE', 'unknown'),
             "version": os.environ.get('YARDSTICK_VERSION', 'unknown')
         }
         self.tags = ",".join([k+"="+v for k, v in tags.items()])
+
+    def _get_extended_tags(self, data):
+        tags = {
+            "runner_id": data["runner_id"],
+            "tc": self.tc,
+            "task_id": self.task_id
+        }
+
+        return ",".join(["%s=%s" % (k, v) for k, v in tags.items()])
 
     def _data_to_line_protocol(self, data):
         '''
@@ -67,7 +78,8 @@ class InfluxdbDispatcher(DispatchBase):
 
         here use case_name as measurement
         '''
-        line = ",".join([self.case_name, self.tags])
+        extended_tags = self._get_extended_tags(data)
+        line = ",".join([self.case_name, self.tags, extended_tags])
         line += " " + format_for_dashboard(self.case_name, data)
         line += " " + get_nano_timestamp(data)
         return line
@@ -83,6 +95,8 @@ class InfluxdbDispatcher(DispatchBase):
 
         if isinstance(data, dict) and "scenario_cfg" in data:
             self.case_name = data["scenario_cfg"]["type"]
+            self.tc = data["scenario_cfg"]["tc"]
+            self.task_id = data["scenario_cfg"]["task_id"]
             return 0
 
         if self.case_name == "":
