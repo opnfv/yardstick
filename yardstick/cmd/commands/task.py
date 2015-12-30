@@ -16,7 +16,9 @@ import atexit
 import ipaddress
 import time
 import logging
+import uuid
 from itertools import ifilter
+
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
 from yardstick.common.task_template import TaskTemplate
@@ -81,7 +83,9 @@ class TaskCommands(object):
         for i in range(0, len(task_files)):
             one_task_start_time = time.time()
             parser.path = task_files[i]
-            scenarios, run_in_parallel = parser.parse_task(task_args[i],
+            task_name = os.path.splitext(os.path.basename(task_files[i]))[0]
+            scenarios, run_in_parallel = parser.parse_task(task_name,
+                                                           task_args[i],
                                                            task_args_fnames[i])
 
             self._run(scenarios, run_in_parallel, args.output_file)
@@ -199,7 +203,7 @@ class TaskParser(object):
 
         return suite_params
 
-    def parse_task(self, task_args=None, task_args_file=None):
+    def parse_task(self, task_name, task_args=None, task_args_file=None):
         '''parses the task file and return an context and scenario instances'''
         print "Parsing task config:", self.path
 
@@ -247,6 +251,12 @@ class TaskParser(object):
             context.init(cfg_attrs)
 
         run_in_parallel = cfg.get("run_in_parallel", False)
+
+        # add tc and task id for influxdb extended tags
+        task_id = str(uuid.uuid4())
+        for scenario in cfg["scenarios"]:
+            scenario["tc"] = task_name
+            scenario["task_id"] = task_id
 
         # TODO we need something better here, a class that represent the file
         return cfg["scenarios"], run_in_parallel
