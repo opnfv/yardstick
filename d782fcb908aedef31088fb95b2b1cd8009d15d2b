@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_0956c5d2",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2015-12-30T19:01:13Z",
+      "side": 1,
+      "message": "My view is that there should be only one task_id per task file. \n\nThe uuid should be created before the loop and assigned to all scenarios.",
+      "revId": "d782fcb908aedef31088fb95b2b1cd8009d15d2b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
