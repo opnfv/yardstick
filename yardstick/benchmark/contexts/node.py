@@ -83,12 +83,5 @@ class NodeContext(Context):
             sys.exit(-1)
 
         node = nodes[0]
-
-        server = {
-            "name": attr_name,
-            "ip": node["ip"],
-            "user": node["user"],
-            "key_filename": node["key_filename"]
-        }
-
-        return server
+        node["name"] = attr_name
+        return node
