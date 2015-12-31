@@ -16,8 +16,38 @@ import yardstick.common.utils as utils
 LOG = logging.getLogger(__name__)
 
 monitor_conf_path = pkg_resources.resource_filename(
-    "yardstick.benchmark.scenarios.availability.monitor",
+    "yardstick.benchmark.scenarios.availability",
     "monitor_conf.yaml")
+
+
+class MonitorMgr(object):
+    """docstring for MonitorMgr"""
+    def __init__(self):
+        self._monitor_list = []
+
+    def init_monitors(self, monitor_cfgs, context):
+        LOG.debug("monitorMgr config: %s" % monitor_cfgs)
+
+        for monitor_cfg in monitor_cfgs:
+            monitor_type = monitor_cfg["monitor_type"]
+            monitor_cls = BaseMonitor.get_monitor_cls(monitor_type)
+            monitor_ins = monitor_cls(monitor_cfg, context)
+
+            self._monitor_list.append(monitor_ins)
+
+    def start_monitors(self):
+        for _monotor_instace in self._monitor_list:
+            _monotor_instace.start_monitor()
+
+    def wait_monitors(self):
+        for monitor in self._monitor_list:
+            monitor.wait_monitor()
+
+    def verify_SLA(self):
+        sla_pass = True
+        for monitor in self._monitor_list:
+            sla_pass = sla_pass & monitor.verify_SLA()
+        return sla_pass
 
 
 class BaseMonitor(multiprocessing.Process):
@@ -108,33 +138,3 @@ class BaseMonitor(multiprocessing.Process):
 
     def verify_SLA(self):
         pass
-
-
-class MonitorMgr(object):
-    """docstring for MonitorMgr"""
-    def __init__(self):
-        self._monitor_list = []
-
-    def init_monitors(self, monitor_cfgs, context):
-        LOG.debug("monitorMgr config: %s" % monitor_cfgs)
-
-        for monitor_cfg in monitor_cfgs:
-            monitor_type = monitor_cfg["monitor_type"]
-            monitor_cls = BaseMonitor.get_monitor_cls(monitor_type)
-            monitor_ins = monitor_cls(monitor_cfg, context)
-
-            self._monitor_list.append(monitor_ins)
-
-    def start_monitors(self):
-        for _monotor_instace in self._monitor_list:
-            _monotor_instace.start_monitor()
-
-    def wait_monitors(self):
-        for monitor in self._monitor_list:
-            monitor.wait_monitor()
-
-    def verify_SLA(self):
-        sla_pass = True
-        for monitor in self._monitor_list:
-            sla_pass = sla_pass & monitor.verify_SLA()
-        return sla_pass

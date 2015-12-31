@@ -9,7 +9,7 @@
 import logging
 import subprocess
 import traceback
-
+import yardstick.ssh as ssh
 import basemonitor as basemonitor
 
 LOG = logging.getLogger(__name__)
@@ -35,9 +35,35 @@ class MonitorOpenstackCmd(basemonitor.BaseMonitor):
 
     __monitor_type__ = "openstack-cmd"
 
+    def setup(self):
+        self.connection = None
+        node_name = self._config.get("host", None)
+        if node_name:
+            host = self._context[node_name]
+            ip = host.get("ip", None)
+            user = host.get("user", "root")
+            key_filename = host.get("key_filename", "~/.ssh/id_rsa")
+
+            self.connection = ssh.SSH(user, ip, key_filename=key_filename)
+            self.connection.wait(timeout=600)
+            LOG.debug("ssh host success!")
+
+        self.check_script = self.get_script_fullpath(
+            "ha_tools/check_openstack_cmd.bash")
+
+        self.cmd = self._config["command_name"]
+
     def monitor_func(self):
-        cmd = self._config["command_name"]
-        exit_status, stdout = _execute_shell_command(cmd)
+        exit_status = 0
+        if self.connection:
+            exit_status, stdout, stderr = self.connection.execute(
+                "/bin/bash -s '{0}'".format(self.cmd),
+                stdin=open(self.check_script, "r"))
+
+            LOG.debug("the ret stats: %s stdout: %s stderr: %s" %
+                      (exit_status, stdout, stderr))
+        else:
+            exit_status, stdout = _execute_shell_command(self.cmd)
         if exit_status:
             return False
         return True
@@ -56,7 +82,7 @@ class MonitorOpenstackCmd(basemonitor.BaseMonitor):
 
 def _test():    # pragma: no cover
     host = {
-        "ip": "10.20.0.5",
+        "ip": "192.168.235.22",
         "user": "root",
         "key_filename": "/root/.ssh/id_rsa"
     }
@@ -66,7 +92,8 @@ def _test():    # pragma: no cover
         'monitor_type': 'openstack-cmd',
         'command_name': 'nova image-list',
         'monitor_time': 1,
-        'SLA': {'max_outage_time': 5}
+        'host': 'node1',
+        'sla': {'max_outage_time': 5}
     }
     monitor_configs.append(config)
 
@@ -74,7 +101,7 @@ def _test():    # pragma: no cover
     p.init_monitors(monitor_configs, context)
     p.start_monitors()
     p.wait_monitors()
-    p.verify()
+    p.verify_SLA()
 
 
 if __name__ == '__main__':    # pragma: no cover
