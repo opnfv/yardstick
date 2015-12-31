@@ -38,7 +38,7 @@ class MonitorProcessTestCase(unittest.TestCase):
 
         ins = monitor_process.MonitorProcess(self.monitor_cfg, self.context)
 
-        mock_ssh.SSH().execute.return_value = (0, "running", '')
+        mock_ssh.SSH().execute.return_value = (0, "1", '')
         ins.setup()
         ins.monitor_func()
         ins._result = {"outage_time": 0}
@@ -48,7 +48,7 @@ class MonitorProcessTestCase(unittest.TestCase):
 
         ins = monitor_process.MonitorProcess(self.monitor_cfg, self.context)
 
-        mock_ssh.SSH().execute.return_value = (0, "stop", '')
+        mock_ssh.SSH().execute.return_value = (0, "0", '')
         ins.setup()
         ins.monitor_func()
         ins._result = {"outage_time": 10}
