@@ -16,6 +16,24 @@
       "revId": "e76fedac73f05c826132c2e0dcf1bbe6f3a16c75",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c9a2edad",
+        "filename": "samples/opnfv_yardstick_tc006.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2015-12-31T02:39:12Z",
+      "side": 1,
+      "message": "I agree and I prefer NULL context rename to Dummy context, dummy seems more common name :).\n\nif no context specified in the task file then automatically use Dummy Context\n\nor specify the context with type Dummy\n\ncontext:\n    type: Dummy\n\nNote: context without type name will use Heat Context. (e.g. samples/fio.yaml)",
+      "parentUuid": "9a5c5d37_3e789dc3",
+      "revId": "e76fedac73f05c826132c2e0dcf1bbe6f3a16c75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
