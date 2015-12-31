@@ -16,7 +16,7 @@ import yardstick.common.utils as utils
 LOG = logging.getLogger(__name__)
 
 attacker_conf_path = pkg_resources.resource_filename(
-    "yardstick.benchmark.scenarios.availability.attacker",
+    "yardstick.benchmark.scenarios.availability",
     "attacker_conf.yaml")
 
 

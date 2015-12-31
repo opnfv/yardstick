@@ -9,10 +9,19 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# check the status of a service
+# check wether the host is running
 
 set -e
 
-service_name=$1
+host_ip=$1
+shift
+options="$@"
 
-service $service_name status
+ping -c 1 $options $host_ip | grep ttl | wc -l
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+    exit 1
+else
+    echo "running"
+fi

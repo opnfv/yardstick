@@ -1,0 +1,45 @@
+---
+# Sample test case for ha
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: ServiceHA
+  options:
+    attackers:
+    - fault_type: "bare-metal-down"
+      host: node1
+
+    monitors:
+    - monitor_type: "openstack-cmd"
+      command_name: "nova image-list"
+      monitor_time: 10
+      sla:
+        max_outage_time: 5
+    - monitor_type: "openstack-cmd"
+      command_name: "heat stack-list"
+      monitor_time: 10
+      sla:
+        max_outage_time: 5
+    - monitor_type: "openstack-cmd"
+      command_name: "neutron router-list"
+      monitor_time: 10
+      sla:
+        max_outage_time: 5
+
+  nodes:
+    node1: node1.LF
+
+  runner:
+    type: Duration
+    duration: 1
+  sla:
+    outage_time: 5
+    action: monitor
+
+
+context:
+  type: Node
+  name: LF
+  file: /root/yardstick/etc/yardstick/nodes/fuel_virtual/pod.yaml

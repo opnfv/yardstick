@@ -29,24 +29,21 @@ class MonitorProcess(basemonitor.BaseMonitor):
         self.connection.wait(timeout=600)
         LOG.debug("ssh host success!")
         self.check_script = self.get_script_fullpath(
-            "script_tools/check_service.bash")
+            "ha_tools/check_process_python.bash")
         self.process_name = self._config["process_name"]
 
     def monitor_func(self):
         exit_status, stdout, stderr = self.connection.execute(
             "/bin/sh -s {0}".format(self.process_name),
             stdin=open(self.check_script, "r"))
+        if not stdout or int(stdout) <= 0:
+            LOG.info("the process (%s) is not running!" % self.process_name)
+            return False
 
-        if stdout and "running" in stdout:
-            LOG.info("check the envrioment success!")
-            return True
-        else:
-            LOG.error(
-                "the host envrioment is error, stdout:%s, stderr:%s" %
-                (stdout, stderr))
-        return False
+        return True
 
     def verify_SLA(self):
+        LOG.debug("the _result:%s" % self._result)
         outage_time = self._result.get('outage_time', None)
         max_outage_time = self._config["sla"]["max_recover_time"]
         if outage_time > max_outage_time:
@@ -69,7 +66,7 @@ def _test():    # pragma: no cover
         'process_name': 'nova-api',
         'host': "node1",
         'monitor_time': 1,
-        'SLA': {'max_recover_time': 5}
+        'sla': {'max_recover_time': 5}
     }
     monitor_configs.append(config)
 
@@ -77,7 +74,7 @@ def _test():    # pragma: no cover
     p.init_monitors(monitor_configs, context)
     p.start_monitors()
     p.wait_monitors()
-    p.verify()
+    p.verify_SLA()
 
 
 if __name__ == '__main__':    # pragma: no cover
