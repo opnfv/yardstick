@@ -30,12 +30,15 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
     interval = runner_cfg.get("interval", 1)
     iterations = runner_cfg.get("iterations", 1)
+    run_step = runner_cfg.get("run_step", "setup,run,teardown")
     LOG.info("worker START, iterations %d times, class %s", iterations, cls)
 
     runner_cfg['runner_id'] = os.getpid()
 
     benchmark = cls(scenario_cfg, context_cfg)
-    benchmark.setup()
+    if "setup" in run_step:
+        benchmark.setup()
+
     method = getattr(benchmark, method_name)
 
     queue.put({'runner_id': runner_cfg['runner_id'],
@@ -45,53 +48,55 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
     sla_action = None
     if "sla" in scenario_cfg:
         sla_action = scenario_cfg["sla"].get("action", "assert")
+    if "run" in run_step:
+        while True:
 
-    while True:
+            LOG.debug("runner=%(runner)s seq=%(sequence)s START" %
+                      {"runner": runner_cfg["runner_id"],
+                       "sequence": sequence})
 
-        LOG.debug("runner=%(runner)s seq=%(sequence)s START" %
-                  {"runner": runner_cfg["runner_id"], "sequence": sequence})
+            data = {}
+            errors = ""
 
-        data = {}
-        errors = ""
+            try:
+                method(data)
+            except AssertionError as assertion:
+                # SLA validation failed in scenario, determine what to do now
+                if sla_action == "assert":
+                    raise
+                elif sla_action == "monitor":
+                    LOG.warning("SLA validation failed: %s" % assertion.args)
+                    errors = assertion.args
+            except Exception as e:
+                errors = traceback.format_exc()
+                LOG.exception(e)
 
-        try:
-            method(data)
-        except AssertionError as assertion:
-            # SLA validation failed in scenario, determine what to do now
-            if sla_action == "assert":
-                raise
-            elif sla_action == "monitor":
-                LOG.warning("SLA validation failed: %s" % assertion.args)
-                errors = assertion.args
-        except Exception as e:
-            errors = traceback.format_exc()
-            LOG.exception(e)
+            time.sleep(interval)
 
-        time.sleep(interval)
+            benchmark_output = {
+                'timestamp': time.time(),
+                'sequence': sequence,
+                'data': data,
+                'errors': errors
+            }
 
-        benchmark_output = {
-            'timestamp': time.time(),
-            'sequence': sequence,
-            'data': data,
-            'errors': errors
-        }
+            record = {'runner_id': runner_cfg['runner_id'],
+                      'benchmark': benchmark_output}
 
-        record = {'runner_id': runner_cfg['runner_id'],
-                  'benchmark': benchmark_output}
+            queue.put(record)
 
-        queue.put(record)
+            LOG.debug("runner=%(runner)s seq=%(sequence)s END" %
+                      {"runner": runner_cfg["runner_id"],
+                       "sequence": sequence})
 
-        LOG.debug("runner=%(runner)s seq=%(sequence)s END" %
-                  {"runner": runner_cfg["runner_id"], "sequence": sequence})
+            sequence += 1
 
-        sequence += 1
-
-        if (errors and sla_action is None) or \
-                (sequence > iterations or aborted.is_set()):
-            LOG.info("worker END")
-            break
-
-    benchmark.teardown()
+            if (errors and sla_action is None) or \
+                    (sequence > iterations or aborted.is_set()):
+                LOG.info("worker END")
+                break
+    if "teardown" in run_step:
+        benchmark.teardown()
 
 
 class IterationRunner(base.Runner):
