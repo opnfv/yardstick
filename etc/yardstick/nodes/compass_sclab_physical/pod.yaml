@@ -1,0 +1,42 @@
+---
+# sample config file about the POD information, including the
+# name/IP/user/ssh key of Bare Metal and Controllers/Computes
+#
+# The options of this config file include:
+# name: the name of this node
+# role: node's role, support role: Master/Controller/Comupte/BareMetal
+# ip: the node's IP address
+# user: the username for login
+# key_filename:the path of the private key file for login
+
+nodes:
+-
+    name: node1
+    role: Controller
+    ip: 10.1.0.50
+    user: root
+    password: root
+-
+    name: node2
+    role: Controller
+    ip: 10.1.0.51
+    user: root
+    password: root
+-
+    name: node3
+    role: Controller
+    ip: 10.1.0.52
+    user: root
+    password: root
+-
+    name: node4
+    role: Compute
+    ip: 10.1.0.53
+    user: root
+    password: root
+-
+    name: node5
+    role: Compute
+    ip: 10.1.0.54
+    user: root
+    password: root

@@ -12,6 +12,7 @@ setup(
             'benchmark/scenarios/availability/attacker/scripts/*.bash',
             'benchmark/scenarios/compute/*.bash',
             'benchmark/scenarios/networking/*.bash',
+            'benchmark/scenarios/networking/*.txt',
             'benchmark/scenarios/storage/*.bash',
             'resources/files/*'
         ]

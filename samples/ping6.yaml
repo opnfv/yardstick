@@ -1,0 +1,28 @@
+---
+# Sample test case for ipv6
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Ping6
+  options:
+    packetsize: 200
+  host: node1.IPV6
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+    run_step: 'setup,run,teardown'
+  sla:
+    max_rtt: 10
+    action: monitor
+
+
+context:
+  type: Node
+  name: IPV6
+  file: /root/yardstick/etc/yardstick/nodes/compass_sclab_physical/pod.yaml
+
+
