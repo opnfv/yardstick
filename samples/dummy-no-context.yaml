@@ -1,0 +1,14 @@
+---
+# Sample benchmark task config file
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Dummy
+
+  runner:
+    type: Duration
+    duration: 5
+    interval: 1
+

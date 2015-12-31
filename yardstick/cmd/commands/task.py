@@ -233,8 +233,10 @@ class TaskParser(object):
         # TODO: support hybrid context type
         if "context" in cfg:
             context_cfgs = [cfg["context"]]
-        else:
+        elif "contexts" in cfg:
             context_cfgs = cfg["contexts"]
+        else:
+            context_cfgs = [{"type": "Dummy"}]
 
         for cfg_attrs in context_cfgs:
             context_type = cfg_attrs.get("type", "Heat")
