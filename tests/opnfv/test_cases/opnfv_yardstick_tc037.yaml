@@ -1,0 +1,83 @@
+---
+# Yardstick TC037 config file
+# Measure network throughput and packet loss using pktgen.
+# Different amounts of flows are tested with, from 2 up to 1001000.
+# All tests are run 10 times each. First 10 times with the least
+# amount of ports, then 10 times with the next amount of ports,
+# and so on until all packet sizes have been run with.
+#
+# During the measurements system load and network latency are
+# recorded/measured using ping and mpstat, respectively.
+
+scenarios:
+-
+  type: CPUload
+  run_in_background: true     
+
+  options:
+    interval: 1
+
+  host: demeter.yardstick-TC037
+-
+  type: CPUload
+  run_in_background: true
+
+  options:
+    interval: 1
+
+  host: poseidon.yardstick-TC037
+-
+  type: Ping
+  run_in_background: true
+
+  options:
+    packetsize: 100
+
+  host: demeter.yardstick-TC037
+  target: poseidon.yardstick-TC037
+
+  sla:
+    max_rtt: 10
+    action: monitor
+{% for num_ports in [1, 10, 50, 100, 300, 500, 750, 1000] %}
+-
+  type: Pktgen
+  options:
+    packetsize: 64
+    number_of_ports: {{num_ports}}
+    duration: 20
+
+  host: demeter.yardstick-TC037
+  target: poseidon.yardstick-TC037
+
+  runner:
+    type: Iteration
+    iterations: 10
+    interval: 1
+
+  sla:
+    max_ppm: 1000
+    action: monitor
+{% endfor %}
+
+context:
+  name: yardstick-TC037
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    demeter:
+      floating_ip: true
+      placement: "pgrp1"
+    poseidon:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
