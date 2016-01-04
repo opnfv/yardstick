@@ -24,7 +24,7 @@ import inspect
 
 from experimental_framework.benchmarks import benchmark_base_class as base
 from experimental_framework import common
-from experimental_framework import data_manager as data
+# from experimental_framework import data_manager as data
 from experimental_framework import heat_template_generation as heat
 from experimental_framework import deployment_unit as deploy
 
@@ -66,7 +66,7 @@ class BenchmarkingUnit:
         self.template_files = []
         self.benchmarks = list()
         self.benchmark_names = list()
-        self.data_manager = data.DataManager(self.results_directory)
+        # self.data_manager = data.DataManager(self.results_directory)
         self.heat_template_parameters = heat_template_parameters
         self.template_files = \
             heat.get_all_heat_templates(self.template_dir,
@@ -89,13 +89,13 @@ class BenchmarkingUnit:
                 self.get_benchmark_name(benchmark['name']),
                 benchmark['params']))
 
-        for template_file_name in self.template_files:
-            experiment_name = BenchmarkingUnit.extract_experiment_name(
-                template_file_name)
-            self.data_manager.create_new_experiment(experiment_name)
-            for benchmark in self.benchmarks:
-                self.data_manager.add_benchmark(experiment_name,
-                                                benchmark.get_name())
+        # for template_file_name in self.template_files:
+        #     experiment_name = BenchmarkingUnit.extract_experiment_name(
+        #         template_file_name)
+            # self.data_manager.create_new_experiment(experiment_name)
+            # for benchmark in self.benchmarks:
+            #     self.data_manager.add_benchmark(experiment_name,
+            #                                    benchmark.get_name())
 
     def finalize(self):
         """
@@ -105,7 +105,7 @@ class BenchmarkingUnit:
 
         :return: None
         """
-        self.data_manager.generate_result_csv_file()
+        # self.data_manager.generate_result_csv_file()
         common.DEPLOYMENT_UNIT.destroy_all_deployed_stacks()
 
     def run_benchmarks(self):
