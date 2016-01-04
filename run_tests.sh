@@ -74,6 +74,8 @@ run_functional_test() {
     fi
 }
 
+PYTHONPATH=yardstick/vTC/apexlake
+
 run_flake8
 run_tests
 run_coverage
