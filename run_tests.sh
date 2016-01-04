@@ -51,6 +51,11 @@ run_tests() {
             echo "OK, results in $logfile"
         fi
     fi
+
+    CURRENT_DIR = `pwd`
+    cd ./yardstick/vTC/apexlake
+    ./bin/run_tests.sh
+    cd $CURRENT_DIR
 }
 
 run_coverage() {
@@ -73,6 +78,8 @@ run_functional_test() {
         echo "OK"
     fi
 }
+
+export PYTHONPATH=yardstick/vTC/apexlake
 
 run_flake8
 run_tests
