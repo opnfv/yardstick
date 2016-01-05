@@ -27,18 +27,18 @@ class FrameworkApi(object):
         """
         common.init(api=True)
 
-    @staticmethod
-    def get_available_test_cases():
-        """
-        Returns a list of available test cases.
-        This list include eventual modules developed by the user, if any.
-        Each test case is returned as a string that represents the full name
-        of the test case and that can be used to get more information
-        calling get_test_case_features(test_case_name)
-
-        :return: list of strings
-        """
-        return b_unit.BenchmarkingUnit.get_available_test_cases()
+    # @staticmethod
+    # def get_available_test_cases():
+    #     """
+    #     Returns a list of available test cases.
+    #     This list include eventual modules developed by the user, if any.
+    #     Each test case is returned as a string that represents the full name
+    #     of the test case and that can be used to get more information
+    #     calling get_test_case_features(test_case_name)
+    #
+    #     :return: list of strings
+    #     """
+    #     return b_unit.BenchmarkingUnit.get_available_test_cases()
 
     @staticmethod
     def get_test_case_features(test_case):
