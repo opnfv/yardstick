@@ -188,7 +188,7 @@ class BenchmarkingUnit:
                     for key in benchmark.get_params():
                         experiment[key] = benchmark.get_params()[key]
                 common.LOG.info('Benchmark Finished')
-                self.data_manager.generate_result_csv_file()
+                # self.data_manager.generate_result_csv_file()
         common.LOG.info('Benchmarking Unit: Experiments completed!')
         return result
 

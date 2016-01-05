@@ -18,59 +18,59 @@ __author__ = 'vmriccox'
 import unittest
 import mock
 from experimental_framework.benchmarking_unit import BenchmarkingUnit
-from experimental_framework.data_manager import DataManager
+# from experimental_framework.data_manager import DataManager
 from experimental_framework.deployment_unit import DeploymentUnit
 import experimental_framework.common as common
 from experimental_framework.benchmarks.rfc2544_throughput_benchmark import \
     RFC2544ThroughputBenchmark
 
 
-class DummyDataManager(DataManager):
-
-    def __init__(self, experiment_directory):
-        self.experiment_directory = experiment_directory
-        self.experiments = dict()
-        self.new_exp_counter = 0
-        self.add_bench_counter = 0
-        self.close_experiment_1_counter = 0
-        self.close_experiment_2_counter = 0
-        self.generate_csv_counter = 0
-
-    def create_new_experiment(self, experiment_name, get_counter=None):
-        if not get_counter:
-            self.new_exp_counter += 1
-        else:
-            return self.new_exp_counter
-
-    def add_benchmark(self, experiment_name, benchmark_name, get_counter=None):
-        if not get_counter:
-            self.add_bench_counter += 1
-        else:
-            return self.add_bench_counter
-
-    def close_experiment(self, experiment, get_counter=None):
-        if get_counter:
-            return [self.close_experiment_1_counter,
-                    self.close_experiment_2_counter]
-        if experiment == 'VTC_base_single_vm_wait_1':
-            self.close_experiment_1_counter += 1
-        if experiment == 'VTC_base_single_vm_wait_2':
-            self.close_experiment_2_counter += 1
-
-    def generate_result_csv_file(self, get_counter=None):
-        if get_counter:
-            return self.generate_csv_counter
-        else:
-            self.generate_csv_counter += 1
-
-    def add_metadata(self, experiment_name, metadata):
-        pass
-
-    def add_configuration(self, experiment_name, configuration):
-        pass
-
-    def add_data_points(self, experiment_name, benchmark_name, result):
-        pass
+# class DummyDataManager(DataManager):
+#
+#     def __init__(self, experiment_directory):
+#         self.experiment_directory = experiment_directory
+#         self.experiments = dict()
+#         self.new_exp_counter = 0
+#         self.add_bench_counter = 0
+#         self.close_experiment_1_counter = 0
+#         self.close_experiment_2_counter = 0
+#         self.generate_csv_counter = 0
+#
+#     def create_new_experiment(self, experiment_name, get_counter=None):
+#         if not get_counter:
+#             self.new_exp_counter += 1
+#         else:
+#             return self.new_exp_counter
+#
+#   def add_benchmark(self, experiment_name, benchmark_name, get_counter=None):
+#         if not get_counter:
+#             self.add_bench_counter += 1
+#         else:
+#             return self.add_bench_counter
+#
+#     def close_experiment(self, experiment, get_counter=None):
+#         if get_counter:
+#             return [self.close_experiment_1_counter,
+#                     self.close_experiment_2_counter]
+#         if experiment == 'VTC_base_single_vm_wait_1':
+#             self.close_experiment_1_counter += 1
+#         if experiment == 'VTC_base_single_vm_wait_2':
+#             self.close_experiment_2_counter += 1
+#
+#     def generate_result_csv_file(self, get_counter=None):
+#         if get_counter:
+#             return self.generate_csv_counter
+#         else:
+#             self.generate_csv_counter += 1
+#
+#     def add_metadata(self, experiment_name, metadata):
+#         pass
+#
+#     def add_configuration(self, experiment_name, configuration):
+#         pass
+#
+#     def add_data_points(self, experiment_name, benchmark_name, result):
+#         pass
 
 
 class Dummy_2544(RFC2544ThroughputBenchmark):
@@ -122,12 +122,13 @@ class TestBenchmarkingUnit(unittest.TestCase):
 
     @mock.patch('time.time')
     @mock.patch('experimental_framework.common.get_template_dir')
-    @mock.patch('experimental_framework.data_manager.DataManager',
-                side_effect=DummyDataManager)
+    # @mock.patch('experimental_framework.data_manager.DataManager',
+    #             side_effect=DummyDataManager)
     @mock.patch('experimental_framework.deployment_unit.DeploymentUnit')
     @mock.patch('experimental_framework.benchmarking_unit.heat.'
                 'get_all_heat_templates')
-    def test___init__(self, mock_heat, mock_dep_unit, mock_data_manager,
+    def test___init__(self, mock_heat, mock_dep_unit,
+                      # mock_data_manager,
                       mock_temp_dir, mock_time):
         mock_heat.return_value = list()
         mock_time.return_value = '12345'
@@ -152,7 +153,7 @@ class TestBenchmarkingUnit(unittest.TestCase):
                               benchmarks)
         self.assertEqual(bu.required_benchmarks, benchmarks)
         bu.heat_template_parameters = heat_template_parameters
-        mock_data_manager.assert_called_once_with('tests/data/results/12345')
+        # mock_data_manager.assert_called_once_with('tests/data/results/12345')
         mock_dep_unit.assert_called_once_with(openstack_credentials)
         mock_heat.assert_called_once_with('tests/data/results/', '.ext')
 
@@ -160,13 +161,14 @@ class TestBenchmarkingUnit(unittest.TestCase):
                 'rfc2544_throughput_benchmark', side_effect=Dummy_2544)
     @mock.patch('time.time')
     @mock.patch('experimental_framework.common.get_template_dir')
-    @mock.patch('experimental_framework.data_manager.DataManager',
-                side_effect=DummyDataManager)
+    # @mock.patch('experimental_framework.data_manager.DataManager',
+    #             side_effect=DummyDataManager)
     @mock.patch('experimental_framework.deployment_unit.DeploymentUnit')
     @mock.patch('experimental_framework.benchmarking_unit.'
                 'heat.get_all_heat_templates')
     def test_initialize_for_success(self, mock_heat, mock_dep_unit,
-                                    mock_data_manager, mock_temp_dir,
+                                    # mock_data_manager,
+                                    mock_temp_dir,
                                     mock_time, mock_rfc2544):
         mock_heat.return_value = list()
         mock_time.return_value = '12345'
@@ -204,21 +206,22 @@ class TestBenchmarkingUnit(unittest.TestCase):
         self.assertTrue(len(bu.benchmarks) == 1)
         self.assertEqual(bu.benchmarks[0].__class__,
                          Dummy_2544)
-        self.assertEqual(bu.data_manager.create_new_experiment('', True), 2)
-        self.assertEqual(bu.data_manager.add_benchmark('', '', True), 2)
+        # self.assertEqual(bu.data_manager.create_new_experiment('', True), 2)
+        # self.assertEqual(bu.data_manager.add_benchmark('', '', True), 2)
 
     @mock.patch('experimental_framework.benchmarks.'
                 'rfc2544_throughput_benchmark', side_effect=Dummy_2544)
     @mock.patch('time.time')
     @mock.patch('experimental_framework.common.get_template_dir')
-    @mock.patch('experimental_framework.data_manager.DataManager',
-                side_effect=DummyDataManager)
+    # @mock.patch('experimental_framework.data_manager.DataManager',
+    #             side_effect=DummyDataManager)
     @mock.patch('experimental_framework.deployment_unit.DeploymentUnit')
     @mock.patch('experimental_framework.benchmarking_unit.'
                 'heat.get_all_heat_templates')
     def test_finalize_for_success(
-            self, mock_heat, mock_dep_unit, mock_data_manager, mock_temp_dir,
-            mock_time, mock_rfc2544):
+            self, mock_heat, mock_dep_unit,
+            # mock_data_manager,
+            mock_temp_dir, mock_time, mock_rfc2544):
         mock_heat.return_value = list()
         mock_time.return_value = '12345'
         mock_temp_dir.return_value = 'tests/data/test_templates/'
@@ -252,7 +255,7 @@ class TestBenchmarkingUnit(unittest.TestCase):
                              'VTC_base_single_vm_wait_2.yaml']
         bu.finalize()
         # self.assertEqual(bu.data_manager.close_experiment('', True), [1, 1])
-        self.assertEqual(bu.data_manager.generate_result_csv_file(True), 1)
+        # self.assertEqual(bu.data_manager.generate_result_csv_file(True), 1)
 
     @mock.patch('experimental_framework.common.push_data_influxdb')
     @mock.patch('experimental_framework.common.LOG')
@@ -260,14 +263,15 @@ class TestBenchmarkingUnit(unittest.TestCase):
                 'rfc2544_throughput_benchmark', side_effect=Dummy_2544)
     @mock.patch('time.time')
     @mock.patch('experimental_framework.common.get_template_dir')
-    @mock.patch('experimental_framework.data_manager.DataManager',
-                side_effect=DummyDataManager)
+    # @mock.patch('experimental_framework.data_manager.DataManager',
+    #             side_effect=DummyDataManager)
     @mock.patch('experimental_framework.common.DEPLOYMENT_UNIT')
     @mock.patch('experimental_framework.deployment_unit.DeploymentUnit')
     @mock.patch('experimental_framework.benchmarking_unit.'
                 'heat.get_all_heat_templates')
     def test_run_benchmarks_for_success(self, mock_heat, mock_common_dep_unit,
-                                        mock_dep_unit, mock_data_manager,
+                                        mock_dep_unit,
+                                        # mock_data_manager,
                                         mock_temp_dir, mock_time,
                                         mock_rfc2544, mock_log, mock_influx):
         mock_heat.return_value = list()
@@ -301,7 +305,7 @@ class TestBenchmarkingUnit(unittest.TestCase):
                               heat_template_parameters,
                               iterations,
                               benchmarks)
-        bu.data_manager = DummyDataManager('tests/data/results/12345')
+        # bu.data_manager = DummyDataManager('tests/data/results/12345')
         bu.template_files = ['VTC_base_single_vm_wait_1.yaml',
                              'VTC_base_single_vm_wait_2.yaml']
         bu.benchmarks = [Dummy_2544('dummy', {'param1': 'val1'})]
@@ -320,15 +324,16 @@ class TestBenchmarkingUnit(unittest.TestCase):
                 'rfc2544_throughput_benchmark', side_effect=Dummy_2544)
     @mock.patch('time.time')
     @mock.patch('experimental_framework.common.get_template_dir')
-    @mock.patch('experimental_framework.data_manager.DataManager',
-                side_effect=DummyDataManager)
+    # @mock.patch('experimental_framework.data_manager.DataManager',
+    #             side_effect=DummyDataManager)
     @mock.patch('experimental_framework.common.DEPLOYMENT_UNIT')
     @mock.patch('experimental_framework.deployment_unit.DeploymentUnit')
     @mock.patch('experimental_framework.benchmarking_unit.'
                 'heat.get_all_heat_templates')
     def test_run_benchmarks_2_for_success(
             self, mock_heat, mock_common_dep_unit, mock_dep_unit,
-            mock_data_manager, mock_temp_dir, mock_time, mock_rfc2544,
+            # mock_data_manager,
+            mock_temp_dir, mock_time, mock_rfc2544,
             mock_log):
         mock_heat.return_value = list()
         mock_time.return_value = '12345'
@@ -358,7 +363,7 @@ class TestBenchmarkingUnit(unittest.TestCase):
                               heat_template_parameters,
                               iterations,
                               benchmarks)
-        bu.data_manager = DummyDataManager('tests/data/results/12345')
+        # bu.data_manager = DummyDataManager('tests/data/results/12345')
         bu.template_files = ['VTC_base_single_vm_wait_1.yaml',
                              'VTC_base_single_vm_wait_2.yaml']
         bu.benchmarks = [Dummy_2544('dummy', dict())]
@@ -373,15 +378,16 @@ class TestBenchmarkingUnit(unittest.TestCase):
                 'rfc2544_throughput_benchmark', side_effect=Dummy_2544)
     @mock.patch('time.time')
     @mock.patch('experimental_framework.common.get_template_dir')
-    @mock.patch('experimental_framework.data_manager.DataManager',
-                side_effect=DummyDataManager)
+    # @mock.patch('experimental_framework.data_manager.DataManager',
+    #             side_effect=DummyDataManager)
     @mock.patch('experimental_framework.common.DEPLOYMENT_UNIT')
     @mock.patch('experimental_framework.deployment_unit.DeploymentUnit')
     @mock.patch('experimental_framework.benchmarking_unit.'
                 'heat.get_all_heat_templates')
     def test_get_benchmark_name_for_success(
             self, mock_heat, mock_common_dep_unit, mock_dep_unit,
-            mock_data_manager, mock_temp_dir, mock_time, mock_rfc2544,
+            # mock_data_manager,
+            mock_temp_dir, mock_time, mock_rfc2544,
             mock_log):
         mock_heat.return_value = list()
         mock_time.return_value = '12345'
@@ -427,15 +433,16 @@ class TestBenchmarkingUnit(unittest.TestCase):
                 'rfc2544_throughput_benchmark', side_effect=Dummy_2544)
     @mock.patch('time.time')
     @mock.patch('experimental_framework.common.get_template_dir')
-    @mock.patch('experimental_framework.data_manager.DataManager',
-                side_effect=DummyDataManager)
+    # @mock.patch('experimental_framework.data_manager.DataManager',
+    #             side_effect=DummyDataManager)
     @mock.patch('experimental_framework.common.DEPLOYMENT_UNIT')
     @mock.patch('experimental_framework.deployment_unit.DeploymentUnit')
     @mock.patch('experimental_framework.benchmarking_unit.'
                 'heat.get_all_heat_templates')
     def test_get_required_benchmarks_for_success(
             self, mock_heat, mock_common_dep_unit, mock_dep_unit,
-            mock_data_manager, mock_temp_dir, mock_time, mock_rfc2544,
+            # mock_data_manager,
+            mock_temp_dir, mock_time, mock_rfc2544,
             mock_log):
         mock_heat.return_value = list()
         mock_time.return_value = '12345'
