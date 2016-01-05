@@ -78,14 +78,14 @@ class InstantiationValidationInitTest(unittest.TestCase):
         expected['allowed_values'][mut.NUMBER_OF_CORES] = \
             ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         expected['allowed_values'][mut.AMOUNT_OF_RAM] = \
-            ['250M', '1G', '2G', '3G', '4G', '5G', '6G', '7G', '8G', '9G',
+            ['256M', '1G', '2G', '3G', '4G', '5G', '6G', '7G', '8G', '9G',
              '10G']
         expected['default_values']['throughput'] = '1'
         expected['default_values']['vlan_sender'] = '-1'
         expected['default_values']['vlan_receiver'] = '-1'
         expected['default_values'][mut.NUM_OF_NEIGHBORS] = '1'
         expected['default_values'][mut.NUMBER_OF_CORES] = '1'
-        expected['default_values'][mut.AMOUNT_OF_RAM] = '250M'
+        expected['default_values'][mut.AMOUNT_OF_RAM] = '256M'
         output = self.iv.get_features()
         self.assertEqual(expected['description'], output['description'])
 
