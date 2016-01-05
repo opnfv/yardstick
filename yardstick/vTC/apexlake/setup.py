@@ -30,9 +30,9 @@ setup(name='apexlake',
           ]
       },
       data_files=[
-          ('/etc/apexlake/', ['apexlake.conf']),
-          ('/etc/apexlake/heat_templates/',
+          ('/tmp/apexlake/', ['apexlake.conf']),
+          ('/tmp/apexlake/heat_templates/',
            ['heat_templates/vTC.yaml']),
-          ('/etc/apexlake/heat_templates/',
+          ('/tmp/apexlake/heat_templates/',
            ['heat_templates/stress_workload.yaml'])
       ])

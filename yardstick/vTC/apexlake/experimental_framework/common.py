@@ -76,10 +76,10 @@ def init_conf_file(api=False):
     global CONF_FILE
     if api:
         CONF_FILE = ConfigurationFile(cf.get_sections_api(),
-                                      '/etc/apexlake/apexlake.conf')
+                                      '/tmp/apexlake/apexlake.conf')
     else:
         CONF_FILE = ConfigurationFile(cf.get_sections(),
-                                      '/etc/apexlake/apexlake.conf')
+                                      '/tmp/apexlake/apexlake.conf')
 
 
 def init_general_vars(api=False):
@@ -99,10 +99,10 @@ def init_general_vars(api=False):
             "is not present in configuration file")
 
     TEMPLATE_DIR = '/tmp/apexlake/heat_templates/'
-    if not os.path.exists(TEMPLATE_DIR):
-        os.makedirs(TEMPLATE_DIR)
-    cmd = "cp /etc/apexlake/heat_templates/*.yaml {}".format(TEMPLATE_DIR)
-    run_command(cmd)
+    # if not os.path.exists(TEMPLATE_DIR):
+    #     os.makedirs(TEMPLATE_DIR)
+    # cmd = "cp /tmp/apexlake/heat_templates/*.yaml {}".format(TEMPLATE_DIR)
+    # run_command(cmd)
 
     if not api:
         # Validate template name

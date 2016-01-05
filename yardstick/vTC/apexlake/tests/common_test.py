@@ -137,7 +137,7 @@ class TestCommonInit(unittest.TestCase):
         self.assertEqual(common.TEMPLATE_NAME, 'vTC.yaml')
         self.assertEqual(common.RESULT_DIR, '/tmp/apexlake/results/')
         self.assertEqual(common.ITERATIONS, 1)
-        mock_makedirs.assert_called_once_with('/tmp/apexlake/heat_templates/')
+    # mock_makedirs.assert_called_once_with('/tmp/apexlake/heat_templates/')
 
 
 class TestCommonInit2(unittest.TestCase):
