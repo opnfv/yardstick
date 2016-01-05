@@ -16,6 +16,24 @@
       "revId": "0c153c429ab2acaf8d2994e9276f957a36cb6b85",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_e7903545",
+        "filename": "yardstick/dispatcher/influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2016-01-05T10:49:12Z",
+      "side": 1,
+      "message": "Done, thanks for pointing out.",
+      "parentUuid": "9a5c5d37_1b35e6d9",
+      "revId": "0c153c429ab2acaf8d2994e9276f957a36cb6b85",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
