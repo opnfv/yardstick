@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_0cedaeef",
+        "filename": "docs/yardstick/opnfv_yardstick_tc025.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-01-05T03:17:48Z",
+      "side": 1,
+      "message": "It is a little ideal to monitor all openstack commands in my opinion. So, I selected four typical openstack commands which  have covered prime openstack service on controller node.\nAnd, these four commands are samples, you can add more openstack commands to monitor.",
+      "parentUuid": "9a5c5d37_182171b4",
+      "revId": "83d895e535b700790497429ac6cbd46fb0fef9e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_b819458a",
         "filename": "samples/opnfv_yardstick_tc025.yaml",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-12-28T07:38:45Z",
       "side": 1,
       "message": "why we only monitor these 4 process? From my understanding, it should be all the process? I am not sure if 10s is long enough for the test.",
+      "revId": "83d895e535b700790497429ac6cbd46fb0fef9e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_ccbe76d4",
+        "filename": "samples/opnfv_yardstick_tc025.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-01-05T03:17:48Z",
+      "side": 1,
+      "message": "It is an example. How long is ok for this test case?",
+      "parentUuid": "9a5c5d37_b819458a",
       "revId": "83d895e535b700790497429ac6cbd46fb0fef9e5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
