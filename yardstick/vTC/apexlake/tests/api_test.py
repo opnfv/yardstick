@@ -80,35 +80,34 @@ class TestGeneratesTemplate(unittest.TestCase):
     #     output = FrameworkApi.get_available_test_cases()
     #     self.assertEqual(expected, output)
 
-    # @mock.patch('experimental_framework.benchmarking_unit.BenchmarkingUnit.'
-    #             'get_required_benchmarks',
-    #             side_effect=DummyBenchmarkingUnit.get_required_benchmarks)
-    # def test_get_test_case_features_for_success(self, mock_get_req_bench):
-    #
-    #     expected = dict()
-    #     expected['description'] = 'Instantiation Validation Benchmark'
-    #     expected['parameters'] = [
-    #         iv.THROUGHPUT,
-    #         iv.VLAN_SENDER,
-    #         iv.VLAN_RECEIVER]
-    #     expected['allowed_values'] = dict()
-    #     expected['allowed_values'][iv.THROUGHPUT] = \
-    #         map(str, range(0, 100))
-    #     expected['allowed_values'][iv.VLAN_SENDER] = \
-    #         map(str, range(-1, 4096))
-    #     expected['allowed_values'][iv.VLAN_RECEIVER] = \
-    #         map(str, range(-1, 4096))
-    #     expected['default_values'] = dict()
-    #     expected['default_values'][iv.THROUGHPUT] = '1'
-    #     expected['default_values'][iv.VLAN_SENDER] = '-1'
-    #     expected['default_values'][iv.VLAN_RECEIVER] = '-1'
-    #
-    #     test_case = 'instantiation_validation_benchmark.' \
-    #                 'InstantiationValidationBenchmark'
-    #     output = FrameworkApi.get_test_case_features(test_case)
-    #     self.assertEqual(expected, output)
+    @mock.patch('experimental_framework.benchmarking_unit.BenchmarkingUnit.'
+                'get_required_benchmarks',
+                side_effect=DummyBenchmarkingUnit.get_required_benchmarks)
+    def test_get_test_case_features_for_success(self, mock_get_req_bench):
+        expected = dict()
+        expected['description'] = 'Instantiation Validation Benchmark'
+        expected['parameters'] = [
+            iv.THROUGHPUT,
+            iv.VLAN_SENDER,
+            iv.VLAN_RECEIVER]
+        expected['allowed_values'] = dict()
+        expected['allowed_values'][iv.THROUGHPUT] = \
+            map(str, range(0, 100))
+        expected['allowed_values'][iv.VLAN_SENDER] = \
+            map(str, range(-1, 4096))
+        expected['allowed_values'][iv.VLAN_RECEIVER] = \
+            map(str, range(-1, 4096))
+        expected['default_values'] = dict()
+        expected['default_values'][iv.THROUGHPUT] = '1'
+        expected['default_values'][iv.VLAN_SENDER] = '-1'
+        expected['default_values'][iv.VLAN_RECEIVER] = '-1'
 
-    def test____for_failure(self):
+        test_case = 'instantiation_validation_benchmark.' \
+                    'InstantiationValidationBenchmark'
+        output = FrameworkApi.get_test_case_features(test_case)
+        self.assertEqual(expected, output)
+
+    def test__get_test_case_features__for_failure(self):
         self.assertRaises(
             ValueError, FrameworkApi.get_test_case_features, 111)
 
