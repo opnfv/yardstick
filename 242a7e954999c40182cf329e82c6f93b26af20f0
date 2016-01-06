@@ -34,6 +34,24 @@
       "revId": "242a7e954999c40182cf329e82c6f93b26af20f0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c4f1aace",
+        "filename": "yardstick/benchmark/scenarios/parser/parser_setup.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2016-01-06T21:58:56Z",
+      "side": 1,
+      "message": "Yes I missed that, python-lxml must be added to the dockerfile (ci/docker/yardstick-ci/Dockerfile) if we remove apt-get.\n\nI would prefer that we remove apt-get and have python-lxml as an install requirement like all other ubuntu packages.",
+      "parentUuid": "9a5c5d37_bd35aaf8",
+      "revId": "242a7e954999c40182cf329e82c6f93b26af20f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
