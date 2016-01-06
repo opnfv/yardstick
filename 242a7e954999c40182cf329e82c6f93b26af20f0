@@ -16,6 +16,24 @@
       "revId": "242a7e954999c40182cf329e82c6f93b26af20f0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_bd35aaf8",
+        "filename": "yardstick/benchmark/scenarios/parser/parser_setup.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-01-06T08:43:57Z",
+      "side": 1,
+      "message": "yes,\"/tmp/{pyang.parser}\" is better. thank you so much.\nAbout installation of \"python-lxml \" , i\u0027m a little confused, if i add it to readme and remove apt-get, how to make it run successfully in docker container when it is trigger by jenkins, Do i need to add \"python-lxml\" to dockerfile?\nor just check if user is root permission or not and don\u0027t remove apt-get,so non root permission user can\u0027t run this scenario\ncould you give me some suggestion",
+      "parentUuid": "9a5c5d37_2c07521e",
+      "revId": "242a7e954999c40182cf329e82c6f93b26af20f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
