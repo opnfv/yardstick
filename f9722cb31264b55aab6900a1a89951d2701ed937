@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_4ab70187",
+        "filename": "run_tests.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2016-01-07T12:44:18Z",
+      "side": 1,
+      "message": "I think you need an export:\n\nexport PYTHONPATH\u003d....",
+      "revId": "f9722cb31264b55aab6900a1a89951d2701ed937",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
