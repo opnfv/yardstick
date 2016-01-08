@@ -70,6 +70,24 @@
       "revId": "242a7e954999c40182cf329e82c6f93b26af20f0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_cabf6ca9",
+        "filename": "yardstick/benchmark/scenarios/parser/parser_setup.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2016-01-08T13:25:43Z",
+      "side": 1,
+      "message": "I did not mean for you to put \"python-lxml\" into setup.py but I believe this will also work if libxml2 and libxslt are installed on the hosts.\n\nFatih has updated gerrit servers with libxml2 and libxslt so verify and merge jobs should now work.\n\nAnd you have added libxml2 and libxslt to docker image in a separate patch so the CI verification jobs will hopefully work. \n\nI think it looks good now.",
+      "parentUuid": "9a5c5d37_70619438",
+      "revId": "242a7e954999c40182cf329e82c6f93b26af20f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
