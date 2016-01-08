@@ -53,6 +53,14 @@ run_tests() {
     fi
 }
 
+run_al_tests() {
+    echo "Running apexlake unittest ... "
+    C_DIR=`pwd`
+    cd ./yardstick/vTC/apexlake
+    ./bin/run_tests.sh
+    cd $C_DIR
+}
+
 run_coverage() {
     source ci/cover.sh
     run_coverage_test
@@ -74,7 +82,10 @@ run_functional_test() {
     fi
 }
 
+export PYTHONPATH=yardstick/vTC/apexlake
+
 run_flake8
 run_tests
+run_al_tests
 run_coverage
 run_functional_test

@@ -34,7 +34,8 @@ setup(
                       "netifaces",
                       "six",
                       "testrepository>=0.0.18",
-                      "testtools>=1.4.0"
+                      "testtools>=1.4.0",
+                      "nose"
                       ],
     extras_require={
         'plot': ["matplotlib>=1.4.2"]
