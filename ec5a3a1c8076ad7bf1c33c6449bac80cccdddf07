@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_4aeb7cb0",
+        "filename": "ci/docker/yardstick-ci/Dockerfile",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2016-01-08T13:20:02Z",
+      "side": 1,
+      "message": "You can remove the changes in this file now as you have included them in another patch.",
+      "revId": "ec5a3a1c8076ad7bf1c33c6449bac80cccdddf07",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_0a910452",
+        "filename": "yardstick/benchmark/scenarios/parser/parser_teardown.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2016-01-08T13:20:02Z",
+      "side": 1,
+      "message": "The directories should be changed to /tmp/{pyang,parser} to match parser_setup.sh.",
+      "revId": "ec5a3a1c8076ad7bf1c33c6449bac80cccdddf07",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
