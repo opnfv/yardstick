@@ -52,6 +52,24 @@
       "revId": "242a7e954999c40182cf329e82c6f93b26af20f0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_70619438",
+        "filename": "yardstick/benchmark/scenarios/parser/parser_setup.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-01-08T02:01:46Z",
+      "side": 1,
+      "message": "thank you for your good suggestion, do you mean put installation of \"python-lxml\" into install_requires list in setup.py?  for my limited understanding, this install equal \"pip install python-lxml\", it need libxml2 and libxslt package. however, libxml2 and libxslt cann\u0027t be installed by pip. so we still need to use \"apt-get\" to install \"libxml2 and libxslt\", then non root user still will fail.",
+      "parentUuid": "9a5c5d37_c4f1aace",
+      "revId": "242a7e954999c40182cf329e82c6f93b26af20f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
