@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_6321cb9e",
+        "filename": "yardstick/benchmark/scenarios/compute/cyclictest.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2016-01-10T10:07:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a5c5d37_d5f8567e",
+      "revId": "6913cf18fdf21fdef9ea37c04d9a2f96c527ac86",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_22dbff1c",
         "filename": "yardstick/benchmark/scenarios/compute/cyclictest.py",
         "patchSetId": 1
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "BTW, I need followed patch when execute the cyclictest remotely, i.e. remove the \u0027sudo\u0027. Otherwise it will fail like \u0027a tty is needed\u0027 (I have no error code at hand). Possibly because my ssh environment setup?\n\n@@ -192,7 +197,7 @@ class Cyclictest(base.Scenario):\n         cmd_args \u003d \"-a %s -i %s -p %s -l %s -t %s -h %s %s\" \\\n                    % (affinity, interval, priority, loops,\n                       threads, histogram, default_args)\n-        cmd \u003d \"sudo bash cyclictest_benchmark.sh %s\" % (cmd_args)\n+        cmd \u003d \"bash cyclictest_benchmark.sh %s\" % (cmd_args)\n         LOG.debug(\"Executing command: %s\", cmd)\n         status, stdout, stderr \u003d self.guest.execute(cmd)\n         if status:",
       "parentUuid": "9a5c5d37_7672d57d",
+      "revId": "6913cf18fdf21fdef9ea37c04d9a2f96c527ac86",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_233bd3d2",
+        "filename": "yardstick/benchmark/scenarios/compute/cyclictest.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2016-01-10T10:07:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a5c5d37_75ef6ab1",
       "revId": "6913cf18fdf21fdef9ea37c04d9a2f96c527ac86",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
