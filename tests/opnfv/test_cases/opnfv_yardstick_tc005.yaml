@@ -1,0 +1,48 @@
+---
+# Yardstick TC005 config file
+# Measure Storage IOPS, throughput and latency using fio
+
+schema: "yardstick:task:0.1"
+scenarios:
+{% for rw in ['read', 'write', 'randwrite', 'randread', 'rw'] %}
+  {% for bs in ['4k', '64k', '1024k'] %}
+-
+  type: Fio
+  options:
+    filename: /home/ec2-user/data.raw
+    bs: {{bs}}
+    rw: {{rw}}
+    ramp_time: 10
+    duration: 20
+
+  host: fio.yardstick-TC005
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+
+  sla:
+    read_bw: 6000
+    read_iops: 100
+    read_lat: 2000
+    write_bw: 6000
+    write_iops: 100
+    write_lat: 2000
+    action: monitor
+  {% endfor %}
+{% endfor %}
+
+context:
+  name: yardstick-TC005
+  image: yardstick-trusty-server
+  flavor: m1.small
+  user: ec2-user
+
+  servers:
+    fio:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
