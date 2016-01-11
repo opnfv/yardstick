@@ -1,0 +1,32 @@
+---
+# Yardstick TC014 config file
+# Measure Processing speed using unixbench
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: UnixBench
+  options:
+    run_mode: 'verbose'
+    test_type: 'dhry2reg'
+  host: Chang'e.yardstick-TC014
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+
+context:
+  name: yardstick-TC014
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ec2-user
+
+  servers:
+    Chang'e:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
