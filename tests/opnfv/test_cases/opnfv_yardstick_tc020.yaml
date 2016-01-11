@@ -1,0 +1,31 @@
+---
+# Sample benchmark task config file
+# vTC
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: vtc_instantiation_validation
+
+  options:
+    vlan_sender: 1007
+    vlan_receiver: 1006
+    default_net_name: monitoring
+    default_subnet_name: monitoring_subnet
+    vlan_net_1_name: inbound_traffic_network
+    vlan_subnet_1_name: inbound_traffic_subnet
+    vlan_net_2_name: inbound_traffic_network
+    vlan_subnet_2_name: inbound_traffic_subnet
+    vnic_type: direct # [normal (OvS), direct (SR-IOV)]
+    vtc_flavor: m1.large
+
+  runner:
+    type: Iteration
+    iterations: 1
+
+# dummy context, will not be used by vTC
+context:
+  type: Node
+  name: LF
+  file: /etc/yardstick/nodes/fuel_virtual/pod.yaml
