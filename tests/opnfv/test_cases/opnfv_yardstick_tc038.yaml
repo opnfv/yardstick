@@ -9,6 +9,8 @@
 # During the measurements system load and network latency are
 # recorded/measured using ping and mpstat, respectively.
 
+schema: "yardstick:task:0.1"
+
 scenarios:
 -
   type: CPUload
