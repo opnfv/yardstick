@@ -1,0 +1,22 @@
+---
+# Yardstick TC040 config file
+# Running Parser Yang-to-Tosca module as a tool, validating output against expected outcome
+
+schema: "yardstick:task:0.1"
+
+
+scenarios:
+-
+  type: Parser
+  options:
+    yangfile:  /home/opnfv/repos/yardstick/samples/yang.yaml
+    toscafile: /home/opnfv/repos/yardstick//samples/tosca.yaml
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+
+context:
+  type: Dummy
+
