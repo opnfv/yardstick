@@ -29,14 +29,20 @@ Generic NFVI Test Case Descriptions
    opnfv_yardstick_tc010.rst
    opnfv_yardstick_tc012.rst
    opnfv_yardstick_tc014.rst
-   opnfv_yardstick_tc019.rst
-   opnfv_yardstick_tc025.rst
-   opnfv_yardstick_tc028.rst
    opnfv_yardstick_tc037.rst
    opnfv_yardstick_tc038.rst
 
 OPNFV Feature Test Cases
 ========================
+
+H A
+---
+
+.. toctree::
+   :maxdepth: 1
+
+   opnfv_yardstick_tc019.rst
+   opnfv_yardstick_tc025.rst
 
 IPv6
 ----
@@ -45,6 +51,14 @@ IPv6
    :maxdepth: 1
 
    opnfv_yardstick_tc027.rst
+
+KVM
+---
+
+.. toctree::
+   :maxdepth: 1
+
+   opnfv_yardstick_tc028.rst
 
 Parser
 ------
