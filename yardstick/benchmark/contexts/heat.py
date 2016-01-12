@@ -129,8 +129,27 @@ class HeatContext(Context):
             scheduler_hints = {}
             for pg in server.placement_groups:
                 update_scheduler_hints(scheduler_hints, added_servers, pg)
-            server.add_to_template(template, self.networks, scheduler_hints)
-            added_servers.append(server.stack_name)
+            # workround for openstack nova bug, check JIRA: YARDSTICK-200
+            # for details
+            if len(availability_servers) == 2:
+                if len(scheduler_hints["different_host"]) == 0:
+                    scheduler_hints.pop("different_host", None)
+                    server.add_to_template(template,
+                                           self.networks,
+                                           scheduler_hints)
+                    added_servers.append(server.stack_name)
+                else:
+                    scheduler_hints["different_host"] = \
+                        scheduler_hints["different_host"][0]
+                    server.add_to_template(template,
+                                           self.networks,
+                                           scheduler_hints)
+                    added_servers.append(server.stack_name)
+            else:
+                server.add_to_template(template,
+                                       self.networks,
+                                       scheduler_hints)
+                added_servers.append(server.stack_name)
 
         # create list of servers with affinity policy
         affinity_servers = []
