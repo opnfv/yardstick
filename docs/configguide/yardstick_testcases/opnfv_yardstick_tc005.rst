@@ -60,8 +60,8 @@ Yardstick Test Case Description TC005
 |test sequence | description and expected result                              |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|step 1        | The hosts are installed, as server and client. fio is        |
-|              | invoked and logs are produced and stored.                    |
+|step 1        | The host is installed and fio is invoked and logs are        |
+|              | produced and stored.                                         |
 |              |                                                              |
 |              | Result: Logs are stored.                                     |
 |              |                                                              |
