@@ -7,5 +7,6 @@ Yardstick Overview
 
    01-introduction
    02-methodology
+   04-vtc-overview
    03-list-of-tcs
    glossary
