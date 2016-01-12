@@ -1,15 +1,14 @@
-.. image:: ../../etc/opnfv-logo.png
-  :height: 40
-  :width: 200
-  :alt: OPNFV
-  :align: left
-
 *************************************
 Yardstick Test Case Description TC007
 *************************************
+
+.. _DPDKpktgen: https://github.com/Pktgen/Pktgen-DPDK/
+.. _rfc2544: https://www.ietf.org/rfc/rfc2544.txt
+
 +-----------------------------------------------------------------------------+
 |Network Performance                                                          |
-+==============+==============================================================+
+|                                                                             |
++--------------+--------------------------------------------------------------+
 |test case id  | OPNFV_YARDSTICK_TC007_Virtual Traffic Classifier Data Plane  |
 |              |  Throughput Benchmarking Test in Presence of Noisy           |
 |              |  neighbours                                                  |
@@ -89,9 +88,9 @@ Yardstick Test Case Description TC007
 |              | hence it needs to be installed by the user.                  |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|references    | DPDK Pktgen: https://github.com/Pktgen/Pktgen-DPDK/          |
+|references    | DPDKpktgen_                                                  |
 |              | ETSI-NFV-TST001                                              |
-|              | RFC 2544  https://www.ietf.org/rfc/rfc2544.txt               |
+|              | rfc2544_                                                     |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |applicability | Test can be configured with different flavors, vNIC type     |

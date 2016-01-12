@@ -1,13 +1,14 @@
-.. _DPDKpktgen: https://github.com/Pktgen/Pktgen-DPDK/
-.. _rfc2544: https://www.ietf.org/rfc/rfc2544.txt
-
-
 *************************************
 Yardstick Test Case Description TC006
 *************************************
+
+.. _DPDKpktgen: https://github.com/Pktgen/Pktgen-DPDK/
+.. _rfc2544: https://www.ietf.org/rfc/rfc2544.txt
+
 +-----------------------------------------------------------------------------+
 |Network Performance                                                          |
-+==============+==============================================================+
+|                                                                             |
++--------------+--------------------------------------------------------------+
 |test case id  | OPNFV_YARDSTICK_TC006_Virtual Traffic Classifier Data Plane  |
 |              | Throughput Benchmarking Test.                                |
 |              |                                                              |
@@ -99,10 +100,10 @@ Yardstick Test Case Description TC006
 |              |      (For further instructions please refer to the ApexLake  |
 |              |      documentation).                                         |
 |              |                                                              |
-+-----------------------------------------------------------------------------+
++--------------+--------------------------------------------------------------+
 |test sequence | Description and expected results                             |
 |              |                                                              |
-+-----------------------------------------------------------------------------+
++--------------+--------------------------------------------------------------+
 |step  1       | The vTC is deployed, according to the user-defined           |
 |              | configuration                                                |
 |              |                                                              |
