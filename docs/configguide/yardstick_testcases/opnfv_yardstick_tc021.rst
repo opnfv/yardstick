@@ -1,12 +1,14 @@
-.. _DPDKpktgen: https://github.com/Pktgen/Pktgen-DPDK/
-.. _rfc2544: https://www.ietf.org/rfc/rfc2544.txt
-
 *************************************
 Yardstick Test Case Description TC021
 *************************************
+
+.. _DPDKpktgen: https://github.com/Pktgen/Pktgen-DPDK/
+.. _rfc2544: https://www.ietf.org/rfc/rfc2544.txt
+
 +-----------------------------------------------------------------------------+
 |Network Performance                                                          |
-+==============+==============================================================+
+|                                                                             |
++--------------+--------------------------------------------------------------+
 |test case id  | OPNFV_YARDSTICK_TC0021_Virtual Traffic Classifier            |
 |              | Instantiation Test in Presence of Noisy Neighbours           |
 |              |                                                              |
@@ -83,7 +85,9 @@ Yardstick Test Case Description TC021
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |references    | DPDK Pktgen: DPDK Pktgen: DPDKpktgen_                        |
+|              |                                                              |
 |              | ETSI-NFV-TST001                                              |
+|              |                                                              |
 |              | RFC 2544: rfc2544_                                           |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
