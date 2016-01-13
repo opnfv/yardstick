@@ -43,11 +43,17 @@ def dummy_os_kill(pid, signal, get_counters=None):
 def dummy_run_command(command, get_counters=None):
     if get_counters:
         return command_counter
-    if command == 'smcroute -k':
+    if command == 'sudo smcroute -k':
         command_counter[0] += 1
         return
-    elif command == 'ip link delete interface.100':
+    elif command == 'sudo ip link delete interface.100':
         command_counter[1] += 1
+        return
+    elif command == 'sudo kill 1234':
+        kill_counter[0] += 1
+        return
+    elif command == 'sudo kill 4321':
+        kill_counter[1] += 1
         return
     raise Exception(command)
 
@@ -55,21 +61,21 @@ def dummy_run_command(command, get_counters=None):
 def dummy_run_command_2(command, get_counters=None):
     if get_counters:
         return command_counter
-    if command == 'ip link add link interface name interface.' \
+    if command == 'sudo ip link add link interface name interface.' \
                   '100 type vlan id 100':
         command_counter[0] += 1
         return
-    elif command == 'ifconfig interface.100 10.254.254.254 up':
+    elif command == 'sudo ifconfig interface.100 10.254.254.254 up':
         command_counter[1] += 1
         return
-    elif command == "echo 'mgroup from interface.100 group 224.192.16.1' > " \
+    elif command == "sudo echo 'mgroup from interface.100 group 224.192.16.1' > " \
                     "/etc/smcroute.conf":
         command_counter[2] += 1
         return
-    elif command == "smcroute -d":
+    elif command == "sudo smcroute -d":
         command_counter[3] += 1
         return
-    elif command == "test_sniff interface.100 128 &":
+    elif command == "sudo test_sniff interface.100 128 &":
         command_counter[4] += 1
         return
 
@@ -247,14 +253,15 @@ class InstantiationValidationInitTest(unittest.TestCase):
         self.assertEqual(dummy_os_kill('', '', True), [1, 1])
         self.assertEqual(dummy_run_command('', True), [1, 1, 0, 0, 0])
 
+    @mock.patch('os.chdir')
     @mock.patch('experimental_framework.common.run_command',
                 side_effect=dummy_run_command_2)
     @mock.patch('experimental_framework.benchmarks.'
                 'instantiation_validation_benchmark.'
                 'InstantiationValidationBenchmark._get_pids')
     @mock.patch('os.kill', side_effect=dummy_os_kill)
-    def test__init_packet_checker_for_success(self, mock_kill,
-                                              mock_pids, mock_run_command):
+    def test__init_packet_checker_for_success(self, mock_kill, mock_pids,
+                                              mock_run_command, mock_chdir):
         global command_counter
         command_counter = [0, 0, 0, 0, 0]
         mock_pids.return_value = [1234, 4321]
