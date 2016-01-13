@@ -10,14 +10,14 @@ scenarios:
 
   options:
     packet_size: 1280
-    vlan_sender: 1007
-    vlan_receiver: 1006
-    default_net_name: monitoring
-    default_subnet_name: monitoring_subnet
-    vlan_net_1_name: inbound_traffic_network
-    vlan_subnet_1_name: inbound_traffic_subnet
-    vlan_net_2_name: inbound_traffic_network
-    vlan_subnet_2_name: inbound_traffic_subnet
+    vlan_sender: 2025
+    vlan_receiver: 2021
+    default_net_name: net04
+    default_subnet_name: net04__subnet
+    vlan_net_1_name: apexlake_inbound_net
+    vlan_subnet_1_name: inbound_sub
+    vlan_net_2_name: apexlake_outbound_net
+    vlan_subnet_2_name: outbound_sub
     vnic_type: direct # [normal (OvS), direct (SR-IOV)]
     vtc_flavor: m1.large
     num_of_neighbours: 2

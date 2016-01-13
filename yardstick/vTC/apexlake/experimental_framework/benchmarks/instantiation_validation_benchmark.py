@@ -14,7 +14,7 @@
 
 import os
 import commands
-import signal
+# import signal
 import time
 from experimental_framework.benchmarks import benchmark_base_class as base
 from experimental_framework.constants import framework_parameters as fp
@@ -162,10 +162,12 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         self.res_dir = common.get_result_dir()
         pids = self._get_pids()
         for pid in pids:
-            os.kill(pid, signal.SIGTERM)
+            # os.kill(pid, signal.SIGTERM)
+            command = 'sudo kill ' + str(pid)
+            common.run_command(command)
 
         # initialization of the VLAN interface
-        command = "ip link add link "
+        command = "sudo ip link add link "
         command += self.interface_name
         command += " name "
         command += self.interface_name + '.' + self.params[VLAN_RECEIVER]
@@ -173,7 +175,7 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         common.run_command(command)
 
         # set up the new
-        command = 'ifconfig ' + self.interface_name + '.' + \
+        command = 'sudo ifconfig ' + self.interface_name + '.' + \
                   self.params[VLAN_RECEIVER]
         # An IP address is required for the interface to receive a multicast
         # flow. The specific address is not important
@@ -181,7 +183,7 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         common.run_command(command)
 
         # configure smcroute
-        command = "echo 'mgroup from "
+        command = "sudo echo 'mgroup from "
         command += self.interface_name + '.' + self.params[VLAN_RECEIVER]
         command += " group "
         command += MULTICAST_GROUP
@@ -189,14 +191,22 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         common.run_command(command)
 
         # run smcroute on the interface
-        command = 'smcroute -d'
+        command = 'sudo smcroute -d'
         common.run_command(command)
 
         # Start the packet checker
-        # TODO: Compile "make" the packet sniffer
-        command = "chmod +x {}".format(self.pkt_checker_command)
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        dir_list = self.pkt_checker_command.split('/')
+        directory = '/'.join(dir_list[0:len(dir_list)-1])
+        os.chdir(directory)
+        command = "make"
         common.run_command(command)
-        command = self.pkt_checker_command
+        os.chdir(current_dir)
+
+        command = "sudo chmod +x {}".format(self.pkt_checker_command)
+        common.run_command(command)
+
+        command = 'sudo ' + self.pkt_checker_command
         command += self.interface_name + '.' + self.params[VLAN_RECEIVER]
         command += ' 128'
         command += ' &'
@@ -210,14 +220,16 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         """
         pids = self._get_pids()
         for pid in pids:
-            os.kill(pid, signal.SIGTERM)
+            # os.kill(pid, signal.SIGTERM)
+            command = 'sudo kill ' + str(pid)
+            common.run_command(command)
 
         # stop smcroute on the interface
-        command = 'smcroute -k'
+        command = 'sudo smcroute -k'
         common.run_command(command)
 
         # finalization of the VLAN interface
-        command = "ip link delete "
+        command = "sudo ip link delete "
         command += self.interface_name + '.' + self.params[VLAN_RECEIVER]
         common.run_command(command)
 
