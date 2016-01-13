@@ -2,9 +2,6 @@ heat_template_version: 2014-10-16
 description: HOT template to create a DPI
 
 parameters:
-   nic_type:
-      type: string
-      default: normal
    name:
       type: string
       default: cpu_stress
@@ -24,44 +21,17 @@ resources:
          network_id: { get_resource: internal_net }
          cidr: 10.100.0.0/24
 
-   router:
-      properties:
-         admin_state_up: true
-         name: router
-      type: OS::Neutron::Router
-
-   router_gateway:
-      properties:
-         network: external
-         router_id: { get_resource: router }
-      type: OS::Neutron::RouterGateway
-
-   router_interface_0:
-      properties:
-         router_id: { get_resource: router }
-         subnet_id: { get_resource: internal_subnet }
-      type: OS::Neutron::RouterInterface
-
-   vm1_port_1:
+   port:
       type: OS::Neutron::Port
       properties:
          network: { get_resource: internal_net }
-         binding:vnic_type: { get_param: nic_type }
          fixed_ips:
             - subnet: { get_resource: internal_subnet }
-
-   flavor_1:
-      type: OS::Nova::Flavor
-      properties:
-         disk: 20
-         ram: 4096
-         vcpus: 4
 
    vm1:
       type: OS::Nova::Server
       properties:
          name: traffic_vm1
-         key_name: test
          image: ubuntu1404
          user_data:
             str_replace:
@@ -107,6 +77,6 @@ resources:
                   $CORES: { get_param: cores }
                   $MEMORY: { get_param: memory }
 
-         flavor: { get_resource: flavor_1 }
+         flavor: m1.small
          networks:
-            - port: { get_resource: vm1_port_1 }
+            - port: { get_resource: port }
