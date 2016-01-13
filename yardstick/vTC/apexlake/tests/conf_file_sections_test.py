@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__author__ = 'vmriccox'
-
-
 import unittest
 from experimental_framework.constants import conf_file_sections as cfs
+
+__author__ = 'vmriccox'
 
 
 class TestConfFileSection(unittest.TestCase):

@@ -14,13 +14,13 @@ import subprocess
 import time
 import traceback
 
-log = logging.getLogger(__name__)
-
 from oslo_config import cfg
 
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base as base_scenario
 from yardstick.dispatcher.base import Base as DispatcherBase
+
+log = logging.getLogger(__name__)
 
 CONF = cfg.CONF
 

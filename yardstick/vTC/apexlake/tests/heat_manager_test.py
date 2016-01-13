@@ -12,12 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__author__ = 'gpetralx'
-
-
 import unittest
 from experimental_framework import heat_manager
 import mock
+
+__author__ = 'gpetralx'
 
 
 def get_mock_heat(version, *args, **kwargs):

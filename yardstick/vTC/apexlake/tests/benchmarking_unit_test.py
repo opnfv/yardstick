@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__author__ = 'vmriccox'
-
-
 import unittest
 import mock
 from experimental_framework.benchmarking_unit import BenchmarkingUnit
@@ -23,6 +20,8 @@ from experimental_framework.deployment_unit import DeploymentUnit
 import experimental_framework.common as common
 from experimental_framework.benchmarks.rfc2544_throughput_benchmark import \
     RFC2544ThroughputBenchmark
+
+__author__ = 'vmriccox'
 
 
 # class DummyDataManager(DataManager):

@@ -12,14 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__author__ = 'vmriccox'
-
-
 from keystoneclient.v2_0 import client as keystoneClient
 from heatclient import client as heatClient
 from heatclient.common import template_utils
 
 import experimental_framework.common as common
+
+__author__ = 'vmriccox'
 
 
 class HeatManager:

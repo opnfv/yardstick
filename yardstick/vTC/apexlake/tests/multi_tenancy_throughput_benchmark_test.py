@@ -12,15 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__author__ = 'gpetralx'
-
-
 import unittest
 import mock
 import os
 import experimental_framework.common as common
 from experimental_framework.benchmarks \
     import multi_tenancy_throughput_benchmark as bench
+
+__author__ = 'gpetralx'
 
 
 class MockDeploymentUnit(object):

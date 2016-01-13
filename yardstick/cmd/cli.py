@@ -101,8 +101,9 @@ class YardstickCLI():
         '''run the command line interface'''
 
         # register subcommands to parse additional command line arguments
-        parser = lambda subparsers: self._add_command_parsers(
-            YardstickCLI.categories, subparsers)
+        def parser(subparsers):
+            self._add_command_parsers(YardstickCLI.categories, subparsers)
+
         category_opt = cfg.SubCommandOpt("category",
                                          title="Command categories",
                                          help="Available categories",

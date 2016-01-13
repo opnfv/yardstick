@@ -56,8 +56,8 @@ def parse(tmpl_str):
             if tpl is None:
                 tpl = {}
     # Looking for supported version keys in the loaded template
-    if not ('HeatTemplateFormatVersion' in tpl
-            or 'heat_template_version' in tpl
-            or 'AWSTemplateFormatVersion' in tpl):
+    if not ('HeatTemplateFormatVersion' in tpl or
+            'heat_template_version' in tpl or
+            'AWSTemplateFormatVersion' in tpl):
         raise ValueError("Template format version not found.")
     return tpl
