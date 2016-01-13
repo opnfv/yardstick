@@ -32,9 +32,10 @@ If no test suites are given ping.yaml is run.
 
 OPTIONS:
    -h      Show this message
-   -r      IP address for Result API.
-           Default is to store the results to file ($DISPATCHER_FILE_NAME)
-           if this option is not present.
+   -r      Http target (example: -r 213.77.62.197/results)
+   -i      Influxdb target (example: -i 127.0.0.1:8086)
+
+           Default target is dump to file ($DISPATCHER_FILE_NAME)
 
 EOF
 }
@@ -42,8 +43,9 @@ EOF
 DISPATCHER_TYPE=file
 DISPATCHER_FILE_NAME="/tmp/yardstick.out"
 DISPATCHER_HTTP_TARGET=
+DISPATCHER_INFLUXDB_TARGET=
 
-while getopts "r:h" OPTION; do
+while getopts "r:i:h" OPTION; do
     case $OPTION in
         h)
             usage
@@ -51,7 +53,11 @@ while getopts "r:h" OPTION; do
             ;;
         r)
             DISPATCHER_TYPE=http
-            DISPATCHER_HTTP_TARGET=http://${OPTARG}/results
+            DISPATCHER_HTTP_TARGET=http://${OPTARG}
+            ;;
+        i)
+            DISPATCHER_TYPE=influxdb
+            DISPATCHER_INFLUXDB_TARGET=http://${OPTARG}
             ;;
         *)
             echo "${OPTION} is not a valid argument"
@@ -199,6 +205,11 @@ file_name = ${DISPATCHER_FILE_NAME}
 [dispatcher_http]
 timeout = 5
 target = ${DISPATCHER_HTTP_TARGET}
+
+[dispatcher_influxdb]
+timeout = 5
+target = ${DISPATCHER_INFLUXDB_TARGET}
+db_name = yardstick
 EOF
 
     local failed=0
