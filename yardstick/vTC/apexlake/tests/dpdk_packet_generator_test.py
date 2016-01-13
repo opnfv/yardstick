@@ -108,7 +108,7 @@ class TestDpdkPacketGenInitialization(unittest.TestCase):
         mock_init_input_validation.return_value = None
         mock_get_core_nics.return_value = "{corenics}"
         mock_path.isfile.return_value = True
-        expected = 'pktgen_dir/program -c coremask -n memchannel ' \
+        expected = 'sudo pktgen_dir/program -c coremask -n memchannel ' \
                    '--proc-type auto --file-prefix pg -- -T -P -m ' \
                    '"{corenics}" -f base_dir/experimental_framework/' \
                    'packet_generators/dpdk_pktgen/lua_file ' \
@@ -150,7 +150,7 @@ class TestDpdkPacketGenInitialization(unittest.TestCase):
         mock_init_input_validation.return_value = None
         mock_get_core_nics.return_value = "{corenics}"
         mock_path.isfile.return_value = True
-        expected = 'pktgen_dir/program -c coremask -n memchannel ' \
+        expected = 'sudo pktgen_dir/program -c coremask -n memchannel ' \
                    '--proc-type auto --file-prefix pg -- -T -P -m ' \
                    '"{corenics}" -f base_dir/experimental_framework/' \
                    'packet_generators/dpdk_pktgen/lua_file ' \
@@ -317,19 +317,20 @@ class MockRunCommand:
 
     @staticmethod
     def mock_run_command(command=None):
-        if command == 'ifconfig interface_1 down':
+        if command == 'sudo ifconfig interface_1 down':
             MockRunCommand.ret_val[0] = True
-        if command == 'dpdk_directory/tools/dpdk_nic_bind.py --unbind 1:00.0':
+        if command == 'sudo dpdk_directory/tools/dpdk_nic_bind.py ' \
+                      '--unbind 1:00.0':
             MockRunCommand.ret_val[1] = True
-        if command == 'dpdk_directory/tools/dpdk_nic_bind.py ' \
+        if command == 'sudo dpdk_directory/tools/dpdk_nic_bind.py ' \
                       '--bind=igb_uio 1:00.0':
             MockRunCommand.ret_val[2] = True
-        if command == 'ifconfig interface_2 down':
+        if command == 'sudo ifconfig interface_2 down':
             MockRunCommand.ret_val[3] = True
-        if command == 'dpdk_directory/tools/dpdk_nic_bind.py ' \
+        if command == 'sudo dpdk_directory/tools/dpdk_nic_bind.py ' \
                       '--unbind 1:00.1':
             MockRunCommand.ret_val[4] = True
-        if command == 'dpdk_directory/tools/dpdk_nic_bind.py ' \
+        if command == 'sudo dpdk_directory/tools/dpdk_nic_bind.py ' \
                       '--bind=igb_uio 1:00.1':
             MockRunCommand.ret_val[5] = True
         else:
@@ -337,19 +338,21 @@ class MockRunCommand:
 
     @staticmethod
     def mock_run_command_finalization(command=None):
-        if command == 'dpdk_directory/tools/dpdk_nic_bind.py --unbind 1:00.0':
+        if command == 'sudo dpdk_directory/tools/dpdk_nic_bind.py ' \
+                      '--unbind 1:00.0':
             MockRunCommand.ret_val_finalization[0] = True
-        if command == 'dpdk_directory/tools/dpdk_nic_bind.py ' \
+        if command == 'sudo dpdk_directory/tools/dpdk_nic_bind.py ' \
                       '--bind=ixgbe 1:00.0':
             MockRunCommand.ret_val_finalization[1] = True
-        if command == 'ifconfig interface_1 up':
+        if command == 'sudo ifconfig interface_1 up':
             MockRunCommand.ret_val_finalization[2] = True
-        if command == 'dpdk_directory/tools/dpdk_nic_bind.py --unbind 1:00.1':
+        if command == 'sudo dpdk_directory/tools/dpdk_nic_bind.py ' \
+                      '--unbind 1:00.1':
             MockRunCommand.ret_val_finalization[3] = True
-        if command == 'dpdk_directory/tools/dpdk_nic_bind.py ' \
+        if command == 'sudo dpdk_directory/tools/dpdk_nic_bind.py ' \
                       '--bind=ixgbe 1:00.1':
             MockRunCommand.ret_val_finalization[4] = True
-        if command == 'ifconfig interface_2 up':
+        if command == 'sudo ifconfig interface_2 up':
             MockRunCommand.ret_val_finalization[5] = True
         else:
             return MockRunCommand.ret_val_finalization
