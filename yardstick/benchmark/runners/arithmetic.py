@@ -58,7 +58,8 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         sla_action = scenario_cfg["sla"].get("action", "assert")
 
     # To both be able to include the stop value and handle backwards stepping
-    margin = lambda start, stop: -1 if start > stop else 1
+    def margin(start, stop):
+        return -1 if start > stop else 1
 
     param_iters = \
         [xrange(d['start'], d['stop'] + margin(d['start'], d['stop']),

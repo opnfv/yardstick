@@ -1,5 +1,3 @@
-__author__ = 'vmricco'
-
 import unittest
 import mock
 import os
@@ -7,6 +5,8 @@ import logging
 import ConfigParser
 import experimental_framework.common as common
 import experimental_framework.constants.conf_file_sections as cf
+
+__author__ = 'vmricco'
 
 
 def reset_common():

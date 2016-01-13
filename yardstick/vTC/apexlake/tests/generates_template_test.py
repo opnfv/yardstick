@@ -12,14 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__author__ = 'gpetralx'
-
-
 import unittest
 import experimental_framework.heat_template_generation as heat_gen
 import mock
 import os
 import experimental_framework.common as common
+
+__author__ = 'gpetralx'
 
 
 def reset_common():

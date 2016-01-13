@@ -12,12 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__author__ = 'vmriccox'
-
-
 import unittest
 import mock
 import experimental_framework.deployment_unit as mut
+
+__author__ = 'vmriccox'
 
 
 class DummyHeatManager:

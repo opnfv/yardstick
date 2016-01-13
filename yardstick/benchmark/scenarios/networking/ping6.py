@@ -90,8 +90,8 @@ class Ping6(base.Scenario):  # pragma: no cover
 
             if "sla" in self.scenario_cfg:
                 sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
-                assert result["rtt"] <= sla_max_rtt, "rtt %f > sla:max_rtt(%f); " % \
-                    (result["rtt"], sla_max_rtt)
+                assert result["rtt"] <= sla_max_rtt, \
+                    "rtt %f > sla:max_rtt(%f); " % (result["rtt"], sla_max_rtt)
         else:
             LOG.error("ping6 timeout")
         self.run_done = True
