@@ -119,6 +119,8 @@ def init_general_vars(api=False):
             "The provided template file does not exist")
 
     RESULT_DIR = "/tmp/apexlake/results/"
+    if not os.path.isdir(RESULT_DIR):
+        os.mkdir(RESULT_DIR)
 
     # Validate and assign Iterations
     if cf.CFSG_ITERATIONS in CONF_FILE.get_variable_list(cf.CFS_GENERAL):
