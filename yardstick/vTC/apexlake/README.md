@@ -108,6 +108,12 @@ Then create the smcroute configuration file /etc/smcroute.conf
     - $echo mgroup from $SMCROUTE_NIC group 224.192.16.1 > /etc/smcroute.conf
 
 
+At the end of this procedure it will be necessary to perform the following actions to add the user to the sudoers:
+
+    - adduser USERNAME sudo
+    - echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+
 Experiment using SR-IOV configuration on the compute node
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 In order to enable SR-IOV interfaces on the physical NIC of the compute node, a compatible NIC is required.

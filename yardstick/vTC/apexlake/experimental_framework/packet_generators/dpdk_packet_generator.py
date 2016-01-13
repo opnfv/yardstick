@@ -111,7 +111,7 @@ class DpdkPacketGenerator(base_packet_generator.BasePacketGenerator):
         # Avoid to show the output of the packet generator
         self.command_options.append('> /dev/null')
         # Prepare the command to be invoked
-        self.command = self.directory + self.program_name
+        self.command = 'sudo ' + self.directory + self.program_name
         for opt in self.command_options:
             self.command += (' ' + opt)
         if pcap_file_0 and vlan_0:
@@ -212,22 +212,22 @@ class DpdkPacketGenerator(base_packet_generator.BasePacketGenerator):
         # Initialize NIC 1
         # bus_address_1 = dpdk_vars[conf_file.CFSP_DPDK_BUS_SLOT_NIC_1]
         interface_1 = dpdk_vars[conf_file.CFSP_DPDK_NAME_IF_1]
-        common.run_command('ifconfig ' + interface_1 + ' down')
-        common.run_command(dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
+        common.run_command('sudo ifconfig ' + interface_1 + ' down')
+        common.run_command('sudo ' + dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
                            'tools/dpdk_nic_bind.py --unbind ' +
                            dpdk_vars[conf_file.CFSP_DPDK_BUS_SLOT_NIC_1])
-        common.run_command(dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
+        common.run_command('sudo ' + dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
                            'tools/dpdk_nic_bind.py --bind=igb_uio ' +
                            dpdk_vars[conf_file.CFSP_DPDK_BUS_SLOT_NIC_1])
         if dpdk_interfaces == 2:
             # Initialize NIC 2
             # bus_address_2 = dpdk_vars[conf_file.CFSP_DPDK_BUS_SLOT_NIC_2]
             interface_2 = dpdk_vars[conf_file.CFSP_DPDK_NAME_IF_2]
-            common.run_command('ifconfig ' + interface_2 + ' down')
-            common.run_command(dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
+            common.run_command('sudo ifconfig ' + interface_2 + ' down')
+            common.run_command('sudo ' + dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
                                'tools/dpdk_nic_bind.py --unbind ' +
                                dpdk_vars[conf_file.CFSP_DPDK_BUS_SLOT_NIC_2])
-            common.run_command(dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
+            common.run_command('sudo ' + dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
                                'tools/dpdk_nic_bind.py --bind=igb_uio ' +
                                dpdk_vars[conf_file.CFSP_DPDK_BUS_SLOT_NIC_2])
 
@@ -244,26 +244,26 @@ class DpdkPacketGenerator(base_packet_generator.BasePacketGenerator):
                              'generation usage. Please specify one or two '
                              'NICs')
         # Initialize NIC 1
-        common.run_command(dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
+        common.run_command('sudo ' + dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
                            'tools/dpdk_nic_bind.py --unbind ' +
                            dpdk_vars[conf_file.CFSP_DPDK_BUS_SLOT_NIC_1])
         time.sleep(5)
-        common.run_command(dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
+        common.run_command('sudo ' + dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
                            'tools/dpdk_nic_bind.py --bind=ixgbe ' +
                            dpdk_vars[conf_file.CFSP_DPDK_BUS_SLOT_NIC_1])
-        common.run_command('ifconfig ' +
+        common.run_command('sudo ifconfig ' +
                            dpdk_vars[conf_file.CFSP_DPDK_NAME_IF_1] +
                            ' up')
         if dpdk_interfaces == 2:
             # Initialize NIC 2
-            common.run_command(dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
+            common.run_command('sudo ' + dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
                                'tools/dpdk_nic_bind.py --unbind ' +
                                dpdk_vars[conf_file.CFSP_DPDK_BUS_SLOT_NIC_2])
             time.sleep(5)
-            common.run_command(dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
+            common.run_command('sudo ' + dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] +
                                'tools/dpdk_nic_bind.py --bind=ixgbe ' +
                                dpdk_vars[conf_file.CFSP_DPDK_BUS_SLOT_NIC_2])
-            common.run_command('ifconfig ' +
+            common.run_command('sudo ifconfig ' +
                                dpdk_vars[conf_file.CFSP_DPDK_NAME_IF_2] +
                                ' up')
 
