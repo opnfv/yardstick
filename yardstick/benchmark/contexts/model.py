@@ -118,6 +118,7 @@ class Server(Object):
         self.stack_name = self.name + "." + context.name
         self.keypair_name = context.keypair_name
         self.secgroup_name = context.secgroup_name
+        self.user = context.user
         self.context = context
         self.public_ip = None
         self.private_ip = None
@@ -201,6 +202,7 @@ class Server(Object):
 
         template.add_server(server_name, self.image, self.flavor,
                             ports=port_name_list,
+                            user=self.user,
                             key_name=self.keypair_name,
                             scheduler_hints=scheduler_hints)
 

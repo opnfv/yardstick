@@ -9,7 +9,7 @@ scenarios:
 -
   type: Fio
   options:
-    filename: /home/ec2-user/data.raw
+    filename: /home/ubuntu/data.raw
     bs: {{bs}}
     rw: {{rw}}
     ramp_time: 10
@@ -37,7 +37,7 @@ context:
   name: yardstick-TC005
   image: yardstick-trusty-server
   flavor: m1.small
-  user: ec2-user
+  user: ubuntu
 
   servers:
     fio:

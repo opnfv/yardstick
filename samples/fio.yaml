@@ -5,7 +5,7 @@
 # For this sample just like running the command below on the test vm and
 # getting benchmark info back to the yardstick.
 #
-# sudo fio -filename=/home/ec2-user/data.raw -bs=4k -ipdepth=1 -rw=rw \
+# sudo fio -filename=/home/ubuntu/data.raw -bs=4k -ipdepth=1 -rw=rw \
 #          -ramp_time=10 -runtime=60 -name=yardstick-fio -ioengine=libaio \
 #          -direct=1 -group_reporting -numjobs=1 -time_based \
 #          --output-format=json
@@ -16,7 +16,7 @@ scenarios:
 -
   type: Fio
   options:
-    filename: /home/ec2-user/data.raw
+    filename: /home/ubuntu/data.raw
     bs: 4k
     iodepth: 1
     rw: rw
@@ -39,7 +39,7 @@ context:
   name: demo
   image: yardstick-trusty-server
   flavor: yardstick-flavor
-  user: ec2-user
+  user: ubuntu
   servers:
     fio:
       floating_ip: true
