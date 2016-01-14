@@ -35,7 +35,7 @@ context:
   name: demo
   image: yardstick-trusty-server
   flavor: yardstick-flavor
-  user: ec2-user
+  user: ubuntu
   servers:
     kvm:
       floating_ip: true

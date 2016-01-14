@@ -219,7 +219,7 @@ class CPULoad(base.Scenario):
 #     ctx = {
 #         'host': {
 #             'ip': '172.16.0.175',
-#             'user': 'ec2-user',
+#             'user': 'ubuntu',
 #             'key_filename': key_filename
 #         }
 #     }

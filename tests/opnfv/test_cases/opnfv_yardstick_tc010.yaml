@@ -27,7 +27,7 @@ context:
   name: yardstick-TC010
   image: yardstick-trusty-server
   flavor: m1.small
-  user: ec2-user
+  user: ubuntu
 
   servers:
     demeter:

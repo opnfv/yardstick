@@ -23,7 +23,7 @@ class Fio(base.Scenario):
     filename - file name for fio workload
         type:    string
         unit:    na
-        default: /home/ec2-user/data.raw
+        default: /home/ubuntu/data.raw
     bs - block size used for the io units
         type:    int
         unit:    bytes
@@ -82,7 +82,7 @@ class Fio(base.Scenario):
             self.setup()
 
         options = self.scenario_cfg["options"]
-        filename = options.get("filename", "/home/ec2-user/data.raw")
+        filename = options.get("filename", "/home/ubuntu/data.raw")
         bs = options.get("bs", "4k")
         iodepth = options.get("iodepth", "1")
         rw = options.get("rw", "write")
@@ -162,7 +162,7 @@ def _test():
     logger.setLevel(logging.DEBUG)
 
     options = {
-        "filename": "/home/ec2-user/data.raw",
+        "filename": "/home/ubuntu/data.raw",
         "bs": "4k",
         "iodepth": "1",
         "rw": "rw",
