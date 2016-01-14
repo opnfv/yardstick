@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a5c5d37_979f4b50",
+        "filename": "docs/yardstick/opnfv_yardstick_tc025.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2016-01-14T17:13:32Z",
+      "side": 1,
+      "message": "minor - typo - 1 L",
+      "revId": "83d895e535b700790497429ac6cbd46fb0fef9e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_77ae1787",
+        "filename": "docs/yardstick/opnfv_yardstick_tc025.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2016-01-14T17:13:32Z",
+      "side": 1,
+      "message": "minor - is this a typo - maybe just \"node\"",
+      "revId": "83d895e535b700790497429ac6cbd46fb0fef9e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_182171b4",
         "filename": "docs/yardstick/opnfv_yardstick_tc025.rst",
         "patchSetId": 2
