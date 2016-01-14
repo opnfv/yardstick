@@ -39,7 +39,7 @@ class FioTestCase(unittest.TestCase):
     def test_fio_successful_setup(self, mock_ssh):
 
         options = {
-            'filename': '/home/ec2-user/data.raw',
+            'filename': '/home/ubuntu/data.raw',
             'bs': '4k',
             'rw': 'rw',
             'ramp_time': 10
@@ -55,7 +55,7 @@ class FioTestCase(unittest.TestCase):
     def test_fio_successful_no_sla(self, mock_ssh):
 
         options = {
-            'filename': '/home/ec2-user/data.raw',
+            'filename': '/home/ubuntu/data.raw',
             'bs': '4k',
             'rw': 'rw',
             'ramp_time': 10
@@ -80,7 +80,7 @@ class FioTestCase(unittest.TestCase):
     def test_fio_successful_read_no_sla(self, mock_ssh):
 
         options = {
-            'filename': '/home/ec2-user/data.raw',
+            'filename': '/home/ubuntu/data.raw',
             'bs': '4k',
             'rw': "read",
             'ramp_time': 10
@@ -104,7 +104,7 @@ class FioTestCase(unittest.TestCase):
     def test_fio_successful_write_no_sla(self, mock_ssh):
 
         options = {
-            'filename': '/home/ec2-user/data.raw',
+            'filename': '/home/ubuntu/data.raw',
             'bs': '4k',
             'rw': 'write',
             'ramp_time': 10
@@ -128,7 +128,7 @@ class FioTestCase(unittest.TestCase):
     def test_fio_successful_lat_sla(self, mock_ssh):
 
         options = {
-            'filename': '/home/ec2-user/data.raw',
+            'filename': '/home/ubuntu/data.raw',
             'bs': '4k',
             'rw': 'rw',
             'ramp_time': 10
@@ -157,7 +157,7 @@ class FioTestCase(unittest.TestCase):
     def test_fio_unsuccessful_lat_sla(self, mock_ssh):
 
         options = {
-            'filename': '/home/ec2-user/data.raw',
+            'filename': '/home/ubuntu/data.raw',
             'bs': '4k',
             'rw': 'rw',
             'ramp_time': 10
@@ -178,7 +178,7 @@ class FioTestCase(unittest.TestCase):
     def test_fio_successful_bw_iops_sla(self, mock_ssh):
 
         options = {
-            'filename': '/home/ec2-user/data.raw',
+            'filename': '/home/ubuntu/data.raw',
             'bs': '4k',
             'rw': 'rw',
             'ramp_time': 10
@@ -206,7 +206,7 @@ class FioTestCase(unittest.TestCase):
     def test_fio_unsuccessful_bw_iops_sla(self, mock_ssh):
 
         options = {
-            'filename': '/home/ec2-user/data.raw',
+            'filename': '/home/ubuntu/data.raw',
             'bs': '4k',
             'rw': 'rw',
             'ramp_time': 10
@@ -227,7 +227,7 @@ class FioTestCase(unittest.TestCase):
     def test_fio_unsuccessful_script_error(self, mock_ssh):
 
         options = {
-            'filename': '/home/ec2-user/data.raw',
+            'filename': '/home/ubuntu/data.raw',
             'bs': '4k',
             'rw': 'rw',
             'ramp_time': 10

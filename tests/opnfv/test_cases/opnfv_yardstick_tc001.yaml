@@ -33,7 +33,7 @@ context:
   name: yardstick
   image: yardstick-trusty-server
   flavor: yardstick-flavor
-  user: ec2-user
+  user: ubuntu
 
   placement_groups:
     pgrp1:

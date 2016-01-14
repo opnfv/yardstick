@@ -139,7 +139,7 @@ construct to accomplish that:
   -
     type: Fio
     options:
-      filename: /home/ec2-user/data.raw
+      filename: /home/ubuntu/data.raw
       bs: {{bs}}
       rw: {{rw}}
       ramp_time: 10

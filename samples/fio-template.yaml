@@ -13,7 +13,7 @@ scenarios:
 -
   type: Fio
   options:
-    filename: /home/ec2-user/data.raw
+    filename: /home/ubuntu/data.raw
     bs: {{bs}}
     rw: {{rw}}
     ramp_time: 10
@@ -30,7 +30,7 @@ context:
   name: demo
   image: yardstick-trusty-server
   flavor: yardstick-flavor
-  user: ec2-user
+  user: ubuntu
   servers:
     fio:
       floating_ip: true
