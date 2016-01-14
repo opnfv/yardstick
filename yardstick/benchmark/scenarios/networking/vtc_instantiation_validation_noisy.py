@@ -79,8 +79,9 @@ class VtcInstantiationValidationNoisy(base.Scenario):
         test_case['params']['number_of_cores'] = \
             str(self.options['number_of_cores'])
 
+        res = dict()
         try:
-            result = api.FrameworkApi.execute_framework(
+            res = api.FrameworkApi.execute_framework(
                 [test_case],
                 iterations,
                 heat_template,
@@ -89,4 +90,5 @@ class VtcInstantiationValidationNoisy(base.Scenario):
                 openstack_credentials)
         except Exception as e:
             LOG.info('Exception: {}'.format(e.message))
-        LOG.info('Got output: {}'.format(result))
+        LOG.info('Got output: {}'.format(res))
+        result.update(res)
