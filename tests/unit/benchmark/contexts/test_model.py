@@ -167,6 +167,7 @@ class ServerTestCase(unittest.TestCase):
         self.mock_context.name = 'bar'
         self.mock_context.keypair_name = 'some-keys'
         self.mock_context.secgroup_name = 'some-secgroup'
+        self.mock_context.user = "some-user"
 
     def test_construct_defaults(self):
 
@@ -215,6 +216,7 @@ class ServerTestCase(unittest.TestCase):
         mock_template.add_server.assert_called_with(
             'some-server', 'some-image', 'some-flavor',
             ports=['some-server-some-network-port'],
+            user=self.mock_context.user,
             key_name=self.mock_context.keypair_name,
             scheduler_hints='hints')
 
