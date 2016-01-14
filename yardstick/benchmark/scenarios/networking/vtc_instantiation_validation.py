@@ -72,8 +72,9 @@ class VtcInstantiationValidation(base.Scenario):
         test_case['params']['vlan_receiver'] = \
             str(self.options['vlan_receiver'])
 
+        res = dict()
         try:
-            result = api.FrameworkApi.execute_framework(
+            res = api.FrameworkApi.execute_framework(
                 [test_case],
                 iterations,
                 heat_template,
@@ -82,4 +83,7 @@ class VtcInstantiationValidation(base.Scenario):
                 openstack_credentials)
         except Exception as e:
             LOG.info('Exception: {}'.format(e.message))
-        LOG.info('Got output: {}'.format(result))
+        LOG.info('Got output: {}'.format(res))
+        for key in res.keys():
+            result[key] = res[key]
+        result.update()
