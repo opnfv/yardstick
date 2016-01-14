@@ -353,8 +353,8 @@ class HeatTemplate(HeatObject):
         }
 
     def add_server(self, name, image, flavor, ports=None, networks=None,
-                   scheduler_hints=None, key_name=None, user_data=None,
-                   metadata=None, additional_properties=None):
+                   scheduler_hints=None, user=None, key_name=None,
+                   user_data=None, metadata=None, additional_properties=None):
         '''add to the template a Nova Server'''
         log.debug("adding Nova::Server '%s', image '%s', flavor '%s', "
                   "ports %s", name, image, flavor, ports)
@@ -369,6 +369,9 @@ class HeatTemplate(HeatObject):
             'flavor': flavor,
             'networks': []  # list of dictionaries
         }
+
+        if user:
+            server_properties['admin_user'] = user
 
         if key_name:
             self.resources[name]['depends_on'] = [key_name]
