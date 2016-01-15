@@ -21,18 +21,23 @@ class PingTestCase(unittest.TestCase):
 
     def setUp(self):
         self.ctx = {
-            'host': {
+            'nodes':{
+            'host1': {
                 'ip': '172.16.0.137',
                 'user': 'cirros',
                 'key_filename': "mykey.key",
                 'password': "root"
-            },
+                },
+            }
         }
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping6.ssh')
-    def test_pktgen_successful_setup(self, mock_ssh):
-
-        p = ping6.Ping6({}, self.ctx)
+    def test_ping_successful_setup(self, mock_ssh):
+        args = {
+            'options': {'host': 'host1','packetsize': 200},
+            'sla': {'max_rtt': 50}
+        }
+        p = ping6.Ping6(args, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '0', '')
         p.setup()
 
@@ -40,12 +45,15 @@ class PingTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping6.ssh')
     def test_ping_successful_no_sla(self, mock_ssh):
+        args = {
+            'options': {'host': 'host1','packetsize': 200},
 
+        }
         result = {}
 
-        p = ping6.Ping6({}, self.ctx)
+        p = ping6.Ping6(args, self.ctx)
         p.client = mock_ssh.SSH()
-        mock_ssh.SSH().execute.return_value = (0, '100', '')
+        mock_ssh.SSH().execute.side_effect = [(0, 'host1', ''),(0, 100, '')]
         p.run(result)
         self.assertEqual(result, {'rtt': 100.0})
 
@@ -53,13 +61,14 @@ class PingTestCase(unittest.TestCase):
     def test_ping_successful_sla(self, mock_ssh):
 
         args = {
+            'options': {'host': 'host1','packetsize': 200},
             'sla': {'max_rtt': 150}
-            }
+        }
         result = {}
 
         p = ping6.Ping6(args, self.ctx)
         p.client = mock_ssh.SSH()
-        mock_ssh.SSH().execute.return_value = (0, '100', '')
+        mock_ssh.SSH().execute.side_effect = [(0, 'host1', ''),(0, 100, '')]
         p.run(result)
         self.assertEqual(result, {'rtt': 100.0})
 
@@ -67,28 +76,28 @@ class PingTestCase(unittest.TestCase):
     def test_ping_unsuccessful_sla(self, mock_ssh):
 
         args = {
-            'options': {'packetsize': 200},
+            'options': {'host': 'host1','packetsize': 200},
             'sla': {'max_rtt': 50}
         }
         result = {}
 
         p = ping6.Ping6(args, self.ctx)
         p.client = mock_ssh.SSH()
-        mock_ssh.SSH().execute.return_value = (0, '100', '')
+        mock_ssh.SSH().execute.side_effect = [(0, 'host1', ''),(0, 100, '')]
         self.assertRaises(AssertionError, p.run, result)
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping6.ssh')
     def test_ping_unsuccessful_script_error(self, mock_ssh):
 
         args = {
-            'options': {'packetsize': 200},
-            'sla': {'max_rtt': 50}
+            'options': {'host': 'host1','packetsize': 200},
+            'sla': {'max_rtt': 150}
         }
         result = {}
 
         p = ping6.Ping6(args, self.ctx)
         p.client = mock_ssh.SSH()
-        mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
+        mock_ssh.SSH().execute.side_effect = [(0, 'host1', ''),(1, '', 'FOOBAR')]
         self.assertRaises(RuntimeError, p.run, result)
 
 
