@@ -3,21 +3,22 @@ Yardstick Test Case Description TC025
 *************************************
 
 +-----------------------------------------------------------------------------+
-|OpenStack Controll Node abnormally shutdown High Availability                |
+|OpenStack Controller Node abnormally shutdown High Availability              |
 |                                                                             |
 +--------------+--------------------------------------------------------------+
-|test case id  | OPNFV_YARDSTICK_TC025_HA: OpenStack Controll Node abnormally |
-|              | shutdown                                                     |
+|test case id  | OPNFV_YARDSTICK_TC025_HA: OpenStack Controller Node          |
+|              | abnormally shutdown                                          |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|test purpose  | This test case will verify the high availability of control  |
-|              | nodethe. When one of the control node abnormally shutdown,   |
-|              | the service provided by it should be OK.                     |
+|test purpose  | This test case will verify the high availability of          |
+|              | controller node. When one of the controller node abnormally  |
+|              | shutdown, the service provided by it should be OK.           |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|test method   | This test case shutdowns a specified control node with some  |
-|              | fault injection tools, then checks whether all services      |
-|              | provided by the control node are OK with some monitor tools. |
+|test method   | This test case shutdowns a specified controller node with    |
+|              | some fault injection tools, then checks whether all services |
+|              | provided by the controller node are OK with some monitor     |
+|              | tools.                                                       |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |attackers     | In this test case, an attacker called "host-shutdown" is     |
@@ -25,7 +26,7 @@ Yardstick Test Case Description TC025
 |              | 1) fault_type: which is used for finding the attacker's      |
 |              | scripts. It should be always set to "host-shutdown" in       |
 |              | this test case.                                              |
-|              | 2) host: which is the name of a control node being attacked. |
+|              | 2) host: the name of a controller node being attacked.       |
 |              |                                                              |
 |              | e.g.                                                         |
 |              | -fault_type: "host-shutdown"                                 |
@@ -60,7 +61,8 @@ Yardstick Test Case Description TC025
 |              | time (seconds) of the specified Openstack command request.   |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|test tool     | None. Self-developed.                                        |
+|test tool     | Developed by the project. Please see folder:                 |
+|              | "yardstick/benchmark/scenarios/availability/ha_tools"        |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |references    | ETSI NFV REL001                                              |
@@ -107,7 +109,7 @@ Yardstick Test Case Description TC025
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |post-action   | It is the action when the test cases exist. It restarts the  |
-|              | specified control node if it is not restarted.               |
+|              | specified controller node if it is not restarted.            |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test verdict  | Fails only if SLA is not passed, or if there is a test case  |
