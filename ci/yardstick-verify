@@ -222,22 +222,32 @@ EOF
             echo "Running test suite: $suite"
             echo "---------------------------"
 
-             if ! yardstick task start --suite $suite; then
+            if ! yardstick task start --suite $suite; then
                  echo "test suite $suite FAILED";
 
-                 # Mark the test suite failed but continue
-                 # running the remaining test suites.
-                 (( failed++ ))
-             fi
+                # Mark the test suite failed but continue
+                # running the remaining test suites.
+                (( failed++ ))
+            fi
+            if [ ${DISPATCHER_TYPE} = file ]; then
+                echo "---------------------------"
+                echo "Dump test suite $suite result"
+                echo "---------------------------"
+                if [ -f ${DISPATCHER_FILE_NAME} ]; then
+                    cat ${DISPATCHER_FILE_NAME}
+                else
+                    echo "Test result file ${DISPATCHER_FILE_NAME} not exist"
+                fi
+            fi
 
-         done
+        done
 
-         if [ $failed -gt 0 ]; then
+        if [ $failed -gt 0 ]; then
 
-             echo "---------------------------"
-             echo "$failed out of ${SUITE_FILES[*]} test suites FAILED"
-             echo "---------------------------"
-             exit 1
+            echo "---------------------------"
+            echo "$failed out of ${SUITE_FILES[*]} test suites FAILED"
+            echo "---------------------------"
+            exit 1
          fi
 
     else
@@ -249,6 +259,17 @@ EOF
         if ! yardstick task start samples/ping.yaml; then
             echo "Yardstick test FAILED"
             exit 1
+        fi
+
+        if [ ${DISPATCHER_TYPE} = file ]; then
+            echo "---------------------------"
+            echo "Dump sample/ping test result"
+            echo "---------------------------"
+            if [ -f ${DISPATCHER_FILE_NAME} ]; then
+                cat ${DISPATCHER_FILE_NAME}
+            else
+                echo "Test result file ${DISPATCHER_FILE_NAME} not exist"
+            fi
         fi
 
     fi
