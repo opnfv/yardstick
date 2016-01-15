@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_c8f9a281",
+        "filename": "docs/userguide/yardstick_framework/01-introduction.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "This user guide should not contain project specific or mention to release, details of the project and ETSI is on the configguide.",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_0837ba4f",
+        "filename": "docs/userguide/yardstick_framework/01-introduction.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "Please remove this sentence, limitations are not part of this user guide, should go in release notes.",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_28171ea5",
+        "filename": "docs/userguide/yardstick_framework/01-introduction.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "not only non-functional, for example HA.",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_4814929f",
+        "filename": "docs/userguide/yardstick_framework/01-introduction.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "Please remove this paragraph, add a link to configguide, where example are provided. No mention to specific features, this is a user guide for the framework.",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c86e422f",
+        "filename": "docs/userguide/yardstick_framework/01-introduction.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "Test results will not be part of this user guide, but how to use the dispatcher to push data yes. Not only influx and Grafana, but also Mongo and Bitergia, please add.",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_a869ce26",
+        "filename": "docs/userguide/yardstick_framework/01-introduction.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "or developed by the Yardstick project",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_e810e6a9",
+        "filename": "docs/userguide/yardstick_framework/01-introduction.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "Please make it generic, no mention to specific installer or feature, this is a user guide for the framework, not the project.",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_6873d615",
+        "filename": "docs/userguide/yardstick_framework/01-introduction.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "Please rephrase this sentence, point to installation chapter instead.",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_080e9a8d",
+        "filename": "docs/userguide/yardstick_framework/01-introduction.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "Can also be executed on baremetal",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_487b72f5",
+        "filename": "docs/userguide/yardstick_framework/01-introduction.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "the different deployment configurations will not be detailed in the userguide, a generic deployment configuration only.",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_681cf6c1",
+        "filename": "docs/userguide/yardstick_framework/01-introduction.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "and available samples",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_88216afd",
+        "filename": "docs/userguide/yardstick_framework/01-introduction.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "Please remove this sentence.",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_48c93225",
+        "filename": "docs/userguide/yardstick_framework/02-architecture.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "General comments: please add information on the possibility to run tests on baremetal, controller/compute roles; add information to allow the user understand it is possible to connect Yardstick framework to other frameworks, for example ApexLake (poiter to ApexLake user guide).",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_4862523f",
+        "filename": "docs/userguide/yardstick_framework/02-architecture.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "please remove installer names",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_c8dc02e7",
+        "filename": "docs/userguide/yardstick_framework/04-testdesign.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-15T15:41:47Z",
+      "side": 1,
+      "message": "This chapter should describe how to write a test case.",
+      "revId": "8970edff4643abaa84ed7c583861c9ba5b5622f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
