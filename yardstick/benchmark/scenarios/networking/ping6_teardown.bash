@@ -8,6 +8,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+source /opt/admin-openrc.sh
 # delete VM
 nova delete VM1
 nova delete VM2
@@ -35,8 +36,8 @@ neutron subnet-delete --name ipv6-int-subnet2
 neutron subnet-delete --name ipv4-int-subnet2
 
 #clear gateway
-neutron router-gateway-clear ipv4-router net04_ext
-neutron router-gateway-clear ipv6-router net04_ext
+neutron router-gateway-clear ipv4-router ext-net
+neutron router-gateway-clear ipv6-router ext-net
 
 #delete ipv4 router interface
 neutron router-interface-delete ipv4-router ipv4-int-subnet1
@@ -49,10 +50,6 @@ neutron net-delete ipv4-int-network1
 # delete router
 neutron router-delete ipv4-router
 neutron router-delete ipv6-router
-
-# delete ext net
-neutron subnet-delete net04_ext__subnet
-neutron net-delete net04_ext
 
 # delete glance image
 glance --os-image-api-version 1 image-delete Fedora22
