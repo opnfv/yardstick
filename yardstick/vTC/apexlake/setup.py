@@ -5,8 +5,6 @@ Experimental Framework
 from distutils.core import setup
 
 
-# TODO: Add instruction to compile the test_sniff
-
 setup(name='apexlake',
       version='1.0',
       description='Framework to automatically run experiments/benchmarks '
