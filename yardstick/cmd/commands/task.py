@@ -365,6 +365,7 @@ def parse_nodes_with_context(scenario_cfg):
 
     nodes_cfg = {}
     for nodename in nodes:
+        print nodename
         nodes_cfg[nodename] = Context.get_server(nodes[nodename])
 
     return nodes_cfg
