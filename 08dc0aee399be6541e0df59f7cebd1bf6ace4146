@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_4aba4a0b",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc011.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2016-01-15T01:26:07Z",
+      "side": 1,
+      "message": "pls change ec2-user -\u003e ubuntu.\nsee patch https://gerrit.opnfv.org/gerrit/#/c/6647/ for detail reason :).",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 16
+      },
+      "revId": "08dc0aee399be6541e0df59f7cebd1bf6ace4146",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
