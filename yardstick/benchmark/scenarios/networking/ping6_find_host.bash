@@ -11,5 +11,4 @@
 
 source /opt/admin-openrc.sh
 host_num=$(neutron dhcp-agent-list-hosting-net ipv4-int-network1 | grep True | awk -F [=\ ] '{printf $4}') > /tmp/ipv6.log
-scp vRouterKey $host_num:~
 echo $host_num

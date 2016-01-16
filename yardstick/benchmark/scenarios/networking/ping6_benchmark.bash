@@ -23,10 +23,10 @@ wait_vm_ok() {
         if [ $retry -ge 40 ];
         then
             echo "vm ssh  start timeout !!!"
-           exit 0
+            exit 0
         fi
     done
 }
 wait_vm_ok
-sleep 600
+sleep 360
 sudo ip netns exec qdhcp-$(neutron net-list | grep -w ipv4-int-network1 | awk '{print $2}') ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i vRouterKey fedora@20.0.0.4 "ping6 -c 1 2001:db8:0:1::1 | grep ttl | awk -F [=\ ] '{printf \$10}'"
