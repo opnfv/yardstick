@@ -19,4 +19,6 @@ test_cases:
 -
   file_name: opnfv_yardstick_tc014.yaml
 -
+  file_name: opnfv_yardstick_tc027.yaml
+-
   file_name: opnfv_yardstick_tc037.yaml
