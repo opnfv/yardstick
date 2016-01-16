@@ -12,7 +12,8 @@
 
 # download and create image
 source /opt/admin-openrc.sh
-wget https://download.fedoraproject.org/pub/fedora/linux/releases/22/Cloud/x86_64/Images/Fedora-Cloud-Base-22-20150521.x86_64.qcow2
+wget https://download.fedoraproject.org/pub/fedora/linux/releases/22/Cloud/x86_64/Images/Fedora-Cloud-Base-22-20150521.x86_64.qcow2 >/dev/null 2>&1
+
 glance image-create --name 'Fedora22' --disk-format qcow2 \
 --container-format bare --file ./Fedora-Cloud-Base-22-20150521.x86_64.qcow2
 
