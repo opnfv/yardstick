@@ -22,7 +22,7 @@ scenarios:
     interval: 1
     run_step: 'setup,run,teardown'
   sla:
-    max_rtt: 10
+    max_rtt: 30
     action: monitor
 
 
