@@ -28,6 +28,6 @@ scenarios:
 context:
   type: Node
   name: IPV6
-  file: /root/yardstick/etc/yardstick/nodes/compass_sclab_physical/pod.yaml
+  file: /root/yardstick/etc/yardstick/nodes/compass_sclab_virtual/pod.yaml
 
 

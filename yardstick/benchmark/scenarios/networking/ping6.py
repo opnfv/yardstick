@@ -116,7 +116,13 @@ class Ping6(base.Scenario):  # pragma: no cover
         status, stdout, stderr = self.client.execute(cmd)
         host_name = stdout.strip()
         print host_name
+        self.client.run("cat ~/vRouterKey",
+                        stdout=open("/tmp/vRouterKey", "w"))
         self._ssh_host(host_name)
+
+        self.client.run("cat > ~/vRouterKey",
+                        stdin=open("/tmp/vRouterKey", "rb"))
+
         self.client.run("cat > ~/ping6.sh",
                         stdin=open(self.ping6_script, "rb"))
         cmd = "sudo bash ping6.sh"
