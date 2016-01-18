@@ -69,7 +69,7 @@ class HttpDispatcher(DispatchBase):
         case_name = ""
         for v in self.raw_result:
             if isinstance(v, dict) and "scenario_cfg" in v:
-                case_name = v["scenario_cfg"]["type"]
+                case_name = v["scenario_cfg"]["tc"]
                 break
         if case_name == "":
             LOG.error('Test result : %s' % json.dumps(self.result))
