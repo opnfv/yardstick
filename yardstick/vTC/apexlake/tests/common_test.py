@@ -1,3 +1,17 @@
+# Copyright (c) 2015 Intel Research and Development Ireland Ltd.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import unittest
 import mock
 import os
@@ -124,13 +138,15 @@ class TestCommonInit(unittest.TestCase):
         expected = self.dir.split('experimental_framework/')[0]
         self.assertEqual(common.BASE_DIR, expected)
 
+    @mock.patch('experimental_framework.common.InputValidation')
     @mock.patch('os.path.exists')
     @mock.patch('os.makedirs')
     @mock.patch('experimental_framework.common.LOG')
     def test_init_general_vars_for_success(self, mock_log, mock_makedirs,
-                                           mock_path_exists):
+                                           mock_path_exists, mock_val_file):
         common.BASE_DIR = "{}/".format(os.getcwd())
         mock_path_exists.return_value = False
+        mock_val_file.return_value = True
         common.init_general_vars()
         self.assertEqual(common.TEMPLATE_FILE_EXTENSION, '.yaml')
         self.assertEqual(common.TEMPLATE_DIR, '/tmp/apexlake/heat_templates/')
