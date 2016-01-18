@@ -4,4 +4,4 @@ recursive-include heat_templates *
 recursive-include packet_generators *
 recursive-include etc *.cfg *.json
 include *.py
-include README.md
+include README.rst
