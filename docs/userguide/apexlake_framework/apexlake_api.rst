@@ -1,8 +1,8 @@
 =================================
-Apexlake API interface definition
+Apexlake API Interface Definition
 =================================
 
-The API interface provided by the framework in order to execute the test cases is defined in the following.
+The API interface provided by the framework to enable the execution of test cases is defined as follows.
 
 
 init
@@ -13,37 +13,6 @@ init
     Initializes the Framework
 
     **Returns** None
-
-
-get_available_test_cases
-------------------------
-
-**static get_available_test_cases()**
-
-    Returns a list of available test cases. This list include eventual modules developed by the user, if any.
-    Each test case is returned as a string that represents the full name of the test case and that
-    can be used to get more information calling get_test_case_features(test_case_name)
-
-    **Returns** list of strings
-
-
-get_test_case_features
-----------------------
-
-**static get_test_case_features(test_case)**
-
-    Returns a list of features (description, requested parameters, allowed values, etc.)
-    for a specified test case.
-
-    **Parameters**
-
-        - **test_case**
-
-            Name of the test case (string). The string represents the test
-            case and can be obtained calling “get_available_test_cases()” method.
-
-    **Returns**
-        dict() containing the features of the test case
 
 
 execute_framework
@@ -61,13 +30,13 @@ execute_framework
 
                                 openstack_credentials)
 
-    Executes the framework according the inputs
+    Executes the framework according the specified inputs
 
     **Parameters**
 
         - **test_cases**
 
-            Test cases to be ran on the workload (dict() of dict())
+            Test cases to be run with the workload (dict() of dict())
 
             Example:
                 test_case = dict()
@@ -85,10 +54,10 @@ execute_framework
                 test_cases = [test_case]
 
         - **iterations**
-            Number of cycles to be executed (int)
+            Number of test cycles to be executed (int)
 
         - **heat_template**
-            (string) File name of the heat template of the workload to be deployed.
+            (string) File name of the heat template corresponding to the workload to be deployed.
             It contains the parameters to be evaluated in the form of #parameter_name.
             (See heat_templates/vTC.yaml as example).
 
@@ -99,7 +68,7 @@ execute_framework
 
         - **deployment_configuration**
             ( dict[string] = list(strings) ) ) Dictionary of parameters
-            representing the deployment configuration of the workload
+            representing the deployment configuration of the workload.
 
             The key is a string corresponding to the name of the parameter,
             the value is a list of strings representing the value to be
