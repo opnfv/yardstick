@@ -55,6 +55,7 @@ class InfluxdbDispatcher(DispatchBase):
         self.case_name = ""
         self.tc = ""
         self.task_id = -1
+        self.runners_info = {}
         self.static_tags = {
             "pod_name": os.environ.get('POD_NAME', 'unknown'),
             "installer": os.environ.get('INSTALLER_TYPE', 'unknown'),
@@ -89,18 +90,23 @@ class InfluxdbDispatcher(DispatchBase):
         return str(int(float(timestamp) * 1000000000))
 
     def _get_extended_tags(self, data):
+        runner_info = self.runners_info[data["runner_id"]]
         tags = {
             "runner_id": data["runner_id"],
-            "tc": self.tc,
-            "task_id": self.task_id
+            "task_id": self.task_id,
+            "scenarios": runner_info["scenarios"]
         }
+        if "host" in runner_info:
+            tags["host"] = runner_info["host"]
+        if "target" in runner_info:
+            tags["target"] = runner_info["target"]
 
         return tags
 
     def _data_to_line_protocol(self, data):
         msg = {}
         point = {}
-        point["measurement"] = self.case_name
+        point["measurement"] = self.tc
         point["fields"] = self._dict_key_flatten(data["benchmark"]["data"])
         point["time"] = self._get_nano_timestamp(data)
         point["tags"] = self._get_extended_tags(data)
@@ -119,12 +125,18 @@ class InfluxdbDispatcher(DispatchBase):
             return -1
 
         if isinstance(data, dict) and "scenario_cfg" in data:
-            self.case_name = data["scenario_cfg"]["type"]
             self.tc = data["scenario_cfg"]["tc"]
             self.task_id = data["scenario_cfg"]["task_id"]
+            scenario_cfg = data["scenario_cfg"]
+            runner_id = data["runner_id"]
+            self.runners_info[runner_id] = {"scenarios": scenario_cfg["type"]}
+            if "host" in scenario_cfg:
+                self.runners_info[runner_id]["host"] = scenario_cfg["host"]
+            if "target" in scenario_cfg:
+                self.runners_info[runner_id]["target"] = scenario_cfg["target"]
             return 0
 
-        if self.case_name == "":
+        if self.tc == "":
             LOG.error('Test result : %s' % json.dumps(data))
             LOG.error('The case_name cannot be found, no data will be posted.')
             return -1
