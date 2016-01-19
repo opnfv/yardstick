@@ -27,9 +27,11 @@ class Ping6(base.Scenario):  # pragma: no cover
     TARGET_SCRIPT = 'ping6_benchmark.bash'
     PRE_SETUP_SCRIPT = 'ping6_pre_setup.bash'
     SETUP_SCRIPT = 'ping6_setup.bash'
+    SETUP_ODL_SCRIPT = 'ping6_setup_with_odl.bash'
     FIND_HOST_SCRIPT = 'ping6_find_host.bash'
     TEARDOWN_SCRIPT = 'ping6_teardown.bash'
     METADATA_SCRIPT = 'ping6_metadata.txt'
+    RADVD_SCRIPT = 'ping6_radvd.conf'
     POST_TEARDOWN_SCRIPT = 'ping6_post_teardown.bash'
 
     def __init__(self, scenario_cfg, context_cfg):
@@ -64,6 +66,10 @@ class Ping6(base.Scenario):  # pragma: no cover
             'yardstick.benchmark.scenarios.networking',
             Ping6.SETUP_SCRIPT)
 
+        self.setup_odl_script = pkg_resources.resource_filename(
+            'yardstick.benchmark.scenarios.networking',
+            Ping6.SETUP_ODL_SCRIPT)
+
         self.pre_setup_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
             Ping6.PRE_SETUP_SCRIPT)
@@ -71,6 +77,10 @@ class Ping6(base.Scenario):  # pragma: no cover
         self.ping6_metadata_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
             Ping6.METADATA_SCRIPT)
+
+        self.ping6_radvd_script = pkg_resources.resource_filename(
+            'yardstick.benchmark.scenarios.networking',
+            Ping6.RADVD_SCRIPT)
 
         options = self.scenario_cfg['options']
         host_str = options.get("host", 'host1')
@@ -82,12 +92,23 @@ class Ping6(base.Scenario):  # pragma: no cover
 
         # ssh host1
         self._ssh_host(self.host_list[0])
-        # run script to setup ipv6
-        self.client.run("cat > ~/setup.sh",
-                        stdin=open(self.setup_script, "rb"))
+
         self.client.run("cat > ~/metadata.txt",
                         stdin=open(self.ping6_metadata_script, "rb"))
-        cmd = "sudo bash setup.sh"
+
+        # run script to setup ipv6 with nosdn or odl
+        sdn = options.get("sdn", 'nosdn')
+        if 'odl' in sdn:
+            self.client.run("cat > ~/br-ex.radvd.conf",
+                            stdin=open(self.ping6_radvd_script, "rb"))
+            self.client.run("cat > ~/setup_odl.sh",
+                            stdin=open(self.setup_odl_script, "rb"))
+            cmd = "sudo bash setup_odl.sh"
+        else:
+            self.client.run("cat > ~/setup.sh",
+                            stdin=open(self.setup_script, "rb"))
+            cmd = "sudo bash setup.sh"
+
         status, stdout, stderr = self.client.execute(cmd)
 
         self.setup_done = True
@@ -109,32 +130,35 @@ class Ping6(base.Scenario):  # pragma: no cover
             self.host_list = host_str.split(',')
             self.host_list.sort()
             self._ssh_host(self.host_list[0])
+
+        # find ipv4-int-network1 to ssh VM
         self.client.run("cat > ~/find_host.sh",
                         stdin=open(self.ping6_find_host_script, "rb"))
         cmd = "sudo bash find_host.sh"
         LOG.debug("Executing command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
         host_name = stdout.strip()
-        print host_name
+
+        # copy vRouterKey to target host
         self.client.run("cat ~/vRouterKey",
                         stdout=open("/tmp/vRouterKey", "w"))
         self._ssh_host(host_name)
-
         self.client.run("cat > ~/vRouterKey",
                         stdin=open("/tmp/vRouterKey", "rb"))
 
+        # run ping6 benchmark
         self.client.run("cat > ~/ping6.sh",
                         stdin=open(self.ping6_script, "rb"))
         cmd = "sudo bash ping6.sh"
         LOG.debug("Executing command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
-        print stdout
+
         if status:
             raise RuntimeError(stderr)
 
+        # sla
         if stdout:
             result["rtt"] = float(stdout)
-
             if "sla" in self.scenario_cfg:
                 sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
                 assert result["rtt"] <= sla_max_rtt, \
