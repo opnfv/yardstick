@@ -1,0 +1,36 @@
+#SFC test case using Tacker as Orchestrator and Netvirt as classifier
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: sfc
+
+  host: http_client.sfc
+  target: http_server.sfc
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+
+contexts:
+-
+  name: sfc
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+  servers:
+    http_client:
+      flavor: m1.tiny
+      image: cirros-0.3.3
+      floating_ip: true
+      placement: "pgrp1"
+    http_server:
+      flavor: sfc_custom
+      image: sfc
+      floating_ip: true
+      placement: "pgrp1"
+  networks:
+     net_mgmt:
+       cidr: '11.0.0.0/24'
