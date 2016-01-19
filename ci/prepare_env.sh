@@ -16,6 +16,10 @@
 : ${POD_NAME:='opnfv-jump-2'}
 : ${EXTERNAL_NETWORK:='net04_ext'}
 
+# Extract network name from EXTERNAL_NETWORK
+#  e.g. EXTERNAL_NETWORK='ext-net;flat;192.168.0.2;192.168.0.253;192.168.0.1;192.168.0.0/24'
+export EXTERNAL_NETWORK=$(echo $EXTERNAL_NETWORK | cut -f1 -d \;)
+
 echo
 echo "INFO: Creating openstack credentials .."
 
