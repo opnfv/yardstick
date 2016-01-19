@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_5121d6f9",
+        "filename": "yardstick/benchmark/scenarios/networking/ping6_setup_with_odl.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 404
+      },
+      "writtenOn": "2016-01-19T08:45:25Z",
+      "side": 1,
+      "message": "Here I see that we are doing an ssh to the controller node hosting the ipv6-router. But I\u0027m not sure if the commands mentioned below would be run on that particular node. \n\nBut considering that we have a freeze, I agree that we can push this patch now and later fix any issues.",
+      "revId": "e3483171795078b8720579e6b1feafb35ee3b5d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
