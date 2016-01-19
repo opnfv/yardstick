@@ -16,6 +16,24 @@
       "revId": "e3483171795078b8720579e6b1feafb35ee3b5d2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_111a3e7d",
+        "filename": "yardstick/benchmark/scenarios/networking/ping6_setup_with_odl.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-01-19T10:27:53Z",
+      "side": 1,
+      "message": "yes,thank you for your professional review, it need to debug, actually,it can not be run :), i just want to show this step. and will fix it after env available",
+      "parentUuid": "9a5c5d37_5121d6f9",
+      "revId": "e3483171795078b8720579e6b1feafb35ee3b5d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
