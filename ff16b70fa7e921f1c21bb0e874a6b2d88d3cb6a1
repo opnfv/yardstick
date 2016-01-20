@@ -16,6 +16,24 @@
       "revId": "ff16b70fa7e921f1c21bb0e874a6b2d88d3cb6a1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_1c512ed8",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc_pre_setup.bash",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 3243
+      },
+      "writtenOn": "2016-01-20T15:41:07Z",
+      "side": 1,
+      "message": "Ok, thanks for the clarification. I\u0027ll have to run pre_setup.bash and sfc_tacker.bash beforehand.",
+      "parentUuid": "9a5c5d37_fcd1ba57",
+      "revId": "ff16b70fa7e921f1c21bb0e874a6b2d88d3cb6a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
