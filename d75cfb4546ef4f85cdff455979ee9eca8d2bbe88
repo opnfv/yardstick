@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_dc8cb637",
+        "filename": "tests/sfc/sfc_TC02.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2016-01-20T17:00:05Z",
+      "side": 1,
+      "message": "Change to: contexts:",
+      "revId": "d75cfb4546ef4f85cdff455979ee9eca8d2bbe88",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
