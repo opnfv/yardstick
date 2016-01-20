@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_fcd1ba57",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc_pre_setup.bash",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1114
+      },
+      "writtenOn": "2016-01-20T15:30:25Z",
+      "side": 1,
+      "message": "Is this the the flavor and image you are using in sfc_TC02.yaml ?\n\nThere think there is a problem here as setup is called after yardstick has deployed your client and server image.\n\nThe sequence is as follows:\n\n1. Yardstick deploys context as specified in yaml \n\n2. Then it creates your scenario class. \n\n3. setup() is called \n\n4. run() is called\n\nSo setup is called too late. The solution for now is to have the image manually uploaded to glance before running the scenario.\n\nThe long term solution is maybe to update the yardstick framework and add a pre_deploy() metod to the scenarios.",
+      "revId": "ff16b70fa7e921f1c21bb0e874a6b2d88d3cb6a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
