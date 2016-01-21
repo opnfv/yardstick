@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_9fce30b3",
+        "filename": "tests/sfc/sfc_TC02.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-01-21T01:15:37Z",
+      "side": 1,
+      "message": "i think \"demo\" part should be same with \"name\" part in contexts",
+      "range": {
+        "startLine": 9,
+        "startChar": 20,
+        "endLine": 9,
+        "endChar": 24
+      },
+      "revId": "9b213c7d9c1b3682ff5761ca4f0e45f56b9176e3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
