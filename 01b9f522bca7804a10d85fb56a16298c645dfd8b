@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a5c5d37_eb2d6e47",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2016-01-21T19:01:31Z",
+      "side": 1,
+      "message": "\"sfc\"",
+      "revId": "01b9f522bca7804a10d85fb56a16298c645dfd8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_ebd1ee57",
         "filename": "yardstick/benchmark/scenarios/networking/sfc.py",
         "patchSetId": 15
