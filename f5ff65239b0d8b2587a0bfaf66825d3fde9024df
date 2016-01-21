@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_304c1370",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-21T14:02:29Z",
+      "side": 1,
+      "message": "please add installer version used",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_d0781791",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-21T14:02:29Z",
+      "side": 1,
+      "message": "please add more information on the faults, perhaps a recommendation on other scenarios (for example, would another installer impact on the time to recover the process?)",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_d09ff7b2",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-21T14:02:29Z",
+      "side": 1,
+      "message": "do you mean high availability ensures the user should not be impacted by the loss of one controller, thus ensuring the service provided by a faulty controller is taken over by the system ?",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_b0a6c30e",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-21T14:02:29Z",
+      "side": 1,
+      "message": "it would be interesting to document how many times this test was executed",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_30bad323",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-21T14:02:29Z",
+      "side": 1,
+      "message": "perhaps add information on number of controllers (could it be different for the various installers in OPNFV?)",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_10b58f30",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-21T14:02:29Z",
+      "side": 1,
+      "message": "was the selected controller randomly chosen ?",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_b07da370",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-21T14:02:29Z",
+      "side": 1,
+      "message": "did the system behave in the expected way ?",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
