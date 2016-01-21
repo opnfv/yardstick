@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_b5ffd566",
+        "filename": "tests/sfc/sfc_TC02.yaml",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2016-01-21T11:22:45Z",
+      "side": 1,
+      "message": "change to lower S: sfc",
+      "revId": "37592d5352bb0196cc27c0d7b467c6f05db161e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_95b851e6",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc_pre_setup.bash",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2016-01-21T11:22:45Z",
+      "side": 1,
+      "message": "you need to add 755 rights to this file and upload it again",
+      "revId": "37592d5352bb0196cc27c0d7b467c6f05db161e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_75cf1d80",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc_pre_setup.bash",
+        "patchSetId": 13
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2016-01-21T11:22:45Z",
+      "side": 1,
+      "message": "is this to be setup on the controller? Note that this script is run into the docker container and there is no br-int . Just eth0.",
+      "revId": "37592d5352bb0196cc27c0d7b467c6f05db161e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_f5054d7a",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc_pre_setup.bash",
+        "patchSetId": 13
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2016-01-21T11:22:45Z",
+      "side": 1,
+      "message": "Remove this, since it will be already sourced.",
+      "revId": "37592d5352bb0196cc27c0d7b467c6f05db161e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
