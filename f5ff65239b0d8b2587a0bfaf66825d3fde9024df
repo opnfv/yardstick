@@ -155,6 +155,23 @@
     },
     {
       "key": {
+        "uuid": "5a4e6583_85542222",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1334
+      },
+      "writtenOn": "2016-01-22T12:49:05Z",
+      "side": 1,
+      "message": "how do you perform an \"abnormal\" shutdown?",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_10b58f30",
         "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
         "patchSetId": 3
