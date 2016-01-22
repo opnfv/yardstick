@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a5c5d37_970cd43c",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2016-01-22T03:11:20Z",
+      "side": 1,
+      "message": "we maybe need to explain the process recover time is the duration of the test case, means the service can\u0027t automatiocally recover itself",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_304c1370",
         "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
         "patchSetId": 3
@@ -19,6 +36,40 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_5712dc57",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2016-01-22T03:11:20Z",
+      "side": 1,
+      "message": "I suggest more details should be added here so that people will know more about what the result means. I list some I can think of, but maybe some of them is difficult to confirm now.\n1, the accurancy of the test. I think this is very important for any test. Like what we had discussed previously, I think the accurancy of this test is the time for the monitor to run once and monitor the service. Maybe we can give a general discription of this time, like 1s or so?\n2, failure time, do you mean by frequency of the duration of the failure. if it is the duration, then what is the unit, second or minutes?",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_2b07061e",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2016-01-22T03:11:20Z",
+      "side": 1,
+      "message": "what does fail mean at this point?",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_d0781791",
         "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
         "patchSetId": 3
@@ -30,6 +81,23 @@
       "writtenOn": "2016-01-21T14:02:29Z",
       "side": 1,
       "message": "please add more information on the faults, perhaps a recommendation on other scenarios (for example, would another installer impact on the time to recover the process?)",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_371be874",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2016-01-22T03:11:20Z",
+      "side": 1,
+      "message": "I think more discussion can be added here. For example,\nsince the service_outage_time is 0, that means the time for the failover is less than 1s( Assume the accurancy of the test is 1s). Meanwhile, since the process_recover_time \u003d process runing time, then it means the process is not automatically recovered, which should be imporved.\nWe may also add further testing suggestions here.",
       "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -98,6 +166,23 @@
       "writtenOn": "2016-01-21T14:02:29Z",
       "side": 1,
       "message": "was the selected controller randomly chosen ?",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_1718e473",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2016-01-22T03:11:20Z",
+      "side": 1,
+      "message": "I think we should also be clear here the service_outage_time is the longest time of outage. Since there might be multiple outages happened\nMeanwhile, same as the above result, I think we should explain the accurancy of the testing. How many request we have post and so on.",
       "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
