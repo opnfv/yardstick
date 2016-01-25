@@ -262,6 +262,24 @@
     },
     {
       "key": {
+        "uuid": "5a4e6583_ae57fb25",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1334
+      },
+      "writtenOn": "2016-01-25T09:27:26Z",
+      "side": 1,
+      "message": "I would rate \u0027shutdown\u0027 as a normal shutdown.\nSwitching the power off is more \u0027abnormal\u0027, or killing processes with killall -9",
+      "parentUuid": "5a4e6583_aeb81b2b",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_10b58f30",
         "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
         "patchSetId": 3
