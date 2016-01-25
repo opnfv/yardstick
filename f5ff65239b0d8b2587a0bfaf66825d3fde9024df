@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a4e6583_cb2109b6",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-01-25T06:15:24Z",
+      "side": 1,
+      "message": "ok, thanks",
+      "parentUuid": "9a5c5d37_970cd43c",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_304c1370",
         "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2016-01-21T14:02:29Z",
       "side": 1,
       "message": "please add installer version used",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_ab2ecda3",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-01-25T06:15:24Z",
+      "side": 1,
+      "message": "ok, thanks",
+      "parentUuid": "9a5c5d37_304c1370",
       "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -121,6 +157,24 @@
     },
     {
       "key": {
+        "uuid": "5a4e6583_8b2b1194",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-01-25T06:15:24Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "9a5c5d37_d09ff7b2",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_b0a6c30e",
         "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
         "patchSetId": 3
@@ -132,6 +186,24 @@
       "writtenOn": "2016-01-21T14:02:29Z",
       "side": 1,
       "message": "it would be interesting to document how many times this test was executed",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_6b18d584",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-01-25T06:15:24Z",
+      "side": 1,
+      "message": "Good suggestion, thanks",
+      "parentUuid": "9a5c5d37_b0a6c30e",
       "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -172,6 +244,24 @@
     },
     {
       "key": {
+        "uuid": "5a4e6583_aeb81b2b",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-01-25T06:15:24Z",
+      "side": 1,
+      "message": "use the \"shutdown -h now\"",
+      "parentUuid": "5a4e6583_85542222",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_10b58f30",
         "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
         "patchSetId": 3
@@ -183,6 +273,24 @@
       "writtenOn": "2016-01-21T14:02:29Z",
       "side": 1,
       "message": "was the selected controller randomly chosen ?",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_ee6733e9",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-01-25T06:15:24Z",
+      "side": 1,
+      "message": "Currently, it is defined in yaml.",
+      "parentUuid": "9a5c5d37_10b58f30",
       "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
