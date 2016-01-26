@@ -52,7 +52,9 @@ class HeatContext(Context):
             return
 
         self.keypair_name = self.name + "-key"
-        self.secgroup_name = self.name + "-secgroup"
+        # Temporarily removing security group due to
+        # ssh problems with ODL scenarios.
+        # self.secgroup_name = self.name + "-secgroup"
 
         if "image" in attrs:
             self._image = attrs["image"]
@@ -92,7 +94,9 @@ class HeatContext(Context):
     def _add_resources_to_template(self, template):
         '''add to the template the resources represented by this context'''
         template.add_keypair(self.keypair_name)
-        template.add_security_group(self.secgroup_name)
+        # Temporarily removing security group due to
+        # ssh problems with ODL scenarios.
+        # template.add_security_group(self.secgroup_name)
 
         for network in self.networks:
             template.add_network(network.stack_name)
