@@ -30,6 +30,12 @@ influx_dispatcher_opts = [
     cfg.StrOpt('db_name',
                default='yardstick',
                help='The database name to store test results.'),
+    cfg.StrOpt('username',
+               default='root',
+               help='The user name to access database.'),
+    cfg.StrOpt('password',
+               default='root',
+               help='The user password to access database.'),
     cfg.IntOpt('timeout',
                default=5,
                help='The max time in seconds to wait for a request to '
@@ -50,6 +56,8 @@ class InfluxdbDispatcher(DispatchBase):
         self.timeout = CONF.dispatcher_influxdb.timeout
         self.target = CONF.dispatcher_influxdb.target
         self.db_name = CONF.dispatcher_influxdb.db_name
+        self.username = CONF.dispatcher_influxdb.username
+        self.password = CONF.dispatcher_influxdb.password
         self.influxdb_url = "%s/write?db=%s" % (self.target, self.db_name)
         self.raw_result = []
         self.case_name = ""
@@ -146,6 +154,7 @@ class InfluxdbDispatcher(DispatchBase):
             LOG.debug('Test result line format : %s' % line)
             res = requests.post(self.influxdb_url,
                                 data=line,
+                                auth=(self.username, self.password),
                                 timeout=self.timeout)
             if res.status_code != 204:
                 LOG.error('Test result posting finished with status code'
