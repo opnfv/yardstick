@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a4e6583_62446f74",
+        "filename": "docs/userguide/yardstick_framework/01-introduction.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-28T10:31:40Z",
+      "side": 1,
+      "message": "This is a guide for the Yardstick framework, it should state the details related to the SW that a programmer would need to know to get started developing code in Yardstick. The current formulation in this chapter does not reflect this purpose. \nIt should not contain any references to particular installer.",
+      "revId": "8f55dd0d1fc7ff8ac9356250622ebbe170f44a0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_e2573f25",
+        "filename": "docs/userguide/yardstick_framework/02-architecture.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-28T10:31:40Z",
+      "side": 1,
+      "message": "This chapter needs to either be refined or re-written. Diagram showing the interaction between runner, scenario, context, details on how this is implemented in code.",
+      "revId": "8f55dd0d1fc7ff8ac9356250622ebbe170f44a0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_a231470d",
+        "filename": "docs/userguide/yardstick_framework/04-testdesign.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-28T10:31:40Z",
+      "side": 1,
+      "message": "This isn\u0027t a guideline, one could reuse or add new functionality. This gives a strict view of Yardstick, contradicting the purpose.",
+      "revId": "8f55dd0d1fc7ff8ac9356250622ebbe170f44a0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_82364b02",
+        "filename": "docs/userguide/yardstick_framework/04-testdesign.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-28T10:31:40Z",
+      "side": 1,
+      "message": "Not patterns, architecture.",
+      "revId": "8f55dd0d1fc7ff8ac9356250622ebbe170f44a0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_623b4fec",
+        "filename": "docs/userguide/yardstick_framework/04-testdesign.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-28T10:31:40Z",
+      "side": 1,
+      "message": "Needs to details what do you mean with test coverage, code snippets on how to write it, what is \"enough\" in terms of lines, how to check it using functionality in Yardstick.",
+      "revId": "8f55dd0d1fc7ff8ac9356250622ebbe170f44a0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_42405356",
+        "filename": "docs/userguide/yardstick_framework/04-testdesign.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-28T10:31:40Z",
+      "side": 1,
+      "message": "Why not ???",
+      "revId": "8f55dd0d1fc7ff8ac9356250622ebbe170f44a0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_222557c2",
+        "filename": "docs/userguide/yardstick_framework/04-testdesign.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-28T10:31:40Z",
+      "side": 1,
+      "message": "Do you mean cleaned up ?",
+      "revId": "8f55dd0d1fc7ff8ac9356250622ebbe170f44a0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_02225bb9",
+        "filename": "docs/userguide/yardstick_framework/04-testdesign.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-28T10:31:40Z",
+      "side": 1,
+      "message": "What is a suitable fashion ?",
+      "revId": "8f55dd0d1fc7ff8ac9356250622ebbe170f44a0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_e22e1fa5",
+        "filename": "docs/userguide/yardstick_framework/04-testdesign.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-28T10:31:40Z",
+      "side": 1,
+      "message": "What about baremetal test cases ? VM is not typical, but one of the many possibilities Yardstick offers.",
+      "revId": "8f55dd0d1fc7ff8ac9356250622ebbe170f44a0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_a2182785",
+        "filename": "docs/userguide/yardstick_framework/04-testdesign.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-28T10:31:40Z",
+      "side": 1,
+      "message": "Runners should be discribed in other chapter, for example architecture.",
+      "revId": "8f55dd0d1fc7ff8ac9356250622ebbe170f44a0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_821d2b76",
+        "filename": "docs/userguide/yardstick_framework/04-testdesign.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-28T10:31:40Z",
+      "side": 1,
+      "message": "Need examples, code snippets, walk through.",
+      "revId": "8f55dd0d1fc7ff8ac9356250622ebbe170f44a0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_02093b31",
+        "filename": "docs/userguide/yardstick_framework/04-testdesign.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-28T10:31:40Z",
+      "side": 1,
+      "message": "Need to describe dispatcher, influxdb, grafana.",
+      "revId": "8f55dd0d1fc7ff8ac9356250622ebbe170f44a0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_5d20369b",
+        "filename": "docs/userguide/yardstick_framework/04-testdesign.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-01-28T10:31:40Z",
+      "side": 1,
+      "message": "Add a chapter for CI instead, expalin how to select the test cases, number of iterations, time that takes to run and how to fit this in CI pipelines.",
+      "revId": "8f55dd0d1fc7ff8ac9356250622ebbe170f44a0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
