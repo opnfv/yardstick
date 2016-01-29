@@ -104,6 +104,10 @@ modify() {
     umount $mountdir
 
     qemu-img convert -c -o compat=0.10 -O qcow2 $raw_imgfile $imgfile
+
+    if dmsetup table | grep $loopdevice; then
+       dmsetup clear $loopdevice || true
+    fi
 }
 
 # cleanup (umount) the image
@@ -112,7 +116,7 @@ cleanup() {
     mount | grep $mountdir/proc && umount $mountdir/proc
     mount | grep $mountdir && umount $mountdir
     if [ -f $raw_imgfile ]; then
-        kpartx -d $raw_imgfile || true
+        kpartx -dv $raw_imgfile || true
     fi
     rm -f $raw_imgfile
     rm -rf $mountdir
