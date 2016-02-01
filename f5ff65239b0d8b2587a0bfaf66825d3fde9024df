@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5a4e6583_a8b6bdda",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-02-01T04:08:11Z",
+      "side": 1,
+      "message": "I will add more detail in new patch. Thank you very much!",
+      "parentUuid": "9a5c5d37_5712dc57",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_2b07061e",
         "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
         "patchSetId": 3
@@ -100,6 +118,24 @@
       "writtenOn": "2016-01-22T03:11:20Z",
       "side": 1,
       "message": "what does fail mean at this point?",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_c8a9f97c",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-02-01T04:08:11Z",
+      "side": 1,
+      "message": "It means this test case is not passed",
+      "parentUuid": "9a5c5d37_2b07061e",
       "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -123,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "5a4e6583_88bb01c4",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-02-01T04:08:11Z",
+      "side": 1,
+      "message": "ok, Thanks.",
+      "parentUuid": "9a5c5d37_d0781791",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_371be874",
         "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
         "patchSetId": 3
@@ -134,6 +188,24 @@
       "writtenOn": "2016-01-22T03:11:20Z",
       "side": 1,
       "message": "I think more discussion can be added here. For example,\nsince the service_outage_time is 0, that means the time for the failover is less than 1s( Assume the accurancy of the test is 1s). Meanwhile, since the process_recover_time \u003d process runing time, then it means the process is not automatically recovered, which should be imporved.\nWe may also add further testing suggestions here.",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_68b0c5dd",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-02-01T04:08:11Z",
+      "side": 1,
+      "message": "Thanks for detail example",
+      "parentUuid": "9a5c5d37_371be874",
       "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -227,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "5a4e6583_48b509cc",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-02-01T04:08:11Z",
+      "side": 1,
+      "message": "ok, thanks",
+      "parentUuid": "9a5c5d37_30bad323",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a4e6583_85542222",
         "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
         "patchSetId": 3
@@ -274,6 +364,24 @@
       "side": 1,
       "message": "I would rate \u0027shutdown\u0027 as a normal shutdown.\nSwitching the power off is more \u0027abnormal\u0027, or killing processes with killall -9",
       "parentUuid": "5a4e6583_aeb81b2b",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_28cacd4f",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-02-01T04:08:11Z",
+      "side": 1,
+      "message": "Thanks for your suggestions. Currently, the HA test is just initial, there are many attacker and monitor tools needing to develop, anyone is welcome to develop these tools or give some suggestions, or any other reviews. Thanks again for your reviews",
+      "parentUuid": "5a4e6583_ae57fb25",
       "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -332,6 +440,24 @@
     },
     {
       "key": {
+        "uuid": "5a4e6583_08c71147",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-02-01T04:08:11Z",
+      "side": 1,
+      "message": "I will add more detail in new patch, Thanks",
+      "parentUuid": "9a5c5d37_1718e473",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_b07da370",
         "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
         "patchSetId": 3
@@ -343,6 +469,24 @@
       "writtenOn": "2016-01-21T14:02:29Z",
       "side": 1,
       "message": "did the system behave in the expected way ?",
+      "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4e6583_e8c39536",
+        "filename": "docs/testResult/opnfv_yardstick_test_result_tc019_025.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 719
+      },
+      "writtenOn": "2016-02-01T04:08:11Z",
+      "side": 1,
+      "message": "I will add more information, thanks",
+      "parentUuid": "9a5c5d37_b07da370",
       "revId": "f5ff65239b0d8b2587a0bfaf66825d3fde9024df",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
