@@ -42,7 +42,8 @@ class HeatObject(object):
                 auth_url=os.environ.get('OS_AUTH_URL'),
                 username=os.environ.get('OS_USERNAME'),
                 password=os.environ.get('OS_PASSWORD'),
-                tenant_name=os.environ.get('OS_TENANT_NAME'))
+                tenant_name=os.environ.get('OS_TENANT_NAME'),
+		cacert = os.environ.get('OS_CACERT'))
 
         return self._keystone_client
 
