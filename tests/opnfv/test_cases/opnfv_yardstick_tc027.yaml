@@ -23,7 +23,9 @@ scenarios:
   sla:
     max_rtt: 30
     action: monitor
-
+  precondition:
+    installer_type: compass
+    deploy_scenarios: os-nosdn
 
 context:
   type: Node

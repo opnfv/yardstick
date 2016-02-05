@@ -7,6 +7,10 @@
 
 schema: "yardstick:task:0.1"
 
+precondition:
+  installer_type: compass
+  deploy_scenarios: os-nosdn
+
 scenarios:
 {% for num_ports in [1, 10, 50, 100, 500, 1000] %}
 -

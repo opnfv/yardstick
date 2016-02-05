@@ -56,3 +56,17 @@ class TaskCommandsTestCase(unittest.TestCase):
         mock_base_runner.Runner.get.return_value = runner
         t._run([scenario], False, "yardstick.out")
         self.assertTrue(runner.run.called)
+
+    @mock.patch('yardstick.cmd.commands.task.os')
+    def test_check_precondition(self, mock_os):
+        cfg = \
+            {'precondition': 
+                 {'installer_type': 'compass',
+                  'deploy_scenarios': 'os-nosdn'
+                 }
+            }
+
+        t = task.TaskParser('/opt')
+        mock_os.environ.get.side_effect = ['compass', 'os-nosdn']
+        result = t._check_precondition(cfg)
+        self.assertTrue(result)    
