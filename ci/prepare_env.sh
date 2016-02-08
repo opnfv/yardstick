@@ -13,7 +13,7 @@
 : ${INSTALLER_TYPE:='fuel'}
 : ${INSTALLER_IP:='10.20.0.2'}
 
-: ${POD_NAME:='opnfv-jump-2'}
+: ${NODE_NAME:='opnfv-jump-2'}
 : ${EXTERNAL_NETWORK:='net04_ext'}
 
 # Extract network name from EXTERNAL_NETWORK
@@ -32,4 +32,4 @@ if [ ! -f $OPENRC ]; then
 fi
 source $OPENRC
 
-export EXTERNAL_NETWORK INSTALLER_TYPE POD_NAME
+export EXTERNAL_NETWORK INSTALLER_TYPE NODE_NAME
