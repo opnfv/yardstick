@@ -65,7 +65,7 @@ class InfluxdbDispatcher(DispatchBase):
         self.task_id = -1
         self.runners_info = {}
         self.static_tags = {
-            "pod_name": os.environ.get('POD_NAME', 'unknown'),
+            "pod_name": os.environ.get('NODE_NAME', 'unknown'),
             "installer": os.environ.get('INSTALLER_TYPE', 'unknown'),
             "version": os.environ.get('YARDSTICK_VERSION', 'unknown')
         }
