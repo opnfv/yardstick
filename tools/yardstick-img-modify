@@ -57,11 +57,11 @@ download() {
     cd $workspace
     rm -f MD5SUMS # always download the checksum file to a detect stale image
     wget $md5sums_url
-    test -e $filename || wget -nc $image_url
+    test -e $filename || wget -nc --progress=dot:giga $image_url
     grep $filename MD5SUMS | md5sum -c ||
     if [ $? -ne 0 ]; then
         rm $filename
-        wget -nc $image_url
+        wget -nc --progress=dot:giga $image_url
         grep $filename MD5SUMS | md5sum -c
     fi
     qemu-img convert $filename $raw_imgfile
@@ -78,7 +78,10 @@ setup() {
 
     loopdevice=$(kpartx -l $raw_imgfile | head -1 | cut -f1 -d ' ')
 
-    kpartx -a $raw_imgfile
+    kpartx -av $raw_imgfile
+
+    # for trouble shooting
+    sleep 2; dmsetup ls
 
     mount /dev/mapper/$loopdevice $mountdir
     mount -t proc none $mountdir/proc
