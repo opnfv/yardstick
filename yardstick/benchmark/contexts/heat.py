@@ -7,7 +7,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-import os
 import sys
 import pkg_resources
 
@@ -55,15 +54,6 @@ class HeatContext(Context):
         self.keypair_name = self.name + "-key"
         self.secgroup_name = self.name + "-secgroup"
 
-        # Temporarily removing security group due to
-        # ssh problems with ODL scenarios.
-        scenario = os.environ.get('DEPLOY_SCENARIO', None)
-        installer = os.environ.get('INSTALLER_TYPE', None)
-        if installer == 'joid' or installer == 'apex':
-            if scenario and scenario.startswith('os-odl'):
-                print "INFO: ODL scenario - removing security group."
-                self.secgroup_name = None
-
         if "image" in attrs:
             self._image = attrs["image"]
 
@@ -102,8 +92,7 @@ class HeatContext(Context):
     def _add_resources_to_template(self, template):
         '''add to the template the resources represented by this context'''
         template.add_keypair(self.keypair_name)
-        if self.secgroup_name:
-            template.add_security_group(self.secgroup_name)
+        template.add_security_group(self.secgroup_name)
 
         for network in self.networks:
             template.add_network(network.stack_name)
