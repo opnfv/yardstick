@@ -28,6 +28,7 @@ setup(
                       "lxml",
                       "PyYAML>=3.10",
                       "pbr<2.0,>=1.3",
+                      "python-openstackclient<=2.0.0",
                       "python-glanceclient>=0.12.0",
                       "python-heatclient>=0.2.12",
                       "python-keystoneclient>=0.11.1",
