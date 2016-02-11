@@ -48,3 +48,7 @@ Standards
 * ETSI NFV: http://www.etsi.org/technologies-clusters/technologies/nfv
 * ETSI GS-NFV TST 001: https://docbox.etsi.org/ISG/NFV/Open/Drafts/TST001_-_Pre-deployment_Validation/
 * RFC2544: https://www.ietf.org/rfc/rfc2544.txt
+
+Tools
+=====
+* https://docs.influxdata.com/influxdb/v0.9/write_protocols/line.html
