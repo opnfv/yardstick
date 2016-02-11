@@ -13,11 +13,14 @@ Glossary
    API
      Application Programming Interface
 
-   DPI
-     Deep Packet Inspection
+   BM
+     Bare Metal
 
    DPDK
      Data Plane Development Kit
+
+   DPI
+     Deep Packet Inspection
 
    DSCP
      Differentiated Services Code Point
@@ -28,6 +31,9 @@ Glossary
    IOPS
      Input/Output Operations Per Second
 
+   NFVI
+     Network Function Virtualization Infrastructure
+
    NIC
      Network Interface Controller
 
@@ -36,6 +42,18 @@ Glossary
 
    QoS
      Quality of Service
+
+   SLA
+     Service Level Agreement
+
+   SR-IOV
+     Single Root IO Virtualization
+
+   SUT
+     System Under Test
+
+   ToS
+     Type of Service
 
    VLAN
      Virtual LAN
@@ -48,18 +66,6 @@ Glossary
 
    VNFC
      Virtual Network Function Component
-
-   NFVI
-     Network Function Virtualization Infrastructure
-
-   SR-IOV
-     Single Root IO Virtualization
-
-   SUT
-     System Under Test
-
-   ToS
-     Type of Service
 
    VTC
      Virtual Traffic Classifier
