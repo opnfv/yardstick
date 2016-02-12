@@ -81,7 +81,9 @@ setup() {
     kpartx -av $raw_imgfile
 
     # for trouble shooting
-    sleep 2; dmsetup ls
+    sleep 2
+    dmsetup ls
+    fdisk -l /dev/${loopdevice:0:5} || true
 
     mount /dev/mapper/$loopdevice $mountdir
     mount -t proc none $mountdir/proc
@@ -135,6 +137,8 @@ error_trap()
     if [ -z "$exitcode" ]; then
         exitcode=$rc
     fi
+
+    dmesg -T | tail -50
 
     cleanup
 

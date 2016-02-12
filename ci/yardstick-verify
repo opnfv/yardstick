@@ -123,7 +123,11 @@ build_yardstick_image()
     echo
     echo "========== Build yardstick cloud image =========="
 
-    sudo $(which yardstick-img-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh
+    local cmd="sudo $(which yardstick-img-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh"
+
+    # Build the image. Retry once if the build fails.
+    $cmd || $cmd
+
     if [ ! -f $QCOW_IMAGE ]; then
         echo "Failed building QCOW image"
         exit 1
