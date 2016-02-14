@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a4e6583_d7650346",
+        "filename": "docs/userguide/userguide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-02-14T06:45:12Z",
+      "side": 1,
+      "message": "is it ok? i\u0027m not a native speaker, so i\u0027m not sure do we need a space? just a remind :)",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "e31407836d238fb95f1699af77f816433b568ec0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
