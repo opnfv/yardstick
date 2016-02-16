@@ -112,10 +112,11 @@ install_yardstick()
     echo
     echo "========== Installing yardstick =========="
 
-    if ! sudo python setup.py install; then
-        echo 'Yardstick installation failed!'
-        exit 1
-    fi
+    # uninstall previous version
+    pip uninstall -y yardstick || true
+
+    # Install yardstick
+    pip install .
 }
 
 build_yardstick_image()
@@ -316,21 +317,24 @@ main()
         echo "     $suite"
     done
 
-    # install yardstick
-    install_yardstick
-
     # check if some necessary variables is set
     if [ -z "$OS_AUTH_URL" ]; then
         echo "OS_AUTH_URL is unset or empty"
         exit 1
     fi
 
-    # check if the api is up
-    echo "Checking if OS API is working..."
-    if ! glance image-list > /dev/null; then
-        echo "OS API is down"
-        exit 1
-    fi
+    # check OpenStack services
+    echo "Checking OpenStack services:"
+    for cmd in "glance image-list" "nova list" "heat stack-list"; do
+        echo "  checking ${cmd/%\ */} ..."
+        if ! $cmd >/dev/null; then
+            echo "error: command \"$cmd\" failed"
+            exit 1
+        fi
+    done
+
+    # install yardstick
+    install_yardstick
 
     cleanup
 
