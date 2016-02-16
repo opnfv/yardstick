@@ -54,10 +54,12 @@ while getopts "r:i:h" OPTION; do
         r)
             DISPATCHER_TYPE=http
             DISPATCHER_HTTP_TARGET=http://${OPTARG}
+            DISPATCHER_FILE_NAME=
             ;;
         i)
             DISPATCHER_TYPE=influxdb
             DISPATCHER_INFLUXDB_TARGET=http://${OPTARG}
+            DISPATCHER_FILE_NAME=
             ;;
         *)
             echo "${OPTION} is not a valid argument"
@@ -112,10 +114,11 @@ install_yardstick()
     echo
     echo "========== Installing yardstick =========="
 
-    if ! sudo python setup.py install; then
-        echo 'Yardstick installation failed!'
-        exit 1
-    fi
+    # uninstall previous version
+    pip uninstall -y yardstick || true
+
+    # Install yardstick
+    pip install .
 }
 
 build_yardstick_image()
@@ -309,15 +312,13 @@ main()
     echo
     echo "========== Running Yardstick CI with following parameters =========="
     echo "Script options: ${SCRIPT} $SCRIPT_ARGS"
-    echo "Result API: ${DISPATCHER_HTTP_TARGET:-$DISPATCHER_FILE_NAME}"
+    echo "Dispatcher: ${DISPATCHER_TYPE} ${DISPATCHER_FILE_NAME}"
     echo "YARDSTICK_VERSION: ${YARDSTICK_VERSION}"
     echo "Number of test suites: ${#SUITE_FILES[@]}"
     for suite in ${SUITE_FILES[*]}; do
         echo "     $suite"
     done
-
-    # install yardstick
-    install_yardstick
+    echo
 
     # check if some necessary variables is set
     if [ -z "$OS_AUTH_URL" ]; then
@@ -325,12 +326,27 @@ main()
         exit 1
     fi
 
-    # check if the api is up
-    echo "Checking if OS API is working..."
-    if ! glance image-list > /dev/null; then
-        echo "OS API is down"
-        exit 1
-    fi
+    echo "OS_AUTH_URL is $OS_AUTH_URL"
+    echo
+
+    # check OpenStack services
+    echo "Checking OpenStack services:"
+    for cmd in "glance image-list" "nova list" "heat stack-list"; do
+        echo "  checking ${cmd/%\ */} ..."
+        if ! $cmd >/dev/null; then
+            echo "error: command \"$cmd\" failed"
+            exit 1
+        fi
+    done
+
+    echo
+    echo "Checking for External network:"
+    for net in $(neutron net-list --router:external -c name -f value); do
+        echo "  external network: $net"
+    done
+
+    # install yardstick
+    install_yardstick
 
     cleanup
 
