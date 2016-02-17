@@ -145,8 +145,10 @@ class Server(Object):
         self.ports = {}
 
         self.floating_ip = None
+        self.floating_ip_assoc = None
         if "floating_ip" in attrs:
             self.floating_ip = {}
+            self.floating_ip_assoc = {}
 
         if self.floating_ip is not None:
             ext_net = Network.find_external_network()
@@ -199,6 +201,12 @@ class Server(Object):
                                              port_name,
                                              network.router.stack_if_name,
                                              self.secgroup_name)
+                self.floating_ip_assoc["stack_name"] = \
+                    server_name + "-fip-assoc"
+                template.add_floating_ip_association(
+                    self.floating_ip_assoc["stack_name"],
+                    self.floating_ip["stack_name"],
+                    server_name)
 
         template.add_server(server_name, self.image, self.flavor,
                             ports=port_name_list,

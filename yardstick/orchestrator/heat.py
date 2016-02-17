@@ -275,18 +275,17 @@ class HeatTemplate(HeatObject):
 
     def add_floating_ip(self, name, network_name, port_name, router_if_name,
                         secgroup_name=None):
-        '''add to the template a Neutron FloatingIP resource
+        '''add to the template a Nova FloatingIP resource
         see: https://bugs.launchpad.net/heat/+bug/1299259
         '''
-        log.debug("adding Neutron::FloatingIP '%s', network '%s', port '%s', "
+        log.debug("adding Nova::FloatingIP '%s', network '%s', port '%s', "
                   "rif '%s'", name, network_name, port_name, router_if_name)
 
         self.resources[name] = {
-            'type': 'OS::Neutron::FloatingIP',
+            'type': 'OS::Nova::FloatingIP',
             'depends_on': [port_name, router_if_name],
             'properties': {
-                'floating_network': network_name,
-                'port_id': {'get_resource': port_name}
+                'pool': network_name
             }
         }
 
@@ -295,7 +294,22 @@ class HeatTemplate(HeatObject):
 
         self._template['outputs'][name] = {
             'description': 'floating ip %s' % name,
-            'value': {'get_attr': [name, 'floating_ip_address']}
+            'value': {'get_attr': [name, 'ip']}
+        }
+
+    def add_floating_ip_association(self, name, floating_ip_name, server_name):
+        '''add to the template a Nova FloatingIP Association resource
+        '''
+        log.debug("adding Nova::FloatingIPAssociation '%s', server '%s', "
+                  "floating_ip '%s'", name, server_name, floating_ip_name)
+
+        self.resources[name] = {
+            'type': 'OS::Nova::FloatingIPAssociation',
+            'depends_on': [server_name],
+            'properties': {
+                'floating_ip': {'get_resource': floating_ip_name},
+                'server_id': {'get_resource': server_name}
+            }
         }
 
     def add_keypair(self, name):
@@ -339,9 +353,13 @@ class HeatTemplate(HeatObject):
                 'description': "Group allowing icmp and upd/tcp on all ports",
                 'rules': [
                     {'remote_ip_prefix': '0.0.0.0/0',
-                     'protocol': 'tcp'},
+                     'protocol': 'tcp',
+                     'port_range_min': '1',
+                     'port_range_max': '65535'},
                     {'remote_ip_prefix': '0.0.0.0/0',
-                     'protocol': 'udp'},
+                     'protocol': 'udp',
+                     'port_range_min': '1',
+                     'port_range_max': '65535'},
                     {'remote_ip_prefix': '0.0.0.0/0',
                      'protocol': 'icmp'}
                 ]
