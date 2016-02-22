@@ -1,3 +1,12 @@
+##############################################################################
+# Copyright (c) 2015 Ericsson AB and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
 FROM ubuntu:14.04
 MAINTAINER Hans Feldt <hans.feldt@ericsson.com>
 
@@ -37,4 +46,3 @@ USER yardstick
 CMD bash --login
 ENV HOME /home/yardstick
 WORKDIR /home/yardstick
-
