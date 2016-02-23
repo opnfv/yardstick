@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a486d77_d7f52ccc",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 976
+      },
+      "writtenOn": "2016-02-23T14:49:37Z",
+      "side": 1,
+      "message": "Will fix",
+      "parentUuid": "1a486d77_376ec0ca",
+      "range": {
+        "startLine": 27,
+        "startChar": 50,
+        "endLine": 27,
+        "endChar": 61
+      },
+      "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a486d77_f73948d9",
         "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2016-02-23T13:55:47Z",
       "side": 1,
       "message": "Not sure what you mean with consistent. From what I see in Grafana (perhaps I am looking at the wrong graph), the average values of the measurements are not consistent. I would suggest that a longer period of time is required to allow for conclusions.",
+      "range": {
+        "startLine": 33,
+        "startChar": 5,
+        "endLine": 33,
+        "endChar": 60
+      },
+      "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_b702b0b2",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 976
+      },
+      "writtenOn": "2016-02-23T14:49:37Z",
+      "side": 1,
+      "message": "I have tried not to make any conclusions at all, as we agreed only to report on actual results. Currently not able to logon to Grafana, but I think the February 16 test run was a bit different compared to others. Will take another look once I can log in again if there were more inconsistencies.\n\nTotally agree there is more time needed to draw conclusions.",
+      "parentUuid": "1a486d77_f73948d9",
       "range": {
         "startLine": 33,
         "startChar": 5,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "1a486d77_97ffb4aa",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 976
+      },
+      "writtenOn": "2016-02-23T14:49:37Z",
+      "side": 1,
+      "message": "Yes. I had that remark in my commit too.",
+      "parentUuid": "1a486d77_9730d4e9",
+      "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a486d77_9747b44b",
         "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
         "patchSetId": 3
@@ -76,6 +142,30 @@
       "writtenOn": "2016-02-23T13:55:47Z",
       "side": 1,
       "message": "same comment as TC014",
+      "range": {
+        "startLine": 56,
+        "startChar": 42,
+        "endLine": 56,
+        "endChar": 58
+      },
+      "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_d7e3ec03",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 976
+      },
+      "writtenOn": "2016-02-23T14:49:37Z",
+      "side": 1,
+      "message": "See TC014.",
+      "parentUuid": "1a486d77_9747b44b",
       "range": {
         "startLine": 56,
         "startChar": 42,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "1a486d77_772c384b",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 976
+      },
+      "writtenOn": "2016-02-23T14:49:37Z",
+      "side": 1,
+      "message": "I will remove or chose another phrasing.",
+      "parentUuid": "1a486d77_f7402837",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 20
+      },
+      "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a486d77_77ff9802",
         "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
         "patchSetId": 3
@@ -128,6 +242,24 @@
     },
     {
       "key": {
+        "uuid": "1a486d77_f71f0808",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 976
+      },
+      "writtenOn": "2016-02-23T14:49:37Z",
+      "side": 1,
+      "message": "Yes, will fix. ODL was totally wrong, agree.",
+      "parentUuid": "1a486d77_77ff9802",
+      "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a486d77_b733d0f5",
         "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
         "patchSetId": 3
@@ -139,6 +271,24 @@
       "writtenOn": "2016-02-23T13:55:47Z",
       "side": 1,
       "message": "Please rephrase: \"quite a dramatic\" and \"really set bad results\" are subjective observations.",
+      "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_77d31839",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 976
+      },
+      "writtenOn": "2016-02-23T14:49:37Z",
+      "side": 1,
+      "message": "Will use another phrasing, but then I sense you are OK with the content as such?",
+      "parentUuid": "1a486d77_b733d0f5",
       "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
