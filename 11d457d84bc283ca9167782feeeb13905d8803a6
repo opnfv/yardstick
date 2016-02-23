@@ -22,6 +22,30 @@
       "revId": "11d457d84bc283ca9167782feeeb13905d8803a6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_06403c55",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 976
+      },
+      "writtenOn": "2016-02-23T07:21:37Z",
+      "side": 1,
+      "message": "Absolutely right, one zero too many. Will fix. Thanks!",
+      "parentUuid": "1a486d77_46363405",
+      "range": {
+        "startLine": 57,
+        "startChar": 33,
+        "endLine": 57,
+        "endChar": 38
+      },
+      "revId": "11d457d84bc283ca9167782feeeb13905d8803a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
