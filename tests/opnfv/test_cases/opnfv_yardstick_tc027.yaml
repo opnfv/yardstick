@@ -8,9 +8,10 @@ scenarios:
 -
   type: Ping6
   options:
-    packetsize: 200
-    host: host2,host3,host4,host5
+    packetsize: 56
+    host: host1,host2,host3,host4,host5
   nodes:
+    host1: node1.IPV6
     host2: node2.IPV6
     host3: node3.IPV6
     host4: node4.IPV6
