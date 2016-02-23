@@ -132,7 +132,10 @@ For more info see http://software.es.net/iperf
             # error cause in json dict on stdout
             raise RuntimeError(stdout)
 
-        result.update(json.loads(stdout))
+        # Note: convert all ints to floats in order to avoid
+        # schema conflicts in influxdb. We probably should add
+        # a format func in the future.
+        result.update(json.loads(stdout, parse_int=float))
 
         if "sla" in self.scenario_cfg:
             sla_iperf = self.scenario_cfg["sla"]
