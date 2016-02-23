@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a486d77_376ec0ca",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T13:55:47Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 27,
+        "startChar": 50,
+        "endLine": 27,
+        "endChar": 61
+      },
+      "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_f73948d9",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T13:55:47Z",
+      "side": 1,
+      "message": "Not sure what you mean with consistent. From what I see in Grafana (perhaps I am looking at the wrong graph), the average values of the measurements are not consistent. I would suggest that a longer period of time is required to allow for conclusions.",
+      "range": {
+        "startLine": 33,
+        "startChar": 5,
+        "endLine": 33,
+        "endChar": 60
+      },
+      "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_9730d4e9",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T13:55:47Z",
+      "side": 1,
+      "message": "A patch has been pushed for fixing TC011 results. Wait one run today and add info that the measurements should be executed for a longer period of time to allow for conclusions.",
+      "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_9747b44b",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T13:55:47Z",
+      "side": 1,
+      "message": "same comment as TC014",
+      "range": {
+        "startLine": 56,
+        "startChar": 42,
+        "endLine": 56,
+        "endChar": 58
+      },
+      "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_f7402837",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T13:55:47Z",
+      "side": 1,
+      "message": "Suggest to avoid using \"fairly\", use a percent value or refer to the graphs.",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 20
+      },
+      "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_77ff9802",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T13:55:47Z",
+      "side": 1,
+      "message": "Remove the brackets, replace ODL with SDN: \"No SDN controller installed.\"",
+      "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_b733d0f5",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T13:55:47Z",
+      "side": 1,
+      "message": "Please rephrase: \"quite a dramatic\" and \"really set bad results\" are subjective observations.",
+      "revId": "f16ee792fedc74e6e5a96341ad760d8b6960648f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
