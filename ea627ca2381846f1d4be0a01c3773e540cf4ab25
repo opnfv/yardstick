@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a486d77_29a54904",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T08:57:47Z",
+      "side": 1,
+      "message": "Please add the period of time that led to the 1ms figure, for example, the average round trip time between xx-feb and xx+4-feb is 1ms, for PODx. Please add info that SLA value is used as reference, it has not been defined by OPNFV.",
+      "revId": "ea627ca2381846f1d4be0a01c3773e540cf4ab25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_09aa8dd4",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T08:57:47Z",
+      "side": 1,
+      "message": "Same comments as TC002",
+      "revId": "ea627ca2381846f1d4be0a01c3773e540cf4ab25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_e9ae11e7",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T08:57:47Z",
+      "side": 1,
+      "message": "Same comments as TC002.",
+      "revId": "ea627ca2381846f1d4be0a01c3773e540cf4ab25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_a9b8192b",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T08:57:47Z",
+      "side": 1,
+      "message": "Do not merge without this TC. If not available, add a note that is not available, and a reason.",
+      "revId": "ea627ca2381846f1d4be0a01c3773e540cf4ab25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_89b55d33",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T08:57:47Z",
+      "side": 1,
+      "message": "Same comments as TC002.",
+      "revId": "ea627ca2381846f1d4be0a01c3773e540cf4ab25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_69822154",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T08:57:47Z",
+      "side": 1,
+      "message": "Same comments as TC002, add nfo that SLA has not yet been defined by OPNFV.",
+      "revId": "ea627ca2381846f1d4be0a01c3773e540cf4ab25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_49876562",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T08:57:47Z",
+      "side": 1,
+      "message": "Same comments as TC002.",
+      "revId": "ea627ca2381846f1d4be0a01c3773e540cf4ab25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_e995f188",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T08:57:47Z",
+      "side": 1,
+      "message": "Replace \"the vanilla (non-OPNFV) OVS variant\" with \"the vanilla OVS\". Add info on openstack version, fuel version, OVS version.",
+      "revId": "ea627ca2381846f1d4be0a01c3773e540cf4ab25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_09816d4a",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T08:57:47Z",
+      "side": 1,
+      "message": "Pass, tests were successfully executed and metrics collects. No SLA was verified, to be decided in next releases of OPNFV.",
+      "revId": "ea627ca2381846f1d4be0a01c3773e540cf4ab25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_c992359f",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-23T08:57:47Z",
+      "side": 1,
+      "message": "Add a conclusion, what\u0027s the general behavior in this scenario ?\nAny recommendations ?",
+      "revId": "ea627ca2381846f1d4be0a01c3773e540cf4ab25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
