@@ -14,25 +14,84 @@ Test Results for compass-os-onos-nofeature-ha
 Details
 =======
 
-.. after this doc is filled, remove all comments and include the scenario in
-.. results.rst by removing the comment on the file name.
+.. _Dashboard: http://130.211.154.108/grafana/dashboard/db/yardstick-main
+.. _Sclara: https://wiki.opnfv.org/pharos_rls_b_labs
 
 
-Overview of test results
+verview of test results
 ------------------------
 
-.. general on metrics collected, number of iterations
+See Dashboard_ for viewing test result metrics for each respective test case.
+
+All of the test case results below are based on scenario test runs on the
+Huawei Sclara_.
+
+TC002
+-----
+
+See Dashboard_ for results.
+SLA set to 10 ms, only used as a reference; no value has yet been defined by
+OPNFV.
+
+TC005
+-----
+
+See Dashboard_ for results.
+SLA set to 400KB/s, only used as a reference; no value has yet been defined by
+OPNFV.
+
+TC010
+-----
+
+See Dashboard_ for results.
+SLA set to 30ns, only used as a reference; no value has yet been defined by
+OPNFV.
+
+TC011
+-----
+
+See Dashboard_ for results.
+
+
+TC012
+-----
+
+See Dashboard_ for results.
+SLA set to 15 GB/s, only used as a reference; no value has yet been defined by
+OPNFV.
+
+
+TC014
+-----
+
+See Dashboard_ for results.
+No SLA set.
+
+
+TC037
+-----
+
+See Dashboard_ for results.
+
 
 Detailed test results
 ---------------------
 
-.. info on lab, installer, scenario
+The scenario was run on Huawei Sclara_ POD with:
+Compass
+ONOS
 
 Rationale for decisions
 -----------------------
-.. result analysis, pass/fail
+
+Pass
+
+Tests were successfully executed and metrics collected.
+No SLA was verified. To be decided on in next release of OPNFV.
+
 
 Conclusions and recommendations
 -------------------------------
 
-.. did the expected behavior occured?
+Execute tests over a longer period of time, with time reference to versions of
+components, for allowing better understanding of the behavior of the system.
