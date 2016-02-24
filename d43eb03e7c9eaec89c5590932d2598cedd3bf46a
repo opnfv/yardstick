@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a486d77_7818a584",
+        "filename": "docs/release/release-notes.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-24T15:53:56Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "1a486d77_98eec1b3",
+      "revId": "d43eb03e7c9eaec89c5590932d2598cedd3bf46a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a486d77_d8f43989",
         "filename": "docs/release/release-notes.rst",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1a486d77_581de972",
+        "filename": "docs/release/release-notes.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-24T15:53:56Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "1a486d77_d8f43989",
+      "revId": "d43eb03e7c9eaec89c5590932d2598cedd3bf46a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a486d77_b8f17d97",
         "filename": "docs/release/release-notes.rst",
         "patchSetId": 4
@@ -47,6 +83,24 @@
       "writtenOn": "2016-02-24T14:32:10Z",
       "side": 1,
       "message": "Remove the line influxdb_line_protocol.py as it is part of the influxdb dispatcher above.",
+      "revId": "d43eb03e7c9eaec89c5590932d2598cedd3bf46a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_38122d63",
+        "filename": "docs/release/release-notes.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-02-24T15:53:56Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "1a486d77_b8f17d97",
       "revId": "d43eb03e7c9eaec89c5590932d2598cedd3bf46a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
