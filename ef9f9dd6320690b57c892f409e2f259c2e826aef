@@ -22,6 +22,30 @@
       "revId": "ef9f9dd6320690b57c892f409e2f259c2e826aef",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_9de1139d",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 976
+      },
+      "writtenOn": "2016-02-24T12:13:07Z",
+      "side": 1,
+      "message": "I\u0027ll fix. Hadn\u0027t realized English languages tend to use \".\" as separator in numbers/values while German languages use \",\" instead.",
+      "parentUuid": "1a486d77_7d74179c",
+      "range": {
+        "startLine": 35,
+        "startChar": 53,
+        "endLine": 35,
+        "endChar": 57
+      },
+      "revId": "ef9f9dd6320690b57c892f409e2f259c2e826aef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
