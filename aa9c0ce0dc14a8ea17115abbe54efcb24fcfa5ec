@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a486d77_852bf9ea",
+        "filename": "docs/userguide/opnfv_yardstick_tc027.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-02-25T08:29:17Z",
+      "side": 1,
+      "message": "thank you for kindly remind:)",
+      "parentUuid": "1a486d77_852c194c",
+      "revId": "aa9c0ce0dc14a8ea17115abbe54efcb24fcfa5ec",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a486d77_252b2532",
         "filename": "docs/userguide/opnfv_yardstick_tc027.rst",
         "patchSetId": 1
