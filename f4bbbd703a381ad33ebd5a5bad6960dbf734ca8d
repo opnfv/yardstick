@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a486d77_a28f0bcc",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-02-25T02:51:06Z",
+      "side": 1,
+      "message": "i asked qiliang about fio, he said read bw\u0027s unit should be KB/s, so i think this should be MB/s.",
+      "range": {
+        "startLine": 49,
+        "startChar": 26,
+        "endLine": 49,
+        "endChar": 29
+      },
+      "revId": "f4bbbd703a381ad33ebd5a5bad6960dbf734ca8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_82bc0f6e",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-02-25T02:51:06Z",
+      "side": 1,
+      "message": "minimum value is 2K, and unit is KB/s, so i think it is 2MB/s",
+      "range": {
+        "startLine": 50,
+        "startChar": 7,
+        "endLine": 50,
+        "endChar": 11
+      },
+      "revId": "f4bbbd703a381ad33ebd5a5bad6960dbf734ca8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_8279affe",
+        "filename": "docs/results/fuel-os-nosdn-nofeature-ha.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-02-25T02:51:06Z",
+      "side": 1,
+      "message": "minimal?",
+      "range": {
+        "startLine": 74,
+        "startChar": 50,
+        "endLine": 74,
+        "endChar": 57
+      },
+      "revId": "f4bbbd703a381ad33ebd5a5bad6960dbf734ca8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
