@@ -31,8 +31,16 @@ Yardstick Test Case Description TC027
 |configuration | file: opnfv_yardstick_tc027.yaml                             |
 |              |                                                              |
 |              | Packet size 56 bytes.                                        |
-|              | SLA RTT is set to maximum 10 ms.                             |
-|              |                                                              |
+|              | SLA RTT is set to maximum 30 ms.                             |
+|              | ipv6 test case can be configured as three independent modules|
+|              | (setup, run, teardown). if you only want to setup ipv6       |
+|              | testing environment, do some tests as you want, "run_step"   |
+|              | of task yaml file should be configured as "setup". if you    |
+|              | want to setup and run ping6 testing automatically, "run_step"|
+|              | should be configured as "setup, run". and if you have had a  |
+|              | environment which has been setup, you only wan to verify the |
+|              | connectivity of ipv6 network, "run_step" should be "run". Of |
+|              | course, default is that three modules run sequentially.      |
 +--------------+--------------------------------------------------------------+
 |test tool     | ping6                                                        |
 |              |                                                              |
@@ -46,7 +54,7 @@ Yardstick Test Case Description TC027
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |applicability | Test case can be configured with different run step          |
-|              | you can run setup, run benchmakr, teardown independently     |
+|              | you can run setup, run benchmark, teardown independently     |
 |              | SLA is optional. The SLA in this test case serves as an      |
 |              | example. Considerably lower RTT is expected.                 |
 |              |                                                              |
@@ -54,17 +62,27 @@ Yardstick Test Case Description TC027
 |pre-test      | The test case image needs to be installed into Glance        |
 |conditions    | with ping6 included in it.                                   |
 |              |                                                              |
-|              | No POD specific requirements have been identified.           |
-|              |                                                              |
+|              | For Brahmaputra, a compass_os_nosdn_ha deploy scenario is    |
+|              | need. more installer and more sdn deploy scenario will be     |
+|              | supported soon                                               |
 +--------------+--------------------------------------------------------------+
 |test sequence | description and expected result                              |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|step 1        | The hosts are installed, as server and client. Ping is       |
-|              | invoked and logs are produced and stored.                    |
-|              |                                                              |
-|              | Result: Logs are stored.                                     |
-|              |                                                              |
+|step 1        | To setup IPV6 testing environment:                           |
+|              | 1. disable security group                                    |
+|              | 2. create (ipv6, ipv4) router, network and subnet            |
+|              | 3. create VRouter, VM1, VM2                                  |
++--------------+--------------------------------------------------------------+
+|step 2        | To run ping6 to verify IPV6 connectivity :                   |
+|              | 1. ssh to VM1                                                |
+|              | 2. Ping6 to ipv6 router from VM1                             |
+|              | 3. Get the result(RTT) and logs are stored                   |
++--------------+--------------------------------------------------------------+
+|step 3        | To teardown IPV6 testing environment                         |
+|              | 1. delete VRouter, VM1, VM2                                  |
+|              | 2. delete (ipv6, ipv4) router, network and subnet            |
+|              | 3. enable security group                                     |
 +--------------+--------------------------------------------------------------+
 |test verdict  | Test should not PASS if any RTT is above the optional SLA    |
 |              | value, or if there is a test case execution problem.         |
