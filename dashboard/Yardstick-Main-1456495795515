@@ -1,0 +1,475 @@
+{
+  "id": 3,
+  "title": "Yardstick-Main",
+  "originalTitle": "Yardstick-Main",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "",
+      "panels": [
+        {
+          "content": "<div class=\"text-center\" style=\"padding: 10px 0 5px 0\">\n<style>\nh1 {\n\ttext-shadow: -1px -1px 1px #fff, 1px 1px 1px #31A7D3;\n\tcolor: #31A7D3;\n\topacity: 0.8;\n\tfont: 80px '31A7D3';\n}\n</style>\n<body>\n\n<h1>Yardstick Dashboard</h1>\n</body>\n<marquee behavior=\"scroll\" bgcolor=\"#424242\" loop=\"-1\" width=\"100%\"><font:80px><a font-family: \"Verdana\" >Results of test cases run on OPNFV labs using Yardstick framework. OPNFV Brahmaputra release.  </marquee>\n",
+          "editable": true,
+          "error": false,
+          "height": "10",
+          "id": 4,
+          "isNew": true,
+          "links": [],
+          "mode": "html",
+          "span": 12,
+          "style": {},
+          "title": "",
+          "transparent": true,
+          "type": "text"
+        }
+      ],
+      "title": "New row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "content": "<br>\n<h3 style=\"font-family:Verdana\"> <a style=\"color:#31A7D3\"> General Info </a></h3>\n<p>This dashboard contains results of test cases executed in OPNFV community labs, through OPNFV CI, using  <a style=\"color:#31A7D3\"><i><strong> Yardstick </a style></i></strong>\nframework.</p>\n<br>\nThe test cases measure:\n<ul>\n  <li>performance of NFVI</i> in OPNFV community labs</li>\n  <li>performance of NFVI from the perspective of a VTC</li>\n</ul>\n<br>\n<p>For test case data and scenarios overview check the <a style=\"color:#31A7D3\"><strong> Dashboards </a></strong> list.\n<h3 style=\"font-family:Verdana\"> <a style=\"color:#31A7D3\"> Links </a></h3>\n<ul> \n <li>User Guide <a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/index.html\"> (HTML)</a> <a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/userguide.pdf\">(PDF)</a></li>\n  <li>Framework Code Documentation <a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/apidocs/yardstick.html\"> (HTML)</a>\n<a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/apidocs/apidocs.pdf\"> (PDF)</a></li>\n  <li>Yardstick Brahmaputra release notes<a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/release/index.html\"> (HTML)</a>\n<a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/release/release.pdf\"> (PDF)</a>\n  <li> Yardstick Brahmaputra results report<a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/results/index.html\"> (HTML)</a>\n<a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/results/results.pdf\"> (PDF)\n  <li><a style=\"color:#31A7D3\"; href=\"https://wiki.opnfv.org/yardstick/\"> Yardstick wiki</a></li>\n</ul>\n\n<h3 style=\"font-family:Verdana\"> <a style=\"color:#31A7D3\"> Feedback </a></h3>\n<p>&#9993; <a href=\"mailto:opnfv-users@lists.opnfv.org\">Contact Yardstick </a></p>\n",
+          "editable": true,
+          "error": false,
+          "id": 2,
+          "isNew": true,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Yardstick wiki",
+              "type": "absolute",
+              "url": "https://wiki.opnfv.org/yardstick"
+            },
+            {
+              "targetBlank": true,
+              "title": "User Guide",
+              "type": "absolute",
+              "url": "http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/index.html"
+            },
+            {
+              "targetBlank": true,
+              "title": "Code pages",
+              "type": "absolute",
+              "url": "http://artifacts.opnfv.org/yardstick/brahmaputra/docs/apidocs/yardstick.html"
+            },
+            {
+              "dashUri": "db/vtc-dashboard",
+              "dashboard": "VTC Dashboard",
+              "targetBlank": true,
+              "title": "VTC Dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mode": "html",
+          "span": 4,
+          "style": {},
+          "title": "Welcome to Yardstick Dashboard",
+          "type": "text"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "yardstick-vtc",
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": 200,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 13,
+          "isNew": true,
+          "leftYAxisLabel": "Packets",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "rightYAxisLabel": "Latency",
+          "seriesOverrides": [
+            {
+              "alias": "os-nosdn-nofeature-ha",
+              "yaxis": 2
+            },
+            {
+              "alias": "huawei-us-deploy-bare-1 - os-nosdn-nofeature-ha",
+              "yaxis": 1
+            },
+            {
+              "alias": "opnfv_yardstick_tc037.mean",
+              "yaxis": 2
+            },
+            {
+              "alias": "$tag_pod_name - $tag_deploy_scenario - latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "ericsson-pod2 - os-nosdn-nofeature-ha - latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "huawei-us-deploy-bare-1 - os-nosdn-nofeature-ha - latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "ericsson-pod2 - os-odl_l2-bgpvpn-ha - latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "huawei-us-deploy-bare-1 - os-odl_l2-nofeature-ha - latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "huawei-us-deploy-bare-1 - os-onos-nofeature-ha - latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "opnfv-jump-1 - os-odl_l2-nofeature-ha - latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "opnfv-jump-2 - os-odl_l2-nofeature-ha - latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "ericsson-pod2 - os-onos-nofeature-ha - latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "ericsson-pod2 - os-odl_l2-sfc-ha - latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "orange-fr-pod2 - os-odl_l2-nofeature-ha - latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "ericsson-pod2 - os-odl_l2-nofeature-ha - latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "intel-pod6 - os-nosdn-nofeature-ha - latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "orange-fr-pod2 - os-nosdn-nofeature-ha - latency",
+              "yaxis": 2
+            }
+          ],
+          "span": 8,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_pod_name - $tag_deploy_scenario - packets-sent",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "deploy_scenario"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "pod_name"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "task_id"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "hide": false,
+              "measurement": "opnfv_yardstick_tc037",
+              "query": "SELECT \"packets_sent\" AS \"packets_sent\" FROM \"opnfv_yardstick_tc037\" WHERE $timeFilter GROUP BY \"deploy_scenario\", \"pod_name\", \"task_id\"",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "packets_sent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [
+                      "packets_sent"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "$tag_pod_name - $tag_deploy_scenario - latency",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "deploy_scenario"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "pod_name"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "task_id"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "opnfv_yardstick_tc037",
+              "query": "SELECT \"rtt\" AS \"latency\" FROM \"opnfv_yardstick_tc037\" WHERE $timeFilter GROUP BY \"deploy_scenario\", \"pod_name\", \"task_id\"",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "rtt"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [
+                      "latency"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": "24h",
+          "timeShift": null,
+          "title": "Packets sent, latency",
+          "tooltip": {
+            "shared": true,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "none",
+            "ms"
+          ]
+        }
+      ],
+      "title": "New row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "content": "\n<html>\n<head>\n<style>\ntable {\n    border-collapse: collapse;\n    width: 100%;\n}\n\nth, td {\n    padding: 8px;\n    text-align: left;\n    border-bottom: 1px solid #ddd;\n}\n</style>\n</head>\n<body>\n\n<h3 style=\"font-family:Verdana\"><a style=\"color:#31A7D3\">Generic Test Cases</a></h3>\n\n<table>\n  <tr>\n    <th>Test Case</th>\n    <th>Description</th>\n  </tr>\n  <tr>\n    <td><a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/opnfv_yardstick_tc002.html\">TC002</a></td>\n    <td>Network latency using ping</td>\n  </tr>\n  <tr>\n    <td><a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/opnfv_yardstick_tc005.html\">TC005</a></td>\n    <td>Storage IOPS, throughput and latency using fio</td>\n  </tr>\n  <tr>\n    <td><a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/opnfv_yardstick_tc010.html\">TC010</a></td>\n    <td>Memory read latency using lmbench</td>\n  </tr>\n  <tr>\n    <td><a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/opnfv_yardstick_tc011.html\">TC011</a></td>\n    <td>Packet delay variation (jitter) using iperf3</td>\n  </tr>\n  <tr>\n    <td><a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/opnfv_yardstick_tc012.html\">TC012</a></td>\n    <td>Memory read and write bandwidth using lmbench</td>\n  </tr>\n  <tr>\n    <td><a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/opnfv_yardstick_tc014.html\">TC014</a></td>\n    <td>Processing speed using unixbench</td>\n  </tr>\n  <tr>\n    <td><a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/opnfv_yardstick_tc027.html\">TC027</a></td>\n    <td>Network latency using ping6</td>\n  </tr>\n  <tr>\n    <td><a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/opnfv_yardstick_tc037.html\">TC037</a></td>\n    <td>Network throughput and packet loss using pktgen, system load using mpstat and network latency using ping</td>\n  </tr>\n</table>\n\n<br>\n<h3 style=\"font-family:Verdana\"><a style=\"color:#31A7D3\">VTC Test Cases</a></h3>\n\n<table>\n  <tr>\n    <th>Test Case</th>\n    <th>Description</th>\n  </tr>\n  <tr>\n    <td><a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/opnfv_yardstick_tc006.html\">TC006</a></td>\n    <td>VTC Data plane throughput with DPDK pktgen</td>\n  </tr>\n  <tr>\n    <td><a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/opnfv_yardstick_tc007.html\">TC007</a></td>\n    <td>VTC Data plane throughput with DPDK pktgen in the presence of noisy neighbors</td>\n  </tr>\n  <tr>\n    <td><a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/opnfv_yardstick_tc020.html\">TC020</a></td>\n    <td>VTC instantiation</td>\n  </tr>\n  <tr>\n    <td><a style=\"color:#31A7D3\"; href=\"http://artifacts.opnfv.org/yardstick/brahmaputra/docs/userguide/opnfv_yardstick_tc021.html\">TC021</a></td>\n    <td>VTC instantiation in the presence of noisy neighbors</td>\n  </tr>\n</table>\n\n</body>\n</html>\n",
+          "editable": true,
+          "error": false,
+          "id": 3,
+          "isNew": true,
+          "links": [],
+          "mode": "html",
+          "span": 5,
+          "style": {
+            "font-size": "72pt"
+          },
+          "title": "OPNFV Release-B test cases",
+          "type": "text"
+        },
+        {
+          "editable": true,
+          "error": false,
+          "height": "10",
+          "id": 1,
+          "isNew": true,
+          "limit": 15,
+          "links": [],
+          "mode": "search",
+          "query": "",
+          "span": 2,
+          "tags": [
+            "yardstick-tc"
+          ],
+          "title": "Dashboards",
+          "transparent": false,
+          "type": "dashlist"
+        },
+        {
+          "columns": [],
+          "datasource": "yardstick-vtc",
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "height": "",
+          "id": 10,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 5,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "$tag_deploy_scenario - $tag_pod_name",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "24h"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "pod_name"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "deploy_scenario"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "opnfv_yardstick_tc002",
+              "query": "SELECT mean(\"rtt\") FROM \"opnfv_yardstick_tc002\" WHERE $timeFilter GROUP BY time(24h), \"pod_name\", \"deploy_scenario\"",
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "rtt"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": "24h",
+          "title": "Network Latency (ms)",
+          "transform": "table",
+          "type": "table"
+        }
+      ],
+      "title": "New row"
+    }
+  ],
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": false,
+  "schemaVersion": 8,
+  "version": 124,
+  "links": []
+}
