@@ -1,5 +1,5 @@
 heat_template_version: 2014-10-16
-description: HOT template to deploy a vitual Traffic Classifier
+description: HOT template to deploy a virtual Traffic Classifier
 
 parameters:
   default_net:
@@ -70,7 +70,7 @@ resources:
             # Creation of a user
             echo "Creating custom user..."
             useradd clouduser -g admin -s /bin/bash -m
-            echo clouduser:secrete | chpasswd
+            echo clouduser:yardstick | chpasswd
             echo "Enabling ssh password login..."
             sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
             service ssh restart
@@ -81,19 +81,20 @@ resources:
             ifconfig eth2 up
             dhclient eth1
             dhclient eth2
+            sed -i 's/localhost/localhost vtc/g' /etc/hosts
 
             # Install vTC Dependencies
             apt-get update
             apt-get install -y git build-essential gcc libnuma-dev bison flex byacc libjson0-dev libcurl4-gnutls-dev jq dh-autoreconf libpcap-dev libpulse-dev libtool pkg-config
             apt-get install -y byacc libtool libcurl4-openssl-dev
 
-            sed -i 's/localhost/localhost vtc/g' /etc/hosts
             cd /home/clouduser
 
             # Setup multicast
             echo mgroup from eth1 group 224.192.16.1 > /etc/smcroute.conf
             git clone https://github.com/troglobit/smcroute.git
             cd smcroute
+            git reset --hard c3f5c56
             sed -i 's/aclocal-1.11/aclocal/g' ./autogen.sh
             sed -i 's/automake-1.11/automake/g' ./autogen.sh
             ./autogen.sh
