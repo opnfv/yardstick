@@ -20,6 +20,8 @@ from experimental_framework import common
 NUM_OF_NEIGHBORS = 'num_of_neighbours'
 AMOUNT_OF_RAM = 'amount_of_ram'
 NUMBER_OF_CORES = 'number_of_cores'
+NETWORK_NAME = 'network'
+SUBNET_NAME = 'subnet'
 
 
 class InstantiationValidationNoisyNeighborsBenchmark(
@@ -40,6 +42,8 @@ class InstantiationValidationNoisyNeighborsBenchmark(
         features['parameters'].append(NUM_OF_NEIGHBORS)
         features['parameters'].append(AMOUNT_OF_RAM)
         features['parameters'].append(NUMBER_OF_CORES)
+        features['parameters'].append(NETWORK_NAME)
+        features['parameters'].append(SUBNET_NAME)
         features['allowed_values'][NUM_OF_NEIGHBORS] = \
             ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         features['allowed_values'][NUMBER_OF_CORES] = \
@@ -50,6 +54,8 @@ class InstantiationValidationNoisyNeighborsBenchmark(
         features['default_values'][NUM_OF_NEIGHBORS] = '1'
         features['default_values'][NUMBER_OF_CORES] = '1'
         features['default_values'][AMOUNT_OF_RAM] = '256M'
+        features['default_values'][NETWORK_NAME] = ''
+        features['default_values'][SUBNET_NAME] = ''
         return features
 
     def init(self):
@@ -58,6 +64,8 @@ class InstantiationValidationNoisyNeighborsBenchmark(
                                'local out_file = "' +
                                self.results_file + '"')
         heat_param = dict()
+        heat_param['network'] = self.params[NETWORK_NAME]
+        heat_param['subnet'] = self.params[SUBNET_NAME]
         heat_param['cores'] = self.params['number_of_cores']
         heat_param['memory'] = self.params['amount_of_ram']
         for i in range(0, int(self.params['num_of_neighbours'])):

@@ -18,6 +18,10 @@ from experimental_framework.benchmarks import rfc2544_throughput_benchmark \
 from experimental_framework import common
 
 
+NETWORK_NAME = 'network'
+SUBNET_NAME = 'subnet'
+
+
 class MultiTenancyThroughputBenchmark(base.RFC2544ThroughputBenchmark):
 
     def __init__(self, name, params):
@@ -35,6 +39,8 @@ class MultiTenancyThroughputBenchmark(base.RFC2544ThroughputBenchmark):
         features['parameters'].append('num_of_neighbours')
         features['parameters'].append('amount_of_ram')
         features['parameters'].append('number_of_cores')
+        features['parameters'].append(NETWORK_NAME)
+        features['parameters'].append(SUBNET_NAME)
         features['allowed_values']['num_of_neighbours'] = \
             ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         features['allowed_values']['number_of_cores'] = \
@@ -42,6 +48,8 @@ class MultiTenancyThroughputBenchmark(base.RFC2544ThroughputBenchmark):
         features['allowed_values']['amount_of_ram'] = \
             ['256M', '1G', '2G', '3G', '4G', '5G', '6G', '7G', '8G', '9G',
              '10G']
+        features['default_values'][NETWORK_NAME] = ''
+        features['default_values'][SUBNET_NAME] = ''
         features['default_values']['num_of_neighbours'] = '1'
         features['default_values']['number_of_cores'] = '1'
         features['default_values']['amount_of_ram'] = '256M'
@@ -58,6 +66,8 @@ class MultiTenancyThroughputBenchmark(base.RFC2544ThroughputBenchmark):
         heat_param = dict()
         heat_param['cores'] = self.params['number_of_cores']
         heat_param['memory'] = self.params['amount_of_ram']
+        heat_param['network'] = self.params[NETWORK_NAME]
+        heat_param['subnet'] = self.params[SUBNET_NAME]
         for i in range(0, int(self.params['num_of_neighbours'])):
             stack_name = self.stack_name + str(i)
             common.DEPLOYMENT_UNIT.deploy_heat_template(self.template_file,
