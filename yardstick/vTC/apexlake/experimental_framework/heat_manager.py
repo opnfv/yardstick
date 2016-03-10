@@ -76,9 +76,10 @@ class HeatManager:
         :param stack_name: Name of the stack to be checked (type: str)
         :return: (type: str)
         """
-        for stack in self.heat.stacks.list():
-            if stack.stack_name == stack_name:
-                return stack.stack_status
+        if self.heat:
+            for stack in self.heat.stacks.list():
+                if stack.stack_name == stack_name:
+                    return stack.stack_status
         return 'NOT_FOUND'
 
     def validate_heat_template(self, heat_template_file):

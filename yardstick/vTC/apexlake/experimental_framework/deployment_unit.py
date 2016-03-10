@@ -76,7 +76,6 @@ class DeploymentUnit:
         if not os.path.isfile(template_file):
             raise ValueError('The specified file does not exist ("' +
                              template_file + '")')
-        self.heat_manager.validate_heat_template(template_file)
         try:
             self.heat_manager.create_stack(template_file, stack_name,
                                            parameters)

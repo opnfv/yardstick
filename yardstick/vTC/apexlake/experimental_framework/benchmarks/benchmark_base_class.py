@@ -34,7 +34,8 @@ class BenchmarkBaseClass(object):
                 params[param] = self.get_features()['default_values'][param]
 
         for param in self.get_features()['parameters']:
-            if params[param] not in \
+            if param in self.get_features()['allowed_values'] and \
+                    params[param] not in \
                     (self.get_features())['allowed_values'][param]:
                 raise ValueError('Value of parameter "' + param +
                                  '" is not allowed')

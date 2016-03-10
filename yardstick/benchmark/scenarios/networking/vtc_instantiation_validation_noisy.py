@@ -78,6 +78,10 @@ class VtcInstantiationValidationNoisy(base.Scenario):
             str(self.options['amount_of_ram'])
         test_case['params']['number_of_cores'] = \
             str(self.options['number_of_cores'])
+        test_case['params']['network'] = \
+            str(self.options['default_net_name'])
+        test_case['params']['subnet'] = \
+            str(self.options['default_subnet_name'])
 
         res = dict()
         try:
