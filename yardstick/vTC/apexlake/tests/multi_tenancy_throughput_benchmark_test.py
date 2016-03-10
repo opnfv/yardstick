@@ -77,6 +77,8 @@ class TestMultiTenancyThroughputBenchmark(unittest.TestCase):
         heat_param = dict()
         heat_param['cores'] = num_of_cores
         heat_param['memory'] = amount_of_ram
+        heat_param['network'] = ''
+        heat_param['subnet'] = ''
         neighbor_stack_names = list()
 
         deployment_unit.\

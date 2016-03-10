@@ -67,6 +67,8 @@ class InstantiationValidationInitTest(unittest.TestCase):
         expected['parameters'].append('throughput')
         expected['parameters'].append('vlan_sender')
         expected['parameters'].append('vlan_receiver')
+        expected['parameters'].append('network')
+        expected['parameters'].append('subnet')
         expected['parameters'].append(mut.NUM_OF_NEIGHBORS)
         expected['parameters'].append(mut.AMOUNT_OF_RAM)
         expected['parameters'].append(mut.NUMBER_OF_CORES)
@@ -83,6 +85,8 @@ class InstantiationValidationInitTest(unittest.TestCase):
         expected['default_values']['throughput'] = '1'
         expected['default_values']['vlan_sender'] = '-1'
         expected['default_values']['vlan_receiver'] = '-1'
+        expected['default_values']['network'] = ''
+        expected['default_values']['subnet'] = ''
         expected['default_values'][mut.NUM_OF_NEIGHBORS] = '1'
         expected['default_values'][mut.NUMBER_OF_CORES] = '1'
         expected['default_values'][mut.AMOUNT_OF_RAM] = '256M'
@@ -106,6 +110,8 @@ class InstantiationValidationInitTest(unittest.TestCase):
         self.iv.results_file = 'res_file'
         self.iv.params = {'number_of_cores': 1,
                           'amount_of_ram': 1,
+                          'network': 1,
+                          'subnet': 1,
                           'num_of_neighbours': 1}
         self.iv.template_file = 'template.yaml'
         self.iv.init()
@@ -115,7 +121,10 @@ class InstantiationValidationInitTest(unittest.TestCase):
                                             'res_file' + '"')
         mock_deploy_heat.assert_called_once_with('template.yaml',
                                                  'neighbour0',
-                                                 {'cores': 1, 'memory': 1})
+                                                 {'cores': 1,
+                                                  'memory': 1,
+                                                  'network': 1,
+                                                  'subnet': 1})
         self.assertEqual(self.iv.neighbor_stack_names, ['neighbour0'])
 
     @mock.patch('experimental_framework.common.replace_in_file')
