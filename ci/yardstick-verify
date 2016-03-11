@@ -341,7 +341,7 @@ main()
 
     echo
     echo "Checking for External network:"
-    for net in $(neutron net-list --router:external -c name -f value); do
+    for net in $(neutron net-list --router:external True -c name -f value); do
         echo "  external network: $net"
     done
 
