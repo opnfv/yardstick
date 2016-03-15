@@ -13,8 +13,10 @@
 # limitations under the License.
 
 import unittest
+import logging
 import mock
 import experimental_framework.deployment_unit as mut
+import experimental_framework.common as common
 
 __author__ = 'vmriccox'
 
@@ -166,6 +168,7 @@ class TestDeploymentUnit(unittest.TestCase):
         template_file = ''
         stack_name = ''
         parameters = ''
+        common.LOG = logging.getLogger()
         output = du.deploy_heat_template(template_file, stack_name,
                                          parameters, 0)
         self.assertEqual(output, True)
@@ -180,6 +183,7 @@ class TestDeploymentUnit(unittest.TestCase):
         template_file = ''
         stack_name = ''
         parameters = ''
+        common.LOG = logging.getLogger()
         output = du.deploy_heat_template(template_file, stack_name,
                                          parameters, 0)
         self.assertEqual(output, True)
@@ -197,6 +201,7 @@ class TestDeploymentUnit(unittest.TestCase):
         template_file = ''
         stack_name = ''
         parameters = ''
+        common.LOG = logging.getLogger()
         output = du.deploy_heat_template(template_file, stack_name,
                                          parameters, 0)
         self.assertEqual(output, True)
