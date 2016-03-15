@@ -44,7 +44,8 @@ def get_sections_api():
     return [
         CFS_PKTGEN,
         CFS_GENERAL,
-        CFS_INFLUXDB
+        CFS_INFLUXDB,
+        CFS_OPENSTACK
         # Add here eventually new sections in configuration file ...
     ]
 
@@ -98,3 +99,4 @@ CFSO_USER = 'user'
 CFSO_PASSWORD = 'password'
 CFSO_AUTH_URI = 'auth_uri'
 CFSO_PROJECT = 'project'
+CFSO_RELEASE = 'release'

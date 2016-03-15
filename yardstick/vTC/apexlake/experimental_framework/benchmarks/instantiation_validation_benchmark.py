@@ -179,7 +179,12 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
                   self.params[VLAN_RECEIVER]
         # An IP address is required for the interface to receive a multicast
         # flow. The specific address is not important
-        command += ' 10.254.254.254 up'
+        command += ' 10.254.254.254 up netmask 255.255.255.248'
+        common.run_command(command)
+
+        command = "sudo ifconfig "
+        command += self.interface_name + "." + self.params[VLAN_RECEIVER]
+        command += " promisc"
         common.run_command(command)
 
         # configure smcroute
@@ -193,6 +198,7 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         # run smcroute on the interface
         command = 'sudo smcroute -d'
         common.run_command(command)
+        time.sleep(3)
 
         # Start the packet checker
         current_dir = os.path.dirname(os.path.realpath(__file__))

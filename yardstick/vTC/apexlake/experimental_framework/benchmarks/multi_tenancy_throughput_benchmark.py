@@ -26,8 +26,14 @@ class MultiTenancyThroughputBenchmark(base.RFC2544ThroughputBenchmark):
 
     def __init__(self, name, params):
         base.RFC2544ThroughputBenchmark.__init__(self, name, params)
+
+        if common.RELEASE == 'liberty':
+            temp_name = 'stress_workload_liberty.yaml'
+        else:
+            temp_name = 'stress_workload.yaml'
+
         self.template_file = "{}{}".format(common.get_template_dir(),
-                                           'stress_workload.yaml')
+                                           temp_name)
         self.stack_name = 'neighbour'
         self.neighbor_stack_names = list()
 

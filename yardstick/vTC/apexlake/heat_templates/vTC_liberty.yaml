@@ -36,6 +36,7 @@ resources:
     properties:
       network: { get_param: default_net }
       binding:vnic_type: normal
+      port_security_enabled: true
       fixed_ips:
         - subnet: { get_param: default_subnet }
 
@@ -45,6 +46,7 @@ resources:
     properties:
       network: { get_param: source_net }
       binding:vnic_type: #vnic_type
+      port_security_enabled: false
       fixed_ips:
         - subnet: { get_param: source_subnet }
 
@@ -54,6 +56,7 @@ resources:
     properties:
       network: { get_param: destination_net }
       binding:vnic_type: #vnic_type
+      port_security_enabled: false
       fixed_ips:
         - subnet: { get_param: destination_subnet }
 
@@ -81,6 +84,7 @@ resources:
             ifconfig eth2 up
             dhclient eth1
             dhclient eth2
+            ifconfig 10.254.254.253 up netmask 255.255.255.248
 
             # Fix Network Confiuration
             sed -i 's/localhost/localhost vtc/g' /etc/hosts

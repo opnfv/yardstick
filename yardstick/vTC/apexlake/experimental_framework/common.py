@@ -25,10 +25,13 @@ from experimental_framework.constants import framework_parameters as fp
 # List of common variables
 # ------------------------------------------------------
 
+allowed_releases = ['liberty', 'kilo', 'juno']
+
 LOG = None
 CONF_FILE = None
 DEPLOYMENT_UNIT = None
 ITERATIONS = None
+RELEASE = None
 
 BASE_DIR = None
 RESULT_DIR = None
@@ -87,6 +90,7 @@ def init_general_vars(api=False):
     global TEMPLATE_DIR
     global RESULT_DIR
     global ITERATIONS
+    global RELEASE
 
     TEMPLATE_FILE_EXTENSION = '.yaml'
 
@@ -95,6 +99,12 @@ def init_general_vars(api=False):
         validate_configuration_file_section(
             cf.CFS_GENERAL,
             "Section " + cf.CFS_GENERAL +
+            "is not present in configuration file")
+
+    InputValidation.\
+        validate_configuration_file_section(
+            cf.CFS_OPENSTACK,
+            "Section " + cf.CFS_OPENSTACK +
             "is not present in configuration file")
 
     TEMPLATE_DIR = '/tmp/apexlake/heat_templates/'
@@ -121,6 +131,11 @@ def init_general_vars(api=False):
     if not os.path.isdir(RESULT_DIR):
         os.mkdir(RESULT_DIR)
 
+    if cf.CFSO_RELEASE in CONF_FILE.get_variable_list(cf.CFS_OPENSTACK):
+        RELEASE = CONF_FILE.get_variable(cf.CFS_OPENSTACK, cf.CFSO_RELEASE)
+        if RELEASE not in allowed_releases:
+            raise ValueError("Release {} is not supported".format(RELEASE))
+
     # Validate and assign Iterations
     if cf.CFSG_ITERATIONS in CONF_FILE.get_variable_list(cf.CFS_GENERAL):
         ITERATIONS = int(CONF_FILE.get_variable(cf.CFS_GENERAL,
@@ -132,7 +147,11 @@ def init_general_vars(api=False):
 def init_log():
     global LOG
     LOG = logging.getLogger()
-    LOG.setLevel(level=logging.INFO)
+    debug = CONF_FILE.get_variable(cf.CFS_GENERAL, cf.CFSG_DEBUG)
+    if debug == 'true' or debug == 'True':
+        LOG.setLevel(level=logging.DEBUG)
+    else:
+        LOG.setLevel(level=logging.INFO)
     log_formatter = logging.Formatter("%(asctime)s --- %(message)s")
     file_handler = logging.FileHandler("{0}/{1}.log".format("./", "benchmark"))
     file_handler.setFormatter(log_formatter)
