@@ -50,7 +50,8 @@ class DeploymentUnit:
                 time.sleep(5)
                 status = self.heat_manager.check_stack_status(stack_name)
             return True
-        except:
+        except Exception as e:
+            common.LOG.debug(e.message)
             return False
 
     def destroy_all_deployed_stacks(self):
@@ -80,14 +81,16 @@ class DeploymentUnit:
             self.heat_manager.create_stack(template_file, stack_name,
                                            parameters)
             deployed = True
-        except:
+        except Exception as e:
+            common.LOG.debug(e.message)
             deployed = False
 
         if not deployed and 'COMPLETE' in \
                 self.heat_manager.check_stack_status(stack_name):
             try:
                 self.destroy_heat_template(stack_name)
-            except:
+            except Exception as e:
+                common.LOG.debug(e.message)
                 pass
 
         status = self.heat_manager.check_stack_status(stack_name)

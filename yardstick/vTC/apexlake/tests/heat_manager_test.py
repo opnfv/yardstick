@@ -13,6 +13,9 @@
 # limitations under the License.
 
 import unittest
+import logging
+import experimental_framework.common as common
+
 from experimental_framework import heat_manager
 import mock
 
@@ -172,6 +175,7 @@ class TestHeatManager_2(unittest.TestCase):
         pass
 
     def test_delete_stack_for_success_2(self):
+        common.LOG = logging.getLogger()
         self.assertFalse(self.heat_manager.delete_stack('stack_1'))
 
 

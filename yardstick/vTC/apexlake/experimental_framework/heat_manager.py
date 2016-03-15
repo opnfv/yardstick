@@ -97,6 +97,7 @@ class HeatManager:
                 if stack.stack_name == stack_name:
                     self.heat.stacks.delete(stack.id)
                     return True
-        except:
+        except Exception as e:
+            common.LOG.debug(e.message)
             pass
         return False
