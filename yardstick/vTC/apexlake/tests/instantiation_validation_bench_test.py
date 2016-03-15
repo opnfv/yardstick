@@ -65,7 +65,8 @@ def dummy_run_command_2(command, get_counters=None):
                   '100 type vlan id 100':
         command_counter[0] += 1
         return
-    elif command == 'sudo ifconfig interface.100 10.254.254.254 up':
+    elif command == 'sudo ifconfig interface.100 10.254.254.254 up' \
+                    ' netmask 255.255.255.248':
         command_counter[1] += 1
         return
     elif command == "sudo echo 'mgroup from interface.100 group" \

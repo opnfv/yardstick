@@ -24,6 +24,6 @@ class TestConfFileSection(unittest.TestCase):
         pass
 
     def test_get_sections_api_for_success(self):
-        expected = ['PacketGen', 'General', 'InfluxDB']
+        expected = ['PacketGen', 'General', 'InfluxDB', 'OpenStack']
         output = cfs.get_sections_api()
         self.assertEqual(expected, output)

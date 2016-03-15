@@ -118,6 +118,10 @@ class FrameworkApi(object):
         credentials = openstack_credentials
 
         msg = 'The provided heat_template does not exist'
+        if common.RELEASE == 'liberty':
+            heat_template = 'vTC_liberty.yaml'
+        else:
+            heat_template = 'vTC.yaml'
         template = "{}{}".format(common.get_template_dir(), heat_template)
         common.InputValidation.validate_file_exist(template, msg)
 

@@ -46,5 +46,9 @@ setup(name='apexlake',
           ('/tmp/apexlake/heat_templates/',
            ['heat_templates/vTC.yaml']),
           ('/tmp/apexlake/heat_templates/',
-           ['heat_templates/stress_workload.yaml'])
+           ['heat_templates/stress_workload.yaml']),
+          ('/tmp/apexlake/heat_templates/',
+           ['heat_templates/vTC_liberty.yaml']),
+          ('/tmp/apexlake/heat_templates/',
+           ['heat_templates/stress_workload_liberty.yaml'])
       ])
