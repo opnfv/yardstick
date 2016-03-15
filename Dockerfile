@@ -16,6 +16,8 @@ MAINTAINER Hans Feldt <hans.feldt@ericsson.com>
 RUN apt-get update && apt-get install -y \
     libffi-dev \
     libssl-dev \
+    libxml2-dev \
+    libxslt1-dev \
     python \
     python-dev \
     python-setuptools && \
