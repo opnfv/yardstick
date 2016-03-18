@@ -10,15 +10,15 @@ scenarios:
 
   options:
     packet_size: 1280
-    vlan_sender: 2025
-    vlan_receiver: 2021
-    default_net_name: net04
-    default_subnet_name: net04__subnet
-    vlan_net_1_name: apexlake_inbound_net
-    vlan_subnet_1_name: inbound_sub
-    vlan_net_2_name: apexlake_outbound_net
-    vlan_subnet_2_name: outbound_sub
-    vnic_type: direct # [normal (OvS), direct (SR-IOV)]
+    vlan_sender: 2033
+    vlan_receiver: 2040
+    default_net_name: management_network
+    default_subnet_name: management_subnet
+    vlan_net_1_name: apexlake_inbound_network
+    vlan_subnet_1_name: apexlake_inbound_subnet
+    vlan_net_2_name: apexlake_outbound_network
+    vlan_subnet_2_name: apexlake_outbound_subnet
+    vnic_type: direct
     vtc_flavor: m1.large
     num_of_neighbours: 2
     amount_of_ram: 1G
