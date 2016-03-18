@@ -1,6 +1,7 @@
 .. _DPDK: http://dpdk.org/doc/nics
 .. _DPDK-pktgen: https://github.com/Pktgen/Pktgen-DPDK/
 .. _SRIOV: https://wiki.openstack.org/wiki/SR-IOV-Passthrough-For-Networking
+.. _PORTSEC: https://wiki.openstack.org/wiki/Neutron/ML2PortSecurityExtensionDriver
 
 ===========================
 Apexlake installation guide
@@ -53,13 +54,25 @@ After entering into the apexlake directory, it is sufficient to run the followin
 
     python setup.py install
 
+Since some elements are copied into the /tmp directory (see configuration file) it could be necessary
+to repeat this step after a reboot of the host.
+
 3. Source OpenStack openrc file.
 
 ::
 
     source openrc
 
-4. Create 2 Networks based on VLANs in Neutron.
+4. Configure Openstack Neutron
+
+In order to support traffic generation and management by the virtual Traffic Classifier, the configuration 
+of the port security driver extension is required for Neutron.
+For further details please follow the following link: PORTSEC_
+This step can be skipped in case the target OpenStack is Juno or Kilo release, but it is mandatory to 
+support Liberty.
+It is therefore required to indicate the release version in the configuration file apexlake.conf.
+
+5. Create 2 Networks based on VLANs in Neutron.
 
 In order for the network communication between the packet generator and the Compute node to
 work fine, it is required to create through Neutron two networks and map those on the VLAN IDs
@@ -67,29 +80,40 @@ that have been previously used for the configuration on the physical switch.
 The underlying switch needs to be configured accordingly.
 ::
 
-    VLAN_1=2025
-    VLAN_2=2021
+    VLAN_1=2032
+    VLAN_2=2033
+    PHYSNET=physnet2
     neutron net-create apexlake_inbound_network \
             --provider:network_type vlan \
             --provider:segmentation_id $VLAN_1 \
-            --provider:physical_network physnet1
+            --provider:physical_network $PHYSNET
 
     neutron subnet-create apexlake_inbound_network \
             192.168.0.0/24 --name apexlake_inbound_subnet
 
     neutron net-create apexlake_outbound_network \
             --provider:network_type vlan \
-            --provider:physical_network physnet1
-
-    neutron net-create apexlake_inbound_network \
-            --provider:network_type vlan \
             --provider:segmentation_id $VLAN_2 \
-            --provider:physical_network physnet1
+            --provider:physical_network $PHYSNET
 
     neutron subnet-create apexlake_outbound_network 192.168.1.0/24 \
             --name apexlake_outbound_subnet
 
-5. Configure the Test Cases.
+6. Download Ubuntu Cloud Image and load it on Glance
+
+The virtual Traffic Classifier is supported on top of Ubuntu 14.04 cloud image.
+The image can be downloaded on the local machine and loaded on Glance using the following commands:
+::
+
+    wget cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img
+    glance image-create \
+            --name ubuntu1404 \
+            --is-public true 
+            --disk-format qcow 
+            --container-format bare 
+            --file trusty-server-cloudimg-amd64-disk1.img
+
+7. Configure the Test Cases.
 
 The VLAN tags are also required into the test case Yardstick yaml file as parameters the following test cases:
     - TC 006
@@ -171,6 +195,7 @@ In the following a list of commands to be ran to download and install smroute is
     cd ~
     git clone https://github.com/troglobit/smcroute.git
     cd smcroute
+    git reset --hard c3f5c56
     sed -i 's/aclocal-1.11/aclocal/g' ./autogen.sh
     sed -i 's/automake-1.11/automake/g' ./autogen.sh
     ./autogen.sh
@@ -179,6 +204,7 @@ In the following a list of commands to be ran to download and install smroute is
     sudo make install
     cd ..
 
+It is important to do the reset to the specified commit ID.
 It is also required to create a configuration file using the following command:
 
     SMCROUTE_NIC=(name of the nic)
