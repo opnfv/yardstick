@@ -12,9 +12,11 @@
 
 : ${INSTALLER_TYPE:='fuel'}
 : ${INSTALLER_IP:='10.20.0.2'}
+: ${DEPLOY_TYPE:='bm'} # Can be any of 'bm' (Bare Metal) or 'virt' (Virtual)
 
 : ${NODE_NAME:='unknown'}
 : ${EXTERNAL_NETWORK:='admin_floating_net'}
+
 
 # Extract network name from EXTERNAL_NETWORK
 #  e.g. EXTERNAL_NETWORK='ext-net;flat;192.168.0.2;192.168.0.253;192.168.0.1;192.168.0.0/24'
@@ -26,19 +28,16 @@ echo "INFO: Creating openstack credentials .."
 # Create openstack credentials
 OPENRC=/home/opnfv/openrc
 if [ ! -f $OPENRC ]; then
-
-    $RELENG_REPO_DIR/utils/fetch_os_creds.sh \
-        -d $OPENRC \
-        -i ${INSTALLER_TYPE} -a ${INSTALLER_IP}
-
-    # Fuel virtual need a fix
-    if [ "$NODE_NAME" == "ericsson-virtual1" ]; then
-        echo "INFO: Changing: internalURL -> publicURL in openrc"
-        sed -i 's/internalURL/publicURL/' $OPENRC
+    if [ "$DEPLOY_TYPE" == "virt" ]; then
+        FETCH_CRED_ARG="-v -d $OPENRC -i ${INSTALLER_TYPE} -a ${INSTALLER_IP}"
+    else
+        FETCH_CRED_ARG="-d $OPENRC -i ${INSTALLER_TYPE} -a ${INSTALLER_IP}"
     fi
+
+    $RELENG_REPO_DIR/utils/fetch_os_creds.sh $FETCH_CRED_ARG
 
 fi
 
 source $OPENRC
 
-export EXTERNAL_NETWORK INSTALLER_TYPE NODE_NAME
+export EXTERNAL_NETWORK INSTALLER_TYPE DEPLOY_TYPE NODE_NAME
