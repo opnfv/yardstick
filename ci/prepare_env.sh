@@ -12,9 +12,11 @@
 
 : ${INSTALLER_TYPE:='fuel'}
 : ${INSTALLER_IP:='10.20.0.2'}
+: ${DEPLOY_TYPE:='bm'} # Can be any of 'bm' (Bare Metal) or 'virt' (Virtual)
 
 : ${NODE_NAME:='unknown'}
 : ${EXTERNAL_NETWORK:='admin_floating_net'}
+
 
 # Extract network name from EXTERNAL_NETWORK
 #  e.g. EXTERNAL_NETWORK='ext-net;flat;192.168.0.2;192.168.0.253;192.168.0.1;192.168.0.0/24'
@@ -32,7 +34,8 @@ if [ ! -f $OPENRC ]; then
         -i ${INSTALLER_TYPE} -a ${INSTALLER_IP}
 
     # Fuel virtual need a fix
-    if [ "$NODE_NAME" == "ericsson-virtual1" ]; then
+    if [ "$INSTALLER_TYPE" == "fuel" ] && [ "$DEPLOY_TYPE" == "virt" ] \
+       || [ "$NODE_NAME" == "ericsson-virtual1" ]; then
         echo "INFO: Changing: internalURL -> publicURL in openrc"
         sed -i 's/internalURL/publicURL/' $OPENRC
     fi
@@ -41,4 +44,4 @@ fi
 
 source $OPENRC
 
-export EXTERNAL_NETWORK INSTALLER_TYPE NODE_NAME
+export EXTERNAL_NETWORK INSTALLER_TYPE DEPLOY_TYPE NODE_NAME
