@@ -13,9 +13,16 @@ DPDK_HOST=10.118.36.130
 YARDSTICK=/home/user/yardstick
 TESTSUITE=$YARDSTICK/tests/opnfv/test_suites/opnfv_vTC_daily.yaml
 
+: ${INSTALLER_TYPE:='unknown'}
+: ${NODE_NAME:='unknown'}
+: ${DEPLOY_SCENARIO:='unknown'}
+
 commands="
 cd $YARDSTICK
 source /home/user/openrc.dasm
+export INSTALLER_TYPE=$INSTALLER_TYPE
+export NODE_NAME=$NODE_NAME
+export DEPLOY_SCENARIO=$DEPLOY_SCENARIO
 sudo -E yardstick task start --suite $TESTSUITE"
 
 echo "$commands" | ssh -l user $DPDK_HOST 'bash -s'
