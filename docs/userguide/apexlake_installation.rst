@@ -76,14 +76,14 @@ The example provided is based on Ubuntu and needs to be executed in root mode.
 
 3. Configure Openstack Neutron
 
-In order to support traffic generation and management by the virtual 
-Traffic Classifier, the configuration of the port security driver 
+In order to support traffic generation and management by the virtual
+Traffic Classifier, the configuration of the port security driver
 extension is required for Neutron.
 
-For further details please follow the following link: PORTSEC_ 
+For further details please follow the following link: PORTSEC_
 This step can be skipped in case the target OpenStack is Juno or Kilo release,
 but it is required to support Liberty.
-It is therefore required to indicate the release version in the configuration 
+It is therefore required to indicate the release version in the configuration
 file located in ./yardstick/vTC/apexlake/apexlake.conf
 
 
@@ -121,7 +121,7 @@ The physical switches need to be configured accordingly.
 5. Download Ubuntu Cloud Image and load it on Glance
 
 The virtual Traffic Classifier is supported on top of Ubuntu 14.04 cloud image.
-The image can be downloaded on the local machine and loaded on Glance 
+The image can be downloaded on the local machine and loaded on Glance
 using the following commands:
 
 ::
@@ -289,12 +289,12 @@ Finalize installation the framework on the system
 =================================================
 
 The installation of the framework on the system requires the setup of the project.
-After entering into the apexlake directory, it is sufficient to run the following 
+After entering into the apexlake directory, it is sufficient to run the following
 command.
 
 ::
 
     python setup.py install
 
-Since some elements are copied into the /tmp directory (see configuration file) 
+Since some elements are copied into the /tmp directory (see configuration file)
 it could be necessary to repeat this step after a reboot of the host.

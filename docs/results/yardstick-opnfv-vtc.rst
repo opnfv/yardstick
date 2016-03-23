@@ -63,7 +63,7 @@ Results of the test are shown in the Dashboard020_
 
 
 * TC021
-            
+ 
 TC021 is the Virtual Traffic Classifier Instantiation in presence of noisy neighbors Test.
 It verifies that a newly instantiated vTC is alive and functional and its instantiation
 is correctly supported by the underlying infrastructure when noisy neighbors are present.
@@ -75,7 +75,7 @@ Detailed test results
 
 * TC006
 
-The results for TC006 have been obtained using the following test case 
+The results for TC006 have been obtained using the following test case
 configuration:
 
 - Context: Dummy
@@ -112,7 +112,6 @@ test case configuration:
 - vTC Flavor: m1.large
 
 
- 
 * TC021
 
 The results listed in previous section have been obtained using the following
