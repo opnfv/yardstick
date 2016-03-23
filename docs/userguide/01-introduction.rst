@@ -41,6 +41,8 @@ This document consists of the following chapters:
 * Chapter :doc:`02-methodology` describes the methodology implemented by the
   Yardstick Project for :term:`NFVI` verification.
 
+* Chapter :doc:`architecture` provides information on the software architecture
+  of yardstick.
 * Chapter :doc:`04-vtc-overview` provides information on the :term:`VTC`.
 
 * Chapter :doc:`apexlake_installation` provides instructions to install the
