@@ -16,14 +16,14 @@ Introduction
 Document Identifier
 -------------------
 
-This document is part of deliverables of the OPNFV release brahmaputra.1.0
+This document is part of deliverables of the OPNFV release brahmaputra.2.0
 
 Scope
 -----
 
-.. _Dashboard: http://130.211.154.108/grafana/dashboard/db/yardstick-main
+.. _Dashboard: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-main
 .. _Jenkins: https://build.opnfv.org/ci/view/yardstick/
-.. _Scenarios: http://130.211.154.108/grafana/dashboard/db/yardstick-scenarios
+.. _Scenarios: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-scenarios
 
 This document provides an overview of the results of test cases developed by
 the OPNFV Yardstick Project, executed on OPNFV community labs.
@@ -82,13 +82,13 @@ Document change procedures and history
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/brahmaputra.1.0            |
+| **Repo/tag**                         | yardstick/brahmaputra.2.0            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Brahmaputra                          |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | Feb 25th, 2016                       |
+| **Release date**                     | Mar 30th, 2016                       |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | OPNFV Brahmaputra release test       |
