@@ -39,6 +39,9 @@ Version History
 | *Date*        | *Version*          | *Comment*                       |
 |               |                    |                                 |
 +---------------+--------------------+---------------------------------+
+| Mar 30th,2016 |  2.0               | Brahmaputra release             |
+|               |                    |                                 |
++---------------+--------------------+---------------------------------+
 | Feb 25th,2016 |  1.0               | Brahmaputra release             |
 |               |                    |                                 |
 +---------------+--------------------+---------------------------------+
@@ -106,8 +109,13 @@ testing:
 
   * Parser
 
+* Test cases added in Brahmaputra2.0:
+
+  * virtual Traffic Classifier
+
 The *Yardstick framework* is developed in the OPNFV community, by the
-Yardstick_ team.
+Yardstick_ team. The *virtual Traffic Classifier* is a part of the Yardstick
+Project.
 
 .. note:: The test case description template used for the Yardstick test cases
   is based on the document ETSI-ISG NFV-TST001_; the results report template
@@ -121,16 +129,16 @@ Release Data
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/brahmaputra.1.0            |
+| **Repo/tag**                         | yardstick/brahmaputra.2.0            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | brahmaputra.1.0                      |
+| **Yardstick Docker image tag**       | brahmaputra.2.0                      |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Brahmaputra                          |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | Feb 25th, 2016                       |
+| **Release date**                     | Mar 30th, 2016                       |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | OPNFV Brahmaputra release            |
@@ -144,7 +152,7 @@ Version Change
 Module Version Changes
 ~~~~~~~~~~~~~~~~~~~~~~
 
-This is the first tracked release of Yardstick. It is based on following
+This is the second tracked release of Yardstick. It is based on following
 upstream versions:
 
 - OpenStack Liberty
@@ -155,16 +163,17 @@ upstream versions:
 Document Version Changes
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-This is the first tracked version of the Yardstick framework in OPNFV.
-It includes the following documentation:
+This is the second tracked version of the Yardstick framework in OPNFV.
+It includes the following documentation updates:
 
-- Yardstick User Guide
+- Yardstick User Guide: added software architecture chapter
 
-- Yardstick Code Documentation
+- Yardstick Code Documentation: no changes
 
-- Yardstick Release Notes for Yardstick
+- Yardstick Release Notes for Yardstick: this document
 
-- Test Results report for Brahmaputra testing with Yardstick
+- Test Results report for Brahmaputra testing with Yardstick: added test cases
+and results for virtual Traffic Classifier
 
 
 Reason for Version
@@ -173,14 +182,35 @@ Reason for Version
 Feature additions
 ~~~~~~~~~~~~~~~~~
 
-This is the first tracked version of OPNFV Yardstick.
++----------------------------+------------------------------------------------+
+| **JIRA REFERENCE**         | **SLOGAN**                                     |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-227        | Heat HTTPS SSL support.                        |
+|                            |                                                |
++----------------------------+------------------------------------------------+
 
 
 Corrected Faults
 ~~~~~~~~~~~~~~~~
 
-This is the first tracked version of OPNFV Yardstick.
-
++----------------------------+------------------------------------------------+
+| **JIRA REFERENCE**         | **SLOGAN**                                     |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: -                    | Change copyrights for base scenario, runners,  |
+|                            | dispatchers, cover.                            |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: -                    | Update setup.py and dependencies               |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: -                    | Add missing dependencies to docker file        |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: -                    | Fix Heat template for noisy neighbors deploy   |
+|                            |                                                |
++----------------------------+------------------------------------------------+
 
 Known Faults
 ~~~~~~~~~~~~
@@ -202,6 +232,9 @@ Known Faults
 |                            | parsed: cannot register CLI option.            |
 |                            |                                                |
 +----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-231        | Installation instructions on Wiki not accurate |
+|                            |                                                |
++----------------------------+------------------------------------------------+
 
 .. note:: The faults not related to *Yardstick* framework, addressing scenarios
   which were not fully verified, are listed in the OPNFV installer's release
@@ -214,22 +247,22 @@ Deliverables
 Software Deliverables
 ~~~~~~~~~~~~~~~~~~~~~
 
-**Yardstick framework source code <brahmaputra.1.0>**
+**Yardstick framework source code <brahmaputra.2.0>**
 
 +--------------------------------------+--------------------------------------+
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/brahmaputra.1.0            |
+| **Repo/tag**                         | yardstick/brahmaputra.2.0            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | brahmaputra.1.0                      |
+| **Yardstick Docker image tag**       | brahmaputra.2.0                      |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Brahmaputra                          |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | Feb 25th, 2016                       |
+| **Release date**                     | Mar 30th, 2016                       |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | OPNFV Brahmaputra release            |
@@ -411,3 +444,16 @@ Delivered Test cases
 * Test Case for OPNFV Parser Project:
 
   * OPNFV_YARDSTICK_TCO40 - Verify Parser Yang-to-Tosca
+
+* Test Cases for Virtual Traffic Classifier:
+
+  * OPNFV_YARDSTICK_TC006 - Virtual Traffic Classifier Data Plane Throughput
+Benchmarking Test
+
+  * OPNFV_YARDSTICK_TC007 - Virtual Traffic Classifier Data Plane Throughput
+Benchmarking in presence of noisy neighbors Test
+
+  * OPNFV_YARDSTICK_TC020 - Virtual Traffic Classifier Instantiation Test
+
+  * OPNFV_YARDSTICK_TC021 - Virtual Traffic Classifier Instantiation in
+presence of noisy neighbors Test

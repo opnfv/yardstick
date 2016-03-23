@@ -14,7 +14,7 @@ Yardstick Test Results
 Scenario Results
 ================
 
-.. _Dashboard: http://130.211.154.108/grafana/dashboard/db/yardstick-main
+.. _Dashboard: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-main
 .. _Jenkins: https://build.opnfv.org/ci/view/yardstick/
 
 The following documents contain results of Yardstick test cases executed on
@@ -38,7 +38,6 @@ cases suite:
    fuel-os-odl_l2-nofeature-ha.rst
    fuel-os-onos-nofeature-ha.rst
    joid-os-odl_l2-nofeature-ha.rst
-   yardstick-opnfv-vtc.rst
 
 
 Limitations
@@ -94,6 +93,8 @@ The following features were verified by Yardstick test cases:
    * KVM
 
    * Parser
+
+   * Virtual Traffic Classifier (see :doc:`yardstick-opnfv-vtc`)
 
 .. note:: The test cases for IPv6 and Parser Projects are included in the
   compass scenario.
