@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a486d77_07d13a57",
+        "filename": "docs/results/yardstick-opnfv-vtc.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001
+      },
+      "writtenOn": "2016-03-23T15:50:58Z",
+      "side": 1,
+      "message": "please remove the comments, same for all the commented lines in this doc.",
+      "revId": "ef55f8aa599d3fd7fd2a6b22755aa35c3c4b1802",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
