@@ -38,6 +38,7 @@ cases suite:
    fuel-os-odl_l2-nofeature-ha.rst
    fuel-os-onos-nofeature-ha.rst
    joid-os-odl_l2-nofeature-ha.rst
+   yardstick-opnfv-vtc.rst
 
 
 Limitations
