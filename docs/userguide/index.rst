@@ -12,6 +12,7 @@ Yardstick Overview
 
    01-introduction
    02-methodology
+   architecture
    04-vtc-overview
    apexlake_installation
    apexlake_api
