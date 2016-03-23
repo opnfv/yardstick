@@ -46,24 +46,13 @@ The following example is provided for Ubuntu and need to be executed as root.
     apt-get install tcpreplay
     apt-get install libpcap-dev
 
-2. Install the framework on the system.
-
-The installation of the framework on the system requires the setup of the project.
-After entering into the apexlake directory, it is sufficient to run the following command.
-::
-
-    python setup.py install
-
-Since some elements are copied into the /tmp directory (see configuration file) it could be necessary
-to repeat this step after a reboot of the host.
-
-3. Source OpenStack openrc file.
+2. Source OpenStack openrc file.
 
 ::
 
     source openrc
 
-4. Configure Openstack Neutron
+3. Configure Openstack Neutron
 
 In order to support traffic generation and management by the virtual Traffic Classifier, 
 the configuration of the port security driver extension is required for Neutron.
@@ -72,7 +61,7 @@ This step can be skipped in case the target OpenStack is Juno or Kilo release,
 but it is required to support Liberty.
 It is therefore required to indicate the release version in the configuration file apexlake.conf.
 
-5. Create 2 Networks based on VLANs in Neutron.
+4. Create 2 Networks based on VLANs in Neutron.
 
 In order for the network communication between the packet generator and the Compute node to
 work fine, it is required to create through Neutron two networks and map those on the VLAN IDs
@@ -99,7 +88,7 @@ The underlying switch needs to be configured accordingly.
     neutron subnet-create apexlake_outbound_network 192.168.1.0/24 \
             --name apexlake_outbound_subnet
 
-6. Download Ubuntu Cloud Image and load it on Glance
+5. Download Ubuntu Cloud Image and load it on Glance
 
 The virtual Traffic Classifier is supported on top of Ubuntu 14.04 cloud image.
 The image can be downloaded on the local machine and loaded on Glance using the following commands:
@@ -113,7 +102,7 @@ The image can be downloaded on the local machine and loaded on Glance using the 
             --container-format bare \
             --file trusty-server-cloudimg-amd64-disk1.img
 
-7. Configure the Test Cases.
+6. Configure the Test Cases.
 
 The VLAN tags are also required into the test case Yardstick yaml file as parameters the following test cases:
     - TC 006
@@ -234,3 +223,16 @@ In order to enable SR-IOV interfaces on the physical NIC of the compute node, a 
 NIC configuration depends on model and vendor. After proper configuration to support SR-IOV,
 a proper configuration of openstack is required.
 For further information, please look at the _SRIOV configuration guide
+
+
+Finalize installation the framework on the system
+=================================================
+
+The installation of the framework on the system requires the setup of the project.
+After entering into the apexlake directory, it is sufficient to run the following command.
+::
+
+    python setup.py install
+
+Since some elements are copied into the /tmp directory (see configuration file) it could be necessary
+to repeat this step after a reboot of the host.
