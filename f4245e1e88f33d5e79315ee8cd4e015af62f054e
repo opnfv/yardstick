@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a486d77_0a9c9fbf",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2016-03-24T13:46:26Z",
+      "side": 1,
+      "message": "if -\u003e If ?",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 2
+      },
+      "revId": "f4245e1e88f33d5e79315ee8cd4e015af62f054e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_8aaf6fe3",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2016-03-24T13:46:26Z",
+      "side": 1,
+      "message": "another -\u003e the other  \n\ncould be better\nhttp://english.stackexchange.com/questions/159156/difference-between-one-another-and-one-the-other :)",
+      "range": {
+        "startLine": 144,
+        "startChar": 21,
+        "endLine": 144,
+        "endChar": 28
+      },
+      "revId": "f4245e1e88f33d5e79315ee8cd4e015af62f054e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_2a5f5b10",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2016-03-24T13:46:26Z",
+      "side": 1,
+      "message": "should be yardstick-plot",
+      "range": {
+        "startLine": 145,
+        "startChar": 26,
+        "endLine": 145,
+        "endChar": 40
+      },
+      "revId": "f4245e1e88f33d5e79315ee8cd4e015af62f054e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_eaa023f6",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2016-03-24T13:46:26Z",
+      "side": 1,
+      "message": "if -\u003e If ?",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 2
+      },
+      "revId": "f4245e1e88f33d5e79315ee8cd4e015af62f054e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_caa56705",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2016-03-24T13:46:26Z",
+      "side": 1,
+      "message": "if -\u003e If ?",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 2
+      },
+      "revId": "f4245e1e88f33d5e79315ee8cd4e015af62f054e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
