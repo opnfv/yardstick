@@ -139,18 +139,16 @@ TBD(Limingjiang)
 
 Deployment View
 ===============
-TBD(Patrick)
+Yardstick deployment view shows how the yardstick tool can be deployed into the
+underlying platform. Generally, yardstick tool is installed on JumpServer(see
+`03-installation` for detail installation steps), and JumpServer is
+connected with other control/compute servers by networking. Based on this
+deployment, yardstick can run the test cases on these hosts, and get the test
+result for better showing.
 
-
-
-
-
-
-
-
-
-
-
+.. image:: images/Deployment.png
+   :width: 800px
+   :alt: Yardstick Deployment View
 
 Yardstick Directory structure
 =============================
