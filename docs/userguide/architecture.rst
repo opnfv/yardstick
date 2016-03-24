@@ -160,7 +160,28 @@ TBD(Qiliang)
 
 Process View (Test execution flow)
 ==================================
-TBD(Limingjiang)
+Process view
+Process view show how yardstick runs a test. Below is the sequence graph about
+the test execution flow:
+
+.. image:: images/test_execution_flow.png
+   :width: 800px
+   :alt: Yardstick Process View
+
+A user wants to do a test with yardstick. He can use the CLI to input the
+command to start a task. "Task commands" would recevie the command and ask
+"Context" to parse the context. "Context" will then ask "Model" to convert the
+model. After the model is generated, "Context" will inform "Openstack" to deploy
+the heat stack by heat template. After "Openstack" deploys the stack, "Context"
+would inform "Runner" to run the specific test case.
+
+Fisrtly, "Runner" would ask "Scenario" to process the specific scenario. Then
+"Scenario" would start to log on the openstack by ssh protocal and execute the
+test case on the specified VMs. After the script execution finishes, "Scenario"
+will send a message to inform "Runner". When the testing job is done, "Runner"
+will begin to inform "Dispatcher" to output the test result via file, influxdb
+or http. After the result is output, "Context" would call "Openstack" to
+undeploy the heat stack. Once the stack is undepoyed, the whole test ends.
 
 Deployment View
 ===============
