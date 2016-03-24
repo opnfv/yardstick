@@ -7,6 +7,7 @@
 .. _DPDK: http://dpdk.org/doc/nics
 .. _DPDK-pktgen: https://github.com/Pktgen/Pktgen-DPDK/
 .. _SRIOV: https://wiki.openstack.org/wiki/SR-IOV-Passthrough-For-Networking
+.. _PORTSEC: https://wiki.openstack.org/wiki/Neutron/ML2PortSecurityExtensionDriver
 .. _here: https://wiki.opnfv.org/vtc
 
 
@@ -67,19 +68,24 @@ The example provided is based on Ubuntu and needs to be executed in root mode.
     apt-get install tcpreplay
     apt-get install libpcap-dev
 
-2. Install the Framework on the Target System.
-
-After entering the Apexlake directory, run the following command.
-
-::
-
-    python setup.py install
-
-3. Source OpenStack openrc file.
+2. Source OpenStack openrc file.
 
 ::
 
     source openrc
+
+3. Configure Openstack Neutron
+
+In order to support traffic generation and management by the virtual
+Traffic Classifier, the configuration of the port security driver
+extension is required for Neutron.
+
+For further details please follow the following link: PORTSEC_
+This step can be skipped in case the target OpenStack is Juno or Kilo release,
+but it is required to support Liberty.
+It is therefore required to indicate the release version in the configuration
+file located in ./yardstick/vTC/apexlake/apexlake.conf
+
 
 4. Create Two Networks based on VLANs in Neutron.
 
@@ -88,33 +94,49 @@ node, two networks must be created via Neutron and mapped to the VLAN IDs
 that were previously used in the configuration of the physical switch.
 The following shows the typical set of commands required to configure Neutron
 correctly.
+The physical switches need to be configured accordingly.
 
 ::
 
-    VLAN_1=2025
-    VLAN_2=2021
+    VLAN_1=2032
+    VLAN_2=2033
+    PHYSNET=physnet2
     neutron net-create apexlake_inbound_network \
             --provider:network_type vlan \
             --provider:segmentation_id $VLAN_1 \
-            --provider:physical_network physnet1
+            --provider:physical_network $PHYSNET
 
     neutron subnet-create apexlake_inbound_network \
             192.168.0.0/24 --name apexlake_inbound_subnet
 
     neutron net-create apexlake_outbound_network \
             --provider:network_type vlan \
-            --provider:physical_network physnet1
-
-    neutron net-create apexlake_inbound_network \
-            --provider:network_type vlan \
             --provider:segmentation_id $VLAN_2 \
-            --provider:physical_network physnet1
+            --provider:physical_network $PHYSNET
 
     neutron subnet-create apexlake_outbound_network 192.168.1.0/24 \
             --name apexlake_outbound_subnet
 
 
-5. Configure the Test Cases
+5. Download Ubuntu Cloud Image and load it on Glance
+
+The virtual Traffic Classifier is supported on top of Ubuntu 14.04 cloud image.
+The image can be downloaded on the local machine and loaded on Glance
+using the following commands:
+
+::
+
+    wget cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img
+    glance image-create \
+            --name ubuntu1404 \
+            --is-public true \
+            --disk-format qcow \
+            --container-format bare \
+            --file trusty-server-cloudimg-amd64-disk1.img
+
+
+
+6. Configure the Test Cases
 
 The VLAN tags must also be included in the test case Yardstick yaml file
 as parameters for the following test cases:
@@ -216,6 +238,7 @@ The following is the list of commands required to download and install smroute.
     cd ~
     git clone https://github.com/troglobit/smcroute.git
     cd smcroute
+    git reset --hard c3f5c56
     sed -i 's/aclocal-1.11/aclocal/g' ./autogen.sh
     sed -i 's/automake-1.11/automake/g' ./autogen.sh
     ./autogen.sh
@@ -224,6 +247,7 @@ The following is the list of commands required to download and install smroute.
     sudo make install
     cd ..
 
+It is required to do the reset to the specified commit ID.
 It is also requires the creation a configuration file using the following
 command:
 
@@ -260,3 +284,17 @@ compatible NIC is required.
 NIC configuration depends on model and vendor. After proper configuration to
 support :term:`SR-IOV`, a proper configuration of OpenStack is required.
 For further information, please refer to the SRIOV_ configuration guide
+
+Finalize installation the framework on the system
+=================================================
+
+The installation of the framework on the system requires the setup of the project.
+After entering into the apexlake directory, it is sufficient to run the following
+command.
+
+::
+
+    python setup.py install
+
+Since some elements are copied into the /tmp directory (see configuration file)
+it could be necessary to repeat this step after a reboot of the host.
