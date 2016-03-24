@@ -127,7 +127,24 @@ Snippet of an Iteration runner configuration:
 
 Use-Case View
 =============
-TBD(kubi)
+Yardstick Use-Case View show two kinds of users. one is tester who will do testing in cloud. 
+one is user who is more concern about test result and result analyses.
+For testers, they will run single test case or test case suite to verify infrastructure compliance
+or bencnmarking their own infrastructure performance. Test result will be stored by dispatch module;
+three kinds of store method (file, influxdb and http) cloud be configured. Scenarios and runners 
+of yardstick are supported to query detail information with CLI by tester.
+
+For users, they would check test result with four ways. 
+if dispatch module is configured as file(default), users could check test result with CLI at JumpServer
+and plot of test result will be shown if user execute "yardstick plot".
+if dispatch module is configured as influxdb, users could check test result on Grafana which is 
+most commonly used for visualizing time series data. 
+if dispatch module is configured as http, users cloud check test result on Dashboard of test result
+which use mongoDB as backend.
+
+.. image:: images/Use_case.png
+   :width: 800px
+   :alt: Yardstick Use-Case View
 
 Logical View
 ============
