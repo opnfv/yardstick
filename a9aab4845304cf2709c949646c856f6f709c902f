@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a486d77_6ac79346",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-03-25T02:29:55Z",
+      "side": 1,
+      "message": "i think one more blank line should be added between each line of this part. see line39-line54",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 63
+      },
+      "revId": "a9aab4845304cf2709c949646c856f6f709c902f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
