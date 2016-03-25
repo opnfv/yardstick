@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a486d77_8a02cf3c",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2016-03-25T07:21:45Z",
+      "side": 1,
+      "message": "test case?",
+      "range": {
+        "startLine": 163,
+        "startChar": 49,
+        "endLine": 163,
+        "endChar": 53
+      },
+      "revId": "3ebba4e781e5fc4ed50b929f1f891dff45fc35f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_aaed8b8d",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2016-03-25T07:21:45Z",
+      "side": 1,
+      "message": "shows?",
+      "range": {
+        "startLine": 163,
+        "startChar": 23,
+        "endLine": 163,
+        "endChar": 27
+      },
+      "revId": "3ebba4e781e5fc4ed50b929f1f891dff45fc35f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_4a93b7fa",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2016-03-25T07:21:45Z",
+      "side": 1,
+      "message": "is it better to explain that each of part is actually a module in Yardstick?",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 24
+      },
+      "revId": "3ebba4e781e5fc4ed50b929f1f891dff45fc35f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_6aff9335",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2016-03-25T07:21:45Z",
+      "side": 1,
+      "message": "will",
+      "range": {
+        "startLine": 171,
+        "startChar": 40,
+        "endLine": 171,
+        "endChar": 45
+      },
+      "revId": "3ebba4e781e5fc4ed50b929f1f891dff45fc35f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_ca9fa702",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2016-03-25T07:21:45Z",
+      "side": 1,
+      "message": "there are two types of context, HeatContext and NodeContext. so maybe you can explain to take Heatcontext for example, or draft another sequence graph for Nodeconext.",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 13
+      },
+      "revId": "3ebba4e781e5fc4ed50b929f1f891dff45fc35f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_aaa46b57",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2016-03-25T07:21:45Z",
+      "side": 1,
+      "message": "will",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 5
+      },
+      "revId": "3ebba4e781e5fc4ed50b929f1f891dff45fc35f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_2a907beb",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2016-03-25T07:21:45Z",
+      "side": 1,
+      "message": "being finished?",
+      "range": {
+        "startLine": 179,
+        "startChar": 58,
+        "endLine": 179,
+        "endChar": 67
+      },
+      "revId": "3ebba4e781e5fc4ed50b929f1f891dff45fc35f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_0abdbf68",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1408
+      },
+      "writtenOn": "2016-03-25T07:21:45Z",
+      "side": 1,
+      "message": "inform",
+      "range": {
+        "startLine": 181,
+        "startChar": 5,
+        "endLine": 181,
+        "endChar": 20
+      },
+      "revId": "3ebba4e781e5fc4ed50b929f1f891dff45fc35f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
