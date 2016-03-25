@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "1a486d77_6aad5331",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-03-25T07:39:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a486d77_aaed8b8d",
+      "range": {
+        "startLine": 163,
+        "startChar": 23,
+        "endLine": 163,
+        "endChar": 27
+      },
+      "revId": "3ebba4e781e5fc4ed50b929f1f891dff45fc35f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a486d77_4a93b7fa",
         "filename": "docs/userguide/architecture.rst",
         "patchSetId": 2
@@ -117,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "1a486d77_aa722be3",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-03-25T07:39:58Z",
+      "side": 1,
+      "message": "thanks.\nyou\u0027re right, i should specify that it\u0027s about heat context. i\u0027ll add this info in the 1st paragraph.",
+      "parentUuid": "1a486d77_ca9fa702",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 13
+      },
+      "revId": "3ebba4e781e5fc4ed50b929f1f891dff45fc35f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a486d77_aaa46b57",
         "filename": "docs/userguide/architecture.rst",
         "patchSetId": 2
@@ -163,6 +211,30 @@
     },
     {
       "key": {
+        "uuid": "1a486d77_ea6823f7",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-03-25T07:39:58Z",
+      "side": 1,
+      "message": "i think finish can use in this way.",
+      "parentUuid": "1a486d77_2a907beb",
+      "range": {
+        "startLine": 179,
+        "startChar": 58,
+        "endLine": 179,
+        "endChar": 67
+      },
+      "revId": "3ebba4e781e5fc4ed50b929f1f891dff45fc35f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a486d77_0abdbf68",
         "filename": "docs/userguide/architecture.rst",
         "patchSetId": 2
@@ -174,6 +246,30 @@
       "writtenOn": "2016-03-25T07:21:45Z",
       "side": 1,
       "message": "inform",
+      "range": {
+        "startLine": 181,
+        "startChar": 5,
+        "endLine": 181,
+        "endChar": 20
+      },
+      "revId": "3ebba4e781e5fc4ed50b929f1f891dff45fc35f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_ca6d6706",
+        "filename": "docs/userguide/architecture.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-03-25T07:39:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a486d77_0abdbf68",
       "range": {
         "startLine": 181,
         "startChar": 5,
