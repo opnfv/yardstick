@@ -156,7 +156,35 @@ on OPNFV testing dashboard which use MongoDB as backend.
 
 Logical View
 ============
-TBD(Qiliang)
+Yardstick Logical View describes the most important classes, their
+organization, and the most important use-case realizations.
+
+Main classes:
+
+**TaskCommands** - "yardstick task" subcommand handler.
+**HeatContext** - Do test yaml file context section model convert to HOT,
+deploy and undeploy Openstack heat stack.
+**Runner** - Logic that determines how a test scenario is run and reported.
+**TestScenario** - Type/class of measurement for example Ping, Pktgen, (Iperf,
+LmBench, ...)
+**Dispatcher** - Choose user defined way to store test results.
+
+TaskCommands is the "yardstick task" subcommand's main enter, it takes
+test.yaml as input, use HeatContext to convert the yaml file's context section
+to HOT, to deploy Openstack heat stack with the converted HOT. After heat
+stack is deployed, TaskCommands use Runner to run specified TestScenario.
+During first runner initialization, it will create output process. The output
+process use Dispatcher to push test results to the user defined place. The
+Runner itself will also create a process to execute TestScenario. And there is
+a multiprocessing queue between each runner and output process, so the runner
+process can push the real-time test results to the storage media. TestScenario
+commonly connect Openstack created VMs by using ssh, setup VMs and run test
+measurement scripts through the created ssh tunnel. After all TestScenaio
+is finished, TaskCommands will undeploy the heat stack.
+
+.. image:: images/Logical_view.png
+   :width: 800px
+   :alt: Yardstick Logical View
 
 Process View (Test execution flow)
 ==================================
