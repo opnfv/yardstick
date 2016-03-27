@@ -6,7 +6,7 @@
 .. _Dashboard007: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-tc007
 .. _Dashboard020: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-tc020
 .. _Dashboard021: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-tc021
-
+.. _DashboardVTC: http://testresults.opnfv.org/grafana/dashboard/db/vtc-dashboard
 ====================================
 Test Results for yardstick-opnfv-vtc
 ====================================
@@ -69,6 +69,12 @@ It verifies that a newly instantiated vTC is alive and functional and its instan
 is correctly supported by the underlying infrastructure when noisy neighbors are present.
 Results of the test are shown in the Dashboard021_
 
+* Generic
+
+In the Generic scenario the Virtual Traffic Classifier is running on a standard Openstack
+setup and traffic is being replayed from a neighbor VM. The traffic sent contains
+various protocols and applications, and the VTC identifies them and exports the data.
+Results of the test are shown in the DashboardVTC.
 
 Detailed test results
 ---------------------
@@ -128,6 +134,12 @@ test case configuration:
 
 For all the test cases, the user can specify different values for the parameters.
 
+* Generic
+
+The results listed in the previous section have been obtained, using a
+standard Openstack setup.
+The user can replay his/her own traffic and see the corresponding results.
+
 Rationale for decisions
 -----------------------
 
@@ -170,6 +182,16 @@ correctly by the vTC
 The test is declared as PASSED if all the packets are correcly received by the packet generator
 and they have been modified by the virtual Traffic Classifier as required.
 
+* Generic
+
+The execution of the test consists of the following actions:
+
+- The vTC is deployed on the OpenStack testbed;
+- The traffic generator VM is deployed on the Openstack Testbed;
+- Traffic data are relevant to the network setup;
+- Traffic is sent to the vTC;
+
+
 
 Conclusions and recommendations
 -------------------------------
@@ -208,3 +230,19 @@ Using the configuration with SR-IOV and large flavor, the expected result is tha
 correctly instantiated, it is able to receive and send packets using SR-IOV technology
 and to forward packets back to the packet generator changing the TCP/IP header as required,
 also in presence of noisy neighbors.
+
+* Generic
+
+The obtained results correspond to the expected behaviour of the virtual Traffic Classifier.
+Using the aforementioned configuration the expected application protocols are identified
+and their traffic statistics are demonstrated in the DashboardVTC, a group of popular
+applications is selected to demonstrate the sound operation of the vTC.
+The demonstrated application protocols are:
+- HTTP
+- Skype
+- Bittorrent
+- Youtube
+- Dropbox
+- Twitter
+- Viber
+- iCloud
