@@ -17,6 +17,10 @@ import unittest
 from yardstick.cmd.commands import testcase
 from yardstick.cmd.commands.testcase import TestcaseCommands
 
+class Arg(object):
+    def __init__(self):
+        self.casename=('opnfv_yardstick_tc001',)
+
 class TestcaseCommandsUT(unittest.TestCase):
 
     def test_do_list(self):
@@ -24,4 +28,9 @@ class TestcaseCommandsUT(unittest.TestCase):
         result = t.do_list("")
         self.assertEqual(result, True)
 
+    def test_do_show(self):
+        t = testcase.TestcaseCommands()
+        casename = Arg()
+        result = t.do_show(casename)
+        self.assertEqual(result, True)
 
