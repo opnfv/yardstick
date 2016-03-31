@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a486d77_1bbbcfe6",
+        "filename": "yardstick/cmd/commands/testcase.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2016-03-31T08:26:16Z",
+      "side": 1,
+      "message": "so we use the third line of the test case yaml file to specify test case description.",
+      "revId": "cfde1fac2c062ca45d2816e6830b611abd8a61d0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
