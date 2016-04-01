@@ -57,6 +57,7 @@ class Lmbench(base.Scenario):
 
     LATENCY_BENCHMARK_SCRIPT = "lmbench_latency_benchmark.bash"
     BANDWIDTH_BENCHMARK_SCRIPT = "lmbench_bandwidth_benchmark.bash"
+    LATENCY_CACHE_SCRIPT = "lmbench_latency_for_cache.bash"
 
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
@@ -71,6 +72,9 @@ class Lmbench(base.Scenario):
         self.latency_target_script = pkg_resources.resource_filename(
             "yardstick.benchmark.scenarios.compute",
             Lmbench.LATENCY_BENCHMARK_SCRIPT)
+        self.latency_for_cache_script = pkg_resources.resource_filename(
+            "yardstick.benchmark.scenarios.compute",
+            Lmbench.LATENCY_CACHE_SCRIPT)
         host = self.context_cfg["host"]
         user = host.get("user", "ubuntu")
         ip = host.get("ip", None)
@@ -85,6 +89,8 @@ class Lmbench(base.Scenario):
                         stdin=open(self.latency_target_script, 'rb'))
         self.client.run("cat > ~/lmbench_bandwidth.sh",
                         stdin=open(self.bandwidth_target_script, 'rb'))
+        self.client.run("cat > ~/lmbench_latency_for_cache.sh",
+                        stdin=open(self.latency_for_cache_script, 'rb'))
         self.setup_done = True
 
     def run(self, result):
@@ -106,6 +112,11 @@ class Lmbench(base.Scenario):
             warmup_repetitions = options.get('warmup', 0)
             cmd = "sudo bash lmbench_bandwidth.sh %d %s %d" % \
                   (size, benchmark, warmup_repetitions)
+        elif test_type == 'latency_for_cache':
+            repetition = options.get('repetition', 1)
+            warmup = options.get('warmup', 0)
+            cmd = "sudo bash lmbench_latency_for_cache.sh %d %d" % \
+                  (repetition, warmup)
         else:
             raise RuntimeError("No such test_type: %s for Lmbench scenario",
                                test_type)
@@ -130,12 +141,18 @@ class Lmbench(base.Scenario):
                     if latency > sla_max_latency:
                         sla_error += "latency %f > sla:max_latency(%f); " \
                             % (latency, sla_max_latency)
-            else:
+            elif test_type == 'bandwidth':
                 sla_min_bw = int(self.scenario_cfg['sla']['min_bandwidth'])
                 bw = result["bandwidth(MBps)"]
                 if bw < sla_min_bw:
                     sla_error += "bandwidth %f < " \
                                  "sla:min_bandwidth(%f)" % (bw, sla_min_bw)
+            elif test_type == 'latency_for_cache':
+                sla_latency = float(self.scenario_cfg['sla']['max_latency'])
+                cache_latency = float(result['L1cache'])
+                if sla_latency < cache_latency:
+                    sla_error += "latency %f > sla:max_latency(%f); " \
+                        % (cache_latency, sla_latency)
             assert sla_error == "", sla_error
 
 
