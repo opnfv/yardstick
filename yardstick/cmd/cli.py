@@ -22,6 +22,7 @@ from oslo_config import cfg
 from yardstick.cmd.commands import task
 from yardstick.cmd.commands import runner
 from yardstick.cmd.commands import scenario
+from yardstick.cmd.commands import testcase
 
 CONF = cfg.CONF
 cli_opts = [
@@ -58,7 +59,8 @@ class YardstickCLI():
     categories = {
         'task': task.TaskCommands,
         'runner': runner.RunnerCommands,
-        'scenario': scenario.ScenarioCommands
+        'scenario': scenario.ScenarioCommands,
+        'testcase': testcase.TestcaseCommands
     }
 
     def __init__(self):
