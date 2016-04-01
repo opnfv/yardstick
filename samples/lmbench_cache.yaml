@@ -1,0 +1,41 @@
+---
+# Sample benchmark task config file
+# measure memory cache latency using lmbench
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Lmbench
+  options:
+    test_type: "latency_for_cache"
+    line_size: 128
+    repetition: 1
+    warmup: 0
+
+  host: demeter.demo
+
+  runner:
+    type: Iteration
+    iterations: 2
+    interval: 1
+
+  sla:
+    max_latency: 35
+    action: monitor
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ubuntu
+
+  servers:
+    demeter:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+
+
