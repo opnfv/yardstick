@@ -159,6 +159,25 @@ class LmbenchTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, l.run, self.result)
 
+    def test_successful_latency_for_cache_run_sla(self, mock_ssh):
+
+        options = {
+            "test_type": "latency_for_cache",
+            "repetition":1,
+            "warmup": 0
+        }
+        args = {
+            "options": options,
+            "sla": {"max_latency": 35}
+        }
+        l = lmbench.Lmbench(args, self.ctx)
+
+        sample_output = "{\"L1cache\": 1.6}"
+        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        l.run(self.result)
+        expected_result = json.loads(sample_output)
+        self.assertEqual(self.result, expected_result)
+
     def test_unsuccessful_script_error(self, mock_ssh):
 
         options = {"test_type": "bandwidth"}
