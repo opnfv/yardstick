@@ -6,11 +6,14 @@ schema: "yardstick:task:0.1"
 
 scenarios:
 -
-  type: Ping
+  type: Ping_node
   options:
     packetsize: 200
-  host: athena.LF
-  target: ares.LF
+    host: node1
+    target: node2
+  nodes:
+    node1: node1.LF
+    node2: node2.LF
 
   runner:
     type: Duration
@@ -25,5 +28,5 @@ scenarios:
 context:
   type: Node
   name: LF
-  file: /etc/yardstick/nodes/pod.yaml
+  file: /rex/yardstick/etc/yardstick/nodes/fuel_virtual/pod.yaml
 
