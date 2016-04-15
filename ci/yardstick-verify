@@ -144,6 +144,10 @@ create_nova_flavor()
         echo "========== Create nova flavor =========="
         # Create the nova flavor used by some sample test cases
         nova flavor-create yardstick-flavor 100 512 3 1
+        # DPDK-enabled OVS requires guest memory to be backed by large pages
+        if [[ "$DEPLOY_SCENARIO" == *"-ovs-"* ]]; then
+            nova flavor-key yardstick-flavor set hw:mem_page_size=large
+        fi
     fi
 }
 
