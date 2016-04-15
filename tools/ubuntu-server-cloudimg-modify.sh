@@ -35,8 +35,12 @@ grep trusty /etc/apt/sources.list && \
 echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4
 
 # Add hostname to /etc/hosts.
+# Allow console access via pwd
 cat <<EOF >/etc/cloud/cloud.cfg.d/10_etc_hosts.cfg
 manage_etc_hosts: True
+password: RANDOM
+chpasswd: { expire: False }
+ssh_pwauth: True
 EOF
 
 apt-get update
