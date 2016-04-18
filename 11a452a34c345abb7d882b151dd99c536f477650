@@ -33,6 +33,42 @@
       "revId": "11a452a34c345abb7d882b151dd99c536f477650",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_1c3cdbe1",
+        "filename": "ci/yardstick-verify",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 679
+      },
+      "writtenOn": "2016-04-18T08:51:24Z",
+      "side": 1,
+      "message": "It doesn\u0027t match any other scenarios currently in jenkins.\n\nI don\u0027t think there are scenarios with multiple features yet so we don\u0027t know how will be named.",
+      "parentUuid": "1a486d77_9c620bd7",
+      "revId": "11a452a34c345abb7d882b151dd99c536f477650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_fc40df57",
+        "filename": "ci/yardstick-verify",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 679
+      },
+      "writtenOn": "2016-04-18T08:51:24Z",
+      "side": 1,
+      "message": "Hi Yaoguang,\n\nthere is no other scenario that requires hw:mem_page_size\u003dlarge so I think it might just be more confusing to add a command line option for this. Even with a default the decision logic would just have to be moved from this script up into the run_tests.sh file.",
+      "parentUuid": "1a486d77_3cf4375a",
+      "revId": "11a452a34c345abb7d882b151dd99c536f477650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
