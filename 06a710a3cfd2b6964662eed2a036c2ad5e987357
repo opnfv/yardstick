@@ -16,6 +16,24 @@
       "revId": "06a710a3cfd2b6964662eed2a036c2ad5e987357",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a486d77_7fa74150",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 679
+      },
+      "writtenOn": "2016-04-19T09:36:11Z",
+      "side": 1,
+      "message": "Yardstick uses two VM images for it\u0027s tests: One based on cirros and one ubuntu-server. \n\nIf you are debugging a connectivity issue (ie you cannot ssh to the image) with a yardstick test that uses the cirros image you can log in to the VM via it\u0027s console by using the Horizon gui. However by default the ubuntu-server image does not allow any password based log in, even on the console - therefore you cannot debug any connectivity issues from the VM side.\n\nThis patch allows console log in to an ubuntu-server based VM just as can be done for the cirros based VMs.",
+      "parentUuid": "1a486d77_1c6f3bc7",
+      "revId": "06a710a3cfd2b6964662eed2a036c2ad5e987357",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
