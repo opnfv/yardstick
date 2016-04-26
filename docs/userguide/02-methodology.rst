@@ -16,8 +16,8 @@ verifying the :term:`NFVI` from the perspective of a :term:`VNF`.
 ETSI-NFV
 ========
 
-.. _NFV-TST001: https://docbox.etsi.org/ISG/NFV/Open/Drafts/TST001_-_Pre-deployment_Validation/
-.. _Yardsticktst: https://wiki.opnfv.org/_media/opnfv_summit_-_bridging_opnfv_and_etsi.pdf
+.. _NFV-TST001: http://www.etsi.org/deliver/etsi_gs/NFV-TST/001_099/001/01.01.01_60/gs_NFV-TST001v010101p.pdf
+.. _Yardsticktst: https://wiki.opnfv.org/download/attachments/2925202/opnfv_summit_-_bridging_opnfv_and_etsi.pdf?version=1&modificationDate=1458848320000&api=v2
 
 
 The document ETSI GS NFV-TST001_, "Pre-deployment Testing; Report on Validation
