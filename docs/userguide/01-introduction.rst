@@ -11,8 +11,7 @@ Introduction
 
 .. _Pharos: https://wiki.opnfv.org/pharos
 .. _Yardstick: https://wiki.opnfv.org/yardstick
-.. _Presentation: https://wiki.opnfv.org/_media/opnfv_summit_-_yardstick_project.pdf
-
+.. _Presentation: https://wiki.opnfv.org/download/attachments/2925202/opnfv_summit_-_yardstick_project.pdf?version=1&modificationDate=1458848320000&api=v2
 Yardstick_ is an OPNFV Project.
 
 The project's goal is to verify infrastructure compliance, from the perspective
