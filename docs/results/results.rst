@@ -37,16 +37,17 @@ cases suite:
    fuel-os-nosdn-nofeature-ha.rst
    fuel-os-odl_l2-nofeature-ha.rst
    fuel-os-onos-nofeature-ha.rst
+   fuel-os-nosdn-kvm-ha
    joid-os-odl_l2-nofeature-ha.rst
 
 
 Limitations
 -----------
 
-The following scenarios run at least one time Yardstick test cases suite,
-partially or complete:
+For the following scenarios, Yardstick generic test cases suite was executed at
+least one time however less than four consecutive times, measurements
+collected:
 
-   * fuel-os-odl_l2-sfc-ha
 
    * fuel-os-odl_l2-bgpvpn-ha
 
@@ -54,31 +55,25 @@ partially or complete:
 
    * joid-os-nosdn-nofeature-ha
 
+   * joid-os-onos-nofeature-ha
+
+
+For the following scenario, Yardstick generic test cases suite was executed
+four consecutive times, measurements collected; no feature test cases were
+executed, therefore the feature is not verified by Yardstick:
+
+    * apex-os-odl_l2-bgpvpn-ha
+
+
+For the following scenario, Yardstick generic test cases suite was executed
+three consecutive times, measurements collected; no feature test cases
+were executed, therefore the feature is not verified by Yardstick:
+
+    * fuel-os-odl_l2-sfc-ha
+
 
 Test results of executed tests are avilable in Dashboard_ and logs in Jenkins_.
 
-
-Not executed
-------------
-
-For the following scenarios, Yardstick test cases were not run:
-
-
-   * apex-os-odl_l2-sfc-noha
-
-   * apex-os-odl_l3-nofeature-ha
-
-   * apex-os-onos-nofeature-ha
-
-   * fuel-os-nosdn-kvm-ha
-
-   * fuel-os-nosdn-ovs-ha
-
-   * fuel-os-odl_l3-nofeature-ha
-
-   * joid-os-onos-nofeature-ha
-
-Logs are available in Jenkins_.
 
 
 Feature Test Results
