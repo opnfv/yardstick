@@ -16,7 +16,7 @@ Introduction
 Document Identifier
 -------------------
 
-This document is part of deliverables of the OPNFV release brahmaputra.2.0
+This document is part of deliverables of the OPNFV release brahmaputra.3.0
 
 Scope
 -----
@@ -82,13 +82,13 @@ Document change procedures and history
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/brahmaputra.2.0            |
+| **Repo/tag**                         | yardstick/brahmaputra.3.0            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Brahmaputra                          |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | Mar 30th, 2016                       |
+| **Release date**                     | Apr 27th, 2016                       |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | OPNFV Brahmaputra release test       |
