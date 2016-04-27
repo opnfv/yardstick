@@ -13,9 +13,9 @@ OPNFV Brahmaputra Release Note for Yardstick
 
 .. _Yardstick: https://wiki.opnfv.org/yardstick
 
-.. _Dashboard: http://130.211.154.108/grafana/dashboard/db/yardstick-main
+.. _Dashboard: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-main
 
-.. _NFV-TST001: https://docbox.etsi.org/ISG/NFV/Open/Drafts/TST001_-_Pre-deployment_Validation/
+.. _NFV-TST001: http://www.etsi.org/deliver/etsi_gs/NFV-TST/001_099/001/01.01.01_60/gs_NFV-TST001v010101p.pdf
 
 
 Abstract
@@ -37,6 +37,9 @@ Version History
 
 +---------------+--------------------+---------------------------------+
 | *Date*        | *Version*          | *Comment*                       |
+|               |                    |                                 |
++---------------+--------------------+---------------------------------+
+| Apr 27th,2016 |  3.0               | Brahmaputra release             |
 |               |                    |                                 |
 +---------------+--------------------+---------------------------------+
 | Mar 30th,2016 |  2.0               | Brahmaputra release             |
@@ -129,16 +132,16 @@ Release Data
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/brahmaputra.2.0            |
+| **Repo/tag**                         | yardstick/brahmaputra.3.0            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | brahmaputra.2.0                      |
+| **Yardstick Docker image tag**       | brahmaputra.3.0                      |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Brahmaputra                          |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | Mar 30th, 2016                       |
+| **Release date**                     | Apr 27th, 2016                       |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | OPNFV Brahmaputra release            |
@@ -152,7 +155,7 @@ Version Change
 Module Version Changes
 ~~~~~~~~~~~~~~~~~~~~~~
 
-This is the second tracked release of Yardstick. It is based on following
+This is the third tracked release of Yardstick. It is based on following
 upstream versions:
 
 - OpenStack Liberty
@@ -163,8 +166,19 @@ upstream versions:
 Document Version Changes
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-This is the second tracked version of the Yardstick framework in OPNFV.
+This is the third tracked version of the Yardstick framework in OPNFV.
 It includes the following documentation updates:
+
+- Yardstick User Guide: corrected faulty links
+
+- Yardstick Code Documentation: no changes
+
+- Yardstick Release Notes for Yardstick: this document
+
+- Test Results report for Brahmaputra testing with Yardstick: updated listed of
+verified scenarios and limitations
+
+Documentation updates on the second tracked version:
 
 - Yardstick User Guide: added software architecture chapter
 
@@ -182,6 +196,10 @@ Reason for Version
 Feature additions
 ~~~~~~~~~~~~~~~~~
 
+No new features.
+
+Brahmaputra.2.0:
+
 +----------------------------+------------------------------------------------+
 | **JIRA REFERENCE**         | **SLOGAN**                                     |
 |                            |                                                |
@@ -193,6 +211,10 @@ Feature additions
 
 Corrected Faults
 ~~~~~~~~~~~~~~~~
+
+No corrected faults.
+
+Brahmaputra.2.0:
 
 +----------------------------+------------------------------------------------+
 | **JIRA REFERENCE**         | **SLOGAN**                                     |
@@ -247,22 +269,22 @@ Deliverables
 Software Deliverables
 ~~~~~~~~~~~~~~~~~~~~~
 
-**Yardstick framework source code <brahmaputra.2.0>**
+**Yardstick framework source code <brahmaputra.3.0>**
 
 +--------------------------------------+--------------------------------------+
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/brahmaputra.2.0            |
+| **Repo/tag**                         | yardstick/brahmaputra.3.0            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | brahmaputra.2.0                      |
+| **Yardstick Docker image tag**       | brahmaputra.3.0                      |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Brahmaputra                          |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | Mar 30th, 2016                       |
+| **Release date**                     | Apr 27th, 2016                       |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | OPNFV Brahmaputra release            |
