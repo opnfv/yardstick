@@ -2,8 +2,8 @@ Project: Test framework for verifying infrastructure compliance (yardstick)
 Project Creation Date: April 28th, 2015
 Project Category: Integration & Testing
 Lifecycle State: Incubation
-Primary Contact: ana.cunha@ericsson.com
-Project Lead: ana.cunha@ericsson.com
+Primary Contact: jean.gaoliang@huawei.com
+Project Lead: jean.gaoliang@huawei.com
 Jira Project Name: Infrastructure Verification
 Jira Project Prefix: Yardstick
 Mailing list tag: [Yardstick]
@@ -11,7 +11,6 @@ IRC: #opnfv-yardstick
 Repository: yardstick
 
 Committers:
-ana.cunha@ericsson.com
 jorgen.w.karlsson@ericsson.com
 houjingwen@huawei.com
 wenjing_chu@dell.com
@@ -20,4 +19,5 @@ jean.gaoliang@huawei.com
 vincenzo.m.riccobene@intel.com
 
 Link to TSC approval: http://meetbot.opnfv.org/meetings/
-Link to approval of additional submitters:
+Link to approval of additional submitters: 
+Link to approval of new PTL: Done via Condorcet Internet Voting Service, avaliable from Raymond Piak
