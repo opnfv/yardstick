@@ -75,6 +75,14 @@ Yardstick has a tool for building an Ubuntu Cloud Server image containing all
 the required tools to run test cases supported by Yardstick. It is necessary to
 have sudo rights to use this tool.
 
+Also you may need install several additional packages to use this tool, by
+follwing the commands above:
+::
+
+  apt-get update && apt-get install -y \
+      qemu-utils \
+      kpartx
+
 This image can be built using the following command while in the directory where
 Yardstick is installed (``~/yardstick`` if the framework is installed
 by following the commands above):
