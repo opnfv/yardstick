@@ -34,8 +34,20 @@ Installing Yardstick framework
 Install dependencies:
 ::
 
-  sudo apt-get install python-virtualenv python-dev
-  sudo apt-get install libffi-dev libssl-dev git
+  sudo apt-get update && sudo apt-get install -y \
+      wget \
+      git \
+      sshpass \
+      qemu-utils \
+      kpartx \
+      libffi-dev \
+      libssl-dev \
+      python \
+      python-dev \
+      python-virtualenv \
+      libxml2-dev \
+      libxslt1-dev \
+      python-setuptools
 
 Create a python virtual environment, source it and update setuptools:
 ::
@@ -65,6 +77,7 @@ Yardstick has an internal plotting tool ``yardstick-plot``, which can be install
 using the following command:
 ::
 
+  sudo apt-get install -y g++ libfreetype6-dev libpng-dev pkg-config
   python setup.py develop easy_install yardstick[plot]
 
 .. _guest-image:
@@ -74,6 +87,14 @@ Building a guest image
 Yardstick has a tool for building an Ubuntu Cloud Server image containing all
 the required tools to run test cases supported by Yardstick. It is necessary to
 have sudo rights to use this tool.
+
+Also you may need install several additional packages to use this tool, by
+follwing the commands below:
+::
+
+  apt-get update && apt-get install -y \
+      qemu-utils \
+      kpartx
 
 This image can be built using the following command while in the directory where
 Yardstick is installed (``~/yardstick`` if the framework is installed
