@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_dc1f7cb6",
+        "filename": "tests/unit/benchmark/scenarios/compute/test_memload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-05-09T08:42:39Z",
+      "side": 1,
+      "message": "Please delete the whitespace",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 8
+      },
+      "revId": "6b19450502a2f669bf9682011c6baad829301930",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
