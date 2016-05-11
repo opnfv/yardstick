@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_b1e97e1c",
+        "filename": "docs/userguide/03-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-11T05:16:23Z",
+      "side": 1,
+      "message": "what does it mean?",
+      "range": {
+        "startLine": 91,
+        "startChar": 22,
+        "endLine": 91,
+        "endChar": 27
+      },
+      "revId": "9ce0102f7edd57b55eb0f478eefd68b53c1a6046",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
