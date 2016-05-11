@@ -8,7 +8,9 @@ setup(
     include_package_data=True,
     package_data={
         'yardstick': [
+            'benchmark/scenarios/availability/*.yaml',
             'benchmark/scenarios/availability/attacker/*.yaml',
+            'benchmark/scenarios/availability/ha_tools/*.bash',
             'benchmark/scenarios/availability/attacker/scripts/*.bash',
             'benchmark/scenarios/availability/monitor/*.yaml',
             'benchmark/scenarios/availability/monitor/script_tools/*.bash',
