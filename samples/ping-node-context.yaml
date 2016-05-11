@@ -9,8 +9,8 @@ scenarios:
   type: Ping
   options:
     packetsize: 200
-  host: athena.LF
-  target: ares.LF
+  host: node1.LF
+  target: node2.LF
 
   runner:
     type: Duration
@@ -25,5 +25,5 @@ scenarios:
 context:
   type: Node
   name: LF
-  file: /etc/yardstick/nodes/pod.yaml
+  file: etc/yardstick/nodes/fuel_virtual/pod.yaml
 
