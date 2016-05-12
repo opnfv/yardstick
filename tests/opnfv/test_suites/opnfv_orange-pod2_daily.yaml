@@ -3,7 +3,7 @@
 
 schema: "yardstick:suite:0.1"
 
-name: "orange-fr-pod2_daily"
+name: "orange-pod2_daily"
 test_cases_dir: "tests/opnfv/test_cases/"
 test_cases:
 -
