@@ -36,6 +36,7 @@ class Parser(object):
             'fio': []
         }
         self.default_input_loc = "/tmp/yardstick.out"
+        self.scenarios = {}
 
     def _get_parser(self):
         '''get a command-line parser'''
@@ -59,7 +60,11 @@ class Parser(object):
 
     def _add_record(self, record):
         '''add record to the relevant scenario'''
-        runner_object = record['sargs']['runner']['object']
+        if "runner_id" in record and "benchmark" not in record:
+            obj_name = record["scenario_cfg"]["runner"]["object"]
+            self.scenarios[record["runner_id"]] = obj_name
+            return
+        runner_object = self.scenarios[record["runner_id"]]
         for test_type in self.data.keys():
             if test_type in runner_object:
                 self.data[test_type].append(record)
