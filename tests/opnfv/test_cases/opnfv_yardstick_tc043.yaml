@@ -1,0 +1,28 @@
+---
+# measure latency between NFVI nodes using ping
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Ping
+  options:
+    packetsize: 100
+  host: node1.LF
+  target: node2.LF
+
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+
+  sla:
+    max_rtt: 10
+    action: monitor
+
+
+context:
+  type: Node
+  name: LF
+  file: etc/yardstick/nodes/fuel_physical/pod.yaml
+
