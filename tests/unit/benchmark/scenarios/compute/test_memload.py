@@ -55,7 +55,8 @@ class MEMLoadTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (0, '', '')
         m.setup()
 
-        mock_ssh.SSH().execute.return_value = (127, '', 'Failed executing command')
+        mock_ssh.SSH().execute.return_value = (127, '', 'Failed executing \
+                                               command')
         self.assertRaises(RuntimeError, m._execute_command,
                           "cat /proc/meminfo")
 
@@ -72,8 +73,16 @@ class MEMLoadTestCase(unittest.TestCase):
         output = self._read_file("memload_sample_output.txt")
         mock_ssh.SSH().execute.return_value = (0, output, '')
         result = m._get_mem_usage()
-        expected_result = {"max": {"used": 76737332, "cached": 67252400, "free": 187016644, "shared": 2844, "total": 263753976, "buffers": 853528}, "average": {"used": 76737332, "cached": 67252400, "free": 187016644, "shared": 2844, "total": 263753976, "buffers": 853528}, "free": {"memory0": {"used": "76737332", "cached": "67252400", "free": "187016644", "shared": "2844", "total": "263753976", "buffers": "853528"}}}
-        
+        expected_result = {"max": {"used": 76737332, "cached": 67252400,
+                           "free": 187016644, "shared": 2844,
+                           "total": 263753976, "buffers": 853528},
+                           "average": {"used": 76737332, "cached": 67252400,
+                           "free": 187016644, "shared": 2844,
+                           "total": 263753976, "buffers": 853528},
+                           "free": {"memory0": {"used": "76737332",
+                           "cached": "67252400", "free": "187016644",
+                           "shared": "2844", "total": "263753976",
+                           "buffers": "853528"}}}
         self.assertEqual(result, expected_result)
 
     def _read_file(self, filename):
