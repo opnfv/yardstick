@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_865f5a72",
+        "filename": "docs/userguide/opnfv_yardstick_tc043.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-05-17T11:31:28Z",
+      "side": 1,
+      "message": "extra space here?",
+      "range": {
+        "startLine": 67,
+        "startChar": 86,
+        "endLine": 67,
+        "endChar": 87
+      },
+      "revId": "a49023f0768286348936b01af47dd31584351cb7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
