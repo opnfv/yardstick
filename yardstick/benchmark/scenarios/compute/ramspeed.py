@@ -110,7 +110,7 @@ class Ramspeed(base.Scenario):
         elif 0 < test_id <= 5:
             cmd = "sudo bash ramspeed_mark_benchmark.sh %d %d %d" % \
                   (test_id, load, block_size)
-        else:
+        elif test_id >= 19:
             raise RuntimeError("No such type_id: %s for Ramspeed scenario",
                                test_id)
 
@@ -130,39 +130,3 @@ class Ramspeed(base.Scenario):
                     sla_error += "Bandwidth %f < " \
                         "sla:min_bandwidth(%f)" % (bw, sla_min_bw)
             assert sla_error == "", sla_error
-
-
-def _test():
-    """internal test function"""
-    key_filename = pkg_resources.resource_filename('yardstick.resources',
-                                                   'files/yardstick_key')
-    ctx = {
-        'host': {
-            'ip': '10.229.47.137',
-            'user': 'root',
-            'key_filename': key_filename
-        }
-    }
-
-    logger = logging.getLogger('yardstick')
-    logger.setLevel(logging.DEBUG)
-
-    options = {
-        'type_id': 1,
-        'load': 16,
-        'block_size': 64
-    }
-
-    sla = {
-        'min_bandwidth': 6000,
-        'action': 'monitor'
-    }
-    args = {'options': options, 'sla': sla}
-    result = {}
-
-    p = Ramspeed(args, ctx)
-    p.run(result)
-    print result
-
-if __name__ == '__main__':
-    _test()
