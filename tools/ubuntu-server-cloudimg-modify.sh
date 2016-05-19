@@ -69,5 +69,7 @@ cd /opt/tempT2/ramspeed-2.6.0
 mkdir temp
 bash build.sh
 
+git clone https://github.com/beefyamoeba5/cachestat.git /opt/tempT/Cachestat
+
 # restore symlink
 ln -sf /run/resolvconf/resolv.conf /etc/resolv.conf
