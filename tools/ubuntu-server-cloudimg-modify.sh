@@ -69,5 +69,7 @@ cd /opt/tempT2/ramspeed-2.6.0
 mkdir temp
 bash build.sh
 
+git clone --depth 1 https://github.com/beefyamoeba5/perf-tools.git /opt/tempT3
+
 # restore symlink
 ln -sf /run/resolvconf/resolv.conf /etc/resolv.conf
