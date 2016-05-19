@@ -186,6 +186,30 @@
     },
     {
       "key": {
+        "uuid": "9a91bd0f_b02baf2f",
+        "filename": "yardstick/benchmark/scenarios/compute/ramspeed.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-05-19T05:19:26Z",
+      "side": 1,
+      "message": "Thank you for your advice. I will add some detailed type_id information.",
+      "parentUuid": "9a91bd0f_d00513c3",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 8
+      },
+      "revId": "c43e0a528a873c4c33ca4ddfa76057d9e00ea72a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a91bd0f_b0140ff6",
         "filename": "yardstick/benchmark/scenarios/compute/ramspeed.py",
         "patchSetId": 3
@@ -197,6 +221,30 @@
       "writtenOn": "2016-05-19T03:56:59Z",
       "side": 1,
       "message": "default value is 1, right?",
+      "range": {
+        "startLine": 43,
+        "startChar": 24,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "c43e0a528a873c4c33ca4ddfa76057d9e00ea72a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_50202349",
+        "filename": "yardstick/benchmark/scenarios/compute/ramspeed.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-05-19T05:19:26Z",
+      "side": 1,
+      "message": "Yes, I will fix this.",
+      "parentUuid": "9a91bd0f_b0140ff6",
       "range": {
         "startLine": 43,
         "startChar": 24,
