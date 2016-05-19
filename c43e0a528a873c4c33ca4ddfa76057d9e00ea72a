@@ -140,6 +140,75 @@
     },
     {
       "key": {
+        "uuid": "9a91bd0f_106cdb9b",
+        "filename": "yardstick/benchmark/scenarios/compute/ramspeed.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-05-19T03:56:59Z",
+      "side": 1,
+      "message": "imo, [-r speed_format] or sth similiar should be completed here",
+      "range": {
+        "startLine": 25,
+        "startChar": 47,
+        "endLine": 25,
+        "endChar": 48
+      },
+      "revId": "c43e0a528a873c4c33ca4ddfa76057d9e00ea72a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_d00513c3",
+        "filename": "yardstick/benchmark/scenarios/compute/ramspeed.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-05-19T03:56:59Z",
+      "side": 1,
+      "message": "not very clear here about type_id",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 8
+      },
+      "revId": "c43e0a528a873c4c33ca4ddfa76057d9e00ea72a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_b0140ff6",
+        "filename": "yardstick/benchmark/scenarios/compute/ramspeed.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-05-19T03:56:59Z",
+      "side": 1,
+      "message": "default value is 1, right?",
+      "range": {
+        "startLine": 43,
+        "startChar": 24,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "c43e0a528a873c4c33ca4ddfa76057d9e00ea72a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a91bd0f_30523fde",
         "filename": "yardstick/benchmark/scenarios/compute/ramspeed.py",
         "patchSetId": 3
