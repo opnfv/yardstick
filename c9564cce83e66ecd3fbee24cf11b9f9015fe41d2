@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_703c4730",
+        "filename": "yardstick/benchmark/scenarios/compute/ramspeed.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-05-19T09:16:08Z",
+      "side": 1,
+      "message": "format problem,:(",
+      "range": {
+        "startLine": 58,
+        "startChar": 20,
+        "endLine": 58,
+        "endChar": 21
+      },
+      "revId": "c9564cce83e66ecd3fbee24cf11b9f9015fe41d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_503fc325",
+        "filename": "yardstick/benchmark/scenarios/compute/ramspeed.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-05-19T09:16:08Z",
+      "side": 1,
+      "message": "a little confusion, the valid id range is [1,19), here your throw error if id \u003e 6",
+      "range": {
+        "startLine": 120,
+        "startChar": 8,
+        "endLine": 120,
+        "endChar": 13
+      },
+      "revId": "c9564cce83e66ecd3fbee24cf11b9f9015fe41d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
