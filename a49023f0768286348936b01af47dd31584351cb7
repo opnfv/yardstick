@@ -22,6 +22,29 @@
       "revId": "a49023f0768286348936b01af47dd31584351cb7",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_d082f351",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-19T02:59:53Z",
+      "side": 1,
+      "message": "it would be better if this test case could run at physical pod",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 49
+      },
+      "revId": "a49023f0768286348936b01af47dd31584351cb7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
