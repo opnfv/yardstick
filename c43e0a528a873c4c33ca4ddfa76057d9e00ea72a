@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_d03753af",
+        "filename": "samples/ramspeed.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-19T03:39:27Z",
+      "side": 1,
+      "message": "it would be better if somewhere i can know the meaning of this number",
+      "range": {
+        "startLine": 11,
+        "startChar": 13,
+        "endLine": 11,
+        "endChar": 15
+      },
+      "revId": "c43e0a528a873c4c33ca4ddfa76057d9e00ea72a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_70c1a77f",
+        "filename": "samples/ramspeed.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-19T03:39:27Z",
+      "side": 1,
+      "message": "red space",
+      "range": {
+        "startLine": 13,
+        "startChar": 17,
+        "endLine": 13,
+        "endChar": 19
+      },
+      "revId": "c43e0a528a873c4c33ca4ddfa76057d9e00ea72a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_10be1b00",
+        "filename": "samples/ramspeed.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-19T03:39:27Z",
+      "side": 1,
+      "message": "red space",
+      "range": {
+        "startLine": 24,
+        "startChar": 18,
+        "endLine": 24,
+        "endChar": 20
+      },
+      "revId": "c43e0a528a873c4c33ca4ddfa76057d9e00ea72a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_504b432b",
+        "filename": "tests/unit/benchmark/scenarios/compute/test_ramspeed.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-19T03:39:27Z",
+      "side": 1,
+      "message": "this line is too long, please make sure that no longer that 80 characters per lines, thank you",
+      "range": {
+        "startLine": 54,
+        "startChar": 73,
+        "endLine": 54,
+        "endChar": 80
+      },
+      "revId": "c43e0a528a873c4c33ca4ddfa76057d9e00ea72a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_7048c72d",
+        "filename": "tests/unit/benchmark/scenarios/compute/test_ramspeed.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-19T03:39:27Z",
+      "side": 1,
+      "message": "same as above comment",
+      "range": {
+        "startLine": 70,
+        "startChar": 73,
+        "endLine": 70,
+        "endChar": 79
+      },
+      "revId": "c43e0a528a873c4c33ca4ddfa76057d9e00ea72a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_1055bbc5",
+        "filename": "tests/unit/benchmark/scenarios/compute/test_ramspeed.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-19T03:39:27Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 157,
+        "startChar": 74,
+        "endLine": 157,
+        "endChar": 80
+      },
+      "revId": "c43e0a528a873c4c33ca4ddfa76057d9e00ea72a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_30523fde",
+        "filename": "yardstick/benchmark/scenarios/compute/ramspeed.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-19T03:39:27Z",
+      "side": 1,
+      "message": "format problem",
+      "range": {
+        "startLine": 45,
+        "startChar": 17,
+        "endLine": 45,
+        "endChar": 19
+      },
+      "revId": "c43e0a528a873c4c33ca4ddfa76057d9e00ea72a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_d05e73e9",
+        "filename": "yardstick/benchmark/scenarios/compute/ramspeed.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-19T03:39:27Z",
+      "side": 1,
+      "message": "if test_id \u003e6 and test_id \u003c 19, there is no init of \"cmd\", then a error will be encountered",
+      "range": {
+        "startLine": 117,
+        "startChar": 43,
+        "endLine": 117,
+        "endChar": 46
+      },
+      "revId": "c43e0a528a873c4c33ca4ddfa76057d9e00ea72a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
