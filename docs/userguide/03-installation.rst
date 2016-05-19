@@ -1,7 +1,7 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International
 .. License.
 .. http://creativecommons.org/licenses/by/4.0
-.. (c) OPNFV, Ericsson AB and others.
+.. (c) OPNFV, Ericsson AB, Huawei Technologies Co.,Ltd and others.
 
 Yardstick Installation
 ======================
@@ -155,7 +155,10 @@ Pull the Yardstick-CI Docker image from Docker hub:
 
 ::
 
-  docker pull opnfv/yardstick-ci
+  docker pull opnfv/yardstick:$DOCKER_TAG
+
+Where ``$DOCKER_TAG`` is latest for master branch, as for the release branches,
+this coincides with its release name, such as brahmaputra.1.0.
 
 Run the Docker image:
 
@@ -167,11 +170,15 @@ Run the Docker image:
     -t \
     -e "INSTALLER_TYPE=${INSTALLER_TYPE}" \
     -e "INSTALLER_IP=${INSTALLER_IP}" \
-    opnfv/yardstick-ci \
-    run_benchmarks
+    opnfv/yardstick \
+    run_tests.sh ${YARDSTICK_DB_BACKEND} ${YARDSTICK_SUITE_NAME}
 
 Where ``${INSTALLER_TYPE}`` can be fuel, foreman or compass and ``${INSTALLER_IP}``
-is the installer master node IP address (i.e. 10.20.0.2 is default for fuel).
+is the installer master node IP address (i.e. 10.20.0.2 is default for fuel). ``${YARDSTICK_DB_BACKEND}``
+is the IP and port number of DB, ``${YARDSTICK_SUITE_NAME}`` is the suite you want to run.
+For more details, please refer to the job defined in Releng project, labconfig information
+and sshkey are required. See the link
+https://git.opnfv.org/cgit/releng/tree/jjb/yardstick/yardstick-ci-jobs.yml.
 
 Basic steps performed by the **Yardstick-CI** container:
 
