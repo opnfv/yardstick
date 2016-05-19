@@ -1,0 +1,31 @@
+---
+# Sample benchmark task config file
+# Reading cache hit/miss ratio and usage statistics
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: CACHE
+  options:
+    interval: 1
+
+  host: kratos.demo
+ 
+  runner:
+    type: Duration
+    duration: 60
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ubuntu
+
+  servers:
+    kratos:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
