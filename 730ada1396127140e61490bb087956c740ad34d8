@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_b0cf2fb0",
+        "filename": "samples/memload.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-19T03:23:25Z",
+      "side": 1,
+      "message": "this is no meaning if only one scenario neet to be run",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "730ada1396127140e61490bb087956c740ad34d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_90ca2ba0",
+        "filename": "samples/memload.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-19T03:23:25Z",
+      "side": 1,
+      "message": "red space",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 2
+      },
+      "revId": "730ada1396127140e61490bb087956c740ad34d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_30e47f3a",
+        "filename": "yardstick/benchmark/scenarios/compute/memload.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-19T03:23:25Z",
+      "side": 1,
+      "message": "it would be better if you make this part as an independent function",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 65
+      },
+      "revId": "730ada1396127140e61490bb087956c740ad34d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
