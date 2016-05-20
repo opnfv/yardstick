@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_0e627cd8",
+        "filename": "ci/prepare_env.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-05-20T08:11:26Z",
+      "side": 1,
+      "message": "why we cannot use the default INSTALLER_TYPE and INSTALLER_IP?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 6
+      },
+      "revId": "fa764905f8fc8b08d58c4c6d809ef65aeb5399e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
