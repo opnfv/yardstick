@@ -22,6 +22,30 @@
       "revId": "fa764905f8fc8b08d58c4c6d809ef65aeb5399e5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_aeaa70d2",
+        "filename": "ci/prepare_env.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2016-05-20T08:17:18Z",
+      "side": 1,
+      "message": "These two parameters are defined in ci jobs for different installer and pod,such as https://git.opnfv.org/cgit/releng/tree/jjb/yardstick/yardstick-ci-jobs.yml#n186. If the parameters in CI is defined wrong, then we can see error here, if to use default values, this error can\u0027t be exposed, which directly runs to the next fetch_os_creds scripts.",
+      "parentUuid": "9a91bd0f_0e627cd8",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 6
+      },
+      "revId": "fa764905f8fc8b08d58c4c6d809ef65aeb5399e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
