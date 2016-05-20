@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_339009ec",
+        "filename": "docs/userguide/03-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-05-20T03:18:58Z",
+      "side": 1,
+      "message": "It would be better add apex and joid.",
+      "range": {
+        "startLine": 176,
+        "startChar": 35,
+        "endLine": 176,
+        "endChar": 59
+      },
+      "revId": "60d0e7401193f3fcf938e305c0757ef5a59c781f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
