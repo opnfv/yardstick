@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_2e69808b",
+        "filename": "samples/memload.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-20T09:25:36Z",
+      "side": 1,
+      "message": "red space",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 1
+      },
+      "revId": "6095573360ea8773bb1f523c6c09ecbeb1436770",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_0e6cbc9b",
+        "filename": "tests/unit/benchmark/scenarios/compute/test_memload.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-20T09:25:36Z",
+      "side": 1,
+      "message": "2016",
+      "range": {
+        "startLine": 4,
+        "startChar": 17,
+        "endLine": 4,
+        "endChar": 19
+      },
+      "revId": "6095573360ea8773bb1f523c6c09ecbeb1436770",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_8e58ccfb",
+        "filename": "yardstick/benchmark/scenarios/compute/memload.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-20T09:25:36Z",
+      "side": 1,
+      "message": "it should be 2016",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "6095573360ea8773bb1f523c6c09ecbeb1436770",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_6e6f8893",
+        "filename": "yardstick/benchmark/scenarios/compute/memload.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-20T09:25:36Z",
+      "side": 1,
+      "message": "is it possible to be zero?",
+      "range": {
+        "startLine": 100,
+        "startChar": 44,
+        "endLine": 100,
+        "endChar": 53
+      },
+      "revId": "6095573360ea8773bb1f523c6c09ecbeb1436770",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
