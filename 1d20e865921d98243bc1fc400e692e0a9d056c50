@@ -22,6 +22,30 @@
       "revId": "1d20e865921d98243bc1fc400e692e0a9d056c50",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_ae14b0f5",
+        "filename": "docs/userguide/03-installation.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2016-05-20T09:33:41Z",
+      "side": 1,
+      "message": "hi, I think it is OK for documents by now, u can refer to https://git.opnfv.org/cgit/releng/tree/utils/docs-build.sh#n55, no more than 240 is OK, since there\u0027s some case to draw tables in document, 80 or 120 is not enough sometimes.",
+      "parentUuid": "9a91bd0f_ae5d90eb",
+      "range": {
+        "startLine": 177,
+        "startChar": 100,
+        "endLine": 177,
+        "endChar": 105
+      },
+      "revId": "1d20e865921d98243bc1fc400e692e0a9d056c50",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
