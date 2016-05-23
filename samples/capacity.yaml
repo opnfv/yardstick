@@ -1,0 +1,24 @@
+---
+# Sample benchmark task config file
+# Measure hardware capacity and scale.
+# Including number of cores, number of threads, available memory size and 
+# cache size.
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Capacity
+  options:
+
+  nodes:
+    host1: node5.LF
+
+  runner:
+    type: Iteration
+    iterations: 1
+
+context:
+  type: Node
+  name: LF
+  file: /root/yardstick/etc/yardstick/nodes/compass_sclab_virtual/pod.yaml
