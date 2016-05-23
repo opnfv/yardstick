@@ -22,6 +22,30 @@
       "revId": "54a393f4829e0de8b406dfc3e2d099b4394e5f38",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_49cabe50",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-05-23T02:20:54Z",
+      "side": 1,
+      "message": "To build ramspeed, you need to run the build.sh script. During the building process, build.sh will generate several temporary files in a \u0027temp\u0027 directory. This \u0027temp\u0027 directory will not be made by the script, hence need to be made manually.",
+      "parentUuid": "9a91bd0f_6979c22e",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 10
+      },
+      "revId": "54a393f4829e0de8b406dfc3e2d099b4394e5f38",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
