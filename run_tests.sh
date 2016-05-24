@@ -54,7 +54,7 @@ run_tests() {
 }
 
 run_coverage() {
-    source ci/cover.sh
+    source tests/ci/cover.sh
     run_coverage_test
 }
 

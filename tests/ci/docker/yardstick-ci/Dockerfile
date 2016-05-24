@@ -44,7 +44,7 @@ RUN git clone https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR}
 
 # install yardstick + dependencies
 RUN cd ${YARDSTICK_REPO_DIR} && easy_install -U pip
-RUN cd ${YARDSTICK_REPO_DIR} && pip install -r ci/requirements.txt
+RUN cd ${YARDSTICK_REPO_DIR} && pip install -r tests/ci/requirements.txt
 RUN cd ${YARDSTICK_REPO_DIR} && pip install .
 
 ADD http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img /home/opnfv/images/

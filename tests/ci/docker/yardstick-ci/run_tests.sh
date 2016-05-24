@@ -49,7 +49,7 @@ git checkout master && git pull
 git_checkout $YARDSTICK_BRANCH $YARDSTICK_REPO
 
 # setup the environment
-source $YARDSTICK_REPO_DIR/ci/prepare_env.sh
+source $YARDSTICK_REPO_DIR/tests/ci/prepare_env.sh
 
 # run tests
-$YARDSTICK_REPO_DIR/ci/yardstick-verify $@
+$YARDSTICK_REPO_DIR/tests/ci/yardstick-verify $@
