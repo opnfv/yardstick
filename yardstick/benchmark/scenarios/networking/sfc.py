@@ -1,7 +1,8 @@
 import pkg_resources
+import time
 import logging
 import subprocess
-
+import sfc_openstack
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
 
@@ -40,7 +41,7 @@ class Sfc(base.Scenario):
 
         target = self.context_cfg['target']
         target_user = target.get('user', 'root')
-        target_pwd = target.get('password', 'octopus')
+        target_pwd = target.get('password', 'opnfv')
         target_ip = target.get('ip', None)
 
         ''' webserver start automatically during the vm boot '''
@@ -53,6 +54,38 @@ class Sfc(base.Scenario):
         LOG.debug("Executing command: %s", cmd_server)
         status, stdout, stderr = self.server.execute(cmd_server)
         LOG.debug("Output server command: %s", status)
+        #It takes a bit until the HTTP process is up
+        time.sleep(7)
+
+        ips = sfc_openstack.get_an_IP()
+
+        target = self.context_cfg['target']
+        SF1_user = target.get('user', 'root')
+        SF1_pwd = target.get('password', 'opnfv')
+        SF1_ip = ips[0]
+
+        self.server = ssh.SSH(SF1_user, SF1_ip, password=SF1_pwd)
+        self.server.wait(timeout=600)
+        cmd_SF1 = "nohup python vxlan_tool_manu.py -i eth0 -d forward -v off -b http &"
+        LOG.debug("Starting HTTP firewall in SF1")
+        status, stdout, stderr = self.server.execute(cmd_SF1)
+        result = self.server.execute("ps lax | grep manu")
+        if "vxlan_tool_manu.py" in result[1]:
+            LOG.debug("HTTP firewall started")
+
+        SF2_user = target.get('user', 'root')
+        SF2_pwd = target.get('password', 'opnfv')
+        SF2_ip = ips[1]
+
+        self.server = ssh.SSH(SF2_user, SF2_ip, password=SF2_pwd)
+        self.server.wait(timeout=600)
+        cmd_SF2 = "nohup python vxlan_tool_manu.py -i eth0 -d forward -v off -b ssh &"
+        LOG.debug("Starting SSH firewall in SF2")
+        status, stdout, stderr = self.server.execute(cmd_SF2)
+
+        result = self.server.execute("ps lax | grep manu")
+        if "vxlan_tool_manu.py" in result[1]:
+            LOG.debug("SSH firewall started")
 
         self.setup_done = True
 
@@ -73,15 +106,19 @@ class Sfc(base.Scenario):
         target = self.context_cfg['target']
         target_ip = target.get('ip', None)
 
-        cmd_client = "curl %s", target_ip
+        cmd_client = "curl " + target_ip
         LOG.debug("Executing command: %s", cmd_client)
+        ips = sfc_openstack.get_an_IP()
         result = self.client.execute(cmd_client)
+        if "WORKED" in result[1]:
+            LOG.debug("HTTP WORKED!!!!")
         LOG.debug("Output client command: %s", result)
+        time.sleep(2)
 
     def teardown(self):
         ''' for scenario teardown remove tacker VNFs, chains and classifiers'''
         self.teardown_script = pkg_resources.resource_filename(
-            "yardstick.benchmark.scenarios.sfc",
+            "yardstick.benchmark.scenarios.networking",
             Sfc.TEARDOWN_SCRIPT)
         subprocess.call(self.teardown_script, shell=True)
         self.teardown_done = True
@@ -95,7 +132,7 @@ class Sfc(base.Scenario):
 
     result = {}
 
-    sfc = Sfc()
+    sfc = Sfc(scenario_cfg, context_cfg)
     sfc.setup()
     sfc.run(result)
     print result
