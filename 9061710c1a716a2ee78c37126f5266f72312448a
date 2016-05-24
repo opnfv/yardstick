@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_ff80208d",
+        "filename": "yardstick/benchmark/scenarios/compute/capacity.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-24T09:30:52Z",
+      "side": 1,
+      "message": "i guess what you real do is capcity of computer area, so this word may include too much area.",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 34
+      },
+      "revId": "9061710c1a716a2ee78c37126f5266f72312448a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
