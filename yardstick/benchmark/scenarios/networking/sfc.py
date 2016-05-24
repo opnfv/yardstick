@@ -1,7 +1,8 @@
 import pkg_resources
+import time
 import logging
 import subprocess
-
+import sfc_openstack
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
 
@@ -40,7 +41,7 @@ class Sfc(base.Scenario):
 
         target = self.context_cfg['target']
         target_user = target.get('user', 'root')
-        target_pwd = target.get('password', 'octopus')
+        target_pwd = target.get('password', 'opnfv')
         target_ip = target.get('ip', None)
 
         ''' webserver start automatically during the vm boot '''
@@ -53,6 +54,8 @@ class Sfc(base.Scenario):
         LOG.debug("Executing command: %s", cmd_server)
         status, stdout, stderr = self.server.execute(cmd_server)
         LOG.debug("Output server command: %s", status)
+        #It takes a bit until the HTTP process is up
+        time.sleep(7)
 
         self.setup_done = True
 
@@ -73,15 +76,19 @@ class Sfc(base.Scenario):
         target = self.context_cfg['target']
         target_ip = target.get('ip', None)
 
-        cmd_client = "curl %s", target_ip
+        cmd_client = "curl " + target_ip
         LOG.debug("Executing command: %s", cmd_client)
+        ips = sfc_openstack.get_an_IP()
         result = self.client.execute(cmd_client)
+        if "WORKED" in result[1]:
+            LOG.debug("HTTP WORKED!!!!")
         LOG.debug("Output client command: %s", result)
+        time.sleep(2)
 
     def teardown(self):
         ''' for scenario teardown remove tacker VNFs, chains and classifiers'''
         self.teardown_script = pkg_resources.resource_filename(
-            "yardstick.benchmark.scenarios.sfc",
+            "yardstick.benchmark.scenarios.networking",
             Sfc.TEARDOWN_SCRIPT)
         subprocess.call(self.teardown_script, shell=True)
         self.teardown_done = True
