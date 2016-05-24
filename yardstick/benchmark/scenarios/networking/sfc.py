@@ -40,7 +40,7 @@ class Sfc(base.Scenario):
 
         target = self.context_cfg['target']
         target_user = target.get('user', 'root')
-        target_pwd = target.get('password', 'octopus')
+        target_pwd = target.get('password', 'opnfv')
         target_ip = target.get('ip', None)
 
         ''' webserver start automatically during the vm boot '''
@@ -73,7 +73,7 @@ class Sfc(base.Scenario):
         target = self.context_cfg['target']
         target_ip = target.get('ip', None)
 
-        cmd_client = "curl %s", target_ip
+        cmd_client = "curl " + target_ip
         LOG.debug("Executing command: %s", cmd_client)
         result = self.client.execute(cmd_client)
         LOG.debug("Output client command: %s", result)
@@ -81,7 +81,7 @@ class Sfc(base.Scenario):
     def teardown(self):
         ''' for scenario teardown remove tacker VNFs, chains and classifiers'''
         self.teardown_script = pkg_resources.resource_filename(
-            "yardstick.benchmark.scenarios.sfc",
+            "yardstick.benchmark.scenarios.networking",
             Sfc.TEARDOWN_SCRIPT)
         subprocess.call(self.teardown_script, shell=True)
         self.teardown_done = True
