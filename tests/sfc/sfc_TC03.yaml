@@ -6,33 +6,45 @@ scenarios:
 -
   type: sfc
 
-  host: http_client.sfc
-  target: http_server.sfc
+  host: http_client.sfc_test1
+  target: http_server.sfc_test2
 
   runner:
     type: Iteration
-    iterations: 1
+    iterations: 5
     interval: 1
 
 contexts:
 -
-  name: sfc
+  name: sfc_test1
+  user: root
   placement_groups:
     pgrp1:
       policy: "availability"
   servers:
     http_client:
-      flavor: m1.tiny
-      image: cirros-0.3.3
-      floating_ip: true
-      placement: "pgrp1"
-      user: cirros
-    http_server:
-      flavor: m1.small 
+      flavor: m1.small
       image: sfc
       floating_ip: true
       placement: "pgrp1"
-      user: root
   networks:
      sfc-net_mgmt:
        cidr: '11.0.0.0/24'
+
+-
+
+  name: sfc_test2
+  user: root
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+  servers:
+    http_server:
+      flavor: m1.small
+      image: sfc
+      floating_ip: true
+      placement: "pgrp1"
+  networks:
+     sfc-net_mgmt:
+       cidr: '11.0.0.0/24'
+
