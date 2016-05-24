@@ -2,8 +2,9 @@
 set -e
 
 # download and create image
-wget https://www.dropbox.com/s/focu44sh52li7fz/sfc_cloud.qcow2
-glance image-create --name sfc --disk-format qcow2 --container-format bare --file sfc_cloud.qcow2
+#wget https://www.dropbox.com/s/focu44sh52li7fz/sfc_cloud.qcow2
+glance image-create --name sfc --disk-format qcow2 --container-format bare --file SF.qcow2
+
 
 #create flavor
-nova flavor-create --is-public true sfc_custom 666 1000 5 2
+openstack flavor create custom --ram 1500 --disk 10 --public
