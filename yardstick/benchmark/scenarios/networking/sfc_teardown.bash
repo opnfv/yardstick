@@ -1,9 +1,9 @@
 #!/bin/bash
-set -e
+#set -e
 
 #delete classifier
-tacker sfc-classifier-create myclassA
-tacker sfc-classifier-create myclassB
+tacker sfc-classifier-delete myclassA
+tacker sfc-classifier-delete myclassB
 
 #delete service chain
 tacker sfc-delete chainA
