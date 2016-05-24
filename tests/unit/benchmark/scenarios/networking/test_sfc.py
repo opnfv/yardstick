@@ -26,13 +26,13 @@ class SfcTestCase(unittest.TestCase):
         # Used in Sfc.setup()
         context_cfg['target'] = dict()
         context_cfg['target']['user'] = 'root'
-        context_cfg['target']['password'] = 'octopus'
+        context_cfg['target']['password'] = 'opnfv'
         context_cfg['target']['ip'] = None
 
         # Used in Sfc.run()
         context_cfg['host'] = dict()
-        context_cfg['host']['user'] = 'cirros'
-        context_cfg['host']['password'] = 'cubslose:)'
+        context_cfg['host']['user'] = 'root'
+        context_cfg['host']['password'] = 'opnfv'
         context_cfg['host']['ip'] = None
         context_cfg['target'] = dict()
         context_cfg['target']['ip'] = None
