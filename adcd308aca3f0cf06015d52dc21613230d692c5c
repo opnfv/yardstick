@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_3ead2989",
+        "filename": "yardstick/benchmark/scenarios/compute/cache_stat.bash",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-05-25T05:27:17Z",
+      "side": 1,
+      "message": "Please adjust the indent.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 22
+      },
+      "revId": "adcd308aca3f0cf06015d52dc21613230d692c5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_5eaa6d71",
+        "filename": "yardstick/benchmark/scenarios/compute/cachestat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-05-25T05:27:17Z",
+      "side": 1,
+      "message": "why not merge into one line.",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 67
+      },
+      "revId": "adcd308aca3f0cf06015d52dc21613230d692c5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
