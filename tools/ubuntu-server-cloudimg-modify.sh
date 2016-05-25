@@ -58,16 +58,30 @@ apt-get install -y \
     perl \
     rt-tests \
     stress \
-    sysstat
+    sysstat \
+    linux-headers-$(uname -r) \
+    libpcap-dev \
+    pciutils
+
 
 git clone https://github.com/kdlucas/byte-unixbench.git /opt/tempT
 make --directory /opt/tempT/UnixBench/
-
 
 git clone https://github.com/beefyamoeba5/ramspeed.git /opt/tempT2
 cd /opt/tempT2/ramspeed-2.6.0
 mkdir temp
 bash build.sh
+
+git clone http://dpdk.org/git/dpdk /opt/tempT3
+export RTE_SDK=/opt/tempT3/dpdk
+export RTE_TARGET=x86_64-native-linuxapp-gcc
+cd /opt/tempT3/dpdk
+make install T=x86_64-native-linuxapp-gcc DESTDIR=/usr/local
+
+git clone http://dpdk.org/git/apps/pktgen-dpdk /opt/tempT4
+cd /opt/tempT4/pktgen-dpdk
+make
+./setup.sh
 
 # restore symlink
 ln -sf /run/resolvconf/resolv.conf /etc/resolv.conf
