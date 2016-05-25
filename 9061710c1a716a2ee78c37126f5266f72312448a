@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a91bd0f_be6db906",
+        "filename": "samples/capacity.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2016-05-25T09:21:37Z",
+      "side": 1,
+      "message": "according to the discription, to collect the info of a pod, I am thinking if it is appropriate to call it capacity? pod_info or sth?",
+      "revId": "9061710c1a716a2ee78c37126f5266f72312448a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a91bd0f_ff80208d",
         "filename": "yardstick/benchmark/scenarios/compute/capacity.py",
         "patchSetId": 2
