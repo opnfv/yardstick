@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_3e76893f",
+        "filename": "tools/ubuntu-server-cloudimg-dpdk-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-05-25T04:58:39Z",
+      "side": 1,
+      "message": "It can be written like this: apt-get linux-headers-$(uname -r)",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 18
+      },
+      "revId": "e06b7a26e5434fa8bc22103ab522fd0ae6179f5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
