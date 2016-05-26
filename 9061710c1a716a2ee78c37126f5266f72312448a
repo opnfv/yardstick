@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "9a91bd0f_24051c11",
+        "filename": "tests/unit/benchmark/scenarios/compute/test_capacity.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-05-26T01:13:07Z",
+      "side": 1,
+      "message": "i donnot think it is a good idea to use hard coded values here, since others will not pass the UT.",
+      "revId": "9061710c1a716a2ee78c37126f5266f72312448a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a91bd0f_ff80208d",
         "filename": "yardstick/benchmark/scenarios/compute/capacity.py",
         "patchSetId": 2
@@ -35,6 +52,53 @@
         "startChar": 3,
         "endLine": 26,
         "endChar": 34
+      },
+      "revId": "9061710c1a716a2ee78c37126f5266f72312448a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_242c3c99",
+        "filename": "yardstick/benchmark/scenarios/compute/capacity.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-05-26T01:13:07Z",
+      "side": 1,
+      "message": "I agree. Besides, the description above will measure the HW. However, the testing env is vm. How to combine cpu and vCPU(pinning or not), how to get multiple capacity metrics in one Scenario(*Capacity*), should be considered carefully.",
+      "parentUuid": "9a91bd0f_ff80208d",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 34
+      },
+      "revId": "9061710c1a716a2ee78c37126f5266f72312448a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_843ae8cb",
+        "filename": "yardstick/benchmark/scenarios/compute/capacity.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-05-26T01:13:07Z",
+      "side": 1,
+      "message": "meaning?",
+      "range": {
+        "startLine": 50,
+        "startChar": 25,
+        "endLine": 50,
+        "endChar": 44
       },
       "revId": "9061710c1a716a2ee78c37126f5266f72312448a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
