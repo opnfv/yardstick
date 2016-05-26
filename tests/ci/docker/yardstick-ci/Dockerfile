@@ -49,5 +49,4 @@ RUN cd ${YARDSTICK_REPO_DIR} && pip install .
 
 ADD http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img /home/opnfv/images/
 
-COPY ./run_tests.sh /usr/local/bin/
-
+COPY ./exec_tests.sh /usr/local/bin/
