@@ -171,7 +171,7 @@ Run the Docker image:
     -e "INSTALLER_TYPE=${INSTALLER_TYPE}" \
     -e "INSTALLER_IP=${INSTALLER_IP}" \
     opnfv/yardstick \
-    run_tests.sh ${YARDSTICK_DB_BACKEND} ${YARDSTICK_SUITE_NAME}
+    exec_tests.sh ${YARDSTICK_DB_BACKEND} ${YARDSTICK_SUITE_NAME}
 
 Where ``${INSTALLER_TYPE}`` can be apex, compass, fuel or joid, ``${INSTALLER_IP}``
 is the installer master node IP address (i.e. 10.20.0.2 is default for fuel). ``${YARDSTICK_DB_BACKEND}``
