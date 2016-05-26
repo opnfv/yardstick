@@ -22,6 +22,30 @@
       "revId": "4ddb4fdc63a43258cee51b0ee24e797bbfa4dde8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_440380b8",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-05-26T06:53:06Z",
+      "side": 1,
+      "message": "thanks for your remind, got it.",
+      "parentUuid": "9a91bd0f_c47c7075",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 2,
+        "endChar": 47
+      },
+      "revId": "4ddb4fdc63a43258cee51b0ee24e797bbfa4dde8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
