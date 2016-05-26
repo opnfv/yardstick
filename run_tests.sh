@@ -9,7 +9,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Run yardstick's test suite(s)
+# Run yardstick's flake8, unit, coverage, functional test
 
 getopts ":f" FILE_OPTION
 

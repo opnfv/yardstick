@@ -171,7 +171,7 @@ Run the Docker image:
     -e "INSTALLER_TYPE=${INSTALLER_TYPE}" \
     -e "INSTALLER_IP=${INSTALLER_IP}" \
     opnfv/yardstick \
-    run_tests.sh ${YARDSTICK_DB_BACKEND} ${YARDSTICK_SUITE_NAME}
+    exec_tests.sh ${YARDSTICK_DB_BACKEND} ${YARDSTICK_SUITE_NAME}
 
 Where ``${INSTALLER_TYPE}`` can be apex, compass, fuel or joid, ``${INSTALLER_IP}``
 is the installer master node IP address (i.e. 10.20.0.2 is default for fuel). ``${YARDSTICK_DB_BACKEND}``
@@ -179,6 +179,11 @@ is the IP and port number of DB, ``${YARDSTICK_SUITE_NAME}`` is the test suite y
 For more details, please refer to the Jenkins job defined in Releng project, labconfig information
 and sshkey are required. See the link
 https://git.opnfv.org/cgit/releng/tree/jjb/yardstick/yardstick-ci-jobs.yml.
+
+Note: exec_tests.sh is used for running test suite here, furthermore, if someone wants to run the
+test suite manually, it can be used as long as the parameters are configured correct. Another script
+called run_tests.sh is used for unittest in Jenkins verify job, in local manaul environment,
+it is recommended to run before test suite execuation.
 
 Basic steps performed by the **Yardstick-CI** container:
 
