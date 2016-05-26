@@ -1,0 +1,22 @@
+---
+# Sample benchmark task config file
+# Used for testing sample plugin
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Sample
+  options:
+
+  nodes:
+    host1: node1.LF
+
+  runner:
+    type: Iteration
+    iterations: 1
+
+context:
+  type: Node
+  name: LF
+  file: /root/yardstick/etc/yardstick/nodes/compass_sclab_virtual/pod.yaml

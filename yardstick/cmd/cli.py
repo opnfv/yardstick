@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (c) 2015 Ericsson AB and others.
+# Copyright (c) 2016 Huawei Technologies Co.,Ltd and others.
 #
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
@@ -23,6 +23,7 @@ from yardstick.cmd.commands import task
 from yardstick.cmd.commands import runner
 from yardstick.cmd.commands import scenario
 from yardstick.cmd.commands import testcase
+from yardstick.cmd.commands import plugin
 
 CONF = cfg.CONF
 cli_opts = [
@@ -60,7 +61,8 @@ class YardstickCLI():
         'task': task.TaskCommands,
         'runner': runner.RunnerCommands,
         'scenario': scenario.ScenarioCommands,
-        'testcase': testcase.TestcaseCommands
+        'testcase': testcase.TestcaseCommands,
+        'plugin': plugin.PluginCommands
     }
 
     def __init__(self):
