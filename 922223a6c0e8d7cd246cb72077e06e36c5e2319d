@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_6a90cbec",
+        "filename": "tools/dpdk_install.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-27T10:21:41Z",
+      "side": 1,
+      "message": "red trail",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 2
+      },
+      "revId": "922223a6c0e8d7cd246cb72077e06e36c5e2319d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_0abd7f68",
+        "filename": "tools/dpdk_install.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-27T10:21:41Z",
+      "side": 1,
+      "message": "red trail",
+      "range": {
+        "startLine": 90,
+        "startChar": 16,
+        "endLine": 90,
+        "endChar": 17
+      },
+      "revId": "922223a6c0e8d7cd246cb72077e06e36c5e2319d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_eaa4db58",
+        "filename": "yardstick/benchmark/scenarios/networking/dpdk_pktgen.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-27T10:21:41Z",
+      "side": 1,
+      "message": "2016?",
+      "range": {
+        "startLine": 2,
+        "startChar": 15,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "922223a6c0e8d7cd246cb72077e06e36c5e2319d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_8a898fcc",
+        "filename": "yardstick/benchmark/scenarios/networking/dpdk_pktgen.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-27T10:21:41Z",
+      "side": 1,
+      "message": "i want to make sure if we need this cmd necessary.",
+      "range": {
+        "startLine": 125,
+        "startChar": 1,
+        "endLine": 125,
+        "endChar": 29
+      },
+      "revId": "922223a6c0e8d7cd246cb72077e06e36c5e2319d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_aa86d3b7",
+        "filename": "yardstick/benchmark/scenarios/networking/dpdk_pktgen.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-27T10:21:41Z",
+      "side": 1,
+      "message": "some format problem",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 1
+      },
+      "revId": "922223a6c0e8d7cd246cb72077e06e36c5e2319d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_4a9387fa",
+        "filename": "yardstick/benchmark/scenarios/networking/dpdk_pktgen.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-27T10:21:41Z",
+      "side": 1,
+      "message": "May I know the reason of sleep?",
+      "range": {
+        "startLine": 138,
+        "startChar": 1,
+        "endLine": 138,
+        "endChar": 19
+      },
+      "revId": "922223a6c0e8d7cd246cb72077e06e36c5e2319d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
