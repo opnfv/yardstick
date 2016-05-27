@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_eae29b02",
+        "filename": "tools/ubuntu-server-cloudimg-dpdk-modify.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-05-27T07:34:10Z",
+      "side": 1,
+      "message": "The value 256 is too small. It will effect the performance of pktgen.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 46
+      },
+      "revId": "8d465ab7028a83563a45014c3a1eaf6a2e02ef6a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
