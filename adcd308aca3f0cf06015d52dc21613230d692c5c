@@ -96,6 +96,24 @@
     },
     {
       "key": {
+        "uuid": "9a91bd0f_35bc64bb",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2016-05-28T02:43:56Z",
+      "side": 1,
+      "message": "then it\u0027s OK for u to use /tempT,which are \u0027/opt/tempT/Unixbench\u0027 , \u0027/opt/tempT/RAMspeed\u0027,etc, no additional amends I think.",
+      "parentUuid": "9a91bd0f_b5a07491",
+      "revId": "adcd308aca3f0cf06015d52dc21613230d692c5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a91bd0f_3ead2989",
         "filename": "yardstick/benchmark/scenarios/compute/cache_stat.bash",
         "patchSetId": 4
