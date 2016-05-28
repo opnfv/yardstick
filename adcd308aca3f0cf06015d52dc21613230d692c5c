@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "9a91bd0f_15904042",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-05-28T02:01:42Z",
+      "side": 1,
+      "message": "git clone to the same path may cause conflicts, as all the files will be stored directly under one folder. \nDo you mean git clone to different folders under a main \u0027temp\u0027 directory? like to \u0027/opt/temp/Unixbench\u0027 , \u0027/opt/temp/RAMspeed\u0027?",
+      "parentUuid": "9a91bd0f_fe634118",
+      "revId": "adcd308aca3f0cf06015d52dc21613230d692c5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a91bd0f_3ead2989",
         "filename": "yardstick/benchmark/scenarios/compute/cache_stat.bash",
         "patchSetId": 4
@@ -76,6 +94,30 @@
       "writtenOn": "2016-05-25T05:27:17Z",
       "side": 1,
       "message": "why not merge into one line.",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 67
+      },
+      "revId": "adcd308aca3f0cf06015d52dc21613230d692c5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a91bd0f_7573cc4d",
+        "filename": "yardstick/benchmark/scenarios/compute/cachestat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-05-28T02:01:42Z",
+      "side": 1,
+      "message": "The RATIO\u0027s value is string type which ends with a \u0027%\u0027 symbol, e.g. \"98.9%\", while other keys\u0027 values are int types. Hense the valuse need to be treated differently. If these two if statement are merged, A non-RATIO key\u0027s value which didn\u0027t exceed the maximun value will be treated as string type.",
+      "parentUuid": "9a91bd0f_5eaa6d71",
       "range": {
         "startLine": 132,
         "startChar": 0,
