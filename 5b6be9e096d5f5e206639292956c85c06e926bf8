@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a91bd0f_75742cfd",
+        "filename": "yardstick/benchmark/scenarios/compute/cachestat.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-05-28T06:54:10Z",
+      "side": 1,
+      "message": "\"Cache, CACHEload or CACHEstat\" will be better, please keep aligned with other scenarios.",
+      "range": {
+        "startLine": 60,
+        "startChar": 24,
+        "endLine": 60,
+        "endChar": 30
+      },
+      "revId": "5b6be9e096d5f5e206639292956c85c06e926bf8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
