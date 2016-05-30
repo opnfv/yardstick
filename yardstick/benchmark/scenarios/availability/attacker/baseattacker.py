@@ -20,6 +20,31 @@ attacker_conf_path = pkg_resources.resource_filename(
     "attacker_conf.yaml")
 
 
+class AttackerMgr(object):
+
+    def __init__(self):
+        self._attacker_list = []
+
+    def init_attackers(self, attacker_cfgs, context):
+        LOG.debug("attackerMgr confg: %s" % attacker_cfgs)
+
+        for cfg in attacker_cfgs:
+            attacker_cls = BaseAttacker.get_attacker_cls(cfg)
+            attacker_ins = attacker_cls(cfg, context)
+            attacker_ins.key = cfg['key']
+            attacker_ins.setup()
+            self._attacker_list.append(attacker_ins)
+
+    def __getitem__(self, item):
+        for obj in self._attacker_list:
+            if(obj.key == item):
+                return obj
+
+    def recover(self):
+        for _instance in self._attacker_list:
+            _instance.recover()
+
+
 class BaseAttacker(object):
 
     attacker_cfgs = {}
@@ -45,3 +70,6 @@ class BaseAttacker(object):
     def get_script_fullpath(self, path):
         base_path = os.path.dirname(attacker_conf_path)
         return os.path.join(base_path, path)
+
+    def recovery(self):
+        pass
