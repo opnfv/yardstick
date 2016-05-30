@@ -91,6 +91,75 @@
       "revId": "7fd7751ab71d083354880e1bd52bef1c45f9f9e7",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_15d154cd",
+        "filename": "yardstick/benchmark/scenarios/networking/dpdk_pktgen_benchmark.bash",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-05-30T14:02:36Z",
+      "side": 1,
+      "message": "${cfg_file}",
+      "range": {
+        "startLine": 30,
+        "startChar": 14,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "7fd7751ab71d083354880e1bd52bef1c45f9f9e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_d5dafce8",
+        "filename": "yardstick/benchmark/scenarios/networking/dpdk_pktgen_benchmark.bash",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-05-30T14:02:36Z",
+      "side": 1,
+      "message": "same here and below",
+      "range": {
+        "startLine": 32,
+        "startChar": 39,
+        "endLine": 32,
+        "endChar": 48
+      },
+      "revId": "7fd7751ab71d083354880e1bd52bef1c45f9f9e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_35d6d0c6",
+        "filename": "yardstick/benchmark/scenarios/networking/dpdk_pktgen_benchmark.bash",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-05-30T14:02:36Z",
+      "side": 1,
+      "message": "${DST_IP}  and same for the rest",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 12
+      },
+      "revId": "7fd7751ab71d083354880e1bd52bef1c45f9f9e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
