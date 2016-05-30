@@ -8,6 +8,84 @@ kill-process:
   inject_script: ha_tools/fault_process_kill.bash
   recovery_script: ha_tools/start_service.bash
 
+stop_service:
+  inject_script: ha_tools/stop_service.bash
+  recovery_script: ha_tools/start_service.bash
+
 bare-metal-down:
   check_script: ha_tools/check_host_ping.bash
   recovery_script: ha_tools/ipmi_power.bash
+
+swift-service:
+  check_script: ha_tools/swift/check_swift_status.bash
+  inject_script: ha_tools/stop_service.bash
+  recovery_script: ha_tools/swift/recover_swift_service.bash
+
+attack_001:
+  inject_script: ha_tools/stop_service.bash
+  recovery_script: ha_tools/start_service.bash
+
+kill-main-process:
+ inject_script: attacker/scripts/case-kill-process/kill_mainProcess.bash
+ recovery_script: ha_tools/start_service.bash
+ check_script: ha_tools/check_service.bash
+
+kill-sub-process:
+ inject_script: attacker/scripts/case-kill-process/kill_process.bash
+ recovery_script: ha_tools/start_service.bash
+ check_script: ha_tools/check_service.bash
+
+xie-change-configfile:
+ inject_script: attacker/scripts/case-change-conf-file-content/xie_change_conf_file.bash
+ recovery_script: attacker/scripts/case-change-conf-file-content/recover_change_conf_file.bash
+
+bridge-down:
+ inject_script: ha_tools/network/bridge_down.bash
+ recovery_script: ha_tools/network/bridge_up.bash
+
+change-configfile:
+ inject_script: attacker/scripts/case-change-conf-file-content/case_change_conf_file.bash
+ recovery_script: attacker/scripts/case-change-conf-file-content/recover_change_conf_file.bash
+ check_script: attacker/scripts/case-change-conf-file-content/check_script.bash
+
+stopRemove-configfile:
+ inject_script: attacker/scripts/case-remove-conf/stopRemove_conf.bash
+ recovery_script: attacker/scripts/case-remove-conf/recover_conf.bash
+ check_script: ha_tools/check_service.bash
+
+change-disk_read_only:
+ inject_script: ha_tools/disk/set_read_only_disk.bash
+ recovery_script: ha_tools/disk/recovery_disk-read-only.bash
+
+remove-file:
+ inject_script: attacker/scripts/case-remove-conf/remove_conf.bash
+ recovery_script: attacker/scripts/case-remove-conf/recover_conf.bash
+ check_script: ha_tools/check_service.bash
+
+close-interface:
+ inject_script: ha_tools/network/close_interface.bash
+ recovery_script: ha_tools/network/open_interface.bash
+
+stress-cpu:
+ inject_script: ha_tools/node/stress_cpu.bash
+ recovery_script: ha_tools/node/release_cpu.bash
+
+block-io:
+  inject_script: ha_tools/disk/block_IO.bash
+  recovery_script: ha_tools/disk/recovery_disk_io.bash
+
+stop-rabbitmq:
+  inject_script: ha_tools/rabbitmq/stop.bash
+  recovery_script: ha_tools/pacemaker/resource_start.bash
+
+stop-rabbitmq-app:
+  inject_script: ha_tools/rabbitmq/stop_app.bash
+  recovery_script: ha_tools/pacemaker/resource_start.bash
+
+disk-full:
+  inject_script: ha_tools/disk/full_disk.bash
+  recovery_script: ha_tools/disk/recovery_disk_space_full.bash
+
+shutdown-vip:
+  inject_script: ha_tools/network/vip_shutdown.bash
+  recovery_script: ha_tools/pacemaker/resource_start.bash
