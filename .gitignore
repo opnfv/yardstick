@@ -29,3 +29,4 @@ cover/
 /docs_build/
 /docs_output/
 /releng/
+.python-version
