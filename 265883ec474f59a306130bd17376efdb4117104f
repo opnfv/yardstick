@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_f81ccd15",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2016-05-31T02:16:34Z",
+      "side": 1,
+      "message": "we can all use /tempT here, for isolation, u can use /tempT/dpdk and /tempT/pktgen-dpdk",
+      "range": {
+        "startLine": 75,
+        "startChar": 36,
+        "endLine": 75,
+        "endChar": 39
+      },
+      "revId": "265883ec474f59a306130bd17376efdb4117104f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
