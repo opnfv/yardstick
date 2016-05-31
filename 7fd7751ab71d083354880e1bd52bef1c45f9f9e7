@@ -94,6 +94,144 @@
     },
     {
       "key": {
+        "uuid": "5a7ca5a3_3b031f75",
+        "filename": "yardstick/benchmark/scenarios/networking/dpdk_pktgen.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-05-31T16:17:40Z",
+      "side": 1,
+      "message": "please try to use something different than sleep, do some extra verification",
+      "range": {
+        "startLine": 133,
+        "startChar": 1,
+        "endLine": 133,
+        "endChar": 19
+      },
+      "revId": "7fd7751ab71d083354880e1bd52bef1c45f9f9e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_5b2b7beb",
+        "filename": "yardstick/benchmark/scenarios/networking/dpdk_pktgen.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-05-31T16:17:40Z",
+      "side": 1,
+      "message": "make a constant variable out of it",
+      "range": {
+        "startLine": 142,
+        "startChar": 18,
+        "endLine": 142,
+        "endChar": 25
+      },
+      "revId": "7fd7751ab71d083354880e1bd52bef1c45f9f9e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_dbf78b8b",
+        "filename": "yardstick/benchmark/scenarios/networking/dpdk_pktgen.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-05-31T16:17:40Z",
+      "side": 1,
+      "message": "extract this into a Constant variable, placed at the beginning of the file",
+      "range": {
+        "startLine": 154,
+        "startChar": 19,
+        "endLine": 154,
+        "endChar": 32
+      },
+      "revId": "7fd7751ab71d083354880e1bd52bef1c45f9f9e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_fbf4c788",
+        "filename": "yardstick/benchmark/scenarios/networking/dpdk_pktgen.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-05-31T16:17:40Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 159,
+        "startChar": 19,
+        "endLine": 159,
+        "endChar": 31
+      },
+      "revId": "7fd7751ab71d083354880e1bd52bef1c45f9f9e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_9bf11398",
+        "filename": "yardstick/benchmark/scenarios/networking/dpdk_pktgen.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-05-31T16:17:40Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 162,
+        "startChar": 24,
+        "endLine": 162,
+        "endChar": 36
+      },
+      "revId": "7fd7751ab71d083354880e1bd52bef1c45f9f9e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_bbee4fb3",
+        "filename": "yardstick/benchmark/scenarios/networking/dpdk_pktgen.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-05-31T16:17:40Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 169,
+        "startChar": 29,
+        "endLine": 169,
+        "endChar": 32
+      },
+      "revId": "7fd7751ab71d083354880e1bd52bef1c45f9f9e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_15d154cd",
         "filename": "yardstick/benchmark/scenarios/networking/dpdk_pktgen_benchmark.bash",
         "patchSetId": 4
