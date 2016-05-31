@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a7ca5a3_bb308fe9",
+        "filename": "tests/unit/benchmark/scenarios/availability/test_attacker_general.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-05-31T12:42:21Z",
+      "side": 1,
+      "message": "same as below",
+      "range": {
+        "startLine": 12,
+        "startChar": 80,
+        "endLine": 12,
+        "endChar": 83
+      },
+      "revId": "8dc764d9529d8e47bb6ce7377fee5c3199600467",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_b845f5b4",
         "filename": "tests/unit/benchmark/scenarios/availability/test_attacker_general.py",
         "patchSetId": 1
