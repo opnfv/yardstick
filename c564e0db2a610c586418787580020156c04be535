@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "5a7ca5a3_18266969",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-05-31T02:15:51Z",
+      "side": 1,
+      "message": "I think it\u0027s better to keep like this. Thus, if the upstream modify the tool, scenario file may need modification too.",
+      "parentUuid": "5a7ca5a3_b8ff35aa",
+      "revId": "c564e0db2a610c586418787580020156c04be535",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_780afdd3",
         "filename": "tools/ubuntu-server-cloudimg-modify.sh",
         "patchSetId": 6
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "then it should be forked and list the difference in the fork repo.",
       "parentUuid": "5a7ca5a3_d8f8f1c6",
+      "revId": "c564e0db2a610c586418787580020156c04be535",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_382b2532",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-05-31T02:15:51Z",
+      "side": 1,
+      "message": "The original repo has lots of irrelevant files. Here what we use is just a script. It has nothing to do with  whether the upstream want to update it.",
+      "parentUuid": "5a7ca5a3_582ce14a",
       "revId": "c564e0db2a610c586418787580020156c04be535",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
