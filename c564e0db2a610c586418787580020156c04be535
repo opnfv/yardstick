@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5a7ca5a3_b8ff35aa",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2016-05-31T02:05:44Z",
+      "side": 1,
+      "message": "by using other ways except git repo, such as wget, we can make it.",
+      "parentUuid": "5a7ca5a3_f8f5adcb",
+      "revId": "c564e0db2a610c586418787580020156c04be535",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_780afdd3",
         "filename": "tools/ubuntu-server-cloudimg-modify.sh",
         "patchSetId": 6
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "This is a modified version for Yardstick.",
       "parentUuid": "5a7ca5a3_780afdd3",
+      "revId": "c564e0db2a610c586418787580020156c04be535",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_582ce14a",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2016-05-31T02:05:44Z",
+      "side": 1,
+      "message": "then it should be forked and list the difference in the fork repo.",
+      "parentUuid": "5a7ca5a3_d8f8f1c6",
       "revId": "c564e0db2a610c586418787580020156c04be535",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
