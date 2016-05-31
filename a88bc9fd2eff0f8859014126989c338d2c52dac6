@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_1899896e",
+        "filename": "tests/sfc/sfc_TC03.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3243
+      },
+      "writtenOn": "2016-05-31T07:33:50Z",
+      "side": 1,
+      "message": "Why is needed to have two different heat stacks? Is there any difference with the sfc_T02 yaml environment?",
+      "revId": "a88bc9fd2eff0f8859014126989c338d2c52dac6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_d8a2319a",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 3243
+      },
+      "writtenOn": "2016-05-31T07:33:50Z",
+      "side": 1,
+      "message": "IP address is not used anywhere. Is it just a test check?",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 43
+      },
+      "revId": "a88bc9fd2eff0f8859014126989c338d2c52dac6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
