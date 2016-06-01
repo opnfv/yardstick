@@ -1,3 +1,4 @@
+#!/bin/bash
 ##############################################################################
 # Copyright (c) 2015 Ericsson AB and others.
 #
@@ -6,8 +7,6 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
-#!/bin/bash
 
 # installs required packages
 # must be run from inside the image (either chrooted or running)
