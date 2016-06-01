@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_89a0e9f5",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-06-01T08:34:45Z",
+      "side": 1,
+      "message": "floating ip will be given to the VM on the latest port, firstly, i want to say that, in trusty image, eth1 is default down. you may need to up eth1 in dpdk image. Secendly, I think it will be better if we can config floating ip binding in yaml. Anyway, it is a good solution to dpdk.:)",
+      "range": {
+        "startLine": 209,
+        "startChar": 29,
+        "endLine": 209,
+        "endChar": 30
+      },
+      "revId": "cbe6e97781107157ce78cc1b3e6925a0671e7fee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
