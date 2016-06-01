@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_3eb0edf3",
+        "filename": "tests/unit/cmd/commands/test_plugin.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 4611
+      },
+      "writtenOn": "2016-06-01T02:47:31Z",
+      "side": 1,
+      "message": "should be \"input_file\" to keep uniform code style for variable",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 17
+      },
+      "revId": "74f65c52f226db5f32706d8d08e29feaca86567d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_5ea129a8",
+        "filename": "yardstick/cmd/commands/plugin.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 4611
+      },
+      "writtenOn": "2016-06-01T02:47:31Z",
+      "side": 1,
+      "message": "should be \"configuration files\"",
+      "range": {
+        "startLine": 131,
+        "startChar": 23,
+        "endLine": 131,
+        "endChar": 29
+      },
+      "revId": "74f65c52f226db5f32706d8d08e29feaca86567d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_bec4fd5f",
+        "filename": "yardstick/cmd/commands/plugin.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 4611
+      },
+      "writtenOn": "2016-06-01T02:47:31Z",
+      "side": 1,
+      "message": "should be \"plugin\"",
+      "range": {
+        "startLine": 131,
+        "startChar": 18,
+        "endLine": 131,
+        "endChar": 22
+      },
+      "revId": "74f65c52f226db5f32706d8d08e29feaca86567d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_decd3988",
+        "filename": "yardstick/cmd/commands/plugin.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 4611
+      },
+      "writtenOn": "2016-06-01T02:47:31Z",
+      "side": 1,
+      "message": "should be \"configuration file\"",
+      "range": {
+        "startLine": 163,
+        "startChar": 20,
+        "endLine": 163,
+        "endChar": 26
+      },
+      "revId": "74f65c52f226db5f32706d8d08e29feaca86567d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
