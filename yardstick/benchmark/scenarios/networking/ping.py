@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (c) 2015 Ericsson AB and others.
+# Copyright (c) 2016 Huawei Technologies Co.,Ltd and others.
 #
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
@@ -56,26 +56,28 @@ class Ping(base.Scenario):
         else:
             options = ""
 
-        destination = self.context_cfg['target'].get("ipaddr", '127.0.0.1')
+        destination = self.context_cfg['target'].get('ipaddr', '127.0.0.1')
+        dest_list = destination.split(', ')
 
-        LOG.debug("ping '%s' '%s'", options, destination)
+        result["rtt"] = {}
 
-        exit_status, stdout, stderr = self.connection.execute(
-            "/bin/sh -s {0} {1}".format(destination, options),
-            stdin=open(self.target_script, "r"))
+        for dest in dest_list:
+            LOG.debug("ping '%s' '%s'", options, dest)
+            exit_status, stdout, stderr = self.connection.execute(
+                "/bin/sh -s {0} {1}".format(dest, options),
+                stdin=open(self.target_script, "r"))
 
-        if exit_status != 0:
-            raise RuntimeError(stderr)
+            if exit_status != 0:
+                raise RuntimeError(stderr)
 
-        if stdout:
-            result["rtt"] = float(stdout)
-
-            if "sla" in self.scenario_cfg:
-                sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
-                assert result["rtt"] <= sla_max_rtt, \
-                    "rtt %f > sla:max_rtt(%f); " % (result["rtt"], sla_max_rtt)
-        else:
-            LOG.error("ping '%s' '%s' timeout", options, destination)
+            if stdout:
+                result["rtt"][dest] = float(stdout)
+                if "sla" in self.scenario_cfg:
+                    sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
+                    assert result["rtt"][dest] <= sla_max_rtt, "rtt %f > sla:\
+                    max_rtt(%f); " % (result["rtt"][dest], sla_max_rtt)
+            else:
+                LOG.error("ping '%s' '%s' timeout", options, dest)
 
 
 def _test():
