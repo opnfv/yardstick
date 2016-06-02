@@ -56,52 +56,25 @@ class Ping(base.Scenario):
         else:
             options = ""
 
-        destination = self.context_cfg['target'].get("ipaddr", '127.0.0.1')
+        destination = self.context_cfg['target'].get('ipaddr', '127.0.0.1')
+        dest_list = destination.split(', ')
 
-        LOG.debug("ping '%s' '%s'", options, destination)
+        result["rtt"] = {}
 
-        exit_status, stdout, stderr = self.connection.execute(
-            "/bin/sh -s {0} {1}".format(destination, options),
-            stdin=open(self.target_script, "r"))
+        for dest in dest_list:
+            LOG.debug("ping '%s' '%s'", options, dest)
+            exit_status, stdout, stderr = self.connection.execute(
+                "/bin/sh -s {0} {1}".format(dest, options),
+                stdin=open(self.target_script, "r"))
 
-        if exit_status != 0:
-            raise RuntimeError(stderr)
+            if exit_status != 0:
+                raise RuntimeError(stderr)
 
-        if stdout:
-            result["rtt"] = float(stdout)
-
-            if "sla" in self.scenario_cfg:
-                sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
-                assert result["rtt"] <= sla_max_rtt, \
-                    "rtt %f > sla:max_rtt(%f); " % (result["rtt"], sla_max_rtt)
-        else:
-            LOG.error("ping '%s' '%s' timeout", options, destination)
-
-
-def _test():
-    '''internal test function'''
-    key_filename = pkg_resources.resource_filename("yardstick.resources",
-                                                   "files/yardstick_key")
-    ctx = {
-        "host": {
-            "ip": "10.229.47.137",
-            "user": "root",
-            "key_filename": key_filename
-        },
-        "target": {
-            "ipaddr": "10.229.17.105",
-        }
-    }
-
-    logger = logging.getLogger("yardstick")
-    logger.setLevel(logging.DEBUG)
-
-    args = {}
-    result = {}
-
-    p = Ping(args, ctx)
-    p.run(result)
-    print result
-
-if __name__ == '__main__':
-    _test()
+            if stdout:
+                result["rtt"][dest] = float(stdout)
+                if "sla" in self.scenario_cfg:
+                    sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
+                    assert result["rtt"][dest] <= sla_max_rtt, "rtt %f > sla:\
+                    max_rtt(%f); " % (result["rtt"][dest], sla_max_rtt)
+            else:
+                LOG.error("ping '%s' '%s' timeout", options, dest)
