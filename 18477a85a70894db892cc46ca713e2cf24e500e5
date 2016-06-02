@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a7ca5a3_afe4c5ac",
+        "filename": "samples/ping-multiple-vm.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 4607
+      },
+      "writtenOn": "2016-06-02T11:40:55Z",
+      "side": 1,
+      "message": "missing copyright",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_ef6cfd38",
         "filename": "tests/unit/benchmark/scenarios/networking/test_ping.py",
         "patchSetId": 2
@@ -37,6 +60,30 @@
       "side": 1,
       "message": "Thank you for your kind remind, i will undo the copyright change.",
       "parentUuid": "5a7ca5a3_ef6cfd38",
+      "range": {
+        "startLine": 4,
+        "startChar": 19,
+        "endLine": 4,
+        "endChar": 48
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_cff8214c",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 4607
+      },
+      "writtenOn": "2016-06-02T11:40:55Z",
+      "side": 1,
+      "message": "Just glad I can contribute. \n\nIf I have understood it correctly you can add a similar copyright comment, without changing the original copyright, if you want to clarify the Huawei contribution",
+      "parentUuid": "5a7ca5a3_2fd195cd",
       "range": {
         "startLine": 4,
         "startChar": 19,
