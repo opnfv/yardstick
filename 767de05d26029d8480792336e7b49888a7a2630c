@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a7ca5a3_af2e05a4",
+        "filename": ".gitignore",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 4607
+      },
+      "writtenOn": "2016-06-02T13:06:56Z",
+      "side": 1,
+      "message": "not included in commit message",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "767de05d26029d8480792336e7b49888a7a2630c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_cf2b4193",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 4607
+      },
+      "writtenOn": "2016-06-02T13:06:56Z",
+      "side": 1,
+      "message": "no mention of updating the git-ignore list",
+      "range": {
+        "startLine": 7,
+        "startChar": 19,
+        "endLine": 7,
+        "endChar": 27
+      },
+      "revId": "767de05d26029d8480792336e7b49888a7a2630c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_04092031",
         "filename": "tests/unit/benchmark/scenarios/availability/test_attacker_general.py",
         "patchSetId": 2
@@ -59,6 +105,30 @@
       "writtenOn": "2016-06-02T01:22:48Z",
       "side": 1,
       "message": "2016",
+      "range": {
+        "startLine": 2,
+        "startChar": 19,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "767de05d26029d8480792336e7b49888a7a2630c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_6f18ed84",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/baseattacker.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 4607
+      },
+      "writtenOn": "2016-06-02T13:06:56Z",
+      "side": 1,
+      "message": "probably should not change original copyright",
+      "parentUuid": "5a7ca5a3_6fff8d02",
       "range": {
         "startLine": 2,
         "startChar": 19,
