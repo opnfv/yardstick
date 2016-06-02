@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 ##############################################################################
-# Copyright (c) 2015 Ericsson AB and others.
+# Copyright (c) 2016 Huawei Technologies Co.,Ltd and others.
 #
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
@@ -43,7 +43,7 @@ class PingTestCase(unittest.TestCase):
 
         mock_ssh.SSH().execute.return_value = (0, '100', '')
         p.run(result)
-        self.assertEqual(result, {'rtt': 100.0})
+        self.assertEqual(result, {'rtt': {'10.229.17.105': 100.0}})
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_successful_sla(self, mock_ssh):
@@ -58,7 +58,7 @@ class PingTestCase(unittest.TestCase):
 
         mock_ssh.SSH().execute.return_value = (0, '100', '')
         p.run(result)
-        self.assertEqual(result, {'rtt': 100.0})
+        self.assertEqual(result, {'rtt': {'10.229.17.105': 100.0}})
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_unsuccessful_sla(self, mock_ssh):
