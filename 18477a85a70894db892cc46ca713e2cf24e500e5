@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a7ca5a3_0a3e07b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "Can you give a bit more of informations? Is there any yarstick issue related to this?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 28
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_afe4c5ac",
         "filename": "samples/ping-multiple-vm.yaml",
         "patchSetId": 2
@@ -89,6 +112,391 @@
         "startChar": 19,
         "endLine": 4,
         "endChar": 48
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_cf726149",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "Hard coded IPs? Are we expecting this IP to be like this always when we execute this test on any computer?",
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_6f8f8d24",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "As above",
+      "range": {
+        "startLine": 61,
+        "startChar": 46,
+        "endLine": 61,
+        "endChar": 49
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_4f9e5158",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be like this?\n\n    dest_list \u003d [s.strip() for s in destination.split(\u0027,\u0027)]",
+      "range": {
+        "startLine": 60,
+        "startChar": 38,
+        "endLine": 60,
+        "endChar": 42
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_efa2bd99",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "You are using this entry of dictionary in many places below here: please keep a reference of it instead of fetching it every time.",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 21
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_afacc58d",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "I would prefer you specify to use one specific shell like bash. /bin/sh can be reconfigured by the user. Could you use for example /bin/bash\n\nAnyway you have python. Why not using python for executing commands instead of another shell? I mean if you are executing ping, then you should call ping, not the shell.\n\nOn a remote shell you can even execute python.\n\n    python -c \u003csome_python_commands\u003e\n\nIt would execute python as a shell.",
+      "range": {
+        "startLine": 67,
+        "startChar": 17,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_0fa0598f",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "As above.",
+      "range": {
+        "startLine": 74,
+        "startChar": 16,
+        "endLine": 74,
+        "endChar": 29
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_8fbb09c4",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "Assert is only for debugging purposes. I running interpreter not in debug mode all assertion lines are going to be ignores.",
+      "range": {
+        "startLine": 77,
+        "startChar": 20,
+        "endLine": 77,
+        "endChar": 26
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_cfa9017d",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "As above",
+      "range": {
+        "startLine": 77,
+        "startChar": 27,
+        "endLine": 77,
+        "endChar": 40
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_6fb6adde",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "please use format method instead of % operator.",
+      "range": {
+        "startLine": 78,
+        "startChar": 35,
+        "endLine": 78,
+        "endChar": 36
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_2fb0b5dc",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "Does the space has a meaning? Isn\u0027t this better?\n\n    target_list \u003d [s.strip() for s in scenario_cfg[\"target\"].split(\u0027,\u0027)]",
+      "range": {
+        "startLine": 364,
+        "startChar": 51,
+        "endLine": 364,
+        "endChar": 55
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_0a10474d",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "Below would have the same effect on this context as the case with one element has already been treated:\n\n     elif target_list:",
+      "range": {
+        "startLine": 379,
+        "startChar": 8,
+        "endLine": 379,
+        "endChar": 33
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_ca300feb",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "Please construct ip_string by creating a list of all entries and then join them using following:\n\n     ip_string \u003d \u0027,\u0027.join(ip_list)",
+      "range": {
+        "startLine": 380,
+        "startChar": 12,
+        "endLine": 380,
+        "endChar": 21
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_8a2bf781",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "All items except last (0 is the default value for start):\n\n     target_list[:-1]",
+      "range": {
+        "startLine": 381,
+        "startChar": 26,
+        "endLine": 381,
+        "endChar": 43
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_2a20a39a",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "does this white space has any special meaning?",
+      "range": {
+        "startLine": 383,
+        "startChar": 33,
+        "endLine": 383,
+        "endChar": 37
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_2a574304",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "Is there any special reason of putting the last item as the first? Why do you change the order of the things?",
+      "range": {
+        "startLine": 396,
+        "startChar": 54,
+        "endLine": 397,
+        "endChar": 33
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_4a5cff25",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 403,
+        "startChar": 59,
+        "endLine": 403,
+        "endChar": 71
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_ea406b37",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 4315
+      },
+      "writtenOn": "2016-06-02T13:52:15Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 406,
+        "startChar": 51,
+        "endLine": 406,
+        "endChar": 63
       },
       "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
