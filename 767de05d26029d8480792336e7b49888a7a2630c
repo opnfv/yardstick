@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_04092031",
+        "filename": "tests/unit/benchmark/scenarios/availability/test_attacker_general.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-02T01:22:48Z",
+      "side": 1,
+      "message": "please update to 2016 :)",
+      "range": {
+        "startLine": 4,
+        "startChar": 19,
+        "endLine": 4,
+        "endChar": 20
+      },
+      "revId": "767de05d26029d8480792336e7b49888a7a2630c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_a405cc15",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/attacker_general.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-02T01:22:48Z",
+      "side": 1,
+      "message": "2016",
+      "range": {
+        "startLine": 2,
+        "startChar": 19,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "767de05d26029d8480792336e7b49888a7a2630c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_6fff8d02",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/baseattacker.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-02T01:22:48Z",
+      "side": 1,
+      "message": "2016",
+      "range": {
+        "startLine": 2,
+        "startChar": 19,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "767de05d26029d8480792336e7b49888a7a2630c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_4f0e5136",
+        "filename": "yardstick/benchmark/scenarios/availability/util.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-02T01:22:48Z",
+      "side": 1,
+      "message": "2016",
+      "range": {
+        "startLine": 2,
+        "startChar": 19,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "767de05d26029d8480792336e7b49888a7a2630c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
