@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a7ca5a3_3ee22d04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T05:49:21Z",
+      "side": 1,
+      "message": "I will fix this right away. :)",
+      "parentUuid": "5a7ca5a3_7be2f7d6",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 12
+      },
+      "revId": "2b1b2479d7d19ef3706477fc8c24d9a578aaeace",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_3bec7fc7",
         "filename": "tests/unit/benchmark/scenarios/compute/test_computecapacity.py",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a7ca5a3_9ef021cb",
+        "filename": "tests/unit/benchmark/scenarios/compute/test_computecapacity.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T05:49:21Z",
+      "side": 1,
+      "message": "I\u0027ve change the sample_out as constant variable. But I am not sure is it necessary for \u0027ip\u0027.",
+      "parentUuid": "5a7ca5a3_3bec7fc7",
+      "range": {
+        "startLine": 29,
+        "startChar": 27,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "2b1b2479d7d19ef3706477fc8c24d9a578aaeace",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_fbcda75e",
         "filename": "tests/unit/benchmark/scenarios/compute/test_computecapacity.py",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2016-05-31T16:10:47Z",
       "side": 1,
       "message": "here as well, you could place it to the beginning of the file, as constant variable, named with uppercase letters",
+      "range": {
+        "startLine": 50,
+        "startChar": 25,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "2b1b2479d7d19ef3706477fc8c24d9a578aaeace",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_beedddf1",
+        "filename": "tests/unit/benchmark/scenarios/compute/test_computecapacity.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T05:49:21Z",
+      "side": 1,
+      "message": "Agree",
+      "parentUuid": "5a7ca5a3_fbcda75e",
       "range": {
         "startLine": 50,
         "startChar": 25,
