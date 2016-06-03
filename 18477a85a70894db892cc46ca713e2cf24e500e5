@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a7ca5a3_1e108c4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T05:41:34Z",
+      "side": 1,
+      "message": "sure. additional info will be added in patch 5.",
+      "parentUuid": "5a7ca5a3_0a3e07b9",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 28
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_afe4c5ac",
         "filename": "samples/ping-multiple-vm.yaml",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-06-02T11:40:55Z",
       "side": 1,
       "message": "missing copyright",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_0f8619ba",
+        "filename": "samples/ping-multiple-vm.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T05:41:34Z",
+      "side": 1,
+      "message": "All sample configuration files don\u0027t have a copyright header.",
+      "parentUuid": "5a7ca5a3_afe4c5ac",
       "range": {
         "startLine": 1,
         "startChar": 0,
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "5a7ca5a3_8f9a2913",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T05:41:34Z",
+      "side": 1,
+      "message": "I didn\u0027t read the apache license before and wrongly think the copyright header should be updated when someone patch files.\nThank you for pointing out this mistake.",
+      "parentUuid": "5a7ca5a3_cff8214c",
+      "range": {
+        "startLine": 4,
+        "startChar": 19,
+        "endLine": 4,
+        "endChar": 48
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_cf726149",
         "filename": "tests/unit/benchmark/scenarios/networking/test_ping.py",
         "patchSetId": 2
@@ -182,6 +254,30 @@
     },
     {
       "key": {
+        "uuid": "5a7ca5a3_4a815f49",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T05:41:34Z",
+      "side": 1,
+      "message": "Agree",
+      "parentUuid": "5a7ca5a3_4f9e5158",
+      "range": {
+        "startLine": 60,
+        "startChar": 38,
+        "endLine": 60,
+        "endChar": 42
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_efa2bd99",
         "filename": "yardstick/benchmark/scenarios/networking/ping.py",
         "patchSetId": 2
@@ -193,6 +289,30 @@
       "writtenOn": "2016-06-02T13:52:15Z",
       "side": 1,
       "message": "You are using this entry of dictionary in many places below here: please keep a reference of it instead of fetching it every time.",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 21
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_ea95cb88",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T05:41:34Z",
+      "side": 1,
+      "message": "Agree. A reference will be used.",
+      "parentUuid": "5a7ca5a3_efa2bd99",
       "range": {
         "startLine": 62,
         "startChar": 8,
@@ -343,6 +463,30 @@
     },
     {
       "key": {
+        "uuid": "5a7ca5a3_ca024f0b",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T05:41:34Z",
+      "side": 1,
+      "message": "Agree.",
+      "parentUuid": "5a7ca5a3_2fb0b5dc",
+      "range": {
+        "startLine": 364,
+        "startChar": 51,
+        "endLine": 364,
+        "endChar": 55
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_0a10474d",
         "filename": "yardstick/cmd/commands/task.py",
         "patchSetId": 2
@@ -354,6 +498,30 @@
       "writtenOn": "2016-06-02T13:52:15Z",
       "side": 1,
       "message": "Below would have the same effect on this context as the case with one element has already been treated:\n\n     elif target_list:",
+      "range": {
+        "startLine": 379,
+        "startChar": 8,
+        "endLine": 379,
+        "endChar": 33
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_3e09c82c",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T05:41:34Z",
+      "side": 1,
+      "message": "agree",
+      "parentUuid": "5a7ca5a3_0a10474d",
       "range": {
         "startLine": 379,
         "startChar": 8,
@@ -412,6 +580,30 @@
     },
     {
       "key": {
+        "uuid": "5a7ca5a3_aa059315",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T05:41:34Z",
+      "side": 1,
+      "message": "Agree.",
+      "parentUuid": "5a7ca5a3_8a2bf781",
+      "range": {
+        "startLine": 381,
+        "startChar": 26,
+        "endLine": 381,
+        "endChar": 43
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_2a20a39a",
         "filename": "yardstick/cmd/commands/task.py",
         "patchSetId": 2
@@ -435,6 +627,30 @@
     },
     {
       "key": {
+        "uuid": "5a7ca5a3_0a092731",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T05:41:34Z",
+      "side": 1,
+      "message": "at the beginning, this whitespace is used to make ip_string more readable. Anyway i will use ip_list to construct this ip_string.",
+      "parentUuid": "5a7ca5a3_2a20a39a",
+      "range": {
+        "startLine": 383,
+        "startChar": 33,
+        "endLine": 383,
+        "endChar": 37
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_2a574304",
         "filename": "yardstick/cmd/commands/task.py",
         "patchSetId": 2
@@ -446,6 +662,30 @@
       "writtenOn": "2016-06-02T13:52:15Z",
       "side": 1,
       "message": "Is there any special reason of putting the last item as the first? Why do you change the order of the things?",
+      "range": {
+        "startLine": 396,
+        "startChar": 54,
+        "endLine": 397,
+        "endChar": 33
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_be1cf86b",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T05:41:34Z",
+      "side": 1,
+      "message": "The order will be restored",
+      "parentUuid": "5a7ca5a3_2a574304",
       "range": {
         "startLine": 396,
         "startChar": 54,
