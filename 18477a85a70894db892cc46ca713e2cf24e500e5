@@ -348,6 +348,30 @@
     },
     {
       "key": {
+        "uuid": "5a7ca5a3_1e3e4cb9",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T06:28:04Z",
+      "side": 1,
+      "message": "I will think about it. thanks!",
+      "parentUuid": "5a7ca5a3_afacc58d",
+      "range": {
+        "startLine": 67,
+        "startChar": 17,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_0fa0598f",
         "filename": "yardstick/benchmark/scenarios/networking/ping.py",
         "patchSetId": 2
@@ -428,6 +452,30 @@
       "writtenOn": "2016-06-02T13:52:15Z",
       "side": 1,
       "message": "please use format method instead of % operator.",
+      "range": {
+        "startLine": 78,
+        "startChar": 35,
+        "endLine": 78,
+        "endChar": 36
+      },
+      "revId": "18477a85a70894db892cc46ca713e2cf24e500e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_fe403037",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-06-03T06:28:04Z",
+      "side": 1,
+      "message": "I am not sure i got your idea. could you say more specifically?",
+      "parentUuid": "5a7ca5a3_6fb6adde",
       "range": {
         "startLine": 78,
         "startChar": 35,
