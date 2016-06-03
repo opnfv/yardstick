@@ -228,7 +228,8 @@ class RamspeedTestCase(unittest.TestCase):
         args = {'options': options}
         r = ramspeed.Ramspeed(args, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (1, '', 'No such type_id: 30 for Ramspeed scenario')
+        mock_ssh.SSH().execute.return_value = (1, '', 'No such type_id: 30 for \
+                                               Ramspeed scenario')
         self.assertRaises(RuntimeError, r.run, self.result)
 
 

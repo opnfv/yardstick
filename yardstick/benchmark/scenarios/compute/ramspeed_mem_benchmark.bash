@@ -22,7 +22,7 @@ OUTPUT_FILE=/tmp/ramspeed-out.log
 
 run_ramspeed()
 {
-    cd /opt/tempT2/ramspeed-2.6.0/
+    cd /opt/tempT/RAMspeed/ramspeed-2.6.0/
     ./ramspeed -b $TYPE_ID -g $LOAD -m $BLOCK_SIZE -l $ITERATION > $OUTPUT_FILE
 }
 

@@ -63,9 +63,8 @@ apt-get install -y \
 git clone https://github.com/kdlucas/byte-unixbench.git /opt/tempT
 make --directory /opt/tempT/UnixBench/
 
-
-git clone https://github.com/beefyamoeba5/ramspeed.git /opt/tempT2
-cd /opt/tempT2/ramspeed-2.6.0
+git clone https://github.com/beefyamoeba5/ramspeed.git /opt/tempT/RAMspeed
+cd /opt/tempT/RAMspeed/ramspeed-2.6.0
 mkdir temp
 bash build.sh
 
