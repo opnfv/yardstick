@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_54810549",
+        "filename": "samples/ping-multiple-vm.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-06-06T11:36:56Z",
+      "side": 1,
+      "message": "please keep this into one line if it is possible",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 34
+      },
+      "revId": "6c45d791d32d1b5e42108bde7dd2f1ea3bc1e401",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
