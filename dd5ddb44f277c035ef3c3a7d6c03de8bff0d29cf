@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_d48c3582",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker_conf.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-06-06T11:45:40Z",
+      "side": 1,
+      "message": "there is no check_swift_status.bash, please keep your each patch simple, thanks",
+      "range": {
+        "startLine": 20,
+        "startChar": 30,
+        "endLine": 20,
+        "endChar": 54
+      },
+      "revId": "dd5ddb44f277c035ef3c3a7d6c03de8bff0d29cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_74e9a119",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker_conf.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-06-06T11:45:40Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 22,
+        "startChar": 34,
+        "endLine": 22,
+        "endChar": 60
+      },
+      "revId": "dd5ddb44f277c035ef3c3a7d6c03de8bff0d29cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
