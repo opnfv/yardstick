@@ -11,7 +11,7 @@
 set -e
 
 : ${YARDSTICK_REPO:='https://gerrit.opnfv.org/gerrit/yardstick'}
-: ${YARDSTICK_REPO_DIR:='/home/opnfv/yardstick'}
+: ${YARDSTICK_REPO_DIR:='/home/opnfv/repos/yardstick'}
 : ${YARDSTICK_BRANCH:='master'} # branch, tag, sha1 or refspec
 
 : ${RELENG_REPO:='https://gerrit.opnfv.org/gerrit/releng'}
@@ -51,5 +51,5 @@ git_checkout $YARDSTICK_BRANCH $YARDSTICK_REPO
 # setup the environment
 source $YARDSTICK_REPO_DIR/tests/ci/prepare_env.sh
 
-# run tests
+# execute tests
 $YARDSTICK_REPO_DIR/tests/ci/yardstick-verify $@
