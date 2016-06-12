@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_83799dfe",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/baseattacker.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-06-12T06:37:59Z",
+      "side": 1,
+      "message": "i think this should be recover(), but not recovery(), according to the subclass function",
+      "range": {
+        "startLine": 74,
+        "startChar": 8,
+        "endLine": 74,
+        "endChar": 16
+      },
+      "revId": "075544680cdb19fa8f508aa17fb743f5653e4637",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
