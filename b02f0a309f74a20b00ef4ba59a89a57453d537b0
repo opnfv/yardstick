@@ -22,6 +22,98 @@
       "revId": "b02f0a309f74a20b00ef4ba59a89a57453d537b0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_835f5c72",
+        "filename": "tests/unit/cmd/commands/test_plugin.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 4607
+      },
+      "writtenOn": "2016-06-13T11:49:19Z",
+      "side": 1,
+      "message": "is there a reason to keep these two commented lines?",
+      "range": {
+        "startLine": 18,
+        "startChar": 7,
+        "endLine": 18,
+        "endChar": 16
+      },
+      "revId": "b02f0a309f74a20b00ef4ba59a89a57453d537b0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_e34df0c5",
+        "filename": "yardstick/cmd/commands/plugin.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 4607
+      },
+      "writtenOn": "2016-06-13T11:49:19Z",
+      "side": 1,
+      "message": "looks like debug message, is it intentional to print this?",
+      "range": {
+        "startLine": 58,
+        "startChar": 15,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "b02f0a309f74a20b00ef4ba59a89a57453d537b0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_23544853",
+        "filename": "yardstick/cmd/commands/plugin.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 4607
+      },
+      "writtenOn": "2016-06-13T11:49:19Z",
+      "side": 1,
+      "message": "is there a reason to keep these commented lines (also see 3 occurances above)?",
+      "range": {
+        "startLine": 66,
+        "startChar": 24,
+        "endLine": 67,
+        "endChar": 16
+      },
+      "revId": "b02f0a309f74a20b00ef4ba59a89a57453d537b0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_43514461",
+        "filename": "yardstick/cmd/commands/plugin.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 4607
+      },
+      "writtenOn": "2016-06-13T11:49:19Z",
+      "side": 1,
+      "message": "looks like debug message, is it intentional to print this?",
+      "range": {
+        "startLine": 82,
+        "startChar": 15,
+        "endLine": 82,
+        "endChar": 19
+      },
+      "revId": "b02f0a309f74a20b00ef4ba59a89a57453d537b0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
