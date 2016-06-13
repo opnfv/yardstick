@@ -22,6 +22,29 @@
       "revId": "6c45d791d32d1b5e42108bde7dd2f1ea3bc1e401",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_061a7a6e",
+        "filename": "samples/ping-multiple-vm.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2016-06-13T14:06:24Z",
+      "side": 1,
+      "message": "i think maybe we can create \"targets\" key words for multi targets, and leave target for one target.\n\nmulti targets e.g.:\n  targets:\n    - ares.demo\n    - kratos.demo\n\none target e.g.:\n  target: ares.demo",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 8
+      },
+      "revId": "6c45d791d32d1b5e42108bde7dd2f1ea3bc1e401",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
