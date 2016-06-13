@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_63f3200b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 4607
+      },
+      "writtenOn": "2016-06-13T07:00:07Z",
+      "side": 1,
+      "message": "Perhaps it is not required to update the .gitignore in the same commit to be able to create the generic attacker? Please correct me if I am wrong.\n\nYou could create a seperate commit with .gitignore and then rebase this commit on top of that commit if the rest of this commit really requires the update of the .gitignore file.\n\nhttps://wiki.openstack.org/wiki/GitCommitMessages#Structural_split_of_changes",
+      "range": {
+        "startLine": 7,
+        "startChar": 29,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "260755a79aa1e5a237546364f74991f182bccf4a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
