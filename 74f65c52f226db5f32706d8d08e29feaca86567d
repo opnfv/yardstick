@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a7ca5a3_0374acfb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-06-13T11:27:20Z",
+      "side": 1,
+      "message": "plugin",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 10
+      },
+      "revId": "74f65c52f226db5f32706d8d08e29feaca86567d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_3eb0edf3",
         "filename": "tests/unit/cmd/commands/test_plugin.py",
         "patchSetId": 1
