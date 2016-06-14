@@ -41,10 +41,10 @@ class Ping(base.Scenario):
         user = host.get('user', 'ubuntu')
         ip = host.get('ip', None)
         key_filename = host.get('key_filename', '~/.ssh/id_rsa')
+        password = host.get('password', 'root')
 
         LOG.info("user:%s, host:%s", user, ip)
-
-        self.connection = ssh.SSH(user, ip, key_filename=key_filename)
+        self.connection = ssh.SSH(user, ip, key_filename=key_filename, password=password)
         self.connection.wait()
 
     def run(self, result):
