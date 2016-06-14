@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_4965e3df",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-06-14T10:54:23Z",
+      "side": 1,
+      "message": "i think you should delete it in the last batch set, not this one.\nand this one can be abandoned.",
+      "revId": "ddb245ad7c95e54ebb98a4a56ff792812c9a1949",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
