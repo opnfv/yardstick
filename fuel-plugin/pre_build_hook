@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -eux
+
+BUILD_FOR=${BUILD_FOR:-ubuntu}
+DIR="$(dirname `readlink -f $0`)"
+
+function build_pkg {
+  case $1 in
+    ubuntu)
+      rm -rf ${DIR}/repositories/ubuntu; mkdir -p ${DIR}/repositories/ubuntu
+
+      # populate the repository with the .debs we need
+      cd ${DIR}/repositories/ubuntu
+      # Use aptititude; apt-get -d will skip download if package is already installed
+      sudo apt-get install aptitude -y
+      # Download python packages into the repository
+      aptitude download python-virtualenv python-dev libffi-dev libssl-dev 
+
+      cd ${DIR}/..
+      rm -rf ${DIR}/deployment_scripts/yardstick.tar.gz
+      tar -czf ${DIR}/deployment_scripts/yardstick.tar.gz . --exclude=yardstick.tar.gz
+      ;;
+
+    *) echo "Not supported system"; exit 1;;
+  esac
+}
+
+for system in $BUILD_FOR
+do
+  build_pkg $system
+done

@@ -1,0 +1,19 @@
+- id: yardstick
+  type: group
+  role: [yardstick]
+  requires: [deploy_start]
+  required_for: [deploy_end]
+  tasks: [hiera, setup_repositories, fuel_pkgs, globals, tools, logging, yardstick_install]
+  parameters:
+    strategy:
+      type: parallel
+- id: yardstick_install
+  type: puppet
+  version: 2.0.0
+  groups: [yardstick]
+  required_for: [post_deployment_end]
+  requires: [post_deployment_start]
+  parameters:
+    puppet_manifest: puppet/manifests/yardstick-install.pp
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 720
