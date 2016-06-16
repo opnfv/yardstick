@@ -1,0 +1,8 @@
+yardstick:
+  name: "Yardstick"
+  description: "Install Yardstick on nodes with this role"
+  has_primary: false                # whether has primary role or not
+  public_ip_required: false         # whether requires public net or not
+  weight: 50                        # weight that will be used for ordering on fuel ui
+  limits:
+    min: 0
