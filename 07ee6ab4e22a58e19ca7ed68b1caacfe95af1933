@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_40afede3",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-06-21T17:42:28Z",
+      "side": 1,
+      "message": "place VXLAN_TOOL to the beginning of the file: \nVXLAN_TOOL \u003d \"nohup python vxlan_tool.py -i {interface} -d {do} -v {verbosity} -f -b {b} \u0026\"\n\ncmd_SF1 \u003d VXLAN_TOOL.format{interface\u003d\u0027eth0\u0027, do\u003d\u0027forward\u0027, verbosity\u003d\u0027off\u0027, b\u003d\u002780\u0027}",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 83
+      },
+      "revId": "07ee6ab4e22a58e19ca7ed68b1caacfe95af1933",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_60ac69ee",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-06-21T17:42:28Z",
+      "side": 1,
+      "message": "cmd_SF2 \u003d VXLAN_TOOL.format{interface\u003d\u0027eth0\u0027, do\u003d\u0027forward\u0027, verbosity\u003d\u0027off\u0027, b\u003d\u002722\u0027}",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 83
+      },
+      "revId": "07ee6ab4e22a58e19ca7ed68b1caacfe95af1933",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_00b9f52d",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc_openstack.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-06-21T17:42:28Z",
+      "side": 1,
+      "message": "delete space",
+      "range": {
+        "startLine": 63,
+        "startChar": 18,
+        "endLine": 63,
+        "endChar": 19
+      },
+      "revId": "07ee6ab4e22a58e19ca7ed68b1caacfe95af1933",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_20b6713e",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc_openstack.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-06-21T17:42:28Z",
+      "side": 1,
+      "message": "delete space",
+      "range": {
+        "startLine": 86,
+        "startChar": 14,
+        "endLine": 86,
+        "endChar": 15
+      },
+      "revId": "07ee6ab4e22a58e19ca7ed68b1caacfe95af1933",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_c0821d52",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc_openstack.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-06-21T17:42:28Z",
+      "side": 1,
+      "message": "delete space",
+      "range": {
+        "startLine": 107,
+        "startChar": 58,
+        "endLine": 107,
+        "endChar": 59
+      },
+      "revId": "07ee6ab4e22a58e19ca7ed68b1caacfe95af1933",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_e0871960",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc_openstack.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-06-21T17:42:28Z",
+      "side": 1,
+      "message": "delete space",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 1
+      },
+      "revId": "07ee6ab4e22a58e19ca7ed68b1caacfe95af1933",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
