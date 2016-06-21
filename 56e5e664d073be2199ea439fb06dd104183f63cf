@@ -22,6 +22,144 @@
       "revId": "56e5e664d073be2199ea439fb06dd104183f63cf",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_00901594",
+        "filename": "tools/yardstick-img-dpdk-modify",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-06-21T17:53:09Z",
+      "side": 1,
+      "message": "WORKSPACE",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 9
+      },
+      "revId": "56e5e664d073be2199ea439fb06dd104183f63cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_208d117c",
+        "filename": "tools/yardstick-img-dpdk-modify",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-06-21T17:53:09Z",
+      "side": 1,
+      "message": "HOST",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 4
+      },
+      "revId": "56e5e664d073be2199ea439fb06dd104183f63cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_c0e9bd1b",
+        "filename": "tools/yardstick-img-dpdk-modify",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-06-21T17:53:09Z",
+      "side": 1,
+      "message": "RELEASE",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 7
+      },
+      "revId": "56e5e664d073be2199ea439fb06dd104183f63cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_e0ee3922",
+        "filename": "tools/yardstick-img-dpdk-modify",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-06-21T17:53:09Z",
+      "side": 1,
+      "message": "IMAGE_PATH",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 10
+      },
+      "revId": "56e5e664d073be2199ea439fb06dd104183f63cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_80f3c509",
+        "filename": "tools/yardstick-img-dpdk-modify",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-06-21T17:53:09Z",
+      "side": 1,
+      "message": "uppercase letters please",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 11
+      },
+      "revId": "56e5e664d073be2199ea439fb06dd104183f63cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_a0f841e6",
+        "filename": "tools/yardstick-img-dpdk-modify",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-06-21T17:53:09Z",
+      "side": 1,
+      "message": "uppercase letters",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 11
+      },
+      "revId": "56e5e664d073be2199ea439fb06dd104183f63cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
