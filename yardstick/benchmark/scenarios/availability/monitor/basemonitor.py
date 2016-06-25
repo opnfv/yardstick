@@ -12,6 +12,7 @@ import multiprocessing
 import time
 import os
 import yardstick.common.utils as utils
+import yaml
 
 LOG = logging.getLogger(__name__)
 
@@ -32,8 +33,15 @@ class MonitorMgr(object):
             monitor_type = monitor_cfg["monitor_type"]
             monitor_cls = BaseMonitor.get_monitor_cls(monitor_type)
             monitor_ins = monitor_cls(monitor_cfg, context)
-
+            if "key" in monitor_cfg:
+                monitor_ins.key = monitor_cfg["key"]
             self._monitor_list.append(monitor_ins)
+
+    def __getitem__(self, item):
+        for obj in self._monitor_list:
+            if obj.key == item:
+                return obj
+        raise KeyError("No such monitor instance of key - %s" % item)
 
     def start_monitors(self):
         for _monotor_instace in self._monitor_list:
@@ -52,8 +60,12 @@ class MonitorMgr(object):
 
 class BaseMonitor(multiprocessing.Process):
     """docstring for BaseMonitor"""
+    monitor_cfgs = {}
 
     def __init__(self, config, context):
+        if not BaseMonitor.monitor_cfgs:
+            with open(monitor_conf_path) as stream:
+                BaseMonitor.monitor_cfgs = yaml.load(stream)
         multiprocessing.Process.__init__(self)
         self._config = config
         self._context = context
