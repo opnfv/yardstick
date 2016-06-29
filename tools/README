@@ -18,3 +18,31 @@ Usage example:
 
 $ sudo yardstick-img-modify $HOME/yardstick/tools/ubuntu-server-cloudimg-modify.sh
 
+
+========  Creating DPDK containing image  ========
+
+1.
+yardstick-img-dpdk-modify is a generic script (but ubuntu cloud image specific), this
+takes another script as an argument that does the modifications including cloning DPDK.
+The commmand however, does not install DPDK because its installing process compiles
+kernel modules and if the host machine's kernel version differs from the chrooted enviroment's
+kernel version then the modules cannot be inserted (insmod) due to symbol mismatch.
+sudo is required since the base image is mounted using qemu's network block device support.
+
+$ sudo yardstick-img-dpdk-modify $HOME/yardstick/tools/ubuntu-server-cloudimg-dpdk-modify.sh
+
+2. 
+upload the created image to Openstack
+
+3. 
+yardstick-img-dpdk-finalize will launch a virtual machine with the uploaded image and does
+the DPDK install and other required modifications (can be found in dpdk_install.yml). 
+A snapshot is then created of this image under the name yardstick-image-pktgen-ready, 
+which can be used for the DPDK related test cases.
+
+$ sudo ./yardstick-img-dpdk-finalize.sh
+
+
+
+
+
