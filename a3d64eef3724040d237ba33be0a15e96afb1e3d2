@@ -33,6 +33,98 @@
       "revId": "a3d64eef3724040d237ba33be0a15e96afb1e3d2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_f99b53c7",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_general.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-06-29T06:42:04Z",
+      "side": 1,
+      "message": "delete the extra blank line.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 38
+      },
+      "revId": "a3d64eef3724040d237ba33be0a15e96afb1e3d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_595fe70e",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_general.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-06-29T06:42:04Z",
+      "side": 1,
+      "message": "According to PEP8, function names should be lowercase.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 25
+      },
+      "revId": "a3d64eef3724040d237ba33be0a15e96afb1e3d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_7968a3ba",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_general.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-06-29T06:42:04Z",
+      "side": 1,
+      "message": "It goes wrong when outage_time is None. It need judge whether outage_time is None or not.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 41
+      },
+      "revId": "a3d64eef3724040d237ba33be0a15e96afb1e3d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_d973f7af",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor_conf.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-06-29T06:42:04Z",
+      "side": 1,
+      "message": "Please delete tails",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 2
+      },
+      "revId": "a3d64eef3724040d237ba33be0a15e96afb1e3d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
