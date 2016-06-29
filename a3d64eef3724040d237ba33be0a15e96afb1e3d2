@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_310c8542",
+        "filename": "tests/unit/benchmark/scenarios/availability/test_monitor_general.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 4723
+      },
+      "writtenOn": "2016-06-29T02:54:38Z",
+      "side": 1,
+      "message": "Global comment: There is an extra \"\\r\" at the end of each line, which is DOS line ending format. Please correct the format for all files.",
+      "revId": "a3d64eef3724040d237ba33be0a15e96afb1e3d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_91179951",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/basemonitor.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 4723
+      },
+      "writtenOn": "2016-06-29T02:54:38Z",
+      "side": 1,
+      "message": "Global comment: There is an extra \"\\r\" at the end of each line, which is DOS line ending format. Please correct the format for all files.",
+      "revId": "a3d64eef3724040d237ba33be0a15e96afb1e3d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
