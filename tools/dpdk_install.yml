@@ -1,0 +1,139 @@
+heat_template_version: 2015-04-30
+
+description: >
+  Creates MRSv cluster with internal network and connects MRSv with
+  floating IP.
+
+parameters:
+
+  flavor:
+    type: string
+    description: Flavor to use for VM
+    default: MRSv.flavor
+
+  image:
+    type: string
+    description: Name of the image
+    default: yardstick-wily-server
+
+  timeout:
+    type: number
+    description: Timeout in seconds for WaitCondition, depends on your image and environment
+    default: 900
+
+  external_net_name:
+    type: string
+    description: Name of the external network which management network will connect to
+    default: net04_ext
+
+resources:
+  network:
+    type: OS::Neutron::Net
+    properties:
+      name: dpdk_net
+
+  subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      name: dpdk_subnet
+      ip_version: 4
+      cidr: 192.168.0.0/24
+      network: { get_resource: network }
+
+  management_router:
+    type: OS::Neutron::Router
+    properties:
+      name: management_router
+      external_gateway_info:
+        network: { get_param: external_net_name }
+
+  management_router_interface:
+    type: OS::Neutron::RouterInterface
+    properties:
+      router: { get_resource: management_router }
+      subnet: { get_resource: subnet }
+
+  floating_ip:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network: { get_param: external_net_name }
+
+  floating_ip_association:
+    type: OS::Nova::FloatingIPAssociation
+    properties:
+      floating_ip: { get_resource: floating_ip }
+      server_id: {get_resource: dpdk_vm}
+
+
+  wait_handle:
+    type: OS::Heat::WaitConditionHandle
+
+  wait_condition:
+    type: OS::Heat::WaitCondition
+    properties:
+      handle: { get_resource: wait_handle }
+      count: 1
+      timeout: { get_param: timeout }
+
+  dpdk_vm:
+    type: OS::Nova::Server
+    depends_on: [ subnet]
+    properties:
+      name: { get_param: "OS::stack_name" }
+      image: { get_param: image }
+      flavor: { get_param: flavor }
+      key_name: "yardstick-key"
+      networks:
+        - network: { get_resource: network }
+      config_drive: True
+      user_data_format : RAW
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/sh
+            cat <<'CEOF' > /tmp/dpdk_post_build.sh
+            export RTE_SDK=/dpdk
+            export RTE_TARGET=x86_64-native-linuxapp-gcc
+            echo checking env variables >> /home/patching.txt
+            echo $RTE_SDK >> /home/patching.txt
+            echo $RTE_TARGET >> /home/patching.txt
+            cd /dpdk
+            make install T=x86_64-native-linuxapp-gcc DESTDIR=destdir
+            echo T installed >> /home/patching.txt
+            modprobe uio
+            insmod /dpdk/x86_64-native-linuxapp-gcc/kmod/igb_uio.ko
+            insmod /dpdk/x86_64-native-linuxapp-gcc/kmod/rte_kni.ko
+            echo uio, igb_uio, rte_kni loaded >> /home/patching.txt
+            cd /pktgen-dpdk
+            make RTE_SDK=/dpdk
+            echo pktgen built >> /home/patching.txt
+            echo "PCKTGEN BUILT"
+            cat /home/patching.txt
+            rm -rf /var/lib/cloud/instances
+            echo "rm succesfull"
+            ls /dpdk/x86_64-native-linuxapp-gcc/kmod/
+            $NOTIFY --data-binary '{"status": "SUCCESS"}'
+            cat <<'EOF' > /etc/dhcp/dhclient-enter-hooks.d/unset_default_router
+            #!/bin/bash
+            if [ "$interface" != eth1 ]; then
+            echo "Discarding $interface routers: $new_routers"
+            unset new_routers
+            fi
+            EOF
+            chmod +x /etc/dhcp/dhclient-enter-hooks.d/unset_default_router
+            rm -f /var/lib/dhcp/dhclient.eth0.leases
+            echo "NOTIFY"
+            sed -i 's/dhcp/static/g' /etc/network/interfaces.d/eth0.cfg
+            sync
+            CEOF
+            chmod +x /tmp/dpdk_post_build.sh
+            echo "chmod"
+            nohup /tmp/dpdk_post_build.sh &
+          params:
+            $NOTIFY: { get_attr: ['wait_handle', 'curl_cli'] }
+
+outputs:
+  vm_uuid:
+    description: uuid of the VM
+    value: { get_attr: [ dpdk_vm, show,id ] }
+
