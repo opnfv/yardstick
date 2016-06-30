@@ -1,0 +1,12 @@
+---
+# Sample plugin configration file
+
+schema: "yardstick:plugin:0.1"
+
+plugins:
+  name: sample
+
+deployment:
+  ip: 10.1.0.50
+  user: root
+  password: root
