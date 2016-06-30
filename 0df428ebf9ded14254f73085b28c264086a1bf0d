@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_3f620bd9",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 4723
+      },
+      "writtenOn": "2016-06-30T03:00:38Z",
+      "side": 1,
+      "message": "just curious, why is it necessary to change to node4/node5?",
+      "range": {
+        "startLine": 12,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 18
+      },
+      "revId": "0df428ebf9ded14254f73085b28c264086a1bf0d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
