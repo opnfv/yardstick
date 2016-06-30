@@ -297,18 +297,18 @@ class HeatTemplate(HeatObject):
             'value': {'get_attr': [name, 'ip']}
         }
 
-    def add_floating_ip_association(self, name, floating_ip_name, server_name):
+    def add_floating_ip_association(self, name, floating_ip_name, port_name):
         '''add to the template a Nova FloatingIP Association resource
         '''
         log.debug("adding Nova::FloatingIPAssociation '%s', server '%s', "
-                  "floating_ip '%s'", name, server_name, floating_ip_name)
+                  "floating_ip '%s'", name, port_name, floating_ip_name)
 
         self.resources[name] = {
-            'type': 'OS::Nova::FloatingIPAssociation',
-            'depends_on': [server_name],
+            'type': 'OS::Neutron::FloatingIPAssociation',
+            'depends_on': [port_name],
             'properties': {
-                'floating_ip': {'get_resource': floating_ip_name},
-                'server_id': {'get_resource': server_name}
+                'floatingip_id': {'get_resource': floating_ip_name},
+                'port_id': {'get_resource': port_name}
             }
         }
 
