@@ -22,6 +22,30 @@
       "revId": "0df428ebf9ded14254f73085b28c264086a1bf0d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_5fb6e73e",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-06-30T03:11:57Z",
+      "side": 1,
+      "message": "it\u0027s not necessary. when i\u0027m testing it in the real pod, node1/node2 happens to be unavailable.",
+      "parentUuid": "5a7ca5a3_3f620bd9",
+      "range": {
+        "startLine": 12,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 18
+      },
+      "revId": "0df428ebf9ded14254f73085b28c264086a1bf0d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
