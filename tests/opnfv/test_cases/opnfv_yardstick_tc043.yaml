@@ -9,8 +9,8 @@ scenarios:
   type: Ping
   options:
     packetsize: 100
-  host: node1.LF
-  target: node2.LF
+  host: node4.LF
+  target: node5.LF
 
   runner:
     type: Duration
