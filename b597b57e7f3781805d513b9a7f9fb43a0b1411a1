@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_28664f52",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-07-01T07:53:59Z",
+      "side": 1,
+      "message": "place VXLAN_TOOL to the beginning of the file: \nVXLAN_TOOL \u003d \"nohup python vxlan_tool.py -i {interface} -d {do} -v {verbosity} -f -b {b} \u0026\"\n\ncmd_SF1 \u003d VXLAN_TOOL.format{interface\u003d\u0027eth0\u0027, do\u003d\u0027forward\u0027, verbosity\u003d\u0027off\u0027, b\u003d\u002780\u0027}\n\n\nManuel can you please do this for me ?",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 47
+      },
+      "revId": "b597b57e7f3781805d513b9a7f9fb43a0b1411a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_c85a3b83",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-07-01T07:53:59Z",
+      "side": 1,
+      "message": "cmd_SF2 \u003d VXLAN_TOOL.format{interface\u003d\u0027eth0\u0027, do\u003d\u0027forward\u0027, verbosity\u003d\u0027off\u0027, b\u003d\u002722\u0027}\n\nManuel can you please do this for me ?",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 47
+      },
+      "revId": "b597b57e7f3781805d513b9a7f9fb43a0b1411a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_08611339",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc_openstack.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 584
+      },
+      "writtenOn": "2016-07-01T07:53:59Z",
+      "side": 1,
+      "message": "it would be nice to place this IP address into a constant at the beginning of the file, can you do that please ?\nI don\u0027t enjoy seeing to many IP addresses hardcoded here and there, I would like to see all these data place in constants at the beginning of the file",
+      "range": {
+        "startLine": 31,
+        "startChar": 36,
+        "endLine": 31,
+        "endChar": 66
+      },
+      "revId": "b597b57e7f3781805d513b9a7f9fb43a0b1411a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
