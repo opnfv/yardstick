@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a7ca5a3_73e43c3b",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2016-07-01T09:01:35Z",
+      "side": 1,
+      "message": "I prefer not do it right now because of the workarounds we are supposed to do to make it work in OVS 2.3 and 2.4 which are explained here: https://wiki.opnfv.org/display/sfc/Yardstick\n\nSome fo those changes require changing manually this line and I think it is easier to do those changes if it stays like this. Once we have 2.5.90 working, I will change it and do it as you suggest because then we will not neet the workarounds anymore",
+      "parentUuid": "5a7ca5a3_28664f52",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 47
+      },
+      "revId": "b597b57e7f3781805d513b9a7f9fb43a0b1411a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_c85a3b83",
         "filename": "yardstick/benchmark/scenarios/networking/sfc.py",
         "patchSetId": 20
@@ -59,6 +83,30 @@
       "writtenOn": "2016-07-01T07:53:59Z",
       "side": 1,
       "message": "it would be nice to place this IP address into a constant at the beginning of the file, can you do that please ?\nI don\u0027t enjoy seeing to many IP addresses hardcoded here and there, I would like to see all these data place in constants at the beginning of the file",
+      "range": {
+        "startLine": 31,
+        "startChar": 36,
+        "endLine": 31,
+        "endChar": 66
+      },
+      "revId": "b597b57e7f3781805d513b9a7f9fb43a0b1411a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_13d14857",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc_openstack.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2016-07-01T09:01:35Z",
+      "side": 1,
+      "message": "Yeah, I\u0027ll change this. Actually we don\u0027t use that IP",
+      "parentUuid": "5a7ca5a3_08611339",
       "range": {
         "startLine": 31,
         "startChar": 36,
