@@ -361,18 +361,49 @@ def run_one_scenario(scenario_cfg, output_file):
         context_cfg['host'] = Context.get_server(scenario_cfg["host"])
 
     if "target" in scenario_cfg:
-        if is_ip_addr(scenario_cfg["target"]):
-            context_cfg['target'] = {}
-            context_cfg['target']["ipaddr"] = scenario_cfg["target"]
-        else:
-            context_cfg['target'] = Context.get_server(scenario_cfg["target"])
-            if _is_same_heat_context(scenario_cfg["host"],
-                                     scenario_cfg["target"]):
-                context_cfg["target"]["ipaddr"] = \
-                    context_cfg["target"]["private_ip"]
+        target_list = [s.strip() for s in scenario_cfg["target"].split(',')]
+        if len(target_list) == 1:
+            if is_ip_addr(scenario_cfg["target"]):
+                context_cfg['target'] = {}
+                context_cfg['target']["ipaddr"] = scenario_cfg["target"]
             else:
-                context_cfg["target"]["ipaddr"] = \
-                    context_cfg["target"]["ip"]
+                context_cfg['target'] = Context.get_server(
+                    scenario_cfg["target"])
+                if _is_same_heat_context(scenario_cfg["host"],
+                                         scenario_cfg["target"]):
+                    context_cfg["target"]["ipaddr"] = \
+                        context_cfg["target"]["private_ip"]
+                else:
+                    context_cfg["target"]["ipaddr"] = \
+                        context_cfg["target"]["ip"]
+        elif target_list:
+            ip_list = []
+            for target in target_list[:-1]:
+                if is_ip_addr(target):
+                    ip_list.append(target)
+                else:
+                    context_cfg['target'] = Context.get_server(target)
+                    if _is_same_heat_context(scenario_cfg["host"], target):
+                        ip_list.append(context_cfg["target"]["private_ip"])
+                    else:
+                        ip_list.append(context_cfg["target"]["ip"])
+
+            if is_ip_addr(target_list[-1]):
+                    ip_list.append(target_list[-1])
+                    ip_string = ','.join(ip_list)
+                    context_cfg['target'] = {}
+                    context_cfg['target']["ipaddr"] = ip_string
+            else:
+                context_cfg['target'] = Context.get_server(target_list[-1])
+                if _is_same_heat_context(scenario_cfg["host"],
+                                         target_list[-1]):
+                    ip_list.append(context_cfg["target"]["private_ip"])
+                    ip_string = ','.join(ip_list)
+                    context_cfg["target"]["ipaddr"] = ip_string
+                else:
+                    ip_list.append(context_cfg["target"]["ip"])
+                    ip_string = ','.join(ip_list)
+                    context_cfg["target"]["ipaddr"] = ip_string
 
     if "nodes" in scenario_cfg:
         context_cfg["nodes"] = parse_nodes_with_context(scenario_cfg)
