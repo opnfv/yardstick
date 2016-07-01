@@ -374,6 +374,20 @@ def run_one_scenario(scenario_cfg, output_file):
                 context_cfg["target"]["ipaddr"] = \
                     context_cfg["target"]["ip"]
 
+    if "targets" in scenario_cfg:
+        ip_list = []
+        for target in scenario_cfg["targets"]:
+            if is_ip_addr(target):
+                ip_list.append(target)
+                context_cfg['target'] = {}
+            else:
+                context_cfg['target'] = Context.get_server(target)
+                if _is_same_heat_context(scenario_cfg["host"], target):
+                    ip_list.append(context_cfg["target"]["private_ip"])
+                else:
+                    ip_list.append(context_cfg["target"]["ip"]) 
+        context_cfg['target']['ipaddr'] = ','.join(ip_list)
+
     if "nodes" in scenario_cfg:
         context_cfg["nodes"] = parse_nodes_with_context(scenario_cfg)
     runner = base_runner.Runner.get(runner_cfg)
