@@ -40,12 +40,11 @@ class Ping(base.Scenario):
         host = self.context_cfg['host']
         user = host.get('user', 'ubuntu')
         ip = host.get('ip', None)
-        key_filename = host.get('key_filename', '/root/.ssh/id_rsa')
-        password = host.get('password', 'root')
+        key_filename = host.get('key_filename', '~/.ssh/id_rsa')
 
-        LOG.info("user:%s, host:%s, key_filename:%s", user, ip, key_filename)
-        self.connection = ssh.SSH(user, ip, key_filename=key_filename,
-                                  password=password)
+        LOG.info("user:%s, host:%s", user, ip)
+
+        self.connection = ssh.SSH(user, ip, key_filename=key_filename)
         self.connection.wait()
 
     def run(self, result):
@@ -57,29 +56,32 @@ class Ping(base.Scenario):
         else:
             options = ""
 
-        destination = self.context_cfg['target'].get("ipaddr", '127.0.0.1')
+        destination = self.context_cfg['target'].get('ipaddr', '127.0.0.1')
+        dest_list = [s.strip() for s in destination.split(',')]
 
-        LOG.debug("ping '%s' '%s'", options, destination)
+        result["rtt"] = {}
+        rtt_result = result["rtt"]
 
-        exit_status, stdout, stderr = self.connection.execute(
-            "/bin/sh -s {0} {1}".format(destination, options),
-            stdin=open(self.target_script, "r"))
+        for dest in dest_list:
+            LOG.debug("ping '%s' '%s'", options, dest)
+            exit_status, stdout, stderr = self.connection.execute(
+                "/bin/sh -s {0} {1}".format(dest, options),
+                stdin=open(self.target_script, "r"))
 
-        if exit_status != 0:
-            raise RuntimeError(stderr)
+            if exit_status != 0:
+                raise RuntimeError(stderr)
 
-        if stdout:
-            result["rtt"] = float(stdout)
+            if stdout:
+                rtt_result[dest] = float(stdout)
+                if "sla" in self.scenario_cfg:
+                    sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
+                    assert rtt_result[dest] <= sla_max_rtt, "rtt %f > sla:\
+                    max_rtt(%f); " % (rtt_result[dest], sla_max_rtt)
+            else:
+                LOG.error("ping '%s' '%s' timeout", options, dest)
 
-            if "sla" in self.scenario_cfg:
-                sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
-                assert result["rtt"] <= sla_max_rtt, \
-                    "rtt %f > sla:max_rtt(%f); " % (result["rtt"], sla_max_rtt)
-        else:
-            LOG.error("ping '%s' '%s' timeout", options, destination)
 
-
-def _test():
+def _test():    # pragma: no cover
     '''internal test function'''
     key_filename = pkg_resources.resource_filename("yardstick.resources",
                                                    "files/yardstick_key")
@@ -104,5 +106,5 @@ def _test():
     p.run(result)
     print result
 
-if __name__ == '__main__':
+if __name__ == '__main__':    # pragma: no cover
     _test()
