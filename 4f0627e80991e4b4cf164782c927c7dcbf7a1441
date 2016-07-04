@@ -22,6 +22,30 @@
       "revId": "4f0627e80991e4b4cf164782c927c7dcbf7a1441",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_62f9c3c7",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-07-04T07:04:23Z",
+      "side": 1,
+      "message": "Thank you for your advice.\nI will modify my code.",
+      "parentUuid": "5a7ca5a3_425287de",
+      "range": {
+        "startLine": 378,
+        "startChar": 0,
+        "endLine": 408,
+        "endChar": 63
+      },
+      "revId": "4f0627e80991e4b4cf164782c927c7dcbf7a1441",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
