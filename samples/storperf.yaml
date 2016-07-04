@@ -1,0 +1,27 @@
+---
+# Sample StorPerf benchmark task config file
+# StorPerf is a tool to measure block and object storage performance in an NFVI
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: StorPerf
+  options:
+    # target: 
+    workload: rs
+    # nossd: True
+    # nowarm: True
+    # report:
+
+  nodes:
+    host1: node5.LF
+
+  runner:
+    type: Iteration
+    iterations: 1
+
+context:
+  type: Node
+  name: LF
+  file: /root/yardstick/etc/yardstick/nodes/compass_sclab_virtual/pod.yaml
