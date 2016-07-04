@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_425287de",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 4723
+      },
+      "writtenOn": "2016-07-04T06:32:00Z",
+      "side": 1,
+      "message": "The code could be enhanced as the following, if I understand it correctly. There is no need to have some special handling for the last item. \n\nip_list \u003d []\nfor target in scenario_cfg[\"targets\"]:\n  if is_ip_addr(target):\n    ip_list.append(target)\n    context_cfg[\u0027target\u0027] \u003d {}\n  else:\n    context_cfg[\u0027target\u0027] \u003d Context.get_server(target)\n    if _is_same_heat_context(scenario_cfg[\"host\"], target):\n      ip_list.append(context_cfg[\"target\"][\"private_ip\"])\n    else:\n      ip_list.append(context_cfg[\"target\"][\"ip\"])\n\ncontext_cfg[\u0027target\u0027][\"ipaddr\"] \u003d \u0027,\u0027.join(ip_list)",
+      "range": {
+        "startLine": 378,
+        "startChar": 0,
+        "endLine": 408,
+        "endChar": 63
+      },
+      "revId": "4f0627e80991e4b4cf164782c927c7dcbf7a1441",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
