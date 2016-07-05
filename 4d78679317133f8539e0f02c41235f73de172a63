@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_38ee9ced",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc004.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-07-05T09:15:28Z",
+      "side": 1,
+      "message": "is it necessary to contain the tc number in the host/target name? i find it a little coupling, if the number changed, then you have to modify in many place. may be it should be a more common name.",
+      "range": {
+        "startLine": 22,
+        "startChar": 26,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "4d78679317133f8539e0f02c41235f73de172a63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
