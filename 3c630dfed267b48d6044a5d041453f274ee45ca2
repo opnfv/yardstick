@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a7ca5a3_c5a46159",
+        "filename": "tools/dpdk_install.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-05T00:41:43Z",
+      "side": 1,
+      "message": "For installer fuel, the external_net_name is \"admin_floating_net\" under current version.\n\nDifferent installer maybe has different default external_net_name. Maybe it should be considered.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 22
+      },
+      "revId": "3c630dfed267b48d6044a5d041453f274ee45ca2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_2593d5fb",
+        "filename": "tools/ubuntu-server-cloudimg-dpdk-modify.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-05T00:41:43Z",
+      "side": 1,
+      "message": "If you choose wily, it should be wily too.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 126
+      },
+      "revId": "3c630dfed267b48d6044a5d041453f274ee45ca2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_6589cdc9",
+        "filename": "tools/yardstick-img-dpdk-finalize.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-05T00:41:43Z",
+      "side": 1,
+      "message": "I work on mitaka. Heat CLI has been update from \"heat *\" to \"openstack heat *\" at mitaka. Maybe we should consider compatibility problem.",
+      "revId": "3c630dfed267b48d6044a5d041453f274ee45ca2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_42c1272d",
         "filename": "tools/yardstick-img-dpdk-modify",
         "patchSetId": 4
@@ -13,6 +76,30 @@
       "writtenOn": "2016-07-04T07:53:32Z",
       "side": 1,
       "message": "It should be \"trusty\".",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 26
+      },
+      "revId": "3c630dfed267b48d6044a5d041453f274ee45ca2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_459051ec",
+        "filename": "tools/yardstick-img-dpdk-modify",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-05T00:41:43Z",
+      "side": 1,
+      "message": "Forget about it.",
+      "parentUuid": "5a7ca5a3_42c1272d",
       "range": {
         "startLine": 44,
         "startChar": 0,
