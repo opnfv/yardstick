@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_e5187d86",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-07-05T03:25:23Z",
+      "side": 1,
+      "message": "Where do you put this conf file, and what conf info is in this file? I think, if anybody(including yourself) want to execute this TC, he must upload this file into where he call yardstick cli. //So, how about putting one into yardstick repository along with this TC?",
+      "range": {
+        "startLine": 96,
+        "startChar": 7,
+        "endLine": 97,
+        "endChar": 78
+      },
+      "revId": "415af13357318f6c3328ea13953a0369fb27a147",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
