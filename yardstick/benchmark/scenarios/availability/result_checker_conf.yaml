@@ -1,0 +1,11 @@
+---
+# sample config file for ha test
+#
+schema: "yardstick:task:0.1"
+
+process-checker:
+  verify_script: ha_tools/check_process_python.bash
+service-checker:
+  verify_script: ha_tools/check_service.bash
+nova-instance-checker:
+  verify_script: ha_tools/nova/show_instances.bash
