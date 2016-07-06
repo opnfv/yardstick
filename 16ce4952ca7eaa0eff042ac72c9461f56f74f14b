@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_565fa90e",
+        "filename": "yardstick/benchmark/scenarios/availability/operation_conf.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-07-06T04:22:42Z",
+      "side": 1,
+      "message": "I think you should add some ha tools you mentioned here soon. may be in a new change branch.",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "16ce4952ca7eaa0eff042ac72c9461f56f74f14b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
