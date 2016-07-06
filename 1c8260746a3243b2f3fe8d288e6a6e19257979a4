@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_f6bcb56e",
+        "filename": "tools/README",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-06T09:19:18Z",
+      "side": 1,
+      "message": "DPDK and pktgen.",
+      "range": {
+        "startLine": 26,
+        "startChar": 82,
+        "endLine": 26,
+        "endChar": 87
+      },
+      "revId": "1c8260746a3243b2f3fe8d288e6a6e19257979a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_16c291e9",
+        "filename": "tools/README",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-06T09:19:18Z",
+      "side": 1,
+      "message": "DPDK and pktgen",
+      "range": {
+        "startLine": 27,
+        "startChar": 39,
+        "endLine": 27,
+        "endChar": 43
+      },
+      "revId": "1c8260746a3243b2f3fe8d288e6a6e19257979a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_768985c9",
+        "filename": "tools/README",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-06T09:19:18Z",
+      "side": 1,
+      "message": "yardstick-img-dpdk-finalize.sh",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 27
+      },
+      "revId": "1c8260746a3243b2f3fe8d288e6a6e19257979a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_b6b63d89",
+        "filename": "tools/README",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-06T09:19:18Z",
+      "side": 1,
+      "message": "DPDK and pktgen",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 8
+      },
+      "revId": "1c8260746a3243b2f3fe8d288e6a6e19257979a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_b6e87d7d",
+        "filename": "tools/yardstick-img-dpdk-finalize.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-06T09:19:18Z",
+      "side": 1,
+      "message": "question: why not use the instance\u0027name instead of uuid to create snapshot? It would be easy.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 48
+      },
+      "revId": "1c8260746a3243b2f3fe8d288e6a6e19257979a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_d6d659c5",
+        "filename": "tools/yardstick-img-dpdk-modify",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-06T09:19:18Z",
+      "side": 1,
+      "message": "please add extension .img.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 50
+      },
+      "revId": "1c8260746a3243b2f3fe8d288e6a6e19257979a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
