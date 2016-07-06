@@ -12,7 +12,6 @@ class ActionType:
     ATTACKER = "attacker"
     MONITOR = "monitor"
     RESULTCHECKER = "resultchecker"
-    RESULTCOMPARER = "comparer"
     OPERATION = "operation"
 
 
