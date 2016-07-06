@@ -1113,14 +1113,15 @@
         "allFormat": "regex values",
         "current": {
           "tags": [],
-          "text": "ericsson-pod2 + huawei-us-deploy-bare-1 + intel-pod6 + opnfv-jump-1 + opnfv-jump-2 + orange-fr-pod2",
+          "text": "ericsson-pod2 + huawei-us-deploy-bare-1 + intel-pod6 + opnfv-jump-1 + opnfv-jump-2 + orange-fr-pod2 + zte-pod1",
           "value": [
             "ericsson\\-pod2",
             "huawei\\-us\\-deploy\\-bare\\-1",
             "intel\\-pod6",
             "opnfv\\-jump\\-1",
             "opnfv\\-jump\\-2",
-            "orange\\-fr\\-pod2"
+            "orange\\-fr\\-pod2",
+            "zte\\-pod1"
           ]
         },
         "datasource": "yardstick-vtc",
@@ -1133,7 +1134,7 @@
           {
             "selected": false,
             "text": "All",
-            "value": "(elxg482ls42|ericsson\\-pod2|huawei\\-us\\-deploy\\-bare\\-1|intel\\-pod6|opnfv\\-jump\\-1|opnfv\\-jump\\-2|orange\\-fr\\-pod2|unknown)"
+            "value": "(elxg482ls42|ericsson\\-pod2|huawei\\-us\\-deploy\\-bare\\-1|intel\\-pod6|opnfv\\-jump\\-1|opnfv\\-jump\\-2|orange\\-fr\\-pod2|zte\\-pod1|unknown)"
           },
           {
             "selected": false,
@@ -1169,6 +1170,11 @@
             "selected": true,
             "text": "orange-fr-pod2",
             "value": "orange\\-fr\\-pod2"
+          },
+          {
+            "selected": true,
+            "text": "zte-pod1",
+            "value": "zte\\-pod1"
           },
           {
             "selected": false,

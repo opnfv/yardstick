@@ -838,6 +838,113 @@
           "type": "table",
           "repeatIteration": 1456495934825,
           "repeatPanelId": 5
+        },
+        {
+          "columns": [],
+          "datasource": "yardstick-vtc",
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "id": 20,
+          "isNew": true,
+          "links": [],
+          "minSpan": 2,
+          "pageSize": null,
+          "repeat": null,
+          "scopedVars": {
+            "POD": {
+              "selected": true,
+              "text": "zte-pod1",
+              "value": "zte\\-pod1"
+            }
+          },
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 2,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "deploy_scenario",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "deploy_scenario"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "opnfv_yardstick_tc010",
+              "query": "SELECT \"latencies0.latency\" FROM \"opnfv_yardstick_tc010\" WHERE \"pod_name\" =~ /$POD$/ AND \"deploy_scenario\" =~ /$SCENARIO$/ AND $timeFilter GROUP BY \"deploy_scenario\"",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "latencies0.latency"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "pod_name",
+                  "operator": "=~",
+                  "value": "/$POD$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "deploy_scenario",
+                  "operator": "=~",
+                  "value": "/$SCENARIO$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": "24h",
+          "title": "$POD",
+          "transform": "timeseries_to_rows",
+          "type": "table",
+          "repeatIteration": 1456495934825,
+          "repeatPanelId": 5
         }
       ],
       "title": "New row"
@@ -1630,6 +1737,137 @@
           ],
           "repeatIteration": 1456495934825,
           "repeatPanelId": 7
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "yardstick-vtc",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 21,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "minSpan": 2,
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "scopedVars": {
+            "POD": {
+              "selected": true,
+              "text": "zte-pod1",
+              "value": "zte\\-pod1"
+            }
+          },
+          "seriesOverrides": [],
+          "span": 2,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_deploy_scenario",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "24h"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "deploy_scenario"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "pod_name"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "opnfv_yardstick_tc010",
+              "query": "SELECT mean(\"latencies0.latency\") FROM \"opnfv_yardstick_tc010\" WHERE \"pod_name\" =~ /$POD$/ AND \"deploy_scenario\" =~ /$SCENARIO$/ AND $timeFilter GROUP BY time(24h), \"deploy_scenario\", \"pod_name\" fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "latencies0.latency"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "pod_name",
+                  "operator": "=~",
+                  "value": "/$POD$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "deploy_scenario",
+                  "operator": "=~",
+                  "value": "/$SCENARIO$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": "10d",
+          "timeShift": null,
+          "title": "$POD",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "repeatIteration": 1456495934825,
+          "repeatPanelId": 7
         }
       ],
       "title": "New row"
@@ -1670,14 +1908,15 @@
         "allFormat": "regex values",
         "current": {
           "tags": [],
-          "text": "ericsson-pod2 + huawei-us-deploy-bare-1 + intel-pod6 + opnfv-jump-1 + opnfv-jump-2 + orange-fr-pod2",
+          "text": "ericsson-pod2 + huawei-us-deploy-bare-1 + intel-pod6 + opnfv-jump-1 + opnfv-jump-2 + orange-fr-pod2 + zte-pod1",
           "value": [
             "ericsson\\-pod2",
             "huawei\\-us\\-deploy\\-bare\\-1",
             "intel\\-pod6",
             "opnfv\\-jump\\-1",
             "opnfv\\-jump\\-2",
-            "orange\\-fr\\-pod2"
+            "orange\\-fr\\-pod2",
+            "zte\\-pod1"
           ]
         },
         "datasource": "yardstick-vtc",
@@ -1689,7 +1928,7 @@
           {
             "selected": false,
             "text": "All",
-            "value": "(elxg482ls42|ericsson\\-pod2|huawei\\-us\\-deploy\\-bare\\-1|intel\\-pod6|opnfv\\-jump\\-1|opnfv\\-jump\\-2|orange\\-fr\\-pod2|unknown)"
+            "value": "(elxg482ls42|ericsson\\-pod2|huawei\\-us\\-deploy\\-bare\\-1|intel\\-pod6|opnfv\\-jump\\-1|opnfv\\-jump\\-2|orange\\-fr\\-pod2|zte\\-pod1|unknown)"
           },
           {
             "selected": false,
@@ -1725,6 +1964,11 @@
             "selected": true,
             "text": "orange-fr-pod2",
             "value": "orange\\-fr\\-pod2"
+          },
+          {
+            "selected": true,
+            "text": "zte-pod1",
+            "value": "zte\\-pod1"
           },
           {
             "selected": false,
