@@ -46,6 +46,30 @@
       "revId": "415af13357318f6c3328ea13953a0369fb27a147",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_0a21fd9e",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-07-07T23:42:38Z",
+      "side": 1,
+      "message": "Good,thank you",
+      "parentUuid": "5a7ca5a3_475ff10e",
+      "range": {
+        "startLine": 96,
+        "startChar": 7,
+        "endLine": 97,
+        "endChar": 78
+      },
+      "revId": "415af13357318f6c3328ea13953a0369fb27a147",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
