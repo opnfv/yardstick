@@ -41,11 +41,17 @@ class Ping(base.Scenario):
         user = host.get('user', 'ubuntu')
         ip = host.get('ip', None)
         key_filename = host.get('key_filename', '/root/.ssh/id_rsa')
-        password = host.get('password', 'root')
+        password = host.get('password', None)
 
-        LOG.info("user:%s, host:%s, key_filename:%s", user, ip, key_filename)
-        self.connection = ssh.SSH(user, ip, key_filename=key_filename,
-                                  password=password)
+        if password is not None:
+            LOG.info("Log in via pw, user:%s, host:%s, pw:%s",
+                     user, ip, password)
+            self.connection = ssh.SSH(user, ip, password=password)
+        else:
+            LOG.info("Log in via key, user:%s, host:%s, key_filename:%s",
+                     user, ip, key_filename)
+            self.connection = ssh.SSH(user, ip, key_filename=key_filename)
+
         self.connection.wait()
 
     def run(self, result):
