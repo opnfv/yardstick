@@ -33,7 +33,14 @@ class CPULoadTestCase(unittest.TestCase):
         self.result = {}
 
     def test_setup_mpstat_installed(self, mock_ssh):
-        l = cpuload.CPULoad({}, self.ctx)
+        options = {
+            "interval": 1,
+            "count": 1
+        }
+
+        args = {'options': options}
+
+        l = cpuload.CPULoad(args, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '', '')
 
         l.setup()
@@ -42,7 +49,14 @@ class CPULoadTestCase(unittest.TestCase):
         self.assertTrue(l.has_mpstat)
 
     def test_setup_mpstat_not_installed(self, mock_ssh):
-        l = cpuload.CPULoad({}, self.ctx)
+        options = {
+            "interval": 1,
+            "count": 1
+        }
+
+        args = {'options': options}
+
+        l = cpuload.CPULoad(args, self.ctx)
         mock_ssh.SSH().execute.return_value = (127, '', '')
 
         l.setup()
@@ -51,7 +65,14 @@ class CPULoadTestCase(unittest.TestCase):
         self.assertFalse(l.has_mpstat)
 
     def test_execute_command_success(self, mock_ssh):
-        l = cpuload.CPULoad({}, self.ctx)
+        options = {
+            "interval": 1,
+            "count": 1
+        }
+
+        args = {'options': options}
+
+        l = cpuload.CPULoad(args, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '', '')
         l.setup()
 
@@ -61,7 +82,14 @@ class CPULoadTestCase(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     def test_execute_command_failed(self, mock_ssh):
-        l = cpuload.CPULoad({}, self.ctx)
+        options = {
+            "interval": 1,
+            "count": 1
+        }
+
+        args = {'options': options}
+
+        l = cpuload.CPULoad(args, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '', '')
         l.setup()
 
@@ -70,7 +98,14 @@ class CPULoadTestCase(unittest.TestCase):
                           "cat /proc/loadavg")
 
     def test_get_loadavg(self, mock_ssh):
-        l = cpuload.CPULoad({}, self.ctx)
+        options = {
+            "interval": 1,
+            "count": 1
+        }
+
+        args = {'options': options}
+
+        l = cpuload.CPULoad(args, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '', '')
         l.setup()
 
@@ -82,44 +117,63 @@ class CPULoadTestCase(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     def test_get_cpu_usage_mpstat(self, mock_ssh):
-        l = cpuload.CPULoad({}, self.ctx)
+        options = {
+            "interval": 1,
+            "count": 1
+        }
+
+        args = {'options': options}
+
+        l = cpuload.CPULoad(args, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '', '')
         l.setup()
 
-        l.interval = 0
+        l.interval = 1
+        l.count = 1
         mpstat_output = self._read_file("cpuload_sample_output1.txt")
         mock_ssh.SSH().execute.return_value = (0, mpstat_output, '')
         result = l._get_cpu_usage_mpstat()
 
         expected_result = \
-            {'mpstat':
-                {'cpu':
-                    {'%gnice': '0.00',
-                     '%guest': '5.51',
-                     '%idle': '81.77',
-                     '%iowait': '0.18',
-                     '%irq': '0.00',
-                     '%nice': '0.03',
-                     '%soft': '0.01',
-                     '%steal': '0.00',
-                     '%sys': '1.19',
-                     '%usr': '11.31'},
-                 'cpu0':
-                     {'%gnice': '0.00',
-                      '%guest': '6.62',
-                      '%idle': '71.56',
-                      '%iowait': '0.33',
-                      '%irq': '0.00',
-                      '%nice': '0.03',
-                      '%soft': '0.06',
-                      '%steal': '0.00',
-                      '%sys': '1.36',
-                      '%usr': '20.03'}}}
+            {"mpstat_minimum":
+                {"cpu": {"%steal": "0.00", "%usr": "0.00", "%gnice": "0.00",
+                         "%idle": "100.00", "%guest": "0.00",
+                         "%iowait": "0.00", "%sys": "0.00", "%soft": "0.00",
+                         "%irq": "0.00", "%nice": "0.00"},
+                 "cpu0": {"%steal": "0.00", "%usr": "0.00", "%gnice": "0.00",
+                          "%idle": "100.00", "%guest": "0.00",
+                          "%iowait": "0.00", "%sys": "0.00", "%soft": "0.00",
+                          "%irq": "0.00", "%nice": "0.00"}},
+             "mpstat_average":
+                {"cpu": {"%steal": "0.00", "%usr": "0.00", "%gnice": "0.00",
+                         "%idle": "100.00", "%guest": "0.00",
+                         "%iowait": "0.00", "%sys": "0.00", "%soft": "0.00",
+                         "%irq": "0.00", "%nice": "0.00"},
+                 "cpu0": {"%steal": "0.00", "%usr": "0.00", "%gnice": "0.00",
+                          "%idle": "100.00", "%guest": "0.00",
+                          "%iowait": "0.00", "%sys": "0.00", "%soft": "0.00",
+                          "%irq": "0.00", "%nice": "0.00"}},
+             "mpstat_maximun":
+                {"cpu": {"%steal": "0.00", "%usr": "0.00", "%gnice": "0.00",
+                         "%idle": "100.00", "%guest": "0.00",
+                         "%iowait": "0.00", "%sys": "0.00", "%soft": "0.00",
+                         "%irq": "0.00", "%nice": "0.00"},
+                 "cpu0": {"%steal": "0.00", "%usr": "0.00", "%gnice": "0.00",
+                          "%idle": "100.00", "%guest": "0.00",
+                          "%iowait": "0.00", "%sys": "0.00", "%soft": "0.00",
+                          "%irq": "0.00", "%nice": "0.00"}}}
 
         self.assertDictEqual(result, expected_result)
 
     def test_get_cpu_usage(self, mock_ssh):
-        l = cpuload.CPULoad({}, self.ctx)
+        options = {
+            "interval": 0,
+            "count": 1
+        }
+
+        args = {'options': options}
+
+        l = cpuload.CPULoad(args, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '', '')
         l.setup()
 
@@ -154,45 +208,16 @@ class CPULoadTestCase(unittest.TestCase):
                      '%nice': '0.03'}}}
 
         self.assertDictEqual(result, expected_result)
-
-    def test_run_mpstat(self, mock_ssh):
-        l = cpuload.CPULoad({'options': {'interval': 1}}, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
-
-        mpstat_output = self._read_file("cpuload_sample_output1.txt")
-        mock_ssh.SSH().execute.side_effect = \
-            [(0, '', ''), (0, '1.50 1.45 1.51 3/813 14322', ''), (0, mpstat_output, '')]
-
-        l.run(self.result)
-
-        expected_result = {
-            'loadavg': ['1.50', '1.45', '1.51', '3/813', '14322'],
-            'mpstat':
-            {'cpu': {'%gnice': '0.00',
-                     '%guest': '5.51',
-                     '%idle': '81.77',
-                     '%iowait': '0.18',
-                     '%irq': '0.00',
-                     '%nice': '0.03',
-                     '%soft': '0.01',
-                     '%steal': '0.00',
-                     '%sys': '1.19',
-                     '%usr': '11.31'},
-             'cpu0': {'%gnice': '0.00',
-                      '%guest': '6.62',
-                      '%idle': '71.56',
-                      '%iowait': '0.33',
-                      '%irq': '0.00',
-                      '%nice': '0.03',
-                      '%soft': '0.06',
-                      '%steal': '0.00',
-                      '%sys': '1.36',
-                      '%usr': '20.03'}}}
-
-        self.assertDictEqual(self.result, expected_result)
-
+    
     def test_run_proc_stat(self, mock_ssh):
-        l = cpuload.CPULoad({}, self.ctx)
+        options = {
+            "interval": 1,
+            "count": 1
+        }
+
+        args = {'options': options}
+
+        l = cpuload.CPULoad(args, self.ctx)
         mock_ssh.SSH().execute.return_value = (1, '', '')
         l.setup()
 

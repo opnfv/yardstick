@@ -36,13 +36,17 @@ class CPULoad(base.Scenario):
     on the Linux host.
 
     Parameters
-          interval - Time interval to measure CPU usage. A value of 0
-                     indicates that processors statistics are to be
-                     reported for the time since system startup (boot)
+          interval - Time interval to measure CPU usage.
 
           type:       [int]
           unit:       seconds
-          default:    0
+          default:    1
+
+          count (for mpstat only) - Number of CPU usage measurment.
+
+          type:       [int]
+          unit:       N/A
+          default:    1
 
     """
 
@@ -56,6 +60,7 @@ class CPULoad(base.Scenario):
         self.context_cfg = context_cfg
         self.setup_done = False
         self.has_mpstat = False
+        self.has_count = False
 
     def setup(self):
         """Scenario setup."""
@@ -77,10 +82,13 @@ class CPULoad(base.Scenario):
             LOG.info("MPSTAT is installed")
             self.has_mpstat = True
 
-        if 'options' in self.scenario_cfg:
-            self.interval = self.scenario_cfg['options'].get("interval", 0)
+        options = self.scenario_cfg['options']
+        self.interval = options.get("interval", 1)
+        if 'count' in options:
+            self.count = options.get("count", 1)
+            self.has_count = True
         else:
-            self.interval = 0
+            self.has_count = False
 
         self.setup_done = True
 
@@ -99,15 +107,17 @@ class CPULoad(base.Scenario):
 
     def _get_cpu_usage_mpstat(self):
         """Get processor usage using mpstat."""
-        if self.interval > 0:
-            cmd = "mpstat -P ON %s 1" % self.interval
+        if self.interval > 0 and self.has_count:
+            cmd = "mpstat -P ON %s %s" % (self.interval, self.count)
         else:
-            cmd = "mpstat -P ON"
+            cmd = "mpstat -P ON %s 1" % self.interval
 
         result = self._execute_command(cmd)
 
         fields = []
-        mpstat = {}
+        maximum = {}
+        minimum = {}
+        average = {}
 
         time_marker = re.compile("^([0-9]+):([0-9]+):([0-9]+)$")
         ampm_marker = re.compile("(AM|PM)$")
@@ -117,7 +127,6 @@ class CPULoad(base.Scenario):
             line = row.split()
 
             if line and re.match(time_marker, line[0]):
-
                 if re.match(ampm_marker, line[1]):
                     del line[:2]
                 else:
@@ -134,11 +143,45 @@ class CPULoad(base.Scenario):
                     cpu = 'cpu' if line[0] == 'all' else 'cpu' + line[0]
                     values = line[1:]
                     if values and len(values) == len(fields):
-                        mpstat[cpu] = dict(zip(fields, values))
+                        temp_dict = dict(zip(fields, values))
+                        if cpu not in maximum:
+                            maximum[cpu] = temp_dict
+                        else:
+                            for item in temp_dict:
+                                if float(maximum[cpu][item]) <\
+                                   float(temp_dict[item]):
+                                    maximum[cpu][item] = temp_dict[item]
+
+                        if cpu not in minimum:
+                            minimum[cpu] = temp_dict
+                        else:
+                            for item in temp_dict:
+                                if float(minimum[cpu][item]) >\
+                                   float(temp_dict[item]):
+                                    minimum[cpu][item] = temp_dict[item]
                     else:
                         raise RuntimeError("mpstat: parse error", fields, line)
 
-        return {'mpstat': mpstat}
+            elif line and line[0] == 'Average:':
+                del line[:1]
+                if line[0] == 'CPU':
+                    # header fields
+                    fields = line[1:]
+                    if len(fields) != CPULoad.MPSTAT_FIELD_SIZE:
+                        raise RuntimeError("mpstat average: unexpected field\
+                                           size", fields)
+                else:
+                    # value fields
+                    cpu = 'cpu' if line[0] == 'all' else 'cpu' + line[0]
+                    values = line[1:]
+                    if values and len(values) == len(fields):
+                        average[cpu] = dict(zip(fields, values))
+                    else:
+                        raise RuntimeError("mpstat average: parse error",
+                                           fields, line)
+
+        return {'mpstat_maximun': maximum, 'mpstat_minimum': minimum,
+                'mpstat_average': average}
 
     def _get_cpu_usage(self):
         """Get processor usage from /proc/stat."""

@@ -10,7 +10,8 @@ scenarios:
 -
   type: CPUload
   options:
-    interval: 2
+    interval: 1
+    count: 1
   host: apollo.demo
   runner:
     type: Duration
