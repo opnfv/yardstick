@@ -44,7 +44,7 @@ class Ping(base.Scenario):
         password = host.get('password', None)
 
         if password is not None:
-            LOG.info("Log in via pw, user:%s, host:%s, pw:%s",
+            LOG.info("Log in via password, user:%s, host:%s, pw:%s",
                      user, ip, password)
             self.connection = ssh.SSH(user, ip, password=password)
         else:
