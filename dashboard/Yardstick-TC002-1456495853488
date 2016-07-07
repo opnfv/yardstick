@@ -1038,6 +1038,121 @@
           "type": "table",
           "repeatIteration": 1456495841616,
           "repeatPanelId": 2
+        },
+        {
+          "columns": [],
+          "datasource": "yardstick-vtc",
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "height": "",
+          "id": 18,
+          "isNew": true,
+          "links": [],
+          "minSpan": 2,
+          "pageSize": 100,
+          "repeat": null,
+          "scopedVars": {
+            "POD": {
+              "selected": true,
+              "text": "zte-pod1",
+              "value": "zte\\-pod1"
+            }
+          },
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 2,
+            "desc": false
+          },
+          "span": 2,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "deploy_scenario",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "ms"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "deploy_scenario"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "opnfv_yardstick_tc002",
+              "query": "SELECT mean(\"rtt\") FROM \"opnfv_yardstick_tc002\" WHERE \"pod_name\" =~ /$POD$/ AND \"deploy_scenario\" =~ /$SCENARIO$/ AND $timeFilter GROUP BY \"deploy_scenario\"",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "rtt"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "pod_name",
+                  "operator": "=~",
+                  "value": "/$POD$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "deploy_scenario",
+                  "operator": "=~",
+                  "value": "/$SCENARIO$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": "24h",
+          "title": "$POD",
+          "transform": "table",
+          "transparent": false,
+          "type": "table",
+          "repeatIteration": 1456495841616,
+          "repeatPanelId": 2
         }
       ],
       "showTitle": false,
@@ -2053,6 +2168,174 @@
           ],
           "repeatIteration": 1456495841616,
           "repeatPanelId": 3
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "yardstick-vtc",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "height": "",
+          "id": 19,
+          "interval": "",
+          "isNew": true,
+          "leftYAxisLabel": "<RTT>",
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": false,
+            "hideZero": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "minSpan": 2,
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "repeat": null,
+          "scopedVars": {
+            "POD": {
+              "selected": true,
+              "text": "zte-pod1",
+              "value": "zte\\-pod1"
+            }
+          },
+          "seriesOverrides": [
+            {
+              "alias": "os-odl_l2-nofeature-ha",
+              "color": "#7EB26D"
+            },
+            {
+              "alias": "os-nosdn-nofeature-ha",
+              "color": "#E24D42"
+            },
+            {
+              "alias": "os-onos-nofeature-ha",
+              "color": "#6ED0E0"
+            },
+            {
+              "alias": "os-nosdn-ovs-ha",
+              "color": "#EAB839"
+            },
+            {
+              "alias": "os-odl_l3-nofeature-ha",
+              "color": "#E5A8E2"
+            },
+            {
+              "alias": "os-odl_l2-bgpvpn-ha",
+              "color": "#E0752D"
+            },
+            {
+              "alias": "os-odl_l2-sfc-ha",
+              "color": "#508642"
+            }
+          ],
+          "span": 2,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_deploy_scenario",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "24h"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "deploy_scenario"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "pod_name"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "opnfv_yardstick_tc002",
+              "query": "SELECT mean(\"rtt\") FROM \"opnfv_yardstick_tc002\" WHERE \"pod_name\" =~ /$POD$/ AND \"deploy_scenario\" =~ /$SCENARIO$/ AND $timeFilter GROUP BY time(24h), \"deploy_scenario\", \"pod_name\" fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "rtt"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "pod_name",
+                  "operator": "=~",
+                  "value": "/$POD$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "deploy_scenario",
+                  "operator": "=~",
+                  "value": "/$SCENARIO$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": "14d",
+          "timeShift": null,
+          "title": "$POD",
+          "tooltip": {
+            "shared": true,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "ms",
+            "short"
+          ],
+          "repeatIteration": 1456495841616,
+          "repeatPanelId": 3
         }
       ],
       "showTitle": false,
@@ -2095,14 +2378,15 @@
         "allFormat": "regex values",
         "current": {
           "tags": [],
-          "text": "ericsson-pod2 + huawei-us-deploy-bare-1 + intel-pod6 + opnfv-jump-1 + opnfv-jump-2 + orange-fr-pod2",
+          "text": "ericsson-pod2 + huawei-us-deploy-bare-1 + intel-pod6 + opnfv-jump-1 + opnfv-jump-2 + orange-fr-pod2 + zte-pod1",
           "value": [
             "ericsson\\-pod2",
             "huawei\\-us\\-deploy\\-bare\\-1",
             "intel\\-pod6",
             "opnfv\\-jump\\-1",
             "opnfv\\-jump\\-2",
-            "orange\\-fr\\-pod2"
+            "orange\\-fr\\-pod2",
+            "zte\\-pod1"
           ]
         },
         "datasource": "yardstick-vtc",
@@ -2116,7 +2400,7 @@
           {
             "selected": false,
             "text": "All",
-            "value": "(elxg482ls42|ericsson\\-pod2|huawei\\-us\\-deploy\\-bare\\-1|intel\\-pod6|opnfv\\-jump\\-1|opnfv\\-jump\\-2|orange\\-fr\\-pod2|unknown)"
+            "value": "(elxg482ls42|ericsson\\-pod2|huawei\\-us\\-deploy\\-bare\\-1|intel\\-pod6|opnfv\\-jump\\-1|opnfv\\-jump\\-2|orange\\-fr\\-pod2|zte\\-pod1|unknown)"
           },
           {
             "selected": false,
@@ -2152,6 +2436,11 @@
             "selected": true,
             "text": "orange-fr-pod2",
             "value": "orange\\-fr\\-pod2"
+          },
+          {
+            "selected": true,
+            "text": "zte-pod1",
+            "value": "zte\\-pod1"
           },
           {
             "selected": false,
