@@ -22,6 +22,30 @@
       "revId": "415af13357318f6c3328ea13953a0369fb27a147",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_475ff10e",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1306
+      },
+      "writtenOn": "2016-07-07T08:37:04Z",
+      "side": 1,
+      "message": "This configuration file contains a details about particular traffic generator installation. As VSPERF currently supports only hardware traffic generators, then its configuration is specific to the server, where vsperf (via yardstick is executed). This configuration file contains particular IP addresses and credentials for traffic generator in use, which might be IxNetwork from IXIA, TestCenter from Spirent, Xena or MoonGen. Each traffic generator uses its own configuration options. So there isn\u0027t any generic part of configuration file, which might be inserted into the yardstick repo. All the common configuration options and their values are already part of VSPERF repository.\n\nSo every user, who would like to run vsperf via yardstick at his server, must prepare a custom configuration file specific for traffic generator connected to his server.",
+      "parentUuid": "5a7ca5a3_e5187d86",
+      "range": {
+        "startLine": 96,
+        "startChar": 7,
+        "endLine": 97,
+        "endChar": 78
+      },
+      "revId": "415af13357318f6c3328ea13953a0369fb27a147",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
