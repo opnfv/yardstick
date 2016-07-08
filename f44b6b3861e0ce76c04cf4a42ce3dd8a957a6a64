@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_eada8177",
+        "filename": "tests/unit/benchmark/scenarios/availability/test_director.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-07-08T02:19:41Z",
+      "side": 1,
+      "message": "Whitespace here",
+      "range": {
+        "startLine": 78,
+        "startChar": 82,
+        "endLine": 78,
+        "endChar": 83
+      },
+      "revId": "f44b6b3861e0ce76c04cf4a42ce3dd8a957a6a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
