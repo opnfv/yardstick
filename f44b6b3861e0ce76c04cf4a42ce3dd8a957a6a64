@@ -68,6 +68,29 @@
       "revId": "f44b6b3861e0ce76c04cf4a42ce3dd8a957a6a64",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_aa5249db",
+        "filename": "yardstick/benchmark/scenarios/availability/director.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-07-08T02:29:03Z",
+      "side": 1,
+      "message": "I think you miss a dot here",
+      "range": {
+        "startLine": 34,
+        "startChar": 44,
+        "endLine": 34,
+        "endChar": 45
+      },
+      "revId": "f44b6b3861e0ce76c04cf4a42ce3dd8a957a6a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
