@@ -154,7 +154,7 @@
               ]
             }
           ],
-          "timeFrom": "24h",
+          "timeFrom": "14d",
           "timeShift": null,
           "title": "Storage Performance",
           "tooltip": {
@@ -212,9 +212,9 @@
           "repeat": "POD",
           "scopedVars": {
             "POD": {
-              "selected": true,
               "text": "ericsson-pod2",
-              "value": "ericsson\\-pod2"
+              "value": "ericsson\\-pod2",
+              "selected": true
             }
           },
           "scroll": true,
@@ -298,7 +298,7 @@
               ]
             }
           ],
-          "timeFrom": "24h",
+          "timeFrom": "14d",
           "title": "$POD",
           "transform": "timeseries_to_rows",
           "type": "table"
@@ -317,9 +317,9 @@
           "repeat": null,
           "scopedVars": {
             "POD": {
-              "selected": true,
-              "text": "huawei-us-deploy-bare-1",
-              "value": "huawei\\-us\\-deploy\\-bare\\-1"
+              "text": "huawei-pod1",
+              "value": "huawei\\-pod1",
+              "selected": true
             }
           },
           "scroll": true,
@@ -403,11 +403,11 @@
               ]
             }
           ],
-          "timeFrom": "24h",
+          "timeFrom": "14d",
           "title": "$POD",
           "transform": "timeseries_to_rows",
           "type": "table",
-          "repeatIteration": 1456495861692,
+          "repeatIteration": 1467968127728,
           "repeatPanelId": 5
         },
         {
@@ -424,9 +424,9 @@
           "repeat": null,
           "scopedVars": {
             "POD": {
-              "selected": true,
-              "text": "intel-pod6",
-              "value": "intel\\-pod6"
+              "text": "huawei-pod2",
+              "value": "huawei\\-pod2",
+              "selected": true
             }
           },
           "scroll": true,
@@ -510,11 +510,11 @@
               ]
             }
           ],
-          "timeFrom": "24h",
+          "timeFrom": "14d",
           "title": "$POD",
           "transform": "timeseries_to_rows",
           "type": "table",
-          "repeatIteration": 1456495861692,
+          "repeatIteration": 1467968127728,
           "repeatPanelId": 5
         },
         {
@@ -531,9 +531,9 @@
           "repeat": null,
           "scopedVars": {
             "POD": {
-              "selected": true,
-              "text": "opnfv-jump-1",
-              "value": "opnfv\\-jump\\-1"
+              "text": "intel-pod5",
+              "value": "intel\\-pod5",
+              "selected": true
             }
           },
           "scroll": true,
@@ -617,11 +617,11 @@
               ]
             }
           ],
-          "timeFrom": "24h",
+          "timeFrom": "14d",
           "title": "$POD",
           "transform": "timeseries_to_rows",
           "type": "table",
-          "repeatIteration": 1456495861692,
+          "repeatIteration": 1467968127728,
           "repeatPanelId": 5
         },
         {
@@ -638,9 +638,9 @@
           "repeat": null,
           "scopedVars": {
             "POD": {
-              "selected": true,
-              "text": "opnfv-jump-2",
-              "value": "opnfv\\-jump\\-2"
+              "text": "intel-pod6",
+              "value": "intel\\-pod6",
+              "selected": true
             }
           },
           "scroll": true,
@@ -724,11 +724,11 @@
               ]
             }
           ],
-          "timeFrom": "24h",
+          "timeFrom": "14d",
           "title": "$POD",
           "transform": "timeseries_to_rows",
           "type": "table",
-          "repeatIteration": 1456495861692,
+          "repeatIteration": 1467968127728,
           "repeatPanelId": 5
         },
         {
@@ -745,9 +745,9 @@
           "repeat": null,
           "scopedVars": {
             "POD": {
-              "selected": true,
-              "text": "orange-fr-pod2",
-              "value": "orange\\-fr\\-pod2"
+              "text": "lf-pod2",
+              "value": "lf\\-pod2",
+              "selected": true
             }
           },
           "scroll": true,
@@ -831,11 +831,11 @@
               ]
             }
           ],
-          "timeFrom": "24h",
+          "timeFrom": "14d",
           "title": "$POD",
           "transform": "timeseries_to_rows",
           "type": "table",
-          "repeatIteration": 1456495861692,
+          "repeatIteration": 1467968127728,
           "repeatPanelId": 5
         },
         {
@@ -852,9 +852,9 @@
           "repeat": null,
           "scopedVars": {
             "POD": {
-              "selected": true,
               "text": "zte-pod1",
-              "value": "zte\\-pod1"
+              "value": "zte\\-pod1",
+              "selected": true
             }
           },
           "scroll": true,
@@ -938,11 +938,11 @@
               ]
             }
           ],
-          "timeFrom": "24h",
+          "timeFrom": "14d",
           "title": "$POD",
           "transform": "timeseries_to_rows",
           "type": "table",
-          "repeatIteration": 1456495861692,
+          "repeatIteration": 1467968127728,
           "repeatPanelId": 5
         }
       ],
@@ -995,9 +995,9 @@
           "repeat": "POD",
           "scopedVars": {
             "POD": {
-              "selected": true,
               "text": "ericsson-pod2",
-              "value": "ericsson\\-pod2"
+              "value": "ericsson\\-pod2",
+              "selected": true
             }
           },
           "seriesOverrides": [],
@@ -1067,7 +1067,7 @@
               ]
             }
           ],
-          "timeFrom": "10d",
+          "timeFrom": "14d",
           "timeShift": null,
           "title": "$POD",
           "tooltip": {
@@ -1124,9 +1124,9 @@
           "repeat": null,
           "scopedVars": {
             "POD": {
-              "selected": true,
-              "text": "huawei-us-deploy-bare-1",
-              "value": "huawei\\-us\\-deploy\\-bare\\-1"
+              "text": "huawei-pod1",
+              "value": "huawei\\-pod1",
+              "selected": true
             }
           },
           "seriesOverrides": [],
@@ -1196,7 +1196,7 @@
               ]
             }
           ],
-          "timeFrom": "10d",
+          "timeFrom": "14d",
           "timeShift": null,
           "title": "$POD",
           "tooltip": {
@@ -1210,7 +1210,7 @@
             "short",
             "short"
           ],
-          "repeatIteration": 1456495861692,
+          "repeatIteration": 1467968127728,
           "repeatPanelId": 7
         },
         {
@@ -1255,9 +1255,9 @@
           "repeat": null,
           "scopedVars": {
             "POD": {
-              "selected": true,
-              "text": "intel-pod6",
-              "value": "intel\\-pod6"
+              "text": "huawei-pod2",
+              "value": "huawei\\-pod2",
+              "selected": true
             }
           },
           "seriesOverrides": [],
@@ -1327,7 +1327,7 @@
               ]
             }
           ],
-          "timeFrom": "10d",
+          "timeFrom": "14d",
           "timeShift": null,
           "title": "$POD",
           "tooltip": {
@@ -1341,7 +1341,7 @@
             "short",
             "short"
           ],
-          "repeatIteration": 1456495861692,
+          "repeatIteration": 1467968127728,
           "repeatPanelId": 7
         },
         {
@@ -1386,9 +1386,9 @@
           "repeat": null,
           "scopedVars": {
             "POD": {
-              "selected": true,
-              "text": "opnfv-jump-1",
-              "value": "opnfv\\-jump\\-1"
+              "text": "intel-pod5",
+              "value": "intel\\-pod5",
+              "selected": true
             }
           },
           "seriesOverrides": [],
@@ -1458,7 +1458,7 @@
               ]
             }
           ],
-          "timeFrom": "10d",
+          "timeFrom": "14d",
           "timeShift": null,
           "title": "$POD",
           "tooltip": {
@@ -1472,7 +1472,7 @@
             "short",
             "short"
           ],
-          "repeatIteration": 1456495861692,
+          "repeatIteration": 1467968127728,
           "repeatPanelId": 7
         },
         {
@@ -1517,9 +1517,9 @@
           "repeat": null,
           "scopedVars": {
             "POD": {
-              "selected": true,
-              "text": "opnfv-jump-2",
-              "value": "opnfv\\-jump\\-2"
+              "text": "intel-pod6",
+              "value": "intel\\-pod6",
+              "selected": true
             }
           },
           "seriesOverrides": [],
@@ -1589,7 +1589,7 @@
               ]
             }
           ],
-          "timeFrom": "10d",
+          "timeFrom": "14d",
           "timeShift": null,
           "title": "$POD",
           "tooltip": {
@@ -1603,7 +1603,7 @@
             "short",
             "short"
           ],
-          "repeatIteration": 1456495861692,
+          "repeatIteration": 1467968127728,
           "repeatPanelId": 7
         },
         {
@@ -1648,9 +1648,9 @@
           "repeat": null,
           "scopedVars": {
             "POD": {
-              "selected": true,
-              "text": "orange-fr-pod2",
-              "value": "orange\\-fr\\-pod2"
+              "text": "lf-pod2",
+              "value": "lf\\-pod2",
+              "selected": true
             }
           },
           "seriesOverrides": [],
@@ -1720,7 +1720,7 @@
               ]
             }
           ],
-          "timeFrom": "10d",
+          "timeFrom": "14d",
           "timeShift": null,
           "title": "$POD",
           "tooltip": {
@@ -1734,7 +1734,7 @@
             "short",
             "short"
           ],
-          "repeatIteration": 1456495861692,
+          "repeatIteration": 1467968127728,
           "repeatPanelId": 7
         },
         {
@@ -1779,9 +1779,9 @@
           "repeat": null,
           "scopedVars": {
             "POD": {
-              "selected": true,
               "text": "zte-pod1",
-              "value": "zte\\-pod1"
+              "value": "zte\\-pod1",
+              "selected": true
             }
           },
           "seriesOverrides": [],
@@ -1851,7 +1851,7 @@
               ]
             }
           ],
-          "timeFrom": "10d",
+          "timeFrom": "14d",
           "timeShift": null,
           "title": "$POD",
           "tooltip": {
@@ -1865,7 +1865,7 @@
             "short",
             "short"
           ],
-          "repeatIteration": 1456495861692,
+          "repeatIteration": 1467968127728,
           "repeatPanelId": 7
         }
       ],
@@ -1907,14 +1907,14 @@
         "allFormat": "regex values",
         "current": {
           "tags": [],
-          "text": "ericsson-pod2 + huawei-us-deploy-bare-1 + intel-pod6 + opnfv-jump-1 + opnfv-jump-2 + orange-fr-pod2 + zte-pod1",
+          "text": "ericsson-pod2 + huawei-pod1 + huawei-pod2 + intel-pod5 + intel-pod6 + lf-pod2 + zte-pod1",
           "value": [
             "ericsson\\-pod2",
-            "huawei\\-us\\-deploy\\-bare\\-1",
+            "huawei\\-pod1",
+            "huawei\\-pod2",
+            "intel\\-pod5",
             "intel\\-pod6",
-            "opnfv\\-jump\\-1",
-            "opnfv\\-jump\\-2",
-            "orange\\-fr\\-pod2",
+            "lf\\-pod2",
             "zte\\-pod1"
           ]
         },
@@ -1925,54 +1925,84 @@
         "name": "POD",
         "options": [
           {
-            "selected": false,
             "text": "All",
-            "value": "(elxg482ls42|ericsson\\-pod2|huawei\\-us\\-deploy\\-bare\\-1|intel\\-pod6|opnfv\\-jump\\-1|opnfv\\-jump\\-2|orange\\-fr\\-pod2|zte\\-pod1|unknown)"
+            "value": "(elxg482ls42|ericsson\\-pod1|ericsson\\-pod2|huawei\\-pod1|huawei\\-pod2|huawei\\-us\\-deploy\\-bare\\-1|intel\\-pod5|intel\\-pod6|lf\\-pod1|lf\\-pod2|opnfv\\-jump\\-1|opnfv\\-jump\\-2|orange\\-fr\\-pod2|unknown|zte\\-pod1)",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "elxg482ls42",
-            "value": "elxg482ls42"
+            "value": "elxg482ls42",
+            "selected": false
           },
           {
-            "selected": true,
+            "text": "ericsson-pod1",
+            "value": "ericsson\\-pod1",
+            "selected": false
+          },
+          {
             "text": "ericsson-pod2",
-            "value": "ericsson\\-pod2"
+            "value": "ericsson\\-pod2",
+            "selected": true
           },
           {
-            "selected": true,
+            "text": "huawei-pod1",
+            "value": "huawei\\-pod1",
+            "selected": true
+          },
+          {
+            "text": "huawei-pod2",
+            "value": "huawei\\-pod2",
+            "selected": true
+          },
+          {
             "text": "huawei-us-deploy-bare-1",
-            "value": "huawei\\-us\\-deploy\\-bare\\-1"
+            "value": "huawei\\-us\\-deploy\\-bare\\-1",
+            "selected": false
           },
           {
-            "selected": true,
+            "text": "intel-pod5",
+            "value": "intel\\-pod5",
+            "selected": true
+          },
+          {
             "text": "intel-pod6",
-            "value": "intel\\-pod6"
+            "value": "intel\\-pod6",
+            "selected": true
           },
           {
-            "selected": true,
+            "text": "lf-pod1",
+            "value": "lf\\-pod1",
+            "selected": false
+          },
+          {
+            "text": "lf-pod2",
+            "value": "lf\\-pod2",
+            "selected": true
+          },
+          {
             "text": "opnfv-jump-1",
-            "value": "opnfv\\-jump\\-1"
+            "value": "opnfv\\-jump\\-1",
+            "selected": false
           },
           {
-            "selected": true,
             "text": "opnfv-jump-2",
-            "value": "opnfv\\-jump\\-2"
+            "value": "opnfv\\-jump\\-2",
+            "selected": false
           },
           {
-            "selected": true,
             "text": "orange-fr-pod2",
-            "value": "orange\\-fr\\-pod2"
+            "value": "orange\\-fr\\-pod2",
+            "selected": false
           },
           {
-            "selected": true,
-            "text": "zte-pod1",
-            "value": "zte\\-pod1"
-          },
-          {
-            "selected": false,
             "text": "unknown",
-            "value": "unknown"
+            "value": "unknown",
+            "selected": false
+          },
+          {
+            "text": "zte-pod1",
+            "value": "zte\\-pod1",
+            "selected": true
           }
         ],
         "query": "SHOW TAG VALUES WITH KEY = \"pod_name\"",
@@ -2050,6 +2080,6 @@
     "list": []
   },
   "schemaVersion": 8,
-  "version": 9,
+  "version": 2,
   "links": []
 }
