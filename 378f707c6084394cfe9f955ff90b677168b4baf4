@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_2a15d9f0",
+        "filename": "tools/yardstick-img-dpdk-finalize.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-08T05:33:59Z",
+      "side": 1,
+      "message": "Need a break when heat create failed.",
+      "revId": "378f707c6084394cfe9f955ff90b677168b4baf4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
