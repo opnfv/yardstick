@@ -22,6 +22,52 @@
       "revId": "f44b6b3861e0ce76c04cf4a42ce3dd8a957a6a64",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_4ad13556",
+        "filename": "yardstick/benchmark/scenarios/availability/actionplayers.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-07-08T02:23:05Z",
+      "side": 1,
+      "message": "1. It\u0027s hard to understand what actionplayers mean, can you add some comment?\n2. i don\u0027t think a class name with a \"s\" post-fix form is a good name.",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 19
+      },
+      "revId": "f44b6b3861e0ce76c04cf4a42ce3dd8a957a6a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_0af49df0",
+        "filename": "yardstick/benchmark/scenarios/availability/director.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-07-08T02:23:05Z",
+      "side": 1,
+      "message": "i think you need some explanation in the commit log or in each new *.py about what some \"new nouns\" mean (like what does director in your code?). so other reviewers can know about your idea at the first glance.",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 14
+      },
+      "revId": "f44b6b3861e0ce76c04cf4a42ce3dd8a957a6a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
