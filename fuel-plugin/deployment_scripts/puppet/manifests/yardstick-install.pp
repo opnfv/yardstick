@@ -7,6 +7,7 @@ $admin_user     = $access_hash['user']
 $admin_password = $access_hash['password']
 $region         = hiera('region', 'RegionOne')
 
+$auth_api_version       = 'v2.0'
 $service_endpoint       = hiera('service_endpoint', $management_vip)
 $ssl_hash               = hiera_hash('use_ssl', {})
 $internal_auth_protocol = get_ssl_property($ssl_hash, {}, 'keystone', 'internal', 'protocol', 'http')
@@ -19,7 +20,7 @@ exec { "install yardstick":
     path   => "/usr/local/bin:/usr/bin:/usr/sbin:/bin:/sbin";
 }
 
-osnailyfacter::credentials_file { '/opt/yardstick/openrc':
+osnailyfacter::credentials_file { '/var/lib/yardstick.openrc':
   admin_user          => $admin_user,
   admin_password      => $admin_password,
   admin_tenant        => $admin_tenant,
