@@ -3,24 +3,24 @@
 set -eux
 
 HOST=$1
-INSTALL_HOME=/opt/yardstick
-rm -rf $INSTALL_HOME; mkdir -p $INSTALL_HOME
+BIN_HOME=/opt/yardstick
+VAR_HOME=/var/lib/yardstick
+rm -rf $BIN_HOME; mkdir -p $BIN_HOME
+rm -rf $VAR_HOME; mkdir -p $VAR_HOME
 
-cd $INSTALL_HOME
-
-sudo apt-get install -y python-virtualenv python-dev python-pip libffi-dev libssl-dev libxml2-dev libxslt1-dev
-pip install --user virtualenv
-pip install --upgrade virtualenv
+sudo apt-get install -y python-dev python-pip libffi-dev libssl-dev libxml2-dev libxslt1-dev
+pip install virtualenv
 
 # create python virtual env
-virtualenv $INSTALL_HOME/yardstick_venv
-# source $INSTALL_HOME/yardstick_venv/bin/activate
+virtualenv $VAR_HOME
+
+export PS1="yardstick"
+source $VAR_HOME/bin/activate
 
 easy_install -U setuptools
 
-mkdir bin
-cd $INSTALL_HOME/bin
+cd $BIN_HOME
 
 curl http://$HOST:8080/plugins/fuel-plugin-yardstick-0.9/repositories/ubuntu/yardstick.tar.gz | tar xzvf -
 
-pip install -r tests/ci/requirements.txt
+python setup.py develop

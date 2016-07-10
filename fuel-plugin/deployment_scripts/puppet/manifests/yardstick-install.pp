@@ -19,7 +19,7 @@ exec { "install yardstick":
     path   => "/usr/local/bin:/usr/bin:/usr/sbin:/bin:/sbin";
 }
 
-osnailyfacter::credentials_file { '/opt/yardstick/openrc':
+osnailyfacter::credentials_file { '/var/lib/yardstick/openrc':
   admin_user          => $admin_user,
   admin_password      => $admin_password,
   admin_tenant        => $admin_tenant,
