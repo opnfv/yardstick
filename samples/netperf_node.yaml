@@ -1,0 +1,51 @@
+---
+# Sample benchmark task config file
+# measure network latency and throughput using netperf
+# There are two sample scenarios: bulk test and request/response test
+# In bulk test, UDP_STREAM and TCP_STREAM can be used
+# send_msg_size and recv_msg_size are options of bulk test
+# In req/rsp test, TCP_RR TCP_CRR UDP_RR can be used
+# req_rsp_size is option of req/rsp test
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: NetperfNode
+  options:
+    testname: 'UDP_STREAM'
+    send_msg_size: 1024
+    duration: 20
+
+  host: node4.LF
+  target: node5.LF
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+  sla:
+    mean_latency: 100
+    action: monitor
+-
+  type: Netperf
+  options:
+    testname: 'TCP_RR'
+    req_rsp_size: '32,1024'
+
+  host: Chang'e.demo
+  target: Houyi.demo
+
+  runner:
+    type: Duration
+    duration: 20
+    interval: 1
+  sla:
+    mean_latency: 300
+    action: monitor
+
+context:
+  type: Node
+  name: LF
+  file: etc/yardstick/nodes/compass_sclab_physical/pod.yaml
+
