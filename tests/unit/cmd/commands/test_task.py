@@ -62,11 +62,12 @@ class TaskCommandsTestCase(unittest.TestCase):
         cfg = \
             {'precondition':
                  {'installer_type': 'compass',
-                  'deploy_scenarios': 'os-nosdn'
+                  'deploy_scenarios': 'os-nosdn',
+                  'pod_name': 'huawei-pod1'
                  }
             }
 
         t = task.TaskParser('/opt')
-        mock_os.environ.get.side_effect = ['compass', 'os-nosdn']
+        mock_os.environ.get.side_effect = ['compass', 'os-nosdn', 'huawei-pod1']
         result = t._check_precondition(cfg)
         self.assertTrue(result)

@@ -282,8 +282,17 @@ class TaskParser(object):
             precondition = cfg["precondition"]
             installer_type = precondition.get("installer_type", None)
             deploy_scenarios = precondition.get("deploy_scenarios", None)
+            tc_fit_pods = precondition.get("pod_name", None)
             installer_type_env = os.environ.get('INSTALL_TYPE', None)
             deploy_scenario_env = os.environ.get('DEPLOY_SCENARIO', None)
+            pod_name_env = os.environ.get('NODE_NAME', None)
+
+            LOG.info("installer_type: %s, installer_type_env: %s",
+                     installer_type, installer_type_env)
+            LOG.info("deploy_scenarios: %s, deploy_scenario_env: %s",
+                     deploy_scenarios, deploy_scenario_env)
+            LOG.info("tc_fit_pods: %s, pod_name_env: %s",
+                     tc_fit_pods, pod_name_env)
             if installer_type and installer_type_env:
                 if installer_type_env not in installer_type:
                     return False
@@ -293,6 +302,9 @@ class TaskParser(object):
                     if deploy_scenario_env.startswith(deploy_scenario):
                         return True
                 return False
+            if tc_fit_pods and pod_name_env:
+                if pod_name_env not in tc_fit_pods:
+                    return False
         return True
 
 
