@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_c6f699d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 483
+      },
+      "writtenOn": "2016-07-14T14:31:30Z",
+      "side": 1,
+      "message": "please use bellow instead. it is a rule in gerrit plugin\nYARDSTICK-303",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 19
+      },
+      "revId": "a592522a169f021adecc7d89d70079980be69665",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_660305b9",
+        "filename": "plugin/storperf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 483
+      },
+      "writtenOn": "2016-07-14T14:31:30Z",
+      "side": 1,
+      "message": "in a fixed ip address or node?",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 20
+      },
+      "revId": "a592522a169f021adecc7d89d70079980be69665",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_262d0d47",
+        "filename": "yardstick/resources/script/install/storperf.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 483
+      },
+      "writtenOn": "2016-07-14T14:31:30Z",
+      "side": 1,
+      "message": "is it mkdir -p /tmp/storperf-yardstick/carbon",
+      "range": {
+        "startLine": 21,
+        "startChar": 9,
+        "endLine": 21,
+        "endChar": 32
+      },
+      "revId": "a592522a169f021adecc7d89d70079980be69665",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
