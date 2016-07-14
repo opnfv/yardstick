@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_e6263568",
+        "filename": "tools/yardstick-img-dpdk-finalize.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 483
+      },
+      "writtenOn": "2016-07-14T14:44:11Z",
+      "side": 1,
+      "message": "-t yaml -f $template ?",
+      "range": {
+        "startLine": 19,
+        "startChar": 34,
+        "endLine": 19,
+        "endChar": 54
+      },
+      "revId": "7715e6fcfef4e622d0a31267a4245b588f6ce47a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
