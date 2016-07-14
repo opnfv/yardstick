@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_f09fcf01",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2016-07-14T02:26:07Z",
+      "side": 1,
+      "message": "This call blocks until the Heat request is accepted by the controller.  This can take up to a minute to complete.",
+      "revId": "ab25d2f9485162b744aaf87497cd5672e6800337",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_509b2318",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2016-07-14T02:26:07Z",
+      "side": 1,
+      "message": "Note: there is a bug in StorPerf that prevents you from doing the setup and then going immediately to execute a run.\n\nhttps://jira.opnfv.org/browse/STORPERF-34\n\nThe setup (configurations API) calls OpenStack controller to create the Heat Stack, and returns when the stack is created.  This does not mean that the VMs are ready to accept SSH connection.  Because of this, StorPerf cannot immediately start execution.  Once STORPERF-34 is fixed, this code will be correct.",
+      "revId": "ab25d2f9485162b744aaf87497cd5672e6800337",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
