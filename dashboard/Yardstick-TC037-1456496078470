@@ -139,7 +139,7 @@
               ]
             }
           ],
-          "timeFrom": "10d",
+          "timeFrom": "14d",
           "timeShift": null,
           "title": "Throughput mean trend",
           "tooltip": {
@@ -255,7 +255,7 @@
               ]
             }
           ],
-          "timeFrom": "10d",
+          "timeFrom": "14d",
           "timeShift": null,
           "title": "RTT mean trend",
           "tooltip": {
@@ -674,7 +674,7 @@
               ]
             }
           ],
-          "timeFrom": null,
+          "timeFrom": "14d",
           "timeShift": null,
           "title": "Round-trip time - ping",
           "tooltip": {
@@ -947,7 +947,8 @@
           ],
           "title": "RTT mean - ping",
           "transform": "table",
-          "type": "table"
+          "type": "table",
+          "timeFrom": "14d"
         }
       ],
       "showTitle": false,
@@ -1113,14 +1114,13 @@
         "allFormat": "regex values",
         "current": {
           "tags": [],
-          "text": "ericsson-pod2 + huawei-us-deploy-bare-1 + intel-pod6 + opnfv-jump-1 + opnfv-jump-2 + orange-fr-pod2 + zte-pod1",
+          "text": "ericsson-pod2 + huawei-pod1 + huawei-pod2 + intel-pod6 + lf-pod2 + zte-pod1",
           "value": [
             "ericsson\\-pod2",
-            "huawei\\-us\\-deploy\\-bare\\-1",
+            "huawei\\-pod1",
+            "huawei\\-pod2",
             "intel\\-pod6",
-            "opnfv\\-jump\\-1",
-            "opnfv\\-jump\\-2",
-            "orange\\-fr\\-pod2",
+            "lf\\-pod2",
             "zte\\-pod1"
           ]
         },
@@ -1132,54 +1132,84 @@
         "name": "POD",
         "options": [
           {
-            "selected": false,
             "text": "All",
-            "value": "(elxg482ls42|ericsson\\-pod2|huawei\\-us\\-deploy\\-bare\\-1|intel\\-pod6|opnfv\\-jump\\-1|opnfv\\-jump\\-2|orange\\-fr\\-pod2|zte\\-pod1|unknown)"
+            "value": "(elxg482ls42|ericsson\\-pod1|ericsson\\-pod2|huawei\\-pod1|huawei\\-pod2|huawei\\-us\\-deploy\\-bare\\-1|intel\\-pod5|intel\\-pod6|lf\\-pod1|lf\\-pod2|opnfv\\-jump\\-1|opnfv\\-jump\\-2|orange\\-fr\\-pod2|unknown|zte\\-pod1)",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "elxg482ls42",
-            "value": "elxg482ls42"
+            "value": "elxg482ls42",
+            "selected": false
           },
           {
-            "selected": true,
+            "text": "ericsson-pod1",
+            "value": "ericsson\\-pod1",
+            "selected": false
+          },
+          {
             "text": "ericsson-pod2",
-            "value": "ericsson\\-pod2"
+            "value": "ericsson\\-pod2",
+            "selected": true
           },
           {
-            "selected": true,
+            "text": "huawei-pod1",
+            "value": "huawei\\-pod1",
+            "selected": true
+          },
+          {
+            "text": "huawei-pod2",
+            "value": "huawei\\-pod2",
+            "selected": true
+          },
+          {
             "text": "huawei-us-deploy-bare-1",
-            "value": "huawei\\-us\\-deploy\\-bare\\-1"
+            "value": "huawei\\-us\\-deploy\\-bare\\-1",
+            "selected": false
           },
           {
-            "selected": true,
+            "text": "intel-pod5",
+            "value": "intel\\-pod5",
+            "selected": false
+          },
+          {
             "text": "intel-pod6",
-            "value": "intel\\-pod6"
+            "value": "intel\\-pod6",
+            "selected": true
           },
           {
-            "selected": true,
+            "text": "lf-pod1",
+            "value": "lf\\-pod1",
+            "selected": false
+          },
+          {
+            "text": "lf-pod2",
+            "value": "lf\\-pod2",
+            "selected": true
+          },
+          {
             "text": "opnfv-jump-1",
-            "value": "opnfv\\-jump\\-1"
+            "value": "opnfv\\-jump\\-1",
+            "selected": false
           },
           {
-            "selected": true,
             "text": "opnfv-jump-2",
-            "value": "opnfv\\-jump\\-2"
+            "value": "opnfv\\-jump\\-2",
+            "selected": false
           },
           {
-            "selected": true,
             "text": "orange-fr-pod2",
-            "value": "orange\\-fr\\-pod2"
+            "value": "orange\\-fr\\-pod2",
+            "selected": false
           },
           {
-            "selected": true,
-            "text": "zte-pod1",
-            "value": "zte\\-pod1"
-          },
-          {
-            "selected": false,
             "text": "unknown",
-            "value": "unknown"
+            "value": "unknown",
+            "selected": false
+          },
+          {
+            "text": "zte-pod1",
+            "value": "zte\\-pod1",
+            "selected": true
           }
         ],
         "query": "SHOW TAG VALUES WITH KEY = \"pod_name\" ",
@@ -1189,9 +1219,9 @@
       {
         "allFormat": "regex values",
         "current": {
-          "tags": [],
           "text": "All",
-          "value": "(os\\-nosdn\\-nofeature\\-ha|os\\-nosdn\\-ovs\\-ha|os\\-odl_l2\\-bgpvpn\\-ha|os\\-odl_l2\\-nofeature\\-ha|os\\-odl_l2\\-nofeature\\-noha|os\\-odl_l2\\-sfc\\-ha|os\\-odl_l3\\-nofeature\\-ha|os\\-onos\\-nofeature\\-ha)"
+          "value": "(os\\-no_sdn\\-ovs\\-ha|os\\-nosdn\\-kvm\\-ha|os\\-nosdn\\-nofeature\\-ha|os\\-nosdn\\-nofeature\\-noha|os\\-nosdn\\-ovs\\-ha|os\\-ocl\\-nofeature\\-ha|os\\-odl_l2\\-bgpvpn\\-ha|os\\-odl_l2\\-nofeature\\-ha|os\\-odl_l2\\-nofeature\\-noha|os\\-odl_l2\\-sfc\\-ha|os\\-odl_l3\\-nofeature\\-ha|os\\-onos\\-nofeature\\-ha|os\\-onos\\-sfc\\-ha|os\\-ovs\\-nofeature\\-ha|unknown)",
+          "tags": []
         },
         "datasource": "yardstick-vtc",
         "includeAll": true,
@@ -1200,49 +1230,84 @@
         "name": "SCENARIO",
         "options": [
           {
-            "selected": true,
             "text": "All",
-            "value": "(os\\-nosdn\\-nofeature\\-ha|os\\-nosdn\\-ovs\\-ha|os\\-odl_l2\\-bgpvpn\\-ha|os\\-odl_l2\\-nofeature\\-ha|os\\-odl_l2\\-nofeature\\-noha|os\\-odl_l2\\-sfc\\-ha|os\\-odl_l3\\-nofeature\\-ha|os\\-onos\\-nofeature\\-ha)"
+            "value": "(os\\-no_sdn\\-ovs\\-ha|os\\-nosdn\\-kvm\\-ha|os\\-nosdn\\-nofeature\\-ha|os\\-nosdn\\-nofeature\\-noha|os\\-nosdn\\-ovs\\-ha|os\\-ocl\\-nofeature\\-ha|os\\-odl_l2\\-bgpvpn\\-ha|os\\-odl_l2\\-nofeature\\-ha|os\\-odl_l2\\-nofeature\\-noha|os\\-odl_l2\\-sfc\\-ha|os\\-odl_l3\\-nofeature\\-ha|os\\-onos\\-nofeature\\-ha|os\\-onos\\-sfc\\-ha|os\\-ovs\\-nofeature\\-ha|unknown)",
+            "selected": true
           },
           {
-            "selected": false,
+            "text": "os-no_sdn-ovs-ha",
+            "value": "os\\-no_sdn\\-ovs\\-ha",
+            "selected": false
+          },
+          {
+            "text": "os-nosdn-kvm-ha",
+            "value": "os\\-nosdn\\-kvm\\-ha",
+            "selected": false
+          },
+          {
             "text": "os-nosdn-nofeature-ha",
-            "value": "os\\-nosdn\\-nofeature\\-ha"
+            "value": "os\\-nosdn\\-nofeature\\-ha",
+            "selected": false
           },
           {
-            "selected": false,
+            "text": "os-nosdn-nofeature-noha",
+            "value": "os\\-nosdn\\-nofeature\\-noha",
+            "selected": false
+          },
+          {
             "text": "os-nosdn-ovs-ha",
-            "value": "os\\-nosdn\\-ovs\\-ha"
+            "value": "os\\-nosdn\\-ovs\\-ha",
+            "selected": false
           },
           {
-            "selected": false,
+            "text": "os-ocl-nofeature-ha",
+            "value": "os\\-ocl\\-nofeature\\-ha",
+            "selected": false
+          },
+          {
             "text": "os-odl_l2-bgpvpn-ha",
-            "value": "os\\-odl_l2\\-bgpvpn\\-ha"
+            "value": "os\\-odl_l2\\-bgpvpn\\-ha",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "os-odl_l2-nofeature-ha",
-            "value": "os\\-odl_l2\\-nofeature\\-ha"
+            "value": "os\\-odl_l2\\-nofeature\\-ha",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "os-odl_l2-nofeature-noha",
-            "value": "os\\-odl_l2\\-nofeature\\-noha"
+            "value": "os\\-odl_l2\\-nofeature\\-noha",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "os-odl_l2-sfc-ha",
-            "value": "os\\-odl_l2\\-sfc\\-ha"
+            "value": "os\\-odl_l2\\-sfc\\-ha",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "os-odl_l3-nofeature-ha",
-            "value": "os\\-odl_l3\\-nofeature\\-ha"
+            "value": "os\\-odl_l3\\-nofeature\\-ha",
+            "selected": false
           },
           {
-            "selected": false,
             "text": "os-onos-nofeature-ha",
-            "value": "os\\-onos\\-nofeature\\-ha"
+            "value": "os\\-onos\\-nofeature\\-ha",
+            "selected": false
+          },
+          {
+            "text": "os-onos-sfc-ha",
+            "value": "os\\-onos\\-sfc\\-ha",
+            "selected": false
+          },
+          {
+            "text": "os-ovs-nofeature-ha",
+            "value": "os\\-ovs\\-nofeature\\-ha",
+            "selected": false
+          },
+          {
+            "text": "unknown",
+            "value": "unknown",
+            "selected": false
           }
         ],
         "query": "SHOW TAG VALUES WITH KEY = \"deploy_scenario\" ",
@@ -1256,6 +1321,6 @@
   },
   "refresh": false,
   "schemaVersion": 8,
-  "version": 85,
+  "version": 3,
   "links": []
 }
