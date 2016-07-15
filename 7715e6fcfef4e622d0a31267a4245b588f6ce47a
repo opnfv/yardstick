@@ -22,6 +22,30 @@
       "revId": "7715e6fcfef4e622d0a31267a4245b588f6ce47a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_e9a5a604",
+        "filename": "tools/yardstick-img-dpdk-finalize.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-15T00:47:43Z",
+      "side": 1,
+      "message": "It is -f yaml -t $template in mitaka.",
+      "parentUuid": "5a7ca5a3_e6263568",
+      "range": {
+        "startLine": 19,
+        "startChar": 34,
+        "endLine": 19,
+        "endChar": 54
+      },
+      "revId": "7715e6fcfef4e622d0a31267a4245b588f6ce47a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
