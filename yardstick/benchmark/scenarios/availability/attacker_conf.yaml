@@ -12,6 +12,6 @@ bare-metal-down:
   check_script: ha_tools/check_host_ping.bash
   recovery_script: ha_tools/ipmi_power.bash
 
-stop_service:
+stop-service:
   inject_script: ha_tools/stop_service.bash
   recovery_script: ha_tools/start_service.bash

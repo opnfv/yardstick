@@ -59,7 +59,7 @@ class GeneralMonitor(basemonitor.BaseMonitor):
     def verify_SLA(self):
         LOG.debug("the _result:%s" % self._result)
         outage_time = self._result.get('outage_time', None)
-        max_outage_time = self._config["sla"]["max_recover_time"]
+        max_outage_time = self._config["sla"]["max_outage_time"]
         if outage_time is None:
             LOG.error("There is no outage_time in monitor result.")
             return False
