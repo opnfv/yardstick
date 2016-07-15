@@ -45,8 +45,22 @@ class SfcTestCase(unittest.TestCase):
     def test_run_for_success(self, mock_subprocess, mock_openstack, mock_ssh):
         # Mock a successfull SSH in Sfc.setup() and Sfc.run()
         mock_ssh.SSH().execute.return_value = (0, '100', '')
-        mock_openstack.return_value = "127.0.0.1"
-        mock_subprocess.return_value = 'mocked!'
+        mock_openstack.get_an_IP.return_value = "127.0.0.1"
+        mock_subprocess.call.return_value = 'mocked!'
+
+        result = {}
+        self.sfc.setup()
+        self.sfc.run(result)
+        self.sfc.teardown()
+
+    @mock.patch('yardstick.benchmark.scenarios.networking.sfc.ssh')
+    @mock.patch('yardstick.benchmark.scenarios.networking.sfc.sfc_openstack')
+    @mock.patch('yardstick.benchmark.scenarios.networking.sfc.subprocess')
+    def test2_run_for_success(self, mock_subprocess, mock_openstack, mock_ssh):
+        # Mock a successfull SSH in Sfc.setup() and Sfc.run()
+        mock_ssh.SSH().execute.return_value = (0, 'vxlan_tool.py', 'succeeded timed out')
+        mock_openstack.get_an_IP.return_value = "127.0.0.1"
+        mock_subprocess.call.return_value = 'mocked!'
 
         result = {}
         self.sfc.setup()
