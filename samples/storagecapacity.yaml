@@ -1,0 +1,24 @@
+---
+# Sample benchmark task config file
+# Measure storage capacity and scale.
+# Including number of PVs, volume of disk size,
+# and block size of each device.
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: StorageCapacity
+  options:
+    test_type: "disk_size"
+
+  host: node5.LF
+
+  runner:
+    type: Iteration
+    iterations: 1
+
+context:
+  type: Node
+  name: LF
+  file: /root/yardstick/etc/yardstick/nodes/compass_sclab_virtual/pod.yaml
