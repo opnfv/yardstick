@@ -29,14 +29,14 @@ class ScenarioGeneralTestCase(unittest.TestCase):
                     'key': "kill-process"}],
                 'monitors': [{
                     'monitor_type': "general-monitor",
-                    'key': "service_status"}],
+                    'key': "service-status"}],
                 'steps':[
                     {
                         'actionKey': "kill-process",
                         'actionType': "attacker",
                         'index': 1},
                     {
-                        'actionKey': "service_status",
+                        'actionKey': "service-status",
                         'actionType': "monitor",
                         'index': 2}]
             }

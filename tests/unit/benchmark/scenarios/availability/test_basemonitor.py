@@ -23,7 +23,7 @@ class MonitorMgrTestCase(unittest.TestCase):
     def setUp(self):
         config = {
             'monitor_type': 'openstack-api',
-            'key' : 'service_status'
+            'key' : 'service-status'
         }
 
         self.monitor_configs = []
@@ -40,7 +40,7 @@ class MonitorMgrTestCase(unittest.TestCase):
     def test_MonitorMgr_getitem(self, mock_monitor):
         monitorMgr = basemonitor.MonitorMgr()
         monitorMgr.init_monitors(self.monitor_configs, None)
-        monitorIns = monitorMgr['service_status']
+        monitorIns = monitorMgr['service-status']
 
 class BaseMonitorTestCase(unittest.TestCase):
 

@@ -33,16 +33,16 @@ class DirectorTestCase(unittest.TestCase):
                     'key': "kill-process"}],
                 'monitors': [{
                     'monitor_type': "general-monitor",
-                    'key': "service_status"}],
+                    'key': "service-status"}],
                 'operations': [{
                     'operation_type': 'general-operation',
-                    'key' : 'service_status'}],
+                    'key' : 'service-status'}],
                 'resultCheckers': [{
                     'checker_type': 'general-result-checker',
                     'key' : 'process-checker',}],
                 'steps':[
                     {
-                        'actionKey': "service_status",
+                        'actionKey': "service-status",
                         'actionType': "operation",
                         'index': 1},
                     {
@@ -54,7 +54,7 @@ class DirectorTestCase(unittest.TestCase):
                         'actionType': "resultchecker",
                         'index': 3},
                     {
-                        'actionKey': "service_status",
+                        'actionKey': "service-status",
                         'actionType': "monitor",
                         'index': 4},
                     ]
@@ -69,12 +69,12 @@ class DirectorTestCase(unittest.TestCase):
 
     def test_director_all_successful(self, mock_checer, mock_opertion, mock_attacker, mock_monitor):
         ins = Director(self.scenario_cfg, self.ctx)
-        opertion_action = ins.createActionPlayer("operation", "service_status")
+        opertion_action = ins.createActionPlayer("operation", "service-status")
         attacker_action = ins.createActionPlayer("attacker", "kill-process")
         checker_action = ins.createActionPlayer("resultchecker", "process-checker")
-        monitor_action = ins.createActionPlayer("monitor", "service_status")
+        monitor_action = ins.createActionPlayer("monitor", "service-status")
 
-        opertion_rollback = ins.createActionRollbacker("operation", "service_status")
+        opertion_rollback = ins.createActionRollbacker("operation", "service-status")
         attacker_rollback = ins.createActionRollbacker("attacker", "kill-process")
         ins.executionSteps.append(opertion_rollback)
         ins.executionSteps.append(attacker_rollback)
