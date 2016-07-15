@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_64e77d41",
+        "filename": "samples/storagecapacity.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-07-15T14:56:30Z",
+      "side": 1,
+      "message": "StorageCapacity",
+      "range": {
+        "startLine": 11,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "1e01827437bac2d3ab04f2df0acac48be842847e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_24d18557",
+        "filename": "yardstick/benchmark/scenarios/storage/storagecapacity.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-07-15T14:56:30Z",
+      "side": 1,
+      "message": "###...",
+      "revId": "1e01827437bac2d3ab04f2df0acac48be842847e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_44d60151",
+        "filename": "yardstick/benchmark/scenarios/storage/storagecapacity.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-07-15T14:56:30Z",
+      "side": 1,
+      "message": "format",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 1
+      },
+      "revId": "1e01827437bac2d3ab04f2df0acac48be842847e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
