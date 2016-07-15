@@ -32,7 +32,7 @@ class GeneralAttackerServiceTestCase(unittest.TestCase):
             'fault_type': 'general-attacker',
             'action_parameter':{'process_name':'nova_api'},
             'rollback_parameter':{'process_name':'nova_api'},
-            'key':'stop_service',
+            'key':'stop-service',
             'host': 'node1',
         }
 

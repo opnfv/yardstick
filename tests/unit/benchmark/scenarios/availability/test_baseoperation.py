@@ -22,7 +22,7 @@ class OperationMgrTestCase(unittest.TestCase):
     def setUp(self):
         config = {
             'operation_type': 'general-operation',
-            'key' : 'service_status'
+            'key' : 'service-status'
         }
 
         self.operation_configs = []
@@ -31,7 +31,7 @@ class OperationMgrTestCase(unittest.TestCase):
     def  test_all_successful(self, mock_operation):
         mgr_ins = baseoperation.OperationMgr()
         mgr_ins.init_operations(self.operation_configs, None)
-        operation_ins = mgr_ins["service_status"]
+        operation_ins = mgr_ins["service-status"]
         mgr_ins.rollback()
 
     def test_getitem_fail(self, mock_operation):
@@ -59,7 +59,7 @@ class BaseOperationTestCase(unittest.TestCase):
     def setUp(self):
         self.config = {
             'operation_type': 'general-operation',
-            'key' : 'service_status'
+            'key' : 'service-status'
         }
 
     def test_all_successful(self):

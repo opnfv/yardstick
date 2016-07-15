@@ -31,18 +31,18 @@ class GeneralMonitorServiceTestCase(unittest.TestCase):
         self.context = {"node1": host}
         self.monitor_cfg = {
             'monitor_type': 'general-monitor',
-            'key': 'service_status',
+            'key': 'service-status',
             'host': 'node1',
             'monitor_time': 3,
             'parameter': {'serviceName': 'haproxy'},
-            'sla': {'max_recover_time': 1}
+            'sla': {'max_outage_time': 1}
         }
         self.monitor_cfg_noparam = {
             'monitor_type': 'general-monitor',
-            'key': 'service_status',
+            'key': 'service-status',
             'host': 'node1',
             'monitor_time': 3,
-            'sla': {'max_recover_time': 1}
+            'sla': {'max_outage_time': 1}
         }
 
     def test__monitor_general_all_successful(self, mock_open, mock_ssh):
