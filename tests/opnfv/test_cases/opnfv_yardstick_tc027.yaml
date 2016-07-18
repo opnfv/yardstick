@@ -28,6 +28,7 @@ scenarios:
 precondition:
   installer_type: compass
   deploy_scenarios: os-nosdn
+  pod_name: huawei-pod1
 
 context:
   type: Node
