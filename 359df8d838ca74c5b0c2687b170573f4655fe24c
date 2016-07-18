@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_d36c5439",
+        "filename": "samples/networkcapacity.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-07-18T09:10:50Z",
+      "side": 1,
+      "message": "Good suggestion. I copied some idea from compute capacity test case which includes hardcode. \nnodes:\n   node1: node1.LF\nor host1: node1.LF\n\"node1\" and \"host1\" should not be a hard coded in scenario.\n\nSo let me clarify it.\nFor one host or one target test case, we can do it like this, see ping-node-context.yaml\nhost: node1.LF\n\nFor multiple node, we can do it like this, see ping6.yaml\n  options:\n    packetsize: 200\n    host: host1,host2,host3,host4,host5\n  nodes:\n    host1: node1.IPV6\n    host2: node2.IPV6\n    host3: node3.IPV6\n    host4: node4.IPV6\n    host5: node5.IPV6\nthe names which in nodes part should be consistent with host value in optinos part.",
+      "parentUuid": "5a7ca5a3_c9230a04",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 19
+      },
+      "revId": "359df8d838ca74c5b0c2687b170573f4655fe24c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_29139eb9",
         "filename": "yardstick/benchmark/scenarios/networking/networkcapacity.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2016-07-15T08:44:25Z",
       "side": 1,
       "message": "Should check if the node is not None before calling node.get.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 47
+      },
+      "revId": "359df8d838ca74c5b0c2687b170573f4655fe24c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_736300b2",
+        "filename": "yardstick/benchmark/scenarios/networking/networkcapacity.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-07-18T09:10:50Z",
+      "side": 1,
+      "message": "yes, you are right",
+      "parentUuid": "5a7ca5a3_29139eb9",
       "range": {
         "startLine": 41,
         "startChar": 0,
