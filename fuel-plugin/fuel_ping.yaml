@@ -40,4 +40,4 @@ context:
 
   networks:
     test:
-      cidr: '192.169.111.0/24'
+      cidr: '192.168.111.0/24'
