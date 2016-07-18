@@ -117,6 +117,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_333a6837",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-07-18T09:01:55Z",
+      "side": 1,
+      "message": "Can you provide a piece of the returned result.\nI don\u0027t know what info will be returned.",
+      "parentUuid": "1a76adc5_d31f7408",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 42
+      },
+      "revId": "6fb83b8d7f686d857a6bc3bb4455d0c6001bc21a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_f31cf015",
         "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
         "patchSetId": 4
