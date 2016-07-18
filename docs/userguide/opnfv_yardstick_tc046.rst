@@ -2,7 +2,7 @@
 .. License.
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Yin Kanglin and others.
-.. 14_ykl@tongji.edu.cn 
+.. 14_ykl@tongji.edu.cn
 
 *************************************
 Yardstick Test Case Description TC046
