@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_13208c9a",
+        "filename": "samples/storagecapacity.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 4723
+      },
+      "writtenOn": "2016-07-18T02:02:05Z",
+      "side": 1,
+      "message": "Should be indented as below:\n\n  nodes:\n    host1: node5.LF",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "1e01827437bac2d3ab04f2df0acac48be842847e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a7ca5a3_24d18557",
         "filename": "yardstick/benchmark/scenarios/storage/storagecapacity.py",
         "patchSetId": 1
