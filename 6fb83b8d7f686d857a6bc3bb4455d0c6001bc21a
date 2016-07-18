@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_5305a4c0",
+        "filename": "samples/storperf.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-07-18T07:42:17Z",
+      "side": 1,
+      "message": "how about small parallelism? such as 2",
+      "range": {
+        "startLine": 11,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "6fb83b8d7f686d857a6bc3bb4455d0c6001bc21a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b368b888",
+        "filename": "samples/storperf.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-07-18T07:42:17Z",
+      "side": 1,
+      "message": "public_network: \"ext-net\"\nBesides, add another option, agent_image: \"Ubuntu 14.04\", though it has default value",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 12,
+        "endChar": 43
+      },
+      "revId": "6fb83b8d7f686d857a6bc3bb4455d0c6001bc21a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7331c0a1",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-07-18T07:42:17Z",
+      "side": 1,
+      "message": "Scenario, upper \"S\"",
+      "range": {
+        "startLine": 20,
+        "startChar": 20,
+        "endLine": 20,
+        "endChar": 28
+      },
+      "revId": "6fb83b8d7f686d857a6bc3bb4455d0c6001bc21a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_332b4832",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-07-18T07:42:17Z",
+      "side": 1,
+      "message": "public_network\nBesides, will add \"agent_image\"?",
+      "range": {
+        "startLine": 73,
+        "startChar": 49,
+        "endLine": 73,
+        "endChar": 62
+      },
+      "revId": "6fb83b8d7f686d857a6bc3bb4455d0c6001bc21a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d31f7408",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-07-18T07:42:17Z",
+      "side": 1,
+      "message": "maybe does not work here.\nhow about using \"get config\" restapi to query the status of the created stack?",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 42
+      },
+      "revId": "6fb83b8d7f686d857a6bc3bb4455d0c6001bc21a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f31cf015",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 3065
+      },
+      "writtenOn": "2016-07-18T07:42:17Z",
+      "side": 1,
+      "message": "same as above, \"query the status of the created status\"",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 23
+      },
+      "revId": "6fb83b8d7f686d857a6bc3bb4455d0c6001bc21a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
