@@ -12,7 +12,7 @@ scenarios:
   options:
 
   nodes:
-    host1: node5.LF
+    host: node5.LF
 
   runner:
     type: Iteration

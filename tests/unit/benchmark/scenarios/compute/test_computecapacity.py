@@ -29,7 +29,7 @@ class ComputeCapacityTestCase(unittest.TestCase):
     def setUp(self):
         self.ctx = {
             'nodes': {
-                'host1': {
+                'host': {
                     'ip': '172.16.0.137',
                     'user': 'cirros',
                     'key_filename': "mykey.key",
