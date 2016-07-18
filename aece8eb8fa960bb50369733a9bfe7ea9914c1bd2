@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_f3ab90d4",
+        "filename": "tools/dpdk_install.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-07-18T03:45:48Z",
+      "side": 1,
+      "message": "red trail",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 14
+      },
+      "revId": "aece8eb8fa960bb50369733a9bfe7ea9914c1bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
