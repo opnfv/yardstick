@@ -10,7 +10,9 @@ function build_pkg {
     ubuntu)
       rm -rf ${DIR}/repositories/ubuntu; mkdir -p ${DIR}/repositories/ubuntu
 
-      # don't support online installation now
+      # fixme: don't support offline installation now since pip in
+      #  deployment_scripts/install.sh needs to access to internet
+      #
       # cd ${DIR}/repositories/ubuntu
       # Use aptititude; apt-get -d will skip download if package is already installed
       # sudo apt-get install aptitude -y

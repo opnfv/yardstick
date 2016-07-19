@@ -8,7 +8,11 @@ VAR_HOME=/var/lib/yardstick
 rm -rf $BIN_HOME; mkdir -p $BIN_HOME
 rm -rf $VAR_HOME; mkdir -p $VAR_HOME
 
-sudo apt-get install -y python-dev python-pip libffi-dev libssl-dev libxml2-dev libxslt1-dev
+apt-get install -y python-dev python-pip libffi-dev libssl-dev libxml2-dev libxslt1-dev
+
+#apt-get install python-virtualenv cannot work
+#use pip to work around the issue
+
 pip install virtualenv
 
 # create python virtual env

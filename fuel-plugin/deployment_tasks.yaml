@@ -3,7 +3,7 @@
   role: [yardstick]
   requires: [deploy_start]
   required_for: [deploy_end]
-  tasks: [hiera, setup_repositories, fuel_pkgs, globals, tools, logging, netconfig, yardstick-install]
+  tasks: [hiera, setup_repositories, fuel_pkgs, globals, tools, logging, netconfig]
   parameters:
     strategy:
       type: parallel
