@@ -1,0 +1,18 @@
+---
+# Huawei US bare daily task suite
+
+schema: "yardstick:suite:0.1"
+
+name: "os-nosdn-nofeature-ha"
+test_cases_dir: "tests/opnfv/test_cases/"
+test_cases:
+-
+    file_name: opnfv_yardstick_tc037.yaml
+-
+    file_name: opnfv_yardstick_tc043.yaml
+    constraint:
+        installer: compass
+        pod: huawei_pod1
+    task_args:
+        huawei_pod1: '{"host": "node1.LF","target": "node2.LF"}'
+
