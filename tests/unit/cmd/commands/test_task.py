@@ -71,3 +71,18 @@ class TaskCommandsTestCase(unittest.TestCase):
         mock_os.environ.get.side_effect = ['compass', 'os-nosdn', 'huawei-pod1']
         result = t._check_precondition(cfg)
         self.assertTrue(result)
+
+    def test_parse_suite(self):
+        path = "tests/unit/cmd/commands/constraint_scenario.yaml"
+        t = task.TaskParser(path)
+        task_files, task_args, task_args_fnames = t.parse_suite()
+        self.assertEqual(task_files[0],
+            'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
+        self.assertEqual(task_files[1],
+            'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
+        self.assertEqual(task_args[0], None)
+        self.assertEqual(task_args[1],
+            '{"host": "node1.LF","target": "node2.LF"}')
+        self.assertEqual(task_args_fnames[0], None)
+        self.assertEqual(task_args_fnames[1], None)
+
