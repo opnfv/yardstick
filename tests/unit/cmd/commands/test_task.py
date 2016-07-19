@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.cmd.commands.task
 
+import os
 import mock
 import unittest
 
@@ -71,3 +72,79 @@ class TaskCommandsTestCase(unittest.TestCase):
         mock_os.environ.get.side_effect = ['compass', 'os-nosdn', 'huawei-pod1']
         result = t._check_precondition(cfg)
         self.assertTrue(result)
+
+    @mock.patch('yardstick.cmd.commands.task.os.environ')
+    def test_parse_suite_no_constraint_no_args(self, mock_environ):
+        SAMPLE_SCENARIO_PATH = "no_constraint_no_args_scenario_sample.yaml"
+        t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
+        mock_environ.get.side_effect = ['huawei-pod1', 'compass']
+        task_files, task_args, task_args_fnames = t.parse_suite()
+        print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
+               task_args_fnames))
+        self.assertEqual(task_files[0],
+            'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
+        self.assertEqual(task_files[1],
+            'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
+        self.assertEqual(task_args[0], None)
+        self.assertEqual(task_args[1], None)
+        self.assertEqual(task_args_fnames[0], None)
+        self.assertEqual(task_args_fnames[1], None)
+
+    @mock.patch('yardstick.cmd.commands.task.os.environ')
+    def test_parse_suite_no_constraint_with_args(self, mock_environ):
+        SAMPLE_SCENARIO_PATH = "no_constraint_with_args_scenario_sample.yaml"
+        t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
+        mock_environ.get.side_effect = ['huawei-pod1', 'compass']
+        task_files, task_args, task_args_fnames = t.parse_suite()
+        print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
+               task_args_fnames))
+        self.assertEqual(task_files[0],
+            'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
+        self.assertEqual(task_files[1],
+            'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
+        self.assertEqual(task_args[0], None)
+        self.assertEqual(task_args[1],
+                        '{"host": "node1.LF","target": "node2.LF"}')
+        self.assertEqual(task_args_fnames[0], None)
+        self.assertEqual(task_args_fnames[1], None)
+
+    @mock.patch('yardstick.cmd.commands.task.os.environ')
+    def test_parse_suite_with_constraint_no_args(self, mock_environ):
+        SAMPLE_SCENARIO_PATH = "with_constraint_no_args_scenario_sample.yaml"
+        t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
+        mock_environ.get.side_effect = ['huawei-pod1', 'compass']
+        task_files, task_args, task_args_fnames = t.parse_suite()
+        print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
+               task_args_fnames))
+        self.assertEqual(task_files[0],
+            'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
+        self.assertEqual(task_files[1],
+            'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
+        self.assertEqual(task_args[0], None)
+        self.assertEqual(task_args[1], None)
+        self.assertEqual(task_args_fnames[0], None)
+        self.assertEqual(task_args_fnames[1], None)
+
+    @mock.patch('yardstick.cmd.commands.task.os.environ')
+    def test_parse_suite_with_constraint_with_args(self, mock_environ):
+        SAMPLE_SCENARIO_PATH = "with_constraint_with_args_scenario_sample.yaml"
+        t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
+        mock_environ.get.side_effect = ['huawei-pod1', 'compass']
+        task_files, task_args, task_args_fnames = t.parse_suite()
+        print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
+               task_args_fnames))
+        self.assertEqual(task_files[0],
+            'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
+        self.assertEqual(task_files[1],
+            'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
+        self.assertEqual(task_args[0], None)
+        self.assertEqual(task_args[1],
+                        '{"host": "node1.LF","target": "node2.LF"}')
+        self.assertEqual(task_args_fnames[0], None)
+        self.assertEqual(task_args_fnames[1], None)
+
+    def _get_file_abspath(self, filename):
+        curr_path = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(curr_path, filename)
+        return file_path
+
