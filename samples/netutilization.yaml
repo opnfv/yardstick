@@ -1,0 +1,32 @@
+---
+# Sample benchmark task config file
+# Reading network interface utilization statistics
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: NetUtilization
+  options:
+    interval: 1
+    count: 1
+
+  host: apollo.demo
+
+  runner:
+    type: Iteration
+    interval: 1
+
+context:
+  name: demo
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ubuntu
+
+  servers:
+    apollo:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
