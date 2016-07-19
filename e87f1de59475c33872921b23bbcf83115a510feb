@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_fc691d26",
+        "filename": "yardstick/benchmark/scenarios/networking/networkcapacity.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 483
+      },
+      "writtenOn": "2016-07-19T16:13:03Z",
+      "side": 1,
+      "message": "suggest to use \u0027total packets received\u0027, for some version, it has several /total/ lines:\n\t145596959 total packets received\n\t1552374 total ARP packets received\n\t0 total packet dropped due to lack of memory\n\t13683 total packets dropped due to no ARP entry\n\t198 total packets dropped during ARP entry removal\n\t998369 total packets received\n\t0 total kernel control module registered\n\t0 total socket requested OK",
+      "range": {
+        "startLine": 27,
+        "startChar": 19,
+        "endLine": 27,
+        "endChar": 24
+      },
+      "revId": "e87f1de59475c33872921b23bbcf83115a510feb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_9c4d89c7",
+        "filename": "yardstick/benchmark/scenarios/networking/networkcapacity.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 483
+      },
+      "writtenOn": "2016-07-19T16:13:03Z",
+      "side": 1,
+      "message": "no function like scp?",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 61
+      },
+      "revId": "e87f1de59475c33872921b23bbcf83115a510feb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
