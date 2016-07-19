@@ -59,33 +59,29 @@ class TaskCommands(object):
         total_start_time = time.time()
         parser = TaskParser(args.inputfile[0])
 
-        suite_params = {}
         if args.suite:
-            suite_params = parser.parse_suite()
-            test_cases_dir = suite_params["test_cases_dir"]
-            if test_cases_dir[-1] != os.sep:
-                test_cases_dir += os.sep
-            task_files = [test_cases_dir + task
-                          for task in suite_params["task_fnames"]]
+            # 1.parse suite, return suite_params info
+            task_files, task_args, task_args_fnames = \
+                parser.parse_suite()
         else:
             task_files = [parser.path]
+            task_args = [args.task_args]
+            task_args_fnames = [args.task_args_file]
 
-        task_args = suite_params.get("task_args", [args.task_args])
-        task_args_fnames = suite_params.get("task_args_fnames",
-                                            [args.task_args_file])
+        LOG.info("\ntask_files:%s, \ntask_args:%s, \ntask_args_fnames:%s",
+                 task_files, task_args, task_args_fnames)
 
         if args.parse_only:
             sys.exit(0)
 
         if os.path.isfile(args.output_file):
             os.remove(args.output_file)
-
+        # parse task_files
         for i in range(0, len(task_files)):
             one_task_start_time = time.time()
             parser.path = task_files[i]
-            task_name = os.path.splitext(os.path.basename(task_files[i]))[0]
             scenarios, run_in_parallel, meet_precondition = parser.parse_task(
-                task_name, task_args[i], task_args_fnames[i])
+                 task_args[i], task_args_fnames[i])
 
             if not meet_precondition:
                 LOG.info("meet_precondition is %s, please check envrionment",
@@ -167,10 +163,34 @@ class TaskParser(object):
     def __init__(self, path):
         self.path = path
 
+    def _meet_constraint(self, task, cur_pod, cur_installer):
+        if "constraint" in task:
+            constraint = task.get('constraint', None)
+            if constraint is not None:
+                tc_fit_pod = constraint.get('pod', None)
+                tc_fit_installer = constraint.get('installer', None)
+                LOG.info("cur_pod:%s, cur_installer:%s,tc_constraints:%s",
+                         cur_pod, cur_installer, constraint)
+                if cur_pod and tc_fit_pod and cur_pod not in tc_fit_pod:
+                    return False
+                if cur_installer and tc_fit_installer and \
+                        cur_installer not in tc_fit_installer:
+                    return False
+        return True
+
+    def _get_task_para(self, task, cur_pod):
+        task_args = task.get('task_args', None)
+        if task_args is not None:
+            task_args = task_args.get(cur_pod, None)
+        task_args_fnames = task.get('task_args_fnames', None)
+        if task_args_fnames is not None:
+            task_args_fnames = task_args_fnames.get(cur_pod, None)
+        return task_args, task_args_fnames
+
     def parse_suite(self):
         '''parse the suite file and return a list of task config file paths
            and lists of optional parameters if present'''
-        print "Parsing suite file:", self.path
+        LOG.info("\nParsing suite file:%s", self.path)
 
         try:
             with open(self.path) as stream:
@@ -179,35 +199,40 @@ class TaskParser(object):
             sys.exit(ioerror)
 
         self._check_schema(cfg["schema"], "suite")
-        print "Starting suite:", cfg["name"]
+        LOG.info("\nStarting scenario:%s", cfg["name"])
 
         test_cases_dir = cfg.get("test_cases_dir", test_cases_dir_default)
-        task_fnames = []
-        task_args = []
-        task_args_fnames = []
+        if test_cases_dir[-1] != os.sep:
+            test_cases_dir += os.sep
+
+        cur_pod = os.environ.get('NODE_NAME', None)
+        cur_installer = os.environ.get('INSTALL_TYPE', None)
+
+        valid_task_files = []
+        valid_task_args = []
+        valid_task_args_fnames = []
 
         for task in cfg["test_cases"]:
-            task_fnames.append(task["file_name"])
-            if "task_args" in task:
-                task_args.append(task["task_args"])
+            # 1.check file_name
+            if "file_name" in task:
+                task_fname = task.get('file_name', None)
+                if task_fname is None:
+                    continue
             else:
-                task_args.append(None)
-
-            if "task_args_file" in task:
-                task_args_fnames.append(task["task_args_file"])
+                continue
+            # 2.check constraint
+            if self._meet_constraint(task, cur_pod, cur_installer):
+                valid_task_files.append(test_cases_dir + task_fname)
             else:
-                task_args_fnames.append(None)
+                continue
+            # 3.fetch task parameters
+            task_args, task_args_fnames = self._get_task_para(task, cur_pod)
+            valid_task_args.append(task_args)
+            valid_task_args_fnames.append(task_args_fnames)
 
-        suite_params = {
-            "test_cases_dir": test_cases_dir,
-            "task_fnames": task_fnames,
-            "task_args": task_args,
-            "task_args_fnames": task_args_fnames
-        }
+        return valid_task_files, valid_task_args, valid_task_args_fnames
 
-        return suite_params
-
-    def parse_task(self, task_name, task_args=None, task_args_file=None):
+    def parse_task(self, task_args=None, task_args_file=None):
         '''parses the task file and return an context and scenario instances'''
         print "Parsing task config:", self.path
 
@@ -262,6 +287,7 @@ class TaskParser(object):
         # add tc and task id for influxdb extended tags
         task_id = str(uuid.uuid4())
         for scenario in cfg["scenarios"]:
+            task_name = os.path.splitext(os.path.basename(self.path))[0]
             scenario["tc"] = task_name
             scenario["task_id"] = task_id
 
