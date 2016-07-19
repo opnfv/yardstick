@@ -3,14 +3,16 @@
 # Measure latency between NFVI nodes using ping
 
 schema: "yardstick:task:0.1"
-
+{% set host = host or "node1.LF" %}
+{% set target = target or "node2.LF" %}
+{% set pod_info = pod_info or "etc/yardstick/nodes/compass_sclab_physical/pod.yaml" %}
 scenarios:
 -
   type: Ping
   options:
     packetsize: 100
-  host: node4.LF
-  target: node5.LF
+  host: {{host}}
+  target: {{target}}
 
   runner:
     type: Duration
@@ -25,5 +27,5 @@ scenarios:
 context:
   type: Node
   name: LF
-  file: etc/yardstick/nodes/compass_sclab_physical/pod.yaml
+  file: {{pod_info}} 
 
