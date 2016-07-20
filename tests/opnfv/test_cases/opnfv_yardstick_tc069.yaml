@@ -1,0 +1,37 @@
+---
+# Yardstick TC069 config file
+# Measure memory read and write bandwidth using ramspeed
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Ramspeed
+  options:
+    type_id: 1
+    load: 32
+    block_size: 64
+
+  host: kratos.yardstick-TC069
+
+  runner:
+    type: Iteration
+    iterations: 5
+
+  sla:
+    min_bandwidth: 7000
+    action: monitor
+
+context:
+  name: yardstick-TC069
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ubuntu
+
+  servers:
+    kratos:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
