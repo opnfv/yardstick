@@ -82,6 +82,8 @@ class NodeContext(Context):
             LOG.error("Nodes: %r" % nodes)
             sys.exit(-1)
 
-        node = nodes[0]
+        # A clone is created in order to avoid affecting the
+        # original one.
+        node = dict(nodes[0])
         node["name"] = attr_name
         return node
