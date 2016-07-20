@@ -38,7 +38,7 @@ class ComputeCapacity(base.Scenario):
             ComputeCapacity.TARGET_SCRIPT)
 
         nodes = self.context_cfg['nodes']
-        node = nodes.get('host1', None)
+        node = nodes.get('host', None)
         host_user = node.get('user', 'ubuntu')
         host_ip = node.get('ip', None)
         host_pwd = node.get('password', 'root')
