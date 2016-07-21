@@ -1,5 +1,5 @@
 import os
-from novaclient.v2 import client as novaclient
+from novaclient import client as novaclient
 from neutronclient.v2_0 import client as neutronclient
 
 
