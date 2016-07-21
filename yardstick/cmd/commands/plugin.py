@@ -50,6 +50,8 @@ class PluginCommands(object):
 
         print("Done, exiting")
 
+    @cliargs("input_file", type=str, help="path to plugin configuration file",
+             nargs=1)
     def do_remove(self, args):
         '''Remove a plugin.'''
 
