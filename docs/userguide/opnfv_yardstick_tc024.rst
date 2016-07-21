@@ -22,7 +22,7 @@ Yardstick Test Case Description TC024
 |test purpose  | To evaluate the CPU load performance of the IaaS. This test  |
 |              | case should be run in parallel to other Yardstick test cases |
 |              | and not run as a stand-alone test case.                      |
-|              |                                                              |
+|              | Average, minimum and maximun values are obtained.            |
 |              | The purpose is also to be able to spot trends. Test results, |
 |              | graphs ans similar shall be stored for comparison reasons and|
 |              | product evolution understanding between different OPNFV      |
@@ -31,8 +31,8 @@ Yardstick Test Case Description TC024
 +--------------+--------------------------------------------------------------+
 |configuration | file: cpuload.yaml (in the 'samples' directory)              |
 |              |                                                              |
-|              | There is are no additional configurations to be set for this |
-|              | TC.                                                          |
+|              | * interval: 1 - repeat, pausing every 1 seconds in-between.  |
+|              | * count: 10 - display statistics 10 times, then exit.        |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test tool     | mpstat                                                       |
@@ -46,7 +46,14 @@ Yardstick Test Case Description TC024
 |references    | man-pages_                                                   |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|applicability | Run in background with other test cases.                     |
+|applicability | Test can be configured with different:                       |
+|              |                                                              |
+|              |  * interval;                                                 |
+|              |  * count;                                                    |
+|              |  * runner Iteration and intervals.                           |
+|              |                                                              |
+|              | There are default values for each above-mentioned option.    |
+|              | Run in background with other test cases.                     |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |pre-test      | The test case image needs to be installed into Glance        |
