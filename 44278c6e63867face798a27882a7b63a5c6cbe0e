@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_e8dcf776",
+        "filename": "docs/userguide/opnfv_yardstick_tc072.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 4723
+      },
+      "writtenOn": "2016-07-21T04:32:15Z",
+      "side": 1,
+      "message": "Should be a typo here?",
+      "range": {
+        "startLine": 34,
+        "startChar": 38,
+        "endLine": 34,
+        "endChar": 49
+      },
+      "revId": "44278c6e63867face798a27882a7b63a5c6cbe0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_68d0e753",
+        "filename": "docs/userguide/opnfv_yardstick_tc072.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 4723
+      },
+      "writtenOn": "2016-07-21T04:32:15Z",
+      "side": 1,
+      "message": "Should be \"lose\".",
+      "range": {
+        "startLine": 89,
+        "startChar": 53,
+        "endLine": 89,
+        "endChar": 58
+      },
+      "revId": "44278c6e63867face798a27882a7b63a5c6cbe0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
