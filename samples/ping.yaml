@@ -23,9 +23,9 @@ scenarios:
 
 context:
   name: demo
-  image: cirros-0.3.3
-  flavor: m1.tiny
-  user: cirros
+  image: yardstick-trusty-server
+  flavor: yardstick-flavor
+  user: ubuntu
 
   placement_groups:
     pgrp1:
