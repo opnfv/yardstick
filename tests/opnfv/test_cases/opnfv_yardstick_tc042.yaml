@@ -1,0 +1,51 @@
+---
+# Yardstick TC042 config file
+# Measure network latency using testpmd and pktgen-dpdk
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: DPDKPktgen
+  options:
+    packetsize: 64
+    rate: 100
+    duration: 20
+
+  host: demeter.yardstick
+  target: poseidon.yardstick
+
+  runner:
+    type: Iteration
+    iterations: 2
+    interval: 1
+
+  sla:
+    max_rtt: 1000
+    action: monitor
+
+context:
+  name: yardstick
+  image: yardstick-image-pktgen-ready
+  flavor: yardstick-pktgen-dpdk.flavor
+  user: ubuntu
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    demeter:
+      floating_ip: true
+      placement: "pgrp1"
+    poseidon:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+    test2:
+      cidr: '10.0.2.0/24'
+    test3:
+      cidr: '10.0.3.0/24'
