@@ -36,6 +36,7 @@ class PingTestCase(unittest.TestCase):
 
         args = {
             'options': {'packetsize': 200},
+            'target': 'ares.demo'
             }
         result = {}
 
@@ -43,14 +44,15 @@ class PingTestCase(unittest.TestCase):
 
         mock_ssh.SSH().execute.return_value = (0, '100', '')
         p.run(result)
-        self.assertEqual(result, {'rtt': {'10.229.17.105': 100.0}})
+        self.assertEqual(result, {'rtt': {'ares': 100.0}})
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_successful_sla(self, mock_ssh):
 
         args = {
             'options': {'packetsize': 200},
-            'sla': {'max_rtt': 150}
+            'sla': {'max_rtt': 150},
+            'target': 'ares.demo'
             }
         result = {}
 
@@ -58,14 +60,15 @@ class PingTestCase(unittest.TestCase):
 
         mock_ssh.SSH().execute.return_value = (0, '100', '')
         p.run(result)
-        self.assertEqual(result, {'rtt': {'10.229.17.105': 100.0}})
+        self.assertEqual(result, {'rtt': {'ares': 100.0}})
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_unsuccessful_sla(self, mock_ssh):
 
         args = {
             'options': {'packetsize': 200},
-            'sla': {'max_rtt': 50}
+            'sla': {'max_rtt': 50},
+            'target': 'ares.demo'
         }
         result = {}
 
@@ -79,7 +82,8 @@ class PingTestCase(unittest.TestCase):
 
         args = {
             'options': {'packetsize': 200},
-            'sla': {'max_rtt': 50}
+            'sla': {'max_rtt': 50},
+            'target': 'ares.demo'
         }
         result = {}
 
