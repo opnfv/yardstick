@@ -69,7 +69,14 @@ class Ping(base.Scenario):
         result["rtt"] = {}
         rtt_result = result["rtt"]
 
+        pos = 0
         for dest in dest_list:
+            if 'targets' in self.scenario_cfg:
+                target_vm = self.scenario_cfg['targets'][pos]
+                pos = pos + 1
+            else:
+                target_vm = self.scenario_cfg['target']
+
             LOG.debug("ping '%s' '%s'", options, dest)
             exit_status, stdout, stderr = self.connection.execute(
                 "/bin/sh -s {0} {1}".format(dest, options),
@@ -79,13 +86,14 @@ class Ping(base.Scenario):
                 raise RuntimeError(stderr)
 
             if stdout:
-                rtt_result[dest] = float(stdout)
+                rtt_result[target_vm.split('.')[0]] = float(stdout)
                 if "sla" in self.scenario_cfg:
                     sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
-                    assert rtt_result[dest] <= sla_max_rtt, "rtt %f > sla:\
-                    max_rtt(%f); " % (rtt_result[dest], sla_max_rtt)
+                    assert rtt_result[target_vm.split('.')[0]] <= sla_max_rtt,\
+                        "rtt %f > sla: max_rtt(%f); " % \
+                        (rtt_result[target_vm.split('.')[0]], sla_max_rtt)
             else:
-                LOG.error("ping '%s' '%s' timeout", options, dest)
+                LOG.error("ping '%s' '%s' timeout", options, target_vm)
 
 
 def _test():    # pragma: no cover
