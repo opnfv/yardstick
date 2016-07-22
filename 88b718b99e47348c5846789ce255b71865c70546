@@ -22,6 +22,30 @@
       "revId": "88b718b99e47348c5846789ce255b71865c70546",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7fddfa13",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-07-22T03:17:01Z",
+      "side": 1,
+      "message": "good idea!",
+      "parentUuid": "1a76adc5_dfa9ae7c",
+      "range": {
+        "startLine": 89,
+        "startChar": 27,
+        "endLine": 89,
+        "endChar": 49
+      },
+      "revId": "88b718b99e47348c5846789ce255b71865c70546",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
