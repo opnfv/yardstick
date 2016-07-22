@@ -156,6 +156,15 @@ class SSHTestCase(unittest.TestCase):
         self.assertEqual([mock.call("uname")] * 3,
                          self.test_client.execute.mock_calls)
 
+    @mock.patch("yardstick.ssh.paramiko")
+    def test_send_command(self, mock_paramiko):
+        paramiko_sshclient = self.test_client._get_client()
+        with mock.patch.object(paramiko_sshclient, "exec_command") \
+            as mock_paramiko_exec_command:
+            self.test_client.send_command('cmd')
+        mock_paramiko_exec_command.assert_called_once_with('cmd',
+                                                            get_pty=True)
+
 
 class SSHRunTestCase(unittest.TestCase):
     """Test SSH.run method in different aspects.
