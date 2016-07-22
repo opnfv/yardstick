@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_dfa9ae7c",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-07-22T02:52:53Z",
+      "side": 1,
+      "message": "since you use \"target_vm.split(\u0027.\u0027)[0]\" 3 times here, i think you\u0027d better name a variable for it.",
+      "range": {
+        "startLine": 89,
+        "startChar": 27,
+        "endLine": 89,
+        "endChar": 49
+      },
+      "revId": "88b718b99e47348c5846789ce255b71865c70546",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
