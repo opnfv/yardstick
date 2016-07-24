@@ -28,4 +28,23 @@ test_cases:
     task_args:
         huawei_pod1: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
         "host": "node4.LF","target": "node5.LF"}'
-
+-
+    file_name: opnfv_yardstick_tc045.yaml
+    constraint:
+        installer: fuel
+-
+    file_name: opnfv_yardstick_tc046.yaml
+    constraint:
+        installer: fuel
+-
+    file_name: opnfv_yardstick_tc047.yaml
+    constraint:
+        installer: fuel
+-
+    file_name: opnfv_yardstick_tc048.yaml
+    constraint:
+        installer: fuel
+-
+    file_name: opnfv_yardstick_tc049.yaml
+    constraint:
+        installer: fuel
