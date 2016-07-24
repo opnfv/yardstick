@@ -9,3 +9,5 @@ nova-image-list:
   monitor_script: ha_tools/nova_image_list.bash
 service-status:
   monitor_script: ha_tools/check_service.bash
+ip-status:
+  monitor_script: ha_tools/network/ping.bash
