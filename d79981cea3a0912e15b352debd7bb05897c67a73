@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_90dd6517",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc073.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-25T08:57:46Z",
+      "side": 1,
+      "message": "I understand we can get the info of host and target from pod.yaml.\nSo what is the usage of host and target?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 39
+      },
+      "revId": "d79981cea3a0912e15b352debd7bb05897c67a73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
