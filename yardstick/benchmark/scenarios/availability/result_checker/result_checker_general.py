@@ -32,6 +32,7 @@ class GeneralResultChecker(BaseResultChecker):
         LOG.debug("ssh host success!")
 
         self.key = self._config['key']
+        self.resultchecker_key = self._config['checker_key']
         self.type = self._config['checker_type']
         self.condition = self._config['condition']
         self.expectedResult = self._config['expectedValue']
@@ -45,7 +46,7 @@ class GeneralResultChecker(BaseResultChecker):
             self.shell_cmd = str.format(*l)
 
         self.resultchecker_cfgs = BaseResultChecker.resultchecker_cfgs.get(
-            self.key)
+            self.resultchecker_key)
         self.verify_script = self.get_script_fullpath(
             self.resultchecker_cfgs['verify_script'])
 

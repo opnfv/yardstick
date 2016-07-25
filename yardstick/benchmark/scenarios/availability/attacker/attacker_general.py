@@ -31,6 +31,7 @@ class GeneralAttacker(BaseAttacker):
         LOG.debug("ssh host success!")
 
         self.key = self._config['key']
+        self.attack_key = self._config['attack_key']
 
         if "action_parameter" in self._config:
             actionParameter = self._config['action_parameter']
@@ -50,7 +51,7 @@ class GeneralAttacker(BaseAttacker):
             l = list(item for item in rollbackParameter.values())
             self.rollback_param = str.format(*l)
 
-        self.fault_cfg = BaseAttacker.attacker_cfgs.get(self.key)
+        self.fault_cfg = BaseAttacker.attacker_cfgs.get(self.attack_key)
         self.inject_script = self.get_script_fullpath(
             self.fault_cfg['inject_script'])
         self.recovery_script = self.get_script_fullpath(

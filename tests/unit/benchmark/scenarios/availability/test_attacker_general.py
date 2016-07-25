@@ -33,6 +33,7 @@ class GeneralAttackerServiceTestCase(unittest.TestCase):
             'action_parameter':{'process_name':'nova_api'},
             'rollback_parameter':{'process_name':'nova_api'},
             'key':'stop-service',
+            'attack_key':'stop-service',
             'host': 'node1',
         }
 
