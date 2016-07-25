@@ -19,7 +19,9 @@ setup(
             'benchmark/scenarios/networking/*.txt',
             'benchmark/scenarios/parser/*.sh',
             'benchmark/scenarios/storage/*.bash',
-            'resources/files/*'
+            'resources/files/*',
+            'resources/script/install/*.bash',
+            'resources/script/remove/*.bash'
         ]
     },
     url="https://www.opnfv.org",
