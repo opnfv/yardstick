@@ -28,4 +28,4 @@ cover/
 .*.sw?
 /docs_build/
 /docs_output/
-/releng/
+/docs/apidocs/yardstick*.rst
