@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_301d7110",
+        "filename": "tests/opnfv/test_suites/opnfv_ericsson-pod1_daily.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-07-25T06:40:01Z",
+      "side": 1,
+      "message": "now you just need to update in the \"scenario-suite\" file, don\u0027t need to add them into the previous \"pod_name_suite\" file",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 39
+      },
+      "revId": "1bc97eb169f6c41313a51ad580627b77321dbfb0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
