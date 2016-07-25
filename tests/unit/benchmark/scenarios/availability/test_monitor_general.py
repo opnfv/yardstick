@@ -32,6 +32,7 @@ class GeneralMonitorServiceTestCase(unittest.TestCase):
         self.monitor_cfg = {
             'monitor_type': 'general-monitor',
             'key': 'service-status',
+            'monitor_key': 'service-status',
             'host': 'node1',
             'monitor_time': 3,
             'parameter': {'serviceName': 'haproxy'},
@@ -40,6 +41,7 @@ class GeneralMonitorServiceTestCase(unittest.TestCase):
         self.monitor_cfg_noparam = {
             'monitor_type': 'general-monitor',
             'key': 'service-status',
+            'monitor_key': 'service-status',
             'host': 'node1',
             'monitor_time': 3,
             'sla': {'max_outage_time': 1}

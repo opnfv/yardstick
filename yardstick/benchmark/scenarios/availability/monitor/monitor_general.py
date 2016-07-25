@@ -27,6 +27,7 @@ class GeneralMonitor(basemonitor.BaseMonitor):
         user = host.get("user", "root")
         key_filename = host.get("key_filename", "~/.ssh/id_rsa")
         self.key = self._config["key"]
+        self.monitor_key = self._config["monitor_key"]
         self.monitor_type = self._config["monitor_type"]
 
         if "parameter" in self._config:
@@ -35,7 +36,7 @@ class GeneralMonitor(basemonitor.BaseMonitor):
             l = list(item for item in parameter.values())
             self.cmd_param = str.format(*l)
 
-        self.monitor_cfg = basemonitor.BaseMonitor.monitor_cfgs.get(self.key)
+        self.monitor_cfg = basemonitor.BaseMonitor.monitor_cfgs.get(self.monitor_key)
         self.monitor_script = self.get_script_fullpath(
             self.monitor_cfg['monitor_script'])
         self.connection = ssh.SSH(user, ip, key_filename=key_filename)
