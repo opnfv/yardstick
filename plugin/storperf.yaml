@@ -1,0 +1,13 @@
+---
+# StorPerf plugin configration file
+# Used for integration StorPerf into Yardstick as a plugin
+
+schema: "yardstick:plugin:0.1"
+
+plugins:
+  name: storperf
+
+deployment:
+  ip: 192.168.23.2
+  user: root
+  password: root

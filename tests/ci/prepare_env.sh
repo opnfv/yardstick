@@ -52,3 +52,6 @@ fi
 source $OPENRC
 
 export EXTERNAL_NETWORK INSTALLER_TYPE DEPLOY_TYPE NODE_NAME
+
+# Prepare a admin-rc file for StorPerf integration
+$YARDSTICK_REPO_DIR/tests/ci/prepare_storperf_admin-rc.sh
