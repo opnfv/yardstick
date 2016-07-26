@@ -34,11 +34,13 @@ class GeneralOperaionTestCase(unittest.TestCase):
             'action_parameter': {'ins_cup': 2},
             'rollback_parameter': {'ins_id': 'id123456'},
             'key': 'nova-create-instance',
+            'operation_key': 'nova-create-instance',
             'host': 'node1',
         }
         self.operation_cfg_noparam = {
             'operation_type': 'general-operation',
             'key': 'nova-create-instance',
+            'operation_key': 'nova-create-instance',
             'host': 'node1',
         }
 

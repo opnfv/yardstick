@@ -30,6 +30,7 @@ class GeneralOperaion(BaseOperation):
         LOG.debug("ssh host success!")
 
         self.key = self._config['key']
+        self.operation_key = self._config['operation_key']
 
         if "action_parameter" in self._config:
             actionParameter = self._config['action_parameter']
@@ -43,7 +44,8 @@ class GeneralOperaion(BaseOperation):
             l = list(item for item in rollbackParameter.values())
             self.rollback_param = str.format(*l)
 
-        self.operation_cfgs = BaseOperation.operation_cfgs.get(self.key)
+        self.operation_cfgs = BaseOperation.operation_cfgs.get(
+            self.operation_key)
         self.action_script = self.get_script_fullpath(
             self.operation_cfgs['action_script'])
         self.rollback_script = self.get_script_fullpath(

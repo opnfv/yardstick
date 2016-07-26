@@ -38,6 +38,7 @@ class GeneralResultCheckerTestCase(unittest.TestCase):
             'condition' : 'eq',
             'expectedValue' : 1,
             'key' : 'process-checker',
+            'checker_key' : 'process-checker',
             'host': 'node1'
         }
 
