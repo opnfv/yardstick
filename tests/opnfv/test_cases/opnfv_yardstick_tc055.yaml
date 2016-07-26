@@ -1,0 +1,23 @@
+---
+# Yardstick TC055 config file
+# Collect hardware specification from /proc/cpuinfo
+
+schema: "yardstick:task:0.1"
+{% set host = host or "node5.yardstick-TC055" %}
+{% set pod_info = pod_info or "etc/yardstick/nodes/compass_sclab_virtual/pod.yaml" %}
+scenarios:
+-
+  type: ComputeCapacity
+  options:
+
+  nodes:
+    host: {{host}}
+
+  runner:
+    type: Iteration
+    iterations: 1
+
+context:
+  type: Node
+  name: yardstick-TC055
+  file: {{pod_info}}
