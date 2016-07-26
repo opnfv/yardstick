@@ -46,6 +46,30 @@
       "revId": "d79981cea3a0912e15b352debd7bb05897c67a73",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ebf86c4b",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc073.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-26T04:53:57Z",
+      "side": 1,
+      "message": "Ok.  If there are more than two compute nodes in pod.yaml, I can understand.",
+      "parentUuid": "1a76adc5_abbb54c3",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 39
+      },
+      "revId": "d79981cea3a0912e15b352debd7bb05897c67a73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
