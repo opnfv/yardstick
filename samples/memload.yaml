@@ -9,13 +9,14 @@ scenarios:
   type: MEMORYload
   options:
     interval: 1
-    count: 1
+    count: 10
 
   host: kratos.demo
 
   runner:
-    type: Duration
-    duration: 60
+    type: Iteration
+    iterations: 5
+    interval: 1
 
 context:
   name: demo
