@@ -22,6 +22,30 @@
       "revId": "d79981cea3a0912e15b352debd7bb05897c67a73",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_abbb54c3",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc073.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-07-26T01:32:11Z",
+      "side": 1,
+      "message": "it\u0027s set to be a parameter, so we can customize which two nodes to be host and target.\n\nAs you can see in line 11 and 12, this two variables are set default as node1, node2, we can also use tast_args to pass node3, node4 to be host and target.",
+      "parentUuid": "1a76adc5_90dd6517",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 39
+      },
+      "revId": "d79981cea3a0912e15b352debd7bb05897c67a73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
