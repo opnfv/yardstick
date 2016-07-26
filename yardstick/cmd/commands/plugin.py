@@ -76,7 +76,7 @@ class PluginCommands(object):
         '''Deployment environment setup'''
         target_script = plugin_name + ".bash"
         self.script = pkg_resources.resource_filename(
-            'yardstick.resources', 'script/install/' + target_script)
+            'yardstick.resources', 'scripts/install/' + target_script)
 
         deployment_user = deployment.get("user")
         deployment_ip = deployment.get("ip")
@@ -95,7 +95,7 @@ class PluginCommands(object):
         '''Deployment environment setup'''
         target_script = plugin_name + ".bash"
         self.script = pkg_resources.resource_filename(
-            'yardstick.resources', 'script/remove/' + target_script)
+            'yardstick.resources', 'scripts/remove/' + target_script)
 
         deployment_user = deployment.get("user")
         deployment_ip = deployment.get("ip")
