@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_6b3a1c38",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc054.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-07-26T01:45:47Z",
+      "side": 1,
+      "message": "i think this should be relative path, same for other test cases:\n\"etc/yardstick/nodes/fuel_virtual/pod.yaml\"",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 65
+      },
+      "revId": "5c072c2fb90622bccb0f4508bd097e62ab7e4527",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
