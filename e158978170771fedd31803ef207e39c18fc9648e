@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_cb76d006",
+        "filename": "tests/opnfv/test_suites/opnfv_os-nosdn-nofeature-ha_daily.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-07-26T02:00:07Z",
+      "side": 1,
+      "message": "since your test case is currently using fuel as an installer, so you should add constraint for this 5 test cases just like tc043:\n\n-\n\n  file_name: opnfv_yardstick_tc045.yaml\n\n  constraint:\n\n    installer: fuel",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "e158978170771fedd31803ef207e39c18fc9648e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
