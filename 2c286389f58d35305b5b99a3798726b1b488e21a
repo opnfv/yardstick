@@ -22,6 +22,30 @@
       "revId": "2c286389f58d35305b5b99a3798726b1b488e21a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_eb162cf1",
+        "filename": "samples/ping.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-07-26T00:23:23Z",
+      "side": 1,
+      "message": "The idea is unifying the flavor and image to the yardstick custom flavor and image. If you think it is unnecessary, I will undo the change. Please let me know your thoughts.",
+      "parentUuid": "1a76adc5_10cab54f",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 14
+      },
+      "revId": "2c286389f58d35305b5b99a3798726b1b488e21a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
