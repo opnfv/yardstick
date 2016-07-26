@@ -1,0 +1,13 @@
+Linux 3.19.0-25-generic (huawei-pod4) 	07/19/2016 	_x86_64_	(1 CPU)
+
+02:01:50 PM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+02:01:51 PM      eth0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:01:51 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+02:01:52 PM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+02:01:53 PM      eth0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:01:53 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+Average:        IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+Average:         eth0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+Average:           lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
