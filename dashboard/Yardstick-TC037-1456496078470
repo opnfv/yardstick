@@ -223,14 +223,14 @@
                 }
               ],
               "measurement": "opnfv_yardstick_tc037",
-              "query": "SELECT mean(\"rtt\") FROM \"opnfv_yardstick_tc037\" WHERE \"pod_name\" =~ /$POD$/ AND \"deploy_scenario\" =~ /$SCENARIO$/ AND $timeFilter GROUP BY time(24h), \"pod_name\", \"deploy_scenario\"",
+              "query": "SELECT mean(\"rtt.poseidon\") FROM \"opnfv_yardstick_tc037\" WHERE \"pod_name\" =~ /$POD$/ AND \"deploy_scenario\" =~ /$SCENARIO$/ AND $timeFilter GROUP BY time(24h), \"pod_name\", \"deploy_scenario\"",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
                 [
                   {
                     "params": [
-                      "rtt"
+                      "rtt.poseidon"
                     ],
                     "type": "field"
                   },
@@ -646,14 +646,14 @@
                 }
               ],
               "measurement": "opnfv_yardstick_tc037",
-              "query": "SELECT \"rtt\" FROM \"opnfv_yardstick_tc037\" WHERE \"pod_name\" =~ /$POD$/ AND \"deploy_scenario\" =~ /$SCENARIO$/ AND $timeFilter GROUP BY \"pod_name\", \"deploy_scenario\", \"task_id\"",
+              "query": "SELECT \"rtt.poseidon\" FROM \"opnfv_yardstick_tc037\" WHERE \"pod_name\" =~ /$POD$/ AND \"deploy_scenario\" =~ /$SCENARIO$/ AND $timeFilter GROUP BY \"pod_name\", \"deploy_scenario\", \"task_id\"",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
                 [
                   {
                     "params": [
-                      "rtt"
+                      "rtt.poseidon"
                     ],
                     "type": "field"
                   }
@@ -945,10 +945,10 @@
               ]
             }
           ],
+          "timeFrom": "14d",
           "title": "RTT mean - ping",
           "transform": "table",
-          "type": "table",
-          "timeFrom": "14d"
+          "type": "table"
         }
       ],
       "showTitle": false,
@@ -981,27 +981,29 @@
           },
           "id": 3,
           "isNew": true,
-          "leftYAxisLabel": "System CPU-load",
+          "leftYAxisLabel": "CPU Load - User",
           "legend": {
             "alignAsTable": true,
-            "avg": true,
-            "current": false,
+            "avg": false,
+            "current": true,
+            "hideZero": false,
             "max": true,
             "min": true,
             "rightSide": false,
             "show": true,
             "total": false,
-            "values": true
+            "values": true,
+            "sortDesc": true
           },
           "lines": true,
-          "linewidth": 2,
+          "linewidth": 1,
           "links": [],
-          "nullPointMode": "connected",
+          "nullPointMode": "null",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
-          "rightYAxisLabel": "System CPU-load",
+          "rightYAxisLabel": "",
           "seriesOverrides": [],
           "span": 12,
           "stack": false,
@@ -1031,16 +1033,16 @@
                 }
               ],
               "measurement": "opnfv_yardstick_tc037",
-              "query": "SELECT \"mpstat.cpu.%sys\" FROM \"opnfv_yardstick_tc037\" WHERE \"pod_name\" =~ /$POD$/ AND \"deploy_scenario\" =~ /$SCENARIO$/ AND $timeFilter GROUP BY \"pod_name\", \"deploy_scenario\", \"task_id\"",
+              "query": "SELECT \"mpstat_average.cpu.%usr\" FROM \"opnfv_yardstick_tc037\" WHERE \"pod_name\" =~ /$POD$/ AND \"deploy_scenario\" =~ /$SCENARIO$/ AND $timeFilter GROUP BY \"pod_name\", \"deploy_scenario\", \"task_id\"",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
                 [
                   {
+                    "type": "field",
                     "params": [
-                      "mpstat.cpu.%sys"
-                    ],
-                    "type": "field"
+                      "mpstat_average.cpu.%usr"
+                    ]
                   }
                 ]
               ],
@@ -1064,7 +1066,7 @@
           "title": "CPU load - mpstat",
           "tooltip": {
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "individual"
           },
           "type": "graph",
           "x-axis": true,
@@ -1072,7 +1074,8 @@
           "y_formats": [
             "percent",
             "short"
-          ]
+          ],
+          "decimals": null
         }
       ],
       "title": "Ping table"
@@ -1132,84 +1135,84 @@
         "name": "POD",
         "options": [
           {
+            "selected": false,
             "text": "All",
-            "value": "(elxg482ls42|ericsson\\-pod1|ericsson\\-pod2|huawei\\-pod1|huawei\\-pod2|huawei\\-us\\-deploy\\-bare\\-1|intel\\-pod5|intel\\-pod6|lf\\-pod1|lf\\-pod2|opnfv\\-jump\\-1|opnfv\\-jump\\-2|orange\\-fr\\-pod2|unknown|zte\\-pod1)",
-            "selected": false
+            "value": "(elxg482ls42|ericsson\\-pod1|ericsson\\-pod2|huawei\\-pod1|huawei\\-pod2|huawei\\-us\\-deploy\\-bare\\-1|intel\\-pod5|intel\\-pod6|lf\\-pod1|lf\\-pod2|opnfv\\-jump\\-1|opnfv\\-jump\\-2|orange\\-fr\\-pod2|unknown|zte\\-pod1)"
           },
           {
+            "selected": false,
             "text": "elxg482ls42",
-            "value": "elxg482ls42",
-            "selected": false
+            "value": "elxg482ls42"
           },
           {
+            "selected": false,
             "text": "ericsson-pod1",
-            "value": "ericsson\\-pod1",
-            "selected": false
+            "value": "ericsson\\-pod1"
           },
           {
+            "selected": true,
             "text": "ericsson-pod2",
-            "value": "ericsson\\-pod2",
-            "selected": true
+            "value": "ericsson\\-pod2"
           },
           {
+            "selected": true,
             "text": "huawei-pod1",
-            "value": "huawei\\-pod1",
-            "selected": true
+            "value": "huawei\\-pod1"
           },
           {
+            "selected": true,
             "text": "huawei-pod2",
-            "value": "huawei\\-pod2",
-            "selected": true
+            "value": "huawei\\-pod2"
           },
           {
+            "selected": false,
             "text": "huawei-us-deploy-bare-1",
-            "value": "huawei\\-us\\-deploy\\-bare\\-1",
-            "selected": false
+            "value": "huawei\\-us\\-deploy\\-bare\\-1"
           },
           {
+            "selected": false,
             "text": "intel-pod5",
-            "value": "intel\\-pod5",
-            "selected": false
+            "value": "intel\\-pod5"
           },
           {
+            "selected": true,
             "text": "intel-pod6",
-            "value": "intel\\-pod6",
-            "selected": true
+            "value": "intel\\-pod6"
           },
           {
+            "selected": false,
             "text": "lf-pod1",
-            "value": "lf\\-pod1",
-            "selected": false
+            "value": "lf\\-pod1"
           },
           {
+            "selected": true,
             "text": "lf-pod2",
-            "value": "lf\\-pod2",
-            "selected": true
+            "value": "lf\\-pod2"
           },
           {
+            "selected": false,
             "text": "opnfv-jump-1",
-            "value": "opnfv\\-jump\\-1",
-            "selected": false
+            "value": "opnfv\\-jump\\-1"
           },
           {
+            "selected": false,
             "text": "opnfv-jump-2",
-            "value": "opnfv\\-jump\\-2",
-            "selected": false
+            "value": "opnfv\\-jump\\-2"
           },
           {
+            "selected": false,
             "text": "orange-fr-pod2",
-            "value": "orange\\-fr\\-pod2",
-            "selected": false
+            "value": "orange\\-fr\\-pod2"
           },
           {
+            "selected": false,
             "text": "unknown",
-            "value": "unknown",
-            "selected": false
+            "value": "unknown"
           },
           {
+            "selected": true,
             "text": "zte-pod1",
-            "value": "zte\\-pod1",
-            "selected": true
+            "value": "zte\\-pod1"
           }
         ],
         "query": "SHOW TAG VALUES WITH KEY = \"pod_name\" ",
@@ -1219,9 +1222,9 @@
       {
         "allFormat": "regex values",
         "current": {
+          "tags": [],
           "text": "All",
-          "value": "(os\\-no_sdn\\-ovs\\-ha|os\\-nosdn\\-kvm\\-ha|os\\-nosdn\\-nofeature\\-ha|os\\-nosdn\\-nofeature\\-noha|os\\-nosdn\\-ovs\\-ha|os\\-ocl\\-nofeature\\-ha|os\\-odl_l2\\-bgpvpn\\-ha|os\\-odl_l2\\-nofeature\\-ha|os\\-odl_l2\\-nofeature\\-noha|os\\-odl_l2\\-sfc\\-ha|os\\-odl_l3\\-nofeature\\-ha|os\\-onos\\-nofeature\\-ha|os\\-onos\\-sfc\\-ha|os\\-ovs\\-nofeature\\-ha|unknown)",
-          "tags": []
+          "value": "(os\\-no_sdn\\-ovs\\-ha|os\\-nosdn\\-kvm\\-ha|os\\-nosdn\\-nofeature\\-ha|os\\-nosdn\\-nofeature\\-noha|os\\-nosdn\\-ovs\\-ha|os\\-ocl\\-nofeature\\-ha|os\\-odl_l2\\-bgpvpn\\-ha|os\\-odl_l2\\-nofeature\\-ha|os\\-odl_l2\\-nofeature\\-noha|os\\-odl_l2\\-sfc\\-ha|os\\-odl_l3\\-nofeature\\-ha|os\\-onos\\-nofeature\\-ha|os\\-onos\\-sfc\\-ha|os\\-ovs\\-nofeature\\-ha|unknown)"
         },
         "datasource": "yardstick-vtc",
         "includeAll": true,
@@ -1230,84 +1233,84 @@
         "name": "SCENARIO",
         "options": [
           {
+            "selected": true,
             "text": "All",
-            "value": "(os\\-no_sdn\\-ovs\\-ha|os\\-nosdn\\-kvm\\-ha|os\\-nosdn\\-nofeature\\-ha|os\\-nosdn\\-nofeature\\-noha|os\\-nosdn\\-ovs\\-ha|os\\-ocl\\-nofeature\\-ha|os\\-odl_l2\\-bgpvpn\\-ha|os\\-odl_l2\\-nofeature\\-ha|os\\-odl_l2\\-nofeature\\-noha|os\\-odl_l2\\-sfc\\-ha|os\\-odl_l3\\-nofeature\\-ha|os\\-onos\\-nofeature\\-ha|os\\-onos\\-sfc\\-ha|os\\-ovs\\-nofeature\\-ha|unknown)",
-            "selected": true
+            "value": "(os\\-no_sdn\\-ovs\\-ha|os\\-nosdn\\-kvm\\-ha|os\\-nosdn\\-nofeature\\-ha|os\\-nosdn\\-nofeature\\-noha|os\\-nosdn\\-ovs\\-ha|os\\-ocl\\-nofeature\\-ha|os\\-odl_l2\\-bgpvpn\\-ha|os\\-odl_l2\\-nofeature\\-ha|os\\-odl_l2\\-nofeature\\-noha|os\\-odl_l2\\-sfc\\-ha|os\\-odl_l3\\-nofeature\\-ha|os\\-onos\\-nofeature\\-ha|os\\-onos\\-sfc\\-ha|os\\-ovs\\-nofeature\\-ha|unknown)"
           },
           {
+            "selected": false,
             "text": "os-no_sdn-ovs-ha",
-            "value": "os\\-no_sdn\\-ovs\\-ha",
-            "selected": false
+            "value": "os\\-no_sdn\\-ovs\\-ha"
           },
           {
+            "selected": false,
             "text": "os-nosdn-kvm-ha",
-            "value": "os\\-nosdn\\-kvm\\-ha",
-            "selected": false
+            "value": "os\\-nosdn\\-kvm\\-ha"
           },
           {
+            "selected": false,
             "text": "os-nosdn-nofeature-ha",
-            "value": "os\\-nosdn\\-nofeature\\-ha",
-            "selected": false
+            "value": "os\\-nosdn\\-nofeature\\-ha"
           },
           {
+            "selected": false,
             "text": "os-nosdn-nofeature-noha",
-            "value": "os\\-nosdn\\-nofeature\\-noha",
-            "selected": false
+            "value": "os\\-nosdn\\-nofeature\\-noha"
           },
           {
+            "selected": false,
             "text": "os-nosdn-ovs-ha",
-            "value": "os\\-nosdn\\-ovs\\-ha",
-            "selected": false
+            "value": "os\\-nosdn\\-ovs\\-ha"
           },
           {
+            "selected": false,
             "text": "os-ocl-nofeature-ha",
-            "value": "os\\-ocl\\-nofeature\\-ha",
-            "selected": false
+            "value": "os\\-ocl\\-nofeature\\-ha"
           },
           {
+            "selected": false,
             "text": "os-odl_l2-bgpvpn-ha",
-            "value": "os\\-odl_l2\\-bgpvpn\\-ha",
-            "selected": false
+            "value": "os\\-odl_l2\\-bgpvpn\\-ha"
           },
           {
+            "selected": false,
             "text": "os-odl_l2-nofeature-ha",
-            "value": "os\\-odl_l2\\-nofeature\\-ha",
-            "selected": false
+            "value": "os\\-odl_l2\\-nofeature\\-ha"
           },
           {
+            "selected": false,
             "text": "os-odl_l2-nofeature-noha",
-            "value": "os\\-odl_l2\\-nofeature\\-noha",
-            "selected": false
+            "value": "os\\-odl_l2\\-nofeature\\-noha"
           },
           {
+            "selected": false,
             "text": "os-odl_l2-sfc-ha",
-            "value": "os\\-odl_l2\\-sfc\\-ha",
-            "selected": false
+            "value": "os\\-odl_l2\\-sfc\\-ha"
           },
           {
+            "selected": false,
             "text": "os-odl_l3-nofeature-ha",
-            "value": "os\\-odl_l3\\-nofeature\\-ha",
-            "selected": false
+            "value": "os\\-odl_l3\\-nofeature\\-ha"
           },
           {
+            "selected": false,
             "text": "os-onos-nofeature-ha",
-            "value": "os\\-onos\\-nofeature\\-ha",
-            "selected": false
+            "value": "os\\-onos\\-nofeature\\-ha"
           },
           {
+            "selected": false,
             "text": "os-onos-sfc-ha",
-            "value": "os\\-onos\\-sfc\\-ha",
-            "selected": false
+            "value": "os\\-onos\\-sfc\\-ha"
           },
           {
+            "selected": false,
             "text": "os-ovs-nofeature-ha",
-            "value": "os\\-ovs\\-nofeature\\-ha",
-            "selected": false
+            "value": "os\\-ovs\\-nofeature\\-ha"
           },
           {
+            "selected": false,
             "text": "unknown",
-            "value": "unknown",
-            "selected": false
+            "value": "unknown"
           }
         ],
         "query": "SHOW TAG VALUES WITH KEY = \"deploy_scenario\" ",
@@ -1321,6 +1324,6 @@
   },
   "refresh": false,
   "schemaVersion": 8,
-  "version": 3,
+  "version": 15,
   "links": []
 }
