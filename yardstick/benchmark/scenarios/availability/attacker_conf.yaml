@@ -15,3 +15,15 @@ bare-metal-down:
 stop-service:
   inject_script: ha_tools/stop_service.bash
   recovery_script: ha_tools/start_service.bash
+
+close-interface:
+ inject_script: ha_tools/network/close_interface.bash
+ recovery_script: ha_tools/network/open_interface.bash
+
+stress-cpu:
+ inject_script: ha_tools/node/stress_cpu.bash
+ recovery_script: ha_tools/node/release_cpu.bash
+
+block-io:
+  inject_script: ha_tools/disk/block_io.bash
+  recovery_script: ha_tools/disk/recovery_disk_io.bash
