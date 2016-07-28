@@ -206,7 +206,7 @@ class TaskParser(object):
             test_cases_dir += os.sep
 
         cur_pod = os.environ.get('NODE_NAME', None)
-        cur_installer = os.environ.get('INSTALL_TYPE', None)
+        cur_installer = os.environ.get('INSTALLER_TYPE', None)
 
         valid_task_files = []
         valid_task_args = []
