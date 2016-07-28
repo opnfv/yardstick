@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_68e77de5",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc051.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-07-28T07:33:37Z",
+      "side": 1,
+      "message": "got blank space after dash, please remove it",
+      "range": {
+        "startLine": 18,
+        "startChar": 9,
+        "endLine": 18,
+        "endChar": 10
+      },
+      "revId": "9fd10c9c783568d8abad1d29fb9993a5a93b61fe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
