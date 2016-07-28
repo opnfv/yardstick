@@ -16,6 +16,24 @@
       "revId": "e9c8045452cc97df11781bf753df6c728cfad8dd",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_88f8d9e6",
+        "filename": "docs/userguide/opnfv_yardstick_tc061.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-07-28T03:15:28Z",
+      "side": 1,
+      "message": "tc rst files will be added in index.rst soon.",
+      "parentUuid": "1a76adc5_21f52583",
+      "revId": "e9c8045452cc97df11781bf753df6c728cfad8dd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
