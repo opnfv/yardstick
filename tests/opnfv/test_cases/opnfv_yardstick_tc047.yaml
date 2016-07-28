@@ -39,4 +39,4 @@ scenarios:
 context:
   type: Node
   name: LF
-  file: /root/yardstick/etc/yardstick/nodes/fuel_virtual/pod.yaml
+  file: etc/yardstick/nodes/fuel_virtual/pod.yaml
