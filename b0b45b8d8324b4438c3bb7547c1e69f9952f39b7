@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_08b6093e",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/disk/block_io.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-07-28T01:54:14Z",
+      "side": 1,
+      "message": "red trail",
+      "range": {
+        "startLine": 12,
+        "startChar": 20,
+        "endLine": 12,
+        "endChar": 21
+      },
+      "revId": "b0b45b8d8324b4438c3bb7547c1e69f9952f39b7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
