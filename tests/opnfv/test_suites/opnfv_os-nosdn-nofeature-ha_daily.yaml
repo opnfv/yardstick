@@ -49,8 +49,12 @@ test_cases:
     constraint:
         installer: fuel
 -
+    file_name: opnfv_yardstick_tc055.yaml
+-
     file_name: opnfv_yardstick_tc069.yaml
 -
     file_name: opnfv_yardstick_tc070.yaml
 -
     file_name: opnfv_yardstick_tc071.yaml
+-
+    file_name: opnfv_yardstick_tc072.yaml
