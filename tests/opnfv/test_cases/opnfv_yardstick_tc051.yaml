@@ -1,0 +1,90 @@
+---
+# Test case for TC051 :OpenStack Controller Node CPU Overload High Availability
+# This test case is written by new scenario-based HA testing framework
+
+schema: "yardstick:task:0.1"
+scenarios:
+  -
+    type: "GeneralHA"
+    options:
+      attackers:
+        -
+          fault_type: "general-attacker"
+          host: node1
+          key: "stress-cpu"
+          attack_key: "stress-cpu"
+
+      monitors:
+        -
+          monitor_type: "openstack-cmd"
+          key: "nova-image-list"
+          command_name: "nova image-list"
+          monitor_time: 10
+          sla:
+            max_outage_time: 5
+
+        -
+          monitor_type: "openstack-cmd"
+          key: "neutron-router-list"
+          command_name: "neutron router-list"
+          monitor_time: 10
+          sla:
+            max_outage_time: 5
+
+        -
+          monitor_type: "openstack-cmd"
+          key: "heat-stack-list"
+          command_name: "heat stack-list"
+          monitor_time: 10
+          sla:
+            max_outage_time: 5
+
+        -
+          monitor_type: "openstack-cmd"
+          key: "cinder-list"
+          command_name: "cinder list"
+          monitor_time: 10
+          sla:
+            max_outage_time: 5
+
+
+      steps:
+        -
+          actionKey: "stress-cpu"
+          actionType: "attacker"
+          index: 1
+
+        -
+          actionKey: "nova-image-list"
+          actionType: "monitor"
+          index: 2
+
+        -
+          actionKey: "neutron-router-list"
+          actionType: "monitor"
+          index: 3
+
+        -
+          actionKey: "heat-stack-list"
+          actionType: "monitor"
+          index: 4
+
+        -
+          actionKey: "cinder-list"
+          actionType: "monitor"
+          index: 5
+
+
+    nodes:
+      node1: node1.LF
+    runner:
+      type: Duration
+      duration: 1
+    sla:
+      outage_time: 5
+      action: monitor
+
+context:
+  type: Node
+  name: LF
+  file: etc/yardstick/nodes/fuel_virtual/pod.yaml
