@@ -1,0 +1,31 @@
+---
+# Sample StorPerf benchmark task config file
+# StorPerf is a tool to measure block and object storage performance in an NFVI
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: StorPerf
+  options:
+    agent_count: 1
+    agent_image: "Ubuntu 14.04"
+    public_network: "ext-net"
+    volume_size: 2
+    # target:
+    # deadline:
+    # nossd:
+    # nowarm:
+    block_sizes: "4096"
+    queue_depths: "4"
+    workload: "ws"
+    StorPerf_ip: "192.168.23.2"
+    query_interval: 10
+    timeout: 900
+
+  runner:
+    type: Iteration
+    iterations: 1
+
+context:
+  type: Dummy
