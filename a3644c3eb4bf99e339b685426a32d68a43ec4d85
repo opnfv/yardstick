@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_39e4750c",
+        "filename": "tests/opnfv/test_suites/opnfv_os-odl_l2-nofeature-ha_daily.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-29T03:42:51Z",
+      "side": 1,
+      "message": "The installer on zte-pod1 is fuel. can you please tell me how to add parameter for zte-pod1?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 61
+      },
+      "revId": "a3644c3eb4bf99e339b685426a32d68a43ec4d85",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
