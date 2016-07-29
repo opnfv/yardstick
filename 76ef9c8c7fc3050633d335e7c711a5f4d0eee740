@@ -22,6 +22,30 @@
       "revId": "76ef9c8c7fc3050633d335e7c711a5f4d0eee740",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_399315a5",
+        "filename": "tests/opnfv/test_suites/opnfv_os-odl_l2-nofeature-ha_daily.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-07-29T02:32:11Z",
+      "side": 1,
+      "message": "Thank you, zhihui. I will remove all fuel virtual pod for tc055.",
+      "parentUuid": "1a76adc5_79aaedd5",
+      "range": {
+        "startLine": 38,
+        "startChar": 30,
+        "endLine": 38,
+        "endChar": 73
+      },
+      "revId": "76ef9c8c7fc3050633d335e7c711a5f4d0eee740",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
