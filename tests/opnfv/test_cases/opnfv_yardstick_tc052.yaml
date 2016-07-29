@@ -1,0 +1,79 @@
+---
+# Test case for TC052 :OpenStack Controller Node Disk I/O Block High Availability
+# This test case is written by new scenario-based HA testing framework
+
+schema: "yardstick:task:0.1"
+scenarios:
+  -
+    type: "GeneralHA"
+    options:
+      attackers:
+        - 
+          fault_type: "general-attacker"
+          host: node1
+          key: "block-io"
+          attack_key: "block-io"
+
+      monitors:
+        - 
+          monitor_type: "openstack-cmd"
+          key: "nova-flavor-list"
+          command_name: "nova flavor-list"
+          monitor_time: 10
+          sla:
+            max_outage_time: 5
+
+      operations:
+        -
+          operation_type: "general-operation"
+          key: "create-flavor"
+          operation_key: "nova-create-flavor"
+          host: node1
+          action_parameter:
+            flavorconfig: "test-001 test-001 100 1 1"
+          rollback_parameter:
+            flavorid: "test-001"
+
+      resultCheckers:
+        -
+          checker_type: "general-result-checker"
+          key: "check-flavor"
+          host: node1
+          checker_key: "nova-flavor-checker"
+          expectedValue: "test-001"
+          condition: "in"
+
+      steps:
+        -
+          actionKey: "block-io"
+          actionType: "attacker"
+          index: 1
+
+        -
+          actionKey: "nova-flavor-list"
+          actionType: "monitor"
+          index: 2
+
+        -
+          actionKey: "create-flavor"
+          actionType: "operation"
+          index: 3
+
+        -
+          actionKey: "check-flavor"
+          actionType: "resultchecker"
+          index: 4
+
+    nodes:
+      node1: node1.LF
+    runner:
+      type: Duration
+      duration: 1
+    sla:
+      outage_time: 5
+      action: monitor
+
+context:
+  type: Node
+  name: LF
+  file: etc/yardstick/nodes/fuel_virtual/pod.yaml
