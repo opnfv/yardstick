@@ -22,6 +22,17 @@ test_cases:
   file_name: opnfv_yardstick_tc037.yaml
 -
   file_name: opnfv_yardstick_tc055.yaml
+  installer: compass
+      pod: huawei-pod1, huawei-pod2, huawei-pod3, huawei-pod4
+  task_args:
+      huawei-pod1: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
+      "host": "node5.yardstick-TC055"}'
+      huawei-pod2: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
+      "host": "node5.yardstick-TC055"}'
+      huawei-pod3: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
+      "host": "node5.yardstick-TC055"}'
+      huawei-pod4: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
+      "host": "node5.yardstick-TC055"}'
 -
   file_name: opnfv_yardstick_tc069.yaml
 -
