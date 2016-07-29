@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_79aaedd5",
+        "filename": "tests/opnfv/test_suites/opnfv_os-odl_l2-nofeature-ha_daily.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-07-29T02:13:15Z",
+      "side": 1,
+      "message": "zte-pod1 is a baremetal pod not a virtual one. Whether I need to put pod info of zte-pod1 to yardstick first?",
+      "range": {
+        "startLine": 38,
+        "startChar": 30,
+        "endLine": 38,
+        "endChar": 73
+      },
+      "revId": "76ef9c8c7fc3050633d335e7c711a5f4d0eee740",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
