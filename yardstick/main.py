@@ -36,7 +36,6 @@
 
     New terminology:
     NFV TST
-
 """
 import sys
 
