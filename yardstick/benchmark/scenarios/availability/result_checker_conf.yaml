@@ -9,3 +9,5 @@ service-checker:
   verify_script: ha_tools/check_service.bash
 nova-instance-checker:
   verify_script: ha_tools/nova/show_instances.bash
+nova-flavor-checker:
+  verify_script: ha_tools/nova/show_flavors.bash
