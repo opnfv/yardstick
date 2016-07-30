@@ -55,3 +55,28 @@ export EXTERNAL_NETWORK INSTALLER_TYPE DEPLOY_TYPE NODE_NAME
 
 # Prepare a admin-rc file for StorPerf integration
 $YARDSTICK_REPO_DIR/tests/ci/prepare_storperf_admin-rc.sh
+
+# Fetching id_rsa file from jump_server..."
+verify_connectivity() {
+    local ip=$1
+    echo "Verifying connectivity to $ip..."
+    for i in $(seq 0 10); do
+        if ping -c 1 -W 1 $ip > /dev/null; then
+            echo "$ip is reachable!"
+            return 0
+        fi
+        sleep 1
+    done
+    error "Can not talk to $ip."
+}
+
+ssh_options="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+
+if [ "$INSTALLER_TYPE" == "fuel" ]; then
+    #ip_fuel="10.20.0.2"
+    verify_connectivity $INSTALLER_IP
+    echo "Fetching id_rsa file from jump_server $INSTALLER_IP..."
+    sshpass -p r00tme scp 2>/dev/null $ssh_options \
+    root@${INSTALLER_IP}:~/.ssh/id_rsa /root/.ssh/id_rsa &> /dev/null
+fi
+
