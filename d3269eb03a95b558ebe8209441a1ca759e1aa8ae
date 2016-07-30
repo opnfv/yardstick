@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_ff5edd11",
+        "filename": "etc/yardstick/nodes/zte_pod1.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-07-30T02:36:06Z",
+      "side": 1,
+      "message": "please help to review:\nhttps://gerrit.opnfv.org/gerrit/#/c/17843/\nthis patch is kind of related to this key_filename.\nBecause currently, take fuel for example, yardstick didn\u0027t fetch id_rsa from jump server, so /root/.ssh/id_rsa is not valid. thanks",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 35
+      },
+      "revId": "d3269eb03a95b558ebe8209441a1ca759e1aa8ae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
