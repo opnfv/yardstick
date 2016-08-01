@@ -14,3 +14,7 @@ swift-upload-file:
 swift-download-file:
   action_script: ha_tools/swift/download.bash
   rollback_script: ha_tools/file/remove_file.bash
+
+nova-create-flavor:
+  action_script: ha_tools/nova/create_flavor.bash
+  rollback_script: ha_tools/nova/delete_flavor.bash
