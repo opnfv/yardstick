@@ -80,7 +80,7 @@ cleanup()
         return
     fi
 
-    for image in $(glance image-list | grep -e cirros-0.3.3 -e yardstick-trusty-server | awk '{print $2}'); do
+    for image in $(glance image-list | grep -e cirros-0.3.3 -e yardstick-trusty-server -e Ubuntu-14.04 | awk '{print $2}'); do
         echo "Deleting image $image..."
         glance image-delete $image || true
     done
@@ -119,6 +119,21 @@ install_yardstick()
 
     # Install yardstick
     pip install .
+}
+
+install_storperf()
+{
+    # Install Storper if the installer type is compass
+    if [ "$INSTALLER_TYPE" == "compass" ]; then
+        echo
+        echo "========== Installing storperf =========="
+
+        if ! yardstick plugin install plugin/CI/storperf.yaml; then
+            echo "Install storperf plugin FAILED";
+            exit 1
+        fi
+    fi
+
 }
 
 build_yardstick_image()
@@ -172,6 +187,30 @@ load_cirros_image()
     fi
 
     echo "Cirros image id: $CIRROS_IMAGE_ID"
+}
+
+load_ubuntu_image()
+{
+    echo
+    echo "========== Loading ubuntu cloud image =========="
+
+    local ubuntu_image_file=/home/opnfv/images/trusty-server-cloudimg-amd64-disk1.img
+
+    output=$(glance image-create \
+        --name Ubuntu-14.04 \
+        --disk-format qcow2 \
+        --container-format bare \
+        --file $ubuntu_image_file)
+    echo "$output"
+
+    UBUNTU_IMAGE_ID=$(echo "$output" | grep " id " | awk '{print $(NF-1)}')
+
+    if [ -z "$UBUNTU_IMAGE_ID" ]; then
+        echo 'Failed uploading UBUNTU image to cloud'.
+        exit 1
+    fi
+
+    echo "Ubuntu image id: $UBUNTU_IMAGE_ID"
 }
 
 load_yardstick_image()
@@ -361,8 +400,10 @@ main()
     build_yardstick_image
     load_yardstick_image
     load_cirros_image
+    load_ubuntu_image
     create_nova_flavor
 
+    install_storperf
     run_test
 }
 
