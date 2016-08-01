@@ -1,0 +1,13 @@
+---
+# StorPerf plugin configration file for huawei-pod1
+# Used for integration StorPerf into Yardstick as a plugin
+
+schema: "yardstick:plugin:0.1"
+
+plugins:
+  name: storperf
+
+deployment:
+  ip: local
+  user: root
+  password: root

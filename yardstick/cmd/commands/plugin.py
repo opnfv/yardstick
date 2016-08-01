@@ -9,6 +9,7 @@
 
 """ Handler for yardstick command 'plugin' """
 
+import os
 import sys
 import yaml
 import time
@@ -50,8 +51,6 @@ class PluginCommands(object):
 
         print("Done, exiting")
 
-    @cliargs("input_file", type=str, help="path to plugin configuration file",
-             nargs=1)
     def do_remove(self, args):
         '''Remove a plugin.'''
 
@@ -80,12 +79,20 @@ class PluginCommands(object):
 
         deployment_user = deployment.get("user")
         deployment_ip = deployment.get("ip")
-
         deployment_password = deployment.get("password")
-        LOG.debug("user:%s, host:%s", deployment_user, deployment_ip)
-        self.client = ssh.SSH(deployment_user, deployment_ip,
-                              password=deployment_password)
-        self.client.wait(timeout=600)
+
+        if deployment_ip == "local":
+            installer_ip = os.environ.get("INSTALLER_IP", None)
+
+            LOG.debug("user:%s, host:%s", deployment_user, installer_ip)
+            self.client = ssh.SSH(deployment_user, installer_ip,
+                                  password=deployment_password)
+            self.client.wait(timeout=600)
+        else:
+            LOG.debug("user:%s, host:%s", deployment_user, deployment_ip)
+            self.client = ssh.SSH(deployment_user, deployment_ip,
+                                  password=deployment_password)
+            self.client.wait(timeout=600)
 
         # copy script to host
         cmd = "cat > ~/%s.sh" % plugin_name
@@ -99,12 +106,20 @@ class PluginCommands(object):
 
         deployment_user = deployment.get("user")
         deployment_ip = deployment.get("ip")
-
         deployment_password = deployment.get("password")
-        LOG.debug("user:%s, host:%s", deployment_user, deployment_ip)
-        self.client = ssh.SSH(deployment_user, deployment_ip,
-                              password=deployment_password)
-        self.client.wait(timeout=600)
+
+        if deployment_ip == "local":
+            installer_ip = os.environ.get("INSTALLER_IP", None)
+
+            LOG.debug("user:%s, host:%s", deployment_user, installer_ip)
+            self.client = ssh.SSH(deployment_user, installer_ip,
+                                  password=deployment_password)
+            self.client.wait(timeout=600)
+        else:
+            LOG.debug("user:%s, host:%s", deployment_user, deployment_ip)
+            self.client = ssh.SSH(deployment_user, deployment_ip,
+                                  password=deployment_password)
+            self.client.wait(timeout=600)
 
         # copy script to host
         cmd = "cat > ~/%s.sh" % plugin_name
