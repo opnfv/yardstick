@@ -201,12 +201,12 @@ class Server(Object):
                                              port_name,
                                              network.router.stack_if_name,
                                              self.secgroup_name)
-                self.floating_ip_assoc["stack_name"] = \
-                    server_name + "-fip-assoc"
-                template.add_floating_ip_association(
-                    self.floating_ip_assoc["stack_name"],
-                    self.floating_ip["stack_name"],
-                    port_name)
+                    self.floating_ip_assoc["stack_name"] = \
+                        server_name + "-fip-assoc"
+                    template.add_floating_ip_association(
+                        self.floating_ip_assoc["stack_name"],
+                        self.floating_ip["stack_name"],
+                        port_name)
 
         template.add_server(server_name, self.image, self.flavor,
                             ports=port_name_list,
