@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_ff733d13",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-08-01T04:50:29Z",
+      "side": 1,
+      "message": "No need to verify connectivity with fuel, since we already use \"fetch_os_creds.sh\" to fetch openrc from fuel.",
+      "revId": "76d0e5f0cfcf016d0c1d78f50c059b01474af14c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
