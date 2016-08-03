@@ -17,11 +17,11 @@ scenarios:
 
   runner:
     type: Iteration
-    iterations: 2
+    iterations: 1
     interval: 1
 
   sla:
-    max_rtt: 1000
+    max_rtt: 500000
     action: monitor
 
 context:
