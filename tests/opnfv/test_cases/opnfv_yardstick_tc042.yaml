@@ -12,20 +12,20 @@ scenarios:
     rate: 100
     duration: 20
 
-  host: demeter.yardstick
-  target: poseidon.yardstick
+  host: demeter.yardstick-TC042
+  target: poseidon.yardstick-TC042
 
   runner:
     type: Iteration
-    iterations: 2
+    iterations: 1
     interval: 1
 
   sla:
-    max_rtt: 1000
+    max_rtt: 500000
     action: monitor
 
 context:
-  name: yardstick
+  name: yardstick-TC042
   image: yardstick-image-pktgen-ready
   flavor: yardstick-pktgen-dpdk.flavor
   user: ubuntu
