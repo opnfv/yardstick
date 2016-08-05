@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_825aed81",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 483
+      },
+      "writtenOn": "2016-08-05T06:17:06Z",
+      "side": 1,
+      "message": "agree.\nin zhihui\u0027s test, DPDK is only used in VM(without host supported), maybe it is the reason why the value is so high.",
+      "parentUuid": "1a76adc5_42ca9550",
+      "range": {
+        "startLine": 31,
+        "startChar": 37,
+        "endLine": 31,
+        "endChar": 47
+      },
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_02c49d3e",
         "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
         "patchSetId": 2
@@ -124,6 +148,24 @@
       "writtenOn": "2016-08-05T05:50:49Z",
       "side": 1,
       "message": "Thanks for your suggestion. I just followed task description of Yardstick-233 to choose pktgen-dpdk as a traffic generator. I am not familiar with MoonGen. could you please share your experience about it?",
+      "parentUuid": "1a76adc5_02c49d3e",
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e265e145",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 483
+      },
+      "writtenOn": "2016-08-05T06:17:06Z",
+      "side": 1,
+      "message": "If Intel 82599 can support this, we can have some test and try. I don\u0027t know the the status of other labs currently.",
       "parentUuid": "1a76adc5_02c49d3e",
       "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -194,6 +236,24 @@
       "writtenOn": "2016-08-05T05:50:49Z",
       "side": 1,
       "message": "I setup env with hugepage 2m with 2048 and 1G with 4.",
+      "parentUuid": "1a76adc5_42d135fa",
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a25fe971",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 483
+      },
+      "writtenOn": "2016-08-05T06:17:06Z",
+      "side": 1,
+      "message": "agree for performance perspective",
       "parentUuid": "1a76adc5_42d135fa",
       "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
