@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_224679c0",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-08-05T05:50:49Z",
+      "side": 1,
+      "message": "I will recheck the SLA value by executing this test case again.",
+      "parentUuid": "1a76adc5_42ca9550",
+      "range": {
+        "startLine": 31,
+        "startChar": 37,
+        "endLine": 31,
+        "endChar": 47
+      },
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_02c49d3e",
         "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
         "patchSetId": 2
@@ -83,6 +107,24 @@
       "writtenOn": "2016-08-05T02:34:39Z",
       "side": 1,
       "message": "I\u0027d suggest to use MoonGen for the testing. Per our testing, MoonGen works very well on X540 NIC. The major benefit of MoonGen is, it uses the hardware NIC for the timestamping, while pktgen-dpdk (at least when we checked it before) is using software timestamping. NIC timestamping is for sure more accurate.",
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a21129ae",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-08-05T05:50:49Z",
+      "side": 1,
+      "message": "Thanks for your suggestion. I just followed task description of Yardstick-233 to choose pktgen-dpdk as a traffic generator. I am not familiar with MoonGen. could you please share your experience about it?",
+      "parentUuid": "1a76adc5_02c49d3e",
       "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -106,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_8283cdcb",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-08-05T05:50:49Z",
+      "side": 1,
+      "message": "Yes. DPDK is installed on VM not host. Host just offer hugepage and DPDK supported NIC.",
+      "parentUuid": "1a76adc5_c2dd4516",
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_42d135fa",
         "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
         "patchSetId": 2
@@ -117,6 +177,24 @@
       "writtenOn": "2016-08-05T02:34:39Z",
       "side": 1,
       "message": "I think we need more than huge pages to achieve low latency.",
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_c279c5fd",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-08-05T05:50:49Z",
+      "side": 1,
+      "message": "I setup env with hugepage 2m with 2048 and 1G with 4.",
+      "parentUuid": "1a76adc5_42d135fa",
       "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -204,6 +282,30 @@
       "side": 1,
       "message": "Can we speficy the testpmd\u0027s parameter?",
       "parentUuid": "1a76adc5_275f6b10",
+      "range": {
+        "startLine": 70,
+        "startChar": 52,
+        "endLine": 70,
+        "endChar": 58
+      },
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a28849e8",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-08-05T05:50:49Z",
+      "side": 1,
+      "message": "Ok, I will add more detail with the new patch.",
+      "parentUuid": "1a76adc5_62ceb15c",
       "range": {
         "startLine": 70,
         "startChar": 52,
