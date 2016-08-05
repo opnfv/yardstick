@@ -48,6 +48,81 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_42ca9550",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 473
+      },
+      "writtenOn": "2016-08-05T02:34:39Z",
+      "side": 1,
+      "message": "I think at first stage, 100 us should be reasonable, your idea?\n\nAlso, I think we need define the throughput also?",
+      "parentUuid": "1a76adc5_07b90f2e",
+      "range": {
+        "startLine": 31,
+        "startChar": 37,
+        "endLine": 31,
+        "endChar": 47
+      },
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_02c49d3e",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 473
+      },
+      "writtenOn": "2016-08-05T02:34:39Z",
+      "side": 1,
+      "message": "I\u0027d suggest to use MoonGen for the testing. Per our testing, MoonGen works very well on X540 NIC. The major benefit of MoonGen is, it uses the hardware NIC for the timestamping, while pktgen-dpdk (at least when we checked it before) is using software timestamping. NIC timestamping is for sure more accurate.",
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_c2dd4516",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 473
+      },
+      "writtenOn": "2016-08-05T02:34:39Z",
+      "side": 1,
+      "message": "So this scenario requires Openstack for the deployment? Will it be possible to be independent of openstack?",
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_42d135fa",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 473
+      },
+      "writtenOn": "2016-08-05T02:34:39Z",
+      "side": 1,
+      "message": "I think we need more than huge pages to achieve low latency.",
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_07626fd8",
         "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
         "patchSetId": 2
@@ -105,6 +180,30 @@
       "writtenOn": "2016-08-04T03:48:44Z",
       "side": 1,
       "message": "same server",
+      "range": {
+        "startLine": 70,
+        "startChar": 52,
+        "endLine": 70,
+        "endChar": 58
+      },
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_62ceb15c",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 473
+      },
+      "writtenOn": "2016-08-05T02:34:39Z",
+      "side": 1,
+      "message": "Can we speficy the testpmd\u0027s parameter?",
+      "parentUuid": "1a76adc5_275f6b10",
       "range": {
         "startLine": 70,
         "startChar": 52,
