@@ -173,6 +173,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_d8e212d5",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 170
+      },
+      "writtenOn": "2016-08-08T10:17:54Z",
+      "side": 1,
+      "message": "Hi,\n\nI am not sure if it is relevant, but MoonGen does not yet support virtio-nic, so it does not run in a VM. See https://github.com/emmericp/MoonGen/issues/126.\n\nAlso, the VF for (at least) 82599 does not support PTP.",
+      "parentUuid": "1a76adc5_a21129ae",
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_c2dd4516",
         "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
         "patchSetId": 2
