@@ -21,4 +21,4 @@ scenarios:
 context:
   type: Node
   name: LF
-  file: /root/yardstick/etc/yardstick/nodes/compass_sclab_virtual/pod.yaml
+  file: etc/yardstick/nodes/compass_sclab_virtual/pod.yaml
