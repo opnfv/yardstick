@@ -1,0 +1,23 @@
+# Yardstick TC063 config file
+# Measure disk size, block size and disk utilization using fdisk and iostat
+
+schema: "yardstick:task:0.1"
+{% set host = host or "node5.yardstick-TC063" %}
+{% set pod_info = pod_info or "etc/yardstick/nodes/compass_sclab_virtual/pod.yaml" %}
+
+scenarios:
+-
+  type: StorageCapacity
+  options:
+    test_type: "disk_size"
+
+  host: {{host}}
+
+  runner:
+    type: Iteration
+    iterations: 1
+
+context:
+  type: Node
+  name: yardstick-TC063
+  file: {{pod_info}}
