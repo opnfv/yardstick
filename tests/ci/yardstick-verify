@@ -255,13 +255,16 @@ EOF
 
         done
 
-        if [ $failed -gt 0 ]; then
+        local sceanrio_status="success"
 
+        if [ $failed -gt 0 ]; then
+            scenario_status="failed"
             echo "---------------------------"
             echo "$failed out of ${SUITE_FILES[*]} test suites FAILED"
             echo "---------------------------"
             exit 1
-         fi
+        fi
+        curl -i -H 'content-type: application/json' -X POST -d '{\"details\":{\"${DEPLOY_SCENARIO}\":\"${sceanrio_status}\"}}' http://${DISPATCHER_HTTP_TARGET}:3570
 
     else
 
