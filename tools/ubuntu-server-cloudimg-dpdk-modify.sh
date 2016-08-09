@@ -33,8 +33,8 @@ grep wily /etc/apt/sources.list && \
 # Force apt to use ipv4 due to build problems on LF POD.
 echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4
 
-echo 'GRUB_CMDLINE_LINUX="resume=/dev/sda1 default_hugepagesz=1G hugepagesz=1G hugepages=1 iommu=on iommu=pt intel_iommu=on"' >> /etc/default/grub
-echo 'vm.nr_hugepages=512' >> /etc/sysctl.conf
+echo 'GRUB_CMDLINE_LINUX="resume=/dev/sda1 default_hugepagesz=1G hugepagesz=1G hugepages=2 iommu=on iommu=pt intel_iommu=on"' >> /etc/default/grub
+echo 'vm.nr_hugepages=1024' >> /etc/sysctl.conf
 echo 'huge /mnt/huge hugetlbfs defaults 0 0' >> vi /etc/fstab
 
 mkdir /mnt/huge

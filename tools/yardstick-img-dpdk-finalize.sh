@@ -29,6 +29,9 @@ do
   fi
 done
 
+# workaround: Without wait time, the file size of pktgen is zero in the snapshot.
+sleep 60
+
 status=$(nova image-create --poll $stackname $new_image_name)
 if [[ "$status" =~ "Finished" ]];then
   echo "$new_image_name finished"
