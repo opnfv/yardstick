@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_d3943539",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 473
+      },
+      "writtenOn": "2016-08-09T02:18:48Z",
+      "side": 1,
+      "message": "Thanks for clarification.",
+      "parentUuid": "1a76adc5_825aed81",
+      "range": {
+        "startLine": 31,
+        "startChar": 37,
+        "endLine": 31,
+        "endChar": 47
+      },
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_02c49d3e",
         "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
         "patchSetId": 2
@@ -185,6 +209,24 @@
       "side": 1,
       "message": "Hi,\n\nI am not sure if it is relevant, but MoonGen does not yet support virtio-nic, so it does not run in a VM. See https://github.com/emmericp/MoonGen/issues/126.\n\nAlso, the VF for (at least) 82599 does not support PTP.",
       "parentUuid": "1a76adc5_a21129ae",
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7399a16d",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 473
+      },
+      "writtenOn": "2016-08-09T02:18:48Z",
+      "side": 1,
+      "message": "Tapio, thanks for the information. We didn\u0027try VM before, we always use baremetal enviornment for packet generator. But we can have multiple MoonGen on the same host, if there are multiple NIC there.\n\nI\u0027d suppose this test case is for using baremetal environment for packet generation also. I suspect the time accuracy if we use pktgen-dpdk on VM enviornment.",
+      "parentUuid": "1a76adc5_d8e212d5",
       "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -325,6 +367,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_939ebd55",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 473
+      },
+      "writtenOn": "2016-08-09T02:18:48Z",
+      "side": 1,
+      "message": "Thanks for clarification.",
+      "parentUuid": "1a76adc5_676563e0",
+      "range": {
+        "startLine": 66,
+        "startChar": 34,
+        "endLine": 66,
+        "endChar": 43
+      },
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_275f6b10",
         "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
         "patchSetId": 2
@@ -384,6 +450,30 @@
       "side": 1,
       "message": "Ok, I will add more detail with the new patch.",
       "parentUuid": "1a76adc5_62ceb15c",
+      "range": {
+        "startLine": 70,
+        "startChar": 52,
+        "endLine": 70,
+        "endChar": 58
+      },
+      "revId": "438333c30ef0f3e2abd8e81c47181bbebc5e2d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_33a329a0",
+        "filename": "docs/userguide/opnfv_yardstick_tc042.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 473
+      },
+      "writtenOn": "2016-08-09T02:18:48Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "1a76adc5_a28849e8",
       "range": {
         "startLine": 70,
         "startChar": 52,
