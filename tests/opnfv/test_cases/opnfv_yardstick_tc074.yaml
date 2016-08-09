@@ -1,0 +1,27 @@
+---
+# Test case for TC074 StorPerf benchmark task config file
+# StorPerf is a tool to measure block and object storage performance in an NFVI
+
+schema: "yardstick:task:0.1"
+{% set public_network = public_network or "ext-net" %}
+{% set StorPerf_ip = StorPerf_ip or "192.168.200.2" %}
+scenarios:
+-
+  type: StorPerf
+  options:
+    agent_count: 1
+    agent_image: "Ubuntu-14.04"
+    public_network: {{public_network}}
+    volume_size: 4
+    block_sizes: "4096"
+    queue_depths: "4"
+    StorPerf_ip: {{StorPerf_ip}}
+    query_interval: 10
+    timeout: 300
+
+  runner:
+    type: Iteration
+    iterations: 1
+
+context:
+  type: Dummy
