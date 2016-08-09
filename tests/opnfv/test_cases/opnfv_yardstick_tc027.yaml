@@ -3,7 +3,7 @@
 # Measure IPV6 network latency using ping6
 
 schema: "yardstick:task:0.1"
-
+{% set pod_info = pod_info or "etc/yardstick/nodes/compass_sclab_physical/pod.yaml" %}
 scenarios:
 -
   type: Ping6
@@ -33,6 +33,6 @@ precondition:
 context:
   type: Node
   name: IPV6
-  file: /home/opnfv/repos/yardstick/etc/yardstick/nodes/compass_sclab_physical/pod.yaml
+  file: {{pod_info}}
 
 
