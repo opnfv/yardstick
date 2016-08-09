@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_73abe189",
+        "filename": "docs/userguide/opnfv_yardstick_tc063.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-08-09T01:48:03Z",
+      "side": 1,
+      "message": "add block size",
+      "range": {
+        "startLine": 17,
+        "startChar": 34,
+        "endLine": 17,
+        "endChar": 43
+      },
+      "revId": "05aa9eb544ae9aa8048db11f07fffa653dc3df1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d3a675c1",
+        "filename": "docs/userguide/opnfv_yardstick_tc063.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-08-09T01:48:03Z",
+      "side": 1,
+      "message": "Redundant",
+      "range": {
+        "startLine": 27,
+        "startChar": 22,
+        "endLine": 27,
+        "endChar": 28
+      },
+      "revId": "05aa9eb544ae9aa8048db11f07fffa653dc3df1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_93b0fdf5",
+        "filename": "docs/userguide/opnfv_yardstick_tc063.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-08-09T01:48:03Z",
+      "side": 1,
+      "message": "Maybe add reference to tools man page",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 43,
+        "endChar": 39
+      },
+      "revId": "05aa9eb544ae9aa8048db11f07fffa653dc3df1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_33956940",
+        "filename": "docs/userguide/opnfv_yardstick_tc063.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-08-09T01:48:03Z",
+      "side": 1,
+      "message": "please provide more details",
+      "range": {
+        "startLine": 69,
+        "startChar": 16,
+        "endLine": 69,
+        "endChar": 42
+      },
+      "revId": "05aa9eb544ae9aa8048db11f07fffa653dc3df1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
