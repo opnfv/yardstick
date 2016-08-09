@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_57a7b04f",
+        "filename": "docs/userguide/opnfv_yardstick_tc063.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-08-09T12:49:56Z",
+      "side": 1,
+      "message": "missing whitespace",
+      "range": {
+        "startLine": 34,
+        "startChar": 33,
+        "endLine": 34,
+        "endChar": 34
+      },
+      "revId": "53a365c06e7674f899d8a7caaac534f7cf06eb77",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_77774cd5",
+        "filename": "docs/userguide/opnfv_yardstick_tc063.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-08-09T12:49:56Z",
+      "side": 1,
+      "message": "fdisk",
+      "range": {
+        "startLine": 46,
+        "startChar": 17,
+        "endLine": 46,
+        "endChar": 27
+      },
+      "revId": "53a365c06e7674f899d8a7caaac534f7cf06eb77",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
