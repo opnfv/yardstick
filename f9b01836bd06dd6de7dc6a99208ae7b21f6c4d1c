@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_13738d4e",
+        "filename": "tests/opnfv/test_suites/opnfv_os-nosdn-kvm_ovs-ha_daily.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-08-09T02:08:09Z",
+      "side": 1,
+      "message": "delete white line",
+      "revId": "f9b01836bd06dd6de7dc6a99208ae7b21f6c4d1c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
