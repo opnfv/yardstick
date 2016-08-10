@@ -9,6 +9,9 @@ Yardstick Test Case Description TC069
 
 .. _RAMspeed: http://alasir.com/software/ramspeed/
 
+.. table::
+    :class: longtable
+
 +-----------------------------------------------------------------------------+
 |Memory Bandwidth                                                             |
 |                                                                             |
@@ -25,9 +28,9 @@ Yardstick Test Case Description TC069
 |              | while reading and writing certain blocks of data (starting   |
 |              | from 1Kb and further in power of 2) continuously through ALU |
 |              | and FPU respectively.                                        |
-|              | Measure different aspects of memory performance via synthetic|
-|              | simulations. Each simulation consists of four performances   |
-|              | (Copy, Scale, Add, Triad).                                   |
+|              | Measure different aspects of memory performance via          |
+|              | synthetic simulations. Each simulation consists of four      |
+|              | performances (Copy, Scale, Add, Triad).                      |
 |              | Test results, graphs and similar shall be stored for         |
 |              | comparison reasons and product evolution understanding       |
 |              | between different OPNFV versions and/or configurations.      |
@@ -37,11 +40,13 @@ Yardstick Test Case Description TC069
 |              |                                                              |
 |              | * SLA (optional): 7000 (MBps) min_bandwidth: The minimum     |
 |              |   amount of memory bandwidth that is accepted.               |
-|              | * type_id: 1 - runs a specified benchmark (by an ID number): |
+|              | * type_id: 1 - runs a specified benchmark                    |
+|              |   (by an ID number):                                         |
 |              |     1 -- INTmark [writing]          4 -- FLOATmark [writing] |
 |              |     2 -- INTmark [reading]          5 -- FLOATmark [reading] |
 |              |     3 -- INTmem                     6 -- FLOATmem            |
-|              | * block_size: 64 Megabytes - the maximum block size per array|
+|              | * block_size: 64 Megabytes - the maximum block size per      |
+|              |               array                                          |
 |              | * load: 32 Gigabytes - the amount of data load per pass      |
 |              | * iterations: 5 - test is run 5   times iteratively.         |
 |              | * interval: 1 - there is 1 second delay between each         |
@@ -52,8 +57,8 @@ Yardstick Test Case Description TC069
 |              |                                                              |
 |              | RAMspeed is a free open source command line utility to       |
 |              | measure cache and memory performance of computer systems.    |
-|              | RAMspeed is not always part of a Linux distribution, hence it|
-|              | needs to be installed in the test image.                     |
+|              | RAMspeed is not always part of a Linux distribution, hence   |
+|              | it needs to be installed in the test image.                  |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |references    | RAMspeed_                                                    |
@@ -83,8 +88,8 @@ Yardstick Test Case Description TC069
 |test sequence | description and expected result                              |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|step 1        | The host is installed as client. RAMspeed is invoked and logs|
-|              | are produced and stored.                                     |
+|step 1        | The host is installed as client. RAMspeed is invoked and     |
+|              | logs are produced and stored.                                |
 |              |                                                              |
 |              | Result: logs are stored.                                     |
 |              |                                                              |
