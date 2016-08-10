@@ -13,8 +13,9 @@ Yardstick Test Case Description TC043
 |Network Latency Between NFVI Nodes                                           |
 |                                                                             |
 +--------------+--------------------------------------------------------------+
-|test case id  | OPNFV_YARDSTICK_TC043_Latency_between_                       |
-|              | NFVI_nodes_measurements                                      |
+|test case id  | OPNFV_YARDSTICK_TC043_Latency_between_NFVI_nodes_            |
+|              | measurements                                                 | 
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |metric        | RTT, Round Trip Time                                         |
 |              |                                                              |
