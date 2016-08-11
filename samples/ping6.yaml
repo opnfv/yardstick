@@ -7,7 +7,9 @@ scenarios:
 -
   type: Ping6
   options:
+    installer_type: 'compass'
     packetsize: 200
+    ping_count: 5
     host: host1,host2,host3,host4,host5
   nodes:
     host1: node1.IPV6
@@ -29,5 +31,3 @@ context:
   type: Node
   name: IPV6
   file: /root/yardstick/etc/yardstick/nodes/compass_sclab_virtual/pod.yaml
-
-

@@ -9,23 +9,35 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+set -e
 
-# download and create image
-source /opt/admin-openrc.sh
+installer_type=$1
+
+if [ "$installer_type" == 'compass' ]; then
+    source /opt/admin-openrc.sh
+elif [ "$installer_type" == 'fuel' ]; then
+    source openrc
+elif [ "$installer_type" == 'apex' ]; then
+    echo "hello"
+elif [ "$installer_type" == 'joid' ]; then
+    echo "Do nothing, creds will be provided through volume option at docker creation for joid"
+else
+    echo "$installer_type is not supported by this script"
+    exit 0
+fi
+
 wget https://download.fedoraproject.org/pub/fedora/linux/releases/22/Cloud/x86_64/Images/Fedora-Cloud-Base-22-20150521.x86_64.qcow2 >/dev/null 2>&1
 
 glance image-create --name 'Fedora22' --disk-format qcow2 \
 --container-format bare --file ./Fedora-Cloud-Base-22-20150521.x86_64.qcow2
 
-
 # create router
 neutron router-create ipv4-router
 neutron router-create ipv6-router
 
-
 # create (ipv4,ipv6)router and net and subnet
-neutron net-create --port_security_enabled=False ipv4-int-network1
-neutron net-create --port_security_enabled=False ipv6-int-network2
+neutron net-create ipv4-int-network1
+neutron net-create ipv6-int-network2
 
 # Create IPv4 subnet and associate it to ipv4-router
 neutron subnet-create --name ipv4-int-subnet1 \
@@ -42,10 +54,8 @@ neutron subnet-create --name ipv4-int-subnet2 --dns-nameserver 8.8.8.8 ipv6-int-
 neutron subnet-create --name ipv6-int-subnet2 \
  --ip-version 6 --ipv6-ra-mode slaac --ipv6-address-mode slaac ipv6-int-network2 2001:db8:0:1::/64
 
-
 neutron router-interface-add ipv6-router ipv4-int-subnet2
 neutron router-interface-add ipv6-router ipv6-int-subnet2
-
 
 # create key
 nova keypair-add vRouterKey > ~/vRouterKey

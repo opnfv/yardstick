@@ -10,8 +10,25 @@
 ##############################################################################
 # need to debug
 
+set -e
+installer_type=$1
+shift
+# ping_options="$@"
+
+if ["$installer_type" == "compass"]; then
+    source /opt/admin-openrc.sh
+elif [ "$installer_type" == "fuel" ]; then
+    source openrc
+elif [ "$installer_type" == "apex" ]; then
+    echo "hello"
+elif [ "$installer_type" == "joid" ]; then
+    echo "Do nothing, creds will be provided through volume option at docker creation for joid"
+else
+    echo "$installer_type is not supported by this script"
+    exit 0
+fi
+
 # download and create image
-source /opt/admin-openrc.sh
 wget https://download.fedoraproject.org/pub/fedora/linux/releases/22/Cloud/x86_64/Images/Fedora-Cloud-Base-22-20150521.x86_64.qcow2
 glance image-create --name 'Fedora22' --disk-format qcow2 \
 --container-format bare --file ./Fedora-Cloud-Base-22-20150521.x86_64.qcow2
