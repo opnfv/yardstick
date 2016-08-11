@@ -42,7 +42,7 @@ EOF
 
 DISPATCHER_TYPE=file
 DISPATCHER_FILE_NAME="/tmp/yardstick.out"
-DISPATCHER_HTTP_TARGET=
+DISPATCHER_HTTP_TARGET="http://testresults.opnfv.org/test/api/v1/results"
 DISPATCHER_INFLUXDB_TARGET=
 
 while getopts "r:i:h" OPTION; do
@@ -293,18 +293,28 @@ EOF
 
         done
 
-        local sceanrio_status="success"
+        local sceanrio_status="SUCCESS"
 
         if [ $failed -gt 0 ]; then
-            scenario_status="failed"
+            scenario_status="FAILED"
+        fi
+        curl -i -H 'content-type: application/json' -X POST -d \
+            "{\"project_name\": \"yardstick\",
+              \"pod_name\":\"${NODE_NAME}\",
+              \"installer\":\"${INSTALLER_TYPE}\",
+              \"description\": \"yardstick ci scenario status\",
+              \"case_name\": \"scenario_status\",
+              \"version\":\"${YARDSTICK_BRANCH}\",
+              \"scenario\":\"${DEPLOY_SCENARIO}\",
+              \"details\":\"${sceanrio_status}\"}" \
+              ${DISPATCHER_HTTP_TARGET}
+
+        if [ $failed -gt 0 ]; then
             echo "---------------------------"
             echo "$failed out of ${SUITE_FILES[*]} test suites FAILED"
             echo "---------------------------"
             exit 1
         fi
-        curl -i -H 'content-type: application/json' -X POST -d \
-            '{\"details\":{\"${DEPLOY_SCENARIO}\":\"${sceanrio_status}\"}}' \
-            http://${DISPATCHER_HTTP_TARGET}:3570
 
     else
 
