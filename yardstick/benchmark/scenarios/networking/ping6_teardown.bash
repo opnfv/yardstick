@@ -8,7 +8,23 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-source /opt/admin-openrc.sh
+set -e
+
+installer_type=$1
+
+if [ "$installer_type" == 'compass' ]; then
+    source /opt/admin-openrc.sh
+elif [ "$installer_type" == 'fuel' ]; then
+    source openrc
+elif [ "$installer_type" == 'apex' ]; then
+    echo "hello"
+elif [ "$installer_type" == 'joid' ]; then
+    echo "Do nothing, creds will be provided through volume option at docker creation for joid"
+else
+    echo "$installer_type is not supported by this script"
+    exit 0
+fi
+
 # delete VM
 nova delete VM1
 nova delete VM2

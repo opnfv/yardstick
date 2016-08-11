@@ -30,23 +30,29 @@ class Ping6(base.Scenario):  # pragma: no cover
     SETUP_ODL_SCRIPT = 'ping6_setup_with_odl.bash'
     FIND_HOST_SCRIPT = 'ping6_find_host.bash'
     TEARDOWN_SCRIPT = 'ping6_teardown.bash'
-    METADATA_SCRIPT = 'ping6_metadata.txt'
-    RADVD_SCRIPT = 'ping6_radvd.conf'
+    METADATA_FILE = 'ping6_metadata.txt'
+    RADVD_FILE = 'ping6_radvd.conf'
     POST_TEARDOWN_SCRIPT = 'ping6_post_teardown.bash'
 
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
+        self.host_list = None
         self.setup_done = False
         self.run_done = False
+        # default installer: compass
+        self.installer_type = 'Not_Defined'
+        self.ping_options = ''
 
     def _pre_setup(self):
         for node_name in self.host_list:
             self._ssh_host(node_name)
-            self.client.run("cat > ~/pre_setup.sh",
-                            stdin=open(self.pre_setup_script, "rb"))
-            status, stdout, stderr = self.client.execute(
-                "sudo bash pre_setup.sh")
+            self.connection.run(
+                "cat > ~/pre_setup.sh",
+                stdin=open(self.pre_setup_script, "rb"))
+            status, stdout, stderr = self.connection.execute(
+                "/bin/sh -s {0}".format(self.installer_type),
+                stdin=open(self.pre_setup_script, "r"))
 
     def _ssh_host(self, node_name):
         # ssh host
@@ -57,8 +63,8 @@ class Ping6(base.Scenario):  # pragma: no cover
         host_ip = node.get('ip', None)
         host_pwd = node.get('password', 'root')
         LOG.debug("user:%s, host:%s", host_user, host_ip)
-        self.client = ssh.SSH(host_user, host_ip, password=host_pwd)
-        self.client.wait(timeout=600)
+        self.connection = ssh.SSH(host_user, host_ip, password=host_pwd)
+        self.connection.wait(timeout=600)
 
     def setup(self):
         '''scenario setup'''
@@ -76,13 +82,18 @@ class Ping6(base.Scenario):  # pragma: no cover
 
         self.ping6_metadata_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
-            Ping6.METADATA_SCRIPT)
+            Ping6.METADATA_FILE)
 
         self.ping6_radvd_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
-            Ping6.RADVD_SCRIPT)
+            Ping6.RADVD_FILE)
 
         options = self.scenario_cfg['options']
+        self.ping_options = "-s %s" % \
+            options.get("packetsize", '56') + \
+            "-c %s" % \
+            options.get("ping_count", '5')
+        self.installer_type = options.get("installer_type", 'compass')
         host_str = options.get("host", 'host1')
         self.host_list = host_str.split(',')
         self.host_list.sort()
@@ -93,23 +104,27 @@ class Ping6(base.Scenario):  # pragma: no cover
         # ssh host1
         self._ssh_host(self.host_list[0])
 
-        self.client.run("cat > ~/metadata.txt",
-                        stdin=open(self.ping6_metadata_script, "rb"))
+        self.connection.run(
+            "cat > ~/metadata.txt",
+            stdin=open(self.ping6_metadata_script, "rb"))
 
         # run script to setup ipv6 with nosdn or odl
         sdn = options.get("sdn", 'nosdn')
         if 'odl' in sdn:
-            self.client.run("cat > ~/br-ex.radvd.conf",
-                            stdin=open(self.ping6_radvd_script, "rb"))
-            self.client.run("cat > ~/setup_odl.sh",
-                            stdin=open(self.setup_odl_script, "rb"))
-            cmd = "sudo bash setup_odl.sh"
+            self.connection.run(
+                "cat > ~/br-ex.radvd.conf",
+                stdin=open(self.ping6_radvd_script, "rb"))
+            self.connection.run(
+                "cat > ~/setup_odl.sh",
+                stdin=open(self.setup_odl_script, "rb"))
+            cmd = "sudo bash setup_odl.sh %s" % (self.installer_type)
         else:
-            self.client.run("cat > ~/setup.sh",
-                            stdin=open(self.setup_script, "rb"))
-            cmd = "sudo bash setup.sh"
+            self.connection.run(
+                "cat > ~/setup.sh",
+                stdin=open(self.setup_script, "rb"))
+            cmd = "sudo bash setup.sh %s" % (self.installer_type)
 
-        status, stdout, stderr = self.client.execute(cmd)
+        status, stdout, stderr = self.connection.execute(cmd)
 
         self.setup_done = True
 
@@ -126,32 +141,41 @@ class Ping6(base.Scenario):  # pragma: no cover
 
         if not self.setup_done:
             options = self.scenario_cfg['options']
+            self.ping_options = "-s %s" % \
+                options.get("packetsize", '56') + \
+                "-c %s" % \
+                options.get("ping_count", '5')
+            self.installer_type = options.get("installer_type", 'compass')
             host_str = options.get("host", 'host1')
             self.host_list = host_str.split(',')
             self.host_list.sort()
             self._ssh_host(self.host_list[0])
 
         # find ipv4-int-network1 to ssh VM
-        self.client.run("cat > ~/find_host.sh",
-                        stdin=open(self.ping6_find_host_script, "rb"))
-        cmd = "sudo bash find_host.sh"
+        self.connection.run(
+            "cat > ~/find_host.sh",
+            stdin=open(self.ping6_find_host_script, "rb"))
+        cmd = "sudo bash find_host.sh %s" % (self.installer_type)
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        status, stdout, stderr = self.connection.execute(cmd)
         host_name = stdout.strip()
 
         # copy vRouterKey to target host
-        self.client.run("cat ~/vRouterKey",
-                        stdout=open("/tmp/vRouterKey", "w"))
+        self.connection.run(
+            "cat ~/vRouterKey",
+            stdout=open("/tmp/vRouterKey", "w"))
         self._ssh_host(host_name)
-        self.client.run("cat > ~/vRouterKey",
-                        stdin=open("/tmp/vRouterKey", "rb"))
+        self.connection.run(
+            "cat > ~/vRouterKey",
+            stdin=open("/tmp/vRouterKey", "rb"))
 
         # run ping6 benchmark
-        self.client.run("cat > ~/ping6.sh",
-                        stdin=open(self.ping6_script, "rb"))
-        cmd = "sudo bash ping6.sh"
-        LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        self.connection.run(
+            "cat > ~/ping6.sh",
+            stdin=open(self.ping6_script, "rb"))
+        cmd_args = "%s %s" % (self.installer_type, self.ping_options)
+        cmd = "sudo bash ping6.sh %s" % (cmd_args)
+        status, stdout, stderr = self.connection.execute(cmd)
 
         if status:
             raise RuntimeError(stderr)
@@ -185,10 +209,11 @@ class Ping6(base.Scenario):  # pragma: no cover
         self.teardown_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
             Ping6.TEARDOWN_SCRIPT)
-        self.client.run("cat > ~/teardown.sh",
-                        stdin=open(self.teardown_script, "rb"))
-        cmd = "sudo bash teardown.sh"
-        status, stdout, stderr = self.client.execute(cmd)
+        self.connection.run(
+            "cat > ~/teardown.sh",
+            stdin=open(self.teardown_script, "rb"))
+        cmd = "sudo bash teardown.sh %s" % (self.installer_type)
+        status, stdout, stderr = self.connection.execute(cmd)
 
         post_teardown = options.get("post_teardown", True)
         if post_teardown:
@@ -205,7 +230,8 @@ class Ping6(base.Scenario):  # pragma: no cover
     def _post_teardown(self):
         for node_name in self.host_list:
             self._ssh_host(node_name)
-            self.client.run("cat > ~/post_teardown.sh",
-                            stdin=open(self.post_teardown_script, "rb"))
-            status, stdout, stderr = self.client.execute(
+            self.connection.run(
+                "cat > ~/post_teardown.sh",
+                stdin=open(self.post_teardown_script, "rb"))
+            status, stdout, stderr = self.connection.execute(
                 "sudo bash post_teardown.sh")
