@@ -128,10 +128,14 @@ install_storperf()
         echo
         echo "========== Installing storperf =========="
 
-        if ! yardstick plugin install plugin/CI/storperf.yaml; then
+        if ! yardstick -d plugin install plugin/CI/storperf.yaml; then
             echo "Install storperf plugin FAILED";
             exit 1
         fi
+
+        echo
+        echo "========== Installed storperf container =========="
+        docker ps | grep storperf-yardstick
     fi
 }
 
