@@ -132,6 +132,10 @@ install_storperf()
             echo "Install storperf plugin FAILED";
             exit 1
         fi
+
+        echo
+        echo "========== Installed storperf container =========="
+        docker ps | grep storperf-yardstick
     fi
 }
 
