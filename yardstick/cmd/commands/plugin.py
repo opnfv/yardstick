@@ -41,8 +41,10 @@ class PluginCommands(object):
         plugin_name = plugins.get("name")
         print("Installing plugin: %s" % plugin_name)
 
+        LOG.info("Executing _install_setup()")
         self._install_setup(plugin_name, deployment)
 
+        LOG.info("Executing _run()")
         self._run(plugin_name)
 
         total_end_time = time.time()
@@ -61,10 +63,12 @@ class PluginCommands(object):
 
         plugins, deployment = parser.parse_plugin()
         plugin_name = plugins.get("name")
-        print("Remove plugin: %s" % plugin_name)
+        print("Removing plugin: %s" % plugin_name)
 
+        LOG.info("Executing _remove_setup()")
         self._remove_setup(plugin_name, deployment)
 
+        LOG.info("Executing _run()")
         self._run(plugin_name)
 
         total_end_time = time.time()
@@ -86,18 +90,20 @@ class PluginCommands(object):
         if deployment_ip == "local":
             installer_ip = os.environ.get("INSTALLER_IP", None)
 
-            LOG.debug("user:%s, host:%s", deployment_user, installer_ip)
+            LOG.info("user:%s, host:%s", deployment_user, installer_ip)
             self.client = ssh.SSH(deployment_user, installer_ip,
                                   password=deployment_password)
             self.client.wait(timeout=600)
         else:
-            LOG.debug("user:%s, host:%s", deployment_user, deployment_ip)
+            LOG.info("user:%s, host:%s", deployment_user, deployment_ip)
             self.client = ssh.SSH(deployment_user, deployment_ip,
                                   password=deployment_password)
             self.client.wait(timeout=600)
 
         # copy script to host
         cmd = "cat > ~/%s.sh" % plugin_name
+
+        LOG.info("copying script to host: %s", cmd)
         self.client.run(cmd, stdin=open(self.script, 'rb'))
 
     def _remove_setup(self, plugin_name, deployment):
@@ -113,25 +119,27 @@ class PluginCommands(object):
         if deployment_ip == "local":
             installer_ip = os.environ.get("INSTALLER_IP", None)
 
-            LOG.debug("user:%s, host:%s", deployment_user, installer_ip)
+            LOG.info("user:%s, host:%s", deployment_user, installer_ip)
             self.client = ssh.SSH(deployment_user, installer_ip,
                                   password=deployment_password)
             self.client.wait(timeout=600)
         else:
-            LOG.debug("user:%s, host:%s", deployment_user, deployment_ip)
+            LOG.info("user:%s, host:%s", deployment_user, deployment_ip)
             self.client = ssh.SSH(deployment_user, deployment_ip,
                                   password=deployment_password)
             self.client.wait(timeout=600)
 
         # copy script to host
         cmd = "cat > ~/%s.sh" % plugin_name
+
+        LOG.info("copying script to host: %s", cmd)
         self.client.run(cmd, stdin=open(self.script, 'rb'))
 
     def _run(self, plugin_name):
         '''Run installation script '''
         cmd = "sudo bash %s" % plugin_name + ".sh"
 
-        LOG.debug("Executing command: %s", cmd)
+        LOG.info("Executing command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
 
 
