@@ -1,0 +1,23 @@
+---
+# Yardstick TC075 config file
+# Measure compute capacity and scale.
+# Including number of cores, number of threads, available memory size and
+# cache size.
+
+schema: "yardstick:task:0.1"
+{% set host = host or "node1.LF" %}
+{% set pod_info = pod_info or "etc/yardstick/nodes/compass_sclab_virtual/pod.yaml" %}
+
+scenarios:
+-
+  type: NetworkCapacity
+  host: {{host}} 
+
+  runner:
+    type: Iteration
+    iterations: 1
+
+context:
+  type: Node
+  name: LF
+  file: {{pod_info}} 
