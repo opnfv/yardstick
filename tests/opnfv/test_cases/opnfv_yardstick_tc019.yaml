@@ -16,9 +16,15 @@ scenarios:
     monitors:
     - monitor_type: "openstack-cmd"
       command_name: "nova image-list"
+      monitor_time: 10
+      sla:
+        max_outage_time: 5
     - monitor_type: "process"
       process_name: "nova-api"
       host: node1
+      monitor_time: 20
+      sla:
+        max_recover_time: 20
 
   nodes:
     node1: node1.LF

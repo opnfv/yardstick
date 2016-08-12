@@ -21,9 +21,9 @@ scenarios:
     - monitor_type: "process"
       process_name: "keystone"
       host: node1
-      monitor_time: 10
+      monitor_time: 20
       sla:
-        max_recover_time: 5
+        max_recover_time: 20
 
   nodes:
     node1: node1.LF
