@@ -27,7 +27,7 @@ output_disk_size()
     DISKSIZE=`awk 'BEGIN{cnt=0;} {cnt=cnt+$2} END{print cnt}' $OUTPUT_FILE`
     echo -e "{\
          \"Number of devices\":\"$DEVICENUM\", \
-         \"Total disk size\":\"$DISKSIZE bytes\" \
+         \"Total disk size in bytes\":\"$DISKSIZE\" \
     }"
 }
 

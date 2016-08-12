@@ -18,7 +18,7 @@ import json
 
 from yardstick.benchmark.scenarios.storage import storagecapacity
 
-DISK_SIZE_SAMPLE_OUTPUT = '{"Numberf of devides": "2", "Total disk size": "1024000000 bytes"}'
+DISK_SIZE_SAMPLE_OUTPUT = '{"Numberf of devides": "2", "Total disk size in bytes": "1024000000"}'
 BLOCK_SIZE_SAMPLE_OUTPUT = '{"/dev/sda": 1024, "/dev/sdb": 4096}'
 DISK_UTIL_RAW_OUTPUT = "vda 10.00\nvda 0.00"
 DISK_UTIL_SAMPLE_OUTPUT = '{"vda": {"avg_util": 5.0, "max_util": 10.0, "min_util": 0.0}}'
