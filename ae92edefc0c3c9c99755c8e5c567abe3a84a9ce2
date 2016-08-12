@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_403123eb",
+        "filename": "yardstick/benchmark/scenarios/networking/ping6.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2016-08-12T03:52:08Z",
+      "side": 1,
+      "message": "hi, installer_type option is also added, so this can be run without CI, used for some activities, such as plugfest without CI. \"connection\" here used is to in line with the ping test case.",
+      "parentUuid": "1a76adc5_ec406b58",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 74
+      },
+      "revId": "ae92edefc0c3c9c99755c8e5c567abe3a84a9ce2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_8c2537c4",
         "filename": "yardstick/benchmark/scenarios/networking/ping6.py",
         "patchSetId": 2
@@ -59,6 +83,30 @@
       "writtenOn": "2016-08-12T02:55:39Z",
       "side": 1,
       "message": "I think this is no meaning for the scenario, A better way is to add those branch when you will support that installer",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 16
+      },
+      "revId": "ae92edefc0c3c9c99755c8e5c567abe3a84a9ce2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e04dcf73",
+        "filename": "yardstick/benchmark/scenarios/networking/ping6_pre_setup.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2016-08-12T03:52:08Z",
+      "side": 1,
+      "message": "this is used for supporting different installers, and can obtain the installer type through configure yaml without CI, some activities, such as plugfest will use. I list the installers and \"hello\" here just is convenient for later parallel developing",
+      "parentUuid": "1a76adc5_6c2c5bac",
       "range": {
         "startLine": 32,
         "startChar": 0,
