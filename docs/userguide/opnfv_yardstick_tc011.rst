@@ -56,12 +56,12 @@ Yardstick Test Case Description TC011
 |              | ETSI-NFV-TST001                                              |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|applicability | Test can be configured with different                        |
+|applicability | Test can be configured with different:                       |
 |              |                                                              |
 |              | * bandwidth: Test case can be configured with different      |
-|              |              bandwidth                                       |
+|              |              bandwidth.                                      |
 |              |                                                              |
-|              | * duration: The test duration can be configured              |
+|              | * duration: The test duration can be configured.             |
 |              |                                                              |
 |              | * jitter: SLA is optional. The SLA in this test case         |
 |              |           serves as an example.                              |
