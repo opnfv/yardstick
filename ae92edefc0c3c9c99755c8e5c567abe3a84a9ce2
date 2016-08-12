@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_ec406b58",
+        "filename": "yardstick/benchmark/scenarios/networking/ping6.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-08-12T02:55:39Z",
+      "side": 1,
+      "message": "only this part and  part 2 are the code which provide more function. So as please revert other parts to the original. \"connection\" is a good word. but \"client\" is also ok for this scenario.",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 74
+      },
+      "revId": "ae92edefc0c3c9c99755c8e5c567abe3a84a9ce2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_8c2537c4",
+        "filename": "yardstick/benchmark/scenarios/networking/ping6.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-08-12T02:55:39Z",
+      "side": 1,
+      "message": "part 2",
+      "range": {
+        "startLine": 176,
+        "startChar": 4,
+        "endLine": 177,
+        "endChar": 50
+      },
+      "revId": "ae92edefc0c3c9c99755c8e5c567abe3a84a9ce2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_6c2c5bac",
+        "filename": "yardstick/benchmark/scenarios/networking/ping6_pre_setup.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-08-12T02:55:39Z",
+      "side": 1,
+      "message": "I think this is no meaning for the scenario, A better way is to add those branch when you will support that installer",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 16
+      },
+      "revId": "ae92edefc0c3c9c99755c8e5c567abe3a84a9ce2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_cc124f62",
+        "filename": "yardstick/benchmark/scenarios/networking/ping6_setup_with_odl.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-08-12T02:55:39Z",
+      "side": 1,
+      "message": "same with other files",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 17
+      },
+      "revId": "ae92edefc0c3c9c99755c8e5c567abe3a84a9ce2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
