@@ -121,7 +121,9 @@ class SSH(object):
             self._client.connect(self.host, username=self.user,
                                  port=self.port, pkey=self.pkey,
                                  key_filename=self.key_filename,
-                                 password=self.password, timeout=1)
+                                 password=self.password,
+                                 allow_agent=False, look_for_keys=False,
+                                 timeout=1)
             return self._client
         except Exception as e:
             message = ("Exception %(exception_type)s was raised "
