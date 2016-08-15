@@ -104,10 +104,11 @@ test_cases:
         huawei-pod1: '{"public_network": "ext-net",
         "StorPerf_ip": "192.168.200.2"}'
 -
-	file_name: opnfv_yardstick_tc075.yaml
+    file_name: opnfv_yardstick_tc075.yaml
     constraint:
         installer: compass
         pod: huawei-pod1
     task_args:
         huawei-pod1: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
         "host": "node1.LF"}'
+

@@ -49,6 +49,7 @@ Generic NFVI Test Case Descriptions
    opnfv_yardstick_tc070.rst
    opnfv_yardstick_tc071.rst
    opnfv_yardstick_tc072.rst
+   opnfv_yardstick_tc075.rst
 
 OPNFV Feature Test Cases
 ========================
