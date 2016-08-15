@@ -9,30 +9,28 @@ Yardstick Test Case Description TC075
 
 
 +-----------------------------------------------------------------------------+
-|Network Capacity and Scale Testing											  |
+|Network Capacity and Scale Testing                                           |
 |                                                                             |
 +--------------+--------------------------------------------------------------+
 |test case id  | OPNFV_YARDSTICK_TC075_Network_Capacity_and_Scale_testing     |
-|              |															  |
+|                                                                             |
 +--------------+--------------------------------------------------------------+
 |metric        | Number of connections, Number of frames sent/received        |
-|              |                                                              |
+|                                                                             |
 +--------------+--------------------------------------------------------------+
-|test purpose  | To evaluate the network capacity and scale with regards to   | 
-|              | connections and frmaes.									  | 
-|              |                                                              |
-|              |                                                              |
+|test purpose  | To evaluate the network capacity and scale with regards to   |
+|              | connections and frmaes.									  |
+|                                                                             |
 +--------------+--------------------------------------------------------------+
 |configuration | file: opnfv_yardstick_tc075.yaml                             |
 |              |                                                              |
-|              | There is no additional configuration to be set for this TC.  | 
-|              |                                                              |
-|              |                                                              |
+|              | There is no additional configuration to be set for this TC.  |
+|                                                                             |
 +--------------+--------------------------------------------------------------+
 |test tool     | netstar                                                      |
 |              |                                                              |
-|              | Netstat is normally part of any Linux distribution, hence it | 
-|              | doesn't need to be installed.                                | 
+|              | Netstat is normally part of any Linux distribution, hence it |
+|              | doesn't need to be installed.                                |
 |              |                                                              |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
@@ -41,7 +39,7 @@ Yardstick Test Case Description TC075
 |              | ETSI-NFV-TST001                                              |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|applicability | This test case is mainly for evaluating network performance. | 
+|applicability | This test case is mainly for evaluating network performance. |
 |              |                                                              |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
@@ -58,7 +56,7 @@ Yardstick Test Case Description TC075
 |              | Result: Logs are stored.                                     |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|test verdict  | None. Number of connections and frames are fetched and       | 
+|test verdict  | None. Number of connections and frames are fetched and       |
 |              | stored.                                                      |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
