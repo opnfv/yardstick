@@ -4,7 +4,7 @@
 
 schema: "yardstick:task:0.1"
 {% set public_network = public_network or "ext-net" %}
-{% set StorPerf_ip = StorPerf_ip or "192.168.200.2" %}
+{% set StorPerf_ip = StorPerf_ip or "192.168.200.1" %}
 scenarios:
 -
   type: StorPerf

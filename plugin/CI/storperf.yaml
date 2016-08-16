@@ -8,6 +8,6 @@ plugins:
   name: storperf
 
 deployment:
-  ip: local
+  ip: 192.168.200.1
   user: root
   password: root

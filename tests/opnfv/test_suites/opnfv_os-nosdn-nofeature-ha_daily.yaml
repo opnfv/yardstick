@@ -102,7 +102,7 @@ test_cases:
         pod: huawei-pod1
     task_args:
         huawei-pod1: '{"public_network": "ext-net",
-        "StorPerf_ip": "192.168.200.2"}'
+        "StorPerf_ip": "192.168.200.1"}'
 -
     file_name: opnfv_yardstick_tc075.yaml
     constraint:

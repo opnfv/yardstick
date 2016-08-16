@@ -133,8 +133,21 @@ install_storperf()
             exit 1
         fi
 
+    fi
+}
+
+remove_storperf()
+{
+    # remove Storper from huawei-pod1
+    if [ "$NODE_NAME" == "huawei-pod1" ]; then
         echo
-        echo "========== Installed storperf container =========="
+        echo "========== Removing storperf =========="
+
+        if ! yardstick -d plugin remove plugin/CI/storperf.yaml; then
+            echo "Remove storperf plugin FAILED";
+            exit 1
+        fi
+
     fi
 }
 
@@ -422,6 +435,7 @@ main()
 
     install_storperf
     run_test
+    remove_storperf
 }
 
 main
