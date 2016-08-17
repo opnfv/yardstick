@@ -44,7 +44,6 @@ RUN cd /tmp/yardstick && \
     rm -rf /tmp/* && \
     rm -rf /var/lib/apt/lists/*
 
-USER yardstick
 CMD bash --login
 ENV HOME /home/yardstick
 WORKDIR /home/yardstick
