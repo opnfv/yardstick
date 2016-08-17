@@ -13,7 +13,7 @@ scenarios:
 
   runner:
     type: Duration
-    duration: 600
+    duration: 60
     interval: 10
 
   sla:
