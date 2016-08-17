@@ -42,7 +42,11 @@ mountdir="/mnt/yardstick"
 workspace=${WORKSPACE:-"/tmp/workspace/yardstick"}
 host=${HOST:-"cloud-images.ubuntu.com"}
 release=${RELEASE:-"trusty"}
-image_path="${release}/current/${release}-server-cloudimg-amd64-disk1.img"
+if [ $YARD_IMG_ARCH = "arm64" ]; then
+	image_path="${release}/current/${release}-server-cloudimg-arm64-disk1.img"
+else
+	image_path="${release}/current/${release}-server-cloudimg-amd64-disk1.img"
+fi
 image_url=${IMAGE_URL:-"https://${host}/${image_path}"}
 md5sums_path="${release}/current/MD5SUMS"
 md5sums_url=${MD5SUMS_URL:-"https://${host}/${md5sums_path}"}
@@ -64,12 +68,35 @@ download() {
         wget -nc --progress=dot:giga $image_url
         grep $filename MD5SUMS | md5sum -c
     fi
+    if [ $YARD_IMG_ARCH = "arm64" ]; then
+	cd /tmp
+	if [ ! -f /tmp/vivid-server-cloudimg-arm64-kernel-info.txt ]; then
+		wget http://cloud-images.ubuntu.com/vivid/current/vivid-server-cloudimg-arm64-kernel-info.txt
+	fi
+	export VIVID_KERNEL_VERSION=$(cut -d$'\t' -f4 vivid-server-cloudimg-arm64-kernel-info.txt)
+	mkdir -p /tmp/vivid-modules
+	if [ ! -f "/tmp/vivid-server-cloudimg-arm64.tar.gz" ]; then
+		wget http://cloud-images.ubuntu.com/vivid/current/vivid-server-cloudimg-arm64.tar.gz
+	fi
+	if [ ! -f "/tmp/vivid-server-cloudimg-arm64.img" ]; then
+		tar zxvf vivid-server-cloudimg-arm64.tar.gz vivid-server-cloudimg-arm64.img
+	fi
+	mkdir -p /mnt/vivid
+	mount vivid-server-cloudimg-arm64.img /mnt/vivid
+	cp -r /mnt/vivid/lib/modules/$(echo $VIVID_KERNEL_VERSION | cut -d'-' -f3,4,5) /tmp/vivid-modules
+	umount /mnt/vivid
+	cd $workspace
+    fi
     qemu-img convert $filename $raw_imgfile
     cd -
 }
 
 # mount image
 setup() {
+    # qemu-img resize $raw_imgfile +5GB
+    if [ $YARD_IMG_ARCH = "arm64" ]; then
+	echo -e "d\nn\np\n1\n\n\nw" | fdisk $raw_imgfile
+    fi
     mkdir -p $mountdir
 
     for i in $(seq 0 9); do
@@ -79,15 +106,21 @@ setup() {
     loopdevice=$(kpartx -l $raw_imgfile | head -1 | cut -f1 -d ' ')
 
     kpartx -av $raw_imgfile
-
+    if [ $YARD_IMG_ARCH = "arm64" ]; then
+	resize2fs /dev/mapper/$loopdevice
+    fi
     # for trouble shooting
     sleep 2
     dmsetup ls
     fdisk -l /dev/${loopdevice:0:5} || true
-
     mount /dev/mapper/$loopdevice $mountdir
     mount -t proc none $mountdir/proc
 
+    if [ $YARD_IMG_ARCH = "arm64" ]; then
+	    cp -r /tmp/vivid-modules/3.19.0-49-generic "$mountdir/lib/modules"
+	    cp $(which "qemu-aarch64-static") "$mountdir/usr/bin"
+	    cp /home/opnfv/repos/yardstick/aarch64.patch $mountdir/$basename
+    fi
     cp $cmd $mountdir/$(basename $cmd)
 }
 

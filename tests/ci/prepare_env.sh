@@ -78,5 +78,10 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     echo "Fetching id_rsa file from jump_server $INSTALLER_IP..."
     sshpass -p r00tme scp 2>/dev/null $ssh_options \
     root@${INSTALLER_IP}:~/.ssh/id_rsa /root/.ssh/id_rsa &> /dev/null
+
+    ARCH_SCRIPT="test -f /etc/fuel_openstack_arch && grep -q arm64 /etc/fuel_openstack_arch"
+
+    sshpass -p r00tme ssh $ssh_options -l root $INSTALLER_IP "${ARCH_SCRIPT}" && export YARD_IMG_ARCH=arm64
+    sudo echo "Defaults env_keep += "YARD_IMG_ARCH"" >> /etc/sudoers
 fi
 
