@@ -267,15 +267,17 @@ password = 0pnfv2015
 EOF
 
     local failed=0
+    local start_date
+    local stop_date
 
     if [ ${#SUITE_FILES[@]} -gt 0 ]; then
 
+        start_date=$(date '+%Y-%m-%d %H:%M:%S')
         for suite in ${SUITE_FILES[*]}; do
 
             echo "---------------------------"
             echo "Running test suite: $suite"
             echo "---------------------------"
-
             if ! yardstick task start --suite $suite; then
                  echo "test suite $suite FAILED";
 
@@ -293,8 +295,10 @@ EOF
                     echo "Test result file ${DISPATCHER_FILE_NAME} is not exist"
                 fi
             fi
-
         done
+        stop_date=$(date '+%Y-%m-%d %H:%M:%S')
+
+
 
         local sceanrio_status="SUCCESS"
 
@@ -303,12 +307,14 @@ EOF
         fi
         curl -i -H 'content-type: application/json' -X POST -d \
             "{\"project_name\": \"yardstick\",
+              \"case_name\": \"scenario_status\",
               \"pod_name\":\"${NODE_NAME}\",
               \"installer\":\"${INSTALLER_TYPE}\",
-              \"description\": \"yardstick ci scenario status\",
-              \"case_name\": \"scenario_status\",
               \"version\":\"${YARDSTICK_BRANCH}\",
               \"scenario\":\"${DEPLOY_SCENARIO}\",
+              \"description\": \"yardstick ci scenario status\",
+              \"start_date\":\"${start_date}\",
+              \"stop_date\":\"${stop_date}\",
               \"details\":\"${sceanrio_status}\"}" \
               ${DISPATCHER_HTTP_TARGET}
 
