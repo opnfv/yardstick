@@ -251,3 +251,71 @@ More info about the tool can be found by executing:
 ::
 
   yardstick-plot -h
+
+
+Deploy InfluxDB and Grafana locally
+------------------------------------
+
+.. pull docker images
+
+Pull docker images
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+  docker pull tutum/influxdb
+  docker pull grafana/grafana
+
+Run influxdb and config
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Run influxdb
+::
+
+  docker run -d --name influxdb -p 8083:8083 -p 8086:8086 --expose 8090 --expose 8099 tutum/influxdb
+  docker exec -it influxdb bash
+
+Config influxdb
+::
+
+  influx
+  >CREATE USER root WITH PASSWORD 'root' WITH ALL PRIVILEGES
+  >CREATE DATABASE yardstick;
+  >use yardstick;
+  >show MEASUREMENTS;
+
+Run grafana and config
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Run grafana
+::
+
+  docker run -d --name grafana -p 3000:3000 grafana/grafana
+
+Config grafana
+::
+
+  http://{YOUR_IP_HERE}:3000
+  log on using admin/admin and config database resource to be {YOUR_IP_HERE}:8086
+
+.. image:: images/Grafana_config.png
+
+Config yardstick conf
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+cp ./etc/yardstick/yardstick.conf.sample /etc/yardstick/yardstick.conf
+
+vi /etc/yardstick/yardstick.conf
+Config yardstick.conf
+::
+
+  [DEFAULT]
+  debug = True
+  dispatcher = influxdb
+
+  [dispatcher_influxdb]
+  timeout = 5
+  target = http://{YOUR_IP_HERE}:8086
+  db_name = yardstick
+  username = root
+  password = root
+
+Now you can run yardstick test case and store the results in influxdb
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
