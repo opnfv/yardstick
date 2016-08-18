@@ -56,6 +56,9 @@ export EXTERNAL_NETWORK INSTALLER_TYPE DEPLOY_TYPE NODE_NAME
 # Prepare a admin-rc file for StorPerf integration
 $YARDSTICK_REPO_DIR/tests/ci/prepare_storperf_admin-rc.sh
 
+# copy a admin-rc file for StorPerf integration to the deployment location
+$YARDSTICK_REPO_DIR/tests/ci/scp_storperf_admin-rc.sh
+
 # Fetching id_rsa file from jump_server..."
 verify_connectivity() {
     local ip=$1
