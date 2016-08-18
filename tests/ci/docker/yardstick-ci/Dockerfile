@@ -20,6 +20,7 @@ ENV RELENG_REPO_DIR ${REPOS_DIR}/releng
 
 RUN apt-get update && apt-get install -y \
     wget \
+    expect \
     curl \
     git \
     sshpass \
