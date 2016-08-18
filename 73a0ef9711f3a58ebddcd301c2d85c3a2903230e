@@ -1,0 +1,410 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_dd6aed19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 7,
+        "startChar": 11,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3d61a139",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "Move this on a separate line",
+      "range": {
+        "startLine": 13,
+        "startChar": 48,
+        "endLine": 13,
+        "endChar": 68
+      },
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_fdb009df",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "unescaped \" chars? e.g.\nsudo echo \"Defaults env_keep +\u003d \\\"${YARD_IMG_ARCH}\\\"\" \u003e\u003e /etc/sudoers",
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_bd54d154",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "Please rename to something more specific, like UCA_HOST (from Ubuntu Cloud Archive).",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 4
+      },
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_fdd1e9cd",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "This should be defined together with VIVID_IMAGE, KERNEL_IMAGE etc. and maybe share the same varname prefix",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 20
+      },
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7dc4f93f",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "Since you already define this var, maybe move it up and rewrite above ifs to use it?",
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ddc74d44",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "I would add the extra params to a var, and keep the output\u003d$(...) outside the if statement",
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_dd518d63",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "compact to one line",
+      "range": {
+        "startLine": 268,
+        "startChar": 1,
+        "endLine": 269,
+        "endChar": 24
+      },
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5dcd7d30",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 1
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "compact to single sed call",
+      "range": {
+        "startLine": 474,
+        "startChar": 1,
+        "endLine": 475,
+        "endChar": 65
+      },
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3d38c19f",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "I would rewrite this to be more clear:\nif grep -q trusty /etc/apt/sources.list; then\n  if [ $YARD_IMG_ARCH \u003d \"arm64\" ]; then\n    //...",
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1dd705c3",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "\"It is supposed\", \"booted differently\"",
+      "range": {
+        "startLine": 49,
+        "startChar": 37,
+        "endLine": 49,
+        "endChar": 44
+      },
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1d5e25e7",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "Could this block be merged with below block (after apt-get update)?",
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ddd8adf1",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "please rename to something more obvious",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 11
+      },
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_9de2359e",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "How about `git --git-dir\u003d/opt/tempT/.git apply ...` ?",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 5
+      },
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5d649db8",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "leftover comment?",
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_9d90f5ed",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "rm ~/... ? or do we need CWD\u003d~ next?",
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_fd5809fc",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "Could these blocks be merged, since they have the same condition?",
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_bd72917a",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "Please rewrite this to\nimage_path\u003d\"${release}/current/${release}-server-cloudimg-${YARD_IMG_ARCH}-disk1.img\"",
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3dbd2169",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "I\u0027ve seen this URL in the previous file too, maybe define a VAR at the top level, and inherit that in both?",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 79,
+        "endChar": 86
+      },
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5dc25dea",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-18T15:33:27Z",
+      "side": 1,
+      "message": "hardcoding this is prone to future problems on kernel upgrade",
+      "range": {
+        "startLine": 120,
+        "startChar": 30,
+        "endLine": 120,
+        "endChar": 47
+      },
+      "revId": "73a0ef9711f3a58ebddcd301c2d85c3a2903230e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
