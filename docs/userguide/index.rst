@@ -12,11 +12,12 @@ Yardstick Overview
 
    01-introduction
    02-methodology
-   architecture
+   03-architecture
    04-vtc-overview
-   apexlake_installation
-   apexlake_api
-   03-installation
-   03-list-of-tcs
+   05-apexlake_installation
+   06-apexlake_api
+   07-installation
+   08-yardstick_plugin
+   10-list-of-tcs
    glossary
    references
