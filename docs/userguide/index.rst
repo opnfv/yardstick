@@ -14,6 +14,7 @@ Yardstick Overview
    02-methodology
    architecture
    04-vtc-overview
+   05-result-store-InfluxDB
    apexlake_installation
    apexlake_api
    03-installation
