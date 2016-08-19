@@ -66,6 +66,10 @@ class ServiceHA(base.Scenario):
         LOG.info("monitor stop!")
 
         sla_pass = self.monitorMgr.verify_SLA()
+        if sla_pass:
+            result['sla_pass'] = 1
+        else:
+            result['sla_pass'] = 0
         assert sla_pass is True, "the test cases is not pass the SLA"
 
         return
