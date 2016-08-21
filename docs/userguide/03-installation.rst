@@ -271,7 +271,9 @@ Run influxdb and config
 Run influxdb
 ::
 
-  docker run -d --name influxdb -p 8083:8083 -p 8086:8086 --expose 8090 --expose 8099 tutum/influxdb
+  docker run -d --name influxdb \
+  -p 8083:8083 -p 8086:8086 --expose 8090 --expose 8099 \
+  tutum/influxdb
   docker exec -it influxdb bash
 
 Config influxdb
@@ -319,3 +321,70 @@ Config yardstick.conf
 
 Now you can run yardstick test case and store the results in influxdb
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Create a test suite for yardstick
+------------------------------------
+
+A test suite in yardstick is a yaml file which include one or more test cases.
+Yardstick is able to support running test suite task, so you can customize you
+own test suite and run it in one task.
+
+"tests/opnfv/test_suites" is where yardstick put ci test-suite. A typical test
+suite is like below:
+
+fuel_test_suite.yaml
+
+::
+
+  ---
+  # Fuel integration test task suite
+
+  schema: "yardstick:suite:0.1"
+
+  name: "fuel_test_suite"
+  test_cases_dir: "samples/"
+  test_cases:
+  -
+    file_name: ping.yaml
+  -
+    file_name: iperf3.yaml
+
+As you can see, there are two test cases in fuel_test_suite, the syntas is simple
+here, you must specify the schema and the name, then you just need to list the
+test cases in the tag "test_cases" and also mark their relative directory in the
+tag "test_cases_dir".
+
+Yardstick test suite also support constraints and task args for each test suite.
+Here is another sample to show this, which is digested from one big test suite.
+
+os-nosdn-nofeature-ha.yaml
+
+::
+
+ ---
+
+ schema: "yardstick:suite:0.1"
+
+ name: "os-nosdn-nofeature-ha"
+ test_cases_dir: "tests/opnfv/test_cases/"
+ test_cases:
+ -
+     file_name: opnfv_yardstick_tc002.yaml
+ -
+     file_name: opnfv_yardstick_tc005.yaml
+ -
+     file_name: opnfv_yardstick_tc043.yaml
+        constraint:
+           installer: compass
+           pod: huawei-pod1
+        task_args:
+           huawei-pod1: '{"pod_info": "etc/yardstick/.../pod.yaml",
+           "host": "node4.LF","target": "node5.LF"}'
+
+As you can see in test case "opnfv_yardstick_tc043.yaml", it has two tags, "constraint" and
+"task_args". "constraint" is where you can specify which installer or pod it can be run in
+the ci environment. "task_args" is where you can specify the task arguments for each pod.
+
+All in all, to create a test suite in yardstick, you just need to create a suite yaml file
+and add test cases and constraint or task arguments if necessary.
