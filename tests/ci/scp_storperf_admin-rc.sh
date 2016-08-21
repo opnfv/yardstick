@@ -1,7 +1,5 @@
-#!/usr/bin/expect
-set timeout 30
+#!/bin/bash
 
-spawn scp -o StrictHostKeyChecking=no /root/storperf_admin-rc root@192.168.200.1:/root/storperf_admin-rc
-expect "root@192.168.200.1's password: "
-send "root\r"
-interact
+ssh_options="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+sshpass -p root scp 2>/dev/null $ssh_options ~/storperf_admin-rc \
+        root@192.168.200.1:/root/ &> /dev/null
