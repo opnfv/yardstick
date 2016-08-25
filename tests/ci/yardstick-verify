@@ -44,7 +44,13 @@ DISPATCHER_TYPE=file
 DISPATCHER_FILE_NAME="/tmp/yardstick.out"
 DISPATCHER_HTTP_TARGET="http://testresults.opnfv.org/test/api/v1/results"
 DISPATCHER_INFLUXDB_TARGET=
-
+UCA_HOST="cloud-images.ubuntu.com"
+if [ $YARD_IMG_ARCH = "arm64" ]; then
+    export VIVID_IMG_URL="http://${UCA_HOST}/vivid/current/vivid-server-cloudimg-arm64.tar.gz"
+    if ! grep -q "Defaults env_keep += \"VIVID_IMG_URL\"" "/etc/sudoers"; then
+        sudo echo "Defaults env_keep += \"VIVID_IMG_URL\"" >> /etc/sudoers
+    fi
+fi
 while getopts "r:i:h" OPTION; do
     case $OPTION in
         h)
@@ -80,7 +86,7 @@ cleanup()
         return
     fi
 
-    for image in $(glance image-list | grep -e cirros-0.3.3 -e yardstick-trusty-server -e Ubuntu-14.04 | awk '{print $2}'); do
+    for image in $(glance image-list | grep -e cirros-0.3.3 -e yardstick-trusty-server -e Ubuntu-14.04 -e yardstick-vivid-kernel | awk '{print $2}'); do
         echo "Deleting image $image..."
         glance image-delete $image || true
     done
@@ -232,12 +238,43 @@ load_yardstick_image()
 {
     echo
     echo "========== Loading yardstick cloud image =========="
+    EXTRA_PARAMS=""
+    if [ $YARD_IMG_ARCH = "arm64" ]; then
+        VIVID_IMAGE="/tmp/vivid-server-cloudimg-arm64.tar.gz"
+        VIVID_KERNEL="/tmp/vivid-server-cloudimg-arm64-vmlinuz-generic"
+        cd /tmp
+        if [ ! -f $VIVID_IMAGE ]; then
+            wget $VIVID_IMG_URL
+        fi
+        if [ ! -f $VIVID_KERNEL ]; then
+            tar zxf vivid-server-cloudimg-arm64.tar.gz vivid-server-cloudimg-arm64-vmlinuz-generic
+        fi
+        create_vivid_kernel=$(glance --os-image-api-version 1 image-create \
+                --name yardstick-vivid-kernel \
+                --is-public true --disk-format qcow2 \
+                --container-format bare \
+                --file $VIVID_KERNEL)
 
-    output=$(glance --os-image-api-version 1 image-create \
+        GLANCE_KERNEL_ID=$(echo "$create_vivid_kernel" | grep " id " | awk '{print $(NF-1)}')
+        if [ -z "$GLANCE_KERNEL_ID" ]; then
+            echo 'Failed uploading kernel to cloud'.
+            exit 1
+        fi
+
+        command_line="root=/dev/vdb1 console=tty0 console=ttyS0 console=ttyAMA0 rw"
+
+        EXTRA_PARAMS="--property kernel_id=$GLANCE_KERNEL_ID --property os_command_line=\"$command_line\""
+
+        rm -f $VIVID_KERNEL $VIVID_IMAGE
+        cd $YARDSTICK_REPO_DIR
+    fi
+    output=$(eval glance --os-image-api-version 1 image-create \
         --name yardstick-trusty-server \
         --is-public true --disk-format qcow2 \
         --container-format bare \
+        $EXTRA_PARAMS \
         --file $QCOW_IMAGE)
+
     echo "$output"
 
     GLANCE_IMAGE_ID=$(echo "$output" | grep " id " | awk '{print $(NF-1)}')
@@ -435,10 +472,19 @@ main()
 
     build_yardstick_image
     load_yardstick_image
-    load_cirros_image
-    load_ubuntu_image
+    if [ $YARD_IMG_ARCH != "arm64" ]; then
+        load_cirros_image
+        load_ubuntu_image
+    else
+        sed -i 's/image: cirros-0.3.3/image: TestVM/g' tests/opnfv/test_cases/opnfv_yardstick_tc002.yaml samples/ping.yaml
+        #We have overlapping IP with the real network
+        if [ $NODE_NAME = "arm-pod1" ]; then
+            for filename in tests/opnfv/test_cases/*; do
+                sed -i "s/cidr: '10.0.1.0\/24'/cidr: '10.3.1.0\/24'/g" $filename
+            done
+        fi
+    fi
     create_nova_flavor
-
     install_storperf
     run_test
     remove_storperf
