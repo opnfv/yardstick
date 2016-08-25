@@ -1,0 +1,19 @@
+diff --git a/UnixBench/Makefile b/UnixBench/Makefile
+index 70f5e83..c43ff52 100644
+--- a/UnixBench/Makefile
++++ b/UnixBench/Makefile
+@@ -87,12 +87,12 @@ OPTON = -O3 -ffast-math
+ OSNAME:=$(shell uname -s)
+ 
+ ifeq ($(OSNAME),Linux)
+-OPTON += -march=native -mtune=native
++OPTON += -march=armv8-a -mtune=generic
+ endif
+ ifeq ($(OSNAME),Darwin)
+ # (adjust flags or comment out this section for older versions of XCode or OS X)
+ # (-mmacosx-versin-min= requires at least that version of SDK be installed)
+-OPTON += -march=native -mmacosx-version-min=10.10
++OPTON += -march=armv8-a -mmacosx-version-min=10.10
+ #http://stackoverflow.com/questions/9840207/how-to-use-avx-pclmulqdq-on-mac-os-x-lion/19342603#19342603
+ CFLAGS += -Wa,-q
+ endif
