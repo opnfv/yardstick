@@ -84,6 +84,15 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     sshpass -p r00tme scp 2>/dev/null $ssh_options \
     root@${INSTALLER_IP}:~/.ssh/id_rsa /root/.ssh/id_rsa &> /dev/null
 
+    ARCH_SCRIPT="test -f /etc/fuel_openstack_arch && grep -q arm64 /etc/fuel_openstack_arch"
+    YARD_IMG_ARCH=amd64
+    sshpass -p r00tme ssh $ssh_options -l root $INSTALLER_IP "${ARCH_SCRIPT}" && YARD_IMG_ARCH=arm64
+    export YARD_IMG_ARCH
+
+    if ! grep -q "Defaults env_keep += \"YARD_IMG_ARCH\"" "/etc/sudoers"; then
+        sudo echo "Defaults env_keep += \"YARD_IMG_ARCH YARDSTICK_REPO_DIR\"" >> /etc/sudoers
+    fi
+
     sshpass -p r00tme ssh 2>/dev/null $ssh_options \
         root@${INSTALLER_IP} fuel node>fuel_node
 
