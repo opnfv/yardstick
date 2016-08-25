@@ -1,0 +1,314 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_64369854",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-25T16:30:57Z",
+      "side": 1,
+      "message": "an :)",
+      "range": {
+        "startLine": 59,
+        "startChar": 7,
+        "endLine": 59,
+        "endChar": 8
+      },
+      "revId": "862d2ae896cc90c1748cffc53c05503165dd8c15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_044564b2",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-25T16:30:57Z",
+      "side": 1,
+      "message": "no need to explicitly call bash here",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 8
+      },
+      "revId": "862d2ae896cc90c1748cffc53c05503165dd8c15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_640d3890",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-25T16:30:57Z",
+      "side": 1,
+      "message": "I think we can fold this into one block:\nif ! grep -q \"YARD_IMG_ARCH\"; then\n  sudo echo \"Defaults env_keep +\u003d \\\"YARDSTICK_IMG_ARCH YARDSTICK_REPO_DIR\\\"\" \u003e\u003e /etc/sudoers\nfi",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 6
+      },
+      "revId": "862d2ae896cc90c1748cffc53c05503165dd8c15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_841094a9",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-25T16:30:57Z",
+      "side": 1,
+      "message": "$YARD_IMG_ARCH, let\u0027s make life easier for other arch support later :)",
+      "range": {
+        "startLine": 49,
+        "startChar": 81,
+        "endLine": 49,
+        "endChar": 86
+      },
+      "revId": "862d2ae896cc90c1748cffc53c05503165dd8c15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_24274014",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-25T16:30:57Z",
+      "side": 1,
+      "message": "$YARD_IMG_ARCH",
+      "range": {
+        "startLine": 243,
+        "startChar": 48,
+        "endLine": 243,
+        "endChar": 53
+      },
+      "revId": "862d2ae896cc90c1748cffc53c05503165dd8c15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a47a70ef",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-25T16:30:57Z",
+      "side": 1,
+      "message": "Maybe a clearer naming would be \"VIVID_ROOTFS\", so we can rename KERNEL_IMAGE to \"VIVID_KERNEL\"?\nThey are both from vivid and it\u0027s not exactly self-explanatory what each one is ...",
+      "range": {
+        "startLine": 243,
+        "startChar": 8,
+        "endLine": 243,
+        "endChar": 19
+      },
+      "revId": "862d2ae896cc90c1748cffc53c05503165dd8c15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e42068f9",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 4
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-25T16:30:57Z",
+      "side": 1,
+      "message": "$VIVID_IMAGE",
+      "range": {
+        "startLine": 250,
+        "startChar": 20,
+        "endLine": 250,
+        "endChar": 54
+      },
+      "revId": "862d2ae896cc90c1748cffc53c05503165dd8c15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_44227c02",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 4
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-25T16:30:57Z",
+      "side": 1,
+      "message": "$KERNEL_IMAGE",
+      "range": {
+        "startLine": 250,
+        "startChar": 55,
+        "endLine": 250,
+        "endChar": 98
+      },
+      "revId": "862d2ae896cc90c1748cffc53c05503165dd8c15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_c47d2ce9",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 4
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-25T16:30:57Z",
+      "side": 1,
+      "message": "typo?",
+      "range": {
+        "startLine": 266,
+        "startChar": 88,
+        "endLine": 266,
+        "endChar": 99
+      },
+      "revId": "862d2ae896cc90c1748cffc53c05503165dd8c15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_648458d4",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-25T16:30:57Z",
+      "side": 1,
+      "message": "is sudo required here?",
+      "range": {
+        "startLine": 268,
+        "startChar": 8,
+        "endLine": 268,
+        "endChar": 12
+      },
+      "revId": "862d2ae896cc90c1748cffc53c05503165dd8c15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_246e6030",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-25T16:30:57Z",
+      "side": 1,
+      "message": "Missing identation",
+      "revId": "862d2ae896cc90c1748cffc53c05503165dd8c15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_848734d7",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-25T16:30:57Z",
+      "side": 1,
+      "message": "$YARD_IMG_ARCH",
+      "range": {
+        "startLine": 29,
+        "startChar": 20,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "862d2ae896cc90c1748cffc53c05503165dd8c15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_44691c24",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-25T16:30:57Z",
+      "side": 1,
+      "message": "Missing identation",
+      "revId": "862d2ae896cc90c1748cffc53c05503165dd8c15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e4770801",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2016-08-25T16:30:57Z",
+      "side": 1,
+      "message": "how about creating the dir first and extracting to the right destination in the first place?",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 45
+      },
+      "revId": "862d2ae896cc90c1748cffc53c05503165dd8c15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
