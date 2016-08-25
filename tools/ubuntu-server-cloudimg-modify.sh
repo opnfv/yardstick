@@ -24,9 +24,13 @@ if [ $# -eq 1 ]; then
 fi
 
 # iperf3 only available for trusty in backports
-grep trusty /etc/apt/sources.list && \
-    echo "deb http://archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
-
+if [grep -q trusty /etc/apt/sources.list ]; then
+    if [ $YARD_IMG_ARCH = "arm64" ]; then
+        echo "deb [arch=arm64] http://ports.ubuntu.com/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
+    else
+        echo "deb http://archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
+    fi
+fi
 # Workaround for building on CentOS (apt-get is not working with http sources)
 # sed -i 's/http/ftp/' /etc/apt/sources.list
 
@@ -41,8 +45,18 @@ password: RANDOM
 chpasswd: { expire: False }
 ssh_pwauth: True
 EOF
-
 apt-get update
+if [ $YARD_IMG_ARCH = "arm64" ]; then
+apt-get install -y \
+    linux-headers-$(echo $VIVID_KERNEL_VERSION | cut -d'-' -f3,4,5) \
+    unzip
+#resize root parition (/dev/vdb1) It is supposed to be default but the image is booted differently for arm64
+cat <<EOF >/etc/cloud/cloud.cfg.d/15_growpart.cfg
+#cloud-config
+bootcmd:
+ - [growpart, /dev/vdb, 1]
+EOF
+fi
 apt-get install -y \
     fio \
     git \
@@ -59,15 +73,37 @@ apt-get install -y \
     stress \
     sysstat
 
-git clone https://github.com/kdlucas/byte-unixbench.git /opt/tempT
+if [ $YARD_IMG_ARCH = "arm64" ]; then
+    wget https://github.com/kdlucas/byte-unixbench/archive/master.zip
+    unzip master.zip && rm master.zip
+    mkdir /opt/tempT
+    mv byte-unixbench-master/UnixBench /opt/tempT
+    sed -i -e 's/OPTON += -march=native -mtune=native/OPTON += -march=armv8-a -mtune=generic/g' \
+    -e 's/OPTON += -march=native/OPTON += -march=armv8-a/g' /opt/tempT/UnixBench/Makefile
+else
+    git clone https://github.com/kdlucas/byte-unixbench.git /opt/tempT
+fi
 make --directory /opt/tempT/UnixBench/
 
-git clone https://github.com/beefyamoeba5/ramspeed.git /opt/tempT/RAMspeed
+if [ $YARD_IMG_ARCH = "arm64" ]; then
+    wget https://github.com/beefyamoeba5/ramspeed/archive/master.zip
+    unzip master.zip && rm master.zip
+    mkdir /opt/tempT/RAMspeed
+    mv ramspeed-master/* /opt/tempT/RAMspeed/
+else
+    git clone https://github.com/beefyamoeba5/ramspeed.git /opt/tempT/RAMspeed
+fi
 cd /opt/tempT/RAMspeed/ramspeed-2.6.0
 mkdir temp
 bash build.sh
 
-git clone https://github.com/beefyamoeba5/cachestat.git /opt/tempT/Cachestat
+if [ $YARD_IMG_ARCH = "arm64" ]; then
+    wget https://github.com/beefyamoeba5/cachestat/archive/master.zip
+    unzip master.zip && rm master.zip
+    mv cachestat-master/cachestat /opt/tempT
+else
+    git clone https://github.com/beefyamoeba5/cachestat.git /opt/tempT/Cachestat
+fi
 
 # restore symlink
 ln -sf /run/resolvconf/resolv.conf /etc/resolv.conf
