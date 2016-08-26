@@ -52,7 +52,7 @@ class Ping(base.Scenario):
                      user, ip, key_filename)
             self.connection = ssh.SSH(user, ip, key_filename=key_filename)
 
-        self.connection.wait()
+        self.connection.wait(timeout=600)
 
     def run(self, result):
         """execute the benchmark"""
