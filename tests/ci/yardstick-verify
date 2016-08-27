@@ -313,7 +313,7 @@ EOF
 
 
 
-        local sceanrio_status="SUCCESS"
+        local scenario_status="SUCCESS"
 
         if [ $failed -gt 0 ]; then
             scenario_status="FAILED"
@@ -327,8 +327,9 @@ EOF
               \"scenario\":\"${DEPLOY_SCENARIO}\",
               \"description\": \"yardstick ci scenario status\",
               \"start_date\":\"${start_date}\",
+              \"criteria\":\"${scenario_status}\",
               \"stop_date\":\"${stop_date}\",
-              \"details\":\"${sceanrio_status}\"}" \
+              \"details\":\"\"}" \
               ${DISPATCHER_HTTP_TARGET}
 
         if [ $failed -gt 0 ]; then
