@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_04fd5f3a",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2697
+      },
+      "writtenOn": "2016-08-30T13:16:20Z",
+      "side": 1,
+      "message": "shouldn\u0027t we make a for loop here running through all the nodes? What is someone has more  nodes?",
+      "range": {
+        "startLine": 95,
+        "startChar": 5,
+        "endLine": 109,
+        "endChar": 6
+      },
+      "revId": "3cb19c7b5c64fb3d3fc136f1f1bbf32f92399312",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
