@@ -230,15 +230,28 @@ load_ubuntu_image()
 
 load_yardstick_image()
 {
-    echo
-    echo "========== Loading yardstick cloud image =========="
+    if [ "$DEPLOY_SCENARIO" == "os-nosdn-lxd-ha" -o "$DEPLOY_SCENARIO" == "os-nosdn-lxd-noha" ]; then
+        echo
+        echo "========== Loading yardstick raw cloud image =========="
 
-    output=$(glance --os-image-api-version 1 image-create \
-        --name yardstick-trusty-server \
-        --is-public true --disk-format qcow2 \
-        --container-format bare \
-        --file $QCOW_IMAGE)
-    echo "$output"
+        output=$(glance --os-image-api-version 1 image-create \
+            --name yardstick-trusty-server \
+            --is-public true --disk-format raw \
+            --container-format bare \
+            --file $QCOW_IMAGE)
+        echo "$output"
+
+    else
+        echo
+        echo "========== Loading yardstick cloud image =========="
+
+        output=$(glance --os-image-api-version 1 image-create \
+            --name yardstick-trusty-server \
+            --is-public true --disk-format qcow2 \
+            --container-format bare \
+            --file $QCOW_IMAGE)
+        echo "$output"
+    fi
 
     GLANCE_IMAGE_ID=$(echo "$output" | grep " id " | awk '{print $(NF-1)}')
 
@@ -445,3 +458,4 @@ main()
 }
 
 main
+
