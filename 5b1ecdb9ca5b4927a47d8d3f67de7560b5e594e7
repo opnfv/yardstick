@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_4427d712",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-08-30T12:26:50Z",
+      "side": 1,
+      "message": "xml? or yaml?",
+      "range": {
+        "startLine": 93,
+        "startChar": 50,
+        "endLine": 93,
+        "endChar": 57
+      },
+      "revId": "5b1ecdb9ca5b4927a47d8d3f67de7560b5e594e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
