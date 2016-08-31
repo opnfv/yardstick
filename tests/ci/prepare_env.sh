@@ -83,5 +83,29 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     echo "Fetching id_rsa file from jump_server $INSTALLER_IP..."
     sshpass -p r00tme scp 2>/dev/null $ssh_options \
     root@${INSTALLER_IP}:~/.ssh/id_rsa /root/.ssh/id_rsa &> /dev/null
-fi
 
+    sshpass -p r00tme ssh 2>/dev/null $ssh_options \
+        root@${INSTALLER_IP} fuel node>fuel_node
+
+    controller_ips=($(cat fuel_node|grep controller|awk '{print $10}'))
+    compute_ips=($(cat fuel_node|grep compute|awk '{print $10}'))
+
+    pod_yaml="/etc/yardstick/nodes/fuel_baremetal/pod.yaml"
+
+    if [[ ${controller_ips[0]} ]]; then
+        sed -i "s/ip1/${controller_ips[0]}/" $pod_yaml;
+    fi
+    if [[ ${controller_ips[1]} ]]; then
+        sed -i "s/ip2/${controller_ips[1]}/" $pod_yaml;
+    fi
+    if [[ ${controller_ips[2]} ]]; then
+        sed -i "s/ip3/${controller_ips[2]}/" $pod_yaml;
+    fi
+    if [[ ${compute_ips[0]} ]]; then
+        sed -i "s/ip4/${compute_ips[0]}/" $pod_yaml;
+    fi
+    if [[ ${compute_ips[1]} ]]; then
+        sed -i "s/ip5/${compute_ips[1]}/" $pod_yaml;
+    fi
+
+fi
