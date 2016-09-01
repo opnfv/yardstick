@@ -22,6 +22,30 @@
       "revId": "17528fa58158578d4772d763d9a527b36ac68290",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_6e92eaa0",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 6
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-09-01T13:25:46Z",
+      "side": 1,
+      "message": "thanks for the advice :)",
+      "parentUuid": "1a76adc5_930a0f20",
+      "range": {
+        "startLine": 233,
+        "startChar": 4,
+        "endLine": 233,
+        "endChar": 101
+      },
+      "revId": "17528fa58158578d4772d763d9a527b36ac68290",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
