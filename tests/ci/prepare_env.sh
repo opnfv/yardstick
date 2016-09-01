@@ -90,7 +90,7 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     controller_ips=($(cat fuel_node|grep controller|awk '{print $10}'))
     compute_ips=($(cat fuel_node|grep compute|awk '{print $10}'))
 
-    pod_yaml="/etc/yardstick/nodes/fuel_baremetal/pod.yaml"
+    pod_yaml="./etc/yardstick/nodes/fuel_baremetal/pod.yaml"
 
     if [[ ${controller_ips[0]} ]]; then
         sed -i "s/ip1/${controller_ips[0]}/" $pod_yaml;
