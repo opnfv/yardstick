@@ -299,6 +299,8 @@ Config grafana
   log on using admin/admin and config database resource to be {YOUR_IP_HERE}:8086
 
 .. image:: images/Grafana_config.png
+   :width: 800px
+   :alt: Grafana data source configration
 
 Config yardstick conf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -388,3 +390,4 @@ the ci environment. "task_args" is where you can specify the task arguments for 
 
 All in all, to create a test suite in yardstick, you just need to create a suite yaml file
 and add test cases and constraint or task arguments if necessary.
+
