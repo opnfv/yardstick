@@ -13,7 +13,7 @@ Yardstick Test Case Description TC053
 |                                                                             |
 +--------------+--------------------------------------------------------------+
 |test case id  | OPNFV_YARDSTICK_TC053: OpenStack Controller Load Balance     |
-|              | Service High Availability-                                   |
+|              | Service High Availability                                    |
 +--------------+--------------------------------------------------------------+
 |test purpose  | This test case will verify the high availability of the      |
 |              | load balance service(current is HAProxy) that supports       |
