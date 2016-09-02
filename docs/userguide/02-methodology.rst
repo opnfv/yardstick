@@ -59,7 +59,7 @@ The metrics, as defined by ETSI GS NFV-TST001, are shown in
 :ref:`Table1 <table2_1>`, :ref:`Table2 <table2_2>` and
 :ref:`Table3 <table2_3>`.
 
-In OPNFV Brahmaputra release, generic test cases covering aspects of the listed
+In OPNFV Colorado release, generic test cases covering aspects of the listed
 metrics are available; further OPNFV releases will provide extended testing of
 these metrics.
 The view of available Yardstick test cases cross ETSI definitions in
@@ -169,24 +169,25 @@ options).
 |         |                   |                |                              |
 +---------+-------------------+----------------+------------------------------+
 | Compute | TC003 [1]_        | TC003 [1]_     |  TC013 [1]_                  |
-|         | TC004 [1]_        | TC004 [1]_     |  TC015 [1]_                  |
+|         | TC004             | TC004          |  TC015 [1]_                  |
 |         | TC014             | TC010          |                              |
 |         | TC024             | TC012          |                              |
-|         |                   |                |                              |
+|         | TC069             | TC055          |                              |
 +---------+-------------------+----------------+------------------------------+
-| Network | TC002             | TC001          |  TC016 [1]_                  |
-|         | TC011             | TC008          |  TC018 [1]_                  |
-|         |                   | TC009          |                              |
-|         |                   |                |                              |
+| Network | TC001             | TC001          |  TC016 [1]_                  |
+|         | TC002             | TC008          |  TC018 [1]_                  |
+|         | TC011             | TC009          |                              |
+|         | TC073             | TC075          |                              |
 +---------+-------------------+----------------+------------------------------+
 | Storage | TC005             | TC005          |  TC017 [1]_                  |
-|         |                   |                |                              |
+|         |                   | TC063          |                              |
 +---------+-------------------+----------------+------------------------------+
 
 .. note:: The description in this OPNFV document is intended as a reference for
   users to understand the scope of the Yardstick Project and the
   deliverables of the Yardstick framework. For complete description of
-  the methodology, refer to the ETSI document.
+  the methodology, please refer to the ETSI document.
 
 .. rubric:: Footnotes
 .. [1] To be included in future deliveries.
+

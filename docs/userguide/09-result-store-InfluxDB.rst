@@ -17,7 +17,7 @@ into community's InfluxDB. The framework is shown in Framework_.
 
 
 .. image:: images/InfluxDB_store.png
-   :width: 1200px
+   :width: 800px
    :alt: Store Other Project's Test Results in InfluxDB
 
 Store Storperf Test Results into Community's InfluxDB
@@ -81,6 +81,6 @@ can be accessed by Login_.
 
 
 .. image:: images/results_visualization.png
-   :width: 1200px
+   :width: 800px
    :alt: results visualization
 
