@@ -7,7 +7,7 @@
 Yardstick Test Case Description TC074
 *************************************
 
-.. Storperf: https://wiki.opnfv.org/display/storperf/Storperf
+.. _Storperf: https://wiki.opnfv.org/display/storperf/Storperf
 
 +-----------------------------------------------------------------------------+
 |Storperf                                                                     |
@@ -44,7 +44,7 @@ Yardstick Test Case Description TC074
 |              | * timeout: 600 - maximum allowed job time                    |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|test tool     | Storperf                                                     |
+|test tool     | Storperf_                                                    |
 |              |                                                              |
 |              | StorPerf is a tool to measure block and object storage       |
 |              | performance in an NFVI.                                      |

@@ -5,7 +5,7 @@
 
 
 ============================================
-OPNFV Brahmaputra Release Note for Yardstick
+OPNFV Colorado Release Note for Yardstick
 ============================================
 
 .. toctree::
@@ -21,11 +21,16 @@ OPNFV Brahmaputra Release Note for Yardstick
 Abstract
 ========
 
-This document compiles the release notes for the OPNFV Brahmaputra release
-for Yardstick framework as well as Yardstick_ Project deliverables.
+This document describes the release note of Yardstick project.
+
 
 License
 =======
+
+OPNFV Colorado release note for Yardstick Docs
+are licensed under a Creative Commons Attribution 4.0 International License.
+You should have received a copy of the license along with this.
+If not, see <http://creativecommons.org/licenses/by/4.0/>.
 
 The *Yardstick framework*, the *Yardstick test cases* and the *ApexLake*
 experimental framework are opensource software, licensed under the terms of the
@@ -35,19 +40,13 @@ Apache License, Version 2.0.
 Version History
 ===============
 
-+---------------+--------------------+---------------------------------+
-| *Date*        | *Version*          | *Comment*                       |
-|               |                    |                                 |
-+---------------+--------------------+---------------------------------+
-| Apr 27th,2016 |  3.0               | Brahmaputra release             |
-|               |                    |                                 |
-+---------------+--------------------+---------------------------------+
-| Mar 30th,2016 |  2.0               | Brahmaputra release             |
-|               |                    |                                 |
-+---------------+--------------------+---------------------------------+
-| Feb 25th,2016 |  1.0               | Brahmaputra release             |
-|               |                    |                                 |
-+---------------+--------------------+---------------------------------+
++----------------+--------------------+---------------------------------+
+| *Date*         | *Version*          | *Comment*                       |
+|                |                    |                                 |
++----------------+--------------------+---------------------------------+
+| Aug 22nd, 2016 |  1.0               | Yardstick for Colorado release  |
+|                |                    |                                 |
++----------------+--------------------+---------------------------------+
 
 
 Important Notes
@@ -65,7 +64,7 @@ independent.
 Summary
 =======
 
-This Brahmaputra release provides *Yardstick* as a framework for NFVI testing
+This Colorado release provides *Yardstick* as a framework for NFVI testing
 and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
 
 * Documentation generated with Sphinx
@@ -91,7 +90,7 @@ and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
 
 * Yardstick test cases yaml files
 
-For Brahmaputra release, the *Yardstick framework* is used for the following
+For Colorado release, the *Yardstick framework* is used for the following
 testing:
 
 * OPNFV platform testing - generic test cases to measure the categories:
@@ -111,6 +110,8 @@ testing:
   * KVM
 
   * Parser
+
+  * StorPerf
 
 * Test cases added in Brahmaputra2.0:
 
@@ -132,19 +133,19 @@ Release Data
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/brahmaputra.3.0            |
+| **Repo/tag**                         | yardstick/colorado.1.0               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | brahmaputra.3.0                      |
+| **Yardstick Docker image tag**       | Colorado.1.0                         |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Brahmaputra                          |
+| **Release designation**              | OPNFV Colorado base release          |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | Apr 27th, 2016                       |
+| **Release date**                     | September 22 2016                    |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFV Brahmaputra release            |
+| **Purpose of the delivery**          | OPNFV Colorado base release          |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 
@@ -158,7 +159,7 @@ Module Version Changes
 This is the third tracked release of Yardstick. It is based on following
 upstream versions:
 
-- OpenStack Liberty
+- OpenStack Mitaka
 
 - OpenDaylight Beryllium
 
@@ -353,14 +354,26 @@ Software Deliverables
 |                     |                                                       |
 |                     | * lmbench                                             |
 |                     |                                                       |
+|                     | * lmbench_cache                                       |
+|                     |                                                       |
 |                     | * perf                                                |
 |                     |                                                       |
 |                     | * unixbench                                           |
+|                     |                                                       |
+|                     | * ramspeed                                            |
+|                     |                                                       |
+|                     | * cachestat                                           |
+|                     |                                                       |
+|                     | * memeoryload                                         |
+|                     |                                                       |
+|                     | * computecapacity                                     |
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 | *Networking*        | * iperf3                                              |
 |                     |                                                       |
 |                     | * netperf                                             |
+|                     |                                                       |
+|                     | * netperf_node                                        |
 |                     |                                                       |
 |                     | * ping                                                |
 |                     |                                                       |
@@ -380,11 +393,20 @@ Software Deliverables
 |                     |                                                       |
 |                     | * vtc throughput in the presence of noisy neighbors   |
 |                     |                                                       |
+|                     | * networkcapacity                                     |
+|                     |                                                       |
+|                     | * netutilization                                      |
+|                     |                                                       |
 +---------------------+-------------------------------------------------------+
 | *Parser*            | Tosca2Heat                                            |
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 | *Storage*           | fio                                                   |
+|                     |                                                       |
+|                     | storagecapacity                                       |
+|                     |                                                       |
++---------------------+-------------------------------------------------------+
+| *StorPerf*          | storperf                                              |
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 
@@ -427,6 +449,8 @@ Delivered Test cases
 
   * OPNFV_YARDSTICK_TCOO2 - NW Latency
 
+  * OPNFV_YARDSTICK_TCOO4 - Cache Utilization
+
   * OPNFV_YARDSTICK_TCOO5 - Storage Performance
 
   * OPNFV_YARDSTICK_TCOO8 - Packet Loss Extended Test
@@ -448,12 +472,65 @@ Delivered Test cases
   * OPNFV_YARDSTICK_TCO38 - Latency, CPU Load, Throughput, Packet Loss Extended
     Test
 
+  * OPNFV_YARDSTICK_TCO42 - Network Performance
+
+  * OPNFV_YARDSTICK_TCO43 - Network Latency Between NFVI Nodes
+
+  * OPNFV_YARDSTICK_TCO44 - Memory Utilization
+
+  * OPNFV_YARDSTICK_TCO55 - Compute Capacity
+
+  * OPNFV_YARDSTICK_TCO61 - Network Utilization
+
+  * OPNFV_YARDSTICK_TCO63 - Storage Capacity
+
+  * OPNFV_YARDSTICK_TCO69 - Memory Bandwidth
+
+  * OPNFV_YARDSTICK_TCO70 - Latency, Memory Utilization, Throughput, Packet
+    Loss
+
+  * OPNFV_YARDSTICK_TCO71 - Latency, Cache Utilization, Throughput, Packet Loss
+
+  * OPNFV_YARDSTICK_TCO72 - Latency, Network Utilization, Throughput, Packet
+    Loss
+
+  * OPNFV_YARDSTICK_TC073 - Network Latency and Throughput Between Nodes
+
+  * OPNFV_YARDSTICK_TCO75 - Network Capacity and Scale
 
 * Test Cases for OPNFV HA Project:
 
   * OPNFV_YARDSTICK_TCO19 - HA: Control node Openstack service down
 
   * OPNFV_YARDSTICK_TC025 - HA: OpenStacK Controller Node abnormally down
+
+  * OPNFV_YARDSTICK_TCO45 - HA: Control node Openstack service down - neutron
+    server
+
+  * OPNFV_YARDSTICK_TC046 - HA: Control node Openstack service down - keystone
+
+  * OPNFV_YARDSTICK_TCO47 - HA: Control node Openstack service down - glance
+    api
+
+  * OPNFV_YARDSTICK_TC048 - HA: Control node Openstack service down - cinder
+    api
+
+  * OPNFV_YARDSTICK_TCO49 - HA: Control node Openstack service down - swift
+    proxy
+
+  * OPNFV_YARDSTICK_TC050 - HA: OpenStack Controller Node Network High
+    Availability
+
+  * OPNFV_YARDSTICK_TCO51 - HA: OpenStack Controller Node CPU Overload High
+    Availability
+
+  * OPNFV_YARDSTICK_TC052 - HA: OpenStack Controller Node Disk I/O Block High
+    Availability
+
+  * OPNFV_YARDSTICK_TCO53 - HA: OpenStack Controller Load Balance Service High
+    Availability
+
+  * OPNFV_YARDSTICK_TC054 - HA: OpenStack Virtual IP High Availability
 
 * Test Case for OPNFV IPv6 Project:
 
@@ -467,6 +544,10 @@ Delivered Test cases
 
   * OPNFV_YARDSTICK_TCO40 - Verify Parser Yang-to-Tosca
 
+* Test Case for OPNFV StorPerf Project:
+
+  * OPNFV_YARDSTICK_TCO74 - Storperf
+
 * Test Cases for Virtual Traffic Classifier:
 
   * OPNFV_YARDSTICK_TC006 - Virtual Traffic Classifier Data Plane Throughput
@@ -479,3 +560,4 @@ Benchmarking in presence of noisy neighbors Test
 
   * OPNFV_YARDSTICK_TC021 - Virtual Traffic Classifier Instantiation in
 presence of noisy neighbors Test
+
