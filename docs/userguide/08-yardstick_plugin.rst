@@ -48,11 +48,11 @@ environment and other dependencies:
 3. Make sure Jump Host have access to the OpenStack Controller API.
 4. Make sure Jump Host must have internet connectivity for downloading docker image.
 5. You need to know where to get basic openstack Keystone authorization info, such as
-OS_PASSWORD, OS_TENANT_NAME, OS_AUTH_URL, OS_USERNAME.
+   OS_PASSWORD, OS_TENANT_NAME, OS_AUTH_URL, OS_USERNAME.
 6. To run a Storperf container, you need to have OpenStack Controller environment
-variables defined and passed to Storperf container. The best way to do this is to
-put environment variables in a "storperf_admin-rc" file. The storperf_admin-rc
-should include credential environment variables at least:
+   variables defined and passed to Storperf container. The best way to do this is to
+   put environment variables in a "storperf_admin-rc" file. The storperf_admin-rc
+   should include credential environment variables at least:
 
 * OS_AUTH_URL
 * OS_TENANT_ID
