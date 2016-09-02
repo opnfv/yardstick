@@ -222,7 +222,7 @@ Deployment View
 ===============
 Yardstick deployment view shows how the yardstick tool can be deployed into the
 underlying platform. Generally, yardstick tool is installed on JumpServer(see
-`03-installation` for detail installation steps), and JumpServer is
+`07-installation` for detail installation steps), and JumpServer is
 connected with other control/compute servers by networking. Based on this
 deployment, yardstick can run the test cases on these hosts, and get the test
 result for better showing.
@@ -256,8 +256,11 @@ Yardstick Directory structure
            by Heat. Currently contains how to build the yardstick-trusty-server
            image with the different tools that are needed from within the image.
 
+*plugin/* - Plug-in configuration files are stored here.
+
 *vTC/* - Contains the files for running the virtual Traffic Classifier tests.
 
 *yardstick/* - Contains the internals of Yardstick: Runners, Scenario, Contexts,
-               CLI parsing, keys, plotting tools, dispatcher and so on.
+               CLI parsing, keys, plotting tools, dispatcher, plugin
+               install/remove scripts and so on.
 
