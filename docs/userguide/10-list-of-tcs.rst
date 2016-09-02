@@ -49,6 +49,7 @@ Generic NFVI Test Case Descriptions
    opnfv_yardstick_tc070.rst
    opnfv_yardstick_tc071.rst
    opnfv_yardstick_tc072.rst
+   opnfv_yardstick_tc073.rst
    opnfv_yardstick_tc075.rst
 
 OPNFV Feature Test Cases
@@ -62,7 +63,16 @@ H A
 
    opnfv_yardstick_tc019.rst
    opnfv_yardstick_tc025.rst
-
+   opnfv_yardstick_tc045.rst
+   opnfv_yardstick_tc046.rst
+   opnfv_yardstick_tc047.rst
+   opnfv_yardstick_tc048.rst
+   opnfv_yardstick_tc049.rst
+   opnfv_yardstick_tc050.rst
+   opnfv_yardstick_tc051.rst
+   opnfv_yardstick_tc052.rst
+   opnfv_yardstick_tc053.rst
+   opnfv_yardstick_tc054.rst
 IPv6
 ----
 
@@ -87,6 +97,14 @@ Parser
 
    opnfv_yardstick_tc040.rst
 
+   StorPerf
+-----------
+
+.. toctree::
+   :maxdepth: 1
+
+   opnfv_yardstick_tc074.rst
+
 virtual Traffic Classifier
 --------------------------
 
@@ -106,3 +124,4 @@ Templates
 
    testcase_description_v2_template
    Yardstick_task_templates
+
