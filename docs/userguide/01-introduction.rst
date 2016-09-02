@@ -40,18 +40,25 @@ This document consists of the following chapters:
 * Chapter :doc:`02-methodology` describes the methodology implemented by the
   Yardstick Project for :term:`NFVI` verification.
 
-* Chapter :doc:`architecture` provides information on the software architecture
+* Chapter :doc:`03-architecture` provides information on the software architecture
   of yardstick.
+
 * Chapter :doc:`04-vtc-overview` provides information on the :term:`VTC`.
 
-* Chapter :doc:`apexlake_installation` provides instructions to install the
-  experimental framework *ApexLake* and chapter :doc:`apexlake_api` explains
+* Chapter :doc:`05-apexlake_installation` provides instructions to install the
+  experimental framework *ApexLake* and chapter :doc:`06-apexlake_api` explains
   how this framework is integrated in *Yardstick*.
 
-* Chapter :doc:`03-installation` provides instructions to install *Yardstick*.
+* Chapter :doc:`07-installation` provides instructions to install *Yardstick*.
 
-* Chapter :doc:`03-list-of-tcs` includes a list of available Yardstick
-  test cases.
+* Chapter :doc:`08-yardstick_plugin` provides information on how to integrate
+  other OPNFV testing projects into *Yardstick*.
+
+* Chapter :doc:`09-result-store-InfluxDB` provides inforamtion on how to run
+  plug-in test cases and store test results into community's InfluxDB.
+
+* Chapter :doc:`10-list-of-tcs` includes a list of available Yardstick test
+  cases.
 
 
 Contact Yardstick
@@ -60,3 +67,4 @@ Contact Yardstick
 Feedback? `Contact us`_
 
 .. _Contact us: opnfv-users@lists.opnfv.org
+

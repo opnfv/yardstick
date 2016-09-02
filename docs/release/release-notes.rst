@@ -5,7 +5,7 @@
 
 
 ============================================
-OPNFV Brahmaputra Release Note for Yardstick
+OPNFV Colorado Release Note for Yardstick
 ============================================
 
 .. toctree::
@@ -21,11 +21,16 @@ OPNFV Brahmaputra Release Note for Yardstick
 Abstract
 ========
 
-This document compiles the release notes for the OPNFV Brahmaputra release
-for Yardstick framework as well as Yardstick_ Project deliverables.
+This document describes the release note of Yardstick project.
+
 
 License
 =======
+
+OPNFV Colorado release note for Yardstick Docs
+are licensed under a Creative Commons Attribution 4.0 International License.
+You should have received a copy of the license along with this.
+If not, see <http://creativecommons.org/licenses/by/4.0/>.
 
 The *Yardstick framework*, the *Yardstick test cases* and the *ApexLake*
 experimental framework are opensource software, licensed under the terms of the
@@ -35,19 +40,13 @@ Apache License, Version 2.0.
 Version History
 ===============
 
-+---------------+--------------------+---------------------------------+
-| *Date*        | *Version*          | *Comment*                       |
-|               |                    |                                 |
-+---------------+--------------------+---------------------------------+
-| Apr 27th,2016 |  3.0               | Brahmaputra release             |
-|               |                    |                                 |
-+---------------+--------------------+---------------------------------+
-| Mar 30th,2016 |  2.0               | Brahmaputra release             |
-|               |                    |                                 |
-+---------------+--------------------+---------------------------------+
-| Feb 25th,2016 |  1.0               | Brahmaputra release             |
-|               |                    |                                 |
-+---------------+--------------------+---------------------------------+
++----------------+--------------------+---------------------------------+
+| *Date*         | *Version*          | *Comment*                       |
+|                |                    |                                 |
++----------------+--------------------+---------------------------------+
+| Aug 22nd, 2016 |  1.0               | Yardstick for Colorado release  |
+|                |                    |                                 |
++----------------+--------------------+---------------------------------+
 
 
 Important Notes
@@ -65,7 +64,7 @@ independent.
 Summary
 =======
 
-This Brahmaputra release provides *Yardstick* as a framework for NFVI testing
+This Colorado release provides *Yardstick* as a framework for NFVI testing
 and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
 
 * Documentation generated with Sphinx
@@ -84,14 +83,16 @@ and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
 
 * Automated Yardstick test results visualization
 
-  * Dashboard_ using Grafana (user:opnfv/password: opnfv), influxDB used as
+  * Dashboard_ using Grafana (user:opnfv/password: opnfv), influxDB is used as
     backend
 
 * Yardstick framework source code
 
 * Yardstick test cases yaml files
 
-For Brahmaputra release, the *Yardstick framework* is used for the following
+* Yardstick pliug-in configration yaml files, plug-in install/remove scripts
+
+For Colorado release, the *Yardstick framework* is used for the following
 testing:
 
 * OPNFV platform testing - generic test cases to measure the categories:
@@ -112,7 +113,9 @@ testing:
 
   * Parser
 
-* Test cases added in Brahmaputra2.0:
+  * StorPerf
+
+  * VSperf
 
   * virtual Traffic Classifier
 
@@ -132,164 +135,51 @@ Release Data
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/brahmaputra.3.0            |
+| **Repo/tag**                         | yardstick/colorado.1.0               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | brahmaputra.3.0                      |
+| **Yardstick Docker image tag**       | colorado.1.0                         |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Brahmaputra                          |
+| **Release designation**              | Colorado base release                |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | Apr 27th, 2016                       |
+| **Release date**                     | September 22 2016                    |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFV Brahmaputra release            |
+| **Purpose of the delivery**          | Colorado base release                |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-
-
-Version Change
---------------
-
-Module Version Changes
-~~~~~~~~~~~~~~~~~~~~~~
-
-This is the third tracked release of Yardstick. It is based on following
-upstream versions:
-
-- OpenStack Liberty
-
-- OpenDaylight Beryllium
-
-
-Document Version Changes
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-This is the third tracked version of the Yardstick framework in OPNFV.
-It includes the following documentation updates:
-
-- Yardstick User Guide: corrected faulty links
-
-- Yardstick Code Documentation: no changes
-
-- Yardstick Release Notes for Yardstick: this document
-
-- Test Results report for Brahmaputra testing with Yardstick: updated listed of
-verified scenarios and limitations
-
-Documentation updates on the second tracked version:
-
-- Yardstick User Guide: added software architecture chapter
-
-- Yardstick Code Documentation: no changes
-
-- Yardstick Release Notes for Yardstick: this document
-
-- Test Results report for Brahmaputra testing with Yardstick: added test cases
-and results for virtual Traffic Classifier
-
-
-Reason for Version
-------------------
-
-Feature additions
-~~~~~~~~~~~~~~~~~
-
-No new features.
-
-Brahmaputra.2.0:
-
-+----------------------------+------------------------------------------------+
-| **JIRA REFERENCE**         | **SLOGAN**                                     |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-227        | Heat HTTPS SSL support.                        |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-
-
-Corrected Faults
-~~~~~~~~~~~~~~~~
-
-No corrected faults.
-
-Brahmaputra.2.0:
-
-+----------------------------+------------------------------------------------+
-| **JIRA REFERENCE**         | **SLOGAN**                                     |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: -                    | Change copyrights for base scenario, runners,  |
-|                            | dispatchers, cover.                            |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: -                    | Update setup.py and dependencies               |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: -                    | Add missing dependencies to docker file        |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: -                    | Fix Heat template for noisy neighbors deploy   |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-
-Known Faults
-~~~~~~~~~~~~
-
-
-+----------------------------+------------------------------------------------+
-| **JIRA REFERENCE**         | **SLOGAN**                                     |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-175        | Running test suite, if a test cases running    |
-|                            | failed, the test is stopped.                   |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-176        | Fix plotter bug since Output format has been   |
-|                            | changed.                                       |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-216        | ArgsAlreadyParsedError: arguments already      |
-|                            | parsed: cannot register CLI option.            |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-231        | Installation instructions on Wiki not accurate |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-
-.. note:: The faults not related to *Yardstick* framework, addressing scenarios
-  which were not fully verified, are listed in the OPNFV installer's release
-  notes.
 
 
 Deliverables
-------------
+============
 
 Software Deliverables
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
-**Yardstick framework source code <brahmaputra.3.0>**
+**Yardstick framework source code <colorado.1.0>**
 
 +--------------------------------------+--------------------------------------+
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/brahmaputra.3.0            |
+| **Repo/tag**                         | yardstick/colorado.1.0               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | brahmaputra.3.0                      |
+| **Yardstick Docker image tag**       | colorado.1.0                         |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Brahmaputra                          |
+| **Release designation**              | colorado                             |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | Apr 27th, 2016                       |
+| **Release date**                     | September 22th, 2016                 |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFV Brahmaputra release            |
+| **Purpose of the delivery**          | OPNFV Colorado release               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
+
 
 **Contexts**
 
@@ -326,6 +216,7 @@ Software Deliverables
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 
+
 **Scenarios**
 
 +---------------------+-------------------------------------------------------+
@@ -353,14 +244,26 @@ Software Deliverables
 |                     |                                                       |
 |                     | * lmbench                                             |
 |                     |                                                       |
+|                     | * lmbench_cache                                       |
+|                     |                                                       |
 |                     | * perf                                                |
 |                     |                                                       |
 |                     | * unixbench                                           |
+|                     |                                                       |
+|                     | * ramspeed                                            |
+|                     |                                                       |
+|                     | * cachestat                                           |
+|                     |                                                       |
+|                     | * memeoryload                                         |
+|                     |                                                       |
+|                     | * computecapacity                                     |
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 | *Networking*        | * iperf3                                              |
 |                     |                                                       |
 |                     | * netperf                                             |
+|                     |                                                       |
+|                     | * netperf_node                                        |
 |                     |                                                       |
 |                     | * ping                                                |
 |                     |                                                       |
@@ -380,13 +283,23 @@ Software Deliverables
 |                     |                                                       |
 |                     | * vtc throughput in the presence of noisy neighbors   |
 |                     |                                                       |
+|                     | * networkcapacity                                     |
+|                     |                                                       |
+|                     | * netutilization                                      |
+|                     |                                                       |
 +---------------------+-------------------------------------------------------+
 | *Parser*            | Tosca2Heat                                            |
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 | *Storage*           | fio                                                   |
 |                     |                                                       |
+|                     | storagecapacity                                       |
+|                     |                                                       |
 +---------------------+-------------------------------------------------------+
+| *StorPerf*          | storperf                                              |
+|                     |                                                       |
++---------------------+-------------------------------------------------------+
+
 
 **API to Other Frameworks**
 
@@ -401,6 +314,7 @@ Software Deliverables
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 
+
 **Test Results Output**
 
 +-----------------------------+-----------------------------------------------+
@@ -413,19 +327,21 @@ Software Deliverables
 |  http                       | Post data to html.                            |
 |                             |                                               |
 +-----------------------------+-----------------------------------------------+
-|  influxdb                   | Post data to influxdB.                        |
+|  influxdb                   | Post data to influxDB.                        |
 |                             |                                               |
 +-----------------------------+-----------------------------------------------+
 
 
 Delivered Test cases
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 * Generic NFVI test cases
 
   * OPNFV_YARDSTICK_TCOO1 - NW Performance
 
   * OPNFV_YARDSTICK_TCOO2 - NW Latency
+
+  * OPNFV_YARDSTICK_TCOO4 - Cache Utilization 
 
   * OPNFV_YARDSTICK_TCOO5 - Storage Performance
 
@@ -448,12 +364,65 @@ Delivered Test cases
   * OPNFV_YARDSTICK_TCO38 - Latency, CPU Load, Throughput, Packet Loss Extended
     Test
 
+  * OPNFV_YARDSTICK_TCO42 - Network Performance
+
+  * OPNFV_YARDSTICK_TCO43 - Network Latency Between NFVI Nodes
+
+  * OPNFV_YARDSTICK_TCO44 - Memory Utilization
+
+  * OPNFV_YARDSTICK_TCO55 - Compute Capacity
+
+  * OPNFV_YARDSTICK_TCO61 - Network Utilization
+
+  * OPNFV_YARDSTICK_TCO63 - Storage Capacity
+
+  * OPNFV_YARDSTICK_TCO69 - Memory Bandwidth
+
+  * OPNFV_YARDSTICK_TCO70 - Latency, Memory Utilization, Throughput, Packet
+    Loss
+
+  * OPNFV_YARDSTICK_TCO71 - Latency, Cache Utilization, Throughput, Packet Loss
+
+  * OPNFV_YARDSTICK_TCO72 - Latency, Network Utilization, Throughput, Packet
+    Loss
+
+  * OPNFV_YARDSTICK_TC073 - Network Latency and Throughput Between Nodes
+
+  * OPNFV_YARDSTICK_TCO75 - Network Capacity and Scale
 
 * Test Cases for OPNFV HA Project:
 
   * OPNFV_YARDSTICK_TCO19 - HA: Control node Openstack service down
 
   * OPNFV_YARDSTICK_TC025 - HA: OpenStacK Controller Node abnormally down
+
+  * OPNFV_YARDSTICK_TCO45 - HA: Control node Openstack service down - neutron
+    server
+
+  * OPNFV_YARDSTICK_TC046 - HA: Control node Openstack service down - keystone
+
+  * OPNFV_YARDSTICK_TCO47 - HA: Control node Openstack service down - glance
+    api
+
+  * OPNFV_YARDSTICK_TC048 - HA: Control node Openstack service down - cinder
+    api
+
+  * OPNFV_YARDSTICK_TCO49 - HA: Control node Openstack service down - swift
+    proxy
+
+  * OPNFV_YARDSTICK_TC050 - HA: OpenStack Controller Node Network High
+    Availability
+
+  * OPNFV_YARDSTICK_TCO51 - HA: OpenStack Controller Node CPU Overload High
+    Availability
+
+  * OPNFV_YARDSTICK_TC052 - HA: OpenStack Controller Node Disk I/O Block High
+    Availability
+
+  * OPNFV_YARDSTICK_TCO53 - HA: OpenStack Controller Load Balance Service High
+    Availability
+
+  * OPNFV_YARDSTICK_TC054 - HA: OpenStack Virtual IP High Availability
 
 * Test Case for OPNFV IPv6 Project:
 
@@ -467,6 +436,10 @@ Delivered Test cases
 
   * OPNFV_YARDSTICK_TCO40 - Verify Parser Yang-to-Tosca
 
+* Test Case for OPNFV StorPerf Project:
+
+  * OPNFV_YARDSTICK_TCO74 - Storperf
+
 * Test Cases for Virtual Traffic Classifier:
 
   * OPNFV_YARDSTICK_TC006 - Virtual Traffic Classifier Data Plane Throughput
@@ -479,3 +452,97 @@ Benchmarking in presence of noisy neighbors Test
 
   * OPNFV_YARDSTICK_TC021 - Virtual Traffic Classifier Instantiation in
 presence of noisy neighbors Test
+
+
+Version Change
+==============
+
+Module Version Changes
+----------------------
+
+This is the third tracked release of Yardstick. It is based on following
+upstream versions:
+
+- OpenStack Mitaka
+
+- OpenDaylight Beryllium
+
+
+Document Version Changes
+------------------------
+
+This is the third tracked version of the Yardstick framework in OPNFV.
+It includes the following documentation updates:
+
+- Yardstick User Guide: corrected faulty links
+
+- Yardstick Code Documentation: no changes
+
+- Yardstick Release Notes for Yardstick: this document
+
+- Test Results report for Colorado testing with Yardstick: updated listed of
+verified scenarios and limitations
+
+Documentation updates on the second tracked version:
+
+- Yardstick User Guide: added software architecture chapter
+
+- Yardstick Code Documentation: no changes
+
+- Yardstick Release Notes for Yardstick: this document
+
+- Test Results report for Brahmaputra testing with Yardstick: added test cases
+and results for virtual Traffic Classifier
+
+
+Reason for Version
+==================
+* TODO *
+
+Feature additions
+-----------------
+* TODO *
+
+Corrected Faults
+----------------
+* TODO *
+
+Known Issues/Faults
+------------
+* TODO *
+
+.. note:: The faults not related to *Yardstick* framework, addressing scenarios
+  which were not fully verified, are listed in the OPNFV installer's release
+  notes.
+
+
+Open JIRA tickets
+=================
+
++------------------+-----------------------------------------------+
+|   JIRA           |         Description                           |
++==================+===============================================+
++------------------+-----------------------------------------------+
++------------------+-----------------------------------------------+
++------------------+-----------------------------------------------+
++------------------+-----------------------------------------------+
++------------------+-----------------------------------------------+
+
+
+Useful links
+============
+
+ - wiki project page: https://wiki.opnfv.org/display/yardstick/Yardstick
+
+ - wiki Yardstick Colorado release planing page: https://wiki.opnfv.org/display/yardstick/Yardstick+Colorado+Release+Planning
+
+ - wiki Yardstick Colorado release jira page: https://wiki.opnfv.org/display/yardstick/Jira+Yardstick-Colorado
+
+ - Yardstick repo: https://git.opnfv.org/cgit/yardstick
+
+ - Yardstick CI dashboard: https://build.opnfv.org/ci/view/yardstick
+
+ - Yardstick grafana dashboard: http://testresults.opnfv.org/grafana/
+
+ - Yardstick IRC chanel: #opnfv-yardstick
+

@@ -172,21 +172,22 @@ options).
 |         | TC004 [1]_        | TC004 [1]_     |  TC015 [1]_                  |
 |         | TC014             | TC010          |                              |
 |         | TC024             | TC012          |                              |
-|         |                   |                |                              |
+|         | TC069             | TC055          |                              |
 +---------+-------------------+----------------+------------------------------+
-| Network | TC002             | TC001          |  TC016 [1]_                  |
-|         | TC011             | TC008          |  TC018 [1]_                  |
-|         |                   | TC009          |                              |
-|         |                   |                |                              |
+| Network | TC001             | TC001          |  TC016 [1]_                  |
+|         | TC002             | TC008          |  TC018 [1]_                  |
+|         | TC011             | TC009          |                              |
+|         | TC073             | TC075          |                              |
 +---------+-------------------+----------------+------------------------------+
 | Storage | TC005             | TC005          |  TC017 [1]_                  |
-|         |                   |                |                              |
+|         |                   | TC063          |                              |
 +---------+-------------------+----------------+------------------------------+
 
 .. note:: The description in this OPNFV document is intended as a reference for
   users to understand the scope of the Yardstick Project and the
   deliverables of the Yardstick framework. For complete description of
-  the methodology, refer to the ETSI document.
+  the methodology, please refer to the ETSI document.
 
 .. rubric:: Footnotes
 .. [1] To be included in future deliveries.
+
