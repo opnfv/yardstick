@@ -24,8 +24,8 @@ neutron router-create ipv6-router
 
 
 # create (ipv4,ipv6)router and net and subnet
-neutron net-create --port_security_enabled=False ipv4-int-network1
-neutron net-create --port_security_enabled=False ipv6-int-network2
+neutron net-create ipv4-int-network1
+neutron net-create ipv6-int-network2
 
 # Create IPv4 subnet and associate it to ipv4-router
 neutron subnet-create --name ipv4-int-subnet1 \
