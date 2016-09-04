@@ -45,7 +45,11 @@ write_files:
    owner: root:root
  - content: |
      TYPE="Ethernet"
-     BOOTPROTO=static
+     BOOTPROTO="dhcp"
+     DEFROUTE="no"
+     PEERDNS="no"
+     PEERROUTES="no"
+     IPV4_FAILURE_FATAL="no"
      IPV6INIT=yes
      IPV6ADDR="2001:db8:0:2::1/64"
      NAME=eth1
@@ -56,6 +60,15 @@ write_files:
    permissions: '0755'
    owner: root:root
  - content: |
+     interface eth0
+     {
+        AdvSendAdvert on;
+        MinRtrAdvInterval 3;
+        MaxRtrAdvInterval 10;
+        AdvDefaultLifetime 0;
+        route 2001:db8:0:2::/64 {
+        };
+     };
      interface eth1
      {
         AdvSendAdvert on;

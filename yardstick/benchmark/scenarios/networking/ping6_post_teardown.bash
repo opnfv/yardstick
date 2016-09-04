@@ -8,10 +8,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-sed -i 's/enable_security_group= False/enable_security_group = True/g' /etc/neutron/plugins/ml2/ml2_conf.ini
-sed -i 3d /etc/neutron/plugins/ml2/ml2_conf.ini
-sed -i 's/firewall_driver= neutron.agent.firewall.NoopFirewallDriver/firewall_driver = neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver/g' /etc/neutron/plugins/ml2/ml2_conf.ini
-sed -i 's/security_group_api= nova/security_group_api = neutron/g' /etc/nova/nova.conf
+cp /etc/neutron/plugins/ml2/ml2_conf.ini_bkp /etc/neutron/plugins/ml2/ml2_conf.ini
 
 service neutron-l3-agent restart
 service neutron-dhcp-agent restart

@@ -12,7 +12,7 @@
 
 # download and create image
 source /opt/admin-openrc.sh
-wget https://download.fedoraproject.org/pub/fedora/linux/releases/22/Cloud/x86_64/Images/Fedora-Cloud-Base-22-20150521.x86_64.qcow2 >/dev/null 2>&1
+#wget https://download.fedoraproject.org/pub/fedora/linux/releases/22/Cloud/x86_64/Images/Fedora-Cloud-Base-22-20150521.x86_64.qcow2 >/dev/null 2>&1
 
 glance image-create --name 'Fedora22' --disk-format qcow2 \
 --container-format bare --file ./Fedora-Cloud-Base-22-20150521.x86_64.qcow2
@@ -24,8 +24,8 @@ neutron router-create ipv6-router
 
 
 # create (ipv4,ipv6)router and net and subnet
-neutron net-create --port_security_enabled=False ipv4-int-network1
-neutron net-create --port_security_enabled=False ipv6-int-network2
+neutron net-create ipv4-int-network1
+neutron net-create ipv6-int-network2
 
 # Create IPv4 subnet and associate it to ipv4-router
 neutron subnet-create --name ipv4-int-subnet1 \
