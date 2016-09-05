@@ -16,28 +16,28 @@ nodes:
     role: Controller
     ip: ip1
     user: root
-    password: root
+    key_filename: /root/.ssh/id_rsa
 -
     name: node2
     role: Controller
     ip: ip2
     user: root
-    password: root
+    key_filename: /root/.ssh/id_rsa
 -
     name: node3
     role: Controller
     ip: ip3
     user: root
-    password: root
+    key_filename: /root/.ssh/id_rsa
 -
     name: node4
     role: Compute
     ip: ip4
     user: root
-    password: root
+    key_filename: /root/.ssh/id_rsa
 -
     name: node5
     role: Compute
     ip: ip5
     user: root
-    password: root
+    key_filename: /root/.ssh/id_rsa
