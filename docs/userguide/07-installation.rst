@@ -9,19 +9,22 @@ Yardstick Installation
 Abstract
 --------
 
-Yardstick currently supports installation on Ubuntu 14.04 or by using a Docker
-image. Detailed steps about installing Yardstick using both of these options
-can be found below.
+Yardstick supports installation on Ubuntu 14.04 or by using a Docker image.
+The installation procedure on Ubuntu 14.04 or via the docker image are
+detailed in the section below
 
 To use Yardstick you should have access to an OpenStack environment,
 with at least Nova, Neutron, Glance, Keystone and Heat installed.
 
 The steps needed to run Yardstick are:
 
-1. Install Yardstick and create the test configuration .yaml file.
-2. Build a guest image and load the image into the OpenStack environment.
-3. Create a Neutron external network and load OpenStack environment variables.
-4. Run the test case.
+1. Install Yardstick.
+2. Create the test configuration .yaml file.
+3. Build a guest image。
+4 .Load the image into the OpenStack environment.
+5. Create a Neutron external network.
+6. Load OpenStack environment variables.
+6. Run the test case.
 
 
 Installing Yardstick on Ubuntu 14.04
@@ -77,7 +80,8 @@ Download source code and install python dependencies:
   cd yardstick
   python setup.py install
 
-There is also a YouTube video, showing the above steps:
+A Youtube video tutorial on this installation mode is available
+at: http://www.youtube.com/watch?v=4S4izNolmR0
 
 .. image:: http://img.youtube.com/vi/4S4izNolmR0/0.jpg
    :alt: http://www.youtube.com/watch?v=4S4izNolmR0
@@ -87,9 +91,8 @@ There is also a YouTube video, showing the above steps:
 
 Building a guest image
 ^^^^^^^^^^^^^^^^^^^^^^
-Yardstick has a tool for building an Ubuntu Cloud Server image containing all
-the required tools to run test cases supported by Yardstick. It is necessary to
-have sudo rights to use this tool.
+Yardstick includes tools to run test cases supported by Yardstick. It is
+necessary to have sudo rights to use this tool.
 
 Also you may need install several additional packages to use this tool, by
 follwing the commands below:
@@ -106,6 +109,8 @@ by following the commands above):
 
 ::
 
+  eport YARD_IMG_ARCH="amd64"
+  sudo echo "Defaults env_keep += \"YARD_IMG_ARCH\"" >> /etc/sudoers
   sudo ./tools/yardstick-img-modify tools/ubuntu-server-cloudimg-modify.sh
 
 **Warning:** the script will create files by default in:
@@ -171,10 +176,11 @@ Basic steps performed by the **Yardstick-stable** container:
 1. clone yardstick and releng repos
 2. setup OS credentials (releng scripts)
 3. install yardstick and dependencies
-4. build yardstick cloud image and upload it to glance
-5. upload cirros-0.3.3 cloud image and ubuntu-14.04 cloud image to glance
-6. run yardstick test scenarios
-7. cleanup
+4. build yardstick cloud image
+5. Upload yardstick cloud image to glance
+6. upload cirros-0.3.3 cloud image and ubuntu-14.04 cloud image to glance
+7. run yardstick test scenarios
+8. cleanup
 
 If someone only wants to execute a single test case, one can log into the yardstick-stable
 container first using command:
@@ -303,7 +309,7 @@ Config yardstick.conf
   username = root
   password = root
 
-Now you can run yardstick test case and store the results in influxdb
+Now you can run yardstick test cases and store the results in influxdb
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
@@ -334,7 +340,7 @@ fuel_test_suite.yaml
   -
     file_name: iperf3.yaml
 
-As you can see, there are two test cases in fuel_test_suite, the syntas is simple
+As you can see, there are two test cases in fuel_test_suite, the syntax is simple
 here, you must specify the schema and the name, then you just need to list the
 test cases in the tag "test_cases" and also mark their relative directory in the
 tag "test_cases_dir".
@@ -366,7 +372,7 @@ os-nosdn-nofeature-ha.yaml
            huawei-pod1: '{"pod_info": "etc/yardstick/.../pod.yaml",
            "host": "node4.LF","target": "node5.LF"}'
 
-As you can see in test case "opnfv_yardstick_tc043.yaml", it has two tags, "constraint" and
+As you can see in test case "opnfv_yardstick_tc043.yaml", there are two tags, "constraint" and
 "task_args". "constraint" is where you can specify which installer or pod it can be run in
 the ci environment. "task_args" is where you can specify the task arguments for each pod.
 
