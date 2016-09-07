@@ -16,7 +16,7 @@ Introduction
 Document Identifier
 -------------------
 
-This document is part of deliverables of the OPNFV release brahmaputra.3.0
+This document is part of deliverables of the OPNFV release colorado.1.0
 
 Scope
 -----
@@ -43,7 +43,7 @@ References
 
 * IEEE Std 829-2008. "Standard for Software and System Test Documentation".
 
-* OPNFV Brahamputra release note for Yardstick.
+* OPNFV Colorado release note for Yardstick.
 
 
 
@@ -82,16 +82,16 @@ Document change procedures and history
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/brahmaputra.3.0            |
+| **Repo/tag**                         | yardstick/colorado.1.0               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Brahmaputra                          |
+| **Release designation**              | Colorado                             |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | Apr 27th, 2016                       |
+| **Release date**                     | Sep 22th, 2016                       |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFV Brahmaputra release test       |
-|                                      | results.                             |
+| **Purpose of the delivery**          | OPNFV Colorado release test results. |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
+

@@ -101,6 +101,7 @@ Yardstick is installed (``~/yardstick`` if the framework is installed
 by following the commands above):
 ::
 
+  export YARD_IMG_ARCH=amd64
   sudo ./tools/yardstick-img-modify tools/ubuntu-server-cloudimg-modify.sh
 
 **Warning:** the script will create files by default in:
