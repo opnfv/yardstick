@@ -297,6 +297,26 @@ load_yardstick_image()
     echo "Glance image id: $GLANCE_IMAGE_ID"
 }
 
+report(){
+
+    echo
+    echo "========== Reporting Status =========="
+
+    curl -i -H 'content-type: application/json' -X POST -d \
+        "{\"project_name\": \"yardstick\",
+          \"case_name\": \"scenario_status\",
+          \"pod_name\":\"${NODE_NAME}\",
+          \"installer\":\"${INSTALLER_TYPE}\",
+          \"version\":\"${YARDSTICK_BRANCH}\",
+          \"scenario\":\"${DEPLOY_SCENARIO}\",
+          \"description\": \"yardstick ci scenario status\",
+          \"start_date\":\"$2\",
+          \"criteria\":\"$1\",
+          \"stop_date\":\"$3\",
+          \"details\":\"\"}" \
+          ${DISPATCHER_HTTP_TARGET}
+}
+
 run_test()
 {
     echo
@@ -341,7 +361,7 @@ EOF
 
                 # Mark the test suite failed but continue
                 # running the remaining test suites.
-                (( failed++ ))
+                (( ++failed ))
             fi
             if [ ${DISPATCHER_TYPE} = file ]; then
                 echo "---------------------------"
@@ -363,19 +383,8 @@ EOF
         if [ $failed -gt 0 ]; then
             scenario_status="FAILED"
         fi
-        curl -i -H 'content-type: application/json' -X POST -d \
-            "{\"project_name\": \"yardstick\",
-              \"case_name\": \"scenario_status\",
-              \"pod_name\":\"${NODE_NAME}\",
-              \"installer\":\"${INSTALLER_TYPE}\",
-              \"version\":\"${YARDSTICK_BRANCH}\",
-              \"scenario\":\"${DEPLOY_SCENARIO}\",
-              \"description\": \"yardstick ci scenario status\",
-              \"start_date\":\"${start_date}\",
-              \"criteria\":\"${scenario_status}\",
-              \"stop_date\":\"${stop_date}\",
-              \"details\":\"\"}" \
-              ${DISPATCHER_HTTP_TARGET}
+
+        report $scenario_status $start_date $stop_date
 
         if [ $failed -gt 0 ]; then
             echo "---------------------------"
