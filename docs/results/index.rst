@@ -3,12 +3,12 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Ericsson AB and others.
 
-====================================================
-Yardstick Test Results for OPNFV Brahmaputra Release
-====================================================
+======================
+Yardstick test results
+======================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
 
-   overview.rst
-   results.rst
+.. include:: ./overview.rst
+.. include:: ./results.rst
