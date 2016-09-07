@@ -1,0 +1,403 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_872f24f6",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "Huawei?",
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_42725aae",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "A global figure could make sense in this section",
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_87e164d2",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "is it not a bit confusing?\nApex, Compass, Fuel or Joid deploy the System under Test\ntest environement is maybe a little bit restrictive, no?\nI would suggest \"The system under test (SUT) is installed by the installer Apex, Compass, Fuel or Joid on Performance Optimized Datacenter (POD).",
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_07cd545d",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "measurements",
+      "range": {
+        "startLine": 62,
+        "startChar": 18,
+        "endLine": 62,
+        "endChar": 29
+      },
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a7db401a",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "it is a bit strange to jump from the introduction into a very concrete case in the same chapter\nwould it make sense to list the tests first and detail them after?",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 5
+      },
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_87088492",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "I do not understand the statement \"time and PODs\"",
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_672c4803",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "maybe precise that \"successful\" means \"runnable\" here\nor detail what \"4 consecutive successful runs\" means for yardstick\n\nthis item has been challenged, it makes sense for Functest but for yardstick for D release we may review it. We may say that 1 week? yarstick test for generic scenario is needed?",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 32
+      },
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_47026c70",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "were",
+      "range": {
+        "startLine": 72,
+        "startChar": 33,
+        "endLine": 72,
+        "endChar": 36
+      },
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_07f47485",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "is it possible to be more explicit? 1 day, 1 week, 1 month",
+      "range": {
+        "startLine": 73,
+        "startChar": 58,
+        "endLine": 73,
+        "endChar": 64
+      },
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_420d7a36",
+        "filename": "docs/userguide/07-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "rephrasing proposal: \n\"The installation procedure on Ubuntu or via the docker image are detailed in the section below\"",
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e213665a",
+        "filename": "docs/userguide/07-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "Maybe precise \n\nEven if Yardstick has been developped within OPNFV, it can be used towards any OpenStack based deployment. The prerequisites are teha ccess to OpenStack main services (Nova,....)",
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_020f822f",
+        "filename": "docs/userguide/07-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "I would split the sentence where there is a and\n1. Install yardstick\n2. Create the test configuration file .yaml file\n3. Build a guest image\n4. Load the image...\n5. ...\n6. ...",
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_622756b7",
+        "filename": "docs/userguide/07-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "Rephrazing proposal\n\n\"A Youtube video tutorial on this installation mode is available on \u003clink\u003e\"",
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_822ab27c",
+        "filename": "docs/userguide/07-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "includes rather than has?",
+      "range": {
+        "startLine": 87,
+        "startChar": 10,
+        "endLine": 87,
+        "endChar": 13
+      },
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a2348ede",
+        "filename": "docs/userguide/07-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "shall we indicate yardstick CI docker image, is it not misleading here?\nIf target audience wants to install yardstick, the second image is maybe misleading.\nI would suggest to put it in a section dedicated to Yardstick integration in OPNFV CI or something like that",
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_425b3a2e",
+        "filename": "docs/userguide/07-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "there is probably some places for mutualization between the different test projects as we all need such things...see section on openstack creds in Functest documentaiton",
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_023d42bb",
+        "filename": "docs/userguide/07-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "test cases",
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a24b2e58",
+        "filename": "docs/userguide/07-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "syntax",
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_226f1ec7",
+        "filename": "docs/userguide/07-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "the introduction of the scenario is not fully explained.\nDid you create one per scenario in order to let the scenario owner decide which case he/she can onboard\nif not declared what is run?\n\nHow yardstick is scenario dependent/specific?",
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_62751697",
+        "filename": "docs/userguide/07-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "there are two tags",
+      "range": {
+        "startLine": 386,
+        "startChar": 60,
+        "endLine": 386,
+        "endChar": 61
+      },
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_82787290",
+        "filename": "docs/userguide/07-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 335
+      },
+      "writtenOn": "2016-09-07T09:07:39Z",
+      "side": 1,
+      "message": "it is funny, in Functest we use constraint in a generic assumption. Constraints can be the installer or the scenario.\n\nhere it means that you cna specify the POD/Hardware as a constraint? DPDK? what kind of hardware constraints do you have?",
+      "revId": "7e0f6922f4e2f8a3061f1529e201bfe7ce852cc7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
