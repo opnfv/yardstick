@@ -471,10 +471,11 @@ upstream versions:
 Document Version Changes
 ------------------------
 
-This is the third tracked version of the Yardstick framework in OPNFV.
+This is the first tracked version of the Yardstick framework in OPNFV.
 It includes the following documentation updates:
 
-- Yardstick User Guide: corrected faulty links
+- Yardstick User Guide: added yardstick plugin chapter; added Store Other
+Project's Test Results in InfluxDB chapter; Refine yardstick instantion chapter.
 
 - Yardstick Code Documentation: no changes
 
@@ -482,17 +483,6 @@ It includes the following documentation updates:
 
 - Test Results report for Colorado testing with Yardstick: updated listed of
 verified scenarios and limitations
-
-Documentation updates on the second tracked version:
-
-- Yardstick User Guide: added software architecture chapter
-
-- Yardstick Code Documentation: no changes
-
-- Yardstick Release Notes for Yardstick: this document
-
-- Test Results report for Brahmaputra testing with Yardstick: added test cases
-and results for virtual Traffic Classifier
 
 
 Reason for Version
@@ -509,7 +499,10 @@ Corrected Faults
 
 Known Issues/Faults
 ------------
-* TODO *
+ - IPv6 support
+ - Boot up VM failed in joid-os-nosdn-lxd-ha and joid-os-nosdn-lxd-noha scenarios
+ - Yardstick CI job timeout in fuel-os-onos-nofeature-ha scenario
+
 
 .. note:: The faults not related to *Yardstick* framework, addressing scenarios
   which were not fully verified, are listed in the OPNFV installer's release
