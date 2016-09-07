@@ -75,6 +75,9 @@ verify_connectivity() {
     error "Can not talk to $ip."
 }
 
+YARD_IMG_ARCH=amd64
+export YARD_IMG_ARCH
+
 ssh_options="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 if [ "$INSTALLER_TYPE" == "fuel" ]; then
@@ -85,7 +88,6 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     root@${INSTALLER_IP}:~/.ssh/id_rsa /root/.ssh/id_rsa &> /dev/null
 
     ARCH_SCRIPT="test -f /etc/fuel_openstack_arch && grep -q arm64 /etc/fuel_openstack_arch"
-    YARD_IMG_ARCH=amd64
     sshpass -p r00tme ssh $ssh_options -l root $INSTALLER_IP "${ARCH_SCRIPT}" && YARD_IMG_ARCH=arm64
     export YARD_IMG_ARCH
 
@@ -118,3 +120,4 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     fi
 
 fi
+
