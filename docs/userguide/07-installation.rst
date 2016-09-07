@@ -29,9 +29,21 @@ Installing Yardstick on Ubuntu 14.04
 
 .. _install-framework:
 
+You can install Yardstick framework directly on Ubuntu 14.04 or in an Ubuntu
+14.04 Docker image.
+No matter which way you choose to install Yardstick framework, the following
+installation steps are identical.
+If you choose to use the Ubuntu 14.04 Docker image, You can pull the Ubuntu
+14.04 Docker image from Docker hub:
+
+::
+
+  docker pull ubuntu:14.04
+
 Installing Yardstick framework
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Install dependencies:
+
 ::
 
   sudo apt-get update && sudo apt-get install -y \
@@ -50,6 +62,7 @@ Install dependencies:
       python-setuptools
 
 Create a python virtual environment, source it and update setuptools:
+
 ::
 
   virtualenv ~/yardstick_venv
@@ -57,6 +70,7 @@ Create a python virtual environment, source it and update setuptools:
   easy_install -U setuptools
 
 Download source code and install python dependencies:
+
 ::
 
   git clone https://gerrit.opnfv.org/gerrit/yardstick
@@ -69,17 +83,6 @@ There is also a YouTube video, showing the above steps:
    :alt: http://www.youtube.com/watch?v=4S4izNolmR0
    :target: http://www.youtube.com/watch?v=4S4izNolmR0
 
-Installing extra tools
-^^^^^^^^^^^^^^^^^^^^^^
-yardstick-plot
-""""""""""""""
-Yardstick has an internal plotting tool ``yardstick-plot``, which can be installed
-using the following command:
-::
-
-  sudo apt-get install -y g++ libfreetype6-dev libpng-dev pkg-config
-  python setup.py develop easy_install yardstick[plot]
-
 .. _guest-image:
 
 Building a guest image
@@ -90,6 +93,7 @@ have sudo rights to use this tool.
 
 Also you may need install several additional packages to use this tool, by
 follwing the commands below:
+
 ::
 
   apt-get update && apt-get install -y \
@@ -99,6 +103,7 @@ follwing the commands below:
 This image can be built using the following command while in the directory where
 Yardstick is installed (``~/yardstick`` if the framework is installed
 by following the commands above):
+
 ::
 
   sudo ./tools/yardstick-img-modify tools/ubuntu-server-cloudimg-modify.sh
@@ -110,6 +115,7 @@ The created image can be added to OpenStack using the ``glance image-create`` or
 via the OpenStack Dashboard.
 
 Example command:
+
 ::
 
   glance --os-image-api-version 1 image-create \
@@ -121,44 +127,18 @@ Example command:
 Installing Yardstick using Docker
 ---------------------------------
 
-Yardstick has two Docker images, first one (**Yardstick-framework**) serves as a
-replacement for installing the Yardstick framework in a virtual environment (for
-example as done in :ref:`install-framework`), while the other image is mostly for
-CI purposes (**Yardstick-CI**).
+Yardstick iteself has a Docker image, this Docker image (**Yardstick-stable**)
+serves as a replacement for installing the Yardstick framework in a virtual
+environment (for example as done in :ref:`install-framework`).
+It is recommended to use this Docker image to run Yardstick test.
 
-Yardstick-framework image
-^^^^^^^^^^^^^^^^^^^^^^^^^
-Download the source code:
-
-::
-
-  git clone https://gerrit.opnfv.org/gerrit/yardstick
-
-Build the Docker image and tag it as *yardstick-framework*:
+Yardstick-stable image
+^^^^^^^^^^^^^^^^^^^^^^
+Pull the Yardstick-stable Docker image from Docker hub:
 
 ::
 
-  cd yardstick
-  docker build -t yardstick-framework .
-
-Run the Docker instance:
-
-::
-
-  docker run --name yardstick_instance -i -t yardstick-framework
-
-To build a guest image for Yardstick, see :ref:`guest-image`.
-
-Yardstick-CI image
-^^^^^^^^^^^^^^^^^^
-Pull the Yardstick-CI Docker image from Docker hub:
-
-::
-
-  docker pull opnfv/yardstick:$DOCKER_TAG
-
-Where ``$DOCKER_TAG`` is latest for master branch, as for the release branches,
-this coincides with its release name, such as brahmaputra.1.0.
+  docker pull opnfv/yardstick:stable
 
 Run the Docker image:
 
@@ -180,20 +160,31 @@ For more details, please refer to the Jenkins job defined in Releng project, lab
 and sshkey are required. See the link
 https://git.opnfv.org/cgit/releng/tree/jjb/yardstick/yardstick-ci-jobs.yml.
 
-Note: exec_tests.sh is used for executing test suite here, furthermore, if someone wants to execute the
-test suite manually, it can be used as long as the parameters are configured correct. Another script
-called run_tests.sh is used for unittest in Jenkins verify job, in local manaul environment,
-it is recommended to run before test suite execuation.
+Note: exec_tests.sh is used for executing test suite here, furthermore, if someone
+wants to execute the test suite manually, it can be used as long as the parameters
+are configured correct. Another script called run_tests.sh is used for unittest in
+Jenkins verify job, in local manaul environment, it is recommended to run before
+test suite execuation.
 
-Basic steps performed by the **Yardstick-CI** container:
+Basic steps performed by the **Yardstick-stable** container:
 
 1. clone yardstick and releng repos
 2. setup OS credentials (releng scripts)
 3. install yardstick and dependencies
 4. build yardstick cloud image and upload it to glance
-5. upload cirros-0.3.3 cloud image to glance
+5. upload cirros-0.3.3 cloud image and ubuntu-14.04 cloud image to glance
 6. run yardstick test scenarios
 7. cleanup
+
+If someone only wants to execute a single test case, one can log into the yardstick-stable
+container first using command:
+
+::
+
+  docker run -it openfv/yardstick /bin/bash
+
+Then in the container run yardstick task command to execute single test case.
+Detailed steps about executing Yardstick test case can be found below.
 
 
 OpenStack parameters and credentials
@@ -240,17 +231,7 @@ of yardstick help command and ping.py test sample:
 Each testing tool supported by Yardstick has a sample configuration file.
 These configuration files can be found in the **samples** directory.
 
-Example invocation of ``yardstick-plot`` tool:
-::
-
-  yardstick-plot -i /tmp/yardstick.out -o /tmp/plots/
-
 Default location for the output is ``/tmp/yardstick.out``.
-
-More info about the tool can be found by executing:
-::
-
-  yardstick-plot -h
 
 
 Deploy InfluxDB and Grafana locally
@@ -259,6 +240,7 @@ Deploy InfluxDB and Grafana locally
 .. pull docker images
 
 Pull docker images
+
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -299,6 +281,8 @@ Config grafana
   log on using admin/admin and config database resource to be {YOUR_IP_HERE}:8086
 
 .. image:: images/Grafana_config.png
+   :width: 800px
+   :alt: Grafana data source configration
 
 Config yardstick conf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -388,3 +372,4 @@ the ci environment. "task_args" is where you can specify the task arguments for 
 
 All in all, to create a test suite in yardstick, you just need to create a suite yaml file
 and add test cases and constraint or task arguments if necessary.
+
