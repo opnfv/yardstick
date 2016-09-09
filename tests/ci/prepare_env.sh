@@ -14,7 +14,7 @@
 
 : ${NODE_NAME:='unknown'}
 : ${EXTERNAL_NETWORK:='admin_floating_net'}
-
+: ${YARD_IMG_ARCH:='amd64'}
 
 # Extract network name from EXTERNAL_NETWORK
 #  e.g. EXTERNAL_NETWORK='ext-net;flat;192.168.0.2;192.168.0.253;192.168.0.1;192.168.0.0/24'
@@ -51,7 +51,7 @@ fi
 
 source $OPENRC
 
-export EXTERNAL_NETWORK INSTALLER_TYPE DEPLOY_TYPE NODE_NAME
+export EXTERNAL_NETWORK INSTALLER_TYPE DEPLOY_TYPE NODE_NAME YARD_IMG_ARCH
 
 # Prepare a admin-rc file for StorPerf integration
 $YARDSTICK_REPO_DIR/tests/ci/prepare_storperf_admin-rc.sh
@@ -74,9 +74,6 @@ verify_connectivity() {
     done
     error "Can not talk to $ip."
 }
-
-YARD_IMG_ARCH=amd64
-export YARD_IMG_ARCH
 
 ssh_options="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
@@ -120,4 +117,3 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     fi
 
 fi
-
