@@ -15,7 +15,6 @@
 : ${NODE_NAME:='unknown'}
 : ${EXTERNAL_NETWORK:='admin_floating_net'}
 
-
 # Extract network name from EXTERNAL_NETWORK
 #  e.g. EXTERNAL_NETWORK='ext-net;flat;192.168.0.2;192.168.0.253;192.168.0.1;192.168.0.0/24'
 export EXTERNAL_NETWORK=$(echo $EXTERNAL_NETWORK | cut -f1 -d \;)
@@ -78,6 +77,10 @@ verify_connectivity() {
 YARD_IMG_ARCH=amd64
 export YARD_IMG_ARCH
 
+if ! grep -q "Defaults env_keep += \"YARD_IMG_ARCH\"" "/etc/sudoers"; then
+    sudo echo "Defaults env_keep += \"YARD_IMG_ARCH YARDSTICK_REPO_DIR\"" >> /etc/sudoers
+fi
+
 ssh_options="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 if [ "$INSTALLER_TYPE" == "fuel" ]; then
@@ -90,10 +93,6 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     ARCH_SCRIPT="test -f /etc/fuel_openstack_arch && grep -q arm64 /etc/fuel_openstack_arch"
     sshpass -p r00tme ssh $ssh_options -l root $INSTALLER_IP "${ARCH_SCRIPT}" && YARD_IMG_ARCH=arm64
     export YARD_IMG_ARCH
-
-    if ! grep -q "Defaults env_keep += \"YARD_IMG_ARCH\"" "/etc/sudoers"; then
-        sudo echo "Defaults env_keep += \"YARD_IMG_ARCH YARDSTICK_REPO_DIR\"" >> /etc/sudoers
-    fi
 
     sshpass -p r00tme ssh 2>/dev/null $ssh_options \
         root@${INSTALLER_IP} fuel node>fuel_node
@@ -120,4 +119,3 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     fi
 
 fi
-
