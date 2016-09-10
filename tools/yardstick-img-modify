@@ -104,7 +104,7 @@ setup() {
 
     kpartx -av $raw_imgfile
     if [ $YARD_IMG_ARCH = "arm64" ]; then
-        e2fsck -f /dev/mapper/$loopdevice
+        e2fsck -p -f /dev/mapper/$loopdevice
         resize2fs /dev/mapper/$loopdevice
     fi
     # for trouble shooting
