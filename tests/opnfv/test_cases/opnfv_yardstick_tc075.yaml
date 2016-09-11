@@ -1,8 +1,7 @@
 ---
 # Yardstick TC075 config file
-# Measure compute capacity and scale.
-# Including number of cores, number of threads, available memory size and
-# cache size.
+# Measure network capacity and scale.
+# Measure number of connections, number of frames received
 
 schema: "yardstick:task:0.1"
 {% set host = host or "node1.LF" %}
