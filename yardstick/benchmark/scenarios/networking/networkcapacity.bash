@@ -9,7 +9,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Measure compute capacity and scale of a host
+# Measure network capacity and scale of a host
 
 set -e
 OUTPUT_FILE=/tmp/netperf-out.log
