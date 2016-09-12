@@ -9,12 +9,11 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-sed -i 's/enable_security_group = True/enable_security_group= False/g' /etc/neutron/plugins/ml2/ml2_conf.ini
-sed -i '2a extension_drivers = port_security' /etc/neutron/plugins/ml2/ml2_conf.ini
+cp /etc/neutron/plugins/ml2/ml2_conf.ini /etc/neutron/plugins/ml2/ml2_conf.ini_bkp
+sed -i '83a prevent_arp_spoofing = False' /etc/neutron/plugins/ml2/ml2_conf.ini
 sed -i 's/firewall_driver = neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver/firewall_driver= neutron.agent.firewall.NoopFirewallDriver/g' /etc/neutron/plugins/ml2/ml2_conf.ini
-sed -i 's/security_group_api = neutron/security_group_api= nova/g' /etc/nova/nova.conf
 
-
+# restart nova and neutron service
 service neutron-l3-agent restart
 service neutron-dhcp-agent restart
 service neutron-metadata-agent restart
