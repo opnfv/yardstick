@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_db016c07",
+        "filename": "yardstick/benchmark/scenarios/networking/ping6_pre_setup.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-09-12T07:36:27Z",
+      "side": 1,
+      "message": "thanks for comments, As you said yardstick will be used at plugfest,the SUT will be commercial version, we shouldn\u0027t depend on installer type, so I guess you need to update this patch. thanks",
+      "parentUuid": "1a76adc5_e04dcf73",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 16
+      },
+      "revId": "ae92edefc0c3c9c99755c8e5c567abe3a84a9ce2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_cc124f62",
         "filename": "yardstick/benchmark/scenarios/networking/ping6_setup_with_odl.bash",
         "patchSetId": 2
