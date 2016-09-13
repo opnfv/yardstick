@@ -45,6 +45,30 @@
       "revId": "5f146168834598d371f3c0b7df664e32f3f902ce",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e5504660",
+        "filename": "tests/ci/yardstick-download-img.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-09-13T07:33:43Z",
+      "side": 1,
+      "message": "Hi, Jing. You mean trusty-server-cloudimg-amd64-disk1.img just is only used for storperf? But from the ci log, this image is also used for building yardsitck image. So I refer yardstick-img-modify to use YARD_IMG_ARCH.",
+      "parentUuid": "1a76adc5_25887ee6",
+      "range": {
+        "startLine": 40,
+        "startChar": 57,
+        "endLine": 40,
+        "endChar": 74
+      },
+      "revId": "5f146168834598d371f3c0b7df664e32f3f902ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
