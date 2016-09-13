@@ -118,3 +118,5 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     fi
 
 fi
+
+source $YARDSTICK_REPO_DIR/tests/ci/yardstick-download-img.sh
