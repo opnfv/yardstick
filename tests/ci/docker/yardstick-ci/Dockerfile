@@ -60,7 +60,4 @@ RUN cd ${YARDSTICK_REPO_DIR} && easy_install -U pip
 RUN cd ${YARDSTICK_REPO_DIR} && pip install -r tests/ci/requirements.txt
 RUN cd ${YARDSTICK_REPO_DIR} && pip install .
 
-ADD http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img /home/opnfv/images/
-ADD http://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img /home/opnfv/images/
-
 COPY ./exec_tests.sh /usr/local/bin/
