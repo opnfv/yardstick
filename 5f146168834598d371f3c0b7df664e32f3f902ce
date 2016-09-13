@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_c56e6a2f",
+        "filename": "tests/ci/yardstick-download-img.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-09-13T07:16:47Z",
+      "side": 1,
+      "message": "unnecessary. see below.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 20
+      },
+      "revId": "5f146168834598d371f3c0b7df664e32f3f902ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_25887ee6",
+        "filename": "tests/ci/yardstick-download-img.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-09-13T07:16:47Z",
+      "side": 1,
+      "message": "Hi zhihui. Is this the image that we used for StorPerf integration? If so, for this ubuntu image, we will always use the amd64 version, so it is unnecessary to use the YARD_IMG_ARCH variable. You can use hard coded \"arm64\" here.",
+      "range": {
+        "startLine": 40,
+        "startChar": 57,
+        "endLine": 40,
+        "endChar": 74
+      },
+      "revId": "5f146168834598d371f3c0b7df664e32f3f902ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
