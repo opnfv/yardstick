@@ -256,17 +256,16 @@ report(){
 
     echo
     echo "========== Reporting Status =========="
-
     curl -i -H 'content-type: application/json' -X POST -d \
         "{\"project_name\": \"yardstick\",
           \"case_name\": \"scenario_status\",
           \"pod_name\":\"${NODE_NAME}\",
           \"installer\":\"${INSTALLER_TYPE}\",
-          \"version\":\"${YARDSTICK_BRANCH}\",
+          \"version\":\"$(basename ${YARDSTICK_BRANCH})\",
           \"scenario\":\"${DEPLOY_SCENARIO}\",
           \"description\": \"yardstick ci scenario status\",
-          \"start_date\":\"$2\",
           \"criteria\":\"$1\",
+          \"start_date\":\"$2\",
           \"stop_date\":\"$3\",
           \"details\":\"\"}" \
           ${DISPATCHER_HTTP_TARGET}
