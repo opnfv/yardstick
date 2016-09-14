@@ -1,7 +1,13 @@
 ---
 # Yardstick TC055 config file
-# Collect hardware specification from /proc/cpuinfo
-# Measure number of cores, number of threads, available memory size and cache size
+# Collect hardware specification from /proc/cpuinfo /proc/meminfo
+# compute capacity and scale.
+
+# the results have
+# number of CPUs, number of physical cores in a single CPU
+# number of logical cores, total memory size
+# cache size per CPU, total cache size
+# HT (Hyper-Thread) support status, 1 for open, 0 for close
 
 schema: "yardstick:task:0.1"
 {% set host = host or "node5.yardstick-TC055" %}
