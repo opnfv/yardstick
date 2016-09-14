@@ -68,7 +68,8 @@ class InfluxdbDispatcher(DispatchBase):
             "pod_name": os.environ.get('NODE_NAME', 'unknown'),
             "installer": os.environ.get('INSTALLER_TYPE', 'unknown'),
             "deploy_scenario": os.environ.get('DEPLOY_SCENARIO', 'unknown'),
-            "version": os.environ.get('YARDSTICK_VERSION', 'unknown')
+            "version": os.path.basename(os.environ.get('YARDSTICK_BRANCH', 'unknown'))
+
         }
 
     def _dict_key_flatten(self, data):
