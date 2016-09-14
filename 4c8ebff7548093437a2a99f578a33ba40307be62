@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_33876411",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2913
+      },
+      "writtenOn": "2016-09-14T04:04:26Z",
+      "side": 1,
+      "message": "any dependency with Functest? can\u0027t we trigger yardstck before Functest?",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 20,
+        "endChar": 14
+      },
+      "revId": "4c8ebff7548093437a2a99f578a33ba40307be62",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_33a44456",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2913
+      },
+      "writtenOn": "2016-09-14T04:04:26Z",
+      "side": 1,
+      "message": "(CI)",
+      "revId": "4c8ebff7548093437a2a99f578a33ba40307be62",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_13a10847",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2913
+      },
+      "writtenOn": "2016-09-14T04:04:26Z",
+      "side": 1,
+      "message": "CI?",
+      "revId": "4c8ebff7548093437a2a99f578a33ba40307be62",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d38ab0be",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2913
+      },
+      "writtenOn": "2016-09-14T04:04:26Z",
+      "side": 1,
+      "message": "grammer correction \"wouldn\u0027t\"",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 38,
+        "endChar": 10
+      },
+      "revId": "4c8ebff7548093437a2a99f578a33ba40307be62",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b38ff4cb",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2913
+      },
+      "writtenOn": "2016-09-14T04:04:26Z",
+      "side": 1,
+      "message": "what work you are referring for ?",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "4c8ebff7548093437a2a99f578a33ba40307be62",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_337204e6",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2913
+      },
+      "writtenOn": "2016-09-14T04:04:26Z",
+      "side": 1,
+      "message": "either not required",
+      "range": {
+        "startLine": 40,
+        "startChar": 63,
+        "endLine": 40,
+        "endChar": 69
+      },
+      "revId": "4c8ebff7548093437a2a99f578a33ba40307be62",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_13b82875",
+        "filename": "docs/results/overview.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2913
+      },
+      "writtenOn": "2016-09-14T04:04:26Z",
+      "side": 1,
+      "message": "Are there any choices for selecting Yardstick execution as short duration and long duration testing??",
+      "range": {
+        "startLine": 93,
+        "startChar": 24,
+        "endLine": 94,
+        "endChar": 34
+      },
+      "revId": "4c8ebff7548093437a2a99f578a33ba40307be62",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f3732ce5",
+        "filename": "docs/results/results.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2913
+      },
+      "writtenOn": "2016-09-14T04:04:26Z",
+      "side": 1,
+      "message": "CI?",
+      "range": {
+        "startLine": 20,
+        "startChar": 31,
+        "endLine": 20,
+        "endChar": 33
+      },
+      "revId": "4c8ebff7548093437a2a99f578a33ba40307be62",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_0ea79f0d",
+        "filename": "docs/userguide/07-installation.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2913
+      },
+      "writtenOn": "2016-09-14T04:04:26Z",
+      "side": 1,
+      "message": "Installation instead of Install",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 7
+      },
+      "revId": "4c8ebff7548093437a2a99f578a33ba40307be62",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
