@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_8eae4f84",
+        "filename": "tests/opnfv/test_suites/opnfv_os-odl_l2-fdio-noha_daily.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-09-14T07:35:24Z",
+      "side": 1,
+      "message": "please correct the comments, thanks",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 2,
+        "endChar": 33
+      },
+      "revId": "31734cdfd2dcbe69d1b13dd930f72fdcaa999c3f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
