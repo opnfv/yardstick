@@ -39,6 +39,7 @@ class Ping6(base.Scenario):  # pragma: no cover
         self.context_cfg = context_cfg
         self.setup_done = False
         self.run_done = False
+        self.ping_options = ''
 
     def _pre_setup(self):
         for node_name in self.host_list:
@@ -83,6 +84,10 @@ class Ping6(base.Scenario):  # pragma: no cover
             Ping6.RADVD_SCRIPT)
 
         options = self.scenario_cfg['options']
+        self.ping_options = "-s %s" % \
+            options.get("packetsize", '56') + \
+            "-c %s" % \
+            options.get("ping_count", '5')
         host_str = options.get("host", 'host1')
         self.host_list = host_str.split(',')
         self.host_list.sort()
@@ -126,6 +131,10 @@ class Ping6(base.Scenario):  # pragma: no cover
 
         if not self.setup_done:
             options = self.scenario_cfg['options']
+            self.ping_options = "-s %s" % \
+                options.get("packetsize", '56') + \
+                "-c %s" % \
+                options.get("ping_count", '5')
             host_str = options.get("host", 'host1')
             self.host_list = host_str.split(',')
             self.host_list.sort()
@@ -149,7 +158,8 @@ class Ping6(base.Scenario):  # pragma: no cover
         # run ping6 benchmark
         self.client.run("cat > ~/ping6.sh",
                         stdin=open(self.ping6_script, "rb"))
-        cmd = "sudo bash ping6.sh"
+        cmd_args = "%s" % (self.ping_options)
+        cmd = "sudo bash ping6.sh %s" % (cmd_args)
         LOG.debug("Executing command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
 

@@ -34,7 +34,7 @@ class PingTestCase(unittest.TestCase):
     @mock.patch('yardstick.benchmark.scenarios.networking.ping6.ssh')
     def test_ping_successful_setup(self, mock_ssh):
         args = {
-            'options': {'host': 'host1','packetsize': 200},
+            'options': {'host': 'host1','packetsize': 200, 'ping_count': 5},
             'sla': {'max_rtt': 50}
         }
         p = ping6.Ping6(args, self.ctx)
@@ -46,7 +46,7 @@ class PingTestCase(unittest.TestCase):
     @mock.patch('yardstick.benchmark.scenarios.networking.ping6.ssh')
     def test_ping_successful_no_sla(self, mock_ssh):
         args = {
-            'options': {'host': 'host1','packetsize': 200},
+            'options': {'host': 'host1','packetsize': 200, 'ping_count': 5},
 
         }
         result = {}
@@ -61,7 +61,7 @@ class PingTestCase(unittest.TestCase):
     def test_ping_successful_sla(self, mock_ssh):
 
         args = {
-            'options': {'host': 'host1','packetsize': 200},
+            'options': {'host': 'host1','packetsize': 200, 'ping_count': 5},
             'sla': {'max_rtt': 150}
         }
         result = {}
@@ -76,7 +76,7 @@ class PingTestCase(unittest.TestCase):
     def test_ping_unsuccessful_sla(self, mock_ssh):
 
         args = {
-            'options': {'host': 'host1','packetsize': 200},
+            'options': {'host': 'host1','packetsize': 200, 'ping_count': 5},
             'sla': {'max_rtt': 50}
         }
         result = {}
@@ -90,7 +90,7 @@ class PingTestCase(unittest.TestCase):
     def test_ping_unsuccessful_script_error(self, mock_ssh):
 
         args = {
-            'options': {'host': 'host1','packetsize': 200},
+            'options': {'host': 'host1','packetsize': 200, 'ping_count': 5},
             'sla': {'max_rtt': 150}
         }
         result = {}
