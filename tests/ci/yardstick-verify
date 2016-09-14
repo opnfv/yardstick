@@ -183,7 +183,9 @@ create_nova_flavor()
         nova flavor-create yardstick-flavor 100 512 3 1
         # DPDK-enabled OVS requires guest memory to be backed by large pages
         if [[ "$DEPLOY_SCENARIO" == *"-ovs-"* ]]; then
-            nova flavor-key yardstick-flavor set hw:mem_page_size=large
+            for i in `nova flavor-list | tail -n +4 | head --lines=-1 | awk {'print $4'}`; do
+                nova flavor-key $i set "hw:mem_page_size=large"
+            done
         fi
     fi
 }
