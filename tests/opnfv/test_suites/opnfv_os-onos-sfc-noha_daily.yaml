@@ -1,5 +1,5 @@
 ---
-# Huawei US bare daily task suite
+# os-onos-sfc-noha daily task suite
 
 schema: "yardstick:suite:0.1"
 
