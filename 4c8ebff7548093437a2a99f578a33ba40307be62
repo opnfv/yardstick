@@ -246,6 +246,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_74bb82c4",
+        "filename": "docs/results/results.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2913
+      },
+      "writtenOn": "2016-09-15T06:06:05Z",
+      "side": 1,
+      "message": "in this doc you refer sometimes continuous integration and sometimes as CI , suggesting to follow same type of phrases either Continuous Integration  or CI",
+      "parentUuid": "1a76adc5_6eee5324",
+      "range": {
+        "startLine": 20,
+        "startChar": 31,
+        "endLine": 20,
+        "endChar": 33
+      },
+      "revId": "4c8ebff7548093437a2a99f578a33ba40307be62",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_0ea79f0d",
         "filename": "docs/userguide/07-installation.rst",
         "patchSetId": 13
