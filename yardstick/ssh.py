@@ -246,7 +246,7 @@ class SSH(object):
         stderr.seek(0)
         return (exit_status, stdout.read(), stderr.read())
 
-    def wait(self, timeout=120, interval=1):
+    def wait(self, timeout=180, interval=1):
         """Wait for the host will be available via ssh."""
         start_time = time.time()
         while True:
