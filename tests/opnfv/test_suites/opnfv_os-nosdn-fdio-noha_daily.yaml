@@ -1,0 +1,30 @@
+---
+# FDS suite
+
+schema: "yardstick:suite:0.1"
+
+name: "os-nosdn-fdio-noha"
+test_cases_dir: "tests/opnfv/test_cases/"
+test_cases:
+-
+  file_name: opnfv_yardstick_tc001.yaml
+-
+  file_name: opnfv_yardstick_tc002.yaml
+-
+  file_name: opnfv_yardstick_tc006.yaml
+-
+  file_name: opnfv_yardstick_tc007.yaml
+-
+  file_name: opnfv_yardstick_tc008.yaml
+-
+  file_name: opnfv_yardstick_tc009.yaml
+-
+  file_name: opnfv_yardstick_tc011.yaml
+-
+  file_name: opnfv_yardstick_tc020.yaml
+-
+  file_name: opnfv_yardstick_tc021.yaml
+-
+  file_name: opnfv_yardstick_tc037.yaml
+-
+  file_name: opnfv_yardstick_tc038.yaml

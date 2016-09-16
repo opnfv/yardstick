@@ -185,6 +185,10 @@ create_nova_flavor()
         if [[ "$DEPLOY_SCENARIO" == *"-ovs-"* ]]; then
             nova flavor-key yardstick-flavor set hw:mem_page_size=large
         fi
+        # VPP requires guest memory to be backed by large pages
+        if [[ "$DEPLOY_SCENARIO" == *"-fdio-"* ]]; then
+            nova flavor-key yardstick-flavor set hw:mem_page_size=large
+        fi
     fi
 }
 
@@ -195,10 +199,17 @@ load_cirros_image()
 
     local image_file=/home/opnfv/images/cirros-0.3.3-x86_64-disk.img
 
+    EXTRA_PARAMS=""
+    # VPP requires guest memory to be backed by large pages
+    if [[ "$DEPLOY_SCENARIO" == *"-fdio-"* ]]; then
+        EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
+    fi
+
     output=$(glance image-create \
         --name  cirros-0.3.3 \
         --disk-format qcow2 \
         --container-format bare \
+        $EXTRA_PARAMS \
         --file $image_file)
     echo "$output"
 
@@ -218,10 +229,17 @@ load_ubuntu_image()
 
     local ubuntu_image_file=/home/opnfv/images/trusty-server-cloudimg-amd64-disk1.img
 
+    EXTRA_PARAMS=""
+    # VPP requires guest memory to be backed by large pages
+    if [[ "$DEPLOY_SCENARIO" == *"-fdio-"* ]]; then
+        EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
+    fi
+
     output=$(glance image-create \
         --name Ubuntu-14.04 \
         --disk-format qcow2 \
         --container-format bare \
+        $EXTRA_PARAMS \
         --file $ubuntu_image_file)
     echo "$output"
 
@@ -274,6 +292,11 @@ load_yardstick_image()
         DISK_FORMAT="raw"
     else
         DISK_FORMAT="qcow2"
+    fi
+
+    # VPP requires guest memory to be backed by large pages
+    if [[ "$DEPLOY_SCENARIO" == *"-fdio-"* ]]; then
+        EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
     fi
 
     output=$(eval glance --os-image-api-version 1 image-create \
