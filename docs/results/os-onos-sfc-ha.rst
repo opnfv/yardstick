@@ -3,16 +3,16 @@
 .. http://creativecommons.org/licenses/by/4.0
 
 
-============================================
-Test Results for fuel-os-odl_l2-nofeature-ha
-============================================
+===============================
+Test Results for os-onos-sfc-ha
+===============================
 
 .. toctree::
    :maxdepth: 2
 
 
-Details
-=======
+fuel
+====
 
 .. _Grafana: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-main
 .. _POD2: https://wiki.opnfv.org/pharos?&#community_test_labs
@@ -24,9 +24,8 @@ See Grafana_ for viewing test result metrics for each respective test case. It
 is possible to chose which specific scenarios to look at, and then to zoom in
 on the details of each run test scenario as well.
 
-All of the test case results below are based on 4 scenario test
-runs, each run on the Ericsson POD2_ or LF POD2_ between August 25 and 29 in
-2016.
+All of the test case results below are based on 4 scenario test runs, each run
+on the Ericsson POD2_ or LF POD2_ between September 5 and 10 in 2016.
 
 TC002
 -----
@@ -120,14 +119,15 @@ utilization ratio vary between 1% to 2%. The peak of CPU utilization ratio
 appears around 7%.
 
 TC069
+-----
 Between test dates, the average measurements for memory bandwidth vary between
 15.5 and 25.4 GB/s. Within each test run the results vary more, with a minimal
 BW of 9.7 GB/s and maximum of 29.5 GB/s on the totality.
 SLA set to 6 GB/s. The SLA value is used as a reference, it has not been
 defined by OPNFV.
 
-
 TC070
+-----
 The amount of packets per second (PPS) and round trip times (RTT) between 2 VMs
 on different blades are measured when increasing the amount of UDP flows sent
 between the VMs using pktgen as packet generator tool.
@@ -166,6 +166,7 @@ utilization vary between 225MB to 246MB. The peak of memory utilization appears
 around 340MB.
 
 TC071
+-----
 The amount of packets per second (PPS) and round trip times (RTT) between 2 VMs
 on different blades are measured when increasing the amount of UDP flows sent
 between the VMs using pktgen as packet generator tool.
@@ -203,6 +204,7 @@ VMs using pktgen as packet generator tool. The average measurements for cache
 utilization vary between 205MB to 212MB.
 
 TC072
+-----
 The amount of packets per second (PPS) and round trip times (RTT) between 2 VMs
 on different blades are measured when increasing the amount of UDP flows sent
 between the VMs using pktgen as packet generator tool.
@@ -245,6 +247,7 @@ Detailed test results
 The scenario was run on Ericsson POD2_ and LF POD2_ with:
 Fuel 9.0
 OpenStack Mitaka
+Onos Goldeneye
 OpenVirtualSwitch 2.5.90
 OpenDayLight Beryllium
 
