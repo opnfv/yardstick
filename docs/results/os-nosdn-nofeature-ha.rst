@@ -3,16 +3,16 @@
 .. http://creativecommons.org/licenses/by/4.0
 
 
-===========================================
-Test Results for apex-os-nosdn-nofeature-ha
-===========================================
+======================================
+Test Results for os-nosdn-nofeature-ha
+======================================
 
 .. toctree::
    :maxdepth: 2
 
 
-Details
-=======
+apex
+====
 
 .. _Grafana: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-main
 .. _POD1: https://wiki.opnfv.org/pharos?&#community_test_labs
