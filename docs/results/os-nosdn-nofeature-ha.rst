@@ -3,16 +3,16 @@
 .. http://creativecommons.org/licenses/by/4.0
 
 
-===========================================
-Test Results for apex-os-nosdn-nofeature-ha
-===========================================
+======================================
+Test Results for os-nosdn-nofeature-ha
+======================================
 
 .. toctree::
    :maxdepth: 2
 
 
-Details
-=======
+apex
+====
 
 .. _Grafana: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-main
 .. _POD1: https://wiki.opnfv.org/pharos?&#community_test_labs
@@ -250,18 +250,4 @@ Pass
 
 Tests were successfully executed and metrics collected.
 No SLA was verified. To be decided on in next release of OPNFV.
-
-Conclusions and recommendations
--------------------------------
-The pktgen test configuration has a relatively large base effect on RTT in
-TC037 compared to TC002, where there is no background load at all. Approx.
-15 ms compared to approx. 0.5 ms, which is more than a 3000 percentage
-difference in RTT results.
-Especially RTT and throughput come out with better results than for instance
-the *fuel-os-nosdn-nofeature-ha* scenario does. The reason for this should
-probably be further analyzed and understood. Also of interest could be
-to make further analyzes to find patterns and reasons for lost traffic.
-Also of interest could be to see if there are continuous variations where
-some test cases stand out with better or worse results than the general test
-case.
 
