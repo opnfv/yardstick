@@ -3,19 +3,20 @@
 .. http://creativecommons.org/licenses/by/4.0
 
 
-============================================
-Test Results for fuel-os-odl_l2-nofeature-ha
-============================================
+======================================
+Test Results for os-nosdn-nofeature-ha
+======================================
 
 .. toctree::
    :maxdepth: 2
 
 
-Details
-=======
+apex
+====
 
 .. _Grafana: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-main
-.. _POD2: https://wiki.opnfv.org/pharos?&#community_test_labs
+.. _POD1: https://wiki.opnfv.org/pharos?&#community_test_labs
+
 
 Overview of test results
 ------------------------
@@ -25,59 +26,54 @@ is possible to chose which specific scenarios to look at, and then to zoom in
 on the details of each run test scenario as well.
 
 All of the test case results below are based on 4 scenario test
-runs, each run on the Ericsson POD2_ or LF POD2_ between August 25 and 29 in
+runs, each run on the LF POD1_ between August 25 and 28 in
 2016.
 
 TC002
 -----
 The round-trip-time (RTT) between 2 VMs on different blades is measured using
-ping. Most test run measurements result on average between 0.5 and 0.6 ms.
-A few runs start with a 1 - 1.5 ms RTT spike (This could be because of normal ARP
-handling). One test run has a greater RTT spike of 1.9 ms, which is the same
-one with the 0.7 ms average. The other runs have no similar spike at all.
-To be able to draw conclusions more runs should be made.
-SLA set to 10 ms. The SLA value is used as a reference, it has not
-been defined by OPNFV.
+ping. Most test run measurements result on average between 0.74 and 1.08 ms.
+A few runs start with a 0.99 - 1.07 ms RTT spike (This could be because of
+normal ARP handling). One test run has a greater RTT spike of 1.35 ms.
+To be able to draw conclusions more runs should be made. SLA set to 10 ms.
+The SLA value is used as a reference, it has not been defined by OPNFV.
 
 TC005
 -----
 The IO read bandwidth looks similar between different dates, with an
-average between approx. 170 and 200 MB/s. Within each test run the results
-vary, with a minimum 2 MB/s and maximum 838 MB/s on the totality. Most runs
-have a minimum BW of 3 MB/s (two runs at 2 MB/s). The maximum BW varies more in
-absolute numbers between the dates, between 617 and 838 MB/s.
+average between approx. 128 and 136 MB/s. Within each test run the results
+vary, with a minimum 5 MB/s and maximum 446 MB/s on the totality. Most runs
+have a minimum BW of 5 MB/s (one run at 6 MB/s). The maximum BW varies more in
+absolute numbers between the dates, between 416 and 446 MB/s.
 SLA set to 400 MB/s. The SLA value is used as a reference, it has not been
 defined by OPNFV.
 
 TC010
 -----
 The measurements for memory latency are similar between test dates and result
-in approx. 1.2 ns. The variations within each test run are similar, between
-1.215 and 1.219 ns. One exception is February 16, where the average is 1.222
-and varies between 1.22 and 1.28 ns.
+in approx. 1.09 ns. The variations within each test run are similar, between
+1.0860 and 1.0880 ns.
 SLA set to 30 ns. The SLA value is used as a reference, it has not been defined
 by OPNFV.
 
 TC011
 -----
 Packet delay variation between 2 VMs on different blades is measured using
-Iperf3. On the first date the reported packet delay variation varies between
-0.0025 and 0.011 ms, with an average delay variation of 0.0067 ms.
-On the second date the delay variation varies between 0.002 and 0.006 ms, with
-an average delay variation of 0.004 ms.
+Iperf3. The reported packet delay variation varies between 0.0025 and 0.0148 ms,
+with an average delay variation between 0.0056 ms and 0.0157 ms.
 
 TC012
 -----
-Between test dates, the average measurements for memory bandwidth vary between
-17.4 and 17.9 GB/s. Within each test run the results vary more, with a minimal
-BW of 16.4 GB/s and maximum of 18.2 GB/s on the totality.
+Between test dates, the average measurements for memory bandwidth result in
+approx. 19.70 GB/s. Within each test run the results vary more, with a minimal
+BW of 18.16 GB/s and maximum of 20.13 GB/s on the totality.
 SLA set to 15 GB/s. The SLA value is used as a reference, it has not been
 defined by OPNFV.
 
 TC014
 -----
-The Unixbench processor test run results vary between scores 3080 and 3240,
-one result each date. The average score on the total is 3150.
+The Unixbench processor test run results vary between scores 3224.4 and 3842.8,
+one result each date. The average score on the total is 3659.5.
 No SLA set.
 
 TC037
@@ -120,14 +116,15 @@ utilization ratio vary between 1% to 2%. The peak of CPU utilization ratio
 appears around 7%.
 
 TC069
+-----
 Between test dates, the average measurements for memory bandwidth vary between
-15.5 and 25.4 GB/s. Within each test run the results vary more, with a minimal
-BW of 9.7 GB/s and maximum of 29.5 GB/s on the totality.
+22.6 and 29.1 GB/s. Within each test run the results vary more, with a minimal
+BW of 20.0 GB/s and maximum of 29.5 GB/s on the totality.
 SLA set to 6 GB/s. The SLA value is used as a reference, it has not been
 defined by OPNFV.
 
-
 TC070
+-----
 The amount of packets per second (PPS) and round trip times (RTT) between 2 VMs
 on different blades are measured when increasing the amount of UDP flows sent
 between the VMs using pktgen as packet generator tool.
@@ -166,6 +163,7 @@ utilization vary between 225MB to 246MB. The peak of memory utilization appears
 around 340MB.
 
 TC071
+-----
 The amount of packets per second (PPS) and round trip times (RTT) between 2 VMs
 on different blades are measured when increasing the amount of UDP flows sent
 between the VMs using pktgen as packet generator tool.
@@ -203,6 +201,7 @@ VMs using pktgen as packet generator tool. The average measurements for cache
 utilization vary between 205MB to 212MB.
 
 TC072
+-----
 The amount of packets per second (PPS) and round trip times (RTT) between 2 VMs
 on different blades are measured when increasing the amount of UDP flows sent
 between the VMs using pktgen as packet generator tool.
@@ -242,8 +241,8 @@ second was average on 600 kpps.
 
 Detailed test results
 ---------------------
-The scenario was run on Ericsson POD2_ and LF POD2_ with:
-Fuel 9.0
+The scenario was run on LF POD1_ with:
+Apex
 OpenStack Mitaka
 OpenVirtualSwitch 2.5.90
 OpenDayLight Beryllium
@@ -254,18 +253,4 @@ Pass
 
 Tests were successfully executed and metrics collected.
 No SLA was verified. To be decided on in next release of OPNFV.
-
-Conclusions and recommendations
--------------------------------
-The pktgen test configuration has a relatively large base effect on RTT in
-TC037 compared to TC002, where there is no background load at all. Approx.
-15 ms compared to approx. 0.5 ms, which is more than a 3000 percentage
-difference in RTT results.
-Especially RTT and throughput come out with better results than for instance
-the *fuel-os-nosdn-nofeature-ha* scenario does. The reason for this should
-probably be further analyzed and understood. Also of interest could be
-to make further analyzes to find patterns and reasons for lost traffic.
-Also of interest could be to see if there are continuous variations where
-some test cases stand out with better or worse results than the general test
-case.
 
