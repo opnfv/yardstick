@@ -3,16 +3,16 @@
 .. http://creativecommons.org/licenses/by/4.0
 
 
-============================================
-Test Results for fuel-os-odl_l2-nofeature-ha
-============================================
+=======================================
+Test Results for os-odl_l2-nofeature-ha
+=======================================
 
 .. toctree::
    :maxdepth: 2
 
 
-Details
-=======
+fuel
+====
 
 .. _Grafana: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-main
 .. _POD2: https://wiki.opnfv.org/pharos?&#community_test_labs
