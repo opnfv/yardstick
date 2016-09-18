@@ -11,7 +11,7 @@ Abstract
 
 Yardstick supports installation on Ubuntu 14.04 or by using a Docker image.
 The installation procedure on Ubuntu 14.04 or via the docker image are
-detailed in the section below
+detailed in the section below.
 
 To use Yardstick you should have access to an OpenStack environment,
 with at least Nova, Neutron, Glance, Keystone and Heat installed.
@@ -21,7 +21,7 @@ The steps needed to run Yardstick are:
 1. Install Yardstick.
 2. Create the test configuration .yaml file.
 3. Build a guest image。
-4 .Load the image into the OpenStack environment.
+4. Load the image into the OpenStack environment.
 5. Create a Neutron external network.
 6. Load OpenStack environment variables.
 6. Run the test case.
@@ -87,48 +87,6 @@ at: http://www.youtube.com/watch?v=4S4izNolmR0
    :alt: http://www.youtube.com/watch?v=4S4izNolmR0
    :target: http://www.youtube.com/watch?v=4S4izNolmR0
 
-.. _guest-image:
-
-Building a guest image
-^^^^^^^^^^^^^^^^^^^^^^
-Yardstick has a tool for building an Ubuntu Cloud Server image containing all
-the required tools to run test cases supported by Yardstick. It is necessary to
-have sudo rights to use this tool.
-
-Also you may need install several additional packages to use this tool, by
-follwing the commands below:
-
-::
-
-  apt-get update && apt-get install -y \
-      qemu-utils \
-      kpartx
-
-This image can be built using the following command while in the directory where
-Yardstick is installed (``~/yardstick`` if the framework is installed
-by following the commands above):
-
-::
-
-  eport YARD_IMG_ARCH="amd64"
-  sudo echo "Defaults env_keep += \"YARD_IMG_ARCH\"" >> /etc/sudoers
-  sudo ./tools/yardstick-img-modify tools/ubuntu-server-cloudimg-modify.sh
-
-**Warning:** the script will create files by default in:
-``/tmp/workspace/yardstick`` and the files will be owned by root!
-
-The created image can be added to OpenStack using the ``glance image-create`` or
-via the OpenStack Dashboard.
-
-Example command:
-
-::
-
-  glance --os-image-api-version 1 image-create \
-  --name yardstick-trusty-server --is-public true \
-  --disk-format qcow2 --container-format bare \
-  --file /tmp/workspace/yardstick/yardstick-trusty-server.img
-
 
 Installing Yardstick using Docker
 ---------------------------------
@@ -150,51 +108,13 @@ Run the Docker image:
 
 ::
 
-  docker run \
-   --privileged=true \
-    --rm \
-    -t \
-    -e "INSTALLER_TYPE=${INSTALLER_TYPE}" \
-    -e "INSTALLER_IP=${INSTALLER_IP}" \
-    opnfv/yardstick \
-    exec_tests.sh ${YARDSTICK_DB_BACKEND} ${YARDSTICK_SUITE_NAME}
-
-Where ``${INSTALLER_TYPE}`` can be apex, compass, fuel or joid, ``${INSTALLER_IP}``
-is the installer master node IP address (i.e. 10.20.0.2 is default for fuel). ``${YARDSTICK_DB_BACKEND}``
-is the IP and port number of DB, ``${YARDSTICK_SUITE_NAME}`` is the test suite you want to run.
-For more details, please refer to the Jenkins job defined in Releng project, labconfig information
-and sshkey are required. See the link
-https://git.opnfv.org/cgit/releng/tree/jjb/yardstick/yardstick-ci-jobs.yml.
-
-Note: exec_tests.sh is used for executing test suite here, furthermore, if someone
-wants to execute the test suite manually, it can be used as long as the parameters
-are configured correct. Another script called run_tests.sh is used for unittest in
-Jenkins verify job, in local manaul environment, it is recommended to run before
-test suite execuation.
-
-Basic steps performed by the **Yardstick-stable** container:
-
-1. clone yardstick and releng repos
-2. setup OS credentials (releng scripts)
-3. install yardstick and dependencies
-4. build yardstick cloud image
-5. Upload yardstick cloud image to glance
-6. upload cirros-0.3.3 cloud image and ubuntu-14.04 cloud image to glance
-7. run yardstick test scenarios
-8. cleanup
-
-If someone only wants to execute a single test case, one can log into the yardstick-stable
-container first using command:
-
-::
-
   docker run -it openfv/yardstick /bin/bash
 
-Then in the container run yardstick task command to execute a single test case.
+In the container run yardstick task command to execute a test case.
 Before executing Yardstick test case, make sure that yardstick-trusty-server
 image and yardstick flavor is available in OpenStack.
-Detailed steps about creating yardstick flavor and executing Yardstick test case
-can be found below.
+Detailed steps about creating yardstick flavor and building yardstick-trusty-server
+image can be found below.
 
 
 OpenStack parameters and credentials
@@ -226,6 +146,50 @@ Credential environment variables in the *openrc* file have to include at least:
 * OS_PASSWORD
 * OS_TENANT_NAME
 
+
+.. _guest-image:
+
+Building a guest image
+^^^^^^^^^^^^^^^^^^^^^^
+Yardstick has a tool for building an Ubuntu Cloud Server image containing all
+the required tools to run test cases supported by Yardstick. It is necessary to
+have sudo rights to use this tool.
+
+Also you may need install several additional packages to use this tool, by
+follwing the commands below:
+
+::
+
+  apt-get update && apt-get install -y \
+      qemu-utils \
+      kpartx
+
+This image can be built using the following command while in the directory where
+Yardstick is installed (``~/yardstick`` if the framework is installed
+by following the commands above):
+
+::
+
+  export YARD_IMG_ARCH="amd64"
+  sudo echo "Defaults env_keep += \"YARD_IMG_ARCH\"" >> /etc/sudoers
+  sudo ./tools/yardstick-img-modify tools/ubuntu-server-cloudimg-modify.sh
+
+**Warning:** the script will create files by default in:
+``/tmp/workspace/yardstick`` and the files will be owned by root!
+
+The created image can be added to OpenStack using the ``glance image-create`` or
+via the OpenStack Dashboard.
+
+Example command:
+
+::
+
+  glance --os-image-api-version 1 image-create \
+  --name yardstick-trusty-server --is-public true \
+  --disk-format qcow2 --container-format bare \
+  --file /tmp/workspace/yardstick/yardstick-trusty-server.img
+
+
 Yardstick default key pair
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 Yardstick uses a SSH key pair to connect to the guest image. This key pair can
@@ -237,8 +201,10 @@ Examples and verifying the install
 ----------------------------------
 
 It is recommended to verify that Yardstick was installed successfully
-by executing some simple commands and test samples. Below is an example invocation
-of yardstick help command and ping.py test sample:
+by executing some simple commands and test samples. Before executing yardstick
+test cases make sure yardstick flavor and building yardstick-trusty-server
+image can be found in glance and openrc file is sourced. Below is an example
+invocation of yardstick help command and ping.py test sample:
 ::
 
   yardstick –h

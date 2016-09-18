@@ -502,7 +502,8 @@ Known Issues/Faults
  - IPv6 support
  - Boot up VM failed in joid-os-nosdn-lxd-ha and joid-os-nosdn-lxd-noha scenarios
  - Yardstick CI job timeout in fuel-os-onos-nofeature-ha scenario
-
+ - SSH timeout in apex-os-onos-sfc-ha, apex-os-onos-nofeature-ha and apex-os-odl_l3-nofeature-ha scenarios
+ - Scp /home/stack/overcloudrc failed in apex-os-nosdn-ovs-noha and apex-os-odl_l2-sfc-noha scenarios
 
 .. note:: The faults not related to *Yardstick* framework, addressing scenarios
   which were not fully verified, are listed in the OPNFV installer's release
