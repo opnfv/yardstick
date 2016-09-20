@@ -1,5 +1,5 @@
 ---
-# Huawei US bare daily task suite
+# os-nosdn-kvm_ovs-ha daily task suite
 
 schema: "yardstick:suite:0.1"
 
