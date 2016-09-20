@@ -11,7 +11,7 @@
 
 # Run a single ping6 command towards a ipv6 router
 set -e
-ping6_options=$1
+ping6_options=$*
 source /opt/admin-openrc.sh
 chmod 600 vRouterKey
 # TODO find host
