@@ -20,7 +20,7 @@ from yardstick.benchmark.scenarios.compute import computecapacity
 
 SAMPLE_OUTPUT = '{"Cpu_number": "2", "Core_number": "24",\
  "Memory_size": "263753976 kB", "Thread_number": "48",\
- "Cache_size": "30720 KB"}'
+ "Cache_size": "30720 KB", "HT_Open": "0"}'
 
 
 @mock.patch('yardstick.benchmark.scenarios.compute.computecapacity.ssh')

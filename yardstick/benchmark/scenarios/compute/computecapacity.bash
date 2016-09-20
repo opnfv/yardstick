@@ -9,13 +9,15 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Measure compute capacity and scale of a host
+# compute capacity and scale of a host
 
 set -e
 
 # run capacity test
 run_capacity()
 {
+    #parameter used for HT(Hyper-Thread) check
+    HT_Para=2
     # Number of CPUs
     CPU=$(grep 'physical id' /proc/cpuinfo | sort -u | wc -l)
     # Number of physical cores in a single CPU
@@ -31,6 +33,12 @@ run_capacity()
     CACHE=$(grep 'cache size' /proc/cpuinfo | sort -u)
     CA=$(echo $CACHE | awk '/ /{printf "%s", $4}')
     CACHES=$[$CA * $CPU]
+    HT_Value=$[$HT_Para * $CORES]
+    if [ $HT_Value -eq $THREAD ]; then
+        HT_OPEN=1
+    else
+        HT_OPEN=0
+    fi
 }
 
 # write the result to stdout in json format
@@ -41,7 +49,8 @@ output_json()
         \"Core_number\":\"$CORES\", \
         \"Thread_number\":\"$THREAD\", \
         \"Memory_size\": \"$ME\", \
-        \"Cache_size\": \"$CACHES KB\" \
+        \"Cache_size\": \"$CACHES KB\", \
+        \"HT_Open\": \"$HT_OPEN\" \
     }"
 }
 
