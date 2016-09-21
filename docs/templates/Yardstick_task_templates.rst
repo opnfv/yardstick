@@ -77,7 +77,7 @@ a JSON or YAML dictionary):
 ::
 
  yardstick task start samples/ping-template.yaml
- --task-args'{"packetsize":"200"}'
+ --task-args '{"packetsize":"200"}'
 
 2.Refer to a file that specifies the argument values (JSON/YAML):
 
