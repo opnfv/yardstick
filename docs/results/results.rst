@@ -30,6 +30,7 @@ OPNFV labs, triggered by OPNFV CI pipeline, documented per scenario.
    os-nosdn-nofeature-noha.rst
    os-onos-nofeature-h.rst
    os-onos-sfc-ha.rst
+   os-odl_l2-sfc-ha.rst
 
 Test results of executed tests are avilable in Dashboard_ and logs in Jenkins_.
 
