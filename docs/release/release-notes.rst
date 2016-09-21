@@ -1,12 +1,19 @@
-.. This work is licensed under a Creative Commons Attribution 4.0 International
-.. License.
-.. http://creativecommons.org/licenses/by/4.0
-.. (c) OPNFV, Ericsson AB and others.
+=======
+License
+=======
 
+OPNFV Colorado release note for Yardstick Docs
+are licensed under a Creative Commons Attribution 4.0 International License.
+You should have received a copy of the license along with this.
+If not, see <http://creativecommons.org/licenses/by/4.0/>.
 
-============================================
+The *Yardstick framework*, the *Yardstick test cases* and the *ApexLake*
+experimental framework are opensource software, licensed under the terms of the
+Apache License, Version 2.0.
+
+=========================================
 OPNFV Colorado Release Note for Yardstick
-============================================
+=========================================
 
 .. toctree::
    :maxdepth: 2
@@ -22,19 +29,6 @@ Abstract
 ========
 
 This document describes the release note of Yardstick project.
-
-
-License
-=======
-
-OPNFV Colorado release note for Yardstick Docs
-are licensed under a Creative Commons Attribution 4.0 International License.
-You should have received a copy of the license along with this.
-If not, see <http://creativecommons.org/licenses/by/4.0/>.
-
-The *Yardstick framework*, the *Yardstick test cases* and the *ApexLake*
-experimental framework are opensource software, licensed under the terms of the
-Apache License, Version 2.0.
 
 
 Version History
@@ -61,8 +55,8 @@ The *Yardstick* framework is *installer*, *infrastructure* and *application*
 independent.
 
 
-Summary
-=======
+OPNFV Colorado Release
+======================
 
 This Colorado release provides *Yardstick* as a framework for NFVI testing
 and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
@@ -154,6 +148,14 @@ Release Data
 
 Deliverables
 ============
+
+Documents
+---------
+
+ - User Guide: http://artifacts.opnfv.org/yardstick/colorado/docs/userguide/index.html
+
+ - Test Results: http://artifacts.opnfv.org/yardstick/colorado/docs/results/overview.html
+
 
 Software Deliverables
 ---------------------
@@ -463,6 +465,8 @@ Module Version Changes
 This is the third tracked release of Yardstick. It is based on following
 upstream versions:
 
+- ONOS Goldeneye
+
 - OpenStack Mitaka
 
 - OpenDaylight Beryllium
@@ -485,40 +489,61 @@ Project's Test Results in InfluxDB chapter; Refine yardstick instantion chapter.
 verified scenarios and limitations
 
 
-Reason for Version
-==================
-* TODO *
-
 Feature additions
 -----------------
-* TODO *
-
-Corrected Faults
-----------------
-* TODO *
-
-Known Issues/Faults
-------------
- - IPv6 support
- - Boot up VM failed in joid-os-nosdn-lxd-ha and joid-os-nosdn-lxd-noha scenarios
- - Yardstick CI job timeout in fuel-os-onos-nofeature-ha scenario
- - SSH timeout in apex-os-onos-sfc-ha, apex-os-onos-nofeature-ha and apex-os-odl_l3-nofeature-ha scenarios
- - Scp /home/stack/overcloudrc failed in apex-os-nosdn-ovs-noha and apex-os-odl_l2-sfc-noha scenarios
-
-.. note:: The faults not related to *Yardstick* framework, addressing scenarios
-  which were not fully verified, are listed in the OPNFV installer's release
-  notes.
+ - Yardstick plugin
 
 
-Colorado known restrictions/issues
-==================================
-+-----------+-----------+----------------------------------------------+
-| Installer | Scenario  |  Issue                                       |
-+===========+===========+==============================================+
-| any       | *-bgpvpn  | floating ips not supported. Some Test cases  |
-|           |           | related to floating ips are excluded.        |
-+-----------+-----------+----------------------------------------------+
-* TODO *
+Scenario Matrix
+===============
+
+For Colorado 1.0, Yardstick was tested on the following scenarios:
+
++-------------------------+---------+---------+---------+---------+
+|         Scenario        |  Apex   | Compass |  Fuel   |   Joid  |
++=========================+=========+=========+=========+=========+
+| os-nosdn-nofeature-noha |         |         |         |    X    |
++-------------------------+---------+---------+---------+---------+
+| os-nosdn-nofeature-ha   |    X    |         |    X    |    X    |
++-------------------------+---------+---------+---------+---------+
+| os-odl_l2-nofeature-ha  |    X    |    X    |    X    |    X    |
++-------------------------+---------+---------+---------+---------+
+| os-odl_l2-nofeature-noha|         |    X    |         |         |
++-------------------------+---------+---------+---------+---------+
+| os-odl_l3-nofeature-ha  |    X    |         |    X    |         |
++-------------------------+---------+---------+---------+---------+
+| os-odl_l3-nofeature-ha  |         |    X    |         |         |
++-------------------------+---------+---------+---------+---------+
+| os-onos-sfc-ha          |    X    |         |    X    |    X    |
++-------------------------+---------+---------+---------+---------+
+| os-onos-nofeature-ha    |    X    |         |    X    |    X    |
++-------------------------+---------+---------+---------+---------+
+| os-onos-nofeature-noha  |         |    X    |         |         |
++-------------------------+---------+---------+---------+---------+
+| os-odl_l2-sfc-ha        |         |         |    X    |         |
++-------------------------+---------+---------+---------+---------+
+| os-odl_l2-sfc-noha      |    X    |    X    |         |         |
++-------------------------+---------+---------+---------+---------+
+| os-odl_l2-bgpvpn-ha     |    X    |         |    X    |         |
++-------------------------+---------+---------+---------+---------+
+| os-odl_l2-bgpvpn-noha   |         |    X    |         |         |
++-------------------------+---------+---------+---------+---------+
+| os-nosdn-kvm-ha         |         |         |    X    |         |
++-------------------------+---------+---------+---------+---------+
+| os-nosdn-kvm-noha       |         |    X    |         |         |
++-------------------------+---------+---------+---------+---------+
+| os-nosdn-ovs-ha         |         |         |         |         |
++-------------------------+---------+---------+---------+---------+
+| os-nosdn-ovs-noha       |    X    |    X    |         |         |
++-------------------------+---------+---------+---------+---------+
+| os-ocl-nofeature-ha     |         |         |         |         |
++-------------------------+---------+---------+---------+---------+
+| os-nosdn-lxd-ha         |         |         |         |    X    |
++-------------------------+---------+---------+---------+---------+
+| os-nosdn-lxd-noha       |         |         |         |    X    |
++-------------------------+---------+---------+---------+---------+
+| os-odl_l2-fdio-noha     |    X    |         |         |         |
++-------------------------+---------+---------+---------+---------+
 
 
 Test results
@@ -528,6 +553,59 @@ Test results are available in:
 
  - jenkins logs on CI: https://build.opnfv.org/ci/view/yardstick/
 
+The reporting pages can be found at:
+
+ * apex: http://testresults.opnfv.org/reporting/yardstick/release/colorado/index-status-apex.html
+ * compass: http://testresults.opnfv.org/reporting/yardstick/release/colorado/index-status-compass.html
+ * fuel: http://testresults.opnfv.org/reporting/yardstick/release/colorado/index-status-fuel.html
+ * joid: http://testresults.opnfv.org/reporting/yardstick/release/colorado/index-status-joid.html
+
+You can get additional details through test logs on http://artifacts.opnfv.org/.
+As no search engine is available on the OPNFV artifact web site you must
+retrieve the pod identifier on which the tests have been executed (see
+field pod in any of the results) then click on the selected POD and look
+for the date of the test you are interested in.
+
+
+Known Issues/Faults
+------------
+ - IPv6 support
+ - Boot up VM failed in joid-os-nosdn-lxd-ha and joid-os-nosdn-lxd-noha scenarios
+ - Yardstick CI job timeout in fuel-os-onos-nofeature-ha scenario
+ - SSH timeout in apex-os-onos-sfc-ha, apex-os-onos-nofeature-ha scenarios
+ - Floating IP not supported in apex-os-odl_l3-nofeature-ha scenario
+ - Scp /home/stack/overcloudrc failed in apex-os-nosdn-ovs-noha and apex-os-odl_l2-sfc-noha scenarios
+
+.. note:: The faults not related to *Yardstick* framework, addressing scenarios
+  which were not fully verified, are listed in the OPNFV installer's release
+  notes.
+
+
+Corrected Faults
+----------------
+* TODO *
+
+
+Colorado known restrictions/issues
+==================================
++-----------+-----------+----------------------------------------------+
+| Installer | Scenario  |  Issue                                       |
++===========+===========+==============================================+
+| any       | *-bgpvpn  | Floating ips not supported. Some Test cases  |
+|           |           | related to floating ips are excluded.        |
++-----------+-----------+----------------------------------------------+
+| any       | odl_l3-*  | Some test cases related to using floating IP |
+|           |           | addresses fail because of a known ODL bug.   |
+|           |           | https://jira.opnfv.org/browse/APEX-112       |
++-----------+-----------+----------------------------------------------+
+| apex      | *-fdio    | Due to late integration, fdio scenarios'     |
+|           |           | test suite file is not provided.             |
++-----------+-----------+----------------------------------------------+
+| joid      | *-lxd     | In the LXD scenarios, nova-lxd does not      |
+|           |           | support qcow2 Images.                        |
+|           |           | https://jira.opnfv.org/browse/YARDSTICK-325  |
++-----------+-----------+----------------------------------------------+
+
 
 Open JIRA tickets
 =================
@@ -535,10 +613,8 @@ Open JIRA tickets
 +------------------+-----------------------------------------------+
 |   JIRA           |         Description                           |
 +==================+===============================================+
-+------------------+-----------------------------------------------+
-+------------------+-----------------------------------------------+
-+------------------+-----------------------------------------------+
-+------------------+-----------------------------------------------+
+| `YARDSTICK-325`_ |  Add imge format support for LXD scenario     |
+|                  |                                               |
 +------------------+-----------------------------------------------+
 
 
@@ -558,4 +634,6 @@ Useful links
  - Yardstick grafana dashboard: http://testresults.opnfv.org/grafana/
 
  - Yardstick IRC chanel: #opnfv-yardstick
+
+.. _`YARDSTICK-325` : https://jira.opnfv.org/browse/YARDSTICK-325
 

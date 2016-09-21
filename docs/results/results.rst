@@ -23,11 +23,12 @@ OPNFV labs, triggered by OPNFV CI pipeline, documented per scenario.
 .. toctree::
    :maxdepth: 1
 
-   os-odl_l2-nofeature-ha.rst
    os-nosdn-nofeature-ha.rst
-   os-nosdn-kvm-ha.rst
-   os-odl_l2-bgpvpn-ha.rst
    os-nosdn-nofeature-noha.rst
+   os-odl_l2-nofeature-ha.rst
+   os-odl_l2-bgpvpn-ha.rst
+   os-odl_l2-sfc-ha.rst
+   os-nosdn-kvm-ha.rst
    os-onos-nofeature-h.rst
    os-onos-sfc-ha.rst
 
