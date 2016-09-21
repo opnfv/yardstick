@@ -269,9 +269,16 @@ load_yardstick_image()
         rm -f $VIVID_KERNEL $VIVID_IMAGE
         cd $YARDSTICK_REPO_DIR
     fi
+
+    if [ "$DEPLOY_SCENARIO" == "os-nosdn-lxd-ha" -o "$DEPLOY_SCENARIO" == "os-nosdn-lxd-noha" ]; then
+        DISK_FORMAT="raw"
+    else
+        DISK_FORMAT="qcow2"
+    fi
+
     output=$(eval glance --os-image-api-version 1 image-create \
         --name yardstick-trusty-server \
-        --is-public true --disk-format qcow2 \
+        --is-public true --disk-format $DISK_FORMAT \
         --container-format bare \
         $EXTRA_PARAMS \
         --file $QCOW_IMAGE)
