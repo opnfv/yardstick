@@ -78,4 +78,10 @@ nova boot --image Fedora22  --flavor m1.small \
 --nic port-id=$(neutron port-list | grep -w eth0-VM2 | awk '{print $2}') \
 --key-name vRouterKey VM2
 
+sleep 60
+
 nova list
+# disable eth0-VM1 port-security
+neutron port-update --no-security-groups eth0-VM1
+neutron port-update eth0-VM1 --port-security-enabled=False
+neutron port-show eth0-VM1 | grep port_security_enabled
