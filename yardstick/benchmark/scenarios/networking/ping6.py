@@ -86,7 +86,7 @@ class Ping6(base.Scenario):  # pragma: no cover
         options = self.scenario_cfg['options']
         self.ping_options = "-s %s" % \
             options.get("packetsize", '56') + \
-            "-c %s" % \
+            " -c %s" % \
             options.get("ping_count", '5')
         host_str = options.get("host", 'host1')
         self.host_list = host_str.split(',')
@@ -133,7 +133,7 @@ class Ping6(base.Scenario):  # pragma: no cover
             options = self.scenario_cfg['options']
             self.ping_options = "-s %s" % \
                 options.get("packetsize", '56') + \
-                "-c %s" % \
+                " -c %s" % \
                 options.get("ping_count", '5')
             host_str = options.get("host", 'host1')
             self.host_list = host_str.split(',')
