@@ -75,7 +75,6 @@ Custom Image
 ============
 
 pktgen test requires a ubuntu server cloud image
-TBD
 
 Development Environment
 =======================
