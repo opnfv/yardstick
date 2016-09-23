@@ -10,7 +10,10 @@
 ##############################################################################
 
 cp /etc/neutron/plugins/ml2/ml2_conf.ini /etc/neutron/plugins/ml2/ml2_conf.ini_bkp
-sed -i '83a prevent_arp_spoofing = False' /etc/neutron/plugins/ml2/ml2_conf.ini
+#sed -i '83a prevent_arp_spoofing = False' /etc/neutron/plugins/ml2/ml2_conf.ini
+echo "[agent]" >> /etc/neutron/plugins/ml2/ml2_conf.ini
+echo "prevent_arp_spoofing = False" >> /etc/neutron/plugins/ml2/ml2_conf.ini
+
 sed -i 's/firewall_driver = neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver/firewall_driver= neutron.agent.firewall.NoopFirewallDriver/g' /etc/neutron/plugins/ml2/ml2_conf.ini
 
 # restart nova and neutron service
