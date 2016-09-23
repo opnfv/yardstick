@@ -11,13 +11,18 @@
 
 # Run a single ping6 command towards a ipv6 router
 set -e
+openrc=$1
+source $openrc
+shift
 ping6_options=$*
-source /opt/admin-openrc.sh
 chmod 600 vRouterKey
+
 # TODO find host
+vm1_ip=$(nova list|grep VM1 | awk -F [=] '{print $2}' | awk '{print $1}')
+echo "vm1_ip=$vm1_ip"
 wait_vm_ok() {
     retry=0
-    until timeout 100s sudo ip netns exec qdhcp-$(neutron net-list | grep -w ipv4-int-network1 | awk '{print $2}') ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i vRouterKey fedora@20.0.0.4  "exit" >/dev/null 2>&1
+    until timeout 100s sudo ip netns exec qdhcp-$(neutron net-list | grep -w ipv4-int-network1 | awk '{print $2}') ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i vRouterKey fedora@$vm1_ip "exit" >/dev/null 2>&1
     do
         sleep 10
         let retry+=1
@@ -30,4 +35,4 @@ wait_vm_ok() {
 }
 wait_vm_ok
 sleep 360
-sudo ip netns exec qdhcp-$(neutron net-list | grep -w ipv4-int-network1 | awk '{print $2}') ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i vRouterKey fedora@20.0.0.4 "ping6 $ping6_options 2001:db8:0:1::1 | grep rtt | awk -F [\/\ ] '{printf \$8}'"
+sudo ip netns exec qdhcp-$(neutron net-list | grep -w ipv4-int-network1 | awk '{print $2}') ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i vRouterKey fedora@$vm1_ip "ping6 $ping6_options 2001:db8:0:1::1 | grep rtt | awk -F [\/\ ] '{printf \$8}'"
