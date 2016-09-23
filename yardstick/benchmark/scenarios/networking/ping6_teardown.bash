@@ -8,7 +8,9 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-source /opt/admin-openrc.sh
+openrc=$*
+echo "openrc=$openrc"
+source $openrc
 # delete VM
 nova delete VM1
 nova delete VM2
