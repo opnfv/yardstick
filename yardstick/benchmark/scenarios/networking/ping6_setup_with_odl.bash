@@ -11,7 +11,11 @@
 # need to debug
 
 # download and create image
-source /opt/admin-openrc.sh
+openrc=$1
+external_network=$2
+echo "openrc=$openrc"
+echo "external_network=$external_network"
+source $openrc
 wget https://download.fedoraproject.org/pub/fedora/linux/releases/22/Cloud/x86_64/Images/Fedora-Cloud-Base-22-20150521.x86_64.qcow2
 glance image-create --name 'Fedora22' --disk-format qcow2 \
 --container-format bare --file ./Fedora-Cloud-Base-22-20150521.x86_64.qcow2
@@ -21,8 +25,8 @@ neutron router-create ipv4-router
 neutron router-create ipv6-router
 
 #  Associate the net04_ext to the Neutron routers
-neutron router-gateway-set ipv6-router ext-net
-neutron router-gateway-set ipv4-router ext-net
+neutron router-gateway-set ipv6-router $external_network
+neutron router-gateway-set ipv4-router $external_network
 
 # create two ipv4 networks with associated subnets
 neutron net-create ipv4-int-network1
