@@ -11,9 +11,12 @@
 
 # Run a single ping6 command towards a ipv6 router
 set -e
+openrc=$1
+source $openrc
+shift
 ping6_options=$*
-source /opt/admin-openrc.sh
 chmod 600 vRouterKey
+
 # TODO find host
 wait_vm_ok() {
     retry=0
