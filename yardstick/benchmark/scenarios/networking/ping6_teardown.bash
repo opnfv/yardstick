@@ -8,7 +8,11 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-source /opt/admin-openrc.sh
+openrc=$1
+echo "openrc=$openrc"
+source $openrc
+external_network=$2
+echo "external_network=$external_network"
 # delete VM
 nova delete VM1
 nova delete VM2
@@ -36,8 +40,8 @@ neutron subnet-delete --name ipv6-int-subnet2
 neutron subnet-delete --name ipv4-int-subnet2
 
 #clear gateway
-neutron router-gateway-clear ipv4-router ext-net
-neutron router-gateway-clear ipv6-router ext-net
+neutron router-gateway-clear ipv4-router $external_network
+neutron router-gateway-clear ipv6-router $external_network
 
 #delete ipv4 router interface
 neutron router-interface-delete ipv4-router ipv4-int-subnet1
