@@ -3,6 +3,7 @@
 # Measure IPV6 network latency using ping6
 
 schema: "yardstick:task:0.1"
+{% set credentials = credentials or "/opt/admin-openrc.sh" %}
 {% set pod_info = pod_info or "etc/yardstick/nodes/compass_sclab_physical/pod.yaml" %}
 scenarios:
 -
@@ -10,6 +11,7 @@ scenarios:
   options:
     packetsize: 56
     host: host1,host2,host3,host4,host5
+    credentials: {{credentials}}
   nodes:
     host1: node1.IPV6
     host2: node2.IPV6
@@ -25,14 +27,9 @@ scenarios:
     max_rtt: 30
     action: monitor
 
-precondition:
-  installer_type: compass
-  deploy_scenarios: os-nosdn
-  pod_name: huawei-pod1
 
 context:
   type: Node
   name: IPV6
   file: {{pod_info}}
-
 

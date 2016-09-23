@@ -8,7 +8,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
-source /opt/admin-openrc.sh
+openrc=$*
+source $openrc
 host_num=$(neutron dhcp-agent-list-hosting-net ipv4-int-network1 | grep True | awk -F [=\ ] '{printf $4}') > /tmp/ipv6.log
 echo $host_num

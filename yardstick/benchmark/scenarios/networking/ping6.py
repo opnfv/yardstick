@@ -35,11 +35,14 @@ class Ping6(base.Scenario):  # pragma: no cover
     POST_TEARDOWN_SCRIPT = 'ping6_post_teardown.bash'
 
     def __init__(self, scenario_cfg, context_cfg):
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
+        self.nodes = context_cfg['nodes']
+        self.options = scenario_cfg['options']
         self.setup_done = False
         self.run_done = False
-        self.ping_options = ''
+        self.ping_options = "-s %s -c %s" % \
+            (self.options.get("packetsize", '56'),
+             self.options.get("ping_count", '5'))
+        self.os_cred = self.options.get("credentials", "/opt/admin-openrc.sh")
 
     def _pre_setup(self):
         for node_name in self.host_list:
@@ -51,13 +54,11 @@ class Ping6(base.Scenario):  # pragma: no cover
 
     def _ssh_host(self, node_name):
         # ssh host
-        print node_name
-        nodes = self.context_cfg['nodes']
-        node = nodes.get(node_name, None)
+        node = self.nodes.get(node_name, None)
         host_user = node.get('user', 'ubuntu')
         host_ip = node.get('ip', None)
         host_pwd = node.get('password', 'root')
-        LOG.debug("user:%s, host:%s", host_user, host_ip)
+        LOG.debug("node: %s, user: %s, host: %s", node, host_user, host_ip)
         self.client = ssh.SSH(host_user, host_ip, password=host_pwd)
         self.client.wait(timeout=600)
 
@@ -83,15 +84,10 @@ class Ping6(base.Scenario):  # pragma: no cover
             'yardstick.benchmark.scenarios.networking',
             Ping6.RADVD_SCRIPT)
 
-        options = self.scenario_cfg['options']
-        self.ping_options = "-s %s" % \
-            options.get("packetsize", '56') + \
-            " -c %s" % \
-            options.get("ping_count", '5')
-        host_str = options.get("host", 'host1')
+        host_str = self.options.get("host", 'host1')
         self.host_list = host_str.split(',')
         self.host_list.sort()
-        pre_setup = options.get("pre_setup", True)
+        pre_setup = self.options.get("pre_setup", True)
         if pre_setup:
             self._pre_setup()
 
@@ -102,7 +98,7 @@ class Ping6(base.Scenario):  # pragma: no cover
                         stdin=open(self.ping6_metadata_script, "rb"))
 
         # run script to setup ipv6 with nosdn or odl
-        sdn = options.get("sdn", 'nosdn')
+        sdn = self.options.get("sdn", 'nosdn')
         if 'odl' in sdn:
             self.client.run("cat > ~/br-ex.radvd.conf",
                             stdin=open(self.ping6_radvd_script, "rb"))
@@ -112,7 +108,7 @@ class Ping6(base.Scenario):  # pragma: no cover
         else:
             self.client.run("cat > ~/setup.sh",
                             stdin=open(self.setup_script, "rb"))
-            cmd = "sudo bash setup.sh"
+            cmd = "sudo bash setup.sh %s" % self.os_cred
 
         status, stdout, stderr = self.client.execute(cmd)
 
@@ -129,21 +125,15 @@ class Ping6(base.Scenario):  # pragma: no cover
             'yardstick.benchmark.scenarios.networking',
             Ping6.FIND_HOST_SCRIPT)
 
-        if not self.setup_done:
-            options = self.scenario_cfg['options']
-            self.ping_options = "-s %s" % \
-                options.get("packetsize", '56') + \
-                " -c %s" % \
-                options.get("ping_count", '5')
-            host_str = options.get("host", 'host1')
-            self.host_list = host_str.split(',')
-            self.host_list.sort()
-            self._ssh_host(self.host_list[0])
+        host_str = self.options.get("host", 'host1')
+        self.host_list = host_str.split(',')
+        self.host_list.sort()
+        self._ssh_host(self.host_list[0])
 
         # find ipv4-int-network1 to ssh VM
         self.client.run("cat > ~/find_host.sh",
                         stdin=open(self.ping6_find_host_script, "rb"))
-        cmd = "sudo bash find_host.sh"
+        cmd = "sudo bash find_host.sh %s" % self.os_cred
         LOG.debug("Executing command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
         host_name = stdout.strip()
@@ -159,7 +149,7 @@ class Ping6(base.Scenario):  # pragma: no cover
         self.client.run("cat > ~/ping6.sh",
                         stdin=open(self.ping6_script, "rb"))
         cmd_args = "%s" % (self.ping_options)
-        cmd = "sudo bash ping6.sh %s" % (cmd_args)
+        cmd = "sudo bash ping6.sh %s %s" % (self.os_cred, cmd_args)
         LOG.debug("Executing command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
 
@@ -184,8 +174,7 @@ class Ping6(base.Scenario):  # pragma: no cover
             'yardstick.benchmark.scenarios.networking',
             Ping6.POST_TEARDOWN_SCRIPT)
 
-        options = self.scenario_cfg['options']
-        host_str = options.get("host", 'node1')
+        host_str = self.options.get("host", 'node1')
         self.host_list = host_str.split(',')
         self.host_list.sort()
 
@@ -197,10 +186,10 @@ class Ping6(base.Scenario):  # pragma: no cover
             Ping6.TEARDOWN_SCRIPT)
         self.client.run("cat > ~/teardown.sh",
                         stdin=open(self.teardown_script, "rb"))
-        cmd = "sudo bash teardown.sh"
+        cmd = "sudo bash teardown.sh %s" % self.os_cred
         status, stdout, stderr = self.client.execute(cmd)
 
-        post_teardown = options.get("post_teardown", True)
+        post_teardown = self.options.get("post_teardown", True)
         if post_teardown:
             self._post_teardown()
 
