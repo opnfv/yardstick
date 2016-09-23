@@ -11,7 +11,11 @@
 
 
 # download and create image
-source /opt/admin-openrc.sh
+openrc=$1
+external_network=$2
+echo "openrc=$openrc"
+echo "external_network=$external_network"
+source $openrc
 wget https://download.fedoraproject.org/pub/fedora/linux/releases/22/Cloud/x86_64/Images/Fedora-Cloud-Base-22-20150521.x86_64.qcow2 >/dev/null 2>&1
 
 glance image-create --name 'Fedora22' --disk-format qcow2 \
@@ -33,8 +37,8 @@ neutron subnet-create --name ipv4-int-subnet1 \
 neutron router-interface-add ipv4-router ipv4-int-subnet1
 
 #  Associate the net04_ext to the Neutron routers
-neutron router-gateway-set ipv6-router ext-net
-neutron router-gateway-set ipv4-router ext-net
+neutron router-gateway-set ipv6-router $external_network
+neutron router-gateway-set ipv4-router $external_network
 
 # Create two subnets, one IPv4 subnet ipv4-int-subnet2 and
 # one IPv6 subnet ipv6-int-subnet2 in ipv6-int-network2, and associate both subnets to ipv6-router
