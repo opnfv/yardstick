@@ -22,6 +22,30 @@
       "revId": "d2466e0ec20a7fe68d6a524e75bcae0a8b0bbece",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3d8b8f69",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc027.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-09-28T01:34:46Z",
+      "side": 1,
+      "message": "i see, thanks. will update asap.",
+      "parentUuid": "1a76adc5_bd71dfa9",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 18
+      },
+      "revId": "d2466e0ec20a7fe68d6a524e75bcae0a8b0bbece",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
