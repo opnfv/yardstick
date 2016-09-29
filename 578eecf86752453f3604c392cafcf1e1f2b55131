@@ -22,6 +22,30 @@
       "revId": "578eecf86752453f3604c392cafcf1e1f2b55131",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d81aa97c",
+        "filename": "yardstick/benchmark/scenarios/networking/ping6_setup.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-09-29T08:39:25Z",
+      "side": 1,
+      "message": "Hi, orginal one is ok currently, this patch is suggested by Sindhar from Redhat to add this also which is more reasonable. and keep update with the ipv6 document.",
+      "parentUuid": "1a76adc5_b8700ddd",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 55
+      },
+      "revId": "578eecf86752453f3604c392cafcf1e1f2b55131",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
