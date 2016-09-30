@@ -16,6 +16,24 @@
       "revId": "1f389fa4e814bda23fcb650a737ef2bff13aacf8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_afcf6428",
+        "filename": "Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-09-30T06:55:59Z",
+      "side": 0,
+      "message": "I think no one is using this image now. And it is safe to remove it.",
+      "parentUuid": "1a76adc5_0fbe98b4",
+      "revId": "1f389fa4e814bda23fcb650a737ef2bff13aacf8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
