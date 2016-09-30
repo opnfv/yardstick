@@ -1,11 +1,16 @@
 ---
-# os-nosdn-lxd-ha daily task suite
+# os-nosdn-nofeature-ha daily task suite
 
 schema: "yardstick:suite:0.1"
 
 name: "os-nosdn-lxd-ha"
 test_cases_dir: "tests/opnfv/test_cases/"
 test_cases:
+-
+  file_name: opnfv_yardstick_tc099.yaml
+  constraint:
+      installer: joid
+      pod: intel-pod5
 -
   file_name: opnfv_yardstick_tc002.yaml
 -
