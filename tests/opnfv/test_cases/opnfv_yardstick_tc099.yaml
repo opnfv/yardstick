@@ -1,0 +1,44 @@
+---
+# measure network latency using ping
+# this tc is dedicated for os-nosdn-lxd scenario
+
+schema: "yardstick:task:0.1"
+scenarios:
+{% for i in range(2) %}
+-
+  type: Ping
+  options:
+    packetsize: 100
+  host: athena.demo
+  target: ares.demo
+
+  runner:
+    type: Duration
+    duration: 60
+    interval: 10
+
+  sla:
+    max_rtt: 10
+    action: monitor
+{% endfor %}
+
+context:
+  name: demo
+  image: Cirros LXC 0.3
+  flavor: yardstick-flavor
+  user: cirros
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    athena:
+      floating_ip: true
+      placement: "pgrp1"
+    ares:
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
