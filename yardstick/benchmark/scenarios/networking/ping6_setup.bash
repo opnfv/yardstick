@@ -85,8 +85,8 @@ nova boot --image Fedora22  --flavor m1.small \
 sleep 60
 
 nova list
-# disable eth0-VM1, eth0-VM2 port-security
-for port in eth0-VM1 eth0-VM2
+# disable eth0-VM1, eth0-VM2, eth0-vRouter, eth1-vRouter port-security
+for port in eth0-VM1 eth0-VM2 eth0-vRouter eth1-vRouter
 do
     neutron port-update --no-security-groups $port
     neutron port-update $port --port-security-enabled=False
