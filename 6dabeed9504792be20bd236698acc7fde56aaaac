@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_da88d9c8",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc099.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-10-08T08:32:02Z",
+      "side": 1,
+      "message": "I guess this file is a sample file, it shouldn\u0027t named as TC099, could you rename this file?",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 36
+      },
+      "revId": "6dabeed9504792be20bd236698acc7fde56aaaac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
