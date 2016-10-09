@@ -25,6 +25,6 @@ easy_install -U setuptools
 
 cd $BIN_HOME
 
-curl http://$HOST:8080/plugins/fuel-plugin-yardstick-0.9/repositories/ubuntu/yardstick.tar.gz | tar xzvf -
+curl http://$HOST:8080/plugins/fuel-plugin-yardstick-1.0/repositories/ubuntu/yardstick.tar.gz | tar xzvf -
 
 python setup.py develop

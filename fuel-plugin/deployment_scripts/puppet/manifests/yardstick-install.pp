@@ -16,7 +16,7 @@ $identity_uri           = "${internal_auth_protocol}://${internal_auth_address}:
 $auth_url               = "${identity_uri}/${auth_api_version}"
 
 exec { "install yardstick":
-    command => "curl http://${master_ip}:8080/plugins/fuel-plugin-yardstick-0.9/deployment_scripts/install.sh | bash -s ${master_ip}",
+    command => "curl http://${master_ip}:8080/plugins/fuel-plugin-yardstick-1.0/deployment_scripts/install.sh | bash -s ${master_ip}",
     path   => "/usr/local/bin:/usr/bin:/usr/sbin:/bin:/sbin";
 }
 
