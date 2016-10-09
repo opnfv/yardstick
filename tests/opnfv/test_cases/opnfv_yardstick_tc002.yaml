@@ -2,6 +2,7 @@
 # measure network latency using ping
 
 schema: "yardstick:task:0.1"
+{% set image = image or "cirros-0.3.3" %}
 scenarios:
 {% for i in range(2) %}
 -
@@ -23,7 +24,7 @@ scenarios:
 
 context:
   name: demo
-  image: cirros-0.3.3
+  image: {{image}}
   flavor: yardstick-flavor
   user: cirros
 
