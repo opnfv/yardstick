@@ -78,7 +78,7 @@ load_yardstick_image()
 
     output=$(eval glance --os-image-api-version 1 image-create \
         --name yardstick-trusty-server \
-        --is-public true --disk-format $DISK_FORMAT \
+        --is-public true --disk-format $qcow2 \
         --container-format bare \
         $EXTRA_PARAMS \
         --file $QCOW_IMAGE)
@@ -112,7 +112,7 @@ load_cirros_image()
 
     output=$(glance image-create \
         --name  cirros-0.3.3 \
-        --disk-format $DISK_FORMAT \
+        --disk-format qcow2 \
         --container-format bare \
         $EXTRA_PARAMS \
         --file $image_file)
@@ -179,12 +179,6 @@ create_nova_flavor()
 main()
 {
     QCOW_IMAGE="/tmp/workspace/yardstick/yardstick-trusty-server.img"
-
-    if [ "$DEPLOY_SCENARIO" == "os-nosdn-lxd-ha" -o "$DEPLOY_SCENARIO" == "os-nosdn-lxd-noha" ]; then
-        DISK_FORMAT="raw"
-    else
-        DISK_FORMAT="qcow2"
-    fi
 
     build_yardstick_image
     load_yardstick_image
