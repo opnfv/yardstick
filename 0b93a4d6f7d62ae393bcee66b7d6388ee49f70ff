@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_c5547a23",
+        "filename": "tests/unit/benchmark/contexts/test_node.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2016-10-09T12:02:52Z",
+      "side": 1,
+      "message": "one blank space is redundant.",
+      "range": {
+        "startLine": 121,
+        "startChar": 52,
+        "endLine": 121,
+        "endChar": 53
+      },
+      "revId": "0b93a4d6f7d62ae393bcee66b7d6388ee49f70ff",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
