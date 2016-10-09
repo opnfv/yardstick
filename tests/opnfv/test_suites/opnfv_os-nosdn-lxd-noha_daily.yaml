@@ -8,6 +8,12 @@ test_cases_dir: "tests/opnfv/test_cases/"
 test_cases:
 -
   file_name: opnfv_yardstick_tc002.yaml
+  constraint:
+      installer: joid
+      pod: intel-pod5,intel-pod6
+  task_args:
+        intel-pod5: '{"image": "Cirros LXC 0.3"}'
+        intel-pod6: '{"image": "Cirros LXC 0.3"}'
 -
   file_name: opnfv_yardstick_tc005.yaml
 -
