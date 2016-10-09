@@ -23,6 +23,12 @@ setup(
             'resources/files/*',
             'resources/scripts/install/*.bash',
             'resources/scripts/remove/*.bash'
+        ],
+        'etc': [
+            'yardstick/nodes/*/*.yaml'
+        ],
+        'tests': [
+            'opnfv/*/*.yaml'
         ]
     },
     url="https://www.opnfv.org",

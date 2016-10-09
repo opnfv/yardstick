@@ -118,6 +118,6 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertEqual(result['key_filename'], '/root/.yardstick_key')
 
     def _get_file_abspath(self, filename):
-        curr_path = os.path.dirname(os.path.abspath(__file__))
+        curr_path = 'tests/unit/benchmark/contexts/' 
         file_path = os.path.join(curr_path, filename)
         return file_path
