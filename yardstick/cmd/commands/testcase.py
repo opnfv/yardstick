@@ -8,12 +8,14 @@
 ##############################################################################
 
 """ Handler for yardstick command 'testcase' """
-from yardstick.cmd import print_hbar
-from yardstick.common.task_template import TaskTemplate
-from yardstick.common.utils import cliargs
 import os
 import yaml
 import sys
+
+from yardstick.cmd import print_hbar
+from yardstick.common.task_template import TaskTemplate
+from yardstick.common.utils import cliargs
+from yardstick.definitions import YARDSTICK_ROOT_PATH
 
 
 class TestcaseCommands(object):
@@ -22,7 +24,7 @@ class TestcaseCommands(object):
        Set of commands to discover and display test cases.
     '''
     def __init__(self):
-        self.test_case_path = 'tests/opnfv/test_cases/'
+        self.test_case_path = YARDSTICK_ROOT_PATH + 'tests/opnfv/test_cases/'
         self.testcase_list = []
 
     def do_list(self, args):
