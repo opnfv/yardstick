@@ -40,7 +40,7 @@ test -x $cmd
 mountdir="/mnt/yardstick"
 workspace=${WORKSPACE:-"/tmp/workspace/yardstick"}
 host=${HOST:-"cloud-images.ubuntu.com"}
-release=${RELEASE:-"trusty"}
+release=${RELEASE:-"xenial"}
 image_path="${release}/current/${release}-server-cloudimg-${YARD_IMG_ARCH}-disk1.img"
 image_url=${IMAGE_URL:-"https://${host}/${image_path}"}
 md5sums_path="${release}/current/MD5SUMS"
@@ -194,4 +194,3 @@ main() {
 }
 
 main
-

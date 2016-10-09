@@ -19,7 +19,7 @@ cleanup()
         return
     fi
 
-    for image in $(glance image-list | grep -e cirros-0.3.3 -e yardstick-trusty-server -e Ubuntu-14.04 \
+    for image in $(glance image-list | grep -e cirros-0.3.3 -e yardstick-xenial-server -e Ubuntu-14.04 \
         -e yardstick-vivid-kernel | awk '{print $2}'); do
         echo "Deleting image $image..."
         glance image-delete $image || true
