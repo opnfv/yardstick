@@ -25,14 +25,26 @@ build_yardstick_image()
     echo
     echo "========== Build yardstick cloud image =========="
 
-    local cmd="sudo $(which yardstick-img-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh"
+    if [ "$DEPLOY_SCENARIO" == "os-nosdn-lxd-ha" -o "$DEPLOY_SCENARIO" == "os-nosdn-lxd-noha" ]; then
+        local cmd="sudo $(which yardstick-img-lxd-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh"
 
-    # Build the image. Retry once if the build fails.
-    $cmd || $cmd
+        # Build the image. Retry once if the build fails
+        $cmd || $cmd
 
-    if [ ! -f $QCOW_IMAGE ]; then
-        echo "Failed building QCOW image"
-        exit 1
+        if [ ! -f $RAW_IMAGE ]; then
+            echo "Failed building RAW image"
+            exit 1
+        fi
+    else
+        local cmd="sudo $(which yardstick-img-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh"
+
+        # Build the image. Retry once if the build fails
+        $cmd || $cmd
+
+        if [ ! -f $QCOW_IMAGE ]; then
+            echo "Failed building QCOW image"
+            exit 1
+        fi
     fi
 }
 
@@ -76,12 +88,21 @@ load_yardstick_image()
         EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
     fi
 
-    output=$(eval glance --os-image-api-version 1 image-create \
-        --name yardstick-trusty-server \
-        --is-public true --disk-format $DISK_FORMAT \
-        --container-format bare \
-        $EXTRA_PARAMS \
-        --file $QCOW_IMAGE)
+    if [ "$DEPLOY_SCENARIO" == "os-nosdn-lxd-ha" -o "$DEPLOY_SCENARIO" == "os-nosdn-lxd-noha" ]; then
+        output=$(eval glance --os-image-api-version 1 image-create \
+            --name yardstick-trusty-server \
+            --is-public true --disk-format root-tar \
+            --container-format bare \
+            $EXTRA_PARAMS \
+            --file $RAW_IMAGE)
+    else
+        output=$(eval glance --os-image-api-version 1 image-create \
+            --name yardstick-trusty-server \
+            --is-public true --disk-format qcow2 \
+            --container-format bare \
+            $EXTRA_PARAMS \
+            --file $QCOW_IMAGE)
+    fi
 
     echo "$output"
 
@@ -92,7 +113,11 @@ load_yardstick_image()
         exit 1
     fi
 
-    sudo rm -f $QCOW_IMAGE
+    if [ "$DEPLOY_SCENARIO" == "os-nosdn-lxd-ha" -o "$DEPLOY_SCENARIO" == "os-nosdn-lxd-noha" ]; then
+        sudo rm -f $RAW_IMAGE
+    else
+        sudo rm -f $QCOW_IMAGE
+    fi
 
     echo "Glance image id: $GLANCE_IMAGE_ID"
 }
@@ -112,7 +137,7 @@ load_cirros_image()
 
     output=$(glance image-create \
         --name  cirros-0.3.3 \
-        --disk-format $DISK_FORMAT \
+        --disk-format qcow2 \
         --container-format bare \
         $EXTRA_PARAMS \
         --file $image_file)
@@ -179,12 +204,7 @@ create_nova_flavor()
 main()
 {
     QCOW_IMAGE="/tmp/workspace/yardstick/yardstick-trusty-server.img"
-
-    if [ "$DEPLOY_SCENARIO" == "os-nosdn-lxd-ha" -o "$DEPLOY_SCENARIO" == "os-nosdn-lxd-noha" ]; then
-        DISK_FORMAT="raw"
-    else
-        DISK_FORMAT="qcow2"
-    fi
+    RAW_IMAGE="/tmp/workspace/yardstick/yardstick-trusty-server.tar.gz"
 
     build_yardstick_image
     load_yardstick_image
