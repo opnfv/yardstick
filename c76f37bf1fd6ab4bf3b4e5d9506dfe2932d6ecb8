@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dad5f5cf_e0940c46",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-10-10T03:47:03Z",
+      "side": 1,
+      "message": "good suggestion! thanks!",
+      "parentUuid": "dad5f5cf_60a1fca8",
+      "range": {
+        "startLine": 15,
+        "startChar": 34,
+        "endLine": 15,
+        "endChar": 43
+      },
+      "revId": "c76f37bf1fd6ab4bf3b4e5d9506dfe2932d6ecb8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_80a660c0",
         "filename": "yardstick/benchmark/contexts/node.py",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-10-10T03:14:08Z",
       "side": 1,
       "message": "for self-customized path, better to add a if condition",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 51
+      },
+      "revId": "c76f37bf1fd6ab4bf3b4e5d9506dfe2932d6ecb8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_00927057",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-10-10T03:47:03Z",
+      "side": 1,
+      "message": "ok! I will try to fix it.",
+      "parentUuid": "dad5f5cf_80a660c0",
       "range": {
         "startLine": 38,
         "startChar": 8,
