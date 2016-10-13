@@ -101,8 +101,7 @@ class YardstickCLI():
             cmd_subparsers = subparser.add_subparsers(title='subcommands')
             self._find_actions(cmd_subparsers, command_object)
 
-    def main(self, argv):
-        '''run the command line interface'''
+    def _register_cli_opt(self):
 
         # register subcommands to parse additional command line arguments
         def parser(subparsers):
@@ -114,9 +113,13 @@ class YardstickCLI():
                                          handler=parser)
         CONF.register_cli_opt(category_opt)
 
+    def _load_cli_config(self, argv):
+
         # load CLI args and config files
         CONF(argv, project="yardstick", version=self._version,
              default_config_files=find_config_files(CONFIG_SEARCH_PATHS))
+
+    def _handle_global_opts(self):
 
         # handle global opts
         logger = logging.getLogger('yardstick')
@@ -128,6 +131,34 @@ class YardstickCLI():
         if CONF.debug:
             logger.setLevel(logging.DEBUG)
 
+    def _dispath_func_notask(self):
+
         # dispatch to category parser
         func = CONF.category.func
         func(CONF.category)
+
+    def _dispath_func_task(self, task_id, timestamp):
+
+        # dispatch to category parser
+        func = CONF.category.func
+        func(CONF.category, task_id=task_id, timestamp=timestamp)
+
+    def main(self, argv):
+        '''run the command line interface'''
+        self._register_cli_opt()
+
+        self._load_cli_config(argv)
+
+        self._handle_global_opts()
+
+        self._dispath_func_notask()
+
+    def main_api(self, argv, task_id, timestamp):
+        '''run the command line interface'''
+        self._register_cli_opt()
+
+        self._load_cli_config(argv)
+
+        self._handle_global_opts()
+
+        self._dispath_func_task(task_id, timestamp)
