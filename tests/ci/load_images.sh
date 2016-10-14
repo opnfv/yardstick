@@ -25,7 +25,7 @@ build_yardstick_image()
     echo
     echo "========== Build yardstick cloud image =========="
 
-    if [ "$DEPLOY_SCENARIO" == *"-lxd-"* ]; then
+    if [[ "$DEPLOY_SCENARIO" == *"-lxd-"* ]]; then
         local cmd="sudo $(which yardstick-img-lxd-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh"
 
         # Build the image. Retry once if the build fails
@@ -88,7 +88,7 @@ load_yardstick_image()
         EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
     fi
 
-    if [ "$DEPLOY_SCENARIO" == *"-lxd-"* ]; then
+    if [[ "$DEPLOY_SCENARIO" == *"-lxd-"* ]]; then
         output=$(eval glance --os-image-api-version 1 image-create \
             --name yardstick-trusty-server \
             --is-public true --disk-format root-tar \
