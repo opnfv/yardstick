@@ -18,8 +18,8 @@ cp $ML2_CONF_FILE ${ML2_CONF_FILE}_bkp
 agent_line_num=$(grep -n '\[agent\]' $ML2_CONF_FILE | awk -F [:] '{print $1}')
 if [ -z "$agent_line_num" ]
 then
-    echo "[agent]" >> ml2_conf.ini
-    agent_line_num=$(wc -l ml2_conf.ini | awk '{print $1}')
+    echo "[agent]" >> $ML2_CONF_FILE
+    agent_line_num=$(wc -l $ML2_CONF_FILE | awk '{print $1}')
 fi
 sed -i "${agent_line_num}a prevent_arp_spoofing = False" $ML2_CONF_FILE
 
@@ -28,12 +28,12 @@ sed -i 's/firewall_driver = neutron.agent.linux.iptables_firewall.OVSHybridIptab
 #check parameters
 echo "check if parameters ok"
 echo $ML2_CONF_FILE
-grep 'enable_security_group = True' $ML2_CONF_FILE
-grep 'extension_drivers = port_security' $ML2_CONF_FILE
-grep 'prevent_arp_spoofing = False' $ML2_CONF_FILE
+grep -n 'enable_security_group = True' $ML2_CONF_FILE
+grep -n 'extension_drivers = port_security' $ML2_CONF_FILE
+grep -n 'prevent_arp_spoofing = False' $ML2_CONF_FILE
 echo $NOVA_CONF_FILE
-grep 'security_group_api = neutron' $NOVA_CONF_FILE
-grep 'firewall_driver = nova.virt.firewall.NoopFirewallDriver' $NOVA_CONF_FILE
+grep -n 'security_group_api = neutron' $NOVA_CONF_FILE
+grep -n 'firewall_driver = nova.virt.firewall.NoopFirewallDriver' $NOVA_CONF_FILE
 echo "check parameters end"
 
 # restart nova and neutron service
