@@ -16,7 +16,7 @@ import time
 from oslo_config import cfg
 
 from yardstick.dispatcher.base import Base as DispatchBase
-from yardstick.dispatcher.influxdb_line_protocol import make_lines
+from third_party.influxdb.influxdb_line_protocol import make_lines
 
 LOG = logging.getLogger(__name__)
 

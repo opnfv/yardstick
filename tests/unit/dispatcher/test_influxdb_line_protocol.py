@@ -4,7 +4,7 @@
 # influxdb-python/influxdb/tests/test_line_protocol.py
 
 import unittest
-from yardstick.dispatcher.influxdb_line_protocol import make_lines
+from third_party.influxdb.influxdb_line_protocol import make_lines
 
 
 class TestLineProtocol(unittest.TestCase):
