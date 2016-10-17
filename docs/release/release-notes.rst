@@ -38,6 +38,9 @@ Version History
 | *Date*         | *Version*          | *Comment*                       |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
+| Oct 27nd, 2016 |  2.0               | Yardstick for Colorado release  |
+|                |                    |                                 |
++----------------+--------------------+---------------------------------+
 | Aug 22nd, 2016 |  1.0               | Yardstick for Colorado release  |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
@@ -129,19 +132,19 @@ Release Data
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/colorado.1.0               |
+| **Repo/tag**                         | yardstick/colorado.2.0               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | colorado.1.0                         |
+| **Yardstick Docker image tag**       | colorado.2.0                         |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Colorado base release                |
+| **Release designation**              | Colorado                             |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | September 22 2016                    |
+| **Release date**                     | October 27 2016                      |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | Colorado base release                |
+| **Purpose of the delivery**          | OPNFV Colorado release 2.0           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 
@@ -160,22 +163,22 @@ Documents
 Software Deliverables
 ---------------------
 
-**Yardstick framework source code <colorado.1.0>**
+**Yardstick framework source code <colorado.2.0>**
 
 +--------------------------------------+--------------------------------------+
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/colorado.1.0               |
+| **Repo/tag**                         | yardstick/colorado.2.0               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | colorado.1.0                         |
+| **Yardstick Docker image tag**       | colorado.2.0                         |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | colorado                             |
+| **Release designation**              | Colorado                             |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | September 22th, 2016                 |
+| **Release date**                     | October 27th, 2016                   |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | OPNFV Colorado release               |
@@ -462,7 +465,7 @@ Version Change
 Module Version Changes
 ----------------------
 
-This is the third tracked release of Yardstick. It is based on following
+This is the second tracked release of Yardstick. It is based on following
 upstream versions:
 
 - ONOS Goldeneye
@@ -475,7 +478,7 @@ upstream versions:
 Document Version Changes
 ------------------------
 
-This is the first tracked version of the Yardstick framework in OPNFV.
+This is the second tracked version of the Yardstick framework in OPNFV.
 It includes the following documentation updates:
 
 - Yardstick User Guide: added yardstick plugin chapter; added Store Other
@@ -492,12 +495,14 @@ verified scenarios and limitations
 Feature additions
 -----------------
  - Yardstick plugin
+ - Yardstick reporting
+ - StorPerf Integration
 
 
 Scenario Matrix
 ===============
 
-For Colorado 1.0, Yardstick was tested on the following scenarios:
+For Colorado 2.0, Yardstick was tested on the following scenarios:
 
 +-------------------------+---------+---------+---------+---------+
 |         Scenario        |  Apex   | Compass |  Fuel   |   Joid  |
@@ -532,9 +537,9 @@ For Colorado 1.0, Yardstick was tested on the following scenarios:
 +-------------------------+---------+---------+---------+---------+
 | os-nosdn-kvm-noha       |         |    X    |         |         |
 +-------------------------+---------+---------+---------+---------+
-| os-nosdn-ovs-ha         |         |         |         |         |
+| os-nosdn-ovs-ha         |         |         |    X    |         |
 +-------------------------+---------+---------+---------+---------+
-| os-nosdn-ovs-noha       |    X    |    X    |         |         |
+| os-nosdn-ovs-noha       |    X    |         |    X    |         |
 +-------------------------+---------+---------+---------+---------+
 | os-ocl-nofeature-ha     |         |         |         |         |
 +-------------------------+---------+---------+---------+---------+
@@ -569,8 +574,6 @@ for the date of the test you are interested in.
 
 Known Issues/Faults
 ------------
- - Boot up VM failed in joid-os-nosdn-lxd-ha and joid-os-nosdn-lxd-noha scenarios
- - Yardstick CI job timeout in fuel-os-onos-nofeature-ha scenario
  - SSH timeout in apex-os-onos-sfc-ha, apex-os-onos-nofeature-ha scenarios
  - Floating IP not supported in apex-os-odl_l3-nofeature-ha scenario
  - Scp /home/stack/overcloudrc failed in apex-os-nosdn-ovs-noha and apex-os-odl_l2-sfc-noha scenarios
@@ -582,10 +585,44 @@ Known Issues/Faults
 
 Corrected Faults
 ----------------
-* TODO *
+
+Colorado.2.0:
+
++----------------------------+------------------------------------------------+
+| **JIRA REFERENCE**         | **SLOGAN**                                     |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-325        | Provide raw format yardstick vm image for      |
+|                            | nova-lxd scenario.                             |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-358        | tc027 ipv6 test case to de-coupling to the     |
+|                            | installers.                                    |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-359        | ipv6 testcase disable port-security on         |
+|                            | vRouter.                                       |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-363        | ipv6 testcase to support fuel.                 |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-367        | Add d3 graph presentation to yardstick         |
+|                            | reporting.                                     |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-371        | Provide raw format yardstick vm image for      |
+|                            | nova-lxd scenario.                             |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-372        | cannot find yardstick-img-dpdk-modify and      |
+|                            | yardstick-img-lxd-modify in environment        |
+|                            | varibales.                                     |
+|                            |                                                |
++----------------------------+------------------------------------------------+
 
 
-Colorado known restrictions/issues
+Colorado 2.0 known restrictions/issues
 ==================================
 +-----------+-----------+----------------------------------------------+
 | Installer | Scenario  |  Issue                                       |
@@ -597,24 +634,10 @@ Colorado known restrictions/issues
 |           |           | addresses fail because of a known ODL bug.   |
 |           |           | https://jira.opnfv.org/browse/APEX-112       |
 +-----------+-----------+----------------------------------------------+
-| apex      | *-fdio    | Due to late integration, fdio scenarios'     |
-|           |           | test suite file is not provided.             |
-+-----------+-----------+----------------------------------------------+
-| joid      | *-lxd     | In the LXD scenarios, nova-lxd does not      |
-|           |           | support qcow2 Images.                        |
-|           |           | https://jira.opnfv.org/browse/YARDSTICK-325  |
-+-----------+-----------+----------------------------------------------+
 
 
 Open JIRA tickets
 =================
-
-+------------------+-----------------------------------------------+
-|   JIRA           |         Description                           |
-+==================+===============================================+
-| `YARDSTICK-325`_ |  Add imge format support for LXD scenario     |
-|                  |                                               |
-+------------------+-----------------------------------------------+
 
 
 Useful links
@@ -636,3 +659,14 @@ Useful links
 
 .. _`YARDSTICK-325` : https://jira.opnfv.org/browse/YARDSTICK-325
 
+.. _`YARDSTICK-358` : https://jira.opnfv.org/browse/YARDSTICK-358
+
+.. _`YARDSTICK-359` : https://jira.opnfv.org/browse/YARDSTICK-359
+
+.. _`YARDSTICK-363` : https://jira.opnfv.org/browse/YARDSTICK-363
+
+.. _`YARDSTICK-367` : https://jira.opnfv.org/browse/YARDSTICK-367
+
+.. _`YARDSTICK-371` : https://jira.opnfv.org/browse/YARDSTICK-371
+
+.. _`YARDSTICK-372` : https://jira.opnfv.org/browse/YARDSTICK-372
