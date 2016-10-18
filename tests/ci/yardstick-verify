@@ -153,14 +153,12 @@ report(){
           ${DISPATCHER_HTTP_TARGET}
 }
 
-run_test()
+config_yardstick()
 {
-    echo
-    echo "========== Running yardstick test suites =========="
+YARDSTICK_CONF_DIR=/etc/yardstick
+mkdir -p $YARDSTICK_CONF_DIR
 
-    mkdir -p /etc/yardstick
-
-    cat << EOF >> /etc/yardstick/yardstick.conf
+cat << EOF >> ${YARDSTICK_CONF_DIR}/yardstick.conf
 [DEFAULT]
 debug = True
 dispatcher = ${DISPATCHER_TYPE}
@@ -179,6 +177,15 @@ db_name = yardstick
 username = opnfv
 password = 0pnfv2015
 EOF
+
+nova keypair-add yardstick_key > ${YARDSTICK_CONF_DIR}/yardstick_key
+
+}
+run_test()
+{
+    echo
+    echo "========== Running yardstick test suites =========="
+
 
     local failed=0
     local start_date
@@ -326,6 +333,7 @@ main()
 
     source $YARDSTICK_REPO_DIR/tests/ci/load_images.sh
     install_storperf
+    config_yardstick
     run_test
     remove_storperf
 }
