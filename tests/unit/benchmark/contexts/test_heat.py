@@ -72,11 +72,9 @@ class HeatContextTestCase(unittest.TestCase):
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_resources_to_template_no_servers(self, mock_template):
 
-        self.test_context.keypair_name = "foo-key"
         self.test_context.secgroup_name = "foo-secgroup"
 
         self.test_context._add_resources_to_template(mock_template)
-        mock_template.add_keypair.assert_called_with("foo-key")
         mock_template.add_security_group.assert_called_with("foo-secgroup")
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')

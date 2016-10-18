@@ -394,7 +394,7 @@ class HeatTemplate(HeatObject):
 
         if key_name:
             self.resources[name]['depends_on'] = [key_name]
-            server_properties['key_name'] = {'get_resource': key_name}
+            server_properties['key_name'] = 'yardstick_key'
 
         if ports:
             self.resources[name]['depends_on'] = ports
