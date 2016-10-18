@@ -394,7 +394,7 @@ class HeatTemplate(HeatObject):
 
         if key_name:
             self.resources[name]['depends_on'] = [key_name]
-            server_properties['key_name'] = {'get_resource': key_name}
+            server_properties['key_name'] = 'yardstick_key'
 
         if ports:
             self.resources[name]['depends_on'] = ports
@@ -442,6 +442,7 @@ class HeatTemplate(HeatObject):
 
         heat = self._get_heat_client()
         json_template = json.dumps(self._template)
+        print json.dumps(self._template, indent=4)
         start_time = time.time()
         stack.uuid = self.uuid = heat.stacks.create(
             stack_name=self.name, template=json_template,
