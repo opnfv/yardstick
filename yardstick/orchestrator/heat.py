@@ -312,18 +312,6 @@ class HeatTemplate(HeatObject):
             }
         }
 
-    def add_keypair(self, name):
-        '''add to the template a Nova KeyPair'''
-        log.debug("adding Nova::KeyPair '%s'", name)
-        self.resources[name] = {
-            'type': 'OS::Nova::KeyPair',
-            'properties': {
-                'name': name,
-                'public_key': pkg_resources.resource_string(
-                    'yardstick.resources', 'files/yardstick_key.pub')
-            }
-        }
-
     def add_servergroup(self, name, policy):
         '''add to the template a Nova ServerGroup'''
         log.debug("adding Nova::ServerGroup '%s', policy '%s'", name, policy)
@@ -394,7 +382,7 @@ class HeatTemplate(HeatObject):
 
         if key_name:
             self.resources[name]['depends_on'] = [key_name]
-            server_properties['key_name'] = {'get_resource': key_name}
+            server_properties['key_name'] = 'yardstick_key'
 
         if ports:
             self.resources[name]['depends_on'] = ports
