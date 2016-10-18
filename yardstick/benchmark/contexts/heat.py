@@ -8,7 +8,6 @@
 ##############################################################################
 
 import sys
-import pkg_resources
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts.model import Server
@@ -91,7 +90,6 @@ class HeatContext(Context):
 
     def _add_resources_to_template(self, template):
         '''add to the template the resources represented by this context'''
-        template.add_keypair(self.keypair_name)
         template.add_security_group(self.secgroup_name)
 
         for network in self.networks:
@@ -219,8 +217,7 @@ class HeatContext(Context):
         attr_name: either a name for a server created by yardstick or a dict
         with attribute name mapping when using external heat templates
         '''
-        key_filename = pkg_resources.resource_filename(
-            'yardstick.resources', 'files/yardstick_key')
+        key_filename = '/etc/yardstick/yardstick_key'
 
         if type(attr_name) is dict:
             cname = attr_name["name"].split(".")[1]
