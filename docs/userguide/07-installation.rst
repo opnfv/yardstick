@@ -108,9 +108,11 @@ Run the Docker image:
 
 ::
 
-  docker run --privileged=true -it openfv/yardstick /bin/bash
+  docker run --privileged=true -it opnfv/yardstick /bin/bash
 
-In the container run yardstick task command to execute a test case.
+In the container the Yardstick repository is located in the
+/home/opnfv/repos directory. You can run yardstick task command to execute a
+test case.
 Before executing Yardstick test case, make sure that yardstick-trusty-server
 image and yardstick flavor is available in OpenStack.
 Detailed steps about creating yardstick flavor and building yardstick-trusty-server
@@ -355,4 +357,3 @@ the ci environment. "task_args" is where you can specify the task arguments for 
 
 All in all, to create a test suite in yardstick, you just need to create a suite yaml file
 and add test cases and constraint or task arguments if necessary.
-
