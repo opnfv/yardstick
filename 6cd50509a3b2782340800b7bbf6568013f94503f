@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_235a2284",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2016-10-20T02:25:24Z",
+      "side": 1,
+      "message": "please format line 158,159,161,181, it would be better have a indentation",
+      "revId": "6cd50509a3b2782340800b7bbf6568013f94503f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
