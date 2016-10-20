@@ -108,7 +108,7 @@ Run the Docker image:
 
 ::
 
-  docker run --privileged=true -it openfv/yardstick /bin/bash
+  docker run --privileged=true -it opnfv/yardstick /bin/bash
 
 In the container run yardstick task command to execute a test case.
 Before executing Yardstick test case, make sure that yardstick-trusty-server
