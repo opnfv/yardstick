@@ -9,22 +9,52 @@ Yardstick Installation
 Abstract
 --------
 
-Yardstick supports installation on Ubuntu 14.04 or by using a Docker image.
-The installation procedure on Ubuntu 14.04 or via the docker image are
-detailed in the section below.
+Yardstick supports installation on Ubuntu 14.04 or via a Docker image. The
+installation procedure on Ubuntu 14.04 or via the docker image are detailed in
+the section below.
 
-To use Yardstick you should have access to an OpenStack environment,
-with at least Nova, Neutron, Glance, Keystone and Heat installed.
+To use Yardstick you should have access to an OpenStack environment, with at
+least Nova, Neutron, Glance, Keystone and Heat installed.
 
 The steps needed to run Yardstick are:
 
 1. Install Yardstick.
-2. Create the test configuration .yaml file.
-3. Build a guest image。
-4. Load the image into the OpenStack environment.
-5. Create a Neutron external network.
-6. Load OpenStack environment variables.
-6. Run the test case.
+2. Load OpenStack environment variables.
+3. Create a Neutron external network.
+4. Build Yardstick flavor and a guest image.
+5. Load the guest image into the OpenStack environment.
+6. Create the test configuration .yaml file.
+7. Run the test case.
+
+
+Prerequisites
+-------------
+
+The OPNFV deployment is out of the scope of this document but it can be
+found in http://artifacts.opnfv.org/opnfvdocs/colorado/docs/configguide/index.html.
+The OPNFV platform is considered as the System Under Test (SUT) in this
+document.
+
+Several prerequisites are needed for Yardstick:
+
+    #. A Jumphost to run Yardstick on
+    #. A Docker daemon shall be installed on the Jumphost
+    #. A public/external network created on the SUT
+    #. Connectivity from the Jumphost to the SUT public/external network
+
+WARNING: Connectivity from Jumphost is essential and it is of paramount
+importance to make sure it is working before even considering to install
+and run Yardstick. Make also sure you understand how your networking is
+designed to work.
+
+NOTE: **Jumphost** refers to any server which meets the previous
+requirements. Normally it is the same server from where the OPNFV
+deployment has been triggered previously.
+
+NOTE: If your Jumphost is operating behind a company http proxy and/or
+Firewall, please consult first the section `Proxy Support`_, towards
+the end of this document. The section details some tips/tricks which
+*may* be of help in a proxified environment.
 
 
 Installing Yardstick on Ubuntu 14.04
@@ -33,9 +63,9 @@ Installing Yardstick on Ubuntu 14.04
 .. _install-framework:
 
 You can install Yardstick framework directly on Ubuntu 14.04 or in an Ubuntu
-14.04 Docker image.
-No matter which way you choose to install Yardstick framework, the following
-installation steps are identical.
+14.04 Docker image. No matter which way you choose to install Yardstick
+framework, the following installation steps are identical.
+
 If you choose to use the Ubuntu 14.04 Docker image, You can pull the Ubuntu
 14.04 Docker image from Docker hub:
 
@@ -91,46 +121,38 @@ at: http://www.youtube.com/watch?v=4S4izNolmR0
 Installing Yardstick using Docker
 ---------------------------------
 
-Yardstick iteself has a Docker image, this Docker image (**Yardstick-stable**)
+Yardstick has a Docker image, this Docker image (**Yardstick-stable**)
 serves as a replacement for installing the Yardstick framework in a virtual
 environment (for example as done in :ref:`install-framework`).
 It is recommended to use this Docker image to run Yardstick test.
 
-Yardstick-stable image
-^^^^^^^^^^^^^^^^^^^^^^
-Pull the Yardstick-stable Docker image from Docker hub:
-
-::
+Pulling the Yardstick Docker image
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Pull the Yardstick Docker image ('opnfv/yardstick') from the public dockerhub
+registry under the OPNFV account: [dockerhub_], with the following docker
+command::
 
   docker pull opnfv/yardstick:stable
+
+After pulling the Docker image, check that it is available with the
+following docker command::
+
+  [yardsticker@jumphost ~]$ docker images
+  REPOSITORY         TAG       IMAGE ID        CREATED      SIZE
+  opnfv/yardstick    stable    a4501714757a    1 day ago    915.4 MB
 
 Run the Docker image:
 
 ::
 
-  docker run --privileged=true -it openfv/yardstick /bin/bash
+  docker run --privileged=true -it opnfv/yardstick /bin/bash
 
-In the container run yardstick task command to execute a test case.
-Before executing Yardstick test case, make sure that yardstick-trusty-server
-image and yardstick flavor is available in OpenStack.
-Detailed steps about creating yardstick flavor and building yardstick-trusty-server
-image can be found below.
+In the container the Yardstick repository is located in the /home/opnfv/repos
+directory.
 
 
 OpenStack parameters and credentials
 ------------------------------------
-
-Yardstick-flavor
-^^^^^^^^^^^^^^^^
-Most of the sample test cases in Yardstick are using an OpenStack flavor called
-*yardstick-flavor* which deviates from the OpenStack standard m1.tiny flavor by the
-disk size - instead of 1GB it has 3GB. Other parameters are the same as in m1.tiny.
-
-Create yardstick-flavor:
-
-::
-
-  nova flavor-create yardstick-flavor 100 512 3 1
 
 Environment variables
 ^^^^^^^^^^^^^^^^^^^^^
@@ -146,14 +168,48 @@ Credential environment variables in the *openrc* file have to include at least:
 * OS_PASSWORD
 * OS_TENANT_NAME
 
+A sample openrc file may look like this:
+
+::
+
+export OS_PASSWORD=console
+export OS_TENANT_NAME=admin
+export OS_AUTH_URL=http://172.16.1.222:35357/v2.0
+export OS_USERNAME=admin
+export OS_VOLUME_API_VERSION=2
+export EXTERNAL_NETWORK=net04_ext
+
+
+Yardstick falvor and guest images
+---------------------------------
+
+Before executing Yardstick test cases, make sure that yardstick guest image and
+yardstick flavor are available in OpenStack.
+Detailed steps about creating yardstick flavor and building yardstick-trusty-server
+image can be found below.
+
+Yardstick-flavor
+^^^^^^^^^^^^^^^^
+Most of the sample test cases in Yardstick are using an OpenStack flavor called
+*yardstick-flavor* which deviates from the OpenStack standard m1.tiny flavor by the
+disk size - instead of 1GB it has 3GB. Other parameters are the same as in m1.tiny.
+
+Create yardstick-flavor:
+
+::
+
+  nova flavor-create yardstick-flavor 100 512 3 1
+
 
 .. _guest-image:
 
 Building a guest image
 ^^^^^^^^^^^^^^^^^^^^^^
-Yardstick has a tool for building an Ubuntu Cloud Server image containing all
-the required tools to run test cases supported by Yardstick. It is necessary to
-have sudo rights to use this tool.
+Most of the sample test cases in Yardstick are using a guest image called
+*yardstick-trusty-server* which deviates from an Ubuntu Cloud Server image
+containing all the required tools to run test cases supported by Yardstick.
+Yardstick has a tool for building this custom image. It is necessary to have
+sudo rights to use this tool.
 
 Also you may need install several additional packages to use this tool, by
 follwing the commands below:
@@ -176,8 +232,10 @@ by following the commands above):
 
 **Warning:** the script will create files by default in:
 ``/tmp/workspace/yardstick`` and the files will be owned by root!
+
 If you are building this guest image in inside a docker container make sure the
 container is granted with privilege.
+
 The created image can be added to OpenStack using the ``glance image-create`` or
 via the OpenStack Dashboard.
 
@@ -189,6 +247,24 @@ Example command:
   --name yardstick-trusty-server --is-public true \
   --disk-format qcow2 --container-format bare \
   --file /tmp/workspace/yardstick/yardstick-trusty-server.img
+
+Some Yardstick test cases use a Cirros image, you can find one at
+http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
+
+
+Automatic flavor and image creation
+-----------------------------------
+Yardstick has a script for automatic creating yardstick flavor and building
+guest images. This script is mainly used in CI, but you can still use it in
+your local environment.
+
+Example command:
+
+::
+
+export YARD_IMG_ARCH="amd64"
+sudo echo "Defaults env_keep += \"YARD_IMG_ARCH\"" >> /etc/sudoers
+source $YARDSTICK_REPO_DIR/tests/ci/load_images.sh
 
 
 Yardstick default key pair
