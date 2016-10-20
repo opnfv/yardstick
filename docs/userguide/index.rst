@@ -19,6 +19,7 @@ Yardstick Overview
    07-installation
    08-yardstick_plugin
    09-result-store-InfluxDB
-   10-list-of-tcs
+   10-grafana
+   11-list-of-tcs
    glossary
    references
