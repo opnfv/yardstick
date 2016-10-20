@@ -108,29 +108,20 @@ Run the Docker image:
 
 ::
 
-  docker run --privileged=true -it openfv/yardstick /bin/bash
+  docker run --privileged=true -it opnfv/yardstick /bin/bash
 
-In the container run yardstick task command to execute a test case.
-Before executing Yardstick test case, make sure that yardstick-trusty-server
-image and yardstick flavor is available in OpenStack.
+In the container the Yardstick repository is located in the
+/home/opnfv/repos directory. You can run yardstick task command to execute a
+test case.
+
+Before executing Yardstick test cases, make sure that yardstick guest image and
+yardstick flavor are available in OpenStack.
 Detailed steps about creating yardstick flavor and building yardstick-trusty-server
 image can be found below.
 
 
 OpenStack parameters and credentials
 ------------------------------------
-
-Yardstick-flavor
-^^^^^^^^^^^^^^^^
-Most of the sample test cases in Yardstick are using an OpenStack flavor called
-*yardstick-flavor* which deviates from the OpenStack standard m1.tiny flavor by the
-disk size - instead of 1GB it has 3GB. Other parameters are the same as in m1.tiny.
-
-Create yardstick-flavor:
-
-::
-
-  nova flavor-create yardstick-flavor 100 512 3 1
 
 Environment variables
 ^^^^^^^^^^^^^^^^^^^^^
@@ -146,14 +137,43 @@ Credential environment variables in the *openrc* file have to include at least:
 * OS_PASSWORD
 * OS_TENANT_NAME
 
+A sample openrc file may look like this:
+
+::
+
+export OS_PASSWORD=console
+export OS_TENANT_NAME=admin
+export OS_AUTH_URL=http://172.16.1.222:35357/v2.0
+export OS_USERNAME=admin
+export OS_VOLUME_API_VERSION=2
+export EXTERNAL_NETWORK=net04_ext
+
+
+Yardstick falvor and guest images
+---------------------------------
+
+Yardstick-flavor
+^^^^^^^^^^^^^^^^
+Most of the sample test cases in Yardstick are using an OpenStack flavor called
+*yardstick-flavor* which deviates from the OpenStack standard m1.tiny flavor by the
+disk size - instead of 1GB it has 3GB. Other parameters are the same as in m1.tiny.
+
+Create yardstick-flavor:
+
+::
+
+  nova flavor-create yardstick-flavor 100 512 3 1
+
 
 .. _guest-image:
 
 Building a guest image
 ^^^^^^^^^^^^^^^^^^^^^^
-Yardstick has a tool for building an Ubuntu Cloud Server image containing all
-the required tools to run test cases supported by Yardstick. It is necessary to
-have sudo rights to use this tool.
+Most of the sample test cases in Yardstick are using a guest image called
+*yardstick-trusty-server* which deviates from an Ubuntu Cloud Server image
+containing all the required tools to run test cases supported by Yardstick.
+Yardstick has a tool for building this custom image. It is necessary to have
+sudo rights to use this tool.
 
 Also you may need install several additional packages to use this tool, by
 follwing the commands below:
@@ -176,8 +196,10 @@ by following the commands above):
 
 **Warning:** the script will create files by default in:
 ``/tmp/workspace/yardstick`` and the files will be owned by root!
+
 If you are building this guest image in inside a docker container make sure the
 container is granted with privilege.
+
 The created image can be added to OpenStack using the ``glance image-create`` or
 via the OpenStack Dashboard.
 
@@ -189,6 +211,21 @@ Example command:
   --name yardstick-trusty-server --is-public true \
   --disk-format qcow2 --container-format bare \
   --file /tmp/workspace/yardstick/yardstick-trusty-server.img
+
+Some Yardstick test cases ues a Cirros image, you can find one at
+http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
+
+
+Automatic flavor and image creation
+-----------------------------------
+Yardstick has a script for automatic creating yardstick flavor and guest images.
+This script is mainly used in CI, but you can still use it in your local environment.
+
+Example command:
+
+::
+export YARD_IMG_ARCH="amd64"
+source $YARDSTICK_REPO_DIR/tests/ci/load_images.sh
 
 
 Yardstick default key pair
