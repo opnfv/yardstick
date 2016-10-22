@@ -13,6 +13,7 @@ Abstract
 This chapter describes the methodology implemented by the Yardstick project for
 verifying the :term:`NFVI` from the perspective of a :term:`VNF`.
 
+
 ETSI-NFV
 ========
 
@@ -170,17 +171,19 @@ options).
 +---------+-------------------+----------------+------------------------------+
 | Compute | TC003 [1]_        | TC003 [1]_     |  TC013 [1]_                  |
 |         | TC004             | TC004          |  TC015 [1]_                  |
-|         | TC014             | TC010          |                              |
-|         | TC024             | TC012          |                              |
-|         | TC069             | TC055          |                              |
+|         | TC010             | TC024          |                              |
+|         | TC012             | TC055          |                              |
+|         | TC014             |                |                              |
+|         | TC069             |                |                              |
 +---------+-------------------+----------------+------------------------------+
-| Network | TC001             | TC001          |  TC016 [1]_                  |
-|         | TC002             | TC008          |  TC018 [1]_                  |
-|         | TC011             | TC009          |                              |
-|         | TC073             | TC075          |                              |
+| Network | TC001             | TC044          |  TC016 [1]_                  |
+|         | TC002             | TC073          |  TC018 [1]_                  |
+|         | TC009             | TC075          |                              |
+|         | TC011             |                |                              |
+|         | TC042             |                |                              |
+|         | TC043             |                |                              |
 +---------+-------------------+----------------+------------------------------+
-| Storage | TC005             | TC005          |  TC017 [1]_                  |
-|         |                   | TC063          |                              |
+| Storage | TC005             | TC063          |  TC017 [1]_                  |
 +---------+-------------------+----------------+------------------------------+
 
 .. note:: The description in this OPNFV document is intended as a reference for

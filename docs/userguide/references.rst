@@ -15,8 +15,8 @@ OPNFV
 * Pharos wiki: https://wiki.opnfv.org/pharos
 * VTC: https://wiki.opnfv.org/vtc
 * Yardstick CI: https://build.opnfv.org/ci/view/yardstick/
-* Yardstick and ETSI TST001 presentation: https://wiki.opnfv.org/_media/opnfv_summit_-_bridging_opnfv_and_etsi.pdf
-* Yardstick Project presentation: https://wiki.opnfv.org/_media/opnfv_summit_-_yardstick_project.pdf
+* Yardstick and ETSI TST001 presentation: https://wiki.opnfv.org/display/yardstick/Yardstick?preview=%2F2925202%2F2925205%2Fopnfv_summit_-_bridging_opnfv_and_etsi.pdf
+* Yardstick Project presentation: https://wiki.opnfv.org/display/yardstick/Yardstick?preview=%2F2925202%2F2925208%2Fopnfv_summit_-_yardstick_project.pdf
 * Yardstick wiki: https://wiki.opnfv.org/yardstick
 
 References used in Test Cases
@@ -55,6 +55,6 @@ Standards
 =========
 
 * ETSI NFV: http://www.etsi.org/technologies-clusters/technologies/nfv
-* ETSI GS-NFV TST 001: https://docbox.etsi.org/ISG/NFV/Open/Drafts/TST001_-_Pre-deployment_Validation/
+* ETSI GS-NFV TST 001: http://www.etsi.org/deliver/etsi_gs/NFV-TST/001_099/001/01.01.01_60/gs_NFV-TST001v010101p.pdf
 * RFC2544: https://www.ietf.org/rfc/rfc2544.txt
 
