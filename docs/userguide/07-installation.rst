@@ -399,7 +399,7 @@ here, you must specify the schema and the name, then you just need to list the
 test cases in the tag "test_cases" and also mark their relative directory in the
 tag "test_cases_dir".
 
-Yardstick test suite also support constraints and task args for each test suite.
+Yardstick test suite also support constraints and task args for each test case.
 Here is another sample to show this, which is digested from one big test suite.
 
 os-nosdn-nofeature-ha.yaml
