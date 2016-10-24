@@ -1,0 +1,13 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: yaoguang wang <sunshine.wang@huawei.com>
+Code-Review+1: Hou Jingwen <houjingwen@huawei.com>
+Code-Review+1: qi liang <liangqi1@huawei.com>
+Code-Review+1: Jörgen Karlsson <jorgen.w.karlsson@ericsson.com>
+Code-Review+1: Vincenzo Riccobene <vincenzo.m.riccobene@intel.com>
+Code-Review+1: Wenjing Chu <chu.wenjing@gmail.com>
+Code-Review+2: liang gao <jean.gaoliang@huawei.com>
+Submitted-by: liang gao <jean.gaoliang@huawei.com>
+Submitted-at: Mon, 24 Oct 2016 06:22:30 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/22915
+Project: yardstick
+Branch: refs/heads/master
