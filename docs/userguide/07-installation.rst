@@ -148,7 +148,7 @@ Run the Docker image:
 
 ::
 
-  docker run --privileged=true -it opnfv/yardstick /bin/bash
+  docker run --privileged=true -it opnfv/yardstick:stable /bin/bash
 
 In the container the Yardstick repository is located in the /home/opnfv/repos
 directory.
