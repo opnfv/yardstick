@@ -7,8 +7,10 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+import os
 import sys
 import pkg_resources
+import paramiko
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts.model import Server
@@ -37,6 +39,7 @@ class HeatContext(Context):
         self._user = None
         self.template_file = None
         self.heat_parameters = None
+        self.key_filename = 'yardstick/resources/files/yardstick_key'
         super(self.__class__, self).__init__()
 
     def init(self, attrs):
@@ -73,6 +76,17 @@ class HeatContext(Context):
             server = Server(name, self, serverattrs)
             self.servers.append(server)
             self._server_map[server.dn] = server
+
+        print "Generating RSA host key ..."
+        rsa_key = paramiko.RSAKey.generate(bits=2048, progress_func=None)
+        print "Writing yardstick_key ..."
+        rsa_key.write_private_key_file(self.key_filename)
+        print "Writing yardstick_key.pub ..."
+        open(self.key_filename + ".pub", "w").write("%s %s\n" %
+                                                    (rsa_key.get_name(),
+                                                     rsa_key.get_base64()))
+        del rsa_key
+        print "... done!"
 
     @property
     def image(self):
@@ -213,6 +227,13 @@ class HeatContext(Context):
             self.stack.delete()
             self.stack = None
             print "Context '%s' undeployed" % self.name
+
+        if os.path.exists(self.key_filename):
+            try:
+                os.remove(self.key_filename)
+                os.remove(self.key_filename + ".pub")
+            except OSError, e:
+                print ("Error: %s - %s." % (e.key_filename, e.strerror))
 
     def _get_server(self, attr_name):
         '''lookup server info by name from context
