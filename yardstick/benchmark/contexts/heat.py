@@ -9,6 +9,7 @@
 
 import sys
 import pkg_resources
+import paramiko
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts.model import Server
@@ -73,6 +74,19 @@ class HeatContext(Context):
             server = Server(name, self, serverattrs)
             self.servers.append(server)
             self._server_map[server.dn] = server
+
+        key_filename = 'yardstick/resources/files/yardstick_key'
+
+        print "Generating RSA host key ..."
+        rsa_key = paramiko.RSAKey.generate(bits=2048, progress_func=None)
+        print "Writing yardstick_key ..."
+        rsa_key.write_private_key_file(key_filename)
+        print "Writing yardstick_key.pub ..."
+        open(key_filename + ".pub", "w").write("%s %s\n" %
+                                               (rsa_key.get_name(),
+                                                rsa_key.get_base64()))
+        del rsa_key
+        print "... done!"
 
     @property
     def image(self):
