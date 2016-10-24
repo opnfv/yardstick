@@ -114,5 +114,5 @@ There are several improvement points for HA test:
 a) Running test cases in different enveriment deployed by different installers,
 such as compass4nfv, apex and joid, with different versiones.
 b) The period of each request is a little long, it needs more accurate test
- method.
+method.
 c) More test cases with different faults and different monitors are needed.

@@ -37,7 +37,7 @@ Yardstick Test Case Description TC073
 |              | For SLA max_mean_latency is set to 100.                      |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|test tool     | netperf                                                      |
+|test tool     | netperf_                                                     |
 |              | Netperf is a software application that provides network      |
 |              | bandwidth testing between two hosts on a network. It         |
 |              | supports Unix domain sockets, TCP, SCTP, DLPI and UDP via    |
