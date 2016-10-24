@@ -240,7 +240,7 @@ The lost amount of packets normally differs a lot per test run.
 
 Detailed test results
 ---------------------
-The scenario was run on Intel POD5_ with:
+The scenario was run on Intel POD6_ with:
 Joid
 OpenStack Mitaka
 Onos Goldeneye
