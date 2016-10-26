@@ -4,17 +4,4 @@ reporting:
         scenario:
             -
                 os-nosdn-ovs-noha
-            -
-                os-onos-sfc-ha
-            -
-                os-onos-nofeature-ha
 
-    -
-        name: fuel
-        scenario:
-            -
-                os-odl_l2-sfc-noha
-            -
-                os-odl_l2-sfc-ha
-            -
-                os-nosdn-ovs-ha
