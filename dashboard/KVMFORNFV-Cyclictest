@@ -1,5 +1,5 @@
 {
-  "id": 6,
+  "id": 42,
   "title": "KVMFORNFV-Cyclictest",
   "tags": [
     "kvmfornfv-cyclictest"
@@ -475,8 +475,8 @@
     }
   ],
   "time": {
-    "from": "now-2d",
-    "to": "2016-10-22T04:02:56.969Z"
+    "from": "now-7d",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
