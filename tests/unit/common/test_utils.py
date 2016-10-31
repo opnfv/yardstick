@@ -14,6 +14,7 @@ import mock
 import unittest
 
 from yardstick.common import utils
+from yardstick.definitions import YARDSTICK_ROOT_PATH
 
 
 class IterSubclassesTestCase(unittest.TestCase):
@@ -81,6 +82,26 @@ class ImportModulesFromPackageTestCase(unittest.TestCase):
 
         utils.import_modules_from_package('foo.bar')
         mock_importutils.import_module.assert_called_with('bar.baz')
+
+
+class GetParaFromYaml(unittest.TestCase):
+
+    def test_get_para_from_yaml_file_not_exist(self):
+        file_path = '/etc/yardstick/hello.yaml'
+        args = 'hello.world'
+        para = utils.get_para_from_yaml(file_path, args)
+        self.assertIsNone(para)
+
+    def test_get_para_from_yaml_para_not_found(self):
+        file_path = YARDSTICK_ROOT_PATH + 'etc/yardstick/config.sample.yaml'
+        args = 'releng.file'
+        self.assertIsNone(utils.get_para_from_yaml(file_path, args))
+
+    def test_get_para_from_yaml_para_exists(self):
+        file_path = YARDSTICK_ROOT_PATH + 'etc/yardstick/config.sample.yaml'
+        args = 'releng.dir'
+        para = '/home/opnfv/repos/releng'
+        self.assertEqual(para, utils.get_para_from_yaml(file_path, args))
 
 
 def main():

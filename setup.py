@@ -22,10 +22,13 @@ setup(
             'benchmark/scenarios/storage/*.bash',
             'resources/files/*',
             'resources/scripts/install/*.bash',
-            'resources/scripts/remove/*.bash'
+            'resources/scripts/remove/*.bash',
+            'utils/*.yaml'
+
         ],
         'etc': [
-            'yardstick/nodes/*/*.yaml'
+            'yardstick/nodes/*/*.yaml',
+            'yardstick/*.yaml'
         ],
         'tests': [
             'opnfv/*/*.yaml'
@@ -66,5 +69,5 @@ setup(
     scripts=['tools/yardstick-img-modify',
              'tools/yardstick-img-lxd-modify',
              'tools/yardstick-img-dpdk-modify'
-            ]
+             ]
 )
