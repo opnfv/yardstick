@@ -17,6 +17,7 @@
 
 import os
 import sys
+import yaml
 from oslo_utils import importutils
 
 import yardstick
@@ -68,3 +69,25 @@ def import_modules_from_package(package):
             new_package = ".".join(root.split(os.sep)).split("....")[1]
             module_name = "%s.%s" % (new_package, filename[:-3])
             try_append_module(module_name, sys.modules)
+
+
+def get_para_from_yaml(file_path, args):
+
+    def func(a, b):
+        if a is None:
+            return None
+        return a.get(b)
+
+    if os.path.exists(file_path):
+        with open(file_path) as f:
+            value = yaml.safe_load(f)
+            value = reduce(func, args.split('.'), value)
+
+            if value is None:
+                print 'parameter not found'
+                return None
+
+            return value
+    else:
+        print 'file not exist'
+        return None
