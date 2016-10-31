@@ -25,7 +25,8 @@ setup(
             'resources/scripts/remove/*.bash'
         ],
         'etc': [
-            'yardstick/nodes/*/*.yaml'
+            'yardstick/nodes/*/*.yaml',
+            'yardstick/*.yaml'
         ],
         'tests': [
             'opnfv/*/*.yaml'
@@ -66,5 +67,5 @@ setup(
     scripts=['tools/yardstick-img-modify',
              'tools/yardstick-img-lxd-modify',
              'tools/yardstick-img-dpdk-modify'
-            ]
+             ]
 )
