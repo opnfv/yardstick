@@ -18,6 +18,7 @@ from yardstick.benchmark.contexts.model import PlacementGroup
 from yardstick.benchmark.contexts.model import Network
 from yardstick.benchmark.contexts.model import update_scheduler_hints
 from yardstick.orchestrator.heat import HeatTemplate
+from yardstick.definitions import YARDSTICK_ROOT_PATH
 
 
 class HeatContext(Context):
@@ -39,7 +40,8 @@ class HeatContext(Context):
         self._user = None
         self.template_file = None
         self.heat_parameters = None
-        self.key_filename = 'yardstick/resources/files/yardstick_key'
+        self.key_filename = YARDSTICK_ROOT_PATH + \
+            'yardstick/resources/files/yardstick_key'
         super(self.__class__, self).__init__()
 
     def init(self, attrs):
