@@ -63,9 +63,11 @@ class NetperfNode(base.Scenario):
             NetperfNode.TARGET_SCRIPT)
         host = self.context_cfg['host']
         host_user = host.get('user', 'ubuntu')
+        host_ssh_port = host.get('ssh_port', ssh.DEFAULT_PORT)
         host_ip = host.get('ip', None)
         target = self.context_cfg['target']
         target_user = target.get('user', 'ubuntu')
+        target_ssh_port = target.get('ssh_port', ssh.DEFAULT_PORT)
         target_ip = target.get('ip', None)
         self.target_ip = target.get('ip', None)
         host_password = host.get('password', None)
@@ -75,12 +77,12 @@ class NetperfNode(base.Scenario):
         # netserver start automatically during the vm boot
         LOG.info("user:%s, target:%s", target_user, target_ip)
         self.server = ssh.SSH(target_user, target_ip,
-                              password=target_password)
+                              password=target_password, port=target_ssh_port)
         self.server.wait(timeout=600)
 
         LOG.info("user:%s, host:%s", host_user, host_ip)
         self.client = ssh.SSH(host_user, host_ip,
-                              password=host_password)
+                              password=host_password, port=host_ssh_port)
         self.client.wait(timeout=600)
 
         # copy script to host

@@ -84,6 +84,7 @@ class PluginCommands(object):
             'yardstick.resources', 'scripts/install/' + target_script)
 
         deployment_user = deployment.get("user")
+        deployment_ssh_port = deployment.get("ssh_port", ssh.DEFAULT_PORT)
         deployment_ip = deployment.get("ip")
         deployment_password = deployment.get("password")
 
@@ -92,12 +93,14 @@ class PluginCommands(object):
 
             LOG.info("user:%s, host:%s", deployment_user, installer_ip)
             self.client = ssh.SSH(deployment_user, installer_ip,
-                                  password=deployment_password)
+                                  password=deployment_password,
+                                  port=deployment_ssh_port)
             self.client.wait(timeout=600)
         else:
             LOG.info("user:%s, host:%s", deployment_user, deployment_ip)
             self.client = ssh.SSH(deployment_user, deployment_ip,
-                                  password=deployment_password)
+                                  password=deployment_password,
+                                  port=deployment_ssh_port)
             self.client.wait(timeout=600)
 
         # copy script to host
@@ -113,6 +116,7 @@ class PluginCommands(object):
             'yardstick.resources', 'scripts/remove/' + target_script)
 
         deployment_user = deployment.get("user")
+        deployment_ssh_port = deployment.get("ssh_port", ssh.DEFAULT_PORT)
         deployment_ip = deployment.get("ip")
         deployment_password = deployment.get("password")
 
@@ -121,12 +125,14 @@ class PluginCommands(object):
 
             LOG.info("user:%s, host:%s", deployment_user, installer_ip)
             self.client = ssh.SSH(deployment_user, installer_ip,
-                                  password=deployment_password)
+                                  password=deployment_password,
+                                  port=deployment_ssh_port)
             self.client.wait(timeout=600)
         else:
             LOG.info("user:%s, host:%s", deployment_user, deployment_ip)
             self.client = ssh.SSH(deployment_user, deployment_ip,
-                                  password=deployment_password)
+                                  password=deployment_password,
+                                  port=deployment_ssh_port)
             self.client.wait(timeout=600)
 
         # copy script to host
@@ -145,6 +151,7 @@ class PluginCommands(object):
 
 class PluginParser(object):
     '''Parser for plugin configration files in yaml format'''
+
     def __init__(self, path):
         self.path = path
 
