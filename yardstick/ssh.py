@@ -69,6 +69,8 @@ import logging
 
 LOG = logging.getLogger(__name__)
 
+DEFAULT_PORT = 22
+
 
 class SSHError(Exception):
     pass
@@ -81,7 +83,7 @@ class SSHTimeout(SSHError):
 class SSH(object):
     """Represent ssh connection."""
 
-    def __init__(self, user, host, port=22, pkey=None,
+    def __init__(self, user, host, port=DEFAULT_PORT, pkey=None,
                  key_filename=None, password=None):
         """Initialize SSH client.
 
@@ -95,7 +97,8 @@ class SSH(object):
 
         self.user = user
         self.host = host
-        self.port = port
+        # we may get text port from YAML, convert to int
+        self.port = int(port)
         self.pkey = self._get_pkey(pkey) if pkey else None
         self.password = password
         self.key_filename = key_filename

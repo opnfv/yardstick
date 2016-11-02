@@ -104,6 +104,7 @@ class Vsperf(base.Scenario):
         '''scenario setup'''
         vsperf = self.context_cfg['host']
         vsperf_user = vsperf.get('user', 'ubuntu')
+        vsperf_ssh_port = vsperf.get('ssh_port', ssh.DEFAULT_PORT)
         vsperf_password = vsperf.get('password', 'ubuntu')
         vsperf_ip = vsperf.get('ip', None)
 
@@ -118,7 +119,7 @@ class Vsperf(base.Scenario):
         # copy vsperf conf to VM
         LOG.info("user:%s, host:%s", vsperf_user, vsperf_ip)
         self.client = ssh.SSH(vsperf_user, vsperf_ip,
-                              password=vsperf_password)
+                              password=vsperf_password, port=vsperf_ssh_port)
         # traffic generation could last long
         self.client.wait(timeout=1800)
 
