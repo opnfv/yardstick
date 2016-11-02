@@ -40,10 +40,12 @@ class ComputeCapacity(base.Scenario):
         nodes = self.context_cfg['nodes']
         node = nodes.get('host', None)
         host_user = node.get('user', 'ubuntu')
+        ssh_port = node.get('ssh_port', ssh.DEFAULT_PORT)
         host_ip = node.get('ip', None)
         host_pwd = node.get('password', 'root')
         LOG.debug("user:%s, host:%s", host_user, host_ip)
-        self.client = ssh.SSH(host_user, host_ip, password=host_pwd)
+        self.client = ssh.SSH(host_user, host_ip, password=host_pwd,
+                              port=ssh_port)
         self.client.wait(timeout=600)
 
         # copy script to host
