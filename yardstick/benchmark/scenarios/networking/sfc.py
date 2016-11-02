@@ -41,12 +41,14 @@ class Sfc(base.Scenario):  # pragma: no cover
 
         target = self.context_cfg['target']
         target_user = target.get('user', 'root')
+        target_ssh_port = target.get('ssh_port', ssh.DEFAULT_PORT)
         target_pwd = target.get('password', 'opnfv')
         target_ip = target.get('ip', None)
 
         ''' webserver start automatically during the vm boot '''
         LOG.info("user:%s, target:%s", target_user, target_ip)
-        self.server = ssh.SSH(target_user, target_ip, password=target_pwd)
+        self.server = ssh.SSH(target_user, target_ip, password=target_pwd,
+                              port=target_ssh_port)
         self.server.wait(timeout=600)
         self.server.run("cat > ~/server.sh",
                         stdin=open(self.server_script, "rb"))
@@ -59,11 +61,13 @@ class Sfc(base.Scenario):  # pragma: no cover
 
         target = self.context_cfg['target']
         SF1_user = target.get('user', 'root')
+        SF1_ssh_port = target.get('ssh_port', ssh.DEFAULT_PORT)
         SF1_pwd = target.get('password', 'opnfv')
         SF1_ip = ips[0]
 
         LOG.info("user:%s, host:%s", SF1_user, SF1_ip)
-        self.server = ssh.SSH(SF1_user, SF1_ip, password=SF1_pwd)
+        self.server = ssh.SSH(SF1_user, SF1_ip, password=SF1_pwd,
+                              port=SF1_ssh_port)
         self.server.wait(timeout=600)
         cmd_SF1 = ("nohup python vxlan_tool.py -i eth0 "
                    "-d forward -v off -b 80 &")
@@ -74,11 +78,13 @@ class Sfc(base.Scenario):  # pragma: no cover
             LOG.debug("HTTP firewall started")
 
         SF2_user = target.get('user', 'root')
+        SF2_ssh_port = target.get('ssh_port', ssh.DEFAULT_PORT)
         SF2_pwd = target.get('password', 'opnfv')
         SF2_ip = ips[1]
 
         LOG.info("user:%s, host:%s", SF2_user, SF2_ip)
-        self.server = ssh.SSH(SF2_user, SF2_ip, password=SF2_pwd)
+        self.server = ssh.SSH(SF2_user, SF2_ip, password=SF2_pwd,
+                              port=SF2_ssh_port)
         self.server.wait(timeout=600)
         cmd_SF2 = ("nohup python vxlan_tool.py -i eth0 "
                    "-d forward -v off -b 22 &")
@@ -95,11 +101,13 @@ class Sfc(base.Scenario):  # pragma: no cover
         ''' Creating client and server VMs to perform the test'''
         host = self.context_cfg['host']
         host_user = host.get('user', 'root')
+        ssh_port = host.get("ssh_port", ssh.DEFAULT_PORT)
         host_pwd = host.get('password', 'opnfv')
         host_ip = host.get('ip', None)
 
         LOG.info("user:%s, host:%s", host_user, host_ip)
-        self.client = ssh.SSH(host_user, host_ip, password=host_pwd)
+        self.client = ssh.SSH(host_user, host_ip, password=host_pwd,
+                              port=ssh_port)
         self.client.wait(timeout=600)
 
         if not self.setup_done:  # pragma: no cover

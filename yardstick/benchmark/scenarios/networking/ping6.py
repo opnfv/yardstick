@@ -51,6 +51,7 @@ class Ping6(base.Scenario):  # pragma: no cover
         # ssh host
         node = self.nodes.get(node_name, None)
         user = node.get('user', 'ubuntu')
+        ssh_port = node.get("ssh_port", ssh.DEFAULT_PORT)
         ip = node.get('ip', None)
         pwd = node.get('password', None)
         key_fname = node.get('key_filename', '/root/.ssh/id_rsa')
@@ -58,11 +59,12 @@ class Ping6(base.Scenario):  # pragma: no cover
         if pwd is not None:
             LOG.debug("Log in via pw, user:%s, host:%s, password:%s",
                       user, ip, pwd)
-            self.client = ssh.SSH(user, ip, password=pwd)
+            self.client = ssh.SSH(user, ip, password=pwd, port=ssh_port)
         else:
             LOG.debug("Log in via key, user:%s, host:%s, key_filename:%s",
                       user, ip, key_fname)
-            self.client = ssh.SSH(user, ip, key_filename=key_fname)
+            self.client = ssh.SSH(user, ip, key_filename=key_fname,
+                                  port=ssh_port)
         self.client.wait(timeout=60)
 
     def _pre_setup(self):
