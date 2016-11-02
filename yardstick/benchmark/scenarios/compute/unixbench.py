@@ -67,11 +67,13 @@ class Unixbench(base.Scenario):
 
         host = self.context_cfg["host"]
         user = host.get("user", "ubuntu")
+        ssh_port = host.get("ssh_port", ssh.DEFAULT_PORT)
         ip = host.get("ip", None)
         key_filename = host.get('key_filename', "~/.ssh/id_rsa")
 
         LOG.info("user:%s, host:%s", user, ip)
-        self.client = ssh.SSH(user, ip, key_filename=key_filename)
+        self.client = ssh.SSH(user, ip, key_filename=key_filename,
+                              port=ssh_port)
         self.client.wait(timeout=600)
 
         # copy scripts to host
@@ -151,6 +153,7 @@ def _test():  # pragma: no cover
     p = Unixbench(args, ctx)
     p.run(result)
     print result
+
 
 if __name__ == '__main__':
     _test()

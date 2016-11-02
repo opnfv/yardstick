@@ -23,9 +23,11 @@ class ProcessAttacker(BaseAttacker):
         host = self._context.get(self._config['host'], None)
         ip = host.get("ip", None)
         user = host.get("user", "root")
+        ssh_port = host.get("ssh_port", ssh.DEFAULT_PORT)
         key_filename = host.get("key_filename", "~/.ssh/id_rsa")
 
-        self.connection = ssh.SSH(user, ip, key_filename=key_filename)
+        self.connection = ssh.SSH(user, ip, key_filename=key_filename,
+                                  port=ssh_port)
         self.connection.wait(timeout=600)
         LOG.debug("ssh host success!")
 

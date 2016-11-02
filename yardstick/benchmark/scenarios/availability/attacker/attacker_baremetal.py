@@ -31,7 +31,6 @@ def _execute_shell_command(command, stdin=None):
 
 
 class BaremetalAttacker(BaseAttacker):
-
     __attacker_type__ = 'bare-metal-down'
 
     def setup(self):
@@ -39,9 +38,11 @@ class BaremetalAttacker(BaseAttacker):
         host = self._context.get(self._config['host'], None)
         ip = host.get("ip", None)
         user = host.get("user", "root")
+        ssh_port = host.get("ssh_port", ssh.DEFAULT_PORT)
         key_filename = host.get("key_filename", "~/.ssh/id_rsa")
 
-        self.connection = ssh.SSH(user, ip, key_filename=key_filename)
+        self.connection = ssh.SSH(user, ip, key_filename=key_filename,
+                                  port=ssh_port)
         self.connection.wait(timeout=600)
         LOG.debug("ssh host success!")
         self.host_ip = ip
@@ -87,10 +88,12 @@ class BaremetalAttacker(BaseAttacker):
             host = self._context.get(jump_host_name, None)
             ip = host.get("ip", None)
             user = host.get("user", "root")
+            ssh_port = host.get("ssh_port", ssh.DEFAULT_PORT)
             pwd = host.get("pwd", None)
 
             LOG.debug("jump_host ip:%s user:%s" % (ip, user))
-            self.jump_connection = ssh.SSH(user, ip, password=pwd)
+            self.jump_connection = ssh.SSH(user, ip, password=pwd,
+                                           port=ssh_port)
             self.jump_connection.wait(timeout=600)
             LOG.debug("ssh jump host success!")
 

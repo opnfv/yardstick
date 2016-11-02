@@ -39,6 +39,7 @@ class Ping(base.Scenario):
             'yardstick.benchmark.scenarios.networking', Ping.TARGET_SCRIPT)
         host = self.context_cfg['host']
         user = host.get('user', 'ubuntu')
+        ssh_port = host.get("ssh_port", ssh.DEFAULT_PORT)
         ip = host.get('ip', None)
         key_filename = host.get('key_filename', '/root/.ssh/id_rsa')
         password = host.get('password', None)
@@ -46,11 +47,13 @@ class Ping(base.Scenario):
         if password is not None:
             LOG.info("Log in via pw, user:%s, host:%s, pw:%s",
                      user, ip, password)
-            self.connection = ssh.SSH(user, ip, password=password)
+            self.connection = ssh.SSH(user, ip, password=password,
+                                      port=ssh_port)
         else:
             LOG.info("Log in via key, user:%s, host:%s, key_filename:%s",
                      user, ip, key_filename)
-            self.connection = ssh.SSH(user, ip, key_filename=key_filename)
+            self.connection = ssh.SSH(user, ip, key_filename=key_filename,
+                                      port=ssh_port)
 
         self.connection.wait()
 
