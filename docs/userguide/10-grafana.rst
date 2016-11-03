@@ -7,6 +7,7 @@
 Grafana dashboard
 =================
 
+
 Abstract
 ========
 
@@ -18,11 +19,13 @@ dashboard can be found here: http://testresults.opnfv.org/grafana/
    :width: 800px
    :alt: Yardstick grafana dashboard
 
+
 Public access
 =============
 
 Yardstick provids a public account for accessing to the dashboard. The username
 and password are both set to ‘opnfv’.
+
 
 Testcase dashboard
 ==================
@@ -44,10 +47,51 @@ will be shown here.
 
 You can check multiple pods or scenarios.
 
-For each test case, we have a short description and a link to detailed test case information in Yardstick user guide.
+For each test case, we have a short description and a link to detailed test
+case information in Yardstick user guide.
 
 Underneath, it is the result presentation section.
-You can use the time period selection on the top right corner to zoom in or zoom out the chart.
+You can use the time period selection on the top right corner to zoom in or
+zoom out the chart.
+
+
+Administration access
+=====================
+
+For a user with administration rights it is easy to update and save any
+dashboard configuration. Saved updates immediately take effect and become live.
+This may cause issues like:
+
+* Changes and updates made to the live configuration in Grafana can compromise
+existing Grafana content in an unwanted, unpredicted or incompatible way.
+Grafana as such is not version controlled, there exists one single Grafana
+configuration per dashboard.
+* There is a risk several people can disturb each other when doing updates to
+the same Grafana dashboard at the same time.
+
+
+Way of Working with updates
+===========================
+
+In the curtain menu of the existing dashboard do a "Save As..." into a new
+dashboard copy instance, and then continue doing all updates and saves within
+the dashboard copy.
+
+When finished with all Grafana configuration changes in this temporary
+dashboard then chose "export" of the updated dashboard copy into a JSON file
+and put it up for review in Gerrit, in file /yardstick/dashboard/Yardstick-TCxxx-yyyyyyyyyyyyy.
+For instance a typical default name of the file would be "Yardstick-TC001 Copy-1234567891234".
+
+Also, keep the new, unreviewed dashboard copy saved and running in Grafana,
+otherwise it is difficult to review and compare the real impacts of the
+changes. Copy also the dashboard's http-link into the Gerrit commit message
+for easier review reference as well. After approved review do an "import" of
+the JSON file and also a "save dashboard" as soon as possible to replace the
+old live dashboard configuration. Make sure to manually put the correct
+dashboard name as Title and OriginalTitle in the new JSON file, the same as in
+the old dashboard. When done also make sure to delete the temporary dashboard
+in Grafana.
+
 
 Add a dashboard into yardstick grafana
 ======================================
