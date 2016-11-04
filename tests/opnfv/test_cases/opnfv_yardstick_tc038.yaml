@@ -64,7 +64,7 @@ scenarios:
 
 context:
   name: yardstick-TC038
-  image: yardstick-trusty-server
+  image: yardstick-image
   flavor: yardstick-flavor
   user: ubuntu
 

@@ -25,7 +25,7 @@ scenarios:
 
 context:
   name: yardstick-TC069
-  image: yardstick-trusty-server
+  image: yardstick-image
   flavor: yardstick-flavor
   user: ubuntu
 
