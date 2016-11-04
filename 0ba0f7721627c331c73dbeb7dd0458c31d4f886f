@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_39200a9b",
+        "filename": "docs/userguide/10-grafana.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-04T03:53:44Z",
+      "side": 1,
+      "message": "should be InfluxDB",
+      "range": {
+        "startLine": 45,
+        "startChar": 69,
+        "endLine": 45,
+        "endChar": 78
+      },
+      "revId": "0ba0f7721627c331c73dbeb7dd0458c31d4f886f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_794d3272",
+        "filename": "docs/userguide/10-grafana.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-04T03:53:44Z",
+      "side": 1,
+      "message": "I think you\u0027d better reformat the steps to make it more clear to the user. I suggest your can refer to:http://artifacts.opnfv.org/ipv6/docs/configurationguide/index.html as a sample",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 24
+      },
+      "revId": "0ba0f7721627c331c73dbeb7dd0458c31d4f886f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
