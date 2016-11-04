@@ -35,7 +35,7 @@ scenarios:
 
 context:
   name: yardstick-TC005
-  image: yardstick-trusty-server
+  image: yardstick-image
   flavor: m1.small
   user: ubuntu
 
