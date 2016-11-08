@@ -54,7 +54,6 @@ class Ping6(base.Scenario):  # pragma: no cover
         ip = node.get('ip', None)
         pwd = node.get('password', None)
         key_fname = node.get('key_filename', '/root/.ssh/id_rsa')
-
         if pwd is not None:
             LOG.debug("Log in via pw, user:%s, host:%s, password:%s",
                       user, ip, pwd)
@@ -72,6 +71,14 @@ class Ping6(base.Scenario):  # pragma: no cover
                             stdin=open(self.pre_setup_script, "rb"))
             status, stdout, stderr = self.client.execute(
                 "sudo bash pre_setup.sh")
+
+    def _get_controller_node(self, host_list):
+        for host_name in host_list:
+            node = self.nodes.get(host_name, None)
+            node_role = node.get('role', None)
+            if node_role == 'Controller':
+                return host_name
+        return None
 
     def setup(self):
         '''scenario setup'''
@@ -102,9 +109,12 @@ class Ping6(base.Scenario):  # pragma: no cover
         if pre_setup:
             self._pre_setup()
 
-        # ssh host1
-        self._ssh_host(self.host_list[0])
-
+        # log in a contronller node to setup
+        controller_node_name = self._get_controller_node(self.host_list)
+        LOG.debug("The Controller Node is: %s", controller_node_name)
+        if controller_node_name is None:
+            LOG.error("controller not exist!!!")
+        self._ssh_host(controller_node_name)
         self.client.run("cat > ~/metadata.txt",
                         stdin=open(self.ping6_metadata_script, "rb"))
 
