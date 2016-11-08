@@ -16,6 +16,29 @@
       "revId": "b913fab1130c2805279befb3ae37bd62da11aeab",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_6a9eae58",
+        "filename": "yardstick/benchmark/scenarios/networking/ping6_setup.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-11-08T08:22:12Z",
+      "side": 1,
+      "message": "maybe it is better ot use ${fedora_img} here",
+      "range": {
+        "startLine": 23,
+        "startChar": 93,
+        "endLine": 23,
+        "endChar": 135
+      },
+      "revId": "b913fab1130c2805279befb3ae37bd62da11aeab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
