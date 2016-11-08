@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_ea729e48",
+        "filename": "tests/unit/common/test_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-08T08:09:06Z",
+      "side": 1,
+      "message": "this file should be put in the unit test directory. and it should not be install into the python library.",
+      "range": {
+        "startLine": 96,
+        "startChar": 43,
+        "endLine": 96,
+        "endChar": 75
+      },
+      "revId": "e8d8ae174b910adb6dc72e02c4e6922a8ab861a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
