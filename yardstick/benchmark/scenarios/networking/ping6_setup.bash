@@ -15,8 +15,13 @@ openrc=$1
 external_network=$2
 echo "openrc=$openrc"
 echo "external_network=$external_network"
+echo "nameserver 8.8.4.4" >> /etc/resolv.conf
 source $openrc
-wget https://download.fedoraproject.org/pub/fedora/linux/releases/22/Cloud/x86_64/Images/Fedora-Cloud-Base-22-20150521.x86_64.qcow2 >/dev/null 2>&1
+
+fedora_img="Fedora-Cloud-Base-22-20150521.x86_64.qcow2"
+if [ ! -f "$fedora_img" ]; then
+    wget https://download.fedoraproject.org/pub/fedora/linux/releases/22/Cloud/x86_64/Images/Fedora-Cloud-Base-22-20150521.x86_64.qcow2 >/dev/null 2>&1
+fi
 
 glance image-create --name 'Fedora22' --disk-format qcow2 \
 --container-format bare --file ./Fedora-Cloud-Base-22-20150521.x86_64.qcow2
