@@ -22,6 +22,30 @@
       "revId": "3aeba68b0e4b6e9099546bf24c42787d3d9983e8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_e5a65153",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-09T01:28:06Z",
+      "side": 1,
+      "message": "goods suggestion, I will add comments in the commit log.",
+      "parentUuid": "5ac10518_05891dca",
+      "range": {
+        "startLine": 54,
+        "startChar": 29,
+        "endLine": 54,
+        "endChar": 38
+      },
+      "revId": "3aeba68b0e4b6e9099546bf24c42787d3d9983e8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
