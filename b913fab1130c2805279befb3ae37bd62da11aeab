@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5ac10518_657261e7",
+        "filename": "yardstick/benchmark/scenarios/networking/ping6.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-09T01:30:29Z",
+      "side": 1,
+      "message": "will the node be None?",
+      "range": {
+        "startLine": 77,
+        "startChar": 12,
+        "endLine": 77,
+        "endChar": 50
+      },
+      "revId": "b913fab1130c2805279befb3ae37bd62da11aeab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_ea9b7e70",
         "filename": "yardstick/benchmark/scenarios/networking/ping6.py",
         "patchSetId": 2
