@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_05891dca",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-09T01:21:41Z",
+      "side": 1,
+      "message": "what\u0027s this parameter used for, can you add more information about this?",
+      "range": {
+        "startLine": 54,
+        "startChar": 29,
+        "endLine": 54,
+        "endChar": 38
+      },
+      "revId": "3aeba68b0e4b6e9099546bf24c42787d3d9983e8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
