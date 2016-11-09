@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_c01c636d",
+        "filename": "tools/yardstick-img-lxd-modify",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-09T03:09:27Z",
+      "side": 1,
+      "message": "this should be checked about the priority, and you\u0027d better add brackets to be clear",
+      "range": {
+        "startLine": 35,
+        "startChar": 5,
+        "endLine": 35,
+        "endChar": 19
+      },
+      "revId": "f6c7a724b3b2c74c5353e3c8a711a23dcb6d10cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
