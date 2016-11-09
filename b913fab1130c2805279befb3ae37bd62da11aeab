@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_e58f31cb",
+        "filename": "yardstick/benchmark/scenarios/networking/ping6.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-09T01:26:31Z",
+      "side": 1,
+      "message": "thanks for advise, i\u0027ll do it in the next patch",
+      "parentUuid": "5ac10518_ea9b7e70",
+      "revId": "b913fab1130c2805279befb3ae37bd62da11aeab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_6a9eae58",
         "filename": "yardstick/benchmark/scenarios/networking/ping6_setup.bash",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2016-11-08T08:22:12Z",
       "side": 1,
       "message": "maybe it is better ot use ${fedora_img} here",
+      "range": {
+        "startLine": 23,
+        "startChar": 93,
+        "endLine": 23,
+        "endChar": 135
+      },
+      "revId": "b913fab1130c2805279befb3ae37bd62da11aeab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_25ad3932",
+        "filename": "yardstick/benchmark/scenarios/networking/ping6_setup.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-09T01:26:31Z",
+      "side": 1,
+      "message": "thank you for pointing out, i think i miss this, it\u0027ll be fixed in the next patch.",
+      "parentUuid": "5ac10518_6a9eae58",
       "range": {
         "startLine": 23,
         "startChar": 93,
