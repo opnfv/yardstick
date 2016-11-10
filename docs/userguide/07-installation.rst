@@ -75,47 +75,13 @@ If you choose to use the Ubuntu 14.04 Docker image, You can pull the Ubuntu
 
 Installing Yardstick framework
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Install dependencies:
-
-::
-
-  sudo apt-get update && sudo apt-get install -y \
-      wget \
-      git \
-      sshpass \
-      qemu-utils \
-      kpartx \
-      libffi-dev \
-      libssl-dev \
-      python \
-      python-dev \
-      python-virtualenv \
-      libxml2-dev \
-      libxslt1-dev \
-      python-setuptools
-
-Create a python virtual environment, source it and update setuptools:
-
-::
-
-  virtualenv ~/yardstick_venv
-  source ~/yardstick_venv/bin/activate
-  easy_install -U setuptools
-
 Download source code and install python dependencies:
 
 ::
 
   git clone https://gerrit.opnfv.org/gerrit/yardstick
   cd yardstick
-  python setup.py install
-
-A Youtube video tutorial on this installation mode is available
-at: http://www.youtube.com/watch?v=4S4izNolmR0
-
-.. image:: http://img.youtube.com/vi/4S4izNolmR0/0.jpg
-   :alt: http://www.youtube.com/watch?v=4S4izNolmR0
-   :target: http://www.youtube.com/watch?v=4S4izNolmR0
+  ./install.sh
 
 
 Installing Yardstick using Docker
