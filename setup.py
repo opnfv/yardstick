@@ -32,28 +32,6 @@ setup(
         ]
     },
     url="https://www.opnfv.org",
-    install_requires=["backport_ipaddress",  # remove with python3
-                      "coverage>=3.6",
-                      "flake8",
-                      "Jinja2>=2.6",
-                      "lxml",
-                      "PyYAML>=3.10",
-                      "pbr<2.0,>=1.3",
-                      "python-openstackclient>=2.1.0",
-                      "python-glanceclient>=0.12.0",
-                      "python-heatclient>=0.2.12",
-                      "python-keystoneclient>=0.11.1",
-                      "python-neutronclient>=2.3.9",
-                      "python-novaclient>=2.24.1",
-                      "mock>=1.0.1",  # remove with python3
-                      "paramiko",
-                      "netifaces",
-                      "scp",
-                      "six",
-                      "testrepository>=0.0.18",
-                      "testtools>=1.4.0",
-                      "nose"
-                      ],
     extras_require={
         'plot': ["matplotlib>=1.4.2"]
     },
@@ -63,8 +41,9 @@ setup(
             'yardstick-plot=yardstick.plot.plotter:main [plot]'
         ],
     },
-    scripts=['tools/yardstick-img-modify',
-             'tools/yardstick-img-lxd-modify',
-             'tools/yardstick-img-dpdk-modify'
-            ]
+    scripts=[
+        'tools/yardstick-img-modify',
+        'tools/yardstick-img-lxd-modify',
+        'tools/yardstick-img-dpdk-modify'
+    ]
 )
