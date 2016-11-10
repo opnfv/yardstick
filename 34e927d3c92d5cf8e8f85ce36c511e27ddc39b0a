@@ -16,6 +16,24 @@
       "revId": "34e927d3c92d5cf8e8f85ce36c511e27ddc39b0a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_fbb59131",
+        "filename": "install.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-10T08:19:22Z",
+      "side": 1,
+      "message": "Good suggestion. I will try and fix it soon.",
+      "parentUuid": "5ac10518_bb52a911",
+      "revId": "34e927d3c92d5cf8e8f85ce36c511e27ddc39b0a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
