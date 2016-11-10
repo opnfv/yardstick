@@ -39,17 +39,17 @@ class VsperfTestCase(unittest.TestCase):
         }
         self.args = {
             'options': {
-                'testname': 'rfc2544_p2p_continuous',
+                'testname': 'p2p_rfc2544_continuous',
                 'traffic_type': 'continuous',
-                'pkt_sizes': '64',
+                'frame_size': '64',
                 'bidirectional': 'True',
                 'iload': 100,
-                'duration': 29,
                 'trafficgen_port1': 'eth1',
                 'trafficgen_port2': 'eth3',
                 'external_bridge': 'br-ex',
-                'conf-file': 'vsperf-yardstick.conf',
-                'setup-script': 'setup_yardstick.sh',
+                'conf_file': 'vsperf-yardstick.conf',
+                'setup_script': 'setup_yardstick.sh',
+                'test_params': 'TRAFFICGEN_DURATION=30;',
             },
             'sla': {
                 'metrics': 'throughput_rx_fps',
