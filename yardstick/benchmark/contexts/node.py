@@ -35,9 +35,9 @@ class NodeContext(Context):
     def init(self, attrs):
         '''initializes itself from the supplied arguments'''
         self.name = attrs["name"]
-        self.file_path = attrs.get("file", "")
+        self.file_path = attrs.get("file", "pod.yaml")
         if not os.path.exists(self.file_path):
-            self.file_path = YARDSTICK_ROOT_PATH + self.file_path
+            self.file_path = os.path.join(YARDSTICK_ROOT_PATH, self.file_path)
 
         LOG.info("Parsing pod file: %s", self.file_path)
 
