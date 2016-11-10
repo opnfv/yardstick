@@ -24,7 +24,8 @@ import subprocess
 from yardstick.benchmark.scenarios.networking import vsperf
 
 
-@mock.patch('yardstick.benchmark.scenarios.networking.vsperf.subprocess')
+@mock.patch('yardstick.benchmark.scenarios.networking.vsperf.subprocess.call',
+            return_value=0)
 @mock.patch('yardstick.benchmark.scenarios.networking.vsperf.ssh')
 @mock.patch("__builtin__.open", return_value=None)
 class VsperfTestCase(unittest.TestCase):
@@ -39,17 +40,17 @@ class VsperfTestCase(unittest.TestCase):
         }
         self.args = {
             'options': {
-                'testname': 'rfc2544_p2p_continuous',
+                'testname': 'p2p_rfc2544_continuous',
                 'traffic_type': 'continuous',
-                'pkt_sizes': '64',
+                'frame_size': '64',
                 'bidirectional': 'True',
                 'iload': 100,
-                'duration': 29,
                 'trafficgen_port1': 'eth1',
                 'trafficgen_port2': 'eth3',
                 'external_bridge': 'br-ex',
-                'conf-file': 'vsperf-yardstick.conf',
-                'setup-script': 'setup_yardstick.sh',
+                'conf_file': 'vsperf-yardstick.conf',
+                'setup_script': 'setup_yardstick.sh',
+                'test_params': 'TRAFFICGEN_DURATION=30;',
             },
             'sla': {
                 'metrics': 'throughput_rx_fps',
@@ -61,7 +62,6 @@ class VsperfTestCase(unittest.TestCase):
     def test_vsperf_setup(self, mock_open, mock_ssh, mock_subprocess):
         p = vsperf.Vsperf(self.args, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
 
         p.setup()
         self.assertIsNotNone(p.client)
@@ -72,7 +72,6 @@ class VsperfTestCase(unittest.TestCase):
 
         # setup() specific mocks
         mock_ssh.SSH().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
 
         p.setup()
         self.assertIsNotNone(p.client)
@@ -86,7 +85,6 @@ class VsperfTestCase(unittest.TestCase):
 
         # setup() specific mocks
         mock_ssh.SSH().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
 
         # run() specific mocks
         mock_ssh.SSH().execute.return_value = (0, '', '')
@@ -97,12 +95,11 @@ class VsperfTestCase(unittest.TestCase):
 
         self.assertEqual(result['throughput_rx_fps'], '14797660.000')
 
-    def test_vsperf_run_falied_vsperf_execution(self, mock_open, mock_ssh, mock_subprocess):
+    def test_vsperf_run_failed_vsperf_execution(self, mock_open, mock_ssh, mock_subprocess):
         p = vsperf.Vsperf(self.args, self.ctx)
 
         # setup() specific mocks
         mock_ssh.SSH().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
 
         # run() specific mocks
         mock_ssh.SSH().execute.return_value = (1, '', '')
@@ -110,12 +107,11 @@ class VsperfTestCase(unittest.TestCase):
         result = {}
         self.assertRaises(RuntimeError, p.run, result)
 
-    def test_vsperf_run_falied_csv_report(self, mock_open, mock_ssh, mock_subprocess):
+    def test_vsperf_run_failed_csv_report(self, mock_open, mock_ssh, mock_subprocess):
         p = vsperf.Vsperf(self.args, self.ctx)
 
         # setup() specific mocks
         mock_ssh.SSH().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
 
         # run() specific mocks
         mock_ssh.SSH().execute.return_value = (0, '', '')
