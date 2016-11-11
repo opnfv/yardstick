@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_7ed66fc7",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-11T01:31:00Z",
+      "side": 1,
+      "message": "In test case, we set a default value for file. Does this problem occur when you write a test case and not set the file value? If the default value is pod.yaml, it will also go wrong for file not found. So I think maybe we should write a documentation or a sample file to tell user how to use it.",
+      "range": {
+        "startLine": 38,
+        "startChar": 44,
+        "endLine": 38,
+        "endChar": 52
+      },
+      "revId": "57f61d1654e520e9fd553de0a3819024267d5389",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
