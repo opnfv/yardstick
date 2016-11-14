@@ -140,10 +140,12 @@ class SSH(object):
         self._client = False
 
     def run(self, cmd, stdin=None, stdout=None, stderr=None,
-            raise_on_error=True, timeout=3600):
+            raise_on_error=True, timeout=3600,
+            keep_stdin_open=False):
         """Execute specified command on the server.
 
         :param cmd:             Command to be executed.
+        :type cmd:              str
         :param stdin:           Open file or string to pass to stdin.
         :param stdout:          Open file to connect to stdout.
         :param stderr:          Open file to connect to stderr.
@@ -151,6 +153,8 @@ class SSH(object):
                                 then exception will be raized if non-zero code.
         :param timeout:         Timeout in seconds for command execution.
                                 Default 1 hour. No timeout if set to 0.
+        :param keep_stdin_open: don't close stdin on empty reads
+        :type keep_stdin_open:  bool
         """
 
         client = self._get_client()
@@ -160,10 +164,12 @@ class SSH(object):
 
         return self._run(client, cmd, stdin=stdin, stdout=stdout,
                          stderr=stderr, raise_on_error=raise_on_error,
-                         timeout=timeout)
+                         timeout=timeout,
+                         keep_stdin_open=keep_stdin_open)
 
     def _run(self, client, cmd, stdin=None, stdout=None, stderr=None,
-             raise_on_error=True, timeout=3600):
+             raise_on_error=True, timeout=3600,
+             keep_stdin_open=False):
 
         transport = client.get_transport()
         session = transport.open_session()
@@ -203,13 +209,15 @@ class SSH(object):
                     if not data_to_send:
                         data_to_send = stdin.read(4096)
                         if not data_to_send:
-                            stdin.close()
-                            session.shutdown_write()
-                            writes = []
-                            continue
-                    sent_bytes = session.send(data_to_send)
-                    # LOG.debug("sent: %s" % data_to_send[:sent_bytes])
-                    data_to_send = data_to_send[sent_bytes:]
+                            # we may need to keep stdin open
+                            if not keep_stdin_open:
+                                stdin.close()
+                                session.shutdown_write()
+                                writes = []
+                    if data_to_send:
+                        sent_bytes = session.send(data_to_send)
+                        # LOG.debug("sent: %s" % data_to_send[:sent_bytes])
+                        data_to_send = data_to_send[sent_bytes:]
 
             if session.exit_status_ready():
                 break
