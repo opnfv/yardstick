@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_8f2c434c",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-14T18:50:36Z",
+      "side": 1,
+      "message": "do we need get()?  Can we just catch the KeyError and return None.\n\n  try:\n      value \u003d reduce(operator.getitem, args.split(\u0027.\u0027), value)\n  except KeyError:\n      value \u003d None",
+      "revId": "b3071ecf941d030092a33086c4d632ed88c52bcf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_4f0f3be2",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-14T18:50:36Z",
+      "side": 1,
+      "message": "Usually better to catch exceptions rather than check first then access. \nos.path.exists() is open to filesystem race conditions, whereas catching ENOENT is not racy.  Python calls this pattern EAFP (Easier to ask for forgiveness than permission)  See EAFP vs LBYL https://docs.python.org/2/glossary.html#term-eafp\n\n\n    try:\n        with open(yaml_f) as f_read:\n            return yaml.safe_load(f_read)\n    except EnvironmentError as e:\n        if e.errno !\u003d errno.ENOENT:\n            logging.error(\"Could not find file: %s\", yaml_f)\n            raise\n        else:\n            return {}",
+      "revId": "b3071ecf941d030092a33086c4d632ed88c52bcf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
