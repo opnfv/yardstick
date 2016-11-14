@@ -51,7 +51,7 @@ class TaskCommands(object):
              output_file_default, default=output_file_default)
     @cliargs("--suite", help="process test suite file instead of a task file",
              action="store_true")
-    def do_start(self, args):
+    def do_start(self, args, **kwargs):
         '''Start a benchmark scenario.'''
 
         atexit.register(atexit_handler)
