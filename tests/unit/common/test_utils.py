@@ -83,6 +83,33 @@ class ImportModulesFromPackageTestCase(unittest.TestCase):
         mock_importutils.import_module.assert_called_with('bar.baz')
 
 
+class GetParaFromYaml(unittest.TestCase):
+
+    def test_get_para_from_yaml_file_not_exist(self):
+        file_path = '/etc/yardstick/hello.yaml'
+        args = 'hello.world'
+        para = utils.get_para_from_yaml(file_path, args)
+        self.assertIsNone(para)
+
+    def test_get_para_from_yaml_para_not_found(self):
+        file_path = 'config_sample.yaml'
+        file_path = self._get_file_abspath(file_path)
+        args = 'releng.file'
+        self.assertIsNone(utils.get_para_from_yaml(file_path, args))
+
+    def test_get_para_from_yaml_para_exists(self):
+        file_path = 'config_sample.yaml'
+        file_path = self._get_file_abspath(file_path)
+        args = 'releng.dir'
+        para = '/home/opnfv/repos/releng'
+        self.assertEqual(para, utils.get_para_from_yaml(file_path, args))
+
+    def _get_file_abspath(self, filename):
+        curr_path = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(curr_path, filename)
+        return file_path
+
+
 def main():
     unittest.main()
 

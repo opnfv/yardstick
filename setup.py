@@ -66,5 +66,5 @@ setup(
     scripts=['tools/yardstick-img-modify',
              'tools/yardstick-img-lxd-modify',
              'tools/yardstick-img-dpdk-modify'
-            ]
+             ]
 )
