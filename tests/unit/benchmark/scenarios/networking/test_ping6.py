@@ -25,11 +25,28 @@ class PingTestCase(unittest.TestCase):
             'host1': {
                 'ip': '172.16.0.137',
                 'user': 'cirros',
+                'role': "Controller",
                 'key_filename': "mykey.key",
                 'password': "root"
                 },
+            'host2': {
+                "ip": "172.16.0.138",
+                "key_filename": "/root/.ssh/id_rsa",
+                "role": "Compute",
+                "name": "node3.IPV6",
+                "user": "root"
+                },
             }
         }
+
+    def test_get_controller_node(self):
+        args = {
+            'options': {'host': 'host1','packetsize': 200, 'ping_count': 5},
+            'sla': {'max_rtt': 50}
+        }
+        p = ping6.Ping6(args, self.ctx)
+        controller_node = p._get_controller_node(['host1','host2'])
+        self.assertEqual(controller_node, 'host1')
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping6.ssh')
     def test_ping_successful_setup(self, mock_ssh):
