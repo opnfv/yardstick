@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_8add1117",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-15T16:22:56Z",
+      "side": 1,
+      "message": "can we use list comprehension?\n\n  test_params \u003d [t.replace(\u0027\"\u0027, r\u0027\\\"\u0027).replace(\"\u0027\", r\"\\\u0027\") for t in test_params if t]\n\nor maybe use pipes.quote() or shlex.quote()",
+      "revId": "fed99bb1cd7ab36319545c7f2f73a573697cf713",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
