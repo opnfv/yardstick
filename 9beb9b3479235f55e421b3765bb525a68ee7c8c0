@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_caac798f",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-15T16:07:07Z",
+      "side": 1,
+      "message": "please always call super() in __init__",
+      "revId": "9beb9b3479235f55e421b3765bb525a68ee7c8c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
