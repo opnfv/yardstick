@@ -13,39 +13,52 @@ Yardstick Test Case Description TC004
 |Cache Utilization                                                            |
 |                                                                             |
 +--------------+--------------------------------------------------------------+
-|test case id  | OPNFV_YARDSTICK_TC004_Cache Utilization                      |
+|test case id  | OPNFV_YARDSTICK_TC004_CACHE Utilization                      |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|metric        | Cache Utilization                                            |
+|metric        | cache hit, cache miss, hit/miss ratio, buffer size and page  |
+|              | cache size                                                   |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|test purpose  | To evaluate the IaaS compute capability with regards to      |
-|              | cache utilization.This test case should be run in parallel   |
-|              | to other Yardstick test cases and not run as a stand-alone   |
-|              | test case.                                                   |
-|              | Measure the cache usage statistics including cache hit,      |
-|              | cache miss, hit ratio, page cache size and page cache size.  |
-|              | Both average and maximun values are obtained.                |
-|              | The purpose is also to be able to spot trends.               |
+|test purpose  | The purpose of TC004 is to evaluate the IaaS compute         |
+|              | capability with regards to cache utilization.This test case  |
+|              | should be run in parallel with other Yardstick test cases    |
+|              | and not run as a stand-alone test case.                      |
+|              |                                                              |
+|              | This test case measures cache usage statistics, including    |
+|              | cache hit, cache miss, hit ratio, buffer cache size and page |
+|              | cache size, with some wokloads runing on the infrastructure. |
+|              | Both average and maximun values are collected.               |
+|              |                                                              |
+|              | The purpose is also to be able to spot the trends.           |
 |              | Test results, graphs and similar shall be stored for         |
 |              | comparison reasons and product evolution understanding       |
 |              | between different OPNFV versions and/or configurations.      |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|configuration | File: cachestat.yaml (in the 'samples' directory)            |
-|              |                                                              |
-|              | * interval: 1 - repeat, pausing every 1 seconds in-between.  |
-|              |                                                              |
-+--------------+--------------------------------------------------------------+
 |test tool     | cachestat                                                    |
 |              |                                                              |
-|              | cachestat is not always part of a Linux distribution, hence  |
-|              | it needs to be installed.                                    |
+|              | cachestat is a tool using Linux ftrace capabilities for      |
+|              | showing Linux page cache hit/miss statistics.                |
+|              |                                                              |
+|              | (cachestat is not always part of a Linux distribution, hence |
+|              | it needs to be installed. As an example see the              |
+|              | /yardstick/tools/ directory for how to generate a Linux      |
+|              | image with cachestat included.)                              |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|references    | cachestat_                                                   |
+|test          | cachestat test is run in a host VM on a compute blade,       |
+|description   | cachestat test requires some other test cases running in the |
+|              | host to stimulate workload.                                  |
 |              |                                                              |
-|              | ETSI-NFV-TST001                                              |
++--------------+--------------------------------------------------------------+
+|configuration | File: cachestat.yaml (in the 'samples' directory)            |
+|              |                                                              |
+|              | Interval is set 1. Test repeat, pausing every 1 seconds      |
+|              | in-between.                                                  |
+|              | Test durarion is set to 60 seconds.                          |
+|              |                                                              |
+|              | SLA is not available in this test case.                      |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |applicability | Test can be configured with different:                       |
@@ -53,8 +66,12 @@ Yardstick Test Case Description TC004
 |              |  * interval;                                                 |
 |              |  * runner Duration.                                          |
 |              |                                                              |
-|              | There are default values for each above-mentioned option.    |
-|              | Run in background with other test cases.                     |
+|              | Default values exist.                                        |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|references    | cachestat_                                                   |
+|              |                                                              |
+|              | ETSI-NFV-TST001                                              |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |pre-test      | The test case image needs to be installed into Glance        |
@@ -66,12 +83,12 @@ Yardstick Test Case Description TC004
 |test sequence | description and expected result                              |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|step 1        | The host is installed as client. The related TC, or TCs, is  |
-|              | invoked and cachestat logs are produced and stored.          |
+|step 1        | The host is installed and cachestat is invoked and logs are  |
+|              | produced and stored.                                         |
 |              |                                                              |
 |              | Result: logs are stored.                                     |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|test verdict  | None. Cache utilization results are fetched and stored.      |
+|test verdict  | None. Cache utilization results are collected and stored.    |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+

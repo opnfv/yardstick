@@ -7,38 +7,37 @@
 Yardstick Test Case Description TC005
 *************************************
 
-.. _fio: http://www.bluestop.org/fio/HOWTO.txt
+.. _fio: http://bluestop.org/files/fio/HOWTO.txt
 
 +-----------------------------------------------------------------------------+
 |Storage Performance                                                          |
 |                                                                             |
 +--------------+--------------------------------------------------------------+
-|test case id  | OPNFV_YARDSTICK_TC005_Storage Performance                    |
+|test case id  | OPNFV_YARDSTICK_TC005_STORAGE PERFORMANCE                    |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|metric        | IOPS, throughput and latency                                 |
+|metric        | IOPS (Average IOs performed per second),                     |
+|              | Throughput (Average disk read/write bandwidth rate),         |
+|              | Latency (Average disk read/write latency)                    |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|test purpose  | To evaluate the IaaS storage performance with regards to     |
-|              | IOPS, throughput and latency.                                |
-|              | The purpose is also to be able to spot trends. Test results, |
-|              | graphs and similar shall be stored for comparison reasons    |
-|              | and product evolution understanding between different OPNFV  |
-|              | versions and/or configurations.                              |
+|test purpose  | The purpose of TC005 is to evaluate the IaaS storage         |
+|              | performance with regards to IOPS, throughput and latency.    |
 |              |                                                              |
-+--------------+--------------------------------------------------------------+
-|configuration | file: opnfv_yardstick_tc005.yaml                             |
-|              |                                                              |
-|              | IO types: read, write, randwrite, randread, rw               |
-|              | IO block size: 4KB, 64KB, 1024KB, where each                 |
-|              | runs for 30 seconds(10 for ramp time, 20 for runtime).       |
-|              |                                                              |
-|              | For SLA minimum read/write iops is set to 100, minimum       |
-|              | read/write throughput is set to 400 KB/s, and maximum        |
-|              | read/write latency is set to 20000 usec.                     |
+|              | The purpose is also to be able to spot the trends.           |
+|              | Test results, graphs and similar shall be stored for         |
+|              | comparison reasons and product evolution understanding       |
+|              | between different OPNFV versions and/or configurations.      |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test tool     | fio                                                          |
+|              |                                                              |
+|              | fio is an I/O tool meant to be used both for benchmark and   |
+|              | stress/hardware verification. It has support for 19          |
+|              | different types of I/O engines (sync, mmap, libaio,          |
+|              | posixaio, SG v3, splice, null, network, syslet, guasi,       |
+|              | solarisaio, and more), I/O priorities (for newer Linux       |
+|              | kernels), rate I/O, forked or threaded jobs, and much more.  |
 |              |                                                              |
 |              | (fio is not always part of a Linux distribution, hence it    |
 |              | needs to be installed. As an example see the                 |
@@ -46,14 +45,46 @@ Yardstick Test Case Description TC005
 |              | image with fio included.)                                    |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
+|test          | fio test is run in a host VM on a compute blade, a job file  |
+|description   | as well as parameters are passed to fio and fio will start   |
+|              | doing what the job file tells it to do.                      |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|configuration | file: opnfv_yardstick_tc005.yaml                             |
+|              |                                                              |
+|              | IO types is set to read, write, randwrite, randread, rw.     |
+|              | IO block size is set to 4KB, 64KB, 1024KB.                   |
+|              | fio is run for each IO type and IO block size scheme,        |
+|              | each iteration runs for 30 seconds (10 for ramp time, 20 for |
+|              | runtime).                                                    |
+|              |                                                              |
+|              | For SLA, minimum read/write iops is set to 100,              |
+|              | minimum read/write throughput is set to 400 KB/s,            |
+|              | and maximum read/write latency is set to 20000 usec.         |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|applicability | This test case can be configured with different:             |
+|              |                                                              |
+|              |   * IO types;                                                |
+|              |   * IO block size;                                           |
+|              |   * IO depth;                                                |
+|              |   * ramp time;                                               |
+|              |   * test duration.                                           |
+|              |                                                              |
+|              | Default values exist.                                        |
+|              |                                                              |
+|              | SLA is optional. The SLA in this test case serves as an      |
+|              | example. Considerably higher throughput and lower latency    |
+|              | are expected. However, to cover most configurations, both    |
+|              | baremetal and fully virtualized  ones, this value should be  |
+|              | possible to achieve and acceptable for black box testing.    |
+|              | Many heavy IO applications start to suffer badly if the      |
+|              | read/write bandwidths are lower than this.                   |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
 |references    | fio_                                                         |
 |              |                                                              |
 |              | ETSI-NFV-TST001                                              |
-|              |                                                              |
-+--------------+--------------------------------------------------------------+
-|applicability | Test can be configured with different read/write types, IO   |
-|              | block size, IO depth, ramp time (runtime required for stable |
-|              | results) and test duration. Default values exist.            |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |pre-test      | The test case image needs to be installed into Glance        |
