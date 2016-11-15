@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_cfc32b37",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-15T02:11:44Z",
+      "side": 1,
+      "message": "my bad, I do this for some historical reasons(I can\u0027t raise errors). But for now I think you are right. I will improve it in next patch. And  I will add you to review. Thank you.",
+      "parentUuid": "5ac10518_8f2c434c",
+      "revId": "b3071ecf941d030092a33086c4d632ed88c52bcf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_4f0f3be2",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 3
