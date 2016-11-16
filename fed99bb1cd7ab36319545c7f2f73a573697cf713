@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5ac10518_f5c03a2c",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1306
+      },
+      "writtenOn": "2016-11-16T11:53:13Z",
+      "side": 1,
+      "message": "ok, I\u0027ll add a call of parent class constructor. It would be good to fix other scenario classes to keep it clean.",
+      "revId": "fed99bb1cd7ab36319545c7f2f73a573697cf713",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_8add1117",
         "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
         "patchSetId": 2
@@ -13,6 +30,24 @@
       "writtenOn": "2016-11-15T16:22:56Z",
       "side": 1,
       "message": "can we use list comprehension?\n\n  test_params \u003d [t.replace(\u0027\"\u0027, r\u0027\\\"\u0027).replace(\"\u0027\", r\"\\\u0027\") for t in test_params if t]\n\nor maybe use pipes.quote() or shlex.quote()",
+      "revId": "fed99bb1cd7ab36319545c7f2f73a573697cf713",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_55b02edd",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1306
+      },
+      "writtenOn": "2016-11-16T11:53:13Z",
+      "side": 1,
+      "message": "ok, let\u0027s use list comprehension to shorten the code; The string is parsed by vsperf and the usage of quote() would require also changes at vsperf side.",
+      "parentUuid": "5ac10518_8add1117",
       "revId": "fed99bb1cd7ab36319545c7f2f73a573697cf713",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
