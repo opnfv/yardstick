@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_9531b60d",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-16T14:41:27Z",
+      "side": 1,
+      "message": "can we use SSH.put()?\n\nor if not can we use context manager\n\n  with open(self.vsperf_conf, \"rb\") as vsperf_file:\n     self.client.run(\"cat \u003e ~/vsperf.conf\", stdin\u003dvsperf_file)",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_b5363202",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-16T14:41:27Z",
+      "side": 1,
+      "message": "do we care about exit status of cmd?  Can we use check_call?",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
