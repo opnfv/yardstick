@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_50fefc6c",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-17T02:49:38Z",
+      "side": 1,
+      "message": "Thanks for pointing out. I\u0027ll test it locally and try to update in the next patch.(May take some time to do this)",
+      "parentUuid": "5ac10518_3079f02f",
+      "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_b08de033",
         "filename": "yardstick/common/yardstick_logging.py",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-11-17T01:59:49Z",
       "side": 1,
       "message": "please use new-style classes\n\nclass Logger(object):",
+      "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_d0daec16",
+        "filename": "yardstick/common/yardstick_logging.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-17T02:49:38Z",
+      "side": 1,
+      "message": "thanks for pointing out, I\u0027ll fix this.",
+      "parentUuid": "5ac10518_b08de033",
       "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_f0d7e8eb",
+        "filename": "yardstick/common/yardstick_logging.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-17T02:49:38Z",
+      "side": 1,
+      "message": "got it!",
+      "parentUuid": "5ac10518_50827c01",
+      "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_70877810",
         "filename": "yardstick/common/yardstick_logging.py",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2016-11-17T01:59:49Z",
       "side": 1,
       "message": "is this parseable?  can we split on \u0027 - \u0027 always?\n\nfor debugging I really would like %(filename)s:%(lineno)d",
+      "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_9004647f",
+        "filename": "yardstick/common/yardstick_logging.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-17T02:49:38Z",
+      "side": 1,
+      "message": "good suggestion, i\u0027ll update the format and check locally, please help to review it in the next patch, thanks!",
+      "parentUuid": "5ac10518_70877810",
       "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_b0096097",
+        "filename": "yardstick/common/yardstick_logging.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-17T02:49:38Z",
+      "side": 1,
+      "message": "I\u0027ll look into it and find a better way to do this. Thank you!",
+      "parentUuid": "5ac10518_107cf41f",
+      "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_d0c3cc36",
         "filename": "yardstick/ssh.py",
         "patchSetId": 1
@@ -98,6 +188,24 @@
       "writtenOn": "2016-11-17T02:07:43Z",
       "side": 1,
       "message": "I\u0027m using custom ssh logger names to differentiate VNF outputs.\n\nI end up with logs like this\n\n yardstick.ssh.l3fwd_vnf_instantiate ssh.py:189 DEBUG cmd: uname\n yardstick.ssh.l3fwd_vnf_instantiate ssh.py:209 DEBUG stdout: \u0027Linux\\n\u0027\n yardstick.ssh.l3fwd_vnf_instantiate ssh.py:189 DEBUG cmd: pkill L4replay\n yardstick.ssh.acl_vnf_instantiate ssh.py:189 DEBUG cmd: uname\n yardstick.ssh.acl_vnf_instantiate ssh.py:209 DEBUG stdout: \u0027Linux\\n\u0027\n yardstick.ssh.acl_vnf_instantiate ssh.py:189 DEBUG cmd: pkill isb_acl_vnf\n yardstick.ssh.l3fwd_vnf_instantiate ssh.py:189 DEBUG cmd: which /opt/isb_bin/dpdk_nic_bind.py\n yardstick.ssh.l3fwd_vnf_instantiate ssh.py:209 DEBUG stdout: \u0027/opt/isb_bin/dpdk_nic_bind.py\\n\u0027\n yardstick.ssh.l3fwd_vnf_instantiate ssh.py:189 DEBUG cmd: /opt/isb_bin/dpdk_nic_bind.py --status\n yardstick.ssh.acl_vnf_instantiate ssh.py:189 DEBUG cmd: which /opt/isb_bin/dpdk_nic_bind.py\n yardstick.ssh.acl_vnf_instantiate ssh.py:209 DEBUG stdout: \u0027/opt/isb_bin/dpdk_nic_bind.py\\n\u0027\n yardstick.ssh.acl_vnf_instantiate ssh.py:189 DEBUG cmd: /opt/isb_bin/dpdk_nic_bind.py --status\n\n\nSo I can\u0027t tell which VNF is doing which command without extra info.\n\nI added a name parameter to __init__\n\n    def __init__(self, user, host, port\u003dDEFAULT_PORT, pkey\u003dNone,\n                 key_filename\u003dNone, password\u003dNone, name\u003d\u0027\u0027):\n        if name:\n            self.log \u003d logging.getLogger(__name__ + \u0027.\u0027 + self.name)\n        else:\n            self.log \u003d logging.getLogger(__name__)\n        self.log.setLevel(logging.DEBUG)",
+      "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_7003f873",
+        "filename": "yardstick/ssh.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-17T02:49:38Z",
+      "side": 1,
+      "message": "so for common library use in yardstick, more information should be added. I\u0027ll make some test locally and update in next patch. thank you very much for your advice.",
+      "parentUuid": "5ac10518_d0c3cc36",
       "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
