@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_3079f02f",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T01:59:49Z",
+      "side": 1,
+      "message": "would prefer not using python stdlib names, this might confuse various tools and checkers.\n\nwe could go shorter: \n\n import yardstick.common.yardstick_logging as log\n\nI know this requires touching all the other code, but we still need access to logging.DEBUG constants for actual debugging.\n\nRight now I\u0027m trying to debug several VNFs and I ended up needing to create a different logger for each VNF so I could differentiate the ssh.py stdout.\n\nAlso after setting logging.DEBUG globally I had to reset paramiko to logging.INFO in ssh.py to avoid low-level ssh logging.\n\n    def _get_client(self):\n        logging.getLogger(\"paramiko\").setLevel(logging.INFO)",
+      "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_b08de033",
+        "filename": "yardstick/common/yardstick_logging.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T01:59:49Z",
+      "side": 1,
+      "message": "please use new-style classes\n\nclass Logger(object):",
+      "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_50827c01",
+        "filename": "yardstick/common/yardstick_logging.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T01:59:49Z",
+      "side": 1,
+      "message": "please always call super() in __init__",
+      "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_70877810",
+        "filename": "yardstick/common/yardstick_logging.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T01:59:49Z",
+      "side": 1,
+      "message": "is this parseable?  can we split on \u0027 - \u0027 always?\n\nfor debugging I really would like %(filename)s:%(lineno)d",
+      "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_107cf41f",
+        "filename": "yardstick/common/yardstick_logging.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T01:59:49Z",
+      "side": 1,
+      "message": "log files don\u0027t belong in /etc\n\n/var/log or potentially /run/yardstick or /var/run maybe\n\nthe best would be logging to journald via systemd\n\nhttps://github.com/systemd/python-systemd/\n\n from systemd.journal import JournalHandler\n\n log \u003d logging.getLogger(\u0027demo\u0027)\n log.addHandler(JournalHandler())",
+      "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
