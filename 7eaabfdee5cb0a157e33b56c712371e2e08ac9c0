@@ -1,0 +1,276 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_24b6913e",
+        "filename": "api/actions/test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "can we be more specific, is it just KeyError?\n\nunexpected error aren\u0027t meant to be caught.  Exception will catch MemoryError, SyntaxError and AttributeError, which will hide real errors.",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_c4822d52",
+        "filename": "api/actions/test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "%s calls str() automatically\n\n logging.info(\u0027The command_list is: %s\u0027 command_list)",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_847c2574",
+        "filename": "api/conf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "route is part of net-tools package which has been deprecated since 2009.\n\nplease use \u0027ip route\u0027 which is part of iproute2\n\nhttp://baturin.org/docs/iproute2/#Route management",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_e4872960",
+        "filename": "api/conf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "if you are going to splitlines, can we do all the matching in python and get ride of the grep and awk.  probably use a python regexp.\n\nIs it preferable to avoid Popen with shell\u003dTrue, because you can avoid shell quoting issue, word splitting and forking an extra process.\n\nThere is a python netlink module being developed that will allow us to send/receive netlink commands from python, so eventually we won\u0027t need to Popen to ip route commands.",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_a481214c",
+        "filename": "api/utils/common.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "in theory we are supposed to use ABCs  (Abstract Base Classes) for type checking\n\n if isinstance(object, collections.Mapping):\n\nsee \nhttps://docs.python.org/2/library/collections.html#collections.Mapping",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_248d317c",
+        "filename": "api/utils/common.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "collections.Iterable?",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_44963d96",
+        "filename": "api/utils/common.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "don\u0027t need .keys() to check for dict membership, you can just do\n\n  for key in opts:",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_649339a4",
+        "filename": "api/utils/common.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "can we use generator expression with extend?\n\n  command_list.extend((\u0027--{}\u0027.format(key) for key in opts if key !\u003d \u0027task-args\u0027))",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_04903594",
+        "filename": "api/utils/common.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "please always call super() in __init__",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_c4e9cd1b",
+        "filename": "api/utils/daemonthread.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "please use super\n\n  super(DaemonThread, self).__init__(target\u003dmethod, args\u003dargs)",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_e4ee4922",
+        "filename": "api/utils/daemonthread.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "please use new syntax\n\n  except Exception as e",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_04e7d541",
+        "filename": "api/utils/daemonthread.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "don\u0027t check then remove, that is a filesystem race condition.\n\nJust remove and ignore the error\n\n  try:\n     os.remove(...)\n  except OSError as e:\n     if e.errno !\u003d errno.ENOENT:\n        raise",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_24e4513a",
+        "filename": "api/utils/influx.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "don\u0027t need raise e,  you can use \u0027raise\u0027 to re-raise the caught exception.",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_84cae59f",
+        "filename": "api/utils/influx.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "please use dict literal\n\n  point \u003d {\n     \u0027measurement\u0027: measurement,\n  }\n\nor you could probably use **kwargs and filter.",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_a4cfe1af",
+        "filename": "api/utils/influx.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "why not \n\n logger.info(\u0027...\u0027, exc_info\u003dTrue)  \n\nor logger.exception()",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_64c1f97f",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T09:13:45Z",
+      "side": 1,
+      "message": "can we use .get()\n\n  self.task_id \u003d kwargs.get(\u0027task_id\u0027, str(uuid.uuid4())",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
