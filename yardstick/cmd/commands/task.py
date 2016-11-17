@@ -15,10 +15,10 @@ import yaml
 import atexit
 import ipaddress
 import time
-import logging
 import uuid
 from itertools import ifilter
 
+import yardstick.common.yardstick_logging as y_logging
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
 from yardstick.common.task_template import TaskTemplate
@@ -26,7 +26,7 @@ from yardstick.common.utils import cliargs
 
 output_file_default = "/tmp/yardstick.out"
 test_cases_dir_default = "tests/opnfv/test_cases/"
-LOG = logging.getLogger(__name__)
+LOG = y_logging.getLogger(__name__)
 
 
 class TaskCommands(object):

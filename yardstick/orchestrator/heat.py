@@ -15,16 +15,16 @@ import time
 import datetime
 import getpass
 import socket
-import logging
 import pkg_resources
 import json
 import heatclient.client
 import keystoneclient
 
+import yardstick.common.yardstick_logging as y_logging
 from yardstick.common import template_format
 
 
-log = logging.getLogger(__name__)
+log = y_logging.getLogger(__name__)
 
 
 class HeatObject(object):
