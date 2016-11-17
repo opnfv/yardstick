@@ -15,12 +15,12 @@ import time
 import datetime
 import getpass
 import socket
-import logging
 import pkg_resources
 import json
 import heatclient.client
 import keystoneclient
 
+import yardstick.common.yardstick_logging as logging
 from yardstick.common import template_format
 
 

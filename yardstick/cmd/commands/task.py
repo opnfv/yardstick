@@ -15,10 +15,10 @@ import yaml
 import atexit
 import ipaddress
 import time
-import logging
 import uuid
 from itertools import ifilter
 
+import yardstick.common.yardstick_logging as logging
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
 from yardstick.common.task_template import TaskTemplate

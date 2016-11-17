@@ -65,7 +65,7 @@ import time
 import paramiko
 from scp import SCPClient
 import six
-import logging
+import yardstick.common.yardstick_logging as logging
 
 LOG = logging.getLogger(__name__)
 

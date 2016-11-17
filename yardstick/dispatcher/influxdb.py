@@ -9,12 +9,12 @@
 
 import os
 import json
-import logging
 import requests
 import time
 
 from oslo_config import cfg
 
+import yardstick.common.yardstick_logging as logging
 from yardstick.dispatcher.base import Base as DispatchBase
 from third_party.influxdb.influxdb_line_protocol import make_lines
 

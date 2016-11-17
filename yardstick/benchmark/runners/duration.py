@@ -21,10 +21,10 @@
 
 import os
 import multiprocessing
-import logging
 import traceback
 import time
 
+import yardstick.common.yardstick_logging as logging
 from yardstick.benchmark.runners import base
 
 LOG = logging.getLogger(__name__)

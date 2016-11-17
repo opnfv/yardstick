@@ -17,7 +17,6 @@
 # rally/rally/benchmark/runners/base.py
 
 import importlib
-import logging
 import multiprocessing
 import subprocess
 import time
@@ -25,6 +24,7 @@ import traceback
 
 from oslo_config import cfg
 
+import yardstick.common.yardstick_logging as logging
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base as base_scenario
 from yardstick.dispatcher.base import Base as DispatcherBase
