@@ -84,6 +84,23 @@
       "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_d0c3cc36",
+        "filename": "yardstick/ssh.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-17T02:07:43Z",
+      "side": 1,
+      "message": "I\u0027m using custom ssh logger names to differentiate VNF outputs.\n\nI end up with logs like this\n\n yardstick.ssh.l3fwd_vnf_instantiate ssh.py:189 DEBUG cmd: uname\n yardstick.ssh.l3fwd_vnf_instantiate ssh.py:209 DEBUG stdout: \u0027Linux\\n\u0027\n yardstick.ssh.l3fwd_vnf_instantiate ssh.py:189 DEBUG cmd: pkill L4replay\n yardstick.ssh.acl_vnf_instantiate ssh.py:189 DEBUG cmd: uname\n yardstick.ssh.acl_vnf_instantiate ssh.py:209 DEBUG stdout: \u0027Linux\\n\u0027\n yardstick.ssh.acl_vnf_instantiate ssh.py:189 DEBUG cmd: pkill isb_acl_vnf\n yardstick.ssh.l3fwd_vnf_instantiate ssh.py:189 DEBUG cmd: which /opt/isb_bin/dpdk_nic_bind.py\n yardstick.ssh.l3fwd_vnf_instantiate ssh.py:209 DEBUG stdout: \u0027/opt/isb_bin/dpdk_nic_bind.py\\n\u0027\n yardstick.ssh.l3fwd_vnf_instantiate ssh.py:189 DEBUG cmd: /opt/isb_bin/dpdk_nic_bind.py --status\n yardstick.ssh.acl_vnf_instantiate ssh.py:189 DEBUG cmd: which /opt/isb_bin/dpdk_nic_bind.py\n yardstick.ssh.acl_vnf_instantiate ssh.py:209 DEBUG stdout: \u0027/opt/isb_bin/dpdk_nic_bind.py\\n\u0027\n yardstick.ssh.acl_vnf_instantiate ssh.py:189 DEBUG cmd: /opt/isb_bin/dpdk_nic_bind.py --status\n\n\nSo I can\u0027t tell which VNF is doing which command without extra info.\n\nI added a name parameter to __init__\n\n    def __init__(self, user, host, port\u003dDEFAULT_PORT, pkey\u003dNone,\n                 key_filename\u003dNone, password\u003dNone, name\u003d\u0027\u0027):\n        if name:\n            self.log \u003d logging.getLogger(__name__ + \u0027.\u0027 + self.name)\n        else:\n            self.log \u003d logging.getLogger(__name__)\n        self.log.setLevel(logging.DEBUG)",
+      "revId": "d4f50d73c7e45c1c5df574b7225eb5a2d0975d14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
