@@ -77,3 +77,6 @@ unicodecsv==0.14.1
 unittest2==1.1.0
 warlock==1.2.0
 wrapt==1.10.6
+flask==0.11.1
+flask-restful==0.3.5
+influxdb==3.0.0
