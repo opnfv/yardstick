@@ -10,12 +10,13 @@
 # ping scenario
 
 import pkg_resources
-import logging
 
+import yardstick.common.yardstick_logging as y_logging
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
 
-LOG = logging.getLogger(__name__)
+
+LOG = y_logging.getLogger(__name__)
 
 
 class Ping(base.Scenario):
@@ -96,32 +97,3 @@ class Ping(base.Scenario):
                         (rtt_result[target_vm_name], sla_max_rtt)
             else:
                 LOG.error("ping '%s' '%s' timeout", options, target_vm)
-
-
-def _test():    # pragma: no cover
-    '''internal test function'''
-    key_filename = pkg_resources.resource_filename("yardstick.resources",
-                                                   "files/yardstick_key")
-    ctx = {
-        "host": {
-            "ip": "10.229.47.137",
-            "user": "root",
-            "key_filename": key_filename
-        },
-        "target": {
-            "ipaddr": "10.229.17.105",
-        }
-    }
-
-    logger = logging.getLogger("yardstick")
-    logger.setLevel(logging.DEBUG)
-
-    args = {}
-    result = {}
-
-    p = Ping(args, ctx)
-    p.run(result)
-    print result
-
-if __name__ == '__main__':    # pragma: no cover
-    _test()
