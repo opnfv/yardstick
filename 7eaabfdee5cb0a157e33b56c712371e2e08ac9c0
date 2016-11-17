@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_24c5315b",
+        "filename": "api/actions/test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-17T12:01:33Z",
+      "side": 1,
+      "message": "thank you. I will be care later.",
+      "parentUuid": "5ac10518_c4822d52",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_847c2574",
         "filename": "api/conf.py",
         "patchSetId": 1
@@ -156,6 +174,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_e4940939",
+        "filename": "api/utils/common.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-17T12:01:33Z",
+      "side": 1,
+      "message": "goods suggestion.",
+      "parentUuid": "5ac10518_649339a4",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_04903594",
         "filename": "api/utils/common.py",
         "patchSetId": 1
@@ -167,6 +203,24 @@
       "writtenOn": "2016-11-17T09:13:45Z",
       "side": 1,
       "message": "please always call super() in __init__",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_84998570",
+        "filename": "api/utils/common.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-17T12:01:33Z",
+      "side": 1,
+      "message": "thank you so much. your advice help me a lot.",
+      "parentUuid": "5ac10518_04903594",
       "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -286,6 +340,24 @@
       "writtenOn": "2016-11-17T09:13:45Z",
       "side": 1,
       "message": "can we use .get()\n\n  self.task_id \u003d kwargs.get(\u0027task_id\u0027, str(uuid.uuid4())",
+      "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_64c7b946",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-17T12:01:33Z",
+      "side": 1,
+      "message": "thank you. I will care later.look forward to more goods suggestions from you.",
+      "parentUuid": "5ac10518_64c1f97f",
       "revId": "7eaabfdee5cb0a157e33b56c712371e2e08ac9c0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
