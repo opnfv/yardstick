@@ -137,11 +137,11 @@ class YardstickCLI():
         func = CONF.category.func
         func(CONF.category)
 
-    def _dispath_func_task(self, task_id, timestamp):
+    def _dispath_func_task(self, task_id):
 
         # dispatch to category parser
         func = CONF.category.func
-        func(CONF.category, task_id=task_id, timestamp=timestamp)
+        func(CONF.category, task_id=task_id)
 
     def main(self, argv):    # pragma: no cover
         '''run the command line interface'''
@@ -153,7 +153,7 @@ class YardstickCLI():
 
         self._dispath_func_notask()
 
-    def api(self, argv, task_id, timestamp):    # pragma: no cover
+    def api(self, argv, task_id):    # pragma: no cover
         '''run the api interface'''
         self._register_cli_opt()
 
@@ -161,4 +161,4 @@ class YardstickCLI():
 
         self._handle_global_opts()
 
-        self._dispath_func_task(task_id, timestamp)
+        self._dispath_func_task(task_id)
