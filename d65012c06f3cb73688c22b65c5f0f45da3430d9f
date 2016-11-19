@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_da9a0614",
+        "filename": "api/actions/test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-19T21:26:28Z",
+      "side": 1,
+      "message": "we don\u0027t use % with logging.  logging uses deferred interpolation.\n\n  logger.debug(\u0027The command_list is: %s\u0027, command_list)\n\n\nDeferred interpolation:\n\nString interpolation involves evaluating arguments, so it can introduce significant computation.  The logging module tries to be smart about deferring interpolation until the last possible moment.\n\nThe logging methods check isEnabledFor for the log level and won\u0027t interpolate if the level is not enabled.\n\nhttps://github.com/python/cpython/blob/2.7/Lib/logging/__init__.py#L1178\n\n     def warning(self, msg, *args, **kwargs):\n        if self.isEnabledFor(WARNING):\n            self._log(WARNING, msg, args, **kwargs)\n\nlogging actually waits to interpolate the string in LogRecord.getMessage()\n\nhttps://github.com/python/cpython/blob/2.7/Lib/logging/__init__.py#L328\n        if self.args:\n            msg \u003d msg % self.args",
+      "revId": "d65012c06f3cb73688c22b65c5f0f45da3430d9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_5a8616bb",
+        "filename": "api/conf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-19T21:26:28Z",
+      "side": 1,
+      "message": "can we use context manager, so we free resources\n\nwith IPDB() as ip:\n  GATEWAY_IP \u003d ip.routes[\u0027default\u0027].gateway",
+      "revId": "d65012c06f3cb73688c22b65c5f0f45da3430d9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_fa9262f5",
+        "filename": "api/utils/common.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-19T21:26:28Z",
+      "side": 1,
+      "message": "\u0027and\u0027 is not really meant to be used for side effects\n\nusing KeyError is fine and expected for dicts\n\n  try:\n    command_list.extend([\u0027--task-args\u0027, str(opts[\u0027task-args\u0027])])\n  except KeyError:\n     pass\n\n\nalso, dict.keys() is pretty much never used, unless you actually want a copy of the keys of the dict.\n\nThe dict object itself implements the __contains__ and __iter__ methods so as instance can be use for membership tests and iteration.\n\n\u0027if x in {1: 2}\u0027  calls dict.__contains__ \n\u0027for x in {1: 2}\u0027  calls dict.__iter__",
+      "revId": "d65012c06f3cb73688c22b65c5f0f45da3430d9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_1a908eeb",
+        "filename": "api/utils/daemonthread.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-19T21:26:28Z",
+      "side": 1,
+      "message": "please be specific and check for errno.ENOENT\n\nwe don\u0027t want to miss permission errors or other errors",
+      "revId": "d65012c06f3cb73688c22b65c5f0f45da3430d9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_babcda6d",
+        "filename": "api/utils/daemonthread.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-19T21:26:28Z",
+      "side": 1,
+      "message": "please be specific and only ignore ENOENT.  \n\nWe want to get exceptions on all the other errors, like EACCES, or EISDIR\n\n\nIt if unfortunate we have to check errno.  However in Python 3 they added FileNotFoundError for this specific error, so once we move to Python 3 can just use that.\n\nYou can find all the possible errors in the man page\n\u0027man 2 unlink\u0027",
+      "revId": "d65012c06f3cb73688c22b65c5f0f45da3430d9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_7ab6728c",
+        "filename": "api/utils/influx.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-19T21:26:28Z",
+      "side": 1,
+      "message": "no \u0027%\u0027 see previous comment.  logging does interpolation for us.",
+      "revId": "d65012c06f3cb73688c22b65c5f0f45da3430d9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
