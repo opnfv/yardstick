@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_3a254ac2",
+        "filename": "api/actions/test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-20T09:13:41Z",
+      "side": 1,
+      "message": "thank you for reminding me. i will pay attention to it.",
+      "parentUuid": "5ac10518_da9a0614",
+      "revId": "d65012c06f3cb73688c22b65c5f0f45da3430d9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_5a8616bb",
         "filename": "api/conf.py",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2016-11-19T21:26:28Z",
       "side": 1,
       "message": "can we use context manager, so we free resources\n\nwith IPDB() as ip:\n  GATEWAY_IP \u003d ip.routes[\u0027default\u0027].gateway",
+      "revId": "d65012c06f3cb73688c22b65c5f0f45da3430d9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_7a12f263",
+        "filename": "api/conf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-20T09:13:41Z",
+      "side": 1,
+      "message": "need i always do this so that to free resources?",
+      "parentUuid": "5ac10518_5a8616bb",
       "revId": "d65012c06f3cb73688c22b65c5f0f45da3430d9f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -64,6 +100,24 @@
       "writtenOn": "2016-11-19T21:26:28Z",
       "side": 1,
       "message": "please be specific and check for errno.ENOENT\n\nwe don\u0027t want to miss permission errors or other errors",
+      "revId": "d65012c06f3cb73688c22b65c5f0f45da3430d9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_9a179e51",
+        "filename": "api/utils/daemonthread.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-20T09:13:41Z",
+      "side": 1,
+      "message": "thank you. i see. more specific.",
+      "parentUuid": "5ac10518_1a908eeb",
       "revId": "d65012c06f3cb73688c22b65c5f0f45da3430d9f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
