@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_dd044017",
+        "filename": "api/conf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-21T01:57:14Z",
+      "side": 1,
+      "message": "if an object is a context manager and implement __enter__ and __exit__, then it is best to use it as a context manager.\n\nin this case somewhere at the lower level netlink is a socket so we want to close the socket when we are done.",
+      "parentUuid": "5ac10518_7a12f263",
+      "revId": "d65012c06f3cb73688c22b65c5f0f45da3430d9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_fa9262f5",
         "filename": "api/utils/common.py",
         "patchSetId": 3
