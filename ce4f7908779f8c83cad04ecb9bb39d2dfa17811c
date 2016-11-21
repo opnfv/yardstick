@@ -16,6 +16,24 @@
       "revId": "ce4f7908779f8c83cad04ecb9bb39d2dfa17811c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_fdda5c16",
+        "filename": "api/utils/influx.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-21T09:07:33Z",
+      "side": 1,
+      "message": "thank you. it works perfect.",
+      "parentUuid": "5ac10518_3dd1c4fb",
+      "revId": "ce4f7908779f8c83cad04ecb9bb39d2dfa17811c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
