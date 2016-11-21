@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_dd520013",
+        "filename": "api/utils/common.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-21T01:57:14Z",
+      "side": 1,
+      "message": "checking then doing a lookup is not atomic and is not idiomatic python.\n\nwe probably want to check if task-args is empty, not just if it is present in opts.\n\nso the usual form is\n\n   task_args \u003d opts.get(\u0027task-args\u0027, \u0027\u0027)\n   if task_args:\n        command_list.extend([\u0027--task-args\u0027, task-args])\n\nthis way if task-args is an empty string we don\u0027t use it.",
+      "revId": "3137e804536229917f0e97a50ac8bc64e68fac4c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_9d5c7827",
+        "filename": "api/views.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-21T01:57:14Z",
+      "side": 1,
+      "message": "no tuple, .debug() uses *args.  please read the library reference\n\n\nhttps://docs.python.org/2/library/logging.html#logging.Logger.debug\n\n\n  Logger.debug(msg, *args, **kwargs)\n\n\nLogs a message with level DEBUG on this logger. The msg is the message format string, and the args are the arguments which are merged into msg using the string formatting operator. (Note that this means that you can use keywords in the format string, together with a single dictionary argument.)\n\n\nThere are two keyword arguments in kwargs which are inspected: exc_info which, if it does not evaluate as false, causes exception information to be added to the logging message. If an exception tuple (in the format returned by sys.exc_info()) is provided, it is used; otherwise, sys.exc_info() is called to get the exception information.\n\n\nThe second keyword argument is extra which can be used to pass a dictionary which is used to populate the __dict__ of the LogRecord created for the logging event with user-defined attributes. These custom attributes can then be used as you like. For example, they could be incorporated into logged messages.\n\n\nThe keys in the dictionary passed in extra should not clash with the keys used by the logging system. (See the Formatter documentation for more information on which keys are used by the logging system.)",
+      "revId": "3137e804536229917f0e97a50ac8bc64e68fac4c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
