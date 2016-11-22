@@ -13,7 +13,7 @@ class GetDataDbClientTestCase(unittest.TestCase):
         mock_parser.ConfigParser().get.return_value = 'file'
         try:
             influx.get_data_db_client()
-        except Exception, e:
+        except Exception as e:
             self.assertIsInstance(e, RuntimeError)
 
 
@@ -52,6 +52,18 @@ class WriteDataTasklistTestCase(unittest.TestCase):
         field = {'status': status, 'error': ''}
         tags = {'task_id': task_id}
         mock_write_data.assert_called_with('tasklist', field, timestamp, tags)
+
+
+class QueryTestCase(unittest.TestCase):
+
+    @mock.patch('api.utils.influx.ConfigParser')
+    def test_query_dispatcher_not_influxdb(self, mock_parser):
+        mock_parser.ConfigParser().get.return_value = 'file'
+        try:
+            sql = 'select * form tasklist'
+            influx.query(sql)
+        except Exception as e:
+            self.assertIsInstance(e, RuntimeError)
 
 
 def main():

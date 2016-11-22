@@ -1,7 +1,11 @@
 import collections
+import logging
+import json
 
 from api.utils.daemonthread import DaemonThread
 from yardstick.cmd.cli import YardstickCLI
+
+logger = logging.getLogger(__name__)
 
 
 def translate_to_str(object):
@@ -20,7 +24,7 @@ def get_command_list(command_list, opts, args):
 
     command_list.extend(('--{}'.format(k) for k in opts if 'task-args' != k))
 
-    task_args = opts.get('task_args', '')
+    task_args = opts.get('task-args', '')
     if task_args:
         command_list.extend(['--task-args', task_args])
 
@@ -30,6 +34,23 @@ def get_command_list(command_list, opts, args):
 def exec_command_task(command_list, task_id):   # pragma: no cover
     daemonthread = DaemonThread(YardstickCLI().api, (command_list, task_id))
     daemonthread.start()
+
+
+def error_handler(message):
+    logger.debug(message)
+    result = {
+        'status': 'error',
+        'message': message
+    }
+    return json.dumps(result)
+
+
+def result_handler(status, data):
+    result = {
+        'status': status,
+        'result': data
+    }
+    return json.dumps(result)
 
 
 class Url(object):
