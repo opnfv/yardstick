@@ -6,22 +6,24 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-import logging
+import unittest
+import json
 
-from flask import Flask
-from flask_restful import Api
+from api.actions import result
 
-from api.urls import urlpatterns
 
-logger = logging.getLogger(__name__)
+class GetResultTestCase(unittest.TestCase):
 
-app = Flask(__name__)
+    def test_getResult_with_no_taskid_arg(self):
+        args = {}
+        output = json.loads(result.getResult(args))
 
-api = Api(app)
+        self.assertEqual('error', output['status'])
 
-reduce(lambda a, b: a.add_resource(b.resource, b.url,
-                                   endpoint=b.endpoint) or a, urlpatterns, api)
+
+def main():
+    unittest.main()
+
 
 if __name__ == '__main__':
-    logger.info('Starting server')
-    app.run(host='0.0.0.0')
+    main()
