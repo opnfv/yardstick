@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_98d6c6c4",
+        "filename": "api/actions/result.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-22T08:57:48Z",
+      "side": 1,
+      "message": "This is susceptible to SQL injection.\n\nPreferred method is to use bound parameters.\nIf you can\u0027t use that, then you have to whitelist or sanitize the inputs.\n\n\nIt looks line influxdb might support bound parameters,\n\nhttps://github.com/influxdata/influxdb/pull/6634\n\nSo maybe try\n \n query_sql \u003d \"select * from $table where task_id\u003d\u0027$task_id\u0027\"\n\n client.query(query_sql, params\u003d{\u0027table\u0027: \u0027tasklist\u0027, \u0027task_id\u0027: task_id})\n\nSee also  \n\nhttps://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet",
+      "revId": "941846802e77bf25ff2b33d5f14704c8787ffe92",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_b8ee228a",
+        "filename": "api/views.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-22T08:57:48Z",
+      "side": 1,
+      "message": "could probably inline method\n\n  return getattr(test_action, action)(args)",
+      "revId": "941846802e77bf25ff2b33d5f14704c8787ffe92",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
