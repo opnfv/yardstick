@@ -13,6 +13,9 @@ apt-get update && apt-get install -y \
     python-dev \
     libxml2-dev \
     libxslt1-dev \
+    nginx \
+    uswgi \
+    uwsgi-plugin-python \
     python-setuptools && \
     easy_install -U setuptools
 

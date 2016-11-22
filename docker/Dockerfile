@@ -43,6 +43,9 @@ RUN apt-get update && apt-get install -y \
     python-dev \
     libxml2-dev \
     libxslt1-dev \
+    nginx \
+    uwsgi \
+    uwsgi-plugin-python \
     python-setuptools && \
     easy_install -U setuptools
 
@@ -59,6 +62,10 @@ RUN git clone https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR}
 RUN cd ${YARDSTICK_REPO_DIR} && easy_install -U pip
 RUN cd ${YARDSTICK_REPO_DIR} && pip install -r requirements.txt
 RUN cd ${YARDSTICK_REPO_DIR} && pip install .
+
+RUN ${YARDSTICK_REPO_DIR}/api/api-prepare.sh
+
+EXPOSE 5000
 
 ADD http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img /home/opnfv/images/
 ADD http://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img /home/opnfv/images/
