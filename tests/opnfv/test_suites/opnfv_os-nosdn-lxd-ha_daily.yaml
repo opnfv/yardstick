@@ -16,6 +16,11 @@ test_cases:
         intel-pod6: '{"image": "Cirros LXC 0.3"}'
 -
   file_name: opnfv_yardstick_tc005.yaml
+  installer: joid
+      pod: intel-pod5,intel-pod6
+  task_args:
+        intel-pod5: '{"image": "Xenial LXC x86_64"}'
+        intel-pod6: '{"image": "Xenial LXC x86_64"}'
 -
   file_name: opnfv_yardstick_tc010.yaml
 -
