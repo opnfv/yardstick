@@ -43,7 +43,7 @@ def mocked_requests_job_get(*args, **kwargs):
             self.content = json_data
             self.status_code = status_code
 
-    return MockResponseJobGet('{"_ssd_preconditioning.queue-depth.8.block-size.16384.duration": 6}', 200)
+    return MockResponseJobGet('{"status": "completed", "_ssd_preconditioning.queue-depth.8.block-size.16384.duration": 6}', 200)
 
 
 def mocked_requests_job_post(*args, **kwargs):
@@ -152,7 +152,7 @@ class StorPerfTestCase(unittest.TestCase):
         s = storperf.StorPerf(args, self.ctx)
         s.setup_done = True
 
-        sample_output = '{"_ssd_preconditioning.queue-depth.8.block-size.16384.duration": 6}'
+        sample_output = '{"status": "completed", "_ssd_preconditioning.queue-depth.8.block-size.16384.duration": 6}'
 
         expected_result = json.loads(sample_output)
 
