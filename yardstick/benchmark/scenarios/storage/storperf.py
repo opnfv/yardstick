@@ -105,25 +105,23 @@ class StorPerf(base.Scenario):
                 self._query_setup_state()
                 time.sleep(self.query_interval)
 
-    # TODO: Support Storperf job status.
+    def _query_job_state(self, job_id):
+        """Query the status of the supplied job_id and report on metrics"""
+        LOG.info("Fetching report for %s..." % job_id)
+        report_res = requests.get('http://%s:5000/api/v1.0/jobs?id=%s' %
+                                  (self.target, job_id))
 
-    # def _query_job_state(self, job_id):
-    #     """Query the status of the supplied job_id and report on metrics"""
-    #     LOG.info("Fetching report for %s..." % job_id)
-    #     report_res = requests.get('http://%s:5000/api/v1.0/jobs?id=%s' %
-    #                               (self.target, job_id))
+        report_res_content = json.loads(report_res.content)
 
-    #     report_res_content = json.loads(report_res.content)
+        if report_res.status_code == 400:
+            raise RuntimeError("Failed to fetch report, error message:",
+                               report_res_content["message"])
+        else:
+            job_status = report_res_content["status"]
 
-    #     if report_res.status_code == 400:
-    #         raise RuntimeError("Failed to fetch report, error message:",
-    #                            report_res_content["message"])
-    #     else:
-    #         job_status = report_res_content["status"]
-
-    #     LOG.debug("Job is: %s..." % job_status)
-    #     if job_status == "completed":
-    #         self.job_completed = True
+        LOG.debug("Job is: %s..." % job_status)
+        if job_status == "completed":
+            self.job_completed = True
 
         # TODO: Support using StorPerf ReST API to read Job ETA.
 
@@ -161,7 +159,10 @@ class StorPerf(base.Scenario):
             job_id = job_res_content["job_id"]
             LOG.info("Started job id: %s..." % job_id)
 
-            time.sleep(self.timeout)
+            while not self.job_completed:
+                self._query_job_state(job_id)
+                time.sleep(self.query_interval)
+
             terminate_res = requests.delete('http://%s:5000/api/v1.0/jobs' %
                                             self.target)
 
@@ -169,12 +170,6 @@ class StorPerf(base.Scenario):
                 terminate_res_content = json.loads(terminate_res.content)
                 raise RuntimeError("Failed to start a job, error message:",
                                    terminate_res_content["message"])
-
-        # TODO: Support Storperf job status.
-
-        #   while not self.job_completed:
-        #       self._query_job_state(job_id)
-        #       time.sleep(self.query_interval)
 
         # TODO: Support using ETA to polls for completion.
         #       Read ETA, next poll in 1/2 ETA time slot.
