@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_8e119cae",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-23T06:33:02Z",
+      "side": 1,
+      "message": "Please don\u0027t use % with logging.  The logging module uses deferred string interpolation.\n\n  LOG.info(\"Fetching report for %s...\", job_id)\n\n\nhttps://docs.python.org/2/library/logging.html#logging.Logger.debug\n\n  Logger.debug(msg, *args, **kwargs)\n\nLogs a message with level DEBUG on this logger. The msg is the message format string, and the args are the arguments which are merged into msg using the string formatting operator. (Note that this means that you can use keywords in the format string, together with a single dictionary argument.)\n\n\n\n\n\n\nDeferred interpolation:\n\n\n\n\nString interpolation involves evaluating arguments, so it can introduce significant computation.  The logging module tries to be smart about deferring interpolation until the last possible moment.\n\nThe logging methods check isEnabledFor for the log level and won\u0027t interpolate if the level is not enabled.\n\nhttps://github.com/python/cpython/blob/2.7/Lib/logging/__init__.py#L1178\n\n\n\n\n\n     def warning(self, msg, *args, **kwargs):\n        if self.isEnabledFor(WARNING):\n            self._log(WARNING, msg, args, **kwargs)\n\nlogging actually waits to interpolate the string in LogRecord.getMessage()\n\n\n\nhttps://github.com/python/cpython/blob/2.7/Lib/logging/__init__.py#L328\n\n\n        if self.args:\n            msg \u003d msg % self.args\n\n\n\n\n\n\n\n\n\n\n\n\nNote: pylint provides a warning for this issue.  Please check your code with pylint\n\nhttps://github.com/PyCQA/pylint/blob/1.6.0/pylint/checkers/logging.py#L23\n\n\n\n\n\n\n\n\n    \u0027W1201\u0027: (\u0027Specify string format arguments as logging function parameters\u0027,\n              \u0027logging-not-lazy\u0027,\n              \u0027Used when a logging statement has a call form of \u0027\n              \u0027\"logging.\u003clogging method\u003e(format_string % (format_args...))\". \u0027\n              \u0027Such calls should leave string interpolation to the logging \u0027\n              \u0027method itself and be written \u0027\n              \u0027\"logging.\u003clogging method\u003e(format_string, format_args...)\" \u0027\n              \u0027so that the program may avoid incurring the cost of the \u0027\n              \u0027interpolation in those cases in which no message will be \u0027\n              \u0027logged. For more, see \u0027\n              \u0027http://www.python.org/dev/peps/pep-0282/.\u0027),",
+      "revId": "a3a33bcc57d6c3ffa094beec15a119c090f7e088",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_8e88bce8",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-23T06:33:02Z",
+      "side": 1,
+      "message": "It looks like requests can encode params\n\nmaybe\n\n requests.get(\u0027http://{}:5000/api/v1.0/jobs\u0027.format(self.target), params\u003d{\u0027id\u0027: job_id})\n\nhttp://docs.python-requests.org/en/master/user/quickstart/#passing-parameters-in-urls",
+      "revId": "a3a33bcc57d6c3ffa094beec15a119c090f7e088",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_ee762006",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-23T06:33:02Z",
+      "side": 1,
+      "message": "requests has a builtin json decoder.\n\nHave you tried this:\n\n report_res_content \u003d report_res.json()\n\nhttp://docs.python-requests.org/en/master/user/quickstart/#json-response-content",
+      "revId": "a3a33bcc57d6c3ffa094beec15a119c090f7e088",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_0e74ccfb",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-23T06:33:02Z",
+      "side": 1,
+      "message": "please don\u0027t use % \n\n LOG.debug(\"Job is: %s...\", job_status)",
+      "revId": "a3a33bcc57d6c3ffa094beec15a119c090f7e088",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_ae601836",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-23T06:33:02Z",
+      "side": 1,
+      "message": "comparison results are bools so we can use them directly in assignments\n\n self.job_completed \u003d job_status \u003d\u003d \"completed\"",
+      "revId": "a3a33bcc57d6c3ffa094beec15a119c090f7e088",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
