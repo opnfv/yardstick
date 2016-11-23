@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_c9947e39",
+        "filename": "api/api-prepare.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-23T10:07:31Z",
+      "side": 1,
+      "message": "Good suggestion! Thank you.",
+      "parentUuid": "5ac10518_73b69d8c",
+      "revId": "1e8f7e7184df40822b80d80c889ba5a116444cc1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_d3c191e5",
         "filename": "api/api-prepare.sh",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2016-11-22T17:51:33Z",
       "side": 1,
       "message": "do we need to set permissions?\n\nthe BSD \u0027install\u0027 command has traditionally been usually used for these purposes\n\n  install -d /etc/yardstick -m 0755 -o root\n\nfor example.",
+      "revId": "1e8f7e7184df40822b80d80c889ba5a116444cc1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_6999ca6d",
+        "filename": "api/api-prepare.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-23T10:07:31Z",
+      "side": 1,
+      "message": "Currently we need not do this. But I think you are right. It is always better to consider permission.",
+      "parentUuid": "5ac10518_33b0158b",
       "revId": "1e8f7e7184df40822b80d80c889ba5a116444cc1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
