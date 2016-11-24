@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_d79e5856",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1306
+      },
+      "writtenOn": "2016-11-24T18:50:00Z",
+      "side": 1,
+      "message": "As usual there are multiple ways how to implement it. I\u0027ve chosen the same solution, which is used by other scenario classes to keep implementation consistent.\n\nIn case of an error (e.g. file doesn\u0027t exist or has wrong permissions) the exception is caught by runner class (in this case sequence runner) and yardstick execution is gracefully terminated.",
+      "parentUuid": "5ac10518_9531b60d",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_b5363202",
         "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2016-11-16T14:41:27Z",
       "side": 1,
       "message": "do we care about exit status of cmd?  Can we use check_call?",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_77a3e49e",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1306
+      },
+      "writtenOn": "2016-11-24T18:50:00Z",
+      "side": 1,
+      "message": "Well, exit status is returned by subprocess.call() too, but we don\u0027t care about it.\n\nIn general the best effort approach has been chosen. It means, that neither exit status of NIC addition to OVS nor exist status of setup script is checked. In case, that non-mandatory operation has failed, then TC can still succeed. In case that a mandatory action fails, then TC will fail anyway. In case we will check the status, the only thing we can do is to terminate TC execution anyway.\n\nOnce real yardstick TCs using vsperf support will be written, we will use experience from their development and execution to improve this implementation. Currently it is not clear if NICs configuration and possibility to call external script will remain here or if they will be removed. Thus it doesn\u0027t make much sense to introduce additional error handling, which won\u0027t bring additional value now.",
+      "parentUuid": "5ac10518_b5363202",
       "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
