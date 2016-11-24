@@ -9,7 +9,7 @@ if [[ ! -e "${output_config}" ]];then
 
     install -d /etc/yardstick -m 0755 -o root
 
-    cat << EOF >> "${output_config}"
+    cat << EOF > "${output_config}"
 [DEFAULT]
 debug = True
 dispatcher = influxdb
