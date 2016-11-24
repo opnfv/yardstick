@@ -46,7 +46,7 @@ DISPATCHER_HTTP_TARGET="http://testresults.opnfv.org/test/api/v1/results"
 DISPATCHER_INFLUXDB_TARGET=
 UCA_HOST="cloud-images.ubuntu.com"
 if [ $YARD_IMG_ARCH = "arm64" ]; then
-    export VIVID_IMG_URL="http://${UCA_HOST}/vivid/current/vivid-server-cloudimg-arm64.tar.gz"
+    export VIVID_IMG_URL="http://${UCA_HOST}/wily/current/wily-server-cloudimg-arm64.tar.gz"
     if ! grep -q "Defaults env_keep += \"VIVID_IMG_URL\"" "/etc/sudoers"; then
         sudo echo "Defaults env_keep += \"VIVID_IMG_URL\"" >> /etc/sudoers
     fi
@@ -259,8 +259,8 @@ load_yardstick_image()
     echo "========== Loading yardstick cloud image =========="
     EXTRA_PARAMS=""
     if [ $YARD_IMG_ARCH = "arm64" ]; then
-        VIVID_IMAGE="/tmp/vivid-server-cloudimg-arm64.tar.gz"
-        VIVID_KERNEL="/tmp/vivid-server-cloudimg-arm64-vmlinuz-generic"
+        VIVID_IMAGE="/tmp/wily-server-cloudimg-arm64.tar.gz"
+        VIVID_KERNEL="/tmp/wily-server-cloudimg-arm64-vmlinuz-generic"
         cd /tmp
         if [ ! -f $VIVID_IMAGE ]; then
             wget $VIVID_IMG_URL
