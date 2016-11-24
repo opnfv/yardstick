@@ -3,6 +3,7 @@
 # Measure Storage IOPS, throughput and latency using fio
 
 schema: "yardstick:task:0.1"
+{% set image = image or "yardstick-image" %}
 scenarios:
 {% for rw in ['read', 'write', 'randwrite', 'randread', 'rw'] %}
   {% for bs in ['4k', '64k', '1024k'] %}
@@ -35,8 +36,8 @@ scenarios:
 
 context:
   name: yardstick-TC005
-  image: yardstick-image
-  flavor: m1.small
+  image: {{image}}
+  flavor: yardstick-flavor
   user: ubuntu
 
   servers:
