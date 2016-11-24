@@ -160,7 +160,7 @@ run_test()
 
     mkdir -p /etc/yardstick
 
-    cat << EOF >> /etc/yardstick/yardstick.conf
+    cat << EOF > /etc/yardstick/yardstick.conf
 [DEFAULT]
 debug = True
 dispatcher = ${DISPATCHER_TYPE}
