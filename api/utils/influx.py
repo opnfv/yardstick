@@ -29,7 +29,7 @@ def get_data_db_client():
 
 
 def _get_ip(url):
-    return urlsplit(url).netloc.split(':')[0]
+    return urlsplit(url).hostname
 
 
 def _write_data(measurement, field, timestamp, tags):
