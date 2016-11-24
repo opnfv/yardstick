@@ -90,14 +90,14 @@ load_yardstick_image()
 
     if [[ "$DEPLOY_SCENARIO" == *"-lxd-"* ]]; then
         output=$(eval glance --os-image-api-version 1 image-create \
-            --name yardstick-trusty-server \
+            --name yardstick-image \
             --is-public true --disk-format root-tar \
             --container-format bare \
             $EXTRA_PARAMS \
             --file $RAW_IMAGE)
     else
         output=$(eval glance --os-image-api-version 1 image-create \
-            --name yardstick-trusty-server \
+            --name yardstick-image \
             --is-public true --disk-format qcow2 \
             --container-format bare \
             $EXTRA_PARAMS \
@@ -203,8 +203,8 @@ create_nova_flavor()
 
 main()
 {
-    QCOW_IMAGE="/tmp/workspace/yardstick/yardstick-trusty-server.img"
-    RAW_IMAGE="/tmp/workspace/yardstick/yardstick-trusty-server.tar.gz"
+    QCOW_IMAGE="/tmp/workspace/yardstick/yardstick-image.img"
+    RAW_IMAGE="/tmp/workspace/yardstick/yardstick-image.tar.gz"
 
     build_yardstick_image
     load_yardstick_image

@@ -26,7 +26,7 @@ scenarios:
 
 context:
   name: demo
-  image: yardstick-trusty-server
+  image: yardstick-image
   flavor: m1.small
   user: ubuntu
 
