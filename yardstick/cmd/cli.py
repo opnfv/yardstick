@@ -66,6 +66,7 @@ class YardstickCLI():
     }
 
     def __init__(self):
+        self.opts = []
         self._version = 'yardstick version %s ' % \
             get_distribution('yardstick').version
 
@@ -111,7 +112,12 @@ class YardstickCLI():
                                          title="Command categories",
                                          help="Available categories",
                                          handler=parser)
-        CONF.register_cli_opt(category_opt)
+        self._register_opt(category_opt)
+
+    def _register_opt(self, opt):
+
+        CONF.register_cli_opt(opt)
+        self.opts.append(opt)
 
     def _load_cli_config(self, argv):
 
@@ -143,6 +149,11 @@ class YardstickCLI():
         func = CONF.category.func
         func(CONF.category, task_id=task_id)
 
+    def _clear_config_opts(self):
+
+        CONF.clear()
+        CONF.unregister_opts(self.opts)
+
     def main(self, argv):    # pragma: no cover
         '''run the command line interface'''
         self._register_cli_opt()
@@ -153,6 +164,8 @@ class YardstickCLI():
 
         self._dispath_func_notask()
 
+        self._clear_config_opts()
+
     def api(self, argv, task_id):    # pragma: no cover
         '''run the api interface'''
         self._register_cli_opt()
@@ -162,3 +175,5 @@ class YardstickCLI():
         self._handle_global_opts()
 
         self._dispath_func_task(task_id)
+
+        self._clear_config_opts()
