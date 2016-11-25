@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_ba5851fb",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-25T09:20:17Z",
+      "side": 1,
+      "message": "need we check other status? 500 or others?",
+      "range": {
+        "startLine": 116,
+        "startChar": 11,
+        "endLine": 116,
+        "endChar": 40
+      },
+      "revId": "6f99f8885a8470ee8e868d99a9eea7b00ca846b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
