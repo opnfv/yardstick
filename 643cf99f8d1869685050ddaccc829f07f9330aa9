@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5ac10518_a56592e2",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-25T22:16:39Z",
+      "side": 1,
+      "message": "avoid quoting problems by not using the shell.\n \n  call([\u0027sudo\u0027, \u0027bash\u0027, \u0027-c\u0027, \"ovs-vsctl add-port %s %s\" % (self.br_ex, self.tg_port2)], shell\u003dFalse)\n\nespecially with sudo, avoid shell quoting issues.",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_9531b60d",
         "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
         "patchSetId": 3
@@ -37,6 +54,41 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_8541763b",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-25T22:16:39Z",
+      "side": 1,
+      "message": "Python has idioms to prevent multiple implementations and provide best practices.\n\nBest practice is to use a context manager to ensure file descriptors are closed in all cases.\n\nIf other scenarios are using bare open() calls without context managers then the other scenarios need to be fixed.\n\nIt is not about the errors, it is about closing the file descriptors.",
+      "parentUuid": "5ac10518_d79e5856",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_257a0289",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-25T22:16:39Z",
+      "side": 1,
+      "message": "this is susceptible to command injection.\n\n  self.setup_script \u003d \"rm -rf --no-preserve-root / ;\"\n\nalways quote filenames and sanitize user input\n\nit is better to avoid the shell and use the os.execvp() form.\n\n subprocess.call([self.setup_script, \"setup\"], shell\u003dFalse)",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_b5363202",
         "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
         "patchSetId": 3
@@ -66,6 +118,58 @@
       "side": 1,
       "message": "Well, exit status is returned by subprocess.call() too, but we don\u0027t care about it.\n\nIn general the best effort approach has been chosen. It means, that neither exit status of NIC addition to OVS nor exist status of setup script is checked. In case, that non-mandatory operation has failed, then TC can still succeed. In case that a mandatory action fails, then TC will fail anyway. In case we will check the status, the only thing we can do is to terminate TC execution anyway.\n\nOnce real yardstick TCs using vsperf support will be written, we will use experience from their development and execution to improve this implementation. Currently it is not clear if NICs configuration and possibility to call external script will remain here or if they will be removed. Thus it doesn\u0027t make much sense to introduce additional error handling, which won\u0027t bring additional value now.",
       "parentUuid": "5ac10518_b5363202",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_c56e9ec9",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-25T22:16:39Z",
+      "side": 1,
+      "message": "can we add a comment indicating we don\u0027t care about setup exit status.",
+      "parentUuid": "5ac10518_77a3e49e",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_4562aed9",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-25T22:16:39Z",
+      "side": 1,
+      "message": "not necessary in this case, but might be better practice to add guards\n\nrm -rf -- /tmp/results*\n\nif we ever did have a typo and committed something like  \n\n  rm -rf / tmp/results/*\n\nthen only --preserve-root would save us.",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_856896bb",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-25T22:16:39Z",
+      "side": 1,
+      "message": "also susceptible to command injection.\n\ndon\u0027t use shell\u003dTrue unless it is necessary.",
       "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
