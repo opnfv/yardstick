@@ -27,7 +27,7 @@ class MonitorMgr(object):
         self._monitor_list = []
 
     def init_monitors(self, monitor_cfgs, context):
-        LOG.debug("monitorMgr config: %s" % monitor_cfgs)
+        LOG.debug("monitorMgr config: %s", monitor_cfgs)
 
         for monitor_cfg in monitor_cfgs:
             monitor_type = monitor_cfg["monitor_type"]
@@ -87,7 +87,7 @@ class BaseMonitor(multiprocessing.Process):
         return os.path.join(base_path, path)
 
     def run(self):
-        LOG.debug("config:%s context:%s" % (self._config, self._context))
+        LOG.debug("config:%s context:%s", self._config, self._context)
 
         self.setup()
         monitor_time = self._config.get("monitor_time", 0)
@@ -140,7 +140,7 @@ class BaseMonitor(multiprocessing.Process):
     def wait_monitor(self):
         self.join()
         self._result = self._queue.get()
-        LOG.debug("the monitor result:%s" % self._result)
+        LOG.debug("the monitor result:%s", self._result)
 
     def setup(self):  # pragma: no cover
         pass

@@ -83,7 +83,7 @@ class NetUtilization(base.Scenario):
 
     def _execute_command(self, cmd):
         """Execute a command on target."""
-        LOG.info("Executing: %s" % cmd)
+        LOG.info("Executing: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
         if status:
             raise RuntimeError("Failed executing command: ",

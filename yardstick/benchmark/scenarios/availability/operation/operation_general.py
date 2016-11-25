@@ -19,7 +19,7 @@ class GeneralOperaion(BaseOperation):
     __operation__type__ = "general-operation"
 
     def setup(self):
-        LOG.debug("config:%s context:%s" % (self._config, self._context))
+        LOG.debug("config:%s context:%s", self._config, self._context)
         host = self._context.get(self._config['host'], None)
         ip = host.get("ip", None)
         user = host.get("user", "root")
@@ -67,8 +67,8 @@ class GeneralOperaion(BaseOperation):
             LOG.debug("success,the operation's output is: {0}".format(stdout))
         else:
             LOG.error(
-                "the operation's error, stdout:%s, stderr:%s" %
-                (stdout, stderr))
+                "the operation's error, stdout:%s, stderr:%s",
+                stdout, stderr)
 
     def rollback(self):
         if "rollback_parameter" in self._config:

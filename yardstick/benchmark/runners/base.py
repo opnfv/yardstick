@@ -63,7 +63,7 @@ def _execute_shell_command(command):
     except Exception:
         exitcode = -1
         output = traceback.format_exc()
-        log.error("exec command '%s' error:\n " % command)
+        log.error("exec command '%s' error:\n ", command)
         log.error(traceback.format_exc())
 
     return exitcode, output
@@ -76,10 +76,10 @@ def _single_action(seconds, command, queue):
     log.debug("single action: executing command: '%s'", command)
     ret_code, data = _execute_shell_command(command)
     if ret_code < 0:
-        log.error("single action error! command:%s" % command)
+        log.error("single action error! command:%s", command)
         queue.put({'single-action-data': data})
         return
-    log.debug("single action data: \n%s" % data)
+    log.debug("single action data: \n%s", data)
     queue.put({'single-action-data': data})
 
 
@@ -96,7 +96,7 @@ def _periodic_action(interval, command, queue):
             log.error("periodic action error! command:%s", command)
             queue.put({'periodic-action-data': data})
             break
-        log.debug("periodic action data: \n%s" % data)
+        log.debug("periodic action data: \n%s", data)
         queue.put({'periodic-action-data': data})
 
 
@@ -127,7 +127,7 @@ class Runner(object):
         """
         # if there is no runner, start the output serializer subprocess
         if len(Runner.runners) == 0:
-            log.debug("Starting dump process file '%s'" %
+            log.debug("Starting dump process file '%s'",
                       config["output_filename"])
             Runner.queue = multiprocessing.Queue()
             Runner.dump_process = multiprocessing.Process(
@@ -196,13 +196,13 @@ class Runner(object):
         '''run a potentially configured post-stop action'''
         if "post-stop-action" in self.config:
             command = self.config["post-stop-action"]["command"]
-            log.debug("post stop action: command: '%s'" % command)
+            log.debug("post stop action: command: '%s'", command)
             ret_code, data = _execute_shell_command(command)
             if ret_code < 0:
                 log.error("post action error! command:%s", command)
                 self.result_queue.put({'post-stop-action-data': data})
                 return
-            log.debug("post-stop data: \n%s" % data)
+            log.debug("post-stop data: \n%s", data)
             self.result_queue.put({'post-stop-action-data': data})
 
     def run(self, scenario_cfg, context_cfg):
@@ -219,13 +219,13 @@ class Runner(object):
         # run a potentially configured pre-start action
         if "pre-start-action" in self.config:
             command = self.config["pre-start-action"]["command"]
-            log.debug("pre start action: command: '%s'" % command)
+            log.debug("pre start action: command: '%s'", command)
             ret_code, data = _execute_shell_command(command)
             if ret_code < 0:
                 log.error("pre-start action error! command:%s", command)
                 self.result_queue.put({'pre-start-action-data': data})
                 return
-            log.debug("pre-start data: \n%s" % data)
+            log.debug("pre-start data: \n%s", data)
             self.result_queue.put({'pre-start-action-data': data})
 
         if "single-shot-action" in self.config:

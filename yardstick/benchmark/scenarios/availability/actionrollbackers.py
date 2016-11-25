@@ -28,8 +28,8 @@ class AttackerRollbacker(ActionRollbacker):
 
     def rollback(self):
         LOG.debug(
-            "\033[93m recovering attacker %s \033[0m"
-            % (self.underlyingAttacker.key))
+            "\033[93m recovering attacker %s \033[0m",
+            self.underlyingAttacker.key)
         self.underlyingAttacker.recover()
 
 
@@ -40,6 +40,6 @@ class OperationRollbacker(ActionRollbacker):
 
     def rollback(self):
         LOG.debug(
-            "\033[93m rollback operation %s \033[0m"
-            % (self.underlyingOperation.key))
+            "\033[93m rollback operation %s \033[0m",
+            self.underlyingOperation.key)
         self.underlyingOperation.rollback()

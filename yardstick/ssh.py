@@ -186,14 +186,14 @@ class SSH(object):
 
             if session.recv_ready():
                 data = session.recv(4096)
-                LOG.debug("stdout: %r" % data)
+                LOG.debug("stdout: %r", data)
                 if stdout is not None:
                     stdout.write(data)
                 continue
 
             if session.recv_stderr_ready():
                 stderr_data = session.recv_stderr(4096)
-                LOG.debug("stderr: %r" % stderr_data)
+                LOG.debug("stderr: %r", stderr_data)
                 if stderr is not None:
                     stderr.write(stderr_data)
                 continue
@@ -256,7 +256,7 @@ class SSH(object):
             try:
                 return self.execute("uname")
             except (socket.error, SSHError) as e:
-                LOG.debug("Ssh is still unavailable: %r" % e)
+                LOG.debug("Ssh is still unavailable: %r", e)
                 time.sleep(interval)
             if time.time() > (start_time + timeout):
                 raise SSHTimeout("Timeout waiting for '%s'" % self.host)

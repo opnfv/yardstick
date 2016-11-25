@@ -20,7 +20,7 @@ class GeneralResultChecker(BaseResultChecker):
     __result_checker__type__ = "general-result-checker"
 
     def setup(self):
-        LOG.debug("config:%s context:%s" % (self._config, self._context))
+        LOG.debug("config:%s context:%s", self._config, self._context)
         host = self._context.get(self._config['host'], None)
         ip = host.get("ip", None)
         user = host.get("user", "root")
@@ -67,7 +67,7 @@ class GeneralResultChecker(BaseResultChecker):
             LOG.debug("action script of the operation is: {0}"
                       .format(self.verify_script))
 
-        LOG.debug("exit_status ,stdout : {0} ,{1}".format(exit_status, stdout))
+        LOG.debug("exit_status ,stdout : %s ,%s", exit_status,  stdout)
         if exit_status == 0 and stdout:
             self.actualResult = stdout
             LOG.debug("verifying resultchecker: {0}".format(self.key))
@@ -104,6 +104,5 @@ class GeneralResultChecker(BaseResultChecker):
             LOG.error(stderr)
 
         LOG.debug(
-            "verifying resultchecker: {0},the result is : {1}"
-            .format(self.key, self.success))
+            "verifying resultchecker: %s,the result is : %s", self.key,  self.success)
         return self.success
