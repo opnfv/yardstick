@@ -19,7 +19,7 @@ class ProcessAttacker(BaseAttacker):
     __attacker_type__ = 'kill-process'
 
     def setup(self):
-        LOG.debug("config:%s context:%s" % (self._config, self._context))
+        LOG.debug("config:%s context:%s", self._config, self._context)
         host = self._context.get(self._config['host'], None)
         ip = host.get("ip", None)
         user = host.get("user", "root")
@@ -54,8 +54,8 @@ class ProcessAttacker(BaseAttacker):
             return True
         else:
             LOG.error(
-                "the host envrioment is error, stdout:%s, stderr:%s" %
-                (stdout, stderr))
+                "the host envrioment is error, stdout:%s, stderr:%s",
+                stdout, stderr)
         return False
 
     def inject_fault(self):

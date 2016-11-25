@@ -127,7 +127,7 @@ class InfluxdbDispatcher(DispatchBase):
         return make_lines(msg).encode('utf-8')
 
     def record_result_data(self, data):
-        LOG.debug('Test result : %s' % json.dumps(data))
+        LOG.debug('Test result : %s', json.dumps(data))
         self.raw_result.append(data)
         if self.target == '':
             # if the target was not set, do not do anything
@@ -148,13 +148,13 @@ class InfluxdbDispatcher(DispatchBase):
             return 0
 
         if self.tc == "":
-            LOG.error('Test result : %s' % json.dumps(data))
+            LOG.error('Test result : %s', json.dumps(data))
             LOG.error('The case_name cannot be found, no data will be posted.')
             return -1
 
         try:
             line = self._data_to_line_protocol(data)
-            LOG.debug('Test result line format : %s' % line)
+            LOG.debug('Test result line format : %s', line)
             res = requests.post(self.influxdb_url,
                                 data=line,
                                 auth=(self.username, self.password),
@@ -171,5 +171,5 @@ class InfluxdbDispatcher(DispatchBase):
         return 0
 
     def flush_result_data(self):
-        LOG.debug('Test result all : %s' % json.dumps(self.raw_result))
+        LOG.debug('Test result all : %s', json.dumps(self.raw_result))
         return 0

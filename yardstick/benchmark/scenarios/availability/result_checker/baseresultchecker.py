@@ -26,7 +26,7 @@ class ResultCheckerMgr(object):
         self._result_checker_list = []
 
     def init_ResultChecker(self, resultchecker_cfgs, context):
-        LOG.debug("resultcheckerMgr confg: %s" % resultchecker_cfgs)
+        LOG.debug("resultcheckerMgr confg: %s", resultchecker_cfgs)
 
         for cfg in resultchecker_cfgs:
             resultchecker_type = cfg['checker_type']

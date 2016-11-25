@@ -26,7 +26,7 @@ class OperationMgr(object):
         self._operation_list = []
 
     def init_operations(self, operation_cfgs, context):
-        LOG.debug("operationMgr confg: %s" % operation_cfgs)
+        LOG.debug("operationMgr confg: %s", operation_cfgs)
         for cfg in operation_cfgs:
             operation_type = cfg['operation_type']
             operation_cls = BaseOperation.get_operation_cls(operation_type)

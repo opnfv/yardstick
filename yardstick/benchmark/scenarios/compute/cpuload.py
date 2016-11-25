@@ -96,7 +96,7 @@ class CPULoad(base.Scenario):
 
     def _execute_command(self, cmd):
         """Execute a command on server."""
-        LOG.info("Executing: %s" % cmd)
+        LOG.info("Executing: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
         if status != 0:
             raise RuntimeError("Failed executing command: ",
