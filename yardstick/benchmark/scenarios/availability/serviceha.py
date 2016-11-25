@@ -21,8 +21,8 @@ class ServiceHA(base.Scenario):
 
     def __init__(self, scenario_cfg, context_cfg):
         LOG.debug(
-            "scenario_cfg:%s context_cfg:%s" %
-            (scenario_cfg, context_cfg))
+            "scenario_cfg:%s context_cfg:%s",
+            scenario_cfg, context_cfg)
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
         self.setup_done = False

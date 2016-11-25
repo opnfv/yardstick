@@ -83,7 +83,7 @@ class NodeContext(Context):
             return None
         elif len(nodes) > 1:
             LOG.error("Duplicate nodes!!!")
-            LOG.error("Nodes: %r" % nodes)
+            LOG.error("Nodes: %r", nodes)
             sys.exit(-1)
 
         # A clone is created in order to avoid affecting the

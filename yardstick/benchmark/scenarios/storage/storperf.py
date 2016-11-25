@@ -75,8 +75,8 @@ class StorPerf(base.Scenario):
         setup_query_content = json.loads(setup_query.content)
         if setup_query_content["stack_created"]:
             self.setup_done = True
-            LOG.debug("stack_created: %s"
-                      % setup_query_content["stack_created"])
+            LOG.debug("stack_created: %s",
+                      setup_query_content["stack_created"])
 
     def setup(self):
         """Set the configuration."""
@@ -88,8 +88,8 @@ class StorPerf(base.Scenario):
             if env_argument in self.options:
                 env_args[env_argument] = self.options[env_argument]
 
-        LOG.info("Creating a stack on node %s with parameters %s" %
-                 (self.target, env_args))
+        LOG.info("Creating a stack on node %s with parameters %s",
+                 self.target, env_args)
         setup_res = requests.post('http://%s:5000/api/v1.0/configurations'
                                   % self.target, json=env_args)
 
@@ -99,7 +99,7 @@ class StorPerf(base.Scenario):
             raise RuntimeError("Failed to create a stack, error message:",
                                setup_res_content["message"])
         elif setup_res.status_code == 200:
-            LOG.info("stack_id: %s" % setup_res_content["stack_id"])
+            LOG.info("stack_id: %s", setup_res_content["stack_id"])
 
             while not self.setup_done:
                 self._query_setup_state()
@@ -148,7 +148,7 @@ class StorPerf(base.Scenario):
             if job_argument in self.options:
                 job_args[job_argument] = self.options[job_argument]
 
-        LOG.info("Starting a job with parameters %s" % job_args)
+        LOG.info("Starting a job with parameters %s", job_args)
         job_res = requests.post('http://%s:5000/api/v1.0/jobs' % self.target,
                                 json=job_args)
 
@@ -159,7 +159,7 @@ class StorPerf(base.Scenario):
                                job_res_content["message"])
         elif job_res.status_code == 200:
             job_id = job_res_content["job_id"]
-            LOG.info("Started job id: %s..." % job_id)
+            LOG.info("Started job id: %s...", job_id)
 
             time.sleep(self.timeout)
             terminate_res = requests.delete('http://%s:5000/api/v1.0/jobs' %

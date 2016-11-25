@@ -93,7 +93,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         if aborted.is_set():
             break
 
-        LOG.debug("runner=%(runner)s seq=%(sequence)s START" %
+        LOG.debug("runner=%(runner)s seq=%(sequence)s START",
                   {"runner": runner_cfg["runner_id"], "sequence": sequence})
 
         for i, value in enumerate(comb_values):
@@ -109,7 +109,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
             if sla_action == "assert":
                 raise
             elif sla_action == "monitor":
-                LOG.warning("SLA validation failed: %s" % assertion.args)
+                LOG.warning("SLA validation failed: %s", assertion.args)
                 errors = assertion.args
         except Exception as e:
             errors = traceback.format_exc()
@@ -129,7 +129,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
         queue.put(record)
 
-        LOG.debug("runner=%(runner)s seq=%(sequence)s END" %
+        LOG.debug("runner=%(runner)s seq=%(sequence)s END",
                   {"runner": runner_cfg["runner_id"], "sequence": sequence})
 
         sequence += 1
