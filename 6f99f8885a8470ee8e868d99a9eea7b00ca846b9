@@ -46,6 +46,30 @@
       "revId": "6f99f8885a8470ee8e868d99a9eea7b00ca846b9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_a5cb5271",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-26T07:10:11Z",
+      "side": 1,
+      "message": "maybe report_res.status_code !\u003d 200 would be better",
+      "parentUuid": "5ac10518_05ea660f",
+      "range": {
+        "startLine": 116,
+        "startChar": 11,
+        "endLine": 116,
+        "endChar": 40
+      },
+      "revId": "6f99f8885a8470ee8e868d99a9eea7b00ca846b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
