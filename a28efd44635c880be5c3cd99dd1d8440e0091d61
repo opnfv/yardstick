@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_45adce87",
+        "filename": "yardstick/benchmark/scenarios/networking/netperf_benchmark.bash",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-11-26T07:41:10Z",
+      "side": 1,
+      "message": "please do not remove the copyright header",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "a28efd44635c880be5c3cd99dd1d8440e0091d61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_65aa4a72",
+        "filename": "yardstick/benchmark/scenarios/networking/netperf_install.bash",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-11-26T07:41:10Z",
+      "side": 1,
+      "message": "Redundant blank line",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "a28efd44635c880be5c3cd99dd1d8440e0091d61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
