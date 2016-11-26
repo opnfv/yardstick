@@ -11,6 +11,13 @@
 
 set -e
 
+svc="netserver"
+if ps -ef | grep $svc | egrep -v grep >/dev/null
+then
+    echo "$svc have existed, exit!"
+    exit 0
+fi
+
 echo "===Install netperf before test begin!!!==="
 cp /etc/apt/sources.list /etc/apt/sources.list_bkp
 cp /etc/resolv.conf /etc/resolv.conf_bkp

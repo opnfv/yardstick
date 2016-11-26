@@ -131,10 +131,12 @@ class NetperfNode(base.Scenario):
         else:
             testlen = 20
 
-        cmd_args = "-H %s -l %s -t %s" % (ipaddr, testlen, testname)
+        cmd_args = "-H %s -l %s -t %s -c -C" % (ipaddr, testlen, testname)
 
         # get test specific options
-        default_args = "-O 'THROUGHPUT,THROUGHPUT_UNITS,MEAN_LATENCY'"
+        output_opt = options.get(
+            "output_opt", "THROUGHPUT,THROUGHPUT_UNITS,MEAN_LATENCY")
+        default_args = "-O %s" % output_opt
         cmd_args += " -- %s" % default_args
         option_pair_list = [("send_msg_size", "-m"),
                             ("recv_msg_size", "-M"),
