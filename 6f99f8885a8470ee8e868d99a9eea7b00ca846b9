@@ -22,6 +22,30 @@
       "revId": "6f99f8885a8470ee8e868d99a9eea7b00ca846b9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_05ea660f",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-11-26T02:19:37Z",
+      "side": 1,
+      "message": "seems storperf only defiend 2 status code 200 and 400",
+      "parentUuid": "5ac10518_ba5851fb",
+      "range": {
+        "startLine": 116,
+        "startChar": 11,
+        "endLine": 116,
+        "endChar": 40
+      },
+      "revId": "6f99f8885a8470ee8e868d99a9eea7b00ca846b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
