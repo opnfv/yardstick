@@ -7,6 +7,8 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 # bulk data test and req/rsp test are supported
+import os
+
 import pkg_resources
 import logging
 import json
@@ -47,9 +49,12 @@ class NetperfNode(base.Scenario):
     http://www.netperf.org/netperf/training/Netperf.html
     """
     __scenario_type__ = "NetperfNode"
-    TARGET_SCRIPT = 'netperf_benchmark.bash'
-    INSTALL_SCRIPT = 'netperf_install.bash'
-    REMOVE_SCRIPT = 'netperf_remove.bash'
+    # TARGET_SCRIPT = 'netperf_benchmark.bash'
+    TARGET_SCRIPT = 'netperf_benchmark.py'
+    # INSTALL_SCRIPT = 'netperf_install.bash'
+    INSTALL_SCRIPT = 'netperf_install.py'
+    # REMOVE_SCRIPT = 'netperf_remove.bash'
+    REMOVE_SCRIPT = 'netperf_remove.py'
 
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
@@ -86,8 +91,11 @@ class NetperfNode(base.Scenario):
         self.client.wait(timeout=600)
 
         # copy script to host
-        self.client.run("cat > ~/netperf.sh",
-                        stdin=open(self.target_script, "rb"))
+        self.remote_target_script = os.path.join('$HOME', os.path.basename(
+            self.target_script))
+        with open(self.target_script, "r") as target_script_file:
+            self.client.run('cat > "{0}" && chmod +x "{0}"'.format(
+                self.remote_target_script), stdin=target_script_file)
 
         # copy script to host and client
         self.install_script = pkg_resources.resource_filename(
@@ -131,20 +139,26 @@ class NetperfNode(base.Scenario):
         else:
             testlen = 20
 
-        cmd_args = "-H %s -l %s -t %s" % (ipaddr, testlen, testname)
+        cmd_args = "-H '%s' -l '%s' -t '%s' -c -C" % (
+            ipaddr, testlen, testname)
 
         # get test specific options
-        default_args = "-O 'THROUGHPUT,THROUGHPUT_UNITS,MEAN_LATENCY'"
+        output_opt = options.get(
+            "output_opt", "THROUGHPUT,THROUGHPUT_UNITS,MEAN_LATENCY")
+        default_args = "-O '%s'" % output_opt
         cmd_args += " -- %s" % default_args
         option_pair_list = [("send_msg_size", "-m"),
                             ("recv_msg_size", "-M"),
                             ("req_rsp_size", "-r")]
-        for option_pair in option_pair_list:
-            if option_pair[0] in options:
-                cmd_args += " %s %s" % (option_pair[1],
-                                        options[option_pair[0]])
+        for opt_key, opt in option_pair_list:
+            # don't use empty args
+            opt_val = options.get(opt_key)
+            if opt_val:
+                cmd_args += " '%s' '%s'" % (opt, opt_val)
 
-        cmd = "sudo bash netperf.sh %s" % (cmd_args)
+        # remote target script uses $HOME so quote it
+        # cmd_args are individually quoted
+        cmd = 'sudo "{}" {}'.format(self.remote_target_script, cmd_args)
         LOG.debug("Executing command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
 
