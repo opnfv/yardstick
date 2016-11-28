@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "5ac10518_402ffca1",
+        "filename": "yardstick/benchmark/scenarios/networking/netperf_install.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-28T07:00:14Z",
+      "side": 1,
+      "message": "can we use /etc/apt/sources.list.d/multiverse.list so we don\u0027t touch sources.list?",
+      "revId": "2d74e0f935e92ca50549904acde1b2eb7efeb263",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_a02260b7",
+        "filename": "yardstick/benchmark/scenarios/networking/netperf_install.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-28T07:00:14Z",
+      "side": 1,
+      "message": "have we switched to xenial?\n\nthis should be dynamic",
+      "revId": "2d74e0f935e92ca50549904acde1b2eb7efeb263",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_004b3488",
         "filename": "yardstick/benchmark/scenarios/networking/netperf_node.py",
         "patchSetId": 5
