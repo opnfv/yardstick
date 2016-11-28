@@ -38,7 +38,10 @@ Version History
 | *Date*         | *Version*          | *Comment*                       |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
-| Oct 27nd, 2016 |  2.0               | Yardstick for Colorado release  |
+| Dec 5th, 2016  |  3.0               | Yardstick for Colorado release  |
+|                |                    |                                 |
++----------------+--------------------+---------------------------------+
+| Oct 27th, 2016 |  2.0               | Yardstick for Colorado release  |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
 | Aug 22nd, 2016 |  1.0               | Yardstick for Colorado release  |
@@ -132,19 +135,19 @@ Release Data
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/colorado.2.0               |
+| **Repo/tag**                         | yardstick/colorado.3.0               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | colorado.2.0                         |
+| **Yardstick Docker image tag**       | colorado.3.0                         |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Colorado                             |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | October 27 2016                      |
+| **Release date**                     | December 5th, 2016                   |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFV Colorado release 2.0           |
+| **Purpose of the delivery**          | OPNFV Colorado release 3.0           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 
@@ -163,22 +166,22 @@ Documents
 Software Deliverables
 ---------------------
 
-**Yardstick framework source code <colorado.2.0>**
+**Yardstick framework source code <colorado.3.0>**
 
 +--------------------------------------+--------------------------------------+
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/colorado.2.0               |
+| **Repo/tag**                         | yardstick/colorado.3.0               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | colorado.2.0                         |
+| **Yardstick Docker image tag**       | colorado.3.0                         |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Colorado                             |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | October 27th, 2016                   |
+| **Release date**                     | December 5th, 2016                   |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | OPNFV Colorado release               |
@@ -502,7 +505,7 @@ Feature additions
 Scenario Matrix
 ===============
 
-For Colorado 2.0, Yardstick was tested on the following scenarios:
+For Colorado 3.0, Yardstick was tested on the following scenarios:
 
 +-------------------------+---------+---------+---------+---------+
 |         Scenario        |  Apex   | Compass |  Fuel   |   Joid  |
@@ -585,6 +588,21 @@ Known Issues/Faults
 Corrected Faults
 ----------------
 
+Colorado.3.0:
+
++----------------------------+------------------------------------------------+
+| **JIRA REFERENCE**         | **SLOGAN**                                     |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-239        | Define process for working with Yardstick      |
+|                            | Grafana dashboard.                             |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-373        | Add os-odl_l2-fdio-ha scenario support.        |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+
+
 Colorado.2.0:
 
 +----------------------------+------------------------------------------------+
@@ -621,7 +639,7 @@ Colorado.2.0:
 +----------------------------+------------------------------------------------+
 
 
-Colorado 2.0 known restrictions/issues
+Colorado 3.0 known restrictions/issues
 ==================================
 +-----------+-----------+----------------------------------------------+
 | Installer | Scenario  |  Issue                                       |
@@ -656,6 +674,8 @@ Useful links
 
  - Yardstick IRC chanel: #opnfv-yardstick
 
+.. _`YARDSTICK-239` : https://jira.opnfv.org/browse/YARDSTICK-239
+
 .. _`YARDSTICK-325` : https://jira.opnfv.org/browse/YARDSTICK-325
 
 .. _`YARDSTICK-358` : https://jira.opnfv.org/browse/YARDSTICK-358
@@ -669,3 +689,5 @@ Useful links
 .. _`YARDSTICK-371` : https://jira.opnfv.org/browse/YARDSTICK-371
 
 .. _`YARDSTICK-372` : https://jira.opnfv.org/browse/YARDSTICK-372
+
+.. _`YARDSTICK-373` : https://jira.opnfv.org/browse/YARDSTICK-373
