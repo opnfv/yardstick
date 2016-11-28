@@ -1,4 +1,13 @@
+##############################################################################
+# Copyright (c) 2016 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
 import unittest
+import json
 
 from api.utils import common
 
@@ -47,6 +56,35 @@ class GetCommandListTestCase(unittest.TestCase):
 
         result_list = ['a', 'e', '--b', '--task-args', 'd']
         self.assertEqual(result_list, output_list)
+
+
+class ErrorHandlerTestCase(unittest.TestCase):
+
+    def test_error_handler(self):
+        message = 'hello world'
+        output_dict = json.loads(common.error_handler(message))
+
+        result = {
+            'status': 'error',
+            'message': message
+        }
+
+        self.assertEqual(result, output_dict)
+
+
+class ResultHandlerTestCase(unittest.TestCase):
+
+    def test_result_handler(self):
+        status = 1
+        data = ['hello world']
+        output_dict = json.loads(common.result_handler(status, data))
+
+        result = {
+            'status': status,
+            'result': data
+        }
+
+        self.assertEqual(result, output_dict)
 
 
 def main():
