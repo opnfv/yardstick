@@ -6,12 +6,24 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-from api import views
-from api.utils.common import Url
+import unittest
+import mock
+
+from yardstick.cmd.commands.env import EnvCommand
 
 
-urlpatterns = [
-    Url('/yardstick/test/action', views.Test, 'test'),
-    Url('/yardstick/result/action', views.Result, 'result'),
-    Url('/yardstick/env/action', views.Env, 'env')
-]
+class EnvCommandTestCase(unittest.TestCase):
+
+    @mock.patch('yardstick.cmd.commands.env.HttpClient')
+    def test_do_influxdb(self, mock_http_client):
+        env = EnvCommand()
+        env.do_influxdb({})
+        self.assertTrue(mock_http_client().post.called)
+
+
+def main():
+    unittest.main()
+
+
+if __name__ == '__main__':
+    main()

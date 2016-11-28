@@ -12,6 +12,7 @@ import json
 
 from api.views import Test
 from api.views import Result
+from api.views import Env
 
 
 class TestTestCase(unittest.TestCase):
@@ -33,6 +34,17 @@ class ResultTestCase(unittest.TestCase):
 
         print Result().get()
         result = json.loads(Result().get())
+
+        self.assertEqual('error', result['status'])
+
+
+class EnvTestCase(unittest.TestCase):
+
+    @mock.patch('api.views.request')
+    def test_post(self, mock_request):
+        mock_request.json.get.side_effect = ['hello', {}]
+
+        result = json.loads(Env().post())
 
         self.assertEqual('error', result['status'])
 

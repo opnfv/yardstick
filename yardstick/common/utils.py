@@ -18,6 +18,7 @@
 import os
 import sys
 import yaml
+import errno
 from oslo_utils import importutils
 
 import yardstick
@@ -91,3 +92,11 @@ def get_para_from_yaml(file_path, args):
     else:
         print 'file not exist'
         return None
+
+
+def makedirs(d):
+    try:
+        os.makedirs(d)
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise

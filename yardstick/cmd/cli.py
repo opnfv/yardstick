@@ -24,6 +24,7 @@ from yardstick.cmd.commands import runner
 from yardstick.cmd.commands import scenario
 from yardstick.cmd.commands import testcase
 from yardstick.cmd.commands import plugin
+from yardstick.cmd.commands import env
 
 CONF = cfg.CONF
 cli_opts = [
@@ -62,7 +63,8 @@ class YardstickCLI():
         'runner': runner.RunnerCommands,
         'scenario': scenario.ScenarioCommands,
         'testcase': testcase.TestcaseCommands,
-        'plugin': plugin.PluginCommands
+        'plugin': plugin.PluginCommands,
+        'env': env.EnvCommand
     }
 
     def __init__(self):
