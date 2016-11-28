@@ -33,6 +33,24 @@
       "revId": "94c1dd6155ee0b71522e61d4a2a4afa4bd33f637",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_40fcdc3e",
+        "filename": "yardstick/benchmark/scenarios/networking/netperf_node.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2016-11-28T06:36:18Z",
+      "side": 1,
+      "message": "Good suggestion, I guess there are lots of scenario file need to improve like what you suggest. Maybe We can create a new JIRA to trace this issue.",
+      "parentUuid": "5ac10518_a586f2b7",
+      "revId": "94c1dd6155ee0b71522e61d4a2a4afa4bd33f637",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
