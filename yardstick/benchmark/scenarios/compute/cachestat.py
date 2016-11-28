@@ -85,8 +85,9 @@ class CACHEstat(base.Scenario):
         self.client.wait(timeout=600)
 
         # copy scripts to host
-        self.client.run("cat > ~/cache_stat.sh",
-                        stdin=open(self.target_script, 'rb'))
+        with open(self.target_script, "r") as stdin_file:
+            self.client.run("cat > ~/cache_stat.sh",
+                            stdin=stdin_file)
 
         self.setup_done = True
 
