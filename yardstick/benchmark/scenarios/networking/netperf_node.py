@@ -86,8 +86,9 @@ class NetperfNode(base.Scenario):
         self.client.wait(timeout=600)
 
         # copy script to host
-        self.client.run("cat > ~/netperf.sh",
-                        stdin=open(self.target_script, "rb"))
+        with open(self.target_script, "r") as stdin_file:
+            self.client.run("cat > ~/netperf.sh",
+                            stdin=stdin_file)
 
         # copy script to host and client
         self.install_script = pkg_resources.resource_filename(
@@ -97,14 +98,18 @@ class NetperfNode(base.Scenario):
             'yardstick.benchmark.scenarios.networking',
             NetperfNode.REMOVE_SCRIPT)
 
-        self.server.run("cat > ~/netperf_install.sh",
-                        stdin=open(self.install_script, "rb"))
-        self.client.run("cat > ~/netperf_install.sh",
-                        stdin=open(self.install_script, "rb"))
-        self.server.run("cat > ~/netperf_remove.sh",
-                        stdin=open(self.remove_script, "rb"))
-        self.client.run("cat > ~/netperf_remove.sh",
-                        stdin=open(self.remove_script, "rb"))
+        with open(self.install_script, "r") as stdin_file:
+            self.server.run("cat > ~/netperf_install.sh",
+                            stdin=stdin_file)
+        with open(self.install_script, "r") as stdin_file:
+            self.client.run("cat > ~/netperf_install.sh",
+                            stdin=stdin_file)
+        with open(self.remove_script, "r") as stdin_file:
+            self.server.run("cat > ~/netperf_remove.sh",
+                            stdin=stdin_file)
+        with open(self.remove_script, "r") as stdin_file:
+            self.client.run("cat > ~/netperf_remove.sh",
+                            stdin=stdin_file)
         self.server.execute("sudo bash netperf_install.sh")
         self.client.execute("sudo bash netperf_install.sh")
 
