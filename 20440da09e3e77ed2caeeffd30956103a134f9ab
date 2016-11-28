@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_2bc0914f",
+        "filename": "yardstick/benchmark/scenarios/networking/netperf_node.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5439
+      },
+      "writtenOn": "2016-11-28T08:21:25Z",
+      "side": 1,
+      "message": "this teardown function is to remove the software , if you want use this function, you should change those code.",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 186,
+        "endChar": 58
+      },
+      "revId": "20440da09e3e77ed2caeeffd30956103a134f9ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
