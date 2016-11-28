@@ -97,10 +97,12 @@ class Ramspeed(base.Scenario):
         self.client.wait(timeout=600)
 
         # copy scripts to host
-        self.client.run("cat > ~/ramspeed_mark_benchmark.sh",
-                        stdin=open(self.mark_target_script, 'rb'))
-        self.client.run("cat > ~/ramspeed_mem_benchmark.sh",
-                        stdin=open(self.mem_target_script, 'rb'))
+        with open(self.mark_target_script, "r") as stdin_file:
+            self.client.run("cat > ~/ramspeed_mark_benchmark.sh",
+                            stdin=stdin_file)
+        with open(self.mem_target_script, "r") as stdin_file:
+            self.client.run("cat > ~/ramspeed_mem_benchmark.sh",
+                            stdin=stdin_file)
         self.setup_done = True
 
     def run(self, result):

@@ -15,20 +15,17 @@
 # limitations under the License.
 
 # Unittest for yardstick.benchmark.scenarios.networking.vsperf.Vsperf
+import unittest
 
 import mock
-import unittest
-import os
-import subprocess
 
 from yardstick.benchmark.scenarios.networking import vsperf
 
 
 @mock.patch('yardstick.benchmark.scenarios.networking.vsperf.subprocess')
 @mock.patch('yardstick.benchmark.scenarios.networking.vsperf.ssh')
-@mock.patch("__builtin__.open", return_value=None)
+@mock.patch("__builtin__.open", mock.mock_open(), create=True)
 class VsperfTestCase(unittest.TestCase):
-
     def setUp(self):
         self.ctx = {
             "host": {
@@ -58,7 +55,7 @@ class VsperfTestCase(unittest.TestCase):
             }
         }
 
-    def test_vsperf_setup(self, mock_open, mock_ssh, mock_subprocess):
+    def test_vsperf_setup(self, mock_ssh, mock_subprocess):
         p = vsperf.Vsperf(self.args, self.ctx)
         mock_ssh.SSH().execute.return_value = (0, '', '')
         mock_subprocess.call().execute.return_value = None
@@ -67,7 +64,7 @@ class VsperfTestCase(unittest.TestCase):
         self.assertIsNotNone(p.client)
         self.assertEqual(p.setup_done, True)
 
-    def test_vsperf_teardown(self, mock_open, mock_ssh, mock_subprocess):
+    def test_vsperf_teardown(self, mock_ssh, mock_subprocess):
         p = vsperf.Vsperf(self.args, self.ctx)
 
         # setup() specific mocks
@@ -81,7 +78,7 @@ class VsperfTestCase(unittest.TestCase):
         p.teardown()
         self.assertEqual(p.setup_done, False)
 
-    def test_vsperf_run_ok(self, mock_open, mock_ssh, mock_subprocess):
+    def test_vsperf_run_ok(self, mock_ssh, mock_subprocess):
         p = vsperf.Vsperf(self.args, self.ctx)
 
         # setup() specific mocks
@@ -97,7 +94,7 @@ class VsperfTestCase(unittest.TestCase):
 
         self.assertEqual(result['throughput_rx_fps'], '14797660.000')
 
-    def test_vsperf_run_falied_vsperf_execution(self, mock_open, mock_ssh, mock_subprocess):
+    def test_vsperf_run_falied_vsperf_execution(self, mock_ssh, mock_subprocess):
         p = vsperf.Vsperf(self.args, self.ctx)
 
         # setup() specific mocks
@@ -110,7 +107,7 @@ class VsperfTestCase(unittest.TestCase):
         result = {}
         self.assertRaises(RuntimeError, p.run, result)
 
-    def test_vsperf_run_falied_csv_report(self, mock_open, mock_ssh, mock_subprocess):
+    def test_vsperf_run_falied_csv_report(self, mock_ssh, mock_subprocess):
         p = vsperf.Vsperf(self.args, self.ctx)
 
         # setup() specific mocks
