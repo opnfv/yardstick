@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5ac10518_4b815d8e",
+        "filename": "yardstick/benchmark/scenarios/networking/netperf_benchmark.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-28T09:47:41Z",
+      "side": 1,
+      "message": "don\u0027t do this,  use \"$@\" directly\n\nsetting a variable \u003d \"$@\" will mess up the quoting\n\ntest script\n\n    #!/bin/bash -x\n\n    OPTIONS\u003d\"$@\"\n\n    cat \u003eprint_argv.py \u003c\u003cEOF\n    import sys\n    print sys.argv\n    EOF\n\n\n    python print_argv.py $OPTIONS\n    python print_argv.py \"$OPTIONS\"\n    python print_argv.py \"$@\"\n\n\n $ ./opt_test.sh \"a b\" c d e\n + OPTIONS\u003d\u0027a b c d e\u0027\n + cat\n + python print_argv.py a b c d e\n [\u0027print_argv.py\u0027, \u0027a\u0027, \u0027b\u0027, \u0027c\u0027, \u0027d\u0027, \u0027e\u0027]\n + python print_argv.py \u0027a b c d e\u0027\n [\u0027print_argv.py\u0027, \u0027a b c d e\u0027]\n + python print_argv.py \u0027a b\u0027 c d e\n # only this version preserves the space between \u0027a b\u0027\n [\u0027print_argv.py\u0027, \u0027a b\u0027, \u0027c\u0027, \u0027d\u0027, \u0027e\u0027]",
+      "revId": "2d74e0f935e92ca50549904acde1b2eb7efeb263",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_2b05f110",
         "filename": "yardstick/benchmark/scenarios/networking/netperf_benchmark.bash",
         "patchSetId": 5
