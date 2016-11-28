@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_8bce6582",
+        "filename": "yardstick/common/yardstick_logging.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-28T08:21:56Z",
+      "side": 1,
+      "message": "What issues where we having with logging?\n\nlogging is designed to propagate\n\nWe should only have to set the fileHandler and Formatter on the root logger and everything else should propagate up to the root logger.\n\nlogging.root.addHandler(stream_hdlr)\nlogging.root.addHandler(file_hdlr)",
+      "revId": "33a368f9c2729c859a2869e9ab99fba84c85714c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
