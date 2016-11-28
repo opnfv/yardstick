@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_406cdc9c",
+        "filename": "yardstick/benchmark/scenarios/availability/result_checker/result_checker_general.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-28T02:50:48Z",
+      "side": 1,
+      "message": "exceed 80 column and fail the ci.",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 86
+      },
+      "revId": "2f25d858f041376f71a5fead658419e9f77264db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
