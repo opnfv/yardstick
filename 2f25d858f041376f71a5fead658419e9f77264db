@@ -22,6 +22,30 @@
       "revId": "2f25d858f041376f71a5fead658419e9f77264db",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_6000f8aa",
+        "filename": "yardstick/benchmark/scenarios/availability/result_checker/result_checker_general.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-28T03:01:21Z",
+      "side": 1,
+      "message": "Can we increase columns to 99?  79 causes too much wrapping.\n\nI\u0027m using lib2to3 to automatically refactor the parse tree, so I can\u0027t fix wrapping correctly.  I\u0027ll try to tweak manually.",
+      "parentUuid": "5ac10518_406cdc9c",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 86
+      },
+      "revId": "2f25d858f041376f71a5fead658419e9f77264db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
