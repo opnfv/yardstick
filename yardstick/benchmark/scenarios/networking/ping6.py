@@ -69,8 +69,9 @@ class Ping6(base.Scenario):  # pragma: no cover
     def _pre_setup(self):
         for node_name in self.host_list:
             self._ssh_host(node_name)
-            self.client.run("cat > ~/pre_setup.sh",
-                            stdin=open(self.pre_setup_script, "rb"))
+            with open(self.pre_setup_script, "r") as stdin_file:
+                self.client.run("cat > ~/pre_setup.sh",
+                                stdin=stdin_file)
             status, stdout, stderr = self.client.execute(
                 "sudo bash pre_setup.sh")
 
@@ -117,20 +118,24 @@ class Ping6(base.Scenario):  # pragma: no cover
         if controller_node_name is None:
             LOG.exception("Can't find controller node in the context!!!")
         self._ssh_host(controller_node_name)
-        self.client.run("cat > ~/metadata.txt",
-                        stdin=open(self.ping6_metadata_script, "rb"))
+        with open(self.ping6_metadata_script, "r") as stdin_file:
+            self.client.run("cat > ~/metadata.txt",
+                            stdin=stdin_file)
 
         # run script to setup ipv6 with nosdn or odl
         sdn = self.options.get("sdn", 'nosdn')
         if 'odl' in sdn:
-            self.client.run("cat > ~/br-ex.radvd.conf",
-                            stdin=open(self.ping6_radvd_script, "rb"))
-            self.client.run("cat > ~/setup_odl.sh",
-                            stdin=open(self.setup_odl_script, "rb"))
+            with open(self.ping6_radvd_script, "r") as stdin_file:
+                self.client.run("cat > ~/br-ex.radvd.conf",
+                                stdin=stdin_file)
+            with open(self.setup_odl_script, "r") as stdin_file:
+                self.client.run("cat > ~/setup_odl.sh",
+                                stdin=stdin_file)
             setup_bash_file = "setup_odl.sh"
         else:
-            self.client.run("cat > ~/setup.sh",
-                            stdin=open(self.setup_script, "rb"))
+            with open(self.setup_script, "r") as stdin_file:
+                self.client.run("cat > ~/setup.sh",
+                                stdin=stdin_file)
             setup_bash_file = "setup.sh"
         cmd = "sudo bash %s %s %s" % \
               (setup_bash_file, self.openrc, self.external_network)
@@ -156,8 +161,9 @@ class Ping6(base.Scenario):  # pragma: no cover
             self._ssh_host(self.host_list[0])
 
         # find ipv4-int-network1 to ssh VM
-        self.client.run("cat > ~/find_host.sh",
-                        stdin=open(self.ping6_find_host_script, "rb"))
+        with open(self.ping6_find_host_script, "r") as stdin_file:
+            self.client.run("cat > ~/find_host.sh",
+                            stdin=stdin_file)
         cmd = "sudo bash find_host.sh %s" % self.openrc
         LOG.debug("Executing find_host command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
@@ -171,8 +177,9 @@ class Ping6(base.Scenario):  # pragma: no cover
                         stdin=open("/tmp/vRouterKey", "rb"))
 
         # run ping6 benchmark
-        self.client.run("cat > ~/ping6.sh",
-                        stdin=open(self.ping6_script, "rb"))
+        with open(self.ping6_script, "r") as stdin_file:
+            self.client.run("cat > ~/ping6.sh",
+                            stdin=stdin_file)
         cmd = "sudo bash ping6.sh %s %s" % (self.openrc, self.ping_options)
         LOG.debug("Executing ping6 command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
@@ -208,8 +215,9 @@ class Ping6(base.Scenario):  # pragma: no cover
         self.teardown_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
             Ping6.TEARDOWN_SCRIPT)
-        self.client.run("cat > ~/teardown.sh",
-                        stdin=open(self.teardown_script, "rb"))
+        with open(self.teardown_script, "r") as stdin_file:
+            self.client.run("cat > ~/teardown.sh",
+                            stdin=stdin_file)
         cmd = "sudo bash teardown.sh %s %s" % \
               (self.openrc, self.external_network)
         status, stdout, stderr = self.client.execute(cmd)
@@ -229,7 +237,8 @@ class Ping6(base.Scenario):  # pragma: no cover
     def _post_teardown(self):
         for node_name in self.host_list:
             self._ssh_host(node_name)
-            self.client.run("cat > ~/post_teardown.sh",
-                            stdin=open(self.post_teardown_script, "rb"))
+            with open(self.post_teardown_script, "r") as stdin_file:
+                self.client.run("cat > ~/post_teardown.sh",
+                                stdin=stdin_file)
             status, stdout, stderr = self.client.execute(
                 "sudo bash post_teardown.sh")

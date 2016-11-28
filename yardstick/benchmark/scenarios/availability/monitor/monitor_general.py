@@ -48,13 +48,15 @@ class GeneralMonitor(basemonitor.BaseMonitor):
 
     def monitor_func(self):
         if "parameter" in self._config:
-            exit_status, stdout, stderr = self.connection.execute(
+            with open(self.monitor_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
                 self.cmd_param,
-                stdin=open(self.monitor_script, "r"))
+                    stdin=stdin_file)
         else:
-            exit_status, stdout, stderr = self.connection.execute(
+            with open(self.monitor_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
                 "/bin/bash -s ",
-                stdin=open(self.monitor_script, "r"))
+                    stdin=stdin_file)
 
         if exit_status:
             return False

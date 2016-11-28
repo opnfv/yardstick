@@ -79,9 +79,10 @@ class Ping(base.Scenario):
                 target_vm = self.scenario_cfg['target']
 
             LOG.debug("ping '%s' '%s'", options, dest)
-            exit_status, stdout, stderr = self.connection.execute(
-                "/bin/sh -s {0} {1}".format(dest, options),
-                stdin=open(self.target_script, "r"))
+            with open(self.target_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
+                    "/bin/sh -s {0} {1}".format(dest, options),
+                    stdin=stdin_file)
 
             if exit_status != 0:
                 raise RuntimeError(stderr)
