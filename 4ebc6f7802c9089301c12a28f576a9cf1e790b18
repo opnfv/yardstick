@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_66efb0b1",
+        "filename": "api/actions/result.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-28T18:15:31Z",
+      "side": 1,
+      "message": "is measurement alpha numeric?\n\ncan we validate it with .isalnum()?  That will detect \u0027;\u0027 and other special chars.\n\n  if not measurement.isalnum():\n     raise ValueError(...)",
+      "revId": "4ebc6f7802c9089301c12a28f576a9cf1e790b18",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_46f2b49b",
+        "filename": "api/actions/result.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-28T18:15:31Z",
+      "side": 1,
+      "message": "is task_id an int?  can we convert to int then back to string here?\n\n  task_id \u003d str(int(args[\u0027task_id\u0027]))",
+      "revId": "4ebc6f7802c9089301c12a28f576a9cf1e790b18",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
