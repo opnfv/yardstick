@@ -65,13 +65,15 @@ class GeneralAttacker(BaseAttacker):
 
         if "action_parameter" in self._config:
             LOG.debug("the shell command is: {0}".format(self.action_param))
-            exit_status, stdout, stderr = self.connection.execute(
+            with open(self.inject_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
                 self.action_param,
-                stdin=open(self.inject_script, "r"))
+                    stdin=stdin_file)
         else:
-            exit_status, stdout, stderr = self.connection.execute(
+            with open(self.inject_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
                 "/bin/bash -s ",
-                stdin=open(self.inject_script, "r"))
+                    stdin=stdin_file)
 
         LOG.debug("the inject_fault's exit status is: {0}".format(exit_status))
         if exit_status == 0:
@@ -85,10 +87,12 @@ class GeneralAttacker(BaseAttacker):
     def recover(self):
         if "rollback_parameter" in self._config:
             LOG.debug("the shell command is: {0}".format(self.rollback_param))
-            exit_status, stdout, stderr = self.connection.execute(
+            with open(self.recovery_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
                 self.rollback_param,
-                stdin=open(self.recovery_script, "r"))
+                    stdin=stdin_file)
         else:
-            exit_status, stdout, stderr = self.connection.execute(
+            with open(self.recovery_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
                 "/bin/bash -s ",
-                stdin=open(self.recovery_script, "r"))
+                    stdin=stdin_file)

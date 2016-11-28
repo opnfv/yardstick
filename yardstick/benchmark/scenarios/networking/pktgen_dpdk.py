@@ -60,8 +60,9 @@ class PktgenDPDKLatency(base.Scenario):
         self.server.wait(timeout=600)
 
         # copy script to host
-        self.server.run("cat > ~/testpmd_fwd.sh",
-                        stdin=open(self.testpmd_script, "rb"))
+        with open(self.testpmd_script, "r") as stdin_file:
+            self.server.run("cat > ~/testpmd_fwd.sh",
+                            stdin=stdin_file)
 
         LOG.info("user:%s, host:%s", host_user, host_ip)
         self.client = ssh.SSH(host_user, host_ip,
@@ -70,8 +71,9 @@ class PktgenDPDKLatency(base.Scenario):
         self.client.wait(timeout=600)
 
         # copy script to host
-        self.client.run("cat > ~/pktgen_dpdk.sh",
-                        stdin=open(self.pktgen_dpdk_script, "rb"))
+        with open(self.pktgen_dpdk_script, "r") as stdin_file:
+            self.client.run("cat > ~/pktgen_dpdk.sh",
+                            stdin=stdin_file)
 
         self.setup_done = True
         self.testpmd_args = ''

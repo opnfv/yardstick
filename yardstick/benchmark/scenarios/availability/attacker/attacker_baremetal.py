@@ -61,9 +61,10 @@ class BaremetalAttacker(BaseAttacker):
             self.setup_done = True
 
     def check(self):
-        exit_status, stdout, stderr = self.connection.execute(
+        with open(self.check_script, "r") as stdin_file:
+            exit_status, stdout, stderr = self.connection.execute(
             "/bin/sh -s {0} -W 10".format(self.host_ip),
-            stdin=open(self.check_script, "r"))
+                stdin=stdin_file)
 
         LOG.debug("check ret: %s out:%s err:%s" %
                   (exit_status, stdout, stderr))
@@ -98,10 +99,11 @@ class BaremetalAttacker(BaseAttacker):
             LOG.debug("ssh jump host success!")
 
         if self.jump_connection is not None:
-            exit_status, stdout, stderr = self.jump_connection.execute(
+            with open(self.recovery_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.jump_connection.execute(
                 "/bin/bash -s {0} {1} {2} {3}".format(
                     self.ipmi_ip, self.ipmi_user, self.ipmi_pwd, "on"),
-                stdin=open(self.recovery_script, "r"))
+                    stdin=stdin_file)
         else:
             exit_status, stdout = _execute_shell_command(
                 "/bin/bash -s {0} {1} {2} {3}".format(

@@ -53,17 +53,19 @@ class GeneralResultChecker(BaseResultChecker):
 
     def verify(self):
         if "parameter" in self._config:
-            exit_status, stdout, stderr = self.connection.execute(
+            with open(self.verify_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
                 self.shell_cmd,
-                stdin=open(self.verify_script, "r"))
+                    stdin=stdin_file)
             LOG.debug("action script of the operation is: {0}"
                       .format(self.verify_script))
             LOG.debug("action parameter the of operation is: {0}"
                       .format(self.shell_cmd))
         else:
-            exit_status, stdout, stderr = self.connection.execute(
+            with open(self.verify_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
                 "/bin/bash -s ",
-                stdin=open(self.verify_script, "r"))
+                    stdin=stdin_file)
             LOG.debug("action script of the operation is: {0}"
                       .format(self.verify_script))
 

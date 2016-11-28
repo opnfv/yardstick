@@ -45,9 +45,10 @@ class ProcessAttacker(BaseAttacker):
             self.setup_done = True
 
     def check(self):
-        exit_status, stdout, stderr = self.connection.execute(
+        with open(self.check_script, "r") as stdin_file:
+            exit_status, stdout, stderr = self.connection.execute(
             "/bin/sh -s {0}".format(self.service_name),
-            stdin=open(self.check_script, "r"))
+                stdin=stdin_file)
 
         if stdout and "running" in stdout:
             LOG.info("check the envrioment success!")
@@ -59,11 +60,13 @@ class ProcessAttacker(BaseAttacker):
         return False
 
     def inject_fault(self):
-        exit_status, stdout, stderr = self.connection.execute(
+        with open(self.inject_script, "r") as stdin_file:
+            exit_status, stdout, stderr = self.connection.execute(
             "/bin/sh -s {0}".format(self.service_name),
-            stdin=open(self.inject_script, "r"))
+                stdin=stdin_file)
 
     def recover(self):
-        exit_status, stdout, stderr = self.connection.execute(
+        with open(self.recovery_script, "r") as stdin_file:
+            exit_status, stdout, stderr = self.connection.execute(
             "/bin/sh -s {0} ".format(self.service_name),
-            stdin=open(self.recovery_script, "r"))
+                stdin=stdin_file)

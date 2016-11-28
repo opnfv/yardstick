@@ -50,8 +50,9 @@ class Sfc(base.Scenario):  # pragma: no cover
         self.server = ssh.SSH(target_user, target_ip, password=target_pwd,
                               port=target_ssh_port)
         self.server.wait(timeout=600)
-        self.server.run("cat > ~/server.sh",
-                        stdin=open(self.server_script, "rb"))
+        with open(self.server_script, "r") as stdin_file:
+            self.server.run("cat > ~/server.sh",
+                            stdin=stdin_file)
         cmd_server = "sudo bash server.sh"
         LOG.debug("Executing command: %s", cmd_server)
         status, stdout, stderr = self.server.execute(cmd_server)
