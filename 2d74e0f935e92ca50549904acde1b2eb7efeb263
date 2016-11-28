@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_ab5b2153",
+        "filename": "yardstick/benchmark/scenarios/networking/netperf_benchmark.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-28T10:00:10Z",
+      "side": 1,
+      "message": "This is also why I prefer using python for everything, you can use sys.argv with precision, and don\u0027t have to learn obscure bash quoting rules.",
+      "parentUuid": "5ac10518_4b815d8e",
+      "revId": "2d74e0f935e92ca50549904acde1b2eb7efeb263",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_2b05f110",
         "filename": "yardstick/benchmark/scenarios/networking/netperf_benchmark.bash",
         "patchSetId": 5
