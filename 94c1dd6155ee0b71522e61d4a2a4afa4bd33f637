@@ -86,6 +86,23 @@
       "revId": "94c1dd6155ee0b71522e61d4a2a4afa4bd33f637",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_807724d4",
+        "filename": "yardstick/benchmark/scenarios/networking/netperf_node.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-28T06:53:43Z",
+      "side": 1,
+      "message": "most of the time when we check key existence we really want to make sure the value is not empty.\n\nthe pattern I see frequently in code is\n\n  if key in dict:\n\nbecomes\n\n  if dict.get(key, \u0027\u0027): \n\n\nWe want the same in this case because an empty opt_val will be an error for netperf.\n\nWe also need to make sure to properly quote all user input that goes to the shell.\n\n        for opt_key, opt in option_pair_list:\n            # don\u0027t use empty args\n            opt_val \u003d options.get(opt_key)\n            if opt_val:\n                cmd_args +\u003d \" \u0027%s\u0027 \u0027%s\u0027\" % (opt, opt_val)",
+      "revId": "94c1dd6155ee0b71522e61d4a2a4afa4bd33f637",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
