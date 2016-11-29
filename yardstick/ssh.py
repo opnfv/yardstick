@@ -57,17 +57,16 @@ Eventlet:
     sshclient = eventlet.import_patched("opentstack.common.sshclient")
 
 """
-
+import os
 import select
 import socket
 import time
 
+import logging
 import paramiko
 from scp import SCPClient
 import six
-import logging
 
-LOG = logging.getLogger(__name__)
 
 DEFAULT_PORT = 22
 
@@ -84,7 +83,7 @@ class SSH(object):
     """Represent ssh connection."""
 
     def __init__(self, user, host, port=DEFAULT_PORT, pkey=None,
-                 key_filename=None, password=None):
+                 key_filename=None, password=None, name=None):
         """Initialize SSH client.
 
         :param user: ssh username
@@ -94,6 +93,11 @@ class SSH(object):
         :param key_filename: private key filename
         :param password: password
         """
+        self.name = name
+        if name:
+            self.log = logging.getLogger(__name__ + '.' + self.name)
+        else:
+            self.log = logging.getLogger(__name__)
 
         self.user = user
         self.host = host
@@ -103,6 +107,13 @@ class SSH(object):
         self.password = password
         self.key_filename = key_filename
         self._client = False
+        # paramiko loglevel debug will output ssh protocl debug
+        # we don't ever really want that unless we are debugging paramiko
+        # ssh issues
+        if os.environ.get("PARAMIKO_DEBUG", "").lower() == "true":
+            logging.getLogger("paramiko").setLevel(logging.DEBUG)
+        else:
+            logging.getLogger("paramiko").setLevel(logging.WARN)
 
     def _get_pkey(self, key):
         if isinstance(key, six.string_types):
@@ -186,14 +197,14 @@ class SSH(object):
 
             if session.recv_ready():
                 data = session.recv(4096)
-                LOG.debug("stdout: %r" % data)
+                self.log.debug("stdout: %r" % data)
                 if stdout is not None:
                     stdout.write(data)
                 continue
 
             if session.recv_stderr_ready():
                 stderr_data = session.recv_stderr(4096)
-                LOG.debug("stderr: %r" % stderr_data)
+                self.log.debug("stderr: %r" % stderr_data)
                 if stderr is not None:
                     stderr.write(stderr_data)
                 continue
@@ -256,7 +267,7 @@ class SSH(object):
             try:
                 return self.execute("uname")
             except (socket.error, SSHError) as e:
-                LOG.debug("Ssh is still unavailable: %r" % e)
+                self.log.debug("Ssh is still unavailable: %r" % e)
                 time.sleep(interval)
             if time.time() > (start_time + timeout):
                 raise SSHTimeout("Timeout waiting for '%s'" % self.host)
