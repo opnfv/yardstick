@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Aric Gardner <agardner@linuxfoundation.org>
+Submitted-by: Jing Lu <lvjing5@huawei.com>
+Submitted-at: Tue, 29 Nov 2016 01:54:49 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/24955
+Project: yardstick
+Branch: refs/heads/stable/colorado
