@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_70f52582",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-29T21:58:14Z",
+      "side": 1,
+      "message": "We fixed the API, because it was prematurely closing stdin when no more data was read.  This breaks use cases that control long running processes using stdin.\n\nBut the subtle bug was abdicating the control of stdin to ssh.run.  This was probably because ssh run is synchronous, and the caller doesn\u0027t have a chance to close the file itself.  The caller should maintain the lifetimes of its resources.\n\nThe ssh examples are wrong.  I have a patch to fix them here: https://gerrit.opnfv.org/gerrit/#/c/25181/\n\n\nopenstack rally, where we got this code from has since been updated and includes a _put_file_shell method that uses the proper context manager form.\n\nhttps://github.com/openstack/rally/blob/0.7.0/rally/common/sshutils.py#L275\n\n    def _put_file_shell(self, localpath, remotepath, mode\u003dNone):\n        cmd \u003d [\"cat \u003e %s\" % remotepath]\n        if mode is not None:\n            cmd.append(\"chmod 0%o %s\" % (mode, remotepath))\n\n        with open(localpath, \"rb\") as localfile:\n            cmd \u003d \"; \".join(cmd)\n            self.run(cmd, stdin\u003dlocalfile)\n\nI imported upstream rally _put_file_shell here:\nhttps://gerrit.opnfv.org/gerrit/#/c/25183/",
+      "parentUuid": "5ac10518_bdaa86d2",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_257a0289",
         "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
         "patchSetId": 3
@@ -243,6 +261,24 @@
       "side": 1,
       "message": "In general I agree. However in this case we are executing a command at VM, which is deleted after the test and the original image is not affected by these changes. It means, that in case of such typo, the tests would start to fail, but no harm will be caused to neither the image nor the server executing yardstick. Thus simple call of recursive remove command was chosen.",
       "parentUuid": "5ac10518_4562aed9",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_d02bb9e9",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-29T21:58:14Z",
+      "side": 1,
+      "message": "We are trying to establish conventions to increase security, robustness and prevent input related bugs.  Options and arguments should be separated and guarded.\n\nIt is less about now and more about the next time someone tries to code  ssh.run(\"rm %s\") and it most likely passes code review without comment.  We want that form to look incorrect, we want people to expect a \u0027--\u0027 guard every time they see an rm or cp or mv command so they think about input validation.",
+      "parentUuid": "5ac10518_fd87ae5f",
       "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
