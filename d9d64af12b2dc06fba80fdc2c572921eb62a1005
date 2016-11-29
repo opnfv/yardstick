@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_503fc925",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-29T21:58:14Z",
+      "side": 1,
+      "message": "how is this different from subprocess.check_call?\n\nplease don\u0027t replace CalledProcessError with RuntimeError.",
+      "revId": "d9d64af12b2dc06fba80fdc2c572921eb62a1005",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
