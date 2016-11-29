@@ -74,13 +74,6 @@ verify_connectivity() {
     error "Can not talk to $ip."
 }
 
-YARD_IMG_ARCH=amd64
-export YARD_IMG_ARCH
-
-if ! grep -q "Defaults env_keep += \"YARD_IMG_ARCH\"" "/etc/sudoers"; then
-    sudo echo "Defaults env_keep += \"YARD_IMG_ARCH YARDSTICK_REPO_DIR\"" >> /etc/sudoers
-fi
-
 ssh_options="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 if [ "$INSTALLER_TYPE" == "fuel" ]; then
@@ -89,9 +82,6 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     echo "Fetching id_rsa file from jump_server $INSTALLER_IP..."
     sshpass -p r00tme scp 2>/dev/null $ssh_options \
     root@${INSTALLER_IP}:~/.ssh/id_rsa /root/.ssh/id_rsa &> /dev/null
-
-    ARCH_SCRIPT="test -f /etc/fuel_openstack_arch && grep -q arm64 /etc/fuel_openstack_arch"
-    sshpass -p r00tme ssh $ssh_options -l root $INSTALLER_IP "${ARCH_SCRIPT}" && YARD_IMG_ARCH=arm64
 
     sshpass -p r00tme ssh 2>/dev/null $ssh_options \
         root@${INSTALLER_IP} fuel node>fuel_node

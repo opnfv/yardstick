@@ -12,6 +12,18 @@
 
 set -e
 
+YARD_IMG_ARCH=amd64
+export YARD_IMG_ARCH
+
+if ! grep -q "Defaults env_keep += \"YARD_IMG_ARCH\"" "/etc/sudoers"; then
+    sudo echo "Defaults env_keep += \"YARD_IMG_ARCH YARDSTICK_REPO_DIR\"" >> /etc/sudoers
+fi
+
+ARCH_SCRIPT="test -f /etc/fuel_openstack_arch && grep -q arm64 /etc/fuel_openstack_arch"
+if [ "$INSTALLER_TYPE" == "fuel" ]; then
+    sshpass -p r00tme ssh $ssh_options -l root $INSTALLER_IP "${ARCH_SCRIPT}" && YARD_IMG_ARCH=arm64
+fi
+
 UCA_HOST="cloud-images.ubuntu.com"
 if [ $YARD_IMG_ARCH = "arm64" ]; then
     export VIVID_IMG_URL="http://${UCA_HOST}/vivid/current/vivid-server-cloudimg-arm64.tar.gz"
