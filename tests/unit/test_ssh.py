@@ -17,6 +17,7 @@
 # rally/tests/unit/common/test_sshutils.py
 
 import os
+import socket
 import unittest
 import mock
 
@@ -162,10 +163,10 @@ class SSHTestCase(unittest.TestCase):
     def test_send_command(self, mock_paramiko):
         paramiko_sshclient = self.test_client._get_client()
         with mock.patch.object(paramiko_sshclient, "exec_command") \
-            as mock_paramiko_exec_command:
+                as mock_paramiko_exec_command:
             self.test_client.send_command('cmd')
         mock_paramiko_exec_command.assert_called_once_with('cmd',
-                                                            get_pty=True)
+                                                           get_pty=True)
 
 
 class SSHRunTestCase(unittest.TestCase):
@@ -287,6 +288,61 @@ class SSHRunTestCase(unittest.TestCase):
         mock_select.select.return_value = ([], [], [])
         self.fake_session.exit_status_ready.return_value = False
         self.assertRaises(ssh.SSHTimeout, self.test_client.run, "cmd")
+
+    @mock.patch("yardstick.ssh.open", create=True)
+    def test__put_file_shell(self, mock_open):
+        self.test_client.run = mock.Mock()
+        self.test_client._put_file_shell("localfile", "remotefile", 0o42)
+
+        self.test_client.run.assert_called_once_with(
+            'cat > "remotefile"&& chmod -- 042 "remotefile"',
+            stdin=mock_open.return_value.__enter__.return_value)
+
+    @mock.patch("yardstick.ssh.os.stat")
+    def test__put_file_sftp(self, mock_stat):
+        sftp = self.fake_client.open_sftp.return_value = mock.MagicMock()
+        sftp.__enter__.return_value = sftp
+
+        mock_stat.return_value = os.stat_result([0o753] + [0] * 9)
+
+        self.test_client._put_file_sftp("localfile", "remotefile")
+
+        sftp.put.assert_called_once_with("localfile", "remotefile")
+        mock_stat.assert_called_once_with("localfile")
+        sftp.chmod.assert_called_once_with("remotefile", 0o753)
+        sftp.__exit__.assert_called_once_with(None, None, None)
+
+    def test__put_file_sftp_mode(self):
+        sftp = self.fake_client.open_sftp.return_value = mock.MagicMock()
+        sftp.__enter__.return_value = sftp
+
+        self.test_client._put_file_sftp("localfile", "remotefile", mode=0o753)
+
+        sftp.put.assert_called_once_with("localfile", "remotefile")
+        sftp.chmod.assert_called_once_with("remotefile", 0o753)
+        sftp.__exit__.assert_called_once_with(None, None, None)
+
+    def test_put_file_SSHException(self):
+        exc = ssh.paramiko.SSHException
+        self.test_client._put_file_sftp = mock.Mock(side_effect=exc())
+        self.test_client._put_file_shell = mock.Mock()
+
+        self.test_client.put_file("foo", "bar", 42)
+        self.test_client._put_file_sftp.assert_called_once_with("foo", "bar",
+                                                                mode=42)
+        self.test_client._put_file_shell.assert_called_once_with("foo", "bar",
+                                                                 mode=42)
+
+    def test_put_file_socket_error(self):
+        exc = socket.error
+        self.test_client._put_file_sftp = mock.Mock(side_effect=exc())
+        self.test_client._put_file_shell = mock.Mock()
+
+        self.test_client.put_file("foo", "bar", 42)
+        self.test_client._put_file_sftp.assert_called_once_with("foo", "bar",
+                                                                mode=42)
+        self.test_client._put_file_shell.assert_called_once_with("foo", "bar",
+                                                                 mode=42)
 
 
 def main():

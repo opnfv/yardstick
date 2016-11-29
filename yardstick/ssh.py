@@ -282,3 +282,37 @@ class SSH(object):
     def send_command(self, command):
         client = self._get_client()
         client.exec_command(command, get_pty=True)
+
+    def _put_file_sftp(self, localpath, remotepath, mode=None):
+        client = self._get_client()
+
+        with client.open_sftp() as sftp:
+            sftp.put(localpath, remotepath)
+            if mode is None:
+                mode = 0o777 & os.stat(localpath).st_mode
+            sftp.chmod(remotepath, mode)
+
+    def _put_file_shell(self, localpath, remotepath, mode=None):
+        # quote to stop wordpslit
+        cmd = ['cat > "%s"' % remotepath]
+        if mode is not None:
+            # use -- so no options
+            cmd.append('chmod -- 0%o "%s"' % (mode, remotepath))
+
+        with open(localpath, "rb") as localfile:
+            # only chmod on successful cat
+            cmd = "&& ".join(cmd)
+            self.run(cmd, stdin=localfile)
+
+    def put_file(self, localpath, remotepath, mode=None):
+        """Copy specified local file to the server.
+
+        :param localpath:   Local filename.
+        :param remotepath:  Remote filename.
+        :param mode:        Permissions to set after upload
+        """
+        import socket
+        try:
+            self._put_file_sftp(localpath, remotepath, mode=mode)
+        except (paramiko.SSHException, socket.error):
+            self._put_file_shell(localpath, remotepath, mode=mode)
