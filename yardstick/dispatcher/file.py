@@ -17,6 +17,7 @@
 # ceilometer/ceilometer/dispatcher/file.py
 
 import logging
+import logging.handlers
 import json
 
 from oslo_config import cfg
