@@ -42,6 +42,11 @@ CONFIG_SEARCH_PATHS = [sys.prefix + "/etc/yardstick",
                        "~/.yardstick",
                        "/etc/yardstick"]
 
+LOG_FILE = '/tmp/yardstick.log'
+LOG_FORMATTER = ('%(asctime)s '
+                 '%(name)s %(filename)s:%(lineno)d '
+                 '%(levelname)s %(message)s')
+
 
 def find_config_files(path_list):
     for path in path_list:
@@ -128,7 +133,11 @@ class YardstickCLI():
     def _handle_global_opts(self):
 
         # handle global opts
-        logger = logging.getLogger('yardstick')
+        # modify the root logger
+        logger = logging.getLogger('')
+        # For some reason we have a StreamHandler already present
+        # clear all existing handlers and add our own handlers
+        del logging.root.handlers[:]
         logger.setLevel(logging.WARNING)
 
         if CONF.verbose:
@@ -136,6 +145,24 @@ class YardstickCLI():
 
         if CONF.debug:
             logger.setLevel(logging.DEBUG)
+
+        formatter = logging.Formatter(LOG_FORMATTER)
+        stream_hdlr = logging.StreamHandler()
+        stream_hdlr.setFormatter(formatter)
+        CI_DEBUG = os.environ.get('CI_DEBUG')
+        if CI_DEBUG is not None and CI_DEBUG.lower() == "true":
+            stream_hdlr.setLevel(logging.DEBUG)
+        else:
+            stream_hdlr.setLevel(logging.INFO)
+
+        # don't append, clobber
+        file_hdlr = logging.FileHandler(LOG_FILE)
+        file_hdlr.setFormatter(formatter)
+        file_hdlr.setLevel(logging.DEBUG)
+
+        logger.addHandler(stream_hdlr)
+        logger.addHandler(file_hdlr)
+        logging.debug("logging.root.handlers = %s", logging.root.handlers)
 
     def _dispath_func_notask(self):
 
