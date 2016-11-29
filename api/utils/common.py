@@ -34,7 +34,7 @@ def get_command_list(command_list, opts, args):
 
     task_args = opts.get('task-args', '')
     if task_args:
-        command_list.extend(['--task-args', task_args])
+        command_list.extend(['--task-args', str(task_args)])
 
     return command_list
 
