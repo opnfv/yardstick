@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_7aa0a490",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-29T04:28:06Z",
+      "side": 1,
+      "message": "self.__class__ is not correct form it has to be static name of the class.\n\nhttp://stackoverflow.com/questions/18208683/when-calling-super-in-a-derived-class-can-i-pass-in-self-class\n\nhttp://stackoverflow.com/questions/4235078/how-to-avoid-infinite-recursion-with-super",
+      "revId": "3b9272354b1da50fe639f1d017103ccf86f3bfb1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_a086e0b7",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-29T04:28:06Z",
+      "side": 1,
+      "message": "avoid checking key existence before accessing, this is not atomic.  \n\nsometimes set operations are more clear, and sets handle dicts and lists directly.\n\n\n  for env_argument in set(self.options).intersection(env_args_payload_list):\n    env_args[env_argument] \u003d self.options[env_argument]\n\nalternatively use EAFP style\n\n\n        for env_argument in env_args_payload_list:\n            try:\n                env_args[env_argument] \u003d self.options[env_argument]\n            except KeyError:\n              pass",
+      "revId": "3b9272354b1da50fe639f1d017103ccf86f3bfb1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_6090f8ec",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-29T04:28:06Z",
+      "side": 1,
+      "message": "same as above, don\u0027t check then access.",
+      "revId": "3b9272354b1da50fe639f1d017103ccf86f3bfb1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
