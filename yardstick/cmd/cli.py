@@ -19,6 +19,7 @@ from pkg_resources import get_distribution
 from argparse import RawDescriptionHelpFormatter
 from oslo_config import cfg
 
+from yardstick import _LOG_STREAM_HDLR, _init_logging
 from yardstick.cmd.commands import task
 from yardstick.cmd.commands import runner
 from yardstick.cmd.commands import scenario
@@ -41,6 +42,11 @@ CONF.register_cli_opts(cli_opts)
 CONFIG_SEARCH_PATHS = [sys.prefix + "/etc/yardstick",
                        "~/.yardstick",
                        "/etc/yardstick"]
+
+LOG_FILE = '/tmp/yardstick.log'
+LOG_FORMATTER = ('%(asctime)s '
+                 '%(name)s %(filename)s:%(lineno)d '
+                 '%(levelname)s %(message)s')
 
 
 def find_config_files(path_list):
@@ -127,15 +133,12 @@ class YardstickCLI():
 
     def _handle_global_opts(self):
 
-        # handle global opts
-        logger = logging.getLogger('yardstick')
-        logger.setLevel(logging.WARNING)
-
+        _init_logging()
         if CONF.verbose:
-            logger.setLevel(logging.INFO)
+            _LOG_STREAM_HDLR.setLevel(logging.INFO)
 
         if CONF.debug:
-            logger.setLevel(logging.DEBUG)
+            _LOG_STREAM_HDLR.setLevel(logging.DEBUG)
 
     def _dispath_func_notask(self):
 
