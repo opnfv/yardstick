@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_1a064021",
+        "filename": "yardstick/common/httpClient.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-29T08:59:16Z",
+      "side": 1,
+      "message": "need to add a licence statement",
+      "revId": "8993cfb92acd30dd25d202cbe325106b0a553977",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
