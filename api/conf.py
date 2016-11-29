@@ -18,6 +18,8 @@ TEST_ACTION = ['runTestCase']
 
 TEST_CASE_PATH = '../tests/opnfv/test_cases/'
 
+SAMPLE_PATH = '../samples/'
+
 TEST_CASE_PRE = 'opnfv_yardstick_'
 
 TEST_SUITE_PATH = '../tests/opnfv/test_suites/'
