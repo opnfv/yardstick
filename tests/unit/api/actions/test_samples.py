@@ -6,13 +6,18 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-from api import views
-from api.utils.common import Url
+import unittest
 
 
-urlpatterns = [
-    Url('/yardstick/test/action', views.Test, 'test'),
-    Url('/yardstick/testcases/samples/action', views.Samples, 'samples'),
-    Url('/yardstick/result/action', views.Result, 'result'),
-    Url('/yardstick/env/action', views.Env, 'env')
-]
+class RunTestCase(unittest.TestCase):
+
+    def test_runTestCase(self):
+        pass
+
+
+def main():
+    unittest.main()
+
+
+if __name__ == '__main__':
+    main()

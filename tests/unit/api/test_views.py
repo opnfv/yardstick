@@ -26,6 +26,12 @@ class TestTestCase(unittest.TestCase):
         self.assertEqual('error', result['status'])
 
 
+class SamplesTestCase(unittest.TestCase):
+
+    def test_post(self):
+        pass
+
+
 class ResultTestCase(unittest.TestCase):
 
     @mock.patch('api.views.request')
