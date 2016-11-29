@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_5d6842ba",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1306
+      },
+      "writtenOn": "2016-11-29T10:26:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ac10518_a56592e2",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_9531b60d",
         "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
         "patchSetId": 3
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_bdaa86d2",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1306
+      },
+      "writtenOn": "2016-11-29T10:26:37Z",
+      "side": 1,
+      "message": "In general I agree. However in this case yardstick provides ssh API for execution of code inside a VM and for manipulation with files. This API takes care about file descriptors and should ensure, that they will be properly closed. This implementation is in accordance with API call examples of yardstick\u0027s ssh class (see yardstick/ssh.py).",
+      "parentUuid": "5ac10518_8541763b",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_257a0289",
         "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
         "patchSetId": 3
@@ -83,6 +119,24 @@
       "writtenOn": "2016-11-25T22:16:39Z",
       "side": 1,
       "message": "this is susceptible to command injection.\n\n  self.setup_script \u003d \"rm -rf --no-preserve-root / ;\"\n\nalways quote filenames and sanitize user input\n\nit is better to avoid the shell and use the os.execvp() form.\n\n subprocess.call([self.setup_script, \"setup\"], shell\u003dFalse)",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_5dafe2e3",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1306
+      },
+      "writtenOn": "2016-11-29T10:26:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ac10518_257a0289",
       "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -142,6 +196,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_1db95a2e",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1306
+      },
+      "writtenOn": "2016-11-29T10:26:37Z",
+      "side": 1,
+      "message": "ok, so let\u0027s be more strict and fail in case of failure",
+      "parentUuid": "5ac10518_c56e9ec9",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_4562aed9",
         "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
         "patchSetId": 3
@@ -159,6 +231,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_fd87ae5f",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1306
+      },
+      "writtenOn": "2016-11-29T10:26:37Z",
+      "side": 1,
+      "message": "In general I agree. However in this case we are executing a command at VM, which is deleted after the test and the original image is not affected by these changes. It means, that in case of such typo, the tests would start to fail, but no harm will be caused to neither the image nor the server executing yardstick. Thus simple call of recursive remove command was chosen.",
+      "parentUuid": "5ac10518_4562aed9",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_856896bb",
         "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
         "patchSetId": 3
@@ -170,6 +260,24 @@
       "writtenOn": "2016-11-25T22:16:39Z",
       "side": 1,
       "message": "also susceptible to command injection.\n\ndon\u0027t use shell\u003dTrue unless it is necessary.",
+      "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_5d960296",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1306
+      },
+      "writtenOn": "2016-11-29T10:26:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ac10518_856896bb",
       "revId": "643cf99f8d1869685050ddaccc829f07f9330aa9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
