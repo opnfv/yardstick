@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_109381fb",
+        "filename": "api/actions/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-30T00:59:44Z",
+      "side": 1,
+      "message": "I think this will influence the indent of python. can this be fixed by \n(\u0027[DEFAULT]\\n\u0027\n \u0027debug \u003d True\\n\u0027\n \u0027..\u0027\n)",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 19
+      },
+      "revId": "1efaa5511dd9542c4d2fbff46fe07c094f02135a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
