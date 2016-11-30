@@ -19,7 +19,7 @@ from api.actions import env as env_action
 logger = logging.getLogger(__name__)
 
 
-class Test(Resource):
+class Release(Resource):
     def post(self):
         action = common_utils.translate_to_str(request.json.get('action', ''))
         args = common_utils.translate_to_str(request.json.get('args', {}))
@@ -31,7 +31,7 @@ class Test(Resource):
             return common_utils.error_handler('Wrong action')
 
 
-class Result(Resource):
+class Results(Resource):
     def get(self):
         args = common_utils.translate_to_str(request.args)
         action = args.get('action', '')
