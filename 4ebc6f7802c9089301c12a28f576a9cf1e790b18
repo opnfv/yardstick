@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_b0a4ed57",
+        "filename": "api/actions/result.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-30T01:04:54Z",
+      "side": 1,
+      "message": "yes, it did work. it can prevent sql injection. thank you.",
+      "parentUuid": "5ac10518_66efb0b1",
+      "revId": "4ebc6f7802c9089301c12a28f576a9cf1e790b18",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_46f2b49b",
         "filename": "api/actions/result.py",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-11-28T18:15:31Z",
       "side": 1,
       "message": "is task_id an int?  can we convert to int then back to string here?\n\n  task_id \u003d str(int(args[\u0027task_id\u0027]))",
+      "revId": "4ebc6f7802c9089301c12a28f576a9cf1e790b18",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_508909c9",
+        "filename": "api/actions/result.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-30T01:04:54Z",
+      "side": 1,
+      "message": "it is not an int. it is a str of uuid. Maybe we can use the uuid to check. thank you.",
+      "parentUuid": "5ac10518_46f2b49b",
       "revId": "4ebc6f7802c9089301c12a28f576a9cf1e790b18",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
