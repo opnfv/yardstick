@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_73f68fd9",
+        "filename": "yardstick/__init__.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-11-30T03:13:53Z",
+      "side": 1,
+      "message": "Hi Ross, I\u0027ve test it locally, if you change the logging.root, other library like \"heatclient.common.http\" would also print the log. So I think maybe it should be the \u0027yardstick\u0027 to be changed.\n\nexample:\n\n2016-11-30 03:05:13,470 heatclient.common.http http.py:129 DEBUG curl -g -i -X GET -H \u0027User-Agent: python-heatclient\u0027 -H \u0027Content-Type: application/json\u0027 -H \u0027Accept: application/json\u0027 -H \u0027X-Auth-Token: {SHA1}c09da0964b6ef9279f5e19501dc87025f30c3836\u0027 http://192.168.22.12:8004/v1/e1e621db61ce4ef987d812e1500d26d1/stacks/demo/add7d398-827d-4a20-92b7-34a38cbc129f\n2016-11-30 03:05:13,546 heatclient.common.http http.py:142 DEBUG \nHTTP/1.1 200 OK\nDate: Wed, 30 Nov 2016 03:08:19 GMT\nConnection: close\nContent-Type: application/json; charset\u003dUTF-8\nContent-Length: 1188\nX-Openstack-Request-Id: req-1df1431e-4728-4146-b7cc-87b5fdc0621c",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 42,
+        "endChar": 70
+      },
+      "revId": "7d228736fbd8222333bf8d17a5bcfcdedd76b7a3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
