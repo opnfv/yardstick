@@ -6,12 +6,12 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-from api import views
-from api.utils.common import Url
+from yardstick.common.httpClient import HttpClient
 
 
-urlpatterns = [
-    Url('/yardstick/test/action', views.Test, 'test'),
-    Url('/yardstick/result/action', views.Result, 'result'),
-    Url('/yardstick/env/action', views.Env, 'env')
-]
+class EnvCommand(object):
+
+    def do_influxdb(self, args):
+        url = 'http://localhost:5000/yardstick/env/action'
+        data = {'action': 'createInfluxDBContainer'}
+        HttpClient().post(url, data)
