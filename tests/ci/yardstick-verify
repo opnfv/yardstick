@@ -162,7 +162,7 @@ run_test()
 
     cat << EOF > /etc/yardstick/yardstick.conf
 [DEFAULT]
-debug = True
+debug = False
 dispatcher = ${DISPATCHER_TYPE}
 
 [dispatcher_file]

@@ -65,7 +65,7 @@ def _config_output_file():
     with open('/etc/yardstick/yardstick.conf', 'w') as f:
         f.write("""\
 [DEFAULT]
-debug = True
+debug = False
 dispatcher = influxdb
 
 [dispatcher_file]
