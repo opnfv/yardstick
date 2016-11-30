@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "5ac10518_502589c0",
+        "filename": "api/actions/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-30T01:29:22Z",
+      "side": 1,
+      "message": "can we be more specific than Exception.",
+      "revId": "1efaa5511dd9542c4d2fbff46fe07c094f02135a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_702205bb",
+        "filename": "api/actions/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-30T01:29:22Z",
+      "side": 1,
+      "message": "don\u0027t forget we can use exc_info\u003dTrue kwarg\nhttps://docs.python.org/2/library/logging.html#logging.Logger.debug\n\n\u003e There are two keyword arguments in kwargs which are inspected: exc_info which, if it does not evaluate as false, causes exception information to be added to the logging message.",
+      "revId": "1efaa5511dd9542c4d2fbff46fe07c094f02135a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_903bf1ea",
+        "filename": "api/actions/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-30T01:29:22Z",
+      "side": 1,
+      "message": "might as well add a utility function \n\ndef makedirs(d):\n    try:\n        os.makedirs(d)\n    except OSError as e:\n        if e.errno !\u003d errno.EEXIST:\n            raise\n\nand use that everywhere.\n\nbut don\u0027t check then create.  That is a filesystem race.",
+      "revId": "1efaa5511dd9542c4d2fbff46fe07c094f02135a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_109381fb",
         "filename": "api/actions/env.py",
         "patchSetId": 2
@@ -13,6 +64,30 @@
       "writtenOn": "2016-11-30T00:59:44Z",
       "side": 1,
       "message": "I think this will influence the indent of python. can this be fixed by \n(\u0027[DEFAULT]\\n\u0027\n \u0027debug \u003d True\\n\u0027\n \u0027..\u0027\n)",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 19
+      },
+      "revId": "1efaa5511dd9542c4d2fbff46fe07c094f02135a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_90445175",
+        "filename": "api/actions/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-30T01:29:22Z",
+      "side": 1,
+      "message": "using \"\"\" is standard and preferred.\n\nusually \n\n  f.write(\"\"\"\\\n[DEFAULT]\ndebug \u003d True\ndispatcher \u003d influxdb\n...\n\"\"\"\n\n\n^ no indent on last \"\"\".  use \"\"\" instead of \u0027\u0027\u0027.  and use \"\"\"\\ on the first line.\n\n\nBut, in theory the proper way is to use ConfigParser to generate this.\n\nWe use a handy function to convert dict() to ConfigParser format\n\nConvert this string into a dict and run\n\n\n def overwrite_dict_to_cfg(cfg, cfg_dict):\n    for section in cfg_dict:\n        # delete then add\n        cfg.remove_section(section)\n        cfg.add_section(section)\n    for section, val in cfg_dict.iteritems():\n        if isinstance(val, six.string_types):\n            cfg.set(section, val)\n        elif isinstance(val, collections.Mapping):\n            for k, v in val.iteritems():\n                cfg.set(section, k, v)\n        else:\n            for v in val:\n                cfg.set(section, v)\n\n\n  config \u003d ConfigParser.ConfigParser(allow_no_value\u003dTrue)\n  overwrite_dict_to_cfg(config, yardstick_conf_dict)\n  config.write(f)",
+      "parentUuid": "5ac10518_109381fb",
       "range": {
         "startLine": 67,
         "startChar": 16,
