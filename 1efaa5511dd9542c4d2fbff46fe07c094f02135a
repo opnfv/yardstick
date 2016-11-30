@@ -136,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_53c4b391",
+        "filename": "api/actions/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-30T02:38:19Z",
+      "side": 1,
+      "message": "ok. the second method a better way. but it will take more time to test locally. I\u0027ll take the first way in this patch. And plan to test the 2nd locally, if it\u0027s done, I\u0027ll propose another patch.\nThank you.",
+      "parentUuid": "5ac10518_90445175",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 19
+      },
+      "revId": "1efaa5511dd9542c4d2fbff46fe07c094f02135a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_7310cf4e",
         "filename": "api/api-prepare.sh",
         "patchSetId": 2
