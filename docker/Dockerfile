@@ -11,6 +11,8 @@ FROM ubuntu:14.04
 
 LABEL image=opnfv/yardstick
 
+ARG BRANCH=master
+
 # GIT repo directory
 ENV REPOS_DIR /home/opnfv/repos
 
