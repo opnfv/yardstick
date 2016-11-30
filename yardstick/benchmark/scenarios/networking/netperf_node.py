@@ -86,9 +86,8 @@ class NetperfNode(base.Scenario):
         self.client.wait(timeout=600)
 
         # copy script to host
-        self.client.run("cat > ~/netperf.sh",
-                        stdin=open(self.target_script, "rb"))
-
+        with open(self.target_script, "rb") as file_run:
+            self.client.run("cat > ~/netperf.sh", stdin=file_run)
         # copy script to host and client
         self.install_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
@@ -97,14 +96,14 @@ class NetperfNode(base.Scenario):
             'yardstick.benchmark.scenarios.networking',
             NetperfNode.REMOVE_SCRIPT)
 
-        self.server.run("cat > ~/netperf_install.sh",
-                        stdin=open(self.install_script, "rb"))
-        self.client.run("cat > ~/netperf_install.sh",
-                        stdin=open(self.install_script, "rb"))
-        self.server.run("cat > ~/netperf_remove.sh",
-                        stdin=open(self.remove_script, "rb"))
-        self.client.run("cat > ~/netperf_remove.sh",
-                        stdin=open(self.remove_script, "rb"))
+        with open(self.install_script, "rb") as file_install:
+            self.server.run("cat > ~/netperf_install.sh", stdin=file_install)
+        with open(self.install_script, "rb") as file_install:
+            self.client.run("cat > ~/netperf_install.sh", stdin=file_install)
+        with open(self.remove_script, "rb") as file_remove:
+            self.server.run("cat > ~/netperf_remove.sh", stdin=file_remove)
+        with open(self.remove_script, "rb") as file_remove:
+            self.client.run("cat > ~/netperf_remove.sh", stdin=file_remove)
         self.server.execute("sudo bash netperf_install.sh")
         self.client.execute("sudo bash netperf_install.sh")
 
@@ -131,10 +130,12 @@ class NetperfNode(base.Scenario):
         else:
             testlen = 20
 
-        cmd_args = "-H %s -l %s -t %s" % (ipaddr, testlen, testname)
+        cmd_args = "-H %s -l %s -t %s -c -C" % (ipaddr, testlen, testname)
 
         # get test specific options
-        default_args = "-O 'THROUGHPUT,THROUGHPUT_UNITS,MEAN_LATENCY'"
+        output_opt = options.get(
+            "output_opt", "THROUGHPUT,THROUGHPUT_UNITS,MEAN_LATENCY")
+        default_args = "-O %s" % output_opt
         cmd_args += " -- %s" % default_args
         option_pair_list = [("send_msg_size", "-m"),
                             ("recv_msg_size", "-M"),
