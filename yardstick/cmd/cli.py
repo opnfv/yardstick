@@ -19,6 +19,7 @@ from pkg_resources import get_distribution
 from argparse import RawDescriptionHelpFormatter
 from oslo_config import cfg
 
+from yardstick import _init_logging, LOG
 from yardstick.cmd.commands import task
 from yardstick.cmd.commands import runner
 from yardstick.cmd.commands import scenario
@@ -129,15 +130,12 @@ class YardstickCLI():
 
     def _handle_global_opts(self):
 
-        # handle global opts
-        logger = logging.getLogger('yardstick')
-        logger.setLevel(logging.WARNING)
-
+        _init_logging()
         if CONF.verbose:
-            logger.setLevel(logging.INFO)
+            LOG.setLevel(logging.INFO)
 
         if CONF.debug:
-            logger.setLevel(logging.DEBUG)
+            LOG.setLevel(logging.DEBUG)
 
     def _dispath_func_notask(self):
 
