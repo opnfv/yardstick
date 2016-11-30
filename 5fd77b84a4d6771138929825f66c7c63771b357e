@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_b3b077f5",
+        "filename": "api/actions/result.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-30T03:52:23Z",
+      "side": 1,
+      "message": "this is a good way.",
+      "parentUuid": "5ac10518_b3b957eb",
+      "range": {
+        "startLine": 24,
+        "startChar": 15,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "5fd77b84a4d6771138929825f66c7c63771b357e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_33c5675b",
         "filename": "api/actions/result.py",
         "patchSetId": 2
