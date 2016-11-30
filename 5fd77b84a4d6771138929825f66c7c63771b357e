@@ -22,6 +22,30 @@
       "revId": "5fd77b84a4d6771138929825f66c7c63771b357e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_b3b957eb",
+        "filename": "api/actions/result.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-30T03:36:59Z",
+      "side": 1,
+      "message": "maybe\n\n  if re.search(\"[^a-zA-Z0-9_-]\", measurement):\n     fail",
+      "parentUuid": "5ac10518_13f14bcd",
+      "range": {
+        "startLine": 24,
+        "startChar": 15,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "5fd77b84a4d6771138929825f66c7c63771b357e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
