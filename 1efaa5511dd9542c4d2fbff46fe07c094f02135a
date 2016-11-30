@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_9341bb0d",
+        "filename": "api/actions/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-30T03:03:15Z",
+      "side": 1,
+      "message": "yes, i want to ignore it. and return the exception to the api user",
+      "parentUuid": "5ac10518_936e9bc8",
+      "revId": "1efaa5511dd9542c4d2fbff46fe07c094f02135a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_702205bb",
         "filename": "api/actions/env.py",
         "patchSetId": 2
@@ -83,6 +101,24 @@
       "writtenOn": "2016-11-30T01:29:22Z",
       "side": 1,
       "message": "might as well add a utility function \n\ndef makedirs(d):\n    try:\n        os.makedirs(d)\n    except OSError as e:\n        if e.errno !\u003d errno.EEXIST:\n            raise\n\nand use that everywhere.\n\nbut don\u0027t check then create.  That is a filesystem race.",
+      "revId": "1efaa5511dd9542c4d2fbff46fe07c094f02135a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_1355cbc5",
+        "filename": "api/actions/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-11-30T03:03:15Z",
+      "side": 1,
+      "message": "good idea. i will add it in the utils.",
+      "parentUuid": "5ac10518_903bf1ea",
       "revId": "1efaa5511dd9542c4d2fbff46fe07c094f02135a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
