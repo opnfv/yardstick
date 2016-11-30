@@ -45,6 +45,30 @@
       "revId": "7d228736fbd8222333bf8d17a5bcfcdedd76b7a3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_b33ab734",
+        "filename": "yardstick/cmd/cli.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-30T06:55:17Z",
+      "side": 1,
+      "message": "what level do you want stream handler to be?\n\nCONF.debug and CONF.verbose seem to work for me.",
+      "parentUuid": "5ac10518_f38d9f32",
+      "range": {
+        "startLine": 136,
+        "startChar": 12,
+        "endLine": 136,
+        "endChar": 52
+      },
+      "revId": "7d228736fbd8222333bf8d17a5bcfcdedd76b7a3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
