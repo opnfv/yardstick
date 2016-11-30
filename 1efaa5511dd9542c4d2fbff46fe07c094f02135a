@@ -196,6 +196,30 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_f3a6ffc0",
+        "filename": "api/actions/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-30T03:46:38Z",
+      "side": 1,
+      "message": "well I checked and the \"\"\"\\  \"\"\" with zero indent is probably not standard, but I\u0027ve found it is the best method because it looks exactly like the resulting file.  (and helps with 79 column limit)\n\nUsually we end up just copying and pasting in a raw example file, and surrounding it with \"\"\"\\ and \"\"\" is the easiest least-bug prone method of quoting the raw file.\n\nBut if you prefer indenting, then using textwrap.deindent() to strip leading spaces seems to be popular.",
+      "parentUuid": "5ac10518_53c4b391",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 19
+      },
+      "revId": "1efaa5511dd9542c4d2fbff46fe07c094f02135a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_7310cf4e",
         "filename": "api/api-prepare.sh",
         "patchSetId": 2
