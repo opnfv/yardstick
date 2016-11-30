@@ -7,7 +7,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 import uuid
-import json
 import os
 import logging
 
@@ -22,12 +21,7 @@ def runTestCase(args):
         opts = args.get('opts', {})
         testcase = args['testcase']
     except KeyError:
-        logger.error('Lack of testcase argument')
-        result = {
-            'status': 'error',
-            'message': 'need testcase name'
-        }
-        return json.dumps(result)
+        return common_utils.error_handler('Lack of testcase argument')
 
     testcase = os.path.join(conf.TEST_CASE_PATH,
                             conf.TEST_CASE_PRE + testcase + '.yaml')
@@ -41,8 +35,4 @@ def runTestCase(args):
     logger.debug('Start to execute command list')
     common_utils.exec_command_task(command_list, task_id)
 
-    result = {
-        'status': 'success',
-        'task_id': task_id
-    }
-    return json.dumps(result)
+    return common_utils.result_handler('success', task_id)
