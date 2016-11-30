@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_936e9bc8",
+        "filename": "api/actions/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-11-30T02:13:34Z",
+      "side": 1,
+      "message": "do you want to re-raise the error or ignore it?\n\n\nyou can use logger.exception()\n\nBe careful with base Exception as it can mask SyntaxError and AttributeErrors/NameErrors from typos.",
+      "parentUuid": "5ac10518_b325d7ac",
+      "revId": "1efaa5511dd9542c4d2fbff46fe07c094f02135a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_702205bb",
         "filename": "api/actions/env.py",
         "patchSetId": 2
