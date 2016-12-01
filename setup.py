@@ -28,7 +28,8 @@ setup(
             'yardstick/nodes/*/*.yaml'
         ],
         'tests': [
-            'opnfv/*/*.yaml'
+            'opnfv/*/*.yaml',
+            'ci/*.sh'
         ]
     },
     url="https://www.opnfv.org",
