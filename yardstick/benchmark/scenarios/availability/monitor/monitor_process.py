@@ -39,17 +39,17 @@ class MonitorProcess(basemonitor.BaseMonitor):
             "/bin/sh -s {0}".format(self.process_name),
             stdin=open(self.check_script, "r"))
         if not stdout or int(stdout) <= 0:
-            LOG.info("the process (%s) is not running!" % self.process_name)
+            LOG.info("the process (%s) is not running!", self.process_name)
             return False
 
         return True
 
     def verify_SLA(self):
-        LOG.debug("the _result:%s" % self._result)
+        LOG.debug("the _result:%s", self._result)
         outage_time = self._result.get('outage_time', None)
         max_outage_time = self._config["sla"]["max_recover_time"]
         if outage_time > max_outage_time:
-            LOG.error("SLA failure: %f > %f" % (outage_time, max_outage_time))
+            LOG.error("SLA failure: %f > %f", outage_time, max_outage_time)
             return False
         else:
             return True

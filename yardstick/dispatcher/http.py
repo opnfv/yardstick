@@ -81,14 +81,14 @@ class HttpDispatcher(DispatchBase):
                 case_name = v["scenario_cfg"]["tc"]
                 break
         if case_name == "":
-            LOG.error('Test result : %s' % json.dumps(self.result))
+            LOG.error('Test result : %s', json.dumps(self.result))
             LOG.error('The case_name cannot be found, no data will be posted.')
             return
 
         self.result["case_name"] = case_name
 
         try:
-            LOG.debug('Test result : %s' % json.dumps(self.result))
+            LOG.debug('Test result : %s', json.dumps(self.result))
             res = requests.post(self.target,
                                 data=json.dumps(self.result),
                                 headers=self.headers,

@@ -69,14 +69,14 @@ class Cyclictest(base.Scenario):
         rpm_dir = setup_options["rpm_dir"]
         script_dir = setup_options["script_dir"]
         image_dir = setup_options["image_dir"]
-        LOG.debug("Send RPMs from %s to workspace %s" %
-                  (rpm_dir, self.WORKSPACE))
+        LOG.debug("Send RPMs from %s to workspace %s",
+                  rpm_dir, self.WORKSPACE)
         client.put(rpm_dir, self.WORKSPACE, recursive=True)
-        LOG.debug("Send scripts from %s to workspace %s" %
-                  (script_dir, self.WORKSPACE))
+        LOG.debug("Send scripts from %s to workspace %s",
+                  script_dir, self.WORKSPACE)
         client.put(script_dir, self.WORKSPACE, recursive=True)
-        LOG.debug("Send guest image from %s to workspace %s" %
-                  (image_dir, self.WORKSPACE))
+        LOG.debug("Send guest image from %s to workspace %s",
+                  image_dir, self.WORKSPACE)
         client.put(image_dir, self.WORKSPACE, recursive=True)
 
     def _connect_host(self):
@@ -102,7 +102,7 @@ class Cyclictest(base.Scenario):
         self.guest.wait(timeout=600)
 
     def _run_setup_cmd(self, client, cmd):
-        LOG.debug("Run cmd: %s" % cmd)
+        LOG.debug("Run cmd: %s", cmd)
         status, stdout, stderr = client.execute(cmd)
         if status:
             if re.search(self.REBOOT_CMD_PATTERN, cmd):

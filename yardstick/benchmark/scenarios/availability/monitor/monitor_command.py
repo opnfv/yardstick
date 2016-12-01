@@ -24,7 +24,7 @@ def _execute_shell_command(command):
     except Exception:
         exitcode = -1
         output = traceback.format_exc()
-        LOG.error("exec command '%s' error:\n " % command)
+        LOG.error("exec command '%s' error:\n ", command)
         LOG.error(traceback.format_exc())
 
     return exitcode, output
@@ -62,8 +62,8 @@ class MonitorOpenstackCmd(basemonitor.BaseMonitor):
                 "/bin/bash -s '{0}'".format(self.cmd),
                 stdin=open(self.check_script, "r"))
 
-            LOG.debug("the ret stats: %s stdout: %s stderr: %s" %
-                      (exit_status, stdout, stderr))
+            LOG.debug("the ret stats: %s stdout: %s stderr: %s",
+                      exit_status, stdout, stderr)
         else:
             exit_status, stdout = _execute_shell_command(self.cmd)
         if exit_status:
@@ -72,10 +72,10 @@ class MonitorOpenstackCmd(basemonitor.BaseMonitor):
 
     def verify_SLA(self):
         outage_time = self._result.get('outage_time', None)
-        LOG.debug("the _result:%s" % self._result)
+        LOG.debug("the _result:%s", self._result)
         max_outage_time = self._config["sla"]["max_outage_time"]
         if outage_time > max_outage_time:
-            LOG.info("SLA failure: %f > %f" % (outage_time, max_outage_time))
+            LOG.info("SLA failure: %f > %f", outage_time, max_outage_time)
             return False
         else:
             LOG.info("the sla is passed")

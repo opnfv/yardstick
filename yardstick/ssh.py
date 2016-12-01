@@ -197,14 +197,14 @@ class SSH(object):
 
             if session.recv_ready():
                 data = session.recv(4096)
-                self.log.debug("stdout: %r" % data)
+                self.log.debug("stdout: %r", data)
                 if stdout is not None:
                     stdout.write(data)
                 continue
 
             if session.recv_stderr_ready():
                 stderr_data = session.recv_stderr(4096)
-                self.log.debug("stderr: %r" % stderr_data)
+                self.log.debug("stderr: %r", stderr_data)
                 if stderr is not None:
                     stderr.write(stderr_data)
                 continue
@@ -267,10 +267,10 @@ class SSH(object):
             try:
                 return self.execute("uname")
             except (socket.error, SSHError) as e:
-                self.log.debug("Ssh is still unavailable: %r" % e)
+                self.log.debug("Ssh is still unavailable: %r", e)
                 time.sleep(interval)
             if time.time() > (start_time + timeout):
-                raise SSHTimeout("Timeout waiting for '%s'" % self.host)
+                raise SSHTimeout("Timeout waiting for '%s'", self.host)
 
     def put(self, files, remote_path=b'.', recursive=False):
         client = self._get_client()

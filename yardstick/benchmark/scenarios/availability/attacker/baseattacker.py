@@ -26,7 +26,7 @@ class AttackerMgr(object):
         self._attacker_list = []
 
     def init_attackers(self, attacker_cfgs, context):
-        LOG.debug("attackerMgr confg: %s" % attacker_cfgs)
+        LOG.debug("attackerMgr confg: %s", attacker_cfgs)
 
         for cfg in attacker_cfgs:
             attacker_cls = BaseAttacker.get_attacker_cls(cfg)

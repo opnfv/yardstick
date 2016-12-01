@@ -63,7 +63,7 @@ class Director(object):
 
     def createActionPlayer(self, type, key):
         LOG.debug(
-            "the type of current action is %s, the key is %s" % (type, key))
+            "the type of current action is %s, the key is %s", type, key)
         if type == ActionType.ATTACKER:
             return actionplayers.AttackerPlayer(self.attackerMgr[key])
         if type == ActionType.MONITOR:
@@ -77,13 +77,13 @@ class Director(object):
 
     def createActionRollbacker(self, type, key):
         LOG.debug(
-            "the type of current action is %s, the key is %s" % (type, key))
+            "the type of current action is %s, the key is %s", type, key)
         if type == ActionType.ATTACKER:
             return actionrollbackers.AttackerRollbacker(self.attackerMgr[key])
         if type == ActionType.OPERATION:
             return actionrollbackers.OperationRollbacker(
                 self.operationMgr[key])
-        LOG.debug("no rollbacker created for %s" % (key))
+        LOG.debug("no rollbacker created for %s", key)
 
     def verify(self):
         result = True
