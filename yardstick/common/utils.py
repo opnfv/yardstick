@@ -19,6 +19,9 @@ import os
 import sys
 import yaml
 import errno
+import re
+import subprocess
+
 from oslo_utils import importutils
 
 import yardstick
@@ -100,3 +103,42 @@ def makedirs(d):
     except OSError as e:
         if e.errno != errno.EEXIST:
             raise
+
+
+def execute_command(cmd):
+    exec_msg = "Executing command: '%s'" % cmd
+    print exec_msg
+
+    p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE,
+                         stderr=subprocess.STDOUT)
+    results = iter(p.stdout.readline, b'')
+
+    lines = map(lambda a: a.replace('\n', ''), results)
+
+    p.stdout.close()
+
+    return lines
+
+
+def source_script(script):
+    cmd = 'source %s; env' % script
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True,
+                         executable='/bin/bash')
+    output = p.communicate()[0]
+
+    lines = filter(lambda a: True if re.search(r'(.*)=(.*)', a) else False,
+                   output.splitlines())
+
+    env = dict((line.split('=', 1) for line in lines))
+    os.environ.update(env)
+
+    return env
+
+
+def source_env(env_file):
+    p = subprocess.Popen(". %s; env" % env_file, stdout=subprocess.PIPE,
+                         shell=True)
+    output = p.communicate()[0]
+    env = dict((line.split('=', 1) for line in output.splitlines()))
+    os.environ.update(env)
+    return env
