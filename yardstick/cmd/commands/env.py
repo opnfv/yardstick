@@ -7,16 +7,25 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 from yardstick.common.httpClient import HttpClient
+from yardstick.common import constants
 
 
 class EnvCommand(object):
+    '''
 
+        Set of commands to prepare environment
+    '''
     def do_influxdb(self, args):
-        url = 'http://localhost:5000/yardstick/env/action'
+        url = constants.YARDSTICK_ENV_ACTION_API
         data = {'action': 'createInfluxDBContainer'}
         HttpClient().post(url, data)
 
     def do_grafana(self, args):
-        url = 'http://localhost:5000/yardstick/env/action'
+        url = constants.YARDSTICK_ENV_ACTION_API
         data = {'action': 'createGrafanaContainer'}
+        HttpClient().post(url, data)
+
+    def do_prepare(self, args):
+        url = constants.YARDSTICK_ENV_ACTION_API
+        data = {'action': 'prepareYardstickEnv'}
         HttpClient().post(url, data)
