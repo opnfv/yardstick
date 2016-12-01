@@ -16,6 +16,24 @@
       "revId": "cd57f1bab9c1fd321825c2315169e3e09f2ca81a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_a4410b0d",
+        "filename": "api/views.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-12-01T03:12:56Z",
+      "side": 1,
+      "message": "yes, os.getcwd() does better.",
+      "parentUuid": "5ac10518_04d6df4f",
+      "revId": "cd57f1bab9c1fd321825c2315169e3e09f2ca81a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
