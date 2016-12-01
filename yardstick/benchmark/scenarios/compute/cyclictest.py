@@ -154,8 +154,8 @@ class Cyclictest(base.Scenario):
         self.target_script = pkg_resources.resource_filename(
             "yardstick.benchmark.scenarios.compute",
             Cyclictest.TARGET_SCRIPT)
-        self.guest.run("cat > ~/cyclictest_benchmark.sh",
-                       stdin=open(self.target_script, "rb"))
+        self.guest._put_file_shell(
+            self.target_script, '~/cyclictest_benchmark.sh')
 
         self.setup_done = True
 
