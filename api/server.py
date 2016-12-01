@@ -10,6 +10,7 @@ import logging
 
 from flask import Flask
 from flask_restful import Api
+from flasgger import Swagger
 
 from api.urls import urlpatterns
 from yardstick import _init_logging
@@ -18,7 +19,10 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
+Swagger(app)
+
 api = Api(app)
+
 
 reduce(lambda a, b: a.add_resource(b.resource, b.url,
                                    endpoint=b.endpoint) or a, urlpatterns, api)
