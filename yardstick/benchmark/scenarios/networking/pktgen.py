@@ -71,8 +71,7 @@ class Pktgen(base.Scenario):
         self.client.wait(timeout=600)
 
         # copy script to host
-        self.client.run("cat > ~/pktgen.sh",
-                        stdin=open(self.target_script, "rb"))
+        self.client._put_file_shell(self.target_script, '~/pktgen.sh')
 
         self.setup_done = True
 

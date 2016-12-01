@@ -133,10 +133,8 @@ class Vsperf(base.Scenario):
         # traffic generation could last long
         self.client.wait(timeout=1800)
 
-        # copy script to host if needed
-        if self.vsperf_conf:
-            self.client.run("cat > ~/vsperf.conf",
-                            stdin=open(self.vsperf_conf, "rb"))
+        # copy script to host
+        self.client._put_file_shell(self.vsperf_conf, '~/vsperf.conf')
 
         # execute external setup script
         if self.setup_script:
