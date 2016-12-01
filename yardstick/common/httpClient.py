@@ -23,5 +23,8 @@ class HttpClient(object):
             response = requests.post(url, data=data, headers=headers)
             result = response.json()
             logger.debug('The result is: %s', result)
+
+            return result
         except Exception as e:
             logger.debug('Failed: %s', e)
+            raise
