@@ -54,8 +54,8 @@ RUN apt-get -y autoremove && \
 RUN mkdir -p ${REPOS_DIR}
 
 RUN git config --global http.sslVerify false
-RUN git clone https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR}
-RUN git clone https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR}
+RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR}
+RUN git clone --depth 1 https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR}
 
 # install yardstick + dependencies
 RUN cd ${YARDSTICK_REPO_DIR} && easy_install -U pip
