@@ -18,6 +18,8 @@
 
 import os
 import unittest
+from cStringIO import StringIO
+
 import mock
 
 from yardstick import ssh
@@ -272,6 +274,23 @@ class SSHRunTestCase(unittest.TestCase):
         self.test_client.run("cmd", stdin=fake_stdin)
         call = mock.call
         send_calls = [call("line1"), call("line2"), call("e2")]
+        self.assertEqual(send_calls, self.fake_session.send.mock_calls)
+
+    @mock.patch("yardstick.ssh.select")
+    def test_run_stdin_keep_open(self, mock_select):
+        """Test run method with stdin.
+
+        Third send call was called with "e2" because only 3 bytes was sent
+        by second call. So remainig 2 bytes of "line2" was sent by third call.
+        """
+        mock_select.select.return_value = ([], [], [])
+        self.fake_session.exit_status_ready.side_effect = [0, 0, 0, True]
+        self.fake_session.send_ready.return_value = True
+        self.fake_session.send.side_effect = len
+        fake_stdin = StringIO("line1\nline2\n")
+        self.test_client.run("cmd", stdin=fake_stdin, keep_stdin_open=True)
+        call = mock.call
+        send_calls = [call("line1\nline2\n")]
         self.assertEqual(send_calls, self.fake_session.send.mock_calls)
 
     @mock.patch("yardstick.ssh.select")
