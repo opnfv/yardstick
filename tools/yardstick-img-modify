@@ -70,22 +70,22 @@ download() {
 
     if [ $YARD_IMG_ARCH = "arm64" ]; then
         cd /tmp
-        if [ ! -f /tmp/vivid-server-cloudimg-arm64-kernel-info.txt ]; then
-            wget http://cloud-images.ubuntu.com/vivid/current/vivid-server-cloudimg-arm64-kernel-info.txt
+        if [ ! -f /tmp/wily-server-cloudimg-arm64-kernel-info.txt ]; then
+            wget http://cloud-images.ubuntu.com/wily/current/wily-server-cloudimg-arm64-kernel-info.txt
         fi
-        export VIVID_KERNEL_VERSION=$(cut -d$'\t' -f4 vivid-server-cloudimg-arm64-kernel-info.txt)
-        mkdir -p /tmp/vivid-modules
-        if [ ! -f "/tmp/vivid-server-cloudimg-arm64.tar.gz" ]; then
+        export VIVID_KERNEL_VERSION=$(cut -d$'\t' -f4 wily-server-cloudimg-arm64-kernel-info.txt)
+        mkdir -p /tmp/wily-modules
+        if [ ! -f "/tmp/wily-server-cloudimg-arm64.tar.gz" ]; then
             wget $VIVID_IMG_URL
         fi
-        if [ ! -f "/tmp/vivid-server-cloudimg-arm64.img" ]; then
-            tar zxvf vivid-server-cloudimg-arm64.tar.gz vivid-server-cloudimg-arm64.img
+        if [ ! -f "/tmp/wily-server-cloudimg-arm64.img" ]; then
+            tar zxvf wily-server-cloudimg-arm64.tar.gz wily-server-cloudimg-arm64.img
         fi
-        mkdir -p /mnt/vivid
-        mount /tmp/vivid-server-cloudimg-arm64.img /mnt/vivid
-        cp -r /mnt/vivid/lib/modules/$(echo $VIVID_KERNEL_VERSION | cut -d'-' -f3,4,5) /tmp/vivid-modules
-        umount /mnt/vivid
-        rm /tmp/vivid-server-cloudimg-arm64.img
+        mkdir -p /mnt/wily
+        mount /tmp/wily-server-cloudimg-arm64.img /mnt/wily
+        cp -r /mnt/wily/lib/modules/$(echo $VIVID_KERNEL_VERSION | cut -d'-' -f3,4,5) /tmp/wily-modules
+        umount /mnt/wily
+        rm /tmp/wily-server-cloudimg-arm64.img
         cd $workspace
     fi
     qemu-img convert $filename $raw_imgfile
@@ -115,7 +115,7 @@ setup() {
     mount -t proc none $mountdir/proc
 
     if [ $YARD_IMG_ARCH = "arm64" ]; then
-        cp -r /tmp/vivid-modules/$(echo $VIVID_KERNEL_VERSION | cut -d'-' -f3,4,5) "$mountdir/lib/modules"
+        cp -r /tmp/wily-modules/$(echo $VIVID_KERNEL_VERSION | cut -d'-' -f3,4,5) "$mountdir/lib/modules"
         cp $(which "qemu-aarch64-static") "$mountdir/usr/bin"
     fi
     cp $cmd $mountdir/$(basename $cmd)
@@ -150,7 +150,7 @@ cleanup() {
     # designed to be idempotent
     mount | grep $mountdir/proc && umount $mountdir/proc
     mount | grep $mountdir && umount $mountdir
-    mount | grep "/mnt/vivid" && umount "/mnt/vivid"
+    mount | grep "/mnt/wily" && umount "/mnt/wily"
     if [ -f $raw_imgfile ]; then
         kpartx -dv $raw_imgfile || true
     fi
