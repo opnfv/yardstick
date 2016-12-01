@@ -40,8 +40,12 @@ def getResult(args):
         return common_utils.result_handler(0, [])
 
     def _finished():
-        query_sql = query_template % (measurement, task_id)
+        query_sql = query_template % (conf.TEST_CASE_PRE + measurement,
+                                      task_id)
         data = common_utils.translate_to_str(influx_utils.query(query_sql))
+        if len(data) == 0:
+            query_sql = query_template % (measurement, task_id)
+            data = common_utils.translate_to_str(influx_utils.query(query_sql))
 
         return common_utils.result_handler(1, data)
 
