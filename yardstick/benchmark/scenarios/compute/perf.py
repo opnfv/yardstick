@@ -57,8 +57,7 @@ class Perf(base.Scenario):
         self.client.wait(timeout=600)
 
         # copy script to host
-        self.client.run("cat > ~/perf_benchmark.sh",
-                        stdin=open(self.target_script, "rb"))
+        self.client._put_file_shell(self.target_script, '~/perf_benchmark.sh')
 
         self.setup_done = True
 

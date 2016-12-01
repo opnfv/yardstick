@@ -124,8 +124,7 @@ class Vsperf(base.Scenario):
         self.client.wait(timeout=1800)
 
         # copy script to host
-        self.client.run("cat > ~/vsperf.conf",
-                        stdin=open(self.vsperf_conf, "rb"))
+        self.client._put_file_shell(self.vsperf_conf, '~/vsperf.conf')
 
         # execute external setup script
         if self.setup_script:

@@ -87,12 +87,12 @@ class Lmbench(base.Scenario):
         self.client.wait(timeout=600)
 
         # copy scripts to host
-        self.client.run("cat > ~/lmbench_latency.sh",
-                        stdin=open(self.latency_target_script, 'rb'))
-        self.client.run("cat > ~/lmbench_bandwidth.sh",
-                        stdin=open(self.bandwidth_target_script, 'rb'))
-        self.client.run("cat > ~/lmbench_latency_for_cache.sh",
-                        stdin=open(self.latency_for_cache_script, 'rb'))
+        self.client._put_file_shell(
+            self.latency_target_script, '~/lmbench_latency.sh')
+        self.client._put_file_shell(
+            self.bandwidth_target_script, '~/lmbench_bandwidth.sh')
+        self.client._put_file_shell(
+            self.latency_for_cache_script, '~/lmbench_latency_for_cache.sh')
         self.setup_done = True
 
     def run(self, result):
