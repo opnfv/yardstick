@@ -8,7 +8,8 @@
 ##############################################################################
 import collections
 import logging
-import json
+
+from flask import jsonify
 
 from api.utils.daemonthread import DaemonThread
 from yardstick.cmd.cli import YardstickCLI
@@ -50,7 +51,7 @@ def error_handler(message):
         'status': 'error',
         'message': message
     }
-    return json.dumps(result)
+    return jsonify(result)
 
 
 def result_handler(status, data):
@@ -58,7 +59,7 @@ def result_handler(status, data):
         'status': status,
         'result': data
     }
-    return json.dumps(result)
+    return jsonify(result)
 
 
 class Url(object):
