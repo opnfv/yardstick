@@ -10,8 +10,16 @@ from yardstick.common.httpClient import HttpClient
 
 
 class EnvCommand(object):
+    '''
 
+        Set of commands to prepare environment
+    '''
     def do_influxdb(self, args):
         url = 'http://localhost:5000/yardstick/env/action'
         data = {'action': 'createInfluxDBContainer'}
+        HttpClient().post(url, data)
+
+    def do_prepare(self, args):
+        url = 'http://localhost:5000/yardstick/env/action'
+        data = {'action': 'prepareYardstickEnv'}
         HttpClient().post(url, data)

@@ -8,7 +8,11 @@
 ##############################################################################
 import logging
 import threading
+import subprocess
 import time
+import os
+import sys
+import errno
 
 from docker import Client
 
@@ -83,3 +87,94 @@ username = root
 password = root
 """
                 % api_conf.GATEWAY_IP)
+
+
+def prepareYardstickEnv(args):
+    thread = threading.Thread(target=_prepare_env_daemon)
+    thread.start()
+
+
+def _prepare_env_daemon():
+
+    installer_ip = os.getenv('INSTALLER_IP', 'undefined')
+    installer_type = os.getenv('INSTALLER_TYPE', 'undefined')
+
+    _check_variables(installer_ip, installer_type)
+
+    _create_directories()
+
+    rc_file = config.OPENSTACK_RC_FILE
+
+    _get_remote_rc_file(rc_file, installer_ip, installer_type)
+
+    _source_file(rc_file)
+
+    _append_external_network(rc_file)
+
+    _load_images()
+
+
+def _check_variables(installer_ip, installer_type):
+
+    if installer_ip == 'undefined':
+        sys.exit('Missing INSTALLER_IP')
+
+    if installer_type == 'undefined':
+        sys.exit('Missing INSTALLER_TYPE')
+    elif installer_type not in config.INSTALLERS:
+        sys.exit('INSTALLER_TYPE is not correct')
+
+
+def _create_directories():
+    yardstick_utils.makedirs(config.YARDSTICK_CONFIG_DIR)
+
+
+def _source_file(rc_file):
+    yardstick_utils.source_script(rc_file)
+
+
+def _get_remote_rc_file(rc_file, installer_ip, installer_type):
+
+    os_fetch_script = os.path.join(config.RELENG_DIR, config.OS_FETCH_SCRIPT)
+
+    try:
+        cmd = os_fetch_script + " -d %s -i %s -a %s" % (rc_file,
+                                                        installer_type,
+                                                        installer_ip)
+        p = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE)
+        p.communicate()[0]
+
+        if p.returncode != 0:
+            logger.debug('Failed to fetch credentials from installer')
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
+
+
+def _append_external_network(rc_file):
+    cmd = "neutron net-list|grep -v '+'|grep -v name|awk '{print $2}'"
+    network_ids = yardstick_utils.execute_command(cmd)
+
+    def ext_net_filter(network_id):
+        cmd = "neutron net-show %s|grep 'router:external' \
+            |grep -i 'true'" % network_id
+        filter_result = yardstick_utils.execute_command(cmd)
+        if len(filter_result) != 0:
+            return True
+        return False
+
+    ext_net_id = filter(ext_net_filter, network_ids)
+    if len(ext_net_id) != 0:
+        cmd = "neutron net-list|grep %s|awk '{print $4}'" % ext_net_id[0]
+        ext_net = yardstick_utils.execute_command(cmd)[0]
+
+        cmd = 'export EXTERNAL_NETWORK=%s' % ext_net
+        with open(rc_file, 'a') as f:
+            f.write(cmd + '\n')
+
+
+def _load_images():
+    cmd = 'cd %s && source %s' % ('/home/opnfv/repos/yardstick',
+                                  config.LOAD_IMAGES_SCRIPT)
+    subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True,
+                     executable='/bin/bash')

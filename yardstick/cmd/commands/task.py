@@ -23,6 +23,8 @@ from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
 from yardstick.common.task_template import TaskTemplate
 from yardstick.common.utils import cliargs
+from yardstick.common import constants as CONF
+from yardstick.common import utils
 
 output_file_default = "/tmp/yardstick.out"
 test_cases_dir_default = "tests/opnfv/test_cases/"
@@ -57,6 +59,8 @@ class TaskCommands(object):
         atexit.register(atexit_handler)
 
         self.task_id = kwargs.get('task_id', str(uuid.uuid4()))
+
+        check_environment()
 
         total_start_time = time.time()
         parser = TaskParser(args.inputfile[0])
@@ -483,3 +487,10 @@ def parse_task_args(src_name, args):
               % {"src": src_name, "src_type": type(kw)})
         raise TypeError()
     return kw
+
+
+def check_environment():
+    if os.path.exists(CONF.OPENSTACK_RC_FILE):
+        utils.source_script(CONF.OPENSTACK_RC_FILE)
+    else:
+        sys.exit('Environment variable not found')
