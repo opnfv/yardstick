@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_04d6df4f",
+        "filename": "api/views.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-01T02:42:43Z",
+      "side": 1,
+      "message": "isn\u0027t os.path.abspath(\u0027.\u0027) the same as os.getcwd() ?",
+      "revId": "cd57f1bab9c1fd321825c2315169e3e09f2ca81a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
