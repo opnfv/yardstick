@@ -60,8 +60,7 @@ class PktgenDPDKLatency(base.Scenario):
         self.server.wait(timeout=600)
 
         # copy script to host
-        self.server.run("cat > ~/testpmd_fwd.sh",
-                        stdin=open(self.testpmd_script, "rb"))
+        self.server._put_file_shell(self.testpmd_script, '~/testpmd_fwd.sh')
 
         LOG.info("user:%s, host:%s", host_user, host_ip)
         self.client = ssh.SSH(host_user, host_ip,
@@ -70,8 +69,8 @@ class PktgenDPDKLatency(base.Scenario):
         self.client.wait(timeout=600)
 
         # copy script to host
-        self.client.run("cat > ~/pktgen_dpdk.sh",
-                        stdin=open(self.pktgen_dpdk_script, "rb"))
+        self.client._put_file_shell(
+            self.pktgen_dpdk_script, '~/pktgen_dpdk.sh')
 
         self.setup_done = True
         self.testpmd_args = ''
@@ -153,7 +152,7 @@ class PktgenDPDKLatency(base.Scenario):
             latency_sum = 0
             for i in latency_list:
                 latency_sum += int(i)
-            avg_latency = latency_sum/len(latency_list)
+            avg_latency = latency_sum / len(latency_list)
 
         result.update({"avg_latency": avg_latency})
 
