@@ -49,8 +49,7 @@ class ComputeCapacity(base.Scenario):
         self.client.wait(timeout=600)
 
         # copy script to host
-        self.client.run("cat > ~/computecapacity.sh",
-                        stdin=open(self.target_script, 'rb'))
+        self.client._put_file_shell(self.target_script, '~/computecapacity.sh')
 
         self.setup_done = True
 

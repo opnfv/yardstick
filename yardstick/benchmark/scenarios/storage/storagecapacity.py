@@ -64,8 +64,7 @@ class StorageCapacity(base.Scenario):
         self.client.wait(timeout=600)
 
         # copy script to host
-        self.client.run("cat > ~/storagecapacity.sh",
-                        stdin=open(self.target_script, 'rb'))
+        self.client._put_file_shell(self.target_script, '~/storagecapacity.sh')
 
         self.setup_done = True
 
@@ -109,7 +108,7 @@ class StorageCapacity(base.Scenario):
         for i in range(len(device_name_arr)):
             r[device_name_arr[i]] = {"min_util": min_util_arr[i],
                                      "max_util": max_util_arr[i],
-                                     "avg_util": avg_util_arr[i]/count}
+                                     "avg_util": avg_util_arr[i] / count}
         return r
 
     def run(self, result):
