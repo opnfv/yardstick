@@ -17,12 +17,15 @@ import ipaddress
 import time
 import logging
 import uuid
+import errno
 from itertools import ifilter
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
 from yardstick.common.task_template import TaskTemplate
 from yardstick.common.utils import cliargs
+from yardstick.common.utils import source_env
+from yardstick.common import constants
 
 output_file_default = "/tmp/yardstick.out"
 test_cases_dir_default = "tests/opnfv/test_cases/"
@@ -57,6 +60,8 @@ class TaskCommands(object):
         atexit.register(atexit_handler)
 
         self.task_id = kwargs.get('task_id', str(uuid.uuid4()))
+
+        check_environment()
 
         total_start_time = time.time()
         parser = TaskParser(args.inputfile[0])
@@ -483,3 +488,14 @@ def parse_task_args(src_name, args):
               % {"src": src_name, "src_type": type(kw)})
         raise TypeError()
     return kw
+
+
+def check_environment():
+    auth_url = os.environ.get('OS_AUTH_URL', None)
+    if not auth_url:
+        try:
+            source_env(constants.OPENSTACK_RC_FILE)
+        except IOError as e:
+            if e.errno != errno.EEXIST:
+                raise
+            LOG.debug('OPENRC file not found')

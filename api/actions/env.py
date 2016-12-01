@@ -8,8 +8,11 @@
 ##############################################################################
 import logging
 import threading
+import subprocess
 import time
 import json
+import os
+import errno
 
 from docker import Client
 
@@ -18,6 +21,7 @@ from yardstick.common import utils as yardstick_utils
 from yardstick.common.httpClient import HttpClient
 from api import conf as api_conf
 from api.utils import influx
+from api.utils.common import result_handler
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +29,7 @@ logger = logging.getLogger(__name__)
 def createGrafanaContainer(args):
     thread = threading.Thread(target=_create_grafana)
     thread.start()
+    return result_handler('success', [])
 
 
 def _create_grafana():
@@ -91,6 +96,7 @@ def _check_image_exist(client, t):
 def createInfluxDBContainer(args):
     thread = threading.Thread(target=_create_influxdb)
     thread.start()
+    return result_handler('success', [])
 
 
 def _create_influxdb():
@@ -138,8 +144,8 @@ def _config_influxdb():
 
 
 def _config_output_file():
-    yardstick_utils.makedirs('/etc/yardstick')
-    with open('/etc/yardstick/yardstick.conf', 'w') as f:
+    yardstick_utils.makedirs(config.YARDSTICK_CONFIG_DIR)
+    with open(config.YARDSTICK_CONFIG_FILE, 'w') as f:
         f.write("""\
 [DEFAULT]
 debug = True
@@ -160,3 +166,90 @@ username = root
 password = root
 """
                 % api_conf.GATEWAY_IP)
+
+
+def prepareYardstickEnv(args):
+    thread = threading.Thread(target=_prepare_env_daemon)
+    thread.start()
+    return result_handler('success', [])
+
+
+def _prepare_env_daemon():
+
+    installer_ip = os.environ.get('INSTALLER_IP', 'undefined')
+    installer_type = os.environ.get('INSTALLER_TYPE', 'undefined')
+
+    _check_variables(installer_ip, installer_type)
+
+    _create_directories()
+
+    rc_file = config.OPENSTACK_RC_FILE
+
+    _get_remote_rc_file(rc_file, installer_ip, installer_type)
+
+    _source_file(rc_file)
+
+    _append_external_network(rc_file)
+
+    _load_images()
+
+
+def _check_variables(installer_ip, installer_type):
+
+    if installer_ip == 'undefined':
+        raise SystemExit('Missing INSTALLER_IP')
+
+    if installer_type == 'undefined':
+        raise SystemExit('Missing INSTALLER_TYPE')
+    elif installer_type not in config.INSTALLERS:
+        raise SystemExit('INSTALLER_TYPE is not correct')
+
+
+def _create_directories():
+    yardstick_utils.makedirs(config.YARDSTICK_CONFIG_DIR)
+
+
+def _source_file(rc_file):
+    yardstick_utils.source_env(rc_file)
+
+
+def _get_remote_rc_file(rc_file, installer_ip, installer_type):
+
+    os_fetch_script = os.path.join(config.RELENG_DIR, config.OS_FETCH_SCRIPT)
+
+    try:
+        cmd = [os_fetch_script, '-d', rc_file, '-i', installer_type,
+               '-a', installer_ip]
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+        p.communicate()[0]
+
+        if p.returncode != 0:
+            logger.debug('Failed to fetch credentials from installer')
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
+
+
+def _append_external_network(rc_file):
+    neutron_client = yardstick_utils.get_neutron_client()
+    networks = neutron_client.list_networks()['networks']
+    try:
+        ext_network = next(n['name'] for n in networks if n['router:external'])
+    except StopIteration:
+        logger.warning("Can't find external network")
+    else:
+        cmd = 'export EXTERNAL_NETWORK=%s' % ext_network
+        try:
+            with open(rc_file, 'a') as f:
+                f.write(cmd + '\n')
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise
+
+
+def _load_images():
+    cmd = [config.LOAD_IMAGES_SCRIPT]
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                         cwd=config.YARDSTICK_REPOS_DIR)
+    output = p.communicate()[0]
+    logger.debug('The result is: %s', output)
