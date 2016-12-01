@@ -1,0 +1,50 @@
+TestCases Actions
+
+This API may offer many actions, including runTestCase
+
+action: runTestCase
+This api offer the interface to run a test case in yardstick
+we will return a task_id for querying
+you can use the returned task_id to get the result data
+---
+tags:
+  - Release Action
+parameters:
+  - in: body
+    name: body
+    description: this is the input json dict
+    schema:
+      id: TestCaseActionModel
+      required:
+        - action
+        - args
+      properties:
+        action:
+          type: string
+          description: this is action for testcases
+          default: runTestCase
+        args:
+          schema:
+            id: TestCaseActionArgsModel
+            required:
+              - testcase
+            properties:
+              testcase:
+                type: string
+                description: this is the test case name
+                default: tc002
+              opts:
+                schema:
+                  id: TestCaseActionArgsOptsModel
+responses:
+  200:
+    description: A result json dict
+    schema:
+      id: result
+      properties:
+        status:
+          type: string
+          default: success
+        result:
+          type: string
+          description: task_id of this task

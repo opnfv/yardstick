@@ -82,3 +82,5 @@ flask-restful==0.3.5
 influxdb==3.0.0
 pyroute2==0.4.10
 docker-py==1.10.6
+flasgger==0.5.13
+flask-restful-swagger==0.19

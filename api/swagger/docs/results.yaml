@@ -1,0 +1,41 @@
+Query task result data
+
+This api offer the interface to get the result data via task_id
+We will return a result json dict
+---
+tags:
+  - Results
+parameters:
+  -
+    in: query
+    name: action
+    type: string
+    default: getResult
+    required: true
+  -
+    in: query
+    name: measurement
+    type: string
+    description: test case name
+    required: true
+  -
+    in: query
+    name: task_id
+    type: string
+    description: the task_id you get before
+    required: true
+responses:
+  200:
+    description: a result json dict
+    schema:
+      id: ResultModel
+      properties:
+        status:
+          type: string
+          description: the status of the certain task
+          default: success
+        result:
+          schema:
+            type: array
+            items:
+              type: object
