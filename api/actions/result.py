@@ -30,8 +30,6 @@ def getResult(args):
         message = 'measurement and task_id must be provided'
         return common_utils.error_handler(message)
 
-    measurement = conf.TEST_CASE_PRE + measurement
-
     query_template = "select * from %s where task_id='%s'"
     query_sql = query_template % ('tasklist', task_id)
     data = common_utils.translate_to_str(influx_utils.query(query_sql))
@@ -40,8 +38,12 @@ def getResult(args):
         return common_utils.result_handler(0, [])
 
     def _finished():
-        query_sql = query_template % (measurement, task_id)
+        query_sql = query_template % (conf.TEST_CASE_PRE + measurement,
+                                      task_id)
         data = common_utils.translate_to_str(influx_utils.query(query_sql))
+        if not data:
+            query_sql = query_template % (measurement, task_id)
+            data = common_utils.translate_to_str(influx_utils.query(query_sql))
 
         return common_utils.result_handler(1, data)
 
