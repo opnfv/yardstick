@@ -156,24 +156,26 @@ class YardstickCLI():
 
     def main(self, argv):    # pragma: no cover
         '''run the command line interface'''
-        self._register_cli_opt()
+        try:
+            self._register_cli_opt()
 
-        self._load_cli_config(argv)
+            self._load_cli_config(argv)
 
-        self._handle_global_opts()
+            self._handle_global_opts()
 
-        self._dispath_func_notask()
-
-        self._clear_config_opts()
+            self._dispath_func_notask()
+        finally:
+            self._clear_config_opts()
 
     def api(self, argv, task_id):    # pragma: no cover
         '''run the api interface'''
-        self._register_cli_opt()
+        try:
+            self._register_cli_opt()
 
-        self._load_cli_config(argv)
+            self._load_cli_config(argv)
 
-        self._handle_global_opts()
+            self._handle_global_opts()
 
-        self._dispath_func_task(task_id)
-
-        self._clear_config_opts()
+            self._dispath_func_task(task_id)
+        finally:
+            self._clear_config_opts()
