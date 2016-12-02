@@ -3,12 +3,13 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Ericsson AB and others.
 
-=========
+
 Yardstick
 =========
 
+
 Overview
-========
+--------
 
 Yardstick is a framework to test non functional characteristics of an NFV
 Infrastructure as perceived by an application.
@@ -19,36 +20,14 @@ the target cloud, for example OpenStack Heat.
 Yardstick measures a certain service performance but can also validate the
 service performance to be within a certain level of agreement.
 
-Yardstick is _not_ about testing OpenStack functionality (tempest) or
-benchmarking OpenStack APIs (rally).
+For more information on Yardstick project, please visit:
 
-Concepts
-========
+    https://wiki.opnfv.org/display/yardstick/Yardstick
+    http://artifacts.opnfv.org/yardstick/colorado/3.0/docs/userguide/index.html#document-01-introduction
 
-Benchmark - assess the relative performance of something
-
-Benchmark configuration file - describes a single test case in yaml format
-
-Context
-- The set of cloud resources used by a benchmark (scenario)
-– Is a simplified Heat template (context is converted into a Heat template)
-
-Data
-- Output produced by running a benchmark, written to a file in json format
-
-Runner
-- Logic that determines how the test is run
-– For example number of iterations, input value stepping, duration etc
-
-Scenario
-- Type/class of measurement for example Ping, Pktgen, (Iperf, LmBench, ...)
-
-SLA
-- Some limit to be verified (specific to scenario), for example max_latency
-– Associated action to automatically take: assert, monitor etc
 
 Architecture
-============
+------------
 
 Yardstick is a command line tool written in python inspired by Rally. Yardstick
 is intended to run on a computer with access and credentials to a cloud. The
@@ -61,35 +40,24 @@ serially or in parallel. Each runner runs in its own subprocess executing
 commands in a VM using SSH. The output of each command is written as json
 records to a file.
 
-Install
-=======
+For more information on Yardstick architecture, please read:
 
-TBD
+    http://artifacts.opnfv.org/yardstick/colorado/3.0/docs/userguide/index.html#document-03-architecture
 
-Run
-===
 
-TBD
+Installation
+------------
 
-Custom Image
-============
+Yardstick supports installation on Ubuntu 14.04 or via a Docker image.
 
-pktgen test requires a ubuntu server cloud image
-TBD
+To learn how to install Yardstick, consult the documentation available online
+at:
 
-Development Environment
-=======================
+    http://artifacts.opnfv.org/yardstick/colorado/3.0/docs/userguide/index.html#document-07-installation
 
-Example setup known to work for development and test:
-- Development environment: Ubuntu14.04, eclipse, virtual environment
-- Cloud: Mirantis OpenStack 6.0 deployed using Virtualbox
 
-Install dependencies:
-$ sudo apt-get install python-virtualenv python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev
+Developers
+----------
+For information on how to contribute to Yardstick, please visit:
 
-Create a virtual environment:
-$ virtualenv ~/yardstick_venv
-$ source ~/yardstick_venv/bin/activate
-$ easy_install -U setuptools
-$ python setup.py develop
-
+    https://wiki.opnfv.org/display/yardstick/Get+started+as+a+Yardstick+developer
