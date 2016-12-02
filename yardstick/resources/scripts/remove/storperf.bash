@@ -15,6 +15,6 @@ set -e
 
 docker stop storperf-yardstick
 docker rm -f storperf-yardstick
-docker rmi opnfv/storperf
+docker rmi opnfv/storperf:stable
 
 rm -rf /tmp/storperf-yardstick
