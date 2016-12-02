@@ -85,23 +85,43 @@ class PluginCommands(object):
 
         deployment_user = deployment.get("user")
         deployment_ssh_port = deployment.get("ssh_port", ssh.DEFAULT_PORT)
-        deployment_ip = deployment.get("ip")
-        deployment_password = deployment.get("password")
+        deployment_ip = deployment.get("ip", None)
+        deployment_password = deployment.get("password", None)
+        deployment_key_filename = deployment.get("key_filename",
+                                                 "/root/.ssh/id_rsa")
 
         if deployment_ip == "local":
             installer_ip = os.environ.get("INSTALLER_IP", None)
 
-            LOG.info("user:%s, host:%s", deployment_user, installer_ip)
-            self.client = ssh.SSH(deployment_user, installer_ip,
-                                  password=deployment_password,
-                                  port=deployment_ssh_port)
-            self.client.wait(timeout=600)
+            if deployment_password is not None:
+                LOG.info("Log in via pw, user:%s, host:%s", deployment_user,
+                         installer_ip)
+                self.client = ssh.SSH(deployment_user, installer_ip,
+                                      password=deployment_password,
+                                      port=deployment_ssh_port)
+                self.client.wait(timeout=600)
+            else:
+                LOG.info("Log in via key, user:%s, host:%s", deployment_user,
+                         installer_ip)
+                self.client = ssh.SSH(deployment_user, installer_ip,
+                                      key_filename=deployment_key_filename,
+                                      port=deployment_ssh_port)
+                self.client.wait(timeout=600)
         else:
-            LOG.info("user:%s, host:%s", deployment_user, deployment_ip)
-            self.client = ssh.SSH(deployment_user, deployment_ip,
-                                  password=deployment_password,
-                                  port=deployment_ssh_port)
-            self.client.wait(timeout=600)
+            if deployment_password is not None:
+                LOG.info("Log in via pw, user:%s, host:%s", deployment_user,
+                         deployment_ip)
+                self.client = ssh.SSH(deployment_user, deployment_ip,
+                                      password=deployment_password,
+                                      port=deployment_ssh_port)
+                self.client.wait(timeout=600)
+            else:
+                LOG.info("Log in via key, user:%s, host:%s", deployment_user,
+                         deployment_ip)
+                self.client = ssh.SSH(deployment_user, deployment_ip,
+                                      key_filename=deployment_key_filename,
+                                      port=deployment_ssh_port)
+                self.client.wait(timeout=600)
 
         # copy script to host
         cmd = "cat > ~/%s.sh" % plugin_name
@@ -117,23 +137,43 @@ class PluginCommands(object):
 
         deployment_user = deployment.get("user")
         deployment_ssh_port = deployment.get("ssh_port", ssh.DEFAULT_PORT)
-        deployment_ip = deployment.get("ip")
-        deployment_password = deployment.get("password")
+        deployment_ip = deployment.get("ip", None)
+        deployment_password = deployment.get("password", None)
+        deployment_key_filename = deployment.get("key_filename",
+                                                 "/root/.ssh/id_rsa")
 
         if deployment_ip == "local":
             installer_ip = os.environ.get("INSTALLER_IP", None)
 
-            LOG.info("user:%s, host:%s", deployment_user, installer_ip)
-            self.client = ssh.SSH(deployment_user, installer_ip,
-                                  password=deployment_password,
-                                  port=deployment_ssh_port)
-            self.client.wait(timeout=600)
+            if deployment_password is not None:
+                LOG.info("Log in via pw, user:%s, host:%s", deployment_user,
+                         installer_ip)
+                self.client = ssh.SSH(deployment_user, installer_ip,
+                                      password=deployment_password,
+                                      port=deployment_ssh_port)
+                self.client.wait(timeout=600)
+            else:
+                LOG.info("Log in via key, user:%s, host:%s", deployment_user,
+                         installer_ip)
+                self.client = ssh.SSH(deployment_user, installer_ip,
+                                      key_filename=deployment_key_filename,
+                                      port=deployment_ssh_port)
+                self.client.wait(timeout=600)
         else:
-            LOG.info("user:%s, host:%s", deployment_user, deployment_ip)
-            self.client = ssh.SSH(deployment_user, deployment_ip,
-                                  password=deployment_password,
-                                  port=deployment_ssh_port)
-            self.client.wait(timeout=600)
+            if deployment_password is not None:
+                LOG.info("Log in via pw, user:%s, host:%s", deployment_user,
+                         deployment_ip)
+                self.client = ssh.SSH(deployment_user, deployment_ip,
+                                      password=deployment_password,
+                                      port=deployment_ssh_port)
+                self.client.wait(timeout=600)
+            else:
+                LOG.info("Log in via key, user:%s, host:%s", deployment_user,
+                         deployment_ip)
+                self.client = ssh.SSH(deployment_user, deployment_ip,
+                                      key_filename=deployment_key_filename,
+                                      port=deployment_ssh_port)
+                self.client.wait(timeout=600)
 
         # copy script to host
         cmd = "cat > ~/%s.sh" % plugin_name
