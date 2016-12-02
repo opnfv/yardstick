@@ -15,3 +15,8 @@ class EnvCommand(object):
         url = 'http://localhost:5000/yardstick/env/action'
         data = {'action': 'createInfluxDBContainer'}
         HttpClient().post(url, data)
+
+    def do_grafana(self, args):
+        url = 'http://localhost:5000/yardstick/env/action'
+        data = {'action': 'createGrafanaContainer'}
+        HttpClient().post(url, data)
