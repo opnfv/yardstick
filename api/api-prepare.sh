@@ -24,14 +24,26 @@ server {
     }
 }
 EOF
+echo "daemon off;" >> /etc/nginx/nginx.conf
 fi
 
 # nginx service start when boot
-cat << EOF >> /root/.bashrc
+supervisor_config='/etc/supervisor/conf.d/yardstick.conf'
 
-nginx_status=\$(service nginx status | grep not)
-if [ -n "\${nginx_status}" ];then
-    service nginx restart
-    uwsgi -i /home/opnfv/repos/yardstick/api/yardstick.ini
-fi
+if [[ ! -e "${supervisor_config}" ]];then
+    cat << EOF > "${supervisor_config}"
+[supervisord]
+nodaemon = true
+
+[program:yardstick_nginx]
+user = root
+command = service nginx restart
+autorestart = true
+
+[program:yardstick_uwsgi]
+user = root
+directory = /home/opnfv/repos/yardstick/api
+command = uwsgi -i yardstick.ini
+autorestart = true
 EOF
+fi
