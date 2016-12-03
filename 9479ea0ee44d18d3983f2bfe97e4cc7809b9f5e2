@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_a81799ec",
+        "filename": "api/actions/env.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-03T20:48:19Z",
+      "side": 1,
+      "message": "can we use os.environ.get()?  \n\nusing os.environ as a dict keeps things more consistent because we can use all the regular dict methods.",
+      "revId": "9479ea0ee44d18d3983f2bfe97e4cc7809b9f5e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_48d4f51f",
+        "filename": "api/actions/env.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-03T20:48:19Z",
+      "side": 1,
+      "message": "it is a minor thing, but I personally prefer raising SystemExit().\n\nall sys.exit() does is raise SystemExit.  raising SystemExit makes people aware that we are using the exception handling system to exit the program and all the try/finally blocks will trigger.\n\nhttps://docs.python.org/2/library/sys.html#sys.exit",
+      "revId": "9479ea0ee44d18d3983f2bfe97e4cc7809b9f5e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_68d9b156",
+        "filename": "api/actions/env.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-03T20:48:19Z",
+      "side": 1,
+      "message": "never use a shell unless you have to.\n\nalways use the execvp() form which takes a list of strings.  This avoids shell command injections and shell quoting issues.",
+      "revId": "9479ea0ee44d18d3983f2bfe97e4cc7809b9f5e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_c8e78511",
+        "filename": "api/actions/env.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-03T20:48:19Z",
+      "side": 1,
+      "message": "why are we parsing neutron output as a table, doesn\u0027t neutron supports json and yaml output.\n\nneutron net-list --help\n\n output formatters:\n  output formatter options\n\n  -f {json,shell,table,value,yaml}, --format {json,shell,table,value,yaml}\n                        the output format, defaults to table\n  -c COLUMN, --column COLUMN\n                        specify the column(s) to include, can be repeated\n\n\nCan we try using the json output?\n\n    cmd \u003d [\"neutron\", \"net-list\", \"-f\", \"json\"]\n    net_json, _ \u003d Popen(cmd, stdout\u003dPIPE, stderr\u003dPIPE).communicate()\n    net_list \u003d json.loads(net_json)",
+      "revId": "9479ea0ee44d18d3983f2bfe97e4cc7809b9f5e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_e8e4c10e",
+        "filename": "api/actions/env.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-03T20:48:19Z",
+      "side": 1,
+      "message": "Isn\u0027t there a pure-python openstack client.\n\nshade seems to be popular. \n\nhttps://pypi.python.org/pypi/shade\n\nhttp://docs.openstack.org/infra/shade/",
+      "revId": "9479ea0ee44d18d3983f2bfe97e4cc7809b9f5e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_08deed3f",
+        "filename": "api/actions/env.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-03T20:48:19Z",
+      "side": 1,
+      "message": "it is better and safer to avoid the shell and parse the output in python.\n\nalso, awk already does grep (and in some case awk is faster than grep).  Use /regexp/ to match lines with awk.  awk \u0027/%s/ { print $4 }\u0027\n\nsee https://swtch.com/~rsc/regexp/regexp1.html and the graph   https://swtch.com/~rsc/regexp/grep1p.png\n\nbut anyway, please do the parsing in python.\n\nUsually you can use multline regep then you don\u0027t have to split lines.\n\n re.search(\"%s.*$\", re.M)",
+      "revId": "9479ea0ee44d18d3983f2bfe97e4cc7809b9f5e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_28e3a908",
+        "filename": "api/actions/env.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-03T20:48:19Z",
+      "side": 1,
+      "message": "don\u0027t use cd in the shell command.  Use cwd from Popen.\n\nuse Popen(cwd\u003dconfig.RELENG_DIR)\n\n\u003e If cwd is not None, the child",
+      "revId": "9479ea0ee44d18d3983f2bfe97e4cc7809b9f5e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_881add15",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-03T20:48:19Z",
+      "side": 1,
+      "message": "please check subprocess lib first.\n\nthis looks the same as subprocess.check_output.\n\nBut for Python 2 we need to reset SIGPIPE.\nSee  https://bugs.python.org/issue1652\n\nFor jenkins_checker I used a modified version of Popen that reset sigpipe.  \nSee https://gerrit.opnfv.org/gerrit/#/c/25001/3/jenkins_checker.py@98\n\nBut really we should be using the Python 3 subprocess backport.\n\nhttps://pypi.python.org/pypi/subprocess32/",
+      "revId": "9479ea0ee44d18d3983f2bfe97e4cc7809b9f5e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
