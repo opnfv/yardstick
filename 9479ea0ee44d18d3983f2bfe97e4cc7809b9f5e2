@@ -230,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_08834d05",
+        "filename": "api/actions/env.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-12-04T05:14:54Z",
+      "side": 1,
+      "message": "I will change all to pure-python openstack client.",
+      "parentUuid": "5ac10518_68c0d150",
+      "revId": "9479ea0ee44d18d3983f2bfe97e4cc7809b9f5e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_08deed3f",
         "filename": "api/actions/env.py",
         "patchSetId": 5
