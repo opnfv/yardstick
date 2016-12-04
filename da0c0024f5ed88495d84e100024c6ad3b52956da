@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_08b10de1",
+        "filename": "api/actions/env.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-04T08:54:35Z",
+      "side": 1,
+      "message": "don\u0027t need to build a list, can use generator expression and next()\n\n\n try:\n    ext_network \u003d next(n for n in networks if n[\u0027router:external\u0027])\n except StopIteration:\n    logging.warning(\"can\u0027t find external network\")\n else:\n    cmd \u003d \u0027export EXTERNAL_NETWORK\u003d\"%s\"\u0027 % ext_network[\u0027name\u0027]\n  \n...\n\nfilter() is usually replaced with generator expressions with if clauses these days.  \n\nOr ifilter() from itertools.",
+      "revId": "da0c0024f5ed88495d84e100024c6ad3b52956da",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_c8ca254f",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-04T08:54:35Z",
+      "side": 1,
+      "message": "can we use log.debug() instead?",
+      "revId": "da0c0024f5ed88495d84e100024c6ad3b52956da",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_28b649da",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-04T08:54:35Z",
+      "side": 1,
+      "message": "can we use splitlines()?\n\notherwise os.linesep.",
+      "revId": "da0c0024f5ed88495d84e100024c6ad3b52956da",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_a8c1d92f",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-04T08:54:35Z",
+      "side": 1,
+      "message": "quote paths to prevent wordsplit\n\n \u0027. \"%s\"; env\u0027 % env_file\n\nI assume we have to eval because of dynamic vars.  Can we just cat the file?",
+      "revId": "da0c0024f5ed88495d84e100024c6ad3b52956da",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_88c41d41",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-04T08:54:35Z",
+      "side": 1,
+      "message": "dangerous.  could override $HOME or $PATH for root.\n\nneeds whitelist,  OS_* or something.",
+      "revId": "da0c0024f5ed88495d84e100024c6ad3b52956da",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_e8c7e143",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-04T08:54:35Z",
+      "side": 1,
+      "message": "None is the default default, we can just use\n\n os.environ.get(\u0027OS_AUTH_URL\u0027)",
+      "revId": "da0c0024f5ed88495d84e100024c6ad3b52956da",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
