@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_88dbbd1a",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-12-04T09:10:34Z",
+      "side": 1,
+      "message": "splitlines() doesn\u0027t work. i can try to use os.linesep",
+      "parentUuid": "5ac10518_28b649da",
+      "revId": "da0c0024f5ed88495d84e100024c6ad3b52956da",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_a8c1d92f",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 7
@@ -64,6 +82,24 @@
       "writtenOn": "2016-12-04T08:54:35Z",
       "side": 1,
       "message": "quote paths to prevent wordsplit\n\n \u0027. \"%s\"; env\u0027 % env_file\n\nI assume we have to eval because of dynamic vars.  Can we just cat the file?",
+      "revId": "da0c0024f5ed88495d84e100024c6ad3b52956da",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_a8d8f91d",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-12-04T09:10:34Z",
+      "side": 1,
+      "message": "we need to update some environment vars. but i don\u0027t know how except this method. do you have any good suggestions?",
+      "parentUuid": "5ac10518_a8c1d92f",
       "revId": "da0c0024f5ed88495d84e100024c6ad3b52956da",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
