@@ -12,11 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import print_function
+
+from __future__ import absolute_import
+import os
 import unittest
 import logging
 import experimental_framework.common as common
 
-from experimental_framework import heat_manager
+from experimental_framework import heat_manager, APEX_LAKE_ROOT
 import mock
 
 __author__ = 'gpetralx'
@@ -27,6 +31,7 @@ def get_mock_heat(version, *args, **kwargs):
 
 
 class MockStacks(object):
+
     def __init__(self, stacks):
         self.stacks = stacks
 
@@ -34,7 +39,7 @@ class MockStacks(object):
         list_name = list()
         for stack in self.stacks:
             list_name.append(stack.stack_name)
-        print list_name
+        print(list_name)
         return self.stacks
 
     def validate(self, template=None):
@@ -47,11 +52,12 @@ class MockStacks(object):
 
     def create(self, stack_name=None, files=None, template=None,
                parameters=None):
-        print stack_name
+        print(stack_name)
         self.stacks.append(MockStack(stack_name))
 
 
 class MockStacks_2(object):
+
     def __init__(self, stacks):
         self.stacks = stacks
 
@@ -60,6 +66,7 @@ class MockStacks_2(object):
 
 
 class MockStack(object):
+
     def __init__(self, stack_name):
         self.name = stack_name
 
@@ -80,6 +87,7 @@ class MockStack(object):
 
 
 class MockHeat(object):
+
     def __init__(self):
         stacks = [MockStack('stack_1'), MockStack('stack_2')]
         self.stacks_list = MockStacks(stacks)
@@ -90,18 +98,21 @@ class MockHeat(object):
 
 
 class MockHeat_2(MockHeat):
+
     def __init__(self):
         stacks = [MockStack('stack_1'), MockStack('stack_2')]
         self.stacks_list = MockStacks_2(stacks)
 
 
 class HeatManagerMock(heat_manager.HeatManager):
+
     def init_heat(self):
         if self.heat is None:
             self.heat = MockHeat()
 
 
 class HeatManagerMock_2(heat_manager.HeatManager):
+
     def init_heat(self):
         if self.heat is None:
             self.heat = MockHeat_2()
@@ -134,8 +145,9 @@ class TestHeatManager(unittest.TestCase):
                          self.heat_manager.check_stack_status('stack_x'))
 
     def test_validate_template_for_success(self):
-        template_file = \
-            'tests/data/test_templates/VTC_base_single_vm_wait_1.yaml'
+        template_file = os.path.join(
+            APEX_LAKE_ROOT,
+            'tests/data/test_templates/VTC_base_single_vm_wait_1.yaml')
         with self.assertRaises(ValueError):
             self.heat_manager.validate_heat_template(template_file)
 
@@ -180,11 +192,13 @@ class TestHeatManager_2(unittest.TestCase):
 
 
 class ServiceCatalog():
+
     def url_for(self, service_type):
         return 'http://heat_url'
 
 
 class KeystoneMock(object):
+
     @property
     def auth_token(self):
         return 'token'
@@ -193,6 +207,7 @@ class KeystoneMock(object):
 
 
 class TestHeatInit(unittest.TestCase):
+
     def setUp(self):
         credentials = dict()
         credentials['ip_controller'] = '1.1.1.1'
@@ -216,5 +231,5 @@ class TestHeatInit(unittest.TestCase):
                                                 tenant_name='project',
                                                 password='password',
                                                 auth_url='auth_uri')
-        heat_client.assert_called_once_with('1',  endpoint='http://heat_url',
+        heat_client.assert_called_once_with('1', endpoint='http://heat_url',
                                             token='token')

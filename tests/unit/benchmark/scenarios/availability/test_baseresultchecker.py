@@ -12,20 +12,22 @@
 # Unittest for yardstick.benchmark.scenarios.availability.result_checker
 # .baseresultchecker
 
+from __future__ import absolute_import
 import mock
 import unittest
 
-from yardstick.benchmark.scenarios.availability.result_checker import baseresultchecker
+from yardstick.benchmark.scenarios.availability.result_checker import \
+    baseresultchecker
 
 
 @mock.patch('yardstick.benchmark.scenarios.availability.result_checker'
-    '.baseresultchecker.BaseResultChecker')
+            '.baseresultchecker.BaseResultChecker')
 class ResultCheckerMgrTestCase(unittest.TestCase):
 
     def setUp(self):
         config = {
             'checker_type': 'general-result-checker',
-            'key' : 'process-checker'
+            'key': 'process-checker'
         }
 
         self.checker_configs = []
@@ -52,6 +54,7 @@ class BaseResultCheckerTestCase(unittest.TestCase):
 
     class ResultCheckeSimple(baseresultchecker.BaseResultChecker):
         __result_checker__type__ = "ResultCheckeForTest"
+
         def setup(self):
             self.success = False
 
@@ -61,7 +64,7 @@ class BaseResultCheckerTestCase(unittest.TestCase):
     def setUp(self):
         self.checker_cfg = {
             'checker_type': 'general-result-checker',
-            'key' : 'process-checker'
+            'key': 'process-checker'
         }
 
     def test_baseresultchecker_setup_verify_successful(self):
@@ -81,8 +84,10 @@ class BaseResultCheckerTestCase(unittest.TestCase):
         path = ins.get_script_fullpath("test.bash")
 
     def test_get_resultchecker_cls_successful(self):
-        baseresultchecker.BaseResultChecker.get_resultchecker_cls("ResultCheckeForTest")
+        baseresultchecker.BaseResultChecker.get_resultchecker_cls(
+            "ResultCheckeForTest")
 
     def test_get_resultchecker_cls_fail(self):
         with self.assertRaises(RuntimeError):
-            baseresultchecker.BaseResultChecker.get_resultchecker_cls("ResultCheckeNotExist")
+            baseresultchecker.BaseResultChecker.get_resultchecker_cls(
+                "ResultCheckeNotExist")

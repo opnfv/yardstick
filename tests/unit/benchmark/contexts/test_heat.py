@@ -11,10 +11,10 @@
 
 # Unittest for yardstick.benchmark.contexts.heat
 
+from __future__ import absolute_import
 import mock
 import unittest
 
-from yardstick.benchmark.contexts import model
 from yardstick.benchmark.contexts import heat
 
 
@@ -66,7 +66,8 @@ class HeatContextTestCase(unittest.TestCase):
             'bar', self.test_context, networks['bar'])
         self.assertTrue(len(self.test_context.networks) == 1)
 
-        mock_server.assert_called_with('baz', self.test_context, servers['baz'])
+        mock_server.assert_called_with('baz', self.test_context,
+                                       servers['baz'])
         self.assertTrue(len(self.test_context.servers) == 1)
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')

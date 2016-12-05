@@ -16,6 +16,7 @@
 # yardstick comment: this is a modified copy of
 # ceilometer/ceilometer/dispatcher/http.py
 
+from __future__ import absolute_import
 import os
 import json
 import logging

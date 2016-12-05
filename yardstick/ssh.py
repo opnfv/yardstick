@@ -62,6 +62,7 @@ Eventlet:
     sshclient = eventlet.import_patched("yardstick.ssh")
 
 """
+from __future__ import absolute_import
 import os
 import select
 import socket

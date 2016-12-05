@@ -6,6 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
 import unittest
 import mock
 import uuid
@@ -13,12 +14,17 @@ import datetime
 
 from api.utils import influx
 
+import six.moves.configparser as ConfigParser
+
 
 class GetDataDbClientTestCase(unittest.TestCase):
 
     @mock.patch('api.utils.influx.ConfigParser')
     def test_get_data_db_client_dispatcher_not_influxdb(self, mock_parser):
         mock_parser.ConfigParser().get.return_value = 'file'
+        # reset exception to avoid
+        # TypeError: catching classes that do not inherit from BaseException
+        mock_parser.NoOptionError = ConfigParser.NoOptionError
         try:
             influx.get_data_db_client()
         except Exception as e:
@@ -67,6 +73,9 @@ class QueryTestCase(unittest.TestCase):
     @mock.patch('api.utils.influx.ConfigParser')
     def test_query_dispatcher_not_influxdb(self, mock_parser):
         mock_parser.ConfigParser().get.return_value = 'file'
+        # reset exception to avoid
+        # TypeError: catching classes that do not inherit from BaseException
+        mock_parser.NoOptionError = ConfigParser.NoOptionError
         try:
             sql = 'select * form tasklist'
             influx.query(sql)

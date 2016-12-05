@@ -7,6 +7,8 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+from __future__ import print_function
+from __future__ import absolute_import
 import os
 import sys
 import pkg_resources
@@ -79,16 +81,16 @@ class HeatContext(Context):
             self.servers.append(server)
             self._server_map[server.dn] = server
 
-        print "Generating RSA host key ..."
+        print("Generating RSA host key ...")
         rsa_key = paramiko.RSAKey.generate(bits=2048, progress_func=None)
-        print "Writing yardstick_key ..."
+        print("Writing yardstick_key ...")
         rsa_key.write_private_key_file(self.key_filename)
-        print "Writing yardstick_key.pub ..."
+        print("Writing yardstick_key.pub ...")
         open(self.key_filename + ".pub", "w").write("%s %s\n" %
                                                     (rsa_key.get_name(),
                                                      rsa_key.get_base64()))
         del rsa_key
-        print "... done!"
+        print("... done!")
 
     @property
     def image(self):
@@ -192,7 +194,7 @@ class HeatContext(Context):
 
     def deploy(self):
         '''deploys template into a stack using cloud'''
-        print "Deploying context '%s'" % self.name
+        print("Deploying context '%s'" % self.name)
 
         heat_template = HeatTemplate(self.name, self.template_file,
                                      self.heat_parameters)
@@ -213,29 +215,29 @@ class HeatContext(Context):
         for server in self.servers:
             if len(server.ports) > 0:
                 # TODO(hafe) can only handle one internal network for now
-                port = server.ports.values()[0]
+                port = list(server.ports.values())[0]
                 server.private_ip = self.stack.outputs[port["stack_name"]]
 
             if server.floating_ip:
                 server.public_ip = \
                     self.stack.outputs[server.floating_ip["stack_name"]]
 
-        print "Context '%s' deployed" % self.name
+        print("Context '%s' deployed" % self.name)
 
     def undeploy(self):
         '''undeploys stack from cloud'''
         if self.stack:
-            print "Undeploying context '%s'" % self.name
+            print("Undeploying context '%s'" % self.name)
             self.stack.delete()
             self.stack = None
-            print "Context '%s' undeployed" % self.name
+            print("Context '%s' undeployed" % self.name)
 
         if os.path.exists(self.key_filename):
             try:
                 os.remove(self.key_filename)
                 os.remove(self.key_filename + ".pub")
-            except OSError, e:
-                print ("Error: %s - %s." % (e.key_filename, e.strerror))
+            except OSError as e:
+                print(("Error: %s - %s." % (e.key_filename, e.strerror)))
 
     def _get_server(self, attr_name):
         '''lookup server info by name from context

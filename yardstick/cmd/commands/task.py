@@ -8,10 +8,12 @@
 ##############################################################################
 
 """ Handler for yardstick command 'task' """
+from __future__ import print_function
+
+from __future__ import absolute_import
 from yardstick.benchmark.core.task import Task
 from yardstick.common.utils import cliargs
 from yardstick.cmd.commands import change_osloobj_to_paras
-
 
 output_file_default = "/tmp/yardstick.out"
 

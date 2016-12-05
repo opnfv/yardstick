@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.scenarios.networking.iperf3.Iperf
 
+from __future__ import absolute_import
 import mock
 import unittest
 

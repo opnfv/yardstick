@@ -12,9 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import print_function
+from __future__ import absolute_import
 import os
 import re
-import ConfigParser
+import six.moves.configparser
 import logging
 import fileinput
 from experimental_framework.constants import conf_file_sections as cf
@@ -70,7 +72,7 @@ def init(api=False):
     init_conf_file(api)
     init_log()
     init_general_vars(api)
-    if len(CONF_FILE.get_variable_list(cf.CFS_PKTGEN)) > 0:
+    if CONF_FILE.get_variable_list(cf.CFS_PKTGEN):
         init_pktgen()
 
 
@@ -129,7 +131,7 @@ def init_general_vars(api=False):
 
     RESULT_DIR = "/tmp/apexlake/results/"
     if not os.path.isdir(RESULT_DIR):
-        os.mkdir(RESULT_DIR)
+        os.makedirs(RESULT_DIR)
 
     if cf.CFSO_RELEASE in CONF_FILE.get_variable_list(cf.CFS_OPENSTACK):
         RELEASE = CONF_FILE.get_variable(cf.CFS_OPENSTACK, cf.CFSO_RELEASE)
@@ -311,7 +313,7 @@ class ConfigurationFile:
         # config_file = BASE_DIR + config_file
         InputValidation.validate_file_exist(
             config_file, 'The provided configuration file does not exist')
-        self.config = ConfigParser.ConfigParser()
+        self.config = six.moves.configparser.ConfigParser()
         self.config.read(config_file)
         for section in sections:
             setattr(
@@ -457,7 +459,7 @@ def replace_in_file(file, text_to_search, text_to_replace):
     message = "The file does not exist"
     InputValidation.validate_file_exist(file, message)
     for line in fileinput.input(file, inplace=True):
-        print(line.replace(text_to_search, text_to_replace).rstrip())
+        print((line.replace(text_to_search, text_to_replace).rstrip()))
 
 
 # ------------------------------------------------------
@@ -610,7 +612,7 @@ class InputValidation(object):
         missing = [
             credential_key
             for credential_key in credential_keys
-            if credential_key not in credentials.keys()
+            if credential_key not in list(credentials.keys())
         ]
         if len(missing) == 0:
             return True

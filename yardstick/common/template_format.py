@@ -12,6 +12,7 @@
 
 # yardstick: this file is copied from python-heatclient and slightly modified
 
+from __future__ import absolute_import
 import json
 import yaml
 

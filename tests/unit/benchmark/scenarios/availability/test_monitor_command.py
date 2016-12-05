@@ -9,14 +9,19 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.scenarios.availability.monitor.monitor_command
+# Unittest for
+# yardstick.benchmark.scenarios.availability.monitor.monitor_command
 
+from __future__ import absolute_import
 import mock
 import unittest
 
 from yardstick.benchmark.scenarios.availability.monitor import monitor_command
 
-@mock.patch('yardstick.benchmark.scenarios.availability.monitor.monitor_command.subprocess')
+
+@mock.patch(
+    'yardstick.benchmark.scenarios.availability.monitor.monitor_command'
+    '.subprocess')
 class ExecuteShellTestCase(unittest.TestCase):
 
     def test__fun_execute_shell_command_successful(self, mock_subprocess):
@@ -25,13 +30,17 @@ class ExecuteShellTestCase(unittest.TestCase):
         exitcode, output = monitor_command._execute_shell_command(cmd)
         self.assertEqual(exitcode, 0)
 
-    def test__fun_execute_shell_command_fail_cmd_exception(self, mock_subprocess):
+    def test__fun_execute_shell_command_fail_cmd_exception(self,
+                                                           mock_subprocess):
         cmd = "env"
         mock_subprocess.check_output.side_effect = RuntimeError
         exitcode, output = monitor_command._execute_shell_command(cmd)
         self.assertEqual(exitcode, -1)
 
-@mock.patch('yardstick.benchmark.scenarios.availability.monitor.monitor_command.subprocess')
+
+@mock.patch(
+    'yardstick.benchmark.scenarios.availability.monitor.monitor_command'
+    '.subprocess')
 class MonitorOpenstackCmdTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -47,7 +56,6 @@ class MonitorOpenstackCmdTestCase(unittest.TestCase):
             'monitor_time': 1,
             'sla': {'max_outage_time': 5}
         }
-
 
     def test__monitor_command_monitor_func_successful(self, mock_subprocess):
 
@@ -69,11 +77,15 @@ class MonitorOpenstackCmdTestCase(unittest.TestCase):
         instance._result = {"outage_time": 10}
         instance.verify_SLA()
 
-    @mock.patch('yardstick.benchmark.scenarios.availability.monitor.monitor_command.ssh')
-    def test__monitor_command_ssh_monitor_successful(self, mock_ssh, mock_subprocess):
+    @mock.patch(
+        'yardstick.benchmark.scenarios.availability.monitor.monitor_command'
+        '.ssh')
+    def test__monitor_command_ssh_monitor_successful(self, mock_ssh,
+                                                     mock_subprocess):
 
         self.config["host"] = "node1"
-        instance = monitor_command.MonitorOpenstackCmd(self.config, self.context)
+        instance = monitor_command.MonitorOpenstackCmd(
+            self.config, self.context)
         instance.setup()
         mock_ssh.SSH().execute.return_value = (0, "0", '')
         ret = instance.monitor_func()

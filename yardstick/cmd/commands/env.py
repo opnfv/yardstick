@@ -6,6 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
 import logging
 
 from yardstick.common.httpClient import HttpClient
@@ -20,6 +21,7 @@ class EnvCommand(object):
 
         Set of commands to prepare environment
     '''
+
     def do_influxdb(self, args):
         url = constants.YARDSTICK_ENV_ACTION_API
         data = {'action': 'createInfluxDBContainer'}

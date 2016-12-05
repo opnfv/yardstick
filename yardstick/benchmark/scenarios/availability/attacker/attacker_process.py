@@ -6,10 +6,12 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
 import logging
 
-from baseattacker import BaseAttacker
 import yardstick.ssh as ssh
+from yardstick.benchmark.scenarios.availability.attacker.baseattacker import \
+    BaseAttacker
 
 LOG = logging.getLogger(__name__)
 

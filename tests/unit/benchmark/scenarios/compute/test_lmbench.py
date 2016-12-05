@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.scenarios.compute.lmbench.Lmbench
 
+from __future__ import absolute_import
 import mock
 import unittest
 import json
@@ -163,7 +164,7 @@ class LmbenchTestCase(unittest.TestCase):
 
         options = {
             "test_type": "latency_for_cache",
-            "repetition":1,
+            "repetition": 1,
             "warmup": 0
         }
         args = {

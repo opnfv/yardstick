@@ -11,10 +11,11 @@
 
 # Unittest for yardstick.benchmark.scenarios.networking.iperf3.Iperf
 
-import mock
+from __future__ import absolute_import
 import unittest
 
-from yardstick.benchmark.scenarios.networking import vtc_instantiation_validation_noisy
+from yardstick.benchmark.scenarios.networking import \
+    vtc_instantiation_validation_noisy
 
 
 class VtcInstantiationValidationiNoisyTestCase(unittest.TestCase):
@@ -37,7 +38,9 @@ class VtcInstantiationValidationiNoisyTestCase(unittest.TestCase):
         scenario['options']['amount_of_ram'] = '1G'
         scenario['options']['number_of_cores'] = '1'
 
-        self.vt = vtc_instantiation_validation_noisy.VtcInstantiationValidationNoisy(scenario, '')
+        self.vt = \
+            vtc_instantiation_validation_noisy.VtcInstantiationValidationNoisy(
+                scenario, '')
 
     def test_run_for_success(self):
         result = {}
