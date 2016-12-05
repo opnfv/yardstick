@@ -11,13 +11,16 @@
 
 # Unittest for yardstick.benchmark.scenarios.availability.serviceha
 
+from __future__ import absolute_import
 import mock
 import unittest
 
 from yardstick.benchmark.scenarios.availability import serviceha
 
+
 @mock.patch('yardstick.benchmark.scenarios.availability.serviceha.basemonitor')
-@mock.patch('yardstick.benchmark.scenarios.availability.serviceha.baseattacker')
+@mock.patch(
+    'yardstick.benchmark.scenarios.availability.serviceha.baseattacker')
 class ServicehaTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -48,7 +51,8 @@ class ServicehaTestCase(unittest.TestCase):
         sla = {"outage_time": 5}
         self.args = {"options": options, "sla": sla}
 
-    def test__serviceha_setup_run_successful(self, mock_attacker, mock_monitor):
+    def test__serviceha_setup_run_successful(self, mock_attacker,
+                                             mock_monitor):
         p = serviceha.ServiceHA(self.args, self.ctx)
 
         p.setup()

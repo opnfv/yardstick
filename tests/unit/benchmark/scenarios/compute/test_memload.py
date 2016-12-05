@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.scenarios.compute.memload.MEMLoad
 
+from __future__ import absolute_import
 import mock
 import unittest
 import os
@@ -74,15 +75,17 @@ class MEMLoadTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (0, output, '')
         result = m._get_mem_usage()
         expected_result = {"max": {"used": 76737332, "cached": 67252400,
-                           "free": 187016644, "shared": 2844,
-                           "total": 263753976, "buffers": 853528},
+                                   "free": 187016644, "shared": 2844,
+                                   "total": 263753976, "buffers": 853528},
                            "average": {"used": 76737332, "cached": 67252400,
-                           "free": 187016644, "shared": 2844,
-                           "total": 263753976, "buffers": 853528},
+                                       "free": 187016644, "shared": 2844,
+                                       "total": 263753976, "buffers": 853528},
                            "free": {"memory0": {"used": "76737332",
-                           "cached": "67252400", "free": "187016644",
-                           "shared": "2844", "total": "263753976",
-                           "buffers": "853528"}}}
+                                                "cached": "67252400",
+                                                "free": "187016644",
+                                                "shared": "2844",
+                                                "total": "263753976",
+                                                "buffers": "853528"}}}
         self.assertEqual(result, expected_result)
 
     def _read_file(self, filename):
@@ -91,4 +94,3 @@ class MEMLoadTestCase(unittest.TestCase):
         with open(output) as f:
             sample_output = f.read()
         return sample_output
-

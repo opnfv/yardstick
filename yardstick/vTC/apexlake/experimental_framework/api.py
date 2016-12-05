@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 import experimental_framework.benchmarking_unit as b_unit
 from experimental_framework import heat_template_generation, common
 

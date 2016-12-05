@@ -6,6 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
 import pkg_resources
 import logging
 import multiprocessing
@@ -23,6 +24,7 @@ monitor_conf_path = pkg_resources.resource_filename(
 
 class MonitorMgr(object):
     """docstring for MonitorMgr"""
+
     def __init__(self):
         self._monitor_list = []
 
@@ -130,7 +132,7 @@ class BaseMonitor(multiprocessing.Process):
         total_time = end_time - begin_time
 
         self._queue.put({"total_time": total_time,
-                         "outage_time": last_outage-first_outage,
+                         "outage_time": last_outage - first_outage,
                          "total_count": total_count,
                          "outage_count": outage_count})
 

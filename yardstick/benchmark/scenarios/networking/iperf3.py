@@ -10,9 +10,13 @@
 # iperf3 scenario
 # iperf3 homepage at: http://software.es.net/iperf/
 
+from __future__ import absolute_import
+from __future__ import print_function
+
 import logging
-import json
+
 import pkg_resources
+from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
@@ -89,7 +93,7 @@ For more info see http://software.es.net/iperf
         self.host.close()
         status, stdout, stderr = self.target.execute("pkill iperf3")
         if status:
-            LOG.warn(stderr)
+            LOG.warning(stderr)
         self.target.close()
 
     def run(self, result):
@@ -138,7 +142,8 @@ For more info see http://software.es.net/iperf
         # Note: convert all ints to floats in order to avoid
         # schema conflicts in influxdb. We probably should add
         # a format func in the future.
-        result.update(json.loads(stdout, parse_int=float))
+        result.update(
+            jsonutils.loads(stdout, parse_int=float))
 
         if "sla" in self.scenario_cfg:
             sla_iperf = self.scenario_cfg["sla"]
@@ -188,7 +193,8 @@ def _test():
 
     p = Iperf(args, ctx)
     p.run(result)
-    print result
+    print(result)
+
 
 if __name__ == '__main__':
     _test()

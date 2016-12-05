@@ -12,8 +12,10 @@
 
 # yardstick: this file is copied from python-heatclient and slightly modified
 
-import json
+from __future__ import absolute_import
+
 import yaml
+from oslo_serialization import jsonutils
 
 if hasattr(yaml, 'CSafeLoader'):
     yaml_loader = yaml.CSafeLoader
@@ -46,7 +48,7 @@ def parse(tmpl_str):
     JSON or YAML format.
     '''
     if tmpl_str.startswith('{'):
-        tpl = json.loads(tmpl_str)
+        tpl = jsonutils.loads(tmpl_str)
     else:
         try:
             tpl = yaml.load(tmpl_str, Loader=yaml_loader)

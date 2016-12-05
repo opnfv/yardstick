@@ -7,6 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+from __future__ import absolute_import
 import sys
 import os
 import yaml
@@ -49,11 +50,11 @@ class NodeContext(Context):
 
         self.nodes.extend(cfg["nodes"])
         self.controllers.extend([node for node in cfg["nodes"]
-                                if node["role"] == "Controller"])
+                                 if node["role"] == "Controller"])
         self.computes.extend([node for node in cfg["nodes"]
-                             if node["role"] == "Compute"])
+                              if node["role"] == "Compute"])
         self.baremetals.extend([node for node in cfg["nodes"]
-                               if node["role"] == "Baremetal"])
+                                if node["role"] == "Baremetal"])
         LOG.debug("Nodes: %r", self.nodes)
         LOG.debug("Controllers: %r", self.controllers)
         LOG.debug("Computes: %r", self.computes)

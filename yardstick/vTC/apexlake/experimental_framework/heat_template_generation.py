@@ -17,6 +17,7 @@
 Generation of the heat templates from the base template
 '''
 
+from __future__ import absolute_import
 import json
 import os
 import shutil

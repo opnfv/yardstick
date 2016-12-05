@@ -6,10 +6,13 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
+
 import logging
-import json
-import requests
 import time
+
+import requests
+from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios import base
 
@@ -73,7 +76,8 @@ class StorPerf(base.Scenario):
         setup_query = requests.get('http://%s:5000/api/v1.0/configurations'
                                    % self.target)
 
-        setup_query_content = json.loads(setup_query.content)
+        setup_query_content = jsonutils.loads(
+            setup_query.content)
         if setup_query_content["stack_created"]:
             self.setup_done = True
             LOG.debug("stack_created: %s",
@@ -96,7 +100,8 @@ class StorPerf(base.Scenario):
         setup_res = requests.post('http://%s:5000/api/v1.0/configurations'
                                   % self.target, json=env_args)
 
-        setup_res_content = json.loads(setup_res.content)
+        setup_res_content = jsonutils.loads(
+            setup_res.content)
 
         if setup_res.status_code != 200:
             raise RuntimeError("Failed to create a stack, error message:",
@@ -114,7 +119,8 @@ class StorPerf(base.Scenario):
         report_res = requests.get('http://{}:5000/api/v1.0/jobs'.format
                                   (self.target), params={'id': job_id})
 
-        report_res_content = json.loads(report_res.content)
+        report_res_content = jsonutils.loads(
+            report_res.content)
 
         if report_res.status_code != 200:
             raise RuntimeError("Failed to fetch report, error message:",
@@ -154,7 +160,7 @@ class StorPerf(base.Scenario):
         job_res = requests.post('http://%s:5000/api/v1.0/jobs' % self.target,
                                 json=job_args)
 
-        job_res_content = json.loads(job_res.content)
+        job_res_content = jsonutils.loads(job_res.content)
 
         if job_res.status_code != 200:
             raise RuntimeError("Failed to start a job, error message:",
@@ -171,7 +177,8 @@ class StorPerf(base.Scenario):
                                             self.target)
 
             if terminate_res.status_code != 200:
-                terminate_res_content = json.loads(terminate_res.content)
+                terminate_res_content = jsonutils.loads(
+                    terminate_res.content)
                 raise RuntimeError("Failed to start a job, error message:",
                                    terminate_res_content["message"])
 
@@ -190,7 +197,8 @@ class StorPerf(base.Scenario):
 
             result_res = requests.get('http://%s:5000/api/v1.0/jobs?id=%s' %
                                       (self.target, job_id))
-            result_res_content = json.loads(result_res.content)
+            result_res_content = jsonutils.loads(
+                result_res.content)
 
             result.update(result_res_content)
 
@@ -200,7 +208,8 @@ class StorPerf(base.Scenario):
                                        configurations' % self.target)
 
         if teardown_res.status_code == 400:
-            teardown_res_content = json.loads(teardown_res.content)
+            teardown_res_content = jsonutils.loads(
+                teardown_res.content)
             raise RuntimeError("Failed to reset environment, error message:",
                                teardown_res_content['message'])
 

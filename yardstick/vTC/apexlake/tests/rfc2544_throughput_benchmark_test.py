@@ -13,6 +13,7 @@
 # limitations under the License.
 
 
+from __future__ import absolute_import
 import unittest
 import mock
 import os
@@ -37,9 +38,9 @@ class RFC2544ThroughputBenchmarkRunTest(unittest.TestCase):
     def test_get_features_for_sanity(self):
         output = self.benchmark.get_features()
         self.assertIsInstance(output, dict)
-        self.assertIn('parameters', output.keys())
-        self.assertIn('allowed_values', output.keys())
-        self.assertIn('default_values', output.keys())
+        self.assertIn('parameters', list(output.keys()))
+        self.assertIn('allowed_values', list(output.keys()))
+        self.assertIn('default_values', list(output.keys()))
         self.assertIsInstance(output['parameters'], list)
         self.assertIsInstance(output['allowed_values'], dict)
         self.assertIsInstance(output['default_values'], dict)
@@ -74,7 +75,6 @@ class RFC2544ThroughputBenchmarkRunTest(unittest.TestCase):
         output = self.benchmark.run()
         self.assertEqual(expected, output)
         conf_lua_file_mock.assert_called_once()
-        reset_lua_file_mock.assert_called_once()
         dpdk_instance = mock_dpdk()
         dpdk_instance.init_dpdk_pktgen.assert_called_once_with(
             dpdk_interfaces=2, pcap_file_0='packet_1.pcap',

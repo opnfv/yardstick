@@ -9,25 +9,30 @@
 
 """Heat template and stack management"""
 
-import time
+from __future__ import absolute_import
+from __future__ import print_function
+
+import collections
 import datetime
 import getpass
-import socket
 import logging
-import pkg_resources
-import json
+import socket
+import time
 
 import heatclient
+import pkg_resources
+from oslo_serialization import jsonutils
+from oslo_utils import encodeutils
 
-from yardstick.common import template_format
 import yardstick.common.openstack_utils as op_utils
-
+from yardstick.common import template_format
 
 log = logging.getLogger(__name__)
 
 
 class HeatObject(object):
     ''' base class for template and stack'''
+
     def __init__(self):
         self._heat_client = None
         self.uuid = None
@@ -111,7 +116,7 @@ class HeatStack(HeatObject):
                 self._delete()
                 break
             except RuntimeError as err:
-                log.warn(err.args)
+                log.warning(err.args)
                 time.sleep(2)
             i += 1
 
@@ -165,7 +170,7 @@ class HeatTemplate(HeatObject):
 
         if template_file:
             with open(template_file) as stream:
-                print "Parsing external template:", template_file
+                print("Parsing external template:", template_file)
                 template_str = stream.read()
                 self._template = template_format.parse(template_str)
             self._parameters = heat_parameters
@@ -304,8 +309,12 @@ class HeatTemplate(HeatObject):
             'type': 'OS::Nova::KeyPair',
             'properties': {
                 'name': name,
-                'public_key': pkg_resources.resource_string(
-                    'yardstick.resources', 'files/yardstick_key.pub')
+                # resource_string returns bytes, so we must decode to unicode
+                'public_key': encodeutils.safe_decode(
+                    pkg_resources.resource_string(
+                        'yardstick.resources',
+                        'files/yardstick_key.pub'),
+                    'utf-8')
             }
         }
 
@@ -390,7 +399,7 @@ class HeatTemplate(HeatObject):
                 )
 
         if networks:
-            for i in range(len(networks)):
+            for i, _ in enumerate(networks):
                 server_properties['networks'].append({'network': networks[i]})
 
         if scheduler_hints:
@@ -400,11 +409,11 @@ class HeatTemplate(HeatObject):
             server_properties['user_data'] = user_data
 
         if metadata:
-            assert type(metadata) is dict
+            assert isinstance(metadata, collections.Mapping)
             server_properties['metadata'] = metadata
 
         if additional_properties:
-            assert type(additional_properties) is dict
+            assert isinstance(additional_properties, collections.Mapping)
             for prop in additional_properties:
                 server_properties[prop] = additional_properties[prop]
 
@@ -426,13 +435,15 @@ class HeatTemplate(HeatObject):
         stack = HeatStack(self.name)
 
         heat = self._get_heat_client()
-        json_template = json.dumps(self._template)
+        json_template = jsonutils.dump_as_bytes(
+            self._template)
         start_time = time.time()
         stack.uuid = self.uuid = heat.stacks.create(
             stack_name=self.name, template=json_template,
             parameters=self.heat_parameters)['stack']['id']
 
         status = self.status()
+        outputs = []
 
         if block:
             while status != u'CREATE_COMPLETE':
@@ -446,13 +457,12 @@ class HeatTemplate(HeatObject):
 
             end_time = time.time()
             outputs = getattr(heat.stacks.get(self.uuid), 'outputs')
+            log.info("Created stack '%s' in %d secs",
+                     self.name, end_time - start_time)
 
-        for output in outputs:
-            self.outputs[output["output_key"].encode("ascii")] = \
-                output["output_value"].encode("ascii")
-
-        log.info("Created stack '%s' in %d secs",
-                 self.name, end_time - start_time)
+        # keep outputs as unicode
+        self.outputs = {output["output_key"]: output["output_value"] for output
+                        in outputs}
 
         stack.outputs = self.outputs
         return stack

@@ -11,24 +11,26 @@
 
 # Unittest for yardstick.benchmark.scenarios.availability.director
 
+from __future__ import absolute_import
 import mock
 import unittest
 
 from yardstick.benchmark.scenarios.availability.director import Director
-from yardstick.benchmark.scenarios.availability import  actionplayers
 
 
 @mock.patch('yardstick.benchmark.scenarios.availability.director.basemonitor')
 @mock.patch('yardstick.benchmark.scenarios.availability.director.baseattacker')
-@mock.patch('yardstick.benchmark.scenarios.availability.director.baseoperation')
-@mock.patch('yardstick.benchmark.scenarios.availability.director.baseresultchecker')
+@mock.patch(
+    'yardstick.benchmark.scenarios.availability.director.baseoperation')
+@mock.patch(
+    'yardstick.benchmark.scenarios.availability.director.baseresultchecker')
 class DirectorTestCase(unittest.TestCase):
 
     def setUp(self):
         self.scenario_cfg = {
             'type': "general_scenario",
             'options': {
-                'attackers':[{
+                'attackers': [{
                     'fault_type': "general-attacker",
                     'key': "kill-process"}],
                 'monitors': [{
@@ -36,11 +38,11 @@ class DirectorTestCase(unittest.TestCase):
                     'key': "service-status"}],
                 'operations': [{
                     'operation_type': 'general-operation',
-                    'key' : 'service-status'}],
+                    'key': 'service-status'}],
                 'resultCheckers': [{
                     'checker_type': 'general-result-checker',
-                    'key' : 'process-checker',}],
-                'steps':[
+                    'key': 'process-checker', }],
+                'steps': [
                     {
                         'actionKey': "service-status",
                         'actionType': "operation",
@@ -57,7 +59,7 @@ class DirectorTestCase(unittest.TestCase):
                         'actionKey': "service-status",
                         'actionType': "monitor",
                         'index': 4},
-                    ]
+                ]
             }
         }
         host = {
@@ -67,15 +69,19 @@ class DirectorTestCase(unittest.TestCase):
         }
         self.ctx = {"nodes": {"node1": host}}
 
-    def test_director_all_successful(self, mock_checer, mock_opertion, mock_attacker, mock_monitor):
+    def test_director_all_successful(self, mock_checer, mock_opertion,
+                                     mock_attacker, mock_monitor):
         ins = Director(self.scenario_cfg, self.ctx)
         opertion_action = ins.createActionPlayer("operation", "service-status")
         attacker_action = ins.createActionPlayer("attacker", "kill-process")
-        checker_action = ins.createActionPlayer("resultchecker", "process-checker")
+        checker_action = ins.createActionPlayer("resultchecker",
+                                                "process-checker")
         monitor_action = ins.createActionPlayer("monitor", "service-status")
 
-        opertion_rollback = ins.createActionRollbacker("operation", "service-status")
-        attacker_rollback = ins.createActionRollbacker("attacker", "kill-process")
+        opertion_rollback = ins.createActionRollbacker("operation",
+                                                       "service-status")
+        attacker_rollback = ins.createActionRollbacker("attacker",
+                                                       "kill-process")
         ins.executionSteps.append(opertion_rollback)
         ins.executionSteps.append(attacker_rollback)
 
@@ -91,13 +97,8 @@ class DirectorTestCase(unittest.TestCase):
         ins.verify()
         ins.knockoff()
 
-    def test_director_get_wrong_item(self, mock_checer, mock_opertion, mock_attacker, mock_monitor):
+    def test_director_get_wrong_item(self, mock_checer, mock_opertion,
+                                     mock_attacker, mock_monitor):
         ins = Director(self.scenario_cfg, self.ctx)
         ins.createActionPlayer("wrong_type", "wrong_key")
         ins.createActionRollbacker("wrong_type", "wrong_key")
-
-
-
-
-
-

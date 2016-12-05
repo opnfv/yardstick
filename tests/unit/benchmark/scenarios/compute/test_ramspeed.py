@@ -11,9 +11,12 @@
 
 # Unittest for yardstick.benchmark.scenarios.compute.ramspeed.Ramspeed
 
-import mock
+from __future__ import absolute_import
+
 import unittest
-import json
+
+import mock
+from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.compute import ramspeed
 
@@ -69,12 +72,12 @@ class RamspeedTestCase(unittest.TestCase):
  "Bandwidth(MBps)": 14756.45}, {"Test_type": "INTEGER & WRITING",\
  "Block_size(kb)": 4096, "Bandwidth(MBps)": 14604.44}, {"Test_type":\
  "INTEGER & WRITING", "Block_size(kb)": 8192, "Bandwidth(MBps)": 14159.86},\
- {"Test_type": "INTEGER & WRITING", "Block_size(kb)": 16384, "Bandwidth(MBps)":\
- 14128.94}, {"Test_type": "INTEGER & WRITING", "Block_size(kb)": 32768,\
- "Bandwidth(MBps)": 8340.85}]}'
+ {"Test_type": "INTEGER & WRITING", "Block_size(kb)": 16384,\
+ "Bandwidth(MBps)": 14128.94}, {"Test_type": "INTEGER & WRITING",\
+ "Block_size(kb)": 32768, "Bandwidth(MBps)": 8340.85}]}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         r.run(self.result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         self.assertEqual(self.result, expected_result)
 
     def test_ramspeed_successful_run_sla(self, mock_ssh):
@@ -105,12 +108,12 @@ class RamspeedTestCase(unittest.TestCase):
  "Bandwidth(MBps)": 14756.45}, {"Test_type": "INTEGER & WRITING",\
  "Block_size(kb)": 4096, "Bandwidth(MBps)": 14604.44}, {"Test_type":\
  "INTEGER & WRITING", "Block_size(kb)": 8192, "Bandwidth(MBps)": 14159.86},\
- {"Test_type": "INTEGER & WRITING", "Block_size(kb)": 16384, "Bandwidth(MBps)":\
- 14128.94}, {"Test_type": "INTEGER & WRITING", "Block_size(kb)": 32768,\
- "Bandwidth(MBps)": 8340.85}]}'
+ {"Test_type": "INTEGER & WRITING", "Block_size(kb)": 16384,\
+ "Bandwidth(MBps)": 14128.94}, {"Test_type": "INTEGER & WRITING",\
+ "Block_size(kb)": 32768, "Bandwidth(MBps)": 8340.85}]}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         r.run(self.result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         self.assertEqual(self.result, expected_result)
 
     def test_ramspeed_unsuccessful_run_sla(self, mock_ssh):
@@ -176,7 +179,7 @@ class RamspeedTestCase(unittest.TestCase):
  "Bandwidth(MBps)": 9401.58}]}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         r.run(self.result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         self.assertEqual(self.result, expected_result)
 
     def test_ramspeed_mem_successful_run_sla(self, mock_ssh):
@@ -197,7 +200,7 @@ class RamspeedTestCase(unittest.TestCase):
  "Bandwidth(MBps)": 9401.58}]}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         r.run(self.result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         self.assertEqual(self.result, expected_result)
 
     def test_ramspeed_mem_unsuccessful_run_sla(self, mock_ssh):

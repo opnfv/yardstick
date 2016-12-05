@@ -7,6 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+from __future__ import absolute_import
 import yardstick.common.utils as utils
 
 utils.import_modules_from_package("yardstick.benchmark.contexts")

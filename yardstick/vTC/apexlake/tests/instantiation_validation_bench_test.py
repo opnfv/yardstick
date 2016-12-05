@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 import unittest
 import mock
 import os
@@ -21,6 +22,8 @@ import experimental_framework.benchmarks.\
     instantiation_validation_benchmark as iv_module
 from experimental_framework.benchmarks.\
     instantiation_validation_benchmark import InstantiationValidationBenchmark
+from six.moves import map
+from six.moves import range
 
 
 kill_counter = [0, 0]
@@ -204,11 +207,11 @@ class InstantiationValidationInitTest(unittest.TestCase):
         ]
         expected['allowed_values'] = dict()
         expected['allowed_values'][iv_module.THROUGHPUT] = \
-            map(str, range(0, 100))
+            list(map(str, list(range(0, 100))))
         expected['allowed_values'][iv_module.VLAN_SENDER] = \
-            map(str, range(-1, 4096))
+            list(map(str, list(range(-1, 4096))))
         expected['allowed_values'][iv_module.VLAN_RECEIVER] = \
-            map(str, range(-1, 4096))
+            list(map(str, list(range(-1, 4096))))
         expected['default_values'] = dict()
         expected['default_values'][iv_module.THROUGHPUT] = '1'
         expected['default_values'][iv_module.VLAN_SENDER] = '-1'
@@ -216,7 +219,7 @@ class InstantiationValidationInitTest(unittest.TestCase):
         output = self.iv.get_features()
         self.assertEqual(expected, output)
 
-    @mock.patch('commands.getoutput')
+    @mock.patch('subprocess.check_output')
     def test__get_pids_for_success(self, mock_getoutput):
         expected = [1234]
         mock_getoutput.return_value = '1234'

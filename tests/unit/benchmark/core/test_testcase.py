@@ -11,12 +11,14 @@
 
 # Unittest for yardstick.cmd.commands.testcase
 
+from __future__ import absolute_import
 import unittest
 
 from yardstick.benchmark.core import testcase
 
 
 class Arg(object):
+
     def __init__(self):
         self.casename = ('opnfv_yardstick_tc001',)
 

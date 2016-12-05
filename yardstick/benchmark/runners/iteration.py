@@ -19,6 +19,7 @@
 '''A runner that runs a configurable number of times before it returns
 '''
 
+from __future__ import absolute_import
 import os
 import multiprocessing
 import logging

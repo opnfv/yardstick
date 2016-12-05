@@ -12,12 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 import os
-import base_packet_generator
-import experimental_framework.common as common
 import time
+
+
+import experimental_framework.common as common
 from experimental_framework.constants import conf_file_sections as conf_file
 from experimental_framework.constants import framework_parameters as fp
+from experimental_framework.packet_generators import base_packet_generator
 
 
 class DpdkPacketGenerator(base_packet_generator.BasePacketGenerator):
@@ -186,8 +189,7 @@ class DpdkPacketGenerator(base_packet_generator.BasePacketGenerator):
                     conf_file.CFSP_DPDK_PROGRAM_NAME,
                     conf_file.CFSP_DPDK_COREMASK,
                     conf_file.CFSP_DPDK_MEMORY_CHANNEL]:
-            if var not in variables.keys() or (var in variables.keys() and
-               variables[var] is ''):
+            if variables.get(var, '') == '':
                 raise ValueError("The variable " + var + " does not exist")
 
     @staticmethod

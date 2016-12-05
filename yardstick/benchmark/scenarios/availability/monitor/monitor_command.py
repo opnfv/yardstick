@@ -6,11 +6,13 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
 import logging
 import subprocess
 import traceback
+
 import yardstick.ssh as ssh
-import basemonitor as basemonitor
+from yardstick.benchmark.scenarios.availability.monitor import basemonitor
 
 LOG = logging.getLogger(__name__)
 

@@ -16,6 +16,7 @@
 # yardstick comment: this is a modified copy of
 # ceilometer/ceilometer/dispatcher/__init__.py
 
+from __future__ import absolute_import
 import abc
 import six
 

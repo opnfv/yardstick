@@ -6,9 +6,13 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-import pkg_resources
+from __future__ import absolute_import
+from __future__ import print_function
+
 import logging
-import json
+
+import pkg_resources
+from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
@@ -100,7 +104,7 @@ class Perf(base.Scenario):
         if status:
             raise RuntimeError(stdout)
 
-        result.update(json.loads(stdout))
+        result.update(jsonutils.loads(stdout))
 
         if "sla" in self.scenario_cfg:
             metric = self.scenario_cfg['sla']['metric']
@@ -140,7 +144,8 @@ def _test():
 
     p = Perf(args, ctx)
     p.run(result)
-    print result
+    print(result)
+
 
 if __name__ == '__main__':
     _test()
