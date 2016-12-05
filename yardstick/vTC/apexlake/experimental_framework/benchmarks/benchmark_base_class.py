@@ -13,6 +13,7 @@
 # limitations under the License.
 
 
+from __future__ import absolute_import
 import abc
 
 
@@ -30,7 +31,7 @@ class BenchmarkBaseClass(object):
             raise ValueError("Parameters need to be provided in a dict")
 
         for param in self.get_features()['parameters']:
-            if param not in params.keys():
+            if param not in list(params.keys()):
                 params[param] = self.get_features()['default_values'][param]
 
         for param in self.get_features()['parameters']:

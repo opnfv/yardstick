@@ -9,12 +9,15 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.scenarios.compute.computecapacity.ComputeCapacity
+# Unittest for
+# yardstick.benchmark.scenarios.compute.computecapacity.ComputeCapacity
+
+from __future__ import absolute_import
+
+import unittest
 
 import mock
-import unittest
-import os
-import json
+from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.compute import computecapacity
 
@@ -53,7 +56,7 @@ class ComputeCapacityTestCase(unittest.TestCase):
 
         mock_ssh.SSH().execute.return_value = (0, SAMPLE_OUTPUT, '')
         c.run(self.result)
-        expected_result = json.loads(SAMPLE_OUTPUT)
+        expected_result = jsonutils.loads(SAMPLE_OUTPUT)
         self.assertEqual(self.result, expected_result)
 
     def test_capacity_unsuccessful_script_error(self, mock_ssh):

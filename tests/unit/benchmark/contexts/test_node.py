@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.contexts.node
 
+from __future__ import absolute_import
 import os
 import unittest
 
@@ -21,6 +22,7 @@ class NodeContextTestCase(unittest.TestCase):
 
     NODES_SAMPLE = "nodes_sample.yaml"
     NODES_DUPLICATE_SAMPLE = "nodes_duplicate_sample.yaml"
+
     def setUp(self):
         self.test_context = node.NodeContext()
 

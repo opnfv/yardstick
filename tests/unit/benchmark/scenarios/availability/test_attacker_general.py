@@ -12,10 +12,12 @@
 # Unittest for yardstick.benchmark.scenarios.availability.attacker
 # .attacker_general
 
+from __future__ import absolute_import
 import mock
 import unittest
 
 from yardstick.benchmark.scenarios.availability.attacker import baseattacker
+
 
 @mock.patch('yardstick.benchmark.scenarios.availability.attacker.'
             'attacker_general.ssh')
@@ -30,10 +32,10 @@ class GeneralAttackerServiceTestCase(unittest.TestCase):
         self.context = {"node1": host}
         self.attacker_cfg = {
             'fault_type': 'general-attacker',
-            'action_parameter':{'process_name':'nova_api'},
-            'rollback_parameter':{'process_name':'nova_api'},
-            'key':'stop-service',
-            'attack_key':'stop-service',
+            'action_parameter': {'process_name': 'nova_api'},
+            'rollback_parameter': {'process_name': 'nova_api'},
+            'key': 'stop-service',
+            'attack_key': 'stop-service',
             'host': 'node1',
         }
 

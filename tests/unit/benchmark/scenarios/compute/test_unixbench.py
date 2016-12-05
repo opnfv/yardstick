@@ -11,9 +11,12 @@
 
 # Unittest for yardstick.benchmark.scenarios.compute.unixbench.Unixbench
 
-import mock
+from __future__ import absolute_import
+
 import unittest
-import json
+
+import mock
+from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.compute import unixbench
 
@@ -57,7 +60,7 @@ class UnixbenchTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
         u.run(result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         self.assertEqual(result, expected_result)
 
     def test_unixbench_successful_in_quiet_mode(self, mock_ssh):
@@ -65,7 +68,7 @@ class UnixbenchTestCase(unittest.TestCase):
         options = {
             "test_type": 'dhry2reg',
             "run_mode": 'quiet',
-            "copies":1
+            "copies": 1
         }
         args = {
             "options": options,
@@ -79,9 +82,8 @@ class UnixbenchTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
         u.run(result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         self.assertEqual(result, expected_result)
-
 
     def test_unixbench_successful_sla(self, mock_ssh):
 
@@ -106,7 +108,7 @@ class UnixbenchTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
         u.run(result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         self.assertEqual(result, expected_result)
 
     def test_unixbench_unsuccessful_sla_single_score(self, mock_ssh):

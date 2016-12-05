@@ -13,6 +13,7 @@
 # limitations under the License.
 """ Vsperf specific scenario definition """
 
+from __future__ import absolute_import
 import logging
 import os
 import subprocess
@@ -211,7 +212,7 @@ class Vsperf(base.Scenario):
 
         # convert result.csv to JSON format
         reader = csv.DictReader(stdout.split('\r\n'))
-        result.update(reader.next())
+        result.update(next(reader))
 
         # sla check; go through all defined SLAs and check if values measured
         # by VSPERF are higher then those defined by SLAs

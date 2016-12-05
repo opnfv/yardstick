@@ -12,13 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 import unittest
 import mock
-import os
+
+from six.moves import range
+
 import experimental_framework.common as common
 import experimental_framework.deployment_unit as deploy
 import experimental_framework.benchmarks.\
     instantiation_validation_noisy_neighbors_benchmark as mut
+from experimental_framework import APEX_LAKE_ROOT
 
 
 class InstantiationValidationInitTest(unittest.TestCase):
@@ -34,7 +38,7 @@ class InstantiationValidationInitTest(unittest.TestCase):
         openstack_credentials['heat_url'] = ''
         openstack_credentials['password'] = ''
         common.DEPLOYMENT_UNIT = deploy.DeploymentUnit(openstack_credentials)
-        common.BASE_DIR = os.getcwd()
+        common.BASE_DIR = APEX_LAKE_ROOT
         common.TEMPLATE_DIR = 'tests/data/generated_templates'
         self.iv = mut.\
             InstantiationValidationNoisyNeighborsBenchmark(name, params)
@@ -72,9 +76,11 @@ class InstantiationValidationInitTest(unittest.TestCase):
         expected['parameters'].append(mut.NUM_OF_NEIGHBORS)
         expected['parameters'].append(mut.AMOUNT_OF_RAM)
         expected['parameters'].append(mut.NUMBER_OF_CORES)
-        expected['allowed_values']['throughput'] = map(str, range(0, 100))
-        expected['allowed_values']['vlan_sender'] = map(str, range(-1, 4096))
-        expected['allowed_values']['vlan_receiver'] = map(str, range(-1, 4096))
+        expected['allowed_values']['throughput'] = [str(x) for x in range(100)]
+        expected['allowed_values']['vlan_sender'] = [str(x) for x in
+                                                     range(-1, 4096)]
+        expected['allowed_values']['vlan_receiver'] = [str(x) for x in
+                                                       range(-1, 4096)]
         expected['allowed_values'][mut.NUM_OF_NEIGHBORS] = \
             ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         expected['allowed_values'][mut.NUMBER_OF_CORES] = \
@@ -115,10 +121,10 @@ class InstantiationValidationInitTest(unittest.TestCase):
                           'num_of_neighbours': 1}
         self.iv.template_file = 'template.yaml'
         self.iv.init()
-        mock_replace.assert_called_once_wih('file',
-                                            'local out_file = ""',
-                                            'local out_file = "' +
-                                            'res_file' + '"')
+        mock_replace.assert_called_once_with('file',
+                                             'local out_file = ""',
+                                             'local out_file = "' +
+                                             'res_file' + '"')
         mock_deploy_heat.assert_called_once_with('template.yaml',
                                                  'neighbour0',
                                                  {'cores': 1,
@@ -131,12 +137,14 @@ class InstantiationValidationInitTest(unittest.TestCase):
     @mock.patch('experimental_framework.common.'
                 'DEPLOYMENT_UNIT.destroy_heat_template')
     def test_finalize_for_success(self, mock_heat_destroy, mock_replace):
+        self.iv.lua_file = 'file'
+        self.iv.results_file = 'res_file'
         self.iv.neighbor_stack_names = ['neighbor0']
         stack_name = 'neighbor0'
         self.iv.finalize()
         mock_heat_destroy.assert_called_once_with(stack_name)
-        mock_replace.assert_called_once_wih('file',
-                                            'local out_file = ""',
-                                            'local out_file = "' +
-                                            'res_file' + '"')
+        mock_replace.assert_called_once_with('file',
+                                             'local out_file = "' +
+                                             'res_file' + '"',
+                                             'local out_file = ""')
         self.assertEqual(self.iv.neighbor_stack_names, list())

@@ -38,6 +38,7 @@
     NFV TST
 
 """
+from __future__ import absolute_import
 import sys
 
 from yardstick.cmd.cli import YardstickCLI

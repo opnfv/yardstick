@@ -13,6 +13,7 @@
 # limitations under the License.
 
 
+from __future__ import absolute_import
 import unittest
 from experimental_framework.benchmarks import benchmark_base_class as base
 
@@ -45,8 +46,8 @@ class TestBenchmarkBaseClass(unittest.TestCase):
         params['C'] = 'c'
         bench_base = DummyBechmarkBaseClass(name, params)
         self.assertEqual(name, bench_base.name)
-        self.assertIn('A', bench_base.params.keys())
-        self.assertIn('B', bench_base.params.keys())
+        self.assertIn('A', list(bench_base.params.keys()))
+        self.assertIn('B', list(bench_base.params.keys()))
         self.assertEqual('a', bench_base.params['A'])
         self.assertEqual('b', bench_base.params['B'])
 

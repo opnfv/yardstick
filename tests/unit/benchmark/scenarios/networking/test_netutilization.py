@@ -9,8 +9,10 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.scenarios.networking.netutilization.NetUtilization
+# Unittest for
+# yardstick.benchmark.scenarios.networking.netutilization.NetUtilization
 
+from __future__ import absolute_import
 import mock
 import unittest
 import os

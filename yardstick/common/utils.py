@@ -15,6 +15,8 @@
 
 # yardstick comment: this is a modified copy of rally/rally/common/utils.py
 
+from __future__ import print_function
+from __future__ import absolute_import
 import os
 import sys
 import yaml
@@ -28,6 +30,7 @@ from keystoneauth1 import session
 from neutronclient.v2_0 import client
 
 import yardstick
+from functools import reduce
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -94,12 +97,12 @@ def get_para_from_yaml(file_path, args):
             value = reduce(func, args.split('.'), value)
 
             if value is None:
-                print 'parameter not found'
+                print('parameter not found')
                 return None
 
             return value
     else:
-        print 'file not exist'
+        print('file not exist')
         return None
 
 

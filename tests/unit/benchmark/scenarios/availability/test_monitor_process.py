@@ -9,14 +9,18 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.scenarios.availability.monitor.monitor_process
+# Unittest for
+# yardstick.benchmark.scenarios.availability.monitor.monitor_process
 
+from __future__ import absolute_import
 import mock
 import unittest
 
 from yardstick.benchmark.scenarios.availability.monitor import monitor_process
 
-@mock.patch('yardstick.benchmark.scenarios.availability.monitor.monitor_process.ssh')
+
+@mock.patch(
+    'yardstick.benchmark.scenarios.availability.monitor.monitor_process.ssh')
 class MonitorProcessTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -53,4 +57,3 @@ class MonitorProcessTestCase(unittest.TestCase):
         ins.monitor_func()
         ins._result = {"outage_time": 10}
         ins.verify_SLA()
-

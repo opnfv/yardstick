@@ -9,21 +9,25 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.scenarios.availability.monitor.monitor_command
+# Unittest for
+# yardstick.benchmark.scenarios.availability.monitor.monitor_command
 
+from __future__ import absolute_import
 import mock
 import unittest
 
 from yardstick.benchmark.scenarios.availability.monitor import basemonitor
 
 
-@mock.patch('yardstick.benchmark.scenarios.availability.monitor.basemonitor.BaseMonitor')
+@mock.patch(
+    'yardstick.benchmark.scenarios.availability.monitor.basemonitor'
+    '.BaseMonitor')
 class MonitorMgrTestCase(unittest.TestCase):
 
     def setUp(self):
         config = {
             'monitor_type': 'openstack-api',
-            'key' : 'service-status'
+            'key': 'service-status'
         }
 
         self.monitor_configs = []
@@ -42,10 +46,12 @@ class MonitorMgrTestCase(unittest.TestCase):
         monitorMgr.init_monitors(self.monitor_configs, None)
         monitorIns = monitorMgr['service-status']
 
+
 class BaseMonitorTestCase(unittest.TestCase):
 
     class MonitorSimple(basemonitor.BaseMonitor):
         __monitor_type__ = "MonitorForTest"
+
         def setup(self):
             self.monitor_result = False
 
@@ -65,14 +71,15 @@ class BaseMonitorTestCase(unittest.TestCase):
         ins.start_monitor()
         ins.wait_monitor()
 
-
     def test__basemonitor_all_successful(self):
         ins = self.MonitorSimple(self.monitor_cfg, None)
         ins.setup()
         ins.run()
         ins.verify_SLA()
 
-    @mock.patch('yardstick.benchmark.scenarios.availability.monitor.basemonitor.multiprocessing')
+    @mock.patch(
+        'yardstick.benchmark.scenarios.availability.monitor.basemonitor'
+        '.multiprocessing')
     def test__basemonitor_func_false(self, mock_multiprocess):
         ins = self.MonitorSimple(self.monitor_cfg, None)
         ins.setup()
@@ -87,4 +94,3 @@ class BaseMonitorTestCase(unittest.TestCase):
         except Exception:
             pass
         self.assertIsNone(cls)
-

@@ -24,9 +24,12 @@
 # yardstick comment: this file is a modified copy of
 # influxdb-python/influxdb/line_protocol.py
 
+from __future__ import absolute_import
 from __future__ import unicode_literals
+
 from copy import copy
 
+from oslo_utils import encodeutils
 from six import binary_type, text_type, integer_types
 
 
@@ -64,7 +67,7 @@ def _get_unicode(data, force=False):
     Try to return a text aka unicode object from the given data.
     """
     if isinstance(data, binary_type):
-        return data.decode('utf-8')
+        return encodeutils.safe_decode(data, 'utf-8')
     elif data is None:
         return ''
     elif force:
