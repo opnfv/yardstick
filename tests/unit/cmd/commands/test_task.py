@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.cmd.commands.task
 
+from __future__ import print_function
 import os
 import mock
 import unittest
@@ -79,8 +80,8 @@ class TaskCommandsTestCase(unittest.TestCase):
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
         mock_environ.get.side_effect = ['huawei-pod1', 'compass']
         task_files, task_args, task_args_fnames = t.parse_suite()
-        print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
-               task_args_fnames))
+        print(("files=%s, args=%s, fnames=%s" % (task_files, task_args,
+               task_args_fnames)))
         self.assertEqual(task_files[0],
             'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
         self.assertEqual(task_files[1],
@@ -96,8 +97,8 @@ class TaskCommandsTestCase(unittest.TestCase):
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
         mock_environ.get.side_effect = ['huawei-pod1', 'compass']
         task_files, task_args, task_args_fnames = t.parse_suite()
-        print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
-               task_args_fnames))
+        print(("files=%s, args=%s, fnames=%s" % (task_files, task_args,
+               task_args_fnames)))
         self.assertEqual(task_files[0],
             'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
         self.assertEqual(task_files[1],
@@ -114,8 +115,8 @@ class TaskCommandsTestCase(unittest.TestCase):
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
         mock_environ.get.side_effect = ['huawei-pod1', 'compass']
         task_files, task_args, task_args_fnames = t.parse_suite()
-        print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
-               task_args_fnames))
+        print(("files=%s, args=%s, fnames=%s" % (task_files, task_args,
+               task_args_fnames)))
         self.assertEqual(task_files[0],
             'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
         self.assertEqual(task_files[1],
@@ -131,8 +132,8 @@ class TaskCommandsTestCase(unittest.TestCase):
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
         mock_environ.get.side_effect = ['huawei-pod1', 'compass']
         task_files, task_args, task_args_fnames = t.parse_suite()
-        print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
-               task_args_fnames))
+        print(("files=%s, args=%s, fnames=%s" % (task_files, task_args,
+               task_args_fnames)))
         self.assertEqual(task_files[0],
             'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
         self.assertEqual(task_files[1],

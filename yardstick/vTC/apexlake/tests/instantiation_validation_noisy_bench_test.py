@@ -19,6 +19,8 @@ import experimental_framework.common as common
 import experimental_framework.deployment_unit as deploy
 import experimental_framework.benchmarks.\
     instantiation_validation_noisy_neighbors_benchmark as mut
+from six.moves import map
+from six.moves import range
 
 
 class InstantiationValidationInitTest(unittest.TestCase):
@@ -72,9 +74,9 @@ class InstantiationValidationInitTest(unittest.TestCase):
         expected['parameters'].append(mut.NUM_OF_NEIGHBORS)
         expected['parameters'].append(mut.AMOUNT_OF_RAM)
         expected['parameters'].append(mut.NUMBER_OF_CORES)
-        expected['allowed_values']['throughput'] = map(str, range(0, 100))
-        expected['allowed_values']['vlan_sender'] = map(str, range(-1, 4096))
-        expected['allowed_values']['vlan_receiver'] = map(str, range(-1, 4096))
+        expected['allowed_values']['throughput'] = list(map(str, list(range(0, 100))))
+        expected['allowed_values']['vlan_sender'] = list(map(str, list(range(-1, 4096))))
+        expected['allowed_values']['vlan_receiver'] = list(map(str, list(range(-1, 4096))))
         expected['allowed_values'][mut.NUM_OF_NEIGHBORS] = \
             ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         expected['allowed_values'][mut.NUMBER_OF_CORES] = \

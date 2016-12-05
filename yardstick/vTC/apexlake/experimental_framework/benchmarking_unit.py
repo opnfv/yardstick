@@ -27,6 +27,7 @@ from experimental_framework import common
 # from experimental_framework import data_manager as data
 from experimental_framework import heat_template_generation as heat
 from experimental_framework import deployment_unit as deploy
+from six.moves import range
 
 
 class BenchmarkingUnit:

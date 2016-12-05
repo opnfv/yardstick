@@ -12,6 +12,7 @@ import json
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
+from six.moves import range
 
 LOG = logging.getLogger(__name__)
 

@@ -44,7 +44,7 @@ class ScenarioGeneral(base.Scenario):
                     step['actionType'], step['actionKey'])
                 if actionRollbacker:
                     self.director.executionSteps.append(actionRollbacker)
-            except Exception, e:
+            except Exception as e:
                 LOG.debug(e.message)
                 traceback.print_exc()
                 LOG.debug(

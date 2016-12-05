@@ -17,6 +17,8 @@ from experimental_framework.packet_generators \
     import dpdk_packet_generator as dpdk
 import experimental_framework.common as common
 from experimental_framework.constants import framework_parameters as fp
+from six.moves import map
+from six.moves import range
 
 
 PACKET_SIZE = 'packet_size'
@@ -60,8 +62,8 @@ class RFC2544ThroughputBenchmark(benchmark_base_class.BenchmarkBaseClass):
         features['allowed_values'] = dict()
         features['allowed_values'][PACKET_SIZE] = ['64', '128', '256', '512',
                                                    '1024', '1280', '1514']
-        features['allowed_values'][VLAN_SENDER] = map(str, range(-1, 4096))
-        features['allowed_values'][VLAN_RECEIVER] = map(str, range(-1, 4096))
+        features['allowed_values'][VLAN_SENDER] = list(map(str, list(range(-1, 4096))))
+        features['allowed_values'][VLAN_RECEIVER] = list(map(str, list(range(-1, 4096))))
         features['default_values'] = dict()
         features['default_values'][PACKET_SIZE] = '1280'
         features['default_values'][VLAN_SENDER] = '1007'
@@ -99,7 +101,7 @@ class RFC2544ThroughputBenchmark(benchmark_base_class.BenchmarkBaseClass):
         :return: packet_sizes (list)
         """
         packet_size = '1280'  # default value
-        if PACKET_SIZE in self.params.keys() and \
+        if PACKET_SIZE in list(self.params.keys()) and \
                 isinstance(self.params[PACKET_SIZE], str):
             packet_size = self.params[PACKET_SIZE]
         return packet_size

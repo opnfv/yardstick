@@ -12,6 +12,7 @@
 """
 
 
+from six.moves import range
 class Object(object):
     '''Base class for classes in the logical model
     Contains common attributes and methods

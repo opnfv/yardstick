@@ -37,9 +37,9 @@ class RFC2544ThroughputBenchmarkRunTest(unittest.TestCase):
     def test_get_features_for_sanity(self):
         output = self.benchmark.get_features()
         self.assertIsInstance(output, dict)
-        self.assertIn('parameters', output.keys())
-        self.assertIn('allowed_values', output.keys())
-        self.assertIn('default_values', output.keys())
+        self.assertIn('parameters', list(output.keys()))
+        self.assertIn('allowed_values', list(output.keys()))
+        self.assertIn('default_values', list(output.keys()))
         self.assertIsInstance(output['parameters'], list)
         self.assertIsInstance(output['allowed_values'], dict)
         self.assertIsInstance(output['default_values'], dict)

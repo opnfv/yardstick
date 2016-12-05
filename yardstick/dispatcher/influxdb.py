@@ -17,6 +17,7 @@ from oslo_config import cfg
 
 from yardstick.dispatcher.base import Base as DispatchBase
 from third_party.influxdb.influxdb_line_protocol import make_lines
+import six
 
 LOG = logging.getLogger(__name__)
 
@@ -80,9 +81,9 @@ class InfluxdbDispatcher(DispatchBase):
                 if type(v) == dict or type(v) == list]:
             return data
 
-        for k, v in data.iteritems():
+        for k, v in six.iteritems(data):
             if type(v) == dict:
-                for n_k, n_v in v.iteritems():
+                for n_k, n_v in six.iteritems(v):
                     next_data["%s.%s" % (k, n_k)] = n_v
             elif type(v) == list:
                 for index, item in enumerate(v):

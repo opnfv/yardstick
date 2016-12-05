@@ -16,6 +16,7 @@
     $ yardstick-plot -i /tmp/yardstick.out -o /tmp/plots/
 '''
 
+from __future__ import print_function
 import argparse
 import json
 import os
@@ -23,6 +24,8 @@ import sys
 import time
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
+from six.moves import range
+from six.moves import zip
 
 
 class Parser(object):
@@ -44,7 +47,7 @@ class Parser(object):
             prog='yardstick-plot',
             description="A tool for visualizing results from yardstick. "
                         "Currently supports plotting graphs for output files "
-                        "from tests: " + str(self.data.keys())
+                        "from tests: " + str(list(self.data.keys()))
         )
         parser.add_argument(
             '-i', '--input',
@@ -80,8 +83,8 @@ class Parser(object):
         if self.args.input:
             input_file = self.args.input
         else:
-            print("No input file specified, reading from %s"
-                  % self.default_input_loc)
+            print(("No input file specified, reading from %s"
+                  % self.default_input_loc))
             input_file = self.default_input_loc
 
         try:
@@ -90,7 +93,7 @@ class Parser(object):
                     record = json.loads(line)
                     self._add_record(record)
         except IOError as e:
-            print(os.strerror(e.errno))
+            print((os.strerror(e.errno)))
             sys.exit(1)
 
 
@@ -126,7 +129,7 @@ class Plotter(object):
             os.makedirs(self.output_folder)
         new_file = os.path.join(self.output_folder, file_name)
         plt.savefig(new_file)
-        print("Saved graph to " + new_file)
+        print(("Saved graph to " + new_file))
 
     def _plot_ping(self, records):
         '''ping test result interpretation and visualization on the graph'''
