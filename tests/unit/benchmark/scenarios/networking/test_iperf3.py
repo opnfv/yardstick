@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.scenarios.networking.iperf3.Iperf
 
+from __future__ import absolute_import
 import mock
 import unittest
 import os
@@ -119,8 +120,7 @@ class IperfTestCase(unittest.TestCase):
         self.assertRaises(AssertionError, p.run, result)
 
     def test_iperf_successful_sla_jitter(self, mock_ssh):
-
-        options = {"udp":"udp","bandwidth":"20m"}
+        options = {"udp": "udp", "bandwidth": "20m"}
         args = {
             'options': options,
             'sla': {'jitter': 10}
@@ -138,8 +138,7 @@ class IperfTestCase(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     def test_iperf_unsuccessful_sla_jitter(self, mock_ssh):
-
-        options = {"udp":"udp","bandwidth":"20m"}
+        options = {"udp": "udp", "bandwidth": "20m"}
         args = {
             'options': options,
             'sla': {'jitter': 0.0001}
@@ -167,7 +166,7 @@ class IperfTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p.run, result)
 
-    def _read_sample_output(self,filename):
+    def _read_sample_output(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
         output = os.path.join(curr_path, filename)
         with open(output) as f:

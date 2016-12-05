@@ -9,25 +9,29 @@
 
 """Heat template and stack management"""
 
-import time
+from __future__ import print_function
+
+from __future__ import absolute_import
 import datetime
 import getpass
-import socket
-import logging
-import pkg_resources
 import json
+import logging
+import socket
+import time
 
 import heatclient
+import pkg_resources
+from six.moves import range
 
-from yardstick.common import template_format
 import yardstick.common.openstack_utils as op_utils
-
+from yardstick.common import template_format
 
 log = logging.getLogger(__name__)
 
 
 class HeatObject(object):
     ''' base class for template and stack'''
+
     def __init__(self):
         self._heat_client = None
         self.uuid = None
@@ -111,7 +115,7 @@ class HeatStack(HeatObject):
                 self._delete()
                 break
             except RuntimeError as err:
-                log.warn(err.args)
+                log.warning(err.args)
                 time.sleep(2)
             i += 1
 
@@ -165,7 +169,7 @@ class HeatTemplate(HeatObject):
 
         if template_file:
             with open(template_file) as stream:
-                print "Parsing external template:", template_file
+                print("Parsing external template:", template_file)
                 template_str = stream.read()
                 self._template = template_format.parse(template_str)
             self._parameters = heat_parameters

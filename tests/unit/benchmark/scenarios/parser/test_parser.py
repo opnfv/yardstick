@@ -11,11 +11,13 @@
 
 # Unittest for yardstick.benchmark.scenarios.parser.Parser
 
+from __future__ import absolute_import
 import mock
 import unittest
 import json
 
 from yardstick.benchmark.scenarios.parser import parser
+
 
 @mock.patch('yardstick.benchmark.scenarios.parser.parser.subprocess')
 class ParserTestCase(unittest.TestCase):
@@ -32,8 +34,8 @@ class ParserTestCase(unittest.TestCase):
 
     def test_parser_successful(self, mock_subprocess):
         args = {
-            'options': {'yangfile':'/root/yardstick/samples/yang.yaml',
-            'toscafile':'/root/yardstick/samples/tosca.yaml'},
+            'options': {'yangfile': '/root/yardstick/samples/yang.yaml',
+                        'toscafile': '/root/yardstick/samples/tosca.yaml'},
         }
         p = parser.Parser(args, {})
         result = {}

@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.scenarios.compute.unixbench.Unixbench
 
+from __future__ import absolute_import
 import mock
 import unittest
 import json
@@ -65,7 +66,7 @@ class UnixbenchTestCase(unittest.TestCase):
         options = {
             "test_type": 'dhry2reg',
             "run_mode": 'quiet',
-            "copies":1
+            "copies": 1
         }
         args = {
             "options": options,
@@ -81,7 +82,6 @@ class UnixbenchTestCase(unittest.TestCase):
         u.run(result)
         expected_result = json.loads(sample_output)
         self.assertEqual(result, expected_result)
-
 
     def test_unixbench_successful_sla(self, mock_ssh):
 

@@ -8,6 +8,7 @@
 ##############################################################################
 
 
+from __future__ import absolute_import
 import unittest
 
 from tests.functional import utils
@@ -46,4 +47,3 @@ class RunnerTestCase(unittest.TestCase):
         res = self.yardstick("runner show Sequence")
         sequence = "sequence - list of values which are executed" in res
         self.assertTrue(sequence)
-

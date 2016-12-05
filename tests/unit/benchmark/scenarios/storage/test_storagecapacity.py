@@ -9,35 +9,39 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.scenarios.storage.storagecapacity.StorageCapacity
+# Unittest for
+# yardstick.benchmark.scenarios.storage.storagecapacity.StorageCapacity
 
+from __future__ import absolute_import
 import mock
 import unittest
-import os
 import json
 
 from yardstick.benchmark.scenarios.storage import storagecapacity
 
-DISK_SIZE_SAMPLE_OUTPUT = '{"Numberf of devides": "2", "Total disk size in bytes": "1024000000"}'
+DISK_SIZE_SAMPLE_OUTPUT = \
+    '{"Numberf of devides": "2", "Total disk size in bytes": "1024000000"}'
 BLOCK_SIZE_SAMPLE_OUTPUT = '{"/dev/sda": 1024, "/dev/sdb": 4096}'
 DISK_UTIL_RAW_OUTPUT = "vda 10.00\nvda 0.00"
-DISK_UTIL_SAMPLE_OUTPUT = '{"vda": {"avg_util": 5.0, "max_util": 10.0, "min_util": 0.0}}'
+DISK_UTIL_SAMPLE_OUTPUT = \
+    '{"vda": {"avg_util": 5.0, "max_util": 10.0, "min_util": 0.0}}'
+
 
 @mock.patch('yardstick.benchmark.scenarios.storage.storagecapacity.ssh')
 class StorageCapacityTestCase(unittest.TestCase):
 
     def setUp(self):
         self.scn = {
-               "options": {
-                   'test_type': 'disk_size'
-               }
+            "options": {
+                'test_type': 'disk_size'
+            }
         }
         self.ctx = {
-                "host": {
-                    'ip': '172.16.0.137',
-                    'user': 'cirros',
-                    'password': "root"
-                }
+            "host": {
+                'ip': '172.16.0.137',
+                'user': 'cirros',
+                'password': "root"
+            }
         }
         self.result = {}
 
@@ -90,6 +94,7 @@ class StorageCapacityTestCase(unittest.TestCase):
 
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, c.run, self.result)
+
 
 def main():
     unittest.main()

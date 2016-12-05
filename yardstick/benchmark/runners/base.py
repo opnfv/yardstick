@@ -16,6 +16,7 @@
 # yardstick comment: this is a modified copy of
 # rally/rally/benchmark/runners/base.py
 
+from __future__ import absolute_import
 import importlib
 import logging
 import multiprocessing

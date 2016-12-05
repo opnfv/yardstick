@@ -7,6 +7,8 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 # bulk data test and req/rsp test are supported
+from __future__ import print_function
+from __future__ import absolute_import
 import pkg_resources
 import logging
 import json
@@ -200,7 +202,8 @@ def _test():    # pragma: no cover
 
     netperf = NetperfNode(args, ctx)
     netperf.run(result)
-    print result
+    print(result)
+
 
 if __name__ == '__main__':
     _test()

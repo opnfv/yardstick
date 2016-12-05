@@ -10,16 +10,27 @@
 ##############################################################################
 
 # Unittest for yardstick.benchmark.core.plugin
+from __future__ import absolute_import
+import os
+from os.path import dirname as dirname
 
-import mock
+try:
+    from unittest import mock
+except ImportError:
+    import mock
 import unittest
 
 from yardstick.benchmark.core import plugin
 
 
 class Arg(object):
+
     def __init__(self):
-        self.input_file = ('plugin/sample_config.yaml',)
+        # self.input_file = ('plugin/sample_config.yaml',)
+        self.input_file = [
+            os.path.join(os.path.abspath(
+                dirname(dirname(dirname(dirname(dirname(__file__)))))),
+                'plugin/sample_config.yaml')]
 
 
 @mock.patch('yardstick.benchmark.core.plugin.ssh')

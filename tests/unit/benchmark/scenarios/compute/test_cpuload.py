@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.scenarios.compute.lmbench.Lmbench
 
+from __future__ import absolute_import
 import mock
 import unittest
 import os
@@ -208,7 +209,7 @@ class CPULoadTestCase(unittest.TestCase):
                      '%nice': '0.03'}}}
 
         self.assertDictEqual(result, expected_result)
-    
+
     def test_run_proc_stat(self, mock_ssh):
         options = {
             "interval": 1,

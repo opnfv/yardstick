@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 import time
 
 from experimental_framework.benchmarks import benchmark_base_class as base

@@ -7,6 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+from __future__ import absolute_import
 from oslo_config import cfg
 
 import yardstick.common.utils as utils

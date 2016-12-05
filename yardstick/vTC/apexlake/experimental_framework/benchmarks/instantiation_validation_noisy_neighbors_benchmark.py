@@ -13,8 +13,11 @@
 # limitations under the License.
 
 
-import instantiation_validation_benchmark as base
+from __future__ import absolute_import
 from experimental_framework import common
+from experimental_framework.benchmarks import \
+    instantiation_validation_benchmark as base
+from six.moves import range
 
 
 NUM_OF_NEIGHBORS = 'num_of_neighbours'
@@ -38,7 +41,7 @@ class InstantiationValidationNoisyNeighborsBenchmark(
         self.template_file = common.get_template_dir() + \
             temp_name
         self.stack_name = 'neighbour'
-        self.neighbor_stack_names = list()
+        self.neighbor_stack_names = []
 
     def get_features(self):
         features = super(InstantiationValidationNoisyNeighborsBenchmark,

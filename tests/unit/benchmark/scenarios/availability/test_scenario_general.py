@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.scenarios.availability.scenario_general
 
+from __future__ import absolute_import
 import mock
 import unittest
 
@@ -24,13 +25,13 @@ class ScenarioGeneralTestCase(unittest.TestCase):
         self.scenario_cfg = {
             'type': "general_scenario",
             'options': {
-                'attackers':[{
+                'attackers': [{
                     'fault_type': "general-attacker",
                     'key': "kill-process"}],
                 'monitors': [{
                     'monitor_type': "general-monitor",
                     'key': "service-status"}],
-                'steps':[
+                'steps': [
                     {
                         'actionKey': "kill-process",
                         'actionType': "attacker",

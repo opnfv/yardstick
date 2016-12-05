@@ -19,6 +19,7 @@
 """ Scenario base class
 """
 
+from __future__ import absolute_import
 import yardstick.common.utils as utils
 
 
