@@ -15,6 +15,9 @@
 import unittest
 import mock
 import os
+
+from six.moves import range
+
 import experimental_framework.common as common
 import experimental_framework.deployment_unit as deploy
 import experimental_framework.benchmarks.\
@@ -72,9 +75,11 @@ class InstantiationValidationInitTest(unittest.TestCase):
         expected['parameters'].append(mut.NUM_OF_NEIGHBORS)
         expected['parameters'].append(mut.AMOUNT_OF_RAM)
         expected['parameters'].append(mut.NUMBER_OF_CORES)
-        expected['allowed_values']['throughput'] = map(str, range(0, 100))
-        expected['allowed_values']['vlan_sender'] = map(str, range(-1, 4096))
-        expected['allowed_values']['vlan_receiver'] = map(str, range(-1, 4096))
+        expected['allowed_values']['throughput'] = [str(x) for x in range(100)]
+        expected['allowed_values']['vlan_sender'] = [str(x) for x in
+                                                     range(-1, 4096)]
+        expected['allowed_values']['vlan_receiver'] = [str(x) for x in
+                                                       range(-1, 4096)]
         expected['allowed_values'][mut.NUM_OF_NEIGHBORS] = \
             ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         expected['allowed_values'][mut.NUMBER_OF_CORES] = \

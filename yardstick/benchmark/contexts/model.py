@@ -10,6 +10,7 @@
 """ Logical model
 
 """
+from six.moves import range
 
 
 class Object(object):

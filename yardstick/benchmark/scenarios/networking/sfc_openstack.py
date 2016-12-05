@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 from novaclient import client as novaclient
 from neutronclient.v2_0 import client as neutronclient
@@ -40,8 +41,8 @@ def get_credentials(service):  # pragma: no cover
                       "ca_file": cacert})
         creds.update({"insecure": "True", "https_insecure": "True"})
         if not os.path.isfile(cacert):
-            print ("WARNING: The 'OS_CACERT' environment variable is " +
-                   "set to %s but the file does not exist." % cacert)
+            print(("WARNING: The 'OS_CACERT' environment variable is " +
+                   "set to %s but the file does not exist." % cacert))
     return creds
 
 
@@ -49,8 +50,8 @@ def get_instances(nova_client):  # pragma: no cover
     try:
         instances = nova_client.servers.list(search_opts={'all_tenants': 1})
         return instances
-    except Exception, e:
-        print "Error [get_instances(nova_client)]:", e
+    except Exception as e:
+        print("Error [get_instances(nova_client)]:", e)
         return None
 
 
@@ -62,8 +63,8 @@ def get_SFs(nova_client):  # pragma: no cover
             if "sfc_test" not in instance.name:
                 SFs.append(instance)
         return SFs
-    except Exception, e:
-        print "Error [get_SFs(nova_client)]:", e
+    except Exception as e:
+        print("Error [get_SFs(nova_client)]:", e)
         return None
 
 
@@ -83,8 +84,8 @@ def create_floating_ips(neutron_client):  # pragma: no cover
             ip_json = neutron_client.create_floatingip({'floatingip': props})
             fip_addr = ip_json['floatingip']['floating_ip_address']
             ips.append(fip_addr)
-    except Exception, e:
-        print "Error [create_floating_ip(neutron_client)]:", e
+    except Exception as e:
+        print("Error [create_floating_ip(neutron_client)]:", e)
         return None
     return ips
 
@@ -96,9 +97,9 @@ def floatIPtoSFs(SFs, floatips):  # pragma: no cover
             SF.add_floating_ip(floatips[i])
             i = i + 1
         return True
-    except Exception, e:
-        print ("Error [add_floating_ip(nova_client, '%s', '%s')]:" %
-               (SF, floatips[i]), e)
+    except Exception as e:
+        print(("Error [add_floating_ip(nova_client, '%s', '%s')]:" %
+               (SF, floatips[i]), e))
         return False
 
 

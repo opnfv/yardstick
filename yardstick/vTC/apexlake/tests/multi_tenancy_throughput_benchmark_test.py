@@ -18,6 +18,7 @@ import os
 import experimental_framework.common as common
 from experimental_framework.benchmarks \
     import multi_tenancy_throughput_benchmark as bench
+from six.moves import range
 
 __author__ = 'gpetralx'
 
@@ -47,9 +48,9 @@ class TestMultiTenancyThroughputBenchmark(unittest.TestCase):
     def test_get_features_for_sanity(self):
         output = self.benchmark.get_features()
         self.assertIsInstance(output, dict)
-        self.assertIn('parameters', output.keys())
-        self.assertIn('allowed_values', output.keys())
-        self.assertIn('default_values', output.keys())
+        self.assertIn('parameters', list(output.keys()))
+        self.assertIn('allowed_values', list(output.keys()))
+        self.assertIn('default_values', list(output.keys()))
         self.assertIsInstance(output['parameters'], list)
         self.assertIsInstance(output['allowed_values'], dict)
         self.assertIsInstance(output['default_values'], dict)

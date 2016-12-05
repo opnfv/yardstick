@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import print_function
 import unittest
 import logging
 import experimental_framework.common as common
@@ -34,7 +35,7 @@ class MockStacks(object):
         list_name = list()
         for stack in self.stacks:
             list_name.append(stack.stack_name)
-        print list_name
+        print(list_name)
         return self.stacks
 
     def validate(self, template=None):
@@ -47,7 +48,7 @@ class MockStacks(object):
 
     def create(self, stack_name=None, files=None, template=None,
                parameters=None):
-        print stack_name
+        print(stack_name)
         self.stacks.append(MockStack(stack_name))
 
 
@@ -216,5 +217,5 @@ class TestHeatInit(unittest.TestCase):
                                                 tenant_name='project',
                                                 password='password',
                                                 auth_url='auth_uri')
-        heat_client.assert_called_once_with('1',  endpoint='http://heat_url',
+        heat_client.assert_called_once_with('1', endpoint='http://heat_url',
                                             token='token')
