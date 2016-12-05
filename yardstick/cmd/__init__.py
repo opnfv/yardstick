@@ -6,10 +6,11 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import print_function
 
 
 def print_hbar(barlen):
     '''print to stdout a horizontal bar'''
-    print("+"),
-    print("-" * barlen),
+    print(("+"), end=' ')
+    print(("-" * barlen), end=' ')
     print("+")

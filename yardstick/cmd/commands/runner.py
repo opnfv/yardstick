@@ -9,6 +9,7 @@
 
 """ Handler for yardstick command 'runner' """
 
+from __future__ import print_function
 from yardstick.benchmark.runners.base import Runner
 from yardstick.common.utils import cliargs
 from yardstick.cmd import print_hbar
@@ -24,15 +25,15 @@ class RunnerCommands(object):
         '''List existing runner types'''
         types = Runner.get_types()
         print_hbar(78)
-        print("| %-16s | %-60s" % ("Type", "Description"))
+        print(("| %-16s | %-60s" % ("Type", "Description")))
         print_hbar(78)
         for rtype in types:
-            print "| %-16s | %-60s" % (rtype.__execution_type__,
-                                       rtype.__doc__.split("\n")[0])
+            print("| %-16s | %-60s" % (rtype.__execution_type__,
+                                       rtype.__doc__.split("\n")[0]))
         print_hbar(78)
 
     @cliargs("type", type=str, help="runner type", nargs=1)
     def do_show(self, args):
         '''Show details of a specific runner type'''
         rtype = Runner.get_cls(args.type[0])
-        print rtype.__doc__
+        print(rtype.__doc__)

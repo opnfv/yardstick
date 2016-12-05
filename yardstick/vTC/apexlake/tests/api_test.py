@@ -21,6 +21,8 @@ from experimental_framework.api import FrameworkApi
 from experimental_framework.benchmarking_unit import BenchmarkingUnit
 import experimental_framework.benchmarks.\
     instantiation_validation_benchmark as iv
+from six.moves import map
+from six.moves import range
 
 
 class DummyBenchmarkingUnit(BenchmarkingUnit):
@@ -92,11 +94,11 @@ class TestGeneratesTemplate(unittest.TestCase):
             iv.VLAN_RECEIVER]
         expected['allowed_values'] = dict()
         expected['allowed_values'][iv.THROUGHPUT] = \
-            map(str, range(0, 100))
+            list(map(str, list(range(0, 100))))
         expected['allowed_values'][iv.VLAN_SENDER] = \
-            map(str, range(-1, 4096))
+            list(map(str, list(range(-1, 4096))))
         expected['allowed_values'][iv.VLAN_RECEIVER] = \
-            map(str, range(-1, 4096))
+            list(map(str, list(range(-1, 4096))))
         expected['default_values'] = dict()
         expected['default_values'][iv.THROUGHPUT] = '1'
         expected['default_values'][iv.VLAN_SENDER] = '-1'

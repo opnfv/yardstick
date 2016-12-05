@@ -11,7 +11,10 @@
 
 # Unittest for yardstick.cmd.commands.plugin
 
-import mock
+try:
+    from unittest import mock
+except ImportError:
+    import mock
 import unittest
 
 from yardstick.cmd.commands import plugin

@@ -13,6 +13,7 @@ from flask import jsonify
 
 from api.utils.daemonthread import DaemonThread
 from yardstick.cmd.cli import YardstickCLI
+import six
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +23,7 @@ def translate_to_str(object):
         return {str(k): translate_to_str(v) for k, v in object.items()}
     elif isinstance(object, list):
         return [translate_to_str(ele) for ele in object]
-    elif isinstance(object, unicode):
+    elif isinstance(object, six.text_type):
         return str(object)
     return object
 

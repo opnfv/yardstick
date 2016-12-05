@@ -19,7 +19,7 @@ extras==0.0.3
 fixtures==1.4.0
 flake8==2.5.4
 funcsigs==0.4
-functools32==3.2.3.post2
+functools32==3.2.3.post2; python_version <= '2.7'
 futures==3.0.5
 iso8601==0.1.11
 Jinja2==2.8
