@@ -48,6 +48,7 @@ RUN apt-get update && apt-get install -y \
     nginx \
     uwsgi \
     uwsgi-plugin-python \
+    supervisor \
     python-setuptools && \
     easy_install -U setuptools
 
@@ -73,3 +74,4 @@ ADD http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img /home/op
 ADD http://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img /home/opnfv/images/
 
 COPY ./exec_tests.sh /usr/local/bin/
+CMD ["/usr/bin/supervisord"]

@@ -16,6 +16,7 @@ apt-get update && apt-get install -y \
     nginx \
     uwsgi \
     uwsgi-plugin-python \
+    supervisor \
     python-setuptools && \
     easy_install -U setuptools
 
