@@ -7,7 +7,11 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 import logging
-from baseoperation import BaseOperation
+
+from yardstick.benchmark.scenarios.availability.operation.baseoperation \
+    import \
+    BaseOperation
+
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios.availability.util import buildshellparams
 

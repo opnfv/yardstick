@@ -12,6 +12,7 @@ import json
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
+from six.moves import range
 
 LOG = logging.getLogger(__name__)
 
@@ -109,7 +110,7 @@ class StorageCapacity(base.Scenario):
         for i in range(len(device_name_arr)):
             r[device_name_arr[i]] = {"min_util": min_util_arr[i],
                                      "max_util": max_util_arr[i],
-                                     "avg_util": avg_util_arr[i]/count}
+                                     "avg_util": avg_util_arr[i] / count}
         return r
 
     def run(self, result):

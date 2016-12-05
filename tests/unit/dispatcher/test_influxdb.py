@@ -100,9 +100,11 @@ class InfluxdbDispatcherTestCase(unittest.TestCase):
 
     def test__dict_key_flatten(self):
         line = 'mpstat.loadavg1=0.29,rtt=1.03,mpstat.loadavg0=1.09,mpstat.cpu0.%idle=99.00,mpstat.cpu0.%sys=0.00'
+        # need to sort for assert to work
+        line = ",".join(sorted(line.split(',')))
         influxdb = InfluxdbDispatcher(None)
         flattened_data = influxdb._dict_key_flatten(self.data3['benchmark']['data'])
-        result = ",".join([k+"="+v for k, v in flattened_data.items()])
+        result = ",".join([k+"="+v for k, v in sorted(flattened_data.items())])
         self.assertEqual(result, line)
 
     def test__get_nano_timestamp(self):

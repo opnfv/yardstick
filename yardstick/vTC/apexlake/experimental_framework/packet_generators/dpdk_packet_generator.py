@@ -186,8 +186,7 @@ class DpdkPacketGenerator(base_packet_generator.BasePacketGenerator):
                     conf_file.CFSP_DPDK_PROGRAM_NAME,
                     conf_file.CFSP_DPDK_COREMASK,
                     conf_file.CFSP_DPDK_MEMORY_CHANNEL]:
-            if var not in variables.keys() or (var in variables.keys() and
-               variables[var] is ''):
+            if variables.get(var, '') == '':
                 raise ValueError("The variable " + var + " does not exist")
 
     @staticmethod

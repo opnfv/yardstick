@@ -8,9 +8,10 @@
 ##############################################################################
 import logging
 
-from baseattacker import BaseAttacker
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios.availability import util
+from yardstick.benchmark.scenarios.availability.attacker.baseattacker import \
+    BaseAttacker
 
 LOG = logging.getLogger(__name__)
 
@@ -40,7 +41,7 @@ class GeneralAttacker(BaseAttacker):
             str = util.buildshellparams(actionParameter)
             LOG.debug("inject parameter is: {0}".format(actionParameter))
             LOG.debug("inject parameter values are: {0}"
-                      .format(actionParameter.values()))
+                      .format(list(actionParameter.values())))
             l = list(item for item in actionParameter.values())
             self.action_param = str.format(*l)
 
@@ -49,7 +50,7 @@ class GeneralAttacker(BaseAttacker):
             str = util.buildshellparams(rollbackParameter)
             LOG.debug("recover parameter is: {0}".format(rollbackParameter))
             LOG.debug("recover parameter values are: {0}".
-                      format(rollbackParameter.values()))
+                      format(list(rollbackParameter.values())))
             l = list(item for item in rollbackParameter.values())
             self.rollback_param = str.format(*l)
 
