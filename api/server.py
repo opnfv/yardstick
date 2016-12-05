@@ -6,14 +6,16 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
 import logging
+from functools import reduce
 
+from flasgger import Swagger
 from flask import Flask
 from flask_restful import Api
-from flasgger import Swagger
 
-from api.database import init_db
 from api.database import db_session
+from api.database import init_db
 from api.urls import urlpatterns
 from yardstick import _init_logging
 

@@ -10,12 +10,15 @@
 """ Logical model
 
 """
+from __future__ import absolute_import
+from six.moves import range
 
 
 class Object(object):
     '''Base class for classes in the logical model
     Contains common attributes and methods
     '''
+
     def __init__(self, name, context):
         # model identities and reference
         self.name = name
@@ -61,6 +64,7 @@ class PlacementGroup(Object):
 
 class Router(Object):
     '''Class that represents a router in the logical model'''
+
     def __init__(self, name, network_name, context, external_gateway_info):
         super(self.__class__, self).__init__(name, context)
 

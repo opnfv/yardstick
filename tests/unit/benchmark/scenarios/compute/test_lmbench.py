@@ -11,9 +11,12 @@
 
 # Unittest for yardstick.benchmark.scenarios.compute.lmbench.Lmbench
 
-import mock
+from __future__ import absolute_import
+
 import unittest
-import json
+
+import mock
+from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.compute import lmbench
 
@@ -65,7 +68,8 @@ class LmbenchTestCase(unittest.TestCase):
         sample_output = '[{"latency": 4.944, "size": 0.00049}]'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         l.run(self.result)
-        expected_result = json.loads('{"latencies": ' + sample_output + "}")
+        expected_result = jsonutils.loads(
+            '{"latencies": ' + sample_output + "}")
         self.assertEqual(self.result, expected_result)
 
     def test_successful_bandwidth_run_no_sla(self, mock_ssh):
@@ -82,7 +86,7 @@ class LmbenchTestCase(unittest.TestCase):
         sample_output = '{"size(MB)": 0.262144, "bandwidth(MBps)": 11025.5}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         l.run(self.result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         self.assertEqual(self.result, expected_result)
 
     def test_successful_latency_run_sla(self, mock_ssh):
@@ -101,7 +105,8 @@ class LmbenchTestCase(unittest.TestCase):
         sample_output = '[{"latency": 4.944, "size": 0.00049}]'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         l.run(self.result)
-        expected_result = json.loads('{"latencies": ' + sample_output + "}")
+        expected_result = jsonutils.loads(
+            '{"latencies": ' + sample_output + "}")
         self.assertEqual(self.result, expected_result)
 
     def test_successful_bandwidth_run_sla(self, mock_ssh):
@@ -121,7 +126,7 @@ class LmbenchTestCase(unittest.TestCase):
         sample_output = '{"size(MB)": 0.262144, "bandwidth(MBps)": 11025.5}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         l.run(self.result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         self.assertEqual(self.result, expected_result)
 
     def test_unsuccessful_latency_run_sla(self, mock_ssh):
@@ -163,7 +168,7 @@ class LmbenchTestCase(unittest.TestCase):
 
         options = {
             "test_type": "latency_for_cache",
-            "repetition":1,
+            "repetition": 1,
             "warmup": 0
         }
         args = {
@@ -175,7 +180,7 @@ class LmbenchTestCase(unittest.TestCase):
         sample_output = "{\"L1cache\": 1.6}"
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         l.run(self.result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         self.assertEqual(self.result, expected_result)
 
     def test_unsuccessful_script_error(self, mock_ssh):

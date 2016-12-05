@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 import os
 import time
 
@@ -50,8 +51,8 @@ class DeploymentUnit:
                 time.sleep(5)
                 status = self.heat_manager.check_stack_status(stack_name)
             return True
-        except Exception as e:
-            common.LOG.debug(e.message)
+        except Exception:
+            common.LOG.debug("check_stack_status", exc_info=True)
             return False
 
     def destroy_all_deployed_stacks(self):
@@ -81,17 +82,16 @@ class DeploymentUnit:
             self.heat_manager.create_stack(template_file, stack_name,
                                            parameters)
             deployed = True
-        except Exception as e:
-            common.LOG.debug(e.message)
+        except Exception:
+            common.LOG.debug("create_stack", exc_info=True)
             deployed = False
 
         if not deployed and 'COMPLETE' in \
                 self.heat_manager.check_stack_status(stack_name):
             try:
                 self.destroy_heat_template(stack_name)
-            except Exception as e:
-                common.LOG.debug(e.message)
-                pass
+            except Exception:
+                common.LOG.debug("destroy_heat_template", exc_info=True)
 
         status = self.heat_manager.check_stack_status(stack_name)
         while status and 'CREATE_IN_PROGRESS' in status:
@@ -102,16 +102,15 @@ class DeploymentUnit:
                 attempt += 1
                 try:
                     self.destroy_heat_template(stack_name)
-                except Exception as e:
-                    common.LOG.debug(e.message)
-                    pass
+                except Exception:
+                    common.LOG.debug("destroy_heat_template", exc_info=True)
                 return self.deploy_heat_template(template_file, stack_name,
                                                  parameters, attempt)
             else:
                 try:
                     self.destroy_heat_template(stack_name)
-                except Exception as e:
-                    common.LOG.debug(e.message)
+                except Exception:
+                    common.LOG.debug("destroy_heat_template", exc_info=True)
                 finally:
                     return False
         if self.heat_manager.check_stack_status(stack_name) and \

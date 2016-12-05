@@ -12,10 +12,13 @@
 # Unittest for
 # yardstick.benchmark.scenarios.networking.netperf_node.NetperfNode
 
-import mock
-import unittest
+from __future__ import absolute_import
+
 import os
-import json
+import unittest
+
+import mock
+from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.networking import netperf_node
 
@@ -59,7 +62,7 @@ class NetperfNodeTestCase(unittest.TestCase):
 
         sample_output = self._read_sample_output()
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         p.run(result)
         self.assertEqual(result, expected_result)
 
@@ -78,7 +81,7 @@ class NetperfNodeTestCase(unittest.TestCase):
 
         sample_output = self._read_sample_output()
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         p.run(result)
         self.assertEqual(result, expected_result)
 

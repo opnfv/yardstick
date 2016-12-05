@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.contexts.model
 
+from __future__ import absolute_import
 import mock
 import unittest
 
@@ -119,7 +120,8 @@ class NetworkTestCase(unittest.TestCase):
 
         attrs = {'external_network': 'ext_net'}
         test_network = model.Network('foo', self.mock_context, attrs)
-        exp_router = model.Router('router', 'foo', self.mock_context, 'ext_net')
+        exp_router = model.Router('router', 'foo', self.mock_context,
+                                  'ext_net')
 
         self.assertEqual(test_network.router.stack_name, exp_router.stack_name)
         self.assertEqual(test_network.router.stack_if_name,
@@ -219,4 +221,3 @@ class ServerTestCase(unittest.TestCase):
             user=self.mock_context.user,
             key_name=self.mock_context.keypair_name,
             scheduler_hints='hints')
-

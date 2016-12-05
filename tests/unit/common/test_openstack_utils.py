@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.common.openstack_utils
 
+from __future__ import absolute_import
 import unittest
 import mock
 

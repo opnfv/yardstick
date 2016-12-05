@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-'''
+"""
 Experimental Framework
-'''
+"""
+from __future__ import absolute_import
+import os
+
+APEX_LAKE_ROOT = os.path.realpath(
+    os.path.join(os.path.dirname(os.path.dirname(__file__))))

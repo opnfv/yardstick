@@ -11,9 +11,12 @@
 
 # Unittest for yardstick.benchmark.scenarios.networking.pktgen.Pktgen
 
-import mock
+from __future__ import absolute_import
+
 import unittest
-import json
+
+import mock
+from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.networking import pktgen
 
@@ -133,7 +136,7 @@ class PktgenTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
         p.run(result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         expected_result["packets_received"] = 149300
         self.assertEqual(result, expected_result)
 
@@ -159,7 +162,7 @@ class PktgenTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
         p.run(result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         expected_result["packets_received"] = 149300
         self.assertEqual(result, expected_result)
 

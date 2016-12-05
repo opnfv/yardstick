@@ -6,9 +6,13 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-import pkg_resources
+from __future__ import absolute_import
+from __future__ import print_function
+
 import logging
-import json
+
+import pkg_resources
+from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
@@ -114,7 +118,7 @@ class Fio(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
-        raw_data = json.loads(stdout)
+        raw_data = jsonutils.loads(stdout)
 
         # The bandwidth unit is KB/s, and latency unit is us
         if rw in ["read", "randread", "rw", "randrw"]:
@@ -175,7 +179,8 @@ def _test():
 
     fio = Fio(args, ctx)
     fio.run(result)
-    print result
+    print(result)
+
 
 if __name__ == '__main__':
     _test()

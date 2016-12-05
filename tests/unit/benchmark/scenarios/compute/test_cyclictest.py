@@ -11,9 +11,12 @@
 
 # Unittest for yardstick.benchmark.scenarios.compute.cyclictest.Cyclictest
 
-import mock
+from __future__ import absolute_import
+
 import unittest
-import json
+
+import mock
+from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.compute import cyclictest
 
@@ -85,17 +88,17 @@ class CyclictestTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
         c.run(result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         self.assertEqual(result, expected_result)
 
     def test_cyclictest_successful_sla(self, mock_ssh):
         result = {}
         self.scenario_cfg.update({"sla": {
-                "action": "monitor",
-                "max_min_latency": 100,
-                "max_avg_latency": 500,
-                "max_max_latency": 1000
-            }
+            "action": "monitor",
+            "max_min_latency": 100,
+            "max_avg_latency": 500,
+            "max_max_latency": 1000
+        }
         })
         c = cyclictest.Cyclictest(self.scenario_cfg, self.context_cfg)
         mock_ssh.SSH().execute.return_value = (0, '', '')
@@ -106,7 +109,7 @@ class CyclictestTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
         c.run(result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         self.assertEqual(result, expected_result)
 
     def test_cyclictest_unsuccessful_sla_min_latency(self, mock_ssh):

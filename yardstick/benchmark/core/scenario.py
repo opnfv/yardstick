@@ -9,6 +9,8 @@
 
 """ Handler for yardstick command 'scenario' """
 
+from __future__ import absolute_import
+from __future__ import print_function
 from yardstick.benchmark.scenarios.base import Scenario
 from yardstick.benchmark.core import print_hbar
 
@@ -33,4 +35,4 @@ class Scenarios(object):
     def show(self, args):
         '''Show details of a specific scenario type'''
         stype = Scenario.get_cls(args.type[0])
-        print stype.__doc__
+        print(stype.__doc__)

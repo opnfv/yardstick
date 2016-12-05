@@ -16,11 +16,13 @@
 # yardstick comment: this is a modified copy of
 # ceilometer/ceilometer/dispatcher/http.py
 
-import os
-import json
-import logging
-import requests
+from __future__ import absolute_import
 
+import logging
+import os
+
+from oslo_serialization import jsonutils
+import requests
 from oslo_config import cfg
 
 from yardstick.dispatcher.base import Base as DispatchBase
@@ -81,16 +83,18 @@ class HttpDispatcher(DispatchBase):
                 case_name = v["scenario_cfg"]["tc"]
                 break
         if case_name == "":
-            LOG.error('Test result : %s', json.dumps(self.result))
+            LOG.error('Test result : %s',
+                      jsonutils.dump_as_bytes(self.result))
             LOG.error('The case_name cannot be found, no data will be posted.')
             return
 
         self.result["case_name"] = case_name
 
         try:
-            LOG.debug('Test result : %s', json.dumps(self.result))
+            LOG.debug('Test result : %s',
+                      jsonutils.dump_as_bytes(self.result))
             res = requests.post(self.target,
-                                data=json.dumps(self.result),
+                                data=jsonutils.dump_as_bytes(self.result),
                                 headers=self.headers,
                                 timeout=self.timeout)
             LOG.debug('Test result posting finished with status code'

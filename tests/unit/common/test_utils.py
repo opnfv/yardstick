@@ -9,6 +9,7 @@
 
 # Unittest for yardstick.common.utils
 
+from __future__ import absolute_import
 import os
 import mock
 import unittest
@@ -17,9 +18,10 @@ from yardstick.common import utils
 
 
 class IterSubclassesTestCase(unittest.TestCase):
-# Disclaimer: this class is a modified copy from
-# rally/tests/unit/common/plugin/test_discover.py
-# Copyright 2015: Mirantis Inc.
+    # Disclaimer: this class is a modified copy from
+    # rally/tests/unit/common/plugin/test_discover.py
+    # Copyright 2015: Mirantis Inc.
+
     def test_itersubclasses(self):
         class A(object):
             pass

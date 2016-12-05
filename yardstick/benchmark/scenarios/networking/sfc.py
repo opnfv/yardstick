@@ -1,9 +1,13 @@
-import pkg_resources
+from __future__ import absolute_import
 import logging
 import subprocess
-import sfc_openstack
+
+import pkg_resources
+from six.moves import range
+
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
+from yardstick.benchmark.scenarios.networking import sfc_openstack
 
 LOG = logging.getLogger(__name__)
 
