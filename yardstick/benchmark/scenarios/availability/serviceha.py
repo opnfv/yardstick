@@ -6,6 +6,8 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import print_function
+from __future__ import absolute_import
 import logging
 from yardstick.benchmark.scenarios import base
 from yardstick.benchmark.scenarios.availability.monitor import basemonitor
@@ -109,15 +111,16 @@ def _test():    # pragma: no cover
     sla = {"outage_time": 5}
     args = {"options": options, "sla": sla}
 
-    print "create instance"
+    print("create instance")
     terstInstance = ServiceHA(args, ctx)
 
     terstInstance.setup()
     result = {}
     terstInstance.run(result)
-    print result
+    print(result)
 
     terstInstance.teardown()
+
 
 if __name__ == '__main__':    # pragma: no cover
     _test()

@@ -12,6 +12,7 @@
 # Unittest for yardstick.benchmark.scenarios.availability.monitor
 # .monitor_general
 
+from __future__ import absolute_import
 import mock
 import unittest
 from yardstick.benchmark.scenarios.availability.monitor import monitor_general
@@ -22,6 +23,7 @@ from yardstick.benchmark.scenarios.availability.monitor import monitor_general
 @mock.patch('yardstick.benchmark.scenarios.availability.monitor.'
             'monitor_general.open')
 class GeneralMonitorServiceTestCase(unittest.TestCase):
+
     def setUp(self):
         host = {
             "ip": "10.20.0.5",
@@ -53,23 +55,26 @@ class GeneralMonitorServiceTestCase(unittest.TestCase):
         ins.setup()
         mock_ssh.SSH().execute.return_value = (0, "running", '')
         ins.monitor_func()
-        ins._result = {'outage_time' : 0}
+        ins._result = {'outage_time': 0}
         ins.verify_SLA()
 
-    def test__monitor_general_all_successful_noparam(self, mock_open, mock_ssh):
-        ins = monitor_general.GeneralMonitor(self.monitor_cfg_noparam, self.context)
+    def test__monitor_general_all_successful_noparam(self, mock_open,
+                                                     mock_ssh):
+        ins = monitor_general.GeneralMonitor(
+            self.monitor_cfg_noparam, self.context)
 
         ins.setup()
         mock_ssh.SSH().execute.return_value = (0, "running", '')
         ins.monitor_func()
-        ins._result = {'outage_time' : 0}
+        ins._result = {'outage_time': 0}
         ins.verify_SLA()
 
     def test__monitor_general_failure(self, mock_open, mock_ssh):
-        ins = monitor_general.GeneralMonitor(self.monitor_cfg_noparam, self.context)
+        ins = monitor_general.GeneralMonitor(
+            self.monitor_cfg_noparam, self.context)
 
         ins.setup()
         mock_ssh.SSH().execute.return_value = (1, "error", 'error')
         ins.monitor_func()
-        ins._result = {'outage_time' : 2}
+        ins._result = {'outage_time': 2}
         ins.verify_SLA()

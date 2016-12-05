@@ -7,16 +7,19 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-import os
-import json
+from __future__ import absolute_import
+
 import logging
-import requests
+import os
 import time
 
+import requests
+import six
 from oslo_config import cfg
+from oslo_serialization import jsonutils
 
-from yardstick.dispatcher.base import Base as DispatchBase
 from third_party.influxdb.influxdb_line_protocol import make_lines
+from yardstick.dispatcher.base import Base as DispatchBase
 
 LOG = logging.getLogger(__name__)
 
@@ -80,9 +83,9 @@ class InfluxdbDispatcher(DispatchBase):
                 if type(v) == dict or type(v) == list]:
             return data
 
-        for k, v in data.iteritems():
+        for k, v in six.iteritems(data):
             if type(v) == dict:
-                for n_k, n_v in v.iteritems():
+                for n_k, n_v in six.iteritems(v):
                     next_data["%s.%s" % (k, n_k)] = n_v
             elif type(v) == list:
                 for index, item in enumerate(v):
@@ -127,7 +130,7 @@ class InfluxdbDispatcher(DispatchBase):
         return make_lines(msg).encode('utf-8')
 
     def record_result_data(self, data):
-        LOG.debug('Test result : %s', json.dumps(data))
+        LOG.debug('Test result : %s', jsonutils.dump_as_bytes(data))
         self.raw_result.append(data)
         if self.target == '':
             # if the target was not set, do not do anything
@@ -148,7 +151,7 @@ class InfluxdbDispatcher(DispatchBase):
             return 0
 
         if self.tc == "":
-            LOG.error('Test result : %s', json.dumps(data))
+            LOG.error('Test result : %s', jsonutils.dump_as_bytes(data))
             LOG.error('The case_name cannot be found, no data will be posted.')
             return -1
 
@@ -171,5 +174,6 @@ class InfluxdbDispatcher(DispatchBase):
         return 0
 
     def flush_result_data(self):
-        LOG.debug('Test result all : %s', json.dumps(self.raw_result))
+        LOG.debug('Test result all : %s',
+                  jsonutils.dump_as_bytes(self.raw_result))
         return 0

@@ -6,9 +6,12 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
+
 import unittest
+
 import mock
-import json
+from oslo_serialization import jsonutils
 
 from yardstick.common import httpClient
 
@@ -21,8 +24,9 @@ class HttpClientTestCase(unittest.TestCase):
         data = {'hello': 'world'}
         headers = {'Content-Type': 'application/json'}
         httpClient.HttpClient().post(url, data)
-        mock_requests.post.assert_called_with(url, data=json.dumps(data),
-                                              headers=headers)
+        mock_requests.post.assert_called_with(
+            url, data=jsonutils.dump_as_bytes(data),
+            headers=headers)
 
 
 def main():

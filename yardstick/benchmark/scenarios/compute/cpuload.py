@@ -9,13 +9,16 @@
 
 """Processor statistics and system load."""
 
+from __future__ import absolute_import
+
 import logging
-import time
 import re
+import time
+
+from six.moves import map, zip
+
 import yardstick.ssh as ssh
-
 from yardstick.benchmark.scenarios import base
-
 
 LOG = logging.getLogger(__name__)
 
@@ -145,7 +148,7 @@ class CPULoad(base.Scenario):
                     cpu = 'cpu' if line[0] == 'all' else 'cpu' + line[0]
                     values = line[1:]
                     if values and len(values) == len(fields):
-                        temp_dict = dict(zip(fields, values))
+                        temp_dict = dict(list(zip(fields, values)))
                         if cpu not in maximum:
                             maximum[cpu] = temp_dict
                         else:
@@ -177,7 +180,7 @@ class CPULoad(base.Scenario):
                     cpu = 'cpu' if line[0] == 'all' else 'cpu' + line[0]
                     values = line[1:]
                     if values and len(values) == len(fields):
-                        average[cpu] = dict(zip(fields, values))
+                        average[cpu] = dict(list(zip(fields, values)))
                     else:
                         raise RuntimeError("mpstat average: parse error",
                                            fields, line)
@@ -210,9 +213,9 @@ class CPULoad(base.Scenario):
 
             cpu = cur_list[0]
 
-            cur_stats = map(int, cur_list[1:])
+            cur_stats = list(map(int, cur_list[1:]))
             if self.interval > 0:
-                prev_stats = map(int, prev_list[1:])
+                prev_stats = list(map(int, prev_list[1:]))
             else:
                 prev_stats = [0] * len(cur_stats)
 
@@ -236,9 +239,9 @@ class CPULoad(base.Scenario):
                 else:
                     return "%.2f" % (100.0 * (x - y) / samples)
 
-            load = map(_percent, cur_stats, prev_stats)
+            load = list(map(_percent, cur_stats, prev_stats))
 
-            mpstat[cpu] = dict(zip(fields, load))
+            mpstat[cpu] = dict(list(zip(fields, load)))
 
         return {'mpstat': mpstat}
 
@@ -278,7 +281,7 @@ class CPULoad(base.Scenario):
 #     p = CPULoad(args, ctx)
 #     p.run(result)
 #     import json
-#     print json.dumps(result)
+#     print(oslo_serialization.jsonutils.dump_as_bytes(result))
 
 # if __name__ == '__main__':
 #     _test()

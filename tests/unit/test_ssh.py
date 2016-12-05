@@ -16,12 +16,14 @@
 # yardstick comment: this file is a modified copy of
 # rally/tests/unit/common/test_sshutils.py
 
+from __future__ import absolute_import
 import os
 import socket
 import unittest
-from cStringIO import StringIO
+from io import StringIO
 
 import mock
+from oslo_utils import encodeutils
 
 from yardstick import ssh
 
@@ -274,7 +276,9 @@ class SSHRunTestCase(unittest.TestCase):
         fake_stdin.close = mock.Mock(side_effect=close)
         self.test_client.run("cmd", stdin=fake_stdin)
         call = mock.call
-        send_calls = [call("line1"), call("line2"), call("e2")]
+        send_calls = [call(encodeutils.safe_encode("line1", "utf-8")),
+                      call(encodeutils.safe_encode("line2", "utf-8")),
+                      call(encodeutils.safe_encode("e2", "utf-8"))]
         self.assertEqual(send_calls, self.fake_session.send.mock_calls)
 
     @mock.patch("yardstick.ssh.select")
@@ -288,10 +292,10 @@ class SSHRunTestCase(unittest.TestCase):
         self.fake_session.exit_status_ready.side_effect = [0, 0, 0, True]
         self.fake_session.send_ready.return_value = True
         self.fake_session.send.side_effect = len
-        fake_stdin = StringIO("line1\nline2\n")
+        fake_stdin = StringIO(u"line1\nline2\n")
         self.test_client.run("cmd", stdin=fake_stdin, keep_stdin_open=True)
         call = mock.call
-        send_calls = [call("line1\nline2\n")]
+        send_calls = [call(encodeutils.safe_encode("line1\nline2\n", "utf-8"))]
         self.assertEqual(send_calls, self.fake_session.send.mock_calls)
 
     @mock.patch("yardstick.ssh.select")
@@ -392,6 +396,7 @@ class SSHRunTestCase(unittest.TestCase):
 
 def main():
     unittest.main()
+
 
 if __name__ == '__main__':
     main()

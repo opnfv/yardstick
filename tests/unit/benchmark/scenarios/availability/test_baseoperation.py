@@ -9,26 +9,31 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.scenarios.availability.operation.baseoperation
+# Unittest for
+# yardstick.benchmark.scenarios.availability.operation.baseoperation
 
+from __future__ import absolute_import
 import mock
 import unittest
 
-from yardstick.benchmark.scenarios.availability.operation import  baseoperation
+from yardstick.benchmark.scenarios.availability.operation import baseoperation
 
-@mock.patch('yardstick.benchmark.scenarios.availability.operation.baseoperation.BaseOperation')
+
+@mock.patch(
+    'yardstick.benchmark.scenarios.availability.operation.baseoperation'
+    '.BaseOperation')
 class OperationMgrTestCase(unittest.TestCase):
 
     def setUp(self):
         config = {
             'operation_type': 'general-operation',
-            'key' : 'service-status'
+            'key': 'service-status'
         }
 
         self.operation_configs = []
         self.operation_configs.append(config)
 
-    def  test_all_successful(self, mock_operation):
+    def test_all_successful(self, mock_operation):
         mgr_ins = baseoperation.OperationMgr()
         mgr_ins.init_operations(self.operation_configs, None)
         operation_ins = mgr_ins["service-status"]
@@ -59,7 +64,7 @@ class BaseOperationTestCase(unittest.TestCase):
     def setUp(self):
         self.config = {
             'operation_type': 'general-operation',
-            'key' : 'service-status'
+            'key': 'service-status'
         }
 
     def test_all_successful(self):
@@ -70,7 +75,7 @@ class BaseOperationTestCase(unittest.TestCase):
 
     def test_get_script_fullpath(self):
         base_ins = baseoperation.BaseOperation(self.config, None)
-        base_ins.get_script_fullpath("ha_tools/test.bash");
+        base_ins.get_script_fullpath("ha_tools/test.bash")
 
     def test_get_operation_cls_successful(self):
         base_ins = baseoperation.BaseOperation(self.config, None)

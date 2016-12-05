@@ -8,6 +8,9 @@
 ##############################################################################
 
 """ Handler for yardstick command 'testcase' """
+from __future__ import print_function
+
+from __future__ import absolute_import
 from yardstick.benchmark.core.testcase import Testcase
 from yardstick.common.utils import cliargs
 from yardstick.cmd.commands import change_osloobj_to_paras

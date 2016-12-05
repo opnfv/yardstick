@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 from keystoneclient.v2_0 import client as keystoneClient
 from heatclient import client as heatClient
 from heatclient.common import template_utils
@@ -97,7 +98,6 @@ class HeatManager:
                 if stack.stack_name == stack_name:
                     self.heat.stacks.delete(stack.id)
                     return True
-        except Exception as e:
-            common.LOG.debug(e.message)
-            pass
+        except Exception:
+            common.LOG.debug("destroy_heat_template", exc_info=True)
         return False

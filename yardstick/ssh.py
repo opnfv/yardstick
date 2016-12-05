@@ -25,7 +25,7 @@ Execute command and get output:
     status, stdout, stderr = ssh.execute("ps ax")
     if status:
         raise Exception("Command failed with non-zero status.")
-    print stdout.splitlines()
+    print(stdout.splitlines())
 
 Execute command with huge output:
 
@@ -62,6 +62,7 @@ Eventlet:
     sshclient = eventlet.import_patched("yardstick.ssh")
 
 """
+from __future__ import absolute_import
 import os
 import select
 import socket
@@ -70,6 +71,7 @@ import re
 
 import logging
 import paramiko
+from oslo_utils import encodeutils
 from scp import SCPClient
 import six
 
@@ -199,7 +201,8 @@ class SSH(object):
         session.exec_command(cmd)
         start_time = time.time()
 
-        data_to_send = ""
+        # encode on transmit, decode on receive
+        data_to_send = encodeutils.safe_encode("")
         stderr_data = None
 
         # If we have data to be sent to stdin then `select' should also
@@ -214,14 +217,15 @@ class SSH(object):
             r, w, e = select.select([session], writes, [session], 1)
 
             if session.recv_ready():
-                data = session.recv(4096)
+                data = encodeutils.safe_decode(session.recv(4096), 'utf-8')
                 self.log.debug("stdout: %r", data)
                 if stdout is not None:
                     stdout.write(data)
                 continue
 
             if session.recv_stderr_ready():
-                stderr_data = session.recv_stderr(4096)
+                stderr_data = encodeutils.safe_decode(
+                    session.recv_stderr(4096), 'utf-8')
                 self.log.debug("stderr: %r", stderr_data)
                 if stderr is not None:
                     stderr.write(stderr_data)
@@ -230,7 +234,8 @@ class SSH(object):
             if session.send_ready():
                 if stdin is not None and not stdin.closed:
                     if not data_to_send:
-                        data_to_send = stdin.read(4096)
+                        data_to_send = encodeutils.safe_encode(
+                            stdin.read(4096), incoming='utf-8')
                         if not data_to_send:
                             # we may need to keep stdin open
                             if not keep_stdin_open:

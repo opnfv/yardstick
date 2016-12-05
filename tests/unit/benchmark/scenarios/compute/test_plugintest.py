@@ -11,10 +11,12 @@
 
 # Unittest for yardstick.benchmark.scenarios.compute.plugintest.PluginTest
 
-import mock
-import json
+from __future__ import absolute_import
+
 import unittest
-import os
+
+import mock
+from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.compute import plugintest
 
@@ -50,7 +52,7 @@ class PluginTestTestCase(unittest.TestCase):
         sample_output = '{"Test Output": "Hello world!"}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         s.run(self.result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
         self.assertEqual(self.result, expected_result)
 
     def test_sample_unsuccessful_script_error(self, mock_ssh):

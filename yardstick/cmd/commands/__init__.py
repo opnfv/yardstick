@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from yardstick.benchmark.core import Param
 
 

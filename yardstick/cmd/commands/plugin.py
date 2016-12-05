@@ -9,6 +9,9 @@
 
 """ Handler for yardstick command 'plugin' """
 
+from __future__ import print_function
+
+from __future__ import absolute_import
 from yardstick.benchmark.core.plugin import Plugin
 from yardstick.common.utils import cliargs
 from yardstick.cmd.commands import change_osloobj_to_paras

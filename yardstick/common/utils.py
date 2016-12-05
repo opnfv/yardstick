@@ -15,17 +15,21 @@
 
 # yardstick comment: this is a modified copy of rally/rally/common/utils.py
 
-import os
-import sys
-import yaml
-import errno
-import subprocess
-import logging
+from __future__ import absolute_import
+from __future__ import print_function
 
-from oslo_utils import importutils
+import errno
+import logging
+import os
+import subprocess
+import sys
+from functools import reduce
+
+import yaml
 from keystoneauth1 import identity
 from keystoneauth1 import session
 from neutronclient.v2_0 import client
+from oslo_utils import importutils
 
 import yardstick
 
@@ -94,12 +98,12 @@ def get_para_from_yaml(file_path, args):
             value = reduce(func, args.split('.'), value)
 
             if value is None:
-                print 'parameter not found'
+                print('parameter not found')
                 return None
 
             return value
     else:
-        print 'file not exist'
+        print('file not exist')
         return None
 
 

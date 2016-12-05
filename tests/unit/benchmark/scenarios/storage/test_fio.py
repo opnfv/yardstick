@@ -11,10 +11,13 @@
 
 # Unittest for yardstick.benchmark.scenarios.storage.fio.Fio
 
-import mock
-import unittest
-import json
+from __future__ import absolute_import
+
 import os
+import unittest
+
+import mock
+from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.storage import fio
 
@@ -74,7 +77,7 @@ class FioTestCase(unittest.TestCase):
         expected_result = '{"read_bw": 83888, "read_iops": 20972,' \
             '"read_lat": 236.8, "write_bw": 84182, "write_iops": 21045,'\
             '"write_lat": 233.55}'
-        expected_result = json.loads(expected_result)
+        expected_result = jsonutils.loads(expected_result)
         self.assertEqual(result, expected_result)
 
     def test_fio_successful_read_no_sla(self, mock_ssh):
@@ -98,7 +101,7 @@ class FioTestCase(unittest.TestCase):
 
         expected_result = '{"read_bw": 36113, "read_iops": 9028,' \
             '"read_lat": 108.7}'
-        expected_result = json.loads(expected_result)
+        expected_result = jsonutils.loads(expected_result)
         self.assertEqual(result, expected_result)
 
     def test_fio_successful_write_no_sla(self, mock_ssh):
@@ -122,7 +125,7 @@ class FioTestCase(unittest.TestCase):
 
         expected_result = '{"write_bw": 35107, "write_iops": 8776,'\
             '"write_lat": 111.74}'
-        expected_result = json.loads(expected_result)
+        expected_result = jsonutils.loads(expected_result)
         self.assertEqual(result, expected_result)
 
     def test_fio_successful_lat_sla(self, mock_ssh):
@@ -150,9 +153,8 @@ class FioTestCase(unittest.TestCase):
         expected_result = '{"read_bw": 83888, "read_iops": 20972,' \
             '"read_lat": 236.8, "write_bw": 84182, "write_iops": 21045,'\
             '"write_lat": 233.55}'
-        expected_result = json.loads(expected_result)
+        expected_result = jsonutils.loads(expected_result)
         self.assertEqual(result, expected_result)
-
 
     def test_fio_unsuccessful_lat_sla(self, mock_ssh):
 
@@ -200,7 +202,7 @@ class FioTestCase(unittest.TestCase):
         expected_result = '{"read_bw": 83888, "read_iops": 20972,' \
             '"read_lat": 236.8, "write_bw": 84182, "write_iops": 21045,'\
             '"write_lat": 233.55}'
-        expected_result = json.loads(expected_result)
+        expected_result = jsonutils.loads(expected_result)
         self.assertEqual(result, expected_result)
 
     def test_fio_unsuccessful_bw_iops_sla(self, mock_ssh):
@@ -248,8 +250,10 @@ class FioTestCase(unittest.TestCase):
             sample_output = f.read()
         return sample_output
 
+
 def main():
     unittest.main()
+
 
 if __name__ == '__main__':
     main()

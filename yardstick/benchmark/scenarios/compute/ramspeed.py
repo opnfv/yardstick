@@ -6,9 +6,12 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-import pkg_resources
+from __future__ import absolute_import
+
 import logging
-import json
+
+import pkg_resources
+from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
@@ -131,7 +134,7 @@ class Ramspeed(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
-        result.update(json.loads(stdout))
+        result.update(jsonutils.loads(stdout))
 
         if "sla" in self.scenario_cfg:
             sla_error = ""

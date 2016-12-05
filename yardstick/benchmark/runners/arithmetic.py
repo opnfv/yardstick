@@ -24,12 +24,17 @@ until the end of the shortest list is reached (optimally all lists should be
 defined with the same number of values when using such iter_type).
 '''
 
-import os
-import multiprocessing
-import logging
-import traceback
-import time
+from __future__ import absolute_import
+
 import itertools
+import logging
+import multiprocessing
+import os
+import time
+import traceback
+
+import six
+from six.moves import range
 
 from yardstick.benchmark.runners import base
 
@@ -71,8 +76,8 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         return -1 if start > stop else 1
 
     param_iters = \
-        [xrange(d['start'], d['stop'] + margin(d['start'], d['stop']),
-                d['step']) for d in runner_cfg['iterators']]
+        [range(d['start'], d['stop'] + margin(d['start'], d['stop']),
+               d['step']) for d in runner_cfg['iterators']]
     param_names = [d['name'] for d in runner_cfg['iterators']]
 
     iter_type = runner_cfg.get("iter_type", "nested_for_loops")
@@ -82,10 +87,10 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         loop_iter = itertools.product(*param_iters)
     elif iter_type == 'tuple_loops':
         # Combine each i;th index of respective parameter list
-        loop_iter = itertools.izip(*param_iters)
+        loop_iter = six.moves.zip(*param_iters)
     else:
         LOG.warning("iter_type unrecognized: %s", iter_type)
-        raise
+        raise TypeError("iter_type unrecognized: %s", iter_type)
 
     # Populate options and run the requested method for each value combination
     for comb_values in loop_iter:

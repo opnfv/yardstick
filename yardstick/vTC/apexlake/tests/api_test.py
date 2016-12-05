@@ -13,14 +13,18 @@
 # limitations under the License.
 
 
+from __future__ import absolute_import
 import unittest
 import mock
 import os
 import experimental_framework.common as common
+from experimental_framework import APEX_LAKE_ROOT
 from experimental_framework.api import FrameworkApi
 from experimental_framework.benchmarking_unit import BenchmarkingUnit
 import experimental_framework.benchmarks.\
     instantiation_validation_benchmark as iv
+from six.moves import map
+from six.moves import range
 
 
 class DummyBenchmarkingUnit(BenchmarkingUnit):
@@ -61,6 +65,7 @@ class DummyBenchmarkingUnit2(BenchmarkingUnit):
 
 
 class TestGeneratesTemplate(unittest.TestCase):
+
     def setUp(self):
         pass
 
@@ -92,11 +97,11 @@ class TestGeneratesTemplate(unittest.TestCase):
             iv.VLAN_RECEIVER]
         expected['allowed_values'] = dict()
         expected['allowed_values'][iv.THROUGHPUT] = \
-            map(str, range(0, 100))
+            list(map(str, list(range(0, 100))))
         expected['allowed_values'][iv.VLAN_SENDER] = \
-            map(str, range(-1, 4096))
+            list(map(str, list(range(-1, 4096))))
         expected['allowed_values'][iv.VLAN_RECEIVER] = \
-            map(str, range(-1, 4096))
+            list(map(str, list(range(-1, 4096))))
         expected['default_values'] = dict()
         expected['default_values'][iv.THROUGHPUT] = '1'
         expected['default_values'][iv.VLAN_SENDER] = '-1'
@@ -121,9 +126,8 @@ class TestGeneratesTemplate(unittest.TestCase):
     def test_execute_framework_for_success(self, mock_b_unit, mock_heat,
                                            mock_credentials, mock_log,
                                            mock_common_init):
-        common.TEMPLATE_DIR = "{}/{}/".format(
-            os.getcwd(), 'tests/data/generated_templates'
-        )
+        common.TEMPLATE_DIR = os.path.join(APEX_LAKE_ROOT,
+                                           'tests/data/generated_templates/')
 
         test_cases = dict()
         iterations = 1
