@@ -6,6 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import print_function
 import pkg_resources
 import logging
 import subprocess
@@ -59,7 +60,7 @@ class Parser(base.Scenario):
         cmd2 = "chmod 777 %s" % (self.parser_script)
         subprocess.call(cmd2, shell=True)
         output = subprocess.call(cmd1, shell=True, stdout=subprocess.PIPE)
-        print "yangtotosca finished"
+        print("yangtotosca finished")
 
         result['yangtotosca'] = "success" if output == 0 else "fail"
 

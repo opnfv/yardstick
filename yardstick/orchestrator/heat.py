@@ -10,6 +10,7 @@
 """ Heat template and stack management
 """
 
+from __future__ import print_function
 import os
 import time
 import datetime
@@ -22,6 +23,7 @@ import heatclient.client
 import keystoneclient
 
 from yardstick.common import template_format
+from six.moves import range
 
 
 log = logging.getLogger(__name__)
@@ -126,7 +128,7 @@ class HeatStack(HeatObject):
                 self._delete()
                 break
             except RuntimeError as err:
-                log.warn(err.args)
+                log.warning(err.args)
                 time.sleep(2)
             i += 1
 
@@ -180,7 +182,7 @@ class HeatTemplate(HeatObject):
 
         if template_file:
             with open(template_file) as stream:
-                print "Parsing external template:", template_file
+                print("Parsing external template:", template_file)
                 template_str = stream.read()
                 self._template = template_format.parse(template_str)
             self._parameters = heat_parameters

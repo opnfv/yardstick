@@ -15,6 +15,7 @@
 
 import instantiation_validation_benchmark as base
 from experimental_framework import common
+from six.moves import range
 
 
 NUM_OF_NEIGHBORS = 'num_of_neighbours'

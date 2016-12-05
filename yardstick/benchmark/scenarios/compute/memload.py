@@ -13,6 +13,7 @@ import logging
 import yardstick.ssh as ssh
 
 from yardstick.benchmark.scenarios import base
+from six.moves import zip
 
 LOG = logging.getLogger(__name__)
 
@@ -88,7 +89,7 @@ class MEMLoad(base.Scenario):
                 ite += 1
                 values = line[1:]
                 if values and len(values) == len(fields):
-                    free[memory] = dict(zip(fields, values))
+                    free[memory] = dict(list(zip(fields, values)))
 
         for entry in free:
             for item in average:
