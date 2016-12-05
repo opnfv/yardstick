@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.scenarios.compute.cachestat.CACHEstat
 
+from __future__ import absolute_import
 import mock
 import unittest
 import os
@@ -72,11 +73,19 @@ class CACHEstatTestCase(unittest.TestCase):
         output = self._read_file("cachestat_sample_output.txt")
         mock_ssh.SSH().execute.return_value = (0, output, '')
         result = c._get_cache_usage()
-        expected_result = {"cachestat": {"cache0": {"HITS": "6462",\
- "DIRTIES": "29", "RATIO": "100.0%", "MISSES": "0", "BUFFERS_MB": "1157",\
- "CACHE_MB": "66782"}}, "average": {"HITS": 6462, "DIRTIES": 29, "RATIO": "100.0%",\
- "MISSES": 0, "BUFFERS_MB":1157, "CACHE_MB": 66782}, "max": {"HITS": 6462,\
- "DIRTIES": 29, "RATIO": 100.0, "MISSES": 0, "BUFFERS_MB": 1157, "CACHE_MB": 66782}}
+        expected_result = {"cachestat": {"cache0": {"HITS": "6462",
+                                                    "DIRTIES": "29",
+                                                    "RATIO": "100.0%",
+                                                    "MISSES": "0",
+                                                    "BUFFERS_MB": "1157",
+                                                    "CACHE_MB": "66782"}},
+                           "average": {"HITS": 6462, "DIRTIES": 29,
+                                       "RATIO": "100.0%",
+                                       "MISSES": 0, "BUFFERS_MB": 1157,
+                                       "CACHE_MB": 66782},
+                           "max": {"HITS": 6462,
+                                   "DIRTIES": 29, "RATIO": 100.0, "MISSES": 0,
+                                   "BUFFERS_MB": 1157, "CACHE_MB": 66782}}
 
         self.assertEqual(result, expected_result)
 

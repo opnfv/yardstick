@@ -8,6 +8,8 @@
 ##############################################################################
 
 """ Handler for yardstick command 'testcase' """
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import yaml
 import sys
@@ -22,6 +24,7 @@ class Testcase(object):
 
        Set of commands to discover and display test cases.
     '''
+
     def __init__(self):
         self.test_case_path = YARDSTICK_ROOT_PATH + 'tests/opnfv/test_cases/'
         self.testcase_list = []
@@ -32,7 +35,7 @@ class Testcase(object):
         try:
             testcase_files = os.listdir(self.test_case_path)
         except Exception as e:
-            print(("Failed to list dir:\n%(path)s\n%(err)s\n")
+            print("Failed to list dir:\n%(path)s\n%(err)s\n"
                   % {"path": self.test_case_path, "err": e})
             raise e
         testcase_files.sort()
@@ -52,11 +55,11 @@ class Testcase(object):
             with open(testcase_path) as f:
                 try:
                     testcase_info = f.read()
-                    print testcase_info
+                    print(testcase_info)
 
                 except Exception as e:
-                    print(("Failed to load test cases:"
-                           "\n%(testcase_file)s\n%(err)s\n")
+                    print("Failed to load test cases:"
+                          "\n%(testcase_file)s\n%(err)s\n"
                           % {"testcase_file": testcase_path, "err": e})
                     raise e
         except IOError as ioerror:
@@ -70,8 +73,8 @@ class Testcase(object):
                 try:
                     testcase_info = f.read()
                 except Exception as e:
-                    print(("Failed to load test cases:"
-                           "\n%(testcase_file)s\n%(err)s\n")
+                    print("Failed to load test cases:"
+                          "\n%(testcase_file)s\n%(err)s\n"
                           % {"testcase_file": testcase_file, "err": e})
                     raise e
                 description, installer, deploy_scenarios = \
@@ -107,6 +110,6 @@ class Testcase(object):
         print("| %-21s | %-60s" % ("Testcase Name", "Description"))
         print_hbar(88)
         for testcase_record in testcase_list:
-            print "| %-16s | %-60s" % (testcase_record['Name'],
-                                       testcase_record['Description'])
+            print("| %-16s | %-60s" % (testcase_record['Name'],
+                                       testcase_record['Description']))
         print_hbar(88)

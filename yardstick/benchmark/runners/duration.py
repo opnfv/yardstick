@@ -19,6 +19,7 @@
 '''A runner that runs a specific time before it returns
 '''
 
+from __future__ import absolute_import
 import os
 import multiprocessing
 import logging

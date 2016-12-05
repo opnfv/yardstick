@@ -11,11 +11,15 @@
 
 # Unittest for yardstick.benchmark.scenarios.parser.Parser
 
-import mock
+from __future__ import absolute_import
+
 import unittest
-import json
+
+import mock
+from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.parser import parser
+
 
 @mock.patch('yardstick.benchmark.scenarios.parser.parser.subprocess')
 class ParserTestCase(unittest.TestCase):
@@ -32,8 +36,8 @@ class ParserTestCase(unittest.TestCase):
 
     def test_parser_successful(self, mock_subprocess):
         args = {
-            'options': {'yangfile':'/root/yardstick/samples/yang.yaml',
-            'toscafile':'/root/yardstick/samples/tosca.yaml'},
+            'options': {'yangfile': '/root/yardstick/samples/yang.yaml',
+                        'toscafile': '/root/yardstick/samples/tosca.yaml'},
         }
         p = parser.Parser(args, {})
         result = {}
@@ -41,7 +45,7 @@ class ParserTestCase(unittest.TestCase):
         sample_output = '{"yangtotosca": "success"}'
 
         p.run(result)
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
 
     def test_parser_teardown_successful(self, mock_subprocess):
 

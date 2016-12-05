@@ -6,25 +6,27 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
+
+import errno
+import json
 import logging
-import threading
+import os
 import subprocess
+import threading
 import time
 import uuid
-import json
-import os
-import errno
-import ConfigParser
 
+from six.moves import configparser
+
+from api import conf as api_conf
+from api.database.handler import AsyncTaskHandler
+from api.utils import influx
+from api.utils.common import result_handler
 from docker import Client
-
 from yardstick.common import constants as config
 from yardstick.common import utils as yardstick_utils
 from yardstick.common.httpClient import HttpClient
-from api import conf as api_conf
-from api.utils import influx
-from api.utils.common import result_handler
-from api.database.handler import AsyncTaskHandler
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -167,7 +169,7 @@ def _config_influxdb():
 def _change_output_to_influxdb():
     yardstick_utils.makedirs(config.YARDSTICK_CONFIG_DIR)
 
-    parser = ConfigParser.ConfigParser()
+    parser = configparser.ConfigParser()
     parser.read(config.YARDSTICK_CONFIG_SAMPLE_FILE)
 
     parser.set('DEFAULT', 'dispatcher', 'influxdb')

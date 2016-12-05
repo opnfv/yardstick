@@ -7,9 +7,13 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 # bulk data test and req/rsp test are supported
-import pkg_resources
+from __future__ import absolute_import
+from __future__ import print_function
+
 import logging
-import json
+
+import pkg_resources
+from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
@@ -152,7 +156,7 @@ class NetperfNode(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
-        result.update(json.loads(stdout))
+        result.update(jsonutils.loads(stdout))
 
         if result['mean_latency'] == '':
             raise RuntimeError(stdout)
@@ -200,7 +204,8 @@ def _test():    # pragma: no cover
 
     netperf = NetperfNode(args, ctx)
     netperf.run(result)
-    print result
+    print(result)
+
 
 if __name__ == '__main__':
     _test()

@@ -6,6 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
 from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import String

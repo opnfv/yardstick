@@ -10,6 +10,7 @@
 """ Handler for yardstick command 'plugin' """
 
 from __future__ import print_function
+from __future__ import absolute_import
 import os
 import sys
 import yaml
@@ -182,7 +183,7 @@ class PluginParser(object):
            and a deployment instance
         """
 
-        print ("Parsing plugin config:", self.path)
+        print("Parsing plugin config:", self.path)
 
         try:
             kw = {}
@@ -191,10 +192,10 @@ class PluginParser(object):
                     input_plugin = f.read()
                     rendered_plugin = TaskTemplate.render(input_plugin, **kw)
                 except Exception as e:
-                    print(("Failed to render template:\n%(plugin)s\n%(err)s\n")
+                    print("Failed to render template:\n%(plugin)s\n%(err)s\n"
                           % {"plugin": input_plugin, "err": e})
                     raise e
-                print(("Input plugin is:\n%s\n") % rendered_plugin)
+                print("Input plugin is:\n%s\n" % rendered_plugin)
 
                 cfg = yaml.load(rendered_plugin)
         except IOError as ioerror:

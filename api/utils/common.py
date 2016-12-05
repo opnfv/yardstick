@@ -6,6 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
 import collections
 import logging
 
@@ -13,18 +14,19 @@ from flask import jsonify
 
 from api.utils.daemonthread import DaemonThread
 from yardstick.cmd.cli import YardstickCLI
+import six
 
 logger = logging.getLogger(__name__)
 
 
-def translate_to_str(object):
-    if isinstance(object, collections.Mapping):
-        return {str(k): translate_to_str(v) for k, v in object.items()}
-    elif isinstance(object, list):
-        return [translate_to_str(ele) for ele in object]
-    elif isinstance(object, unicode):
-        return str(object)
-    return object
+def translate_to_str(obj):
+    if isinstance(obj, collections.Mapping):
+        return {str(k): translate_to_str(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [translate_to_str(ele) for ele in obj]
+    elif isinstance(obj, six.text_type):
+        return str(obj)
+    return obj
 
 
 def get_command_list(command_list, opts, args):

@@ -6,8 +6,11 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
+
 import logging
-import json
+
+from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
@@ -53,4 +56,4 @@ class PluginTest(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
-        result.update(json.loads(stdout))
+        result.update(jsonutils.loads(stdout))

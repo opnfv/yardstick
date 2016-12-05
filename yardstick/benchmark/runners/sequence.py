@@ -20,6 +20,7 @@
 The input value in the sequence is specified in a list in the input file.
 '''
 
+from __future__ import absolute_import
 import os
 import multiprocessing
 import logging

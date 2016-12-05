@@ -12,16 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 import os
-import commands
 # import signal
 import time
+
+import subprocess
 from experimental_framework.benchmarks import benchmark_base_class as base
 from experimental_framework.constants import framework_parameters as fp
 from experimental_framework.constants import conf_file_sections as cfs
 from experimental_framework.packet_generators import dpdk_packet_generator \
     as dpdk
 import experimental_framework.common as common
+from six.moves import range
 
 
 THROUGHPUT = 'throughput'
@@ -36,7 +39,7 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
 
     def __init__(self, name, params):
         base.BenchmarkBaseClass.__init__(self, name, params)
-        self.base_dir = "{}{}{}".format(
+        self.base_dir = os.path.join(
             common.get_base_dir(), fp.EXPERIMENTAL_FRAMEWORK_DIR,
             fp.DPDK_PKTGEN_DIR)
         self.results_file = self.base_dir + PACKETS_FILE_NAME
@@ -45,10 +48,11 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         self.interface_name = ''
 
         # Set the packet checker command
-        self.pkt_checker_command = common.get_base_dir()
-        self.pkt_checker_command += 'experimental_framework/libraries/'
-        self.pkt_checker_command += 'packet_checker/'
-        self.pkt_checker_command += PACKET_CHECKER_PROGRAM_NAME + ' '
+        self.pkt_checker_command = os.path.join(
+            common.get_base_dir(),
+            'experimental_framework/libraries/',
+            'packet_checker/',
+            PACKET_CHECKER_PROGRAM_NAME + ' ')
 
     def init(self):
         """
@@ -69,9 +73,11 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         features['description'] = 'Instantiation Validation Benchmark'
         features['parameters'] = [THROUGHPUT, VLAN_SENDER, VLAN_RECEIVER]
         features['allowed_values'] = dict()
-        features['allowed_values'][THROUGHPUT] = map(str, range(0, 100))
-        features['allowed_values'][VLAN_SENDER] = map(str, range(-1, 4096))
-        features['allowed_values'][VLAN_RECEIVER] = map(str, range(-1, 4096))
+        features['allowed_values'][THROUGHPUT] = [str(x) for x in range(100)]
+        features['allowed_values'][VLAN_SENDER] = [str(x) for x in
+                                                   range(-1, 4096)]
+        features['allowed_values'][VLAN_RECEIVER] = [str(x)
+                                                     for x in range(-1, 4096)]
         features['default_values'] = dict()
         features['default_values'][THROUGHPUT] = '1'
         features['default_values'][VLAN_SENDER] = '-1'
@@ -203,7 +209,7 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         # Start the packet checker
         current_dir = os.path.dirname(os.path.realpath(__file__))
         dir_list = self.pkt_checker_command.split('/')
-        directory = '/'.join(dir_list[0:len(dir_list)-1])
+        directory = os.pathsep.join(dir_list[0:len(dir_list) - 1])
         os.chdir(directory)
         command = "make"
         common.run_command(command)
@@ -245,10 +251,10 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         processes currently running on the host
         :return: type: list of int
         """
-        output = commands.getoutput("ps -ef |pgrep " +
-                                    PACKET_CHECKER_PROGRAM_NAME)
+        output = subprocess.check_output(
+            'pgrep "{}"'.format(PACKET_CHECKER_PROGRAM_NAME))
         if not output:
             pids = []
         else:
-            pids = map(int, output.split('\n'))
+            pids = [int(x) for x in output.splitlines()]
         return pids

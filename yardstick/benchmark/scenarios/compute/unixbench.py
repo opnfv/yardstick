@@ -6,9 +6,13 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-import pkg_resources
+from __future__ import absolute_import
+from __future__ import print_function
+
 import logging
-import json
+
+import pkg_resources
+from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
@@ -115,7 +119,7 @@ class Unixbench(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
-        result.update(json.loads(stdout))
+        result.update(jsonutils.loads(stdout))
 
         if "sla" in self.scenario_cfg:
             sla_error = ""
@@ -152,7 +156,7 @@ def _test():  # pragma: no cover
 
     p = Unixbench(args, ctx)
     p.run(result)
-    print result
+    print(result)
 
 
 if __name__ == '__main__':

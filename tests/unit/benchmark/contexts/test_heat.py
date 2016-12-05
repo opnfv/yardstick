@@ -11,12 +11,19 @@
 
 # Unittest for yardstick.benchmark.contexts.heat
 
-import os
-import mock
-import unittest
+from __future__ import absolute_import
 
-from yardstick.benchmark.contexts import model
+import logging
+import os
+import unittest
+import uuid
+
+import mock
+
 from yardstick.benchmark.contexts import heat
+
+
+LOG = logging.getLogger(__name__)
 
 
 class HeatContextTestCase(unittest.TestCase):
@@ -70,7 +77,8 @@ class HeatContextTestCase(unittest.TestCase):
             'bar', self.test_context, networks['bar'])
         self.assertTrue(len(self.test_context.networks) == 1)
 
-        mock_server.assert_called_with('baz', self.test_context, servers['baz'])
+        mock_server.assert_called_with('baz', self.test_context,
+                                       servers['baz'])
         self.assertTrue(len(self.test_context.servers) == 1)
 
         if os.path.exists(self.test_context.key_filename):
@@ -78,7 +86,8 @@ class HeatContextTestCase(unittest.TestCase):
                 os.remove(self.test_context.key_filename)
                 os.remove(self.test_context.key_filename + ".pub")
             except OSError:
-                LOG.exception("key_filename: %s", e.key_filename)
+                LOG.exception("key_filename: %s",
+                              self.test_context.key_filename)
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_resources_to_template_no_servers(self, mock_template):
@@ -88,8 +97,9 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context.key_uuid = "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b"
 
         self.test_context._add_resources_to_template(mock_template)
-        mock_template.add_keypair.assert_called_with("foo-key",
-                                                     "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b")
+        mock_template.add_keypair.assert_called_with(
+            "foo-key",
+            "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b")
         mock_template.add_security_group.assert_called_with("foo-secgroup")
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
@@ -113,12 +123,13 @@ class HeatContextTestCase(unittest.TestCase):
 
         self.assertTrue(mock_template.delete.called)
 
-
     def test__get_server(self):
 
         self.mock_context.name = 'bar'
         self.mock_context.stack.outputs = {'public_ip': '127.0.0.1',
                                            'private_ip': '10.0.0.1'}
+        self.mock_context.key_uuid = uuid.uuid4()
+
         attr_name = {'name': 'foo.bar',
                      'public_ip_attr': 'public_ip',
                      'private_ip_attr': 'private_ip'}

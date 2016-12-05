@@ -6,6 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
 import logging
 import os
 
@@ -36,6 +37,7 @@ class ReleaseAction(ApiResource):
 
 
 class SamplesAction(ApiResource):
+
     def post(self):
         return self._dispatch_post()
 
@@ -43,7 +45,8 @@ class SamplesAction(ApiResource):
 TestSuiteActionModel = models.TestSuiteActionModel
 TestSuiteActionArgsModel = models.TestSuiteActionArgsModel
 TestSuiteActionArgsOptsModel = models.TestSuiteActionArgsOptsModel
-TestSuiteActionArgsOptsTaskArgModel = models.TestSuiteActionArgsOptsTaskArgModel
+TestSuiteActionArgsOptsTaskArgModel = \
+    models.TestSuiteActionArgsOptsTaskArgModel
 
 
 class TestsuitesAction(ApiResource):
@@ -56,11 +59,13 @@ ResultModel = models.ResultModel
 
 
 class Results(ApiResource):
+
     @swag_from(os.getcwd() + '/swagger/docs/results.yaml')
     def get(self):
         return self._dispatch_get()
 
 
 class EnvAction(ApiResource):
+
     def post(self):
         return self._dispatch_post()

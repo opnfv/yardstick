@@ -6,10 +6,12 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-import logging
-import ConfigParser
-from urlparse import urlsplit
+from __future__ import absolute_import
 
+import logging
+
+import six.moves.configparser as ConfigParser
+from six.moves.urllib.parse import urlsplit
 from influxdb import InfluxDBClient
 
 from api import conf

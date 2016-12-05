@@ -11,43 +11,58 @@
 
 # Unittest for yardstick.benchmark.scenarios.storage.storperf.StorPerf
 
-import mock
+from __future__ import absolute_import
+
 import unittest
-import requests
-import json
+
+import mock
+from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.storage import storperf
 
 
 def mocked_requests_config_post(*args, **kwargs):
     class MockResponseConfigPost:
+
         def __init__(self, json_data, status_code):
             self.content = json_data
             self.status_code = status_code
 
-    return MockResponseConfigPost('{"stack_id": "dac27db1-3502-4300-b301-91c64e6a1622","stack_created": "false"}', 200)
+    return MockResponseConfigPost(
+        '{"stack_id": "dac27db1-3502-4300-b301-91c64e6a1622",'
+        '"stack_created": "false"}',
+        200)
 
 
 def mocked_requests_config_get(*args, **kwargs):
     class MockResponseConfigGet:
+
         def __init__(self, json_data, status_code):
             self.content = json_data
             self.status_code = status_code
 
-    return MockResponseConfigGet('{"stack_id": "dac27db1-3502-4300-b301-91c64e6a1622","stack_created": "true"}', 200)
+    return MockResponseConfigGet(
+        '{"stack_id": "dac27db1-3502-4300-b301-91c64e6a1622",'
+        '"stack_created": "true"}',
+        200)
 
 
 def mocked_requests_job_get(*args, **kwargs):
     class MockResponseJobGet:
+
         def __init__(self, json_data, status_code):
             self.content = json_data
             self.status_code = status_code
 
-    return MockResponseJobGet('{"status": "completed", "_ssd_preconditioning.queue-depth.8.block-size.16384.duration": 6}', 200)
+    return MockResponseJobGet(
+        '{"status": "completed",\
+         "_ssd_preconditioning.queue-depth.8.block-size.16384.duration": 6}',
+        200)
 
 
 def mocked_requests_job_post(*args, **kwargs):
     class MockResponseJobPost:
+
         def __init__(self, json_data, status_code):
             self.content = json_data
             self.status_code = status_code
@@ -58,6 +73,7 @@ def mocked_requests_job_post(*args, **kwargs):
 
 def mocked_requests_job_delete(*args, **kwargs):
     class MockResponseJobDelete:
+
         def __init__(self, json_data, status_code):
             self.content = json_data
             self.status_code = status_code
@@ -67,6 +83,7 @@ def mocked_requests_job_delete(*args, **kwargs):
 
 def mocked_requests_delete(*args, **kwargs):
     class MockResponseDelete:
+
         def __init__(self, json_data, status_code):
             self.json_data = json_data
             self.status_code = status_code
@@ -76,6 +93,7 @@ def mocked_requests_delete(*args, **kwargs):
 
 def mocked_requests_delete_failed(*args, **kwargs):
     class MockResponseDeleteFailed:
+
         def __init__(self, json_data, status_code):
             self.json_data = json_data
             self.status_code = status_code
@@ -130,8 +148,9 @@ class StorPerfTestCase(unittest.TestCase):
                 side_effect=mocked_requests_job_post)
     @mock.patch('yardstick.benchmark.scenarios.storage.storperf.requests.get',
                 side_effect=mocked_requests_job_get)
-    @mock.patch('yardstick.benchmark.scenarios.storage.storperf.requests.delete',
-                side_effect=mocked_requests_job_delete)
+    @mock.patch(
+        'yardstick.benchmark.scenarios.storage.storperf.requests.delete',
+        side_effect=mocked_requests_job_delete)
     def test_successful_run(self, mock_post, mock_get, mock_delete):
         options = {
             "agent_count": 8,
@@ -152,15 +171,18 @@ class StorPerfTestCase(unittest.TestCase):
         s = storperf.StorPerf(args, self.ctx)
         s.setup_done = True
 
-        sample_output = '{"status": "completed", "_ssd_preconditioning.queue-depth.8.block-size.16384.duration": 6}'
+        sample_output = '{"status": "completed",\
+         "_ssd_preconditioning.queue-depth.8.block-size.16384.duration": 6}'
 
-        expected_result = json.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)
 
         s.run(self.result)
 
         self.assertEqual(self.result, expected_result)
 
-    @mock.patch('yardstick.benchmark.scenarios.storage.storperf.requests.delete', side_effect=mocked_requests_delete)
+    @mock.patch(
+        'yardstick.benchmark.scenarios.storage.storperf.requests.delete',
+        side_effect=mocked_requests_delete)
     def test_successful_teardown(self, mock_delete):
         options = {
             "agent_count": 8,
@@ -184,7 +206,9 @@ class StorPerfTestCase(unittest.TestCase):
 
         self.assertFalse(s.setup_done)
 
-    @mock.patch('yardstick.benchmark.scenarios.storage.storperf.requests.delete', side_effect=mocked_requests_delete_failed)
+    @mock.patch(
+        'yardstick.benchmark.scenarios.storage.storperf.requests.delete',
+        side_effect=mocked_requests_delete_failed)
     def test_failed_teardown(self, mock_delete):
         options = {
             "agent_count": 8,

@@ -7,12 +7,14 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 # yardstick: this file is copied from rally and slightly modified
 ##############################################################################
+from __future__ import absolute_import
 import re
 import jinja2
 import jinja2.meta
 
 
 class TaskTemplate(object):
+
     @classmethod
     def render(cls, task_template, **kwargs):
         """Render jinja2 task template to Yardstick input task.

@@ -6,13 +6,17 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
 from __future__ import print_function
-import time
+
 import os
 import sys
+import time
 
-from yardstick.common.httpClient import HttpClient
+from six.moves import range
+
 from yardstick.common import constants as consts
+from yardstick.common.httpClient import HttpClient
 
 
 class EnvCommand(object):
@@ -20,6 +24,7 @@ class EnvCommand(object):
 
         Set of commands to prepare environment
     '''
+
     def do_influxdb(self, args):
         data = {'action': 'createInfluxDBContainer'}
         task_id = self._start_async_task(data)
@@ -52,7 +57,7 @@ class EnvCommand(object):
         CHECK_STATUS_RETRY = 20
         CHECK_STATUS_DELAY = 5
 
-        for retry in xrange(CHECK_STATUS_RETRY):
+        for retry in range(CHECK_STATUS_RETRY):
             response = HttpClient().get(url)
             status = response['status']
 

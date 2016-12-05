@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.scenarios.networking.ping.Ping
 
+from __future__ import absolute_import
 import mock
 import unittest
 
@@ -37,7 +38,7 @@ class PingTestCase(unittest.TestCase):
         args = {
             'options': {'packetsize': 200},
             'target': 'ares.demo'
-            }
+        }
         result = {}
 
         p = ping.Ping(args, self.ctx)
@@ -53,7 +54,7 @@ class PingTestCase(unittest.TestCase):
             'options': {'packetsize': 200},
             'sla': {'max_rtt': 150},
             'target': 'ares.demo'
-            }
+        }
         result = {}
 
         p = ping.Ping(args, self.ctx)

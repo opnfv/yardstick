@@ -7,19 +7,27 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+from __future__ import absolute_import
+from __future__ import print_function
+
+import collections
+import logging
 import os
 import sys
 import uuid
-import pkg_resources
+
 import paramiko
+import pkg_resources
 
 from yardstick.benchmark.contexts.base import Context
-from yardstick.benchmark.contexts.model import Server
-from yardstick.benchmark.contexts.model import PlacementGroup
 from yardstick.benchmark.contexts.model import Network
+from yardstick.benchmark.contexts.model import PlacementGroup
+from yardstick.benchmark.contexts.model import Server
 from yardstick.benchmark.contexts.model import update_scheduler_hints
 from yardstick.orchestrator.heat import HeatTemplate, get_short_key_uuid
 from yardstick.definitions import YARDSTICK_ROOT_PATH
+
+LOG = logging.getLogger(__name__)
 
 
 class HeatContext(Context):
@@ -193,7 +201,7 @@ class HeatContext(Context):
 
     def deploy(self):
         '''deploys template into a stack using cloud'''
-        print "Deploying context '%s'" % self.name
+        print("Deploying context '%s'" % self.name)
 
         heat_template = HeatTemplate(self.name, self.template_file,
                                      self.heat_parameters)
@@ -214,29 +222,29 @@ class HeatContext(Context):
         for server in self.servers:
             if len(server.ports) > 0:
                 # TODO(hafe) can only handle one internal network for now
-                port = server.ports.values()[0]
+                port = list(server.ports.values())[0]
                 server.private_ip = self.stack.outputs[port["stack_name"]]
 
             if server.floating_ip:
                 server.public_ip = \
                     self.stack.outputs[server.floating_ip["stack_name"]]
 
-        print "Context '%s' deployed" % self.name
+        print("Context '%s' deployed" % self.name)
 
     def undeploy(self):
         '''undeploys stack from cloud'''
         if self.stack:
-            print "Undeploying context '%s'" % self.name
+            print("Undeploying context '%s'" % self.name)
             self.stack.delete()
             self.stack = None
-            print "Context '%s' undeployed" % self.name
+            print("Context '%s' undeployed" % self.name)
 
         if os.path.exists(self.key_filename):
             try:
                 os.remove(self.key_filename)
                 os.remove(self.key_filename + ".pub")
-            except OSError, e:
-                print ("Error: %s - %s." % (e.key_filename, e.strerror))
+            except OSError:
+                LOG.exception("Key filename %s", self.key_filename)
 
     def _get_server(self, attr_name):
         '''lookup server info by name from context
@@ -247,7 +255,7 @@ class HeatContext(Context):
             'yardstick.resources',
             'files/yardstick_key-' + get_short_key_uuid(self.key_uuid))
 
-        if type(attr_name) is dict:
+        if isinstance(attr_name, collections.Mapping):
             cname = attr_name["name"].split(".")[1]
             if cname != self.name:
                 return None

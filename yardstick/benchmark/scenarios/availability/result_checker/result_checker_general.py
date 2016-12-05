@@ -6,9 +6,13 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
 import logging
 
-from baseresultchecker import BaseResultChecker
+
+from yardstick.benchmark.scenarios.availability.result_checker \
+    .baseresultchecker import \
+    BaseResultChecker
 from yardstick.benchmark.scenarios.availability import Condition
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios.availability.util import buildshellparams

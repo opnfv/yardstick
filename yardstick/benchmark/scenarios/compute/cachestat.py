@@ -9,12 +9,14 @@
 
 """cache hit/miss ratio and usage statistics"""
 
+from __future__ import absolute_import
 import pkg_resources
 import logging
 import re
 import yardstick.ssh as ssh
 
 from yardstick.benchmark.scenarios import base
+from six.moves import zip
 
 LOG = logging.getLogger(__name__)
 
@@ -120,7 +122,7 @@ class CACHEstat(base.Scenario):
                 ite += 1
                 values = line[:]
                 if values and len(values) == len(fields):
-                    cachestat[cache] = dict(zip(fields, values))
+                    cachestat[cache] = dict(list(zip(fields, values)))
 
         for entry in cachestat:
             for item in average:

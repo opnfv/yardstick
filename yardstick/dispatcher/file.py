@@ -16,10 +16,12 @@
 # yardstick comment: this is a modified copy of
 # ceilometer/ceilometer/dispatcher/file.py
 
+from __future__ import absolute_import
+
 import logging
 import logging.handlers
-import json
 
+from oslo_serialization import jsonutils
 from oslo_config import cfg
 
 from yardstick.dispatcher.base import Base as DispatchBase
@@ -70,7 +72,7 @@ class FileDispatcher(DispatchBase):
 
     def record_result_data(self, data):
         if self.log:
-            self.log.info(json.dumps(data))
+            self.log.info(jsonutils.dump_as_bytes(data))
 
     def flush_result_data(self):
         pass

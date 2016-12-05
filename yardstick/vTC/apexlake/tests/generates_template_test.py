@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 import unittest
 import experimental_framework.heat_template_generation as heat_gen
 import mock
 import os
 import experimental_framework.common as common
+from experimental_framework import APEX_LAKE_ROOT
 
 __author__ = 'gpetralx'
 
@@ -45,6 +47,7 @@ def reset_common():
 
 
 class TestGeneratesTemplate(unittest.TestCase):
+
     def setUp(self):
         self.deployment_configuration = {
             'vnic_type': ['normal', 'direct'],
@@ -61,9 +64,11 @@ class TestGeneratesTemplate(unittest.TestCase):
     @mock.patch('experimental_framework.common.get_template_dir')
     def test_generates_template_for_success(self, mock_template_dir,
                                             mock_log):
-        generated_templates_dir = 'tests/data/generated_templates/'
+        generated_templates_dir = os.path.join(
+            APEX_LAKE_ROOT, 'tests/data/generated_templates/')
         mock_template_dir.return_value = generated_templates_dir
-        test_templates = 'tests/data/test_templates/'
+        test_templates = os.path.join(APEX_LAKE_ROOT,
+                                      'tests/data/test_templates/')
         heat_gen.generates_templates(self.template_name,
                                      self.deployment_configuration)
         for dirname, dirnames, filenames in os.walk(test_templates):
@@ -73,8 +78,9 @@ class TestGeneratesTemplate(unittest.TestCase):
                         self.assertListEqual(test.readlines(),
                                              generated.readlines())
 
-        t_name = '/tests/data/generated_templates/VTC_base_single_vm_wait.tmp'
-        self.template_name = "{}{}".format(os.getcwd(), t_name)
+        self.template_name = os.path.join(
+            APEX_LAKE_ROOT,
+            'tests/data/generated_templates/VTC_base_single_vm_wait.tmp')
         heat_gen.generates_templates(self.template_name,
                                      self.deployment_configuration)
         for dirname, dirnames, filenames in os.walk(test_templates):
@@ -86,7 +92,8 @@ class TestGeneratesTemplate(unittest.TestCase):
 
     @mock.patch('experimental_framework.common.get_template_dir')
     def test_get_all_heat_templates_for_success(self, template_dir):
-        generated_templates = 'tests/data/generated_templates/'
+        generated_templates = os.path.join(APEX_LAKE_ROOT,
+                                           'tests/data/generated_templates/')
         template_dir.return_value = generated_templates
         extension = '.yaml'
         expected = ['experiment_1.yaml', 'experiment_2.yaml']
