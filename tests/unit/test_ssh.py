@@ -19,7 +19,7 @@
 import os
 import socket
 import unittest
-from cStringIO import StringIO
+from io import StringIO
 
 import mock
 
@@ -288,7 +288,7 @@ class SSHRunTestCase(unittest.TestCase):
         self.fake_session.exit_status_ready.side_effect = [0, 0, 0, True]
         self.fake_session.send_ready.return_value = True
         self.fake_session.send.side_effect = len
-        fake_stdin = StringIO("line1\nline2\n")
+        fake_stdin = StringIO(u"line1\nline2\n")
         self.test_client.run("cmd", stdin=fake_stdin, keep_stdin_open=True)
         call = mock.call
         send_calls = [call("line1\nline2\n")]

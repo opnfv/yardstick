@@ -16,7 +16,7 @@ import unittest
 import mock
 import os
 import logging
-import ConfigParser
+import six.moves.configparser
 import experimental_framework.common as common
 import experimental_framework.constants.conf_file_sections as cf
 
@@ -286,7 +286,7 @@ class TestConfigFileClass(unittest.TestCase):
         general_section = 'General'
         # openstack_section = 'OpenStack'
         config_file = 'tests/data/common/conf.cfg'
-        config = ConfigParser.ConfigParser()
+        config = six.moves.configparser.ConfigParser()
         config.read(config_file)
 
         expected = {

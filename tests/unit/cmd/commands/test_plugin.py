@@ -10,8 +10,13 @@
 ##############################################################################
 
 # Unittest for yardstick.cmd.commands.plugin
+import os
+from os.path import dirname as dirname
 
-import mock
+try:
+    from unittest import mock
+except ImportError:
+    import mock
 import unittest
 
 from yardstick.cmd.commands import plugin
@@ -19,7 +24,11 @@ from yardstick.cmd.commands import plugin
 
 class Arg(object):
     def __init__(self):
-        self.input_file = ('plugin/sample_config.yaml',)
+        # self.input_file = ('plugin/sample_config.yaml',)
+        self.input_file = [
+            os.path.join(os.path.abspath(
+                dirname(dirname(dirname(dirname(dirname(__file__)))))),
+                'plugin/sample_config.yaml')]
 
 
 @mock.patch('yardstick.cmd.commands.plugin.ssh')

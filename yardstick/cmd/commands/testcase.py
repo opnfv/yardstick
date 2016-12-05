@@ -8,6 +8,7 @@
 ##############################################################################
 
 """ Handler for yardstick command 'testcase' """
+from __future__ import print_function
 import os
 import yaml
 import sys
@@ -33,8 +34,8 @@ class TestcaseCommands(object):
         try:
             testcase_files = os.listdir(self.test_case_path)
         except Exception as e:
-            print(("Failed to list dir:\n%(path)s\n%(err)s\n")
-                  % {"path": self.test_case_path, "err": e})
+            print((("Failed to list dir:\n%(path)s\n%(err)s\n")
+                  % {"path": self.test_case_path, "err": e}))
             raise e
         testcase_files.sort()
 
@@ -54,12 +55,12 @@ class TestcaseCommands(object):
             with open(testcase_path) as f:
                 try:
                     testcase_info = f.read()
-                    print testcase_info
+                    print(testcase_info)
 
                 except Exception as e:
-                    print(("Failed to load test cases:"
+                    print((("Failed to load test cases:"
                            "\n%(testcase_file)s\n%(err)s\n")
-                          % {"testcase_file": testcase_path, "err": e})
+                          % {"testcase_file": testcase_path, "err": e}))
                     raise e
         except IOError as ioerror:
             sys.exit(ioerror)
@@ -72,9 +73,9 @@ class TestcaseCommands(object):
                 try:
                     testcase_info = f.read()
                 except Exception as e:
-                    print(("Failed to load test cases:"
+                    print((("Failed to load test cases:"
                            "\n%(testcase_file)s\n%(err)s\n")
-                          % {"testcase_file": testcase_file, "err": e})
+                          % {"testcase_file": testcase_file, "err": e}))
                     raise e
                 description, installer, deploy_scenarios = \
                     self._parse_testcase(testcase_info)
@@ -106,9 +107,9 @@ class TestcaseCommands(object):
         '''format output'''
 
         print_hbar(88)
-        print("| %-21s | %-60s" % ("Testcase Name", "Description"))
+        print(("| %-21s | %-60s" % ("Testcase Name", "Description")))
         print_hbar(88)
         for testcase_record in testcase_list:
-            print "| %-16s | %-60s" % (testcase_record['Name'],
-                                       testcase_record['Description'])
+            print("| %-16s | %-60s" % (testcase_record['Name'],
+                                       testcase_record['Description']))
         print_hbar(88)
