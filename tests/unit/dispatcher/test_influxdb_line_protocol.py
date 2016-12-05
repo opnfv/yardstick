@@ -3,6 +3,7 @@
 # yardstick comment: this file is a modified copy of
 # influxdb-python/influxdb/tests/test_line_protocol.py
 
+from __future__ import absolute_import
 import unittest
 from third_party.influxdb.influxdb_line_protocol import make_lines
 

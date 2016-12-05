@@ -25,6 +25,7 @@
 # influxdb-python/influxdb/line_protocol.py
 
 from __future__ import unicode_literals
+from __future__ import absolute_import
 from copy import copy
 
 from six import binary_type, text_type, integer_types

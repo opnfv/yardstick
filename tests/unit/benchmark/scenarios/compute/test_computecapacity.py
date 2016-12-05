@@ -9,11 +9,12 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.scenarios.compute.computecapacity.ComputeCapacity
+# Unittest for
+# yardstick.benchmark.scenarios.compute.computecapacity.ComputeCapacity
 
+from __future__ import absolute_import
 import mock
 import unittest
-import os
 import json
 
 from yardstick.benchmark.scenarios.compute import computecapacity

@@ -8,6 +8,7 @@
 ##############################################################################
 
 
+from __future__ import absolute_import
 import unittest
 
 from tests.functional import utils
@@ -59,4 +60,3 @@ class ScenarioTestCase(unittest.TestCase):
         res = self.yardstick("scenario show Pktgen")
         pktgen = "Execute pktgen between two hosts" in res
         self.assertTrue(pktgen)
-

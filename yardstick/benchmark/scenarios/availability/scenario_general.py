@@ -6,8 +6,8 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
 import logging
-import traceback
 
 from yardstick.benchmark.scenarios import base
 from yardstick.benchmark.scenarios.availability.director import Director
@@ -34,8 +34,8 @@ class ScenarioGeneral(base.Scenario):
         orderedSteps = sorted(steps, key=lambda x: x['index'])
         for step in orderedSteps:
             LOG.debug(
-                "\033[94m running step: {0} .... \033[0m"
-                .format(orderedSteps.index(step)+1))
+                "\033[94m running step: %s .... \033[0m",
+                orderedSteps.index(step) + 1)
             try:
                 actionPlayer = self.director.createActionPlayer(
                     step['actionType'], step['actionKey'])
@@ -44,9 +44,8 @@ class ScenarioGeneral(base.Scenario):
                     step['actionType'], step['actionKey'])
                 if actionRollbacker:
                     self.director.executionSteps.append(actionRollbacker)
-            except Exception, e:
-                LOG.debug(e.message)
-                traceback.print_exc()
+            except Exception:
+                LOG.exception("Exception")
                 LOG.debug(
                     "\033[91m exception when running step: {0} .... \033[0m"
                     .format(orderedSteps.index(step)))

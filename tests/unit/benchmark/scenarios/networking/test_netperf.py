@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.scenarios.networking.netperf.Netperf
 
+from __future__ import absolute_import
 import mock
 import unittest
 import os

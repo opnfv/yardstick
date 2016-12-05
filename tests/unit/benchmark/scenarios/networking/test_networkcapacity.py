@@ -9,27 +9,30 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.scenarios.networking.networkcapacity.NetworkCapacity
+# Unittest for
+# yardstick.benchmark.scenarios.networking.networkcapacity.NetworkCapacity
 
+from __future__ import absolute_import
 import mock
 import unittest
-import os
 import json
 
 from yardstick.benchmark.scenarios.networking import networkcapacity
 
-SAMPLE_OUTPUT = '{"Number of connections":"308","Number of frames received": "166503"}'
+SAMPLE_OUTPUT = \
+    '{"Number of connections":"308","Number of frames received": "166503"}'
+
 
 @mock.patch('yardstick.benchmark.scenarios.networking.networkcapacity.ssh')
 class NetworkCapacityTestCase(unittest.TestCase):
 
     def setUp(self):
         self.ctx = {
-                'host': {
-                    'ip': '172.16.0.137',
-                    'user': 'cirros',
-                    'password': "root"
-                },
+            'host': {
+                'ip': '172.16.0.137',
+                'user': 'cirros',
+                'password': "root"
+            },
         }
 
         self.result = {}

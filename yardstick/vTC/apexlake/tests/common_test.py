@@ -12,13 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 import unittest
 import mock
 import os
 import logging
-import ConfigParser
+import six.moves.configparser
 import experimental_framework.common as common
 import experimental_framework.constants.conf_file_sections as cf
+from experimental_framework import APEX_LAKE_ROOT
 
 __author__ = 'vmricco'
 
@@ -47,6 +49,7 @@ def reset_common():
 
 
 class DummyConfigurationFile(common.ConfigurationFile):
+
     def __init__(self, sections, conf_file=''):
         pass
 
@@ -58,6 +61,7 @@ class DummyConfigurationFile(common.ConfigurationFile):
 
 
 class DummyConfigurationFile2(common.ConfigurationFile):
+
     def __init__(self, sections):
         self.pktgen_counter = 0
 
@@ -74,7 +78,7 @@ class DummyConfigurationFile2(common.ConfigurationFile):
             self.pktgen_counter += 1
             return 'dpdk_pktgen'
         if variable_name == cf.CFSP_DPDK_PKTGEN_DIRECTORY:
-            return os.getcwd()
+            return APEX_LAKE_ROOT
         if variable_name == cf.CFSP_DPDK_PROGRAM_NAME:
             return 'program'
         if variable_name == cf.CFSP_DPDK_COREMASK:
@@ -86,7 +90,7 @@ class DummyConfigurationFile2(common.ConfigurationFile):
         if variable_name == cf.CFSP_DPDK_BUS_SLOT_NIC_2:
             return 'bus_slot_nic_2'
         if variable_name == cf.CFSP_DPDK_DPDK_DIRECTORY:
-            return os.getcwd()
+            return APEX_LAKE_ROOT
 
     def get_variable_list(self, section):
         if section == cf.CFS_PKTGEN:
@@ -114,8 +118,7 @@ class TestCommonInit(unittest.TestCase):
 
     def setUp(self):
         common.CONF_FILE = DummyConfigurationFile('')
-        self.dir = '{}/{}'.format(os.getcwd(),
-                                  'experimental_framework/')
+        self.dir = os.path.join(APEX_LAKE_ROOT, 'experimental_framework/')
 
     def tearDown(self):
         reset_common()
@@ -131,7 +134,8 @@ class TestCommonInit(unittest.TestCase):
                               init_general_vars, init_conf_file, mock_getcwd):
         mock_getcwd.return_value = self.dir
         common.init(True)
-        init_pkgen.assert_called_once()
+        if common.CONF_FILE.get_variable_list(cf.CFS_PKTGEN):
+            init_pkgen.assert_called_once()
         init_conf_file.assert_called_once()
         init_general_vars.assert_called_once()
         init_log.assert_called_once()
@@ -144,7 +148,7 @@ class TestCommonInit(unittest.TestCase):
     @mock.patch('experimental_framework.common.LOG')
     def test_init_general_vars_for_success(self, mock_log, mock_makedirs,
                                            mock_path_exists, mock_val_file):
-        common.BASE_DIR = "{}/".format(os.getcwd())
+        common.BASE_DIR = APEX_LAKE_ROOT
         mock_path_exists.return_value = False
         mock_val_file.return_value = True
         common.init_general_vars()
@@ -160,15 +164,19 @@ class TestCommonInit2(unittest.TestCase):
 
     def setUp(self):
         common.CONF_FILE = DummyConfigurationFile2('')
-        self.dir = '{}/{}'.format(os.getcwd(), 'experimental_framework/')
+        self.dir = os.path.join(APEX_LAKE_ROOT, 'experimental_framework')
 
     def tearDown(self):
         reset_common()
         common.CONF_FILE = None
 
+    @mock.patch('experimental_framework.common.InputValidation')
+    @mock.patch('os.path.exists')
+    @mock.patch('os.makedirs')
     @mock.patch('experimental_framework.common.LOG')
-    def test_init_general_vars_2_for_success(self, mock_log):
-        common.BASE_DIR = "{}/".format(os.getcwd())
+    def test_init_general_vars_2_for_success(self, mock_log, mock_makedirs,
+                                             mock_path_exists, mock_val_file):
+        common.BASE_DIR = APEX_LAKE_ROOT
         common.init_general_vars()
         self.assertEqual(common.TEMPLATE_FILE_EXTENSION, '.yaml')
         self.assertEqual(common.TEMPLATE_DIR, '/tmp/apexlake/heat_templates/')
@@ -183,14 +191,16 @@ class TestCommonInit2(unittest.TestCase):
     def test_init_pktgen_for_success(self):
         common.init_pktgen()
         self.assertEqual(common.PKTGEN, 'dpdk_pktgen')
-        directory = self.dir.split('experimental_framework/')[0]
+        directory = self.dir.split('experimental_framework')[0]
         self.assertEqual(common.PKTGEN_DIR, directory)
         self.assertEqual(common.PKTGEN_PROGRAM, 'program')
         self.assertEqual(common.PKTGEN_COREMASK, 'coremask')
         self.assertEqual(common.PKTGEN_MEMCHANNEL, 'memchannel')
         self.assertEqual(common.PKTGEN_BUS_SLOT_NIC_1, 'bus_slot_nic_1')
         self.assertEqual(common.PKTGEN_BUS_SLOT_NIC_2, 'bus_slot_nic_2')
-        expected_dir = "{}/".format(os.getcwd())
+        # we always add '/' to end of dirs for some reason
+        # probably because we aren't using os.path.join everywhere
+        expected_dir = APEX_LAKE_ROOT + '/'
         self.assertEqual(common.PKTGEN_DPDK_DIRECTORY, expected_dir)
 
     def test_init_pktgen_for_failure(self):
@@ -260,8 +270,8 @@ class TestConfigFileClass(unittest.TestCase):
             'Deployment-parameters',
             'Testcase-parameters'
         ]
-        c_file = './tests/data/common/conf.cfg'
-        common.BASE_DIR = os.getcwd()
+        c_file = os.path.join(APEX_LAKE_ROOT, 'tests/data/common/conf.cfg')
+        common.BASE_DIR = APEX_LAKE_ROOT
         self.conf_file = common.ConfigurationFile(self.sections, c_file)
 
     def tearDown(self):
@@ -275,7 +285,8 @@ class TestConfigFileClass(unittest.TestCase):
         sections = ['General', 'OpenStack', 'Experiment-VNF', 'PacketGen',
                     'Deployment-parameters', 'Testcase-parameters']
         c = DummyConfigurationFile3(
-            sections, config_file='./tests/data/common/conf.cfg')
+            sections, config_file=os.path.join(APEX_LAKE_ROOT,
+                                               'tests/data/common/conf.cfg'))
         self.assertEqual(
             DummyConfigurationFile3._config_section_map('', '', True),
             6)
@@ -285,8 +296,9 @@ class TestConfigFileClass(unittest.TestCase):
     def test__config_section_map_for_success(self):
         general_section = 'General'
         # openstack_section = 'OpenStack'
-        config_file = 'tests/data/common/conf.cfg'
-        config = ConfigParser.ConfigParser()
+        config_file = os.path.join(APEX_LAKE_ROOT,
+                                   'tests/data/common/conf.cfg')
+        config = six.moves.configparser.ConfigParser()
         config.read(config_file)
 
         expected = {
@@ -361,8 +373,9 @@ class TestCommonMethods(unittest.TestCase):
             'Deployment-parameters',
             'Testcase-parameters'
         ]
-        config_file = './tests/data/common/conf.cfg'
-        common.BASE_DIR = os.getcwd()
+        config_file = os.path.join(APEX_LAKE_ROOT,
+                                   'tests/data/common/conf.cfg')
+        common.BASE_DIR = APEX_LAKE_ROOT
         common.CONF_FILE = DummyConfigurationFile4(self.sections, config_file)
 
     def tearDown(self):
@@ -397,13 +410,14 @@ class TestCommonMethods(unittest.TestCase):
         self.assertEqual(expected, output)
 
     def test_get_file_first_line_for_success(self):
-        file = 'tests/data/common/conf.cfg'
+        file = os.path.join(APEX_LAKE_ROOT, 'tests/data/common/conf.cfg')
         expected = '[General]\n'
         output = common.get_file_first_line(file)
         self.assertEqual(expected, output)
 
     def test_replace_in_file_for_success(self):
-        filename = 'tests/data/common/file_replacement.txt'
+        filename = os.path.join(APEX_LAKE_ROOT,
+                                'tests/data/common/file_replacement.txt')
         text_to_search = 'replacement of'
         text_to_replace = '***'
         common.replace_in_file(filename, text_to_search, text_to_replace)
@@ -542,27 +556,14 @@ class TestinputValidation(unittest.TestCase):
             list(), ''
         )
 
-    def test_validate_file_exist_for_success(self):
-        filename = 'tests/data/common/file_replacement.txt'
-        output = common.InputValidation.validate_file_exist(filename, '')
-        self.assertTrue(output)
-
-    def test_validate_file_exist_for_failure(self):
-        filename = 'tests/data/common/file_replacement'
-        self.assertRaises(
-            ValueError,
-            common.InputValidation.validate_file_exist,
-            filename, ''
-        )
-
     def test_validate_directory_exist_and_format_for_success(self):
-        directory = 'tests/data/common/'
+        directory = os.path.join(APEX_LAKE_ROOT, 'tests/data/common/')
         output = common.InputValidation.\
             validate_directory_exist_and_format(directory, '')
         self.assertTrue(output)
 
     def test_validate_directory_exist_and_format_for_failure(self):
-        directory = 'tests/data/com/'
+        directory = os.path.join(APEX_LAKE_ROOT, 'tests/data/com/')
         self.assertRaises(
             ValueError,
             common.InputValidation.validate_directory_exist_and_format,

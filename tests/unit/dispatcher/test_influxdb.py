@@ -11,10 +11,16 @@
 
 # Unittest for yardstick.dispatcher.influxdb
 
-import mock
+from __future__ import absolute_import
 import unittest
 
+try:
+    from unittest import mock
+except ImportError:
+    import mock
+
 from yardstick.dispatcher.influxdb import InfluxdbDispatcher
+
 
 class InfluxdbDispatcherTestCase(unittest.TestCase):
 
@@ -24,7 +30,9 @@ class InfluxdbDispatcherTestCase(unittest.TestCase):
             "context_cfg": {
                 "host": {
                     "ip": "10.229.43.154",
-                    "key_filename": "/root/yardstick/yardstick/resources/files/yardstick_key",
+                    "key_filename":
+                        "/root/yardstick/yardstick/resources/files"
+                        "/yardstick_key",
                     "name": "kvm.LF",
                     "user": "root"
                 },
@@ -35,7 +43,8 @@ class InfluxdbDispatcherTestCase(unittest.TestCase):
             "scenario_cfg": {
                 "runner": {
                     "interval": 1,
-                    "object": "yardstick.benchmark.scenarios.networking.ping.Ping",
+                    "object": "yardstick.benchmark.scenarios.networking.ping"
+                              ".Ping",
                     "output_filename": "/tmp/yardstick.out",
                     "runner_id": 8921,
                     "duration": 10,
@@ -63,7 +72,7 @@ class InfluxdbDispatcherTestCase(unittest.TestCase):
             },
             "runner_id": 8921
         }
-        self.data3 ={
+        self.data3 = {
             "benchmark": {
                 "data": {
                     "mpstat": {
@@ -99,26 +108,35 @@ class InfluxdbDispatcherTestCase(unittest.TestCase):
         self.assertEqual(influxdb.flush_result_data(), 0)
 
     def test__dict_key_flatten(self):
-        line = 'mpstat.loadavg1=0.29,rtt=1.03,mpstat.loadavg0=1.09,mpstat.cpu0.%idle=99.00,mpstat.cpu0.%sys=0.00'
+        line = 'mpstat.loadavg1=0.29,rtt=1.03,mpstat.loadavg0=1.09,' \
+               'mpstat.cpu0.%idle=99.00,mpstat.cpu0.%sys=0.00'
+        # need to sort for assert to work
+        line = ",".join(sorted(line.split(',')))
         influxdb = InfluxdbDispatcher(None)
-        flattened_data = influxdb._dict_key_flatten(self.data3['benchmark']['data'])
-        result = ",".join([k+"="+v for k, v in flattened_data.items()])
+        flattened_data = influxdb._dict_key_flatten(
+            self.data3['benchmark']['data'])
+        result = ",".join(
+            [k + "=" + v for k, v in sorted(flattened_data.items())])
         self.assertEqual(result, line)
 
     def test__get_nano_timestamp(self):
         influxdb = InfluxdbDispatcher(None)
         results = {'benchmark': {'timestamp': '1451461248.925574'}}
-        self.assertEqual(influxdb._get_nano_timestamp(results), '1451461248925574144')
+        self.assertEqual(influxdb._get_nano_timestamp(results),
+                         '1451461248925574144')
 
     @mock.patch('yardstick.dispatcher.influxdb.time')
     def test__get_nano_timestamp_except(self, mock_time):
         results = {}
         influxdb = InfluxdbDispatcher(None)
         mock_time.time.return_value = 1451461248.925574
-        self.assertEqual(influxdb._get_nano_timestamp(results), '1451461248925574144')
+        self.assertEqual(influxdb._get_nano_timestamp(results),
+                         '1451461248925574144')
+
 
 def main():
     unittest.main()
+
 
 if __name__ == '__main__':
     main()

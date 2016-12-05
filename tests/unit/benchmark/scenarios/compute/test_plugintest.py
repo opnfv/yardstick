@@ -11,10 +11,10 @@
 
 # Unittest for yardstick.benchmark.scenarios.compute.plugintest.PluginTest
 
+from __future__ import absolute_import
 import mock
 import json
 import unittest
-import os
 
 from yardstick.benchmark.scenarios.compute import plugintest
 

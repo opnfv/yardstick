@@ -10,6 +10,8 @@
 # iperf3 scenario
 # iperf3 homepage at: http://software.es.net/iperf/
 
+from __future__ import print_function
+from __future__ import absolute_import
 import logging
 import json
 import pkg_resources
@@ -89,7 +91,7 @@ For more info see http://software.es.net/iperf
         self.host.close()
         status, stdout, stderr = self.target.execute("pkill iperf3")
         if status:
-            LOG.warn(stderr)
+            LOG.warning(stderr)
         self.target.close()
 
     def run(self, result):
@@ -188,7 +190,8 @@ def _test():
 
     p = Iperf(args, ctx)
     p.run(result)
-    print result
+    print(result)
+
 
 if __name__ == '__main__':
     _test()

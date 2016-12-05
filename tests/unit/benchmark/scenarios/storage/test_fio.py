@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.scenarios.storage.fio.Fio
 
+from __future__ import absolute_import
 import mock
 import unittest
 import json
@@ -153,7 +154,6 @@ class FioTestCase(unittest.TestCase):
         expected_result = json.loads(expected_result)
         self.assertEqual(result, expected_result)
 
-
     def test_fio_unsuccessful_lat_sla(self, mock_ssh):
 
         options = {
@@ -248,8 +248,10 @@ class FioTestCase(unittest.TestCase):
             sample_output = f.read()
         return sample_output
 
+
 def main():
     unittest.main()
+
 
 if __name__ == '__main__':
     main()

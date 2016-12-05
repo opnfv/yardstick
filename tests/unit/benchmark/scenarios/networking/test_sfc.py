@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.scenarios.networking.sfc
 
+from __future__ import absolute_import
 import mock
 import unittest
 
@@ -27,7 +28,7 @@ class SfcTestCase(unittest.TestCase):
         context_cfg['target'] = dict()
         context_cfg['target']['user'] = 'root'
         context_cfg['target']['password'] = 'opnfv'
-        context_cfg['target']['ip'] = '127.0.0.1' 
+        context_cfg['target']['ip'] = '127.0.0.1'
 
         # Used in Sfc.run()
         context_cfg['host'] = dict()
@@ -58,7 +59,8 @@ class SfcTestCase(unittest.TestCase):
     @mock.patch('yardstick.benchmark.scenarios.networking.sfc.subprocess')
     def test2_run_for_success(self, mock_subprocess, mock_openstack, mock_ssh):
         # Mock a successfull SSH in Sfc.setup() and Sfc.run()
-        mock_ssh.SSH().execute.return_value = (0, 'vxlan_tool.py', 'succeeded timed out')
+        mock_ssh.SSH().execute.return_value = (
+            0, 'vxlan_tool.py', 'succeeded timed out')
         mock_openstack.get_an_IP.return_value = "127.0.0.1"
         mock_subprocess.call.return_value = 'mocked!'
 

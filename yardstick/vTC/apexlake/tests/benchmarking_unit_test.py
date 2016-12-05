@@ -11,9 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+from __future__ import absolute_import
+import os
 import unittest
 import mock
+
+from experimental_framework import APEX_LAKE_ROOT
 from experimental_framework.benchmarking_unit import BenchmarkingUnit
 # from experimental_framework.data_manager import DataManager
 from experimental_framework.deployment_unit import DeploymentUnit
@@ -275,7 +278,8 @@ class TestBenchmarkingUnit(unittest.TestCase):
                                         mock_rfc2544, mock_log, mock_influx):
         mock_heat.return_value = list()
         mock_time.return_value = '12345'
-        mock_temp_dir.return_value = 'tests/data/test_templates/'
+        mock_temp_dir.return_value = os.path.join(APEX_LAKE_ROOT,
+                                                  'tests/data/test_templates/')
         common.TEMPLATE_FILE_EXTENSION = '.yaml'
         common.RESULT_DIR = 'tests/data/results/'
         common.INFLUXDB_IP = 'InfluxIP'
@@ -336,7 +340,8 @@ class TestBenchmarkingUnit(unittest.TestCase):
             mock_log):
         mock_heat.return_value = list()
         mock_time.return_value = '12345'
-        mock_temp_dir.return_value = 'tests/data/test_templates/'
+        mock_temp_dir.return_value = os.path.join(APEX_LAKE_ROOT,
+                                                  'tests/data/test_templates/')
         common.TEMPLATE_FILE_EXTENSION = '.yaml'
         common.RESULT_DIR = 'tests/data/results/'
 

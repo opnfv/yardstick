@@ -7,10 +7,10 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+from __future__ import absolute_import
 import copy
 import json
 import os
-import shutil
 import subprocess
 
 
@@ -40,11 +40,11 @@ class Yardstick(object):
         """Call yardstick in the shell
 
         :param cmd: yardstick command
-        :param getjson: in cases, when yardstick prints JSON, you can catch output
-            deserialized
+        :param getjson: in cases, when yardstick prints JSON, you can catch
+         output deserialized
         TO DO:
-        :param report_path: if present, yardstick command and its output will be
-            written to file with passed file name
+        :param report_path: if present, yardstick command and its output will
+         be written to file with passed file name
         :param raw: don't write command itself to report file. Only output
             will be written
         """
@@ -60,4 +60,3 @@ class Yardstick(object):
             return output
         except subprocess.CalledProcessError as e:
             raise e
-

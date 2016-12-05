@@ -6,6 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import absolute_import
 import pkg_resources
 import yaml
 import logging
@@ -46,7 +47,7 @@ class ResultCheckerMgr(object):
     def verify(self):
         result = True
         for obj in self._result_checker_list:
-                result &= obj.success
+            result &= obj.success
         return result
 
 

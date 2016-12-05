@@ -11,10 +11,11 @@
 
 # Unittest for yardstick.benchmark.scenarios.networking.iperf3.Iperf
 
-import mock
+from __future__ import absolute_import
 import unittest
 
-from yardstick.benchmark.scenarios.networking import vtc_instantiation_validation
+from yardstick.benchmark.scenarios.networking import \
+    vtc_instantiation_validation
 
 
 class VtcInstantiationValidationTestCase(unittest.TestCase):
@@ -34,7 +35,8 @@ class VtcInstantiationValidationTestCase(unittest.TestCase):
         scenario['options']['vlan_sender'] = ''
         scenario['options']['vlan_receiver'] = ''
 
-        self.vt = vtc_instantiation_validation.VtcInstantiationValidation(scenario, '')
+        self.vt = vtc_instantiation_validation.VtcInstantiationValidation(
+            scenario, '')
 
     def test_run_for_success(self):
         result = {}

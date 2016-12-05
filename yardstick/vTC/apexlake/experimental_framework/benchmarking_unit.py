@@ -18,6 +18,7 @@ initialization, execution and finalization
 '''
 
 
+from __future__ import absolute_import
 import json
 import time
 import inspect
@@ -27,6 +28,7 @@ from experimental_framework import common
 # from experimental_framework import data_manager as data
 from experimental_framework import heat_template_generation as heat
 from experimental_framework import deployment_unit as deploy
+from six.moves import range
 
 
 class BenchmarkingUnit:
@@ -116,10 +118,10 @@ class BenchmarkingUnit:
         """
         common.LOG.info('Run Benchmarking Unit')
 
-        experiment = dict()
-        result = dict()
-        for iteration in range(0, self.iterations):
-            common.LOG.info('Iteration ' + str(iteration))
+        experiment = {}
+        result = {}
+        for iteration in range(self.iterations):
+            common.LOG.info('Iteration %s', iteration)
             for template_file_name in self.template_files:
                 experiment_name = BenchmarkingUnit.\
                     extract_experiment_name(template_file_name)
@@ -238,7 +240,7 @@ class BenchmarkingUnit:
         :return: (str) Experiment Name
         """
         strings = template_file_name.split('.')
-        return ".".join(strings[:(len(strings)-1)])
+        return ".".join(strings[:(len(strings) - 1)])
 
     @staticmethod
     def get_benchmark_class(complete_module_name):
@@ -253,7 +255,7 @@ class BenchmarkingUnit:
         """
         strings = complete_module_name.split('.')
         class_name = 'experimental_framework.benchmarks.{}'.format(strings[0])
-        pkg = __import__(class_name, globals(), locals(), [], -1)
+        pkg = __import__(class_name, globals(), locals(), [], 0)
         module = getattr(getattr(pkg, 'benchmarks'), strings[0])
         members = inspect.getmembers(module)
         for m in members:

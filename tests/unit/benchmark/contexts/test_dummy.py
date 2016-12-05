@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.contexts.dummy
 
+from __future__ import absolute_import
 import unittest
 
 from yardstick.benchmark.contexts import dummy

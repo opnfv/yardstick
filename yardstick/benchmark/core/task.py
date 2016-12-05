@@ -9,6 +9,8 @@
 
 """ Handler for yardstick command 'task' """
 
+from __future__ import absolute_import
+from __future__ import print_function
 import sys
 import os
 import yaml
@@ -18,7 +20,7 @@ import time
 import logging
 import uuid
 import errno
-from itertools import ifilter
+from six.moves import filter
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
@@ -71,7 +73,7 @@ class Task(object):     # pragma: no cover
             one_task_start_time = time.time()
             parser.path = task_files[i]
             scenarios, run_in_parallel, meet_precondition = parser.parse_task(
-                 self.task_id, task_args[i], task_args_fnames[i])
+                self.task_id, task_args[i], task_args_fnames[i])
 
             if not meet_precondition:
                 LOG.info("meet_precondition is %s, please check envrionment",
@@ -96,7 +98,7 @@ class Task(object):     # pragma: no cover
         LOG.info("total finished in %d secs",
                  total_end_time - total_start_time)
 
-        print "Done, exiting"
+        print("Done, exiting")
 
     def _run(self, scenarios, run_in_parallel, output_file):
         '''Deploys context and calls runners'''
@@ -106,7 +108,7 @@ class Task(object):     # pragma: no cover
         background_runners = []
 
         # Start all background scenarios
-        for scenario in ifilter(_is_background_scenario, scenarios):
+        for scenario in filter(_is_background_scenario, scenarios):
             scenario["runner"] = dict(type="Duration", duration=1000000000)
             runner = run_one_scenario(scenario, output_file)
             background_runners.append(runner)
@@ -121,14 +123,14 @@ class Task(object):     # pragma: no cover
             # Wait for runners to finish
             for runner in runners:
                 runner_join(runner)
-                print "Runner ended, output in", output_file
+                print("Runner ended, output in", output_file)
         else:
             # run serially
             for scenario in scenarios:
                 if not _is_background_scenario(scenario):
                     runner = run_one_scenario(scenario, output_file)
                     runner_join(runner)
-                    print "Runner ended, output in", output_file
+                    print("Runner ended, output in", output_file)
 
         # Abort background runners
         for runner in background_runners:
@@ -142,7 +144,7 @@ class Task(object):     # pragma: no cover
                 runner_join(runner)
             else:
                 base_runner.Runner.release(runner)
-            print "Background task ended"
+            print("Background task ended")
 
 
 # TODO: Move stuff below into TaskCommands class !?
@@ -150,6 +152,7 @@ class Task(object):     # pragma: no cover
 
 class TaskParser(object):       # pragma: no cover
     '''Parser for task config files in yaml format'''
+
     def __init__(self, path):
         self.path = path
 
@@ -224,7 +227,7 @@ class TaskParser(object):       # pragma: no cover
 
     def parse_task(self, task_id, task_args=None, task_args_file=None):
         '''parses the task file and return an context and scenario instances'''
-        print "Parsing task config:", self.path
+        print("Parsing task config:", file=self.path)
 
         try:
             kw = {}
@@ -241,10 +244,10 @@ class TaskParser(object):       # pragma: no cover
                     input_task = f.read()
                     rendered_task = TaskTemplate.render(input_task, **kw)
                 except Exception as e:
-                    print(("Failed to render template:\n%(task)s\n%(err)s\n")
+                    print("Failed to render template:\n%(task)s\n%(err)s\n"
                           % {"task": input_task, "err": e})
                     raise e
-                print(("Input task is:\n%s\n") % rendered_task)
+                print("Input task is:\n%s\n" % rendered_task)
 
                 cfg = yaml.load(rendered_task)
         except IOError as ioerror:
@@ -334,7 +337,7 @@ def atexit_handler():
     base_runner.Runner.terminate_all()
 
     if len(Context.list) > 0:
-        print "Undeploying all contexts"
+        print("Undeploying all contexts")
         for context in Context.list:
             context.undeploy()
 
@@ -342,7 +345,7 @@ def atexit_handler():
 def is_ip_addr(addr):
     '''check if string addr is an IP address'''
     try:
-        ipaddress.ip_address(unicode(addr))
+        ipaddress.ip_address(addr.encode('utf-8'))
         return True
     except ValueError:
         return False
@@ -425,7 +428,7 @@ def run_one_scenario(scenario_cfg, output_file):
         context_cfg["nodes"] = parse_nodes_with_context(scenario_cfg)
     runner = base_runner.Runner.get(runner_cfg)
 
-    print "Starting runner of type '%s'" % runner_cfg["type"]
+    print("Starting runner of type '%s'" % runner_cfg["type"])
     runner.run(scenario_cfg, context_cfg)
 
     return runner
@@ -451,7 +454,7 @@ def runner_join(runner):
 
 
 def print_invalid_header(source_name, args):
-    print(("Invalid %(source)s passed:\n\n %(args)s\n")
+    print("Invalid %(source)s passed:\n\n %(args)s\n"
           % {"source": source_name, "args": args})
 
 
@@ -461,13 +464,13 @@ def parse_task_args(src_name, args):
         kw = {} if kw is None else kw
     except yaml.parser.ParserError as e:
         print_invalid_header(src_name, args)
-        print(("%(source)s has to be YAML. Details:\n\n%(err)s\n")
+        print("%(source)s has to be YAML. Details:\n\n%(err)s\n"
               % {"source": src_name, "err": e})
         raise TypeError()
 
     if not isinstance(kw, dict):
         print_invalid_header(src_name, args)
-        print(("%(src)s had to be dict, actually %(src_type)s\n")
+        print("%(src)s had to be dict, actually %(src_type)s\n"
               % {"src": src_name, "src_type": type(kw)})
         raise TypeError()
     return kw

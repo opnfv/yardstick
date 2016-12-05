@@ -9,6 +9,8 @@
 
 # ping scenario
 
+from __future__ import print_function
+from __future__ import absolute_import
 import pkg_resources
 import logging
 
@@ -122,7 +124,8 @@ def _test():    # pragma: no cover
 
     p = Ping(args, ctx)
     p.run(result)
-    print result
+    print(result)
+
 
 if __name__ == '__main__':    # pragma: no cover
     _test()

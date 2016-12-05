@@ -9,14 +9,18 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.scenarios.availability.attacker.attacker_process
+# Unittest for
+# yardstick.benchmark.scenarios.availability.attacker.attacker_process
 
+from __future__ import absolute_import
 import mock
 import unittest
 
 from yardstick.benchmark.scenarios.availability.attacker import baseattacker
 
-@mock.patch('yardstick.benchmark.scenarios.availability.attacker.attacker_process.ssh')
+
+@mock.patch(
+    'yardstick.benchmark.scenarios.availability.attacker.attacker_process.ssh')
 class AttackerServiceTestCase(unittest.TestCase):
 
     def setUp(self):
