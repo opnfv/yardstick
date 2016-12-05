@@ -22,6 +22,8 @@ from experimental_framework.constants import conf_file_sections as cfs
 from experimental_framework.packet_generators import dpdk_packet_generator \
     as dpdk
 import experimental_framework.common as common
+from six.moves import map
+from six.moves import range
 
 
 THROUGHPUT = 'throughput'
@@ -69,9 +71,11 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         features['description'] = 'Instantiation Validation Benchmark'
         features['parameters'] = [THROUGHPUT, VLAN_SENDER, VLAN_RECEIVER]
         features['allowed_values'] = dict()
-        features['allowed_values'][THROUGHPUT] = map(str, range(0, 100))
-        features['allowed_values'][VLAN_SENDER] = map(str, range(-1, 4096))
-        features['allowed_values'][VLAN_RECEIVER] = map(str, range(-1, 4096))
+        features['allowed_values'][THROUGHPUT] = [str(x) for x in range(100)]
+        features['allowed_values'][VLAN_SENDER] = [str(x) for x in
+                                                   range(-1, 4096)]
+        features['allowed_values'][VLAN_RECEIVER] = [str(x)
+                                                     for x in range(-1, 4096)]
         features['default_values'] = dict()
         features['default_values'][THROUGHPUT] = '1'
         features['default_values'][VLAN_SENDER] = '-1'
@@ -203,7 +207,7 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         # Start the packet checker
         current_dir = os.path.dirname(os.path.realpath(__file__))
         dir_list = self.pkt_checker_command.split('/')
-        directory = '/'.join(dir_list[0:len(dir_list)-1])
+        directory = os.pathsep.join(dir_list[0:len(dir_list) - 1])
         os.chdir(directory)
         command = "make"
         common.run_command(command)
@@ -250,5 +254,5 @@ class InstantiationValidationBenchmark(base.BenchmarkBaseClass):
         if not output:
             pids = []
         else:
-            pids = map(int, output.split('\n'))
+            pids = list(map(int, output.split('\n')))
         return pids

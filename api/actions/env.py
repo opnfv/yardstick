@@ -53,7 +53,7 @@ def _create_grafana():
 
 def _create_dashboard():
     url = 'http://admin:admin@%s:3000/api/dashboards/db' % api_conf.GATEWAY_IP
-    data = json.load(file('../dashboard/ping_dashboard.json'))
+    data = json.load(open('../dashboard/ping_dashboard.json'))
     HttpClient().post(url, data)
 
 

@@ -6,6 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from __future__ import print_function
 import pkg_resources
 import logging
 import json
@@ -171,7 +172,7 @@ def _test():
 
     p = Pktgen(args, ctx)
     p.run(result)
-    print result
+    print(result)
 
 
 if __name__ == '__main__':

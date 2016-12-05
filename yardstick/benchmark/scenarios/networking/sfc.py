@@ -4,6 +4,7 @@ import subprocess
 import sfc_openstack
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
+from six.moves import range
 
 LOG = logging.getLogger(__name__)
 

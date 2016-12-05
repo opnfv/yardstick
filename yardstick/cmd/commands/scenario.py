@@ -9,6 +9,7 @@
 
 """ Handler for yardstick command 'scenario' """
 
+from __future__ import print_function
 from yardstick.benchmark.scenarios.base import Scenario
 from yardstick.common.utils import cliargs
 from yardstick.cmd import print_hbar
@@ -24,15 +25,15 @@ class ScenarioCommands(object):
         '''List existing scenario types'''
         types = Scenario.get_types()
         print_hbar(78)
-        print("| %-16s | %-60s" % ("Type", "Description"))
+        print(("| %-16s | %-60s" % ("Type", "Description")))
         print_hbar(78)
         for stype in types:
-            print("| %-16s | %-60s" % (stype.__scenario_type__,
-                                       stype.__doc__.split("\n")[0]))
+            print(("| %-16s | %-60s" % (stype.__scenario_type__,
+                                       stype.__doc__.split("\n")[0])))
         print_hbar(78)
 
     @cliargs("type", type=str, help="runner type", nargs=1)
     def do_show(self, args):
         '''Show details of a specific scenario type'''
         stype = Scenario.get_cls(args.type[0])
-        print stype.__doc__
+        print(stype.__doc__)
