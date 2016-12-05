@@ -148,7 +148,7 @@ def _config_output_file():
     with open(config.YARDSTICK_CONFIG_FILE, 'w') as f:
         f.write("""\
 [DEFAULT]
-debug = True
+debug = False
 dispatcher = influxdb
 
 [dispatcher_file]
