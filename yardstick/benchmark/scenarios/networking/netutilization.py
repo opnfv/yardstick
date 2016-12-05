@@ -11,6 +11,7 @@ import re
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
+from six.moves import zip
 
 LOG = logging.getLogger(__name__)
 
@@ -121,7 +122,7 @@ class NetUtilization(base.Scenario):
                     values = line[1:]
 
                     if values and len(values) == len(fields):
-                        temp_dict = dict(zip(fields, values))
+                        temp_dict = dict(list(zip(fields, values)))
                         if net_interface not in maximum:
                             maximum[net_interface] = temp_dict
                         else:
@@ -158,7 +159,8 @@ class NetUtilization(base.Scenario):
                     net_interface = line[0]
                     values = line[1:]
                     if values and len(values) == len(fields):
-                        average[net_interface] = dict(zip(fields, values))
+                        average[net_interface] = dict(
+                            list(zip(fields, values)))
                     else:
                         raise RuntimeError("network_utilization average: \
                                            parse error", fields, line)

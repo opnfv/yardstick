@@ -8,9 +8,10 @@
 ##############################################################################
 import logging
 
-from baseattacker import BaseAttacker
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios.availability import util
+from yardstick.benchmark.scenarios.availability.attacker.baseattacker import \
+    BaseAttacker
 
 LOG = logging.getLogger(__name__)
 
@@ -40,7 +41,7 @@ class GeneralAttacker(BaseAttacker):
             str = util.buildshellparams(actionParameter)
             LOG.debug("inject parameter is: {0}".format(actionParameter))
             LOG.debug("inject parameter values are: {0}"
-                      .format(actionParameter.values()))
+                      .format(list(actionParameter.values())))
             l = list(item for item in actionParameter.values())
             self.action_param = str.format(*l)
 
@@ -49,7 +50,7 @@ class GeneralAttacker(BaseAttacker):
             str = util.buildshellparams(rollbackParameter)
             LOG.debug("recover parameter is: {0}".format(rollbackParameter))
             LOG.debug("recover parameter values are: {0}".
-                      format(rollbackParameter.values()))
+                      format(list(rollbackParameter.values())))
             l = list(item for item in rollbackParameter.values())
             self.rollback_param = str.format(*l)
 
@@ -65,13 +66,15 @@ class GeneralAttacker(BaseAttacker):
 
         if "action_parameter" in self._config:
             LOG.debug("the shell command is: {0}".format(self.action_param))
-            exit_status, stdout, stderr = self.connection.execute(
-                self.action_param,
-                stdin=open(self.inject_script, "r"))
+            with open(self.inject_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
+                    self.action_param,
+                    stdin=stdin_file)
         else:
-            exit_status, stdout, stderr = self.connection.execute(
-                "/bin/bash -s ",
-                stdin=open(self.inject_script, "r"))
+            with open(self.inject_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
+                    "/bin/bash -s ",
+                    stdin=stdin_file)
 
         LOG.debug("the inject_fault's exit status is: {0}".format(exit_status))
         if exit_status == 0:
@@ -85,10 +88,12 @@ class GeneralAttacker(BaseAttacker):
     def recover(self):
         if "rollback_parameter" in self._config:
             LOG.debug("the shell command is: {0}".format(self.rollback_param))
-            exit_status, stdout, stderr = self.connection.execute(
-                self.rollback_param,
-                stdin=open(self.recovery_script, "r"))
+            with open(self.recovery_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
+                    self.rollback_param,
+                    stdin=stdin_file)
         else:
-            exit_status, stdout, stderr = self.connection.execute(
-                "/bin/bash -s ",
-                stdin=open(self.recovery_script, "r"))
+            with open(self.recovery_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
+                    "/bin/bash -s ",
+                    stdin=stdin_file)

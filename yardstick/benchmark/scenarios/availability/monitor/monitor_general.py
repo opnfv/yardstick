@@ -9,7 +9,7 @@
 import logging
 import yardstick.ssh as ssh
 
-import basemonitor as basemonitor
+from yardstick.benchmark.scenarios.availability.monitor import basemonitor
 from yardstick.benchmark.scenarios.availability.util import buildshellparams
 
 

@@ -81,7 +81,7 @@ class VtcThroughput(base.Scenario):
                 heat_template_parameters,
                 deployment_configuration,
                 openstack_credentials)
-        except Exception as e:
-            LOG.info('Exception: {}'.format(e.message))
-        LOG.info('Got output: {}'.format(res))
+        except Exception:
+            LOG.exception("Exception")
+        LOG.info('Got output: %s', res)
         result.update(res)
