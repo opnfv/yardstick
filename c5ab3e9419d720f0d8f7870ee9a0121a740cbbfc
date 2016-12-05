@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_3f9685f1",
+        "filename": "README.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-12-05T06:35:15Z",
+      "side": 1,
+      "message": "s/yardstick-trusty-server/yardstick-image",
+      "range": {
+        "startLine": 250,
+        "startChar": 34,
+        "endLine": 250,
+        "endChar": 57
+      },
+      "revId": "c5ab3e9419d720f0d8f7870ee9a0121a740cbbfc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
