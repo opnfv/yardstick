@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_e83cc131",
+        "filename": "README.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2016-12-05T06:35:15Z",
+      "side": 1,
+      "message": "does this should also be yardstick-image?",
+      "range": {
+        "startLine": 248,
+        "startChar": 9,
+        "endLine": 248,
+        "endChar": 32
+      },
+      "revId": "3ba06e5ef8b6d6e2b97541a72852555410d4b2cd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
