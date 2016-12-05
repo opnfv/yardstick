@@ -92,6 +92,6 @@ class VtcThroughputNoisy(base.Scenario):
                 deployment_configuration,
                 openstack_credentials)
         except Exception as e:
-            LOG.info('Exception: {}'.format(e.message))
-        LOG.info('Got output: {}'.format(res))
+            LOG.exception('Exception')
+        LOG.info('Got output: %s', res)
         result.update(res)

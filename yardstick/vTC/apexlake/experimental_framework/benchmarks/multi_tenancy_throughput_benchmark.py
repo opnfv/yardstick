@@ -16,6 +16,7 @@
 from experimental_framework.benchmarks import rfc2544_throughput_benchmark \
     as base
 from experimental_framework import common
+from six.moves import range
 
 
 NETWORK_NAME = 'network'

@@ -7,10 +7,10 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 import logging
-from urlparse import urlsplit
+from six.moves.urllib.parse import urlsplit
 
 from influxdb import InfluxDBClient
-import ConfigParser
+import six.moves.configparser
 
 from api import conf
 
@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_data_db_client():
-    parser = ConfigParser.ConfigParser()
+    parser = six.moves.configparser.ConfigParser()
     try:
         parser.read(conf.OUTPUT_CONFIG_FILE_PATH)
         dispatcher = parser.get('DEFAULT', 'dispatcher')
@@ -31,7 +31,7 @@ def get_data_db_client():
         password = parser.get('dispatcher_influxdb', 'password')
         db_name = parser.get('dispatcher_influxdb', 'db_name')
         return InfluxDBClient(ip, conf.PORT, username, password, db_name)
-    except ConfigParser.NoOptionError:
+    except six.moves.configparser.NoOptionError:
         logger.error('can not find the key')
         raise
 

@@ -14,6 +14,7 @@ from flasgger import Swagger
 
 from api.urls import urlpatterns
 from yardstick import _init_logging
+from functools import reduce
 
 logger = logging.getLogger(__name__)
 

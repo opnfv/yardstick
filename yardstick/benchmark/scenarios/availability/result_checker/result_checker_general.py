@@ -8,7 +8,10 @@
 ##############################################################################
 import logging
 
-from baseresultchecker import BaseResultChecker
+
+from yardstick.benchmark.scenarios.availability.result_checker \
+    .baseresultchecker import \
+    BaseResultChecker
 from yardstick.benchmark.scenarios.availability import Condition
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios.availability.util import buildshellparams

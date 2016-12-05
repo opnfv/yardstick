@@ -27,6 +27,7 @@ from experimental_framework import common
 # from experimental_framework import data_manager as data
 from experimental_framework import heat_template_generation as heat
 from experimental_framework import deployment_unit as deploy
+from six.moves import range
 
 
 class BenchmarkingUnit:
@@ -238,7 +239,7 @@ class BenchmarkingUnit:
         :return: (str) Experiment Name
         """
         strings = template_file_name.split('.')
-        return ".".join(strings[:(len(strings)-1)])
+        return ".".join(strings[:(len(strings) - 1)])
 
     @staticmethod
     def get_benchmark_class(complete_module_name):

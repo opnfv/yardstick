@@ -7,10 +7,12 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 import logging
-import traceback
 import subprocess
+import traceback
+
 import yardstick.ssh as ssh
-from baseattacker import BaseAttacker
+from yardstick.benchmark.scenarios.availability.attacker.baseattacker import \
+    BaseAttacker
 
 LOG = logging.getLogger(__name__)
 
