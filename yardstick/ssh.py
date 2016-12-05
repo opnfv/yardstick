@@ -29,24 +29,29 @@ Execute command and get output:
 
 Execute command with huge output:
 
-    class PseudoFile(object):
+    class PseudoFile(io.RawIOBase):
         def write(chunk):
             if "error" in chunk:
                 email_admin(chunk)
 
-    ssh = sshclient.SSH("root", "example.com")
-    ssh.run("tail -f /var/log/syslog", stdout=PseudoFile(), timeout=False)
+    ssh = SSH("root", "example.com")
+    with PseudoFile() as p:
+        ssh.run("tail -f /var/log/syslog", stdout=p, timeout=False)
 
 Execute local script on remote side:
 
     ssh = sshclient.SSH("user", "example.com")
-    status, out, err = ssh.execute("/bin/sh -s arg1 arg2",
-                                   stdin=open("~/myscript.sh", "r"))
+
+    with open("~/myscript.sh", "r") as stdin_file:
+        status, out, err = ssh.execute('/bin/sh -s "arg1" "arg2"',
+                                       stdin=stdin_file)
 
 Upload file:
 
-    ssh = sshclient.SSH("user", "example.com")
-    ssh.run("cat > ~/upload/file.gz", stdin=open("/store/file.gz", "rb"))
+    ssh = SSH("user", "example.com")
+    # use rb for binary files
+    with open("/store/file.gz", "rb") as stdin_file:
+        ssh.run("cat > ~/upload/file.gz", stdin=stdin_file)
 
 Eventlet:
 
@@ -54,7 +59,7 @@ Eventlet:
     or
     eventlet.monkey_patch()
     or
-    sshclient = eventlet.import_patched("opentstack.common.sshclient")
+    sshclient = eventlet.import_patched("yardstick.ssh")
 
 """
 import os
