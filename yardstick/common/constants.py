@@ -25,7 +25,7 @@ YARDSTICK_REPOS_DIR = '/home/opnfv/repos/yardstick'
 
 YARDSTICK_CONFIG_DIR = '/etc/yardstick/'
 
-YARDSTICK_CONFIG_FILE = os.path.join(YARDSTICK_CONFIG_DIR, 'config.yaml')
+YARDSTICK_CONFIG_FILE = os.path.join(YARDSTICK_CONFIG_DIR, 'yardstick.conf')
 
 RELENG_DIR = '/home/opnfv/repos/releng'
 
