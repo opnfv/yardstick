@@ -32,6 +32,7 @@ import time
 import itertools
 
 from yardstick.benchmark.runners import base
+from six.moves import range
 
 LOG = logging.getLogger(__name__)
 
@@ -71,8 +72,8 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         return -1 if start > stop else 1
 
     param_iters = \
-        [xrange(d['start'], d['stop'] + margin(d['start'], d['stop']),
-                d['step']) for d in runner_cfg['iterators']]
+        [range(d['start'], d['stop'] + margin(d['start'], d['stop']),
+               d['step']) for d in runner_cfg['iterators']]
     param_names = [d['name'] for d in runner_cfg['iterators']]
 
     iter_type = runner_cfg.get("iter_type", "nested_for_loops")

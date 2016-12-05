@@ -10,6 +10,7 @@
 # iperf3 scenario
 # iperf3 homepage at: http://software.es.net/iperf/
 
+from __future__ import print_function
 import logging
 import json
 import pkg_resources
@@ -188,7 +189,7 @@ def _test():
 
     p = Iperf(args, ctx)
     p.run(result)
-    print result
+    print(result)
 
 if __name__ == '__main__':
     _test()
