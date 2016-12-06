@@ -191,6 +191,9 @@ def _prepare_env_daemon():
 
     _append_external_network(rc_file)
 
+    # update the external_network
+    _source_file(rc_file)
+
     _load_images()
 
 
