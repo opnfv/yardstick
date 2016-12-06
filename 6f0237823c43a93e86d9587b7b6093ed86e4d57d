@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_9946b1be",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/attacker_general.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2016-12-06T21:08:17Z",
+      "side": 1,
+      "message": "fix to use %s.",
+      "revId": "6f0237823c43a93e86d9587b7b6093ed86e4d57d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
