@@ -16,6 +16,24 @@
       "revId": "0c9530eb44a1bfc3b6055f3fed9612395c8b35bf",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_14eda8c3",
+        "filename": "api/actions/env.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-12-07T06:34:57Z",
+      "side": 1,
+      "message": "I have try to use the the context manager, but catch an error. but i think i should add try...except.. and finally close it.",
+      "parentUuid": "5ac10518_59efe91e",
+      "revId": "0c9530eb44a1bfc3b6055f3fed9612395c8b35bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
