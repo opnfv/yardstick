@@ -157,7 +157,7 @@ class SSH(object):
 
     def run(self, cmd, stdin=None, stdout=None, stderr=None,
             raise_on_error=True, timeout=3600,
-            keep_stdin_open=False):
+            keep_stdin_open=False, pty=False):
         """Execute specified command on the server.
 
         :param cmd:             Command to be executed.
@@ -171,6 +171,10 @@ class SSH(object):
                                 Default 1 hour. No timeout if set to 0.
         :param keep_stdin_open: don't close stdin on empty reads
         :type keep_stdin_open:  bool
+        :param pty:             Request a pseudo terminal for this connection.
+                                This allows passing control characters.
+                                Default False.
+        :type pty:  bool
         """
 
         client = self._get_client()
@@ -181,14 +185,16 @@ class SSH(object):
         return self._run(client, cmd, stdin=stdin, stdout=stdout,
                          stderr=stderr, raise_on_error=raise_on_error,
                          timeout=timeout,
-                         keep_stdin_open=keep_stdin_open)
+                         keep_stdin_open=keep_stdin_open, pty=pty)
 
     def _run(self, client, cmd, stdin=None, stdout=None, stderr=None,
              raise_on_error=True, timeout=3600,
-             keep_stdin_open=False):
+             keep_stdin_open=False, pty=False):
 
         transport = client.get_transport()
         session = transport.open_session()
+        if pty:
+            session.get_pty()
         session.exec_command(cmd)
         start_time = time.time()
 
