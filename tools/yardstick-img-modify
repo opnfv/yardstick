@@ -153,7 +153,7 @@ cleanup() {
     mount | grep $mountdir && umount $mountdir
     mount | grep "/mnt/vivid" && umount "/mnt/vivid"
     if [ -f $raw_imgfile ]; then
-        kpartx -dv $raw_imgfile || true
+        kpartx -dv $raw_imgfile
     fi
     rm -f $raw_imgfile
     rm -rf $mountdir
