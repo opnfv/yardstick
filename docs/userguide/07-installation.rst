@@ -211,9 +211,9 @@ Example command:
 ::
 
   glance --os-image-api-version 1 image-create \
-  --name yardstick-trusty-server --is-public true \
+  --name yardstick-image --is-public true \
   --disk-format qcow2 --container-format bare \
-  --file /tmp/workspace/yardstick/yardstick-trusty-server.img
+  --file /tmp/workspace/yardstick/yardstick-image.img
 
 Some Yardstick test cases use a Cirros image, you can find one at
 http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
