@@ -55,13 +55,15 @@ class GeneralOperaion(BaseOperation):
 
     def run(self):
         if "action_parameter" in self._config:
-            exit_status, stdout, stderr = self.connection.execute(
-                self.action_param,
-                stdin=open(self.action_script, "r"))
+            with open(self.action_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
+                    self.action_param,
+                    stdin=stdin_file)
         else:
-            exit_status, stdout, stderr = self.connection.execute(
-                "/bin/sh -s ",
-                stdin=open(self.action_script, "r"))
+            with open(self.action_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
+                    "/bin/sh -s ",
+                    stdin=stdin_file)
 
         if exit_status == 0:
             LOG.debug("success,the operation's output is: {0}".format(stdout))
@@ -72,10 +74,12 @@ class GeneralOperaion(BaseOperation):
 
     def rollback(self):
         if "rollback_parameter" in self._config:
-            exit_status, stdout, stderr = self.connection.execute(
-                self.rollback_param,
-                stdin=open(self.rollback_script, "r"))
+            with open(self.rollback_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
+                    self.rollback_param,
+                    stdin=stdin_file)
         else:
-            exit_status, stdout, stderr = self.connection.execute(
-                "/bin/sh -s ",
-                stdin=open(self.rollback_script, "r"))
+            with open(self.rollback_script, "r") as stdin_file:
+                exit_status, stdout, stderr = self.connection.execute(
+                    "/bin/sh -s ",
+                    stdin=stdin_file)

@@ -50,8 +50,7 @@ class NetworkCapacity(base.Scenario):
         self.client.wait(timeout=600)
 
         # copy script to host
-        self.client.run("cat > ~/networkcapacity.sh",
-                        stdin=open(self.target_script, 'rb'))
+        self.client._put_file_shell(self.target_script, '~/networkcapacity.sh')
 
         self.setup_done = True
 
