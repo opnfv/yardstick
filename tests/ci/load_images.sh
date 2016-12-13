@@ -218,8 +218,11 @@ main()
     QCOW_IMAGE="/tmp/workspace/yardstick/yardstick-image.img"
     RAW_IMAGE="/tmp/workspace/yardstick/yardstick-image.tar.gz"
 
-    build_yardstick_image
-    load_yardstick_image
+    if [[ ! $(openstack image list | grep yardstick-image) ]];then
+        build_yardstick_image
+        load_yardstick_image
+    fi
+
     if [ $YARD_IMG_ARCH = "arm64" ]; then
         sed -i 's/image: cirros-0.3.3/image: TestVM/g' tests/opnfv/test_cases/opnfv_yardstick_tc002.yaml \
         samples/ping.yaml
@@ -228,10 +231,18 @@ main()
             sed -i "s/cidr: '10.0.1.0\/24'/cidr: '10.3.1.0\/24'/g" $filename
         done
     else
-        load_cirros_image
-        load_ubuntu_image
+        if [[ ! $(openstack image list | grep cirros) ]];then
+            load_cirros_image
+        fi
+
+        if [[ ! $(openstack image list | grep Ubuntu) ]];then
+            load_ubuntu_image
+        fi
     fi
-    create_nova_flavor
+
+    if [[ ! $(openstack flavor list | grep yardstick-flavor) ]];then
+        create_nova_flavor
+    fi
 }
 
 main
