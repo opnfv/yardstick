@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_25f42686",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-12-13T08:15:04Z",
+      "side": 1,
+      "message": "Good point. I totally agree.",
+      "parentUuid": "5ac10518_65af8e95",
+      "range": {
+        "startLine": 19,
+        "startChar": 7,
+        "endLine": 19,
+        "endChar": 11
+      },
+      "revId": "2d6af75f7b814451b0d084ac439d04d5879ea351",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_25918652",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 2
@@ -88,6 +112,30 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_c5f2029a",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-12-13T08:15:04Z",
+      "side": 1,
+      "message": "Yes, it will be removed.",
+      "parentUuid": "5ac10518_c59f625e",
+      "range": {
+        "startLine": 36,
+        "startChar": 14,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "2d6af75f7b814451b0d084ac439d04d5879ea351",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_2578a62a",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 2
@@ -99,6 +147,30 @@
       "writtenOn": "2016-12-13T07:45:16Z",
       "side": 1,
       "message": "A get_client_version() is needed instead of hardcoding the version here.",
+      "range": {
+        "startLine": 113,
+        "startChar": 16,
+        "endLine": 113,
+        "endChar": 19
+      },
+      "revId": "2d6af75f7b814451b0d084ac439d04d5879ea351",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_852cfa03",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-12-13T08:15:04Z",
+      "side": 1,
+      "message": "I will write one soon.\nThanks!",
+      "parentUuid": "5ac10518_2578a62a",
       "range": {
         "startLine": 113,
         "startChar": 16,
