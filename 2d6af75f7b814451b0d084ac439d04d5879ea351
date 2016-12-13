@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_65af8e95",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5959
+      },
+      "writtenOn": "2016-12-13T07:45:16Z",
+      "side": 1,
+      "message": "Imports should be grouped in the following order:\n\nstandard library imports\nrelated third party imports\nlocal application/library specific imports\n\nYou should put a blank line between each group of imports.",
+      "range": {
+        "startLine": 19,
+        "startChar": 7,
+        "endLine": 19,
+        "endChar": 11
+      },
+      "revId": "2d6af75f7b814451b0d084ac439d04d5879ea351",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_25918652",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5959
+      },
+      "writtenOn": "2016-12-13T07:45:16Z",
+      "side": 1,
+      "message": "It would be more recommended to write as:\nfrom heatclient import client",
+      "revId": "2d6af75f7b814451b0d084ac439d04d5879ea351",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_c576823e",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5959
+      },
+      "writtenOn": "2016-12-13T07:45:16Z",
+      "side": 1,
+      "message": "This variable is not used and flask8 should catch this voilation.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 7
+      },
+      "revId": "2d6af75f7b814451b0d084ac439d04d5879ea351",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_c59f625e",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5959
+      },
+      "writtenOn": "2016-12-13T07:45:16Z",
+      "side": 1,
+      "message": "As keystoneauth1 is used, is _keystone_client still needed? If not, the member variable should be removed.",
+      "range": {
+        "startLine": 36,
+        "startChar": 14,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "2d6af75f7b814451b0d084ac439d04d5879ea351",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_2578a62a",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5959
+      },
+      "writtenOn": "2016-12-13T07:45:16Z",
+      "side": 1,
+      "message": "A get_client_version() is needed instead of hardcoding the version here.",
+      "range": {
+        "startLine": 113,
+        "startChar": 16,
+        "endLine": 113,
+        "endChar": 19
+      },
+      "revId": "2d6af75f7b814451b0d084ac439d04d5879ea351",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
