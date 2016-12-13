@@ -7,8 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-""" Heat template and stack management
-"""
+"""Heat template and stack management"""
 
 import os
 import time
@@ -19,12 +18,16 @@ import logging
 import pkg_resources
 import json
 import heatclient.client
-import keystoneclient
+
+from keystoneauth1 import loading
+from keystoneauth1 import session
 
 from yardstick.common import template_format
 
 
 log = logging.getLogger(__name__)
+
+DEFAULT_API_VERSION = '2'
 
 
 class HeatObject(object):
@@ -34,28 +37,80 @@ class HeatObject(object):
         self._heat_client = None
         self.uuid = None
 
-    def _get_keystone_client(self):
-        '''returns a keystone client instance'''
+    def _get_credentials(self):
+        """Returns a creds dictionary filled with parsed from env"""
+        creds = {}
 
-        if self._keystone_client is None:
-            self._keystone_client = keystoneclient.v2_0.client.Client(
-                auth_url=os.environ.get('OS_AUTH_URL'),
-                username=os.environ.get('OS_USERNAME'),
-                password=os.environ.get('OS_PASSWORD'),
-                tenant_name=os.environ.get('OS_TENANT_NAME'),
-                cacert=os.environ.get('OS_CACERT'))
+        keystone_api_version = os.getenv('OS_IDENTITY_API_VERSION')
 
-        return self._keystone_client
+        if keystone_api_version is None or keystone_api_version == '2':
+            keystone_v3 = False
+            tenant_env = 'OS_TENANT_NAME'
+            tenant = 'tenant_name'
+        else:
+            keystone_v3 = True
+            tenant_env = 'OS_PROJECT_NAME'
+            tenant = 'project_name'
+
+        # The most common way to pass these info to the script is to do it
+        # through environment variables.
+        creds.update({
+            "username": os.environ.get("OS_USERNAME"),
+            "password": os.environ.get("OS_PASSWORD"),
+            "auth_url": os.environ.get("OS_AUTH_URL"),
+            tenant: os.environ.get(tenant_env)
+        })
+
+        if keystone_v3:
+            if os.getenv('OS_USER_DOMAIN_NAME') is not None:
+                creds.update({
+                    "user_domain_name": os.getenv('OS_USER_DOMAIN_NAME')
+                })
+            if os.getenv('OS_PROJECT_DOMAIN_NAME') is not None:
+                creds.update({
+                    "project_domain_name": os.getenv('OS_PROJECT_DOMAIN_NAME')
+                })
+
+        cacert = os.environ.get("OS_CACERT")
+
+        if cacert is not None:
+            # each openstack client uses differnt kwargs for this
+            creds.update({"cacert": cacert,
+                          "ca_cert": cacert,
+                          "https_ca_cert": cacert,
+                          "https_cacert": cacert,
+                          "ca_file": cacert})
+            creds.update({"insecure": "True", "https_insecure": "True"})
+            if not os.path.isfile(cacert):
+                log.info("WARNING: The 'OS_CACERT' environment variable is set\
+                          to %s but the file does not exist." % cacert)
+
+        return creds
+
+    def _get_session_auth(self):
+        loader = loading.get_plugin_loader('password')
+        creds = self._get_credentials()
+        auth = loader.load_from_options(**creds)
+        return auth
+
+    def get_session(self):
+        auth = self._get_session_auth()
+        return session.Session(auth=auth)
+
+    def get_endpoint(self, service_type, endpoint_type='publicURL'):
+        auth = self._get_session_auth()
+        return self.get_session().get_endpoint(auth=auth,
+                                               service_type=service_type,
+                                               endpoint_type=endpoint_type)
 
     def _get_heat_client(self):
         '''returns a heat client instance'''
 
         if self._heat_client is None:
-            keystone = self._get_keystone_client()
-            heat_endpoint = keystone.service_catalog.url_for(
-                service_type='orchestration')
+            sess = self.get_session()
+            heat_endpoint = self.get_endpoint(service_type='orchestration')
             self._heat_client = heatclient.client.Client(
-                '1', endpoint=heat_endpoint, token=keystone.auth_token)
+                '1', endpoint=heat_endpoint, session=sess)
 
         return self._heat_client
 
