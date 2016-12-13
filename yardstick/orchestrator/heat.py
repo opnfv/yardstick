@@ -7,10 +7,8 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-""" Heat template and stack management
-"""
+"""Heat template and stack management"""
 
-import os
 import time
 import datetime
 import getpass
@@ -18,10 +16,11 @@ import socket
 import logging
 import pkg_resources
 import json
-import heatclient.client
-import keystoneclient
+
+import heatclient
 
 from yardstick.common import template_format
+import yardstick.common.openstack_utils as op_utils
 
 
 log = logging.getLogger(__name__)
@@ -30,32 +29,18 @@ log = logging.getLogger(__name__)
 class HeatObject(object):
     ''' base class for template and stack'''
     def __init__(self):
-        self._keystone_client = None
         self._heat_client = None
         self.uuid = None
-
-    def _get_keystone_client(self):
-        '''returns a keystone client instance'''
-
-        if self._keystone_client is None:
-            self._keystone_client = keystoneclient.v2_0.client.Client(
-                auth_url=os.environ.get('OS_AUTH_URL'),
-                username=os.environ.get('OS_USERNAME'),
-                password=os.environ.get('OS_PASSWORD'),
-                tenant_name=os.environ.get('OS_TENANT_NAME'),
-                cacert=os.environ.get('OS_CACERT'))
-
-        return self._keystone_client
 
     def _get_heat_client(self):
         '''returns a heat client instance'''
 
         if self._heat_client is None:
-            keystone = self._get_keystone_client()
-            heat_endpoint = keystone.service_catalog.url_for(
-                service_type='orchestration')
+            sess = op_utils.get_session()
+            heat_endpoint = op_utils.get_endpoint(service_type='orchestration')
             self._heat_client = heatclient.client.Client(
-                '1', endpoint=heat_endpoint, token=keystone.auth_token)
+                op_utils.get_heat_api_version(),
+                endpoint=heat_endpoint, session=sess)
 
         return self._heat_client
 
