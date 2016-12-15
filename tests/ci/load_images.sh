@@ -218,6 +218,9 @@ main()
     QCOW_IMAGE="/tmp/workspace/yardstick/yardstick-image.img"
     RAW_IMAGE="/tmp/workspace/yardstick/yardstick-image.tar.gz"
 
+    source "${YARDSTICK_REPO_DIR}/tests/ci/clean_images.sh"
+    cleanup
+
     build_yardstick_image
     load_yardstick_image
     if [ $YARD_IMG_ARCH = "arm64" ]; then
