@@ -15,6 +15,7 @@ GRAFANA_TAGS = '3.1.1'
 
 dirname = os.path.dirname
 abspath = os.path.abspath
+join = os.path.join
 sep = os.path.sep
 
 INSTALLERS = ['apex', 'compass', 'fuel', 'joid']
@@ -25,7 +26,12 @@ YARDSTICK_REPOS_DIR = '/home/opnfv/repos/yardstick'
 
 YARDSTICK_CONFIG_DIR = '/etc/yardstick/'
 
-YARDSTICK_CONFIG_FILE = os.path.join(YARDSTICK_CONFIG_DIR, 'yardstick.conf')
+YARDSTICK_CONFIG_FILE = join(YARDSTICK_CONFIG_DIR, 'yardstick.conf')
+
+YARDSTICK_CONFIG_SAMPLE_DIR = join(YARDSTICK_ROOT_PATH, 'etc/yardstick/')
+
+YARDSTICK_CONFIG_SAMPLE_FILE = join(YARDSTICK_CONFIG_SAMPLE_DIR,
+                                    'yardstick.conf.sample')
 
 RELENG_DIR = '/home/opnfv/repos/releng'
 
@@ -33,6 +39,6 @@ OS_FETCH_SCRIPT = 'utils/fetch_os_creds.sh'
 
 LOAD_IMAGES_SCRIPT = 'tests/ci/load_images.sh'
 
-OPENSTACK_RC_FILE = os.path.join(YARDSTICK_CONFIG_DIR, 'openstack.creds')
+OPENSTACK_RC_FILE = join(YARDSTICK_CONFIG_DIR, 'openstack.creds')
 
 YARDSTICK_ENV_ACTION_API = 'http://localhost:5000/yardstick/env/action'
