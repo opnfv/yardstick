@@ -195,6 +195,8 @@ def _prepare_env_daemon():
     # update the external_network
     _source_file(rc_file)
 
+    _clean_images()
+
     _load_images()
 
 
@@ -249,6 +251,14 @@ def _append_external_network(rc_file):
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
+
+
+def _clean_images():
+    cmd = [config.CLEAN_IMAGES_SCRIPT]
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                         cwd=config.YARDSTICK_REPOS_DIR)
+    output = p.communicate()[0]
+    logger.debug('The result is: %s', output)
 
 
 def _load_images():

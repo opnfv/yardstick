@@ -320,8 +320,6 @@ main()
 
     source $YARDSTICK_REPO_DIR/tests/ci/clean_images.sh
 
-    cleanup
-
     trap "error_exit" EXIT SIGTERM
 
     source $YARDSTICK_REPO_DIR/tests/ci/load_images.sh
