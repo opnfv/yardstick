@@ -13,6 +13,7 @@ import time
 import json
 import os
 import errno
+import ConfigParser
 
 from docker import Client
 
@@ -146,27 +147,16 @@ def _config_influxdb():
 
 def _config_output_file():
     yardstick_utils.makedirs(config.YARDSTICK_CONFIG_DIR)
+
+    parser = ConfigParser.ConfigParser()
+    parser.read(config.YARDSTICK_CONFIG_SAMPLE_FILE)
+
+    parser.set('DEFAULT', 'dispatcher', 'influxdb')
+    parser.set('dispatcher_influxdb', 'target',
+               'http://%s:8086' % api_conf.GATEWAY_IP)
+
     with open(config.YARDSTICK_CONFIG_FILE, 'w') as f:
-        f.write("""\
-[DEFAULT]
-debug = False
-dispatcher = influxdb
-
-[dispatcher_file]
-file_path = /tmp/yardstick.out
-
-[dispatcher_http]
-timeout = 5
-# target = http://127.0.0.1:8000/results
-
-[dispatcher_influxdb]
-timeout = 5
-target = http://%s:8086
-db_name = yardstick
-username = root
-password = root
-"""
-                % api_conf.GATEWAY_IP)
+        parser.write(f)
 
 
 def prepareYardstickEnv(args):
@@ -257,3 +247,7 @@ def _load_images():
                          cwd=config.YARDSTICK_REPOS_DIR)
     output = p.communicate()[0]
     logger.debug('The result is: %s', output)
+
+
+if __name__ == '__main__':
+    _config_output_file()
