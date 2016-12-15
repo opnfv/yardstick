@@ -25,7 +25,8 @@ setup(
             'resources/scripts/remove/*.bash'
         ],
         'etc': [
-            'yardstick/nodes/*/*.yaml'
+            'yardstick/nodes/*/*.yaml',
+            'yardstick/*.sample'
         ],
         'tests': [
             'opnfv/*/*.yaml',
