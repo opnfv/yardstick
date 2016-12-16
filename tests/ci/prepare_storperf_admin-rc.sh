@@ -15,8 +15,7 @@ PASSWORD=${OS_PASSWORD:-console}
 TENANT_NAME=${OS_TENANT_NAME:-admin}
 VOLUME_API_VERSION=${OS_VOLUME_API_VERSION:-2}
 PROJECT_NAME=${OS_PROJECT_NAME:-$TENANT_NAME}
-TENANT_ID=`keystone tenant-get admin|grep 'id'|awk -F '|' '{print $3}'|sed -e 's/^[[:space:]]*//'`
-
+TENANT_ID=`openstack project show admin|grep '\bid\b' |awk -F '|' '{print $3}'|sed -e 's/^[[:space:]]*//'`
 
 rm -f ~/storperf_admin-rc
 touch ~/storperf_admin-rc
