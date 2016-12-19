@@ -301,7 +301,7 @@ main()
 
     # check OpenStack services
     echo "Checking OpenStack services:"
-    for cmd in "glance image-list" "nova list" "heat stack-list"; do
+    for cmd in "openstack image lsit" "openstack server list" "openstack stack list"; do
         echo "  checking ${cmd/%\ */} ..."
         if ! $cmd >/dev/null; then
             echo "error: command \"$cmd\" failed"
@@ -311,7 +311,7 @@ main()
 
     echo
     echo "Checking for External network:"
-    for net in $(neutron net-list --router:external True -c name -f value); do
+    for net in $(openstack network list --external -c Name -f value); do
         echo "  external network: $net"
     done
 
