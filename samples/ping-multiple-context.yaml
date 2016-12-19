@@ -24,7 +24,7 @@ contexts:
 -
   name: demo1
   image: cirros-0.3.3
-  flavor: m1.tiny
+  flavor: yardstick-flavor
   user: cirros
   placement_groups:
     pgrp1:
@@ -39,7 +39,7 @@ contexts:
 -
   name: demo2
   image: cirros-0.3.3
-  flavor: m1.tiny
+  flavor: yardstick-flavor
   user: cirros
   placement_groups:
     pgrp1:

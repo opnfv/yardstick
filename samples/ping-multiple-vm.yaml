@@ -28,7 +28,7 @@ scenarios:
 context:
   name: demo
   image: cirros-0.3.3
-  flavor: m1.tiny
+  flavor: yardstick-flavor
   user: cirros
 
   servers:
