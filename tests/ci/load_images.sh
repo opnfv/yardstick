@@ -75,11 +75,12 @@ load_yardstick_image()
         if [ ! -f $VIVID_KERNEL ]; then
             tar zxf $VIVID_IMAGE $(basename $VIVID_KERNEL)
         fi
-        create_vivid_kernel=$(glance --os-image-api-version 1 image-create \
-                --name yardstick-vivid-kernel \
-                --is-public true --disk-format qcow2 \
+        create_vivid_kernel=$(openstack image create \
+                --public \
+                --disk-format qcow2 \
                 --container-format bare \
-                --file $VIVID_KERNEL)
+                --file $VIVID_KERNEL \
+                yardstick-vivid-kernel)
 
         GLANCE_KERNEL_ID=$(echo "$create_vivid_kernel" | grep " id " | awk '{print $(NF-1)}')
         if [ -z "$GLANCE_KERNEL_ID" ]; then
@@ -101,19 +102,22 @@ load_yardstick_image()
     fi
 
     if [[ "$DEPLOY_SCENARIO" == *"-lxd-"* ]]; then
-        output=$(eval glance --os-image-api-version 1 image-create \
-            --name yardstick-image \
-            --is-public true --disk-format root-tar \
+        output=$(eval openstack image create \
+            --public \
+            --disk-format root-tar \
             --container-format bare \
             $EXTRA_PARAMS \
-            --file $RAW_IMAGE)
+            --file $RAW_IMAGE \
+            yardstick-image)
     else
-        output=$(eval glance --os-image-api-version 1 image-create \
+        output=$(eval openstack image create \
             --name yardstick-image \
-            --is-public true --disk-format qcow2 \
+            --public \
+            --disk-format qcow2 \
             --container-format bare \
             $EXTRA_PARAMS \
-            --file $QCOW_IMAGE)
+            --file $QCOW_IMAGE \
+            yardstick-image)
     fi
 
     echo "$output"
@@ -147,12 +151,12 @@ load_cirros_image()
         EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
     fi
 
-    output=$(glance image-create \
-        --name  cirros-0.3.3 \
+    output=$(openstack image create \
         --disk-format qcow2 \
         --container-format bare \
         $EXTRA_PARAMS \
-        --file $image_file)
+        --file $image_file \
+        cirros-0.3.3)
     echo "$output"
 
     CIRROS_IMAGE_ID=$(echo "$output" | grep " id " | awk '{print $(NF-1)}')
@@ -177,12 +181,12 @@ load_ubuntu_image()
         EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
     fi
 
-    output=$(glance image-create \
-        --name Ubuntu-14.04 \
+    output=$(openstack image create \
         --disk-format qcow2 \
         --container-format bare \
         $EXTRA_PARAMS \
-        --file $ubuntu_image_file)
+        --file $ubuntu_image_file \
+        Ubuntu-14.04)
     echo "$output"
 
     UBUNTU_IMAGE_ID=$(echo "$output" | grep " id " | awk '{print $(NF-1)}')
@@ -197,18 +201,18 @@ load_ubuntu_image()
 
 create_nova_flavor()
 {
-    if ! nova flavor-list | grep -q yardstick-flavor; then
+    if ! openstack flavor list | grep -q yardstick-flavor; then
         echo
         echo "========== Create nova flavor =========="
         # Create the nova flavor used by some sample test cases
-        nova flavor-create yardstick-flavor 100 512 3 1
+        openstack flavor create --id 100 --ram 512 --disk 3 --vcpus 1 yardstick-flavor
         # DPDK-enabled OVS requires guest memory to be backed by large pages
         if [[ "$DEPLOY_SCENARIO" == *"-ovs-"* ]]; then
-            nova flavor-key yardstick-flavor set hw:mem_page_size=large
+            openstack flavor set --property hw:mem_page_size=large yardstick-flavor
         fi
         # VPP requires guest memory to be backed by large pages
         if [[ "$DEPLOY_SCENARIO" == *"-fdio-"* ]]; then
-            nova flavor-key yardstick-flavor set hw:mem_page_size=large
+            openstack flavor set --property hw:mem_page_size=large yardstick-flavor
         fi
     fi
 }
