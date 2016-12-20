@@ -1,0 +1,9 @@
+Code-Review+1: Li Hainong <lihainong@huawei.com>
+Code-Review+1: Alexandru Avadanii <Alexandru.Avadanii@enea.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Submitted-by: Rex Lee <limingjiang@huawei.com>
+Submitted-at: Tue, 20 Dec 2016 01:28:57 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/26167
+Project: yardstick
+Branch: refs/heads/master
