@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_7d84fad3",
+        "filename": "yardstick/benchmark/scenarios/parser/parser.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-20T09:14:23Z",
+      "side": 1,
+      "message": "there are particular reasons having to do with cooperative multiple inheritance and the MRO that recommend the practice of always calling super() in __init__, especially in frameworks.",
+      "revId": "2400a68e7ff22e96302d84573171715ea4e997f3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_9d10c6a9",
+        "filename": "yardstick/benchmark/scenarios/parser/parser.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-20T09:14:23Z",
+      "side": 1,
+      "message": "what is the point of this?   isn\u0027t self.setup_script already a string?",
+      "revId": "2400a68e7ff22e96302d84573171715ea4e997f3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_5d3b3e38",
+        "filename": "yardstick/benchmark/scenarios/parser/parser.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-20T09:14:23Z",
+      "side": 1,
+      "message": "use os.path.expanduser() to turn these into real paths.\n\nbut in general we should define the yardstick prefix and do all the relative path calculation ourselves.\n\ne.g.\n\n  yardstick_prefix \u003d os.path.expanduser(\"~/yardstick\")\n\n  yangfile \u003d options.get(\"yangfile\", os.path.join(yardstic_prefix, \"sample\", \"yang.yaml\")\n\nThat way the prefix is not hardcoded to \"~/\", it is centralized into a var and change be adjusted globally.",
+      "revId": "2400a68e7ff22e96302d84573171715ea4e997f3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_dd2f2ef5",
+        "filename": "yardstick/benchmark/scenarios/parser/parser.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-20T09:14:23Z",
+      "side": 1,
+      "message": "if we use proper paths we can os.chmod()",
+      "revId": "2400a68e7ff22e96302d84573171715ea4e997f3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_bd2ca203",
+        "filename": "yardstick/benchmark/scenarios/parser/parser.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-20T09:14:23Z",
+      "side": 1,
+      "message": "avoid shell to avoid shell quoting errors and shell injection.\n\nif we are using shell only because of ~/, then use os.path.expanduser() to convert to real paths.",
+      "revId": "2400a68e7ff22e96302d84573171715ea4e997f3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_dd7deee8",
+        "filename": "yardstick/benchmark/scenarios/parser/parser.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-20T09:14:23Z",
+      "side": 1,
+      "message": "can we use logging?\n\n  LOG.info(\"yangtotosca finished\")",
+      "revId": "2400a68e7ff22e96302d84573171715ea4e997f3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_1d1cd6c0",
+        "filename": "yardstick/benchmark/scenarios/parser/parser.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-20T09:14:23Z",
+      "side": 1,
+      "message": "don\u0027t do this, this is a C workaround.  Python doesn\u0027t allow assignment in conditionals.\n\nAlso prefer to use p.wait()\n\n if p.wait() \u003d\u003d 0 else \"fail\"",
+      "revId": "2400a68e7ff22e96302d84573171715ea4e997f3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
