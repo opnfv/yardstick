@@ -313,14 +313,14 @@ class SSH(object):
 
     def _put_file_shell(self, localpath, remotepath, mode=None):
         # quote to stop wordpslit
-        cmd = ['cat > "%s"' % remotepath]
+        cmd = ['cat > %s' % remotepath]
         if mode is not None:
             # use -- so no options
-            cmd.append('chmod -- 0%o "%s"' % (mode, remotepath))
+            cmd.append('chmod -- 0%o %s' % (mode, remotepath))
 
         with open(localpath, "rb") as localfile:
             # only chmod on successful cat
-            cmd = "&& ".join(cmd)
+            cmd = " && ".join(cmd)
             self.run(cmd, stdin=localfile)
 
     def put_file(self, localpath, remotepath, mode=None):

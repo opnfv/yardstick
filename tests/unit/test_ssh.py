@@ -314,7 +314,7 @@ class SSHRunTestCase(unittest.TestCase):
         self.test_client._put_file_shell("localfile", "remotefile", 0o42)
 
         self.test_client.run.assert_called_once_with(
-            'cat > "remotefile"&& chmod -- 042 "remotefile"',
+            'cat > remotefile && chmod -- 042 remotefile',
             stdin=mock_open.return_value.__enter__.return_value)
 
     @mock.patch("yardstick.ssh.os.stat")
