@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_9d2446b0",
+        "filename": "setup.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6365
+      },
+      "writtenOn": "2016-12-20T03:21:29Z",
+      "side": 1,
+      "message": "It is maybe better to specify the specific suffix, such as: *.sample\n1) consistent with other\u0027s styles\n2) forbidden to copy other not related files(maybe someone create a new file in this folder in future)",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "bb698a301ae539f6d1aba519d7df16f5e97ead6c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
