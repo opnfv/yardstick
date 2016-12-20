@@ -58,10 +58,12 @@ class Parser(base.Scenario):
         cmd1 = "%s %s %s" % (self.parser_script, yangfile, toscafile)
         cmd2 = "chmod 777 %s" % (self.parser_script)
         subprocess.call(cmd2, shell=True)
-        output = subprocess.call(cmd1, shell=True, stdout=subprocess.PIPE)
+        p = subprocess.Popen(cmd1, shell=True, stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE)
+        p.communicate()
         print "yangtotosca finished"
 
-        result['yangtotosca'] = "success" if output == 0 else "fail"
+        result['yangtotosca'] = "success" if 0 == p.returncode else "fail"
 
     def teardown(self):
         ''' for scenario teardown remove parser and pyang '''
