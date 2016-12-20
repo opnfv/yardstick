@@ -22,6 +22,30 @@
       "revId": "92f30ababa567dffb9fea221f03f9470b088e067",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_7dcb9aa5",
+        "filename": "tests/ci/prepare_storperf_admin-rc.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-12-20T03:45:26Z",
+      "side": 1,
+      "message": "Thanks for your advice.\nBut I think there is no need to add such a switch.\nThe new openstack command is backward compatible with the ketstone one. so it works in both Mitaka and future releases.",
+      "parentUuid": "5ac10518_dd2ace7d",
+      "range": {
+        "startLine": 20,
+        "startChar": 11,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "92f30ababa567dffb9fea221f03f9470b088e067",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
