@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_1d47f64c",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 6365
+      },
+      "writtenOn": "2016-12-20T03:18:28Z",
+      "side": 1,
+      "message": "I think your update maybe is not the key point!\nI couldn\u0027t find where do we run clear() function in exception.\nFor example:\nif run create_nova_flavor failed, where could we clear the residue issues, or that not necessary to be cleared ?",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 11
+      },
+      "revId": "e6eabd6d34184b9febc0dc466a86d6cf8edbce09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
