@@ -19,7 +19,7 @@ scenarios:
     vlan_net_2_name: apexlake_outbound_network
     vlan_subnet_2_name: apexlake_outbound_subnet
     vnic_type: direct
-    vtc_flavor: m1.large
+    vtc_flavor: yardstick-flavor
     num_of_neighbours: 2
     amount_of_ram: 1G
     number_of_cores: 2

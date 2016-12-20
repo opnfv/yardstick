@@ -27,7 +27,7 @@ scenarios:
 context:
   name: demo
   image: yardstick-image
-  flavor: m1.small
+  flavor: yardstick-flavor
   user: ubuntu
 
   servers:
