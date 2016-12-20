@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_5d0fbe2e",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6365
+      },
+      "writtenOn": "2016-12-20T03:19:59Z",
+      "side": 1,
+      "message": "why here reserved --name option?",
+      "range": {
+        "startLine": 114,
+        "startChar": 12,
+        "endLine": 114,
+        "endChar": 34
+      },
+      "revId": "a4a1e7202f1d4a2d1cfbc47d9ac2f15625918f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
