@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_f3ad7b89",
+        "filename": "api/api-prepare.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6365
+      },
+      "writtenOn": "2016-12-21T04:56:49Z",
+      "side": 1,
+      "message": "Maybe the direcctor /var/log/yardstick has existed.\ni think below expression maybe better:\n[[ -d /var/log/yardstick ]] || mkdir -p /var/log/yardstick\nOr, you could delete the old directory and run \" mkdir -p /var/log/yardstick\" to create a new one",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "46858e3970bdbcb3026d85b9a640d3bd7f4cdd9a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_d3babfbf",
+        "filename": "api/api-prepare.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6365
+      },
+      "writtenOn": "2016-12-21T04:56:49Z",
+      "side": 1,
+      "message": "should we check the file /var/run/yardstick.sock exist or not firstly?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 29
+      },
+      "revId": "46858e3970bdbcb3026d85b9a640d3bd7f4cdd9a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
