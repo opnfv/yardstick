@@ -152,9 +152,13 @@ cleanup() {
     mount | grep $mountdir/proc && umount $mountdir/proc
     mount | grep $mountdir && umount $mountdir
     mount | grep "/mnt/vivid" && umount "/mnt/vivid"
+
     if [ -f $raw_imgfile ]; then
-        kpartx -dv $raw_imgfile
+        if [ -z "$(kpartx -l $raw_imgfile | grep 'loop deleted')" ]; then
+            kpartx -dv $raw_imgfile
+        fi
     fi
+
     rm -f $raw_imgfile
     rm -rf $mountdir
 }
