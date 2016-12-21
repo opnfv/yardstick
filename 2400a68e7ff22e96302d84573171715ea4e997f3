@@ -87,6 +87,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_38de806e",
+        "filename": "yardstick/benchmark/scenarios/parser/parser.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6365
+      },
+      "writtenOn": "2016-12-21T00:44:45Z",
+      "side": 1,
+      "message": "Thank you for your suggestion.\nAccording Python 2.7 Documentation as below:\nNote\nDo not use stdout\u003dPIPE or stderr\u003dPIPE with call() function as that can deadlock based on the child process output volume. Use Popen with the communicate() method when you need pipes.\n--\nSo i updated here.",
+      "parentUuid": "5ac10518_bd2ca203",
+      "revId": "2400a68e7ff22e96302d84573171715ea4e997f3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_dd7deee8",
         "filename": "yardstick/benchmark/scenarios/parser/parser.py",
         "patchSetId": 2
@@ -115,6 +133,24 @@
       "writtenOn": "2016-12-20T09:14:23Z",
       "side": 1,
       "message": "don\u0027t do this, this is a C workaround.  Python doesn\u0027t allow assignment in conditionals.\n\nAlso prefer to use p.wait()\n\n if p.wait() \u003d\u003d 0 else \"fail\"",
+      "revId": "2400a68e7ff22e96302d84573171715ea4e997f3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_58d90c82",
+        "filename": "yardstick/benchmark/scenarios/parser/parser.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 6365
+      },
+      "writtenOn": "2016-12-21T00:44:45Z",
+      "side": 1,
+      "message": "Thank you for your suggesion!\nI will change it",
+      "parentUuid": "5ac10518_1d1cd6c0",
       "revId": "2400a68e7ff22e96302d84573171715ea4e997f3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
