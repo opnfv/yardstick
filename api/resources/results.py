@@ -17,6 +17,10 @@ from api import conf
 logger = logging.getLogger(__name__)
 
 
+def default(args):
+    return getResult(args)
+
+
 def getResult(args):
     try:
         measurement = args['measurement']
