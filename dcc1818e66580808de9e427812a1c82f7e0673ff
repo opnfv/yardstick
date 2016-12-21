@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_b8bd906a",
+        "filename": "yardstick/ssh.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 6365
+      },
+      "writtenOn": "2016-12-21T01:16:55Z",
+      "side": 1,
+      "message": "I\u0027m puzzled how to process \u0027remotepath\u0027 with several blanks.\nFor example:\nremotepath\u003d\"/home/opnfv/ni hao\"\nchmod xx \"/home/opnfv/ni hao\", that\u0027s right.\nBut\nchmod xx /home/opnfv/ni hao, that\u0027s wrong.",
+      "revId": "dcc1818e66580808de9e427812a1c82f7e0673ff",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
