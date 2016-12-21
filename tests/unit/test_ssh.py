@@ -310,12 +310,38 @@ class SSHRunTestCase(unittest.TestCase):
 
     @mock.patch("yardstick.ssh.open", create=True)
     def test__put_file_shell(self, mock_open):
-        self.test_client.run = mock.Mock()
-        self.test_client._put_file_shell("localfile", "remotefile", 0o42)
+        with mock.patch.object(self.test_client, "run") as run_mock:
+            self.test_client._put_file_shell("localfile", "remotefile", 0o42)
+            run_mock.assert_called_once_with(
+                'cat > "remotefile"&& chmod -- 042 "remotefile"',
+                stdin=mock_open.return_value.__enter__.return_value)
 
-        self.test_client.run.assert_called_once_with(
-            'cat > remotefile && chmod -- 042 remotefile',
-            stdin=mock_open.return_value.__enter__.return_value)
+    @mock.patch("yardstick.ssh.open", create=True)
+    def test__put_file_shell_space(self, mock_open):
+        with mock.patch.object(self.test_client, "run") as run_mock:
+            self.test_client._put_file_shell("localfile",
+                                             "filename with space", 0o42)
+            run_mock.assert_called_once_with(
+                'cat > "filename with space"&& chmod -- 042 "filename with '
+                'space"',
+                stdin=mock_open.return_value.__enter__.return_value)
+
+    @mock.patch("yardstick.ssh.open", create=True)
+    def test__put_file_shell_tilde(self, mock_open):
+        with mock.patch.object(self.test_client, "run") as run_mock:
+            self.test_client._put_file_shell("localfile", "~/remotefile", 0o42)
+            run_mock.assert_called_once_with(
+                'cat > ~/"remotefile"&& chmod -- 042 ~/"remotefile"',
+                stdin=mock_open.return_value.__enter__.return_value)
+
+    @mock.patch("yardstick.ssh.open", create=True)
+    def test__put_file_shell_tilde_spaces(self, mock_open):
+        with mock.patch.object(self.test_client, "run") as run_mock:
+            self.test_client._put_file_shell("localfile", "~/file with space",
+                                             0o42)
+            run_mock.assert_called_once_with(
+                'cat > ~/"file with space"&& chmod -- 042 ~/"file with space"',
+                stdin=mock_open.return_value.__enter__.return_value)
 
     @mock.patch("yardstick.ssh.os.stat")
     def test__put_file_sftp(self, mock_stat):
