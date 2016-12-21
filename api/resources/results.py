@@ -17,7 +17,7 @@ from api import conf
 logger = logging.getLogger(__name__)
 
 
-def getResult(args):
+def default(args):
     try:
         measurement = args['measurement']
         task_id = args['task_id']

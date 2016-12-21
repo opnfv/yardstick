@@ -9,18 +9,13 @@
 import logging
 import os
 
-from flask import request
-from flask_restful import Resource
 from flasgger.utils import swag_from
 
-from api.utils import common as common_utils
+from api.base import ApiResource
 from api.swagger import models
-from api.actions import test as test_action
-from api.actions import samples as samples_action
-from api.actions import result as result_action
-from api.actions import env as env_action
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 TestCaseActionModel = models.TestCaseActionModel
@@ -29,54 +24,26 @@ TestCaseActionArgsOptsModel = models.TestCaseActionArgsOptsModel
 TestCaseActionArgsOptsTaskArgModel = models.TestCaseActionArgsOptsTaskArgModel
 
 
-class Release(Resource):
+class ReleaseAction(ApiResource):
     @swag_from(os.getcwd() + '/swagger/docs/testcases.yaml')
     def post(self):
-        action = common_utils.translate_to_str(request.json.get('action', ''))
-        args = common_utils.translate_to_str(request.json.get('args', {}))
-        logger.debug('Input args is: action: %s, args: %s', action, args)
-
-        try:
-            return getattr(test_action, action)(args)
-        except AttributeError:
-            return common_utils.error_handler('Wrong action')
+        return self._dispatch_post()
 
 
-class Samples(Resource):
+class SamplesAction(ApiResource):
     def post(self):
-        action = common_utils.translate_to_str(request.json.get('action', ''))
-        args = common_utils.translate_to_str(request.json.get('args', {}))
-        logger.debug('Input args is: action: %s, args: %s', action, args)
-
-        try:
-            return getattr(samples_action, action)(args)
-        except AttributeError:
-            return common_utils.error_handler('Wrong action')
+        return self._dispatch_post()
 
 
 ResultModel = models.ResultModel
 
 
-class Results(Resource):
+class Results(ApiResource):
     @swag_from(os.getcwd() + '/swagger/docs/results.yaml')
     def get(self):
-        args = common_utils.translate_to_str(request.args)
-        action = args.get('action', '')
-        logger.debug('Input args is: action: %s, args: %s', action, args)
-
-        try:
-            return getattr(result_action, action)(args)
-        except AttributeError:
-            return common_utils.error_handler('Wrong action')
+        return self._dispatch_get()
 
 
-class Env(Resource):
+class EnvAction(ApiResource):
     def post(self):
-        action = common_utils.translate_to_str(request.json.get('action', ''))
-        args = common_utils.translate_to_str(request.json.get('args', {}))
-        logger.debug('Input args is: action: %s, args: %s', action, args)
-
-        try:
-            return getattr(env_action, action)(args)
-        except AttributeError:
-            return common_utils.error_handler('Wrong action')
+        return self._dispatch_post()
