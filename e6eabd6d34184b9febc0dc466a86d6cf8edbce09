@@ -22,6 +22,30 @@
       "revId": "e6eabd6d34184b9febc0dc466a86d6cf8edbce09",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_5391ef50",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-12-21T03:54:23Z",
+      "side": 1,
+      "message": "Maybe some misunderstanding. See the description, I do this does not only because it is failed. It will load images in any circumstance. So I clean these images first. But you are right. We\u0027d better consider the failed circumstance. Since this script called by other script, so there still something to do. Maybe I can propose another patch. And I will add you to review.",
+      "parentUuid": "5ac10518_1d47f64c",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 11
+      },
+      "revId": "e6eabd6d34184b9febc0dc466a86d6cf8edbce09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
