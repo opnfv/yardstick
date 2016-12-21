@@ -154,9 +154,11 @@ cleanup() {
     mount | grep "/mnt/vivid" && umount "/mnt/vivid"
 
     if [ -f $raw_imgfile ]; then
-        if [ -z "$(kpartx -l $raw_imgfile | grep 'loop deleted')" ]; then
-            kpartx -dv $raw_imgfile
-        fi
+        #TBD: kpartx -dv $raw_imgfile sometimes failed, we should checked it agein.  
+        #if [ -z "$(kpartx -l $raw_imgfile | grep 'loop deleted')" ]; then
+        #    kpartx -dv $raw_imgfile
+        #fi
+        kpartx -dv $raw_imgfile || true
     fi
 
     rm -f $raw_imgfile
