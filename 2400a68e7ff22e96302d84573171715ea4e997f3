@@ -105,6 +105,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_93b437d2",
+        "filename": "yardstick/benchmark/scenarios/parser/parser.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-21T05:06:59Z",
+      "side": 1,
+      "message": "I was referring to shell\u003dTrue.  Never use shell\u003dTrue unless you have to.  If you use shell\u003dTrue you have to deal with shell word splitting, quoting and command injection.\n\nIf you use shell\u003dFalse then you are using the execvp form, and you don\u0027t have to quote args or worry about shell issues.\n\nsee http://www.dwheeler.com/secure-programs/Secure-Programs-HOWTO.html#SHELL-INJECTION",
+      "parentUuid": "5ac10518_38de806e",
+      "revId": "2400a68e7ff22e96302d84573171715ea4e997f3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_dd7deee8",
         "filename": "yardstick/benchmark/scenarios/parser/parser.py",
         "patchSetId": 2
