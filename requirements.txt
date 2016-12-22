@@ -84,3 +84,4 @@ pyroute2==0.4.10
 docker-py==1.10.6
 flasgger==0.5.13
 flask-restful-swagger==0.19
+SQLAlchemy==1.1.4
