@@ -42,6 +42,37 @@ class TestCaseActionModel:
     }
 
 
+# for testsuite/action runTestSuite action
+@swagger.model
+class TestSuiteActionArgsOptsTaskArgModel:
+    resource_fields = {
+    }
+
+
+@swagger.model
+class TestSuiteActionArgsOptsModel:
+    resource_fields = {
+        'task-args': TestSuiteActionArgsOptsTaskArgModel,
+        'keep-deploy': fields.String,
+        'suite': fields.String
+    }
+
+@swagger.model
+class TestSuiteActionArgsModel:
+    resource_fields = {
+        'testsuite': fields.String,
+        'opts': TestSuiteActionArgsOptsModel
+    }
+
+
+@swagger.model
+class TestSuiteActionModel:
+    resource_fields = {
+        'action': fields.String,
+        'args': TestSuiteActionArgsModel
+    }
+
+
 # for results
 @swagger.model
 class ResultModel:
