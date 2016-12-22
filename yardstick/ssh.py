@@ -66,6 +66,7 @@ import os
 import select
 import socket
 import time
+import re
 
 import logging
 import paramiko
@@ -252,7 +253,7 @@ class SSH(object):
                 raise SSHError("Socket error.")
 
         exit_status = session.recv_exit_status()
-        if 0 != exit_status and raise_on_error:
+        if exit_status != 0 and raise_on_error:
             fmt = "Command '%(cmd)s' failed with exit_status %(status)d."
             details = fmt % {"cmd": cmd, "status": exit_status}
             if stderr_data:
@@ -311,17 +312,21 @@ class SSH(object):
                 mode = 0o777 & os.stat(localpath).st_mode
             sftp.chmod(remotepath, mode)
 
+    TILDE_EXPANSIONS_RE = re.compile("(^~[^/]*/)?(.*)")
+
     def _put_file_shell(self, localpath, remotepath, mode=None):
         # quote to stop wordpslit
-        cmd = ['cat > %s' % remotepath]
+        tilde, remotepath = self.TILDE_EXPANSIONS_RE.match(remotepath).groups()
+        if not tilde:
+            tilde = ''
+        cmd = ['cat > %s"%s"' % (tilde, remotepath)]
         if mode is not None:
             # use -- so no options
-            cmd.append('chmod -- 0%o %s' % (mode, remotepath))
+            cmd.append('chmod -- 0%o %s"%s"' % (mode, tilde, remotepath))
 
         with open(localpath, "rb") as localfile:
             # only chmod on successful cat
-            cmd = " && ".join(cmd)
-            self.run(cmd, stdin=localfile)
+            self.run("&& ".join(cmd), stdin=localfile)
 
     def put_file(self, localpath, remotepath, mode=None):
         """Copy specified local file to the server.
@@ -330,7 +335,6 @@ class SSH(object):
         :param remotepath:  Remote filename.
         :param mode:        Permissions to set after upload
         """
-        import socket
         try:
             self._put_file_sftp(localpath, remotepath, mode=mode)
         except (paramiko.SSHException, socket.error):
