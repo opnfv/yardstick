@@ -1,0 +1,16 @@
+---
+# Yardstick components task suite
+
+schema: "yardstick:suite:0.1"
+
+name: "opnfv_yardstick-components"
+test_cases_dir: "tests/opnfv/test_cases/"
+test_cases:
+-
+    file_name: opnfv_yardstick_tc074.yaml
+    constraint:
+        installer: compass
+        pod: huawei-pod1
+    task_args:
+        huawei-pod1: '{"public_network": "ext-net",
+        "StorPerf_ip": "192.168.200.1"}'
