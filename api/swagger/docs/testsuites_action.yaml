@@ -1,0 +1,50 @@
+TestSuites Actions
+
+This API may offer many actions, including runTestSuite
+
+action: runTestSuite
+This api offer the interface to run a test suite in yardstick
+we will return a task_id for querying
+you can use the returned task_id to get the result data
+---
+tags:
+  - Testsuite Action
+parameters:
+  - in: body
+    name: body
+    description: this is the input json dict
+    schema:
+      id: TestSuiteActionModel
+      required:
+        - action
+        - args
+      properties:
+        action:
+          type: string
+          description: this is action for testsuite
+          default: runTestSuite
+        args:
+          schema:
+            id: TestSuiteActionArgsModel
+            required:
+              - testsuite
+            properties:
+              testsuite:
+                type: string
+                description: this is the test suite name
+                default: smoke
+              opts:
+                schema:
+                  id: TestSuiteActionArgsOptsModel
+responses:
+  200:
+    description: A result json dict
+    schema:
+      id: result
+      properties:
+        status:
+          type: string
+          default: success
+        result:
+          type: string
+          description: task_id of this task

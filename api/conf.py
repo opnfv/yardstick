@@ -24,4 +24,6 @@ TEST_CASE_PRE = 'opnfv_yardstick_'
 
 TEST_SUITE_PATH = '../tests/opnfv/test_suites/'
 
+TEST_SUITE_PRE = 'opnfv_'
+
 OUTPUT_CONFIG_FILE_PATH = '/etc/yardstick/yardstick.conf'
