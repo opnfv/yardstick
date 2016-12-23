@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_077d5c6e",
+        "filename": "api/database/__init__.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-12-23T10:11:09Z",
+      "side": 1,
+      "message": "subclass.__name__",
+      "parentUuid": "5ac10518_47836456",
+      "revId": "a90b18fcbcbd415836a050cb3cf40a90eac2d2a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_1c6e1302",
         "filename": "api/database/models.py",
         "patchSetId": 2
