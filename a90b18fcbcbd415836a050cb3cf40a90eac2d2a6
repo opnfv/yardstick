@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_47836456",
+        "filename": "api/database/__init__.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-12-23T09:50:18Z",
+      "side": 1,
+      "message": "Sorry, my bad. Actually I want to record their names. But I forget to print subclass.__class__.__name__. I will fix it soon.",
+      "parentUuid": "5ac10518_3cbaef6e",
+      "revId": "a90b18fcbcbd415836a050cb3cf40a90eac2d2a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_1c6e1302",
         "filename": "api/database/models.py",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2016-12-23T06:37:06Z",
       "side": 1,
       "message": "I haven\u0027t used sqlalchemy before but it looks like from the docs that if we don\u0027t supply a __init__ it will create a default one that allows for init from kwargs\n\n\nhttp://docs.sqlalchemy.org/en/latest/orm/extensions/declarative/api.html#sqlalchemy.ext.declarative.declarative_base.params.constructor\n\nhttp://docs.sqlalchemy.org/en/latest/orm/extensions/declarative/api.html#sqlalchemy.ext.declarative.api._declarative_constructor\n\nIs this the case?",
+      "revId": "a90b18fcbcbd415836a050cb3cf40a90eac2d2a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_a7b48835",
+        "filename": "api/database/models.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2016-12-23T09:50:18Z",
+      "side": 1,
+      "message": "Yes, you are right. It is redundancy.",
+      "parentUuid": "5ac10518_1c6e1302",
       "revId": "a90b18fcbcbd415836a050cb3cf40a90eac2d2a6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
