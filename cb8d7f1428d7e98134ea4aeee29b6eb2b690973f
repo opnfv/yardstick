@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_c72514c3",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 6365
+      },
+      "writtenOn": "2016-12-24T08:48:30Z",
+      "side": 1,
+      "message": "your job is great!\ni found the name of this function is _config_output_file(), but it only configure influxdb actually.\nIf the function can configure any 1 of the 3 output type according to the input parameter, so other guys can call this function directly to configure different type output files(such as use external api), that\u0027s will be the best!\nthat\u0027s just a suggestion ^_^!",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 23
+      },
+      "revId": "cb8d7f1428d7e98134ea4aeee29b6eb2b690973f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
