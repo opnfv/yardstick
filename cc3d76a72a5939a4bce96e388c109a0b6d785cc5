@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_67a540b4",
+        "filename": "yardstick/common/constants.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-12-24T01:20:54Z",
+      "side": 1,
+      "message": "Maybe you should add a cory right header",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "cc3d76a72a5939a4bce96e388c109a0b6d785cc5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
