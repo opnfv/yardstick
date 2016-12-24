@@ -20,7 +20,7 @@ server {
     index  index.htm index.html;
     location / {
         include uwsgi_params;
-        uwsgi_pass unix:///home/opnfv/repos/yardstick/api/yardstick.sock;
+        uwsgi_pass unix:///var/run/yardstick.sock;
     }
 }
 EOF
@@ -47,3 +47,9 @@ command = uwsgi -i yardstick.ini
 autorestart = true
 EOF
 fi
+
+# create api log directory
+mkdir -p /var/log/yardstick
+
+# create yardstick.sock for communicating
+touch /var/run/yardstick.sock
