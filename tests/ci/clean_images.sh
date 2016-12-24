@@ -27,3 +27,10 @@ cleanup()
 
     openstack flavor delete yardstick-flavor &> /dev/null || true
 }
+
+main()
+{
+    cleanup
+}
+
+main

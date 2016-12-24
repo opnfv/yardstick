@@ -31,6 +31,8 @@ RELENG_DIR = '/home/opnfv/repos/releng'
 
 OS_FETCH_SCRIPT = 'utils/fetch_os_creds.sh'
 
+CLEAN_IMAGES_SCRIPT = 'tests/ci/clean_images.sh'
+
 LOAD_IMAGES_SCRIPT = 'tests/ci/load_images.sh'
 
 OPENSTACK_RC_FILE = os.path.join(YARDSTICK_CONFIG_DIR, 'openstack.creds')
