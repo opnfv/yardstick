@@ -27,4 +27,7 @@ cd $BIN_HOME
 
 curl http://$HOST:8080/plugins/fuel-plugin-yardstick-1.0/repositories/ubuntu/yardstick.tar.gz | tar xzvf -
 
-python setup.py develop
+# install dependency
+pip install -r requirements.txt
+
+python setup.py install
