@@ -1,0 +1,64 @@
+---
+# Sample benchmark task config file
+# Two scenarios run in parallel using different type of runners
+
+schema: "yardstick:task:0.1"
+run_in_parallel: true
+
+scenarios:
+{% for host in ['athena.demo1', 'apollo.demo1', 'kratos.demo1'] %}
+-
+  type: Ping
+  options:
+    packetsize: 100
+  host: {{host}}
+  target: hades.demo2
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+  sla:
+    max_rtt: 10
+    action: assert
+{% endfor %}
+
+contexts:
+-
+  name: demo1
+  image: cirros-0.3.3
+  flavor: m1.tiny
+  user: cirros
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    athena:
+      floating_ip: true
+      placement: "pgrp1"
+    apollo:
+      floating_ip: true
+      placement: "pgrp1"
+    kratos:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+-
+  name: demo2
+  image: cirros-0.3.3
+  flavor: m1.tiny
+  user: cirros
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+  servers:
+    hades:
+      floating_ip: true
+      placement: "pgrp1"
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
