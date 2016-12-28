@@ -7,10 +7,10 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 import logging
+import ConfigParser
 from urlparse import urlsplit
 
 from influxdb import InfluxDBClient
-import ConfigParser
 
 from api import conf
 
@@ -21,46 +21,26 @@ def get_data_db_client():
     parser = ConfigParser.ConfigParser()
     try:
         parser.read(conf.OUTPUT_CONFIG_FILE_PATH)
-        dispatcher = parser.get('DEFAULT', 'dispatcher')
 
-        if 'influxdb' != dispatcher:
+        if 'influxdb' != parser.get('DEFAULT', 'dispatcher'):
             raise RuntimeError
 
-        ip = _get_ip(parser.get('dispatcher_influxdb', 'target'))
-        username = parser.get('dispatcher_influxdb', 'username')
-        password = parser.get('dispatcher_influxdb', 'password')
-        db_name = parser.get('dispatcher_influxdb', 'db_name')
-        return InfluxDBClient(ip, conf.PORT, username, password, db_name)
+        return _get_client(parser)
     except ConfigParser.NoOptionError:
         logger.error('can not find the key')
         raise
 
 
+def _get_client(parser):
+    ip = _get_ip(parser.get('dispatcher_influxdb', 'target'))
+    username = parser.get('dispatcher_influxdb', 'username')
+    password = parser.get('dispatcher_influxdb', 'password')
+    db_name = parser.get('dispatcher_influxdb', 'db_name')
+    return InfluxDBClient(ip, conf.PORT, username, password, db_name)
+
+
 def _get_ip(url):
     return urlsplit(url).hostname
-
-
-def _write_data(measurement, field, timestamp, tags):
-    point = {
-        'measurement': measurement,
-        'fields': field,
-        'time': timestamp,
-        'tags': tags
-    }
-
-    try:
-        client = get_data_db_client()
-
-        logger.debug('Start to write data: %s', point)
-        client.write_points([point])
-    except RuntimeError:
-        logger.debug('dispatcher is not influxdb')
-
-
-def write_data_tasklist(task_id, timestamp, status, error=''):
-    field = {'status': status, 'error': error}
-    tags = {'task_id': task_id}
-    _write_data('tasklist', field, timestamp, tags)
 
 
 def query(query_sql):

@@ -8,11 +8,10 @@
 ##############################################################################
 import logging
 import uuid
-import re
 
 from api.utils import influx as influx_utils
 from api.utils import common as common_utils
-from api import conf
+from api.database.handlers import TasksHandler
 
 logger = logging.getLogger(__name__)
 
@@ -23,39 +22,36 @@ def default(args):
 
 def getResult(args):
     try:
-        measurement = args['measurement']
         task_id = args['task_id']
-
-        if re.search("[^a-zA-Z0-9_-]", measurement):
-            raise ValueError('invalid measurement parameter')
 
         uuid.UUID(task_id)
     except KeyError:
-        message = 'measurement and task_id must be provided'
+        message = 'task_id must be provided'
         return common_utils.error_handler(message)
 
-    query_template = "select * from %s where task_id='%s'"
-    query_sql = query_template % ('tasklist', task_id)
-    data = common_utils.translate_to_str(influx_utils.query(query_sql))
+    task = TasksHandler().get_task_by_taskid(task_id)
 
     def _unfinished():
         return common_utils.result_handler(0, [])
 
     def _finished():
-        query_sql = query_template % (conf.TEST_CASE_PRE + measurement,
-                                      task_id)
-        data = common_utils.translate_to_str(influx_utils.query(query_sql))
-        if not data:
-            query_sql = query_template % (measurement, task_id)
-            data = common_utils.translate_to_str(influx_utils.query(query_sql))
+        testcases = task.details.split(',')
 
-        return common_utils.result_handler(1, data)
+        def get_data(testcase):
+            query_template = "select * from %s where task_id='%s'"
+            query_sql = query_template % (testcase, task_id)
+            data = common_utils.translate_to_str(influx_utils.query(query_sql))
+            return data
+
+        result = {k: get_data(k) for k in testcases}
+
+        return common_utils.result_handler(1, result)
 
     def _error():
-        return common_utils.result_handler(2, data[0]['error'])
+        return common_utils.result_handler(2, task.error)
 
     try:
-        status = data[0]['status']
+        status = task.status
 
         switcher = {
             0: _unfinished,

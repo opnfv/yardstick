@@ -8,11 +8,10 @@
 ##############################################################################
 import threading
 import os
-import datetime
 import errno
 
 from api import conf
-from api.utils.influx import write_data_tasklist
+from api.database.handlers import TasksHandler
 
 
 class DaemonThread(threading.Thread):
@@ -21,19 +20,25 @@ class DaemonThread(threading.Thread):
         super(DaemonThread, self).__init__(target=method, args=args)
         self.method = method
         self.command_list = args[0]
-        self.task_id = args[1]
+        self.task_dict = args[1]
 
     def run(self):
-        timestamp = datetime.datetime.now()
+        self.task_dict['status'] = 0
+        task_id = self.task_dict['task_id']
 
         try:
-            write_data_tasklist(self.task_id, timestamp, 0)
-            self.method(self.command_list, self.task_id)
-            write_data_tasklist(self.task_id, timestamp, 1)
+            task_handler = TasksHandler()
+            task = task_handler.insert(self.task_dict)
+
+            self.method(self.command_list, task_id)
+
+            task_handler.update_status(task, 1)
         except Exception as e:
-            write_data_tasklist(self.task_id, timestamp, 2, error=str(e))
+            print e
+            task_handler.update_status(task, 2)
+            task_handler.update_error(task, str(e))
         finally:
-            _handle_testsuite_file(self.task_id)
+            _handle_testsuite_file(task_id)
 
 
 def _handle_testsuite_file(task_id):
