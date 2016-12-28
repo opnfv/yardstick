@@ -175,7 +175,7 @@ LmBench, ...)
 
 TaskCommands is the "yardstick task" subcommand's main entry. It takes yaml
 file (e.g. test.yaml) as input, and uses HeatContext to convert the yaml
-file's context section to HOT. After Openstacik heat stack is deployed by
+file's context section to HOT. After Openstack heat stack is deployed by
 HeatContext with the converted HOT, TaskCommands use Runner to run specified
 TestScenario. During first runner initialization, it will create output
 process. The output process use Dispatcher to push test results. The Runner
