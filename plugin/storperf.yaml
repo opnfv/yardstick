@@ -10,4 +10,5 @@ plugins:
 deployment:
   ip: 192.168.23.2
   user: root
+  # Remove 'password' if log into deployment location using key file
   password: root
