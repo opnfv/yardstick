@@ -40,8 +40,8 @@ def get_command_list(command_list, opts, args):
     return command_list
 
 
-def exec_command_task(command_list, task_id):   # pragma: no cover
-    daemonthread = DaemonThread(YardstickCLI().api, (command_list, task_id))
+def exec_command_task(command_list, task_dict):   # pragma: no cover
+    daemonthread = DaemonThread(YardstickCLI().api, (command_list, task_dict))
     daemonthread.start()
 
 
