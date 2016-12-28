@@ -22,6 +22,30 @@
       "revId": "4c374b59f475f315d0b31ee7c402609ed81b6494",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_e8cc9d63",
+        "filename": "yardstick/cmd/commands/plugin.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2016-12-28T01:27:55Z",
+      "side": 1,
+      "message": "sure thing.",
+      "parentUuid": "5ac10518_28b4e5cf",
+      "range": {
+        "startLine": 163,
+        "startChar": 12,
+        "endLine": 176,
+        "endChar": 45
+      },
+      "revId": "4c374b59f475f315d0b31ee7c402609ed81b6494",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
