@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_bc06da1e",
+        "filename": "yardstick/benchmark/core/__init__.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-29T04:41:03Z",
+      "side": 1,
+      "message": "what is this for?\n\nto use print() properly we need to import python3 print function\n\n  from __future__ import print_function",
+      "revId": "b759e01e0732a6260ffe20a42d187b08c69d155f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_ff13f459",
+        "filename": "yardstick/benchmark/core/plugin.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-29T04:41:03Z",
+      "side": 1,
+      "message": "from __future__ import print_function",
+      "revId": "b759e01e0732a6260ffe20a42d187b08c69d155f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_dc016607",
+        "filename": "yardstick/benchmark/core/plugin.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-29T04:41:03Z",
+      "side": 1,
+      "message": "docstrings should to be \"\"\" not \u0027\u0027\u0027\n\n\nhttps://www.python.org/dev/peps/pep-0257/\n\n\u003e For consistency, always use \"\"\"triple double quotes\"\"\" around docstrings. Use r\"\"\"raw triple double quotes\"\"\" if you use any backslashes in your docstrings. For Unicode docstrings, use u\"\"\"Unicode triple-quoted strings\"\"\" .",
+      "revId": "b759e01e0732a6260ffe20a42d187b08c69d155f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_5f0d6836",
+        "filename": "yardstick/benchmark/core/plugin.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-29T04:41:03Z",
+      "side": 1,
+      "message": "we have SSH._put_file_shell() to do this properly and safely.",
+      "revId": "b759e01e0732a6260ffe20a42d187b08c69d155f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_1f0fe02f",
+        "filename": "yardstick/benchmark/core/runner.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-29T04:41:03Z",
+      "side": 1,
+      "message": "list is a builtin, don\u0027t use it as a method name.",
+      "revId": "b759e01e0732a6260ffe20a42d187b08c69d155f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
