@@ -9,24 +9,28 @@
 
 """ Handler for yardstick command 'scenario' """
 
-from yardstick.benchmark.core.scenario import Scenarios
-from yardstick.common.utils import cliargs
-from yardstick.cmd.commands import change_osloobj_to_paras
+from yardstick.benchmark.scenarios.base import Scenario
+from yardstick.benchmark.core import print_hbar
 
 
-class ScenarioCommands(object):
+class Scenarios(object):
     '''Scenario commands.
 
        Set of commands to discover and display scenario types.
     '''
 
-    def do_list(self, args):
+    def list_all(self, args):
         '''List existing scenario types'''
-        param = change_osloobj_to_paras(args)
-        Scenarios().list_all(param)
+        types = Scenario.get_types()
+        print_hbar(78)
+        print("| %-16s | %-60s" % ("Type", "Description"))
+        print_hbar(78)
+        for stype in types:
+            print("| %-16s | %-60s" % (stype.__scenario_type__,
+                                       stype.__doc__.split("\n")[0]))
+        print_hbar(78)
 
-    @cliargs("type", type=str, help="runner type", nargs=1)
-    def do_show(self, args):
+    def show(self, args):
         '''Show details of a specific scenario type'''
-        param = change_osloobj_to_paras(args)
-        Scenarios().show(param)
+        stype = Scenario.get_cls(args.type[0])
+        print stype.__doc__
