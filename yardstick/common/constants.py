@@ -32,6 +32,8 @@ YARDSTICK_ROOT_PATH = dirname(dirname(dirname(abspath(__file__)))) + sep
 
 YARDSTICK_REPOS_DIR = '/home/opnfv/repos/yardstick'
 
+YARDSTICK_LOG_DIR = '/tmp/yardstick/'
+
 YARDSTICK_CONFIG_DIR = '/etc/yardstick/'
 
 YARDSTICK_CONFIG_FILE = join(YARDSTICK_CONFIG_DIR, 'yardstick.conf')
