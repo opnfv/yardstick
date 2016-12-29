@@ -11,26 +11,33 @@
 
 # Unittest for yardstick.cmd.commands.testcase
 
-import mock
 import unittest
 
-from yardstick.cmd.commands import testcase
-from yardstick.cmd.commands.testcase import TestcaseCommands
+from yardstick.benchmark.core import testcase
+
 
 class Arg(object):
     def __init__(self):
-        self.casename=('opnfv_yardstick_tc001',)
+        self.casename = ('opnfv_yardstick_tc001',)
 
-class TestcaseCommandsUT(unittest.TestCase):
 
-    def test_do_list(self):
-        t = testcase.TestcaseCommands()
-        result = t.do_list("")
+class TestcaseUT(unittest.TestCase):
+
+    def test_list(self):
+        t = testcase.Testcase()
+        result = t.list("")
         self.assertEqual(result, True)
 
-    def test_do_show(self):
-        t = testcase.TestcaseCommands()
+    def test_show(self):
+        t = testcase.Testcase()
         casename = Arg()
-        result = t.do_show(casename)
+        result = t.show(casename)
         self.assertEqual(result, True)
 
+
+def main():
+    unittest.main()
+
+
+if __name__ == '__main__':
+    main()

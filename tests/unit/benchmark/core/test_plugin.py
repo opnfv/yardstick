@@ -9,12 +9,12 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.cmd.commands.plugin
+# Unittest for yardstick.benchmark.core.plugin
 
 import mock
 import unittest
 
-from yardstick.cmd.commands import plugin
+from yardstick.benchmark.core import plugin
 
 
 class Arg(object):
@@ -22,30 +22,30 @@ class Arg(object):
         self.input_file = ('plugin/sample_config.yaml',)
 
 
-@mock.patch('yardstick.cmd.commands.plugin.ssh')
-class pluginCommandsTestCase(unittest.TestCase):
+@mock.patch('yardstick.benchmark.core.plugin.ssh')
+class pluginTestCase(unittest.TestCase):
 
     def setUp(self):
         self.result = {}
 
-    def test_do_install(self, mock_ssh):
-        p = plugin.PluginCommands()
+    def test_install(self, mock_ssh):
+        p = plugin.Plugin()
         mock_ssh.SSH().execute.return_value = (0, '', '')
         input_file = Arg()
-        p.do_install(input_file)
+        p.install(input_file)
         expected_result = {}
         self.assertEqual(self.result, expected_result)
 
-    def test_do_remove(self, mock_ssh):
-        p = plugin.PluginCommands()
+    def test_remove(self, mock_ssh):
+        p = plugin.Plugin()
         mock_ssh.SSH().execute.return_value = (0, '', '')
         input_file = Arg()
-        p.do_remove(input_file)
+        p.remove(input_file)
         expected_result = {}
         self.assertEqual(self.result, expected_result)
 
     def test_install_setup_run(self, mock_ssh):
-        p = plugin.PluginCommands()
+        p = plugin.Plugin()
         mock_ssh.SSH().execute.return_value = (0, '', '')
         plugins = {
             "name": "sample"
@@ -64,7 +64,7 @@ class pluginCommandsTestCase(unittest.TestCase):
         self.assertEqual(self.result, expected_result)
 
     def test_remove_setup_run(self, mock_ssh):
-        p = plugin.PluginCommands()
+        p = plugin.Plugin()
         mock_ssh.SSH().execute.return_value = (0, '', '')
         plugins = {
             "name": "sample"
@@ -81,3 +81,11 @@ class pluginCommandsTestCase(unittest.TestCase):
         p._run(plugin_name)
         expected_result = {}
         self.assertEqual(self.result, expected_result)
+
+
+def main():
+    unittest.main()
+
+
+if __name__ == '__main__':
+    main()
