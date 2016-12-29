@@ -7,7 +7,7 @@ $admin_user     = $access_hash['user']
 $admin_password = $access_hash['password']
 $region         = hiera('region', 'RegionOne')
 
-$auth_api_version       = 'v2.0'
+$auth_api_version       = ''
 $service_endpoint       = hiera('service_endpoint', $management_vip)
 $ssl_hash               = hiera_hash('use_ssl', {})
 $internal_auth_protocol = get_ssl_property($ssl_hash, {}, 'keystone', 'internal', 'protocol', 'http')
