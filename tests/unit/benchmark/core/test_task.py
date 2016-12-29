@@ -9,18 +9,18 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.cmd.commands.task
+# Unittest for yardstick.benchmark.core.task
 
 import os
 import mock
 import unittest
 
-from yardstick.cmd.commands import task
+from yardstick.benchmark.core import task
 
 
-class TaskCommandsTestCase(unittest.TestCase):
+class TaskTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.cmd.commands.task.Context')
+    @mock.patch('yardstick.benchmark.core.task.Context')
     def test_parse_nodes_host_target_same_context(self, mock_context):
         nodes = {
             "host": "node1.LF",
@@ -38,42 +38,45 @@ class TaskCommandsTestCase(unittest.TestCase):
         self.assertEqual(context_cfg["host"], server_info)
         self.assertEqual(context_cfg["target"], server_info)
 
-    @mock.patch('yardstick.cmd.commands.task.Context')
-    @mock.patch('yardstick.cmd.commands.task.base_runner')
+    @mock.patch('yardstick.benchmark.core.task.Context')
+    @mock.patch('yardstick.benchmark.core.task.base_runner')
     def test_run(self, mock_base_runner, mock_ctx):
-        scenario = \
-            {'host': 'athena.demo',
-             'target': 'ares.demo',
-             'runner':
-                 {'duration': 60,
-                  'interval': 1,
-                  'type': 'Duration'
-                 },
-                 'type': 'Ping'}
+        scenario = {
+            'host': 'athena.demo',
+            'target': 'ares.demo',
+            'runner': {
+                'duration': 60,
+                'interval': 1,
+                'type': 'Duration'
+             },
+            'type': 'Ping'
+        }
 
-        t = task.TaskCommands()
+        t = task.Task()
         runner = mock.Mock()
         runner.join.return_value = 0
         mock_base_runner.Runner.get.return_value = runner
         t._run([scenario], False, "yardstick.out")
         self.assertTrue(runner.run.called)
 
-    @mock.patch('yardstick.cmd.commands.task.os')
+    @mock.patch('yardstick.benchmark.core.task.os')
     def test_check_precondition(self, mock_os):
-        cfg = \
-            {'precondition':
-                 {'installer_type': 'compass',
-                  'deploy_scenarios': 'os-nosdn',
-                  'pod_name': 'huawei-pod1'
-                 }
+        cfg = {
+            'precondition': {
+                'installer_type': 'compass',
+                'deploy_scenarios': 'os-nosdn',
+                'pod_name': 'huawei-pod1'
             }
+        }
 
         t = task.TaskParser('/opt')
-        mock_os.environ.get.side_effect = ['compass', 'os-nosdn', 'huawei-pod1']
+        mock_os.environ.get.side_effect = ['compass',
+                                           'os-nosdn',
+                                           'huawei-pod1']
         result = t._check_precondition(cfg)
         self.assertTrue(result)
 
-    @mock.patch('yardstick.cmd.commands.task.os.environ')
+    @mock.patch('yardstick.benchmark.core.task.os.environ')
     def test_parse_suite_no_constraint_no_args(self, mock_environ):
         SAMPLE_SCENARIO_PATH = "no_constraint_no_args_scenario_sample.yaml"
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
@@ -82,15 +85,15 @@ class TaskCommandsTestCase(unittest.TestCase):
         print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
                task_args_fnames))
         self.assertEqual(task_files[0],
-            'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
         self.assertEqual(task_files[1],
-            'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
         self.assertEqual(task_args[0], None)
         self.assertEqual(task_args[1], None)
         self.assertEqual(task_args_fnames[0], None)
         self.assertEqual(task_args_fnames[1], None)
 
-    @mock.patch('yardstick.cmd.commands.task.os.environ')
+    @mock.patch('yardstick.benchmark.core.task.os.environ')
     def test_parse_suite_no_constraint_with_args(self, mock_environ):
         SAMPLE_SCENARIO_PATH = "no_constraint_with_args_scenario_sample.yaml"
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
@@ -99,16 +102,16 @@ class TaskCommandsTestCase(unittest.TestCase):
         print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
                task_args_fnames))
         self.assertEqual(task_files[0],
-            'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
         self.assertEqual(task_files[1],
-            'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
         self.assertEqual(task_args[0], None)
         self.assertEqual(task_args[1],
-                        '{"host": "node1.LF","target": "node2.LF"}')
+                         '{"host": "node1.LF","target": "node2.LF"}')
         self.assertEqual(task_args_fnames[0], None)
         self.assertEqual(task_args_fnames[1], None)
 
-    @mock.patch('yardstick.cmd.commands.task.os.environ')
+    @mock.patch('yardstick.benchmark.core.task.os.environ')
     def test_parse_suite_with_constraint_no_args(self, mock_environ):
         SAMPLE_SCENARIO_PATH = "with_constraint_no_args_scenario_sample.yaml"
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
@@ -117,15 +120,15 @@ class TaskCommandsTestCase(unittest.TestCase):
         print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
                task_args_fnames))
         self.assertEqual(task_files[0],
-            'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
         self.assertEqual(task_files[1],
-            'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
         self.assertEqual(task_args[0], None)
         self.assertEqual(task_args[1], None)
         self.assertEqual(task_args_fnames[0], None)
         self.assertEqual(task_args_fnames[1], None)
 
-    @mock.patch('yardstick.cmd.commands.task.os.environ')
+    @mock.patch('yardstick.benchmark.core.task.os.environ')
     def test_parse_suite_with_constraint_with_args(self, mock_environ):
         SAMPLE_SCENARIO_PATH = "with_constraint_with_args_scenario_sample.yaml"
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
@@ -134,12 +137,12 @@ class TaskCommandsTestCase(unittest.TestCase):
         print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
                task_args_fnames))
         self.assertEqual(task_files[0],
-            'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
         self.assertEqual(task_files[1],
-            'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
         self.assertEqual(task_args[0], None)
         self.assertEqual(task_args[1],
-                        '{"host": "node1.LF","target": "node2.LF"}')
+                         '{"host": "node1.LF","target": "node2.LF"}')
         self.assertEqual(task_args_fnames[0], None)
         self.assertEqual(task_args_fnames[1], None)
 
@@ -148,3 +151,10 @@ class TaskCommandsTestCase(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
+
+def main():
+    unittest.main()
+
+
+if __name__ == '__main__':
+    main()
