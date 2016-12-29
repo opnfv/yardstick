@@ -35,6 +35,8 @@ TESTCASE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_cases/')
 
 YARDSTICK_REPOS_DIR = '/home/opnfv/repos/yardstick'
 
+YARDSTICK_LOG_DIR = '/tmp/yardstick/'
+
 YARDSTICK_CONFIG_DIR = '/etc/yardstick/'
 
 YARDSTICK_CONFIG_FILE = join(YARDSTICK_CONFIG_DIR, 'yardstick.conf')
