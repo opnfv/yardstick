@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_7f9ce4c0",
+        "filename": "yardstick/benchmark/core/plugin.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2016-12-29T06:42:08Z",
+      "side": 1,
+      "message": "We don\u0027t need to fix it now.  Should probably make a script to regexp replace all the docstrings.",
+      "parentUuid": "5ac10518_ff41b439",
+      "revId": "b759e01e0732a6260ffe20a42d187b08c69d155f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_5f0d6836",
         "filename": "yardstick/benchmark/core/plugin.py",
         "patchSetId": 1
