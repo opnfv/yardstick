@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_3f5bbc88",
+        "filename": "yardstick/common/constants.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6365
+      },
+      "writtenOn": "2016-12-30T03:51:07Z",
+      "side": 1,
+      "message": "one question:\nwhy yardstick LOG located at /tmp/ directory?\nFiles in /tmp/ directory maybe delete by system automatically.\nand i found some projects LOG located at /var/log/xxx",
+      "revId": "93e0db965d0824c80fbca53e2f7ab6ed871d4650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
