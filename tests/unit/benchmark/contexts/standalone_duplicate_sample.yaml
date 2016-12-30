@@ -1,0 +1,135 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+---
+# Sample config file about the POD information, including the
+# name/IP/user/ssh key of Bare Metal and Controllers/Computes
+#
+# The options of this config file include:
+# name: the name of this node
+# role: node's role, support role: Master/Controller/Comupte/BareMetal
+# ip: the node's IP address
+# user: the username for login
+# key_filename:the path of the private key file for login
+
+nodes:
+-
+    name: node1
+    role: TrafficGen
+    ip: 1.1.1.1
+    user: root
+    password: r00t
+    interfaces:
+        xe0:  # logical name from topology.yaml and vnfd.yaml
+            vpci:      "0000:05:00.0"
+            driver:    i40e
+            dpdk_port_num: 0
+            local_ip: "152.16.100.20"
+            netmask:   "255.255.255.0"
+            local_mac:   "00:00:00:00:00:01"
+        xe1:  # logical name from topology.yaml and vnfd.yaml
+            vpci:      "0000:05:00.1"
+            driver:    i40e
+            dpdk_port_num: 1
+            local_ip: "152.16.100.21"
+            netmask:   "255.255.255.0"
+            local_mac:   "00:00:00:00:00:02"
+-
+    name: node2
+    role: nfvi_node
+    class: OvsDpdk
+    ip: 1.1.1.2
+    user: root
+    password: r00t
+    vports:
+     - dpdkvhostuser0
+     - dpdkvhostuser1
+    vports_mac:
+     - "00:00:00:00:00:03"
+     - "00:00:00:00:00:04"
+    phy_ports: # Physical ports to configure sriov
+     - "0000:05:00.0"
+     - "0000:05:00.1"
+    flow:
+     - ovs-ofctl add-flow br0 in_port=1,action=output:3
+     - ovs-ofctl add-flow br0 in_port=3,action=output:1
+     - ovs-ofctl add-flow br0 in_port=4,action=output:2
+     - ovs-ofctl add-flow br0 in_port=2,action=output:4
+    phy_driver:    i40e # kernel driver
+    images: "/var/lib/libvirt/images/ubuntu.qcow2"
+-
+    name: node2
+    role: nfvi_node
+    class: OvsDpdk
+    ip: 1.1.1.5
+    user: root
+    password: r00t
+    vports:
+     - dpdkvhostuser0
+     - dpdkvhostuser1
+    vports_mac:
+     - "00:00:00:00:00:03"
+     - "00:00:00:00:00:04"
+    phy_ports: # Physical ports to configure sriov
+     - "0000:05:00.0"
+     - "0000:05:00.1"
+    flow:
+     - ovs-ofctl add-flow br0 in_port=1,action=output:3
+     - ovs-ofctl add-flow br0 in_port=3,action=output:1
+     - ovs-ofctl add-flow br0 in_port=4,action=output:2
+     - ovs-ofctl add-flow br0 in_port=2,action=output:4
+    phy_driver:    i40e # kernel driver
+    images: "/var/lib/libvirt/images/ubuntu.qcow2"
+
+-
+    name: node3
+    role: vnf
+    ip: 1.1.1.3
+    user: root
+    password: r00t
+    host: 1.1.1.1
+    interfaces:
+        xe0:  # logical name from topology.yaml and vnfd.yaml
+            vpci:      "0000:00:04.0"
+            driver:    virtio-pci
+            dpdk_port_num: 0
+            local_ip: "152.16.100.19"
+            netmask:   "255.255.255.0"
+            local_mac:   "00:00:00:00:00:05"
+
+        xe1:  # logical name from topology.yaml and vnfd.yaml
+            vpci:      "0000:00:05.0"
+            driver:    virtio-pci
+            dpdk_port_num: 1
+            local_ip: "152.16.40.19"
+            netmask:   "255.255.255.0"
+            local_mac:   "00:00:00:00:00:06"
+    routing_table:
+    - network: "152.16.100.20"
+      netmask: "255.255.255.0"
+      gateway: "152.16.100.20"
+      if: "xe0"
+    - network: "152.16.40.20"
+      netmask: "255.255.255.0"
+      gateway: "152.16.40.20"
+      if: "xe1"
+    nd_route_tbl:
+    - network: "0064:ff9b:0:0:0:0:9810:6414"
+      netmask: "112"
+      gateway: "0064:ff9b:0:0:0:0:9810:6414"
+      if: "xe0"
+    - network: "0064:ff9b:0:0:0:0:9810:2814"
+      netmask: "112"
+      gateway: "0064:ff9b:0:0:0:0:9810:2814"
+      if: "xe1"
