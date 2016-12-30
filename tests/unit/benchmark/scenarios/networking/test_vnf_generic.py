@@ -262,9 +262,9 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             "ipv4_1flow_Packets_vpe.yaml1"
         self.assertEqual({}, self.s._get_traffic_flow(self.scenario_cfg))
 
-    def test_get_vnf_impl_invalid(self):
-        self.assertRaises(IncorrectConfig, self.s.get_vnf_impl,
-                          COMPLETE_TREX_VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+    def test_get_vnf_imp(self):
+        vnfd = COMPLETE_TREX_VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        self.assertIsNotNone(self.s.get_vnf_impl(vnfd))
 
     def test_load_vnf_models_invalid(self):
         self.context_cfg["nodes"]['trexgen__1']['VNF model'] = \
