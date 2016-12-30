@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5ac10518_ff02143d",
+        "filename": "yardstick/cmd/commands/plugin.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6365
+      },
+      "writtenOn": "2016-12-30T06:23:22Z",
+      "side": 1,
+      "message": "there are too many duplicate expressions below.\nand if deployment_ip is None, that\u0027s not necessary go ahead.\nmaybe you can express as follow:\nif deployment_ip \u003d\u003d \"local\":\n    deployment_ip \u003d os.environ.get(\"INSTALLER_IP\", None)\n\nif deployment_ip is None:\n    log xxx\n    return;\n\n#then only one if else is okay\n\nif deployment_password is not None:\n                LOG.info(\"Log in via pw, user:%s, host:%s\", deployment_user,\n                         deployment_ip)\n                self.client \u003d ssh.SSH(deployment_user, deployment_ip,\n                                      password\u003ddeployment_password,\n                                      port\u003ddeployment_ssh_port)\n                self.client.wait(timeout\u003d600)\n            else:\n                LOG.info(\"Log in via key, user:%s, host:%s\", deployment_user,\n                         deployment_ip)\n                self.client \u003d ssh.SSH(deployment_user, deployment_ip,\n                                      key_filename\u003ddeployment_key_filename,\n                                      port\u003ddeployment_ssh_port)\n                self.client.wait(timeout\u003d600) \n----\nbesides, in ssh.wait function \n            except (socket.error, SSHError) as e:\n                self.log.debug(\"Ssh is still unavailable: %r\", e)\n--\nlog.error is better",
+      "range": {
+        "startLine": 93,
+        "startChar": 11,
+        "endLine": 93,
+        "endChar": 24
+      },
+      "revId": "4c374b59f475f315d0b31ee7c402609ed81b6494",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_28b4e5cf",
         "filename": "yardstick/cmd/commands/plugin.py",
         "patchSetId": 1
