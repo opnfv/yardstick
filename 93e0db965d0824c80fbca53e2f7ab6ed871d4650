@@ -16,6 +16,24 @@
       "revId": "93e0db965d0824c80fbca53e2f7ab6ed871d4650",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_3558bd31",
+        "filename": "yardstick/common/constants.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-01-03T01:54:21Z",
+      "side": 1,
+      "message": "yes, /var/log/ is a recommend way, current problem is: /var/log is not able to accessed by the yardstick gerrit verify job. I\u0027ll look into it to find out. If you have any idea, please let me know. Thanks.",
+      "parentUuid": "5ac10518_3f5bbc88",
+      "revId": "93e0db965d0824c80fbca53e2f7ab6ed871d4650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
