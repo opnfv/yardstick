@@ -14,11 +14,11 @@ from yardstick.cmd.commands.env import EnvCommand
 
 class EnvCommandTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.cmd.commands.env.HttpClient')
-    def test_do_influxdb(self, mock_http_client):
+    @mock.patch('yardstick.cmd.commands.env.EnvCommand._check_status')
+    def test_do_influxdb(self, check_status_mock):
         env = EnvCommand()
         env.do_influxdb({})
-        self.assertTrue(mock_http_client().post.called)
+        self.assertTrue(check_status_mock.called)
 
 
 def main():
