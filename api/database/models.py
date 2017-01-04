@@ -23,3 +23,14 @@ class Tasks(Base):
 
     def __repr__(self):
         return '<Task %r>' % Tasks.task_id
+
+
+class AsyncTasks(Base):
+    __tablename__ = 'asynctasks'
+    id = Column(Integer, primary_key=True)
+    task_id = Column(String(30))
+    status = Column(Integer)
+    error = Column(String(120))
+
+    def __repr__(self):
+        return '<Task %r>' % AsyncTasks.task_id
