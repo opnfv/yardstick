@@ -11,6 +11,7 @@ from api.utils.common import Url
 
 
 urlpatterns = [
+    Url('/yardstick/asynctask', views.Asynctask, 'asynctask'),
     Url('/yardstick/testcases/release/action', views.ReleaseAction, 'release'),
     Url('/yardstick/testcases/samples/action', views.SamplesAction, 'samples'),
     Url('/yardstick/results', views.Results, 'results'),
