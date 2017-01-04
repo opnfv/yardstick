@@ -24,6 +24,11 @@ TestCaseActionArgsOptsModel = models.TestCaseActionArgsOptsModel
 TestCaseActionArgsOptsTaskArgModel = models.TestCaseActionArgsOptsTaskArgModel
 
 
+class Asynctask(ApiResource):
+    def get(self):
+        return self._dispatch_get()
+
+
 class ReleaseAction(ApiResource):
     @swag_from(os.getcwd() + '/swagger/docs/testcases.yaml')
     def post(self):

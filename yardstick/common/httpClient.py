@@ -28,3 +28,7 @@ class HttpClient(object):
         except Exception as e:
             logger.debug('Failed: %s', e)
             raise
+
+    def get(self, url):
+        response = requests.get(url)
+        return response.json()
