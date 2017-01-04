@@ -10,6 +10,7 @@ import logging
 import threading
 import subprocess
 import time
+import uuid
 import json
 import os
 import errno
@@ -23,17 +24,24 @@ from yardstick.common.httpClient import HttpClient
 from api import conf as api_conf
 from api.utils import influx
 from api.utils.common import result_handler
+from api.database.handler import AsyncTaskHandler
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 def createGrafanaContainer(args):
-    thread = threading.Thread(target=_create_grafana)
+    task_id = str(uuid.uuid4())
+
+    thread = threading.Thread(target=_create_grafana, args=(task_id,))
     thread.start()
-    return result_handler('success', [])
+
+    return result_handler('success', {'task_id': task_id})
 
 
-def _create_grafana():
+def _create_grafana(task_id):
+    _create_task(task_id)
+
     client = Client(base_url=config.DOCKER_URL)
 
     try:
@@ -48,7 +56,10 @@ def _create_grafana():
         _create_data_source()
 
         _create_dashboard()
+
+        _update_task_status(task_id)
     except Exception as e:
+        _update_task_error(task_id, str(e))
         logger.debug('Error: %s', e)
 
 
@@ -96,12 +107,17 @@ def _check_image_exist(client, t):
 
 
 def createInfluxDBContainer(args):
-    thread = threading.Thread(target=_create_influxdb)
+    task_id = str(uuid.uuid4())
+
+    thread = threading.Thread(target=_create_influxdb, args=(task_id,))
     thread.start()
-    return result_handler('success', [])
+
+    return result_handler('success', {'task_id': task_id})
 
 
-def _create_influxdb():
+def _create_influxdb(task_id):
+    _create_task(task_id)
+
     client = Client(base_url=config.DOCKER_URL)
 
     try:
@@ -116,7 +132,10 @@ def _create_influxdb():
         time.sleep(5)
 
         _config_influxdb()
+
+        _update_task_status(task_id)
     except Exception as e:
+        _update_task_error(task_id, str(e))
         logger.debug('Error: %s', e)
 
 
@@ -160,34 +179,44 @@ def _change_output_to_influxdb():
 
 
 def prepareYardstickEnv(args):
-    thread = threading.Thread(target=_prepare_env_daemon)
+    task_id = str(uuid.uuid4())
+
+    thread = threading.Thread(target=_prepare_env_daemon, args=(task_id,))
     thread.start()
-    return result_handler('success', [])
+
+    return result_handler('success', {'task_id': task_id})
 
 
-def _prepare_env_daemon():
+def _prepare_env_daemon(task_id):
+    _create_task(task_id)
 
     installer_ip = os.environ.get('INSTALLER_IP', 'undefined')
     installer_type = os.environ.get('INSTALLER_TYPE', 'undefined')
 
-    _check_variables(installer_ip, installer_type)
+    try:
+        _check_variables(installer_ip, installer_type)
 
-    _create_directories()
+        _create_directories()
 
-    rc_file = config.OPENSTACK_RC_FILE
+        rc_file = config.OPENSTACK_RC_FILE
 
-    _get_remote_rc_file(rc_file, installer_ip, installer_type)
+        _get_remote_rc_file(rc_file, installer_ip, installer_type)
 
-    _source_file(rc_file)
+        _source_file(rc_file)
 
-    _append_external_network(rc_file)
+        _append_external_network(rc_file)
 
-    # update the external_network
-    _source_file(rc_file)
+        # update the external_network
+        _source_file(rc_file)
 
-    _clean_images()
+        _clean_images()
 
-    _load_images()
+        _load_images()
+
+        _update_task_status(task_id)
+    except Exception as e:
+        _update_task_error(task_id, str(e))
+        logger.debug('Error: %s', e)
 
 
 def _check_variables(installer_ip, installer_type):
@@ -257,3 +286,27 @@ def _load_images():
                          cwd=config.YARDSTICK_REPOS_DIR)
     output = p.communicate()[0]
     logger.debug('The result is: %s', output)
+
+
+def _create_task(task_id):
+    async_handler = AsyncTaskHandler()
+    task_dict = {
+        'task_id': task_id,
+        'status': 0
+    }
+    async_handler.insert(task_dict)
+
+
+def _update_task_status(task_id):
+    async_handler = AsyncTaskHandler()
+
+    task = async_handler.get_task_by_taskid(task_id)
+    async_handler.update_status(task, 1)
+
+
+def _update_task_error(task_id, error):
+    async_handler = AsyncTaskHandler()
+
+    task = async_handler.get_task_by_taskid(task_id)
+    async_handler.update_status(task, 2)
+    async_handler.update_error(task, error)

@@ -8,17 +8,53 @@
 ##############################################################################
 import unittest
 import mock
+import uuid
 
 from yardstick.cmd.commands.env import EnvCommand
 
 
 class EnvCommandTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.cmd.commands.env.HttpClient')
-    def test_do_influxdb(self, mock_http_client):
+    @mock.patch('yardstick.cmd.commands.env.EnvCommand._start_async_task')
+    @mock.patch('yardstick.cmd.commands.env.EnvCommand._check_status')
+    def test_do_influxdb(self, check_status_mock, start_async_task_mock):
         env = EnvCommand()
         env.do_influxdb({})
-        self.assertTrue(mock_http_client().post.called)
+        self.assertTrue(start_async_task_mock.called)
+        self.assertTrue(check_status_mock.called)
+
+    @mock.patch('yardstick.cmd.commands.env.EnvCommand._start_async_task')
+    @mock.patch('yardstick.cmd.commands.env.EnvCommand._check_status')
+    def test_do_grafana(self, check_status_mock, start_async_task_mock):
+        env = EnvCommand()
+        env.do_grafana({})
+        self.assertTrue(start_async_task_mock.called)
+        self.assertTrue(check_status_mock.called)
+
+    @mock.patch('yardstick.cmd.commands.env.EnvCommand._start_async_task')
+    @mock.patch('yardstick.cmd.commands.env.EnvCommand._check_status')
+    def test_do_prepare(self, check_status_mock, start_async_task_mock):
+        env = EnvCommand()
+        env.do_prepare({})
+        self.assertTrue(start_async_task_mock.called)
+        self.assertTrue(check_status_mock.called)
+
+    @mock.patch('yardstick.cmd.commands.env.HttpClient.post')
+    def test_start_async_task(self, post_mock):
+        data = {'action': 'createGrafanaContainer'}
+        EnvCommand()._start_async_task(data)
+        self.assertTrue(post_mock.called)
+
+    @mock.patch('yardstick.cmd.commands.env.HttpClient.get')
+    @mock.patch('yardstick.cmd.commands.env.time')
+    def test_check_status(self, time_mock, get_mock):
+        task_id = str(uuid.uuid4())
+        get_mock.return_value = {'status': 1, 'result': 'error'}
+        EnvCommand()._check_status(task_id, 'hello world')
+        self.assertTrue(get_mock.called)
+
+    def test_print_status(self):
+        EnvCommand()._print_status('hello', 'word')
 
 
 def main():

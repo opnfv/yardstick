@@ -24,6 +24,12 @@ class HttpClientTestCase(unittest.TestCase):
         mock_requests.post.assert_called_with(url, data=json.dumps(data),
                                               headers=headers)
 
+    @mock.patch('yardstick.common.httpClient.requests')
+    def test_get(self, mock_requests):
+        url = 'http://localhost:5000/hello'
+        httpClient.HttpClient().get(url)
+        mock_requests.get.assert_called_with(url)
+
 
 def main():
     unittest.main()
