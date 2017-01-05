@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_6b32e211",
+        "filename": "yardstick/cmd/commands/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-01-05T02:36:03Z",
+      "side": 1,
+      "message": "This is a async task. It may need some time. If we get status immediately, the status must be unfinished. So I sleep before getting.\n\nYes, You are right. Retry limit is needed.",
+      "parentUuid": "5ac10518_2b45ba6f",
+      "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_4b484687",
         "filename": "yardstick/cmd/commands/env.py",
         "patchSetId": 2
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_2b3cdae1",
+        "filename": "yardstick/cmd/commands/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-01-05T02:36:03Z",
+      "side": 1,
+      "message": "Here I want the user know the status, so I use print.\nDo you have a better way. Like the linux service to reply status?",
+      "parentUuid": "5ac10518_4b484687",
+      "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_eb5ed244",
         "filename": "yardstick/common/httpClient.py",
         "patchSetId": 2
@@ -64,6 +100,24 @@
       "writtenOn": "2017-01-05T02:09:06Z",
       "side": 1,
       "message": "can we oneline it?\n\n return requests.get(url).json()",
+      "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_4b3fe6d6",
+        "filename": "yardstick/common/httpClient.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-01-05T02:36:03Z",
+      "side": 1,
+      "message": "Yes, it is better.",
+      "parentUuid": "5ac10518_eb5ed244",
       "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
