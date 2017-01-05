@@ -297,7 +297,7 @@ class HeatTemplate(HeatObject):
             }
         }
 
-    def add_keypair(self, name):
+    def add_keypair(self, name, key_uuid):
         '''add to the template a Nova KeyPair'''
         log.debug("adding Nova::KeyPair '%s'", name)
         self.resources[name] = {
@@ -305,7 +305,8 @@ class HeatTemplate(HeatObject):
             'properties': {
                 'name': name,
                 'public_key': pkg_resources.resource_string(
-                    'yardstick.resources', 'files/yardstick_key.pub')
+                    'yardstick.resources', 'files/yardstick_key-' +
+                    str(key_uuid)[:8] + '.pub')
             }
         }
 

@@ -9,6 +9,7 @@
 
 import os
 import sys
+import uuid
 import pkg_resources
 import paramiko
 
@@ -40,8 +41,11 @@ class HeatContext(Context):
         self._user = None
         self.template_file = None
         self.heat_parameters = None
+        # generate an uuid to identify yardstick_key
+        # the first 8 digits of the uuid will be used
+        self.key_uuid = uuid.uuid4()
         self.key_filename = YARDSTICK_ROOT_PATH + \
-            'yardstick/resources/files/yardstick_key'
+            'yardstick/resources/files/yardstick_key-' + str(self.key_uuid)[:8]
         super(self.__class__, self).__init__()
 
     def init(self, attrs):
@@ -107,7 +111,7 @@ class HeatContext(Context):
 
     def _add_resources_to_template(self, template):
         '''add to the template the resources represented by this context'''
-        template.add_keypair(self.keypair_name)
+        template.add_keypair(self.keypair_name, self.key_uuid)
         template.add_security_group(self.secgroup_name)
 
         for network in self.networks:
@@ -243,7 +247,8 @@ class HeatContext(Context):
         with attribute name mapping when using external heat templates
         '''
         key_filename = pkg_resources.resource_filename(
-            'yardstick.resources', 'files/yardstick_key')
+            'yardstick.resources', 'files/yardstick_key-' +
+            str(self.key_uuid)[:8])
 
         if type(attr_name) is dict:
             cname = attr_name["name"].split(".")[1]

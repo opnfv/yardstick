@@ -74,9 +74,10 @@ class HeatContextTestCase(unittest.TestCase):
 
         self.test_context.keypair_name = "foo-key"
         self.test_context.secgroup_name = "foo-secgroup"
+        self.test_context.key_uuid = '2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b'
 
         self.test_context._add_resources_to_template(mock_template)
-        mock_template.add_keypair.assert_called_with("foo-key")
+        mock_template.add_keypair.assert_called_with("foo-key", '2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b')
         mock_template.add_security_group.assert_called_with("foo-secgroup")
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
