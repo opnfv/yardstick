@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_0636b5e7",
+        "filename": "yardstick/cmd/commands/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-05T06:50:08Z",
+      "side": 1,
+      "message": "okay that makes sense. but please use constants for the numbers.  Also please add a comment indicating that we are sleeping to let async have a chance to run.",
+      "parentUuid": "5ac10518_6b32e211",
+      "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_4b484687",
         "filename": "yardstick/cmd/commands/env.py",
         "patchSetId": 2
@@ -83,6 +101,24 @@
       "side": 1,
       "message": "Here I want the user know the status, so I use print.\nDo you have a better way. Like the linux service to reply status?",
       "parentUuid": "5ac10518_4b484687",
+      "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_e63a89cc",
+        "filename": "yardstick/cmd/commands/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-05T06:50:08Z",
+      "side": 1,
+      "message": "print goes to stdout which is usually not line buffered, so the user might not see it anyway.\n\nTo flush the buffer you want flush\u003dTrue\n\n  print(switch[status], flush\u003dTrue)\n\nhttps://docs.python.org/3/library/functions.html?highlight\u003dprint#print\n\n\nlogging.info() goes to stderr which is usually line buffered and logging also flushes.",
+      "parentUuid": "5ac10518_2b3cdae1",
       "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
