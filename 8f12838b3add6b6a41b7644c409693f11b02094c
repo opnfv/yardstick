@@ -214,6 +214,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_e1afd3e1",
+        "filename": "yardstick/cmd/commands/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-05T16:16:28Z",
+      "side": 1,
+      "message": "ah, nevermind flush\u003dTrue was added in Python 3.3, and I guess not backported to Python 2.7.\n\nyou have to flush manually.\n\n  sys.stdout.flush()",
+      "parentUuid": "5ac10518_21a63b11",
+      "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_eb5ed244",
         "filename": "yardstick/common/httpClient.py",
         "patchSetId": 2
