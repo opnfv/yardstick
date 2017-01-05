@@ -161,6 +161,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_061c7512",
+        "filename": "yardstick/cmd/commands/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-01-05T08:27:33Z",
+      "side": 1,
+      "message": "The CI verify report a failure, see:\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nERROR: test_check_status (cmd.commands.test_env.EnvCommandTestCase)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jenkins/opnfv/slave_root/workspace/yardstick-verify-master/yardstick_venv/local/lib/python2.7/site-packages/mock/mock.py\", line 1305, in patched\n    return func(*args, **keywargs)\n  File \"/home/jenkins/opnfv/slave_root/workspace/yardstick-verify-master/tests/unit/cmd/commands/test_env.py\", line 53, in test_check_status\n    EnvCommand()._check_status(task_id)\n  File \"yardstick/cmd/commands/env.py\", line 64, in _check_status\n    print (switcher[status], flush\u003dTrue)\nTypeError: \u0027flush\u0027 is an invalid keyword argument for this function",
+      "parentUuid": "5ac10518_e63a89cc",
+      "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_eb5ed244",
         "filename": "yardstick/common/httpClient.py",
         "patchSetId": 2
