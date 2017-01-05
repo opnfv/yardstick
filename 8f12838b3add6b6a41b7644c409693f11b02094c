@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_8b4e2e95",
+        "filename": "api/server.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-05T02:09:06Z",
+      "side": 1,
+      "message": "is this just list()?\n\n subclasses \u003d list(ifilter(func, models.__dict__.values()))\n\nalso I think it is slighty more acceptable to use var(models) instead of models.__dict__\n\n subclasses \u003d list(ifilter(func, var(models).values())\n\nBut if you are just looking for classes maybe the inspect module is better\n\n subclasses \u003d inspect.getmembers(models, inspect.isclass)",
+      "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_2b45ba6f",
+        "filename": "yardstick/cmd/commands/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-05T02:09:06Z",
+      "side": 1,
+      "message": "why sleep before getting?\n\nand don\u0027t we want some retry limit?\n\n CHECK_STATUS_RETRY \u003d 100000\n\n for retry in xrange(CHECK_STATUS_RETRY):\n    status \u003d HttpClient().get(url)[\u0027status\u0027]\n    if status:\n       break\n    # only sleep if invalid status\n    time.sleep(CHECK_STATUS_DELAY)",
+      "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_4b484687",
+        "filename": "yardstick/cmd/commands/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-05T02:09:06Z",
+      "side": 1,
+      "message": "prepare for python3\n\n  from __future__ import print_function\n\n  print()\n\n\nbut really should use logging.info()",
+      "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_eb5ed244",
+        "filename": "yardstick/common/httpClient.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-05T02:09:06Z",
+      "side": 1,
+      "message": "can we oneline it?\n\n return requests.get(url).json()",
+      "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
