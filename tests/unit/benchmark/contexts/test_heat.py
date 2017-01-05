@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.contexts.heat
 
+import os
 import mock
 import unittest
 
@@ -39,6 +40,8 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertIsNone(self.test_context._user)
         self.assertIsNone(self.test_context.template_file)
         self.assertIsNone(self.test_context.heat_parameters)
+        self.assertIsNotNone(self.test_context.key_uuid)
+        self.assertIsNotNone(self.test_context.key_filename)
 
     @mock.patch('yardstick.benchmark.contexts.heat.PlacementGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.Network')
@@ -55,6 +58,7 @@ class HeatContextTestCase(unittest.TestCase):
 
         self.test_context.init(attrs)
 
+        self.assertEqual(self.test_context.name, "foo")
         self.assertEqual(self.test_context.keypair_name, "foo-key")
         self.assertEqual(self.test_context.secgroup_name, "foo-secgroup")
 
@@ -69,14 +73,24 @@ class HeatContextTestCase(unittest.TestCase):
         mock_server.assert_called_with('baz', self.test_context, servers['baz'])
         self.assertTrue(len(self.test_context.servers) == 1)
 
+        if os.path.exists(self.test_context.key_filename):
+            try:
+                os.remove(self.test_context.key_filename)
+                os.remove(self.test_context.key_filename + ".pub")
+            except OSError, e:
+                print ("Error: %s - %s." % (e.key_filename, e.strerror))
+
+
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_resources_to_template_no_servers(self, mock_template):
 
         self.test_context.keypair_name = "foo-key"
         self.test_context.secgroup_name = "foo-secgroup"
+        self.test_context.key_uuid = "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b"
 
         self.test_context._add_resources_to_template(mock_template)
-        mock_template.add_keypair.assert_called_with("foo-key")
+        mock_template.add_keypair.assert_called_with("foo-key",
+                                                     "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b")
         mock_template.add_security_group.assert_called_with("foo-secgroup")
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
@@ -99,6 +113,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context.undeploy()
 
         self.assertTrue(mock_template.delete.called)
+
 
     def test__get_server(self):
 
