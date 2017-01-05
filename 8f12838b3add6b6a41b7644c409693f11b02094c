@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_c6674db6",
+        "filename": "api/server.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-01-05T08:22:11Z",
+      "side": 1,
+      "message": "OK, I will use inspect instead of it.",
+      "parentUuid": "5ac10518_8b4e2e95",
+      "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_2b45ba6f",
         "filename": "yardstick/cmd/commands/env.py",
         "patchSetId": 2
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "okay that makes sense. but please use constants for the numbers.  Also please add a comment indicating that we are sleeping to let async have a chance to run.",
       "parentUuid": "5ac10518_6b32e211",
+      "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_e672897b",
+        "filename": "yardstick/cmd/commands/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-01-05T08:22:11Z",
+      "side": 1,
+      "message": "Thank you! Your comment make my code more standard.",
+      "parentUuid": "5ac10518_0636b5e7",
       "revId": "8f12838b3add6b6a41b7644c409693f11b02094c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
