@@ -263,6 +263,7 @@ class TaskParser(object):       # pragma: no cover
             context_cfgs = [{"type": "Dummy"}]
 
         for cfg_attrs in context_cfgs:
+            cfg_attrs['name'] = '{}-{}'.format(cfg_attrs['name'], task_id[0:8])
             context_type = cfg_attrs.get("type", "Heat")
             if "Heat" == context_type and "networks" in cfg_attrs:
                 # bugfix: if there are more than one network,
@@ -285,6 +286,9 @@ class TaskParser(object):       # pragma: no cover
             task_name = os.path.splitext(os.path.basename(self.path))[0]
             scenario["tc"] = task_name
             scenario["task_id"] = task_id
+            change_server_name(scenario, task_id)
+            if 'nodes' in scenario:
+                change_server_name(scenario['nodes'], task_id)
 
         # TODO we need something better here, a class that represent the file
         return cfg["scenarios"], run_in_parallel, meet_precondition
@@ -482,3 +486,13 @@ def check_environment():
             if e.errno != errno.EEXIST:
                 raise
             LOG.debug('OPENRC file not found')
+
+
+def change_server_name(scenario, task_id):
+    if 'host' in scenario:
+        scenario['host'] = '{}-{}'.format(scenario['host'], task_id[:8])
+    if 'target' in scenario:
+        scenario['target'] = '{}-{}'.format(scenario['target'], task_id[:8])
+    if 'targets' in scenario:
+        scenario['targets'] = map(lambda a: '{}-{}'.format(a, task_id[:8]),
+                                  scenario['targets'])
