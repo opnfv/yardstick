@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "5ac10518_e9ffb965",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-06T17:37:45Z",
+      "side": 1,
+      "message": "8 chars should be a constant, so we can change it in one place if we need more in the future.",
+      "revId": "de587bba2675187d22e50619b006aa05f95bb8aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_09032574",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-06T17:37:45Z",
+      "side": 1,
+      "message": "I don\u0027t think we need .keys() here.  sorted will work on iterators, and the default iterator of a dict is its keys\n\n sorted_networks \u003d sorted(cfg_attrs[\"networks\"])\n\n\nBecause dicts have default iterators over their keys you should pretty much never have to use .keys().  If you see .keys() you should be suspicious.",
+      "revId": "de587bba2675187d22e50619b006aa05f95bb8aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_c9cd1d5f",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 2
