@@ -262,7 +262,9 @@ class TaskParser(object):       # pragma: no cover
         else:
             context_cfgs = [{"type": "Dummy"}]
 
+        name_suffix = '-{}'.format(task_id[:8])
         for cfg_attrs in context_cfgs:
+            cfg_attrs['name'] = '{}{}'.format(cfg_attrs['name'], name_suffix)
             context_type = cfg_attrs.get("type", "Heat")
             if "Heat" == context_type and "networks" in cfg_attrs:
                 # bugfix: if there are more than one network,
@@ -270,7 +272,7 @@ class TaskParser(object):       # pragma: no cover
                 # the name of netwrok should follow this rule:
                 # test, test2, test3 ...
                 # sort network with the length of network's name
-                sorted_networks = sorted(cfg_attrs["networks"].keys())
+                sorted_networks = sorted(cfg_attrs["networks"])
                 # config external_network based on env var
                 cfg_attrs["networks"][sorted_networks[0]]["external_network"] \
                     = os.environ.get("EXTERNAL_NETWORK", "net04_ext")
@@ -285,6 +287,13 @@ class TaskParser(object):       # pragma: no cover
             task_name = os.path.splitext(os.path.basename(self.path))[0]
             scenario["tc"] = task_name
             scenario["task_id"] = task_id
+
+            change_server_name(scenario, name_suffix)
+
+            try:
+                change_server_name(scenario['nodes'], name_suffix)
+            except KeyError:
+                pass
 
         # TODO we need something better here, a class that represent the file
         return cfg["scenarios"], run_in_parallel, meet_precondition
@@ -482,3 +491,21 @@ def check_environment():
             if e.errno != errno.EEXIST:
                 raise
             LOG.debug('OPENRC file not found')
+
+
+def change_server_name(scenario, suffix):
+    try:
+        scenario['host'] += suffix
+    except KeyError:
+        pass
+
+    try:
+        scenario['target'] += suffix
+    except KeyError:
+        pass
+
+    try:
+        key = 'targets'
+        scenario[key] = ['{}{}'.format(a, suffix) for a in scenario[key]]
+    except KeyError:
+        pass
