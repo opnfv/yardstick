@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_c9cd1d5f",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-06T17:32:12Z",
+      "side": 1,
+      "message": "don\u0027t check dict then access, use KeyError or .get()\n\n node_name \u003d scenario.get(\u0027nodes\u0027)\n if node_name:\n    change_server_name(node_name, name_suffix)\n\nor\n\n  try:\n    node_name \u003d scenario[\u0027nodes\u0027]\n  except KeyError:\n    pass\n  else: \n    change_server_name(node_name, name_suffix)",
+      "revId": "de587bba2675187d22e50619b006aa05f95bb8aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_29062187",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-06T17:32:12Z",
+      "side": 1,
+      "message": "could just do \n\n  suffix \u003d \u0027-\u0027 + suffix  \n\nat the start and not have to keep adding \u0027-\u0027 separately everywhere.",
+      "revId": "de587bba2675187d22e50619b006aa05f95bb8aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_69dc2913",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-06T17:32:12Z",
+      "side": 1,
+      "message": "in this case +\u003d might be better\n\n  scenario[\u0027host\u0027] +\u003d \u0027-\u0027 + suffix\n\nor if suffix already has \u0027-\u0027 prepended\n\n  scenario[\u0027host\u0027] +\u003d suffix",
+      "revId": "de587bba2675187d22e50619b006aa05f95bb8aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_89d715ed",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-06T17:32:12Z",
+      "side": 1,
+      "message": "don\u0027t use map, it is deprecated, use list comprehensions\n\n\n scenario[\u0027targets\u0027] \u003d [\u0027{}-{}\u0027.format(a, suffix) for a in scenario[\u0027targets\u0027]]",
+      "revId": "de587bba2675187d22e50619b006aa05f95bb8aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
