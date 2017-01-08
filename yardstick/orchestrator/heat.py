@@ -179,7 +179,7 @@ class HeatTemplate(HeatObject):
             with open(template_file) as stream:
                 print("Parsing external template:", template_file)
                 template_str = stream.read()
-                self._template = template_format.parse(template_str)
+            self._template = template_format.parse(template_str)
             self._parameters = heat_parameters
         else:
             self._init_template()
