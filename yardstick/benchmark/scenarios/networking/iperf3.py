@@ -57,6 +57,7 @@ For more info see http://software.es.net/iperf
         self.context_cfg = context_cfg
         self.setup_done = False
 
+
     def setup(self):
         host = self.context_cfg['host']
         host_user = host.get('user', 'ubuntu')

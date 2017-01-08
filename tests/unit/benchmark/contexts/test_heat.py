@@ -17,6 +17,7 @@ import logging
 import os
 import unittest
 import uuid
+from collections import OrderedDict
 
 import mock
 
@@ -36,7 +37,7 @@ class HeatContextTestCase(unittest.TestCase):
 
         self.assertIsNone(self.test_context.name)
         self.assertIsNone(self.test_context.stack)
-        self.assertEqual(self.test_context.networks, [])
+        self.assertEqual(self.test_context.networks, OrderedDict())
         self.assertEqual(self.test_context.servers, [])
         self.assertEqual(self.test_context.placement_groups, [])
         self.assertEqual(self.test_context.server_groups, [])
@@ -115,6 +116,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context.name = 'foo'
         self.test_context.template_file = '/bar/baz/some-heat-file'
         self.test_context.heat_parameters = {'image': 'cirros'}
+        self.test_context.heat_timeout = 5
         self.test_context.deploy()
 
         mock_template.assert_called_with(self.test_context.name,
