@@ -17,6 +17,7 @@ import logging
 import os
 import unittest
 import uuid
+from collections import OrderedDict
 
 import mock
 
@@ -37,7 +38,7 @@ class HeatContextTestCase(unittest.TestCase):
 
         self.assertIsNone(self.test_context.name)
         self.assertIsNone(self.test_context.stack)
-        self.assertEqual(self.test_context.networks, [])
+        self.assertEqual(self.test_context.networks, OrderedDict())
         self.assertEqual(self.test_context.servers, [])
         self.assertEqual(self.test_context.placement_groups, [])
         self.assertEqual(self.test_context.server_groups, [])
@@ -105,7 +106,9 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context.key_uuid = "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b"
         netattrs = {'cidr': '10.0.0.0/24', 'provider': None, 'external_network': 'ext_net'}
         self.mock_context.name = 'bar'
-        self.test_context.networks = [model.Network("fool-network", self.mock_context, netattrs)]
+        self.test_context.networks = OrderedDict(
+            {"fool-network": model.Network("fool-network", self.mock_context,
+                                           netattrs)})
 
         self.test_context._add_resources_to_template(mock_template)
         mock_template.add_keypair.assert_called_with(
@@ -122,6 +125,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context.name = 'foo'
         self.test_context.template_file = '/bar/baz/some-heat-file'
         self.test_context.heat_parameters = {'image': 'cirros'}
+        self.test_context.heat_timeout = 5
         self.test_context.deploy()
 
         mock_template.assert_called_with(self.test_context.name,

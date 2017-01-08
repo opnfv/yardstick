@@ -15,9 +15,20 @@
 
 from __future__ import absolute_import
 import collections
+
+import jinja2
 import yaml
 
-from yardstick.common.task_template import TaskTemplate
+
+def render(vnf_model, **kwargs):
+    """Render jinja2 VNF template
+
+    :param vnf_model: string that contains template
+    :param kwargs: Dict with template arguments
+    :returns:rendered template str
+    """
+
+    return jinja2.Template(vnf_model).render(**kwargs)
 
 
 def generate_vnfd(vnf_model, node):
@@ -31,7 +42,10 @@ def generate_vnfd(vnf_model, node):
     # get is unused as global method inside template
     node["get"] = get
     # Set Node details to default if not defined in pod file
-    rendered_vnfd = TaskTemplate.render(vnf_model, **node)
+    # we CANNOT use TaskTemplate.render because it does not allow
+    # for missing variables, we need to allow password for key_filename
+    # to be undefined
+    rendered_vnfd = render(vnf_model, **node)
     # This is done to get rid of issues with serializing node
     del node["get"]
     filled_vnfd = yaml.load(rendered_vnfd)

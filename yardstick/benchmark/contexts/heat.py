@@ -13,9 +13,10 @@ from __future__ import print_function
 import collections
 import logging
 import os
-import sys
 import uuid
+from collections import OrderedDict
 
+import ipaddress
 import paramiko
 import pkg_resources
 
@@ -29,6 +30,8 @@ from yardstick.common.constants import YARDSTICK_ROOT_PATH
 
 LOG = logging.getLogger(__name__)
 
+DEFAULT_HEAT_TIMEOUT = 3600
+
 
 class HeatContext(Context):
     """Class that represents a context in the logical model"""
@@ -38,7 +41,7 @@ class HeatContext(Context):
     def __init__(self):
         self.name = None
         self.stack = None
-        self.networks = []
+        self.networks = OrderedDict()
         self.servers = []
         self.placement_groups = []
         self.server_groups = []
@@ -68,6 +71,7 @@ class HeatContext(Context):
         # no external net defined, assign it to first network usig os.environ
         if sorted_networks and not have_external_network:
             sorted_networks[0][1]["external_network"] = external_network
+        return sorted_networks
 
     def init(self, attrs):     # pragma: no cover
         """initializes itself from the supplied arguments"""
@@ -87,6 +91,8 @@ class HeatContext(Context):
 
         self._flavor = attrs.get("flavor")
 
+        self.heat_timeout = attrs.get("timeout", DEFAULT_HEAT_TIMEOUT)
+
         self.placement_groups = [PlacementGroup(name, self, pgattrs["policy"])
                                  for name, pgattrs in attrs.get(
                                  "placement_groups", {}).items()]
@@ -95,12 +101,15 @@ class HeatContext(Context):
                               for name, sgattrs in attrs.get(
                               "server_groups", {}).items()]
 
-        self.assign_external_network(attrs["networks"])
+        # we have to do this first, because we are injecting external_network
+        # into the dict
+        sorted_networks = self.assign_external_network(attrs["networks"])
 
-        self.networks = [Network(name, self, netattrs) for name, netattrs in
-                         sorted(attrs["networks"].items())]
+        self.networks = OrderedDict(
+            (name, Network(name, self, netattrs)) for name, netattrs in
+            sorted_networks)
 
-        for name, serverattrs in attrs["servers"].items():
+        for name, serverattrs in sorted(attrs["servers"].items()):
             server = Server(name, self, serverattrs)
             self.servers.append(server)
             self._server_map[server.dn] = server
@@ -140,7 +149,7 @@ class HeatContext(Context):
         template.add_keypair(self.keypair_name, self.key_uuid)
         template.add_security_group(self.secgroup_name)
 
-        for network in self.networks:
+        for network in self.networks.values():
             template.add_network(network.stack_name,
                                  network.physical_network,
                                  network.provider)
@@ -190,17 +199,17 @@ class HeatContext(Context):
                 if not scheduler_hints["different_host"]:
                     scheduler_hints.pop("different_host", None)
                     server.add_to_template(template,
-                                           self.networks,
+                                           list(self.networks.values()),
                                            scheduler_hints)
                 else:
                     scheduler_hints["different_host"] = \
                         scheduler_hints["different_host"][0]
                     server.add_to_template(template,
-                                           self.networks,
+                                           list(self.networks.values()),
                                            scheduler_hints)
             else:
                 server.add_to_template(template,
-                                       self.networks,
+                                       list(self.networks.values()),
                                        scheduler_hints)
             added_servers.append(server.stack_name)
 
@@ -219,7 +228,8 @@ class HeatContext(Context):
             scheduler_hints = {}
             for pg in server.placement_groups:
                 update_scheduler_hints(scheduler_hints, added_servers, pg)
-            server.add_to_template(template, self.networks, scheduler_hints)
+            server.add_to_template(template, list(self.networks.values()),
+                                   scheduler_hints)
             added_servers.append(server.stack_name)
 
         # add server group
@@ -236,7 +246,8 @@ class HeatContext(Context):
                 if sg:
                     scheduler_hints["group"] = {'get_resource': sg.name}
                 server.add_to_template(template,
-                                       self.networks, scheduler_hints)
+                                       list(self.networks.values()),
+                                       scheduler_hints)
 
     def deploy(self):
         """deploys template into a stack using cloud"""
@@ -249,13 +260,14 @@ class HeatContext(Context):
             self._add_resources_to_template(heat_template)
 
         try:
-            self.stack = heat_template.create()
+            self.stack = heat_template.create(block=True,
+                                              timeout=self.heat_timeout)
         except KeyboardInterrupt:
-            sys.exit("\nStack create interrupted")
-        except RuntimeError as err:
-            sys.exit("error: failed to deploy stack: '%s'" % err.args)
-        except Exception as err:
-            sys.exit("error: failed to deploy stack: '%s'" % err)
+            raise SystemExit("\nStack create interrupted")
+        except:
+            LOG.exception("stack failed")
+            raise
+        # let the other failures happend, we want stack trace
 
         # copy some vital stack output into server objects
         for server in self.servers:
@@ -263,12 +275,38 @@ class HeatContext(Context):
                 # TODO(hafe) can only handle one internal network for now
                 port = next(iter(server.ports.values()))
                 server.private_ip = self.stack.outputs[port["stack_name"]]
+                server.interfaces = {}
+                for network_name, port in server.ports.items():
+                    self.make_interface_dict(network_name, port['stack_name'],
+                                             server,
+                                             self.stack.outputs)
 
             if server.floating_ip:
                 server.public_ip = \
                     self.stack.outputs[server.floating_ip["stack_name"]]
 
         print("Context '%s' deployed" % self.name)
+
+    def make_interface_dict(self, network_name, stack_name, server, outputs):
+        server.interfaces[network_name] = {
+            "private_ip": outputs[stack_name],
+            "subnet_id": outputs[stack_name + "-subnet_id"],
+            "subnet_cidr": outputs[
+                "{}-{}-subnet-cidr".format(self.name, network_name)],
+            "netmask": str(ipaddress.ip_network(
+                outputs["{}-{}-subnet-cidr".format(self.name,
+                                                   network_name)]).netmask),
+            "gateway_ip": outputs[
+                "{}-{}-subnet-gateway_ip".format(self.name, network_name)],
+            "mac_address": outputs[stack_name + "-mac_address"],
+            "device_id": outputs[stack_name + "-device_id"],
+            "network_id": outputs[stack_name + "-network_id"],
+            "network_name": network_name,
+            # to match vnf_generic
+            "local_mac": outputs[stack_name + "-mac_address"],
+            "local_ip": outputs[stack_name],
+            "vld_id": self.networks[network_name].vld_id,
+        }
 
     def undeploy(self):
         """undeploys stack from cloud"""
@@ -324,7 +362,8 @@ class HeatContext(Context):
         result = {
             "user": server.context.user,
             "key_filename": key_filename,
-            "private_ip": server.private_ip
+            "private_ip": server.private_ip,
+            "interfaces": server.interfaces,
         }
         # Target server may only have private_ip
         if server.public_ip:
