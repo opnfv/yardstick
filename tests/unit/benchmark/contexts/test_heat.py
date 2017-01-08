@@ -17,6 +17,7 @@ import logging
 import os
 import unittest
 import uuid
+from collections import OrderedDict
 
 import mock
 
@@ -36,7 +37,7 @@ class HeatContextTestCase(unittest.TestCase):
 
         self.assertIsNone(self.test_context.name)
         self.assertIsNone(self.test_context.stack)
-        self.assertEqual(self.test_context.networks, [])
+        self.assertEqual(self.test_context.networks, OrderedDict())
         self.assertEqual(self.test_context.servers, [])
         self.assertEqual(self.test_context.placement_groups, [])
         self.assertEqual(self.test_context.server_groups, [])
