@@ -63,7 +63,7 @@ class HeatObject(object):
         """returns stack state as a string"""
         heat = self._get_heat_client()
         stack = heat.stacks.get(self.uuid)
-        return getattr(stack, 'stack_status')
+        return stack.stack_status
 
 
 class HeatStack(HeatObject):
@@ -149,21 +149,28 @@ class HeatStack(HeatObject):
 class HeatTemplate(HeatObject):
     """Describes a Heat template and a method to deploy template to a stack"""
 
-    def _init_template(self):
-        self._template = {}
-        self._template['heat_template_version'] = '2013-05-23'
+    DESCRIPTION_TEMPLATE = """\
+Stack built by the yardstick framework for %s on host %s %s.
+All referred generated resources are prefixed with the template
+name (i.e. %s).\
+"""
 
+    def _init_template(self):
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        self._template['description'] = \
-            """Stack built by the yardstick framework for %s on host %s %s.
-            All referred generated resources are prefixed with the template
-            name (i.e. %s).""" % (getpass.getuser(), socket.gethostname(),
-                                  timestamp, self.name)
+        self._template = {
+            'heat_template_version': '2013-05-23',
+            'description': self.DESCRIPTION_TEMPLATE % (
+                getpass.getuser(),
+                socket.gethostname(),
+                timestamp,
+                self.name
+            ),
+            'resources': {},
+            'outputs': {}
+        }
 
         # short hand for resources part of template
-        self.resources = self._template['resources'] = {}
-
-        self._template['outputs'] = {}
+        self.resources = self._template['resources']
 
     def __init__(self, name, template_file=None, heat_parameters=None):
         super(HeatTemplate, self).__init__()
@@ -272,6 +279,14 @@ class HeatTemplate(HeatObject):
             'description': 'subnet %s ID' % name,
             'value': {'get_resource': name}
         }
+        self._template['outputs'][name + "-cidr"] = {
+            'description': 'subnet %s cidr' % name,
+            'value': {'get_attr': [name, 'cidr']}
+        }
+        self._template['outputs'][name + "-gateway_ip"] = {
+            'description': 'subnet %s gateway_ip' % name,
+            'value': {'get_attr': [name, 'gateway_ip']}
+        }
 
     def add_router(self, name, ext_gw_net, subnet_name):
         """add to the template a Neutron Router and interface"""
@@ -328,6 +343,22 @@ class HeatTemplate(HeatObject):
         self._template['outputs'][name] = {
             'description': 'Address for interface %s' % name,
             'value': {'get_attr': [name, 'fixed_ips', 0, 'ip_address']}
+        }
+        self._template['outputs'][name + "-subnet_id"] = {
+            'description': 'Address for interface %s' % name,
+            'value': {'get_attr': [name, 'fixed_ips', 0, 'subnet_id']}
+        }
+        self._template['outputs'][name + "-mac_address"] = {
+            'description': 'MAC Address for interface %s' % name,
+            'value': {'get_attr': [name, 'mac_address']}
+        }
+        self._template['outputs'][name + "-device_id"] = {
+            'description': 'Device ID for interface %s' % name,
+            'value': {'get_attr': [name, 'device_id']}
+        }
+        self._template['outputs'][name + "-network_id"] = {
+            'description': 'Network ID for interface %s' % name,
+            'value': {'get_attr': [name, 'network_id']}
         }
 
     def add_floating_ip(self, name, network_name, port_name, router_if_name,
@@ -501,9 +532,17 @@ class HeatTemplate(HeatObject):
             'value': {'get_resource': name}
         }
 
-    def create(self, block=True):
-        """creates a template in the target cloud using heat
+    HEAT_WAIT_LOOP_INTERVAL = 2
+
+    def create(self, block=True, timeout=3600):
+        """
+        creates a template in the target cloud using heat
         returns a dict with the requested output values from the template
+
+        :param block: Wait for Heat create to finish
+        :type block: bool
+        :param: timeout: timeout in seconds for Heat create, default 3600s
+        :type timeout: int
         """
         log.info("Creating stack '%s'", self.name)
 
@@ -520,17 +559,20 @@ class HeatTemplate(HeatObject):
         outputs = []
 
         if block:
+            time_limit = start_time + timeout
             while status != u'CREATE_COMPLETE':
                 log.debug("stack state %s", status)
                 if status == u'CREATE_FAILED':
-                    raise RuntimeError(getattr(heat.stacks.get(self.uuid),
-                                               'stack_status_reason'))
+                    raise RuntimeError(
+                        heat.stacks.get(self.uuid).stack_status_reason)
+                if time.time() > time_limit:
+                    raise RuntimeError("Heat stack create timeout")
 
-                time.sleep(2)
+                time.sleep(self.HEAT_WAIT_LOOP_INTERVAL)
                 status = self.status()
 
             end_time = time.time()
-            outputs = getattr(heat.stacks.get(self.uuid), 'outputs')
+            outputs = heat.stacks.get(self.uuid).outputs
             log.info("Created stack '%s' in %d secs",
                      self.name, end_time - start_time)
 
