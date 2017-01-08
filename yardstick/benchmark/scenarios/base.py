@@ -63,3 +63,21 @@ class Scenario(object):
                 return scenario.__module__ + "." + scenario.__name__
 
         raise RuntimeError("No such scenario type %s" % scenario_type)
+
+    @staticmethod
+    def get_ssh_auth_method(node):
+        """
+        For a node try to use password if defined, else try
+        using default ssh key_filename
+
+        :param node:  node dict
+        :type node:  dict
+        :return:  dict with key or password args for ssh
+        :rtype:  dict
+        """
+        password = node.get('password', None)
+        if password:
+            return {"password": password}
+        else:
+            key_filename = node.get('key_filename', "~/.ssh/id_rsa")
+            return {"key_filename": key_filename}
