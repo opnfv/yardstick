@@ -109,6 +109,7 @@ class Network(Object):
         if "external_network" in attrs:
             self.router = Router("router", self.name,
                                  context, attrs["external_network"])
+        self.vld_id = attrs.get("vld_id", "")
 
         Network.list.append(self)
 
@@ -148,6 +149,7 @@ class Server(Object):     # pragma: no cover
         self.context = context
         self.public_ip = None
         self.private_ip = None
+        self.interfaces = {}
 
         if attrs is None:
             attrs = {}
