@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_2ca38fb3",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-01-09T02:10:02Z",
+      "side": 1,
+      "message": "Maybe here the second way is better.",
+      "parentUuid": "5ac10518_c9cd1d5f",
+      "revId": "de587bba2675187d22e50619b006aa05f95bb8aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_29062187",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 2
@@ -64,6 +82,24 @@
       "writtenOn": "2017-01-06T17:32:12Z",
       "side": 1,
       "message": "could just do \n\n  suffix \u003d \u0027-\u0027 + suffix  \n\nat the start and not have to keep adding \u0027-\u0027 separately everywhere.",
+      "revId": "de587bba2675187d22e50619b006aa05f95bb8aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_ac21bf4e",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-01-09T02:10:02Z",
+      "side": 1,
+      "message": "Good suggestion. I will take it.",
+      "parentUuid": "5ac10518_29062187",
       "revId": "de587bba2675187d22e50619b006aa05f95bb8aa",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
