@@ -51,4 +51,6 @@ LOAD_IMAGES_SCRIPT = 'tests/ci/load_images.sh'
 
 OPENSTACK_RC_FILE = join(YARDSTICK_CONFIG_DIR, 'openstack.creds')
 
-YARDSTICK_ENV_ACTION_API = 'http://localhost:5000/yardstick/env/action'
+BASE_URL = 'http://localhost:5000'
+ENV_ACTION_API = BASE_URL + '/yardstick/env/action'
+ASYNC_TASK_API = BASE_URL + '/yardstick/asynctask'
