@@ -195,6 +195,8 @@ class TaskParser(object):       # pragma: no cover
         LOG.info("\nStarting scenario:%s", cfg["name"])
 
         test_cases_dir = cfg.get("test_cases_dir", test_cases_dir_default)
+        test_cases_dir = os.path.join(constants.YARDSTICK_ROOT_PATH,
+                                      test_cases_dir)
         if test_cases_dir[-1] != os.sep:
             test_cases_dir += os.sep
 
