@@ -16,6 +16,7 @@ import mock
 import unittest
 
 from yardstick.benchmark.core import task
+from yardstick.common import constants as consts
 
 
 class TaskTestCase(unittest.TestCase):
@@ -84,10 +85,10 @@ class TaskTestCase(unittest.TestCase):
         task_files, task_args, task_args_fnames = t.parse_suite()
         print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
                task_args_fnames))
-        self.assertEqual(task_files[0],
-                         'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
-        self.assertEqual(task_files[1],
-                         'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
+        self.assertEqual(task_files[0], self.change_to_abspath(
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml'))
+        self.assertEqual(task_files[1], self.change_to_abspath(
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml'))
         self.assertEqual(task_args[0], None)
         self.assertEqual(task_args[1], None)
         self.assertEqual(task_args_fnames[0], None)
@@ -101,10 +102,10 @@ class TaskTestCase(unittest.TestCase):
         task_files, task_args, task_args_fnames = t.parse_suite()
         print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
                task_args_fnames))
-        self.assertEqual(task_files[0],
-                         'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
-        self.assertEqual(task_files[1],
-                         'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
+        self.assertEqual(task_files[0], self.change_to_abspath(
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml'))
+        self.assertEqual(task_files[1], self.change_to_abspath(
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml'))
         self.assertEqual(task_args[0], None)
         self.assertEqual(task_args[1],
                          '{"host": "node1.LF","target": "node2.LF"}')
@@ -119,10 +120,10 @@ class TaskTestCase(unittest.TestCase):
         task_files, task_args, task_args_fnames = t.parse_suite()
         print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
                task_args_fnames))
-        self.assertEqual(task_files[0],
-                         'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
-        self.assertEqual(task_files[1],
-                         'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
+        self.assertEqual(task_files[0], self.change_to_abspath(
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml'))
+        self.assertEqual(task_files[1], self.change_to_abspath(
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml'))
         self.assertEqual(task_args[0], None)
         self.assertEqual(task_args[1], None)
         self.assertEqual(task_args_fnames[0], None)
@@ -136,10 +137,10 @@ class TaskTestCase(unittest.TestCase):
         task_files, task_args, task_args_fnames = t.parse_suite()
         print ("files=%s, args=%s, fnames=%s" % (task_files, task_args,
                task_args_fnames))
-        self.assertEqual(task_files[0],
-                         'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml')
-        self.assertEqual(task_files[1],
-                         'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml')
+        self.assertEqual(task_files[0], self.change_to_abspath(
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc037.yaml'))
+        self.assertEqual(task_files[1], self.change_to_abspath(
+                         'tests/opnfv/test_cases/opnfv_yardstick_tc043.yaml'))
         self.assertEqual(task_args[0], None)
         self.assertEqual(task_args[1],
                          '{"host": "node1.LF","target": "node2.LF"}')
@@ -150,6 +151,9 @@ class TaskTestCase(unittest.TestCase):
         curr_path = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(curr_path, filename)
         return file_path
+
+    def change_to_abspath(self, filepath):
+        return os.path.join(consts.YARDSTICK_ROOT_PATH, filepath)
 
 
 def main():
