@@ -17,6 +17,7 @@ import logging
 import pkg_resources
 import json
 
+from oslo_utils import encodeutils
 import heatclient
 
 from yardstick.common import template_format
@@ -297,15 +298,19 @@ class HeatTemplate(HeatObject):
             }
         }
 
-    def add_keypair(self, name):
+    def add_keypair(self, name, key_uuid):
         '''add to the template a Nova KeyPair'''
         log.debug("adding Nova::KeyPair '%s'", name)
         self.resources[name] = {
             'type': 'OS::Nova::KeyPair',
             'properties': {
                 'name': name,
-                'public_key': pkg_resources.resource_string(
-                    'yardstick.resources', 'files/yardstick_key.pub')
+                'public_key': encodeutils.safe_decode(
+                    pkg_resources.resource_string(
+                        'yardstick.resources',
+                        'files/yardstick_key-{:.{width}}.pub'.format(
+                            key_uuid, width=8)),
+                    'utf-8')
             }
         }
 
