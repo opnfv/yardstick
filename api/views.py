@@ -30,12 +30,24 @@ class Asynctask(ApiResource):
 
 
 class ReleaseAction(ApiResource):
-    @swag_from(os.getcwd() + '/swagger/docs/testcases.yaml')
+    @swag_from(os.getcwd() + '/swagger/docs/release_action.yaml')
     def post(self):
         return self._dispatch_post()
 
 
 class SamplesAction(ApiResource):
+    def post(self):
+        return self._dispatch_post()
+
+
+TestSuiteActionModel = models.TestSuiteActionModel
+TestSuiteActionArgsModel = models.TestSuiteActionArgsModel
+TestSuiteActionArgsOptsModel = models.TestSuiteActionArgsOptsModel
+TestSuiteActionArgsOptsTaskArgModel = models.TestSuiteActionArgsOptsTaskArgModel
+
+
+class TestsuitesAction(ApiResource):
+    @swag_from(os.getcwd() + '/swagger/docs/testsuites_action.yaml')
     def post(self):
         return self._dispatch_post()
 
