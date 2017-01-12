@@ -30,6 +30,8 @@ INSTALLERS = ['apex', 'compass', 'fuel', 'joid']
 
 YARDSTICK_ROOT_PATH = dirname(dirname(dirname(abspath(__file__)))) + sep
 
+TESTCASE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_cases/')
+
 YARDSTICK_REPOS_DIR = '/home/opnfv/repos/yardstick'
 
 YARDSTICK_CONFIG_DIR = '/etc/yardstick/'
