@@ -14,17 +14,24 @@ import datetime
 import getpass
 import socket
 import logging
-import pkg_resources
 import json
 
 from oslo_utils import encodeutils
 import heatclient
+import pkg_resources
 
 from yardstick.common import template_format
 import yardstick.common.openstack_utils as op_utils
 
 
 log = logging.getLogger(__name__)
+
+
+HEAT_KEY_UUID_LENGTH = 8
+
+
+def get_short_key_uuid(uuid):
+    return str(uuid)[:HEAT_KEY_UUID_LENGTH]
 
 
 class HeatObject(object):
@@ -308,8 +315,8 @@ class HeatTemplate(HeatObject):
                 'public_key': encodeutils.safe_decode(
                     pkg_resources.resource_string(
                         'yardstick.resources',
-                        'files/yardstick_key-{:.{width}}.pub'.format(
-                            key_uuid, width=8)),
+                        'files/yardstick_key-' +
+                        get_short_key_uuid(key_uuid) + '.pub'),
                     'utf-8')
             }
         }

@@ -18,7 +18,7 @@ from yardstick.benchmark.contexts.model import Server
 from yardstick.benchmark.contexts.model import PlacementGroup
 from yardstick.benchmark.contexts.model import Network
 from yardstick.benchmark.contexts.model import update_scheduler_hints
-from yardstick.orchestrator.heat import HeatTemplate
+from yardstick.orchestrator.heat import HeatTemplate, get_short_key_uuid
 from yardstick.definitions import YARDSTICK_ROOT_PATH
 
 
@@ -44,8 +44,9 @@ class HeatContext(Context):
         # generate an uuid to identify yardstick_key
         # the first 8 digits of the uuid will be used
         self.key_uuid = uuid.uuid4()
-        self.key_filename = YARDSTICK_ROOT_PATH + \
-            'yardstick/resources/files/yardstick_key-' + str(self.key_uuid)[:8]
+        self.key_filename = ''.join(
+            [YARDSTICK_ROOT_PATH, 'yardstick/resources/files/yardstick_key-',
+             get_short_key_uuid(self.key_uuid)])
         super(self.__class__, self).__init__()
 
     def init(self, attrs):
@@ -243,8 +244,8 @@ class HeatContext(Context):
         with attribute name mapping when using external heat templates
         '''
         key_filename = pkg_resources.resource_filename(
-            'yardstick.resources', 'files/yardstick_key-{:.{width}}'.format(
-                                      self.key_uuid, width=8))
+            'yardstick.resources',
+            'files/yardstick_key-' + get_short_key_uuid(self.key_uuid))
 
         if type(attr_name) is dict:
             cname = attr_name["name"].split(".")[1]
