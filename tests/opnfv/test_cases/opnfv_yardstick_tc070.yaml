@@ -1,15 +1,15 @@
 ---
-# Yardstick TC070 config file
-# Measure network throughput and packet loss using pktgen.
-# Different amounts of flows are tested with, from 2 up to 1001000.
-# All tests are run 2 times each. First 2 times with the least
-# amount of ports, then 2 times with the next amount of ports,
-# and so on until all packet sizes have been run with.
-#
-# During the measurements memory usage statistics and network latency are
-# recorded/measured using free and ping, respectively.
 
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC070 config file;
+    Measure network throughput and packet loss using pktgen;
+    Different amounts of flows are tested with, from 2 up to 1001000;
+    All tests are run 2 times each. First 2 times with the least
+    amount of ports, then 2 times with the next amount of ports,
+    and so on until all packet sizes have been run with;
+    During the measurements memory usage statistics and network latency are
+    recorded/measured using free and ping, respectively;
 
 scenarios:
 -

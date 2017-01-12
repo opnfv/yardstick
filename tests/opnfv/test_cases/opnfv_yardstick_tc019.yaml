@@ -1,7 +1,8 @@
 ---
-# Sample test case for the HA of controller node Openstack service
 
 schema: "yardstick:task:0.1"
+description: >
+    Sample test case for the HA of controller node Openstack service.
 
 scenarios:
 -

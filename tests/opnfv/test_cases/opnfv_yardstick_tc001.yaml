@@ -1,11 +1,11 @@
 ---
-# Yardstick TC001 config file
-# Measure network throughput using pktgen
-# Different amounts of flows are tested with, from 2 up to 1001000
-# All tests are run twice. First twice with the least amount of
-#ports and further on.
 
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC001 config file;
+    Measure network throughput using pktgen;
+    Different amounts of flows are tested with, from 2 up to 1001000;
+    All tests are run twice. First twice with the least amount of ports and further on.
 
 scenarios:
 {% for num_ports in [1, 10, 50, 100, 500, 1000] %}

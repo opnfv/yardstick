@@ -1,7 +1,8 @@
 ---
-# Test case for TC048 :Control node Openstack service down - cinder api
 
 schema: "yardstick:task:0.1"
+description: >
+    Test case for TC048 :Control node Openstack service down - cinder api.
 
 scenarios:
 -

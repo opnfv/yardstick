@@ -1,8 +1,9 @@
 ---
-# Yardstick TC012 config file
-# Measure memory read and write bandwidth using lmbench
 
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC012 config file;
+    Measure memory read and write bandwidth using lmbench.
 
 scenarios:
 -

@@ -1,13 +1,15 @@
 ---
-# Yardstick TC073 config file
-# measure network latency and throughput using netperf
-# There are two sample scenarios: bulk test and request/response test
-# In bulk test, UDP_STREAM and TCP_STREAM can be used
-# send_msg_size and recv_msg_size are options of bulk test
-# In req/rsp test, TCP_RR TCP_CRR UDP_RR can be used
-# req_rsp_size is option of req/rsp test
 
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC073 config file;
+    measure network latency and throughput using netperf;
+    There are two sample scenarios: bulk test and request/response test;
+    In bulk test, UDP_STREAM and TCP_STREAM can be used;
+    send_msg_size and recv_msg_size are options of bulk test;
+    In req/rsp test, TCP_RR TCP_CRR UDP_RR can be used;
+    req_rsp_size is option of req/rsp test;
+
 {% set host = host or "node1.LF" %}
 {% set target = target or "node2.LF" %}
 {% set pod_info = pod_info or "etc/yardstick/nodes/compass_sclab_physical/pod.yaml" %}

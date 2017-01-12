@@ -28,13 +28,13 @@ class TestcaseUT(unittest.TestCase):
     def test_list_all(self):
         t = testcase.Testcase()
         result = t.list_all("")
-        self.assertEqual(result, True)
+        self.assertIsInstance(result, list)
 
     def test_show(self):
         t = testcase.Testcase()
         casename = Arg()
         result = t.show(casename)
-        self.assertEqual(result, True)
+        self.assertTrue(result)
 
 
 def main():

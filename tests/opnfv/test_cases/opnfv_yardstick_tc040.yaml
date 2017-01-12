@@ -1,8 +1,9 @@
 ---
-# Yardstick TC040 config file
-# Running Parser Yang-to-Tosca module as a tool, validating output against expected outcome
 
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC040 config file;
+    Running Parser Yang-to-Tosca module as a tool, validating output against expected outcome.
 
 
 scenarios:

@@ -1,15 +1,15 @@
 ---
-# Yardstick TC071 config file
-# Measure cache hit/miss ratio and usage, network throughput and latency.
-# Different amounts of flows are tested with, from 2 up to 1001000.
-# All tests are run 2 times each. First 2 times with the least
-# amount of ports, then 2 times with the next amount of ports,
-# and so on until all packet sizes have been run with.
-#
-# During the measurements cache hit/miss ration, cache usage statistics and
-# network latency are recorded/measured using cachestat and ping, respectively.
 
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC071 config file;
+    Measure cache hit/miss ratio and usage, network throughput and latency;
+    Different amounts of flows are tested with, from 2 up to 1001000;
+    All tests are run 2 times each. First 2 times with the least
+    amount of ports, then 2 times with the next amount of ports,
+    and so on until all packet sizes have been run with;
+    During the measurements cache hit/miss ration, cache usage statistics and
+    network latency are recorded/measured using cachestat and ping, respectively;
 
 scenarios:
 -

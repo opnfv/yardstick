@@ -1,12 +1,13 @@
 ---
-# Yardstick TC009 config file
-# Measure network throughput and packet loss using pktgen.
-# Different amounts of flows are tested with, from 2 up to 1001000.
-# All tests are run 10 times each. First 10 times with the least
-# amount of ports, then 10 times with the next amount of ports,
-# and so on until all packet sizes have been run with.
 
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC009 config file;
+    Measure network throughput and packet loss using pktgen;
+    Different amounts of flows are tested with, from 2 up to 1001000;
+    All tests are run 10 times each. First 10 times with the least
+    amount of ports, then 10 times with the next amount of ports,
+    and so on until all packet sizes have been run with;
 
 scenarios:
 {% for num_ports in [1, 10, 50, 100, 500, 1000] %}

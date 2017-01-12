@@ -1,7 +1,10 @@
 ---
-# measure network latency using ping
 
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC002 config file;
+    measure network latency using ping;
+
 {% set image = image or "cirros-0.3.3" %}
 scenarios:
 {% for i in range(2) %}

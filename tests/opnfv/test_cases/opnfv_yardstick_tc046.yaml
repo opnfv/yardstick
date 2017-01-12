@@ -1,7 +1,8 @@
 ---
-# Test case for TC046 :Control node Openstack service down - keystone
 
 schema: "yardstick:task:0.1"
+description: >
+    Test case for TC046 :Control node Openstack service down - keystone.
 
 scenarios:
 -

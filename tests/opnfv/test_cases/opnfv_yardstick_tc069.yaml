@@ -1,8 +1,9 @@
 ---
-# Yardstick TC069 config file
-# Measure memory read and write bandwidth using ramspeed
 
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC069 config file;
+    Measure memory read and write bandwidth using ramspeed.
 
 scenarios:
 -

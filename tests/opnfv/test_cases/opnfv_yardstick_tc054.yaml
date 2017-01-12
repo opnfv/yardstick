@@ -1,8 +1,10 @@
 ---
-# Test case for TC054 :OpenStack VIP Master Node abnormally shutdown High Availability
-# This test case is written by new scenario-based HA testing framework
 
 schema: "yardstick:task:0.1"
+description: >
+    Test case for TC054 :OpenStack VIP Master Node abnormally shutdown High Availability;
+    This test case is written by new scenario-based HA testing framework.
+
 scenarios:
   -
     type: "GeneralHA"

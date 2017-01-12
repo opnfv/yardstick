@@ -1,15 +1,16 @@
 ---
-# Yardstick TC008 config file
-# Measure network throughput and packet loss using Pktgen.
-# Different amount of flows, from 2 up to 1001000, in combination
-# with different packet sizes are run in each test.
-# Each combination of packet size and flow amount is run 10 times.
-# First 10 times with the smallest packet size, starting with the
-# least amount of ports/flows, then next amount of ports with same
-# packet size, and so on. The test sequence continues with the next
-# packet size, with same ports/flows sequence as before.
 
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC008 config file;
+    Measure network throughput and packet loss using Pktgen;
+    Different amount of flows, from 2 up to 1001000, in combination
+    with different packet sizes are run in each test.
+    Each combination of packet size and flow amount is run 10 times.
+    First 10 times with the smallest packet size, starting with the
+    least amount of ports/flows, then next amount of ports with same
+    packet size, and so on. The test sequence continues with the next
+    packet size, with same ports/flows sequence as before.
 
 scenarios:
 {% for pkt_size in [64, 128, 256, 512, 1024, 1280, 1518] %}
