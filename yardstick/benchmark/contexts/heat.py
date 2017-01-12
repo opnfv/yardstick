@@ -6,7 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
+import logging
 import os
 import sys
 import uuid
@@ -20,6 +20,9 @@ from yardstick.benchmark.contexts.model import Network
 from yardstick.benchmark.contexts.model import update_scheduler_hints
 from yardstick.orchestrator.heat import HeatTemplate
 from yardstick.definitions import YARDSTICK_ROOT_PATH
+
+
+LOG = logging.getLogger(__name__)
 
 
 class HeatContext(Context):
@@ -234,8 +237,8 @@ class HeatContext(Context):
             try:
                 os.remove(self.key_filename)
                 os.remove(self.key_filename + ".pub")
-            except OSError, e:
-                print ("Error: %s - %s." % (e.key_filename, e.strerror))
+            except OSError:
+                logging.exception("key_filename: %s", self.key_filename)
 
     def _get_server(self, attr_name):
         '''lookup server info by name from context
