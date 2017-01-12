@@ -1,0 +1,289 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_83f36e9d",
+        "filename": "api/client.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "please use oslo_serialization.jsonutils.dump_as_bytes()\n\nhttps://wiki.openstack.org/wiki/Python3#Serialization:_base64.2C_JSON.2C_etc.",
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_e3f4b288",
+        "filename": "api/client.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "can we use logger.exeception()",
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_235f1a74",
+        "filename": "yardstick/benchmark/core/testcase.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "don\u0027t use testcase_files.sort() instead use sorted() function.\n\n  testcase_files \u003d sorted(os.listdir(consts.TESTCASE_DIR))",
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_83784ef3",
+        "filename": "yardstick/benchmark/core/testcase.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "use more specific exception.  All filesystem exceptions should be OSError.\n\nCatching Exception is bad and is considered a warning with pylint\n\n[W0703] Catching too general exception Exception\n\nIf you don\u0027t know what exceptions can be thrown then read the documentation, or write unittests to find out.",
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_23115aac",
+        "filename": "yardstick/benchmark/core/testcase.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "This is not proper error handling.\n\nuse LOG.exception to print exceptions\n\n  LOG.exception(\u0027Failed to list dir:\\n%s\\n\u0027, consts.TESTCASE_DIR)\n  raise\n\nWhen re-raising an exception use the bare keyword form,  just \u0027raise\u0027, not \u0027raise e\u0027.  There is a difference.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 19
+      },
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_030e9e8d",
+        "filename": "yardstick/benchmark/core/testcase.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "This is not proper error handling.\n\nuse LOG.exception to print exceptions\n\n  LOG.exception(\u0027\u0027Failed to load test cases:\\n%s\\n\u0027, testcase_file)\n  raise",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_63652244",
+        "filename": "yardstick/benchmark/core/testcase.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "move this out of the with block.\n\nYou want to close the file as soon as it is read.  We don\u0027t want to keep files open longer than necessary.  Once you have read the file into a string close it.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 29
+      },
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_035c5e7d",
+        "filename": "yardstick/benchmark/core/testcase.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "don\u0027t catch IOError, let the IOError exception terminate the program naturally.",
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_a34a2aaa",
+        "filename": "yardstick/benchmark/core/testcase.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "you can avoid catching the KeyError by returning an empty dict with testcase_cfg.get(\u0027precondition\u0027, {})\n\n\n  test_precondition \u003d testcase_cfg.get(\u0027precondition\u0027, {})\n  installer_type \u003d test_precondition.get(\u0027installer_type\u0027, \u0027all\u0027)\n\nIf test_precondition is not present it returns the empty dict, so the other .get() calls correctly return \u0027all\u0027.",
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_23edda8b",
+        "filename": "yardstick/benchmark/core/testcase.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "move this into a else clause.\n\nThe else cause executes when an exception was not raised.  It was added to reduce the scope of code inside the try/except block to avoid catching unwanted exceptions.\n\n  try:\n    description_list \u003d ...\n  except KeyError:\n    return \u0027\u0027\n  else:\n     try:\n       return description_list[1].replace(\u0027\\n\u0027, \u0027\u0027).strip()\n     ...\n\n\nTechnically we should use os.linesep instead of \u0027\\n\u0027 when handling file input.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 68
+      },
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_03d3fed6",
+        "filename": "yardstick/benchmark/core/testcase.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "move this out of the context manager so we close the file\n\nalso, please prepare for Python 3\n\n from __future__ import print_function\n print(testcase_info)",
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_4314a69f",
+        "filename": "yardstick/benchmark/core/testcase.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "This is not proper error handling.\n\nuse LOG.exception to print exceptions\n\n  LOG.exception(\u0027Failed to load test cases:\\n%s\\n\u0027, testcase_path)\n  raise\n\nWhen re-raising an exception use the bare keyword form,  just \u0027raise\u0027, not \u0027raise e\u0027.  There is a difference.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 27
+      },
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_c3273611",
+        "filename": "yardstick/benchmark/core/testcase.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "just re-raise the exception.  Or better don\u0027t even catch the exception, let the IOError terminate the program naturally.",
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_4397c6ec",
+        "filename": "yardstick/cmd/commands/__init__.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "var(p) is slightly more preferred over p.__dict__",
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_03a1be46",
+        "filename": "yardstick/cmd/commands/testcase.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:22:57Z",
+      "side": 1,
+      "message": "from __future__ import print_function",
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
