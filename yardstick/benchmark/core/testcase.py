@@ -12,11 +12,12 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import yaml
-import sys
+import logging
 
-from yardstick.benchmark.core import print_hbar
 from yardstick.common.task_template import TaskTemplate
-from yardstick.definitions import YARDSTICK_ROOT_PATH
+from yardstick.common import constants as consts
+
+LOG = logging.getLogger(__name__)
 
 
 class Testcase(object):
@@ -24,92 +25,81 @@ class Testcase(object):
 
        Set of commands to discover and display test cases.
     '''
-
-    def __init__(self):
-        self.test_case_path = YARDSTICK_ROOT_PATH + 'tests/opnfv/test_cases/'
-        self.testcase_list = []
-
     def list_all(self, args):
         '''List existing test cases'''
 
+        testcase_files = self._get_testcase_file_list()
+
+        testcase_list = [self._get_record(f) for f in testcase_files]
+
+        return testcase_list
+
+    def _get_testcase_file_list(self):
         try:
-            testcase_files = os.listdir(self.test_case_path)
-        except Exception as e:
-            print("Failed to list dir:\n%(path)s\n%(err)s\n"
-                  % {"path": self.test_case_path, "err": e})
-            raise e
-        testcase_files.sort()
+            testcase_files = sorted(os.listdir(consts.TESTCASE_DIR))
+        except OSError:
+            LOG.exception('Failed to list dir:\n%s\n', consts.TESTCASE_DIR)
+            raise
 
-        for testcase_file in testcase_files:
-            record = self._get_record(testcase_file)
-            self.testcase_list.append(record)
+        return testcase_files
 
-        self._format_print(self.testcase_list)
-        return True
+    def _get_record(self, testcase_file):
+
+        file_path = os.path.join(consts.TESTCASE_DIR, testcase_file)
+        with open(file_path) as f:
+            try:
+                testcase_info = f.read()
+            except IOError:
+                LOG.exception('Failed to load test case:\n%s\n', testcase_file)
+                raise
+
+        description, installer, deploy_scenarios = self._parse_testcase(
+            testcase_info)
+
+        record = {
+            'Name': testcase_file.split(".")[0],
+            'Description': description,
+            'installer': installer,
+            'deploy_scenarios': deploy_scenarios
+        }
+
+        return record
+
+    def _parse_testcase(self, testcase_info):
+
+        rendered_testcase = TaskTemplate.render(testcase_info)
+        testcase_cfg = yaml.load(rendered_testcase)
+
+        test_precondition = testcase_cfg.get('precondition', {})
+        installer_type = test_precondition.get('installer_type', 'all')
+        deploy_scenarios = test_precondition.get('deploy_scenarios', 'all')
+
+        description = self._get_description(testcase_cfg)
+
+        return description, installer_type, deploy_scenarios
+
+    def _get_description(self, testcase_cfg):
+        try:
+            description_list = testcase_cfg['description'].split(';')
+        except KeyError:
+            return ''
+        else:
+            try:
+                return description_list[1].replace(os.linesep, '').strip()
+            except IndexError:
+                return description_list[0].replace(os.linesep, '').strip()
 
     def show(self, args):
         '''Show details of a specific test case'''
         testcase_name = args.casename[0]
-        testcase_path = self.test_case_path + testcase_name + ".yaml"
-        try:
-            with open(testcase_path) as f:
-                try:
-                    testcase_info = f.read()
-                    print(testcase_info)
+        testcase_path = os.path.join(consts.TESTCASE_DIR,
+                                     testcase_name + ".yaml")
+        with open(testcase_path) as f:
+            try:
+                testcase_info = f.read()
+            except IOError:
+                LOG.exception('Failed to load test case:\n%s\n', testcase_path)
+                raise
 
-                except Exception as e:
-                    print("Failed to load test cases:"
-                          "\n%(testcase_file)s\n%(err)s\n"
-                          % {"testcase_file": testcase_path, "err": e})
-                    raise e
-        except IOError as ioerror:
-            sys.exit(ioerror)
+            print(testcase_info)
         return True
-
-    def _get_record(self, testcase_file):
-
-        try:
-            with open(self.test_case_path + testcase_file) as f:
-                try:
-                    testcase_info = f.read()
-                except Exception as e:
-                    print("Failed to load test cases:"
-                          "\n%(testcase_file)s\n%(err)s\n"
-                          % {"testcase_file": testcase_file, "err": e})
-                    raise e
-                description, installer, deploy_scenarios = \
-                    self._parse_testcase(testcase_info)
-
-                record = {'Name': testcase_file.split(".")[0],
-                          'Description': description,
-                          'installer': installer,
-                          'deploy_scenarios': deploy_scenarios}
-                return record
-        except IOError as ioerror:
-            sys.exit(ioerror)
-
-    def _parse_testcase(self, testcase_info):
-
-        kw = {}
-        rendered_testcase = TaskTemplate.render(testcase_info, **kw)
-        testcase_cfg = yaml.load(rendered_testcase)
-        test_precondition = testcase_cfg.get('precondition', None)
-        installer_type = 'all'
-        deploy_scenarios = 'all'
-        if test_precondition is not None:
-            installer_type = test_precondition.get('installer_type', 'all')
-            deploy_scenarios = test_precondition.get('deploy_scenarios', 'all')
-
-        description = testcase_info.split("\n")[2][1:].strip()
-        return description, installer_type, deploy_scenarios
-
-    def _format_print(self, testcase_list):
-        '''format output'''
-
-        print_hbar(88)
-        print("| %-21s | %-60s" % ("Testcase Name", "Description"))
-        print_hbar(88)
-        for testcase_record in testcase_list:
-            print("| %-16s | %-60s" % (testcase_record['Name'],
-                                       testcase_record['Description']))
-        print_hbar(88)

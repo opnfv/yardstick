@@ -1,8 +1,7 @@
----
-# Yardstick TC014 config file
-# Measure Processing speed using unixbench
-
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC014 config file;
+    Measure Processing speed using unixbench.
 
 scenarios:
 -

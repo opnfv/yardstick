@@ -1,8 +1,7 @@
----
-# Sample benchmark task config file
-# vTC
-
 schema: "yardstick:task:0.1"
+description: >
+    Sample benchmark task config file;
+    vTC.
 
 scenarios:
 -
