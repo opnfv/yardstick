@@ -270,6 +270,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_63c1a2e3",
+        "filename": "yardstick/cmd/commands/__init__.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-12T09:24:40Z",
+      "side": 1,
+      "message": "I meant  vars(p). \n\n\nvars([object])\nReturn the __dict__ attribute for a module, class, instance, or any other object with a __dict__ attribute.",
+      "parentUuid": "5ac10518_4397c6ec",
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_03a1be46",
         "filename": "yardstick/cmd/commands/testcase.py",
         "patchSetId": 2
