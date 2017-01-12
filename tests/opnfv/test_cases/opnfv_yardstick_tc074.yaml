@@ -1,8 +1,8 @@
----
-# Test case for TC074 StorPerf benchmark task config file
-# StorPerf is a tool to measure block and object storage performance in an NFVI
-
 schema: "yardstick:task:0.1"
+description: >
+    Test case for TC074 StorPerf benchmark task config file;
+    StorPerf is a tool to measure block and object storage performance in an NFVI.
+
 {% set public_network = public_network or "ext-net" %}
 {% set StorPerf_ip = StorPerf_ip or "192.168.200.1" %}
 scenarios:

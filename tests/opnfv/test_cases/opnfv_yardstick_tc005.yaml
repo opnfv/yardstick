@@ -1,8 +1,8 @@
----
-# Yardstick TC005 config file
-# Measure Storage IOPS, throughput and latency using fio
-
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC005 config file;
+    Measure Storage IOPS, throughput and latency using fio.
+
 scenarios:
 {% for rw in ['read', 'write', 'randwrite', 'randread', 'rw'] %}
   {% for bs in ['4k', '64k', '1024k'] %}

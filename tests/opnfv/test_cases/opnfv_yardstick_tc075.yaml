@@ -1,9 +1,9 @@
----
-# Yardstick TC075 config file
-# Measure network capacity and scale.
-# Measure number of connections, number of frames received
-
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC075 config file;
+    Measure network capacity and scale.
+    Measure number of connections, number of frames received;
+
 {% set host = host or "node1.LF" %}
 {% set pod_info = pod_info or "etc/yardstick/nodes/compass_sclab_virtual/pod.yaml" %}
 

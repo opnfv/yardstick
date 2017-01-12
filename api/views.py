@@ -29,6 +29,11 @@ class Asynctask(ApiResource):
         return self._dispatch_get()
 
 
+class Testcases(ApiResource):
+    def get(self):
+        return self._dispatch_get()
+
+
 class ReleaseAction(ApiResource):
     @swag_from(os.getcwd() + '/swagger/docs/release_action.yaml')
     def post(self):
