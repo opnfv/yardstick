@@ -1,5 +1,6 @@
----
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC020 config file.
 
 scenarios:
 -

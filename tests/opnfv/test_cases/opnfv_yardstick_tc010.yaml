@@ -1,8 +1,7 @@
----
-# Yardstick TC010 config file
-# measure memory read latency using lmbench
-
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC010 config file;
+    measure memory read latency using lmbench.
 
 scenarios:
 -
