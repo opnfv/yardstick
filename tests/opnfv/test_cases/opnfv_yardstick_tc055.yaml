@@ -1,15 +1,16 @@
 ---
-# Yardstick TC055 config file
-# Collect hardware specification from /proc/cpuinfo /proc/meminfo
-# compute capacity and scale.
-
-# the results have
-# number of CPUs, number of physical cores in a single CPU
-# number of logical cores, total memory size
-# cache size per CPU, total cache size
-# HT (Hyper-Thread) support status, 1 for open, 0 for close
 
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC055 config file;
+    Collect hardware specification from /proc/cpuinfo /proc/meminfo;
+    compute capacity and scale.
+    the results have,
+    number of CPUs, number of physical cores in a single CPU;
+    number of logical cores, total memory size;
+    cache size per CPU, total cache size;
+    HT (Hyper-Thread) support status, 1 for open, 0 for close.
+
 {% set host = host or "node5.yardstick-TC055" %}
 {% set pod_info = pod_info or "etc/yardstick/nodes/compass_sclab_virtual/pod.yaml" %}
 scenarios:
