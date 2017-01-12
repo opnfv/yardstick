@@ -8,8 +8,6 @@
 ##############################################################################
 import unittest
 import mock
-import uuid
-import datetime
 
 from api.utils import influx
 
@@ -33,33 +31,6 @@ class GetIpTestCase(unittest.TestCase):
 
         result = 'localhost'
         self.assertEqual(result, output)
-
-
-class WriteDataTestCase(unittest.TestCase):
-
-    @mock.patch('api.utils.influx.get_data_db_client')
-    def test_write_data(self, mock_get_client):
-        measurement = 'tasklist'
-        field = {'status': 1}
-        timestamp = datetime.datetime.now()
-        tags = {'task_id': str(uuid.uuid4())}
-
-        influx._write_data(measurement, field, timestamp, tags)
-        mock_get_client.assert_called_with()
-
-
-class WriteDataTasklistTestCase(unittest.TestCase):
-
-    @mock.patch('api.utils.influx._write_data')
-    def test_write_data_tasklist(self, mock_write_data):
-        task_id = str(uuid.uuid4())
-        timestamp = datetime.datetime.now()
-        status = 1
-        influx.write_data_tasklist(task_id, timestamp, status)
-
-        field = {'status': status, 'error': ''}
-        tags = {'task_id': task_id}
-        mock_write_data.assert_called_with('tasklist', field, timestamp, tags)
 
 
 class QueryTestCase(unittest.TestCase):
