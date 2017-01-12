@@ -27,6 +27,13 @@ import yardstick.common.openstack_utils as op_utils
 log = logging.getLogger(__name__)
 
 
+HEAT_KEY_UUID_LENGTH = 8
+
+
+def get_short_key_uuid(uuid):
+    return str(uuid)[:HEAT_KEY_UUID_LENGTH]
+
+
 class HeatObject(object):
     ''' base class for template and stack'''
     def __init__(self):
@@ -308,9 +315,9 @@ class HeatTemplate(HeatObject):
                 'public_key': encodeutils.safe_decode(
                     pkg_resources.resource_string(
                         'yardstick.resources',
-                        'files/yardstick_key-{:.{width}}.pub'.format(
-                            key_uuid, width=8)),
-                    'utf-8')
+                        'files/yardstick_key-' + get_short_key_uuid(
+                            key_uuid) + '.pub'
+                                        'utf-8'))
             }
         }
 
