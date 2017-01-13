@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_f2455d17",
+        "filename": "yardstick/benchmark/scenarios/networking/nstat.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-13T07:36:20Z",
+      "side": 1,
+      "message": "is there a particular reason we use bash for these things.\n\ncan we use python?  it is more precise\n\n    #!/usr/bin/env python\n    import json\n    import time\n\n    from subprocess import Popen, PIPE\n\n    import sys\n\n    PRECISION \u003d 3\n\n\n    def match(key, field, line, results):\n        if key in line:\n            results[key] \u003d int(line.split()[field])\n\n    def calculate_error_rate(x, y):\n        try:\n            return round(float(x) / float(y), PRECISION)\n        except ZeroDivisionError:\n            return 0\n\n\n    def process_output(out):\n        results \u003d {}\n        for line in out.splitlines():\n            match(\u0027IpInReceives\u0027, 1, line, results)\n            match(\u0027IpInHdrErrors\u0027, 1, line, results)\n            match(\u0027IpInAddrErrors\u0027, 1, line, results)\n            match(\u0027IcmpInMsgs\u0027, 1, line, results)\n            match(\u0027IcmpInErrors\u0027, 1, line, results)\n            match(\u0027TcpInSegs\u0027, 1, line, results)\n            match(\u0027TcpInErrs\u0027, 1, line, results)\n            match(\u0027UdpInDatagrams\u0027, 1, line, results)\n            match(\u0027UdpInErrors\u0027, 1, line, results)\n\n        results[\u0027IpErrors\u0027] \u003d results[\u0027IpInHdrErrors\u0027] + results[\u0027IpInAddrErrors\u0027]\n        results[\u0027IP_datagram_error_rate\u0027] \u003d \\\n            calculate_error_rate(results[\u0027IpErrors\u0027], results[\u0027IpInReceives\u0027])\n        results[\u0027Icmp_message_error_rate\u0027] \u003d \\\n            calculate_error_rate(results[\u0027IcmpInErrors\u0027], results[\u0027IcmpInMsgs\u0027])\n        results[\u0027Tcp_segment_error_rate\u0027] \u003d \\\n            calculate_error_rate(results[\u0027TcpInErrs\u0027], results[\u0027TcpInSegs\u0027])\n        results[\u0027Udp_datagram_error_rate\u0027] \u003d \\\n            calculate_error_rate(results[\u0027UdpInErrors\u0027], results[\u0027UdpInDatagrams\u0027])\n        return results\n\n\n    def run_nstat(duration):\n        time.sleep(duration)\n        out, _ \u003d Popen([\u0027nstat\u0027, \u0027-z\u0027], stdout\u003dPIPE).communicate()\n        results \u003d process_output(out)\n        json.dump(results, sys.stdout)\n\n\n    if __name__ \u003d\u003d \u0027__main__\u0027:\n        run_nstat(sys.argv[1])",
+      "revId": "7a84b363da7101b7d51ea3fa8e1ef04414059ac9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
