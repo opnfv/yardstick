@@ -1,0 +1,56 @@
+---
+
+schema: "yardstick:task:0.1"
+
+description: >
+    Yardstick TC076 config file;
+    Monitor network metrics provided by the kernel in a host and calculate
+    IP datagram error rate, ICMP message error rate, TCP segment error rate and
+    UDP datagram error rate.
+
+scenarios:
+-
+  type: Ping
+  run_in_background: true
+  options:
+    packetsize: 200
+
+  host: demeter.yardstick-TC076
+  target: poseidon.yardstick-TC076
+
+-
+  type: Nstat
+  options:
+    duration: 300
+
+  host: poseidon.yardstick-TC076
+
+  runner:
+    type: Iteration
+    iterations: 1
+
+  sla:
+    IP_datagram_error_rate: 0.01
+    action: monitor
+
+context:
+  name: yardstick-TC076
+  image: yardstick-image
+  flavor: yardstick-flavor
+  user: ubuntu
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    demeter:
+      floating_ip: true
+      placement: "pgrp1"
+    poseidon:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
