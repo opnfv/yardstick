@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_526311dc",
+        "filename": "api/client.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-01-13T06:27:31Z",
+      "side": 1,
+      "message": "OK, got it.",
+      "parentUuid": "5ac10518_e3f4b288",
+      "revId": "5a0ffd88ce90ca45f78c279b823fdedf00351262",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_235f1a74",
         "filename": "yardstick/benchmark/core/testcase.py",
         "patchSetId": 2
