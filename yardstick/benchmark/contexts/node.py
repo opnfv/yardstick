@@ -75,8 +75,9 @@ class NodeContext(Context):
         if type(attr_name) is dict:
             return None
 
-        if self.name != attr_name.split(".")[1]:
+        if self.name.split("-")[0] != attr_name.split(".")[1]:
             return None
+
         node_name = attr_name.split(".")[0]
         nodes = [n for n in self.nodes
                  if n["name"] == node_name]
