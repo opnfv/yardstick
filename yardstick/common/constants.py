@@ -33,6 +33,8 @@ YARDSTICK_ROOT_PATH = dirname(dirname(dirname(abspath(__file__)))) + sep
 
 TESTCASE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_cases/')
 
+TESTSUITE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_suites/')
+
 YARDSTICK_REPOS_DIR = '/home/opnfv/repos/yardstick'
 
 YARDSTICK_LOG_DIR = '/tmp/yardstick/'

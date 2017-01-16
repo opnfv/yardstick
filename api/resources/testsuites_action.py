@@ -13,9 +13,11 @@ from __future__ import absolute_import
 import uuid
 import os
 import logging
+import yaml
 
-from api import conf
 from api.utils import common as common_utils
+from yardstick.common import constants as consts
+from yardstick.common.task_template import TaskTemplate
 
 logger = logging.getLogger(__name__)
 
@@ -30,8 +32,7 @@ def runTestSuite(args):
     if 'suite' not in opts:
         opts['suite'] = 'true'
 
-    testsuite = os.path.join(conf.TEST_SUITE_PATH,
-                             conf.TEST_SUITE_PRE + testsuite + '.yaml')
+    testsuite = os.path.join(consts.TESTSUITE_DIR, '{}.yaml'.format(testsuite))
 
     task_id = str(uuid.uuid4())
 
@@ -40,6 +41,22 @@ def runTestSuite(args):
     logger.debug('The command_list is: %s', command_list)
 
     logger.debug('Start to execute command list')
-    common_utils.exec_command_task(command_list, task_id)
+    task_dic = {
+        'task_id': task_id,
+        'details': _get_cases_from_suite_file(testsuite)
+    }
+    common_utils.exec_command_task(command_list, task_dic)
 
     return common_utils.result_handler('success', task_id)
+
+
+def _get_cases_from_suite_file(testsuite):
+    def get_name(full_name):
+        return os.path.splitext(full_name)[0]
+
+    with open(testsuite) as f:
+        contents = TaskTemplate.render(f.read())
+
+    suite_dic = yaml.safe_load(contents)
+    testcases = [get_name(c['file_name']) for c in suite_dic['test_cases']]
+    return ','.join(testcases)
