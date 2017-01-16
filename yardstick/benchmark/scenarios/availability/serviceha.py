@@ -30,7 +30,7 @@ class ServiceHA(base.Scenario):
         self.setup_done = False
 
     def setup(self):
-        '''scenario setup'''
+        """scenario setup"""
         nodes = self.context_cfg.get("nodes", None)
         if nodes is None:
             LOG.error("the nodes info is none")
@@ -77,13 +77,13 @@ class ServiceHA(base.Scenario):
         return
 
     def teardown(self):
-        '''scenario teardown'''
+        """scenario teardown"""
         for attacker in self.attackers:
             attacker.recover()
 
 
 def _test():    # pragma: no cover
-    '''internal test function'''
+    """internal test function"""
     host = {
         "ip": "10.20.0.5",
         "user": "root",

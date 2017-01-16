@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-'''
+"""
 Libraries to be used by the framework.
-'''
+"""
 
 __author__ = 'vmriccox'

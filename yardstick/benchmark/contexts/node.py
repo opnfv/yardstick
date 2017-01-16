@@ -20,7 +20,7 @@ LOG = logging.getLogger(__name__)
 
 
 class NodeContext(Context):
-    '''Class that handle nodes info'''
+    """Class that handle nodes info"""
 
     __context_type__ = "Node"
 
@@ -34,7 +34,7 @@ class NodeContext(Context):
         super(self.__class__, self).__init__()
 
     def init(self, attrs):
-        '''initializes itself from the supplied arguments'''
+        """initializes itself from the supplied arguments"""
         self.name = attrs["name"]
         self.file_path = attrs.get("file", "pod.yaml")
         if not os.path.exists(self.file_path):
@@ -61,17 +61,17 @@ class NodeContext(Context):
         LOG.debug("BareMetals: %r", self.baremetals)
 
     def deploy(self):
-        '''don't need to deploy'''
+        """don't need to deploy"""
         pass
 
     def undeploy(self):
-        '''don't need to undeploy'''
+        """don't need to undeploy"""
         pass
 
     def _get_server(self, attr_name):
-        '''lookup server info by name from context
+        """lookup server info by name from context
         attr_name: a name for a server listed in nodes config file
-        '''
+        """
         if type(attr_name) is dict:
             return None
 

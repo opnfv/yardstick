@@ -25,7 +25,7 @@ class Dummy(base.Scenario):
         self.setup_done = False
 
     def setup(self):
-        '''scenario setup'''
+        """scenario setup"""
         self.setup_done = True
 
     def run(self, result):

@@ -15,9 +15,9 @@ from six.moves import range
 
 
 class Object(object):
-    '''Base class for classes in the logical model
+    """Base class for classes in the logical model
     Contains common attributes and methods
-    '''
+    """
 
     def __init__(self, name, context):
         # model identities and reference
@@ -30,15 +30,15 @@ class Object(object):
 
     @property
     def dn(self):
-        '''returns distinguished name for object'''
+        """returns distinguished name for object"""
         return self.name + "." + self._context.name
 
 
 class PlacementGroup(Object):
-    '''Class that represents a placement group in the logical model
+    """Class that represents a placement group in the logical model
     Concept comes from the OVF specification. Policy should be one of
     "availability" or "affinity (there are more but they are not supported)"
-    '''
+    """
     map = {}
 
     def __init__(self, name, context, policy):
@@ -63,7 +63,7 @@ class PlacementGroup(Object):
 
 
 class Router(Object):
-    '''Class that represents a router in the logical model'''
+    """Class that represents a router in the logical model"""
 
     def __init__(self, name, network_name, context, external_gateway_info):
         super(self.__class__, self).__init__(name, context)
@@ -74,7 +74,7 @@ class Router(Object):
 
 
 class Network(Object):
-    '''Class that represents a network in the logical model'''
+    """Class that represents a network in the logical model"""
     list = []
 
     def __init__(self, name, context, attrs):
@@ -91,22 +91,22 @@ class Network(Object):
         Network.list.append(self)
 
     def has_route_to(self, network_name):
-        '''determines if this network has a route to the named network'''
+        """determines if this network has a route to the named network"""
         if self.router and self.router.external_gateway_info == network_name:
             return True
         return False
 
     @staticmethod
     def find_by_route_to(external_network):
-        '''finds a network that has a route to the specified network'''
+        """finds a network that has a route to the specified network"""
         for network in Network.list:
             if network.has_route_to(external_network):
                 return network
 
     @staticmethod
     def find_external_network():
-        '''return the name of an external network some network in this
-        context has a route to'''
+        """return the name of an external network some network in this
+        context has a route to"""
         for network in Network.list:
             if network.router:
                 return network.router.external_gateway_info
@@ -114,7 +114,7 @@ class Network(Object):
 
 
 class Server(Object):
-    '''Class that represents a server in the logical model'''
+    """Class that represents a server in the logical model"""
     list = []
 
     def __init__(self, name, context, attrs):
@@ -171,7 +171,7 @@ class Server(Object):
 
     @property
     def image(self):
-        '''returns a server's image name'''
+        """returns a server's image name"""
         if self._image:
             return self._image
         else:
@@ -179,14 +179,14 @@ class Server(Object):
 
     @property
     def flavor(self):
-        '''returns a server's flavor name'''
+        """returns a server's flavor name"""
         if self._flavor:
             return self._flavor
         else:
             return self._context.flavor
 
     def _add_instance(self, template, server_name, networks, scheduler_hints):
-        '''adds to the template one server and corresponding resources'''
+        """adds to the template one server and corresponding resources"""
         port_name_list = []
         for network in networks:
             port_name = server_name + "-" + network.name + "-port"
@@ -219,7 +219,7 @@ class Server(Object):
                             scheduler_hints=scheduler_hints)
 
     def add_to_template(self, template, networks, scheduler_hints=None):
-        '''adds to the template one or more servers (instances)'''
+        """adds to the template one or more servers (instances)"""
         if self.instances == 1:
             server_name = self.stack_name
             self._add_instance(template, server_name, networks,
@@ -233,9 +233,9 @@ class Server(Object):
 
 
 def update_scheduler_hints(scheduler_hints, added_servers, placement_group):
-    ''' update scheduler hints from server's placement configuration
+    """ update scheduler hints from server's placement configuration
     TODO: this code is openstack specific and should move somewhere else
-    '''
+    """
     if placement_group.policy == "affinity":
         if "same_host" in scheduler_hints:
             host_list = scheduler_hints["same_host"]

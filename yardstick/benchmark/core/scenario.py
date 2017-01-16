@@ -16,13 +16,13 @@ from yardstick.benchmark.core import print_hbar
 
 
 class Scenarios(object):
-    '''Scenario commands.
+    """Scenario commands.
 
        Set of commands to discover and display scenario types.
-    '''
+    """
 
     def list_all(self, args):
-        '''List existing scenario types'''
+        """List existing scenario types"""
         types = Scenario.get_types()
         print_hbar(78)
         print("| %-16s | %-60s" % ("Type", "Description"))
@@ -33,6 +33,6 @@ class Scenarios(object):
         print_hbar(78)
 
     def show(self, args):
-        '''Show details of a specific scenario type'''
+        """Show details of a specific scenario type"""
         stype = Scenario.get_cls(args.type[0])
         print(stype.__doc__)

@@ -17,7 +17,7 @@ LOG = logging.getLogger(__name__)
 
 
 class DummyContext(Context):
-    '''Class that handle dummy info'''
+    """Class that handle dummy info"""
 
     __context_type__ = "Dummy"
 
@@ -28,11 +28,11 @@ class DummyContext(Context):
         pass
 
     def deploy(self):
-        '''don't need to deploy'''
+        """don't need to deploy"""
         pass
 
     def undeploy(self):
-        '''don't need to undeploy'''
+        """don't need to undeploy"""
         pass
 
     def _get_server(self, attr_name):

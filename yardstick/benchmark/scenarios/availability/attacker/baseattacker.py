@@ -61,7 +61,7 @@ class BaseAttacker(object):
 
     @staticmethod
     def get_attacker_cls(attacker_cfg):
-        '''return attacker instance of specified type'''
+        """return attacker instance of specified type"""
         attacker_type = attacker_cfg['fault_type']
         for attacker_cls in utils.itersubclasses(BaseAttacker):
             if attacker_type == attacker_cls.__attacker_type__:

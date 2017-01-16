@@ -61,7 +61,7 @@ class BaseOperation(object):
 
     @staticmethod
     def get_operation_cls(type):
-        '''return operation instance of specified type'''
+        """return operation instance of specified type"""
         operation_type = type
         for operation_cls in utils.itersubclasses(BaseOperation):
             if operation_type == operation_cls.__operation__type__:

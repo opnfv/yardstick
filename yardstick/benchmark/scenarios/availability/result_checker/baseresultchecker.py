@@ -69,7 +69,7 @@ class BaseResultChecker(object):
 
     @staticmethod
     def get_resultchecker_cls(type):
-        '''return resultchecker instance of specified type'''
+        """return resultchecker instance of specified type"""
         resultchecker_type = type
         for checker_cls in utils.itersubclasses(BaseResultChecker):
             if resultchecker_type == checker_cls.__result_checker__type__:

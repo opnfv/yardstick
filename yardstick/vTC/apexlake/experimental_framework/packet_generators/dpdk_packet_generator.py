@@ -34,10 +34,10 @@ class DpdkPacketGenerator(base_packet_generator.BasePacketGenerator):
         self.dpdk_interfaces = -1
 
     def send_traffic(self):
-        '''
+        """
         Calls the packet generator and starts to send traffic
         Blocking call
-        '''
+        """
         current_dir = os.path.dirname(os.path.realpath(__file__))
         DpdkPacketGenerator._chdir(self.directory)
         dpdk_vars = common.get_dpdk_pktgen_vars()

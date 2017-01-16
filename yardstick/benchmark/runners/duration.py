@@ -16,8 +16,8 @@
 # yardstick comment: this is a modified copy of
 # rally/rally/benchmark/runners/constant.py
 
-'''A runner that runs a specific time before it returns
-'''
+"""A runner that runs a specific time before it returns
+"""
 
 from __future__ import absolute_import
 import os
@@ -106,7 +106,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
 
 class DurationRunner(base.Runner):
-    '''Run a scenario for a certain amount of time
+    """Run a scenario for a certain amount of time
 
 If the scenario ends before the time has elapsed, it will be started again.
 
@@ -119,7 +119,7 @@ If the scenario ends before the time has elapsed, it will be started again.
         type:    int
         unit:    seconds
         default: 1 sec
-    '''
+    """
     __execution_type__ = 'Duration'
 
     def _run_benchmark(self, cls, method, scenario_cfg, context_cfg):

@@ -102,7 +102,7 @@ class Ping(base.Scenario):
 
 
 def _test():    # pragma: no cover
-    '''internal test function'''
+    """internal test function"""
     key_filename = pkg_resources.resource_filename("yardstick.resources",
                                                    "files/yardstick_key")
     ctx = {

@@ -18,7 +18,7 @@ LOG = logging.getLogger(__name__)
 
 
 def _execute_shell_command(command):
-    '''execute shell script with error handling'''
+    """execute shell script with error handling"""
     exitcode = 0
     output = []
     try:

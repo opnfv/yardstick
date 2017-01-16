@@ -34,13 +34,13 @@ LOG = logging.getLogger(__name__)
 
 
 class Task(object):     # pragma: no cover
-    '''Task commands.
+    """Task commands.
 
        Set of commands to manage benchmark tasks.
-    '''
+    """
 
     def start(self, args, **kwargs):
-        '''Start a benchmark scenario.'''
+        """Start a benchmark scenario."""
 
         atexit.register(atexit_handler)
 
@@ -101,7 +101,7 @@ class Task(object):     # pragma: no cover
         print("Done, exiting")
 
     def _run(self, scenarios, run_in_parallel, output_file):
-        '''Deploys context and calls runners'''
+        """Deploys context and calls runners"""
         for context in Context.list:
             context.deploy()
 
@@ -151,7 +151,7 @@ class Task(object):     # pragma: no cover
 
 
 class TaskParser(object):       # pragma: no cover
-    '''Parser for task config files in yaml format'''
+    """Parser for task config files in yaml format"""
 
     def __init__(self, path):
         self.path = path
@@ -181,8 +181,8 @@ class TaskParser(object):       # pragma: no cover
         return task_args, task_args_fnames
 
     def parse_suite(self):
-        '''parse the suite file and return a list of task config file paths
-           and lists of optional parameters if present'''
+        """parse the suite file and return a list of task config file paths
+           and lists of optional parameters if present"""
         LOG.info("\nParsing suite file:%s", self.path)
 
         try:
@@ -226,7 +226,7 @@ class TaskParser(object):       # pragma: no cover
         return valid_task_files, valid_task_args, valid_task_args_fnames
 
     def parse_task(self, task_id, task_args=None, task_args_file=None):
-        '''parses the task file and return an context and scenario instances'''
+        """parses the task file and return an context and scenario instances"""
         print("Parsing task config:", self.path)
 
         try:
@@ -302,14 +302,14 @@ class TaskParser(object):       # pragma: no cover
         return cfg["scenarios"], run_in_parallel, meet_precondition
 
     def _check_schema(self, cfg_schema, schema_type):
-        '''Check if config file is using the correct schema type'''
+        """Check if config file is using the correct schema type"""
 
         if cfg_schema != "yardstick:" + schema_type + ":0.1":
             sys.exit("error: file %s has unknown schema %s" % (self.path,
                                                                cfg_schema))
 
     def _check_precondition(self, cfg):
-        '''Check if the envrionment meet the preconditon'''
+        """Check if the envrionment meet the preconditon"""
 
         if "precondition" in cfg:
             precondition = cfg["precondition"]
@@ -342,7 +342,7 @@ class TaskParser(object):       # pragma: no cover
 
 
 def atexit_handler():
-    '''handler for process termination'''
+    """handler for process termination"""
     base_runner.Runner.terminate_all()
 
     if len(Context.list) > 0:
@@ -352,7 +352,7 @@ def atexit_handler():
 
 
 def is_ip_addr(addr):
-    '''check if string addr is an IP address'''
+    """check if string addr is an IP address"""
     try:
         ipaddress.ip_address(addr.encode('utf-8'))
         return True
@@ -361,12 +361,12 @@ def is_ip_addr(addr):
 
 
 def _is_same_heat_context(host_attr, target_attr):
-    '''check if two servers are in the same heat context
+    """check if two servers are in the same heat context
     host_attr: either a name for a server created by yardstick or a dict
     with attribute name mapping when using external heat templates
     target_attr: either a name for a server created by yardstick or a dict
     with attribute name mapping when using external heat templates
-    '''
+    """
     host = None
     target = None
     for context in Context.list:
@@ -396,7 +396,7 @@ def _is_background_scenario(scenario):
 
 
 def run_one_scenario(scenario_cfg, output_file):
-    '''run one scenario using context'''
+    """run one scenario using context"""
     runner_cfg = scenario_cfg["runner"]
     runner_cfg['output_filename'] = output_file
 
@@ -444,7 +444,7 @@ def run_one_scenario(scenario_cfg, output_file):
 
 
 def parse_nodes_with_context(scenario_cfg):
-    '''paras the 'nodes' fields in scenario '''
+    """paras the 'nodes' fields in scenario """
     nodes = scenario_cfg["nodes"]
 
     nodes_cfg = {}
@@ -455,7 +455,7 @@ def parse_nodes_with_context(scenario_cfg):
 
 
 def runner_join(runner):
-    '''join (wait for) a runner, exit process at runner failure'''
+    """join (wait for) a runner, exit process at runner failure"""
     status = runner.join()
     base_runner.Runner.release(runner)
     if status != 0:

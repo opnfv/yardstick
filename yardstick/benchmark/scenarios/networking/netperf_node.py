@@ -61,7 +61,7 @@ class NetperfNode(base.Scenario):
         self.setup_done = False
 
     def setup(self):
-        '''scenario setup'''
+        """scenario setup"""
         self.target_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
             NetperfNode.TARGET_SCRIPT)
@@ -172,13 +172,13 @@ class NetperfNode(base.Scenario):
                 (mean_latency, sla_max_mean_latency)
 
     def teardown(self):
-        '''remove netperf from nodes after test'''
+        """remove netperf from nodes after test"""
         self.server.execute("sudo bash netperf_remove.sh")
         self.client.execute("sudo bash netperf_remove.sh")
 
 
 def _test():    # pragma: no cover
-    '''internal test function'''
+    """internal test function"""
     ctx = {
         "host": {
             "ip": "192.168.10.10",

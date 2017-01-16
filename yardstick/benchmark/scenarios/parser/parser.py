@@ -68,7 +68,7 @@ class Parser(base.Scenario):
         result['yangtotosca'] = "success" if p.returncode == 0 else "fail"
 
     def teardown(self):
-        ''' for scenario teardown remove parser and pyang '''
+        """ for scenario teardown remove parser and pyang """
         self.teardown_script = pkg_resources.resource_filename(
             "yardstick.benchmark.scenarios.parser",
             Parser.TEARDOWN_SCRIPT)
@@ -77,7 +77,7 @@ class Parser(base.Scenario):
 
 
 def _test():
-    '''internal test function'''
+    """internal test function"""
     pass
 
 

@@ -84,7 +84,7 @@ class Ping6(base.Scenario):  # pragma: no cover
         return None
 
     def setup(self):
-        '''scenario setup'''
+        """scenario setup"""
         self.setup_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
             Ping6.SETUP_SCRIPT)

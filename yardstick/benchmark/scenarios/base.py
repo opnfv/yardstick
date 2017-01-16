@@ -26,20 +26,20 @@ import yardstick.common.utils as utils
 class Scenario(object):
 
     def setup(self):
-        ''' default impl for scenario setup '''
+        """ default impl for scenario setup """
         pass
 
     def run(self, args):
-        ''' catcher for not implemented run methods in subclasses '''
+        """ catcher for not implemented run methods in subclasses """
         raise RuntimeError("run method not implemented")
 
     def teardown(self):
-        ''' default impl for scenario teardown '''
+        """ default impl for scenario teardown """
         pass
 
     @staticmethod
     def get_types():
-        '''return a list of known runner type (class) names'''
+        """return a list of known runner type (class) names"""
         scenarios = []
         for scenario in utils.itersubclasses(Scenario):
             scenarios.append(scenario)
@@ -47,7 +47,7 @@ class Scenario(object):
 
     @staticmethod
     def get_cls(scenario_type):
-        '''return class of specified type'''
+        """return class of specified type"""
         for scenario in utils.itersubclasses(Scenario):
             if scenario_type == scenario.__scenario_type__:
                 return scenario

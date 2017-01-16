@@ -17,18 +17,18 @@ from yardstick.cmd.commands import change_osloobj_to_paras
 
 
 class TestcaseCommands(object):
-    '''Testcase commands.
+    """Testcase commands.
 
        Set of commands to discover and display test cases.
-    '''
+    """
 
     def do_list(self, args):
-        '''List existing test cases'''
+        """List existing test cases"""
         param = change_osloobj_to_paras(args)
         Testcase().list_all(param)
 
     @cliargs("casename", type=str, help="test case name", nargs=1)
     def do_show(self, args):
-        '''Show details of a specific test case'''
+        """Show details of a specific test case"""
         param = change_osloobj_to_paras(args)
         Testcase().show(param)

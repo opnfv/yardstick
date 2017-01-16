@@ -17,18 +17,18 @@ from yardstick.cmd.commands import change_osloobj_to_paras
 
 
 class ScenarioCommands(object):
-    '''Scenario commands.
+    """Scenario commands.
 
        Set of commands to discover and display scenario types.
-    '''
+    """
 
     def do_list(self, args):
-        '''List existing scenario types'''
+        """List existing scenario types"""
         param = change_osloobj_to_paras(args)
         Scenarios().list_all(param)
 
     @cliargs("type", type=str, help="runner type", nargs=1)
     def do_show(self, args):
-        '''Show details of a specific scenario type'''
+        """Show details of a specific scenario type"""
         param = change_osloobj_to_paras(args)
         Scenarios().show(param)

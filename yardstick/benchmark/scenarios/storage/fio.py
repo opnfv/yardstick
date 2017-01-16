@@ -58,7 +58,7 @@ class Fio(base.Scenario):
         self.setup_done = False
 
     def setup(self):
-        '''scenario setup'''
+        """scenario setup"""
         self.target_script = pkg_resources.resource_filename(
             "yardstick.benchmark.scenarios.storage",
             Fio.TARGET_SCRIPT)
@@ -152,7 +152,7 @@ class Fio(base.Scenario):
 
 
 def _test():
-    '''internal test function'''
+    """internal test function"""
     key_filename = pkg_resources.resource_filename("yardstick.resources",
                                                    "files/yardstick_key")
     ctx = {

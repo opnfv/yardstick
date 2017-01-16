@@ -42,11 +42,11 @@ yaml_loader.add_constructor(u'tag:yaml.org,2002:timestamp',
 
 
 def parse(tmpl_str):
-    '''Takes a string and returns a dict containing the parsed structure.
+    """Takes a string and returns a dict containing the parsed structure.
 
     This includes determination of whether the string is using the
     JSON or YAML format.
-    '''
+    """
     if tmpl_str.startswith('{'):
         tpl = jsonutils.loads(tmpl_str)
     else:

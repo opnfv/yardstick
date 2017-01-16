@@ -14,7 +14,7 @@ LOG = logging.getLogger(__name__)
 
 
 class Sfc(base.Scenario):  # pragma: no cover
-    ''' SFC scenario class '''
+    """ SFC scenario class """
 
     __scenario_type__ = "sfc"
 
@@ -31,7 +31,7 @@ class Sfc(base.Scenario):  # pragma: no cover
         self.teardown_done = False
 
     def setup(self):
-        '''scenario setup'''
+        """scenario setup"""
         self.tacker_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
             Sfc.TACKER_SCRIPT)
@@ -40,7 +40,7 @@ class Sfc(base.Scenario):  # pragma: no cover
             'yardstick.benchmark.scenarios.networking',
             Sfc.SERVER_SCRIPT)
 
-        ''' calling Tacker to instantiate VNFs and Service Chains '''
+        """ calling Tacker to instantiate VNFs and Service Chains """
         cmd_tacker = "%s" % (self.tacker_script)
         subprocess.call(cmd_tacker, shell=True)
 
@@ -50,7 +50,7 @@ class Sfc(base.Scenario):  # pragma: no cover
         target_pwd = target.get('password', 'opnfv')
         target_ip = target.get('ip', None)
 
-        ''' webserver start automatically during the vm boot '''
+        """ webserver start automatically during the vm boot """
         LOG.info("user:%s, target:%s", target_user, target_ip)
         self.server = ssh.SSH(target_user, target_ip, password=target_pwd,
                               port=target_ssh_port)
@@ -102,7 +102,7 @@ class Sfc(base.Scenario):  # pragma: no cover
         self.setup_done = True
 
     def run(self, result):
-        ''' Creating client and server VMs to perform the test'''
+        """ Creating client and server VMs to perform the test"""
         host = self.context_cfg['host']
         host_user = host.get('user', 'root')
         ssh_port = host.get("ssh_port", ssh.DEFAULT_PORT)
@@ -149,7 +149,7 @@ class Sfc(base.Scenario):  # pragma: no cover
             'yardstick.benchmark.scenarios.networking',
             Sfc.TACKER_CHANGECLASSI)
 
-        ''' calling Tacker to change the classifier '''
+        """ calling Tacker to change the classifier """
         cmd_tacker = "%s" % (self.tacker_classi)
         subprocess.call(cmd_tacker, shell=True)
 
@@ -185,7 +185,7 @@ class Sfc(base.Scenario):  # pragma: no cover
                          " :) \n" + '\033[0m')
 
     def teardown(self):
-        ''' for scenario teardown remove tacker VNFs, chains and classifiers'''
+        """ for scenario teardown remove tacker VNFs, chains and classifiers"""
         self.teardown_script = pkg_resources.resource_filename(
             "yardstick.benchmark.scenarios.networking",
             Sfc.TEARDOWN_SCRIPT)
@@ -193,7 +193,7 @@ class Sfc(base.Scenario):  # pragma: no cover
         self.teardown_done = True
 
 
-'''def _test():  # pragma: no cover
+"""def _test():  # pragma: no cover
 
     internal test function
     logger = logging.getLogger("Sfc Yardstick")
@@ -208,4 +208,4 @@ class Sfc(base.Scenario):  # pragma: no cover
     sfc.teardown()
 
 if __name__ == '__main__':  # pragma: no cover
-    _test()'''
+    _test()"""

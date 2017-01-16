@@ -112,7 +112,7 @@ class Vsperf(base.Scenario):
                                                             None)
 
     def setup(self):
-        '''scenario setup'''
+        """scenario setup"""
         vsperf = self.context_cfg['host']
         vsperf_user = vsperf.get('user', 'ubuntu')
         vsperf_ssh_port = vsperf.get('ssh_port', ssh.DEFAULT_PORT)
