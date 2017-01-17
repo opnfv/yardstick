@@ -52,7 +52,6 @@ def init_db():
     Base.metadata.create_all(bind=engine)
 
 
-init_db()
 reduce(lambda a, b: a.add_resource(b.resource, b.url,
                                    endpoint=b.endpoint) or a, urlpatterns, api)
 
@@ -60,4 +59,5 @@ if __name__ == '__main__':
     _init_logging()
     logger.setLevel(logging.DEBUG)
     logger.info('Starting server')
+    init_db()
     app.run(host='0.0.0.0')

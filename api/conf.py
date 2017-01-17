@@ -15,8 +15,6 @@ with IPDB() as ip:
     GATEWAY_IP = ip.routes['default'].gateway
 PORT = 8086
 
-TEST_ACTION = ['runTestCase']
-
 TEST_CASE_PATH = '../tests/opnfv/test_cases/'
 
 SAMPLE_PATH = '../samples/'
