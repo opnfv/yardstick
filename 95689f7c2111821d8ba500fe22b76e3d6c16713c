@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_5ce80010",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2017-01-17T21:34:06Z",
+      "side": 1,
+      "message": "NSB",
+      "range": {
+        "startLine": 36,
+        "startChar": 26,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "95689f7c2111821d8ba500fe22b76e3d6c16713c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
