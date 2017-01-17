@@ -234,8 +234,10 @@ class SSH(object):
             if session.send_ready():
                 if stdin is not None and not stdin.closed:
                     if not data_to_send:
-                        data_to_send = encodeutils.safe_encode(
-                            stdin.read(4096), incoming='utf-8')
+                        stdin_txt = stdin.read(4096)
+                        if stdin_txt is not None:
+                            data_to_send = encodeutils.safe_encode(
+                                stdin_txt, incoming='utf-8')
                         if not data_to_send:
                             # we may need to keep stdin open
                             if not keep_stdin_open:
