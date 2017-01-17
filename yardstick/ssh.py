@@ -202,7 +202,7 @@ class SSH(object):
         start_time = time.time()
 
         # encode on transmit, decode on receive
-        data_to_send = encodeutils.safe_encode("")
+        data_to_send = encodeutils.safe_encode("", incoming='utf-8')
         stderr_data = None
 
         # If we have data to be sent to stdin then `select' should also
@@ -234,8 +234,11 @@ class SSH(object):
             if session.send_ready():
                 if stdin is not None and not stdin.closed:
                     if not data_to_send:
+                        stdin_txt = stdin.read(4096)
+                        if stdin_txt is None:
+                            stdin_txt = ''
                         data_to_send = encodeutils.safe_encode(
-                            stdin.read(4096), incoming='utf-8')
+                            stdin_txt, incoming='utf-8')
                         if not data_to_send:
                             # we may need to keep stdin open
                             if not keep_stdin_open:
