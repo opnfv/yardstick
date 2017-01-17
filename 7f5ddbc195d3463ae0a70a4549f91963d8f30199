@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_5c6320dc",
+        "filename": "yardstick/ssh.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-17T19:10:51Z",
+      "side": 1,
+      "message": "this should have incoming\u003d\u0027utf-8\u0027 as well",
+      "revId": "7f5ddbc195d3463ae0a70a4549f91963d8f30199",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_7c5e1c14",
+        "filename": "yardstick/ssh.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-17T19:10:51Z",
+      "side": 1,
+      "message": "data_to_send is not getting reset if stdin_txt is None.\n\n  stdin_txt \u003d stdin.read(4096)\n  if stdin_txt is None:\n     stdin_txt \u003d \u0027\u0027\n  data_to_send \u003d encodeutils.safe_encode(stdin_txt, incoming\u003d\u0027utf-8\u0027)",
+      "revId": "7f5ddbc195d3463ae0a70a4549f91963d8f30199",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
