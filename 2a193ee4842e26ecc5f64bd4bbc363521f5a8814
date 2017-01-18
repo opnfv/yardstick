@@ -22,6 +22,30 @@
       "revId": "2a193ee4842e26ecc5f64bd4bbc363521f5a8814",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_5cdc8012",
+        "filename": "yardstick/benchmark/contexts/standalone.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-01-18T16:26:46Z",
+      "side": 1,
+      "message": "Thanks Kubi. I agree, standalone context will help users. I will update the Jira with implementation details",
+      "parentUuid": "5ac10518_e1e825b6",
+      "range": {
+        "startLine": 75,
+        "startChar": 9,
+        "endLine": 75,
+        "endChar": 73
+      },
+      "revId": "2a193ee4842e26ecc5f64bd4bbc363521f5a8814",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
