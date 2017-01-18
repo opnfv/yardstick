@@ -16,6 +16,24 @@
       "revId": "b641357f47f6cc939cbff8fc7a91b2249e27a090",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_dc6e3001",
+        "filename": "yardstick/benchmark/scenarios/networking/nstat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-01-18T08:36:42Z",
+      "side": 1,
+      "message": "good point. I will consider this kind of situation.",
+      "parentUuid": "5ac10518_7ce13c99",
+      "revId": "b641357f47f6cc939cbff8fc7a91b2249e27a090",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
