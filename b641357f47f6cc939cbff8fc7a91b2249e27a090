@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_7ce13c99",
+        "filename": "yardstick/benchmark/scenarios/networking/nstat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-18T07:35:52Z",
+      "side": 1,
+      "message": "catching ZeroDivisionError was a quick fix, but how do we handle Errors without data?\n\nIf TcpInErrors is non-zero, but TcpInSegs is zero, what does that mean?  Maybe that is 100% error rate.",
+      "revId": "b641357f47f6cc939cbff8fc7a91b2249e27a090",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
