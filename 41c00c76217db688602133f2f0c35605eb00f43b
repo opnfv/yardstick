@@ -22,6 +22,30 @@
       "revId": "41c00c76217db688602133f2f0c35605eb00f43b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_b70fbf2d",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-01-18T09:31:40Z",
+      "side": 1,
+      "message": "With latest task-id changes. I am seeing self.name is coming as \u003cname\u003e-\u003ctaskid\u003e and attr_name is \u003crole\u003e-\u003cname\u003e.\n\nWith self.name.split(\"-\")[0], even if we do not have \"-\" in name - it always return \u003cname\u003e :).\n\nI am seeing failure in one of vnf testcase I added. I will share the testcase",
+      "parentUuid": "5ac10518_3cc174e4",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 62
+      },
+      "revId": "41c00c76217db688602133f2f0c35605eb00f43b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
