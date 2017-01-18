@@ -70,6 +70,30 @@
       "revId": "41c00c76217db688602133f2f0c35605eb00f43b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_b7f57fcc",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-01-18T12:12:57Z",
+      "side": 1,
+      "message": "Yes testcase 043 is working but tc019 is failing and below is the issue i am seeing...\n\nEither we have to update the taskid also part of attr_name or we can remove the check (we do not check name and attr_name in heat context.)\n\n2017-01-18 10:31:23,859 yardstick.benchmark.contexts.node node.py:81 DEBUG -----------------------------------------\n2017-01-18 10:31:23,859 yardstick.benchmark.contexts.node node.py:82 DEBUG LF-6067074c\n2017-01-18 10:31:23,859 yardstick.benchmark.contexts.node node.py:83 DEBUG node1.LF\n2017-01-18 10:31:23,859 yardstick.benchmark.contexts.node node.py:84 DEBUG -----------------------------------------\nTraceback (most recent call last):\n  File \"/opt/yardstick_venv/bin/yardstick\", line 11, in \u003cmodule\u003e\n    load_entry_point(\u0027yardstick\u003d\u003d0.1.dev0\u0027, \u0027console_scripts\u0027, \u0027yardstick\u0027)()\n  File \"/opt/yardstick_venv/local/lib/python2.7/site-packages/yardstick/main.py\", line 49, in main\n    YardstickCLI().main(sys.argv[1:])\n  File \"/opt/yardstick_venv/local/lib/python2.7/site-packages/yardstick/cmd/cli.py\", line 167, in main\n    self._dispath_func_notask()\n  File \"/opt/yardstick_venv/local/lib/python2.7/site-packages/yardstick/cmd/cli.py\", line 145, in _dispath_func_notask\n    func(CONF.category)\n  File \"/opt/yardstick_venv/local/lib/python2.7/site-packages/yardstick/cmd/commands/task.py\", line 45, in do_start\n    Task().start(param)\n  File \"/opt/yardstick_venv/local/lib/python2.7/site-packages/yardstick/benchmark/core/task.py\", line 83, in start\n    self._run(scenarios, run_in_parallel, args.output_file)\n  File \"/opt/yardstick_venv/local/lib/python2.7/site-packages/yardstick/benchmark/core/task.py\", line 131, in _run\n    runner \u003d run_one_scenario(scenario, output_file)\n  File \"/opt/yardstick_venv/local/lib/python2.7/site-packages/yardstick/benchmark/core/task.py\", line 437, in run_one_scenario\n    context_cfg[\"nodes\"] \u003d parse_nodes_with_context(scenario_cfg)\n  File \"/opt/yardstick_venv/local/lib/python2.7/site-packages/yardstick/benchmark/core/task.py\", line 452, in parse_nodes_with_context\n    nodes_cfg[nodename] \u003d Context.get_server(nodes[nodename])\n  File \"/opt/yardstick_venv/local/lib/python2.7/site-packages/yardstick/benchmark/contexts/base.py\", line 69, in get_server\n    attr_name)\nValueError: context not found for server \u0027\u0027node1.LF\u0027\u0027",
+      "parentUuid": "5ac10518_d77dab6f",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 62
+      },
+      "revId": "41c00c76217db688602133f2f0c35605eb00f43b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
