@@ -18,18 +18,18 @@ from yardstick.cmd.commands import change_osloobj_to_paras
 
 
 class RunnerCommands(object):
-    '''Runner commands.
+    """Runner commands.
 
        Set of commands to discover and display runner types.
-    '''
+    """
 
     def do_list(self, args):
-        '''List existing runner types'''
+        """List existing runner types"""
         param = change_osloobj_to_paras(args)
         Runners().list_all(param)
 
     @cliargs("type", type=str, help="runner type", nargs=1)
     def do_show(self, args):
-        '''Show details of a specific runner type'''
+        """Show details of a specific runner type"""
         param = change_osloobj_to_paras(args)
         Runners().show(param)

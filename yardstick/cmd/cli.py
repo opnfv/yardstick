@@ -7,9 +7,9 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-'''
+"""
 Command-line interface to yardstick
-'''
+"""
 
 from __future__ import absolute_import
 import logging
@@ -57,7 +57,7 @@ def find_config_files(path_list):
 
 
 class YardstickCLI():
-    '''Command-line interface to yardstick'''
+    """Command-line interface to yardstick"""
 
     # Command categories
     categories = {
@@ -75,7 +75,7 @@ class YardstickCLI():
             get_distribution('yardstick').version
 
     def _find_actions(self, subparsers, actions_module):
-        '''find action methods'''
+        """find action methods"""
         # Find action methods inside actions_module and
         # add them to the command parser.
         # The 'actions_module' argument may be a class
@@ -94,7 +94,7 @@ class YardstickCLI():
             subparser.set_defaults(func=callback)
 
     def _add_command_parsers(self, categories, subparsers):
-        '''add commands to command-line parser'''
+        """add commands to command-line parser"""
         for category in categories:
             command_object = categories[category]()
             desc = command_object.__doc__ or ''
@@ -156,7 +156,7 @@ class YardstickCLI():
         CONF.unregister_opts(self.opts)
 
     def main(self, argv):    # pragma: no cover
-        '''run the command line interface'''
+        """run the command line interface"""
         try:
             self._register_cli_opt()
 
@@ -169,7 +169,7 @@ class YardstickCLI():
             self._clear_config_opts()
 
     def api(self, argv, task_id):    # pragma: no cover
-        '''run the api interface'''
+        """run the api interface"""
         try:
             self._register_cli_opt()
 

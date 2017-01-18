@@ -10,7 +10,7 @@ from __future__ import print_function
 
 
 def print_hbar(barlen):
-    '''print to stdout a horizontal bar'''
+    """print to stdout a horizontal bar"""
     print(("+"), end=' ')
     print(("-" * barlen), end=' ')
     print("+")

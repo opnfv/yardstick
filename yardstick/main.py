@@ -45,7 +45,7 @@ from yardstick.cmd.cli import YardstickCLI
 
 
 def main():
-    '''yardstick main'''
+    """yardstick main"""
     YardstickCLI().main(sys.argv[1:])
 
 if __name__ == '__main__':

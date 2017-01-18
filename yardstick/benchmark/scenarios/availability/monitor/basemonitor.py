@@ -77,7 +77,7 @@ class BaseMonitor(multiprocessing.Process):
 
     @staticmethod
     def get_monitor_cls(monitor_type):
-        '''return monitor class of specified type'''
+        """return monitor class of specified type"""
 
         for monitor in utils.itersubclasses(BaseMonitor):
             if monitor_type == monitor.__monitor_type__:

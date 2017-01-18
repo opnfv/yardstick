@@ -16,13 +16,13 @@ from yardstick.benchmark.core import print_hbar
 
 
 class Runners(object):
-    '''Runner commands.
+    """Runner commands.
 
        Set of commands to discover and display runner types.
-    '''
+    """
 
     def list_all(self, args):
-        '''List existing runner types'''
+        """List existing runner types"""
         types = Runner.get_types()
         print_hbar(78)
         print("| %-16s | %-60s" % ("Type", "Description"))
@@ -33,6 +33,6 @@ class Runners(object):
         print_hbar(78)
 
     def show(self, args):
-        '''Show details of a specific runner type'''
+        """Show details of a specific runner type"""
         rtype = Runner.get_cls(args.type[0])
         print(rtype.__doc__)

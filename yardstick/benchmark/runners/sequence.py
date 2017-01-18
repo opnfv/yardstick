@@ -16,9 +16,9 @@
 # yardstick comment: this is a modified copy of
 # rally/rally/benchmark/runners/constant.py
 
-'''A runner that every run changes a specified input value to the scenario.
+"""A runner that every run changes a specified input value to the scenario.
 The input value in the sequence is specified in a list in the input file.
-'''
+"""
 
 from __future__ import absolute_import
 import os
@@ -114,7 +114,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
 
 class SequenceRunner(base.Runner):
-    '''Run a scenario by changing an input value defined in a list
+    """Run a scenario by changing an input value defined in a list
 
   Parameters
     interval - time to wait between each scenario invocation
@@ -129,7 +129,7 @@ class SequenceRunner(base.Runner):
         type:    [int]
         unit:    na
         default: none
-    '''
+    """
 
     __execution_type__ = 'Sequence'
 

@@ -20,17 +20,17 @@ from yardstick.definitions import YARDSTICK_ROOT_PATH
 
 
 class Testcase(object):
-    '''Testcase commands.
+    """Testcase commands.
 
        Set of commands to discover and display test cases.
-    '''
+    """
 
     def __init__(self):
         self.test_case_path = YARDSTICK_ROOT_PATH + 'tests/opnfv/test_cases/'
         self.testcase_list = []
 
     def list_all(self, args):
-        '''List existing test cases'''
+        """List existing test cases"""
 
         try:
             testcase_files = os.listdir(self.test_case_path)
@@ -48,7 +48,7 @@ class Testcase(object):
         return True
 
     def show(self, args):
-        '''Show details of a specific test case'''
+        """Show details of a specific test case"""
         testcase_name = args.casename[0]
         testcase_path = self.test_case_path + testcase_name + ".yaml"
         try:
@@ -104,7 +104,7 @@ class Testcase(object):
         return description, installer_type, deploy_scenarios
 
     def _format_print(self, testcase_list):
-        '''format output'''
+        """format output"""
 
         print_hbar(88)
         print("| %-21s | %-60s" % ("Testcase Name", "Description"))

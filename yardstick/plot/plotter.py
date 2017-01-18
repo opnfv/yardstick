@@ -9,12 +9,12 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-''' yardstick-plot - a command line tool for visualizing results from the
+""" yardstick-plot - a command line tool for visualizing results from the
     output file of yardstick framework.
 
     Example invocation:
     $ yardstick-plot -i /tmp/yardstick.out -o /tmp/plots/
-'''
+"""
 
 from __future__ import absolute_import
 from __future__ import print_function
@@ -32,7 +32,7 @@ from six.moves import zip
 
 
 class Parser(object):
-    ''' Command-line argument and input file parser for yardstick-plot tool'''
+    """ Command-line argument and input file parser for yardstick-plot tool"""
 
     def __init__(self):
         self.data = {
@@ -45,7 +45,7 @@ class Parser(object):
         self.scenarios = {}
 
     def _get_parser(self):
-        '''get a command-line parser'''
+        """get a command-line parser"""
         parser = argparse.ArgumentParser(
             prog='yardstick-plot',
             description="A tool for visualizing results from yardstick. "
@@ -65,7 +65,7 @@ class Parser(object):
         return parser
 
     def _add_record(self, record):
-        '''add record to the relevant scenario'''
+        """add record to the relevant scenario"""
         if "runner_id" in record and "benchmark" not in record:
             obj_name = record["scenario_cfg"]["runner"]["object"]
             self.scenarios[record["runner_id"]] = obj_name
@@ -76,13 +76,13 @@ class Parser(object):
                 self.data[test_type].append(record)
 
     def parse_args(self):
-        '''parse command-line arguments'''
+        """parse command-line arguments"""
         parser = self._get_parser()
         self.args = parser.parse_args()
         return self.args
 
     def parse_input_file(self):
-        '''parse the input test results file'''
+        """parse the input test results file"""
         if self.args.input:
             input_file = self.args.input
         else:
@@ -101,7 +101,7 @@ class Parser(object):
 
 
 class Plotter(object):
-    '''Graph plotter for scenario-specific results from yardstick framework'''
+    """Graph plotter for scenario-specific results from yardstick framework"""
 
     def __init__(self, data, output_folder):
         self.data = data
@@ -110,7 +110,7 @@ class Plotter(object):
         self.colors = ['g', 'b', 'c', 'm', 'y']
 
     def plot(self):
-        '''plot the graph(s)'''
+        """plot the graph(s)"""
         for test_type in self.data.keys():
             if self.data[test_type]:
                 plt.figure(self.fig_counter)
@@ -122,7 +122,7 @@ class Plotter(object):
                 self._save_plot(test_type)
 
     def _save_plot(self, test_type):
-        '''save the graph to output folder'''
+        """save the graph to output folder"""
         timestr = time.strftime("%Y%m%d-%H%M%S")
         file_name = test_type + "_" + timestr + ".png"
         if not self.output_folder:
@@ -135,7 +135,7 @@ class Plotter(object):
         print(("Saved graph to " + new_file))
 
     def _plot_ping(self, records):
-        '''ping test result interpretation and visualization on the graph'''
+        """ping test result interpretation and visualization on the graph"""
         rtts = [r['benchmark']['data']['rtt'] for r in records]
         seqs = [r['benchmark']['sequence'] for r in records]
 
@@ -157,7 +157,7 @@ class Plotter(object):
         plt.ylabel("round trip time in milliseconds (rtt)")
 
     def _plot_pktgen(self, records):
-        '''pktgen test result interpretation and visualization on the graph'''
+        """pktgen test result interpretation and visualization on the graph"""
         flows = [r['benchmark']['data']['flows'] for r in records]
         sent = [r['benchmark']['data']['packets_sent'] for r in records]
         received = [int(r['benchmark']['data']['packets_received'])
@@ -183,7 +183,7 @@ class Plotter(object):
         plt.ylabel("lost packets per million packets (ppm)")
 
     def _plot_iperf3(self, records):
-        '''iperf3 test result interpretation and visualization on the graph'''
+        """iperf3 test result interpretation and visualization on the graph"""
         intervals = []
         for r in records:
             #  If did not fail the SLA
@@ -213,7 +213,7 @@ class Plotter(object):
         plt.ylabel("bandwidth in Kb/s")
 
     def _plot_fio(self, records):
-        '''fio test result interpretation and visualization on the graph'''
+        """fio test result interpretation and visualization on the graph"""
         rw_types = [r['sargs']['options']['rw'] for r in records]
         seqs = [x for x in range(1, len(records) + 1)]
         data = {}
@@ -277,8 +277,8 @@ class Plotter(object):
         plt.xticks(seqs, seqs)
 
     def _plot_fio_helper(self, data, seqs, key, bar_color, axl):
-        '''check if measurements exist for a key and then plot the
-           data to a given subplot'''
+        """check if measurements exist for a key and then plot the
+           data to a given subplot"""
         if key in data:
             if len(data[key]) == 1:
                 axl.bar(0.1, data[key], 0.35, color=bar_color)
@@ -287,7 +287,7 @@ class Plotter(object):
                 axl.plot(seqs, data[key], line_style)
 
     def _construct_legend(self, legend_texts, obj=plt):
-        '''construct legend for the plot or subplot'''
+        """construct legend for the plot or subplot"""
         ci = 0
         lines = []
 

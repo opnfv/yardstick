@@ -31,7 +31,7 @@ LOG = logging.getLogger(__name__)
 
 
 class HeatContext(Context):
-    '''Class that represents a context in the logical model'''
+    """Class that represents a context in the logical model"""
 
     __context_type__ = "Heat"
 
@@ -58,7 +58,7 @@ class HeatContext(Context):
         super(self.__class__, self).__init__()
 
     def init(self, attrs):
-        '''initializes itself from the supplied arguments'''
+        """initializes itself from the supplied arguments"""
         self.name = attrs["name"]
 
         if "user" in attrs:
@@ -101,21 +101,21 @@ class HeatContext(Context):
 
     @property
     def image(self):
-        '''returns application's default image name'''
+        """returns application's default image name"""
         return self._image
 
     @property
     def flavor(self):
-        '''returns application's default flavor name'''
+        """returns application's default flavor name"""
         return self._flavor
 
     @property
     def user(self):
-        '''return login user name corresponding to image'''
+        """return login user name corresponding to image"""
         return self._user
 
     def _add_resources_to_template(self, template):
-        '''add to the template the resources represented by this context'''
+        """add to the template the resources represented by this context"""
         template.add_keypair(self.keypair_name, self.key_uuid)
         template.add_security_group(self.secgroup_name)
 
@@ -200,7 +200,7 @@ class HeatContext(Context):
                 server.add_to_template(template, self.networks, {})
 
     def deploy(self):
-        '''deploys template into a stack using cloud'''
+        """deploys template into a stack using cloud"""
         print("Deploying context '%s'" % self.name)
 
         heat_template = HeatTemplate(self.name, self.template_file,
@@ -232,7 +232,7 @@ class HeatContext(Context):
         print("Context '%s' deployed" % self.name)
 
     def undeploy(self):
-        '''undeploys stack from cloud'''
+        """undeploys stack from cloud"""
         if self.stack:
             print("Undeploying context '%s'" % self.name)
             self.stack.delete()
@@ -247,10 +247,10 @@ class HeatContext(Context):
                 LOG.exception("Key filename %s", self.key_filename)
 
     def _get_server(self, attr_name):
-        '''lookup server info by name from context
+        """lookup server info by name from context
         attr_name: either a name for a server created by yardstick or a dict
         with attribute name mapping when using external heat templates
-        '''
+        """
         key_filename = pkg_resources.resource_filename(
             'yardstick.resources',
             'files/yardstick_key-' + get_short_key_uuid(self.key_uuid))

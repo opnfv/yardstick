@@ -36,10 +36,10 @@ CONF = cfg.CONF
 
 
 def _output_serializer_main(filename, queue):
-    '''entrypoint for the singleton subprocess writing to outfile
+    """entrypoint for the singleton subprocess writing to outfile
     Use of this process enables multiple instances of a scenario without
     messing up the output file.
-    '''
+    """
     config = {}
     config["type"] = CONF.dispatcher.capitalize()
     config["file_path"] = filename
@@ -56,7 +56,7 @@ def _output_serializer_main(filename, queue):
 
 
 def _execute_shell_command(command):
-    '''execute shell script with error handling'''
+    """execute shell script with error handling"""
     exitcode = 0
     output = []
     try:
@@ -71,7 +71,7 @@ def _execute_shell_command(command):
 
 
 def _single_action(seconds, command, queue):
-    '''entrypoint for the single action process'''
+    """entrypoint for the single action process"""
     log.debug("single action, fires after %d seconds (from now)", seconds)
     time.sleep(seconds)
     log.debug("single action: executing command: '%s'", command)
@@ -85,7 +85,7 @@ def _single_action(seconds, command, queue):
 
 
 def _periodic_action(interval, command, queue):
-    '''entrypoint for the periodic action process'''
+    """entrypoint for the periodic action process"""
     log.debug("periodic action, fires every: %d seconds", interval)
     time_spent = 0
     while True:
@@ -108,7 +108,7 @@ class Runner(object):
 
     @staticmethod
     def get_cls(runner_type):
-        '''return class of specified type'''
+        """return class of specified type"""
         for runner in utils.itersubclasses(Runner):
             if runner_type == runner.__execution_type__:
                 return runner
@@ -116,7 +116,7 @@ class Runner(object):
 
     @staticmethod
     def get_types():
-        '''return a list of known runner type (class) names'''
+        """return a list of known runner type (class) names"""
         types = []
         for runner in utils.itersubclasses(Runner):
             types.append(runner)
@@ -141,7 +141,7 @@ class Runner(object):
 
     @staticmethod
     def release_dump_process():
-        '''Release the dumper process'''
+        """Release the dumper process"""
         log.debug("Stopping dump process")
         if Runner.dump_process:
             Runner.queue.put('_TERMINATE_')
@@ -150,7 +150,7 @@ class Runner(object):
 
     @staticmethod
     def release(runner):
-        '''Release the runner'''
+        """Release the runner"""
         if runner in Runner.runners:
             Runner.runners.remove(runner)
 
@@ -160,13 +160,13 @@ class Runner(object):
 
     @staticmethod
     def terminate(runner):
-        '''Terminate the runner'''
+        """Terminate the runner"""
         if runner.process and runner.process.is_alive():
             runner.process.terminate()
 
     @staticmethod
     def terminate_all():
-        '''Terminate all runners (subprocesses)'''
+        """Terminate all runners (subprocesses)"""
         log.debug("Terminating all runners")
 
         # release dumper process as some errors before any runner is created
@@ -194,7 +194,7 @@ class Runner(object):
         Runner.runners.append(self)
 
     def run_post_stop_action(self):
-        '''run a potentially configured post-stop action'''
+        """run a potentially configured post-stop action"""
         if "post-stop-action" in self.config:
             command = self.config["post-stop-action"]["command"]
             log.debug("post stop action: command: '%s'", command)
@@ -250,7 +250,7 @@ class Runner(object):
         self._run_benchmark(cls, "run", scenario_cfg, context_cfg)
 
     def abort(self):
-        '''Abort the execution of a scenario'''
+        """Abort the execution of a scenario"""
         self.aborted.set()
 
     def join(self, timeout=None):

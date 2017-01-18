@@ -19,10 +19,10 @@ output_file_default = "/tmp/yardstick.out"
 
 
 class TaskCommands(object):
-    '''Task commands.
+    """Task commands.
 
        Set of commands to manage benchmark tasks.
-    '''
+    """
 
     @cliargs("inputfile", type=str, help="path to task or suite file", nargs=1)
     @cliargs("--task-args", dest="task_args",

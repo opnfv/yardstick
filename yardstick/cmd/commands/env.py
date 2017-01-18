@@ -20,10 +20,10 @@ from yardstick.common.httpClient import HttpClient
 
 
 class EnvCommand(object):
-    '''
+    """
 
         Set of commands to prepare environment
-    '''
+    """
 
     def do_influxdb(self, args):
         data = {'action': 'createInfluxDBContainer'}

@@ -18,11 +18,11 @@ import abc
 
 
 class BenchmarkBaseClass(object):
-    '''
+    """
     This class represents a Benchmark that we want to run on the platform.
     One of them will be the calculation of the throughput changing the
     configuration parameters
-    '''
+    """
 
     def __init__(self, name, params):
         if not params:

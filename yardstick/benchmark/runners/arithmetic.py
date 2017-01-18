@@ -16,13 +16,13 @@
 # yardstick comment: this is a modified copy of
 # rally/rally/benchmark/runners/constant.py
 
-'''A runner that every run arithmetically steps specified input value(s) to
+"""A runner that every run arithmetically steps specified input value(s) to
 the scenario. This just means step value(s) is added to the previous value(s).
 It is possible to combine several named input values and run with those either
 as nested for loops or combine each i:th index of each "input value list"
 until the end of the shortest list is reached (optimally all lists should be
 defined with the same number of values when using such iter_type).
-'''
+"""
 
 from __future__ import absolute_import
 
@@ -147,7 +147,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
 
 class ArithmeticRunner(base.Runner):
-    '''Run a scenario arithmetically stepping input value(s)
+    """Run a scenario arithmetically stepping input value(s)
 
   Parameters
     interval - time to wait between each scenario invocation
@@ -180,7 +180,7 @@ class ArithmeticRunner(base.Runner):
           default: none
     -
       name - and so on......
-    '''
+    """
 
     __execution_type__ = 'Arithmetic'
 

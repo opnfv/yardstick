@@ -22,7 +22,7 @@ LOG = logging.getLogger(__name__)
 
 
 class CACHEstat(base.Scenario):
-    '''Collect cache statistics.
+    """Collect cache statistics.
 
     This scenario reads system cache hit/miss ratio and other statistics on
     a Linux host.
@@ -58,7 +58,7 @@ class CACHEstat(base.Scenario):
     some error margin depending on unusual workload types.
 
     REQUIREMENTS: CONFIG_FUNCTION_PROFILER, awk.
-    '''
+    """
     __scenario_type__ = "CACHEstat"
 
     TARGET_SCRIPT = "cache_stat.bash"

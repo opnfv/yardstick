@@ -37,7 +37,7 @@ class PktgenDPDKLatency(base.Scenario):
         self.setup_done = False
 
     def setup(self):
-        '''scenario setup'''
+        """scenario setup"""
         self.pktgen_dpdk_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
             PktgenDPDKLatency.PKTGEN_DPDK_SCRIPT)

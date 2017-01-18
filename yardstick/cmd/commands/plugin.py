@@ -18,21 +18,21 @@ from yardstick.cmd.commands import change_osloobj_to_paras
 
 
 class PluginCommands(object):
-    '''Plugin commands.
+    """Plugin commands.
 
        Set of commands to manage plugins.
-    '''
+    """
 
     @cliargs("input_file", type=str, help="path to plugin configuration file",
              nargs=1)
     def do_install(self, args):
-        '''Install a plugin.'''
+        """Install a plugin."""
         param = change_osloobj_to_paras(args)
         Plugin().install(param)
 
     @cliargs("input_file", type=str, help="path to plugin configuration file",
              nargs=1)
     def do_remove(self, args):
-        '''Remove a plugin.'''
+        """Remove a plugin."""
         param = change_osloobj_to_paras(args)
         Plugin().remove(param)

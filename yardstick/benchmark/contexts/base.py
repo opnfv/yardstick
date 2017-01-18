@@ -15,7 +15,7 @@ import yardstick.common.utils as utils
 
 @six.add_metaclass(abc.ABCMeta)
 class Context(object):
-    '''Class that represents a context in the logical model'''
+    """Class that represents a context in the logical model"""
     list = []
 
     def __init__(self):
@@ -27,7 +27,7 @@ class Context(object):
 
     @staticmethod
     def get_cls(context_type):
-        '''Return class of specified type.'''
+        """Return class of specified type."""
         for context in utils.itersubclasses(Context):
             if context_type == context.__context_type__:
                 return context
@@ -41,23 +41,23 @@ class Context(object):
 
     @abc.abstractmethod
     def deploy(self):
-        '''Deploy context.'''
+        """Deploy context."""
 
     @abc.abstractmethod
     def undeploy(self):
-        '''Undeploy context.'''
+        """Undeploy context."""
 
     @abc.abstractmethod
     def _get_server(self, attr_name):
-        '''get server info by name from context
-        '''
+        """get server info by name from context
+        """
 
     @staticmethod
     def get_server(attr_name):
-        '''lookup server info by name from context
+        """lookup server info by name from context
         attr_name: either a name for a server created by yardstick or a dict
         with attribute name mapping when using external heat templates
-        '''
+        """
         server = None
         for context in Context.list:
             server = context._get_server(attr_name)

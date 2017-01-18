@@ -288,10 +288,10 @@ class TestDpdkPacketGenSendTraffic(unittest.TestCase):
                                       mock_dir_name,
                                       mock_os_path,
                                       mock_os_system):
-        '''
+        """
         Calls the packet generator and starts to send traffic
         Blocking call
-        '''
+        """
         mock_get_core_nics.return_value = "{corenics}"
         mock_os_path.realpath.return_value = 'pktgen_dir_test'
         mock_os_path.dirname.return_value = 'current_directory'

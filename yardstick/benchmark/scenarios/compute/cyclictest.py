@@ -141,7 +141,7 @@ class Cyclictest(base.Scenario):
                 self._connect_guest()
 
     def setup(self):
-        '''scenario setup'''
+        """scenario setup"""
         setup_options = self.scenario_cfg["setup_options"]
         host_setup_seqs = setup_options["host_setup_seqs"]
         guest_setup_seqs = setup_options["guest_setup_seqs"]
@@ -205,7 +205,7 @@ class Cyclictest(base.Scenario):
 
 
 def _test():    # pragma: no cover
-    '''internal test function'''
+    """internal test function"""
     key_filename = pkg_resources.resource_filename("yardstick.resources",
                                                    "files/yardstick_key")
     ctx = {
