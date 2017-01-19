@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_60ed0aef",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_trex.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-19T15:58:18Z",
+      "side": 1,
+      "message": "tc_file.read() is redundant.  yaml.load can read file itself.\n\n  tc_yaml \u003d yaml.load(tc_file)",
+      "revId": "d54215319426e8dae2b6ded790b4ab19f9b8adec",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_00bc46db",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_trex.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-19T15:58:18Z",
+      "side": 1,
+      "message": "can use enumerate instead of range(len(\n\n for vpci_idx, _ in enumerate(self.vcpi_ascending):",
+      "revId": "d54215319426e8dae2b6ded790b4ab19f9b8adec",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_a0ca126c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_trex.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-19T15:58:18Z",
+      "side": 1,
+      "message": "can we put disconnect in try/finally block so we guarantee disconnect\n\nEven better would be a context manager for self.client with __enter__ and __exit__ methods.\n\n\n try:\n    self.client \u003d self._connect_client()\n    ....\n\n finally:\n    self.client.disconnect()\n queue.put(samples)",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 32
+      },
+      "revId": "d54215319426e8dae2b6ded790b4ab19f9b8adec",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
