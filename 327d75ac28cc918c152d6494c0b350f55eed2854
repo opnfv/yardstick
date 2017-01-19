@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_60166af3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-19T15:24:17Z",
+      "side": 1,
+      "message": "please use tempfile.NamedTemporaryFile, we can then use delete\u003dTrue to auto-cleanup the local tmp file.\n\n\n    def _provide_config_file(self, prefix, template, args):\n        with NamedTemporaryFile(mode\u003d\"w\", delete\u003dTrue) as cfg:\n            cfg.write(template.format(**args))\n            cfg.flush()\n            cfg_file \u003d \"/tmp/%s\" % prefix\n            self.connection.put(cfg.name, cfg_file)\n            return cfg_file",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 23
+      },
+      "revId": "327d75ac28cc918c152d6494c0b350f55eed2854",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
