@@ -294,7 +294,8 @@ class TaskParser(object):       # pragma: no cover
             change_server_name(scenario, name_suffix)
 
             try:
-                change_server_name(scenario['nodes'], name_suffix)
+                for node in scenario['nodes']:
+                    scenario['nodes'][node] += name_suffix
             except KeyError:
                 pass
 
