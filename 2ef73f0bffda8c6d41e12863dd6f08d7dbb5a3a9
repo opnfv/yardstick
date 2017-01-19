@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_badec33d",
+        "filename": "tests/unit/network_services/traffic_profile/test_base.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-19T06:35:57Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure we can pass **kw to MagicMock to set attributes\n\n  _mock \u003d mock.MagicMock(**kw)",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 24
+      },
+      "revId": "2ef73f0bffda8c6d41e12863dd6f08d7dbb5a3a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
