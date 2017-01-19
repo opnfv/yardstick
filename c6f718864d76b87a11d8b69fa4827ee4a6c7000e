@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_60ff4aab",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-19T15:06:17Z",
+      "side": 1,
+      "message": "please use literals\n\n  jsonutils.dump_as_bytes({\u0027status\u0027: 0, \u0027result\u0027: []})",
+      "revId": "c6f718864d76b87a11d8b69fa4827ee4a6c7000e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_002e8643",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-19T15:06:17Z",
+      "side": 1,
+      "message": "don\u0027t we want to open the file with mode append here?  otherwise we will clobber the file each time?",
+      "revId": "c6f718864d76b87a11d8b69fa4827ee4a6c7000e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_a0f532cc",
+        "filename": "yardstick/dispatcher/file.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-19T15:06:17Z",
+      "side": 1,
+      "message": "please use literals\n\n self.result \u003d []",
+      "revId": "c6f718864d76b87a11d8b69fa4827ee4a6c7000e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_40048ebf",
+        "filename": "yardstick/dispatcher/file.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-19T15:06:17Z",
+      "side": 1,
+      "message": "please use literals\n \n  results \u003d {\u0027status\u0027: 1, \u0027result\u0027: self.result}",
+      "revId": "c6f718864d76b87a11d8b69fa4827ee4a6c7000e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
