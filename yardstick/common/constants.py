@@ -55,3 +55,5 @@ OPENSTACK_RC_FILE = join(YARDSTICK_CONFIG_DIR, 'openstack.creds')
 BASE_URL = 'http://localhost:5000'
 ENV_ACTION_API = BASE_URL + '/yardstick/env/action'
 ASYNC_TASK_API = BASE_URL + '/yardstick/asynctask'
+
+SQLITE = 'sqlite:////tmp/yardstick.db'

@@ -13,10 +13,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
+from yardstick.common import constants as consts
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-engine = create_engine('sqlite:////tmp/yardstick.db', convert_unicode=True)
+engine = create_engine(consts.SQLITE, convert_unicode=True)
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
