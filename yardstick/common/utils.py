@@ -30,6 +30,7 @@ from keystoneauth1 import identity
 from keystoneauth1 import session
 from neutronclient.v2_0 import client
 from oslo_utils import importutils
+from oslo_serialization import jsonutils
 
 import yardstick
 
@@ -145,3 +146,12 @@ def get_neutron_client():
     sess = get_openstack_session()
     neutron_client = client.Client(session=sess)
     return neutron_client
+
+
+def write_json_to_file(path, data, mode='w'):
+    write_file(path, jsonutils.dump_as_bytes(data), mode)
+
+
+def write_file(path, data, mode='w'):
+    with open(path, mode) as f:
+        f.write(data)
