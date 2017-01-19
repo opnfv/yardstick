@@ -8,10 +8,11 @@
 ##############################################################################
 
 from __future__ import absolute_import
-import sys
-import os
-import yaml
 import logging
+import errno
+import os
+import collections
+import yaml
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.definitions import YARDSTICK_ROOT_PATH
@@ -33,20 +34,28 @@ class NodeContext(Context):
         self.baremetals = []
         super(self.__class__, self).__init__()
 
+    def read_config_file(self):
+        """Read from config file"""
+
+        with open(self.file_path) as stream:
+            LOG.info("Parsing pod file: %s", self.file_path)
+            cfg = yaml.load(stream)
+        return cfg
+
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
         self.name = attrs["name"]
         self.file_path = attrs.get("file", "pod.yaml")
-        if not os.path.exists(self.file_path):
-            self.file_path = os.path.join(YARDSTICK_ROOT_PATH, self.file_path)
-
-        LOG.info("Parsing pod file: %s", self.file_path)
 
         try:
-            with open(self.file_path) as stream:
-                cfg = yaml.load(stream)
+            cfg = self.read_config_file()
         except IOError as ioerror:
-            sys.exit(ioerror)
+            if ioerror.errno == errno.ENOENT:
+                self.file_path = \
+                    os.path.join(YARDSTICK_ROOT_PATH, self.file_path)
+                cfg = self.read_config_file()
+            else:
+                raise
 
         self.nodes.extend(cfg["nodes"])
         self.controllers.extend([node for node in cfg["nodes"]
@@ -72,23 +81,28 @@ class NodeContext(Context):
         """lookup server info by name from context
         attr_name: a name for a server listed in nodes config file
         """
-        if type(attr_name) is dict:
+        if isinstance(attr_name, collections.Mapping):
             return None
 
         if self.name != attr_name.split(".")[1]:
             return None
         node_name = attr_name.split(".")[0]
-        nodes = [n for n in self.nodes
-                 if n["name"] == node_name]
-        if len(nodes) == 0:
-            return None
-        elif len(nodes) > 1:
-            LOG.error("Duplicate nodes!!!")
-            LOG.error("Nodes: %r", nodes)
-            sys.exit(-1)
+        matching_nodes = (n for n in self.nodes if n["name"] == node_name)
 
-        # A clone is created in order to avoid affecting the
-        # original one.
-        node = dict(nodes[0])
+        try:
+            # A clone is created in order to avoid affecting the
+            # original one.
+            node = dict(next(matching_nodes))
+        except StopIteration:
+            return None
+
+        try:
+            duplicate = next(matching_nodes)
+        except StopIteration:
+            pass
+        else:
+            raise ValueError("Duplicate nodes!!! Nodes: %s %s",
+                             (matching_nodes, duplicate))
+
         node["name"] = attr_name
         return node

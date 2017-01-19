@@ -42,7 +42,7 @@ class NodeContextTestCase(unittest.TestCase):
             'file': self._get_file_abspath("error_file")
         }
 
-        self.assertRaises(SystemExit, self.test_context.init, attrs)
+        self.assertRaises(IOError, self.test_context.init, attrs)
 
     def test_successful_init(self):
 
@@ -100,7 +100,7 @@ class NodeContextTestCase(unittest.TestCase):
 
         attr_name = 'node1.foo'
 
-        self.assertRaises(SystemExit, self.test_context._get_server, attr_name)
+        self.assertRaises(ValueError, self.test_context._get_server, attr_name)
 
     def test__get_server_found(self):
 
