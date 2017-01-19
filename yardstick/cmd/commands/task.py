@@ -1,4 +1,4 @@
-##############################################################################
+#############################################################################
 # Copyright (c) 2015 Ericsson AB and others.
 #
 # All rights reserved. This program and the accompanying materials
@@ -9,10 +9,13 @@
 
 """ Handler for yardstick command 'task' """
 from __future__ import print_function
-
 from __future__ import absolute_import
+
+from oslo_serialization import jsonutils
+
 from yardstick.benchmark.core.task import Task
 from yardstick.common.utils import cliargs
+from yardstick.common import constants as consts
 from yardstick.cmd.commands import change_osloobj_to_paras
 
 output_file_default = "/tmp/yardstick.out"
@@ -42,4 +45,18 @@ class TaskCommands(object):
              action="store_true")
     def do_start(self, args, **kwargs):
         param = change_osloobj_to_paras(args)
-        Task().start(param)
+
+        self._init_result_file()
+
+        try:
+            Task().start(param)
+        except Exception as e:
+            self._write_error_data(e)
+
+    def _init_result_file(self):
+        with open(consts.DEFAULT_OUTPUT_FILE, 'w') as f:
+            f.write(jsonutils.dump_as_bytes(dict(status=0, result=[])))
+
+    def _write_error_data(self, error):
+        with open(consts.DEFAULT_OUTPUT_FILE, 'w') as f:
+            f.write(jsonutils.dump_as_bytes(dict(status=2, result=str(error))))

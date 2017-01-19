@@ -66,8 +66,6 @@ class Task(object):     # pragma: no cover
         if args.parse_only:
             sys.exit(0)
 
-        if os.path.isfile(args.output_file):
-            os.remove(args.output_file)
         # parse task_files
         for i in range(0, len(task_files)):
             one_task_start_time = time.time()
