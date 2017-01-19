@@ -18,28 +18,9 @@
 
 from __future__ import absolute_import
 
-import logging
-import logging.handlers
-
-from oslo_serialization import jsonutils
-from oslo_config import cfg
-
 from yardstick.dispatcher.base import Base as DispatchBase
-
-CONF = cfg.CONF
-OPTS = [
-    cfg.StrOpt('file_path',
-               default='/tmp/yardstick.out',
-               help='Name and the location of the file to record '
-                    'data.'),
-    cfg.IntOpt('max_bytes',
-               default=0,
-               help='The max size of the file.'),
-    cfg.IntOpt('backup_count',
-               default=0,
-               help='The max number of the files to keep.'),
-]
-CONF.register_opts(OPTS, group="dispatcher_file")
+from yardstick.common import constants as consts
+from yardstick.common import utils
 
 
 class FileDispatcher(DispatchBase):
@@ -50,29 +31,13 @@ class FileDispatcher(DispatchBase):
 
     def __init__(self, conf):
         super(FileDispatcher, self).__init__(conf)
-        self.log = None
-
-        # if the directory and path are configured, then log to the file
-        if CONF.dispatcher_file.file_path:
-            dispatcher_logger = logging.Logger('dispatcher.file')
-            dispatcher_logger.setLevel(logging.INFO)
-            # create rotating file handler which logs result
-            rfh = logging.handlers.RotatingFileHandler(
-                self.conf.get('file_path', CONF.dispatcher_file.file_path),
-                maxBytes=CONF.dispatcher_file.max_bytes,
-                backupCount=CONF.dispatcher_file.backup_count,
-                encoding='utf8')
-
-            rfh.setLevel(logging.INFO)
-            # Only wanted the data to be saved in the file, not the
-            # project root logger.
-            dispatcher_logger.propagate = False
-            dispatcher_logger.addHandler(rfh)
-            self.log = dispatcher_logger
+        self.result = []
 
     def record_result_data(self, data):
-        if self.log:
-            self.log.info(jsonutils.dump_as_bytes(data))
+        self.result.append(data)
 
     def flush_result_data(self):
-        pass
+        file_path = self.conf.get('file_path', consts.DEFAULT_OUTPUT_FILE)
+
+        data = {'status': 1, 'result': self.result}
+        utils.write_json_to_file(file_path, data)
