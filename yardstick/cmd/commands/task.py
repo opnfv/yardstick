@@ -42,4 +42,4 @@ class TaskCommands(object):
              action="store_true")
     def do_start(self, args, **kwargs):
         param = change_osloobj_to_paras(args)
-        Task().start(param)
+        Task().start(param, **kwargs)
