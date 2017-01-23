@@ -59,3 +59,5 @@ ENV_ACTION_API = BASE_URL + '/yardstick/env/action'
 ASYNC_TASK_API = BASE_URL + '/yardstick/asynctask'
 
 SQLITE = 'sqlite:////tmp/yardstick.db'
+
+DEFAULT_OUTPUT_FILE = '/tmp/yardstick.out'
