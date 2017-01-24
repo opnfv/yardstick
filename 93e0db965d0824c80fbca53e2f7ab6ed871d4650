@@ -51,6 +51,24 @@
       "revId": "93e0db965d0824c80fbca53e2f7ab6ed871d4650",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_b63fb7d5",
+        "filename": "yardstick/common/constants.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-24T18:46:09Z",
+      "side": 1,
+      "message": "In theory to be proper we should use tempfile.gettempdir() instead of hardcoding \u0027/tmp\u0027.   gettempdir() searches TEMPDIR, TEMP, and TMP environ vars in case the user re-defined temp location.",
+      "parentUuid": "5ac10518_3558bd31",
+      "revId": "93e0db965d0824c80fbca53e2f7ab6ed871d4650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
