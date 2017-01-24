@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5ac10518_f6353ff7",
+        "filename": "yardstick/__init__.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-24T18:42:55Z",
+      "side": 1,
+      "message": "This looks okay, I\u0027m not sure how we handle multiple yardstick instances running at the same time.\n\nIn theory FileHandler should open the file in append mode, so if multiple yardsticks are run they should all append to the same file.\n\nIn theory we would want a unique file her invocation, but I\u0027m not sure how we find the logfile name if it is unique.",
+      "revId": "93e0db965d0824c80fbca53e2f7ab6ed871d4650",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_3f5bbc88",
         "filename": "yardstick/common/constants.py",
         "patchSetId": 1
