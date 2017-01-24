@@ -48,7 +48,7 @@ class TaskCommands(object):
         self._init_result_file()
 
         try:
-            Task().start(param)
+            Task().start(param, **kwargs)
         except Exception as e:
             self._write_error_data(e)
 

@@ -1,0 +1,25 @@
+---
+
+schema: "yardstick:task:0.1"
+{% set image = image or "cirros-0.3.3" %}
+scenarios:
+-
+  type: Cjk
+  host: kklt.cjk
+
+  runner:
+    type: Duration
+
+context:
+  name: cjk
+  image: {{image}}
+  flavor: yardstick-flavor
+  user: cirros
+
+  servers:
+    kklt:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
