@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_f61c5f79",
+        "filename": "api/resources/testsuites_action.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-24T18:52:52Z",
+      "side": 1,
+      "message": "why remove last 5 characters?  please add comment or convert to function with meaningful name.\n\nare you removing .yaml?  can we do os.path.splitext()[0] ?",
+      "revId": "c31c465b1882c0f658a39f63492c016464bac7cd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_d6192389",
+        "filename": "api/resources/testsuites_action.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-24T18:52:52Z",
+      "side": 1,
+      "message": "close file as soon as the contents are read into memory.\n\nplease de-indent these lines and move them outside of context manager, so they execute after the file is closed.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 34
+      },
+      "revId": "c31c465b1882c0f658a39f63492c016464bac7cd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
