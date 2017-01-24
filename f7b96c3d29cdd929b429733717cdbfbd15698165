@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_5942443f",
+        "filename": "api/server.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-01-24T20:59:32Z",
+      "side": 1,
+      "message": "I don\u0027t like this, but I don\u0027t know how uwsgi and flask implement startup hooks, so this is okay for now, but is not the correct fix.\n\nIt is improper to init resources like this during import time.\n\nThis http://stackoverflow.com/a/23035786  shows an example that uses app.before_first_request, but I don\u0027t think that will work for us, since it is too late.\n\n @app.before_first_request\n def _run_on_start(a_string):\n     print \"doing something important with %s\" % a_string",
+      "revId": "f7b96c3d29cdd929b429733717cdbfbd15698165",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
