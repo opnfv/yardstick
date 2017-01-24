@@ -10,7 +10,6 @@ from __future__ import absolute_import
 
 import inspect
 import logging
-from functools import reduce
 from six.moves import filter
 
 from flasgger import Swagger
@@ -38,6 +37,10 @@ def shutdown_session(exception=None):
     db_session.remove()
 
 
+for u in urlpatterns:
+    api.add_resource(u.resource, u.url, endpoint=u.endpoint)
+
+
 def init_db():
     def func(a):
         try:
@@ -52,8 +55,10 @@ def init_db():
     Base.metadata.create_all(bind=engine)
 
 
-reduce(lambda a, b: a.add_resource(b.resource, b.url,
-                                   endpoint=b.endpoint) or a, urlpatterns, api)
+def app_wrapper(*args, **kwargs):
+    init_db()
+    return app(*args, **kwargs)
+
 
 if __name__ == '__main__':
     _init_logging()
