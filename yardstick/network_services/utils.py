@@ -53,7 +53,7 @@ def provision_tool(connection, tool_path):
     bin_path = get_nsb_option("bin_path")
     exit_status, stdout = connection.execute("which %s" % tool_path)[:2]
     if exit_status == 0:
-        return encodeutils.safe_encode(stdout, incoming='utf-8').rstrip()
+        return encodeutils.safe_decode(stdout, incoming='utf-8').rstrip()
 
     logging.warning("%s not found on %s, will try to copy from localhost",
                     tool_path, connection.host)
