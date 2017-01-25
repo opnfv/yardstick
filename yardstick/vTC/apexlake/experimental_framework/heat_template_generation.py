@@ -18,9 +18,11 @@ Generation of the heat templates from the base template
 """
 
 from __future__ import absolute_import
-import json
 import os
 import shutil
+
+from oslo_serialization import jsonutils
+
 from experimental_framework import common
 from experimental_framework.constants import framework_parameters as fp
 
@@ -193,7 +195,7 @@ def generates_templates(base_heat_template, deployment_configuration):
         new_template += "_" + str(counter) + template_file_extension
         shutil.copy(base_template, new_template)
 
-        metadata = dict()
+        metadata = {}
         for var in heat_template_vars:
             if var.get_variable_name():
                 common.replace_in_file(new_template, "#" +
@@ -203,7 +205,8 @@ def generates_templates(base_heat_template, deployment_configuration):
 
         # Save the metadata on a JSON file
         with open(new_template + ".json", 'w') as outfile:
-            json.dump(metadata, outfile)
+            # sort keys to maintain persistent order for git
+            jsonutils.dump(metadata, outfile, sort_keys=True)
 
         common.LOG.debug("Heat Templates and Metadata file " + str(counter) +
                          " created")
@@ -222,7 +225,7 @@ def get_all_heat_templates(template_dir, template_file_extension):
             (type: str)
     :return: type: list
     """
-    template_files = list()
+    template_files = []
     for dirname, dirnames, filenames in os.walk(template_dir):
         for filename in filenames:
             if template_file_extension in filename and \
