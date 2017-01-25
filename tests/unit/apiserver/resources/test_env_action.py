@@ -10,7 +10,7 @@ class EnvTestCase(APITestCase):
 
     def test_create_grafana(self):
         url = 'yardstick/env/action'
-        data = dict(action='createGrafanaContainer')
+        data = {'action': 'createGrafanaContainer'}
         resp = self._post(url, data)
 
         time.sleep(1)
