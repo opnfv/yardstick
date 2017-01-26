@@ -33,6 +33,6 @@ class Param(object):
 
 def print_hbar(barlen):
     """print to stdout a horizontal bar"""
-    print("+"),
-    print("-" * barlen),
+    print("+")
+    print("-" * barlen)
     print("+")

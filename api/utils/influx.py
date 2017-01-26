@@ -24,7 +24,7 @@ def get_data_db_client():
     try:
         parser.read(conf.OUTPUT_CONFIG_FILE_PATH)
 
-        if 'influxdb' != parser.get('DEFAULT', 'dispatcher'):
+        if parser.get('DEFAULT', 'dispatcher') != 'influxdb':
             raise RuntimeError
 
         return _get_client(parser)
