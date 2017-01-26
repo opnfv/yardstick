@@ -18,9 +18,11 @@
 # Unittest for yardstick.benchmark.scenarios.networking.test_vnf_generic
 
 from __future__ import absolute_import
-import unittest
-import mock
+
 import os
+import unittest
+
+import mock
 
 from yardstick.benchmark.scenarios.networking.vnf_generic import \
     ssh_manager, NetworkServiceTestCase, IncorrectConfig, IncorrectSetup
@@ -104,14 +106,14 @@ lrwxrwxrwx 1 root root 0 sie  3 10:37 eth2 -> """
 """
 
 TRAFFIC_PROFILE = {
-        "schema": "isb:traffic_profile:0.1",
-        "name": "fixed",
-        "description": "Fixed traffic profile to run UDP traffic",
-        "traffic_profile": {
-            "traffic_type": "FixedTraffic",
-            "frame_rate": 100,  # pps
-            "flow_number": 10,
-            "frame_size": 64}}
+    "schema": "isb:traffic_profile:0.1",
+    "name": "fixed",
+    "description": "Fixed traffic profile to run UDP traffic",
+    "traffic_profile": {
+        "traffic_type": "FixedTraffic",
+        "frame_rate": 100,  # pps
+        "flow_number": 10,
+        "frame_size": 64}}
 
 
 class TestNetworkServiceTestCase(unittest.TestCase):
@@ -176,60 +178,72 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                                'if': 'xe1'}],
                              'password': 'r00t'}}}
 
-        self.topology = \
-            {'short-name': 'trex-tg-topology',
-             'constituent-vnfd':
-             [{'member-vnf-index': '1',
-               'VNF model': 'tg_trex_tpl.yaml',
-               'vnfd-id-ref': 'trexgen__1'},
-              {'member-vnf-index': '2',
-               'VNF model': 'tg_trex_tpl.yaml',
-               'vnfd-id-ref': 'trexvnf__1'}],
-             'description': 'trex-tg-topology',
-             'name': 'trex-tg-topology',
-             'vld': [{'vnfd-connection-point-ref': [
-                 {'vnfd-connection-point-ref': 'xe0',
-                  'member-vnf-index-ref': '1',
-                  'vnfd-id-ref': 'trexgen'},
-                 {'vnfd-connection-point-ref': 'xe0',
-                  'member-vnf-index-ref': '2',
-                  'vnfd-id-ref': 'trexgen'}],
-                      'type': 'ELAN',
-                      'id': 'private',
-                      'name': 'trexgen__1 to trexvnf__1 link 1'},
-                     {'vnfd-connection-point-ref': [
-                         {'vnfd-connection-point-ref': 'xe1',
-                          'member-vnf-index-ref': '1',
-                          'vnfd-id-ref': 'trexgen'},
-                         {'vnfd-connection-point-ref': 'xe1',
-                          'member-vnf-index-ref': '2',
-                          'vnfd-id-ref': 'trexgen'}],
-                      'type': 'ELAN',
-                      'id': 'public',
-                      'name': 'trexvnf__1 to trexgen__1 link 2'}],
-             'id': 'trex-tg-topology'}
+        self.topology = {
+            'short-name': 'trex-tg-topology',
+            'constituent-vnfd':
+                [{'member-vnf-index': '1',
+                  'VNF model': 'tg_trex_tpl.yaml',
+                  'vnfd-id-ref': 'trexgen__1'},
+                 {'member-vnf-index': '2',
+                  'VNF model': 'tg_trex_tpl.yaml',
+                  'vnfd-id-ref': 'trexvnf__1'}],
+            'description': 'trex-tg-topology',
+            'name': 'trex-tg-topology',
+            'vld': [
+                {
+                    'vnfd-connection-point-ref': [
+                        {
+                            'vnfd-connection-point-ref': 'xe0',
+                            'member-vnf-index-ref': '1',
+                            'vnfd-id-ref': 'trexgen'
+                        },
+                        {
+                            'vnfd-connection-point-ref': 'xe0',
+                            'member-vnf-index-ref': '2',
+                            'vnfd-id-ref': 'trexgen'
+                        }
+                    ],
+                    'type': 'ELAN',
+                    'id': 'private',
+                    'name': 'trexgen__1 to trexvnf__1 link 1'
+                },
+                {
+                    'vnfd-connection-point-ref': [
+                        {
+                            'vnfd-connection-point-ref': 'xe1',
+                            'member-vnf-index-ref': '1',
+                            'vnfd-id-ref': 'trexgen'
+                        },
+                        {
+                            'vnfd-connection-point-ref': 'xe1',
+                            'member-vnf-index-ref': '2',
+                            'vnfd-id-ref': 'trexgen'
+                        }
+                    ],
+                    'type': 'ELAN',
+                    'id': 'public',
+                    'name': 'trexvnf__1 to trexgen__1 link 2'
+                }],
+            'id': 'trex-tg-topology',
+        }
 
-        self.scenario_cfg = {'tc_options':
-                             {'rfc2544': {'allowed_drop_rate': '0.8 - 1'}},
-                             'task_id': 'a70bdf4a-8e67-47a3-9dc1-273c14506eb7',
-                             'tc': 'tc_ipv4_1Mflow_64B_packetsize',
-                             'runner': {'object': 'NetworkServiceTestCase',
-                                        'interval': 35,
-                                        'output_filename': 'yardstick.out',
-                                        'runner_id': 74476,
-                                        'duration': 400, 'type': 'Duration'},
-                             'traffic_profile': 'ipv4_throughput_vpe.yaml',
-                             'traffic_options':
-                             {'flow': 'ipv4_1flow_Packets_vpe.yaml',
-                              'imix': 'imix_voice.yaml'},
-                             'type': 'ISB',
-                             'nodes': {'tg__2': 'trafficgen_2.yardstick',
-                                       'tg__1': 'trafficgen_1.yardstick',
-                                       'vnf__1': 'vnf.yardstick'},
-                             'topology': 'vpe_vnf_topology.yaml'}
+        self.scenario_cfg = {
+            'tc_options': {'rfc2544': {'allowed_drop_rate': '0.8 - 1'}},
+            'task_id': 'a70bdf4a-8e67-47a3-9dc1-273c14506eb7',
+            'tc': 'tc_ipv4_1Mflow_64B_packetsize',
+            'runner': {'object': 'NetworkServiceTestCase',
+                       'interval': 35,
+                       'output_filename': 'yardstick.out',
+                       'runner_id': 74476,
+                       'duration': 400, 'type': 'Duration'},
+            'traffic_profile': 'ipv4_throughput_vpe.yaml',
+            'traffic_options': {'flow': 'ipv4_1flow_Packets_vpe.yaml',
+                                'imix': 'imix_voice.yaml'}, 'type': 'ISB',
+            'nodes': {'tg__2': 'trafficgen_2.yardstick',
+                      'tg__1': 'trafficgen_1.yardstick',
+                      'vnf__1': 'vnf.yardstick'},
+            "topology": self._get_file_abspath("vpe_vnf_topology.yaml")}
 
-        self.scenario_cfg["topology"] = \
-            self._get_file_abspath("vpe_vnf_topology.yaml")
         self.s = NetworkServiceTestCase(self.scenario_cfg, self.context_cfg)
 
     def _get_file_abspath(self, filename):
@@ -241,7 +255,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
-                mock.Mock(return_value=(0, SYS_CLASS_NET+IP_ADDR_SHOW, ""))
+                mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.return_value = ssh_mock
             for node, node_dict in self.context_cfg["nodes"].items():
                 with ssh_manager(node_dict) as conn:
@@ -281,7 +295,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
-                mock.Mock(return_value=(0, SYS_CLASS_NET+IP_ADDR_SHOW, ""))
+                mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.return_value = ssh_mock
             self.s.map_topology_to_infrastructure(self.context_cfg,
                                                   self.topology)
@@ -295,7 +309,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
-                mock.Mock(return_value=(1, SYS_CLASS_NET+IP_ADDR_SHOW, ""))
+                mock.Mock(return_value=(1, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.return_value = ssh_mock
 
             self.assertRaises(IncorrectSetup,
@@ -303,12 +317,12 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                               self.context_cfg, self.topology)
 
     def test_map_topology_to_infrastructure_config_invalid(self):
-        del self.context_cfg\
-            ['nodes']['trexvnf__1']['interfaces']['xe0']['local_mac']
+        cfg = dict(self.context_cfg)
+        del cfg['nodes']['trexvnf__1']['interfaces']['xe0']['local_mac']
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
-                mock.Mock(return_value=(0, SYS_CLASS_NET+IP_ADDR_SHOW, ""))
+                mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.return_value = ssh_mock
 
             self.assertRaises(IncorrectConfig,
@@ -319,7 +333,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
-                mock.Mock(return_value=(0, SYS_CLASS_NET+IP_ADDR_SHOW, ""))
+                mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.return_value = ssh_mock
 
             del self.context_cfg['nodes']
@@ -352,7 +366,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
-                mock.Mock(return_value=(0, SYS_CLASS_NET+IP_ADDR_SHOW, ""))
+                mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.return_value = ssh_mock
 
             tgen = mock.Mock(autospec=GenericTrafficGen)
@@ -382,11 +396,15 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                                                          self.context_cfg))
 
     def test__get_traffic_profile_exception(self):
-        self.assertRaises(IOError, self.s._get_traffic_profile,
-                          self.scenario_cfg, self.context_cfg)
+        cfg = dict(self.scenario_cfg)
+        cfg["traffic_profile"] = ""
+        self.assertRaises(IOError, self.s._get_traffic_profile, cfg,
+                          self.context_cfg)
 
     def test___get_traffic_imix_exception(self):
-        self.assertEqual({}, self.s._get_traffic_imix(self.scenario_cfg))
+        cfg = dict(self.scenario_cfg)
+        cfg["traffic_options"]["imix"] = ""
+        self.assertEqual({}, self.s._get_traffic_imix(cfg))
 
     def test__fill_traffic_profile(self):
         self.scenario_cfg["traffic_profile"] = \
