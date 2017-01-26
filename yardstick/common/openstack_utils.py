@@ -65,7 +65,7 @@ def get_credentials():
         creds.update({"insecure": "True", "https_insecure": "True"})
         if not os.path.isfile(cacert):
             log.info("WARNING: The 'OS_CACERT' environment variable is set\
-                      to %s but the file does not exist." % cacert)
+                      to %s but the file does not exist.", cacert)
 
     return creds
 
