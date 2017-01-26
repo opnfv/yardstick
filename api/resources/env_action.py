@@ -248,7 +248,7 @@ def _get_remote_rc_file(rc_file, installer_ip, installer_type):
         cmd = [os_fetch_script, '-d', rc_file, '-i', installer_type,
                '-a', installer_ip]
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-        p.communicate()[0]
+        p.communicate()
 
         if p.returncode != 0:
             logger.debug('Failed to fetch credentials from installer')
