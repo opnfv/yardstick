@@ -81,7 +81,7 @@ def create_floating_ips(neutron_client):  # pragma: no cover
     ips = []
     props = {'floating_network_id': extnet_id}
     try:
-        while (len(ips) < 2):
+        while len(ips) < 2:
             ip_json = neutron_client.create_floatingip({'floatingip': props})
             fip_addr = ip_json['floatingip']['floating_ip_address']
             ips.append(fip_addr)
