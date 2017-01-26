@@ -79,15 +79,14 @@ class InfluxdbDispatcher(DispatchBase):
     def _dict_key_flatten(self, data):
         next_data = {}
 
-        if not [v for v in data.values()
-                if type(v) == dict or type(v) == list]:
+        if not [v for v in data.values() if isinstance(v, (dict, list))]:
             return data
 
         for k, v in six.iteritems(data):
-            if type(v) == dict:
+            if isinstance(v, dict):
                 for n_k, n_v in six.iteritems(v):
                     next_data["%s.%s" % (k, n_k)] = n_v
-            elif type(v) == list:
+            elif isinstance(v, list):
                 for index, item in enumerate(v):
                     next_data["%s%d" % (k, index)] = item
             else:
