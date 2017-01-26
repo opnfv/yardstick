@@ -15,18 +15,21 @@
 
 from __future__ import absolute_import
 import logging
+import os
 
 from oslo_config import cfg
 from oslo_config.cfg import NoSuchOptError
 from oslo_utils import encodeutils
 
+NSB_ROOT = "/opt/nsb_bin"
+
 CONF = cfg.CONF
 OPTS = [
     cfg.StrOpt('bin_path',
-               default='/opt/nsb_bin',
+               default=NSB_ROOT,
                help='bin_path for VNFs location.'),
     cfg.StrOpt('trex_path',
-               default='/opt/nsb_bin/trex/scripts',
+               default=os.path.join(NSB_ROOT, 'trex/scripts'),
                help='trex automation lib pathh.'),
 ]
 CONF.register_opts(OPTS, group="nsb")
@@ -39,8 +42,7 @@ def get_nsb_option(option, default=None):
         return CONF.nsb.__getitem__(option)
     except NoSuchOptError:
         logging.debug("Invalid key %s", option)
-    else:
-        return default
+    return default
 
 
 def provision_tool(connection, tool_path):
