@@ -9,16 +9,18 @@
 
 """ Handler for yardstick command 'plugin' """
 
-from __future__ import print_function
 from __future__ import absolute_import
+from __future__ import print_function
+
+import logging
 import os
 import sys
-import yaml
 import time
-import logging
-import pkg_resources
-import yardstick.ssh as ssh
 
+import pkg_resources
+import yaml
+
+import yardstick.ssh as ssh
 from yardstick.common.task_template import TaskTemplate
 
 LOG = logging.getLogger(__name__)
