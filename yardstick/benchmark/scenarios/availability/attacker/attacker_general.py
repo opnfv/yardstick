@@ -62,11 +62,11 @@ class GeneralAttacker(BaseAttacker):
             self.fault_cfg['recovery_script'])
 
     def inject_fault(self):
-        LOG.debug("{0} starting inject!".format(self.key))
-        LOG.debug("the inject_script path:{0}".format(self.inject_script))
+        LOG.debug("%s starting inject!", self.key)
+        LOG.debug("the inject_script path:%s", self.inject_script)
 
         if "action_parameter" in self._config:
-            LOG.debug("the shell command is: {0}".format(self.action_param))
+            LOG.debug("the shell command is: %s", self.action_param)
             with open(self.inject_script, "r") as stdin_file:
                 exit_status, stdout, stderr = self.connection.execute(
                     self.action_param,
@@ -88,7 +88,7 @@ class GeneralAttacker(BaseAttacker):
 
     def recover(self):
         if "rollback_parameter" in self._config:
-            LOG.debug("the shell command is: {0}".format(self.rollback_param))
+            LOG.debug("the shell command is: %s", self.rollback_param)
             with open(self.recovery_script, "r") as stdin_file:
                 exit_status, stdout, stderr = self.connection.execute(
                     self.rollback_param,

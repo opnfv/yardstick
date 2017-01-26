@@ -164,7 +164,7 @@ class InfluxdbDispatcher(DispatchBase):
                                 timeout=self.timeout)
             if res.status_code != 204:
                 LOG.error('Test result posting finished with status code'
-                          ' %d.' % res.status_code)
+                          ' %d.', res.status_code)
                 LOG.error(res.text)
 
         except Exception as err:
