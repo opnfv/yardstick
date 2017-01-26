@@ -13,6 +13,7 @@ import logging
 import os
 import time
 
+import collections
 import requests
 import six
 from oslo_config import cfg
@@ -79,15 +80,16 @@ class InfluxdbDispatcher(DispatchBase):
     def _dict_key_flatten(self, data):
         next_data = {}
 
-        if not [v for v in data.values()
-                if type(v) == dict or type(v) == list]:
+        # use list, because iterable is too generic
+        if not [v for v in data.values() if isinstance(v, (dict, list))]:
             return data
 
         for k, v in six.iteritems(data):
-            if type(v) == dict:
+            if isinstance(v, collections.Mapping):
                 for n_k, n_v in six.iteritems(v):
                     next_data["%s.%s" % (k, n_k)] = n_v
-            elif type(v) == list:
+            # use list because iterable is too generic
+            elif isinstance(v, list):
                 for index, item in enumerate(v):
                     next_data["%s%d" % (k, index)] = item
             else:
@@ -119,11 +121,12 @@ class InfluxdbDispatcher(DispatchBase):
 
     def _data_to_line_protocol(self, data):
         msg = {}
-        point = {}
-        point["measurement"] = self.tc
-        point["fields"] = self._dict_key_flatten(data["benchmark"]["data"])
-        point["time"] = self._get_nano_timestamp(data)
-        point["tags"] = self._get_extended_tags(data)
+        point = {
+            "measurement": self.tc,
+            "fields": self._dict_key_flatten(data["benchmark"]["data"]),
+            "time": self._get_nano_timestamp(data),
+            "tags": self._get_extended_tags(data),
+        }
         msg["points"] = [point]
         msg["tags"] = self.static_tags
 
