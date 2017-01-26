@@ -47,8 +47,8 @@ class ScenarioGeneral(base.Scenario):
             except Exception:
                 LOG.exception("Exception")
                 LOG.debug(
-                    "\033[91m exception when running step: {0} .... \033[0m"
-                    .format(orderedSteps.index(step)))
+                    "\033[91m exception when running step: %s .... \033[0m",
+                    orderedSteps.index(step))
                 break
             finally:
                 pass

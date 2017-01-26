@@ -61,28 +61,26 @@ class GeneralResultChecker(BaseResultChecker):
                 exit_status, stdout, stderr = self.connection.execute(
                     self.shell_cmd,
                     stdin=stdin_file)
-            LOG.debug("action script of the operation is: {0}"
-                      .format(self.verify_script))
-            LOG.debug("action parameter the of operation is: {0}"
-                      .format(self.shell_cmd))
+            LOG.debug("action script of the operation is: %s",
+                      self.verify_script)
+            LOG.debug("action parameter the of operation is: %s",
+                      self.shell_cmd)
         else:
             with open(self.verify_script, "r") as stdin_file:
                 exit_status, stdout, stderr = self.connection.execute(
                     "/bin/bash -s ",
                     stdin=stdin_file)
-            LOG.debug("action script of the operation is: {0}"
-                      .format(self.verify_script))
+            LOG.debug("action script of the operation is: %s",
+                      self.verify_script)
 
         LOG.debug("exit_status ,stdout : %s ,%s", exit_status, stdout)
         if exit_status == 0 and stdout:
             self.actualResult = stdout
-            LOG.debug("verifying resultchecker: {0}".format(self.key))
-            LOG.debug("verifying resultchecker,expected: {0}"
-                      .format(self.expectedResult))
-            LOG.debug("verifying resultchecker,actual: {0}"
-                      .format(self.actualResult))
-            LOG.debug("verifying resultchecker,condition: {0}"
-                      .format(self.condition))
+            LOG.debug("verifying resultchecker: %s", self.key)
+            LOG.debug("verifying resultchecker,expected: %s",
+                      self.expectedResult)
+            LOG.debug("verifying resultchecker,actual: %s", self.actualResult)
+            LOG.debug("verifying resultchecker,condition: %s", self.condition)
             if (type(self.expectedResult) is int):
                 self.actualResult = int(self.actualResult)
             if self.condition == Condition.EQUAL:
@@ -100,13 +98,13 @@ class GeneralResultChecker(BaseResultChecker):
             else:
                 self.success = False
                 LOG.debug(
-                    "error happened when resultchecker: {0} Invalid condition"
-                    .format(self.key))
+                    "error happened when resultchecker: %s Invalid condition",
+                    self.key)
         else:
             self.success = False
             LOG.debug(
-                "error happened when resultchecker: {0} verifying the result"
-                .format(self.key))
+                "error happened when resultchecker: %s verifying the result",
+                self.key)
             LOG.error(stderr)
 
         LOG.debug(
