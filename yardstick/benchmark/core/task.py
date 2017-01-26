@@ -11,22 +11,24 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
-import sys
-import os
-import yaml
+
 import atexit
-import ipaddress
-import time
-import logging
-import uuid
 import errno
+import ipaddress
+import logging
+import os
+import sys
+import time
+import uuid
+
+import yaml
 from six.moves import filter
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
+from yardstick.common import constants
 from yardstick.common.task_template import TaskTemplate
 from yardstick.common.utils import source_env
-from yardstick.common import constants
 
 output_file_default = "/tmp/yardstick.out"
 test_cases_dir_default = "tests/opnfv/test_cases/"
