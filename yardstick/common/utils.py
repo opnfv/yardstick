@@ -149,7 +149,8 @@ def get_neutron_client():
 
 
 def write_json_to_file(path, data, mode='w'):
-    write_file(path, jsonutils.dump_as_bytes(data), mode)
+    with open(path, mode) as f:
+        jsonutils.dump(data, f)
 
 
 def write_file(path, data, mode='w'):
