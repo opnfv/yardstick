@@ -16,7 +16,7 @@ scenarios:
     wait_time: 10
     monitors:
     - monitor_type: "openstack-cmd"
-      command_name: "nova image-list"
+      command_name: "openstack image list"
       monitor_time: 10
       sla:
         max_outage_time: 5
@@ -42,4 +42,4 @@ scenarios:
 context:
   type: Node
   name: LF
-  file: /root/yardstick/etc/yardstick/nodes/fuel_virtual/pod.yaml
+  file: etc/yardstick/nodes/fuel_virtual/pod.yaml
