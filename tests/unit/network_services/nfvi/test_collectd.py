@@ -23,14 +23,11 @@ from yardstick.network_services.nfvi.collectd import AmqpConsumer
 class TestAmqpConsumer(unittest.TestCase):
     def setUp(self):
         self.queue = multiprocessing.Queue()
-        self.url = 'amqp://admin:admin@1.1.1.1:5672/%2F'
+        self.url = 'amqp://admin:admin@127.0.0.1:5672/%2F'
         self.amqp_consumer = AmqpConsumer(self.url, self.queue)
 
     def test___init__(self):
         self.assertEqual(self.url, self.amqp_consumer._url)
-
-    def test_connect(self):
-        self.assertRaises(RuntimeError, self.amqp_consumer.connect)
 
     def test_on_connection_open(self):
         self.amqp_consumer._connection = mock.Mock(autospec=AmqpConsumer)
