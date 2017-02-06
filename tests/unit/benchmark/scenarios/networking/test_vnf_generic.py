@@ -395,8 +395,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
         self.scenario_cfg["traffic_options"]["imix"] = \
             self._get_file_abspath("imix_voice.yaml")
-        self.assertRaises(RuntimeError, self.s._fill_traffic_profile,
-                          self.scenario_cfg, self.context_cfg)
+        self.assertIsNotNone(self.s._fill_traffic_profile(self.scenario_cfg,
+                                                          self.context_cfg))
 
     def test_teardown(self):
         vnf = mock.Mock(autospec=GenericVNF)
