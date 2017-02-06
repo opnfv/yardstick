@@ -27,13 +27,13 @@ class TestResourceProfile(unittest.TestCase):
              [{'short-name': 'VpeVnf',
                'vdu':
                [{'routing_table':
-                 [{'network': '152.16.100.20',
+                 [{'network': '172.16.100.20',
                    'netmask': '255.255.255.0',
-                   'gateway': '152.16.100.20',
+                   'gateway': '172.16.100.20',
                    'if': 'xe0'},
-                  {'network': '152.16.40.20',
+                  {'network': '172.16.40.20',
                    'netmask': '255.255.255.0',
-                   'gateway': '152.16.40.20',
+                   'gateway': '172.16.40.20',
                    'if': 'xe1'}],
                  'description': 'VPE approximation using DPDK',
                  'name': 'vpevnf-baremetal',
@@ -51,34 +51,34 @@ class TestResourceProfile(unittest.TestCase):
                  [{'virtual-interface':
                    {'dst_mac': '3c:fd:fe:9e:64:38',
                     'vpci': '0000:05:00.0',
-                    'local_ip': '152.16.100.19',
+                    'local_ip': '172.16.100.19',
                     'type': 'PCI-PASSTHROUGH',
                     'netmask': '255.255.255.0',
                     'dpdk_port_num': '0',
                     'bandwidth': '10 Gbps',
-                    'dst_ip': '152.16.100.20',
+                    'dst_ip': '172.16.100.20',
                     'local_mac': '3c:fd:fe:a1:2b:80'},
                    'vnfd-connection-point-ref': 'xe0',
                    'name': 'xe0'},
                   {'virtual-interface':
                    {'dst_mac': '00:1e:67:d0:60:5c',
                     'vpci': '0000:05:00.1',
-                    'local_ip': '152.16.40.19',
+                    'local_ip': '172.16.40.19',
                     'type': 'PCI-PASSTHROUGH',
                     'netmask': '255.255.255.0',
                     'dpdk_port_num': '1',
                     'bandwidth': '10 Gbps',
-                    'dst_ip': '152.16.40.20',
+                    'dst_ip': '172.16.40.20',
                     'local_mac': '3c:fd:fe:a1:2b:81'},
                    'vnfd-connection-point-ref': 'xe1',
                    'name': 'xe1'}]}],
                'description': 'Vpe approximation using DPDK',
                'mgmt-interface':
                    {'vdu-id': 'vpevnf-baremetal',
-                    'host': '1.1.1.1',
+                    'host': '127.0.0.1',
                     'password': 'r00t',
                     'user': 'root',
-                    'ip': '1.1.1.1'},
+                    'ip': '127.0.0.1'},
                'benchmark':
                    {'kpi': ['packets_in', 'packets_fwd', 'packets_dropped']},
                'connection-point': [{'type': 'VPORT', 'name': 'xe0'},
@@ -102,19 +102,6 @@ class TestResourceProfile(unittest.TestCase):
     def test_check_if_sa_running(self):
         self.assertEqual(self.resource_profile.check_if_sa_running("collectd"),
                          [True, {}])
-
-    def test_amqp_collect_nfvi_kpi(self):
-        _queue = multiprocessing.Queue()
-        _queue.put({"cpu/cpu-0/ipc": "ipc:10"})
-        amqp = self.resource_profile.amqp_collect_nfvi_kpi(_queue)
-        _queue.put({"/memory/bandwidth": "local:10"})
-        amqp = self.resource_profile.amqp_collect_nfvi_kpi(_queue)
-        expected = {'timestamp': '', 'cpu': {}, 'memory': {'bandwidth': '10'}}
-        self.assertDictEqual(expected, amqp)
-
-    def test_amqp_collect_nfvi_kpi_exception(self):
-        amqp = self.resource_profile.amqp_collect_nfvi_kpi({})
-        self.assertDictEqual({}, amqp)
 
     def test_get_cpu_data(self):
         reskey = ["", "cpufreq", "cpufreq-0"]
