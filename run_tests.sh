@@ -40,9 +40,9 @@ get_external_libs() {
     if [ ! -d "$TREX_DIR" ]; then
         rm -rf ${TREX_DOWNLOAD##*/}
         if [ ! -e ${TREX_DOWNLOAD##*/} ] ; then
-            wget $TREX_DOWNLOAD
+            wget -nv $TREX_DOWNLOAD
         fi
-        tar zxvf ${TREX_DOWNLOAD##*/}
+        tar xf ${TREX_DOWNLOAD##*/}
         pushd .
         rm -rf trex && mkdir -p trex
         mv v2.05 trex/scripts

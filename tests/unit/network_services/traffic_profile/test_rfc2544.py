@@ -16,13 +16,79 @@
 #
 
 from __future__ import absolute_import
+from __future__ import division
 import unittest
 import mock
 
-from yardstick.network_services.traffic_profile.traffic_profile \
-    import TrexProfile
-from yardstick.network_services.traffic_profile.rfc2544 import \
-    RFC2544Profile
+STL_MOCKS = {
+    'stl': mock.MagicMock(),
+    'stl.trex_stl_lib': mock.MagicMock(),
+    'stl.trex_stl_lib.base64': mock.MagicMock(),
+    'stl.trex_stl_lib.binascii': mock.MagicMock(),
+    'stl.trex_stl_lib.collections': mock.MagicMock(),
+    'stl.trex_stl_lib.copy': mock.MagicMock(),
+    'stl.trex_stl_lib.datetime': mock.MagicMock(),
+    'stl.trex_stl_lib.functools': mock.MagicMock(),
+    'stl.trex_stl_lib.imp': mock.MagicMock(),
+    'stl.trex_stl_lib.inspect': mock.MagicMock(),
+    'stl.trex_stl_lib.json': mock.MagicMock(),
+    'stl.trex_stl_lib.linecache': mock.MagicMock(),
+    'stl.trex_stl_lib.math': mock.MagicMock(),
+    'stl.trex_stl_lib.os': mock.MagicMock(),
+    'stl.trex_stl_lib.platform': mock.MagicMock(),
+    'stl.trex_stl_lib.pprint': mock.MagicMock(),
+    'stl.trex_stl_lib.random': mock.MagicMock(),
+    'stl.trex_stl_lib.re': mock.MagicMock(),
+    'stl.trex_stl_lib.scapy': mock.MagicMock(),
+    'stl.trex_stl_lib.socket': mock.MagicMock(),
+    'stl.trex_stl_lib.string': mock.MagicMock(),
+    'stl.trex_stl_lib.struct': mock.MagicMock(),
+    'stl.trex_stl_lib.sys': mock.MagicMock(),
+    'stl.trex_stl_lib.threading': mock.MagicMock(),
+    'stl.trex_stl_lib.time': mock.MagicMock(),
+    'stl.trex_stl_lib.traceback': mock.MagicMock(),
+    'stl.trex_stl_lib.trex_stl_async_client': mock.MagicMock(),
+    'stl.trex_stl_lib.trex_stl_client': mock.MagicMock(),
+    'stl.trex_stl_lib.trex_stl_exceptions': mock.MagicMock(),
+    'stl.trex_stl_lib.trex_stl_ext': mock.MagicMock(),
+    'stl.trex_stl_lib.trex_stl_jsonrpc_client': mock.MagicMock(),
+    'stl.trex_stl_lib.trex_stl_packet_builder_interface': mock.MagicMock(),
+    'stl.trex_stl_lib.trex_stl_packet_builder_scapy': mock.MagicMock(),
+    'stl.trex_stl_lib.trex_stl_port': mock.MagicMock(),
+    'stl.trex_stl_lib.trex_stl_stats': mock.MagicMock(),
+    'stl.trex_stl_lib.trex_stl_streams': mock.MagicMock(),
+    'stl.trex_stl_lib.trex_stl_types': mock.MagicMock(),
+    'stl.trex_stl_lib.types': mock.MagicMock(),
+    'stl.trex_stl_lib.utils': mock.MagicMock(),
+    'stl.trex_stl_lib.utils.argparse': mock.MagicMock(),
+    'stl.trex_stl_lib.utils.collections': mock.MagicMock(),
+    'stl.trex_stl_lib.utils.common': mock.MagicMock(),
+    'stl.trex_stl_lib.utils.json': mock.MagicMock(),
+    'stl.trex_stl_lib.utils.os': mock.MagicMock(),
+    'stl.trex_stl_lib.utils.parsing_opts': mock.MagicMock(),
+    'stl.trex_stl_lib.utils.pwd': mock.MagicMock(),
+    'stl.trex_stl_lib.utils.random': mock.MagicMock(),
+    'stl.trex_stl_lib.utils.re': mock.MagicMock(),
+    'stl.trex_stl_lib.utils.string': mock.MagicMock(),
+    'stl.trex_stl_lib.utils.sys': mock.MagicMock(),
+    'stl.trex_stl_lib.utils.text_opts': mock.MagicMock(),
+    'stl.trex_stl_lib.utils.text_tables': mock.MagicMock(),
+    'stl.trex_stl_lib.utils.texttable': mock.MagicMock(),
+    'stl.trex_stl_lib.warnings': mock.MagicMock(),
+    'stl.trex_stl_lib.yaml': mock.MagicMock(),
+    'stl.trex_stl_lib.zlib': mock.MagicMock(),
+    'stl.trex_stl_lib.zmq': mock.MagicMock(),
+}
+
+STLClient = mock.MagicMock()
+stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
+stl_patch.start()
+
+if stl_patch:
+    from yardstick.network_services.traffic_profile.traffic_profile \
+        import TrexProfile
+    from yardstick.network_services.traffic_profile.rfc2544 import \
+        RFC2544Profile
 
 
 class TestRFC2544Profile(unittest.TestCase):
@@ -99,9 +165,9 @@ class TestRFC2544Profile(unittest.TestCase):
                              "out_packets": 1000}
         tol_min = 100.0
         tolerance = 0.0
-        expected = {'DropPercentage': 0.0, 'RxThroughput': 33,
-                    'TxThroughput': 33, 'CurrentDropPercentage': 0.0,
-                    'Throughput': 33,
+        expected = {'DropPercentage': 0.0, 'RxThroughput': 100/3.0,
+                    'TxThroughput': 100/3.0, 'CurrentDropPercentage': 0.0,
+                    'Throughput': 100/3.0,
                     'xe0': {'tx_throughput_fps': 20, 'in_packets': 1000,
                             'out_packets': 1000, 'rx_throughput_mbps': 10,
                             'tx_throughput_mbps': 10, 'rx_throughput_fps': 20}}
@@ -129,9 +195,9 @@ class TestRFC2544Profile(unittest.TestCase):
                              "out_packets": 1002}
         tol_min = 0.0
         tolerance = 1.0
-        expected = {'DropPercentage': 0.2, 'RxThroughput': 33,
-                    'TxThroughput': 33, 'CurrentDropPercentage': 0.2,
-                    'Throughput': 33,
+        expected = {'DropPercentage': 0.2, 'RxThroughput': 100/3.0,
+                    'TxThroughput': 33.4, 'CurrentDropPercentage': 0.2,
+                    'Throughput': 100/3.0,
                     'xe0': {'tx_throughput_fps': 20, 'in_packets': 1000,
                             'out_packets': 1002, 'rx_throughput_mbps': 10,
                             'tx_throughput_mbps': 10, 'rx_throughput_fps': 20}}
@@ -160,9 +226,9 @@ class TestRFC2544Profile(unittest.TestCase):
         tol_min = 0.0
         tolerance = 0.0
         r_f_c2544_profile.tmp_throughput = 0
-        expected = {'DropPercentage': 100.0, 'RxThroughput': 33,
-                    'TxThroughput': 0, 'CurrentDropPercentage': 100.0,
-                    'Throughput': 33,
+        expected = {'DropPercentage': 100.0, 'RxThroughput': 100/3.0,
+                    'TxThroughput': 0.0, 'CurrentDropPercentage': 100.0,
+                    'Throughput': 100/3.0,
                     'xe0': {'tx_throughput_fps': 20, 'in_packets': 1000,
                             'out_packets': 0, 'rx_throughput_mbps': 10,
                             'tx_throughput_mbps': 10, 'rx_throughput_fps': 20}}
