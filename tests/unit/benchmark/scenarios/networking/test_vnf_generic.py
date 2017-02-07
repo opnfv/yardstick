@@ -389,14 +389,15 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         self.assertEqual({}, self.s._get_traffic_imix(self.scenario_cfg))
 
     def test__fill_traffic_profile(self):
-        self.scenario_cfg["traffic_profile"] = \
-            self._get_file_abspath("ipv4_throughput_vpe.yaml")
-        self.scenario_cfg["traffic_options"]["flow"] = \
-            self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
-        self.scenario_cfg["traffic_options"]["imix"] = \
-            self._get_file_abspath("imix_voice.yaml")
-        self.assertIsNotNone(self.s._fill_traffic_profile(self.scenario_cfg,
-                                                          self.context_cfg))
+        with mock.patch.dict("sys.modules", {"zmq": mock.MagicMock()}):
+            self.scenario_cfg["traffic_profile"] = \
+                self._get_file_abspath("ipv4_throughput_vpe.yaml")
+            self.scenario_cfg["traffic_options"]["flow"] = \
+                self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
+            self.scenario_cfg["traffic_options"]["imix"] = \
+                self._get_file_abspath("imix_voice.yaml")
+            self.assertIsNotNone(self.s._fill_traffic_profile(self.scenario_cfg,
+                                                              self.context_cfg))
 
     def test_teardown(self):
         vnf = mock.Mock(autospec=GenericVNF)
