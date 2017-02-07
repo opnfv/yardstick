@@ -33,32 +33,8 @@ run_flake8() {
     fi
 }
 
-get_external_libs() {
-    cd $(dirname ${BASH_SOURCE[0]})
-    TREX_DOWNLOAD="https://trex-tgn.cisco.com/trex/release/v2.05.tar.gz"
-    TREX_DIR=$PWD/trex/scripts
-    if [ ! -d "$TREX_DIR" ]; then
-        rm -rf ${TREX_DOWNLOAD##*/}
-        if [ ! -e ${TREX_DOWNLOAD##*/} ] ; then
-            wget $TREX_DOWNLOAD
-        fi
-        tar zxvf ${TREX_DOWNLOAD##*/}
-        pushd .
-        rm -rf trex && mkdir -p trex
-        mv v2.05 trex/scripts
-        rm -rf v2.05.tar.gz
-        touch "$PWD/trex/scripts/automation/trex_control_plane/stl/__init__.py"
-        popd
-    fi
-    echo "Done."
-    export PYTHONPATH=$PYTHONPATH:"$PWD/trex/scripts/automation/trex_control_plane"
-    export PYTHONPATH=$PYTHONPATH:"$PWD/trex/scripts/automation/trex_control_plane/stl"
-    echo $PYTHONPATH
-}
 
 run_tests() {
-    echo "Get external libs needed for unit test"
-    get_external_libs
 
     echo "Running unittest ... "
     if [ $FILE_OPTION == "f" ]; then
