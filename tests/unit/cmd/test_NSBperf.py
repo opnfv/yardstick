@@ -25,7 +25,7 @@ from yardstick.cmd.NSBperf import YardstickNSCli
 from yardstick.cmd import NSBperf
 
 
-@mock.patch('__builtin__.raw_input', return_value='0')
+@mock.patch('six.moves.input', return_value='0')
 class TestHandler(unittest.TestCase):
     def test_handler(self, test):
         subprocess.call = mock.Mock(return_value=0)
@@ -111,7 +111,7 @@ class TestYardstickNSCli(unittest.TestCase):
     def test_validate_input(self):
         yardstick_ns_cli = YardstickNSCli()
         self.assertEqual(1, yardstick_ns_cli.validate_input("", 4))
-        NSBperf.raw_input = lambda _: 'yes'
+        NSBperf.input = lambda _: 'yes'
         self.assertEqual(1, yardstick_ns_cli.validate_input(5, 4))
         subprocess.call = mock.Mock(return_value=0)
         self.assertEqual(0, yardstick_ns_cli.validate_input(2, 4))
