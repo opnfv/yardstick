@@ -14,7 +14,7 @@ from __future__ import absolute_import
 from yardstick.benchmark.core.task import Task
 from yardstick.common.utils import cliargs
 from yardstick.common.utils import write_json_to_file
-from yardstick.common import constants as consts
+from yardstick.common.utils import read_json_from_file
 from yardstick.cmd.commands import change_osloobj_to_paras
 
 output_file_default = "/tmp/yardstick.out"
@@ -24,7 +24,7 @@ class TaskCommands(object):
     """Task commands.
 
        Set of commands to manage benchmark tasks.
-    """
+       """
 
     @cliargs("inputfile", type=str, help="path to task or suite file", nargs=1)
     @cliargs("--task-args", dest="task_args",
@@ -44,18 +44,25 @@ class TaskCommands(object):
              action="store_true")
     def do_start(self, args, **kwargs):
         param = change_osloobj_to_paras(args)
+        self.output_file = param.output_file
 
         self._init_result_file()
 
         try:
             Task().start(param, **kwargs)
+            self._finish()
         except Exception as e:
             self._write_error_data(e)
 
     def _init_result_file(self):
         data = {'status': 0, 'result': []}
-        write_json_to_file(consts.DEFAULT_OUTPUT_FILE, data)
+        write_json_to_file(self.output_file, data)
+
+    def _finish(self):
+        result = read_json_from_file(self.output_file).get('result')
+        data = {'status': 1, 'result': result}
+        write_json_to_file(self.output_file, data)
 
     def _write_error_data(self, error):
         data = {'status': 2, 'result': str(error)}
-        write_json_to_file(consts.DEFAULT_OUTPUT_FILE, data)
+        write_json_to_file(self.output_file, data)

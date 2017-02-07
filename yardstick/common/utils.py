@@ -148,6 +148,11 @@ def get_neutron_client():
     return neutron_client
 
 
+def read_json_from_file(path):
+    with open(path, 'r') as f:
+        return jsonutils.load(f)
+
+
 def write_json_to_file(path, data, mode='w'):
     with open(path, mode) as f:
         jsonutils.dump(data, f)
