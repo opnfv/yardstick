@@ -44,6 +44,8 @@ class TaskCommands(object):
              action="store_true")
     def do_start(self, args, **kwargs):
         param = change_osloobj_to_paras(args)
+        self.output_file = param.output_file
+        print(self.output_file)
 
         self._init_result_file()
 
@@ -54,8 +56,8 @@ class TaskCommands(object):
 
     def _init_result_file(self):
         data = {'status': 0, 'result': []}
-        write_json_to_file(consts.DEFAULT_OUTPUT_FILE, data)
+        write_json_to_file(self.output_file, data)
 
     def _write_error_data(self, error):
         data = {'status': 2, 'result': str(error)}
-        write_json_to_file(consts.DEFAULT_OUTPUT_FILE, data)
+        write_json_to_file(self.output_file, data)
