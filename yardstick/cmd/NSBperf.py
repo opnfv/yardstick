@@ -25,10 +25,14 @@ import json
 import subprocess
 import signal
 
+
+from six.moves import input
+
 CLI_PATH = os.path.dirname(os.path.realpath(__file__))
 REPO_PATH = os.path.abspath(os.path.join(CLI_PATH, os.pardir))
 PYTHONPATH = os.environ.get("PYTHONPATH", False)
 VIRTUAL_ENV = os.environ.get("VIRTUAL_ENV", False)
+
 
 if not PYTHONPATH or not VIRTUAL_ENV:
     print("Please setup env PYTHONPATH & VIRTUAL_ENV environment varaible.")
@@ -58,7 +62,7 @@ class YardstickNSCli(object):
         choice = int(choice)
         if not 1 <= choice <= choice_len:
             print("\nInvalid wrong choice...")
-            raw_input("Press Enter to continue...")
+            input("Press Enter to continue...")
             return 1
         subprocess.call(['clear'])
         return 0
