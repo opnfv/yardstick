@@ -115,7 +115,7 @@ class YardstickNSCli(object):
     def generate_final_report(self, test_case):
         """ Function will check if partial test results are available
         and generates final report in rst format.
-"""
+        """
 
         report_caption = '{}\n{} ({})\n{}\n\n'.format(
             '================================================================',
