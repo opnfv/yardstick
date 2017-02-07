@@ -14,6 +14,7 @@
 """ RFC2544 Throughput implemenation """
 
 from __future__ import absolute_import
+from __future__ import division
 import logging
 
 from yardstick.network_services.traffic_profile.traffic_profile \
