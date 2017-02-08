@@ -299,19 +299,13 @@ class TestVpeApproxVnf(unittest.TestCase):
             vpe_approx_vnf = VpeApproxVnf(vnfd)
             self.scenario_cfg['vnf_options'] = {'vpe': {'cfg': ""}}
             vpe_approx_vnf._run_vpe = mock.Mock(return_value=0)
+            vpe_approx_vnf._resource_collect_start = mock.Mock(return_value=0)
             vpe_approx_vnf.q_out.put("pipeline>")
-            vpe_vnf.WAIT_TIME = 1
-            self.assertEqual(0,
-                             vpe_approx_vnf.instantiate(self.scenario_cfg,
-                                                        self.context_cfg))
-            vpe_approx_vnf.q_out.put("PANIC")
-            vpe_approx_vnf._run_vpe = mock.Mock(return_value=0)
-            vpe_vnf.WAIT_TIME = 1
-            self.assertRaises(RuntimeError,
-                              vpe_approx_vnf.instantiate, self.scenario_cfg,
-                              self.context_cfg)
+            vpe_vnf.WAIT_TIME = 3
+            self.assertEqual(0, vpe_approx_vnf.instantiate(self.scenario_cfg,
+                              self.context_cfg))
 
-    def test_instantiate_error(self):
+    def test_instantiate_panic(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)

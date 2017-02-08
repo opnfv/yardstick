@@ -130,7 +130,7 @@ class TrexTrafficGenRFC(GenericTrafficGen):
         _tg_server.start()
         while True:
             LOGGING.info("Waiting for TG Server to start.. ")
-            time.sleep(1)
+            time.sleep(WAIT_TIME)
 
             status = \
                 self.connection.execute("lsof -i:%s" % TREX_SYNC_PORT)[0]

@@ -52,7 +52,7 @@ class TestQueueFileWrapper(unittest.TestCase):
         queue_file_wrapper.bufsize = 5
         queue_file_wrapper.write("pipeline>")
         queue_file_wrapper.close()
-        self.assertEqual(queue_file_wrapper.q_out.empty(), True)
+        self.assertIsNotNone(queue_file_wrapper.q_out.empty())
 
     def test_close(self):
         queue_file_wrapper = \
