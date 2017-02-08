@@ -55,7 +55,7 @@ class HeatContext(Context):
         self.key_filename = ''.join(
             [YARDSTICK_ROOT_PATH, 'yardstick/resources/files/yardstick_key-',
              get_short_key_uuid(self.key_uuid)])
-        super(self.__class__, self).__init__()
+        super(HeatContext, self).__init__()
 
     def init(self, attrs):
         """initializes itself from the supplied arguments"""

@@ -66,7 +66,7 @@ class Router(Object):
     """Class that represents a router in the logical model"""
 
     def __init__(self, name, network_name, context, external_gateway_info):
-        super(self.__class__, self).__init__(name, context)
+        super(Router, self).__init__(name, context)
 
         self.stack_name = context.name + "-" + network_name + "-" + self.name
         self.stack_if_name = self.stack_name + "-if0"
@@ -78,7 +78,7 @@ class Network(Object):
     list = []
 
     def __init__(self, name, context, attrs):
-        super(self.__class__, self).__init__(name, context)
+        super(Network, self).__init__(name, context)
         self.stack_name = context.name + "-" + self.name
         self.subnet_stack_name = self.stack_name + "-subnet"
         self.subnet_cidr = attrs.get('cidr', '10.0.1.0/24')
@@ -118,7 +118,7 @@ class Server(Object):
     list = []
 
     def __init__(self, name, context, attrs):
-        super(self.__class__, self).__init__(name, context)
+        super(Server, self).__init__(name, context)
         self.stack_name = self.name + "." + context.name
         self.keypair_name = context.keypair_name
         self.secgroup_name = context.secgroup_name

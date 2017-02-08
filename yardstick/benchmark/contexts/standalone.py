@@ -37,7 +37,7 @@ class StandaloneContext(Context):
         self.file_path = None
         self.nodes = []
         self.nfvi_node = []
-        super(self.__class__, self).__init__()
+        super(StandaloneContext, self).__init__()
 
     def read_config_file(self):
         """Read from config file"""
