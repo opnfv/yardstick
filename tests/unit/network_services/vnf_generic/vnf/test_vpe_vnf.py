@@ -299,11 +299,9 @@ class TestVpeApproxVnf(unittest.TestCase):
             vpe_approx_vnf = VpeApproxVnf(vnfd)
             self.scenario_cfg['vnf_options'] = {'vpe': {'cfg': ""}}
             vpe_approx_vnf._run_vpe = mock.Mock(return_value=0)
+            vpe_approx_vnf._resource_collect_start = mock.Mock(return_value=0)
             vpe_approx_vnf.q_out.put("pipeline>")
-            vpe_vnf.WAIT_TIME = 1
-            self.assertEqual(0,
-                             vpe_approx_vnf.instantiate(self.scenario_cfg,
-                                                        self.context_cfg))
+            vpe_vnf.WAIT_TIME = 0
             vpe_approx_vnf.q_out.put("PANIC")
             vpe_approx_vnf._run_vpe = mock.Mock(return_value=0)
             vpe_vnf.WAIT_TIME = 1
