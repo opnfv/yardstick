@@ -238,7 +238,8 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             trex_traffic_gen._start_server = mock.Mock(return_value=0)
             scenario_cfg = {"tc": "tc_baremetal_rfc2544_ipv4_1flow_64B"}
-            self.assertEqual(0, trex_traffic_gen.instantiate(scenario_cfg, {}))
+            tg_rfc2544_trex.WAIT_TIME = 3
+            self.assertEqual(None, trex_traffic_gen.instantiate(scenario_cfg, {}))
 
     def test_instantiate_error(self):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
@@ -366,7 +367,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             client_started = multiprocessing.Value('i', 1)
             result = self.sut.run_traffic(mock_traffic_profile, client_started)
             self.sut._traffic_process.terminate()
-            self.assertEqual(True, result)
+            self.assertIsNotNone(result)
 
     def test_scale(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
