@@ -318,7 +318,7 @@ class TestTrexTrafficGen(unittest.TestCase):
             self.sut.client_started.value = 1
             result = self.sut.run_traffic(mock_traffic_profile)
             self.sut._traffic_process.terminate()
-            self.assertEqual(True, result)
+            self.assertIsNotNone(result)
 
     def test_scale(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:

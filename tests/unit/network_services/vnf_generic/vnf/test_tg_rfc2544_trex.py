@@ -366,7 +366,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             client_started = multiprocessing.Value('i', 1)
             result = self.sut.run_traffic(mock_traffic_profile, client_started)
             self.sut._traffic_process.terminate()
-            self.assertEqual(True, result)
+            self.assertIsNotNone(result)
 
     def test_scale(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
