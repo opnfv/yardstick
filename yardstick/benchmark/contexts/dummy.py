@@ -22,7 +22,7 @@ class DummyContext(Context):
     __context_type__ = "Dummy"
 
     def __init__(self):
-        super(self.__class__, self).__init__()
+        super(DummyContext, self).__init__()
 
     def init(self, attrs):
         pass

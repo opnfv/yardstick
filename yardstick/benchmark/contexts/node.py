@@ -32,7 +32,7 @@ class NodeContext(Context):
         self.controllers = []
         self.computes = []
         self.baremetals = []
-        super(self.__class__, self).__init__()
+        super(NodeContext, self).__init__()
 
     def read_config_file(self):
         """Read from config file"""
