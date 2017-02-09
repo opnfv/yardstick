@@ -198,7 +198,7 @@ class TaskParser(object):       # pragma: no cover
         if test_cases_dir[-1] != os.sep:
             test_cases_dir += os.sep
 
-        cur_pod = os.environ.get('NODE_NAME', None)
+        cur_pod = os.environ.get('NODE_NAME', 'unknown')
         cur_installer = os.environ.get('INSTALLER_TYPE', None)
 
         valid_task_files = []
