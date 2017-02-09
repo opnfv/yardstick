@@ -41,6 +41,7 @@ RUN apt-get update && apt-get install -y \
     kpartx \
     libffi-dev \
     libssl-dev \
+    libzmq-dev \
     python \
     python-dev \
     libxml2-dev \
