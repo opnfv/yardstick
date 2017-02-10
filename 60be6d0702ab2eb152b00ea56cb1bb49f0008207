@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1acb0d3e_97a1baab",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-10T10:25:45Z",
+      "side": 1,
+      "message": "you can use load() directly on the file object\n\n  jsonutils.load(f)",
+      "revId": "60be6d0702ab2eb152b00ea56cb1bb49f0008207",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
