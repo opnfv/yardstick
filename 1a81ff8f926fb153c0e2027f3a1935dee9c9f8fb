@@ -22,6 +22,30 @@
       "revId": "1a81ff8f926fb153c0e2027f3a1935dee9c9f8fb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1acb0d3e_ec02b50a",
+        "filename": "yardstick/dispatcher/file.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-02-10T06:51:31Z",
+      "side": 1,
+      "message": "yes, you are right. Maybe I should use extend.",
+      "parentUuid": "1acb0d3e_0ca3819f",
+      "range": {
+        "startLine": 43,
+        "startChar": 8,
+        "endLine": 43,
+        "endChar": 31
+      },
+      "revId": "1a81ff8f926fb153c0e2027f3a1935dee9c9f8fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
