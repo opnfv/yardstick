@@ -123,3 +123,11 @@ class NodeContextTestCase(unittest.TestCase):
         curr_path = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(curr_path, filename)
         return file_path
+
+
+def main():
+    unittest.main()
+
+
+if __name__ == '__main__':
+    main()
