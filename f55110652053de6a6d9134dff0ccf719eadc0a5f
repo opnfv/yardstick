@@ -22,6 +22,40 @@
       "revId": "f55110652053de6a6d9134dff0ccf719eadc0a5f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_8c61c7d5",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-13T12:44:19Z",
+      "side": 1,
+      "message": "Can you roll back this? using isinstance \u0026 collections.Mapping is the right way to do it",
+      "revId": "f55110652053de6a6d9134dff0ccf719eadc0a5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_6ca013f5",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-13T12:44:19Z",
+      "side": 1,
+      "message": "Can we rollback this? previous code was added as py improvements.",
+      "revId": "f55110652053de6a6d9134dff0ccf719eadc0a5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
