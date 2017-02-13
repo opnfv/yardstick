@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_6c79f392",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-02-13T12:18:46Z",
+      "side": 1,
+      "message": "this block code I will roll back.",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 29
+      },
+      "revId": "f55110652053de6a6d9134dff0ccf719eadc0a5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
