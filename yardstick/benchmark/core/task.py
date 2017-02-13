@@ -272,18 +272,8 @@ class TaskParser(object):       # pragma: no cover
                                                   name_suffix)
             except KeyError:
                 pass
+            # default to Heat context because we are testing OpenStack
             context_type = cfg_attrs.get("type", "Heat")
-            if "Heat" == context_type and "networks" in cfg_attrs:
-                # bugfix: if there are more than one network,
-                # only add "external_network" on first one.
-                # the name of netwrok should follow this rule:
-                # test, test2, test3 ...
-                # sort network with the length of network's name
-                sorted_networks = sorted(cfg_attrs["networks"])
-                # config external_network based on env var
-                cfg_attrs["networks"][sorted_networks[0]]["external_network"] \
-                    = os.environ.get("EXTERNAL_NETWORK", "net04_ext")
-
             context = Context.get(context_type)
             context.init(cfg_attrs)
 
