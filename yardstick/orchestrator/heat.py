@@ -149,21 +149,28 @@ class HeatStack(HeatObject):
 class HeatTemplate(HeatObject):
     """Describes a Heat template and a method to deploy template to a stack"""
 
-    def _init_template(self):
-        self._template = {}
-        self._template['heat_template_version'] = '2013-05-23'
+    DESCRIPTION_TEMPLATE = """\
+Stack built by the yardstick framework for %s on host %s %s.
+All referred generated resources are prefixed with the template
+name (i.e. %s).\
+"""
 
+    def _init_template(self):
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        self._template['description'] = \
-            """Stack built by the yardstick framework for %s on host %s %s.
-            All referred generated resources are prefixed with the template
-            name (i.e. %s).""" % (getpass.getuser(), socket.gethostname(),
-                                  timestamp, self.name)
+        self._template = {
+            'heat_template_version': '2013-05-23',
+            'description': self.DESCRIPTION_TEMPLATE % (
+                getpass.getuser(),
+                socket.gethostname(),
+                timestamp,
+                self.name
+            ),
+            'resources': {},
+            'outputs': {}
+        }
 
         # short hand for resources part of template
-        self.resources = self._template['resources'] = {}
-
-        self._template['outputs'] = {}
+        self.resources = self._template['resources']
 
     def __init__(self, name, template_file=None, heat_parameters=None):
         super(HeatTemplate, self).__init__()
