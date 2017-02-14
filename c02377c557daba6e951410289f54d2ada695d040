@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_4fdd0114",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-14T06:41:04Z",
+      "side": 1,
+      "message": "if we use unknown, we still need to use \u0027unknown\u0027 as key in the suite yaml. so it should be improve to be compatible so the task_args can be given directly",
+      "range": {
+        "startLine": 201,
+        "startChar": 46,
+        "endLine": 201,
+        "endChar": 55
+      },
+      "revId": "c02377c557daba6e951410289f54d2ada695d040",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
