@@ -209,6 +209,11 @@ create_nova_flavor()
         if [[ "$DEPLOY_SCENARIO" == *"-ovs-"* ]]; then
             openstack flavor set --property hw:mem_page_size=large yardstick-flavor
         fi
+        # DPDK-enabled OVS requires guest memory to be backed by large pages
+        # Scenarios including: os-nosdn-kvm_ovs_dpdk_bar-ha, os-nosdn-kvm_ovs_dpdk-ha ...
+        if [[ "$DEPLOY_SCENARIO" == *"_ovs_"* ]]; then
+            openstack flavor set --property hw:mem_page_size=large yardstick-flavor
+        fi
         # VPP requires guest memory to be backed by large pages
         if [[ "$DEPLOY_SCENARIO" == *"-fdio-"* ]]; then
             openstack flavor set --property hw:mem_page_size=large yardstick-flavor
