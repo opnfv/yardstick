@@ -179,7 +179,7 @@ class HeatTemplate(HeatObject):
             with open(template_file) as stream:
                 print("Parsing external template:", template_file)
                 template_str = stream.read()
-            self._template = template_format.parse(template_str)
+                self._template = template_format.parse(template_str)
             self._parameters = heat_parameters
         else:
             self._init_template()
@@ -195,6 +195,16 @@ class HeatTemplate(HeatObject):
         self.resources[name] = {
             'type': 'OS::Neutron::Net',
             'properties': {'name': name}
+        }
+
+    def add_server_group(self, name, policies):
+        """add to the template a ServerGroup"""
+        log.debug("adding Nova::ServerGroup '%s'", name)
+        policies = policies if isinstance(policies, list) else [policies]
+        self.resources[name] = {
+            'type': 'OS::Nova::ServerGroup',
+            'properties': {'name': name,
+                           'policies': policies}
         }
 
     def add_subnet(self, name, network, cidr):
