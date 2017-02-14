@@ -21,7 +21,7 @@ import pkg_resources
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts.model import Network
-from yardstick.benchmark.contexts.model import PlacementGroup
+from yardstick.benchmark.contexts.model import PlacementGroup, ServerGroup
 from yardstick.benchmark.contexts.model import Server
 from yardstick.benchmark.contexts.model import update_scheduler_hints
 from yardstick.orchestrator.heat import HeatTemplate, get_short_key_uuid
@@ -41,6 +41,7 @@ class HeatContext(Context):
         self.networks = []
         self.servers = []
         self.placement_groups = []
+        self.server_groups = []
         self.keypair_name = None
         self.secgroup_name = None
         self._server_map = {}
@@ -57,7 +58,7 @@ class HeatContext(Context):
              get_short_key_uuid(self.key_uuid)])
         super(HeatContext, self).__init__()
 
-    def init(self, attrs):
+    def init(self, attrs):     # pragma: no cover
         """initializes itself from the supplied arguments"""
         self.name = attrs["name"]
 
@@ -73,15 +74,18 @@ class HeatContext(Context):
         self.secgroup_name = self.name + "-secgroup"
 
         if "image" in attrs:
-            self._image = attrs["image"]
+            self._image = attrs.get("image")
 
         if "flavor" in attrs:
-            self._flavor = attrs["flavor"]
+            self._flavor = attrs.get("flavor")
 
-        if "placement_groups" in attrs:
-            for name, pgattrs in attrs["placement_groups"].items():
-                pg = PlacementGroup(name, self, pgattrs["policy"])
-                self.placement_groups.append(pg)
+        self.placement_groups = [PlacementGroup(name, self, pgattrs["policy"])
+                                 for name, pgattrs in attrs.get(
+                                 "placement_groups", {}).items()]
+
+        self.server_groups = [ServerGroup(name, self, sgattrs["policy"])
+                              for name, sgattrs in attrs.get(
+                              "server_groups", {}).items()]
 
         for name, netattrs in attrs["networks"].items():
             network = Network(name, self, netattrs)
@@ -163,19 +167,17 @@ class HeatContext(Context):
                     server.add_to_template(template,
                                            self.networks,
                                            scheduler_hints)
-                    added_servers.append(server.stack_name)
                 else:
                     scheduler_hints["different_host"] = \
                         scheduler_hints["different_host"][0]
                     server.add_to_template(template,
                                            self.networks,
                                            scheduler_hints)
-                    added_servers.append(server.stack_name)
             else:
                 server.add_to_template(template,
                                        self.networks,
                                        scheduler_hints)
-                added_servers.append(server.stack_name)
+            added_servers.append(server.stack_name)
 
         # create list of servers with affinity policy
         affinity_servers = []
@@ -195,10 +197,21 @@ class HeatContext(Context):
             server.add_to_template(template, self.networks, scheduler_hints)
             added_servers.append(server.stack_name)
 
+        # add server group
+        for sg in self.server_groups:
+            template.add_server_group(sg.name, sg.policy)
+
         # add remaining servers with no placement group configured
         for server in list_of_servers:
+            # TODO placement_group and server_group should combine
             if not server.placement_groups:
-                server.add_to_template(template, self.networks, {})
+                scheduler_hints = {}
+                # affinity/anti-aff server group
+                sg = server.server_group
+                if sg:
+                    scheduler_hints["group"] = {'get_resource': sg.name}
+                server.add_to_template(template,
+                                       self.networks, scheduler_hints)
 
     def deploy(self):
         """deploys template into a stack using cloud"""
