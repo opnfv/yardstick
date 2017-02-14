@@ -22,6 +22,30 @@
       "revId": "c6d584f5e050cf79eb640bae3d6ca36e2788890f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_12ddf242",
+        "filename": "api/utils/influx.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-14T10:49:27Z",
+      "side": 1,
+      "message": "python does not allow assignment in if statements, so you can never use \u0027\u003d\u0027 here.  The comparison swap is hack to workaround problems in the C language.  We don\u0027t need it for python.\n\nThis is the standard form and is pylint warning C0122.  We should be checking all code with pylint as it finds more errors than flake8\n\nmisplaced-comparison-constant (C0122):\n \tComparison should be %s Used when the constant is placed on the left sideof a comparison. It is usually clearer in intent to place it in the right hand side of the comparison.",
+      "parentUuid": "dabed58f_d212fa57",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 60
+      },
+      "revId": "c6d584f5e050cf79eb640bae3d6ca36e2788890f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
