@@ -16,4 +16,4 @@ set -e
 
 source /root/openrc
 
-nova flavor-create $1 $2 $3 $4 $5
+openstack flavor create $1 --id $2 --ram $3 --disk $4 --vcpus $5
