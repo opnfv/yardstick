@@ -195,7 +195,7 @@ class TestTrexTrafficGen(unittest.TestCase):
             self.assertEqual({}, restult)
 
     def test_listen_traffic(self):
-       with mock.patch("yardstick.ssh.SSH") as ssh:
+        with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
