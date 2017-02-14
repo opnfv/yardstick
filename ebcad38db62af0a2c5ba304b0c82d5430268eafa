@@ -16,6 +16,24 @@
       "revId": "ebcad38db62af0a2c5ba304b0c82d5430268eafa",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_3de24704",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 304
+      },
+      "writtenOn": "2017-02-14T16:30:02Z",
+      "side": 1,
+      "message": "previous check is for older scenarios that had -ovs- in the name this one is for scenarios that have _ovs_ in the name - these are different... I can add an OR into the previous clause... I just decided to follow the VPP example below...",
+      "parentUuid": "dabed58f_1dcae3a1",
+      "revId": "ebcad38db62af0a2c5ba304b0c82d5430268eafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
