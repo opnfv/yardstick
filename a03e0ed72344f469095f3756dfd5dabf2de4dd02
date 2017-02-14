@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_ef7395e5",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-02-14T08:37:22Z",
+      "side": 1,
+      "message": "yes, we can reuse host[\u0027name\u0027], but we can not use \u0027host +\u003d suffix\u0027, because  in this situation, host is a string, and we can not change the value in scenario.",
+      "parentUuid": "dabed58f_8f6bf984",
+      "revId": "a03e0ed72344f469095f3756dfd5dabf2de4dd02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_6feec524",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 2
