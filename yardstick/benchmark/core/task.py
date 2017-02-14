@@ -355,10 +355,16 @@ def atexit_handler():
 def is_ip_addr(addr):
     """check if string addr is an IP address"""
     try:
+        addr = addr.get('public_ip_attr', addr.get('private_ip_attr'))
+    except AttributeError:
+        pass
+
+    try:
         ipaddress.ip_address(addr.encode('utf-8'))
-        return True
     except ValueError:
         return False
+    else:
+        return True
 
 
 def _is_same_heat_context(host_attr, target_attr):
@@ -499,14 +505,24 @@ def check_environment():
 
 def change_server_name(scenario, suffix):
     try:
-        scenario['host'] += suffix
+        host = scenario['host']
     except KeyError:
         pass
+    else:
+        try:
+            host['name'] += suffix
+        except TypeError:
+            scenario['host'] += suffix
 
     try:
-        scenario['target'] += suffix
+        target = scenario['target']
     except KeyError:
         pass
+    else:
+        try:
+            target['name'] += suffix
+        except TypeError:
+            scenario['target'] += suffix
 
     try:
         key = 'targets'
