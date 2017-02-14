@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_ef92b59e",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-14T02:53:38Z",
+      "side": 1,
+      "message": "can we use isinstance(host, collections.Mapping):?",
+      "revId": "a03e0ed72344f469095f3756dfd5dabf2de4dd02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_6feec524",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-14T02:53:38Z",
+      "side": 1,
+      "message": "can we use isinstance(target, collections.Mapping):?",
+      "revId": "a03e0ed72344f469095f3756dfd5dabf2de4dd02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
