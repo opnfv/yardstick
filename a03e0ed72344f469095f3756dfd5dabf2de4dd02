@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_8f6bf984",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-14T03:54:23Z",
+      "side": 1,
+      "message": "also don\u0027t lookup again, re-use host.\n\n    host[\u0027name\u0027] +\u003d suffix\n  else:\n    host +\u003d suffix",
+      "revId": "a03e0ed72344f469095f3756dfd5dabf2de4dd02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_6feec524",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 2
