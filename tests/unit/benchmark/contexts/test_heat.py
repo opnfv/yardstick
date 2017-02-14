@@ -39,6 +39,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertEqual(self.test_context.networks, [])
         self.assertEqual(self.test_context.servers, [])
         self.assertEqual(self.test_context.placement_groups, [])
+        self.assertEqual(self.test_context.server_groups, [])
         self.assertIsNone(self.test_context.keypair_name)
         self.assertIsNone(self.test_context.secgroup_name)
         self.assertEqual(self.test_context._server_map, {})
@@ -56,10 +57,12 @@ class HeatContextTestCase(unittest.TestCase):
     def test_init(self, mock_server, mock_network, mock_pg):
 
         pgs = {'pgrp1': {'policy': 'availability'}}
+        sgs = {'servergroup1': {'policy': 'affinity'}}
         networks = {'bar': {'cidr': '10.0.1.0/24'}}
         servers = {'baz': {'floating_ip': True, 'placement': 'pgrp1'}}
         attrs = {'name': 'foo',
                  'placement_groups': pgs,
+                 'server_groups': sgs,
                  'networks': networks,
                  'servers': servers}
 
@@ -71,7 +74,10 @@ class HeatContextTestCase(unittest.TestCase):
 
         mock_pg.assert_called_with('pgrp1', self.test_context,
                                    pgs['pgrp1']['policy'])
+        mock_pg.assert_called_with('servergroup1', self.test_context,
+                                   pgs['servergroup1']['policy'])
         self.assertTrue(len(self.test_context.placement_groups) == 1)
+        self.assertTrue(len(self.test_context.server_groups) == 1)
 
         mock_network.assert_called_with(
             'bar', self.test_context, networks['bar'])
