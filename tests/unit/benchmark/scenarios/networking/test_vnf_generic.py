@@ -25,7 +25,7 @@ import unittest
 import mock
 
 from yardstick.benchmark.scenarios.networking.vnf_generic import \
-    ssh_manager, NetworkServiceTestCase, IncorrectConfig, IncorrectSetup
+    SshManager, NetworkServiceTestCase, IncorrectConfig, IncorrectSetup
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic.vnf.base import \
     GenericTrafficGen, GenericVNF
@@ -318,7 +318,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.return_value = ssh_mock
             for node, node_dict in self.context_cfg["nodes"].items():
-                with ssh_manager(node_dict) as conn:
+                with SshManager(node_dict) as conn:
                     self.assertIsNotNone(conn)
 
     def test___init__(self):

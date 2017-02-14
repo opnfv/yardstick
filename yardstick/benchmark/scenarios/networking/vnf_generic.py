@@ -15,7 +15,6 @@
 
 from __future__ import absolute_import
 import logging
-from contextlib import contextmanager
 import yaml
 
 from yardstick.benchmark.scenarios import base
@@ -49,31 +48,32 @@ class IncorrectSetup(Exception):
     pass
 
 
-@contextmanager
-def ssh_manager(node):
-    """
-    args -> network device mappings
-    returns -> ssh connection ready to be used
-    """
-    conn = None
-    try:
-        ssh_port = node.get("ssh_port", ssh.DEFAULT_PORT)
-        conn = ssh.SSH(user=node.get("user", ""),
-                       host=node.get("ip", ""),
-                       password=node.get("password", ""),
-                       port=ssh_port)
-        conn.wait()
+class SshManager(object):
+    def __init__(self, node):
+        super(SshManager, self).__init__()
+        self.node = node
+        self.conn = None
 
-    except (SSHError) as error:
-        LOG.info("connect failed to %s, due to %s", node.get("ip", ""), error)
-    try:
-        if conn:
-            yield conn
-        else:
-            yield False
-    finally:
-        if conn:
-            conn.close()
+    def __enter__(self):
+        """
+        args -> network device mappings
+        returns -> ssh connection ready to be used
+        """
+        try:
+            ssh_port = self.node.get("ssh_port", ssh.DEFAULT_PORT)
+            self.conn = ssh.SSH(user=self.node["user"],
+                                host=self.node["ip"],
+                                password=self.node["password"],
+                                port=ssh_port)
+            self.conn.wait()
+        except (SSHError) as error:
+            LOG.info("connect failed to %s, due to %s", self.node["ip"], error)
+        # self.conn defaults to None
+        return self.conn
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.conn:
+            self.conn.close()
 
 
 class NetworkServiceTestCase(base.Scenario):
@@ -208,7 +208,7 @@ class NetworkServiceTestCase(base.Scenario):
         for node, node_dict in context_cfg["nodes"].items():
 
             cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
-            with ssh_manager(node_dict) as conn:
+            with SshManager(node_dict) as conn:
                 exit_status = conn.execute(cmd)[0]
                 if exit_status != 0:
                     raise IncorrectSetup("Node's %s lacks ip tool." % node)
