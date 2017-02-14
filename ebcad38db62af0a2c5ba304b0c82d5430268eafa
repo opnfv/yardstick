@@ -34,6 +34,24 @@
       "revId": "ebcad38db62af0a2c5ba304b0c82d5430268eafa",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_bdedd7f1",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-14T16:31:46Z",
+      "side": 1,
+      "message": "ok got it :)",
+      "parentUuid": "dabed58f_3de24704",
+      "revId": "ebcad38db62af0a2c5ba304b0c82d5430268eafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
