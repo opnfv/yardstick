@@ -14,16 +14,16 @@ scenarios:
 
     monitors:
     - monitor_type: "openstack-cmd"
-      command_name: "nova image-list"
+      command_name: "openstack image list"
       monitor_time: 10
     - monitor_type: "openstack-cmd"
-      command_name: "neutron router-list"
+      command_name: "openstack router list"
       monitor_time: 10
     - monitor_type: "openstack-cmd"
-      command_name: "heat stack-list"
+      command_name: "openstack stack list"
       monitor_time: 10
     - monitor_type: "openstack-cmd"
-      command_name: "cinder list"
+      command_name: "openstack volume list"
       monitor_time: 10
 
   nodes:
@@ -41,4 +41,4 @@ scenarios:
 context:
   type: Node
   name: LF
-  file: /root/yardstick/etc/yardstick/nodes/fuel_virtual/pod.yaml
+  file: etc/yardstick/nodes/fuel_virtual/pod.yaml
