@@ -56,16 +56,39 @@ class PlacementGroup(Object):
 
     @staticmethod
     def get(name):
-        if name in PlacementGroup.map:
-            return PlacementGroup.map[name]
-        else:
-            return None
+        return PlacementGroup.map.get(name)
+
+
+class ServerGroup(Object):     # pragma: no cover
+    """Class that represents a server group in the logical model
+    Policy should be one of "anti-affinity" or "affinity"
+    """
+    map = {}
+
+    def __init__(self, name, context, policy):
+        super(ServerGroup, self).__init__(name, context)
+        if policy not in {"affinity", "anti-affinity"}:
+            raise ValueError("server group '%s', policy '%s' is not valid" %
+                             (name, policy))
+        self.name = name
+        self.members = set()
+        self.stack_name = context.name + "-" + name
+        self.policy = policy
+        ServerGroup.map[name] = self
+
+    def add_member(self, name):
+        self.members.add(name)
+
+    @staticmethod
+    def get(name):
+        return ServerGroup.map.get(name)
 
 
 class Router(Object):
     """Class that represents a router in the logical model"""
 
     def __init__(self, name, network_name, context, external_gateway_info):
+
         super(Router, self).__init__(name, context)
 
         self.stack_name = context.name + "-" + network_name + "-" + self.name
@@ -113,7 +136,7 @@ class Network(Object):
         return None
 
 
-class Server(Object):
+class Server(Object):     # pragma: no cover
     """Class that represents a server in the logical model"""
     list = []
 
@@ -140,6 +163,17 @@ class Server(Object):
                                  (name, p))
             self.placement_groups.append(pg)
             pg.add_member(self.stack_name)
+
+        # support servergroup attr
+        self.server_group = None
+        sg = attrs.get("server_group")
+        if (sg):
+            server_group = ServerGroup.get(sg)
+            if not server_group:
+                raise ValueError("server '%s', server_group '%s' is invalid" %
+                                 (name, sg))
+            self.server_group = server_group
+            server_group.add_member(self.stack_name)
 
         self.instances = 1
         if "instances" in attrs:
