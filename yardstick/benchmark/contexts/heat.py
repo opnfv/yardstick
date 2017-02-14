@@ -221,9 +221,9 @@ class HeatContext(Context):
 
         # copy some vital stack output into server objects
         for server in self.servers:
-            if len(server.ports) > 0:
+            if server.ports:
                 # TODO(hafe) can only handle one internal network for now
-                port = list(server.ports.values())[0]
+                port = next(iter(server.ports.values()))
                 server.private_ip = self.stack.outputs[port["stack_name"]]
 
             if server.floating_ip:
