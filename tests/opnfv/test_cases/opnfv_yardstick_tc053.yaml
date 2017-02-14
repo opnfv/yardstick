@@ -29,7 +29,7 @@ scenarios:
         -
           monitor_type: "openstack-cmd"
           key: "list-images"
-          command_name: "nova image-list"
+          command_name: "openstack image list"
           monitor_time: 10
           sla:
             max_outage_time: 5

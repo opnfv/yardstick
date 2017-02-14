@@ -54,7 +54,7 @@ scenarios:
         -
           monitor_type: "openstack-cmd"
           key: "nova-image-list"
-          command_name: "nova image-list"
+          command_name: "openstack image list"
           monitor_time: 10
           sla:
             max_outage_time: 5
@@ -62,7 +62,7 @@ scenarios:
         -
           monitor_type: "openstack-cmd"
           key: "neutron-router-list"
-          command_name: "neutron router-list"
+          command_name: "openstack router list"
           monitor_time: 10
           sla:
             max_outage_time: 5
@@ -70,7 +70,7 @@ scenarios:
         -
           monitor_type: "openstack-cmd"
           key: "heat-stack-list"
-          command_name: "heat stack-list"
+          command_name: "openstack stack list"
           monitor_time: 10
           sla:
             max_outage_time: 5
@@ -78,7 +78,7 @@ scenarios:
         -
           monitor_type: "openstack-cmd"
           key: "cinder-list"
-          command_name: "cinder list"
+          command_name: "openstack volume list"
           monitor_time: 10
           sla:
             max_outage_time: 5
