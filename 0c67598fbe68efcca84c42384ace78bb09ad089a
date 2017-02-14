@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_f2ca9e6d",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-14T11:07:35Z",
+      "side": 1,
+      "message": "it is slightly better to use the new \u0027else\u0027 clause to limit the scope of the try/except block.\n\n     try:\n        ipaddress.ip_address(addr.encode(\u0027utf-8\u0027))\n     except ValueError:\n        return False\n     else:\n        return True",
+      "revId": "0c67598fbe68efcca84c42384ace78bb09ad089a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
