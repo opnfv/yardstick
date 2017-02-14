@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "dabed58f_12b412f1",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-14T11:03:52Z",
+      "side": 1,
+      "message": "would probably be better to catch AttributeError\n\n try:\n  addr \u003d addr.get(\u0027public_ip_attr\u0027, addr.get(\u0027private_ip_attr\u0027))\n except AttributeError:\n  # AttributeError: \u0027str\u0027 object has no attribute \u0027get\u0027\n  pass\n\navoid type checking, instead duck type and catch the exception.",
+      "revId": "a03e0ed72344f469095f3756dfd5dabf2de4dd02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_ef92b59e",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 2
@@ -66,6 +83,23 @@
       "side": 1,
       "message": "yes, we can reuse host[\u0027name\u0027], but we can not use \u0027host +\u003d suffix\u0027, because  in this situation, host is a string, and we can not change the value in scenario.",
       "parentUuid": "dabed58f_8f6bf984",
+      "revId": "a03e0ed72344f469095f3756dfd5dabf2de4dd02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_72bf8ed1",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-14T11:03:52Z",
+      "side": 1,
+      "message": "we should be using TypeError here.  In general isinstance should be avoided and we should be using duck typing.  That means we should act as if it is a dict until we get an exception, then try to use it as a string.\n\n  try:\n     scenario[\u0027host\u0027][\u0027name\u0027] +\u003d suffix\n  except TypeError:\n     # is a string\n     # TypeError: string indices must be integers, not str\n     scenario[\u0027host\u0027] +\u003d suffix\n\nbut this should probably be extracted into a separate function to normalize the host data structure.\n\nthat is if host is a string then we should turn it into a dict.",
       "revId": "a03e0ed72344f469095f3756dfd5dabf2de4dd02",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
