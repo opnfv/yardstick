@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_d2943a46",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-14T11:21:22Z",
+      "side": 1,
+      "message": "use pep8 ordering\n\nImports should be grouped in the following order:\n\n1. standard library imports\n2. related third party imports\n3. local application/library specific imports\n\nYou should put a blank line between each group of imports.",
+      "revId": "bc0abaa0a2f1021b9883b070c54ceecf3a16fca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_f2913e53",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-14T11:21:22Z",
+      "side": 1,
+      "message": "don\u0027t use \u0027\u0027\u0027, use \"\"\"",
+      "revId": "bc0abaa0a2f1021b9883b070c54ceecf3a16fca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_52884a22",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-14T11:21:22Z",
+      "side": 1,
+      "message": "remove this code.  don\u0027t use os.path.exists() it is a filesystem race.\n\nthe code below uses open() and correctly catch ENOENT when the file doesn\u0027t exist.",
+      "revId": "bc0abaa0a2f1021b9883b070c54ceecf3a16fca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_32b036f4",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-14T11:21:22Z",
+      "side": 1,
+      "message": "don\u0027t use shell\u003dTrue",
+      "revId": "bc0abaa0a2f1021b9883b070c54ceecf3a16fca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_d27bda27",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-14T11:21:22Z",
+      "side": 1,
+      "message": "can we use generator expression and next.\n\n return next((node for node in self.nodes if node[\u0027name\u0027].strip() \u003d\u003d node_name.strip()), None)",
+      "revId": "bc0abaa0a2f1021b9883b070c54ceecf3a16fca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
