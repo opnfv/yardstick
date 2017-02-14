@@ -38,14 +38,14 @@ def get_short_key_uuid(uuid):
 
 
 class HeatObject(object):
-    """ base class for template and stack"""
+    ''' base class for template and stack'''
 
     def __init__(self):
         self._heat_client = None
         self.uuid = None
 
     def _get_heat_client(self):
-        """returns a heat client instance"""
+        '''returns a heat client instance'''
 
         if self._heat_client is None:
             sess = op_utils.get_session()
@@ -57,14 +57,14 @@ class HeatObject(object):
         return self._heat_client
 
     def status(self):
-        """returns stack state as a string"""
+        '''returns stack state as a string'''
         heat = self._get_heat_client()
         stack = heat.stacks.get(self.uuid)
         return getattr(stack, 'stack_status')
 
 
 class HeatStack(HeatObject):
-    """ Represents a Heat stack (deployed template) """
+    ''' Represents a Heat stack (deployed template) '''
     stacks = []
 
     def __init__(self, name):
@@ -76,11 +76,11 @@ class HeatStack(HeatObject):
 
     @staticmethod
     def stacks_exist():
-        """check if any stack has been deployed"""
+        '''check if any stack has been deployed'''
         return len(HeatStack.stacks) > 0
 
     def _delete(self):
-        """deletes a stack from the target cloud using heat"""
+        '''deletes a stack from the target cloud using heat'''
         if self.uuid is None:
             return
 
@@ -106,10 +106,10 @@ class HeatStack(HeatObject):
         self.uuid = None
 
     def delete(self, block=True, retries=3):
-        """deletes a stack in the target cloud using heat (with retry)
+        '''deletes a stack in the target cloud using heat (with retry)
         Sometimes delete fail with "InternalServerError" and the next attempt
         succeeds. So it is worthwhile to test a couple of times.
-        """
+        '''
         if self.uuid is None:
             return
 
@@ -139,12 +139,12 @@ class HeatStack(HeatObject):
             stack.delete()
 
     def update(self):
-        """update a stack"""
+        '''update a stack'''
         raise RuntimeError("not implemented")
 
 
 class HeatTemplate(HeatObject):
-    """Describes a Heat template and a method to deploy template to a stack"""
+    '''Describes a Heat template and a method to deploy template to a stack'''
 
     def _init_template(self):
         self._template = {}
@@ -152,9 +152,9 @@ class HeatTemplate(HeatObject):
 
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self._template['description'] = \
-            """Stack built by the yardstick framework for %s on host %s %s.
+            '''Stack built by the yardstick framework for %s on host %s %s.
             All referred generated resources are prefixed with the template
-            name (i.e. %s).""" % (getpass.getuser(), socket.gethostname(),
+            name (i.e. %s).''' % (getpass.getuser(), socket.gethostname(),
                                   timestamp, self.name)
 
         # short hand for resources part of template
@@ -179,7 +179,7 @@ class HeatTemplate(HeatObject):
             with open(template_file) as stream:
                 print("Parsing external template:", template_file)
                 template_str = stream.read()
-            self._template = template_format.parse(template_str)
+                self._template = template_format.parse(template_str)
             self._parameters = heat_parameters
         else:
             self._init_template()
@@ -190,15 +190,25 @@ class HeatTemplate(HeatObject):
         log.debug("template object '%s' created", name)
 
     def add_network(self, name):
-        """add to the template a Neutron Net"""
+        '''add to the template a Neutron Net'''
         log.debug("adding Neutron::Net '%s'", name)
         self.resources[name] = {
             'type': 'OS::Neutron::Net',
             'properties': {'name': name}
         }
 
+    def add_server_group(self, name, policies):
+        '''add to the template a ServerGroup'''
+        log.debug("adding Nova::ServerGroup '%s'", name)
+        policies = policies if isinstance(policies, list) else [policies]
+        self.resources[name] = {
+            'type': 'OS::Nova::ServerGroup',
+            'properties': {'name': name,
+                           'policies': policies}
+        }
+
     def add_subnet(self, name, network, cidr):
-        """add to the template a Neutron Subnet"""
+        '''add to the template a Neutron Subnet'''
         log.debug("adding Neutron::Subnet '%s' in network '%s', cidr '%s'",
                   name, network, cidr)
         self.resources[name] = {
@@ -217,7 +227,7 @@ class HeatTemplate(HeatObject):
         }
 
     def add_router(self, name, ext_gw_net, subnet_name):
-        """add to the template a Neutron Router and interface"""
+        '''add to the template a Neutron Router and interface'''
         log.debug("adding Neutron::Router:'%s', gw-net:'%s'", name, ext_gw_net)
 
         self.resources[name] = {
@@ -232,7 +242,7 @@ class HeatTemplate(HeatObject):
         }
 
     def add_router_interface(self, name, router_name, subnet_name):
-        """add to the template a Neutron RouterInterface and interface"""
+        '''add to the template a Neutron RouterInterface and interface'''
         log.debug("adding Neutron::RouterInterface '%s' router:'%s', "
                   "subnet:'%s'", name, router_name, subnet_name)
 
@@ -246,7 +256,7 @@ class HeatTemplate(HeatObject):
         }
 
     def add_port(self, name, network_name, subnet_name, sec_group_id=None):
-        """add to the template a named Neutron Port"""
+        '''add to the template a named Neutron Port'''
         log.debug("adding Neutron::Port '%s', network:'%s', subnet:'%s', "
                   "secgroup:%s", name, network_name, subnet_name, sec_group_id)
         self.resources[name] = {
@@ -272,9 +282,9 @@ class HeatTemplate(HeatObject):
 
     def add_floating_ip(self, name, network_name, port_name, router_if_name,
                         secgroup_name=None):
-        """add to the template a Nova FloatingIP resource
+        '''add to the template a Nova FloatingIP resource
         see: https://bugs.launchpad.net/heat/+bug/1299259
-        """
+        '''
         log.debug("adding Nova::FloatingIP '%s', network '%s', port '%s', "
                   "rif '%s'", name, network_name, port_name, router_if_name)
 
@@ -295,8 +305,8 @@ class HeatTemplate(HeatObject):
         }
 
     def add_floating_ip_association(self, name, floating_ip_name, port_name):
-        """add to the template a Nova FloatingIP Association resource
-        """
+        '''add to the template a Nova FloatingIP Association resource
+        '''
         log.debug("adding Nova::FloatingIPAssociation '%s', server '%s', "
                   "floating_ip '%s'", name, port_name, floating_ip_name)
 
@@ -310,7 +320,7 @@ class HeatTemplate(HeatObject):
         }
 
     def add_keypair(self, name, key_uuid):
-        """add to the template a Nova KeyPair"""
+        '''add to the template a Nova KeyPair'''
         log.debug("adding Nova::KeyPair '%s'", name)
         self.resources[name] = {
             'type': 'OS::Nova::KeyPair',
@@ -327,7 +337,7 @@ class HeatTemplate(HeatObject):
         }
 
     def add_servergroup(self, name, policy):
-        """add to the template a Nova ServerGroup"""
+        '''add to the template a Nova ServerGroup'''
         log.debug("adding Nova::ServerGroup '%s', policy '%s'", name, policy)
         if policy not in ["anti-affinity", "affinity"]:
             raise ValueError(policy)
@@ -346,7 +356,7 @@ class HeatTemplate(HeatObject):
         }
 
     def add_security_group(self, name):
-        """add to the template a Neutron SecurityGroup"""
+        '''add to the template a Neutron SecurityGroup'''
         log.debug("adding Neutron::SecurityGroup '%s'", name)
         self.resources[name] = {
             'type': 'OS::Neutron::SecurityGroup',
@@ -376,7 +386,7 @@ class HeatTemplate(HeatObject):
     def add_server(self, name, image, flavor, ports=None, networks=None,
                    scheduler_hints=None, user=None, key_name=None,
                    user_data=None, metadata=None, additional_properties=None):
-        """add to the template a Nova Server"""
+        '''add to the template a Nova Server'''
         log.debug("adding Nova::Server '%s', image '%s', flavor '%s', "
                   "ports %s", name, image, flavor, ports)
 
@@ -435,8 +445,8 @@ class HeatTemplate(HeatObject):
         }
 
     def create(self, block=True):
-        """creates a template in the target cloud using heat
-        returns a dict with the requested output values from the template"""
+        '''creates a template in the target cloud using heat
+        returns a dict with the requested output values from the template'''
         log.info("Creating stack '%s'", self.name)
 
         # create stack early to support cleanup, e.g. ctrl-c while waiting
