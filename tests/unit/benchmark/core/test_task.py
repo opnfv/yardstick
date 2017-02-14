@@ -155,6 +155,30 @@ class TaskTestCase(unittest.TestCase):
         self.assertEqual(task_args_fnames[0], None)
         self.assertEqual(task_args_fnames[1], None)
 
+    def test_change_server_name_host_str(self):
+        scenario = {'host': 'demo'}
+        suffix = '-8'
+        task.change_server_name(scenario, suffix)
+        self.assertTrue(scenario['host'], 'demo-8')
+
+    def test_change_server_name_host_dict(self):
+        scenario = {'host': {'name': 'demo'}}
+        suffix = '-8'
+        task.change_server_name(scenario, suffix)
+        self.assertTrue(scenario['host']['name'], 'demo-8')
+
+    def test_change_server_name_target_str(self):
+        scenario = {'target': 'demo'}
+        suffix = '-8'
+        task.change_server_name(scenario, suffix)
+        self.assertTrue(scenario['target'], 'demo-8')
+
+    def test_change_server_name_target_dict(self):
+        scenario = {'target': {'name': 'demo'}}
+        suffix = '-8'
+        task.change_server_name(scenario, suffix)
+        self.assertTrue(scenario['target']['name'], 'demo-8')
+
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(curr_path, filename)
