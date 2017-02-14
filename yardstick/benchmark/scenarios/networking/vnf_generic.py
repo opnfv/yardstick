@@ -237,10 +237,10 @@ class NetworkServiceTestCase(base.Scenario):
         import_modules_from_package(
             "yardstick.network_services.vnf_generic.vnf")
         expected_name = vnf_model['id']
-        impl = [c for c in itersubclasses(GenericVNF)
-                if c.__name__ == expected_name]
+        impl = (c for c in itersubclasses(GenericVNF)
+                if c.__name__ == expected_name)
         try:
-            return next(iter(impl))
+            return next(impl)
         except StopIteration:
             raise IncorrectConfig("No implementation for %s", expected_name)
 
