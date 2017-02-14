@@ -15,7 +15,7 @@ scenarios:
 
     monitors:
     - monitor_type: "openstack-cmd"
-      command_name: "keystone user-list"
+      command_name: "openstack user list"
       monitor_time: 10
       sla:
         max_outage_time: 5

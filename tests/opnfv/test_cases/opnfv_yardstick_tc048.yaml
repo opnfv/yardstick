@@ -15,7 +15,7 @@ scenarios:
 
     monitors:
     - monitor_type: "openstack-cmd"
-      command_name: "cinder list"
+      command_name: "openstack volume list"
       monitor_time: 10
       sla:
         max_outage_time: 5
