@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_4f04217e",
+        "filename": "api/resources/testsuites_action.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-02-14T06:47:42Z",
+      "side": 1,
+      "message": "yes, os.path.splitext() is a good idea. Thank you for point out that~",
+      "parentUuid": "5ac10518_f61c5f79",
+      "revId": "c31c465b1882c0f658a39f63492c016464bac7cd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_d6192389",
         "filename": "api/resources/testsuites_action.py",
         "patchSetId": 2
