@@ -16,7 +16,6 @@
 from __future__ import absolute_import
 import collections
 import yaml
-import six
 
 from yardstick.common.task_template import TaskTemplate
 
@@ -46,13 +45,14 @@ def dict_key_flatten(data):
     """
     next_data = {}
 
+    # check for non-string iterables
     if not any((isinstance(v, collections.Iterable) and not isinstance(v, str))
                for v in data.values()):
         return data
 
-    for key, val in six.iteritems(data):
+    for key, val in data.items():
         if isinstance(val, collections.Mapping):
-            for n_k, n_v in six.iteritems(val):
+            for n_k, n_v in val.items():
                 next_data["%s.%s" % (key, n_k)] = n_v
         elif isinstance(val, collections.Iterable) and not isinstance(val,
                                                                       str):
