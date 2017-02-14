@@ -14,6 +14,7 @@ from __future__ import print_function
 import sys
 import os
 import yaml
+import collections
 import atexit
 import ipaddress
 import time
@@ -354,6 +355,8 @@ def atexit_handler():
 
 def is_ip_addr(addr):
     """check if string addr is an IP address"""
+    if isinstance(addr, collections.Mapping):
+        addr = addr.get('public_ip_attr', addr.get('private_ip_attr'))
     try:
         ipaddress.ip_address(addr.encode('utf-8'))
         return True
@@ -499,12 +502,20 @@ def check_environment():
 
 def change_server_name(scenario, suffix):
     try:
-        scenario['host'] += suffix
+        host = scenario['host']
+        if isinstance(host, dict):
+            scenario['host']['name'] += suffix
+        else:
+            scenario['host'] += suffix
     except KeyError:
         pass
 
     try:
-        scenario['target'] += suffix
+        target = scenario['target']
+        if isinstance(target, dict):
+            scenario['target']['name'] += suffix
+        else:
+            scenario['target'] += suffix
     except KeyError:
         pass
 
