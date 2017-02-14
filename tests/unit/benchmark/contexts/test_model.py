@@ -180,6 +180,7 @@ class ServerTestCase(unittest.TestCase):
         self.assertEqual(test_server.keypair_name, 'some-keys')
         self.assertEqual(test_server.secgroup_name, 'some-secgroup')
         self.assertEqual(test_server.placement_groups, [])
+        self.assertEqual(test_server.server_groups, [])
         self.assertEqual(test_server.instances, 1)
         self.assertIsNone(test_server.floating_ip)
         self.assertIsNone(test_server._image)
@@ -191,6 +192,15 @@ class ServerTestCase(unittest.TestCase):
 
         attrs = {'placement': 'baz'}
         mock_pg.get.return_value = None
+
+        self.assertRaises(ValueError, model.Server, 'foo',
+                          self.mock_context, attrs)
+
+    @mock.patch('yardstick.benchmark.contexts.model.PlacementGroup')
+    def test_construct_get_wrong_server_group(self, mock_sg):
+
+        attrs = {'server_group': 'baz'}
+        mock_sg.get.return_value = None
 
         self.assertRaises(ValueError, model.Server, 'foo',
                           self.mock_context, attrs)

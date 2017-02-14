@@ -62,7 +62,34 @@ class PlacementGroup(Object):
             return None
 
 
-class Router(Object):
+class ServerGroup(Object):       # pragma: no cover
+    """Class that represents a server group in the logical model
+    Policy should be one of "anti-affinity" or "affinity"
+    """
+    map = {}
+
+    def __init__(self, name, context, policy):
+        if policy not in ["affinity", "anti-affinity"]:
+            raise ValueError("server group '%s', policy '%s' is not valid" %
+                             (name, policy))
+        self.name = name
+        self.members = set()
+        self.stack_name = context.name + "-" + name
+        self.policy = policy
+        ServerGroup.map[name] = self
+
+    def add_member(self, name):
+        self.members.add(name)
+
+    @staticmethod
+    def get(name):
+        if name in ServerGroup.map:
+            return ServerGroup.map[name]
+        else:
+            return None
+
+
+class Router(Object):       # pragma: no cover
     """Class that represents a router in the logical model"""
 
     def __init__(self, name, network_name, context, external_gateway_info):
@@ -140,6 +167,18 @@ class Server(Object):
                                  (name, p))
             self.placement_groups.append(pg)
             pg.add_member(self.stack_name)
+
+        # support servergroup attr
+        self.server_groups = []
+        sgs = attrs.get("server_group", [])
+        sgs = sgs if type(sgs) is list else [sgs]
+        for sg in sgs:
+            server_group = ServerGroup.get(sg)
+            if not server_group:
+                raise ValueError("server '%s', server_group '%s' is invalid" %
+                                 (name, sg))
+            self.server_groups.append(server_group)
+            server_group.add_member(self.stack_name)
 
         self.instances = 1
         if "instances" in attrs:
