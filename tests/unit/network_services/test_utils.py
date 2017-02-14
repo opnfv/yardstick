@@ -16,6 +16,8 @@
 # Unittest for yardstick.network_services.utils
 
 from __future__ import absolute_import
+
+import os
 import unittest
 import mock
 
@@ -25,18 +27,23 @@ from yardstick.network_services import utils
 class UtilsTestCase(unittest.TestCase):
     """Test all VNF helper methods."""
 
-    DPDK_PATH = "/opt/nsb_bin/dpdk_nic_bind.py"
+    DPDK_PATH = os.path.join(utils.NSB_ROOT, "dpdk_nic_bind.py")
 
     def setUp(self):
         super(UtilsTestCase, self).setUp()
 
     def test_get_nsb_options(self):
         result = utils.get_nsb_option("bin_path", None)
-        self.assertEqual(result, "/opt/nsb_bin")
+        self.assertEqual(result, utils.NSB_ROOT)
 
-    def test_get_nsb_optionsi_invalid_key(self):
+    def test_get_nsb_option_is_invalid_key(self):
         result = utils.get_nsb_option("bin", None)
         self.assertEqual(result, None)
+
+    def test_get_nsb_option_default(self):
+        default = object()
+        result = utils.get_nsb_option("nosuch", default)
+        self.assertIs(result, default)
 
     def test_provision_tool(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
