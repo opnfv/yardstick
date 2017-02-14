@@ -197,6 +197,16 @@ class HeatTemplate(HeatObject):
             'properties': {'name': name}
         }
 
+    def add_server_group(self, name, policies):
+        """add to the template a ServerGroup"""
+        log.debug("adding Nova::ServerGroup '%s'", name)
+        policies = policies if type(policies) is list else [policies]
+        self.resources[name] = {
+            'type': 'OS::Nova::ServerGroup',
+            'properties': {'name': name,
+                           'policies': policies}
+        }
+
     def add_subnet(self, name, network, cidr):
         """add to the template a Neutron Subnet"""
         log.debug("adding Neutron::Subnet '%s' in network '%s', cidr '%s'",
