@@ -63,8 +63,8 @@ class SshManager(object):
             ssh_port = self.node.get("ssh_port", ssh.DEFAULT_PORT)
             self.conn = ssh.SSH(user=self.node["user"],
                                 host=self.node["ip"],
-                                password=self.node["password"],
-                                port=ssh_port)
+                                port=ssh_port,
+                                **base.Scenario.get_ssh_auth_method(self.node))
             self.conn.wait()
         except (SSHError) as error:
             LOG.info("connect failed to %s, due to %s", self.node["ip"], error)
