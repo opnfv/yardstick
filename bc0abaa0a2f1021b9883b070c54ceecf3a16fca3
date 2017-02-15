@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_f2405937",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-15T17:11:51Z",
+      "side": 1,
+      "message": "pkg_resources and yaml are third-party.",
+      "parentUuid": "dabed58f_63ba5ee3",
+      "revId": "bc0abaa0a2f1021b9883b070c54ceecf3a16fca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_f2913e53",
         "filename": "yardstick/benchmark/contexts/node.py",
         "patchSetId": 4
