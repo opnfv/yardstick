@@ -45,11 +45,11 @@ def is_really_missing(mis, task_template):
     # Removing variables that have default values from
     # missing. Construction that won't be properly
     # check is {% set x = x or 1}
-    if re.search(mis.join(["{%\s*set\s+", "\s*=\s*", "[^\w]+"]),
+    if re.search(mis.join([r"{%\s*set\s+", "\s*=\s*", r"[^\w]+"]),
                  task_template):
         return False
     # Also check for a default filter which can show up as
     # a missing variable
-    if re.search(mis + "\s*\|\s*default\(", task_template):
+    if re.search(mis + r"\s*\|\s*default\(", task_template):
         return False
     return True

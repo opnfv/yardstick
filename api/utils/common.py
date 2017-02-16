@@ -33,7 +33,7 @@ def get_command_list(command_list, opts, args):
 
     command_list.append(args)
 
-    command_list.extend(('--{}'.format(k) for k in opts if 'task-args' != k))
+    command_list.extend(('--{}'.format(k) for k in opts if k != 'task-args'))
 
     task_args = opts.get('task-args', '')
     if task_args:
