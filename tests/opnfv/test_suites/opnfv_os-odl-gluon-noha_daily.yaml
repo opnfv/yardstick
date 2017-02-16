@@ -1,0 +1,12 @@
+---
+# os-odl-gluon-noha daily task suite
+
+schema: "yardstick:suite:0.1"
+
+name: "os-odl-gluon-noha"
+test_cases_dir: "tests/opnfv/test_cases/"
+test_cases:
+-
+  file_name: opnfv_yardstick_tc002.yaml
+-
+  file_name: opnfv_yardstick_tc005.yaml
