@@ -288,6 +288,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         }
 
         self.scenario_cfg = {
+            'task_path': "",
             'tc_options': {'rfc2544': {'allowed_drop_rate': '0.8 - 1'}},
             'task_id': 'a70bdf4a-8e67-47a3-9dc1-273c14506eb7',
             'tc': 'tc_ipv4_1Mflow_64B_packetsize',
