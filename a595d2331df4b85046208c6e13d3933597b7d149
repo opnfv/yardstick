@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_d5c41f61",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-16T04:00:05Z",
+      "side": 1,
+      "message": "can we add the function doc here?",
+      "revId": "a595d2331df4b85046208c6e13d3933597b7d149",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_55b02ff4",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-16T04:00:05Z",
+      "side": 1,
+      "message": "can we do this?\ncmd \u003d \u0027sudo bash %s %s\u0027, script, options",
+      "revId": "a595d2331df4b85046208c6e13d3933597b7d149",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
