@@ -46,6 +46,30 @@
       "revId": "c6d584f5e050cf79eb640bae3d6ca36e2788890f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_7579b3fb",
+        "filename": "api/utils/influx.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-02-16T06:10:15Z",
+      "side": 1,
+      "message": "OK. got it. Thank you~",
+      "parentUuid": "dabed58f_12ddf242",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 60
+      },
+      "revId": "c6d584f5e050cf79eb640bae3d6ca36e2788890f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
