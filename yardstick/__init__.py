@@ -39,6 +39,8 @@ def _init_logging():
 
     # don't append to log file, clobber
     _LOG_FILE_HDLR.setFormatter(_LOG_FORMATTER)
+    # set log file to store debug info
+    _LOG_FILE_HDLR.setLevel(logging.DEBUG)
 
     del logging.root.handlers[:]
     logging.root.addHandler(_LOG_STREAM_HDLR)
