@@ -15,6 +15,10 @@
 
 from __future__ import absolute_import
 import logging
+
+import errno
+import os
+
 import yaml
 
 from yardstick.benchmark.scenarios import base
@@ -87,12 +91,26 @@ class NetworkServiceTestCase(base.Scenario):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
 
-        # fixme: create schema to validate all fields have been provided
-        with open(scenario_cfg["topology"]) as stream:
-            self.topology = yaml.load(stream)["nsd:nsd-catalog"]["nsd"][0]
+        topology_yaml = self.load_relative_yaml(scenario_cfg["topology"],
+                                                scenario_cfg['task_path'])
+        self.topology = topology_yaml["nsd:nsd-catalog"]["nsd"][0]
+
         self.vnfs = []
         self.collector = None
         self.traffic_profile = None
+
+    def load_relative_yaml(self, yaml_path, task_path):
+        # fixme: create schema to validate all fields have been provided
+        try:
+            with open(yaml_path) as stream:
+                return yaml.load(stream)
+        except IOError as e:
+            if e.errno != errno.ENOENT:
+                raise
+            else:
+                with open(os.path.join(task_path,
+                                       yaml_path)) as stream:
+                    return yaml.load(stream)
 
     @classmethod
     def _get_traffic_flow(cls, scenario_cfg):
