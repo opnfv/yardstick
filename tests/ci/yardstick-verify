@@ -146,11 +146,11 @@ report(){
           \"version\":\"$(basename ${YARDSTICK_BRANCH})\",
           \"scenario\":\"${DEPLOY_SCENARIO}\",
           \"description\": \"yardstick ci scenario status\",
-          \"criteria\":\"$1\",
-          \"start_date\":\"$2\",
-          \"stop_date\":\"$3\",
+          \"criteria\":\"${1}\",
+          \"start_date\":\"${2}\",
+          \"stop_date\":\"${3}\",
           \"details\":\"\"}" \
-          ${DISPATCHER_HTTP_TARGET}
+          "${DISPATCHER_HTTP_TARGET}"
 }
 
 run_test()
@@ -220,7 +220,7 @@ EOF
             scenario_status="FAILED"
         fi
 
-        report $scenario_status $start_date $stop_date
+        report "${scenario_status}" "${start_date}" "${stop_date}"
 
         if [ $failed -gt 0 ]; then
             echo "---------------------------"
