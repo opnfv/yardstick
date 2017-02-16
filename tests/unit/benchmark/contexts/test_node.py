@@ -14,6 +14,7 @@
 from __future__ import absolute_import
 import os
 import unittest
+import mock
 
 from yardstick.benchmark.contexts import node
 
@@ -123,3 +124,98 @@ class NodeContextTestCase(unittest.TestCase):
         curr_path = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(curr_path, filename)
         return file_path
+
+    prefix = 'yardstick.benchmark.contexts.node'
+
+    @mock.patch('{}.NodeContext._execute_script'.format(prefix))
+    def test_deploy(self, execute_script_mock):
+        obj = node.NodeContext()
+        obj.env = {
+            'setup': [
+                {'node5': {}}
+            ]
+        }
+        obj.deploy()
+        self.assertTrue(execute_script_mock.called)
+
+    @mock.patch('{}.NodeContext._execute_script'.format(prefix))
+    def test_undeploy(self, execute_script_mock):
+        obj = node.NodeContext()
+        obj.env = {
+            'teardown': [
+                {'node5': {}}
+            ]
+        }
+        obj.undeploy()
+        self.assertTrue(execute_script_mock.called)
+
+    @mock.patch('{}.ssh.SSH._put_file_shell'.format(prefix))
+    @mock.patch('{}.ssh.SSH.execute'.format(prefix))
+    def test_execute_remote_script(self, execute_mock, put_file_mock):
+        obj = node.NodeContext()
+        obj.env = {'prefix': 'yardstick.benchmark.scenarios.compute'}
+        node_name_args = 'node5'
+        obj.nodes = [{
+            'name': node_name_args,
+            'user': 'ubuntu',
+            'ip': '10.10.10.10',
+            'pwd': 'ubuntu',
+        }]
+
+        info = {'script': 'computecapacity.bash'}
+        execute_mock.return_value = (0, '', '')
+        obj._execute_remote_script('node5', info)
+
+        self.assertTrue(put_file_mock.called)
+        self.assertTrue(execute_mock.called)
+
+    @mock.patch('{}.NodeContext._execute_local_script'.format(prefix))
+    def test_execute_script_local(self, local_execute_mock):
+        node_name = 'local'
+        info = {}
+        node.NodeContext()._execute_script(node_name, info)
+        self.assertTrue(local_execute_mock.called)
+
+    @mock.patch('{}.NodeContext._execute_remote_script'.format(prefix))
+    def test_execute_script_remote(self, remote_execute_mock):
+        node_name = 'node5'
+        info = {}
+        node.NodeContext()._execute_script(node_name, info)
+        self.assertTrue(remote_execute_mock.called)
+
+    def test_get_script(self):
+        script_args = 'hello.bash'
+        info_args = {
+            'script': script_args
+        }
+        script, options = node.NodeContext()._get_script(info_args)
+        self.assertEqual(script_args, script)
+        self.assertEqual('', options)
+
+    def test_node_info(self):
+        node_name_args = 'node5'
+        obj = node.NodeContext()
+        obj.nodes = [{'name': node_name_args, 'check': node_name_args}]
+        node_info = obj._get_node_info(node_name_args)
+        self.assertEqual(node_info.get('check'), node_name_args)
+
+    @mock.patch('{}.ssh.SSH.wait'.format(prefix))
+    def test_get_client(self, wait_mock):
+        node_name_args = 'node5'
+        obj = node.NodeContext()
+        obj.nodes = [{
+            'name': node_name_args,
+            'user': 'ubuntu',
+            'ip': '10.10.10.10',
+            'pwd': 'ubuntu',
+        }]
+        obj._get_client(node_name_args)
+        self.assertTrue(wait_mock.called)
+
+
+def main():
+    unittest.main()
+
+
+if __name__ == '__main__':
+    main()

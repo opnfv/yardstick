@@ -85,7 +85,7 @@ class Task(object):     # pragma: no cover
                 # (hide it for exit handler)
                 Context.list = []
             else:
-                for context in Context.list:
+                for context in Context.list[::-1]:
                     context.undeploy()
                 Context.list = []
             one_task_end_time = time.time()
@@ -348,7 +348,7 @@ def atexit_handler():
 
     if len(Context.list) > 0:
         print("Undeploying all contexts")
-        for context in Context.list:
+        for context in Context.list[::-1]:
             context.undeploy()
 
 
