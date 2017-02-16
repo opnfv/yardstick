@@ -39,5 +39,8 @@ class FileDispatcher(DispatchBase):
     def flush_result_data(self):
         file_path = self.conf.get('file_path', consts.DEFAULT_OUTPUT_FILE)
 
-        data = {'status': 1, 'result': self.result}
+        res = utils.read_json_from_file(file_path).get('result')
+        res.extend(self.result)
+
+        data = {'status': 0, 'result': res}
         utils.write_json_to_file(file_path, data)
