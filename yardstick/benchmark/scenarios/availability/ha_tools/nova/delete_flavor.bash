@@ -16,4 +16,4 @@ set -e
 
 source /root/openrc
 
-nova flavor-delete $1
+openstack flavor delete $1
