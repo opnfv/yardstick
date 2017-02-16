@@ -1,0 +1,57 @@
+---
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+# Sample bottlenecks stress test benchmark task config file
+# one scenarios run in parallel pinging one target vm.
+# Multiple context are used to specify the host and target VMs.
+
+schema: "yardstick:task:0.1"
+run_in_parallel: true
+{% set stack_num = stack_num or 1 %}
+
+scenarios:
+{% for num in range(stack_num) %}
+-
+  type: Ping
+  options:
+    packetsize: 100
+  host: demo1.demo{{num}}
+  target: demo2.demo{{num}}
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+  sla:
+    max_rtt: 10
+    action: assert
+{% endfor %}
+
+contexts:
+{% for num in range(stack_num) %}
+-
+  name: demo{{num}}
+  image: cirros-0.3.3
+  flavor: yardstick-flavor
+  user: cirros
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    demo1:
+      floating_ip: true
+      placement: "pgrp1"
+    demo2:
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+{% endfor %}
