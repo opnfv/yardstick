@@ -16,7 +16,7 @@
       "height": "",
       "panels": [
         {
-          "content": "<h5 style=\"font-family:Verdana\"> <a style=\"color:#31A7D3\"><center>OPNFV_KVMFORNFV_Cyclictest - Real time benchmark</center> </a></h5>\n<center>\n<p>Cyclictest is used to test the guest timer latency with idle host/guest,Host memory stress and Host CPU stress.\nFor more information see <a style=\"color:#31A7D3\"; href=\"https://wiki.opnfv.org/display/kvm/KVM4NFV+Test++Environment\">Cyclictest</a></p>\n</center>\n\n\n",
+          "content": "<h5 style=\"font-family:Verdana\"> <a style=\"color:#31A7D3\"><center>OPNFV_KVMFORNFV_Cyclictest - Real time benchmark</center> </a></h5>\n<center>\n<p>cyclictest used to test the guest timer latency with idle host/guest,Host memory stress and Host CPU stress.\nFor more information see <a style=\"color:#31A7D3\"; href=\"https://wiki.opnfv.org/display/kvm/KVM4NFV+Test++Environment\">Cyclictest</a></p>\n</center>\n\n\n",
           "editable": true,
           "error": false,
           "id": 6,
@@ -211,24 +211,27 @@
           "lines": true,
           "linewidth": 2,
           "links": [],
-          "minSpan": 5,
+          "minSpan": 12,
           "nullPointMode": "connected",
           "percentage": false,
           "pointradius": 2,
           "points": true,
           "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 6,
+          "seriesOverrides": [
+            {
+              "alias": "kvmfornfv_cyclictest_cpustress_idle",
+              "yaxis": 1
+            }
+          ],
+          "span": 12,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "dsType": "influxdb",
               "groupBy": [],
-              "measurement": "kvmfornfv_cyclictest_idle_idle",
+              "measurement": "kvmfornfv_cyclictest_cpustress_idle",
               "policy": "default",
-              "query": "SELECT \"avg\" FROM \"kvmfornfv_cyclictest_idle_idle\" WHERE $timeFilter",
-              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -239,6 +242,22 @@
                     ],
                     "type": "field"
                   }
+                ],
+                [
+                  {
+                    "params": [
+                      "max"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "min"
+                    ],
+                    "type": "field"
+                  }
                 ]
               ],
               "tags": []
@@ -246,7 +265,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "AVG Graph",
+          "title": "kvmfornfv_cyclictest_cpustress_idle",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -308,24 +327,27 @@
           "lines": true,
           "linewidth": 2,
           "links": [],
-          "minSpan": 5,
+          "minSpan": 12,
           "nullPointMode": "connected",
           "percentage": false,
           "pointradius": 2,
           "points": true,
           "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 6,
+          "seriesOverrides": [
+            {
+              "alias": "kvmfornfv_cyclictest_memorystress_idle.min",
+              "yaxis": 1
+            }
+          ],
+          "span": 12,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "dsType": "influxdb",
               "groupBy": [],
-              "measurement": "kvmfornfv_cyclictest_idle_idle",
+              "measurement": "kvmfornfv_cyclictest_memorystress_idle",
               "policy": "default",
-              "query": "SELECT \"min\" FROM \"kvmfornfv_cyclictest_idle_idle\" WHERE $timeFilter",
-              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -336,6 +358,22 @@
                     ],
                     "type": "field"
                   }
+                ],
+                [
+                  {
+                    "params": [
+                      "max"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "avg"
+                    ],
+                    "type": "field"
+                  }
                 ]
               ],
               "tags": []
@@ -343,7 +381,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "MIN Graph",
+          "title": "kvmfornfv_cyclictest_memorystress_idle",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -387,6 +425,8 @@
             "threshold1Color": "#e9e7d6",
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "threshold3": 50,
+            "threshold3Color": "#e9e7d6",
             "thresholdLine": true
           },
           "id": 13,
@@ -405,14 +445,14 @@
           "lines": true,
           "linewidth": 2,
           "links": [],
-          "minSpan": 5,
+          "minSpan": 12,
           "nullPointMode": "connected",
           "percentage": false,
           "pointradius": 2,
           "points": true,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 6,
+          "span": 12,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -420,7 +460,7 @@
               "dsType": "influxdb",
               "groupBy": [],
               "hide": false,
-              "measurement": "kvmfornfv_cyclictest_idle_idle",
+              "measurement": "kvmfornfv_cyclictest_iostress_idle",
               "policy": "default",
               "refId": "A",
               "resultFormat": "time_series",
@@ -428,7 +468,23 @@
                 [
                   {
                     "params": [
+                      "min"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
                       "max"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "avg"
                     ],
                     "type": "field"
                   }
@@ -439,7 +495,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "MAX Graph",
+          "title": "kvmfornfv_cyclictest_iostress_idle",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -511,7 +567,7 @@
   },
   "refresh": "1d",
   "schemaVersion": 12,
-  "version": 1,
+  "version": 10,
   "links": [],
   "gnetId": null
 }
