@@ -63,10 +63,13 @@ linuxheadersversion=`echo ls boot/vmlinuz* | cut -d- -f2-`
 
 apt-get update
 apt-get install -y \
+    bc \
     fio \
     gcc \
     git \
     iperf3 \
+    iproute2 \
+    ethtool \
     linux-tools-common \
     linux-tools-generic \
     lmbench \

@@ -1,0 +1,35 @@
+---
+
+schema: "yardstick:task:0.1"
+
+description: >
+    Sample benchmark task config file;
+    Monitor network metrics provided by the kernel in a host and calculate
+    IP datagram error rate, ICMP message error rate, TCP segment error rate and
+    UDP datagram error rate.
+
+scenarios:
+-
+  type: Nstat
+  options:
+    duration: 60
+
+  host: poseidon.demo
+
+  runner:
+    type: Iteration
+    iterations: 1
+
+context:
+  name: demo
+  image: yardstick-image
+  flavor: yardstick-flavor
+  user: ubuntu
+
+  servers:
+    poseidon:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'

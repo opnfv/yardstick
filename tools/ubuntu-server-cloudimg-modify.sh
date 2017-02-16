@@ -58,10 +58,13 @@ bootcmd:
 EOF
 fi
 apt-get install -y \
+    bc \
     fio \
     git \
     gcc \
     iperf3 \
+    ethtool \
+    iproute2 \
     linux-tools-common \
     linux-tools-generic \
     lmbench \
