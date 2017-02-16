@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_e6ee57b4",
+        "filename": ".testr.conf",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-16T18:52:05Z",
+      "side": 1,
+      "message": "I don\u0027t think we can copyright config files.   There is also a minimum requirement for copyright, I don\u0027t think we can copyright a single line for instance.  Four lines is also too little I think.",
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_c6f1d396",
+        "filename": "ez_setup.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-16T18:52:05Z",
+      "side": 1,
+      "message": "isn\u0027t this file copied from setupttools.  I don\u0027t think this is Intel copyright.\n\nhttps://github.com/ActiveState/ez_setup/blob/master/ez_setup.py",
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_661107ac",
+        "filename": "yardstick/network_services/nfvi/collectd.conf",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-16T18:52:05Z",
+      "side": 1,
+      "message": "I don\u0027t think we can copyright config files.",
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_460c0395",
+        "filename": "yardstick/vTC/apexlake/apexlake.conf",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-16T18:52:05Z",
+      "side": 1,
+      "message": "can\u0027t have copyright None.  Also I don\u0027t think we can copyright config files.",
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
