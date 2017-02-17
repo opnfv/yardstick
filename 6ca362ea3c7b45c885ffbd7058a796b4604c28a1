@@ -36,6 +36,29 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_61ed718b",
+        "filename": "fuel-plugin/deployment_scripts/install.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2017-02-17T04:45:05Z",
+      "side": 1,
+      "message": "I guess this line should be on the top of file, all .sh file should be noticed",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 11
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_41ddcd41",
         "filename": "fuel-plugin/environment_config.yaml",
         "patchSetId": 2
@@ -489,6 +512,29 @@
         "startChar": 21,
         "endLine": 2,
         "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_41e86d7c",
+        "filename": "yardstick/benchmark/scenarios/networking/sfc_compute.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2017-02-17T04:45:05Z",
+      "side": 1,
+      "message": "I guess this line should be on the top of file.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 11
       },
       "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
