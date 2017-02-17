@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_77ee938d",
+        "filename": ".testr.conf",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-17T11:52:17Z",
+      "side": 1,
+      "message": "Yes, agreed, \n\nbut https://wiki.opnfv.org/display/DEV/Contribution+Guidelines does not mention.\n\nKubi, should we check with Ray? If there is a minimum requirement?",
+      "parentUuid": "dabed58f_e6ee57b4",
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_c6f1d396",
         "filename": "ez_setup.py",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2017-02-16T18:52:05Z",
       "side": 1,
       "message": "isn\u0027t this file copied from setupttools.  I don\u0027t think this is Intel copyright.\n\nhttps://github.com/ActiveState/ez_setup/blob/master/ez_setup.py",
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_37d1fbcd",
+        "filename": "ez_setup.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-17T11:52:17Z",
+      "side": 1,
+      "message": "yup, I will remove the license. this was added due to automated script :)",
+      "parentUuid": "dabed58f_c6f1d396",
       "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_77c77313",
+        "filename": "fuel-plugin/deployment_scripts/install.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-17T11:52:17Z",
+      "side": 1,
+      "message": "Yes i missed this in my script :)",
+      "parentUuid": "dabed58f_61ed718b",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 11
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_41ddcd41",
         "filename": "fuel-plugin/environment_config.yaml",
         "patchSetId": 2
@@ -70,6 +130,30 @@
       "writtenOn": "2017-02-17T02:23:43Z",
       "side": 1,
       "message": "this file is empty, i don\u0027t know if the copyright is needed?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 43
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_97f30773",
+        "filename": "fuel-plugin/environment_config.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-17T11:52:17Z",
+      "side": 1,
+      "message": "Yes :)",
+      "parentUuid": "dabed58f_41ddcd41",
       "range": {
         "startLine": 1,
         "startChar": 0,
