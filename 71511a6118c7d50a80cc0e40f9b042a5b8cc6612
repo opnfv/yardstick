@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_7c12f8b5",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-17T09:09:05Z",
+      "side": 1,
+      "message": "all these can be simplified with .get() which defaults to None.\n\n  self._image \u003d attrs.get(\"image\")",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_fc25880a",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-17T09:09:05Z",
+      "side": 1,
+      "message": "it is better to use attr.get() and default to an empty dict, so the for loop is a no-op\n\nalso can simplify to list comprehension\n\n self.placement_groups \u003d [PlacementGroup(name, self, pgattrs[\"policy\"]) for for name, pgattrs in attrs.get(\"placement_groups\", {}).items()]",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_1c3c1c2f",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-17T09:09:05Z",
+      "side": 1,
+      "message": "it is better to use attr.get() and default to an empty dict, so the for loop is a no-op\n\n\nalso can simplify to list comprehension\n\n  self.server_groups \u003d [ServerGroup(name, self, sgattrs[\"policy\"]) for name, sgattrs in attrs.get(\"server_groups\", {}).items()]",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_fc6ca838",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-17T09:09:05Z",
+      "side": 1,
+      "message": "this for loop doesn\u0027t seem to make sense.  we are resetting \"group\" each time.\n\ndo we need a list or something somewhere?",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_1c6adc1a",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-17T09:09:05Z",
+      "side": 1,
+      "message": "please always call super() in __init__",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_5c5ff472",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-17T09:09:05Z",
+      "side": 1,
+      "message": "can we use sets for membership tests.\n\n  if policy not in {\"affinity\", \"anti-affinity\"}:",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_dc73e413",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-17T09:09:05Z",
+      "side": 1,
+      "message": "isn\u0027t this the same as regular .get()\n\n  def get(name):\n    return ServerGroup.map.get(name)",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_7cc75813",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-17T09:09:05Z",
+      "side": 1,
+      "message": "use isinstance instead of type.\n\n sgs \u003d sgs if isinstance(sgs, list) else [sgs]",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_9ccc8c37",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-17T09:09:05Z",
+      "side": 1,
+      "message": "please use isinstance",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
