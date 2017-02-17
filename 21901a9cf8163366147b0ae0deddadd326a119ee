@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_3c9fa005",
+        "filename": "api/resources/testsuites_action.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-17T09:16:42Z",
+      "side": 1,
+      "message": "can use generator expressions here to avoid temp list.\n\n testcases \u003d (get_name(c[\u0027file_name\u0027]) for c in suite_dic[\u0027test_cases\u0027])",
+      "revId": "21901a9cf8163366147b0ae0deddadd326a119ee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
