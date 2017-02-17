@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_e172c148",
+        "filename": "samples/ping_bottlenecks.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:25:38Z",
+      "side": 1,
+      "message": "I think you may put the license header on the top",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "c68d211ee1343699e6228a4495cceb083806d5e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
