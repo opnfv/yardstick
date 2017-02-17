@@ -36,6 +36,466 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_41ddcd41",
+        "filename": "fuel-plugin/environment_config.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "this file is empty, i don\u0027t know if the copyright is needed?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 43
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_c1f0ddcb",
+        "filename": "samples/test_suite.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 19,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_81bae5df",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc019.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "if there\u0027s no company, like gmail/edu, i think it should be like: \"abc@gmail.com and others.\"",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_a1bfe9cf",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc025.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_41b4edf1",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc045.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_61b9f1e8",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc046.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_01cef583",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc047.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_21cbf973",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc048.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_c1c77d63",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc050.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_e1c40161",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc051.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_81a185ab",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc052.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_a1a609c0",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc053.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_41ab8d89",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc054.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_a1d84954",
+        "filename": "tests/opnfv/test_suites/opnfv_os-nosdn-fdio-noha_daily.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "I think this is not correct.",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_61b011f5",
+        "filename": "tests/opnfv/test_suites/opnfv_os-odl_l2-fdio-noha_daily.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_0195953f",
+        "filename": "vTC/build.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_21921958",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker_conf.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_c19e9d63",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor_conf.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_e19ba170",
+        "filename": "yardstick/benchmark/scenarios/availability/operation_conf.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_8188a523",
+        "filename": "yardstick/benchmark/scenarios/availability/result_checker_conf.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_661107ac",
         "filename": "yardstick/network_services/nfvi/collectd.conf",
         "patchSetId": 2
@@ -64,6 +524,121 @@
       "writtenOn": "2017-02-16T18:52:05Z",
       "side": 1,
       "message": "can\u0027t have copyright None.  Also I don\u0027t think we can copyright config files.",
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_a18da933",
+        "filename": "yardstick/vTC/apexlake/heat_templates/stress_workload.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_4182ad01",
+        "filename": "yardstick/vTC/apexlake/heat_templates/stress_workload_liberty.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_6187b110",
+        "filename": "yardstick/vTC/apexlake/heat_templates/vTC.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_017cb51f",
+        "filename": "yardstick/vTC/apexlake/heat_templates/vTC_liberty.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_2179b92f",
+        "filename": "yardstick/vTC/apexlake/tests/data/generated_templates/vTC.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-17T02:23:43Z",
+      "side": 1,
+      "message": "None",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 25
+      },
       "revId": "6ca362ea3c7b45c885ffbd7058a796b4604c28a1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
