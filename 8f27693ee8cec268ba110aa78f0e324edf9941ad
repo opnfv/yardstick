@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_dd48bdce",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-18T19:07:30Z",
+      "side": 1,
+      "message": "the convention is that empty containers are false\nso we don\u0027t have to use len() and this becomes \n\n if not scheduler_hints[\"different_host\"]:",
+      "revId": "8f27693ee8cec268ba110aa78f0e324edf9941ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_3d3c792f",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-18T19:07:30Z",
+      "side": 1,
+      "message": "good fix, but we should remove this code and move it into heat.py context.\n\nsee https://gerrit.opnfv.org/gerrit/#/c/28731/",
+      "revId": "8f27693ee8cec268ba110aa78f0e324edf9941ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_1d3f3527",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-18T19:07:30Z",
+      "side": 1,
+      "message": "the convention is that empty containers are false\n\nso we don\u0027t have to use len() and this becomes \n\n if not Runner.runners:",
+      "revId": "8f27693ee8cec268ba110aa78f0e324edf9941ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
