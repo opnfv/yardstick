@@ -127,7 +127,7 @@ class Runner(object):
         """Returns instance of a scenario runner for execution type.
         """
         # if there is no runner, start the output serializer subprocess
-        if len(Runner.runners) == 0:
+        if not Runner.runners:
             log.debug("Starting dump process file '%s'",
                       config["output_filename"])
             Runner.queue = multiprocessing.Queue()
@@ -155,7 +155,7 @@ class Runner(object):
             Runner.runners.remove(runner)
 
         # if this was the last runner, stop the output serializer subprocess
-        if len(Runner.runners) == 0:
+        if not Runner.runners:
             Runner.release_dump_process()
 
     @staticmethod
@@ -170,7 +170,7 @@ class Runner(object):
         log.debug("Terminating all runners")
 
         # release dumper process as some errors before any runner is created
-        if len(Runner.runners) == 0:
+        if not Runner.runners:
             Runner.release_dump_process()
             return
 
