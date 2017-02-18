@@ -269,7 +269,7 @@ class TaskParser(object):       # pragma: no cover
         for cfg_attrs in context_cfgs:
             cfg_attrs['name'] = '{}{}'.format(cfg_attrs['name'], name_suffix)
             context_type = cfg_attrs.get("type", "Heat")
-            if "Heat" == context_type and "networks" in cfg_attrs:
+            if context_type == "Heat" and "networks" in cfg_attrs:
                 # bugfix: if there are more than one network,
                 # only add "external_network" on first one.
                 # the name of netwrok should follow this rule:

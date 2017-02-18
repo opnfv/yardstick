@@ -158,7 +158,7 @@ class HeatContext(Context):
             # workround for openstack nova bug, check JIRA: YARDSTICK-200
             # for details
             if len(availability_servers) == 2:
-                if len(scheduler_hints["different_host"]) == 0:
+                if not len(scheduler_hints["different_host"]):
                     scheduler_hints.pop("different_host", None)
                     server.add_to_template(template,
                                            self.networks,
@@ -197,7 +197,7 @@ class HeatContext(Context):
 
         # add remaining servers with no placement group configured
         for server in list_of_servers:
-            if len(server.placement_groups) == 0:
+            if not len(server.placement_groups):
                 server.add_to_template(template, self.networks, {})
 
     def deploy(self):
