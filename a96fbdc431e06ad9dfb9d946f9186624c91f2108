@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_8b18bb85",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-20T16:33:27Z",
+      "side": 1,
+      "message": "Since CLOUD_RELEASE is set to \"xenial\"? I think this check will always fail right?",
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
