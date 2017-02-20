@@ -22,21 +22,25 @@ class GetCredentialsTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.common.openstack_utils.os')
     def test_get_credentials(self, mock_os):
-        mock_os.getenv.return_value = ('2')
-        openstack_utils.get_credentials()
+        with mock.patch.dict('os.environ', {'OS_IDENTITY_API_VERSION': '2'},
+                             clear=True):
+            openstack_utils.get_credentials()
 
 
 class GetHeatApiVersionTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.os')
-    def test_get_heat_api_version(self, mock_os):
+    def test_get_heat_api_version_check_result(self):
         API = 'HEAT_API_VERSION'
-        openstack_utils.get_heat_api_version()
-        mock_os.getenv.assert_called_with(API)
-
-    @mock.patch('yardstick.common.openstack_utils.os')
-    def test_get_heat_api_version(self, mock_os):
-        mock_os.getenv.return_value = ('2')
         expected_result = '2'
-        api_version = openstack_utils.get_heat_api_version()
-        self.assertEqual(api_version, expected_result)
+
+        with mock.patch.dict('os.environ', {API: '2'}, clear=True):
+            api_version = openstack_utils.get_heat_api_version()
+            self.assertEqual(api_version, expected_result)
+
+
+def main():
+    unittest.main()
+
+
+if __name__ == '__main__':
+    main()

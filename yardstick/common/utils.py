@@ -26,9 +26,6 @@ import sys
 from functools import reduce
 
 import yaml
-from keystoneauth1 import identity
-from keystoneauth1 import session
-from neutronclient.v2_0 import client
 from oslo_utils import importutils
 from oslo_serialization import jsonutils
 
@@ -132,20 +129,6 @@ def source_env(env_file):
     env = dict((line.split('=', 1) for line in output.splitlines()))
     os.environ.update(env)
     return env
-
-
-def get_openstack_session():
-    auth = identity.Password(auth_url=os.environ.get('OS_AUTH_URL'),
-                             username=os.environ.get('OS_USERNAME'),
-                             password=os.environ.get('OS_PASSWORD'),
-                             tenant_name=os.environ.get('OS_TENANT_NAME'))
-    return session.Session(auth=auth)
-
-
-def get_neutron_client():
-    sess = get_openstack_session()
-    neutron_client = client.Client(session=sess)
-    return neutron_client
 
 
 def read_json_from_file(path):
