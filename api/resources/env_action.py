@@ -26,6 +26,7 @@ from api.utils.common import result_handler
 from docker import Client
 from yardstick.common import constants as config
 from yardstick.common import utils as yardstick_utils
+from yardstick.common import openstack_utils
 from yardstick.common.httpClient import HttpClient
 
 logger = logging.getLogger(__name__)
@@ -258,7 +259,7 @@ def _get_remote_rc_file(rc_file, installer_ip, installer_type):
 
 
 def _append_external_network(rc_file):
-    neutron_client = yardstick_utils.get_neutron_client()
+    neutron_client = openstack_utils.get_neutron_client()
     networks = neutron_client.list_networks()['networks']
     try:
         ext_network = next(n['name'] for n in networks if n['router:external'])
