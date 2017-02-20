@@ -25,7 +25,7 @@ fi
 
 # iperf3 only available for trusty in backports
 if [ grep -q trusty /etc/apt/sources.list ]; then
-    if [ $YARD_IMG_ARCH = "arm64" ]; then
+    if [[ $YARD_IMG_ARCH = "arm64" && $CLOUD_RELEASE = "vivid" ]]; then
         echo "deb [arch=arm64] http://ports.ubuntu.com/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
     else
         echo "deb http://archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
@@ -46,7 +46,7 @@ chpasswd: { expire: False }
 ssh_pwauth: True
 EOF
 apt-get update
-if [ $YARD_IMG_ARCH = "arm64" ]; then
+if [[ $YARD_IMG_ARCH = "arm64" && $CLOUD_RELEASE = "vivid" ]]; then
 apt-get install -y \
     linux-headers-$(echo $VIVID_KERNEL_VERSION | cut -d'-' -f3,4,5) \
     unzip
@@ -74,9 +74,10 @@ apt-get install -y \
     perl \
     rt-tests \
     stress \
-    sysstat
+    sysstat \
+    parted
 
-if [ $YARD_IMG_ARCH = "arm64" ]; then
+if [[ $YARD_IMG_ARCH = "arm64" && $CLOUD_RELEASE = "vivid" ]]; then
     wget https://github.com/kdlucas/byte-unixbench/archive/master.zip
     unzip master.zip && rm master.zip
     mkdir /opt/tempT
@@ -100,7 +101,7 @@ cd /opt/tempT/RAMspeed/ramspeed-2.6.0
 mkdir temp
 bash build.sh
 
-if [ $YARD_IMG_ARCH = "arm64" ]; then
+if [[ $YARD_IMG_ARCH = "arm64" && $CLOUD_RELEASE = "vivid" ]]; then
     wget https://github.com/beefyamoeba5/cachestat/archive/master.zip
     unzip master.zip && rm master.zip
     mv cachestat-master/cachestat /opt/tempT
