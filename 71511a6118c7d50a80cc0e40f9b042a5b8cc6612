@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_a02cbe4b",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-20T07:01:02Z",
+      "side": 1,
+      "message": "good point, I\u0027ll fix this.",
+      "parentUuid": "dabed58f_fc25880a",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_1c3c1c2f",
         "filename": "yardstick/benchmark/contexts/heat.py",
         "patchSetId": 4
@@ -64,6 +82,24 @@
       "writtenOn": "2017-02-17T09:09:05Z",
       "side": 1,
       "message": "this for loop doesn\u0027t seem to make sense.  we are resetting \"group\" each time.\n\ndo we need a list or something somewhere?",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_e0195623",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-20T07:01:02Z",
+      "side": 1,
+      "message": "Thanks for point out. that\u0027s true, it should not be for loop here, i\u0027ll fix it.",
+      "parentUuid": "dabed58f_fc6ca838",
       "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -104,6 +140,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_c031b2a3",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-20T07:01:02Z",
+      "side": 1,
+      "message": "got it",
+      "parentUuid": "dabed58f_5c5ff472",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_dc73e413",
         "filename": "yardstick/benchmark/contexts/model.py",
         "patchSetId": 4
@@ -115,6 +169,24 @@
       "writtenOn": "2017-02-17T09:09:05Z",
       "side": 1,
       "message": "isn\u0027t this the same as regular .get()\n\n  def get(name):\n    return ServerGroup.map.get(name)",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_802bba2f",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-20T07:01:02Z",
+      "side": 1,
+      "message": "got it",
+      "parentUuid": "dabed58f_dc73e413",
       "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -138,6 +210,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_2020ce48",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-20T07:01:02Z",
+      "side": 1,
+      "message": "got it",
+      "parentUuid": "dabed58f_7cc75813",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_9ccc8c37",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 4
@@ -149,6 +239,24 @@
       "writtenOn": "2017-02-17T09:09:05Z",
       "side": 1,
       "message": "please use isinstance",
+      "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_401dc20e",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-20T07:01:02Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "dabed58f_9ccc8c37",
       "revId": "71511a6118c7d50a80cc0e40f9b042a5b8cc6612",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
