@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_60e8067d",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-20T08:16:35Z",
+      "side": 1,
+      "message": "can we do something like\n    try:\n        instances \u003d nova_client.servers.list(search_opts\u003d{\u0027all_tenants\u0027: 1})\n        \n    except Exception, e:\n        log.error(\"Error [get_instances(nova_client)]: %s\" % e)\n        return None\n    else\n        return instances",
+      "revId": "27f77cc5b33e884d9b7420616be81658f65d7f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_80edfa8d",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-20T08:16:35Z",
+      "side": 1,
+      "message": "same as above (comment #1)",
+      "revId": "27f77cc5b33e884d9b7420616be81658f65d7f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_20020e3f",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-20T08:16:35Z",
+      "side": 1,
+      "message": "same as above (comment #1)",
+      "revId": "27f77cc5b33e884d9b7420616be81658f65d7f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_40ff0235",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-20T08:16:35Z",
+      "side": 1,
+      "message": "same as above (comment #1)",
+      "revId": "27f77cc5b33e884d9b7420616be81658f65d7f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_e0fb9645",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-20T08:16:35Z",
+      "side": 1,
+      "message": "same as above (comment #1)",
+      "revId": "27f77cc5b33e884d9b7420616be81658f65d7f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_00f90a4d",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-20T08:16:35Z",
+      "side": 1,
+      "message": "same as above (comment #1)",
+      "revId": "27f77cc5b33e884d9b7420616be81658f65d7f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_a0959ee5",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-20T08:16:35Z",
+      "side": 1,
+      "message": "same as above (comment #1)",
+      "revId": "27f77cc5b33e884d9b7420616be81658f65d7f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_c09a1214",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-20T08:16:35Z",
+      "side": 1,
+      "message": "same as above (comment #1)",
+      "revId": "27f77cc5b33e884d9b7420616be81658f65d7f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_609fa604",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-20T08:16:35Z",
+      "side": 1,
+      "message": "same as above (comment #1)",
+      "revId": "27f77cc5b33e884d9b7420616be81658f65d7f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_80a41a58",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-20T08:16:35Z",
+      "side": 1,
+      "message": "same as above (comment #1)",
+      "revId": "27f77cc5b33e884d9b7420616be81658f65d7f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
