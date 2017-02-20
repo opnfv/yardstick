@@ -25,8 +25,8 @@ fi
 
 # iperf3 only available for trusty in backports
 if [ grep -q trusty /etc/apt/sources.list ]; then
-    if [ $YARD_IMG_ARCH = "arm64" ]; then
-        echo "deb [arch=arm64] http://ports.ubuntu.com/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
+    if [ "${YARD_IMG_ARCH}" = "arm64" ]; then
+        echo "deb [arch=${YARD_IMG_ARCH}] http://ports.ubuntu.com/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
     else
         echo "deb http://archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
     fi
@@ -46,11 +46,11 @@ chpasswd: { expire: False }
 ssh_pwauth: True
 EOF
 apt-get update
-if [ $YARD_IMG_ARCH = "arm64" ]; then
-apt-get install -y \
-    linux-headers-$(echo $VIVID_KERNEL_VERSION | cut -d'-' -f3,4,5) \
-    unzip
-#resize root parition (/dev/vdb1) It is supposed to be default but the image is booted differently for arm64
+if [[ "${YARD_IMG_ARCH}" = "arm64" && "$release" = "vivid" ]]; then
+    apt-get install -y \
+        linux-headers-$(echo $CLOUD_KERNEL_VERSION | cut -d'-' -f3,4,5) \
+        unzip
+    #resize root partition (/dev/vdb1) It is supposed to be default but the image is booted differently for arm64
 cat <<EOF >/etc/cloud/cloud.cfg.d/15_growpart.cfg
 #cloud-config
 bootcmd:
@@ -76,7 +76,7 @@ apt-get install -y \
     stress \
     sysstat
 
-if [ $YARD_IMG_ARCH = "arm64" ]; then
+if [[ "${YARD_IMG_ARCH}" = "arm64" && "$release" = "vivid" ]]; then
     wget https://github.com/kdlucas/byte-unixbench/archive/master.zip
     unzip master.zip && rm master.zip
     mkdir /opt/tempT
@@ -88,7 +88,7 @@ else
 fi
 make --directory /opt/tempT/UnixBench/
 
-if [ $YARD_IMG_ARCH = "arm64" ]; then
+if [ "${YARD_IMG_ARCH}" = "arm64" ]; then
     wget https://github.com/beefyamoeba5/ramspeed/archive/master.zip
     unzip master.zip && rm master.zip
     mkdir /opt/tempT/RAMspeed
@@ -100,7 +100,7 @@ cd /opt/tempT/RAMspeed/ramspeed-2.6.0
 mkdir temp
 bash build.sh
 
-if [ $YARD_IMG_ARCH = "arm64" ]; then
+if [[ "${YARD_IMG_ARCH}" = "arm64" && "$release" = "vivid" ]]; then
     wget https://github.com/beefyamoeba5/cachestat/archive/master.zip
     unzip master.zip && rm master.zip
     mv cachestat-master/cachestat /opt/tempT
