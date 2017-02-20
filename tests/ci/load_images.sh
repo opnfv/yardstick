@@ -15,6 +15,13 @@ set -e
 YARD_IMG_ARCH=amd64
 export YARD_IMG_ARCH
 
+if [ "${YARD_IMG_ARCH}" = "arm64" ]; then
+    HW_FW_TYPE=uefi
+else
+    HW_FW_TYPE=""
+fi
+export HW_FW_TYPE
+
 if ! grep -q "Defaults env_keep += \"YARD_IMG_ARCH\"" "/etc/sudoers"; then
     sudo echo "Defaults env_keep += \"YARD_IMG_ARCH YARDSTICK_REPO_DIR\"" >> /etc/sudoers
 fi
@@ -25,10 +32,10 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
 fi
 
 UCA_HOST="cloud-images.ubuntu.com"
-if [ $YARD_IMG_ARCH = "arm64" ]; then
-    export VIVID_IMG_URL="http://${UCA_HOST}/vivid/current/vivid-server-cloudimg-arm64.tar.gz"
-    if ! grep -q "Defaults env_keep += \"VIVID_IMG_URL\"" "/etc/sudoers"; then
-        sudo echo "Defaults env_keep += \"VIVID_IMG_URL\"" >> /etc/sudoers
+if [ "${YARD_IMG_ARCH}"= "arm64" ]; then
+    export CLOUD_IMG_URL="http://${UCA_HOST}/${release}/current/${release}-server-cloudimg-${YARD_IMG_ARCH}.tar.gz"
+    if ! grep -q "Defaults env_keep += \"CLOUD_IMG_URL\"" "/etc/sudoers"; then
+        sudo echo "Defaults env_keep += \"CLOUD_IMG_URL\"" >> /etc/sudoers
     fi
 fi
 
@@ -65,24 +72,24 @@ load_yardstick_image()
     echo
     echo "========== Loading yardstick cloud image =========="
     EXTRA_PARAMS=""
-    if [ $YARD_IMG_ARCH = "arm64" ]; then
-        VIVID_IMAGE="/tmp/vivid-server-cloudimg-arm64.tar.gz"
-        VIVID_KERNEL="/tmp/vivid-server-cloudimg-arm64-vmlinuz-generic"
+    if [[ "${YARD_IMG_ARCH}" = "arm64" && "${YARD_IMG_AKI}" = "true" ]]; then
+        CLOUD_IMAGE="/tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}.tar.gz"
+        CLOUD_KERNEL="/tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}-vmlinuz-generic"
         cd /tmp
-        if [ ! -f $VIVID_IMAGE ]; then
-            wget $VIVID_IMG_URL
+        if [ ! -f "${CLOUD_IMAGE}" ]; then
+            wget $CLOUD_IMG_URL
         fi
-        if [ ! -f $VIVID_KERNEL ]; then
-            tar zxf $VIVID_IMAGE $(basename $VIVID_KERNEL)
+        if [ ! -f "${CLOUD_KERNEL}" ]; then
+            tar zxf $CLOUD_IMAGE $(basename $CLOUD_KERNEL)
         fi
-        create_vivid_kernel=$(openstack image create \
+        create_kernel=$(openstack image create \
                 --public \
                 --disk-format qcow2 \
                 --container-format bare \
-                --file $VIVID_KERNEL \
-                yardstick-vivid-kernel)
+                --file $CLOUD_KERNEL \
+                yardstick-${release}-kernel)
 
-        GLANCE_KERNEL_ID=$(echo "$create_vivid_kernel" | grep " id " | awk '{print $(NF-1)}')
+        GLANCE_KERNEL_ID=$(echo "$create_kernel" | grep " id " | awk '{print $(NF-1)}')
         if [ -z "$GLANCE_KERNEL_ID" ]; then
             echo 'Failed uploading kernel to cloud'.
             exit 1
@@ -92,13 +99,17 @@ load_yardstick_image()
 
         EXTRA_PARAMS="--property kernel_id=$GLANCE_KERNEL_ID --property os_command_line=\"$command_line\""
 
-        rm -f $VIVID_KERNEL $VIVID_IMAGE
+        rm -f $CLOUD_KERNEL $CLOUD_IMAGE
         cd $YARDSTICK_REPO_DIR
     fi
 
     # VPP requires guest memory to be backed by large pages
     if [[ "$DEPLOY_SCENARIO" == *"-fdio-"* ]]; then
         EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
+    fi
+
+    if [[ -n "${HW_FW_TYPE}" ]]; then
+        EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_firmware_type=${HW_FW_TYPE}"
     fi
 
     if [[ "$DEPLOY_SCENARIO" == *"-lxd-"* ]]; then
@@ -223,7 +234,7 @@ main()
 
     build_yardstick_image
     load_yardstick_image
-    if [ $YARD_IMG_ARCH = "arm64" ]; then
+    if [ "${YARD_IMG_ARCH}" = "arm64" ]; then
         sed -i 's/image: cirros-0.3.3/image: TestVM/g' tests/opnfv/test_cases/opnfv_yardstick_tc002.yaml \
         samples/ping.yaml
         #We have overlapping IP with the real network

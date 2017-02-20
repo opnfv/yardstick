@@ -23,7 +23,6 @@
 #
 # TODO: image resize is needed if the base image is too small
 #
-
 set -e
 set -x
 
@@ -42,14 +41,24 @@ mountdir="/mnt/yardstick"
 workspace=${WORKSPACE:-"/tmp/workspace/yardstick"}
 host=${HOST:-"cloud-images.ubuntu.com"}
 release=${RELEASE:-"xenial"}
-image_path="${release}/current/${release}-server-cloudimg-${YARD_IMG_ARCH}-disk1.img"
+
+if [[ "${YARD_IMG_ARCH}" = "arm64" ]]; then
+    boot_mode="uefi1"
+else
+    boot_mode="disk1"
+fi
+
+image_path="${release}/current/${release}-server-cloudimg-${YARD_IMG_ARCH}-${boot_mode}.img"
 image_url=${IMAGE_URL:-"https://${host}/${image_path}"}
 md5sums_path="${release}/current/MD5SUMS"
 md5sums_url=${MD5SUMS_URL:-"https://${host}/${md5sums_path}"}
 
 imgfile="${workspace}/yardstick-image.img"
-raw_imgfile="${workspace}/yardstick-${release}-server.raw"
+raw_imgfile_basename="yardstick-${release}-server.raw"
+raw_imgfile="${workspace}/${raw_imgfile_basename}"
 filename=$(basename $image_url)
+
+apt-get install -y parted
 
 # download and checksum base image, conditionally if local copy is outdated
 download() {
@@ -69,24 +78,25 @@ download() {
         [ -a /dev/loop$i ] || mknod -m 660 /dev/loop$i b 7 $i
     done
 
-    if [ $YARD_IMG_ARCH = "arm64" ]; then
+    if [[ "${YARD_IMG_ARCH}" = "arm64"  && $release = "vivid" ]]; then
         cd /tmp
-        if [ ! -f /tmp/vivid-server-cloudimg-arm64-kernel-info.txt ]; then
-            wget http://cloud-images.ubuntu.com/vivid/current/vivid-server-cloudimg-arm64-kernel-info.txt
+        if [ ! -f /tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}-kernel-info.txt ]; then
+            wget http://${host}/${release}/current/${release}-server-cloudimg-${YARD_IMG_ARCH}-kernel-info.txt
         fi
-        export VIVID_KERNEL_VERSION=$(cut -d$'\t' -f4 vivid-server-cloudimg-arm64-kernel-info.txt)
-        mkdir -p /tmp/vivid-modules
-        if [ ! -f "/tmp/vivid-server-cloudimg-arm64.tar.gz" ]; then
-            wget $VIVID_IMG_URL
+        export CLOUD_KERNEL_VERSION=$(cut -d$'\t' -f4 ${release}-server-cloudimg-${YARD_IMG_ARCH}-kernel-info.txt)
+
+        mkdir -p /tmp/${release}-modules
+        if [ ! -f "/tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}.tar.gz" ]; then
+            wget $CLOUD_IMG_URL
         fi
-        if [ ! -f "/tmp/vivid-server-cloudimg-arm64.img" ]; then
-            tar zxvf vivid-server-cloudimg-arm64.tar.gz vivid-server-cloudimg-arm64.img
+        if [ ! -f "/tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}.img" ]; then
+            tar zxvf ${release}-server-cloudimg-${YARD_IMG_ARCH}.tar.gz ${release}-server-cloudimg-${YARD_IMG_ARCH}.img
         fi
-        mkdir -p /mnt/vivid
-        mount /tmp/vivid-server-cloudimg-arm64.img /mnt/vivid
-        cp -r /mnt/vivid/lib/modules/$(echo $VIVID_KERNEL_VERSION | cut -d'-' -f3,4,5) /tmp/vivid-modules
-        umount /mnt/vivid
-        rm /tmp/vivid-server-cloudimg-arm64.img
+        mkdir -p /mnt/${release}
+        mount /tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}.img /mnt/${release}
+        cp -r /mnt/${release}/lib/modules/$(echo $UBUNTU_KERNEL_VERSION) /tmp/${release}-modules
+        umount /mnt/${release}
+        rm /tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}.img
         cd $workspace
     fi
     qemu-img convert $filename $raw_imgfile
@@ -96,27 +106,32 @@ download() {
 # mount image
 setup() {
     # qemu-img resize $raw_imgfile +5GB
-    if [ $YARD_IMG_ARCH = "arm64" ]; then
-        echo -e "d\nn\np\n1\n\n\nw" | fdisk $raw_imgfile
+    if [ "${YARD_IMG_ARCH}" = "arm64" ]; then
+        echo -e "d\nn\np\n1\n\n\nw" | parted -l $raw_imgfile
     fi
     mkdir -p $mountdir
 
-    loopdevice=$(kpartx -l $raw_imgfile | head -1 | cut -f1 -d ' ')
+    #kpartx fails with image paths longer than 63 characters
+    #try shortest relative path to image as temporary workaround
+    cd ${workspace}
+    loopdevice=$(kpartx -l $raw_imgfile_basename | head -1 | cut -f1 -d ' ')
 
-    kpartx -av $raw_imgfile
-    if [ $YARD_IMG_ARCH = "arm64" ]; then
+    kpartx -av $raw_imgfile_basename
+    cd -
+
+    if [[ "${YARD_IMG_ARCH}" = "arm64" && $release = "vivid" ]]; then
         e2fsck -p -f /dev/mapper/$loopdevice
         resize2fs /dev/mapper/$loopdevice
     fi
     # for trouble shooting
     sleep 2
     dmsetup ls
-    fdisk -l /dev/${loopdevice:0:5} || true
+    parted -l /dev/${loopdevice:0:5} || true
     mount /dev/mapper/$loopdevice $mountdir
     mount -t proc none $mountdir/proc
 
-    if [ $YARD_IMG_ARCH = "arm64" ]; then
-        cp -r /tmp/vivid-modules/$(echo $VIVID_KERNEL_VERSION | cut -d'-' -f3,4,5) "$mountdir/lib/modules"
+    if [[ "${YARD_IMG_ARCH}" = "arm64" && $release = "vivid" ]]; then
+        cp -r /tmp/${release}-modules/$(echo $UBUNTU_KERNEL_VERSION) "$mountdir/lib/modules"
         cp $(which "qemu-aarch64-static") "$mountdir/usr/bin"
     fi
     cp $cmd $mountdir/$(basename $cmd)
@@ -151,9 +166,9 @@ cleanup() {
     # designed to be idempotent
     mount | grep $mountdir/proc && umount $mountdir/proc
     mount | grep $mountdir && umount $mountdir
-    mount | grep "/mnt/vivid" && umount "/mnt/vivid"
+    mount | grep "/mnt/${release}" && umount "/mnt/${release}"
 
-    if [ -f $raw_imgfile ]; then
+    if [ -f "${raw_imgfile}" ]; then
         #kpartx -dv $raw_imgfile sometimes failed, we should checked it agein.
         #if [ -z "$(kpartx -l $raw_imgfile | grep 'loop deleted')" ]; then
         #    kpartx -dv $raw_imgfile
