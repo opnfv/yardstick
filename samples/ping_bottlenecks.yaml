@@ -28,9 +28,6 @@ scenarios:
     type: Duration
     duration: 60
     interval: 1
-  sla:
-    max_rtt: 10
-    action: assert
 {% endfor %}
 
 contexts:
