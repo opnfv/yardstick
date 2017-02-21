@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_40205d49",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-21T17:06:26Z",
+      "side": 1,
+      "message": "os.path.join is not appropriate for web urls, which always use \u0027/\u0027\n\nuse posixpath.join()",
+      "revId": "f02bac2af3ba0a0f1f4ef20450edd006199365fc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
