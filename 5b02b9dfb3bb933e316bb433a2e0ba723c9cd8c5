@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_710e9a36",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-21T03:02:29Z",
+      "side": 1,
+      "message": "We need to check if key \"network\" before assign external network??",
+      "revId": "5b02b9dfb3bb933e316bb433a2e0ba723c9cd8c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
