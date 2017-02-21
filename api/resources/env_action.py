@@ -9,7 +9,6 @@
 from __future__ import absolute_import
 
 import errno
-import json
 import logging
 import os
 import subprocess
@@ -18,6 +17,7 @@ import time
 import uuid
 
 from six.moves import configparser
+from oslo_serialization import jsonutils
 
 from api import conf as api_conf
 from api.database.handler import AsyncTaskHandler
@@ -67,9 +67,13 @@ def _create_grafana(task_id):
 
 def _create_dashboard():
     url = 'http://admin:admin@%s:3000/api/dashboards/db' % api_conf.GATEWAY_IP
-    with open('../dashboard/ping_dashboard.json') as dashboard_json:
-        data = json.load(dashboard_json)
-    HttpClient().post(url, data)
+    path = os.path.join(config.YARDSTICK_REPOS_DIR, 'dashboard')
+
+    for i in sorted(os.listdir(path)):
+        if i.endswith('dashboard.json'):
+            with open(os.path.join(path, i)) as f:
+                data = jsonutils.load(f)
+            HttpClient().post(url, data)
 
 
 def _create_data_source():
