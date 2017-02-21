@@ -1,0 +1,209 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_00902594",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-21T16:44:52Z",
+      "side": 1,
+      "message": "don\u0027t use %",
+      "revId": "405b5589e48b5e0036f70bb0b36623acd9af4f24",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_00e7c541",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-21T16:44:52Z",
+      "side": 1,
+      "message": "the idomatic version with logging would be\n\n  try:\n     api_version \u003d os.environ[\u0027OS_COMPUTE_API_VERSION\u0027]\n  except KeyError:\n     return DEFAULT_API_VERSION\n  else:\n     log.info(\"OS_COMPUTE_API_VERSION is set in env as \u0027%s\u0027\", api_version)\n     return api_version\n     \n\nAlternatively without the logging this simplifies to\n\n  return os.environ.get(\u0027OS_COMPUTE_API_VERSION\u0027, DEFAULT_API_VERSION)\n\n\nOr with different logging:\n\n  api_version \u003d os.environ.get(\u0027OS_COMPUTE_API_VERSION\u0027, DEFAULT_API_VERSION)\n  log.info(\u0027OS_COMPUTE_API_VERSION \u003d %s\u0027, api_version)\n  return api_version\n\nThen we should abstract all of these getters and make a factory\n\n\n  def make_api_version_getter(key, default):\n      def get_version():\n          version \u003d os.environ.get(key, default)\n          log.info(\u0027%s \u003d %s\u0027, key, version)\n          return version\n      return get_version\n\n  get_nova_client_verison \u003d make_api_version_getter(\"OS_COMPUTE_API_VERSION\", DEFAULT_API_VERSION)\n  get_nova_client_version.__name__ \u003d \u0027get_nova_client_version\u0027",
+      "revId": "405b5589e48b5e0036f70bb0b36623acd9af4f24",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_8041750d",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-21T16:44:52Z",
+      "side": 1,
+      "message": "inline this variable\n\n  return nova_client.servers.list(search_opts\u003d{\u0027all_tenants\u0027: 1})",
+      "revId": "405b5589e48b5e0036f70bb0b36623acd9af4f24",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_c0376daf",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-21T16:44:52Z",
+      "side": 1,
+      "message": "use comma\n\nalso use  log.exception() for logging exceptions",
+      "range": {
+        "startLine": 160,
+        "startChar": 59,
+        "endLine": 160,
+        "endChar": 60
+      },
+      "revId": "405b5589e48b5e0036f70bb0b36623acd9af4f24",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_e03cf195",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-21T16:44:52Z",
+      "side": 1,
+      "message": "return None is the default, we don\u0027t need it.",
+      "revId": "405b5589e48b5e0036f70bb0b36623acd9af4f24",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_a046f921",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-21T16:44:52Z",
+      "side": 1,
+      "message": "inline\n\n  return nova_client.servers.get(instance.id).status",
+      "revId": "405b5589e48b5e0036f70bb0b36623acd9af4f24",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_c05e8de9",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-21T16:44:52Z",
+      "side": 1,
+      "message": "if we are returning True, then we need to return False here\n\nboolean functions should be consistent",
+      "range": {
+        "startLine": 218,
+        "startChar": 8,
+        "endLine": 218,
+        "endChar": 19
+      },
+      "revId": "405b5589e48b5e0036f70bb0b36623acd9af4f24",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_805895fb",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-21T16:44:52Z",
+      "side": 1,
+      "message": "use next() with generator expression\n\n  return next(g.id for ag in get_aggregates(nova_client) if ag.name \u003d\u003d aggregate_name)",
+      "revId": "405b5589e48b5e0036f70bb0b36623acd9af4f24",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_a05d99eb",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-21T16:44:52Z",
+      "side": 1,
+      "message": "use comma\n\nplease check with pylint, it will catch these logging formatting errors.",
+      "range": {
+        "startLine": 329,
+        "startChar": 22,
+        "endLine": 329,
+        "endChar": 23
+      },
+      "revId": "405b5589e48b5e0036f70bb0b36623acd9af4f24",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_606fa193",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-21T16:44:52Z",
+      "side": 1,
+      "message": "please use next() with generator expression\n\n return next((n[\u0027id\u0027] for n in network if n[\u0027name\u0027] \u003d\u003d network_name), \u0027\u0027)",
+      "revId": "405b5589e48b5e0036f70bb0b36623acd9af4f24",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_2069a98b",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-21T16:44:52Z",
+      "side": 1,
+      "message": "return next((n[\u0027id\u0027] for n in ports for item in n[\u0027fixed_ips\u0027] if item[\u0027ip_address\u0027] \u003d\u003d ip_address), \u0027\u0027)",
+      "revId": "405b5589e48b5e0036f70bb0b36623acd9af4f24",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
