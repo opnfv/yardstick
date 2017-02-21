@@ -22,6 +22,47 @@
       "revId": "2c07d42903132c190cd2f3c6ad9d3f5f2f71935a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_e03151a3",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-21T17:05:10Z",
+      "side": 1,
+      "message": "usually posixpath.join()",
+      "parentUuid": "dabed58f_2ca0c58f",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 70,
+        "endChar": 54
+      },
+      "revId": "2c07d42903132c190cd2f3c6ad9d3f5f2f71935a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_c02c4d4d",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-21T17:05:10Z",
+      "side": 1,
+      "message": "I thinks we want jsonutils.load() now that we are using oslo",
+      "revId": "2c07d42903132c190cd2f3c6ad9d3f5f2f71935a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
