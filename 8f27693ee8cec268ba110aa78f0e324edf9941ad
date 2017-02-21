@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_3110224e",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-21T03:03:37Z",
+      "side": 1,
+      "message": "Agreed. I will remove this from this patch",
+      "parentUuid": "dabed58f_3d3c792f",
+      "revId": "8f27693ee8cec268ba110aa78f0e324edf9941ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_1d3f3527",
         "filename": "yardstick/benchmark/runners/base.py",
         "patchSetId": 1
