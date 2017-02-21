@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_2ca0c58f",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-21T13:13:36Z",
+      "side": 1,
+      "message": "it\u0027s better to use join path here.",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 70,
+        "endChar": 54
+      },
+      "revId": "2c07d42903132c190cd2f3c6ad9d3f5f2f71935a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
