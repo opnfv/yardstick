@@ -34,6 +34,24 @@
       "revId": "f02bac2af3ba0a0f1f4ef20450edd006199365fc",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_a38843e8",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-22T01:18:11Z",
+      "side": 1,
+      "message": "ah, okay, see that now.  \n\nwe might be able to use glob.iglob() to use wildcards, *\n\n path \u003d os.path.join(config.YARDSTICK_REPOS_DIR, \u0027dashboard\u0027, \u0027*dashboard.json\u0027)\n\n for i in sorted(glob.iglob(path)):\n   # glob returns full path so we don\u0027t have to join.\n   with open(i) as f:",
+      "parentUuid": "dabed58f_8335ff47",
+      "revId": "f02bac2af3ba0a0f1f4ef20450edd006199365fc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
