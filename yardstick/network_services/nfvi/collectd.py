@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-""" AMQP Consumer senario definition """
+""" AMQP Consumer scenario definition """
 
 from __future__ import absolute_import
 from __future__ import print_function
@@ -28,6 +28,7 @@ class AmqpConsumer(object):
     ROUTING_KEY = 'collectd'
 
     def __init__(self, amqp_url, queue):
+        super(AmqpConsumer, self).__init__()
         self._connection = None
         self._channel = None
         self._closing = False
