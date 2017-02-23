@@ -11,6 +11,8 @@ apt-get update && apt-get install -y \
     libssl-dev \
     python \
     python-dev \
+    python-pip \
+    flake8
     libxml2-dev \
     libxslt1-dev \
     nginx \
