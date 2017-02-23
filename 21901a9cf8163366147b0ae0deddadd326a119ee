@@ -16,6 +16,24 @@
       "revId": "21901a9cf8163366147b0ae0deddadd326a119ee",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_1452a7dd",
+        "filename": "api/resources/testsuites_action.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-02-23T03:24:11Z",
+      "side": 1,
+      "message": "Sorry, I am accustomed to list comprehension. I know the advantage of generator expressions. I will transfer to generator soon.",
+      "parentUuid": "dabed58f_3c9fa005",
+      "revId": "21901a9cf8163366147b0ae0deddadd326a119ee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
