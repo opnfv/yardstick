@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_0f736e4e",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-23T16:13:28Z",
+      "side": 1,
+      "message": "are we missing return here?",
+      "revId": "7fa6dc056b635a912c16fe4cf561a285f34897ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_af8fc222",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-23T16:13:28Z",
+      "side": 1,
+      "message": "are we missing the return here?",
+      "revId": "7fa6dc056b635a912c16fe4cf561a285f34897ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_cf947639",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-23T16:13:28Z",
+      "side": 1,
+      "message": "are we missing the return here?",
+      "revId": "7fa6dc056b635a912c16fe4cf561a285f34897ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_6f99ca6d",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-23T16:13:28Z",
+      "side": 1,
+      "message": "are we missing the return here?",
+      "revId": "7fa6dc056b635a912c16fe4cf561a285f34897ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_8f9e7e55",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-23T16:13:28Z",
+      "side": 1,
+      "message": "are we missing the return here?",
+      "revId": "7fa6dc056b635a912c16fe4cf561a285f34897ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_2fa3d29f",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-23T16:13:28Z",
+      "side": 1,
+      "message": "are we missing the return here?",
+      "revId": "7fa6dc056b635a912c16fe4cf561a285f34897ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
