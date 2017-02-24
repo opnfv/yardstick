@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_6af3f80a",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-02-24T01:12:24Z",
+      "side": 1,
+      "message": "Yes, I should have returned False here.",
+      "parentUuid": "dabed58f_0f736e4e",
+      "revId": "7fa6dc056b635a912c16fe4cf561a285f34897ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_af8fc222",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 8
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_8af8ace6",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-02-24T01:12:24Z",
+      "side": 1,
+      "message": "I think here it will return None by default.",
+      "parentUuid": "dabed58f_af8fc222",
+      "revId": "7fa6dc056b635a912c16fe4cf561a285f34897ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_cf947639",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 8
@@ -47,6 +83,24 @@
       "writtenOn": "2017-02-23T16:13:28Z",
       "side": 1,
       "message": "are we missing the return here?",
+      "revId": "7fa6dc056b635a912c16fe4cf561a285f34897ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_2add0071",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-02-24T01:12:24Z",
+      "side": 1,
+      "message": "I think yes.",
+      "parentUuid": "dabed58f_cf947639",
       "revId": "7fa6dc056b635a912c16fe4cf561a285f34897ab",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
