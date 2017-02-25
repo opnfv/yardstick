@@ -33,7 +33,7 @@ class DummyContext(Context):
 
     def undeploy(self):
         """don't need to undeploy"""
-        pass
+        super(DummyContext, self).undeploy()
 
     def _get_server(self, attr_name):
         return None
