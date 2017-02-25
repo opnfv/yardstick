@@ -51,7 +51,7 @@ class HttpDispatcher(DispatchBase):
 
     __dispatcher_type__ = "Http"
 
-    def __init__(self, conf):
+    def __init__(self, conf, config):
         super(HttpDispatcher, self).__init__(conf)
         self.headers = {'Content-type': 'application/json'}
         self.timeout = CONF.dispatcher_http.timeout

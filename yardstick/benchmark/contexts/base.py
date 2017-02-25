@@ -21,6 +21,9 @@ class Context(object):
     def __init__(self):
         Context.list.append(self)
 
+    def _delete_context(self):
+        Context.list.remove(self)
+
     @abc.abstractmethod
     def init(self, attrs):
         "Initiate context."

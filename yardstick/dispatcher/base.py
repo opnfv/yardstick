@@ -38,10 +38,10 @@ class Base(object):
         raise RuntimeError("No such dispatcher_type %s" % dispatcher_type)
 
     @staticmethod
-    def get(config):
+    def get(conf, config):
         """Returns instance of a dispatcher for dispatcher type.
         """
-        return Base.get_cls(config["type"])(config)
+        return Base.get_cls(conf["type"])(conf, config)
 
     @abc.abstractmethod
     def record_result_data(self, data):

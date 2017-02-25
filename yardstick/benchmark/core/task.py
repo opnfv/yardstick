@@ -26,9 +26,11 @@ from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
 from yardstick.common.task_template import TaskTemplate
 from yardstick.common.utils import source_env
+from yardstick.common import utils
 from yardstick.common import constants
 
 output_file_default = "/tmp/yardstick.out"
+config_file = '/etc/yardstick/yardstick.conf'
 test_cases_dir_default = "tests/opnfv/test_cases/"
 LOG = logging.getLogger(__name__)
 
@@ -39,14 +41,20 @@ class Task(object):     # pragma: no cover
        Set of commands to manage benchmark tasks.
     """
 
+    def __init__(self):
+        self.config = {}
+        self.contexts = []
+
     def start(self, args, **kwargs):
         """Start a benchmark scenario."""
 
-        atexit.register(atexit_handler)
+        atexit.register(self.atexit_handler)
 
         self.task_id = kwargs.get('task_id', str(uuid.uuid4()))
 
         check_environment()
+
+        self.config['yardstick'] = utils.parse_ini_file(config_file)
 
         total_start_time = time.time()
         parser = TaskParser(args.inputfile[0])
@@ -70,8 +78,11 @@ class Task(object):     # pragma: no cover
         for i in range(0, len(task_files)):
             one_task_start_time = time.time()
             parser.path = task_files[i]
-            scenarios, run_in_parallel, meet_precondition = parser.parse_task(
-                self.task_id, task_args[i], task_args_fnames[i])
+            scenarios, run_in_parallel, meet_precondition, contexts = \
+                parser.parse_task(self.task_id, task_args[i],
+                                  task_args_fnames[i])
+
+            self.contexts.extend(contexts)
 
             if not meet_precondition:
                 LOG.info("meet_precondition is %s, please check envrionment",
@@ -83,11 +94,11 @@ class Task(object):     # pragma: no cover
             if args.keep_deploy:
                 # keep deployment, forget about stack
                 # (hide it for exit handler)
-                Context.list = []
+                self.contexts = []
             else:
-                for context in Context.list[::-1]:
+                for context in self.contexts[::-1]:
                     context.undeploy()
-                Context.list = []
+                self.contexts = []
             one_task_end_time = time.time()
             LOG.info("task %s finished in %d secs", task_files[i],
                      one_task_end_time - one_task_start_time)
@@ -100,7 +111,7 @@ class Task(object):     # pragma: no cover
 
     def _run(self, scenarios, run_in_parallel, output_file):
         """Deploys context and calls runners"""
-        for context in Context.list:
+        for context in self.contexts:
             context.deploy()
 
         background_runners = []
@@ -108,14 +119,14 @@ class Task(object):     # pragma: no cover
         # Start all background scenarios
         for scenario in filter(_is_background_scenario, scenarios):
             scenario["runner"] = dict(type="Duration", duration=1000000000)
-            runner = run_one_scenario(scenario, output_file)
+            runner = self.run_one_scenario(scenario, output_file)
             background_runners.append(runner)
 
         runners = []
         if run_in_parallel:
             for scenario in scenarios:
                 if not _is_background_scenario(scenario):
-                    runner = run_one_scenario(scenario, output_file)
+                    runner = self.run_one_scenario(scenario, output_file)
                     runners.append(runner)
 
             # Wait for runners to finish
@@ -126,7 +137,7 @@ class Task(object):     # pragma: no cover
             # run serially
             for scenario in scenarios:
                 if not _is_background_scenario(scenario):
-                    runner = run_one_scenario(scenario, output_file)
+                    runner = self.run_one_scenario(scenario, output_file)
                     runner_join(runner)
                     print("Runner ended, output in", output_file)
 
@@ -144,8 +155,91 @@ class Task(object):     # pragma: no cover
                 base_runner.Runner.release(runner)
             print("Background task ended")
 
+    def atexit_handler(self):
+        """handler for process termination"""
+        base_runner.Runner.terminate_all()
 
-# TODO: Move stuff below into TaskCommands class !?
+        if len(self.contexts) > 0:
+            print("Undeploying all contexts")
+            for context in self.contexts[::-1]:
+                context.undeploy()
+
+    def run_one_scenario(self, scenario_cfg, output_file):
+        """run one scenario using context"""
+        runner_cfg = scenario_cfg["runner"]
+        runner_cfg['output_filename'] = output_file
+
+        # TODO support get multi hosts/vms info
+        context_cfg = {}
+        if "host" in scenario_cfg:
+            context_cfg['host'] = Context.get_server(scenario_cfg["host"])
+
+        if "target" in scenario_cfg:
+            if is_ip_addr(scenario_cfg["target"]):
+                context_cfg['target'] = {}
+                context_cfg['target']["ipaddr"] = scenario_cfg["target"]
+            else:
+                context_cfg['target'] = Context.get_server(
+                    scenario_cfg["target"])
+                if self._is_same_heat_context(scenario_cfg["host"],
+                                              scenario_cfg["target"]):
+                    context_cfg["target"]["ipaddr"] = \
+                        context_cfg["target"]["private_ip"]
+                else:
+                    context_cfg["target"]["ipaddr"] = \
+                        context_cfg["target"]["ip"]
+
+        if "targets" in scenario_cfg:
+            ip_list = []
+            for target in scenario_cfg["targets"]:
+                if is_ip_addr(target):
+                    ip_list.append(target)
+                    context_cfg['target'] = {}
+                else:
+                    context_cfg['target'] = Context.get_server(target)
+                    if self._is_same_heat_context(scenario_cfg["host"],
+                                                  target):
+                        ip_list.append(context_cfg["target"]["private_ip"])
+                    else:
+                        ip_list.append(context_cfg["target"]["ip"])
+            context_cfg['target']['ipaddr'] = ','.join(ip_list)
+
+        if "nodes" in scenario_cfg:
+            context_cfg["nodes"] = parse_nodes_with_context(scenario_cfg)
+        runner = base_runner.Runner.get(runner_cfg, self.config)
+
+        print("Starting runner of type '%s'" % runner_cfg["type"])
+        runner.run(scenario_cfg, context_cfg)
+
+        return runner
+
+    def _is_same_heat_context(self, host_attr, target_attr):
+        """check if two servers are in the same heat context
+        host_attr: either a name for a server created by yardstick or a dict
+        with attribute name mapping when using external heat templates
+        target_attr: either a name for a server created by yardstick or a dict
+        with attribute name mapping when using external heat templates
+        """
+        return True
+        host = None
+        target = None
+        for context in self.contexts:
+            if context.__context_type__ != "Heat":
+                continue
+
+            host = context._get_server(host_attr)
+            if host is None:
+                continue
+
+            target = context._get_server(target_attr)
+            if target is None:
+                return False
+
+            # Both host and target is not None, then they are in the
+            # same heat context.
+            return True
+
+        return False
 
 
 class TaskParser(object):       # pragma: no cover
@@ -265,6 +359,7 @@ class TaskParser(object):       # pragma: no cover
         else:
             context_cfgs = [{"type": "Dummy"}]
 
+        contexts = []
         name_suffix = '-{}'.format(task_id[:8])
         for cfg_attrs in context_cfgs:
             cfg_attrs['name'] = '{}{}'.format(cfg_attrs['name'], name_suffix)
@@ -282,6 +377,7 @@ class TaskParser(object):       # pragma: no cover
 
             context = Context.get(context_type)
             context.init(cfg_attrs)
+            contexts.append(context)
 
         run_in_parallel = cfg.get("run_in_parallel", False)
 
@@ -300,7 +396,7 @@ class TaskParser(object):       # pragma: no cover
                 pass
 
         # TODO we need something better here, a class that represent the file
-        return cfg["scenarios"], run_in_parallel, meet_precondition
+        return cfg["scenarios"], run_in_parallel, meet_precondition, contexts
 
     def _check_schema(self, cfg_schema, schema_type):
         """Check if config file is using the correct schema type"""
@@ -342,16 +438,6 @@ class TaskParser(object):       # pragma: no cover
         return True
 
 
-def atexit_handler():
-    """handler for process termination"""
-    base_runner.Runner.terminate_all()
-
-    if len(Context.list) > 0:
-        print("Undeploying all contexts")
-        for context in Context.list[::-1]:
-            context.undeploy()
-
-
 def is_ip_addr(addr):
     """check if string addr is an IP address"""
     try:
@@ -367,87 +453,11 @@ def is_ip_addr(addr):
         return True
 
 
-def _is_same_heat_context(host_attr, target_attr):
-    """check if two servers are in the same heat context
-    host_attr: either a name for a server created by yardstick or a dict
-    with attribute name mapping when using external heat templates
-    target_attr: either a name for a server created by yardstick or a dict
-    with attribute name mapping when using external heat templates
-    """
-    host = None
-    target = None
-    for context in Context.list:
-        if context.__context_type__ != "Heat":
-            continue
-
-        host = context._get_server(host_attr)
-        if host is None:
-            continue
-
-        target = context._get_server(target_attr)
-        if target is None:
-            return False
-
-        # Both host and target is not None, then they are in the
-        # same heat context.
-        return True
-
-    return False
-
-
 def _is_background_scenario(scenario):
     if "run_in_background" in scenario:
         return scenario["run_in_background"]
     else:
         return False
-
-
-def run_one_scenario(scenario_cfg, output_file):
-    """run one scenario using context"""
-    runner_cfg = scenario_cfg["runner"]
-    runner_cfg['output_filename'] = output_file
-
-    # TODO support get multi hosts/vms info
-    context_cfg = {}
-    if "host" in scenario_cfg:
-        context_cfg['host'] = Context.get_server(scenario_cfg["host"])
-
-    if "target" in scenario_cfg:
-        if is_ip_addr(scenario_cfg["target"]):
-            context_cfg['target'] = {}
-            context_cfg['target']["ipaddr"] = scenario_cfg["target"]
-        else:
-            context_cfg['target'] = Context.get_server(scenario_cfg["target"])
-            if _is_same_heat_context(scenario_cfg["host"],
-                                     scenario_cfg["target"]):
-                context_cfg["target"]["ipaddr"] = \
-                    context_cfg["target"]["private_ip"]
-            else:
-                context_cfg["target"]["ipaddr"] = \
-                    context_cfg["target"]["ip"]
-
-    if "targets" in scenario_cfg:
-        ip_list = []
-        for target in scenario_cfg["targets"]:
-            if is_ip_addr(target):
-                ip_list.append(target)
-                context_cfg['target'] = {}
-            else:
-                context_cfg['target'] = Context.get_server(target)
-                if _is_same_heat_context(scenario_cfg["host"], target):
-                    ip_list.append(context_cfg["target"]["private_ip"])
-                else:
-                    ip_list.append(context_cfg["target"]["ip"])
-        context_cfg['target']['ipaddr'] = ','.join(ip_list)
-
-    if "nodes" in scenario_cfg:
-        context_cfg["nodes"] = parse_nodes_with_context(scenario_cfg)
-    runner = base_runner.Runner.get(runner_cfg)
-
-    print("Starting runner of type '%s'" % runner_cfg["type"])
-    runner.run(scenario_cfg, context_cfg)
-
-    return runner
 
 
 def parse_nodes_with_context(scenario_cfg):

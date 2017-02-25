@@ -79,7 +79,7 @@ class StandaloneContext(Context):
         """don't need to undeploy"""
 
         # Todo: NFVi undeploy (sriov, vswitch, ovs etc) based on the config.
-        pass
+        self._delete_context()
 
     def _get_server(self, attr_name):
         """lookup server info by name from context

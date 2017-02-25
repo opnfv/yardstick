@@ -247,6 +247,8 @@ class HeatContext(Context):
             except OSError:
                 LOG.exception("Key filename %s", self.key_filename)
 
+        self._delete_context()
+
     def _get_server(self, attr_name):
         """lookup server info by name from context
         attr_name: either a name for a server created by yardstick or a dict

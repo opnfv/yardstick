@@ -35,15 +35,18 @@ log = logging.getLogger(__name__)
 CONF = cfg.CONF
 
 
-def _output_serializer_main(filename, queue):
+def _output_serializer_main(filename, queue, config):
     """entrypoint for the singleton subprocess writing to outfile
     Use of this process enables multiple instances of a scenario without
     messing up the output file.
     """
-    config = {}
-    config["type"] = CONF.dispatcher.capitalize()
-    config["file_path"] = filename
-    dispatcher = DispatcherBase.get(config)
+    out_type = config['yardstick'].get('DEFAULT', {}).get('dispatcher', 'file')
+    conf = {
+        'type': out_type.capitalize(),
+        'file_path': filename
+    }
+
+    dispatcher = DispatcherBase.get(conf, config)
 
     while True:
         # blocks until data becomes available
@@ -123,21 +126,21 @@ class Runner(object):
         return types
 
     @staticmethod
-    def get(config):
+    def get(runner_cfg, config):
         """Returns instance of a scenario runner for execution type.
         """
         # if there is no runner, start the output serializer subprocess
         if not Runner.runners:
             log.debug("Starting dump process file '%s'",
-                      config["output_filename"])
+                      runner_cfg["output_filename"])
             Runner.queue = multiprocessing.Queue()
             Runner.dump_process = multiprocessing.Process(
                 target=_output_serializer_main,
                 name="Dumper",
-                args=(config["output_filename"], Runner.queue))
+                args=(runner_cfg["output_filename"], Runner.queue, config))
             Runner.dump_process.start()
 
-        return Runner.get_cls(config["type"])(config, Runner.queue)
+        return Runner.get_cls(runner_cfg["type"])(runner_cfg, Runner.queue)
 
     @staticmethod
     def release_dump_process():

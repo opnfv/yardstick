@@ -89,6 +89,8 @@ class NodeContext(Context):
             for host, info in teardown.items():
                 self._execute_script(host, info)
 
+        self._delete_context()
+
     def _get_server(self, attr_name):
         """lookup server info by name from context
         attr_name: a name for a server listed in nodes config file

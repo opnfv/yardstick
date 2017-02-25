@@ -29,7 +29,7 @@ class FileDispatcher(DispatchBase):
 
     __dispatcher_type__ = "File"
 
-    def __init__(self, conf):
+    def __init__(self, conf, config):
         super(FileDispatcher, self).__init__(conf)
         self.result = []
 
