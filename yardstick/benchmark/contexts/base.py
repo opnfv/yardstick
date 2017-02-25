@@ -46,6 +46,10 @@ class Context(object):
     @abc.abstractmethod
     def undeploy(self):
         """Undeploy context."""
+        self._delete_context()
+
+    def _delete_context(self):
+        Context.list.remove(self)
 
     @abc.abstractmethod
     def _get_server(self, attr_name):

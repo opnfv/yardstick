@@ -15,37 +15,12 @@ import time
 
 import requests
 import six
-from oslo_config import cfg
 from oslo_serialization import jsonutils
 
 from third_party.influxdb.influxdb_line_protocol import make_lines
 from yardstick.dispatcher.base import Base as DispatchBase
 
 LOG = logging.getLogger(__name__)
-
-CONF = cfg.CONF
-influx_dispatcher_opts = [
-    cfg.StrOpt('target',
-               default='http://127.0.0.1:8086',
-               help='The target where the http request will be sent. '
-                    'If this is not set, no data will be posted. For '
-                    'example: target = http://hostname:1234/path'),
-    cfg.StrOpt('db_name',
-               default='yardstick',
-               help='The database name to store test results.'),
-    cfg.StrOpt('username',
-               default='root',
-               help='The user name to access database.'),
-    cfg.StrOpt('password',
-               default='root',
-               help='The user password to access database.'),
-    cfg.IntOpt('timeout',
-               default=5,
-               help='The max time in seconds to wait for a request to '
-                    'timeout.'),
-]
-
-CONF.register_opts(influx_dispatcher_opts, group="dispatcher_influxdb")
 
 
 class InfluxdbDispatcher(DispatchBase):
@@ -54,13 +29,14 @@ class InfluxdbDispatcher(DispatchBase):
 
     __dispatcher_type__ = "Influxdb"
 
-    def __init__(self, conf):
+    def __init__(self, conf, config):
         super(InfluxdbDispatcher, self).__init__(conf)
-        self.timeout = CONF.dispatcher_influxdb.timeout
-        self.target = CONF.dispatcher_influxdb.target
-        self.db_name = CONF.dispatcher_influxdb.db_name
-        self.username = CONF.dispatcher_influxdb.username
-        self.password = CONF.dispatcher_influxdb.password
+        db_conf = config['yardstick'].get('dispatcher_influxdb', {})
+        self.timeout = int(db_conf.get('timeout', 5))
+        self.target = db_conf.get('target', 'http://127.0.0.1:8086')
+        self.db_name = db_conf.get('db_name', 'yardstick')
+        self.username = db_conf.get('username', 'root')
+        self.password = db_conf.get('password', 'root')
         self.influxdb_url = "%s/write?db=%s" % (self.target, self.db_name)
         self.raw_result = []
         self.case_name = ""
