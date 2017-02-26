@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_05958e32",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-26T16:01:50Z",
+      "side": 1,
+      "message": "We should use  always use \"\"\"triple double quotes\"\"\".\nhttps://www.python.org/dev/peps/pep-0257/",
+      "revId": "5542f7ce3284435d18116c336481ca42d25ae76d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_a5992270",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-26T16:01:50Z",
+      "side": 1,
+      "message": "you can change to \u003d\u003d\u003e if server.ports",
+      "revId": "5542f7ce3284435d18116c336481ca42d25ae76d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
