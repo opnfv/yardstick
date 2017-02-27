@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_88daf376",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T05:53:56Z",
+      "side": 1,
+      "message": "we can do this, but properly we should add self._delete_context to Context.undeploy() and then call super().undeploy in all the subclasses.",
+      "revId": "61c45ed0ac7a4708d7ff16522f19e900fe021bed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_28e74742",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T05:53:56Z",
+      "side": 1,
+      "message": "self._delete_context()",
+      "revId": "61c45ed0ac7a4708d7ff16522f19e900fe021bed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_48e4fb3a",
+        "filename": "yardstick/benchmark/contexts/dummy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T05:53:56Z",
+      "side": 1,
+      "message": "then call super() here to call _delete_context in superclass.\n\ndef undeploy(self):\n        \"\"\"don\u0027t need to undeploy\"\"\"\n        super(DummyContext, self).undeploy()",
+      "revId": "61c45ed0ac7a4708d7ff16522f19e900fe021bed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_e8d04f55",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T05:53:56Z",
+      "side": 1,
+      "message": "call superclass undeploy\n\n        super(HeatContext, self).undeploy()",
+      "revId": "61c45ed0ac7a4708d7ff16522f19e900fe021bed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_a8f33709",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T05:53:56Z",
+      "side": 1,
+      "message": "undeploy really should be wrapped in a try/finally around self._run so we cleanup on exceptions\n\n  try:\n    self._run(...)\n  finally:\n     if args.keep_deploy: \n        ...\n     else:\n        for context in self.contexts[::-1]:\n           context.undeploy()",
+      "range": {
+        "startLine": 92,
+        "startChar": 11,
+        "endLine": 92,
+        "endChar": 67
+      },
+      "revId": "61c45ed0ac7a4708d7ff16522f19e900fe021bed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_c8f8ebe7",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T05:53:56Z",
+      "side": 1,
+      "message": "Ideally we should be using Context Managers for Contexts, and defining deploy and undeploy as __enter__ and __exit__, but it looks like Python does not support variable number of contexts easily in both Python 2.7 and Python 3.x\n\nIf we were using Python 3 only, we should probably use contextlib.ExitStack()   \nhttps://docs.python.org/3/library/contextlib.html#contextlib.ExitStack\n\nIn the absence of context managers we should still add a try/finally somewhere to correct handle exceptions.",
+      "revId": "61c45ed0ac7a4708d7ff16522f19e900fe021bed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_08efe31f",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T05:53:56Z",
+      "side": 1,
+      "message": "we don\u0027t use  len() to check containers for emptyness.  Empty containers are False.\n\n  if self.contexts:\n     ...",
+      "revId": "61c45ed0ac7a4708d7ff16522f19e900fe021bed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_68dd3f70",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T05:53:56Z",
+      "side": 1,
+      "message": "probably can use dict() constructor here\n\n  def parse_ini_file(path):\n    parser \u003d configparser.ConfigParser()\n    parser.read(path)\n\n    try:\n        default \u003d {k: v for k, v in parser.items(\u0027DEFAULT\u0027)}\n    except configparser.NoSectionError:\n        default \u003d {}\n\n    config \u003d dict(DEFAULT\u003ddefault,\n                  **{s: {k: v for k, v in parser.items(s)} for s in\n                     parser.sections()})\n\n    return config\n\n  class TestParseIniFile(unittest.TestCase):\n\n    def test_parse_ini_file(self):\n        test_path \u003d os.path.dirname(os.path.dirname(\n            os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))\n        conf_path \u003d os.path.join(test_path, \"etc\", \"yardstick\",\n                                 \"yardstick.conf.sample\")\n        config \u003d utils.parse_ini_file(conf_path)\n        assert config[\u0027DEFAULT\u0027][\u0027debug\u0027] \u003d\u003d \u0027False\u0027\n        assert config[\u0027dispatcher_file\u0027][\u0027file_path\u0027] \u003d\u003d \u0027/tmp/yardstick.out\u0027",
+      "revId": "61c45ed0ac7a4708d7ff16522f19e900fe021bed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
