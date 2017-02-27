@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_cb87850e",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T17:54:21Z",
+      "side": 1,
+      "message": "please place yardstick import after django\n\nlocal module import should be last.",
+      "revId": "ea5a08929ef7ee6e62398ee380fcd9748e6abd0a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_6b7c5921",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T17:54:21Z",
+      "side": 1,
+      "message": "Isn\u0027t this susceptible to SQL injection?  \n\ncan we use query parameters?\n\nDid we handle this before.  Sanitize args.yaml_name[0] to prevent SQL metacharacters, etc.\n\nhttps://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet",
+      "revId": "ea5a08929ef7ee6e62398ee380fcd9748e6abd0a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_8b798d31",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T17:54:21Z",
+      "side": 1,
+      "message": "can we use list comprehension?\n\n  field_keys \u003d [field[\u0027fieldKey\u0027].encode(\u0027utf-8\u0027) for field in db_fieldkeys[0]]",
+      "revId": "ea5a08929ef7ee6e62398ee380fcd9748e6abd0a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_2b76613f",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T17:54:21Z",
+      "side": 1,
+      "message": "eval is dangerous\n\ncan we use ast.literal_eval?  or something else.",
+      "revId": "ea5a08929ef7ee6e62398ee380fcd9748e6abd0a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_eb884924",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T17:54:21Z",
+      "side": 1,
+      "message": "please use context manager\n\n with open(os.path.join(...), \"w+\") as file_open:\n    file_open.write(...)",
+      "revId": "ea5a08929ef7ee6e62398ee380fcd9748e6abd0a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
