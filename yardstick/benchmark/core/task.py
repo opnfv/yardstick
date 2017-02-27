@@ -107,6 +107,10 @@ class Task(object):     # pragma: no cover
         LOG.info("total finished in %d secs",
                  total_end_time - total_start_time)
 
+        scenario = scenarios[0]
+        print("To generate report execute => yardstick report generate ",
+              scenario['task_id'], scenario['tc'])
+
         print("Done, exiting")
 
     def _run(self, scenarios, run_in_parallel, output_file):
