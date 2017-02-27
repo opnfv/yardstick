@@ -20,7 +20,7 @@ from pkg_resources import get_distribution
 from argparse import RawDescriptionHelpFormatter
 from oslo_config import cfg
 
-from yardstick import _init_logging, LOG
+from yardstick import _init_logging, _LOG_STREAM_HDLR
 from yardstick.cmd.commands import task
 from yardstick.cmd.commands import runner
 from yardstick.cmd.commands import scenario
@@ -33,11 +33,7 @@ cli_opts = [
     cfg.BoolOpt('debug',
                 short='d',
                 default=False,
-                help='increase output verbosity to debug'),
-    cfg.BoolOpt('verbose',
-                short='v',
-                default=False,
-                help='increase output verbosity to info')
+                help='increase output verbosity to debug')
 ]
 CONF.register_cli_opts(cli_opts)
 
@@ -132,11 +128,8 @@ class YardstickCLI():
     def _handle_global_opts(self):
 
         _init_logging()
-        if CONF.verbose:
-            LOG.setLevel(logging.INFO)
-
         if CONF.debug:
-            LOG.setLevel(logging.DEBUG)
+            _LOG_STREAM_HDLR.setLevel(logging.DEBUG)
 
     def _dispath_func_notask(self):
 

@@ -35,19 +35,18 @@ LOG = logging.getLogger(__name__)
 
 def _init_logging():
 
-    _LOG_STREAM_HDLR.setFormatter(_LOG_FORMATTER)
+    LOG.setLevel(logging.DEBUG)
 
+    _LOG_STREAM_HDLR.setFormatter(_LOG_FORMATTER)
+    if os.environ.get('CI_DEBUG', '').lower() in {'1', 'y', "yes", "true"}:
+        _LOG_STREAM_HDLR.setLevel(logging.DEBUG)
+    else:
+        _LOG_STREAM_HDLR.setLevel(logging.INFO)
     # don't append to log file, clobber
     _LOG_FILE_HDLR.setFormatter(_LOG_FORMATTER)
-    # set log file to store debug info
     _LOG_FILE_HDLR.setLevel(logging.DEBUG)
 
     del logging.root.handlers[:]
     logging.root.addHandler(_LOG_STREAM_HDLR)
     logging.root.addHandler(_LOG_FILE_HDLR)
     logging.debug("logging.root.handlers = %s", logging.root.handlers)
-
-    if os.environ.get('CI_DEBUG', '').lower() in {'1', 1, 'y', "yes", "true"}:
-        LOG.setLevel(logging.DEBUG)
-    else:
-        LOG.setLevel(logging.INFO)
