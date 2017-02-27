@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_e805afc2",
+        "filename": "tests/ci/check_lic.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T07:10:50Z",
+      "side": 1,
+      "message": "maybe something like\n\n    # !/usr/bin/env python\n    import logging\n    import os\n    import re\n    from subprocess import Popen, PIPE\n\n    logging.basicConfig(level\u003dlogging.DEBUG)\n\n    NO_LICENSE_EXTENSIONS \u003d {\"txt\", \"rst\", \"json\"}\n\n\n    def lic_extension_ignored(f):\n        filename, extension \u003d os.path.splitext(os.path.basename(f))\n        return extension in NO_LICENSE_EXTENSIONS\n\n\n    LICENSE_RE \u003d re.compile(\"Copyright|generated|GENERATED|Licensed\")\n\n\n    def verify_license_present(f):\n        with open(f) as file_obj:\n            header \u003d file_obj.read(4096)\n        return LICENSE_RE.search(header) is not None\n\n\n    # don\u0027t examine deleted files\n    GIT_STATUS_RE \u003d re.compile(u\u0027^[^D]\\\\s+(\\\\S+)$\u0027, re.M)\n\n\n    def get_changed_files_from_commit():\n        git_diff_tree_cmd \u003d [\"git\", \"diff-tree\", \"--no-commit-id\",\n                             \"--name-status\", \"-r\", \"HEAD~1\"]\n        proc \u003d Popen(git_diff_tree_cmd, stdout\u003dPIPE)\n        git_changed_files \u003d proc.communicate()[0].decode(u\u0027utf-8\u0027)\n        changed_files \u003d GIT_STATUS_RE.findall(git_changed_files)\n        logging.debug(\"Changed Files \u003d %s\", \", \".join(changed_files))\n        return changed_files\n\n\n    def check_for_license():\n        changed \u003d get_changed_files_from_commit()\n        for c in changed:\n            if not lic_extension_ignored(c):\n                if not verify_license_present(c):\n                    raise SystemExit(\"%s does not have license present\" % c)\n\n\nget_changed_files_from_commit should be re-used for all flake8, etc, tests, because we don\u0027t really want to check code that hasn\u0027t changed. \n\nI had been meaning to finish https://gerrit.opnfv.org/gerrit/#/c/25001/\nand use that for all jenkins tests.",
+      "revId": "43a55697840cd9056c383dd66f7958be20ff85b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
