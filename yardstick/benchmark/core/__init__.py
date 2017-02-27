@@ -20,6 +20,8 @@ class Param(object):
         self.parse_only = kwargs.get('parse-only')
         self.output_file = kwargs.get('output-file', '/tmp/yardstick.out')
         self.suite = kwargs.get('suite')
+        self.task_id = kwargs.get('task_id')
+        self.yaml_name = kwargs.get('yaml_name')
 
         # list
         self.input_file = kwargs.get('input_file')
