@@ -267,7 +267,11 @@ class TaskParser(object):       # pragma: no cover
 
         name_suffix = '-{}'.format(task_id[:8])
         for cfg_attrs in context_cfgs:
-            cfg_attrs['name'] = '{}{}'.format(cfg_attrs['name'], name_suffix)
+            try:
+                cfg_attrs['name'] = '{}{}'.format(cfg_attrs['name'],
+                                                  name_suffix)
+            except KeyError:
+                pass
             context_type = cfg_attrs.get("type", "Heat")
             if "Heat" == context_type and "networks" in cfg_attrs:
                 # bugfix: if there are more than one network,
