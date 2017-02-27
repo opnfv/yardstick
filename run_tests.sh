@@ -33,6 +33,10 @@ run_flake8() {
     fi
 }
 
+run_lic_coverage() {
+    source tests/ci/check_lic.sh
+    check_for_license
+}
 
 run_tests() {
     echo "Get external libs needed for unit test"
@@ -80,6 +84,7 @@ run_functional_test() {
 export PYTHONPATH='yardstick/vTC/apexlake'
 
 run_flake8
+run_lic_coverage
 run_tests
 run_coverage
 run_functional_test
