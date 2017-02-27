@@ -40,7 +40,8 @@ class TestYardstickNSCli(unittest.TestCase):
     def test_generate_final_report(self):
         yardstick_ns_cli = YardstickNSCli()
         test_case = "tc_baremetal_rfc2544_ipv4_1flow_1518B.yaml"
-        subprocess.call(["touch", "/tmp/yardstick.out"])
+        if os.path.isfile("/tmp/yardstick.out"):
+            os.remove('/tmp/yardstick.out')
         self.assertIsNone(yardstick_ns_cli.generate_final_report(test_case))
 
     def test_generate_kpi_results(self):

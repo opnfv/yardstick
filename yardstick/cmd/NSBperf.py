@@ -24,7 +24,7 @@ import argparse
 import json
 import subprocess
 import signal
-
+from oslo_serialization import jsonutils
 
 from six.moves import input
 
@@ -126,10 +126,11 @@ class YardstickNSCli(object):
         if os.path.isfile("/tmp/yardstick.out"):
             lines = []
             with open("/tmp/yardstick.out") as infile:
-                lines = infile.readlines()
+                lines = jsonutils.load(infile)
 
             if lines:
-                tc_res = json.loads(lines.pop(len(lines) - 1))
+                lines = lines['result']
+                tc_res = lines.pop(len(lines) - 1)
                 for key, value in tc_res["benchmark"]["data"].items():
                     self.generate_kpi_results(key, value)
                     self.generate_nfvi_results(value)
