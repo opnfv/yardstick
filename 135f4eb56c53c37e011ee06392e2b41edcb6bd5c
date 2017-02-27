@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_c588d6e9",
+        "filename": "tests/opnfv/test_suites/opnfv_os-odl_l2-bgpvpn-ha_daily.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-27T00:42:47Z",
+      "side": 1,
+      "message": "tc002 and tc005 don\u0027t need add constaints and tarsk_args, since it do not use pod info.\nso below is ok:\n-\n  file_name: opnfv_yardstick_tc002.yaml\n-\n  file_name: opnfv_yardstick_tc005.yaml",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 39
+      },
+      "revId": "135f4eb56c53c37e011ee06392e2b41edcb6bd5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
