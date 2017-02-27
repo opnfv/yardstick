@@ -20,7 +20,7 @@ from pkg_resources import get_distribution
 from argparse import RawDescriptionHelpFormatter
 from oslo_config import cfg
 
-from yardstick import _init_logging, LOG
+from yardstick import _init_logging, LOG, _LOG_STREAM_HDLR
 from yardstick.cmd.commands import task
 from yardstick.cmd.commands import runner
 from yardstick.cmd.commands import scenario
@@ -136,7 +136,7 @@ class YardstickCLI():
             LOG.setLevel(logging.INFO)
 
         if CONF.debug:
-            LOG.setLevel(logging.DEBUG)
+            _LOG_STREAM_HDLR.setLevel(logging.DEBUG)
 
     def _dispath_func_notask(self):
 
