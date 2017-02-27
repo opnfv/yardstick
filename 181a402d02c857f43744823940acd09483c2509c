@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_eb7929fd",
+        "filename": "yardstick/__init__.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T21:52:23Z",
+      "side": 1,
+      "message": "we can\u0027t be int(1) here, because os.environ is already string.\n\nwe should remove the 1 from the set",
+      "range": {
+        "startLine": 42,
+        "startChar": 55,
+        "endLine": 42,
+        "endChar": 56
+      },
+      "revId": "181a402d02c857f43744823940acd09483c2509c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_4b1dd5bc",
+        "filename": "yardstick/__init__.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-27T21:52:23Z",
+      "side": 1,
+      "message": "could do else here to avoid the double call\n\n     if os.environ.get(\u0027CI_DEBUG\u0027, \u0027\u0027).lower() in {\u00271\u0027, 1, \u0027y\u0027, \"yes\", \"true\"}:\n        _LOG_STREAM_HDLR.setLevel(logging.DEBUG)\n     else:\n         _LOG_STREAM_HDLR.setFormatter(_LOG_FORMATTER)",
+      "revId": "181a402d02c857f43744823940acd09483c2509c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
