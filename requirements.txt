@@ -44,7 +44,7 @@ oslo.config==3.9.0
 oslo.i18n==3.4.0
 oslo.serialization==2.4.0
 oslo.utils==3.7.0
-paramiko==1.16.0
+paramiko==1.18.0
 pbr==1.8.1
 pep8==1.7.0
 positional==1.0.1
