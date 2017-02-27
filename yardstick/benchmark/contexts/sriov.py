@@ -8,6 +8,9 @@ import xml.etree.ElementTree as ET
 from yardstick import ssh
 from yardstick.benchmark.contexts.standalone import StandaloneContext
 
+BIN_PATH="/opt/isb_bin/"
+DPDK_NIC_BIND="dpdk_nic_bind.py"
+
 VM_TEMPLATE = """
 <domain type="kvm">
  <name>vm1</name>
@@ -106,7 +109,7 @@ class Sriov(StandaloneContext):
         self.first_run = True
         '''self.dpdk_nic_bind = provision_tool(self.connection, os.path.join(s
 elf.bin_path, "dpdk_nic_bind.py"))'''
-        self.dpdk_nic_bind = "/opt/isb_bin/dpdk_nic_bind.py"
+        self.dpdk_nic_bind = BIN_PATH + DPDK_NIC_BIND
         self.user = ""
         self.ssh_ip = ""
         self.passwd = ""
@@ -126,7 +129,9 @@ elf.bin_path, "dpdk_nic_bind.py"))'''
             with open(self.file_path) as stream:
                 cfg = yaml.load(stream)
         except IOError as ioerror:
-            sys.exit(ioerror)
+            print("File {0} does not exist".format(self.file_path))
+            raise ioerror
+            #sys.exit(ioerror)
 
         self.nodes.extend([node for node in cfg["nodes"]
                            if node["role"] != "Sriov"])
@@ -147,7 +152,8 @@ elf.bin_path, "dpdk_nic_bind.py"))'''
         nic_details['phy_driver'] = self.sriov[0]['phy_driver']
         nic_details['vf_macs'] = self.sriov[0]['vf_macs']
         '''Make sure that ports are bound to kernel drivers e.g. i40e/ixgbe'''
-        for i in range(len(nic_details['pci'])):
+        #for i in range(len(nic_details['pci'])):
+        for i, _ in enumerate(nic_details['pci']):
             err, out, _ = self.connection.execute(
                 "{dpdk_nic_bind} --force -b {driver} {port}".format(
                     dpdk_nic_bind=self.dpdk_nic_bind,
@@ -158,7 +164,7 @@ elf.bin_path, "dpdk_nic_bind.py"))'''
                     port=self.sriov[0]['phy_ports'][i]))
             a = out.split()[1]
             err, out, _ = self.connection.execute(
-                "ifconfig {interface}".format(
+                "ip -s link show {interface}".format(
                     interface=out.split()[1]))
             nic_details['interface'][i] = str(a)
             '''#if err is 0:

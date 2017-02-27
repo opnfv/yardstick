@@ -106,7 +106,7 @@ class StandaloneContext(Context):
         """don't need to undeploy"""
 
         # Todo: NFVi undeploy (sriov, vswitch, ovs etc) based on the config.
-        self.nfvi_obj = self.get_nfvi_obj()
+        #self.nfvi_obj = self.get_nfvi_obj()
         self.nfvi_obj.ssh_remote_machine()
         self.nfvi_obj.destroy_vm()
         pass
