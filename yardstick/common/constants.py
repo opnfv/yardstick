@@ -65,3 +65,5 @@ ASYNC_TASK_API = BASE_URL + '/yardstick/asynctask'
 SQLITE = 'sqlite:////tmp/yardstick.db'
 
 DEFAULT_OUTPUT_FILE = '/tmp/yardstick.out'
+
+DEFAULT_HTML_FILE = '/tmp/yardstick.htm'
