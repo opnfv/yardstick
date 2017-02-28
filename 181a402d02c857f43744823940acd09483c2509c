@@ -120,6 +120,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_ce5d53eb",
+        "filename": "yardstick/__init__.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-28T06:56:40Z",
+      "side": 1,
+      "message": "you got it. we should discuss how and what we\u0027d like to show. decide which we should keep or how to combine, and also do some code clean job.\n-\u003e https://etherpad.opnfv.org/p/yardstick_logging",
+      "parentUuid": "dabed58f_6eaf87e4",
+      "revId": "181a402d02c857f43744823940acd09483c2509c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_6b2539c1",
         "filename": "yardstick/cmd/cli.py",
         "patchSetId": 1
@@ -149,6 +167,24 @@
       "side": 1,
       "message": "well  _LOG_STREAM_HDLR.setLevel(logging.INFO) is the default.\n\nbut this also means -v is weird in that it will lower the log level on LOG from DEBUG to INFO.",
       "parentUuid": "dabed58f_6b2539c1",
+      "revId": "181a402d02c857f43744823940acd09483c2509c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_8e6f5b92",
+        "filename": "yardstick/cmd/cli.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-28T06:56:40Z",
+      "side": 1,
+      "message": "agree that -v is confusing here, when should we use -v?",
+      "parentUuid": "dabed58f_2eb98f2e",
       "revId": "181a402d02c857f43744823940acd09483c2509c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
