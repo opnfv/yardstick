@@ -134,6 +134,24 @@
       "revId": "181a402d02c857f43744823940acd09483c2509c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_2eb98f2e",
+        "filename": "yardstick/cmd/cli.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-28T05:46:46Z",
+      "side": 1,
+      "message": "well  _LOG_STREAM_HDLR.setLevel(logging.INFO) is the default.\n\nbut this also means -v is weird in that it will lower the log level on LOG from DEBUG to INFO.",
+      "parentUuid": "dabed58f_6b2539c1",
+      "revId": "181a402d02c857f43744823940acd09483c2509c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
