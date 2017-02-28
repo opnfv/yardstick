@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_8bff4d34",
+        "filename": "yardstick/__init__.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-28T01:02:37Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "dabed58f_eb7929fd",
+      "range": {
+        "startLine": 42,
+        "startChar": 55,
+        "endLine": 42,
+        "endChar": 56
+      },
+      "revId": "181a402d02c857f43744823940acd09483c2509c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_4b1dd5bc",
         "filename": "yardstick/__init__.py",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2017-02-27T21:52:23Z",
       "side": 1,
       "message": "could do else here to avoid the double call\n\n     if os.environ.get(\u0027CI_DEBUG\u0027, \u0027\u0027).lower() in {\u00271\u0027, 1, \u0027y\u0027, \"yes\", \"true\"}:\n        _LOG_STREAM_HDLR.setLevel(logging.DEBUG)\n     else:\n         _LOG_STREAM_HDLR.setFormatter(_LOG_FORMATTER)",
+      "revId": "181a402d02c857f43744823940acd09483c2509c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_eb95a9e4",
+        "filename": "yardstick/__init__.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-02-28T01:02:37Z",
+      "side": 1,
+      "message": "for this one, i don\u0027t think _LOG_FORMATTER should be set according to the CI_DEBUG variable. Since CI_DEBUG currently is used for OPNFV CI now.\nBTW, we now have 3 place to set debug in yardstick code, one is CI_DEBUG, 2nd is [DEFAULT] debug \u003d False in yardstick.conf, 3rd is -d in cli.",
+      "parentUuid": "dabed58f_4b1dd5bc",
       "revId": "181a402d02c857f43744823940acd09483c2509c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
