@@ -34,6 +34,24 @@
       "revId": "e7a7398cd55e6520d0948b734d5858b1c1e68a24",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_0b37dd00",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-02-28T02:25:04Z",
+      "side": 1,
+      "message": "Agreed, mostly we will have network to the VM. since yardstick support different scenarios not sure if we have test which does not need a floating ip for a given VM.\n\nHonestly speaking, I have not looked at all the test cases currently supported by yardstick.",
+      "parentUuid": "dabed58f_a8b017de",
+      "revId": "e7a7398cd55e6520d0948b734d5858b1c1e68a24",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
