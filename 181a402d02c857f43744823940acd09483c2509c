@@ -188,6 +188,24 @@
       "revId": "181a402d02c857f43744823940acd09483c2509c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_0e0b6bd7",
+        "filename": "yardstick/cmd/cli.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-28T07:03:54Z",
+      "side": 1,
+      "message": "we should probably remove it.\n\nsince this is a testing framework, what is the point of testing without good logs?  The default, INFO to stderr, DEBUG to log file is good enough.\n\nAny filtering can happen in post-processing of the log file.\n\nWhy would we ever not run with at least INFO level?",
+      "parentUuid": "dabed58f_8e6f5b92",
+      "revId": "181a402d02c857f43744823940acd09483c2509c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
