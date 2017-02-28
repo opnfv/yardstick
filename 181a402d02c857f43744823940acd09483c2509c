@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_aea57f05",
+        "filename": "yardstick/__init__.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-28T05:33:48Z",
+      "side": 1,
+      "message": "sorry I meant     _LOG_STREAM_HDLR.setLevel(logging.INFO)\n\n\n     if os.environ.get(\u0027CI_DEBUG\u0027, \u0027\u0027).lower() in {\u00271\u0027, 1, \u0027y\u0027, \"yes\", \"true\"}:\n        _LOG_STREAM_HDLR.setLevel(logging.DEBUG)\n     else:\n        _LOG_STREAM_HDLR.setLevel(logging.INFO)\n\nwrong copy and paste.",
+      "parentUuid": "dabed58f_eb95a9e4",
+      "revId": "181a402d02c857f43744823940acd09483c2509c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_6b2539c1",
         "filename": "yardstick/cmd/cli.py",
         "patchSetId": 1
