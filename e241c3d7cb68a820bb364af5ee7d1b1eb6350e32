@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_ce87930e",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5469
+      },
+      "writtenOn": "2017-02-28T07:41:54Z",
+      "side": 1,
+      "message": "this needs to be \"r:i:h:m:\"",
+      "range": {
+        "startLine": 50,
+        "startChar": 15,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "e241c3d7cb68a820bb364af5ee7d1b1eb6350e32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
