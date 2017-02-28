@@ -34,6 +34,7 @@ OPTIONS:
    -h      Show this message
    -r      Http target (example: -r 213.77.62.197/results)
    -i      Influxdb target (example: -i 127.0.0.1:8086)
+   -m      Reporting target (example: -m 213.77.62.197/results)
 
            Default target is dump to file ($DISPATCHER_FILE_NAME)
 
@@ -44,8 +45,9 @@ DISPATCHER_TYPE=file
 DISPATCHER_FILE_NAME="/tmp/yardstick.out"
 DISPATCHER_HTTP_TARGET="http://testresults.opnfv.org/test/api/v1/results"
 DISPATCHER_INFLUXDB_TARGET=
+REPORTING_TARGET="${DISPATCHER_HTTP_TARGET}"
 
-while getopts "r:i:h" OPTION; do
+while getopts "r:i:m:h" OPTION; do
     case $OPTION in
         h)
             usage
@@ -60,6 +62,9 @@ while getopts "r:i:h" OPTION; do
             DISPATCHER_TYPE=influxdb
             DISPATCHER_INFLUXDB_TARGET=http://${OPTARG}
             DISPATCHER_FILE_NAME=
+            ;;
+        m)
+            REPORTING_TARGET=http://${OPTARG}
             ;;
         *)
             echo "${OPTION} is not a valid argument"
@@ -150,7 +155,7 @@ report(){
           \"start_date\":\"${2}\",
           \"stop_date\":\"${3}\",
           \"details\":\"\"}" \
-          "${DISPATCHER_HTTP_TARGET}"
+          "${REPORTING_TARGET}"
 }
 
 run_test()
