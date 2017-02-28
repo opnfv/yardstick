@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_2ec42f3f",
+        "filename": "yardstick/cmd/cli.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-28T08:21:01Z",
+      "side": 1,
+      "message": "remove unused LOG to fix flake8 error.  otherwise LGTM",
+      "range": {
+        "startLine": 23,
+        "startChar": 37,
+        "endLine": 23,
+        "endChar": 40
+      },
+      "revId": "15dbf26ecbf034732e8446d8f751ee4d0052fe1e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
