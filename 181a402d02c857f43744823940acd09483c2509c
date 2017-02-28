@@ -102,6 +102,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_6eaf87e4",
+        "filename": "yardstick/__init__.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-28T05:45:10Z",
+      "side": 1,
+      "message": "I agree this is all confusing.  Like what is -v verbose supposed to do now, since we default to LOG.setLevel(logging.DEBUG),  -v will lower the level to INFO, which is not what verbose is supposed to do.\n\nMaybe we need an etherpad to figure it out.",
+      "parentUuid": "dabed58f_eb95a9e4",
+      "revId": "181a402d02c857f43744823940acd09483c2509c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_6b2539c1",
         "filename": "yardstick/cmd/cli.py",
         "patchSetId": 1
