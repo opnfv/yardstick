@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_394ebbc2",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-28T16:29:35Z",
+      "side": 1,
+      "message": "add a space here to fix flake8.\n\nAdd your name or your company name for copyright.\n\nFor example:\n\n  # Copyright (c) 2017 Rajesh Kudaka",
+      "range": {
+        "startLine": 2,
+        "startChar": 1,
+        "endLine": 2,
+        "endChar": 2
+      },
+      "revId": "8aa2f15bc87f87a28825363dc1c15816fdaf7715",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_9951e764",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-02-28T16:29:35Z",
+      "side": 1,
+      "message": "if we can\u0027t use bound parameters or stored procedures, then we have to sanitize the parameters\n\n\nis yaml_name alphanum, can it contain - or _?\n\n  match \u003d re.search(\"[A-z0-9_-]\", args.yaml_name[0])\n  if match:\n      yaml_name \u003d match.group(0)\n  else:\n      raise ValueError(\"invalid yaml_name %s\", args.yaml_name[0])\n\n\nsimilar for task_id, verify it is an integer or whatever.  make sure task_id doesn\u0027t contain \u0027 or ; or other SQL special characters.",
+      "revId": "8aa2f15bc87f87a28825363dc1c15816fdaf7715",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
