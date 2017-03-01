@@ -118,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_2e73ca4e",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:10:56Z",
+      "side": 1,
+      "message": "Ok, then. Half my comments were about bash-isms, disregard those :(",
+      "parentUuid": "dabed58f_ae87ba0e",
+      "range": {
+        "startLine": 70,
+        "startChar": 7,
+        "endLine": 70,
+        "endChar": 65
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_8e41960d",
         "filename": "tests/ci/load_images.sh",
         "patchSetId": 1
