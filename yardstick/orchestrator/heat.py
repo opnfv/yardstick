@@ -453,11 +453,9 @@ class HeatTemplate(HeatObject):
         stack = HeatStack(self.name)
 
         heat = self._get_heat_client()
-        json_template = jsonutils.dump_as_bytes(
-            self._template)
         start_time = time.time()
         stack.uuid = self.uuid = heat.stacks.create(
-            stack_name=self.name, template=json_template,
+            stack_name=self.name, template=self._template,
             parameters=self.heat_parameters)['stack']['id']
 
         status = self.status()
