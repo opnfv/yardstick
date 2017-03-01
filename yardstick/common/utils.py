@@ -133,7 +133,9 @@ def source_env(env_file):
 
 def read_json_from_file(path):
     with open(path, 'r') as f:
-        return jsonutils.load(f)
+        j = f.read()
+    # don't use jsonutils.load() it conflicts with already decoded input
+    return jsonutils.loads(j)
 
 
 def write_json_to_file(path, data, mode='w'):
