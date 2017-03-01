@@ -34,6 +34,24 @@
       "revId": "27e4f91299c7bdf4b3a9341c5e09a584bef5f1e1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_9a09d533",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-01T15:41:28Z",
+      "side": 1,
+      "message": "you can check the source.  In Python 3.5 getenv calls environ.get\n\nhttps://github.com/python/cpython/blob/master/Lib/os.py#L762\n\n  def getenv(key, default\u003dNone):\n    \"\"\"Get an environment variable, return None if it doesn\u0027t exist.\n    The optional second argument can specify an alternate default.\n    key, default and the result are str.\"\"\"\n    return environ.get(key, default)\n\nI prefer the dict interface, os.environ, for consistency.",
+      "parentUuid": "dabed58f_1fc2b7e9",
+      "revId": "27e4f91299c7bdf4b3a9341c5e09a584bef5f1e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
