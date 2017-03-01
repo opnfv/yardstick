@@ -62,22 +62,19 @@ class HeatContext(Context):
         """initializes itself from the supplied arguments"""
         self.name = attrs["name"]
 
-        if "user" in attrs:
-            self._user = attrs["user"]
+        self._user = attrs.get("user")
 
-        if "heat_template" in attrs:
-            self.template_file = attrs["heat_template"]
-            self.heat_parameters = attrs.get("heat_parameters", None)
+        self.template_file = attrs.get("heat_template")
+        if self.template_file:
+            self.heat_parameters = attrs.get("heat_parameters")
             return
 
         self.keypair_name = self.name + "-key"
         self.secgroup_name = self.name + "-secgroup"
 
-        if "image" in attrs:
-            self._image = attrs.get("image")
+        self._image = attrs.get("image")
 
-        if "flavor" in attrs:
-            self._flavor = attrs.get("flavor")
+        self._flavor = attrs.get("flavor")
 
         self.placement_groups = [PlacementGroup(name, self, pgattrs["policy"])
                                  for name, pgattrs in attrs.get(
