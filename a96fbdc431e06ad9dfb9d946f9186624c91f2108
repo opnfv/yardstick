@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_ae87ba0e",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-01T18:08:41Z",
+      "side": 1,
+      "message": "This is a bash script, bashisms are preferred.  [[ ]] was added for a reason\n\nEventually this script should be converted to ansible or python.",
+      "parentUuid": "dabed58f_aecfbaaf",
+      "range": {
+        "startLine": 70,
+        "startChar": 7,
+        "endLine": 70,
+        "endChar": 65
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_8e41960d",
         "filename": "tests/ci/load_images.sh",
         "patchSetId": 1
