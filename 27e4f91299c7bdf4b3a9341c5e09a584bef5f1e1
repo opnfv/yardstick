@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_dfaadfd3",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-01T07:09:33Z",
+      "side": 1,
+      "message": "can we use os.environ and all?\n\n\n return all(os.environ.get(k) for k in [\u0027OS_AUTH_URL\u0027, \u0027OS_USERNAME\u0027, \u0027OS_PASSWORD\u0027, OS_TENANT_NAME\u0027, \u0027EXTERNAL_NETWORK\u0027])\n\nthis will make sure they are all present and not empty strings.",
+      "revId": "27e4f91299c7bdf4b3a9341c5e09a584bef5f1e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
