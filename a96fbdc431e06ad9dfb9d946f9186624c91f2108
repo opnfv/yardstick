@@ -2,6 +2,374 @@
   "comments": [
     {
       "key": {
+        "uuid": "dabed58f_ced0ee55",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "1. BUILD_MODE is a generic name, maybe use something more specific, based on glance-prop, \"HW_FW_TYPE\u003duefi\" ?\n2. default value for x86_64 should not be altered, i.e. default should be HW_FW_TYPE\u003d\"\" (or HW_FW_TYPE\u003d\"bios\", both should work and be equivalent), and \"uefi\" only for AArch64;",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 15
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_ce378eaf",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "I think this is old, but it should also be quoted - see comment below.",
+      "range": {
+        "startLine": 30,
+        "startChar": 5,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_eed5b243",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "s/amd64/${YARD_IMG_ARCH}/, one less hardcode",
+      "range": {
+        "startLine": 31,
+        "startChar": 103,
+        "endLine": 31,
+        "endChar": 108
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_aecfbaaf",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "1. [[ ]] is a bash-ism that can be avoided by:\nif [ \"$YARD_IMG_ARCH\" \u003d \"arm64\" -a \"$YARD_IMG_AKI\" \u003d \"true\" ]; then\n2. Always quote variables in bash tests, otherwise they will break when var is empty/non set.",
+      "range": {
+        "startLine": 70,
+        "startChar": 7,
+        "endLine": 70,
+        "endChar": 65
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_8e41960d",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "s/arm64/${YARD_IMG_ARCH}/ everywhere ...",
+      "range": {
+        "startLine": 71,
+        "startChar": 59,
+        "endLine": 71,
+        "endChar": 64
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_4e4b9e2b",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "This might have changed for UEFI image, to be tested.",
+      "range": {
+        "startLine": 93,
+        "startChar": 22,
+        "endLine": 93,
+        "endChar": 36
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_ce5eaee9",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "pure sh + quotes + accept any non-empty value as valid:\nif [ -n \"${HW_FW_TYPE}\" ]; then",
+      "range": {
+        "startLine": 106,
+        "startChar": 4,
+        "endLine": 106,
+        "endChar": 39
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_ee6372af",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "s/uefi/${HW_FW_TYPE}/",
+      "range": {
+        "startLine": 107,
+        "startChar": 64,
+        "endLine": 107,
+        "endChar": 68
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_4e72be7d",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "1. pure sh + quotes:\nif [ \"${YARD_IMG_ARCH}\" \u003d \"arm64\" -a \"${CLOUD_RELEASE}\" \u003d \"xenial\" ]; then\n2. s/vivid/xenial/ everywhere, vivid images are long gone from UCA anyway ...\n(it looks like the rest of yardstick still uses trusty images, so AArch64 will probably use trusty rootfs, with linux-image-generic-lts-xenial kernel?)",
+      "range": {
+        "startLine": 28,
+        "startChar": 56,
+        "endLine": 28,
+        "endChar": 61
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_2e698a8b",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "same as above, also 2 more occurrences below",
+      "range": {
+        "startLine": 49,
+        "startChar": 3,
+        "endLine": 49,
+        "endChar": 61
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_ce054ec3",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "1. Indentation is wrong for if-block\n2. VIVID_KERNEL_VERSION - leftover?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 9
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_ee0a92d1",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "old, but should be quoted",
+      "range": {
+        "startLine": 92,
+        "startChar": 5,
+        "endLine": 92,
+        "endChar": 19
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_8e0f56e1",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "1. CLOUD_RELEASE\u003d${RELEASE:-\"xenial\"}, so RELEASE env var can still override xenial \n2. OR keep old assignment and add\nrelease\u003d${RELEASE:-\"xenial\"}\nCLOUD_RELEASE\u003d\"${release}\"\n3. OR (better) use ${release} in this file instead of CLOUD_RELEASE, no reason to duplicate that var",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 22
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_2e00aaa9",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "I assume there are multiple choices possible, and defaulting to uefi1 would break current x86 defaults:\n1. document all valid options\n2. keep old default on x86\n3. use uefi by default on arm64 only",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 17
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_ce2c6e4d",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "Unused?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 12
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_ee3132a3",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "1. Document kpartx bug avoided by using partial path.\n2. Rename first var into \"raw_imgfile_baseneme\" (clearer)\n3. Use first var to define full path var\nraw_imgfile_name\u003d\"yardstick-${release}-server.raw\"\nraw_imgfile\u003d\"${workspace}/${raw_imgfile_name}\"",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 58
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_8b18bb85",
         "filename": "tools/yardstick-img-modify",
         "patchSetId": 1
@@ -13,6 +381,116 @@
       "writtenOn": "2017-02-20T16:33:27Z",
       "side": 1,
       "message": "Since CLOUD_RELEASE is set to \"xenial\"? I think this check will always fail right?",
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_2e174aef",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "+1, vivid should be replaced with xenial everywhere.\nAlso, stick to pure sh + add quotes.",
+      "parentUuid": "dabed58f_8b18bb85",
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_ced30e37",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "${release} (applies to below blocks too)",
+      "range": {
+        "startLine": 77,
+        "startChar": 25,
+        "endLine": 77,
+        "endChar": 38
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_aee25a01",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "${YARD_IMG_ARCH} (applied to below blocks too)",
+      "range": {
+        "startLine": 77,
+        "startChar": 56,
+        "endLine": 77,
+        "endChar": 61
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_4ece3e85",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "${host} ?",
+      "range": {
+        "startLine": 78,
+        "startChar": 24,
+        "endLine": 78,
+        "endChar": 47
+      },
+      "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_6ecb0273",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-01T18:00:05Z",
+      "side": 1,
+      "message": "This is used multiple times, maybe define a var with its contents in this if-block? Same obs for the img.",
+      "range": {
+        "startLine": 80,
+        "startChar": 53,
+        "endLine": 80,
+        "endChar": 108
+      },
       "revId": "a96fbdc431e06ad9dfb9d946f9186624c91f2108",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
