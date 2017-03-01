@@ -16,6 +16,24 @@
       "revId": "27e4f91299c7bdf4b3a9341c5e09a584bef5f1e1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_1fc2b7e9",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-03-01T09:24:04Z",
+      "side": 1,
+      "message": "Thanks ross. It\u0027s more clean pythonic, I\u0027ll do it.\nBTW, is there any difference between os.getenv() and os.environ.get()?",
+      "parentUuid": "dabed58f_dfaadfd3",
+      "revId": "27e4f91299c7bdf4b3a9341c5e09a584bef5f1e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
