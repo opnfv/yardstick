@@ -195,6 +195,13 @@ def prepareYardstickEnv(args):
     return result_handler('success', {'task_id': task_id})
 
 
+def _already_source_openrc():
+    """Check if openrc is sourced already"""
+    return all(os.environ.get(k) for k in ['OS_AUTH_URL', 'OS_USERNAME',
+                                           'OS_PASSWORD', 'OS_TENANT_NAME',
+                                           'EXTERNAL_NETWORK'])
+
+
 def _prepare_env_daemon(task_id):
     _create_task(task_id)
 
@@ -208,11 +215,10 @@ def _prepare_env_daemon(task_id):
 
         rc_file = config.OPENSTACK_RC_FILE
 
-        _get_remote_rc_file(rc_file, installer_ip, installer_type)
-
-        _source_file(rc_file)
-
-        _append_external_network(rc_file)
+        if not _already_source_openrc():
+            _get_remote_rc_file(rc_file, installer_ip, installer_type)
+            _source_file(rc_file)
+            _append_external_network(rc_file)
 
         # update the external_network
         _source_file(rc_file)
