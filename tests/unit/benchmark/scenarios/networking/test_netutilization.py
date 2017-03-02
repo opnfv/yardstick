@@ -42,7 +42,7 @@ class NetUtilizationTestCase(unittest.TestCase):
         args = {'options': options}
 
         n = netutilization.NetUtilization(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
 
         n.setup()
         self.assertIsNotNone(n.client)
@@ -56,11 +56,11 @@ class NetUtilizationTestCase(unittest.TestCase):
         args = {'options': options}
 
         n = netutilization.NetUtilization(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         n.setup()
 
         expected_result = 'abcdefg'
-        mock_ssh.SSH().execute.return_value = (0, expected_result, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, expected_result, '')
         result = n._execute_command("foo")
         self.assertEqual(result, expected_result)
 
@@ -72,10 +72,10 @@ class NetUtilizationTestCase(unittest.TestCase):
         args = {'options': options}
 
         n = netutilization.NetUtilization(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         n.setup()
 
-        mock_ssh.SSH().execute.return_value = (127, '', 'abcdefg')
+        mock_ssh.SSH.from_node().execute.return_value = (127, '', 'abcdefg')
         self.assertRaises(RuntimeError, n._execute_command,
                           "failed")
 
@@ -87,11 +87,11 @@ class NetUtilizationTestCase(unittest.TestCase):
         args = {'options': options}
 
         n = netutilization.NetUtilization(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         n.setup()
 
         mpstat_output = self._read_file("netutilization_sample_output1.txt")
-        mock_ssh.SSH().execute.return_value = (0, mpstat_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, mpstat_output, '')
         result = n._get_network_utilization()
 
         expected_result = \
@@ -157,11 +157,11 @@ class NetUtilizationTestCase(unittest.TestCase):
         args = {'options': options}
 
         n = netutilization.NetUtilization(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         n.setup()
 
         mpstat_output = self._read_file("netutilization_sample_output2.txt")
-        mock_ssh.SSH().execute.return_value = (0, mpstat_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, mpstat_output, '')
         result = n._get_network_utilization()
 
         expected_result = \

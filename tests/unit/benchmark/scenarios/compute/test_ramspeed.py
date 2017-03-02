@@ -38,7 +38,7 @@ class RamspeedTestCase(unittest.TestCase):
     def test_ramspeed_successful_setup(self, mock_ssh):
 
         r = ramspeed.Ramspeed({}, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
 
         r.setup()
         self.assertIsNotNone(r.client)
@@ -75,7 +75,7 @@ class RamspeedTestCase(unittest.TestCase):
  {"Test_type": "INTEGER & WRITING", "Block_size(kb)": 16384,\
  "Bandwidth(MBps)": 14128.94}, {"Test_type": "INTEGER & WRITING",\
  "Block_size(kb)": 32768, "Bandwidth(MBps)": 8340.85}]}'
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         r.run(self.result)
         expected_result = jsonutils.loads(sample_output)
         self.assertEqual(self.result, expected_result)
@@ -111,7 +111,7 @@ class RamspeedTestCase(unittest.TestCase):
  {"Test_type": "INTEGER & WRITING", "Block_size(kb)": 16384,\
  "Bandwidth(MBps)": 14128.94}, {"Test_type": "INTEGER & WRITING",\
  "Block_size(kb)": 32768, "Bandwidth(MBps)": 8340.85}]}'
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         r.run(self.result)
         expected_result = jsonutils.loads(sample_output)
         self.assertEqual(self.result, expected_result)
@@ -146,7 +146,7 @@ class RamspeedTestCase(unittest.TestCase):
  "Bandwidth(MBps)": 14159.86}, {"Test_type": "INTEGER & WRITING",\
  "Block_size(kb)": 16384, "Bandwidth(MBps)": 14128.94}, {"Test_type":\
  "INTEGER & WRITING", "Block_size(kb)": 32768, "Bandwidth(MBps)": 8340.85}]}'
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, r.run, self.result)
 
     def test_ramspeed_unsuccessful_script_error(self, mock_ssh):
@@ -158,7 +158,7 @@ class RamspeedTestCase(unittest.TestCase):
         args = {"options": options}
         r = ramspeed.Ramspeed(args, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, r.run, self.result)
 
     def test_ramspeed_mem_successful_run_no_sla(self, mock_ssh):
@@ -177,7 +177,7 @@ class RamspeedTestCase(unittest.TestCase):
  "Bandwidth(MBps)": 10057.48}, {"Test_type": "INTEGER Triad:",\
  "Bandwidth(MBps)": 10116.27}, {"Test_type": "INTEGER AVERAGE:",\
  "Bandwidth(MBps)": 9401.58}]}'
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         r.run(self.result)
         expected_result = jsonutils.loads(sample_output)
         self.assertEqual(self.result, expected_result)
@@ -198,7 +198,7 @@ class RamspeedTestCase(unittest.TestCase):
  "Bandwidth(MBps)": 10057.48}, {"Test_type": "INTEGER Triad:",\
  "Bandwidth(MBps)": 10116.27}, {"Test_type": "INTEGER AVERAGE:",\
  "Bandwidth(MBps)": 9401.58}]}'
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         r.run(self.result)
         expected_result = jsonutils.loads(sample_output)
         self.assertEqual(self.result, expected_result)
@@ -219,7 +219,7 @@ class RamspeedTestCase(unittest.TestCase):
  "Bandwidth(MBps)": 4300.48}, {"Test_type": "INTEGER Triad:",\
  "Bandwidth(MBps)": 1300.27}, {"Test_type": "INTEGER AVERAGE:",\
  "Bandwidth(MBps)": 2401.58}]}'
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, r.run, self.result)
 
     def test_ramspeed_unsuccessful_unknown_type_run(self, mock_ssh):
@@ -231,7 +231,7 @@ class RamspeedTestCase(unittest.TestCase):
         args = {'options': options}
         r = ramspeed.Ramspeed(args, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (1, '', 'No such type_id: 30 for \
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'No such type_id: 30 for \
                                                Ramspeed scenario')
         self.assertRaises(RuntimeError, r.run, self.result)
 

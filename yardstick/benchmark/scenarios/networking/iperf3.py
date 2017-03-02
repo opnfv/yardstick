@@ -59,25 +59,14 @@ For more info see http://software.es.net/iperf
 
     def setup(self):
         host = self.context_cfg['host']
-        host_user = host.get('user', 'ubuntu')
-        host_ssh_port = host.get('ssh_port', ssh.DEFAULT_PORT)
-        host_ip = host.get('ip', None)
-        host_key_filename = host.get('key_filename', '~/.ssh/id_rsa')
         target = self.context_cfg['target']
-        target_user = target.get('user', 'ubuntu')
-        target_ssh_port = target.get('ssh_port', ssh.DEFAULT_PORT)
-        target_ip = target.get('ip', None)
-        target_key_filename = target.get('key_filename', '~/.ssh/id_rsa')
 
-        LOG.info("user:%s, target:%s", target_user, target_ip)
-        self.target = ssh.SSH(target_user, target_ip,
-                              key_filename=target_key_filename,
-                              port=target_ssh_port)
+        LOG.info("user:%s, target:%s", target['user'], target['ip'])
+        self.target = ssh.SSH.from_node(target, defaults={"user": "ubuntu"})
         self.target.wait(timeout=600)
 
-        LOG.info("user:%s, host:%s", host_user, host_ip)
-        self.host = ssh.SSH(host_user, host_ip,
-                            key_filename=host_key_filename, port=host_ssh_port)
+        LOG.info("user:%s, host:%s", host['user'], host['ip'])
+        self.host = ssh.SSH.from_node(host, defaults={"user": "ubuntu"})
         self.host.wait(timeout=600)
 
         cmd = "iperf3 -s -D"

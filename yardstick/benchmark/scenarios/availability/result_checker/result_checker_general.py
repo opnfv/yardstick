@@ -26,13 +26,8 @@ class GeneralResultChecker(BaseResultChecker):
     def setup(self):
         LOG.debug("config:%s context:%s", self._config, self._context)
         host = self._context.get(self._config['host'], None)
-        ip = host.get("ip", None)
-        user = host.get("user", "root")
-        ssh_port = host.get("ssh_port", ssh.DEFAULT_PORT)
-        key_filename = host.get("key_filename", "~/.ssh/id_rsa")
 
-        self.connection = ssh.SSH(user, ip, key_filename=key_filename,
-                                  port=ssh_port)
+        self.connection = ssh.SSH.from_node(host, defaults={"user": "root"})
         self.connection.wait(timeout=600)
         LOG.debug("ssh host success!")
 

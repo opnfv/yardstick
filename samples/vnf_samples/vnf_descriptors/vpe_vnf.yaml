@@ -20,10 +20,18 @@ vnfd:vnfd-catalog:
         description: vPe approximation using DPDK
         mgmt-interface:
             vdu-id: vpevnf-baremetal
+            {% if user is defined %}
             user: '{{user}}'  # Value filled by vnfdgen
+            {% endif %}
+            {% if password is defined %}
             password: '{{password}}'  # Value filled by vnfdgen
+            {% endif %}
+            {% if ip is defined %}
             ip: '{{ip}}'  # Value filled by vnfdgen
-            host: '{{host}}'  # Value filled by vnfdgen
+            {% endif %}
+            {% if key_filename is defined %}
+            key_filename: '{{key_filename}}'  # Value filled by vnfdgen
+            {% endif %}
         connection-point:
         -   name: xe0
             type: VPORT

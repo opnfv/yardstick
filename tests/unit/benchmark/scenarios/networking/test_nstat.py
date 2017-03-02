@@ -36,7 +36,7 @@ class NstatTestCase(unittest.TestCase):
         n = nstat.Nstat({}, self.ctx)
         n.setup()
 
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         self.assertIsNotNone(n.client)
         self.assertEqual(n.setup_done, True)
 
@@ -53,7 +53,7 @@ class NstatTestCase(unittest.TestCase):
 
         sample_output = '#kernel\nIpInReceives                    1837               0.0\nIpInHdrErrors                   0                  0.0\nIpInAddrErrors                  2                  0.0\nIcmpInMsgs                      319                  0.0\nIcmpInErrors                    0                0.0\nTcpInSegs                       36               0.0\nTcpInErrs                       0                  0.0\nUdpInDatagrams                  1318                  0.0\nUdpInErrors                     0                  0.0\n'
 
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         n.run(result)
         expected_result = {"TcpInErrs": 0, "UdpInDatagrams": 1318,
@@ -81,7 +81,7 @@ class NstatTestCase(unittest.TestCase):
 
         sample_output = '#kernel\nIpInReceives                    1837               0.0\nIpInHdrErrors                   0                  0.0\nIpInAddrErrors                  2                  0.0\nIcmpInMsgs                      319                  0.0\nIcmpInErrors                    0                0.0\nTcpInSegs                       36               0.0\nTcpInErrs                       0                  0.0\nUdpInDatagrams                  1318                  0.0\nUdpInErrors                     0                  0.0\n'
 
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         n.run(result)
         expected_result = {"TcpInErrs": 0, "UdpInDatagrams": 1318,
@@ -107,7 +107,7 @@ class NstatTestCase(unittest.TestCase):
         n = nstat.Nstat(args, self.ctx)
         result = {}
 
-        mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, n.run, result)
 
 
