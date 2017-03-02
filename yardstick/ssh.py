@@ -70,13 +70,15 @@ import time
 import re
 
 import logging
+
 import paramiko
+from chainmap import ChainMap
 from oslo_utils import encodeutils
 from scp import SCPClient
 import six
 
 
-DEFAULT_PORT = 22
+SSH_PORT = paramiko.config.SSH_PORT
 
 
 class SSHError(Exception):
@@ -90,7 +92,7 @@ class SSHTimeout(SSHError):
 class SSH(object):
     """Represent ssh connection."""
 
-    def __init__(self, user, host, port=DEFAULT_PORT, pkey=None,
+    def __init__(self, user, host, port=SSH_PORT, pkey=None,
                  key_filename=None, password=None, name=None):
         """Initialize SSH client.
 
@@ -109,6 +111,9 @@ class SSH(object):
 
         self.user = user
         self.host = host
+        # everybody wants to debug this in the caller, do it here instead
+        self.log.debug("user:%s host:%s", user, host)
+
         # we may get text port from YAML, convert to int
         self.port = int(port)
         self.pkey = self._get_pkey(pkey) if pkey else None
@@ -122,6 +127,23 @@ class SSH(object):
             logging.getLogger("paramiko").setLevel(logging.DEBUG)
         else:
             logging.getLogger("paramiko").setLevel(logging.WARN)
+
+    @classmethod
+    def from_node(cls, node, overrides=None, defaults=None):
+        if overrides is None:
+            overrides = {}
+        if defaults is None:
+            defaults = {}
+        params = ChainMap(overrides, node, defaults)
+        return cls(
+            user=params['user'],
+            host=params['ip'],
+            # paramiko doesn't like None default, requires SSH_PORT default
+            port=params.get('ssh_port', SSH_PORT),
+            pkey=params.get('pkey'),
+            key_filename=params.get('key_filename'),
+            password=params.get('password'),
+            name=params.get('name'))
 
     def _get_pkey(self, key):
         if isinstance(key, six.string_types):

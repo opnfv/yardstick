@@ -47,7 +47,7 @@ class PktgenTestCase(unittest.TestCase):
         p = pktgen.Pktgen(args, self.ctx)
         p.setup()
 
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         self.assertIsNotNone(p.server)
         self.assertIsNotNone(p.client)
         self.assertEqual(p.setup_done, True)
@@ -58,14 +58,14 @@ class PktgenTestCase(unittest.TestCase):
             'options': {'packetsize': 60, 'number_of_ports': 10},
         }
         p = pktgen.Pktgen(args, self.ctx)
-        p.server = mock_ssh.SSH()
+        p.server = mock_ssh.SSH.from_node()
         p.number_of_ports = args['options']['number_of_ports']
 
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
 
         p._iptables_setup()
 
-        mock_ssh.SSH().execute.assert_called_with(
+        mock_ssh.SSH.from_node().execute.assert_called_with(
             "sudo iptables -F; "
             "sudo iptables -A INPUT -p udp --dport 1000:%s -j DROP"
             % 1010)
@@ -77,10 +77,10 @@ class PktgenTestCase(unittest.TestCase):
         }
 
         p = pktgen.Pktgen(args, self.ctx)
-        p.server = mock_ssh.SSH()
+        p.server = mock_ssh.SSH.from_node()
         p.number_of_ports = args['options']['number_of_ports']
 
-        mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p._iptables_setup)
 
     def test_pktgen_successful_iptables_get_result(self, mock_ssh):
@@ -90,13 +90,13 @@ class PktgenTestCase(unittest.TestCase):
         }
 
         p = pktgen.Pktgen(args, self.ctx)
-        p.server = mock_ssh.SSH()
+        p.server = mock_ssh.SSH.from_node()
         p.number_of_ports = args['options']['number_of_ports']
 
-        mock_ssh.SSH().execute.return_value = (0, '150000', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '150000', '')
         p._iptables_get_result()
 
-        mock_ssh.SSH().execute.assert_called_with(
+        mock_ssh.SSH.from_node().execute.assert_called_with(
             "sudo iptables -L INPUT -vnx |"
             "awk '/dpts:1000:%s/ {{printf \"%%s\", $1}}'"
             % 1010)
@@ -109,10 +109,10 @@ class PktgenTestCase(unittest.TestCase):
 
         p = pktgen.Pktgen(args, self.ctx)
 
-        p.server = mock_ssh.SSH()
+        p.server = mock_ssh.SSH.from_node()
         p.number_of_ports = args['options']['number_of_ports']
 
-        mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p._iptables_get_result)
 
     def test_pktgen_successful_no_sla(self, mock_ssh):
@@ -124,8 +124,8 @@ class PktgenTestCase(unittest.TestCase):
 
         p = pktgen.Pktgen(args, self.ctx)
 
-        p.server = mock_ssh.SSH()
-        p.client = mock_ssh.SSH()
+        p.server = mock_ssh.SSH.from_node()
+        p.client = mock_ssh.SSH.from_node()
 
         mock_iptables_result = mock.Mock()
         mock_iptables_result.return_value = 149300
@@ -133,7 +133,7 @@ class PktgenTestCase(unittest.TestCase):
 
         sample_output = '{"packets_per_second": 9753, "errors": 0, \
             "packets_sent": 149776, "packetsize": 60, "flows": 110}'
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         p.run(result)
         expected_result = jsonutils.loads(sample_output)
@@ -150,8 +150,8 @@ class PktgenTestCase(unittest.TestCase):
 
         p = pktgen.Pktgen(args, self.ctx)
 
-        p.server = mock_ssh.SSH()
-        p.client = mock_ssh.SSH()
+        p.server = mock_ssh.SSH.from_node()
+        p.client = mock_ssh.SSH.from_node()
 
         mock_iptables_result = mock.Mock()
         mock_iptables_result.return_value = 149300
@@ -159,7 +159,7 @@ class PktgenTestCase(unittest.TestCase):
 
         sample_output = '{"packets_per_second": 9753, "errors": 0, \
             "packets_sent": 149776, "packetsize": 60, "flows": 110}'
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         p.run(result)
         expected_result = jsonutils.loads(sample_output)
@@ -176,8 +176,8 @@ class PktgenTestCase(unittest.TestCase):
 
         p = pktgen.Pktgen(args, self.ctx)
 
-        p.server = mock_ssh.SSH()
-        p.client = mock_ssh.SSH()
+        p.server = mock_ssh.SSH.from_node()
+        p.client = mock_ssh.SSH.from_node()
 
         mock_iptables_result = mock.Mock()
         mock_iptables_result.return_value = 149300
@@ -185,7 +185,7 @@ class PktgenTestCase(unittest.TestCase):
 
         sample_output = '{"packets_per_second": 9753, "errors": 0, \
             "packets_sent": 149776, "packetsize": 60, "flows": 110}'
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, p.run, result)
 
     def test_pktgen_unsuccessful_script_error(self, mock_ssh):
@@ -198,10 +198,10 @@ class PktgenTestCase(unittest.TestCase):
 
         p = pktgen.Pktgen(args, self.ctx)
 
-        p.server = mock_ssh.SSH()
-        p.client = mock_ssh.SSH()
+        p.server = mock_ssh.SSH.from_node()
+        p.client = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p.run, result)
 
 

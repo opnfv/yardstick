@@ -229,7 +229,7 @@ class TestVpeApproxVnf(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             vpe_approx_vnf = VpeApproxVnf(vnfd)
             vpe_approx_vnf.resource = mock.Mock(autospec=ResourceProfile)
@@ -249,7 +249,7 @@ class TestVpeApproxVnf(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             vpe_approx_vnf = VpeApproxVnf(vnfd)
             cmd = "quit"
@@ -261,7 +261,7 @@ class TestVpeApproxVnf(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             vpe_approx_vnf = VpeApproxVnf(vnfd)
             vpe_approx_vnf.execute_command = \
@@ -277,7 +277,7 @@ class TestVpeApproxVnf(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             vpe_approx_vnf = VpeApproxVnf(vnfd)
             curr_path = os.path.dirname(os.path.abspath(__file__))
@@ -294,7 +294,7 @@ class TestVpeApproxVnf(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             vpe_approx_vnf = VpeApproxVnf(vnfd)
             self.scenario_cfg['vnf_options'] = {'vpe': {'cfg': ""}}
@@ -311,7 +311,7 @@ class TestVpeApproxVnf(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(1, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             vpe_approx_vnf = VpeApproxVnf(vnfd)
             self.scenario_cfg['vnf_options'] = {'vpe': {'cfg': ""}}
@@ -332,7 +332,7 @@ class TestVpeApproxVnf(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             vpe_approx_vnf = VpeApproxVnf(vnfd)
             self.assertEqual(None,

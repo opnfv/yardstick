@@ -42,14 +42,8 @@ class NetworkCapacity(base.Scenario):
         host = self.context_cfg['host']
         if host is None:
             raise RuntimeError('No right node.please check the configuration')
-        host_user = host.get('user', 'ubuntu')
-        ssh_port = host.get("ssh_port", ssh.DEFAULT_PORT)
-        host_ip = host.get('ip', None)
-        host_pwd = host.get('password', None)
 
-        LOG.debug("user:%s, host:%s", host_user, host_ip)
-        self.client = ssh.SSH(host_user, host_ip, password=host_pwd,
-                              port=ssh_port)
+        self.client = ssh.SSH.from_node(host, defaults={"user": "ubuntu"})
         self.client.wait(timeout=600)
 
         # copy script to host

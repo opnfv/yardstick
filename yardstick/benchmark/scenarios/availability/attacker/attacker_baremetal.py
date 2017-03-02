@@ -39,16 +39,11 @@ class BaremetalAttacker(BaseAttacker):
     def setup(self):
         LOG.debug("config:%s context:%s", self._config, self._context)
         host = self._context.get(self._config['host'], None)
-        ip = host.get("ip", None)
-        user = host.get("user", "root")
-        ssh_port = host.get("ssh_port", ssh.DEFAULT_PORT)
-        key_filename = host.get("key_filename", "~/.ssh/id_rsa")
 
-        self.connection = ssh.SSH(user, ip, key_filename=key_filename,
-                                  port=ssh_port)
+        self.connection = ssh.SSH.from_node(host, defaults={"user": "root"})
         self.connection.wait(timeout=600)
         LOG.debug("ssh host success!")
-        self.host_ip = ip
+        self.host_ip = host['ip']
 
         self.ipmi_ip = host.get("ipmi_ip", None)
         self.ipmi_user = host.get("ipmi_user", "root")
@@ -90,25 +85,24 @@ class BaremetalAttacker(BaseAttacker):
         self.jump_connection = None
         if jump_host_name is not None:
             host = self._context.get(jump_host_name, None)
-            ip = host.get("ip", None)
-            user = host.get("user", "root")
-            ssh_port = host.get("ssh_port", ssh.DEFAULT_PORT)
-            pwd = host.get("pwd", None)
 
-            LOG.debug("jump_host ip:%s user:%s", ip, user)
-            self.jump_connection = ssh.SSH(user, ip, password=pwd,
-                                           port=ssh_port)
+            LOG.debug("jump_host ip:%s user:%s", host['ip'], host['user'])
+            self.jump_connection = ssh.SSH.from_node(
+                host,
+                # why do we allow pwd for password?
+                defaults={"user": "root", "password": host.get("pwd")}
+            )
             self.jump_connection.wait(timeout=600)
             LOG.debug("ssh jump host success!")
 
         if self.jump_connection is not None:
             with open(self.recovery_script, "r") as stdin_file:
-                exit_status, stdout, stderr = self.jump_connection.execute(
+                self.jump_connection.execute(
                     "/bin/bash -s {0} {1} {2} {3}".format(
                         self.ipmi_ip, self.ipmi_user, self.ipmi_pwd, "on"),
                     stdin=stdin_file)
         else:
-            exit_status, stdout = _execute_shell_command(
+            _execute_shell_command(
                 "/bin/bash -s {0} {1} {2} {3}".format(
                     self.ipmi_ip, self.ipmi_user, self.ipmi_pwd, "on"),
                 stdin=open(self.recovery_script, "r"))

@@ -53,7 +53,7 @@ class GeneralMonitorServiceTestCase(unittest.TestCase):
         ins = monitor_general.GeneralMonitor(self.monitor_cfg, self.context)
 
         ins.setup()
-        mock_ssh.SSH().execute.return_value = (0, "running", '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
         ins.monitor_func()
         ins._result = {'outage_time': 0}
         ins.verify_SLA()
@@ -64,7 +64,7 @@ class GeneralMonitorServiceTestCase(unittest.TestCase):
             self.monitor_cfg_noparam, self.context)
 
         ins.setup()
-        mock_ssh.SSH().execute.return_value = (0, "running", '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
         ins.monitor_func()
         ins._result = {'outage_time': 0}
         ins.verify_SLA()
@@ -74,7 +74,7 @@ class GeneralMonitorServiceTestCase(unittest.TestCase):
             self.monitor_cfg_noparam, self.context)
 
         ins.setup()
-        mock_ssh.SSH().execute.return_value = (1, "error", 'error')
+        mock_ssh.SSH.from_node().execute.return_value = (1, "error", 'error')
         ins.monitor_func()
         ins._result = {'outage_time': 2}
         ins.verify_SLA()

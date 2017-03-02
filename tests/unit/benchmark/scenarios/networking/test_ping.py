@@ -43,7 +43,7 @@ class PingTestCase(unittest.TestCase):
 
         p = ping.Ping(args, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (0, '100', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '100', '')
         p.run(result)
         self.assertEqual(result, {'rtt': {'ares': 100.0}})
 
@@ -59,7 +59,7 @@ class PingTestCase(unittest.TestCase):
 
         p = ping.Ping(args, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (0, '100', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '100', '')
         p.run(result)
         self.assertEqual(result, {'rtt': {'ares': 100.0}})
 
@@ -75,7 +75,7 @@ class PingTestCase(unittest.TestCase):
 
         p = ping.Ping(args, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (0, '100', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '100', '')
         self.assertRaises(AssertionError, p.run, result)
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
@@ -90,7 +90,7 @@ class PingTestCase(unittest.TestCase):
 
         p = ping.Ping(args, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p.run, result)
 
 
