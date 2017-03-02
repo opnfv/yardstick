@@ -10,6 +10,7 @@
 appdirs==1.4.0
 Babel==2.3.4
 backport-ipaddress==0.1
+chainmap==1.0.2
 cliff==2.3.0
 cmd2==0.6.8
 coverage==4.1b2
