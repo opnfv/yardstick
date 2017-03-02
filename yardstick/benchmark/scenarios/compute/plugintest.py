@@ -32,13 +32,10 @@ class PluginTest(base.Scenario):
 
         nodes = self.context_cfg['nodes']
         node = nodes.get('host1', None)
-        host_user = node.get('user', 'ubuntu')
-        host_ssh_port = node.get('ssh_port', ssh.DEFAULT_PORT)
-        host_ip = node.get('ip', None)
-        host_pwd = node.get('password', 'root')
-        LOG.debug("user:%s, host:%s", host_user, host_ip)
-        self.client = ssh.SSH(host_user, host_ip, password=host_pwd,
-                              port=host_ssh_port)
+
+        self.client = ssh.SSH.from_node(node, defaults={
+            "user": "ubuntu", "password": "root"
+        })
         self.client.wait(timeout=600)
 
         self.setup_done = True

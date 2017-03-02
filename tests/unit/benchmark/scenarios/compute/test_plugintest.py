@@ -40,7 +40,7 @@ class PluginTestTestCase(unittest.TestCase):
 
     def test_sample_successful_setup(self, mock_ssh):
         s = plugintest.PluginTest({}, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
 
         s.setup()
         self.assertIsNotNone(s.client)
@@ -50,7 +50,7 @@ class PluginTestTestCase(unittest.TestCase):
         s = plugintest.PluginTest({}, self.ctx)
 
         sample_output = '{"Test Output": "Hello world!"}'
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         s.run(self.result)
         expected_result = jsonutils.loads(sample_output)
         self.assertEqual(self.result, expected_result)
@@ -58,5 +58,5 @@ class PluginTestTestCase(unittest.TestCase):
     def test_sample_unsuccessful_script_error(self, mock_ssh):
         s = plugintest.PluginTest({}, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, s.run, self.result)

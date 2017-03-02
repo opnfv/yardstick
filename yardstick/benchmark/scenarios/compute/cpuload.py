@@ -68,14 +68,8 @@ class CPULoad(base.Scenario):
     def setup(self):
         """Scenario setup."""
         host = self.context_cfg['host']
-        user = host.get('user', 'ubuntu')
-        ip = host.get('ip', None)
-        ssh_port = host.get("ssh_port", ssh.DEFAULT_PORT)
-        key_filename = host.get('key_filename', '~/.ssh/id_rsa')
 
-        LOG.info("user:%s, host:%s", user, ip)
-        self.client = ssh.SSH(user, ip, key_filename=key_filename,
-                              port=ssh_port)
+        self.client = ssh.SSH.from_node(host, defaults={"user": "ubuntu"})
         self.client.wait(timeout=600)
 
         # Check if mpstat prog is installed

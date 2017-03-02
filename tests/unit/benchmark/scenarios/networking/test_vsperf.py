@@ -63,7 +63,7 @@ class VsperfTestCase(unittest.TestCase):
 
     def test_vsperf_setup(self, mock_ssh, mock_subprocess):
         p = vsperf.Vsperf(self.args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         mock_subprocess.call().execute.return_value = None
 
         p.setup()
@@ -74,7 +74,7 @@ class VsperfTestCase(unittest.TestCase):
         p = vsperf.Vsperf(self.args, self.ctx)
 
         # setup() specific mocks
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         mock_subprocess.call().execute.return_value = None
 
         p.setup()
@@ -88,12 +88,12 @@ class VsperfTestCase(unittest.TestCase):
         p = vsperf.Vsperf(self.args, self.ctx)
 
         # setup() specific mocks
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         mock_subprocess.call().execute.return_value = None
 
         # run() specific mocks
-        mock_ssh.SSH().execute.return_value = (0, '', '')
-        mock_ssh.SSH().execute.return_value = (
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (
             0, 'throughput_rx_fps\r\n14797660.000\r\n', '')
 
         result = {}
@@ -106,11 +106,11 @@ class VsperfTestCase(unittest.TestCase):
         p = vsperf.Vsperf(self.args, self.ctx)
 
         # setup() specific mocks
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         mock_subprocess.call().execute.return_value = None
 
         # run() specific mocks
-        mock_ssh.SSH().execute.return_value = (1, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
 
         result = {}
         self.assertRaises(RuntimeError, p.run, result)
@@ -119,12 +119,12 @@ class VsperfTestCase(unittest.TestCase):
         p = vsperf.Vsperf(self.args, self.ctx)
 
         # setup() specific mocks
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         mock_subprocess.call().execute.return_value = None
 
         # run() specific mocks
-        mock_ssh.SSH().execute.return_value = (0, '', '')
-        mock_ssh.SSH().execute.return_value = (1, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
 
         result = {}
         self.assertRaises(RuntimeError, p.run, result)
