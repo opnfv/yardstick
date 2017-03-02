@@ -70,7 +70,9 @@ import time
 import re
 
 import logging
+
 import paramiko
+from chainmap import ChainMap
 from oslo_utils import encodeutils
 from scp import SCPClient
 import six
@@ -109,6 +111,9 @@ class SSH(object):
 
         self.user = user
         self.host = host
+        # everybody wants to debug this in the caller, do it here instead
+        self.log.debug("user:%s host:%s", user, host)
+
         # we may get text port from YAML, convert to int
         self.port = int(port)
         self.pkey = self._get_pkey(pkey) if pkey else None
@@ -347,3 +352,19 @@ class SSH(object):
             self._put_file_sftp(localpath, remotepath, mode=mode)
         except (paramiko.SSHException, socket.error):
             self._put_file_shell(localpath, remotepath, mode=mode)
+
+
+def ssh_from_node(node, overrides=None, defaults=None):
+    if overrides is None:
+        overrides = {}
+    if defaults is None:
+        defaults = {}
+    params = ChainMap(overrides, node, defaults)
+    return SSH(
+        user=params['user'],
+        host=params['ip'],
+        port=params.get('ssh_port', DEFAULT_PORT),
+        pkey=params.get('pkey'),
+        key_filename=params.get('key_filename'),
+        password=params.get('password'),
+        name=params.get('name'))
