@@ -28,7 +28,9 @@ def generate_vnfd(vnf_model, node):
     :return: Complete VNF Descriptor that will be taken
              as input for GenericVNF.__init__
     """
+    # get is unused as global method inside template
     node["get"] = get
+    # Set Node details to default if not defined in pod file
     rendered_vnfd = TaskTemplate.render(vnf_model, **node)
     # This is done to get rid of issues with serializing node
     del node["get"]

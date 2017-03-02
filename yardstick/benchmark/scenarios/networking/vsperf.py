@@ -114,10 +114,6 @@ class Vsperf(base.Scenario):
     def setup(self):
         """scenario setup"""
         vsperf = self.context_cfg['host']
-        vsperf_user = vsperf.get('user', 'ubuntu')
-        vsperf_ssh_port = vsperf.get('ssh_port', ssh.DEFAULT_PORT)
-        vsperf_password = vsperf.get('password', 'ubuntu')
-        vsperf_ip = vsperf.get('ip', None)
 
         # add trafficgen interfaces to the external bridge
         if self.tg_port1:
@@ -128,9 +124,9 @@ class Vsperf(base.Scenario):
                             (self.br_ex, self.tg_port2), shell=True)
 
         # copy vsperf conf to VM
-        LOG.info("user:%s, host:%s", vsperf_user, vsperf_ip)
-        self.client = ssh.SSH(vsperf_user, vsperf_ip,
-                              password=vsperf_password, port=vsperf_ssh_port)
+        self.client = ssh.SSH.from_node(vsperf, defaults={
+            "user": "ubuntu", "password": "ubuntu"
+        })
         # traffic generation could last long
         self.client.wait(timeout=1800)
 

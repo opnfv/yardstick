@@ -21,22 +21,22 @@ from yardstick.benchmark.scenarios.networking import sfc
 class SfcTestCase(unittest.TestCase):
 
     def setUp(self):
-        scenario_cfg = dict()
-        context_cfg = dict()
+        scenario_cfg = {}
+        context_cfg = {
+            # Used in Sfc.setup()
+            'target': {
+                'user': 'root',
+                'password': 'opnfv',
+                'ip': '127.0.0.1',
+            },
 
-        # Used in Sfc.setup()
-        context_cfg['target'] = dict()
-        context_cfg['target']['user'] = 'root'
-        context_cfg['target']['password'] = 'opnfv'
-        context_cfg['target']['ip'] = '127.0.0.1'
-
-        # Used in Sfc.run()
-        context_cfg['host'] = dict()
-        context_cfg['host']['user'] = 'root'
-        context_cfg['host']['password'] = 'opnfv'
-        context_cfg['host']['ip'] = None
-        context_cfg['target'] = dict()
-        context_cfg['target']['ip'] = '127.0.0.1'
+            # Used in Sfc.run()
+            'host': {
+                'user': 'root',
+                'password': 'opnfv',
+                'ip': None,
+            }
+        }
 
         self.sfc = sfc.Sfc(scenario_cfg=scenario_cfg, context_cfg=context_cfg)
 
@@ -45,7 +45,7 @@ class SfcTestCase(unittest.TestCase):
     @mock.patch('yardstick.benchmark.scenarios.networking.sfc.subprocess')
     def test_run_for_success(self, mock_subprocess, mock_openstack, mock_ssh):
         # Mock a successfull SSH in Sfc.setup() and Sfc.run()
-        mock_ssh.SSH().execute.return_value = (0, '100', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '100', '')
         mock_openstack.get_an_IP.return_value = "127.0.0.1"
         mock_subprocess.call.return_value = 'mocked!'
 
@@ -59,7 +59,7 @@ class SfcTestCase(unittest.TestCase):
     @mock.patch('yardstick.benchmark.scenarios.networking.sfc.subprocess')
     def test2_run_for_success(self, mock_subprocess, mock_openstack, mock_ssh):
         # Mock a successfull SSH in Sfc.setup() and Sfc.run()
-        mock_ssh.SSH().execute.return_value = (
+        mock_ssh.SSH.from_node().execute.return_value = (
             0, 'vxlan_tool.py', 'succeeded timed out')
         mock_openstack.get_an_IP.return_value = "127.0.0.1"
         mock_subprocess.call.return_value = 'mocked!'

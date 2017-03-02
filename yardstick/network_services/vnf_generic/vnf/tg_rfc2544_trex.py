@@ -55,10 +55,8 @@ class TrexTrafficGenRFC(GenericTrafficGen):
         self.my_ports = None
 
         mgmt_interface = self.vnfd["mgmt-interface"]
-        ssh_port = mgmt_interface.get("ssh_port", ssh.DEFAULT_PORT)
-        self.connection = ssh.SSH(mgmt_interface["user"], mgmt_interface["ip"],
-                                  password=mgmt_interface["password"],
-                                  port=ssh_port)
+
+        self.connection = ssh.SSH.from_node(mgmt_interface)
         self.connection.wait()
 
     @classmethod
@@ -166,10 +164,8 @@ class TrexTrafficGenRFC(GenericTrafficGen):
 
     def _start_server(self):
         mgmt_interface = self.vnfd["mgmt-interface"]
-        ssh_port = mgmt_interface.get("ssh_port", ssh.DEFAULT_PORT)
-        _server = ssh.SSH(mgmt_interface["user"], mgmt_interface["ip"],
-                          password=mgmt_interface["password"],
-                          port=ssh_port)
+
+        _server = ssh.SSH.from_node(mgmt_interface)
         _server.wait()
 
         _server.execute("fuser -n tcp %s %s -k > /dev/null 2>&1" %

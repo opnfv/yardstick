@@ -41,7 +41,7 @@ class pluginTestCase(unittest.TestCase):
 
     def test_install(self, mock_ssh):
         p = plugin.Plugin()
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         input_file = Arg()
         p.install(input_file)
         expected_result = {}
@@ -49,7 +49,7 @@ class pluginTestCase(unittest.TestCase):
 
     def test_remove(self, mock_ssh):
         p = plugin.Plugin()
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         input_file = Arg()
         p.remove(input_file)
         expected_result = {}
@@ -57,7 +57,7 @@ class pluginTestCase(unittest.TestCase):
 
     def test_install_setup_run(self, mock_ssh):
         p = plugin.Plugin()
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         plugins = {
             "name": "sample"
         }
@@ -76,7 +76,7 @@ class pluginTestCase(unittest.TestCase):
 
     def test_remove_setup_run(self, mock_ssh):
         p = plugin.Plugin()
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         plugins = {
             "name": "sample"
         }

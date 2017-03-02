@@ -35,7 +35,7 @@ class MEMLoadTestCase(unittest.TestCase):
 
     def test_memload_successful_setup(self, mock_ssh):
         m = memload.MEMLoad({}, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
 
         m.setup()
         self.assertIsNotNone(m.client)
@@ -43,20 +43,20 @@ class MEMLoadTestCase(unittest.TestCase):
 
     def test_execute_command_success(self, mock_ssh):
         m = memload.MEMLoad({}, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         m.setup()
 
         expected_result = 'abcdefg'
-        mock_ssh.SSH().execute.return_value = (0, expected_result, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, expected_result, '')
         result = m._execute_command("foo")
         self.assertEqual(result, expected_result)
 
     def test_execute_command_failed(self, mock_ssh):
         m = memload.MEMLoad({}, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         m.setup()
 
-        mock_ssh.SSH().execute.return_value = (127, '', 'Failed executing \
+        mock_ssh.SSH.from_node().execute.return_value = (127, '', 'Failed executing \
                                                command')
         self.assertRaises(RuntimeError, m._execute_command,
                           "cat /proc/meminfo")
@@ -68,11 +68,11 @@ class MEMLoadTestCase(unittest.TestCase):
         }
         args = {"options": options}
         m = memload.MEMLoad(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         m.setup()
 
         output = self._read_file("memload_sample_output.txt")
-        mock_ssh.SSH().execute.return_value = (0, output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, output, '')
         result = m._get_mem_usage()
         expected_result = {
             "max": {
