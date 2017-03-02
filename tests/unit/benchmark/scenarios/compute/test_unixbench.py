@@ -38,7 +38,7 @@ class UnixbenchTestCase(unittest.TestCase):
         u = unixbench.Unixbench({}, self.ctx)
         u.setup()
 
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         self.assertIsNotNone(u.client)
         self.assertEqual(u.setup_done, True)
 
@@ -54,10 +54,10 @@ class UnixbenchTestCase(unittest.TestCase):
         u = unixbench.Unixbench(args, self.ctx)
         result = {}
 
-        u.server = mock_ssh.SSH()
+        u.server = mock_ssh.SSH.from_node()
 
         sample_output = '{"Score":"4425.4"}'
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         u.run(result)
         expected_result = jsonutils.loads(sample_output)
@@ -76,10 +76,10 @@ class UnixbenchTestCase(unittest.TestCase):
         u = unixbench.Unixbench(args, self.ctx)
         result = {}
 
-        u.server = mock_ssh.SSH()
+        u.server = mock_ssh.SSH.from_node()
 
         sample_output = '{"Score":"4425.4"}'
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         u.run(result)
         expected_result = jsonutils.loads(sample_output)
@@ -102,10 +102,10 @@ class UnixbenchTestCase(unittest.TestCase):
         u = unixbench.Unixbench(args, self.ctx)
         result = {}
 
-        u.server = mock_ssh.SSH()
+        u.server = mock_ssh.SSH.from_node()
 
         sample_output = '{"signle_score":"2251.7","parallel_score":"4395.9"}'
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         u.run(result)
         expected_result = jsonutils.loads(sample_output)
@@ -120,10 +120,10 @@ class UnixbenchTestCase(unittest.TestCase):
         u = unixbench.Unixbench(args, self.ctx)
         result = {}
 
-        u.server = mock_ssh.SSH()
+        u.server = mock_ssh.SSH.from_node()
         sample_output = '{"single_score":"200.7","parallel_score":"4395.9"}'
 
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, u.run, result)
 
     def test_unixbench_unsuccessful_sla_parallel_score(self, mock_ssh):
@@ -135,10 +135,10 @@ class UnixbenchTestCase(unittest.TestCase):
         u = unixbench.Unixbench(args, self.ctx)
         result = {}
 
-        u.server = mock_ssh.SSH()
+        u.server = mock_ssh.SSH.from_node()
         sample_output = '{"signle_score":"2251.7","parallel_score":"3395.9"}'
 
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, u.run, result)
 
     def test_unixbench_unsuccessful_script_error(self, mock_ssh):
@@ -158,9 +158,9 @@ class UnixbenchTestCase(unittest.TestCase):
         u = unixbench.Unixbench(args, self.ctx)
         result = {}
 
-        u.server = mock_ssh.SSH()
+        u.server = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, u.run, result)
 
 

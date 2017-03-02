@@ -141,7 +141,7 @@ class TestPingTrafficGen(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ping_traffic_gen = PingTrafficGen(vnfd)
             self.assertEqual(ping_traffic_gen._queue, None)
@@ -152,7 +152,7 @@ class TestPingTrafficGen(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             ping_traffic_gen = PingTrafficGen(vnfd)
             ping_traffic_gen._queue = Queue()
             ping_traffic_gen._queue.put({})
@@ -165,7 +165,7 @@ class TestPingTrafficGen(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ping_traffic_gen = PingTrafficGen(vnfd)
             self.assertEqual(None, ping_traffic_gen.instantiate({}, {}))
@@ -176,7 +176,7 @@ class TestPingTrafficGen(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ping_traffic_gen = PingTrafficGen(vnfd)
             self.assertEqual(None, ping_traffic_gen.listen_traffic({}))
@@ -191,7 +191,7 @@ class TestPingTrafficGen(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             self.sut = PingTrafficGen(vnfd)
             self.sut.connection = mock.Mock()
@@ -210,7 +210,7 @@ class TestPingTrafficGen(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             self.sut = PingTrafficGen(vnfd)
             self.sut.connection = mock.Mock()
@@ -228,7 +228,7 @@ class TestPingTrafficGen(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             flavor = ""
             ping_traffic_gen = PingTrafficGen(vnfd)
@@ -241,7 +241,7 @@ class TestPingTrafficGen(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ping_traffic_gen = PingTrafficGen(vnfd)
             self.assertEqual(None, ping_traffic_gen.terminate())

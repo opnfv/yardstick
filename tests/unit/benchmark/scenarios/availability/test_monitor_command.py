@@ -87,5 +87,5 @@ class MonitorOpenstackCmdTestCase(unittest.TestCase):
         instance = monitor_command.MonitorOpenstackCmd(
             self.config, self.context)
         instance.setup()
-        mock_ssh.SSH().execute.return_value = (0, "0", '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, "0", '')
         ret = instance.monitor_func()

@@ -24,10 +24,6 @@ class GeneralMonitor(basemonitor.BaseMonitor):
 
     def setup(self):
         host = self._context[self._config["host"]]
-        ip = host.get("ip", None)
-        user = host.get("user", "root")
-        ssh_port = host.get("ssh_port", ssh.DEFAULT_PORT)
-        key_filename = host.get("key_filename", "~/.ssh/id_rsa")
         self.key = self._config["key"]
         self.monitor_key = self._config["monitor_key"]
         self.monitor_type = self._config["monitor_type"]
@@ -42,8 +38,7 @@ class GeneralMonitor(basemonitor.BaseMonitor):
             self.monitor_key)
         self.monitor_script = self.get_script_fullpath(
             self.monitor_cfg['monitor_script'])
-        self.connection = ssh.SSH(user, ip, key_filename=key_filename,
-                                  port=ssh_port)
+        self.connection = ssh.SSH.from_node(host, defaults={"user": "root"})
         self.connection.wait(timeout=600)
         LOG.debug("ssh host success!")
 

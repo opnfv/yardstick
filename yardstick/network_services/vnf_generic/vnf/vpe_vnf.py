@@ -120,14 +120,11 @@ class VpeApproxVnf(GenericVNF):
 
     def instantiate(self, scenario_cfg, context_cfg):
         vnf_cfg = scenario_cfg['vnf_options']['vpe']['cfg']
+
         mgmt_interface = self.vnfd["mgmt-interface"]
-        ssh_port = mgmt_interface.get("ssh_port", ssh.DEFAULT_PORT)
+        self.connection = ssh.SSH.from_node(mgmt_interface)
 
-        self.connection = ssh.SSH(mgmt_interface["user"], mgmt_interface["ip"],
-                                  password=mgmt_interface["password"],
-                                  port=ssh_port)
-
-        self.connection.wait()
+        self.tc_file_name = '{0}.yaml'.format(scenario_cfg['tc'])
 
         self.setup_vnf_environment(self.connection)
 
@@ -189,11 +186,10 @@ class VpeApproxVnf(GenericVNF):
 
     def _run_vpe(self, filewrapper, vnf_cfg):
         mgmt_interface = self.vnfd["mgmt-interface"]
-        ssh_port = mgmt_interface.get("ssh_port", ssh.DEFAULT_PORT)
-        self.connection = ssh.SSH(mgmt_interface["user"], mgmt_interface["ip"],
-                                  password=mgmt_interface["password"],
-                                  port=ssh_port)
+
+        self.connection = ssh.SSH.from_node(mgmt_interface)
         self.connection.wait()
+
         interfaces = self.vnfd["vdu"][0]['external-interface']
         port0_ip = ipaddress.ip_interface(six.text_type(
             "%s/%s" % (interfaces[0]["virtual-interface"]["local_ip"],

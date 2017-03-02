@@ -41,7 +41,7 @@ class NetworkCapacityTestCase(unittest.TestCase):
 
     def test_capacity_successful_setup(self, mock_ssh):
         c = networkcapacity.NetworkCapacity({}, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         c.setup()
         self.assertIsNotNone(c.client)
         self.assertTrue(c.setup_done)
@@ -49,7 +49,7 @@ class NetworkCapacityTestCase(unittest.TestCase):
     def test_capacity_successful(self, mock_ssh):
         c = networkcapacity.NetworkCapacity({}, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (0, SAMPLE_OUTPUT, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, SAMPLE_OUTPUT, '')
         c.run(self.result)
         expected_result = jsonutils.loads(SAMPLE_OUTPUT)
         self.assertEqual(self.result, expected_result)
@@ -57,5 +57,5 @@ class NetworkCapacityTestCase(unittest.TestCase):
     def test_capacity_unsuccessful_script_error(self, mock_ssh):
         c = networkcapacity.NetworkCapacity({}, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, c.run, self.result)

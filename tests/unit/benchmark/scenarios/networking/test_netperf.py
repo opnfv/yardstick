@@ -43,7 +43,7 @@ class NetperfTestCase(unittest.TestCase):
     def test_netperf_successful_setup(self, mock_ssh):
 
         p = netperf.Netperf({}, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
 
         p.setup()
         self.assertIsNotNone(p.server)
@@ -57,11 +57,11 @@ class NetperfTestCase(unittest.TestCase):
         result = {}
 
         p = netperf.Netperf(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
-        p.host = mock_ssh.SSH()
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+        p.host = mock_ssh.SSH.from_node()
 
         sample_output = self._read_sample_output()
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         expected_result = jsonutils.loads(sample_output)
         p.run(result)
         self.assertEqual(result, expected_result)
@@ -76,11 +76,11 @@ class NetperfTestCase(unittest.TestCase):
         result = {}
 
         p = netperf.Netperf(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
-        p.host = mock_ssh.SSH()
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+        p.host = mock_ssh.SSH.from_node()
 
         sample_output = self._read_sample_output()
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         expected_result = jsonutils.loads(sample_output)
         p.run(result)
         self.assertEqual(result, expected_result)
@@ -95,11 +95,11 @@ class NetperfTestCase(unittest.TestCase):
         result = {}
 
         p = netperf.Netperf(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
-        p.host = mock_ssh.SSH()
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+        p.host = mock_ssh.SSH.from_node()
 
         sample_output = self._read_sample_output()
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, p.run, result)
 
     def test_netperf_unsuccessful_script_error(self, mock_ssh):
@@ -109,10 +109,10 @@ class NetperfTestCase(unittest.TestCase):
         result = {}
 
         p = netperf.Netperf(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
-        p.host = mock_ssh.SSH()
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+        p.host = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p.run, result)
 
     def _read_sample_output(self):

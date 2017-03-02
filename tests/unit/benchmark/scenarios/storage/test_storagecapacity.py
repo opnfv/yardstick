@@ -50,7 +50,7 @@ class StorageCapacityTestCase(unittest.TestCase):
     def test_capacity_successful_setup(self, mock_ssh):
         c = storagecapacity.StorageCapacity(self.scn, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         c.setup()
         self.assertIsNotNone(c.client)
         self.assertTrue(c.setup_done)
@@ -58,7 +58,7 @@ class StorageCapacityTestCase(unittest.TestCase):
     def test_capacity_disk_size_successful(self, mock_ssh):
         c = storagecapacity.StorageCapacity(self.scn, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (0, DISK_SIZE_SAMPLE_OUTPUT, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, DISK_SIZE_SAMPLE_OUTPUT, '')
         c.run(self.result)
         expected_result = jsonutils.loads(
             DISK_SIZE_SAMPLE_OUTPUT)
@@ -72,7 +72,7 @@ class StorageCapacityTestCase(unittest.TestCase):
         }
         c = storagecapacity.StorageCapacity(args, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (0, BLOCK_SIZE_SAMPLE_OUTPUT, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, BLOCK_SIZE_SAMPLE_OUTPUT, '')
         c.run(self.result)
         expected_result = jsonutils.loads(
             BLOCK_SIZE_SAMPLE_OUTPUT)
@@ -88,7 +88,7 @@ class StorageCapacityTestCase(unittest.TestCase):
         }
         c = storagecapacity.StorageCapacity(args, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (0, DISK_UTIL_RAW_OUTPUT, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, DISK_UTIL_RAW_OUTPUT, '')
         c.run(self.result)
         expected_result = jsonutils.loads(
             DISK_UTIL_SAMPLE_OUTPUT)
@@ -97,7 +97,7 @@ class StorageCapacityTestCase(unittest.TestCase):
     def test_capacity_unsuccessful_script_error(self, mock_ssh):
         c = storagecapacity.StorageCapacity(self.scn, self.ctx)
 
-        mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, c.run, self.result)
 
 
