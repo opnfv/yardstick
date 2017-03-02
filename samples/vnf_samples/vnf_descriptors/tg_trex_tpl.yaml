@@ -26,6 +26,7 @@ vnfd:vnfd-catalog:
             user: '{{user}}'  # Value filled by vnfdgen
             password: '{{password}}'  # Value filled by vnfdgen
             ip: '{{ip}}'  # Value filled by vnfdgen
+            key_filename: '{{key_filename}}'
         connection-point:
         -   name: xe0
             type: VPORT

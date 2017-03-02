@@ -29,6 +29,10 @@ def generate_vnfd(vnf_model, node):
              as input for GenericVNF.__init__
     """
     node["get"] = get
+    # Set Node details to default if not defined in pod file
+    node["password"] = node.get("password", '')
+    node["host"] = node.get("host", '')
+    node["key_filename"] = node.get("key_filename", "/root/.ssh/id_rsa")
     rendered_vnfd = TaskTemplate.render(vnf_model, **node)
     # This is done to get rid of issues with serializing node
     del node["get"]
