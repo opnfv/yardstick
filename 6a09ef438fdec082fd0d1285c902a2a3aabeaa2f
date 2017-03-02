@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_6448032e",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-03-02T12:38:48Z",
+      "side": 1,
+      "message": "Can we write this in an independent html file? Maybe it is more clear.",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 10
+      },
+      "revId": "6a09ef438fdec082fd0d1285c902a2a3aabeaa2f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
