@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_e2c70311",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-03T13:21:57Z",
+      "side": 1,
+      "message": "This could be compacted to\nHW_FW_TYPE\u003d\"\"\nif [ .. arm .. ]; then\n   HW_FW_TYPE\u003d\"uefi\"\nfi",
+      "revId": "11a8f3dd3af9fe86fc7ec3f2ae38e2471adb8f7a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_e2ee238b",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-03T13:21:57Z",
+      "side": 1,
+      "message": "xenial?",
+      "range": {
+        "startLine": 28,
+        "startChar": 54,
+        "endLine": 28,
+        "endChar": 59
+      },
+      "revId": "11a8f3dd3af9fe86fc7ec3f2ae38e2471adb8f7a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_a2e82b7d",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-03T13:21:57Z",
+      "side": 1,
+      "message": "let\u0027s quote $release, it shouldn\u0027t ever be empty, but still ..",
+      "range": {
+        "startLine": 28,
+        "startChar": 43,
+        "endLine": 28,
+        "endChar": 50
+      },
+      "revId": "11a8f3dd3af9fe86fc7ec3f2ae38e2471adb8f7a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_82ff2734",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-03T13:21:57Z",
+      "side": 1,
+      "message": "same obs as earlier, could be moved outside if",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "11a8f3dd3af9fe86fc7ec3f2ae38e2471adb8f7a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_6289d3c9",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-03-03T13:21:57Z",
+      "side": 1,
+      "message": "xenial?",
+      "range": {
+        "startLine": 122,
+        "startChar": 54,
+        "endLine": 122,
+        "endChar": 59
+      },
+      "revId": "11a8f3dd3af9fe86fc7ec3f2ae38e2471adb8f7a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
