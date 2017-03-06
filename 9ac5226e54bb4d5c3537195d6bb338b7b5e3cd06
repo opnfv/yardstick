@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_b3ddde72",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-06T08:30:36Z",
+      "side": 1,
+      "message": "hardcoded path, please make variable",
+      "revId": "9ac5226e54bb4d5c3537195d6bb338b7b5e3cd06",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_d3dad277",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-06T08:30:36Z",
+      "side": 1,
+      "message": "do we support ssh keys instead of passwords?",
+      "revId": "9ac5226e54bb4d5c3537195d6bb338b7b5e3cd06",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_b3963e93",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-06T08:30:36Z",
+      "side": 1,
+      "message": "don\u0027t convert IOError so SystemExit, just don\u0027t catch to IOError.",
+      "revId": "9ac5226e54bb4d5c3537195d6bb338b7b5e3cd06",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_938d3a7e",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-06T08:30:36Z",
+      "side": 1,
+      "message": "range(len(x)) -\u003e enumerate(x)\n\n  for i, _ in enumerate(nic_details[\u0027pci\u0027]):",
+      "revId": "9ac5226e54bb4d5c3537195d6bb338b7b5e3cd06",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_33ea4e10",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-06T08:30:36Z",
+      "side": 1,
+      "message": "ifconfig is deprecated, use iproute2",
+      "revId": "9ac5226e54bb4d5c3537195d6bb338b7b5e3cd06",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_f3f35608",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-06T08:30:36Z",
+      "side": 1,
+      "message": "in theory we should set DEBIAN_FRONTEND\u003dnoninteractive to avoid user prompts.",
+      "revId": "9ac5226e54bb4d5c3537195d6bb338b7b5e3cd06",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
