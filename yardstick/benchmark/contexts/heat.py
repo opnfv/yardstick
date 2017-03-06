@@ -29,6 +29,8 @@ from yardstick.definitions import YARDSTICK_ROOT_PATH
 
 LOG = logging.getLogger(__name__)
 
+DEFAULT_HEAT_TIMEOUT = 3600
+
 
 class HeatContext(Context):
     """Class that represents a context in the logical model"""
@@ -75,6 +77,8 @@ class HeatContext(Context):
         self._image = attrs.get("image")
 
         self._flavor = attrs.get("flavor")
+
+        self.heat_timeout = attrs.get("timeout", DEFAULT_HEAT_TIMEOUT)
 
         self.placement_groups = [PlacementGroup(name, self, pgattrs["policy"])
                                  for name, pgattrs in attrs.get(
@@ -221,7 +225,8 @@ class HeatContext(Context):
             self._add_resources_to_template(heat_template)
 
         try:
-            self.stack = heat_template.create()
+            self.stack = heat_template.create(block=True,
+                                              timeout=self.heat_timeout)
         except KeyboardInterrupt:
             sys.exit("\nStack create interrupted")
         except RuntimeError as err:
