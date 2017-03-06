@@ -444,9 +444,18 @@ class HeatTemplate(HeatObject):
             'value': {'get_resource': name}
         }
 
-    def create(self, block=True):
-        """creates a template in the target cloud using heat
-        returns a dict with the requested output values from the template"""
+    HEAT_WAIT_LOOP_INTERVAL = 2
+
+    def create(self, block=True, timeout=3600):
+        """
+        creates a template in the target cloud using heat
+        returns a dict with the requested output values from the template
+
+        :param block: Wait for Heat create to finish
+        :type block: bool
+        :param: timeout: timeout in seconds for Heat create, default 3600s
+        :type timeout: int
+        """
         log.info("Creating stack '%s'", self.name)
 
         # create stack early to support cleanup, e.g. ctrl-c while waiting
@@ -464,13 +473,16 @@ class HeatTemplate(HeatObject):
         outputs = []
 
         if block:
+            time_limit = start_time + timeout
             while status != u'CREATE_COMPLETE':
                 log.debug("stack state %s", status)
                 if status == u'CREATE_FAILED':
-                    raise RuntimeError(getattr(heat.stacks.get(self.uuid),
-                                               'stack_status_reason'))
+                    raise RuntimeError(
+                        heat.stacks.get(self.uuid).stack_status_reason)
+                if time.time() > time_limit:
+                    raise RuntimeError("Heat stack create timeout")
 
-                time.sleep(2)
+                time.sleep(self.HEAT_WAIT_LOOP_INTERVAL)
                 status = self.status()
 
             end_time = time.time()
