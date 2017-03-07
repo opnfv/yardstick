@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_1988891e",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-03-07T02:11:08Z",
+      "side": 1,
+      "message": "Yes, it is better. Thank you~",
+      "parentUuid": "dabed58f_88daf376",
+      "revId": "61c45ed0ac7a4708d7ff16522f19e900fe021bed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_28e74742",
         "filename": "yardstick/benchmark/contexts/base.py",
         "patchSetId": 1
@@ -81,6 +99,30 @@
       "writtenOn": "2017-02-27T05:53:56Z",
       "side": 1,
       "message": "undeploy really should be wrapped in a try/finally around self._run so we cleanup on exceptions\n\n  try:\n    self._run(...)\n  finally:\n     if args.keep_deploy: \n        ...\n     else:\n        for context in self.contexts[::-1]:\n           context.undeploy()",
+      "range": {
+        "startLine": 92,
+        "startChar": 11,
+        "endLine": 92,
+        "endChar": 67
+      },
+      "revId": "61c45ed0ac7a4708d7ff16522f19e900fe021bed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_598e0130",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-03-07T02:11:08Z",
+      "side": 1,
+      "message": "Agree! But now we use atexit. So I think maybe we can use try/except to replace atexit in another patch.",
+      "parentUuid": "dabed58f_a8f33709",
       "range": {
         "startLine": 92,
         "startChar": 11,
