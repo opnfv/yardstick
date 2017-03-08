@@ -127,19 +127,17 @@ class NodeContextTestCase(unittest.TestCase):
 
     prefix = 'yardstick.benchmark.contexts.node'
 
-    @mock.patch('{}.NodeContext._execute_script'.format(prefix))
-    def test_deploy(self, execute_script_mock):
+    @mock.patch('{}.NodeContext._dispatch_script'.format(prefix))
+    def test_deploy(self, dispatch_script_mock):
         obj = node.NodeContext()
         obj.env = {
-            'setup': [
-                {'node5': {}}
-            ]
+            'type': 'ansible'
         }
         obj.deploy()
-        self.assertTrue(execute_script_mock.called)
+        self.assertTrue(dispatch_script_mock.called)
 
-    @mock.patch('{}.NodeContext._execute_script'.format(prefix))
-    def test_undeploy(self, execute_script_mock):
+    @mock.patch('{}.NodeContext._dispatch_script'.format(prefix))
+    def test_undeploy(self, dispatch_script_mock):
         obj = node.NodeContext()
         obj.env = {
             'teardown': [
@@ -147,7 +145,7 @@ class NodeContextTestCase(unittest.TestCase):
             ]
         }
         obj.undeploy()
-        self.assertTrue(execute_script_mock.called)
+        self.assertTrue(dispatch_script_mock.called)
 
     @mock.patch('{}.ssh.SSH._put_file_shell'.format(prefix))
     @mock.patch('{}.ssh.SSH.execute'.format(prefix))
