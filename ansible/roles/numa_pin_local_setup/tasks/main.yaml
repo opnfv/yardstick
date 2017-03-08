@@ -1,0 +1,64 @@
+---
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+- name: get nova-compute host
+  shell:
+    source /etc/yardstick/openstack.creds;
+    openstack availability zone list --long | grep nova-compute | sort | awk '{print $7}';
+  args:
+      executable: /bin/bash
+  register: compute_nodes
+
+- name: get existing flavor list
+  shell:
+    source /etc/yardstick/openstack.creds;
+    openstack flavor list | grep "True" | cut -f 2 -d ' ';
+  args:
+      executable: /bin/bash
+  register: flavors
+
+- name: create pinned-cpu and regular host aggregate
+  shell:
+    source /etc/yardstick/openstack.creds;
+    openstack aggregate create pinned-cpu;
+    openstack aggregate create regular;
+    nova aggregate-set-metadata pinned-cpu pinned=true;
+    nova aggregate-set-metadata regular pinned=false;
+    nova aggregate-add-host pinned-cpu {{ compute_nodes.stdout_lines[0] }};
+    nova aggregate-add-host regular {{ compute_nodes.stdout_lines[1] }};
+  args:
+      executable: /bin/bash
+
+- name: set flavor default property
+  shell:
+    source /etc/yardstick/openstack.creds;
+    openstack flavor set --property aggregate_instance_extra_specs:pinned=false {{item}};
+  args:
+      executable: /bin/bash
+  with_items:
+      - '{{ flavors.stdout_lines }}'
+
+- name: create flavor yardstick-pinned-flavor
+  os_nova_flavor:
+    cloud: opnfv
+    state: present
+    name: yardstick-pinned-flavor
+    ram: 512
+    vcpus: 3
+    disk: 3
+
+- name: set yardstick-pinned-flavor property
+  shell:
+    source /etc/yardstick/openstack.creds;
+    openstack flavor set --property hw:cpu_policy=dedicated yardstick-pinned-flavor;
+    openstack flavor set --property hw:numa_nodes=1 yardstick-pinned-flavor
+    openstack flavor set --property aggregate_instance_extra_specs:pinned=true yardstick-pinned-flavor;
+  args:
+      executable: /bin/bash
