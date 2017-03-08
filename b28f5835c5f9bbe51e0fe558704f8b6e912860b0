@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_a8d1e1fc",
+        "filename": "yardstick/benchmark/core/__init__.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-03-08T11:17:48Z",
+      "side": 1,
+      "message": "do you want to give default value to the attribute?",
+      "revId": "b28f5835c5f9bbe51e0fe558704f8b6e912860b0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_c8ce955a",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-03-08T11:17:48Z",
+      "side": 1,
+      "message": "you need to move \"report.htm\" to yardstick constants (yardstick/common/constants.py)",
+      "revId": "b28f5835c5f9bbe51e0fe558704f8b6e912860b0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
