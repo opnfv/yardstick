@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_8d48af5c",
+        "filename": "yardstick/cmd/commands/report.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2017-03-08T06:33:56Z",
+      "side": 1,
+      "message": "I guess that would be better if you can make the license header aligned with other files which you upload. I mean you can add you name here :)",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "f2aa64e4d31dc1a7437035515249ef534f3ddf8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
