@@ -1,0 +1,41 @@
+---
+- name: get nova-compute host
+  shell:
+    source /etc/yardstick/openstack.creds;
+    openstack availability zone list --long | grep nova-compute | sort | awk '{print $7}';
+  args:
+      executable: /bin/bash
+  register: compute_nodes
+
+- name: delete flavor yardstick-pinned-flavor
+  os_nova_flavor:
+    cloud: opnfv
+    state: absent
+    name: yardstick-pinned-flavor
+
+- name: get flavor list
+  shell:
+    source /etc/yardstick/openstack.creds;
+    openstack flavor list | grep "True" | cut -f 2 -d ' ';
+  args:
+      executable: /bin/bash
+  register: flavors
+
+- name: unset flavor default property
+  shell:
+    source /etc/yardstick/openstack.creds;
+    openstack flavor unset --property aggregate_instance_extra_specs:pinned {{item}};
+  args:
+      executable: /bin/bash
+  with_items:
+      - '{{ flavors.stdout_lines }}'
+
+- name: delete pinned-cpu and regular host aggregate
+  shell:
+    source /etc/yardstick/openstack.creds;
+    nova aggregate-remove-host pinned-cpu {{ compute_nodes.stdout_lines[0] }};
+    nova aggregate-remove-host regular {{ compute_nodes.stdout_lines[1] }};
+    openstack aggregate delete pinned-cpu;
+    openstack aggregate delete regular;
+  args:
+      executable: /bin/bash
