@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_ad41f33a",
+        "filename": "yardstick/benchmark/contexts/standalone.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-08T06:29:21Z",
+      "side": 1,
+      "message": "can we use super() here",
+      "revId": "18bf882c2f25e9f326f91c8d5c935296c65a2c25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
