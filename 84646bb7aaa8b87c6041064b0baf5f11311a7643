@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_adca534d",
+        "filename": "requirements.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-08T08:18:12Z",
+      "side": 1,
+      "message": "1.8.0 is from 2015?  Why not a more recent version? 1.10.6\n\nI seem to recall that django versions are hard to upgrade.",
+      "revId": "84646bb7aaa8b87c6041064b0baf5f11311a7643",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_cdf54784",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-08T08:18:12Z",
+      "side": 1,
+      "message": "can we be more specific than Exception.  This looks like a KeyError, or maybe ValueError.",
+      "revId": "84646bb7aaa8b87c6041064b0baf5f11311a7643",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_0d04bf79",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-08T08:18:12Z",
+      "side": 1,
+      "message": "this doens\u0027t look right, what are db_fieldkeys, str or bytes?\n\nwe encode on egress and decode on ingress, this looks like ingress.",
+      "revId": "84646bb7aaa8b87c6041064b0baf5f11311a7643",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_8dd8af1e",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-08T08:18:12Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right.  We shouldn\u0027t be checking Python version.\n\nCan we use oslo_utils safe_encode() as per OpenStack guidelines?\n\nhttps://wiki.openstack.org/wiki/Python3#safe_encode",
+      "range": {
+        "startLine": 99,
+        "startChar": 11,
+        "endLine": 103,
+        "endChar": 59
+      },
+      "revId": "84646bb7aaa8b87c6041064b0baf5f11311a7643",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_adf8137d",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-08T08:18:12Z",
+      "side": 1,
+      "message": "why w+, we are just writing",
+      "range": {
+        "startLine": 123,
+        "startChar": 56,
+        "endLine": 123,
+        "endChar": 58
+      },
+      "revId": "84646bb7aaa8b87c6041064b0baf5f11311a7643",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
