@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_ad549354",
+        "filename": "ansible/roles/numa_pin_local_setup/tasks/main.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-03-08T08:48:48Z",
+      "side": 1,
+      "message": "header missing?",
+      "revId": "7dd19c57392c67d09e566b61a475439e62500d0f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_8d4bcfaf",
+        "filename": "ansible/roles/numa_pin_local_teardown/tasks/main.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-03-08T08:48:48Z",
+      "side": 1,
+      "message": "header missing?",
+      "revId": "7dd19c57392c67d09e566b61a475439e62500d0f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
