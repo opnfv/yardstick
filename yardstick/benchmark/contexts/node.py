@@ -78,16 +78,38 @@ class NodeContext(Context):
         LOG.debug("Env: %r", self.env)
 
     def deploy(self):
-        setups = self.env.get('setup', [])
-        for setup in setups:
-            for host, info in setup.items():
-                self._execute_script(host, info)
+        config_type = self.env.get('type', '')
+        if config_type == 'ansible':
+            self._dispatch_ansible('setup')
+        elif config_type == 'script':
+            self._dispatch_script('setup')
 
     def undeploy(self):
-        teardowns = self.env.get('teardown', [])
-        for teardown in teardowns:
-            for host, info in teardown.items():
+        config_type = self.env.get('type', '')
+        if config_type == 'ansible':
+            self._dispatch_ansible('teardown')
+        elif config_type == 'script':
+            self._dispatch_script('teardown')
+
+    def _dispatch_script(self, key):
+        steps = self.env.get(key, [])
+        for step in steps:
+            for host, info in step.items():
                 self._execute_script(host, info)
+
+    def _dispatch_ansible(self, key):
+        try:
+            step = self.env[key]
+        except KeyError:
+            pass
+        else:
+            self._do_ansible_job(step)
+
+    def _do_ansible_job(self, path):
+        cmd = 'ansible-playbook -i inventory.ini %s' % path
+        base = '/home/opnfv/repos/CMCC/ansible'
+        p = subprocess.Popen(cmd, shell=True, cwd=base)
+        p.communicate()
 
     def _get_server(self, attr_name):
         """lookup server info by name from context
