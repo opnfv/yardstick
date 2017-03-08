@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_addb33ec",
+        "filename": "ansible/roles/numa_pin_local_setup/tasks/main.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-03-08T08:52:20Z",
+      "side": 1,
+      "message": "thanks for reminding",
+      "parentUuid": "dabed58f_ad549354",
+      "revId": "7dd19c57392c67d09e566b61a475439e62500d0f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_8d4bcfaf",
         "filename": "ansible/roles/numa_pin_local_teardown/tasks/main.yaml",
         "patchSetId": 2
