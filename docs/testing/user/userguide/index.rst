@@ -4,7 +4,7 @@
 .. (c) OPNFV, Ericsson AB and others.
 
 ==================
-Yardstick Overview
+Performance Testing User Guide (Yardstick)
 ==================
 
 .. toctree::
