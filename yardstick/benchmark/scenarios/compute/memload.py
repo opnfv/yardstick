@@ -74,10 +74,10 @@ class MEMLoad(base.Scenario):
         fields = []
         free = {}
         ite = 0
-        average = {'total': 0, 'used': 0, 'free': 0, 'cached': 0, 'shared': 0,
-                   'buffers': 0}
-        maximum = {'total': 0, 'used': 0, 'free': 0, 'cached': 0, 'shared': 0,
-                   'buffers': 0}
+        average = {'total': 0, 'used': 0, 'free': 0, 'buff/cache': 0,
+                   'shared': 0}
+        maximum = {'total': 0, 'used': 0, 'free': 0, 'buff/cache': 0,
+                   'shared': 0}
 
         for row in result.split('\n'):
             line = row.split()
@@ -111,7 +111,7 @@ class MEMLoad(base.Scenario):
         interval = options.get("interval", 1)
         count = options.get("count", 1)
 
-        cmd = "free -s %s -c %s" % (interval, count)
+        cmd = "free -c '%s' -s '%s'" % (count, interval)
 
         result = self._execute_command(cmd)
         filtrated_result = self._filtrate_result(result)
