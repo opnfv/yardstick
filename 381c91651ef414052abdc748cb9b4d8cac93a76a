@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_bf2278b7",
+        "filename": "yardstick/benchmark/scenarios/compute/memload.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-09T07:54:46Z",
+      "side": 1,
+      "message": "are you familiar with Brendan Gregg\u0027s work?  He is the Linux performance expert.\n\nhttp://brendangregg.com/linuxperf.html\n\nHis list of tools:\nhttp://brendangregg.com/Perf/linux_perf_tools_full.png\n\nBecause in some sense NUMA allocations might be more interesting.\n\n\nFor example:\n\n    # numastat -m\n\n    Per-node system memory usage (in MBs):\n    Token Node not in hash table.\n    Token Node not in hash table.\n    Token Node not in hash table.\n    Token Node not in hash table.\n                              Node 0          Node 1           Total\n                     --------------- --------------- ---------------\n    MemTotal                32081.59        32226.64        64308.24\n    MemFree                  2123.47         3528.22         5651.69\n    MemUsed                 29958.12        28698.42        58656.55\n    Active                  18429.72        10219.80        28649.52\n    Inactive                 9863.01        16317.55        26180.57\n    Active(anon)             9465.70         7362.15        16827.85\n    Inactive(anon)           1781.16          781.19         2562.36\n    Active(file)             8964.02         2857.65        11821.67\n    Inactive(file)           8081.85        15536.36        23618.21\n    Unevictable                10.19            9.84           20.03\n    Mlocked                    10.19            9.84           20.03\n    Dirty                       1.04            0.47            1.50\n    Writeback                   0.00            0.00            0.00\n    FilePages               15584.16        17072.13        32656.29\n    Mapped                    201.18          187.48          388.66\n    AnonPages               11255.59         8143.84        19399.43\n    Shmem                       1.04            1.27            2.31\n    KernelStack                20.08           15.25           35.33\n    PageTables                 32.88           28.41           61.29\n    NFS_Unstable                0.00            0.00            0.00\n    Bounce                      0.00            0.00            0.00\n    WritebackTmp                0.00            0.00            0.00\n    Slab                     1247.14         1631.07         2878.21\n    SReclaimable              708.47          947.70         1656.17\n    SUnreclaim                538.67          683.37         1222.04\n    AnonHugePages            9012.00         6832.00        15844.00\n    HugePages_Total             0.00            0.00            0.00\n    HugePages_Free              0.00            0.00            0.00\n    HugePages_Surp              0.00            0.00            0.00",
+      "revId": "381c91651ef414052abdc748cb9b4d8cac93a76a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
