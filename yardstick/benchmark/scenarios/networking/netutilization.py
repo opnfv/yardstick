@@ -100,25 +100,17 @@ class NetUtilization(base.Scenario):
         average = {}
 
         time_marker = re.compile("^([0-9]+):([0-9]+):([0-9]+)$")
-        ampm_marker = re.compile("(AM|PM)$")
 
         # Parse network utilization stats
         for row in raw_result.split('\n'):
             line = row.split()
 
             if line and re.match(time_marker, line[0]):
-                if re.match(ampm_marker, line[1]):
-                    del line[:2]
 
-                if line[0] == 'IFACE':
-                    # header fields
-                    fields = line[1:]
-                    if len(fields) != NetUtilization.\
-                            NET_UTILIZATION_FIELD_SIZE:
-                        raise RuntimeError("network_utilization: unexpected\
-                                           field size", fields)
-                else:
-                    # value fields
+                try:
+                    index = line.index('IFACE')
+                except ValueError:
+                    del line[:index]
                     net_interface = line[0]
                     values = line[1:]
 
@@ -144,6 +136,13 @@ class NetUtilization(base.Scenario):
                     else:
                         raise RuntimeError("network_utilization: parse error",
                                            fields, line)
+                else:
+                    del line[:index]
+                    fields = line[1:]
+                    if len(fields) != NetUtilization.\
+                            NET_UTILIZATION_FIELD_SIZE:
+                        raise RuntimeError("network_utilization: unexpected\
+                                           field size", fields)
 
             elif line and line[0] == 'Average:':
                 del line[:1]
