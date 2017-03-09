@@ -59,7 +59,7 @@ chpasswd: { expire: False }
 ssh_pwauth: True
 EOF
 
-linuxheadersversion=`echo ls boot/vmlinuz* | cut -d- -f2-`
+linuxheadersversion=$(echo ls boot/vmlinuz* | cut -d- -f2-)
 
 apt-get update
 apt-get install -y \
@@ -80,22 +80,25 @@ apt-get install -y \
     rt-tests \
     stress \
     sysstat \
-    linux-headers-$linuxheadersversion \
+    linux-headers-"${linuxheadersversion}" \
     libpcap-dev \
     lua5.2
 
 git clone http://dpdk.org/git/dpdk
 git clone http://dpdk.org/git/apps/pktgen-dpdk
 
-git clone https://github.com/kdlucas/byte-unixbench.git /opt/tempT
-make --directory /opt/tempT/UnixBench/
+CLONE_DEST=/opt/tempT
+# remove before cloning
+rm -rf -- "${CLONE_DEST}"
+git clone https://github.com/kdlucas/byte-unixbench.git "${CLONE_DEST}"
+make --directory "${CLONE_DEST}/UnixBench/"
 
-git clone https://github.com/beefyamoeba5/ramspeed.git /opt/tempT/RAMspeed
-cd /opt/tempT/RAMspeed/ramspeed-2.6.0
+git clone https://github.com/beefyamoeba5/ramspeed.git "${CLONE_DEST}/RAMspeed"
+cd "${CLONE_DEST}/RAMspeed/ramspeed-2.6.0"
 mkdir temp
 bash build.sh
 
-git clone https://github.com/beefyamoeba5/cachestat.git /opt/tempT/Cachestat
+git clone https://github.com/beefyamoeba5/cachestat.git "${CLONE_DEST}"/Cachestat
 
 # restore symlink
-ln -sf /run/resolvconf/resolv.conf /etc/resolv.conf
+ln -sfrT /run/resolvconf/resolv.conf /etc/resolv.conf
