@@ -48,7 +48,7 @@ EOF
 apt-get update
 if [[ "${YARD_IMG_ARCH}" = "arm64" && "$release" = "vivid" ]]; then
     apt-get install -y \
-        linux-headers-$(echo $CLOUD_KERNEL_VERSION | cut -d'-' -f3,4,5) \
+        linux-headers-"$(echo ${CLOUD_KERNEL_VERSION} | cut -d'-' -f3,4,5)" \
         unzip
     #resize root partition (/dev/vdb1) It is supposed to be default but the image is booted differently for arm64
 cat <<EOF >/etc/cloud/cloud.cfg.d/15_growpart.cfg
