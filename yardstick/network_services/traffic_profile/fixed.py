@@ -43,7 +43,7 @@ class FixedProfile(TrafficProfile):
                     self._create_stream(src_ip, dst_ip),
                     ports=[ports])
 
-            traffic_generator.client.start(ports=traffic_generator.my_ports)
+            traffic_generator.client.start(ports=traffic_generator.my_ports, force=True)
             self.first_run = False
 
     def _create_stream(self, src_ip, dst_ip):

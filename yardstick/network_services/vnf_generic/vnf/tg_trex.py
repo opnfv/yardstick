@@ -31,6 +31,7 @@ from stl.trex_stl_lib.trex_stl_exceptions import STLError
 
 LOG = logging.getLogger(__name__)
 DURATION = 30
+WAIT_QUEUE = 1
 TREX_SYNC_PORT = 4500
 TREX_ASYNC_PORT = 4501
 
@@ -259,6 +260,7 @@ class TrexTrafficGen(GenericTrafficGen):
                      "tx_throughput_mbps": float(xe_value.get("tx_bps", 0.0)),
                      "in_packets": xe_value.get("ipackets", 0),
                      "out_packets": xe_value.get("opackets", 0)}
+            time.sleep(WAIT_QUEUE)
             queue.put(samples)
 
         self.client.disconnect()
