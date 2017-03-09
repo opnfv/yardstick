@@ -58,6 +58,16 @@ class HeatContext(Context):
              get_short_key_uuid(self.key_uuid)])
         super(HeatContext, self).__init__()
 
+    def assign_external_network(self, networks):
+        sorted_networks = sorted(networks.items())
+        external_network = os.environ.get("EXTERNAL_NETWORK", "net04_ext")
+        have_external_network = [(name, net)
+                                 for name, net in sorted_networks if
+                                 net.get("external_network")]
+        # no external net defined, assign it to first network usig os.environ
+        if sorted_networks and not have_external_network:
+            sorted_networks[0][1]["external_network"] = external_network
+
     def init(self, attrs):     # pragma: no cover
         """initializes itself from the supplied arguments"""
         self.name = attrs["name"]
@@ -84,9 +94,10 @@ class HeatContext(Context):
                               for name, sgattrs in attrs.get(
                               "server_groups", {}).items()]
 
-        for name, netattrs in attrs["networks"].items():
-            network = Network(name, self, netattrs)
-            self.networks.append(network)
+        self.assign_external_network(attrs["networks"])
+
+        self.networks = [Network(name, self, netattrs) for name, netattrs in
+                         sorted(attrs["networks"].items())]
 
         for name, serverattrs in attrs["servers"].items():
             server = Server(name, self, serverattrs)
