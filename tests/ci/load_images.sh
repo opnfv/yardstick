@@ -16,25 +16,25 @@ YARD_IMG_ARCH=amd64
 export YARD_IMG_ARCH
 
 HW_FW_TYPE=""
-if [ "${YARD_IMG_ARCH}" = "arm64" ]; then
+if [ "${YARD_IMG_ARCH}" == "arm64" ]; then
     HW_FW_TYPE=uefi
 fi
 export HW_FW_TYPE
 
 if ! grep -q "Defaults env_keep += \"YARD_IMG_ARCH\"" "/etc/sudoers"; then
-    sudo echo "Defaults env_keep += \"YARD_IMG_ARCH YARDSTICK_REPO_DIR\"" >> /etc/sudoers
+    echo "Defaults env_keep += \"YARD_IMG_ARCH YARDSTICK_REPO_DIR\"" | sudo tee -a /etc/sudoers
 fi
 
 ARCH_SCRIPT="test -f /etc/fuel_openstack_arch && grep -q arm64 /etc/fuel_openstack_arch"
 if [ "$INSTALLER_TYPE" == "fuel" ]; then
-    sshpass -p r00tme ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -l root $INSTALLER_IP "${ARCH_SCRIPT}" && YARD_IMG_ARCH=arm64
+    sshpass -p r00tme ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -l root "${INSTALLER_IP}" "${ARCH_SCRIPT}" && YARD_IMG_ARCH=arm64
 fi
 
 UCA_HOST="cloud-images.ubuntu.com"
 if [ "${YARD_IMG_ARCH}" == "arm64" ]; then
     export CLOUD_IMG_URL="http://${UCA_HOST}/${release}/current/${release}-server-cloudimg-${YARD_IMG_ARCH}.tar.gz"
     if ! grep -q "Defaults env_keep += \"CLOUD_IMG_URL\"" "/etc/sudoers"; then
-        sudo echo "Defaults env_keep += \"CLOUD_IMG_URL\"" >> /etc/sudoers
+        echo "Defaults env_keep += \"CLOUD_IMG_URL\"" | sudo tee -a /etc/sudoers
     fi
 fi
 
@@ -44,22 +44,24 @@ build_yardstick_image()
     echo "========== Build yardstick cloud image =========="
 
     if [[ "$DEPLOY_SCENARIO" == *"-lxd-"* ]]; then
-        local cmd="sudo $(which yardstick-img-lxd-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh"
+        local cmd
+        cmd="sudo $(which yardstick-img-lxd-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh"
 
         # Build the image. Retry once if the build fails
         $cmd || $cmd
 
-        if [ ! -f $RAW_IMAGE ]; then
+        if [ ! -f "${RAW_IMAGE}" ]; then
             echo "Failed building RAW image"
             exit 1
         fi
     else
-        local cmd="sudo $(which yardstick-img-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh"
+        local cmd
+        cmd="sudo $(which yardstick-img-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh"
 
         # Build the image. Retry once if the build fails
         $cmd || $cmd
 
-        if [ ! -f $QCOW_IMAGE ]; then
+        if [ ! -f "${QCOW_IMAGE}" ]; then
             echo "Failed building QCOW image"
             exit 1
         fi
@@ -71,24 +73,24 @@ load_yardstick_image()
     echo
     echo "========== Loading yardstick cloud image =========="
     EXTRA_PARAMS=""
-    if [[ "${YARD_IMG_ARCH}" = "arm64" && "${YARD_IMG_AKI}" = "true" ]]; then
+    if [[ "${YARD_IMG_ARCH}" == "arm64" && "${YARD_IMG_AKI}" == "true" ]]; then
         CLOUD_IMAGE="/tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}.tar.gz"
         CLOUD_KERNEL="/tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}-vmlinuz-generic"
         cd /tmp
         if [ ! -f "${CLOUD_IMAGE}" ]; then
-            wget $CLOUD_IMG_URL
+            wget "${CLOUD_IMG_URL}"
         fi
         if [ ! -f "${CLOUD_KERNEL}" ]; then
-            tar zxf $CLOUD_IMAGE $(basename $CLOUD_KERNEL)
+            tar xf "${CLOUD_IMAGE}" "${CLOUD_KERNEL##**/}"
         fi
         create_kernel=$(openstack image create \
                 --public \
                 --disk-format qcow2 \
                 --container-format bare \
-                --file $CLOUD_KERNEL \
+                --file ${CLOUD_KERNEL} \
                 yardstick-${release}-kernel)
 
-        GLANCE_KERNEL_ID=$(echo "$create_kernel" | grep " id " | awk '{print $(NF-1)}')
+        GLANCE_KERNEL_ID=$(echo "$create_kernel" | awk '/ id / {print $(NF-1)}')
         if [ -z "$GLANCE_KERNEL_ID" ]; then
             echo 'Failed uploading kernel to cloud'.
             exit 1
@@ -98,8 +100,8 @@ load_yardstick_image()
 
         EXTRA_PARAMS="--property kernel_id=$GLANCE_KERNEL_ID --property os_command_line=\"$command_line\""
 
-        rm -f $CLOUD_KERNEL $CLOUD_IMAGE
-        cd $YARDSTICK_REPO_DIR
+        rm -f -- "${CLOUD_KERNEL}" "${CLOUD_IMAGE}"
+        cd "${YARDSTICK_REPO_DIR}"
     fi
 
     # VPP requires guest memory to be backed by large pages
@@ -116,16 +118,16 @@ load_yardstick_image()
             --public \
             --disk-format raw \
             --container-format bare \
-            $EXTRA_PARAMS \
-            --file $RAW_IMAGE \
+            ${EXTRA_PARAMS} \
+            --file ${RAW_IMAGE} \
             yardstick-image)
     else
         output=$(eval openstack image create \
             --public \
             --disk-format qcow2 \
             --container-format bare \
-            $EXTRA_PARAMS \
-            --file $QCOW_IMAGE \
+            ${EXTRA_PARAMS} \
+            --file ${QCOW_IMAGE} \
             yardstick-image)
     fi
 
@@ -138,10 +140,10 @@ load_yardstick_image()
         exit 1
     fi
 
-    if [ "$DEPLOY_SCENARIO" == *"-lxd-"* ]; then
-        sudo rm -f $RAW_IMAGE
+    if [[ "$DEPLOY_SCENARIO" == *"-lxd-"* ]]; then
+        sudo rm -f -- "${RAW_IMAGE}"
     else
-        sudo rm -f $QCOW_IMAGE
+        sudo rm -f -- "${QCOW_IMAGE}"
     fi
 
     echo "Glance image id: $GLANCE_IMAGE_ID"
@@ -163,8 +165,8 @@ load_cirros_image()
     output=$(openstack image create \
         --disk-format qcow2 \
         --container-format bare \
-        $EXTRA_PARAMS \
-        --file $image_file \
+        ${EXTRA_PARAMS} \
+        --file ${image_file} \
         cirros-0.3.3)
     echo "$output"
 
@@ -233,12 +235,12 @@ main()
 
     build_yardstick_image
     load_yardstick_image
-    if [ "${YARD_IMG_ARCH}" = "arm64" ]; then
+    if [ "${YARD_IMG_ARCH}" == "arm64" ]; then
         sed -i 's/image: cirros-0.3.3/image: TestVM/g' tests/opnfv/test_cases/opnfv_yardstick_tc002.yaml \
         samples/ping.yaml
         #We have overlapping IP with the real network
         for filename in tests/opnfv/test_cases/*; do
-            sed -i "s/cidr: '10.0.1.0\/24'/cidr: '10.3.1.0\/24'/g" $filename
+            sed -i "s/cidr: '10.0.1.0\/24'/cidr: '10.3.1.0\/24'/g" "${filename}"
         done
     else
         load_cirros_image
