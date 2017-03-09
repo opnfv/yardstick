@@ -31,7 +31,7 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
 fi
 
 UCA_HOST="cloud-images.ubuntu.com"
-if [ "${YARD_IMG_ARCH}"= "arm64" ]; then
+if [ "${YARD_IMG_ARCH}" == "arm64" ]; then
     export CLOUD_IMG_URL="http://${UCA_HOST}/${release}/current/${release}-server-cloudimg-${YARD_IMG_ARCH}.tar.gz"
     if ! grep -q "Defaults env_keep += \"CLOUD_IMG_URL\"" "/etc/sudoers"; then
         sudo echo "Defaults env_keep += \"CLOUD_IMG_URL\"" >> /etc/sudoers
