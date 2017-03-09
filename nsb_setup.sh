@@ -28,7 +28,8 @@ if [ "$(whoami)" != "root" ]; then
 fi
 
 INSTALL_BIN_PATH="/opt/nsb_bin"
-TREX_DOWNLOAD="https://trex-tgn.cisco.com/trex/release/v2.20.tar.gz"
+TREX_VERSION="v2.20"
+TREX_DOWNLOAD="https://trex-tgn.cisco.com/trex/release/$TREX_VERSION.tar.gz"
 DPDK_DOWNLOAD="http://dpdk.org/browse/dpdk/snapshot/dpdk-16.07.zip"
 VIRTUAL_VENV="$INSTALL_BIN_PATH/yardstick_venv"
 
@@ -82,7 +83,7 @@ install_trex()
 {
     TREX_DIR=$INSTALL_BIN_PATH/trex/scripts
     if [ -d "$TREX_DIR" ]; then
-        echo "Trex v2.05already installed. Make sure it contains PYTHONPATH which is required to run TRex"
+        echo "Trex v2.20 already installed. Make sure it contains PYTHONPATH which is required to run TRex"
     else
         echo "Build TRex and installing Trex TG in $INSTALL_BIN_PATH/trex"
         rm -rf ${TREX_DOWNLOAD##*/}
@@ -93,8 +94,8 @@ install_trex()
         pushd .
         rm -rf trex
         mkdir -p trex
-        mv v2.05 trex/scripts
-        rm -rf v2.05.tar.gz
+        mv $TREX_VERSION trex/scripts
+        rm -rf $TREX_VERSION.tar.gz
         cd trex/scripts/ko/src/
         make
         make install
@@ -182,7 +183,7 @@ install_dpdk()
 
 push_nsb_binary()
 {
-    if [ ! -d "$INSTALL_BIN_PATH/trex" ]; then
+    if [ ! -d "$INSTALL_BIN_PATH/trex/scripts" ]; then
         cp -fr "$REPO_DIR/trex" "$INSTALL_BIN_PATH"
     fi
     rm -rf "$REPO_DIR/trex"
