@@ -62,20 +62,6 @@ def get_credentials():
                 "project_domain_name": os.getenv('OS_PROJECT_DOMAIN_NAME')
             })
 
-    cacert = os.environ.get("OS_CACERT")
-
-    if cacert is not None:
-        # each openstack client uses differnt kwargs for this
-        creds.update({"cacert": cacert,
-                      "ca_cert": cacert,
-                      "https_ca_cert": cacert,
-                      "https_cacert": cacert,
-                      "ca_file": cacert})
-        creds.update({"insecure": "True", "https_insecure": "True"})
-        if not os.path.isfile(cacert):
-            log.info("WARNING: The 'OS_CACERT' environment variable is set \
-                      to %s but the file does not exist.", cacert)
-
     return creds
 
 
@@ -88,7 +74,12 @@ def get_session_auth():
 
 def get_session():
     auth = get_session_auth()
-    return session.Session(auth=auth)
+    try:
+        cacert = os.environ['OS_CACERT']
+    except KeyError:
+        return session.Session(auth=auth)
+    else:
+        return session.Session(auth=auth, verify=cacert)
 
 
 def get_endpoint(service_type, endpoint_type='publicURL'):
