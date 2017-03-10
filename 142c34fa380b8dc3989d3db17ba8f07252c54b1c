@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_101373b9",
+        "filename": "requirements.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-10T01:53:56Z",
+      "side": 1,
+      "message": "okay, so django 1.8 is LTS supported until April 2018.\n\nLooks like 1.8.17 is the latest though, released 2016-12-01",
+      "revId": "142c34fa380b8dc3989d3db17ba8f07252c54b1c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_f011ffac",
+        "filename": "yardstick/common/constants.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-10T01:53:56Z",
+      "side": 1,
+      "message": "is there a reason for .htm instead of .html?",
+      "revId": "142c34fa380b8dc3989d3db17ba8f07252c54b1c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
