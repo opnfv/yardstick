@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_70d8af1d",
+        "filename": "yardstick/benchmark/scenarios/networking/netutilization.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-10T01:34:56Z",
+      "side": 1,
+      "message": "should be .splitlines()",
+      "revId": "e0e81117894bf966cb4c076bbfc77ce66df2b377",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_1005b379",
+        "filename": "yardstick/benchmark/scenarios/networking/netutilization.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-10T01:34:56Z",
+      "side": 1,
+      "message": "shouldn\u0027t need list, dict() will take iterator.",
+      "range": {
+        "startLine": 118,
+        "startChar": 41,
+        "endLine": 118,
+        "endChar": 45
+      },
+      "revId": "e0e81117894bf966cb4c076bbfc77ce66df2b377",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
