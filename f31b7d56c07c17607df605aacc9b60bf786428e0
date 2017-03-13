@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_eaf4e788",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-13T21:22:49Z",
+      "side": 1,
+      "message": "this looks okay.\n\nIn theory we should re-use some kind of git clone or update function, like the one in devstack.\n\nhttps://github.com/openstack-dev/devstack/blob/master/functions-common#L495",
+      "revId": "f31b7d56c07c17607df605aacc9b60bf786428e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
