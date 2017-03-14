@@ -1,5 +1,4 @@
-$fuel_settings = parseyaml(file('/etc/astute.yaml'))
-$master_ip = $::fuel_settings['master_ip']
+$master_ip      = hiera('master_ip')
 
 $access_hash    = hiera_hash('access', {})
 $admin_tenant   = $access_hash['tenant']
