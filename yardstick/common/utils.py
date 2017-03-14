@@ -18,6 +18,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+import datetime
 import errno
 import logging
 import os
@@ -167,3 +168,19 @@ def parse_ini_file(path):
                       s)} for s in parser.sections()})
 
     return config
+
+
+class Timer(object):
+    def __init__(self):
+        super(Timer, self).__init__()
+        self.start = self.delta = None
+
+    def __enter__(self):
+        self.start = datetime.datetime.now()
+        return self
+
+    def __exit__(self, *_):
+        self.delta = datetime.datetime.now() - self.start
+
+    def __getattr__(self, item):
+        return getattr(self.delta, item)

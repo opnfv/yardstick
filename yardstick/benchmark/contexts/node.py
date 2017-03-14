@@ -13,16 +13,20 @@ import subprocess
 import os
 import collections
 import logging
+import tempfile
 
+import six
 import yaml
 import pkg_resources
 
 from yardstick import ssh
 from yardstick.benchmark.contexts.base import Context
 from yardstick.common import constants as consts
+from yardstick.common.ansible_common import AnsibleCommon
 
 LOG = logging.getLogger(__name__)
 
+DEFAULT_DISPATCH = 'script'
 
 class NodeContext(Context):
     """Class that handle nodes info"""
@@ -37,6 +41,10 @@ class NodeContext(Context):
         self.computes = []
         self.baremetals = []
         self.env = {}
+        self.DISPATCH_TYPES = {
+            "ansible": self._dispatch_ansible,
+            "script": self._dispatch_script,
+        }
         super(NodeContext, self).__init__()
 
     def read_config_file(self):
@@ -78,18 +86,12 @@ class NodeContext(Context):
         LOG.debug("Env: %r", self.env)
 
     def deploy(self):
-        config_type = self.env.get('type', '')
-        if config_type == 'ansible':
-            self._dispatch_ansible('setup')
-        elif config_type == 'script':
-            self._dispatch_script('setup')
+        config_type = self.env.get('type', DEFAULT_DISPATCH)
+        self.DISPATCH_TYPES[config_type]("setup")
 
     def undeploy(self):
-        config_type = self.env.get('type', '')
-        if config_type == 'ansible':
-            self._dispatch_ansible('teardown')
-        elif config_type == 'script':
-            self._dispatch_script('teardown')
+        config_type = self.env.get('type', DEFAULT_DISPATCH)
+        self.DISPATCH_TYPES[config_type]("teardown")
         super(NodeContext, self).undeploy()
 
     def _dispatch_script(self, key):
@@ -100,16 +102,32 @@ class NodeContext(Context):
 
     def _dispatch_ansible(self, key):
         try:
-            step = self.env[key]
+            playbooks = self.env[key]
         except KeyError:
             pass
         else:
-            self._do_ansible_job(step)
+            self._do_ansible_job(playbooks)
 
-    def _do_ansible_job(self, path):
-        cmd = 'ansible-playbook -i inventory.ini %s' % path
-        p = subprocess.Popen(cmd, shell=True, cwd=consts.ANSIBLE_DIR)
-        p.communicate()
+    def _do_ansible_job(self, playbooks):
+        self.ansible_exec = AnsibleCommon(nodes=self.nodes,
+                                          test_vars=self.env)
+        # playbooks relative to ansible dir
+        # playbooks can also be a list of playbooks
+        self.ansible_exec.gen_inventory_ini_dict()
+        if isinstance(playbooks, six.string_types):
+            playbooks = [playbooks]
+        playbooks = [self.fix_ansible_path(playbook) for playbook in playbooks]
+
+        tmpdir = tempfile.mkdtemp(prefix='ansible-')
+        self.ansible_exec.execute_ansible(playbooks, tmpdir,
+                                          verbose=self.env.get("verbose",
+                                                               False))
+
+    def fix_ansible_path(self, playbook):
+        if not os.path.isabs(playbook):
+            #  make relative paths absolute in ANSIBLE_DIR
+            playbook = os.path.join(consts.ANSIBLE_DIR, playbook)
+        return playbook
 
     def _get_server(self, attr_name):
         """lookup server info by name from context
