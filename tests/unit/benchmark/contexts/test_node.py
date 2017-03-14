@@ -131,10 +131,8 @@ class NodeContextTestCase(unittest.TestCase):
         self.test_context.env = {}
         self.assertEqual(self.test_context._dispatch_ansible('ansible'), None)
 
-    @mock.patch("{}.subprocess".format(PREFIX))
-    def test__do_ansible_job(self, mock_subprocess):
-        mock_subprocess.Popen = mock.MagicMock()
-        mock_subprocess.communicate = mock.Mock()
+    @mock.patch("{}.AnsibleCommon".format(PREFIX))
+    def test__do_ansible_job(self, mock_ansible):
         self.assertEqual(None, self.test_context._do_ansible_job('dummy'))
 
     def test_successful_init(self):
