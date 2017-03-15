@@ -30,26 +30,45 @@ both hardware & software based for triggering and validating the traffic
 according to user defined profiles.
 
 NSB extension includes:
-    • Generic data models of Network Services, based on ETSI specs
-    • New Standalone context for VNF testing like SRIOV, OVS, OVS-DPDK etc
-    • Generic VNF configuration models and metrics implemented with Python
+
+    - Generic data models of Network Services, based on ETSI specs
+
+    - New Standalone context for VNF testing like SRIOV, OVS, OVS-DPDK etc
+
+    - Generic VNF configuration models and metrics implemented with Python
       classes
-    • Traffic generator features and traffic profiles
-        • L1-L3 state-less traffic profiles
-        • L4-L7 state-full  traffic  profiles
-        • Tunneling protocol / network overlay support
-    • Test case samples
-        • Ping
-        • Trex
-        • vPE,vCGNAT, vFirewall etc - ipv4 throughput, latency etc
-    • Traffic generators like Trex, ab/nginx, ixia, iperf etc
-    • KPIs for a given use case:
-        • System agent support for collecting NFvi KPI. This includes:
-            o CPU statistic
-            o Memory BW
-            o OVS-DPDK Stats
-        • Network KPIs – eg, inpackets, outpackets, thoughput, latency etc
-        • VNF KPIs – packet_in, packet_drop, packet_fwd etc
+
+        - Traffic generator features and traffic profiles
+
+        - L1-L3 state-less traffic profiles
+
+        - L4-L7 state-full  traffic  profiles
+
+        - Tunneling protocol / network overlay support
+
+    - Test case samples
+
+        - Ping
+
+        - Trex
+
+        - vPE,vCGNAT, vFirewall etc - ipv4 throughput, latency etc
+
+    - Traffic generators like Trex, ab/nginx, ixia, iperf etc
+
+    - KPIs for a given use case:
+
+        - System agent support for collecting NFvi KPI. This includes:
+
+            - CPU statistic
+
+            - Memory BW
+
+            - OVS-DPDK Stats
+
+        - Network KPIs,  e.g., inpackets, outpackets, thoughput, latency etc
+
+        - VNF KPIs, e.g., packet_in, packet_drop, packet_fwd etc
 
 Architecture
 ============
@@ -72,18 +91,25 @@ makes an example how the real Network Operator use-case can map into ETSI
 Network service definition
 
 Network Service framework performs the necessary test steps. It may involve
-    o Interacting with traffic generator and providing the inputs on traffic
+
+    - Interacting with traffic generator and providing the inputs on traffic
       type / packet structure to generate the required traffic as per the
       test case. Traffic profiles will be used for this.
-    o Executing the commands required for the test procedure and analyses the
+
+    - Executing the commands required for the test procedure and analyses the
       command output for confirming whether the command got executed correctly
       or not. E.g. As per the test case, run the traffic for the given
       time period / wait for the necessary time delay
-    o Verify the test result.
-    o Validate the traffic flow from SUT
-    o Fetch the table / data from SUT and verify the value as per the test case
-    o Upload the logs from SUT onto the Test Harness server
-    o Read the KPI’s provided by particular VNF
+
+    - Verify the test result.
+
+    - Validate the traffic flow from SUT
+
+    - Fetch the table / data from SUT and verify the value as per the test case
+
+    - Upload the logs from SUT onto the Test Harness server
+
+    - Read the KPI's provided by particular VNF
 
 Components of Network Service
 ------------------------------
@@ -124,14 +150,18 @@ The TREX tool can generate any kind of stateless traffic.
         +--------+      +-------+      +--------+
 
 Supported testcases scenarios:
-• Correlated UDP traffic using TREX traffic generator and replay VNF.
-    o using different IMIX configuration like pure voice, pure video traffic etc
-    o using different number IP flows like 1 flow, 1K, 16K, 64K, 256K, 1M flows
-    o Using different number of rules configured like 1 rule, 1K, 10K rules
+    - Correlated UDP traffic using TREX traffic generator and replay VNF.
+
+        - using different IMIX configuration like pure voice, pure video traffic etc
+
+        - using different number IP flows like 1 flow, 1K, 16K, 64K, 256K, 1M flows
+
+        - Using different number of rules configured like 1 rule, 1K, 10K rules
 
 For UDP correlated traffic following Key Performance Indicators are collected
 for every combination of test case parameters:
-        • RFC2544 throughput for various loss rate defined (1% is a default)
+
+    - RFC2544 throughput for various loss rate defined (1% is a default)
 
 Graphical Overview
 ==================
@@ -140,6 +170,7 @@ NSB Testing with yardstick framework  facilitate performance testing of various
 VNFs provided.
 
 .. code-block:: console
+
   +-----------+
   |           |                                                     +-----------+
   |   vPE     |                                                   ->|TGen Port 0|
@@ -156,6 +187,7 @@ VNFs provided.
   |   Traffic |                                                   ->|TGen Port 1|
   |  patterns |                                                     +-----------+
   +-----------+
+
               Figure 1: Network Service - 2 server configuration
 
 
@@ -167,9 +199,12 @@ run the nsb_install.sh with root privileges
 Run
 ===
 
-source ~/.bash_profile
-cd <yardstick_repo>/yardstick/cmd
-sudo -E ./NSBperf.py --vnf vpe --test tc_baremetal_rfc2544_ipv4_1flow_64B.yaml
+::
+
+    source ~/.bash_profile
+    cd <yardstick_repo>/yardstick/cmd
+    sudo -E ./NSBperf.py --vnf vpe --test tc_baremetal_rfc2544_ipv4_1flow_64B.yaml
+
 
 Development Environment
 =======================
