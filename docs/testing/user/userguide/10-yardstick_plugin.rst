@@ -84,9 +84,10 @@ script can be used to generate it.
   echo "OS_PROJECT_NAME="$PROJECT_NAME >> ~/storperf_admin-rc
   echo "OS_TENANT_ID="$TENANT_ID >> ~/storperf_admin-rc
 
+The generated "storperf_admin-rc" file will be stored under the root directory. If you installed Yardstick by using Docker, this file will be located in the container. You may needs to copy it to the root directory of the deploy host.
 
 Step 1: Plug-in configuration file preparation
-++++++++++++++++++++++++++++++++++++++++++++++
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 To install a plug-in, first you need to prepare a plug-in configuration file in
 YAML format and store it in the "plugin" directory. The plugin configration file
@@ -111,7 +112,7 @@ Here the Storperf will be installed on IP 192.168.23.2 which is the Jump Host
 in my local environment.
 
 Step 2: Plug-in install/remove scripts preparation
-++++++++++++++++++++++++++++++++++++++++++++++++++
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 Under "yardstick/resource/scripts directory", there are two folders: a "install"
 folder and a "remove" folder. You need to store the plug-in install/remove script
@@ -124,7 +125,7 @@ For example, the install and remove scripts for Storperf are both named to "stor
 
 
 Step 3: Install and remove Storperf
-+++++++++++++++++++++++++++++++++++
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 To install Storperf, simply execute the following command
 ::
