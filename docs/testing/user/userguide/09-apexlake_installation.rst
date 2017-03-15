@@ -251,6 +251,8 @@ It is required to do the reset to the specified commit ID.
 It is also requires the creation a configuration file using the following
 command:
 
+::
+
     SMCROUTE_NIC=(name of the nic)
 
 where name of the nic is the name used previously for the variable "name_if_2".
