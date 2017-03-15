@@ -1,0 +1,9 @@
+Code-Review+1: Michael Polenchuk <mpolenchuk@mirantis.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Kubi <jean.gaoliang@huawei.com>
+Code-Review+2: Jing Lu <lvjing5@huawei.com>
+Submitted-by: Jing Lu <lvjing5@huawei.com>
+Submitted-at: Wed, 15 Mar 2017 08:12:37 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/30515
+Project: yardstick
+Branch: refs/heads/master
