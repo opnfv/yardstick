@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_3681064b",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-15T02:11:38Z",
+      "side": 1,
+      "message": "we are we depending on numactl and dmidecode?\n\nall numactl does it read /sysfs\ncan\u0027t we dump all this from sysfs directly\n\n    # strace -e open numactl --hardware\n    open(\"/sys/devices/system/node\", O_RDONLY|O_NONBLOCK|O_DIRECTORY|O_CLOEXEC) \u003d 3\n    open(\"/sys/devices/system/node/node0/meminfo\", O_RDONLY) \u003d 4\n    open(\"/sys/devices/system/node/node1/meminfo\", O_RDONLY) \u003d 4\n    open(\"/sys/devices/system/cpu\", O_RDONLY|O_NONBLOCK|O_DIRECTORY|O_CLOEXEC) \u003d 3\n    open(\"/sys/devices/system/node/node0/meminfo\", O_RDONLY) \u003d 3\n    open(\"/sys/devices/system/node/node0/cpumap\", O_RDONLY) \u003d 3\n    open(\"/sys/devices/system/node/node1/meminfo\", O_RDONLY) \u003d 3\n    open(\"/sys/devices/system/node/node1/cpumap\", O_RDONLY) \u003d 3\n    open(\"/sys/devices/system/node/node0/distance\", O_RDONLY) \u003d 3\n    open(\"/sys/devices/system/node/node1/distance\", O_RDONLY) \u003d 3\n    open(\"/sys/devices/system/node/node2/distance\", O_RDONLY) \u003d -1 ENOENT (No such file or directory)\n\n\n\nwe are also constrained by the number of online cores \u003c\u003d actual cores.\n\n def get_numa_nodes():\n\n    nodes_sysfs \u003d glob.iglob(\"/sys/devices/system/node/node*\")\n    nodes \u003d {}\n    for node_sysfs in nodes_sysfs:\n        num \u003d os.path.basename(node_sysfs).replace(\"node\", \"\")\n        with open(os.path.join(node_sysfs, \"cpulist\")) as cpulist_file:\n            cpulist \u003d cpulist_file.read().strip()\n        nodes[num] \u003d split_cpu_list(cpulist)\n\n    return nodes\n\n def split_cpu_list(cpu_list):\n    if cpu_list:\n        ranges \u003d cpu_list.split(\u0027,\u0027)\n        bounds \u003d ([int(b) for b in r.split(\u0027-\u0027)] for r in ranges)\n        # include upper bound\n        range_objects \u003d (xrange(bound[0], bound[1] + 1 if len(bound) \u003d\u003d 2 else bound[0] + 1) for bound\n                         in bounds)\n        return sorted(itertools.chain.from_iterable(range_objects))\n    else:\n        return []",
+      "range": {
+        "startLine": 367,
+        "startChar": 0,
+        "endLine": 370,
+        "endChar": 58
+      },
+      "revId": "10d96d7dc0b42097596eb29ab0a404731fe7745b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
