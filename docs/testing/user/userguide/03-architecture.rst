@@ -187,9 +187,9 @@ run test measurement scripts through the ssh tunnel. After all TestScenaio
 is finished, TaskCommands will undeploy the heat stack. Then the whole test is
 finished.
 
-.. image:: images/Logical_view.png
+.. image:: images/Yardstick_framework_architecture_in_D.png
    :width: 800px
-   :alt: Yardstick Logical View
+   :alt: Yardstick framework architecture in Danube 
 
 Process View (Test execution flow)
 ==================================
@@ -236,7 +236,7 @@ Yardstick Directory structure
 
 **yardstick/** - Yardstick main directory.
 
-*ci/* - Used for continuous integration of Yardstick at different PODs and
+*/tests/ci/* - Used for continuous integration of Yardstick at different PODs and
         with support for different installers.
 
 *docs/* - All documentation is stored here, such as configuration guides,
