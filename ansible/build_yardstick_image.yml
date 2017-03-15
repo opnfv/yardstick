@@ -35,6 +35,7 @@
     raw_imgfile: "{{ workspace }}/{{ raw_imgfile_basename }}"
   environment:
     PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin
+
   tasks:
     - group_by:
         key: image_builder
