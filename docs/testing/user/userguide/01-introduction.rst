@@ -37,34 +37,37 @@ About This Document
 
 This document consists of the following chapters:
 
+* Chapter :doc:`01-introduction` provides a brief introduction to yardstick
+  project's goal and scope and gives the structure of this document.
+
 * Chapter :doc:`02-methodology` describes the methodology implemented by the
   Yardstick Project for :term:`NFVI` verification.
 
 * Chapter :doc:`03-architecture` provides information on the software architecture
   of yardstick.
 
-* Chapter :doc:`04-vtc-overview` provides information on the :term:`VTC`.
+* Chapter :doc:`04-installation` provides instructions to install *Yardstick*.
 
-* Chapter :doc:`05-apexlake_installation` provides instructions to install the
+* Chapter :doc:`05-yardstick_plugin` provides information on how to integrate
+  other OPNFV testing projects into *Yardstick*.
+
+* Chapter :doc:`06-result-store-InfluxDB` provides inforamtion on how to run
+  plug-in test cases and store test results into community's InfluxDB.
+
+* Chapter :doc:`07-vtc-overview` provides information on the :term:`VTC`.
+
+* Chapter :doc:`08-apexlake_installation` provides instructions to install the
   experimental framework *ApexLake*
 
-* Chapter :doc:`06-apexlake_api` explains how this framework is integrated in
+* Chapter :doc:`09-apexlake_api` explains how this framework is integrated in
   *Yardstick*.
 
-* Chapter :doc:`07-nsb-overview` describes the methodology implemented by the
+* Chapter :doc:`10-nsb-overview` describes the methodology implemented by the
   yardstick - Network service benchmarking to test real world usecase for a
   given VNF
 
-* Chapter :doc:`08-nsb_installation` provides instructions to install
+* Chapter :doc:`11-nsb_installation` provides instructions to install
   *Yardstick - Network service benchmarking testing*.
-
-* Chapter :doc:`09-installation` provides instructions to install *Yardstick*.
-
-* Chapter :doc:`10-yardstick_plugin` provides information on how to integrate
-  other OPNFV testing projects into *Yardstick*.
-
-* Chapter :doc:`11-result-store-InfluxDB` provides inforamtion on how to run
-  plug-in test cases and store test results into community's InfluxDB.
 
 * Chapter :doc:`12-list-of-tcs` includes a list of available Yardstick test
   cases.
