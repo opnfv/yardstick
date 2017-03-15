@@ -114,7 +114,10 @@ run the build.sh with root privileges
 Run
 ===
 
-sudo ./pfbridge -a eth1 -b eth2
+::
+
+    sudo ./pfbridge -a eth1 -b eth2
+
 
 Development Environment
 =======================
