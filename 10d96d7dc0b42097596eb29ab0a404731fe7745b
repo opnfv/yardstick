@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "9ab8dda7_763c5e94",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-15T02:23:15Z",
+      "side": 1,
+      "message": "use LOG.exception()\n\nand don\u0027t use \u0027raise ioerror\u0027 it changes the traceback, just use raise.\n\n  except IOError:\n     LOG.execption(\"%s does not exist\", self.file_path)\n     raise",
+      "revId": "10d96d7dc0b42097596eb29ab0a404731fe7745b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_f647ee1b",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-15T02:23:15Z",
+      "side": 1,
+      "message": "get ssh_port as well, we can\u0027t assume SSH is on port 22.\n\nalso allow for ssh key auth.",
+      "revId": "10d96d7dc0b42097596eb29ab0a404731fe7745b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_965472cb",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-15T02:23:15Z",
+      "side": 1,
+      "message": "ssh_port and allow for key auth",
+      "revId": "10d96d7dc0b42097596eb29ab0a404731fe7745b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_3681064b",
         "filename": "yardstick/benchmark/contexts/sriov.py",
         "patchSetId": 3
