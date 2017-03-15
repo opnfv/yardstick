@@ -9,10 +9,6 @@ Yardstick - NSB Testing -Installation
 Abstract
 --------
 
-Yardstick supports installation on Ubuntu 14.04 or via a Docker image. The
-installation procedure on Ubuntu 14.04 or via the docker image are detailed in
-the section below.
-
 The Network Service Benchmarking (NSB) extends the yardstick framework to do
 VNF characterization and benchmarking in three different execution
 environments viz., bare metal i.e. native Linux environment, standalone virtual
@@ -32,20 +28,30 @@ The steps needed to run Yardstick with NSB testing are:
 Prerequisites
 -------------
 
-Refer chapter 08-instalaltion.rst for more information on yardstick
+Refer chapter Yardstick Instalaltion for more information on yardstick
 prerequisites
 
 Several prerequisites are needed for Yardstick(VNF testing):
-* Python Modules: pyzmq, pika.
-* flex
-* bison
-* build-essential
-* automake
-* libtool
-* librabbitmq-dev
-* rabbitmq-server
-* collectd
-* intel-cmt-cat
+
+- Python Modules: pyzmq, pika.
+
+- flex
+
+- bison
+
+- build-essential
+
+- automake
+
+- libtool
+
+- librabbitmq-dev
+
+- rabbitmq-server
+
+- collectd
+
+- intel-cmt-cat
 
 Installing Yardstick on Ubuntu 14.04
 ------------------------------------
@@ -65,7 +71,7 @@ If you choose to use the Ubuntu 14.04 Docker image, You can pull the Ubuntu
 
 Installing Yardstick framework
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Download source code and install python dependencies:
+Download source code and install Yardstick framework:
 
 ::
 
@@ -73,7 +79,7 @@ Download source code and install python dependencies:
   cd yardstick
   ./nsb_setup.sh
 
-It will automatically download all the packages needed for NSB Testing setup.
+It will also automatically download all the packages needed for NSB Testing setup.
 
 System Topology:
 -----------------
@@ -95,19 +101,25 @@ OpenStack parameters and credentials
 
 Environment variables
 ^^^^^^^^^^^^^^^^^^^^^
+
 Before running Yardstick (NSB Testing) it is necessary to export traffic
 generator libraries.
 
 ::
-  source ~/.bash_profile
+
+    source ~/.bash_profile
 
 Config yardstick conf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-cp ./etc/yardstick/yardstick.conf.sample /etc/yardstick/yardstick.conf
 
-vi /etc/yardstick/yardstick.conf
+::
 
-Config yardstick.conf
+    cp ./etc/yardstick/yardstick.conf.sample /etc/yardstick/yardstick.conf
+
+    vi /etc/yardstick/yardstick.conf
+
+Add trex_path and bin_path in 'nsb' section.
+
 ::
 
   [DEFAULT]
@@ -128,10 +140,13 @@ Config yardstick.conf
 
 Config pod.yaml describing Topology
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Before executing Yardstick test cases, make sure that pod.yaml reflects the
 topology and update all the required fields.
 
-copy /etc/yardstick/nodes/pod.yaml.nsb.example to /etc/yardstick/nodes/pod.yaml
+::
+
+    cp /etc/yardstick/nodes/pod.yaml.nsb.sample /etc/yardstick/nodes/pod.yaml
 
 Config pod.yaml
 ::
@@ -202,6 +217,7 @@ Config pod.yaml
 
 Enable yardstick virtual environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Before executing yardstick test cases, make sure to activate yardstick
 python virtual environment
 
@@ -219,7 +235,7 @@ image can be found in glance and openrc file is sourced. Below is an example
 invocation of yardstick help command and ping.py test sample:
 ::
 
-  yardstick –h
+  yardstick -h
   yardstick task start samples/ping.yaml
 
 Each testing tool supported by Yardstick has a sample configuration file.
