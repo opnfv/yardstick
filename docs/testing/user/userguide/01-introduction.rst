@@ -43,6 +43,8 @@ This document consists of the following chapters:
 * Chapter :doc:`03-architecture` provides information on the software architecture
   of yardstick.
 
+* Chapter :doc:`09-installation` provides instructions to install *Yardstick*.
+
 * Chapter :doc:`04-vtc-overview` provides information on the :term:`VTC`.
 
 * Chapter :doc:`05-apexlake_installation` provides instructions to install the
@@ -57,8 +59,6 @@ This document consists of the following chapters:
 
 * Chapter :doc:`08-nsb_installation` provides instructions to install
   *Yardstick - Network service benchmarking testing*.
-
-* Chapter :doc:`09-installation` provides instructions to install *Yardstick*.
 
 * Chapter :doc:`10-yardstick_plugin` provides information on how to integrate
   other OPNFV testing projects into *Yardstick*.

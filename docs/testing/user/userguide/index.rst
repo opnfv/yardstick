@@ -13,15 +13,15 @@ Performance Testing User Guide (Yardstick)
    01-introduction
    02-methodology
    03-architecture
+   09-installation
+   10-yardstick_plugin
+   11-result-store-InfluxDB
+   12-grafana
    04-vtc-overview
    05-apexlake_installation
    06-apexlake_api
    07-nsb-overview
    08-nsb_installation
-   09-installation
-   10-yardstick_plugin
-   11-result-store-InfluxDB
-   12-grafana
    13-list-of-tcs
    glossary
    references
