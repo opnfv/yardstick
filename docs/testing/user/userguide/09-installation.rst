@@ -9,8 +9,8 @@ Yardstick Installation
 Abstract
 --------
 
-Yardstick supports installation on Ubuntu 14.04 or via a Docker image. The
-installation procedure on Ubuntu 14.04 or via the docker image are detailed in
+Yardstick supports installation by Python virtualenv or by Docker. The
+installation procedure for virtual env and for Docker are detailed in
 the section below.
 
 To use Yardstick you should have access to an OpenStack environment, with at
@@ -57,21 +57,20 @@ the end of this document. The section details some tips/tricks which
 *may* be of help in a proxified environment.
 
 
-Installing Yardstick on Ubuntu 14.04
-------------------------------------
+Installing Yardstick using Python virtualenv
+-----------------------------------------
 
 .. _install-framework:
 
-You can install Yardstick framework directly on Ubuntu 14.04 or in an Ubuntu
-14.04 Docker image. No matter which way you choose to install Yardstick
+You can install Yardstick framework directly in Ubuntu or in an Ubuntu Docker image. No matter which way you choose to install Yardstick
 framework, the following installation steps are identical.
 
-If you choose to use the Ubuntu 14.04 Docker image, You can pull the Ubuntu
-14.04 Docker image from Docker hub:
+If you choose to use the Ubuntu Docker image, You can pull the Ubuntu
+Docker image from Docker hub:
 
 ::
 
-  docker pull ubuntu:14.04
+  docker pull ubuntu:16.04
 
 Installing Yardstick framework
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -110,14 +109,67 @@ following docker command::
   REPOSITORY         TAG       IMAGE ID        CREATED      SIZE
   opnfv/yardstick    stable    a4501714757a    1 day ago    915.4 MB
 
-Run the Docker image:
+Run the Docker image to get a Yardstick container
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
 
-  docker run --privileged=true -it opnfv/yardstick:stable /bin/bash
+  docker run -itd --privileged -v /var/run/docker.sock:/var/run/docker.sock -p 8888:5000 -e INSTALLER_IP=192.168.200.2 -e INSTALLER_TYPE=compass --name yardstick opnfv/yardstick:latest
 
-In the container the Yardstick repository is located in the /home/opnfv/repos
+note:
+
++----------------------------------------------+------------------------------+
+| parameters                                   | Detail                       |
++==============================================+==============================+
+| --privileged                                 | If you want to build         |
+|                                              | yardstick-image in yardstick |
+|                                              | container, this parameter is |
+|                                              | needed.                      |
++----------------------------------------------+------------------------------+
+| -e INSTALLER_IP=192.168.200.2                | If you want to use yardstick |
+|                                              | env prepare command(or       |
+| -e INSTALLER_TYPE=compass                    | related API) to load the     |
+|                                              | images yardstick needed,     |
+|                                              | this parameter is needed.    |
+|                                              | (the INSTALLER_IP and        |
+|                                              | INSTALLER_TYPE are depending |
+|                                              | on your OpenStack installer) |
++----------------------------------------------+------------------------------+
+| -p 8888:5000                                 | If you want to call          |
+|                                              | yardstick API out of         |
+|                                              | yardstick container, this    |
+|                                              | parameter is needed.         |
++----------------------------------------------+------------------------------+
+| -v /var/run/docker.sock:/var/run/docker.sock | If you want to use yardstick |
+|                                              | env grafana/influxdb to      |
+|                                              | create a grafana/influxdb    |
+|                                              | container out of yardstick   |
+|                                              | container, this parameter is |
+|                                              | needed.                      |
++----------------------------------------------+------------------------------+
+| --name yardstick                             | The name for this container, |
+|                                              | not needed and can be        |
+|                                              | defined by the user.         |
++----------------------------------------------+------------------------------+
+
+Enter Yardstick container
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+  docker exec -it yardstick /bin/bash
+
+In the container, the Yardstick repository is located in the /home/opnfv/repos
 directory.
+
+In Danube release, we have improved the Yardstick installation steps.
+Now Yardstick provides a CLI to prepare openstack environment variables and
+load yardstick images::
+
+  yardstick env prepare
+
+If you ues this command. you can skip the following sections about how to
+prepare openstack environment variables and load yardstick images manually.
 
 
 OpenStack parameters and credentials
@@ -193,8 +245,6 @@ by following the commands above):
 
 ::
 
-  export YARD_IMG_ARCH="amd64"
-  sudo echo "Defaults env_keep += \"YARD_IMG_ARCH\"" >> /etc/sudoers
   sudo ./tools/yardstick-img-modify tools/ubuntu-server-cloudimg-modify.sh
 
 **Warning:** the script will create files by default in:
@@ -218,9 +268,8 @@ Example command:
 Some Yardstick test cases use a Cirros image, you can find one at
 http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
 
-
 Automatic flavor and image creation
------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Yardstick has a script for automatic creating yardstick flavor and building
 guest images. This script is mainly used in CI, but you can still use it in
 your local environment.
@@ -229,16 +278,7 @@ Example command:
 
 ::
 
-  export YARD_IMG_ARCH="amd64"
-  sudo echo "Defaults env_keep += \"YARD_IMG_ARCH\"" >> /etc/sudoers
   source $YARDSTICK_REPO_DIR/tests/ci/load_images.sh
-
-
-Yardstick default key pair
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-Yardstick uses a SSH key pair to connect to the guest image. This key pair can
-be found in the ``resources/files`` directory. To run the ``ping-hot.yaml`` test
-sample, this key pair needs to be imported to the OpenStack environment.
 
 
 Examples and verifying the install
@@ -262,6 +302,22 @@ Default location for the output is ``/tmp/yardstick.out``.
 
 Deploy InfluxDB and Grafana locally
 ------------------------------------
+
+The 'yardstick env' command can also help you to build influxDB and Grafana in
+your local environment.
+
+Create InfluxDB container and config with the following command::
+
+  yardstick env influxdb
+
+
+Create Grafana container and config::
+
+  yardstick env grafana
+
+Then you can run a test case and visit http://host_ip:3000(user:admin,passwd:admin) to see the results.
+
+The following sections describe how to deploy influxDB and Grafana manually.
 
 .. pull docker images
 
@@ -398,4 +454,3 @@ the ci environment. "task_args" is where you can specify the task arguments for 
 
 All in all, to create a test suite in yardstick, you just need to create a suite yaml file
 and add test cases and constraint or task arguments if necessary.
-
