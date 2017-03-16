@@ -154,7 +154,7 @@ class Server(Object):     # pragma: no cover
 
         self.placement_groups = []
         placement = attrs.get("placement", [])
-        placement = placement if type(placement) is list else [placement]
+        placement = placement if isinstance(placement, list) else [placement]
         for p in placement:
             pg = PlacementGroup.get(p)
             if not pg:
@@ -166,7 +166,7 @@ class Server(Object):     # pragma: no cover
         # support servergroup attr
         self.server_group = None
         sg = attrs.get("server_group")
-        if (sg):
+        if sg:
             server_group = ServerGroup.get(sg)
             if not server_group:
                 raise ValueError("server '%s', server_group '%s' is invalid" %

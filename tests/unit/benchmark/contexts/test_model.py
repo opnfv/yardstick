@@ -12,8 +12,8 @@
 # Unittest for yardstick.benchmark.contexts.model
 
 from __future__ import absolute_import
-import mock
 import unittest
+import mock
 
 from yardstick.benchmark.contexts import model
 
