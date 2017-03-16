@@ -148,6 +148,7 @@ class Server(Object):     # pragma: no cover
         self.context = context
         self.public_ip = None
         self.private_ip = None
+        self.user_data = ''
 
         if attrs is None:
             attrs = {}
@@ -200,6 +201,8 @@ class Server(Object):     # pragma: no cover
         if "flavor" in attrs:
             self._flavor = attrs["flavor"]
 
+        self.user_data = attrs.get('user_data', '')
+
         Server.list.append(self)
 
     @property
@@ -249,6 +252,7 @@ class Server(Object):     # pragma: no cover
                             ports=port_name_list,
                             user=self.user,
                             key_name=self.keypair_name,
+                            user_data=self.user_data,
                             scheduler_hints=scheduler_hints)
 
     def add_to_template(self, template, networks, scheduler_hints=None):

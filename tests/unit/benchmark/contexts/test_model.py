@@ -230,4 +230,25 @@ class ServerTestCase(unittest.TestCase):
             ports=['some-server-some-network-port'],
             user=self.mock_context.user,
             key_name=self.mock_context.keypair_name,
+            user_data='',
+            scheduler_hints='hints')
+
+    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
+    def test__add_instance_with_user_data(self, mock_template):
+        user_data = "USER_DATA"
+        attrs = {
+            'image': 'some-image', 'flavor': 'some-flavor',
+            'user_data': user_data,
+        }
+        test_server = model.Server('foo', self.mock_context, attrs)
+
+        test_server._add_instance(mock_template, 'some-server',
+                                  [], 'hints')
+
+        mock_template.add_server.assert_called_with(
+            'some-server', 'some-image', 'some-flavor',
+            ports=[],
+            user=self.mock_context.user,
+            key_name=self.mock_context.keypair_name,
+            user_data=user_data,
             scheduler_hints='hints')
