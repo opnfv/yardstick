@@ -21,7 +21,9 @@ ENV YARDSTICK_REPO_DIR ${REPOS_DIR}/yardstick
 ENV RELENG_REPO_DIR ${REPOS_DIR}/releng
 RUN sed -i -e 's/^deb /deb [arch=amd64] /g' /etc/apt/sources.list
 RUN sed -i -e 's/^deb-src /# deb-src /g' /etc/apt/sources.list
+RUN echo "APT::Default-Release \"trusty\";" > /etc/apt/apt.conf.d/default-distro
 RUN echo "\n\
+deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ xenial-updates universe \n\
 deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ trusty main universe multiverse restricted \n\
 deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ trusty-updates main universe multiverse restricted \n\
 deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ trusty-security main universe multiverse restricted \n\
@@ -30,7 +32,7 @@ RUN echo "vm.mmap_min_addr = 0" > /etc/sysctl.d/mmap_min_addr.conf
 RUN dpkg --add-architecture arm64
 
 RUN apt-get update && apt-get install -y \
-    qemu-user-static \
+    qemu-user-static/xenial \
     libc6:arm64 \
     wget \
     expect \
