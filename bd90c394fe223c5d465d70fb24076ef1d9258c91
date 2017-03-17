@@ -22,6 +22,30 @@
       "revId": "bd90c394fe223c5d465d70fb24076ef1d9258c91",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_fa25880a",
+        "filename": "tools/yardstick-img-modify",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-03-17T15:01:01Z",
+      "side": 1,
+      "message": "Hi?\nsomehow using the code: \n    cd ${workspace}\n    loopdevice\u003d$(kpartx -l $raw_imgfile_basename | head -1 | cut -f1 -d \u0027 \u0027)\n\n    kpartx -av $raw_imgfile_basename\n    cd -\nwill cause test tools not installed in yardstick image.\nI will try to fix the kpartx bug using other code.",
+      "parentUuid": "9ab8dda7_64aa63d6",
+      "range": {
+        "startLine": 114,
+        "startChar": 4,
+        "endLine": 114,
+        "endChar": 27
+      },
+      "revId": "bd90c394fe223c5d465d70fb24076ef1d9258c91",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
