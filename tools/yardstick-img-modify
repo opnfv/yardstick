@@ -109,13 +109,9 @@ setup() {
     fi
     mkdir -p $mountdir
 
-    #kpartx fails with image paths longer than 63 characters
-    #try shortest relative path to image as temporary workaround
-    cd ${workspace}
-    loopdevice=$(kpartx -l $raw_imgfile_basename | head -1 | cut -f1 -d ' ')
+    loopdevice=$(kpartx -l $raw_imgfile | head -1 | cut -f1 -d ' ')
 
-    kpartx -av $raw_imgfile_basename
-    cd -
+    kpartx -av $raw_imgfile
 
     if [[ "${YARD_IMG_ARCH}" = "arm64" && "$release" = "vivid" ]]; then
         e2fsck -p -f /dev/mapper/$loopdevice
