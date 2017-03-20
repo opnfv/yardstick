@@ -220,7 +220,6 @@ class Task(object):     # pragma: no cover
         target_attr: either a name for a server created by yardstick or a dict
         with attribute name mapping when using external heat templates
         """
-        return True
         host = None
         target = None
         for context in self.contexts:
