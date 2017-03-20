@@ -76,27 +76,6 @@ download() {
         [ -a /dev/loop$i ] || mknod -m 660 /dev/loop$i b 7 $i
     done
 
-    if [[ "${YARD_IMG_ARCH}" = "arm64"  && "$release" = "vivid" ]]; then
-        cd /tmp
-        if [ ! -f /tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}-kernel-info.txt ]; then
-            wget http://${host}/${release}/current/${release}-server-cloudimg-${YARD_IMG_ARCH}-kernel-info.txt
-        fi
-        export CLOUD_KERNEL_VERSION=$(cut -d$'\t' -f4 ${release}-server-cloudimg-${YARD_IMG_ARCH}-kernel-info.txt)
-
-        mkdir -p /tmp/${release}-modules
-        if [ ! -f "/tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}.tar.gz" ]; then
-            wget $CLOUD_IMG_URL
-        fi
-        if [ ! -f "/tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}.img" ]; then
-            tar zxvf ${release}-server-cloudimg-${YARD_IMG_ARCH}.tar.gz ${release}-server-cloudimg-${YARD_IMG_ARCH}.img
-        fi
-        mkdir -p /mnt/${release}
-        mount /tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}.img /mnt/${release}
-        cp -r /mnt/${release}/lib/modules/$(echo $CLOUD_KERNEL_VERSION) /tmp/${release}-modules
-        umount /mnt/${release}
-        rm /tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}.img
-        cd $workspace
-    fi
     qemu-img convert $filename $raw_imgfile
     cd -
 }
@@ -110,10 +89,6 @@ setup() {
 
     kpartx -av $raw_imgfile
 
-    if [[ "${YARD_IMG_ARCH}" = "arm64" && "$release" = "vivid" ]]; then
-        e2fsck -p -f /dev/mapper/$loopdevice
-        resize2fs /dev/mapper/$loopdevice
-    fi
     # for trouble shooting
     sleep 2
     dmsetup ls
@@ -121,10 +96,6 @@ setup() {
     mount /dev/mapper/$loopdevice $mountdir
     mount -t proc none $mountdir/proc
 
-    if [[ "${YARD_IMG_ARCH}" = "arm64" && "$release" = "vivid" ]]; then
-        cp -r /tmp/${release}-modules/$(echo $CLOUD_KERNEL_VERSION) "$mountdir/lib/modules"
-        cp $(which "qemu-aarch64-static") "$mountdir/usr/bin"
-    fi
     cp $cmd $mountdir/$(basename $cmd)
     if [ "${YARD_IMG_ARCH}" = "arm64" ]; then
         cp /usr/bin/qemu-aarch64-static $mountdir/usr/bin

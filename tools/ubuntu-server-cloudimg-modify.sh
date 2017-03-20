@@ -46,17 +46,6 @@ chpasswd: { expire: False }
 ssh_pwauth: True
 EOF
 apt-get update
-if [[ "${YARD_IMG_ARCH}" = "arm64" && "$release" = "vivid" ]]; then
-    apt-get install -y \
-        linux-headers-"$(echo ${CLOUD_KERNEL_VERSION} | cut -d'-' -f3,4,5)" \
-        unzip
-    #resize root partition (/dev/vdb1) It is supposed to be default but the image is booted differently for arm64
-cat <<EOF >/etc/cloud/cloud.cfg.d/15_growpart.cfg
-#cloud-config
-bootcmd:
- - [growpart, /dev/vdb, 1]
-EOF
-fi
 apt-get install -y \
     bc \
     fio \
@@ -81,16 +70,8 @@ CLONE_DEST=/opt/tempT
 # remove before cloning
 rm -rf -- "${CLONE_DEST}"
 
-if [[ "${YARD_IMG_ARCH}" = "arm64" && "$release" = "vivid" ]]; then
-    wget https://github.com/kdlucas/byte-unixbench/archive/master.zip
-    unzip master.zip && rm master.zip
-    mkdir "${CLONE_DEST}"
-    mv byte-unixbench-master/UnixBench "${CLONE_DEST}"
-    sed -i -e 's/OPTON += -march=native -mtune=native/OPTON += -march=armv8-a -mtune=generic/g' \
-    -e 's/OPTON += -march=native/OPTON += -march=armv8-a/g' "${CLONE_DEST}/UnixBench/Makefile"
-else
-    git clone https://github.com/kdlucas/byte-unixbench.git "${CLONE_DEST}"
-fi
+git clone https://github.com/kdlucas/byte-unixbench.git "${CLONE_DEST}"
+
 make --directory "${CLONE_DEST}/UnixBench/"
 
 git clone https://github.com/beefyamoeba5/ramspeed.git "${CLONE_DEST}/RAMspeed"
@@ -99,13 +80,7 @@ cd "${CLONE_DEST}/RAMspeed/ramspeed-2.6.0"
 mkdir temp
 bash build.sh
 
-if [[ "${YARD_IMG_ARCH}" = "arm64" && "$release" = "vivid" ]]; then
-    wget https://github.com/beefyamoeba5/cachestat/archive/master.zip
-    unzip master.zip && rm master.zip
-    mv cachestat-master/cachestat "${CLONE_DEST}"
-else
-    git clone https://github.com/beefyamoeba5/cachestat.git "${CLONE_DEST}/Cachestat"
-fi
+git clone https://github.com/beefyamoeba5/cachestat.git "${CLONE_DEST}/Cachestat"
 
 # restore symlink
 ln -sf /run/resolvconf/resolv.conf /etc/resolv.conf
