@@ -114,7 +114,7 @@ load_yardstick_image()
     if [[ "$DEPLOY_SCENARIO" == *"-lxd-"* ]]; then
         output=$(eval openstack image create \
             --public \
-            --disk-format root-tar \
+            --disk-format raw \
             --container-format bare \
             $EXTRA_PARAMS \
             --file $RAW_IMAGE \
