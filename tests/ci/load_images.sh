@@ -15,20 +15,21 @@ set -e
 YARD_IMG_ARCH=amd64
 export YARD_IMG_ARCH
 
+if ! grep -q "Defaults env_keep += \"YARD_IMG_ARCH\"" "/etc/sudoers"; then
+    echo "Defaults env_keep += \"YARD_IMG_ARCH YARDSTICK_REPO_DIR\"" | sudo tee -a /etc/sudoers
+fi
+
+# Look for a compute node, that is online, and check if it is aarch64
+ARCH_SCRIPT="ssh \$(fuel2 node list | awk -F'|' '\$6 ~ /compute/ && \$11 ~ /rue/ {print \$7; exit;}') uname -m 2>/dev/null | grep -q aarch64"
+if [ "$INSTALLER_TYPE" == "fuel" ]; then
+    sshpass -p r00tme ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -l root "${INSTALLER_IP}" "${ARCH_SCRIPT}" && YARD_IMG_ARCH=arm64
+fi
+
 HW_FW_TYPE=""
 if [ "${YARD_IMG_ARCH}" == "arm64" ]; then
     HW_FW_TYPE=uefi
 fi
 export HW_FW_TYPE
-
-if ! grep -q "Defaults env_keep += \"YARD_IMG_ARCH\"" "/etc/sudoers"; then
-    echo "Defaults env_keep += \"YARD_IMG_ARCH YARDSTICK_REPO_DIR\"" | sudo tee -a /etc/sudoers
-fi
-
-ARCH_SCRIPT="test -f /etc/fuel_openstack_arch && grep -q arm64 /etc/fuel_openstack_arch"
-if [ "$INSTALLER_TYPE" == "fuel" ]; then
-    sshpass -p r00tme ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -l root "${INSTALLER_IP}" "${ARCH_SCRIPT}" && YARD_IMG_ARCH=arm64
-fi
 
 UCA_HOST="cloud-images.ubuntu.com"
 if [ "${YARD_IMG_ARCH}" == "arm64" ]; then
