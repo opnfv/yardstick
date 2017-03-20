@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_6db0fff4",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-20T22:48:16Z",
+      "side": 1,
+      "message": "technically we should be writing new files to /etc/sudoers.d/ and verifying with visudo -cf.\n\nthis would avoid the grep check, we just re-write /etc/sudoers.d/yardstick_env_keep each time.\n\n    env_keep\u003d\u0027Defaults env_keep +\u003d \"YARD_IMG_ARCH YARDSTICK_REPO_DIR\"\u0027\n    echo \"${env_keep}\" | visudo -cf /proc/self/fd/0 \u0026\u0026  echo \"${env_keep}\" | sudo tee /etc/sudoers.d/yardstick_env_keep \u0026\u0026\n    sudo chmod 0440 /etc/sudoers.d/yardstick_env_keep\n\nor maybe we don\u0027t need the visudo -cf check.",
+      "revId": "13d68ab65475ec556383480a17dbaf63e3ab140c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
