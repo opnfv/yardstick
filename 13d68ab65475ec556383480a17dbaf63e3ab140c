@@ -16,6 +16,24 @@
       "revId": "13d68ab65475ec556383480a17dbaf63e3ab140c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_8eba09e0",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5805
+      },
+      "writtenOn": "2017-03-21T15:38:36Z",
+      "side": 1,
+      "message": "Line 38 has the same thing. I guess that should be added to a new /etc/sudoers.d/ file, also. Also, maybe add these changes with a new patch, as they are out of scope of YARDSTICK-591",
+      "parentUuid": "9ab8dda7_6db0fff4",
+      "revId": "13d68ab65475ec556383480a17dbaf63e3ab140c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
