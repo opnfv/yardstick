@@ -48,8 +48,8 @@ fi
 
 image_path="${release}/current/${release}-server-cloudimg-${YARD_IMG_ARCH}-${boot_mode}.img"
 image_url=${IMAGE_URL:-"https://${host}/${image_path}"}
-md5sums_path="${release}/current/MD5SUMS"
-md5sums_url=${MD5SUMS_URL:-"https://${host}/${md5sums_path}"}
+sha256sums_path="${release}/current/SHA256SUMS"
+sha256sums_url=${SHA256SUMS_URL:-"https://${host}/${sha256sums_path}"}
 
 imgfile="${workspace}/yardstick-image.img"
 raw_imgfile_basename="yardstick-${release}-server.raw"
@@ -62,14 +62,14 @@ apt-get install -y parted
 download() {
     test -d $workspace || mkdir -p $workspace
     cd $workspace
-    rm -f MD5SUMS # always download the checksum file to a detect stale image
-    wget $md5sums_url
+    rm -f SHA256SUMS # always download the checksum file to a detect stale image
+    wget $sha256sums_url
     test -e $filename || wget -nc --progress=dot:giga $image_url
-    grep $filename MD5SUMS | md5sum -c ||
+    grep $filename SHA256SUMS | sha256sum -c ||
     if [ $? -ne 0 ]; then
         rm $filename
         wget -nc --progress=dot:giga $image_url
-        grep $filename MD5SUMS | md5sum -c
+        grep $filename SHA256SUMS | sha256sum -c
     fi
 
     for i in $(seq 0 9); do
