@@ -74,14 +74,8 @@ git clone https://github.com/kdlucas/byte-unixbench.git "${CLONE_DEST}"
 
 make --directory "${CLONE_DEST}/UnixBench/"
 
-if [ "${YARD_IMG_ARCH}" = "arm64" ]; then
-    wget https://github.com/beefyamoeba5/ramspeed/archive/master.zip
-    unzip master.zip && rm master.zip
-    mkdir "${CLONE_DEST}/RAMspeed"
-    mv ramspeed-master/* "${CLONE_DEST}/RAMspeed/"
-else
-    git clone https://github.com/beefyamoeba5/ramspeed.git "${CLONE_DEST}/RAMspeed"
-fi
+git clone https://github.com/beefyamoeba5/ramspeed.git "${CLONE_DEST}/RAMspeed"
+
 cd "${CLONE_DEST}/RAMspeed/ramspeed-2.6.0"
 mkdir temp
 bash build.sh

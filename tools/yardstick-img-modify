@@ -83,9 +83,6 @@ download() {
 # mount image
 setup() {
     # qemu-img resize $raw_imgfile +5GB
-    if [ "${YARD_IMG_ARCH}" = "arm64" ]; then
-        echo -e "d\nn\np\n1\n\n\nw" | parted -l $raw_imgfile
-    fi
     mkdir -p $mountdir
 
     loopdevice=$(kpartx -l $raw_imgfile | head -1 | cut -f1 -d ' ')
@@ -100,6 +97,9 @@ setup() {
     mount -t proc none $mountdir/proc
 
     cp $cmd $mountdir/$(basename $cmd)
+    if [ "${YARD_IMG_ARCH}" = "arm64" ]; then
+        cp /usr/bin/qemu-aarch64-static $mountdir/usr/bin
+    fi
 }
 
 # modify image running a script using in a chrooted environment
