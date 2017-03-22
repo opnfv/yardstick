@@ -87,6 +87,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_c5053fc3",
+        "filename": "docs/testing/user/userguide/07-nsb-overview.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-03-22T06:31:14Z",
+      "side": 1,
+      "message": "Yes OPNFV environment is part of last option (managed virtialization)",
+      "parentUuid": "9ab8dda7_3348262d",
+      "revId": "725727de362379a89eec1d4c8fcbfaf4f137f408",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_f3512ed9",
         "filename": "docs/testing/user/userguide/07-nsb-overview.rst",
         "patchSetId": 13
@@ -98,6 +116,24 @@
       "writtenOn": "2017-03-21T10:55:10Z",
       "side": 1,
       "message": "reference link?",
+      "revId": "725727de362379a89eec1d4c8fcbfaf4f137f408",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_e50ac3d1",
+        "filename": "docs/testing/user/userguide/07-nsb-overview.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-03-22T06:31:14Z",
+      "side": 1,
+      "message": "Thanks, i will add the ref link",
+      "parentUuid": "9ab8dda7_f3512ed9",
       "revId": "725727de362379a89eec1d4c8fcbfaf4f137f408",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -121,6 +157,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_a514cbf5",
+        "filename": "docs/testing/user/userguide/07-nsb-overview.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-03-22T06:31:14Z",
+      "side": 1,
+      "message": "Yes, in this tc, trex will be started on both TG \u0026 DUT system. Trex acts as sample and traffic generator",
+      "parentUuid": "9ab8dda7_1372c27c",
+      "revId": "725727de362379a89eec1d4c8fcbfaf4f137f408",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_336fc694",
         "filename": "docs/testing/user/userguide/07-nsb-overview.rst",
         "patchSetId": 13
@@ -132,6 +186,24 @@
       "writtenOn": "2017-03-21T10:55:10Z",
       "side": 1,
       "message": "NFVI",
+      "revId": "725727de362379a89eec1d4c8fcbfaf4f137f408",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_45f94fc7",
+        "filename": "docs/testing/user/userguide/07-nsb-overview.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-03-22T06:31:14Z",
+      "side": 1,
+      "message": "Thanks I will update",
+      "parentUuid": "9ab8dda7_336fc694",
       "revId": "725727de362379a89eec1d4c8fcbfaf4f137f408",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
