@@ -16,63 +16,65 @@ nodes:
 -
     name: trafficgen_1
     role: TrafficGen
-    ip: 1.1.1.1
+    ip: 1.2.1.1
     user: root
     password: r00t
+    key_filename: /root/.ssh/id_rsa
     interfaces:
         xe0:  # logical name from topology.yaml and vnfd.yaml
-            vpci:      "0000:05:00.0"
-            driver:    <nic kernel driver>
+            vpci:      "0000:01:00.0"
+            driver:    i40e
             dpdk_port_num: 0
             local_ip: "152.16.100.20"
             netmask:   "255.255.255.0"
             local_mac:   "00:00:00:00:00:01"
         xe1:  # logical name from topology.yaml and vnfd.yaml
-            vpci:      "0000:05:00.1"
-            driver:    <nic kernel driver>
+            vpci:      "0000:01:00.1"
+            driver:    i40e
             dpdk_port_num: 1
-            local_ip: "152.16.40.19"
+            local_ip: "152.40.40.20"
             netmask:   "255.255.255.0"
             local_mac:   "00:00:00:00:00:02"
 
 -
     name: vnf
-    role: TrafficGen
-    ip: 1.1.1.2
+    role: VirtualNetworkFunction
+    ip: 1.2.1.2
     user: root
     password: r00t
-    host: 1.1.1.2 # BM - Host == ip, Standalone virtualization - Host == compute node
+    key_filename: /root/.ssh/id_rsa
+    host: 1.2.1.2 # BM - Host == ip, Standalone virtualization - Host == compute node
     interfaces:
         xe0:  # logical name from topology.yaml and vnfd.yaml
-            vpci:      "0000:05:00.0"
-            driver:    <nic kernel driver>
+            vpci:      "0000:01:00.0"
+            driver:    i40e
             dpdk_port_num: 0
-            local_ip: "152.16.100.21"
+            local_ip: "152.16.100.10"
             netmask:   "255.255.255.0"
-            local_mac:   "00:00:00:00:00:03"
+            local_mac:   "00:00:00:00:00:01"
 
         xe1:  # logical name from topology.yaml and vnfd.yaml
-            vpci:      "0000:05:00.1"
-            driver:    <nic kernel driver>
+            vpci:      "0000:01:00.1"
+            driver:    i40e
             dpdk_port_num: 1
-            local_ip: "152.16.40.21"
+            local_ip: "152.40.40.10"
             netmask:   "255.255.255.0"
-            local_mac:   "00:00:00:00:00:04"
+            local_mac:   "00:00:00:00:00:02"
     routing_table:
     - network: "152.16.100.20"
       netmask: "255.255.255.0"
       gateway: "152.16.100.20"
       if: "xe0"
-    - network: "152.16.40.20"
+    - network: "152.40.40.20"
       netmask: "255.255.255.0"
-      gateway: "152.16.40.20"
+      gateway: "152.40.40.20"
       if: "xe1"
     nd_route_tbl:
     - network: "0064:ff9b:0:0:0:0:9810:6414"
       netmask: "112"
       gateway: "0064:ff9b:0:0:0:0:9810:6414"
       if: "xe0"
-    - network: "0064:ff9b:0:0:0:0:9810:2814"
+    - network: "0064:ff9b:0:0:0:0:9828:2814"
       netmask: "112"
-      gateway: "0064:ff9b:0:0:0:0:9810:2814"
+      gateway: "0064:ff9b:0:0:0:0:9828:2814"
       if: "xe1"
