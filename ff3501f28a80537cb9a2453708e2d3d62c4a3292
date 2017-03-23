@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_314b392d",
+        "filename": "requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-23T02:41:18Z",
+      "side": 1,
+      "message": "No problem with 2.18.0.  But I wasted a whole day debugging 2.3.0.\n\nWe need a process to sync these when OpenStack updates so we don\u0027t lag behind.  Updating requirements.txt should probably happen at some release milestone.",
+      "parentUuid": "9ab8dda7_b13729b0",
+      "revId": "ff3501f28a80537cb9a2453708e2d3d62c4a3292",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_11e4f539",
         "filename": "requirements.txt",
         "patchSetId": 1
