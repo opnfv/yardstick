@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_67125364",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ping.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-23T14:39:57Z",
+      "side": 1,
+      "message": "for intf in self.vnfd[\"vdu\"][0][\"external-interface\"]:\n            vi \u003d intf[\"virtual-interface\"]\n            vpci \u003d vi[\"vpci\"]\n            driver \u003d vi[\"driver\"]\n            net \u003d \"find /sys/class/net -lname \u0027*{}*\u0027 -printf \u0027%f\u0027\".format(vpci)\n            status, out \u003d connection.execute(net)[:2]\n            if status:\n                command \u003d \u0027sudo \"{0}\" --force -b \"{1}\" \"{2}\u0027.format(\n                    dpdk_nic_bind, driver, vpci)\n                connection.execute(command)\n                net \u003d \"find /sys/class/net -lname \u0027*{}*\u0027 -printf \u0027%f\u0027\".format(\n                    vpci)\n                out \u003d connection.execute(net)[1]\n\n            ifname \u003d out.split(\u0027/\u0027)[-1].strip()\n            vi[\"local_iface_name\"] \u003d ifname",
+      "revId": "fd4868c9fa4420385b97853684089b723171cae5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
