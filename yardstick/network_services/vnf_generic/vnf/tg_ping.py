@@ -20,6 +20,7 @@ import multiprocessing
 import re
 import time
 import os
+import posixpath
 
 from yardstick import ssh
 from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
@@ -77,26 +78,24 @@ class PingTrafficGen(GenericTrafficGen):
             provision_tool(self.connection,
                            os.path.join(self.bin_path, "dpdk_nic_bind.py"))
 
-        drivers = {intf["virtual-interface"]["vpci"]:
-                   intf["virtual-interface"]["driver"]
-                   for intf in self.vnfd["vdu"][0]["external-interface"]}
-
-        commands = \
-            ['"{0}" --force -b "{1}" "{2}"'.format(dpdk_nic_bind, value, key)
-             for key, value in drivers.items()]
-        for command in commands:
-            connection.execute(command)
-
-        for index, out in enumerate(self.vnfd["vdu"][0]["external-interface"]):
-            vpci = out["virtual-interface"]["vpci"]
+        for intf in self.vnfd["vdu"][0]["external-interface"]:
+            vi = intf["virtual-interface"]
+            vpci = vi["vpci"]
+            driver = vi["driver"]
             net = "find /sys/class/net -lname '*{}*' -printf '%f'".format(vpci)
-            out = connection.execute(net)[1]
-            ifname = out.split('/')[-1].strip('\n')
-            self.vnfd["vdu"][0]["external-interface"][index][
-                "virtual-interface"]["local_iface_name"] = ifname
+            status, out = connection.execute(net)[:2]
+            if status:
+                command = 'sudo "{0}" --force -b "{1}" "{2}"'.format(
+                    dpdk_nic_bind, driver, vpci)
+                connection.execute(command)
+                net = "find /sys/class/net -lname '*{}*' -printf '%f'".format(
+                    vpci)
+                out = connection.execute(net)[1]
+            ifname = posixpath.basename(out)
+            vi["local_iface_name"] = ifname
 
     def scale(self, flavor=""):
-        ''' scale vnfbased on flavor input '''
+        """ scale vnfbased on flavor input """
         super(PingTrafficGen, self).scale(flavor)
 
     def instantiate(self, scenario_cfg, context_cfg):
