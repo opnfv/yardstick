@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_31dd7971",
+        "filename": "requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-23T02:25:33Z",
+      "side": 1,
+      "message": "Are these consistent with Ocata upper-constraints.txt as well?",
+      "revId": "ff3501f28a80537cb9a2453708e2d3d62c4a3292",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_91f8e5e6",
+        "filename": "requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-23T02:25:33Z",
+      "side": 1,
+      "message": "I ran into this debugging ansible/shade.  It was a problem with old keystoneauth.",
+      "revId": "ff3501f28a80537cb9a2453708e2d3d62c4a3292",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_11e4f539",
+        "filename": "requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-23T02:25:33Z",
+      "side": 1,
+      "message": "Ocata upper-constraints.txt\n\n python-cinderclient\u003d\u003d1.11.0\n python-glanceclient\u003d\u003d2.6.0\n python-heatclient\u003d\u003d1.8.0\n python-keystoneclient\u003d\u003d3.10.0\n python-mimeparse\u003d\u003d1.6.0\n python-neutronclient\u003d\u003d6.1.0\n python-novaclient\u003d\u003d7.1.0\n python-openstackclient\u003d\u003d3.8.1",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "ff3501f28a80537cb9a2453708e2d3d62c4a3292",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
