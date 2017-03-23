@@ -14,10 +14,13 @@
 AUTH_URL=${OS_AUTH_URL}
 USERNAME=${OS_USERNAME:-admin}
 PASSWORD=${OS_PASSWORD:-console}
+
 TENANT_NAME=${OS_TENANT_NAME:-admin}
-VOLUME_API_VERSION=${OS_VOLUME_API_VERSION:-2}
-PROJECT_NAME=${OS_PROJECT_NAME:-$TENANT_NAME}
 TENANT_ID=`openstack project show admin|grep '\bid\b' |awk -F '|' '{print $3}'|sed -e 's/^[[:space:]]*//'`
+PROJECT_NAME=${OS_PROJECT_NAME:-$TENANT_NAME}
+PROJECT_ID=`openstack project show admin|grep '\bid\b' |awk -F '|' '{print $3}'|sed -e 's/^[[:space:]]*//'`
+
+USER_DOMAIN_ID=${OS_USER_DOMAIN_ID:-default}
 
 rm -f ~/storperf_admin-rc
 touch ~/storperf_admin-rc
@@ -25,7 +28,8 @@ touch ~/storperf_admin-rc
 echo "OS_AUTH_URL="$AUTH_URL >> ~/storperf_admin-rc
 echo "OS_USERNAME="$USERNAME >> ~/storperf_admin-rc
 echo "OS_PASSWORD="$PASSWORD >> ~/storperf_admin-rc
-echo "OS_TENANT_NAME="$TENANT_NAME >> ~/storperf_admin-rc
-echo "OS_VOLUME_API_VERSION="$VOLUME_API_VERSION >> ~/storperf_admin-rc
 echo "OS_PROJECT_NAME="$PROJECT_NAME >> ~/storperf_admin-rc
+echo "OS_PROJECT_ID="$PROJECT_ID >> ~/storperf_admin-rc
+echo "OS_TENANT_NAME="$TENANT_NAME >> ~/storperf_admin-rc
 echo "OS_TENANT_ID="$TENANT_ID >> ~/storperf_admin-rc
+echo "OS_USER_DOMAIN_ID="$USER_DOMAIN_ID >> ~/storperf_admin-rc

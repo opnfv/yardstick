@@ -26,6 +26,7 @@ cleanup()
     done
 
     openstack flavor delete yardstick-flavor &> /dev/null || true
+    openstack flavor delete storperf &> /dev/null || true
 }
 
 main()
