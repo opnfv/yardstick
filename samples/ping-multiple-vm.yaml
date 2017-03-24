@@ -35,7 +35,7 @@ scenarios:
 
 context:
   name: demo
-  image: cirros-0.3.3
+  image: cirros-0.3.5
   flavor: yardstick-flavor
   user: cirros
 

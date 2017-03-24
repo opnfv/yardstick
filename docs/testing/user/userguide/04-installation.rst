@@ -285,7 +285,7 @@ Example command:
   --file /tmp/workspace/yardstick/yardstick-image.img
 
 Some Yardstick test cases use a Cirros image and a Ubuntu 14.04 image, you can find one at
-http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img, https://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img
+http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img, https://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img
 
 Add cirros and ubuntu image to OpenStack:
 
@@ -295,7 +295,7 @@ Add cirros and ubuntu image to OpenStack:
       --disk-format qcow2 \
       --container-format bare \
       --file $cirros_image_file \
-      cirros-0.3.3
+      cirros-0.3.5
 
   openstack image create \
       --disk-format qcow2 \

@@ -13,7 +13,7 @@ description: >
     Yardstick TC002 config file;
     measure network latency using ping;
 
-{% set image = image or "cirros-0.3.3" %}
+{% set image = image or "cirros-0.3.5" %}
 scenarios:
 {% for i in range(2) %}
 -

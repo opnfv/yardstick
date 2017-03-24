@@ -155,7 +155,7 @@ load_cirros_image()
     echo
     echo "========== Loading cirros cloud image =========="
 
-    local image_file=/home/opnfv/images/cirros-0.3.3-x86_64-disk.img
+    local image_file=/home/opnfv/images/cirros-0.3.5-x86_64-disk.img
 
     EXTRA_PARAMS=""
     # VPP requires guest memory to be backed by large pages
@@ -168,7 +168,7 @@ load_cirros_image()
         --container-format bare \
         ${EXTRA_PARAMS} \
         --file ${image_file} \
-        cirros-0.3.3)
+        cirros-0.3.5)
     echo "$output"
 
     CIRROS_IMAGE_ID=$(echo "$output" | grep " id " | awk '{print $(NF-1)}')
@@ -245,7 +245,7 @@ main()
     load_yardstick_image
     if [ "${YARD_IMG_ARCH}" == "arm64" ]; then
         sed -i 's/image: {{image}}/image: TestVM/g' tests/opnfv/test_cases/opnfv_yardstick_tc002.yaml
-        sed -i 's/image: cirros-0.3.3/image: TestVM/g' samples/ping.yaml
+        sed -i 's/image: cirros-0.3.5/image: TestVM/g' samples/ping.yaml
         #We have overlapping IP with the real network
         for filename in tests/opnfv/test_cases/*; do
             sed -i "s/cidr: '10.0.1.0\/24'/cidr: '10.3.1.0\/24'/g" "${filename}"
