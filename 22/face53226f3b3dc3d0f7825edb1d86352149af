@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Submitted-by: Jing Lu <lvjing5@huawei.com>
+Submitted-at: Mon, 27 Mar 2017 04:47:33 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/31809
+Project: yardstick
+Branch: refs/heads/stable/danube
