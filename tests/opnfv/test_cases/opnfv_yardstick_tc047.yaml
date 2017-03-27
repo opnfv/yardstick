@@ -12,6 +12,8 @@ schema: "yardstick:task:0.1"
 description: >
     Test case for TC047 :Control node Openstack service down - glance api.
 
+{% set file = file or 'etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
+
 scenarios:
 -
   type: ServiceHA
@@ -48,4 +50,4 @@ scenarios:
 context:
   type: Node
   name: LF
-  file: etc/yardstick/nodes/fuel_virtual/pod.yaml
+  file: {{file}}
