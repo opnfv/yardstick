@@ -18,4 +18,4 @@
   lineinfile:
     dest: /etc/nova/nova.conf
     insertafter: 'DEFAULT'
-    line: 'vcpu_pin_set={{cpu_set}}
+    line: 'vcpu_pin_set={{cpu_set}}'
