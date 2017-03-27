@@ -7,6 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+ansible==2.2.0.0
 appdirs==1.4.0
 Babel==2.3.4
 backport-ipaddress==0.1
@@ -69,6 +70,7 @@ pytz==2015.7
 PyYAML==3.11
 requests==2.10.0
 requestsexceptions==1.1.3
+shade==1.17.0
 scp==0.10.2
 simplejson==3.8.2
 six==1.10.0
