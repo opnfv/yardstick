@@ -45,7 +45,7 @@ if [ ! -d $YARDSTICK_REPO_DIR ]; then
     git clone $YARDSTICK_REPO $YARDSTICK_REPO_DIR
 fi
 cd $YARDSTICK_REPO_DIR
-git checkout master
+git checkout "${YARDSTICK_BRANCH}" && git pull
 git_checkout $YARDSTICK_BRANCH $YARDSTICK_REPO
 
 # setup the environment
