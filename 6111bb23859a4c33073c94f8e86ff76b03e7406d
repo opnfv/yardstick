@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_45ca9d50",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-03-28T11:05:24Z",
+      "side": 1,
+      "message": "does /etc/yardstick exist when this bash run?\nif not, you should take care to mkdir.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "6111bb23859a4c33073c94f8e86ff76b03e7406d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
