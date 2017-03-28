@@ -2,7 +2,7 @@
 License
 =======
 
-OPNFV Colorado release note for Yardstick Docs
+OPNFV Danube release note for Yardstick Docs
 are licensed under a Creative Commons Attribution 4.0 International License.
 You should have received a copy of the license along with this.
 If not, see <http://creativecommons.org/licenses/by/4.0/>.
@@ -12,7 +12,7 @@ experimental framework are opensource software, licensed under the terms of the
 Apache License, Version 2.0.
 
 =========================================
-OPNFV Colorado Release Note for Yardstick
+OPNFV Danube Release Note for Yardstick
 =========================================
 
 .. toctree::
@@ -38,13 +38,13 @@ Version History
 | *Date*         | *Version*          | *Comment*                       |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
-| Dec 5th, 2016  |  3.0               | Yardstick for Colorado release  |
+|                |  3.0               | Yardstick for Danube release    |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
-| Oct 27th, 2016 |  2.0               | Yardstick for Colorado release  |
+|                |  2.0               | Yardstick for Danube release    |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
-| Aug 22nd, 2016 |  1.0               | Yardstick for Colorado release  |
+| Mar 10th, 2017 |  1.0               | Yardstick for Danube release    |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
 
@@ -61,10 +61,10 @@ The *Yardstick* framework is *installer*, *infrastructure* and *application*
 independent.
 
 
-OPNFV Colorado Release
+OPNFV Danube Release
 ======================
 
-This Colorado release provides *Yardstick* as a framework for NFVI testing
+This Danube release provides *Yardstick* as a framework for NFVI testing
 and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
 
 * Documentation generated with Sphinx
@@ -92,7 +92,7 @@ and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
 
 * Yardstick pliug-in configration yaml files, plug-in install/remove scripts
 
-For Colorado release, the *Yardstick framework* is used for the following
+For Danube release, the *Yardstick framework* is used for the following
 testing:
 
 * OPNFV platform testing - generic test cases to measure the categories:
@@ -102,6 +102,10 @@ testing:
   * Network
 
   * Storage
+
+* OPNFV platform network service benchmarking(NSB)
+
+  * NSB
 
 * Test cases for the following OPNFV Projects:
 
@@ -135,19 +139,19 @@ Release Data
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/colorado.3.0               |
+| **Repo/tag**                         | yardstick/Danube.1.0                 |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | colorado.3.0                         |
+| **Yardstick Docker image tag**       | Danube.1.0                           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Colorado                             |
+| **Release designation**              | Danube                               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | December 5th, 2016                   |
+| **Release date**                     | March 10th, 2017                     |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFV Colorado release 3.0           |
+| **Purpose of the delivery**          | OPNFV Danube release 1.0             |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 
@@ -158,33 +162,33 @@ Deliverables
 Documents
 ---------
 
- - User Guide: http://artifacts.opnfv.org/yardstick/colorado/docs/userguide/index.html
+ - User Guide: http://artifacts.opnfv.org/yardstick/Danube/docs/userguide/index.html
 
- - Test Results: http://artifacts.opnfv.org/yardstick/colorado/docs/results/overview.html
+ - Test Results: http://artifacts.opnfv.org/yardstick/Danube/docs/results/overview.html
 
 
 Software Deliverables
 ---------------------
 
-**Yardstick framework source code <colorado.3.0>**
+**Yardstick framework source code <Danube.1.0>**
 
 +--------------------------------------+--------------------------------------+
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/colorado.3.0               |
+| **Repo/tag**                         | yardstick/Danube.1.0                 |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | colorado.3.0                         |
+| **Yardstick Docker image tag**       | Danube.1.0                           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Colorado                             |
+| **Release designation**              | Danube                               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | December 5th, 2016                   |
+| **Release date**                     | March 10th, 2017                     |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFV Colorado release               |
+| **Purpose of the delivery**          | OPNFV Danube release                 |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 
@@ -199,6 +203,10 @@ Software Deliverables
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 | *Node*              | Models Baremetal, Controller, Compute                 |
+|                     |                                                       |
++---------------------+-------------------------------------------------------+
+| *Standalone*        | Models to deploy/undeploy NFVi infrastructure to run  |
+|                     | the VNF                                               |
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 
@@ -295,6 +303,8 @@ Software Deliverables
 |                     |                                                       |
 |                     | * netutilization                                      |
 |                     |                                                       |
+|                     | * nstat                                               |
+|                     |                                                       |
 +---------------------+-------------------------------------------------------+
 | *Parser*            | Tosca2Heat                                            |
 |                     |                                                       |
@@ -305,6 +315,9 @@ Software Deliverables
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 | *StorPerf*          | storperf                                              |
+|                     |                                                       |
++---------------------+-------------------------------------------------------+
+| *NSB*               |                                                       |
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 
@@ -397,6 +410,8 @@ Delivered Test cases
   * OPNFV_YARDSTICK_TC073 - Network Latency and Throughput Between Nodes
 
   * OPNFV_YARDSTICK_TCO75 - Network Capacity and Scale
+
+  * OPNFV_YARDSTICK_TCO76 - Network frame error rate
 
 * Test Cases for OPNFV HA Project:
 
@@ -491,66 +506,81 @@ Project's Test Results in InfluxDB chapter; Refine yardstick instantion chapter.
 
 - Yardstick Release Notes for Yardstick: this document
 
-- Test Results report for Colorado testing with Yardstick: updated listed of
+- Test Results report for Danube testing with Yardstick: updated listed of
 verified scenarios and limitations
 
 
 Feature additions
 -----------------
- - Yardstick plugin
- - Yardstick reporting
- - StorPerf Integration
+- Yardstick ReST API support
 
 
 Scenario Matrix
 ===============
 
-For Colorado 3.0, Yardstick was tested on the following scenarios:
+For Danube 1.0, Yardstick was tested on the following scenarios:
 
 +-------------------------+---------+---------+---------+---------+
 |         Scenario        |  Apex   | Compass |  Fuel   |   Joid  |
 +=========================+=========+=========+=========+=========+
-| os-nosdn-nofeature-noha |         |         |         |    X    |
+| os-nosdn-nofeature-noha |         |         |    X    |    X    |
 +-------------------------+---------+---------+---------+---------+
-| os-nosdn-nofeature-ha   |    X    |         |    X    |    X    |
+| os-nosdn-nofeature-ha   |    X    |    X    |    X    |    X    |
 +-------------------------+---------+---------+---------+---------+
-| os-odl_l2-nofeature-ha  |    X    |    X    |    X    |    X    |
+| os-odl_l2-nofeature-ha  |         |    X    |    X    |    X    |
 +-------------------------+---------+---------+---------+---------+
-| os-odl_l2-nofeature-noha|         |    X    |         |         |
+| os-odl_l2-nofeature-noha|         |         |    X    |         |
 +-------------------------+---------+---------+---------+---------+
-| os-odl_l3-nofeature-ha  |    X    |         |    X    |         |
+| os-odl_l3-nofeature-ha  |    X    |    X    |    X    |         |
 +-------------------------+---------+---------+---------+---------+
-| os-odl_l3-nofeature-ha  |         |    X    |         |         |
+| os-odl_l3-nofeature-noha|         |         |    X    |         |
 +-------------------------+---------+---------+---------+---------+
-| os-onos-sfc-ha          |    X    |         |    X    |    X    |
+| os-onos-sfc-ha          |         |         |         |         |
 +-------------------------+---------+---------+---------+---------+
-| os-onos-nofeature-ha    |    X    |         |    X    |    X    |
+| os-onos-nofeature-ha    |         |    X    |         |    X    |
 +-------------------------+---------+---------+---------+---------+
-| os-onos-nofeature-noha  |         |    X    |         |         |
+| os-onos-nofeature-noha  |         |         |         |         |
 +-------------------------+---------+---------+---------+---------+
 | os-odl_l2-sfc-ha        |         |         |    X    |         |
 +-------------------------+---------+---------+---------+---------+
-| os-odl_l2-sfc-noha      |    X    |    X    |         |         |
+| os-odl_l2-sfc-noha      |         |         |    X    |         |
 +-------------------------+---------+---------+---------+---------+
 | os-odl_l2-bgpvpn-ha     |    X    |         |    X    |         |
 +-------------------------+---------+---------+---------+---------+
-| os-odl_l2-bgpvpn-noha   |         |    X    |         |         |
+| os-odl_l2-bgpvpn-noha   |         |         |    X    |         |
 +-------------------------+---------+---------+---------+---------+
-| os-nosdn-kvm-ha         |         |         |    X    |         |
+| os-nosdn-kvm-ha         |    X    |         |    X    |         |
 +-------------------------+---------+---------+---------+---------+
-| os-nosdn-kvm-noha       |         |    X    |         |         |
+| os-nosdn-kvm-noha       |         |         |    X    |         |
 +-------------------------+---------+---------+---------+---------+
 | os-nosdn-ovs-ha         |         |         |    X    |         |
 +-------------------------+---------+---------+---------+---------+
-| os-nosdn-ovs-noha       |    X    |         |    X    |         |
+| os-nosdn-ovs-noha       |         |         |    X    |         |
 +-------------------------+---------+---------+---------+---------+
-| os-ocl-nofeature-ha     |         |         |         |         |
+| os-ocl-nofeature-ha     |         |    X    |         |         |
 +-------------------------+---------+---------+---------+---------+
 | os-nosdn-lxd-ha         |         |         |         |    X    |
 +-------------------------+---------+---------+---------+---------+
 | os-nosdn-lxd-noha       |         |         |         |    X    |
 +-------------------------+---------+---------+---------+---------+
+| os-nosdn-fdio-ha        |    X    |         |         |         |
++-------------------------+---------+---------+---------+---------+
 | os-odl_l2-fdio-noha     |    X    |         |         |         |
++-------------------------+---------+---------+---------+---------+
+| os-odl-gluon-noha       |    X    |         |         |         |
++-------------------------+---------+---------+---------+---------+
+| os-nosdn-openo-ha       |         |    X    |         |         |
++-------------------------+---------+---------+---------+---------+
+| os-nosdn-kvm_ovs_dpdk   |         |         |    X    |         |
+| -noha                   |         |         |         |         |
++-------------------------+---------+---------+---------+---------+
+| os-nosdn-kvm_ovs_dpdk-ha|         |         |    X    |         |
++-------------------------+---------+---------+---------+---------+
+| os-nosdn-kvm_ovs_dpdk   |         |         |    X    |         |
+| _bar-ha                 |         |         |         |         |
++-------------------------+---------+---------+---------+---------+
+| os-nosdn-kvm_ovs_dpdk   |         |         |    X    |         |
+| _bar-noha               |         |         |         |         |
 +-------------------------+---------+---------+---------+---------+
 
 
@@ -563,10 +593,10 @@ Test results are available in:
 
 The reporting pages can be found at:
 
- * apex: http://testresults.opnfv.org/reporting/yardstick/release/colorado/index-status-apex.html
- * compass: http://testresults.opnfv.org/reporting/yardstick/release/colorado/index-status-compass.html
- * fuel: http://testresults.opnfv.org/reporting/yardstick/release/colorado/index-status-fuel.html
- * joid: http://testresults.opnfv.org/reporting/yardstick/release/colorado/index-status-joid.html
+ * apex: http://testresults.opnfv.org/reporting/yardstick/release/Danube/index-status-apex.html
+ * compass: http://testresults.opnfv.org/reporting/yardstick/release/Danube/index-status-compass.html
+ * fuel: http://testresults.opnfv.org/reporting/yardstick/release/Danube/index-status-fuel.html
+ * joid: http://testresults.opnfv.org/reporting/yardstick/release/Danube/index-status-joid.html
 
 You can get additional details through test logs on http://artifacts.opnfv.org/.
 As no search engine is available on the OPNFV artifact web site you must
@@ -588,59 +618,53 @@ Known Issues/Faults
 Corrected Faults
 ----------------
 
-Colorado.3.0:
+Danube.3.0:
 
 +----------------------------+------------------------------------------------+
 | **JIRA REFERENCE**         | **SLOGAN**                                     |
 |                            |                                                |
 +----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-239        | Define process for working with Yardstick      |
-|                            | Grafana dashboard.                             |
+| JIRA: YARDSTICK-           |                                                |
+|                            |                                                |
 |                            |                                                |
 +----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-373        | Add os-odl_l2-fdio-ha scenario support.        |
+| JIRA: YARDSTICK-           |                                                |
 |                            |                                                |
 +----------------------------+------------------------------------------------+
 
 
-Colorado.2.0:
+Danube.2.0:
 
 +----------------------------+------------------------------------------------+
 | **JIRA REFERENCE**         | **SLOGAN**                                     |
 |                            |                                                |
 +----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-325        | Provide raw format yardstick vm image for      |
-|                            | nova-lxd scenario.                             |
+| JIRA: YARDSTICK-           |                                                |
+|                            |                                                |
 |                            |                                                |
 +----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-358        | tc027 ipv6 test case to de-coupling to the     |
-|                            | installers.                                    |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-359        | ipv6 testcase disable port-security on         |
-|                            | vRouter.                                       |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-363        | ipv6 testcase to support fuel.                 |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-367        | Add d3 graph presentation to yardstick         |
-|                            | reporting.                                     |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-371        | Provide raw format yardstick vm image for      |
-|                            | nova-lxd scenario.                             |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-372        | cannot find yardstick-img-dpdk-modify and      |
-|                            | yardstick-img-lxd-modify in environment        |
-|                            | varibales.                                     |
+| JIRA: YARDSTICK-           |                                                |
 |                            |                                                |
 +----------------------------+------------------------------------------------+
 
 
-Colorado 3.0 known restrictions/issues
-==================================
+Danube.1.0:
+
++----------------------------+------------------------------------------------+
+| **JIRA REFERENCE**         | **SLOGAN**                                     |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-           |                                                |
+|                            |                                                |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-           |                                                |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+
+
+Danube 1.0 known restrictions/issues
+====================================
 +-----------+-----------+----------------------------------------------+
 | Installer | Scenario  |  Issue                                       |
 +===========+===========+==============================================+
@@ -662,9 +686,9 @@ Useful links
 
  - wiki project page: https://wiki.opnfv.org/display/yardstick/Yardstick
 
- - wiki Yardstick Colorado release planing page: https://wiki.opnfv.org/display/yardstick/Yardstick+Colorado+Release+Planning
+ - wiki Yardstick Danube release planing page: https://wiki.opnfv.org/display/yardstick/Yardstick+Danube+Release+Planning
 
- - wiki Yardstick Colorado release jira page: https://wiki.opnfv.org/display/yardstick/Jira+Yardstick-Colorado
+ - wiki Yardstick Danube release jira page: https://wiki.opnfv.org/display/yardstick/Jira+Yardstick-Danube
 
  - Yardstick repo: https://git.opnfv.org/cgit/yardstick
 
@@ -673,21 +697,3 @@ Useful links
  - Yardstick grafana dashboard: http://testresults.opnfv.org/grafana/
 
  - Yardstick IRC chanel: #opnfv-yardstick
-
-.. _`YARDSTICK-239` : https://jira.opnfv.org/browse/YARDSTICK-239
-
-.. _`YARDSTICK-325` : https://jira.opnfv.org/browse/YARDSTICK-325
-
-.. _`YARDSTICK-358` : https://jira.opnfv.org/browse/YARDSTICK-358
-
-.. _`YARDSTICK-359` : https://jira.opnfv.org/browse/YARDSTICK-359
-
-.. _`YARDSTICK-363` : https://jira.opnfv.org/browse/YARDSTICK-363
-
-.. _`YARDSTICK-367` : https://jira.opnfv.org/browse/YARDSTICK-367
-
-.. _`YARDSTICK-371` : https://jira.opnfv.org/browse/YARDSTICK-371
-
-.. _`YARDSTICK-372` : https://jira.opnfv.org/browse/YARDSTICK-372
-
-.. _`YARDSTICK-373` : https://jira.opnfv.org/browse/YARDSTICK-373
