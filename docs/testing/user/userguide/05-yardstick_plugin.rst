@@ -4,18 +4,19 @@
 .. (c) OPNFV, Ericsson AB, Huawei Technologies Co.,Ltd and others.
 
 ===================================
-Installing a plug-in into yardstick
+Installing a plug-in into Yardstick
 ===================================
+
 
 Abstract
 ========
 
-Yardstick currently provides a ``plugin`` CLI command to support integration
-with other OPNFV testing projects. Below is an example invocation of yardstick
-plugin command and Storperf plug-in sample.
+Yardstick provides a ``plugin`` CLI command to support integration with other
+OPNFV testing projects. Below is an example invocation of Yardstick plugin
+command and Storperf plug-in sample.
 
 
-Installing Storperf into yardstick
+Installing Storperf into Yardstick
 ==================================
 
 Storperf is delivered as a Docker container from
@@ -55,36 +56,49 @@ environment and other dependencies:
    should include credential environment variables at least:
 
 * OS_AUTH_URL
+* OS_USERNAME
+* OS_PASSWORD
 * OS_TENANT_ID
 * OS_TENANT_NAME
 * OS_PROJECT_NAME
-* OS_USERNAME
-* OS_PASSWORD
-* OS_REGION_NAME
+* OS_PROJECT_ID
+* OS_USER_DOMAIN_ID
 
-For this storperf_admin-rc file, during environment preparation a "prepare_storperf_admin-rc.sh"
-script can be used to generate it.
+*Yardstick* has a "prepare_storperf_admin-rc.sh" script which can be used to
+generate the "storperf_admin-rc" file, this script is located at
+test/ci/prepare_storperf_admin-rc.sh
+
 ::
 
   #!/bin/bash
+  # Prepare storperf_admin-rc for StorPerf.
   AUTH_URL=${OS_AUTH_URL}
   USERNAME=${OS_USERNAME:-admin}
   PASSWORD=${OS_PASSWORD:-console}
+
   TENANT_NAME=${OS_TENANT_NAME:-admin}
-  VOLUME_API_VERSION=${OS_VOLUME_API_VERSION:-2}
+  TENANT_ID=`openstack project show admin|grep '\bid\b' |awk -F '|' '{print $3}'|sed -e 's/^[[:space:]]*//'`
   PROJECT_NAME=${OS_PROJECT_NAME:-$TENANT_NAME}
-  TENANT_ID=`keystone tenant-get admin|grep 'id'|awk -F '|' '{print $3}'|sed -e 's/^[[:space:]]*//'`
+  PROJECT_ID=`openstack project show admin|grep '\bid\b' |awk -F '|' '{print $3}'|sed -e 's/^[[:space:]]*//'`
+  USER_DOMAIN_ID=${OS_USER_DOMAIN_ID:-default}
+
   rm -f ~/storperf_admin-rc
   touch ~/storperf_admin-rc
+
   echo "OS_AUTH_URL="$AUTH_URL >> ~/storperf_admin-rc
   echo "OS_USERNAME="$USERNAME >> ~/storperf_admin-rc
   echo "OS_PASSWORD="$PASSWORD >> ~/storperf_admin-rc
-  echo "OS_TENANT_NAME="$TENANT_NAME >> ~/storperf_admin-rc
-  echo "OS_VOLUME_API_VERSION="$VOLUME_API_VERSION >> ~/storperf_admin-rc
   echo "OS_PROJECT_NAME="$PROJECT_NAME >> ~/storperf_admin-rc
+  echo "OS_PROJECT_ID="$PROJECT_ID >> ~/storperf_admin-rc
+  echo "OS_TENANT_NAME="$TENANT_NAME >> ~/storperf_admin-rc
   echo "OS_TENANT_ID="$TENANT_ID >> ~/storperf_admin-rc
+  echo "OS_USER_DOMAIN_ID="$USER_DOMAIN_ID >> ~/storperf_admin-rc
 
-The generated "storperf_admin-rc" file will be stored under the root directory. If you installed Yardstick using Docker, this file will be located in the container. You may need to copy it to the root directory of the deployed host.
+
+The generated "storperf_admin-rc" file will be stored in the root directory. If
+you installed *Yardstick* using Docker, this file will be located in the
+container. You may need to copy it to the root directory of the Storperf
+deployed host.
 
 Step 1: Plug-in configuration file preparation
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -114,21 +128,21 @@ in my local environment.
 Step 2: Plug-in install/remove scripts preparation
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-Under "yardstick/resource/scripts directory", there are two folders: a "install"
-folder and a "remove" folder. You need to store the plug-in install/remove script
-in these two folders respectively.
+In "yardstick/resource/scripts" directory, there are two folders: a "install"
+folder and a "remove" folder. You need to store the plug-in install/remove
+scripts in these two folders respectively.
 
-The detailed installation or remove operation should de defined in these two scripts.
-The name of both install and remove scripts should match the plugin-in name that you
-specified in the plug-in configuration file.
-For example, the install and remove scripts for Storperf are both named to "storperf.bash".
+The detailed installation or remove operation should de defined in these two
+scripts. The name of both install and remove scripts should match the plugin-in
+name that you specified in the plug-in configuration file.
 
+For example, the install and remove scripts for Storperf are both named to
+"storperf.bash".
 
 Step 3: Install and remove Storperf
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-To install Storperf, simply execute the following command
-::
+To install Storperf, simply execute the following command::
 
   # Install Storperf
   yardstick plugin install plugin/storperf.yaml
@@ -136,10 +150,11 @@ To install Storperf, simply execute the following command
 removing Storperf from yardstick
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To remove Storperf, simply execute the following command
-::
+To remove Storperf, simply execute the following command::
 
   # Remove Storperf
   yardstick plugin remove plugin/storperf.yaml
 
-What yardstick plugin command does is using the username and password to log into the deployment target and then execute the corresponding install or remove script.
+What yardstick plugin command does is using the username and password to log
+into the deployment target and then execute the corresponding install or remove
+script.
