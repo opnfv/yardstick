@@ -109,7 +109,7 @@ Graphical Overview
 Install
 =======
 
-run the build.sh with root privileges
+run the vTC/build.sh with root privileges
 
 Run
 ===
@@ -117,6 +117,9 @@ Run
 ::
 
     sudo ./pfbridge -a eth1 -b eth2
+
+
+.. note:: Virtual Traffic Classifier is not support in OPNFV Danube release.
 
 
 Development Environment
