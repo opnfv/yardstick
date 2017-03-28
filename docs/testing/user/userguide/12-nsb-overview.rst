@@ -192,22 +192,3 @@ VNFs provided.
 
               Figure 1: Network Service - 2 server configuration
 
-
-Install
-=======
-
-run the nsb_install.sh with root privileges
-
-Run
-===
-
-::
-
-    source ~/.bash_profile
-    cd <yardstick_repo>/yardstick/cmd
-    sudo -E ./NSBperf.py --vnf vpe --test tc_baremetal_rfc2544_ipv4_1flow_64B.yaml
-
-Development Environment
-=======================
-
-Ubuntu 14.04, Ubuntu 16.04

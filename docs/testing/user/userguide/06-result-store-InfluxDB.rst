@@ -31,9 +31,9 @@ Store Storperf Test Results into Community's InfluxDB
 As shown in Framework_, there are two ways to store Storperf test results
 into community's InfluxDB:
 
-1. Yardstick asks Storperf to run the test case. After the test case is
-   completed, Yardstick reads test results via ReST API from Storperf and
-   posts test data to the influxDB.
+1. Yardstick executes Storperf test case (TC074), posting test job to Storperf
+   container via ReST API. After the test job is completed, Yardstick reads
+   test results via ReST API from Storperf and posts test data to the influxDB.
 
 2. Additionally, Storperf can run tests by itself and post the test result
    directly to the InfluxDB. The method for posting data directly to influxDB
