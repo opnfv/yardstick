@@ -53,30 +53,16 @@ Several prerequisites are needed for Yardstick(VNF testing):
 
 - intel-cmt-cat
 
-Installing Yardstick on Ubuntu 14.04
-------------------------------------
+Install Yardstick (NSB Testing)
+-------------------------------
 
-.. _install-framework:
+Refer chapter :doc:`04-installation` for more information on installing *Yardstick*
 
-You can install Yardstick framework directly on Ubuntu 14.04 or in an Ubuntu
-14.04 Docker image. No matter which way you choose to install Yardstick
-framework, the following installation steps are identical.
-
-If you choose to use the Ubuntu 14.04 Docker image, You can pull the Ubuntu
-14.04 Docker image from Docker hub:
+After *Yardstick* is installed, executing the "nsb_setup.sh" script to setup
+NSB testing.
 
 ::
 
-  docker pull ubuntu:14.04
-
-Installing Yardstick framework
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Download source code and install Yardstick framework:
-
-::
-
-  git clone https://gerrit.opnfv.org/gerrit/yardstick
-  cd yardstick
   ./nsb_setup.sh
 
 It will also automatically download all the packages needed for NSB Testing setup.
@@ -221,26 +207,8 @@ Before executing yardstick test cases, make sure to activate yardstick
 python virtual environment
 
 ::
+
     source /opt/nsb_bin/yardstick_venv/bin/activate
-
-
-Examples and verifying the install
-----------------------------------
-
-It is recommended to verify that Yardstick was installed successfully
-by executing some simple commands and test samples. Before executing yardstick
-test cases make sure yardstick flavor and building yardstick-trusty-server
-image can be found in glance and openrc file is sourced. Below is an example
-invocation of yardstick help command and ping.py test sample:
-::
-
-  yardstick -h
-  yardstick task start samples/ping.yaml
-
-Each testing tool supported by Yardstick has a sample configuration file.
-These configuration files can be found in the **samples** directory.
-
-Default location for the output is ``/tmp/yardstick.out``.
 
 
 Run Yardstick - Network Service Testcases
@@ -253,7 +221,8 @@ NS testing - using NSBperf CLI
   source /opt/nsb_setup/yardstick_venv/bin/activate
   PYTHONPATH: ". ~/.bash_profile"
   cd <yardstick_repo>/yardstick/cmd
-  Execute command: ./NSPerf.py -h
+
+ Execute command: ./NSPerf.py -h
       ./NSBperf.py --vnf <selected vnf> --test <rfc test>
       eg: ./NSBperf.py --vnf vpe --test tc_baremetal_rfc2544_ipv4_1flow_64B.yaml
 
@@ -263,6 +232,7 @@ NS testing - using yardstick CLI
 
   source /opt/nsb_setup/yardstick_venv/bin/activate
   PYTHONPATH: ". ~/.bash_profile"
-  Go to test case forlder type we want to execute.
+
+Go to test case forlder type we want to execute.
       e.g. <yardstick repo>/samples/vnf_samples/nsut/<vnf>/
       run: yardstick --debug task start <test_case.yaml>
