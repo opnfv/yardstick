@@ -45,26 +45,30 @@ build_yardstick_image()
     echo "========== Build yardstick cloud image =========="
 
     if [[ "$DEPLOY_SCENARIO" == *"-lxd-"* ]]; then
-        local cmd
-        cmd="sudo $(which yardstick-img-lxd-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh"
+        if [ ! -f "${RAW_IMAGE}" ];then
+            local cmd
+            cmd="sudo $(which yardstick-img-lxd-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh"
 
-        # Build the image. Retry once if the build fails
-        $cmd || $cmd
+            # Build the image. Retry once if the build fails
+            $cmd || $cmd
 
-        if [ ! -f "${RAW_IMAGE}" ]; then
-            echo "Failed building RAW image"
-            exit 1
+            if [ ! -f "${RAW_IMAGE}" ]; then
+                echo "Failed building RAW image"
+                exit 1
+            fi
         fi
     else
-        local cmd
-        cmd="sudo $(which yardstick-img-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh"
+        if [ ! -f "${QCOW_IMAGE}" ];then
+            local cmd
+            cmd="sudo $(which yardstick-img-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh"
 
-        # Build the image. Retry once if the build fails
-        $cmd || $cmd
+            # Build the image. Retry once if the build fails
+            $cmd || $cmd
 
-        if [ ! -f "${QCOW_IMAGE}" ]; then
-            echo "Failed building QCOW image"
-            exit 1
+            if [ ! -f "${QCOW_IMAGE}" ]; then
+                echo "Failed building QCOW image"
+                exit 1
+            fi
         fi
     fi
 }
@@ -240,6 +244,13 @@ main()
 {
     QCOW_IMAGE="/tmp/workspace/yardstick/yardstick-image.img"
     RAW_IMAGE="/tmp/workspace/yardstick/yardstick-image.tar.gz"
+
+    if [ -f /home/opnfv/images/yardstick-image.img ];then
+        QCOW_IMAGE='/home/opnfv/images/yardstick-image.img'
+    fi
+    if [ -f /home/opnfv/images/yardstick-image.tar.gz ];then
+        RAW_IMAGE='/home/opnfv/images/yardstick-image.tar.gz'
+    fi
 
     build_yardstick_image
     load_yardstick_image
