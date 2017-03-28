@@ -152,32 +152,36 @@ load_yardstick_image()
 
 load_cirros_image()
 {
-    echo
-    echo "========== Loading cirros cloud image =========="
+    if [[ -n $(openstack image list | grep -e Cirros-0.3.5) ]]; then
+        echo "Cirros-0.3.5 image already exist, skip loading cirros image"
+    else
+        echo
+        echo "========== Loading cirros cloud image =========="
 
-    local image_file=/home/opnfv/images/cirros-0.3.5-x86_64-disk.img
+        local image_file=/home/opnfv/images/cirros-0.3.5-x86_64-disk.img
 
-    EXTRA_PARAMS=""
-    # VPP requires guest memory to be backed by large pages
-    if [[ "$DEPLOY_SCENARIO" == *"-fdio-"* ]]; then
-        EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
+        EXTRA_PARAMS=""
+        # VPP requires guest memory to be backed by large pages
+        if [[ "$DEPLOY_SCENARIO" == *"-fdio-"* ]]; then
+            EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
+        fi
+
+        output=$(openstack image create \
+            --disk-format qcow2 \
+            --container-format bare \
+            ${EXTRA_PARAMS} \
+            --file ${image_file} \
+            cirros-0.3.5)
+        echo "$output"
+
+        CIRROS_IMAGE_ID=$(echo "$output" | grep " id " | awk '{print $(NF-1)}')
+        if [ -z "$CIRROS_IMAGE_ID" ]; then
+            echo 'Failed uploading cirros image to cloud'.
+            exit 1
+        fi
+
+        echo "Cirros image id: $CIRROS_IMAGE_ID"
     fi
-
-    output=$(openstack image create \
-        --disk-format qcow2 \
-        --container-format bare \
-        ${EXTRA_PARAMS} \
-        --file ${image_file} \
-        cirros-0.3.5)
-    echo "$output"
-
-    CIRROS_IMAGE_ID=$(echo "$output" | grep " id " | awk '{print $(NF-1)}')
-    if [ -z "$CIRROS_IMAGE_ID" ]; then
-        echo 'Failed uploading cirros image to cloud'.
-        exit 1
-    fi
-
-    echo "Cirros image id: $CIRROS_IMAGE_ID"
 }
 
 load_ubuntu_image()
