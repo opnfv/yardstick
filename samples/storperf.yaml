@@ -17,7 +17,7 @@ scenarios:
   type: StorPerf
   options:
     agent_count: 1
-    agent_image: "Ubuntu 14.04"
+    agent_image: "Ubuntu-14.04"
     public_network: "ext-net"
     volume_size: 2
     # target:
