@@ -5,12 +5,13 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Ericsson AB and others.
 
-==================
+===========================================
 Performance Testing User Guide (Yardstick)
-==================
+===========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
+   :numbered:
 
    01-introduction
    02-methodology
