@@ -5,12 +5,13 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Ericsson AB and others.
 
-==================
+===========================================
 Performance Testing User Guide (Yardstick)
-==================
+===========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
+   :numbered:
 
    01-introduction
    02-methodology
@@ -19,11 +20,12 @@ Performance Testing User Guide (Yardstick)
    05-yardstick_plugin
    06-result-store-InfluxDB
    07-grafana
-   08-vtc-overview
-   09-apexlake_installation
-   10-apexlake_api
-   11-nsb-overview
-   12-nsb_installation
-   13-list-of-tcs
+   08-api
+   09-vtc-overview
+   10-apexlake_installation
+   11-apexlake_api
+   12-nsb-overview
+   13-nsb_installation
+   14-list-of-tcs
    glossary
    references
