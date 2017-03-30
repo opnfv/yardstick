@@ -20,6 +20,7 @@ import time
 import logging
 import os
 import yaml
+from six.moves import range
 
 from yardstick import ssh
 from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
@@ -223,7 +224,11 @@ class TrexTrafficGenRFC(GenericTrafficGen):
 
         # fixme: fix passing correct trex config file,
         # instead of searching the default path
-        self.my_ports = [0, 1]
+        topology = tc_yaml['scenarios'][0]['topology']
+        self.generate_port_pairs(topology)
+        self.priv_ports = [int(x[0][-1]) for x in self.tg_port_pairs]
+        self.pub_ports = [int(x[1][-1]) for x in self.tg_port_pairs]
+        self.my_ports = list(set(self.priv_ports).union(set(self.pub_ports)))
         self.client = self._connect_client()
         self.client.reset(ports=self.my_ports)
         self.client.remove_all_streams(self.my_ports)  # remove all streams

@@ -223,7 +223,7 @@ class TestTrexTrafficGen(unittest.TestCase):
             trex_traffic_gen._tg_process.start = mock.Mock()
             trex_traffic_gen._tg_process.exitcode = 0
             trex_traffic_gen._tg_process._is_alive = mock.Mock(return_value=1)
-            self.assertEqual(0, trex_traffic_gen.instantiate({}, {}))
+            trex_traffic_gen.instantiate({}, {})
 
     def test_instantiate_error(self):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
