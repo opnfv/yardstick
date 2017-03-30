@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_aadd5972",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-30T14:58:28Z",
+      "side": 1,
+      "message": "s/JARA/JIRA/",
+      "revId": "a0f87189be31f0e790acc57a67110e631df376bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
