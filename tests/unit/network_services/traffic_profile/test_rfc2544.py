@@ -139,6 +139,8 @@ class TestRFC2544Profile(unittest.TestCase):
     def test_execute(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.my_ports = [0, 1]
+        traffic_generator.priv_ports = [-1]
+        traffic_generator.pub_ports = [1]
         traffic_generator.client = \
             mock.Mock(return_value=True)
         r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
@@ -149,6 +151,8 @@ class TestRFC2544Profile(unittest.TestCase):
     def test_get_drop_percentage(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.my_ports = [0, 1]
+        traffic_generator.priv_ports = [0]
+        traffic_generator.pub_ports = [1]
         traffic_generator.client = \
             mock.Mock(return_value=True)
         r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
@@ -179,6 +183,8 @@ class TestRFC2544Profile(unittest.TestCase):
     def test_get_drop_percentage_update(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.my_ports = [0, 1]
+        traffic_generator.priv_ports = [0]
+        traffic_generator.pub_ports = [1]
         traffic_generator.client = \
             mock.Mock(return_value=True)
         r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
@@ -209,6 +215,8 @@ class TestRFC2544Profile(unittest.TestCase):
     def test_get_drop_percentage_div_zero(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.my_ports = [0, 1]
+        traffic_generator.priv_ports = [0]
+        traffic_generator.pub_ports = [1]
         traffic_generator.client = \
             mock.Mock(return_value=True)
         r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)

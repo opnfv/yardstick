@@ -319,6 +319,9 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
                     "tc_baremetal_rfc2544_ipv4_1flow_64B.yaml")
             tg_rfc2544_trex.DURATION = 1
             tg_rfc2544_trex.WAIT_TIME = 1
+            self.sut.generate_port_pairs = mock.Mock()
+            self.sut.tg_port_pairs = [[[0], [1]]]
+            self.sut.vnf_port_pairs = [[[0], [1]]]
             self.sut._traffic_runner(mock_traffic_profile, q, client_started,
                                      self.sut._terminated)
 

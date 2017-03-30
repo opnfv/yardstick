@@ -16,6 +16,7 @@
 from __future__ import absolute_import
 import logging
 import ipaddress
+import yaml
 import six
 
 from yardstick.network_services.utils import get_nsb_option
@@ -61,6 +62,42 @@ class QueueFileWrapper(object):
             self.q_out.get()
 
 
+class HelperFunc(object):
+    """ Helper to include all the common code """
+    def __init__(self):
+        super(HelperFunc, self).__init__()
+
+    def generate_port_pairs(self, topology_file):
+        """ Function to read the toplogy and get tg & vnf port list """
+        with open(topology_file) as fh:
+            yaml_data = yaml.safe_load(fh.read())
+        tg_port_pairs = []
+        vnf_port_pairs = []
+        for ele in yaml_data['nsd:nsd-catalog']['nsd'][0]['vld']:
+            if ele['id'].startswith('private'):
+                private_id = ele['id']
+                private_data = ele['vnfd-connection-point-ref']
+                public_id = 'public' if private_id == \
+                    'private' else 'public_' + private_id.split('_')[1]
+                public_data = [ele['vnfd-connection-point-ref'] for
+                               ele in yaml_data[
+                                   'nsd:nsd-catalog']['nsd'][0]['vld'] if
+                               ele['id'] == public_id][0]
+                vnf_id_ref = private_data[1]['member-vnf-index-ref']
+                tg_1_id_ref = private_data[0]['member-vnf-index-ref']
+                tg_2_id_ref = public_data[1]['member-vnf-index-ref']
+                private_data.extend(public_data)
+                port_pair = tuple(data[
+                    'vnfd-connection-point-ref'] for data in private_data if
+                    data['member-vnf-index-ref'] == vnf_id_ref)
+                vnf_port_pairs.append(port_pair)
+                tg_port_pair = tuple(data[
+                    'vnfd-connection-point-ref'] for data in private_data if
+                    data['member-vnf-index-ref'] in (tg_1_id_ref, tg_2_id_ref))
+                tg_port_pairs.append(tg_port_pair)
+        return [tg_port_pairs, vnf_port_pairs]
+
+
 class GenericVNF(object):
     """ Class providing file-like API for generic VNF implementation """
     def __init__(self, vnfd):
@@ -74,6 +111,7 @@ class GenericVNF(object):
         self.runs_traffic = False
         self.name = "vnf__1"  # name in topology file
         self.bin_path = get_nsb_option("bin_path", "")
+        self.helperfunc = HelperFunc()
 
     @classmethod
     def _get_kpi_definition(cls, vnfd):
@@ -281,6 +319,10 @@ class GenericVNF(object):
         """
         raise NotImplementedError()
 
+    def generate_port_pairs(self, topology_file):
+        self.tg_port_pairs, self.vnf_port_pairs = \
+            self.helperfunc.generate_port_pairs(topology_file)
+
 
 class GenericTrafficGen(GenericVNF):
     """ Class providing file-like API for generic traffic generator """
@@ -325,3 +367,7 @@ class GenericTrafficGen(GenericVNF):
         :return: True/False
         """
         raise NotImplementedError()
+
+    def generate_port_pairs(self, topology_file):
+        self.tg_port_pairs, self.vnf_port_pairs = \
+            self.helperfunc.generate_port_pairs(topology_file)

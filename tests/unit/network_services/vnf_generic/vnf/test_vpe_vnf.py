@@ -21,10 +21,68 @@ import mock
 import os
 
 from yardstick.network_services.vnf_generic.vnf.vpe_vnf import VpeApproxVnf
+from yardstick.network_services.vnf_generic.vnf.vpe_vnf import ConfigCreate
 from yardstick.network_services.vnf_generic.vnf import vpe_vnf
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.vnf_generic.vnf.base import \
     QueueFileWrapper
+
+TEST_FILE_YAML = 'nsb_test_case.yaml'
+
+
+class TestConfigCreate(unittest.TestCase):
+
+    def test___init__(self):
+        vpe_config_vnf = ConfigCreate([0], [1], 0)
+        self.assertEqual(vpe_config_vnf.socket, 0)
+
+    def test__get_firewall_script(self):
+        vpe_config_vnf = ConfigCreate([0], [1], 0)
+        self.assertIsNotNone(
+            vpe_config_vnf.get_firewall_script("5", "11.1.1.1"))
+
+    def test__get_flow_classification_script(self):
+        vpe_config_vnf = ConfigCreate([0], [1], 0)
+        self.assertIsNotNone(
+            vpe_config_vnf.get_flow_classfication_script("5"))
+
+    def test__get_flow_action(self):
+        vpe_config_vnf = ConfigCreate([0], [1], 0)
+        self.assertIsNotNone(
+            vpe_config_vnf.get_flow_action("5"))
+
+    def test__get_flow_action2(self):
+        vpe_config_vnf = ConfigCreate([0], [1], 0)
+        self.assertIsNotNone(
+            vpe_config_vnf.get_flow_action2("5"))
+
+    def test__get_route_script(self):
+        vpe_config_vnf = ConfigCreate([0], [1], 0)
+        self.assertIsNotNone(
+            vpe_config_vnf.get_route_script(
+                "5", "1.1.1.1", "00:00:00:00:00:02"))
+
+    def test__get_route_script2(self):
+        vpe_config_vnf = ConfigCreate([0], [1], 0)
+        self.assertIsNotNone(
+            vpe_config_vnf.get_route_script2(
+                "5", "1.1.1.1", "00:00:00:00:00:02"))
+
+    def test__generate_vpe_script(self):
+        vpe_config_vnf = ConfigCreate([0], [0], 0)
+        intf = [{"virtual-interface":
+                {"dst_ip": "1.1.1.1", "dst_mac": "00:00:00:00:00:00:02"}}]
+        self.assertIsNotNone(vpe_config_vnf.generate_vpe_script(intf))
+
+    def test__create_vpe_config(self):
+        vpe_config_vnf = ConfigCreate([0], [1], 0)
+        curr_path = os.path.dirname(os.path.abspath(__file__))
+        vpe_cfg = "samples/vnf_samples/nsut/vpe/vpe_config"
+        vnf_cfg = \
+            os.path.join(curr_path, "../../../../../%s" % vpe_cfg)
+        result = vpe_config_vnf.create_vpe_config(vnf_cfg)
+        os.system("git checkout -- %s" % vnf_cfg)
+        self.assertIsNone(result)
 
 
 class TestVpeApproxVnf(unittest.TestCase):
@@ -266,9 +324,14 @@ class TestVpeApproxVnf(unittest.TestCase):
             vpe_approx_vnf = VpeApproxVnf(vnfd)
             vpe_approx_vnf.execute_command = \
                 mock.Mock(return_value="Pkts in: 101\r\n\tPkts dropped by AH: 100\r\n\tPkts dropped by other: 100")
-            result = {'pkt_in_down_stream': 202, 'pkt_in_up_stream': 303,
-                      'pkt_drop_down_stream': 400, 'pkt_drop_up_stream': 600}
+            result = {'pkt_in_down_stream': 202, 'pkt_in_up_stream': 202,
+                      'pkt_drop_down_stream': 400, 'pkt_drop_up_stream': 400}
             self.assertEqual(result, vpe_approx_vnf.get_stats_vpe())
+
+    def _get_file_abspath(self, filename):
+        curr_path = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(curr_path, filename)
+        return file_path
 
     def test_run_vpe(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -285,8 +348,14 @@ class TestVpeApproxVnf(unittest.TestCase):
             queue_wrapper = \
                 QueueFileWrapper(vpe_approx_vnf.q_in,
                                  vpe_approx_vnf.q_out, "pipeline>")
-            self.assertEqual(None,
-                             vpe_approx_vnf._run_vpe(queue_wrapper, vpe_vnf))
+            vpe_approx_vnf.tc_file_name = \
+                self._get_file_abspath(TEST_FILE_YAML)
+            vpe_approx_vnf.generate_port_pairs = mock.Mock()
+            vpe_approx_vnf.tg_port_pairs = [[[0], [1]]]
+            vpe_approx_vnf.vnf_port_pairs = [[[0], [1]]]
+            result = vpe_approx_vnf._run_vpe(queue_wrapper, vpe_vnf)
+            os.system("git checkout -- %s" % vpe_vnf)
+            self.assertEqual(None, result)
 
     def test_instantiate(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -302,8 +371,9 @@ class TestVpeApproxVnf(unittest.TestCase):
             vpe_approx_vnf._resource_collect_start = mock.Mock(return_value=0)
             vpe_approx_vnf.q_out.put("pipeline>")
             vpe_vnf.WAIT_TIME = 3
+            vpe_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
             self.assertEqual(0, vpe_approx_vnf.instantiate(self.scenario_cfg,
-                              self.context_cfg))
+                             self.context_cfg))
 
     def test_instantiate_panic(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -317,8 +387,16 @@ class TestVpeApproxVnf(unittest.TestCase):
             self.scenario_cfg['vnf_options'] = {'vpe': {'cfg': ""}}
             vpe_approx_vnf._run_vpe = mock.Mock(return_value=0)
             vpe_vnf.WAIT_TIME = 1
+            vpe_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
             self.assertRaises(RuntimeError, vpe_approx_vnf.instantiate,
                               self.scenario_cfg, self.context_cfg)
+
+    def test_get_nfvi_type(self):
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        vpe_approx_vnf = VpeApproxVnf(vnfd)
+        self.scenario_cfg['tc'] = self._get_file_abspath("nsb_test_case")
+        self.assertEqual("baremetal",
+                         vpe_approx_vnf.get_nfvi_type(self.scenario_cfg))
 
     def test_scale(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
