@@ -236,7 +236,7 @@ Yardstick Directory structure
 
 **yardstick/** - Yardstick main directory.
 
-*/tests/ci/* - Used for continuous integration of Yardstick at different PODs and
+*tests/ci/* - Used for continuous integration of Yardstick at different PODs and
         with support for different installers.
 
 *docs/* - All documentation is stored here, such as configuration guides,
