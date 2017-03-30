@@ -137,6 +137,7 @@ class Pktgen(base.Scenario):
         result.update(jsonutils.loads(stdout))
 
         result['packets_received'] = self._iptables_get_result()
+        result['packetsize'] = packetsize
 
         if "sla" in self.scenario_cfg:
             sent = result['packets_sent']
