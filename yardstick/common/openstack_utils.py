@@ -79,6 +79,7 @@ def get_session():
     except KeyError:
         return session.Session(auth=auth)
     else:
+        cacert = False if cacert.lower() == "false" else cacert
         return session.Session(auth=auth, verify=cacert)
 
 
