@@ -38,20 +38,26 @@ class RFC2544Profile(TrexProfile):
     def execute(self, traffic_generator):
         ''' Generate the stream and run traffic on the given ports '''
         if self.first_run:
-            self.profile_data = self.params.get('private', '')
-            ports = [traffic_generator.my_ports[0]]
-            traffic_generator.client.add_streams(self.get_streams(),
-                                                 ports=ports[0])
-            profile_data = self.params.get('public', '')
-            if profile_data:
-                self.profile_data = profile_data
-                ports.append(traffic_generator.my_ports[1])
+            self.ports = []
+            for index, priv_port in enumerate(traffic_generator.priv_ports):
+                self.profile_data = \
+                    self.params.get('private_%s' % str(index + 1), '')
+                self.ports.append(traffic_generator.priv_ports[index])
+                privports = traffic_generator.priv_ports[index]
                 traffic_generator.client.add_streams(self.get_streams(),
-                                                     ports=ports[1])
+                                                     ports=privports)
+                profile_data = \
+                    self.params.get('public_%s' % str(index + 1), '')
+                if profile_data:
+                    self.profile_data = profile_data
+                    self.ports.append(traffic_generator.pub_ports[index])
+                    pubports = traffic_generator.pub_ports[index]
+                    traffic_generator.client.add_streams(self.get_streams(),
+                                                         ports=pubports)
 
             self.max_rate = self.rate
             self.min_rate = 0
-            traffic_generator.client.start(ports=ports,
+            traffic_generator.client.start(ports=self.ports,
                                            mult=self.get_multiplier(),
                                            duration=30, force=True)
             self.tmp_drop = 0
