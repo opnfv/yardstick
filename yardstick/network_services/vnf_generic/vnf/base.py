@@ -16,6 +16,7 @@
 from __future__ import absolute_import
 import logging
 import ipaddress
+import yaml
 import six
 
 from yardstick.network_services.utils import get_nsb_option
@@ -281,6 +282,33 @@ class GenericVNF(object):
         """
         raise NotImplementedError()
 
+    def generate_port_pairs(self, topology_file):
+        with open(topology_file) as fh:
+            yaml_data = yaml.safe_load(fh.read())
+        self.tg_port_pairs = []
+        self.vnf_port_pairs = []
+        for ele in yaml_data['nsd:nsd-catalog']['nsd'][0]['vld']:
+            if ele['id'].startswith('private'):
+                private_id = ele['id']
+                private_data = ele['vnfd-connection-point-ref']
+                public_id = 'public' if private_id == \
+                    'private' else 'public_' + private_id.split('_')[1]
+                public_data = [ele['vnfd-connection-point-ref'] for
+                               ele in yaml_data[
+                                   'nsd:nsd-catalog']['nsd'][0]['vld'] if
+                               ele['id'] == public_id][0]
+                vnf_id_ref = private_data[1]['member-vnf-index-ref']
+                tg_1_id_ref = private_data[0]['member-vnf-index-ref']
+                tg_2_id_ref = public_data[1]['member-vnf-index-ref']
+                private_data.extend(public_data)
+                port_pair = tuple(data[
+                    'vnfd-connection-point-ref'] for data in private_data if
+                    data['member-vnf-index-ref'] == vnf_id_ref)
+                self.vnf_port_pairs.append(port_pair)
+                tg_port_pair = tuple(data[
+                    'vnfd-connection-point-ref'] for data in private_data if
+                    data['member-vnf-index-ref'] in (tg_1_id_ref, tg_2_id_ref))
+                self.tg_port_pairs.append(tg_port_pair)
 
 class GenericTrafficGen(GenericVNF):
     """ Class providing file-like API for generic traffic generator """
@@ -325,3 +353,31 @@ class GenericTrafficGen(GenericVNF):
         :return: True/False
         """
         raise NotImplementedError()
+
+    def generate_port_pairs(self, topology_file):
+        with open(topology_file) as fh:
+            yaml_data = yaml.safe_load(fh.read())
+        self.tg_port_pairs = []
+        self.vnf_port_pairs = []
+        for ele in yaml_data['nsd:nsd-catalog']['nsd'][0]['vld']:
+            if ele['id'].startswith('private'):
+                private_id = ele['id']
+                private_data = ele['vnfd-connection-point-ref']
+                public_id = 'public' if private_id == \
+                    'private' else 'public_' + private_id.split('_')[1]
+                public_data = [ele['vnfd-connection-point-ref'] for
+                               ele in yaml_data[
+                                   'nsd:nsd-catalog']['nsd'][0]['vld'] if
+                               ele['id'] == public_id][0]
+                vnf_id_ref = private_data[1]['member-vnf-index-ref']
+                tg_1_id_ref = private_data[0]['member-vnf-index-ref']
+                tg_2_id_ref = public_data[1]['member-vnf-index-ref']
+                private_data.extend(public_data)
+                port_pair = tuple(data[
+                    'vnfd-connection-point-ref'] for data in private_data if
+                    data['member-vnf-index-ref'] == vnf_id_ref)
+                self.vnf_port_pairs.append(port_pair)
+                tg_port_pair = tuple(data[
+                    'vnfd-connection-point-ref'] for data in private_data if
+                    data['member-vnf-index-ref'] in (tg_1_id_ref, tg_2_id_ref))
+                self.tg_port_pairs.append(tg_port_pair)
