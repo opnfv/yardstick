@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_4db9522d",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-03-31T16:47:17Z",
+      "side": 1,
+      "message": "small thing, but style-wise we use \"\"\" for docstring and not \u0027\u0027\u0027.\n\nfrom PEP 257 https://www.python.org/dev/peps/pep-0257/\n\nFor consistency, always use \"\"\"triple double quotes\"\"\" around docstrings. Use r\"\"\"raw triple double quotes\"\"\" if you use any backslashes in your docstrings. For Unicode docstrings, use u\"\"\"Unicode triple-quoted strings\"\"\"",
+      "revId": "4867cdb46213c8c42bf52eda4c63bfce64cec550",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
