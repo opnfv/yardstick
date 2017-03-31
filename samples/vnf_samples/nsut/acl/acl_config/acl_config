@@ -1,0 +1,61 @@
+; Copyright (c) 2017 Intel Corporation
+;
+; Licensed under the Apache License, Version 2.0 (the "License");
+; you may not use this file except in compliance with the License.
+; You may obtain a copy of the License at
+;
+;      http:#www.apache.org/licenses/LICENSE-2.0
+;
+; Unless required by applicable law or agreed to in writing, software
+; distributed under the License is distributed on an "AS IS" BASIS,
+; WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+; See the License for the specific language governing permissions and
+; limitations under the License.
+
+[PIPELINE0]
+type = MASTER
+core = s{socket}c0
+[PIPELINE1]
+type = ARPICMP
+core = s{socket}c1
+pktq_in  = SWQ2
+pktq_out = SWQ7
+# debug output
+# ({port1_dst_ip},{port1_netmask},1,{port1_dst_ip}) ({port0_dst_ip},{port0_netmask},0,{port0_dst_ip})
+arp_route_tbl = ({port0_dst_ip_hex},{port0_netmask_hex},0,{port0_dst_ip_hex}) ({port1_dst_ip_hex},{port1_netmask_hex},1,{port1_dst_ip_hex})
+#ports_mac_list = port0_local_mac port1_local_mac
+ports_mac_list = {port0_local_mac} {port1_local_mac}
+pktq_in_prv =  RXQ0.0 RXQ1.0
+prv_to_pub_map = (0,1)
+prv_que_handler = (0)
+
+[PIPELINE2]
+type = TXRX
+core = s{socket}c2
+pktq_in  = RXQ0.0 RXQ1.0
+pktq_out = SWQ0 SWQ1 SWQ2
+pipeline_txrx_type = RXRX
+dest_if_offset=176
+[PIPELINE3]
+type = LOADB
+core = s{socket}c3
+pktq_in  = SWQ0 SWQ1
+pktq_out = SWQ3 SWQ4
+outport_offset = 136
+phyport_offset = 204
+n_vnf_threads = 1
+prv_que_handler = (0)
+[PIPELINE4]
+type = ACL
+core = s{socket}c4
+pktq_in  = SWQ3 SWQ4
+pktq_out = SWQ5 SWQ6
+n_flows = 1000000
+pkt_type = ipv4
+traffic_type = 4
+[PIPELINE5]
+type = TXRX
+core = s{socket}c5
+pktq_in  = SWQ5 SWQ6 SWQ7
+pktq_out = TXQ0.0 TXQ1.0
+pipeline_txrx_type = TXTX

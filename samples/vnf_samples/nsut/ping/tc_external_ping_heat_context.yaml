@@ -51,10 +51,19 @@ contexts:
       xe0:
         cidr: '10.0.2.0/24'
         vld_id: public
-
+        provider: empty
+        physical_network: physnet1
+        vlan: 1004
+#        port_security_enabled: False
+        enable_dhcp: false
       xe1:
         cidr: '10.0.3.0/24'
         vld_id: private
+        provider: empty
+        physical_network: physnet1
+        vlan: 1005
+#        port_security_enabled: False
+        enable_dhcp: false
 
   - name: baremetal
     type: Node

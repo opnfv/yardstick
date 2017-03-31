@@ -155,9 +155,11 @@ class HeatContext(Context):
             template.add_network(network.stack_name,
                                  network.physical_network,
                                  network.provider,
-                                 network.segmentation_id)
+                                 network.segmentation_id,
+                                 network.port_security_enabled)
             template.add_subnet(network.subnet_stack_name, network.stack_name,
-                                network.subnet_cidr)
+                                network.subnet_cidr,
+                                network.enable_dhcp)
 
             if network.router:
                 template.add_router(network.router.stack_name,
@@ -265,7 +267,6 @@ class HeatContext(Context):
                     # network.physical_network = neutron_net.get('provider:physical_network')
                     network.network_type = neutron_net.get('provider:network_type')
                     network.neutron_info = neutron_net
-
 
     def deploy(self):
         """deploys template into a stack using cloud"""
