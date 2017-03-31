@@ -31,6 +31,8 @@ log = logging.getLogger(__name__)
 
 HEAT_KEY_UUID_LENGTH = 8
 
+PROVIDER_SRIOV = "sriov"
+
 
 def get_short_key_uuid(uuid):
     return str(uuid)[:HEAT_KEY_UUID_LENGTH]
@@ -225,13 +227,12 @@ class HeatTemplate(HeatObject):
             'value': {'get_resource': name}
         }
 
-    def add_router(self, name, ext_gw_net, subnet_name):
+    def add_router(self, name, ext_gw_net, subnet_name, provider=None):
         """add to the template a Neutron Router and interface"""
         log.debug("adding Neutron::Router:'%s', gw-net:'%s'", name, ext_gw_net)
 
         self.resources[name] = {
             'type': 'OS::Neutron::Router',
-            'depends_on': [subnet_name],
             'properties': {
                 'name': name,
                 'external_gateway_info': {
@@ -239,35 +240,69 @@ class HeatTemplate(HeatObject):
                 }
             }
         }
+        if provider is None:
+            self.resources[name]['depends_on'] = [subnet_name]
 
-    def add_router_interface(self, name, router_name, subnet_name):
-        """add to the template a Neutron RouterInterface and interface"""
+    def add_router_interface(self, name, router_name, subnet_name,
+                             provider=None):
+        """add to the template a Neutron RouterInterface and interface
+        :param provider: if not None then the net and subnet already exist,
+         default None
+        :type provider: str|None
+        """
+
+        if provider is not None:
+            subnet_name_value = subnet_name
+        else:
+            subnet_name_value = {'get_resource': subnet_name}
+
         log.debug("adding Neutron::RouterInterface '%s' router:'%s', "
                   "subnet:'%s'", name, router_name, subnet_name)
 
         self.resources[name] = {
             'type': 'OS::Neutron::RouterInterface',
-            'depends_on': [router_name, subnet_name],
+            'depends_on': [router_name],
             'properties': {
                 'router_id': {'get_resource': router_name},
-                'subnet_id': {'get_resource': subnet_name}
+                'subnet_id': subnet_name_value
             }
         }
+        if provider is None:
+            self.resources[name]['depends_on'].append(subnet_name)
 
-    def add_port(self, name, network_name, subnet_name, sec_group_id=None):
-        """add to the template a named Neutron Port"""
+    def add_port(self, name, network_name, subnet_name, sec_group_id=None,
+                 provider=None):
+        """add to the template a named Neutron Port
+        :param provider: if not None then the net and subnet already exist,
+         default None
+        :type provider: str|None
+        """
+
+        if provider is not None:
+            network_name_value = network_name
+            subnet_name_value = subnet_name
+        else:
+            network_name_value = {'get_resource': network_name}
+            subnet_name_value = {'get_resource': subnet_name}
+
         log.debug("adding Neutron::Port '%s', network:'%s', subnet:'%s', "
                   "secgroup:%s", name, network_name, subnet_name, sec_group_id)
         self.resources[name] = {
             'type': 'OS::Neutron::Port',
-            'depends_on': [subnet_name],
+            'depends_on': [],
             'properties': {
                 'name': name,
-                'fixed_ips': [{'subnet': {'get_resource': subnet_name}}],
-                'network_id': {'get_resource': network_name},
+                'fixed_ips': [{'subnet': subnet_name_value}],
+                'network_id': network_name_value,
                 'replacement_policy': 'AUTO',
             }
         }
+
+        if provider is None:
+            self.resources[name]['depends_on'] = [subnet_name]
+        elif provider == PROVIDER_SRIOV:
+            self.resources[name]['properties']['binding:vnic_type'] = \
+                'direct'
 
         if sec_group_id:
             self.resources[name]['depends_on'].append(sec_group_id)
