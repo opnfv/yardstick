@@ -47,8 +47,18 @@ class ResourceProfile(object):
         ip_addr = mgmt_interface.get("ip")
         self.vnfip = mgmt_interface.get("host", ip_addr)
         ssh_port = mgmt_interface.get("ssh_port", ssh.DEFAULT_PORT)
-        self.connection = ssh.SSH(user, self.vnfip,
-                                  password=passwd, port=ssh_port)
+        key_filename = mgmt_interface.get('key_filename')
+        if passwd:
+            LOGGING.info("Log in via pw, user:%s, host:%s, pw:%s",
+                         user, self.vnfip, passwd)
+            self.connection = ssh.SSH(user, self.vnfip,
+                                      password=passwd, port=ssh_port)
+        else:
+            LOGGING.info("Log in via key, user:%s, host:%s, key_filename:%s",
+                     user, self.vnfip, key_filename)
+            self.connection = ssh.SSH(user, self.vnfip,
+                                      key_filename=key_filename, port=ssh_port)
+
         self.connection.wait()
 
     def check_if_sa_running(self, process):

@@ -61,10 +61,22 @@ class SshManager(object):
         """
         try:
             ssh_port = self.node.get("ssh_port", ssh.DEFAULT_PORT)
-            self.conn = ssh.SSH(user=self.node["user"],
-                                host=self.node["ip"],
-                                password=self.node["password"],
-                                port=ssh_port)
+            password = self.node.get('password', None)
+            key_filename = self.node.get('key_filename')
+            ip = self.node.get('ip', None)
+            user = self.node.get('user', None)
+
+            if password is not None:
+                LOG.info("Log in via pw, user:%s, host:%s, pw:%s",
+                         user, ip, password)
+                self.conn = ssh.SSH(user, ip, password=password,
+                                    port=ssh_port)
+            else:
+                LOG.info("Log in via key, user:%s, host:%s, key_filename:%s",
+                         user, ip, key_filename)
+                self.conn = ssh.SSH(user, ip, key_filename=key_filename,
+                                          port=ssh_port)
+
             self.conn.wait()
         except (SSHError) as error:
             LOG.info("connect failed to %s, due to %s", self.node["ip"], error)

@@ -70,11 +70,22 @@ class PingTrafficGen(GenericTrafficGen):
 
         mgmt_interface = vnfd["mgmt-interface"]
         ssh_port = mgmt_interface.get("ssh_port", ssh.DEFAULT_PORT)
-        LOG.debug("Connecting to %s", mgmt_interface["ip"])
+        password = mgmt_interface.get('password', None)
+        key_filename = mgmt_interface.get('key_filename')
+        ip = mgmt_interface.get('ip', None)
+        user = mgmt_interface.get('user', None)
 
-        self.connection = ssh.SSH(mgmt_interface["user"], mgmt_interface["ip"],
-                                  password=mgmt_interface["password"],
-                                  port=ssh_port)
+        if password:
+            LOG.info("Log in via pw, user:%s, host:%s, pw:%s",
+                     user, ip, password)
+            self.connection = ssh.SSH(user, ip, password=password,
+                                port=ssh_port)
+        else:
+            LOG.info("Log in via key, user:%s, host:%s, key_filename:%s",
+                     user, ip, key_filename)
+            self.connection = ssh.SSH(user, ip, key_filename=key_filename,
+                                      port=ssh_port)
+
         self.connection.wait()
 
     def _bind_device_kernel(self, connection):
@@ -129,8 +140,9 @@ class PingTrafficGen(GenericTrafficGen):
 
         mgmt_interface = self.vnfd["mgmt-interface"]
         ssh_port = mgmt_interface.get("ssh_port", ssh.DEFAULT_PORT)
+        key_filename = mgmt_interface.get('key_filename', '/root/.ssh/id_rsa')
         self.connection = ssh.SSH(mgmt_interface["user"], mgmt_interface["ip"],
-                                  password=mgmt_interface["password"],
+                                  key_filename=key_filename,
                                   port=ssh_port)
         self.connection.wait()
         external_interface = self.vnfd["vdu"][0]["external-interface"]

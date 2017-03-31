@@ -56,9 +56,22 @@ class TrexTrafficGenRFC(GenericTrafficGen):
 
         mgmt_interface = self.vnfd["mgmt-interface"]
         ssh_port = mgmt_interface.get("ssh_port", ssh.DEFAULT_PORT)
-        self.connection = ssh.SSH(mgmt_interface["user"], mgmt_interface["ip"],
-                                  password=mgmt_interface["password"],
-                                  port=ssh_port)
+        password = mgmt_interface.get('password', None)
+        key_filename = mgmt_interface.get('key_filename')
+        ip = mgmt_interface.get('ip', None)
+        user = mgmt_interface.get('user', None)
+
+        if password:
+            LOGGING.info("Log in via pw, user:%s, host:%s, pw:%s",
+                     user, ip, password)
+            self.connection = ssh.SSH(user, ip, password=password,
+                                port=ssh_port)
+        else:
+            LOGGING.info("Log in via key, user:%s, host:%s, key_filename:%s",
+                     user, ip, key_filename)
+            self.connection = ssh.SSH(user, ip, key_filename=key_filename,
+                                      port=ssh_port)
+
         self.connection.wait()
 
     @classmethod
@@ -167,9 +180,21 @@ class TrexTrafficGenRFC(GenericTrafficGen):
     def _start_server(self):
         mgmt_interface = self.vnfd["mgmt-interface"]
         ssh_port = mgmt_interface.get("ssh_port", ssh.DEFAULT_PORT)
-        _server = ssh.SSH(mgmt_interface["user"], mgmt_interface["ip"],
-                          password=mgmt_interface["password"],
-                          port=ssh_port)
+        password = mgmt_interface.get('password', None)
+        key_filename = mgmt_interface.get('key_filename')
+        ip = mgmt_interface.get('ip', None)
+        user = mgmt_interface.get('user', None)
+
+        if password:
+            LOGGING.info("Log in via pw, user:%s, host:%s, pw:%s",
+                     user, ip, password)
+            _server = ssh.SSH(user, ip, password=password,
+                                port=ssh_port)
+        else:
+            LOGGING.info("Log in via key, user:%s, host:%s, key_filename:%s",
+                     user, ip, key_filename)
+            _server = ssh.SSH(user, ip, key_filename=key_filename,
+                                      port=ssh_port)
         _server.wait()
 
         _server.execute("sudo fuser -n tcp %s %s -k > /dev/null 2>&1" %
