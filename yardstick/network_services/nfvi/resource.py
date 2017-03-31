@@ -24,6 +24,8 @@ from yardstick import ssh
 from yardstick.network_services.nfvi.collectd import AmqpConsumer
 from yardstick.network_services.utils import provision_tool
 
+LOGGING = logging.getLogger(__name__)
+
 CONF = cfg.CONF
 ZMQ_OVS_PORT = 5567
 ZMQ_POLLING_TIME = 12000
@@ -112,7 +114,7 @@ class ResourceProfile(object):
             while not _queue.empty():
                 metric.update(_queue.get())
         except (AttributeError, RuntimeError, TypeError, ValueError):
-            logging.debug("Failed to get NFVi stats...")
+            LOGGING.debug("Failed to get NFVi stats...")
             msg = {}
         else:
             msg = self.parse_collectd_result(metric, self.cores)
@@ -121,12 +123,14 @@ class ResourceProfile(object):
 
     @classmethod
     def _start_collectd(cls, connection, bin_path):
-        connection.execute('pkill -9 collectd')
+        LOGGING.debug("Starting collectd to collect NFVi stats")
+        connection.execute('sudo pkill -9 collectd')
         collectd = os.path.join(bin_path, "collectd.sh")
         provision_tool(connection, collectd)
         provision_tool(connection, os.path.join(bin_path, "collectd.conf"))
 
         # Reset amqp queue
+        LOGGING.debug("reset and setup amqp to collect data from collectd")
         connection.execute("sudo service rabbitmq-server start")
         connection.execute("sudo rabbitmqctl stop_app")
         connection.execute("sudo rabbitmqctl reset")
@@ -134,8 +138,11 @@ class ResourceProfile(object):
         connection.execute("sudo service rabbitmq-server restart")
 
         # Run collectd
-        connection.execute(collectd)
+
+        connection.execute("sudo %s" % collectd)
+        LOGGING.debug("Start collectd service.....")
         connection.execute(os.path.join(bin_path, "collectd", "collectd"))
+        LOGGING.debug("Done")
 
     def initiate_systemagent(self, bin_path):
         """ Start system agent for NFVi collection on host """
@@ -154,7 +161,7 @@ class ResourceProfile(object):
             logging.debug("Stop resource monitor...")
             status, pid = self.check_if_sa_running(agent)
             if status:
-                self.connection.execute('kill -9 %s' % pid)
-                self.connection.execute('pkill -9 %s' % agent)
-                self.connection.execute('service rabbitmq-server stop')
+                self.connection.execute('sudo kill -9 %s' % pid)
+                self.connection.execute('sudo pkill -9 %s' % agent)
+                self.connection.execute('sudo service rabbitmq-server stop')
                 self.connection.execute("sudo rabbitmqctl stop_app")

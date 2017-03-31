@@ -197,8 +197,7 @@ class TestPingTrafficGen(unittest.TestCase):
             self.sut.connection = mock.Mock()
             self.sut.connection.run = mock.Mock()
             self.sut._traffic_runner = mock.Mock(return_value=0)
-            self.assertEqual(
-                False, self.sut.run_traffic(mock_traffic_profile))
+            self.assertIsNotNone(self.sut.run_traffic(mock_traffic_profile))
 
     def test_run_traffic_process(self):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)

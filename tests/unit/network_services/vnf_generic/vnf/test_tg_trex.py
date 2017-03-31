@@ -218,6 +218,11 @@ class TestTrexTrafficGen(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGen(vnfd)
+            trex_traffic_gen._start_server = mock.Mock(return_value=0)
+            trex_traffic_gen._tg_process = mock.MagicMock()
+            trex_traffic_gen._tg_process.start = mock.Mock()
+            trex_traffic_gen._tg_process.exitcode = 0
+            trex_traffic_gen._tg_process._is_alive = mock.Mock(return_value=1)
             self.assertEqual(0, trex_traffic_gen.instantiate({}, {}))
 
     def test_instantiate_error(self):
@@ -233,6 +238,10 @@ class TestTrexTrafficGen(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGen(vnfd)
+            trex_traffic_gen._start_server = mock.Mock(return_value=0)
+            trex_traffic_gen._tg_process = mock.MagicMock()
+            trex_traffic_gen._tg_process.start = mock.Mock()
+            trex_traffic_gen._tg_process._is_alive = mock.Mock(return_value=0)
             self.assertRaises(RuntimeError,
                               trex_traffic_gen.instantiate, {}, {})
 
