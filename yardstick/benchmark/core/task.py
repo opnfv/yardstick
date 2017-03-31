@@ -107,6 +107,7 @@ class Task(object):     # pragma: no cover
             except KeyboardInterrupt:
                 raise
             except Exception:
+                LOG.exception("")
                 testcases[case_name] = {'criteria': 'FAIL', 'tc_data': []}
             else:
                 testcases[case_name] = {'criteria': 'PASS', 'tc_data': data}

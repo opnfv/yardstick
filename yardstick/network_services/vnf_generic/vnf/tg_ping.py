@@ -17,6 +17,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 import logging
 import multiprocessing
+import posixpath
 import re
 import time
 import os

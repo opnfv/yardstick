@@ -53,6 +53,7 @@ class TrexTrafficGenRFC(GenericTrafficGen):
         self.tc_file_name = None
         self.client = None
         self.my_ports = None
+        self.tolerance = [0.8, 1.0]
 
         mgmt_interface = self.vnfd["mgmt-interface"]
 
@@ -105,7 +106,7 @@ class TrexTrafficGenRFC(GenericTrafficGen):
 
         with open('/tmp/trex_cfg.yaml', 'w') as outfile:
             outfile.write(yaml.safe_dump(cfg_file, default_flow_style=False))
-        self.connection.put('/tmp/trex_cfg.yaml', '/etc')
+        self.connection.put('/tmp/trex_cfg.yaml', '/tmp')
 
         self._vpci_ascending = sorted(vpci)
 
@@ -121,6 +122,9 @@ class TrexTrafficGenRFC(GenericTrafficGen):
             self.connection.execute("ls {} >/dev/null 2>&1".format(trex))
         if err != 0:
             self.connection.put(trex, trex, True)
+        self.connection.execute("sudo modprobe uio && sudo modprobe igb_uio")
+
+        self.tolerance = self._get_rfc_tolerance(scenario_cfg)
 
         LOGGING.debug("Starting TRex server...")
         _tg_server = \
@@ -131,7 +135,7 @@ class TrexTrafficGenRFC(GenericTrafficGen):
             time.sleep(WAIT_TIME)
 
             status = \
-                self.connection.execute("lsof -i:%s" % TREX_SYNC_PORT)[0]
+                self.connection.execute("sudo lsof -i:%s" % TREX_SYNC_PORT)[0]
             if status == 0:
                 LOGGING.info("TG server is up and running.")
                 return _tg_server.exitcode
@@ -168,13 +172,15 @@ class TrexTrafficGenRFC(GenericTrafficGen):
         _server = ssh.SSH.from_node(mgmt_interface)
         _server.wait()
 
-        _server.execute("fuser -n tcp %s %s -k > /dev/null 2>&1" %
+        _server.execute("sudo fuser -n tcp %s %s -k > /dev/null 2>&1" %
                         (TREX_SYNC_PORT, TREX_ASYNC_PORT))
-        _server.execute("pkill -9 rex > /dev/null 2>&1")
+        _server.execute("sudo pkill -9 rex > /dev/null 2>&1")
 
         trex_path = os.path.join(self.bin_path, "trex/scripts")
         path = get_nsb_option("trex_path", trex_path)
-        trex_cmd = "cd " + path + "; sudo ./t-rex-64 -i > /dev/null 2>&1"
+        # must sudo bash to cd, because we can't cd as non-root
+        trex_cmd = "sudo bash -c 'cd {}; ./t-rex-64 -i --cfg /tmp/trex_cfg.yaml >/dev/null'"
+        trex_cmd = trex_cmd.format(path)
 
         _server.execute(trex_cmd)
 
@@ -193,13 +199,9 @@ class TrexTrafficGenRFC(GenericTrafficGen):
         return client
 
     @classmethod
-    def _get_rfc_tolerance(cls, tc_yaml):
-        tolerance = '0.8 - 1.0'
-        if 'tc_options' in tc_yaml['scenarios'][0]:
-            tc_options = tc_yaml['scenarios'][0]['tc_options']
-            if 'rfc2544' in tc_options:
-                tolerance = \
-                    tc_options['rfc2544'].get('allowed_drop_rate', '0.8 - 1.0')
+    def _get_rfc_tolerance(cls, scenario_cfg):
+        tc_options = scenario_cfg.get('tc_options', {})
+        tolerance = tc_options.get('rfc2544', {}).get('allowed_drop_rate', '0.8 - 1.0')
 
         tolerance = tolerance.split('-')
         min_tol = float(tolerance[0])
@@ -213,12 +215,6 @@ class TrexTrafficGenRFC(GenericTrafficGen):
     def _traffic_runner(self, traffic_profile, queue,
                         client_started, terminated):
         LOGGING.info("Starting TRex client...")
-        tc_yaml = {}
-
-        with open(self.tc_file_name) as tc_file:
-            tc_yaml = yaml.load(tc_file.read())
-
-        tolerance = self._get_rfc_tolerance(tc_yaml)
 
         # fixme: fix passing correct trex config file,
         # instead of searching the default path
@@ -258,7 +254,7 @@ class TrexTrafficGenRFC(GenericTrafficGen):
 
             samples = \
                 traffic_profile.get_drop_percentage(self, samples,
-                                                    tolerance[0], tolerance[1])
+                                                    self.tolerance[0], self.tolerance[1])
             queue.put(samples)
         self.client.stop(self.my_ports)
         self.client.disconnect()
@@ -274,7 +270,7 @@ class TrexTrafficGenRFC(GenericTrafficGen):
     def terminate(self):
         self._terminated.value = 1  # stop Trex clinet
 
-        self.connection.execute("fuser -n tcp %s %s -k > /dev/null 2>&1" %
+        self.connection.execute("sudo fuser -n tcp %s %s -k > /dev/null 2>&1" %
                                 (TREX_SYNC_PORT, TREX_ASYNC_PORT))
 
         if self._traffic_process:

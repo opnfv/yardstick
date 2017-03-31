@@ -231,13 +231,16 @@ name (i.e. %s).\
         }
 
     def add_network(self, name, physical_network='physnet1', provider=None,
-                    segmentation_id=None):
+                    segmentation_id=None, port_security_enabled=True):
         """add to the template a Neutron Net"""
         log.debug("adding Neutron::Net '%s'", name)
         if provider is None:
             self.resources[name] = {
                 'type': 'OS::Neutron::Net',
-                'properties': {'name': name}
+                'properties': {
+                    'name': name,
+                    'port_security_enabled': port_security_enabled,
+                }
             }
         else:
             self.resources[name] = {
@@ -245,12 +248,12 @@ name (i.e. %s).\
                 'properties': {
                     'name': name,
                     'network_type': 'vlan',
-                    'physical_network': physical_network
+                    'physical_network': physical_network,
+                    'port_security_enabled': port_security_enabled,
                 }
             }
             if segmentation_id:
-                seg_id_dit = {'segmentation_id': segmentation_id}
-                self.resources[name]["properties"].update(seg_id_dit)
+                self.resources[name]['properties']['segmentation_id'] = segmentation_id
 
     def add_server_group(self, name, policies):     # pragma: no cover
         """add to the template a ServerGroup"""
@@ -262,8 +265,9 @@ name (i.e. %s).\
                            'policies': policies}
         }
 
-    def add_subnet(self, name, network, cidr):
-        """add to the template a Neutron Subnet"""
+    def add_subnet(self, name, network, cidr, enable_dhcp='true'):
+        """add to the template a Neutron Subnet
+        """
         log.debug("adding Neutron::Subnet '%s' in network '%s', cidr '%s'",
                   name, network, cidr)
         self.resources[name] = {
@@ -272,7 +276,8 @@ name (i.e. %s).\
             'properties': {
                 'name': name,
                 'cidr': cidr,
-                'network_id': {'get_resource': network}
+                'network_id': {'get_resource': network},
+                'enable_dhcp': enable_dhcp,
             }
         }
 
@@ -316,9 +321,10 @@ name (i.e. %s).\
             }
         }
 
-    def add_port(self, name, network_name, subnet_name, sec_group_id=None,
-                 provider=None):
-        """add to the template a named Neutron Port"""
+    def add_port(self, name, network_name, subnet_name, sec_group_id=None, provider=None,
+                 allowed_address_pairs=None):
+        """add to the template a named Neutron Port
+        """
         log.debug("adding Neutron::Port '%s', network:'%s', subnet:'%s', "
                   "secgroup:%s", name, network_name, subnet_name, sec_group_id)
         self.resources[name] = {
@@ -340,6 +346,10 @@ name (i.e. %s).\
             self.resources[name]['depends_on'].append(sec_group_id)
             self.resources[name]['properties']['security_groups'] = \
                 [sec_group_id]
+
+        if allowed_address_pairs:
+            self.resources[name]['properties'][
+                'allowed_address_pairs'] = allowed_address_pairs
 
         self._template['outputs'][name] = {
             'description': 'Address for interface %s' % name,
