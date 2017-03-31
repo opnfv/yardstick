@@ -25,13 +25,13 @@ from collections import defaultdict
 
 import yaml
 
+from yardstick import ssh
 from yardstick.benchmark.scenarios import base
 from yardstick.common.utils import import_modules_from_package, itersubclasses
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic import vnfdgen
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.traffic_profile.base import TrafficProfile
-from yardstick import ssh
 
 LOG = logging.getLogger(__name__)
 
@@ -78,6 +78,36 @@ class SshManager(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         if self.conn:
             self.conn.close()
+
+def find_relative_file(path, task_path):
+    # fixme: create schema to validate all fields have been provided
+    try:
+        with open(path):
+            pass
+        return path
+    except IOError as e:
+        if e.errno != errno.ENOENT:
+            raise
+        else:
+            rel_path = os.path.join(task_path, path)
+            with open(rel_path):
+                pass
+            return rel_path
+
+def find_relative_file(path, task_path):
+    # fixme: create schema to validate all fields have been provided
+    try:
+        with open(path):
+            pass
+        return path
+    except IOError as e:
+        if e.errno != errno.ENOENT:
+            raise
+        else:
+            rel_path = os.path.join(task_path, path)
+            with open(rel_path):
+                pass
+            return rel_path
 
 
 def open_relative_file(path, task_path):
@@ -130,7 +160,6 @@ class NetworkServiceTestCase(base.Scenario):
 
     @classmethod
     def _get_traffic_profile(cls, scenario_cfg, context_cfg):
-        traffic_profile_tpl = ""
         private = {}
         public = {}
         try:
@@ -273,7 +302,7 @@ class NetworkServiceTestCase(base.Scenario):
                     stdout)
                 self._sort_dpdk_port_num(netdevs)
 
-                for network in node_dict["interfaces"].values():
+                for network_name, network in node_dict["interfaces"].items():
                     missing = self.TOPOLOGY_REQUIRED_KEYS.difference(network)
                     if missing:
                         try:
@@ -286,9 +315,10 @@ class NetworkServiceTestCase(base.Scenario):
                                 network)
                         if missing:
                             raise IncorrectConfig(
-                                "Require interface fields '%s' "
-                                "not found, topology file "
-                                "corrupted" % ', '.join(missing))
+                                "Require interface fields '{}' "
+                                "not found for interface {}, topology file "
+                                "corrupted".format(', '.join(missing),
+                                                   network_name))
 
         # 3. Use topology file to find connections & resolve dest address
         self._resolve_topology(context_cfg, topology)
@@ -393,6 +423,9 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
         except RuntimeError:
             for vnf in self.vnfs:
                 vnf.terminate()
+            raise
+        except:
+            LOG.exception("Exception during VNF instantiate")
             raise
 
         # 3. Run experiment
