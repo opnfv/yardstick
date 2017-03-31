@@ -136,9 +136,10 @@ class PingTrafficGen(GenericTrafficGen):
 
         run_cmd = []
 
-        run_cmd.append("ip addr flush %s" % local_if_name)
-        run_cmd.append("ip addr add %s/24 dev %s" % (local_ip, local_if_name))
-        run_cmd.append("ip link set %s up" % local_if_name)
+        run_cmd.append("sudo ip addr flush %s" % local_if_name)
+        run_cmd.append("sudo ip addr add %s/24 dev %s" % (local_ip,
+                                                          local_if_name))
+        run_cmd.append("sudo ip link set %s up" % local_if_name)
 
         for cmd in run_cmd:
             self.connection.execute(cmd)
