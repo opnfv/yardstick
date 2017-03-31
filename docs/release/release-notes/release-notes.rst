@@ -90,7 +90,7 @@ and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
 
 * Yardstick test cases yaml files
 
-* Yardstick pliug-in configration yaml files, plug-in install/remove scripts
+* Yardstick plug-in configration yaml files, plug-in install/remove scripts
 
 For Danube release, the *Yardstick framework* is used for the following
 testing:
@@ -162,9 +162,9 @@ Deliverables
 Documents
 ---------
 
- - User Guide: http://artifacts.opnfv.org/yardstick/Danube/docs/userguide/index.html
+ - User Guide: http://docs.opnfv.org/en/stable-danube/submodules/yardstick/docs/testing/user/userguide/index.html
 
- - Test Results: http://artifacts.opnfv.org/yardstick/Danube/docs/results/overview.html
+ - Developer Guide: http://docs.opnfv.org/en/stable-danube/submodules/yardstick/docs/testing/developer/devguide/index.html
 
 
 Software Deliverables
@@ -205,8 +205,7 @@ Software Deliverables
 | *Node*              | Models Baremetal, Controller, Compute                 |
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
-| *Standalone*        | Models to deploy/undeploy NFVi infrastructure to run  |
-|                     | the VNF                                               |
+| *Standalone*        | Models VM running on Non-Managed NFVi                 |
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 
@@ -466,15 +465,17 @@ Delivered Test cases
 * Test Cases for Virtual Traffic Classifier:
 
   * OPNFV_YARDSTICK_TC006 - Virtual Traffic Classifier Data Plane Throughput
-Benchmarking Test
+
+* Benchmarking Test:
 
   * OPNFV_YARDSTICK_TC007 - Virtual Traffic Classifier Data Plane Throughput
-Benchmarking in presence of noisy neighbors Test
+
+* Benchmarking in presence of noisy neighbors Test:
 
   * OPNFV_YARDSTICK_TC020 - Virtual Traffic Classifier Instantiation Test
 
   * OPNFV_YARDSTICK_TC021 - Virtual Traffic Classifier Instantiation in
-presence of noisy neighbors Test
+    presence of noisy neighbors Test
 
 
 Version Change
@@ -483,40 +484,52 @@ Version Change
 Module Version Changes
 ----------------------
 
-This is the second tracked release of Yardstick. It is based on following
+This is the fourth tracked release of Yardstick. It is based on following
 upstream versions:
 
-- ONOS Goldeneye
+- ONOS Ibis
 
 - OpenStack Newton
 
-- OpenDaylight Beryllium
+- OpenDaylight Boron
 
 
 Document Version Changes
 ------------------------
 
-This is the fouth tracked version of the Yardstick framework in OPNFV.
+This is the fourth tracked version of the Yardstick framework in OPNFV.
 It includes the following documentation updates:
 
 - Yardstick User Guide: add "network service benchmarking(NSB)" chapter;
-  add "Yardstick - NSB Testing -Installation" chapter;
-  Update Yardstick installation chapter;
+  add "Yardstick - NSB Testing -Installation" chapter; add "Yardstick API" chapter;
+  add "Yardstick user interface" chapter; Update Yardstick installation chapter;
 
 - Yardstick Developer Guide
 
-- Yardstick Code Documentation: no changes
-
 - Yardstick Release Notes for Yardstick: this document
-
-- Test Results report for Danube testing with Yardstick: updated listed of
-verified scenarios and limitations
 
 
 Feature additions
 -----------------
-- Yardstick ReST API support
-- Network service benchmarking
+
+- Yardstick RESTful API support
+
+- Introduce Network service benchmarking
+
+- Introduce stress testing with Bottlenecks team
+
+- Yardstick framework improvement:
+
+  - Parellel test cases execution support
+
+  - yardstick report CLI
+
+  - Node context support openstack configuration via Ansible
+
+  - Https support
+
+- Python 3 support
+
 
 Scenario Matrix
 ===============
@@ -601,16 +614,12 @@ The reporting pages can be found at:
  * fuel: http://testresults.opnfv.org/reporting/yardstick/release/danube/index-status-fuel.html
  * joid: http://testresults.opnfv.org/reporting/yardstick/release/danube/index-status-joid.html
 
-You can get additional details through test logs on http://artifacts.opnfv.org/.
-As no search engine is available on the OPNFV artifact web site you must
-retrieve the pod identifier on which the tests have been executed (see
-field pod in any of the results) then click on the selected POD and look
-for the date of the test you are interested in.
-
 
 Known Issues/Faults
 ------------
+
  - Floating IP not supported in bgpvpn scenario
+
  - VM instance cannot get floating IP in compass-os-odl_l2-nofeature-ha scenario
 
 .. note:: The faults not related to *Yardstick* framework, addressing scenarios
@@ -621,36 +630,17 @@ Known Issues/Faults
 Corrected Faults
 ----------------
 
-
 Danube.1.0:
 
 +----------------------------+------------------------------------------------+
 | **JIRA REFERENCE**         | **SLOGAN**                                     |
 |                            |                                                |
 +----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-593        | fix yardstick-image built without test tools   |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
 | JIRA: YARDSTICK-599        | Could not load EntryPoint.parse when using     |
 |                            | 'openstack -h'                                 |
 +----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-600        | netperf_bottleneck execute failed because      |
-|                            | is_same_heat_context return True               |
-+----------------------------+------------------------------------------------+
 | JIRA: YARDSTICK-602        | Don't rely on staic ip addresses as they       |
 |                            | are dynamic                                    |
-+----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-604        | add storperf flavor for TC074                  |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-605        | pathspec 'master' did not match any file(s)    |
-|                            | known to git                                   |
-+----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-607        | Error validating value 'cirros-0.3.5'          |
-|                            |                                                |
-+----------------------------+------------------------------------------------+
-| JIRA: YARDSTICK-609        | Remove improper license header in swagger docs |
-|                            |                                                |
 +----------------------------+------------------------------------------------+
 
 
@@ -687,14 +677,13 @@ Open JIRA tickets
 |                            |                                                |
 +----------------------------+------------------------------------------------+
 
+
 Useful links
 ============
 
  - wiki project page: https://wiki.opnfv.org/display/yardstick/Yardstick
 
  - wiki Yardstick Danube release planing page: https://wiki.opnfv.org/display/yardstick/Yardstick+Danube+Release+Planning
-
- - wiki Yardstick Danube release jira page: https://wiki.opnfv.org/display/yardstick/Jira+Yardstick-Danube
 
  - Yardstick repo: https://git.opnfv.org/cgit/yardstick
 
