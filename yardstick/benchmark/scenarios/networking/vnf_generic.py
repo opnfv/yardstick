@@ -25,13 +25,13 @@ from collections import defaultdict
 
 import yaml
 
+from yardstick import ssh
 from yardstick.benchmark.scenarios import base
 from yardstick.common.utils import import_modules_from_package, itersubclasses
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic import vnfdgen
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.traffic_profile.base import TrafficProfile
-from yardstick import ssh
 
 LOG = logging.getLogger(__name__)
 
@@ -78,6 +78,22 @@ class SshManager(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         if self.conn:
             self.conn.close()
+
+
+def find_relative_file(path, task_path):
+    # fixme: create schema to validate all fields have been provided
+    try:
+        with open(path):
+            pass
+        return path
+    except IOError as e:
+        if e.errno != errno.ENOENT:
+            raise
+        else:
+            rel_path = os.path.join(task_path, path)
+            with open(rel_path):
+                pass
+            return rel_path
 
 
 def open_relative_file(path, task_path):
