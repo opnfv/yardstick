@@ -239,7 +239,7 @@ class TestGenericTrafficGen(unittest.TestCase):
         vnfd = TestGenericVNF.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         generic_traffic_gen = \
             GenericTrafficGen(vnfd)
-        assert generic_traffic_gen.name == "tgen__1"
+        assert generic_traffic_gen.name == ""
 
     def test_listen_traffic(self):
         vnfd = TestGenericVNF.VNFD['vnfd:vnfd-catalog']['vnfd'][0]

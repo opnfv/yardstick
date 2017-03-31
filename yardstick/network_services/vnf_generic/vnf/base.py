@@ -72,7 +72,8 @@ class GenericVNF(object):
         # Standard dictionary containing params like thread no, buffer size etc
         self.config = {}
         self.runs_traffic = False
-        self.name = "vnf__1"  # name in topology file
+        # overwritten by load_vnf_model
+        self.name = ""  # name in topology file
         self.bin_path = get_nsb_option("bin_path", "")
 
     @classmethod
@@ -281,6 +282,20 @@ class GenericVNF(object):
         """
         raise NotImplementedError()
 
+    @classmethod
+    def setup_hugepages(cls, connection):
+        hugepages = \
+            connection.execute(
+                "awk '/Hugepagesize/ { print $2$3 }' < /proc/meminfo")[1]
+        hugepages = hugepages.rstrip()
+
+        memory_path = \
+            '/sys/kernel/mm/hugepages/hugepages-%s/nr_hugepages' % hugepages
+        connection.execute("awk -F: '{ print $1 }' < %s" % memory_path)
+
+        pages = 16384 if hugepages.rstrip() == "2048kB" else 16
+        connection.execute("echo %s | sudo tee %s" % (pages, memory_path))
+
 
 class GenericTrafficGen(GenericVNF):
     """ Class providing file-like API for generic traffic generator """
@@ -289,7 +304,7 @@ class GenericTrafficGen(GenericVNF):
         super(GenericTrafficGen, self).__init__(vnfd)
         self.runs_traffic = True
         self.traffic_finished = False
-        self.name = "tgen__1"  # name in topology file
+        self.name = ""  # name in topology file
 
     def run_traffic(self, traffic_profile):
         """ Generate traffic on the wire according to the given params.

@@ -68,25 +68,11 @@ class VpeApproxVnf(GenericVNF):
 
         return result
 
-    @classmethod
-    def __setup_hugepages(cls, connection):
-        hugepages = \
-            connection.execute(
-                "awk '/Hugepagesize/ { print $2$3 }' < /proc/meminfo")[1]
-        hugepages = hugepages.rstrip()
-
-        memory_path = \
-            '/sys/kernel/mm/hugepages/hugepages-%s/nr_hugepages' % hugepages
-        connection.execute("awk -F: '{ print $1 }' < %s" % memory_path)
-
-        pages = 16384 if hugepages.rstrip() == "2048kB" else 16
-        connection.execute("echo %s > %s" % (pages, memory_path))
-
     def setup_vnf_environment(self, connection):
-        ''' setup dpdk environment needed for vnf to run '''
+        """ setup dpdk environment needed for vnf to run """
 
-        self.__setup_hugepages(connection)
-        connection.execute("modprobe uio && modprobe igb_uio")
+        self.setup_hugepages(connection)
+        connection.execute("sudo modprobe uio && sudo modprobe igb_uio")
 
         exit_status = connection.execute("lsmod | grep -i igb_uio")[0]
         if exit_status == 0:
