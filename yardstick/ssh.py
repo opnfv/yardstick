@@ -240,7 +240,7 @@ class SSH(object):
 
             if session.recv_ready():
                 data = encodeutils.safe_decode(session.recv(4096), 'utf-8')
-                self.log.debug("stdout: %r", data)
+                self.log.debug("stdout: %s", data)
                 if stdout is not None:
                     stdout.write(data)
                 continue
@@ -248,7 +248,7 @@ class SSH(object):
             if session.recv_stderr_ready():
                 stderr_data = encodeutils.safe_decode(
                     session.recv_stderr(4096), 'utf-8')
-                self.log.debug("stderr: %r", stderr_data)
+                self.log.debug("stderr: %s", stderr_data)
                 if stderr is not None:
                     stderr.write(stderr_data)
                 continue

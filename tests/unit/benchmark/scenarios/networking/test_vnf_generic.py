@@ -25,8 +25,7 @@ import unittest
 import mock
 
 from yardstick.benchmark.scenarios.networking.vnf_generic import \
-    SshManager, NetworkServiceTestCase, IncorrectConfig, \
-    IncorrectSetup, open_relative_file
+    open_relative_file, NetworkServiceTestCase, IncorrectConfig
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic.vnf.base import \
     GenericTrafficGen, GenericVNF
@@ -313,16 +312,6 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
-    def test_ssh_manager(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
-            ssh.from_node.return_value = ssh_mock
-            for node, node_dict in self.context_cfg["nodes"].items():
-                with SshManager(node_dict) as conn:
-                    self.assertIsNotNone(conn)
-
     def test___init__(self):
         assert self.topology
 
@@ -376,7 +365,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 mock.Mock(return_value=(1, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.from_node.return_value = ssh_mock
 
-            self.assertRaises(IncorrectSetup,
+            self.assertRaises(IncorrectConfig,
                               self.s.map_topology_to_infrastructure,
                               self.context_cfg, self.topology)
 
@@ -493,31 +482,31 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         self.assertIsNone(self.s.teardown())
 
     SAMPLE_NETDEVS = {
-            'enp11s0': {
-                'address': '0a:de:ad:be:ef:f5',
-                'device': '0x1533',
-                'driver': 'igb',
-                'ifindex': '2',
-                'interface_name': 'enp11s0',
-                'operstate': 'down',
-                'pci_bus_id': '0000:0b:00.0',
-                'subsystem_device': '0x1533',
-                'subsystem_vendor': '0x15d9',
-                'vendor': '0x8086'
-                },
-            'lan': {
-                'address': '0a:de:ad:be:ef:f4',
-                'device': '0x153a',
-                'driver': 'e1000e',
-                'ifindex': '3',
-                'interface_name': 'lan',
-                'operstate': 'up',
-                'pci_bus_id': '0000:00:19.0',
-                'subsystem_device': '0x153a',
-                'subsystem_vendor': '0x15d9',
-                'vendor': '0x8086'
-                }
+        'enp11s0': {
+            'address': '0a:de:ad:be:ef:f5',
+            'device': '0x1533',
+            'driver': 'igb',
+            'ifindex': '2',
+            'interface_name': 'enp11s0',
+            'operstate': 'down',
+            'pci_bus_id': '0000:0b:00.0',
+            'subsystem_device': '0x1533',
+            'subsystem_vendor': '0x15d9',
+            'vendor': '0x8086'
+        },
+        'lan': {
+            'address': '0a:de:ad:be:ef:f4',
+            'device': '0x153a',
+            'driver': 'e1000e',
+            'ifindex': '3',
+            'interface_name': 'lan',
+            'operstate': 'up',
+            'pci_bus_id': '0000:00:19.0',
+            'subsystem_device': '0x153a',
+            'subsystem_vendor': '0x15d9',
+            'vendor': '0x8086'
         }
+    }
     SAMPLE_VM_NETDEVS = {
         'eth1': {
             'address': 'fa:de:ad:be:ef:5b',
