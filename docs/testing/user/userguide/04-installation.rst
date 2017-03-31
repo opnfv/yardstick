@@ -417,6 +417,14 @@ Deploy InfluxDB and Grafana directly in Ubuntu (**Todo**)
 -----------------------------------------------------------
 
 
+Run Yardstick in a local environment
+------------------------------------
+
+We also have a guide about how to run Yardstick in a local environment.
+This work is contributed by Tapio Tallgren.
+You can find this guide at `here <https://wiki.opnfv.org/display/yardstick/How+to+run+Yardstick+in+a+local+environment>`_. 
+
+
 Create a test suite for Yardstick
 ------------------------------------
 
