@@ -132,7 +132,7 @@ class PktgenTestCase(unittest.TestCase):
         p._iptables_get_result = mock_iptables_result
 
         sample_output = '{"packets_per_second": 9753, "errors": 0, \
-            "packets_sent": 149776, "flows": 110}'
+            "packets_sent": 149776, "packetsize": 60, "flows": 110}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
         p.run(result)
@@ -158,7 +158,7 @@ class PktgenTestCase(unittest.TestCase):
         p._iptables_get_result = mock_iptables_result
 
         sample_output = '{"packets_per_second": 9753, "errors": 0, \
-            "packets_sent": 149776, "flows": 110}'
+            "packets_sent": 149776, "packetsize": 60, "flows": 110}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
 
         p.run(result)
@@ -184,7 +184,7 @@ class PktgenTestCase(unittest.TestCase):
         p._iptables_get_result = mock_iptables_result
 
         sample_output = '{"packets_per_second": 9753, "errors": 0, \
-            "packets_sent": 149776, "flows": 110}'
+            "packets_sent": 149776, "packetsize": 60, "flows": 110}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, p.run, result)
 
