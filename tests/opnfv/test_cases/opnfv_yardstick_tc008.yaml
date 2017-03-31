@@ -65,3 +65,9 @@ context:
   networks:
     test:
       cidr: '10.0.1.0/24'
+    #test-sriov:
+      #cidr: '10.0.1.0/24'
+      #provider: "sriov"
+      #net: "sriov_net1"
+      #subnet: "sriov_subnet1"
+

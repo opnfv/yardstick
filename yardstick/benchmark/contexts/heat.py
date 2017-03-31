@@ -133,17 +133,21 @@ class HeatContext(Context):
         template.add_security_group(self.secgroup_name)
 
         for network in self.networks:
-            template.add_network(network.stack_name)
-            template.add_subnet(network.subnet_stack_name, network.stack_name,
-                                network.subnet_cidr)
+            if network.provider is None:
+                template.add_network(network.stack_name)
+                template.add_subnet(network.subnet_stack_name,
+                                    network.stack_name,
+                                    network.subnet_cidr)
 
             if network.router:
                 template.add_router(network.router.stack_name,
                                     network.router.external_gateway_info,
-                                    network.subnet_stack_name)
+                                    network.subnet_stack_name,
+                                    network.provider)
                 template.add_router_interface(network.router.stack_if_name,
                                               network.router.stack_name,
-                                              network.subnet_stack_name)
+                                              network.subnet_stack_name,
+                                              network.provider)
 
         # create a list of servers sorted by increasing no of placement groups
         list_of_servers = sorted(self.servers,
