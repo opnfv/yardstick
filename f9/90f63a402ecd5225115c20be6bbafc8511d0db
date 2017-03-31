@@ -1,0 +1,9 @@
+Code-Review+2: Kubi <jean.gaoliang@huawei.com>
+Verified+1: Kubi <jean.gaoliang@huawei.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Jing Lu <lvjing5@huawei.com>
+Submitted-by: Jing Lu <lvjing5@huawei.com>
+Submitted-at: Fri, 31 Mar 2017 09:58:27 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/32753
+Project: yardstick
+Branch: refs/heads/stable/danube
