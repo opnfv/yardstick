@@ -61,22 +61,26 @@ This document consists of the following chapters:
 * Chapter :doc:`08-api` provides inforamtion on *Yardstick* ReST API and how to
   use *Yardstick* API.
 
-* Chapter :doc:`09-vtc-overview` provides information on the :term:`VTC`.
+* Chapter :doc:`09-yardstick_user_interface` provides inforamtion on how to use
+  yardstick report CLI to view the test result in table format and also values
+  pinned on to a graph
 
-* Chapter :doc:`10-apexlake_installation` provides instructions to install the
+* Chapter :doc:`10-vtc-overview` provides information on the :term:`VTC`.
+
+* Chapter :doc:`11-apexlake_installation` provides instructions to install the
   experimental framework *ApexLake*
 
-* Chapter :doc:`11-apexlake_api` explains how this framework is integrated in
+* Chapter :doc:`12-apexlake_api` explains how this framework is integrated in
   *Yardstick*.
 
-* Chapter :doc:`12-nsb-overview` describes the methodology implemented by the
+* Chapter :doc:`13-nsb-overview` describes the methodology implemented by the
   Yardstick - Network service benchmarking to test real world usecase for a
   given VNF.
 
-* Chapter :doc:`13-nsb_installation` provides instructions to install
+* Chapter :doc:`14-nsb_installation` provides instructions to install
   *Yardstick - Network service benchmarking testing*.
 
-* Chapter :doc:`14-list-of-tcs` includes a list of available *Yardstick* test
+* Chapter :doc:`15-list-of-tcs` includes a list of available *Yardstick* test
   cases.
 
 
