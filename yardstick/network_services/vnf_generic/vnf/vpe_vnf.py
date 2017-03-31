@@ -37,7 +37,7 @@ from six.moves import range
 
 LOG = logging.getLogger(__name__)
 VPE_PIPELINE_COMMAND = \
-    '{tool_path} -p {ports_len_hex} -f {cfg_file} -s {script}'
+    'sudo {tool_path} -p {ports_len_hex} -f {cfg_file} -s {script}'
 CORES = ['0', '1', '2', '3', '4', '5']
 WAIT_TIME = 20
 
@@ -305,14 +305,14 @@ class VpeApproxVnf(GenericVNF):
             '/sys/kernel/mm/hugepages/hugepages-%s/nr_hugepages' % hugepages
         connection.execute("awk -F: '{ print $1 }' < %s" % memory_path)
 
-        pages = 16384 if hugepages.rstrip() == "2048kB" else 16
-        connection.execute("echo %s > %s" % (pages, memory_path))
+        pages = 16384 if hugepages.rstrip() == "2048kB" else 4
+        connection.execute("sudo echo %s > %s" % (pages, memory_path))
 
     def setup_vnf_environment(self, connection):
         ''' setup dpdk environment needed for vnf to run '''
 
         self.__setup_hugepages(connection)
-        connection.execute("modprobe uio && modprobe igb_uio")
+        connection.execute("sudo modprobe uio && sudo modprobe igb_uio")
 
         exit_status = connection.execute("lsmod | grep -i igb_uio")[0]
         if exit_status == 0:
@@ -324,7 +324,8 @@ class VpeApproxVnf(GenericVNF):
                            os.path.join(self.bin_path, "nsb_setup.sh"))
         status = connection.execute("ls {} >/dev/null 2>&1".format(dpdk))[0]
         if status:
-            connection.execute("bash %s dpdk >/dev/null 2>&1" % dpdk_setup)
+            connection.execute("sudo bash %s dpdk >/dev/null 2>&1" %
+                               dpdk_setup)
 
     def _get_cpu_sibling_list(self):
         cpu_topo = []
@@ -370,7 +371,7 @@ class VpeApproxVnf(GenericVNF):
         cores = self._get_cpu_sibling_list()
         self.resource = ResourceProfile(self.vnfd, cores)
 
-        self.connection.execute("pkill vPE_vnf")
+        self.connection.execute("sudo pkill vPE_vnf")
         dpdk_nic_bind = \
             provision_tool(self.connection,
                            os.path.join(self.bin_path, "dpdk_nic_bind.py"))
@@ -383,7 +384,7 @@ class VpeApproxVnf(GenericVNF):
         bound_pci = [v['virtual-interface']["vpci"] for v in interfaces]
         for vpci in bound_pci:
             self.connection.execute(
-                "%s --force -b igb_uio %s" % (dpdk_nic_bind, vpci))
+                "sudo %s --force -b igb_uio %s" % (dpdk_nic_bind, vpci))
         queue_wrapper = \
             QueueFileWrapper(self.q_in, self.q_out, "pipeline>")
         self._vnf_process = multiprocessing.Process(target=self._run_vpe,
