@@ -170,6 +170,9 @@ class ServerTestCase(unittest.TestCase):
         self.mock_context.keypair_name = 'some-keys'
         self.mock_context.secgroup_name = 'some-secgroup'
         self.mock_context.user = "some-user"
+        netattrs = {'cidr': '10.0.0.0/24', 'provider': None, 'external_network': 'ext_net'}
+        self.mock_context.networks = [model.Network("some-network", self.mock_context, netattrs)]
+
 
     def test_construct_defaults(self):
 
@@ -208,13 +211,16 @@ class ServerTestCase(unittest.TestCase):
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_instance(self, mock_template):
 
-        attrs = {'image': 'some-image', 'flavor': 'some-flavor'}
+        attrs = {'image': 'some-image', 'flavor': 'some-flavor', 'floating_ip': '192.168.1.10', 'floating_ip_assoc': 'some-vm'}
         test_server = model.Server('foo', self.mock_context, attrs)
 
         mock_network = mock.Mock()
         mock_network.name = 'some-network'
         mock_network.stack_name = 'some-network-stack'
         mock_network.subnet_stack_name = 'some-network-stack-subnet'
+        mock_network.provider = 'sriov'
+        mock_network.external_network = 'ext_net'
+        mock_network.router = model.Router('some-router', 'some-network', self.mock_context, 'ext_net')
 
         test_server._add_instance(mock_template, 'some-server',
                                   [mock_network], 'hints')
@@ -223,7 +229,22 @@ class ServerTestCase(unittest.TestCase):
             'some-server-some-network-port',
             mock_network.stack_name,
             mock_network.subnet_stack_name,
-            sec_group_id=self.mock_context.secgroup_name)
+            sec_group_id=self.mock_context.secgroup_name,
+            provider=mock_network.provider)
+
+        mock_template.add_floating_ip.assert_called_with(
+            'some-server-fip',
+            mock_network.external_network,
+            'some-server-some-network-port',
+            'bar-some-network-some-router-if0',
+            'some-secgroup'
+        )
+
+        mock_template.add_floating_ip_association.assert_called_with(
+            'some-server-fip-assoc',
+            'some-server-fip',
+            'some-server-some-network-port'
+        )
 
         mock_template.add_server.assert_called_with(
             'some-server', 'some-image', 'some-flavor',

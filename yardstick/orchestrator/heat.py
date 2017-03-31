@@ -32,6 +32,8 @@ log = logging.getLogger(__name__)
 
 HEAT_KEY_UUID_LENGTH = 8
 
+PROVIDER_SRIOV = "sriov"
+
 
 def get_short_key_uuid(uuid):
     return str(uuid)[:HEAT_KEY_UUID_LENGTH]
@@ -189,13 +191,23 @@ class HeatTemplate(HeatObject):
 
         log.debug("template object '%s' created", name)
 
-    def add_network(self, name):
+    def add_network(self, name, physical_network='physnet1', provider=None):
         """add to the template a Neutron Net"""
         log.debug("adding Neutron::Net '%s'", name)
-        self.resources[name] = {
-            'type': 'OS::Neutron::Net',
-            'properties': {'name': name}
-        }
+        if provider is None:
+            self.resources[name] = {
+                'type': 'OS::Neutron::Net',
+                'properties': {'name': name}
+            }
+        else:
+            self.resources[name] = {
+                'type': 'OS::Neutron::ProviderNet',
+                'properties': {
+                    'name': name,
+                    'network_type': 'vlan',
+                    'physical_network': physical_network
+                }
+            }
 
     def add_server_group(self, name, policies):     # pragma: no cover
         """add to the template a ServerGroup"""
@@ -229,7 +241,6 @@ class HeatTemplate(HeatObject):
     def add_router(self, name, ext_gw_net, subnet_name):
         """add to the template a Neutron Router and interface"""
         log.debug("adding Neutron::Router:'%s', gw-net:'%s'", name, ext_gw_net)
-
         self.resources[name] = {
             'type': 'OS::Neutron::Router',
             'depends_on': [subnet_name],
@@ -245,7 +256,6 @@ class HeatTemplate(HeatObject):
         """add to the template a Neutron RouterInterface and interface"""
         log.debug("adding Neutron::RouterInterface '%s' router:'%s', "
                   "subnet:'%s'", name, router_name, subnet_name)
-
         self.resources[name] = {
             'type': 'OS::Neutron::RouterInterface',
             'depends_on': [router_name, subnet_name],
@@ -255,7 +265,8 @@ class HeatTemplate(HeatObject):
             }
         }
 
-    def add_port(self, name, network_name, subnet_name, sec_group_id=None):
+    def add_port(self, name, network_name, subnet_name, sec_group_id=None,
+                 provider=None):
         """add to the template a named Neutron Port"""
         log.debug("adding Neutron::Port '%s', network:'%s', subnet:'%s', "
                   "secgroup:%s", name, network_name, subnet_name, sec_group_id)
@@ -269,6 +280,10 @@ class HeatTemplate(HeatObject):
                 'replacement_policy': 'AUTO',
             }
         }
+
+        if provider == PROVIDER_SRIOV:
+            self.resources[name]['properties']['binding:vnic_type'] = \
+                'direct'
 
         if sec_group_id:
             self.resources[name]['depends_on'].append(sec_group_id)

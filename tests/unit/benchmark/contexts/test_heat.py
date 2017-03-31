@@ -21,6 +21,7 @@ import uuid
 import mock
 
 from yardstick.benchmark.contexts import heat
+from yardstick.benchmark.contexts import model
 
 
 LOG = logging.getLogger(__name__)
@@ -102,12 +103,18 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context.keypair_name = "foo-key"
         self.test_context.secgroup_name = "foo-secgroup"
         self.test_context.key_uuid = "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b"
+        netattrs = {'cidr': '10.0.0.0/24', 'provider': None, 'external_network': 'ext_net'}
+        self.mock_context.name = 'bar'
+        self.test_context.networks = [model.Network("fool-network", self.mock_context, netattrs)]
 
         self.test_context._add_resources_to_template(mock_template)
         mock_template.add_keypair.assert_called_with(
             "foo-key",
             "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b")
         mock_template.add_security_group.assert_called_with("foo-secgroup")
+        mock_template.add_network.assert_called_with("bar-fool-network", 'physnet1', None)
+        mock_template.add_router.assert_called_with("bar-fool-network-router", netattrs["external_network"], "bar-fool-network-subnet")
+        mock_template.add_router_interface.assert_called_with("bar-fool-network-router-if0", "bar-fool-network-router", "bar-fool-network-subnet")
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_deploy(self, mock_template):
