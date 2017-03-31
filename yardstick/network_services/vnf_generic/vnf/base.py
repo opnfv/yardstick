@@ -281,6 +281,20 @@ class GenericVNF(object):
         """
         raise NotImplementedError()
 
+    @classmethod
+    def setup_hugepages(cls, connection):
+        hugepages = \
+            connection.execute(
+                "awk '/Hugepagesize/ { print $2$3 }' < /proc/meminfo")[1]
+        hugepages = hugepages.rstrip()
+
+        memory_path = \
+            '/sys/kernel/mm/hugepages/hugepages-%s/nr_hugepages' % hugepages
+        connection.execute("awk -F: '{ print $1 }' < %s" % memory_path)
+
+        pages = 16384 if hugepages.rstrip() == "2048kB" else 16
+        connection.execute("echo %s | sudo tee %s" % (pages, memory_path))
+
 
 class GenericTrafficGen(GenericVNF):
     """ Class providing file-like API for generic traffic generator """

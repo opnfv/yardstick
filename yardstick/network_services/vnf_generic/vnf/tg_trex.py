@@ -20,6 +20,7 @@ import time
 import logging
 import os
 import yaml
+from six.moves import range
 
 from yardstick import ssh
 from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
@@ -51,6 +52,7 @@ class TrexTrafficGen(GenericTrafficGen):
         self._vpci_ascending = None
         self.client = None
         self.my_ports = None
+        self._tg_process = None
         self.client_started = multiprocessing.Value('i', 0)
 
         mgmt_interface = vnfd["mgmt-interface"]
@@ -102,7 +104,7 @@ class TrexTrafficGen(GenericTrafficGen):
 
         with open('/tmp/trex_cfg.yaml', 'w') as outfile:
             outfile.write(yaml.safe_dump(cfg_file, default_flow_style=False))
-        self.connection.put('/tmp/trex_cfg.yaml', '/etc')
+        self.connection.put('/tmp/trex_cfg.yaml', '/tmp')
 
         self._vpci_ascending = sorted(vpci)
 
@@ -118,13 +120,13 @@ class TrexTrafficGen(GenericTrafficGen):
         connection.execute("awk -F: '{ print $1 }' < %s" % memory_path)
 
         pages = 16384 if hugepages.rstrip() == "2048kB" else 16
-        connection.execute("echo %s > %s" % (pages, memory_path))
+        connection.execute("sudo echo %s > %s" % (pages, memory_path))
 
     def setup_vnf_environment(self, connection):
         ''' setup dpdk environment needed for vnf to run '''
 
         self.__setup_hugepages(connection)
-        connection.execute("modprobe uio && modprobe igb_uio")
+        connection.execute("sudo modprobe uio && sudo modprobe igb_uio")
 
         exit_status = connection.execute("lsmod | grep -i igb_uio")[0]
         if exit_status == 0:
@@ -136,7 +138,7 @@ class TrexTrafficGen(GenericTrafficGen):
                            os.path.join(self.bin_path, "nsb_setup.sh"))
         status = connection.execute("ls {} >/dev/null 2>&1".format(dpdk))[0]
         if status:
-            connection.execute("bash %s dpdk >/dev/null 2>&1" % dpdk_setup)
+            connection.execute("sudo bash %s dpdk >/dev/null 2>&1" % dpdk_setup)
 
     def scale(self, flavor=""):
         ''' scale vnfbased on flavor input '''
@@ -151,25 +153,26 @@ class TrexTrafficGen(GenericTrafficGen):
             self.connection.execute("ls {} >/dev/null 2>&1".format(trex))[0]
         if err != 0:
             LOG.info("Copying trex to destination...")
-            self.connection.put("/root/.bash_profile", "/root/.bash_profile")
+            self.connection.put("~/.bash_profile", "~/.bash_profile")
             self.connection.put(trex, trex, True)
             ko_src = os.path.join(trex, "scripts/ko/src/")
-            self.connection.execute("cd %s && make && make install" % ko_src)
+            self.connection.execute(
+                "cd %s && make && sudo make install" % ko_src)
 
         LOG.info("Starting TRex server...")
-        _tg_process = \
+        self._tg_process = \
             multiprocessing.Process(target=self._start_server)
-        _tg_process.start()
+        self._tg_process.start()
         while True:
-            if not _tg_process.is_alive():
+            if not self._tg_process.is_alive():
                 raise RuntimeError("Traffic Generator process died.")
             LOG.info("Waiting for TG Server to start.. ")
             time.sleep(1)
             status = \
-                self.connection.execute("lsof -i:%s" % TREX_SYNC_PORT)[0]
+                self.connection.execute("sudo lsof -i:%s" % TREX_SYNC_PORT)[0]
             if status == 0:
                 LOG.info("TG server is up and running.")
-                return _tg_process.exitcode
+                return self._tg_process.exitcode
 
     def listen_traffic(self, traffic_profile):
         pass
@@ -200,12 +203,13 @@ class TrexTrafficGen(GenericTrafficGen):
         _server = ssh.SSH.from_node(mgmt_interface)
         _server.wait()
 
-        _server.execute("fuser -n tcp %s %s -k > /dev/null 2>&1" %
+        _server.execute("sudo fuser -n tcp %s %s -k > /dev/null 2>&1" %
                         (TREX_SYNC_PORT, TREX_ASYNC_PORT))
 
         trex_path = os.path.join(self.bin_path, "trex/scripts")
         path = get_nsb_option("trex_path", trex_path)
-        trex_cmd = "cd " + path + "; sudo ./t-rex-64 -i > /dev/null 2>&1"
+        cmd = "sudo ./t-rex-64 -i --cfg /tmp/trex_cfg.yaml > /dev/null 2>&1"
+        trex_cmd = "cd %s ; %s" % (path, cmd)
 
         _server.execute(trex_cmd)
 
@@ -268,7 +272,7 @@ class TrexTrafficGen(GenericTrafficGen):
         return self._result
 
     def terminate(self):
-        self.connection.execute("fuser -n tcp %s %s -k > /dev/null 2>&1" %
+        self.connection.execute("sudo fuser -n tcp %s %s -k > /dev/null 2>&1" %
                                 (TREX_SYNC_PORT, TREX_ASYNC_PORT))
         self.traffic_finished = True
         if self._traffic_process:
