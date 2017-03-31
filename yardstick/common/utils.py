@@ -171,7 +171,6 @@ def parse_ini_file(path):
 
     return config
 
-
 def get_port_mac(sshclient, port):
     cmd = "ifconfig |grep HWaddr |grep %s |awk '{print $5}' " % port
     status, stdout, stderr = sshclient.execute(cmd)
@@ -189,3 +188,50 @@ def get_port_ip(sshclient, port):
     if status:
         raise RuntimeError(stderr)
     return stdout.rstrip()
+
+def try_int(s):
+    """Convert to integer if possible."""
+    try:
+        return int(s)
+    except ValueError:
+        return s
+
+class SocketTopology(dict):
+
+    def sockets(self):
+        return sorted(self.keys())
+
+    def cores(self):
+        return sorted(core for cores in self.values() for core in cores)
+
+    def processors(self):
+        return sorted(
+            proc for cores in self.values() for procs in cores.values() for
+            proc in procs)
+
+
+def parse_cpuinfo(cpuinfo):
+    socket_map = {}
+
+    lines = cpuinfo.splitlines()
+
+    core_details = []
+    core_lines = {}
+    for line in lines:
+        if line.strip():
+            name, value = line.split(":", 1)
+            core_lines[name.strip()] = try_int(value.strip())
+        else:
+            core_details.append(core_lines)
+            core_lines = {}
+
+    for core in core_details:
+        socket_map.setdefault(core["physical id"], {}).setdefault(
+            core["core id"], {})[core["processor"]] = (
+            core["processor"], core["core id"], core["physical id"])
+
+    return SocketTopology(socket_map)
+
+def config_to_dict(config):
+    return {section: dict(config.items(section)) for section in
+            config.sections()}
