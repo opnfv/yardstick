@@ -107,7 +107,7 @@ class TrexTrafficGenRFC(GenericTrafficGen):
 
         with open('/tmp/trex_cfg.yaml', 'w') as outfile:
             outfile.write(yaml.safe_dump(cfg_file, default_flow_style=False))
-        self.connection.put('/tmp/trex_cfg.yaml', '/etc')
+        self.connection.put('/tmp/trex_cfg.yaml', '/tmp')
 
         self._vpci_ascending = sorted(vpci)
 
@@ -133,7 +133,7 @@ class TrexTrafficGenRFC(GenericTrafficGen):
             time.sleep(WAIT_TIME)
 
             status = \
-                self.connection.execute("lsof -i:%s" % TREX_SYNC_PORT)[0]
+                self.connection.execute("sudo lsof -i:%s" % TREX_SYNC_PORT)[0]
             if status == 0:
                 LOGGING.info("TG server is up and running.")
                 return _tg_server.exitcode
@@ -172,13 +172,14 @@ class TrexTrafficGenRFC(GenericTrafficGen):
                           port=ssh_port)
         _server.wait()
 
-        _server.execute("fuser -n tcp %s %s -k > /dev/null 2>&1" %
+        _server.execute("sudo fuser -n tcp %s %s -k > /dev/null 2>&1" %
                         (TREX_SYNC_PORT, TREX_ASYNC_PORT))
-        _server.execute("pkill -9 rex > /dev/null 2>&1")
+        _server.execute("sudo pkill -9 rex > /dev/null 2>&1")
 
         trex_path = os.path.join(self.bin_path, "trex/scripts")
         path = get_nsb_option("trex_path", trex_path)
-        trex_cmd = "cd " + path + "; sudo ./t-rex-64 -i > /dev/null 2>&1"
+        cmd = "sudo ./t-rex-64 -i --cfg /tmp/trex_cfg.yaml > /dev/null 2>&1"
+        trex_cmd = "cd %s ; %s" % (path, cmd)
 
         _server.execute(trex_cmd)
 
@@ -282,7 +283,7 @@ class TrexTrafficGenRFC(GenericTrafficGen):
     def terminate(self):
         self._terminated.value = 1  # stop Trex clinet
 
-        self.connection.execute("fuser -n tcp %s %s -k > /dev/null 2>&1" %
+        self.connection.execute("sudo fuser -n tcp %s %s -k > /dev/null 2>&1" %
                                 (TREX_SYNC_PORT, TREX_ASYNC_PORT))
 
         if self._traffic_process:
