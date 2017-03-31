@@ -215,6 +215,7 @@ class ServerTestCase(unittest.TestCase):
         mock_network.name = 'some-network'
         mock_network.stack_name = 'some-network-stack'
         mock_network.subnet_stack_name = 'some-network-stack-subnet'
+        mock_network.provider = 'sriov'
 
         test_server._add_instance(mock_template, 'some-server',
                                   [mock_network], 'hints')
@@ -223,7 +224,8 @@ class ServerTestCase(unittest.TestCase):
             'some-server-some-network-port',
             mock_network.stack_name,
             mock_network.subnet_stack_name,
-            sec_group_id=self.mock_context.secgroup_name)
+            sec_group_id=self.mock_context.secgroup_name,
+            provider=mock_network.provider)
 
         mock_template.add_server.assert_called_with(
             'some-server', 'some-image', 'some-flavor',
