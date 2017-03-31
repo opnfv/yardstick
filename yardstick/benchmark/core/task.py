@@ -107,6 +107,7 @@ class Task(object):     # pragma: no cover
             except KeyboardInterrupt:
                 raise
             except Exception:
+                LOG.exception("")
                 testcases[case_name] = {'criteria': 'FAIL', 'tc_data': []}
             else:
                 testcases[case_name] = {'criteria': 'PASS', 'tc_data': data}
@@ -326,7 +327,7 @@ class Task(object):     # pragma: no cover
             context_cfg["nodes"] = parse_nodes_with_context(scenario_cfg)
             context_cfg["networks"] = get_networks_from_nodes(
                 context_cfg["nodes"])
-        runner = base_runner.Runner.get(runner_cfg, self.config)
+        runner = base_runner.Runner.get(runner_cfg)
 
         print("Starting runner of type '%s'" % runner_cfg["type"])
         runner.run(scenario_cfg, context_cfg)
