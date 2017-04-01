@@ -55,7 +55,7 @@ def mocked_requests_job_get(*args, **kwargs):
             self.status_code = status_code
 
     return MockResponseJobGet(
-        '{"status": "completed",\
+        '{"Status": "Completed",\
          "_ssd_preconditioning.queue-depth.8.block-size.16384.duration": 6}',
         200)
 
@@ -171,7 +171,7 @@ class StorPerfTestCase(unittest.TestCase):
         s = storperf.StorPerf(args, self.ctx)
         s.setup_done = True
 
-        sample_output = '{"status": "completed",\
+        sample_output = '{"Status": "Completed",\
          "_ssd_preconditioning.queue-depth.8.block-size.16384.duration": 6}'
 
         expected_result = jsonutils.loads(sample_output)
