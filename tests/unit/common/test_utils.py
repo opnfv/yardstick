@@ -87,24 +87,21 @@ class ImportModulesFromPackageTestCase(unittest.TestCase):
 
 class GetParaFromYaml(unittest.TestCase):
 
-    def test_get_para_from_yaml_file_not_exist(self):
-        file_path = '/etc/yardstick/hello.yaml'
-        args = 'hello.world'
-        para = utils.get_para_from_yaml(file_path, args)
-        self.assertIsNone(para)
-
-    def test_get_para_from_yaml_para_not_found(self):
+    @mock.patch('yardstick.common.utils.os.environ.get')
+    def test_get_param_para_not_found(self, get_env):
         file_path = 'config_sample.yaml'
-        file_path = self._get_file_abspath(file_path)
+        get_env.return_value = self._get_file_abspath(file_path)
         args = 'releng.file'
-        self.assertIsNone(utils.get_para_from_yaml(file_path, args))
+        default = 'hello'
+        self.assertTrue(utils.get_param(args, default), default)
 
-    def test_get_para_from_yaml_para_exists(self):
+    @mock.patch('yardstick.common.utils.os.environ.get')
+    def test_get_param_para_exists(self, get_env):
         file_path = 'config_sample.yaml'
-        file_path = self._get_file_abspath(file_path)
+        get_env.return_value = self._get_file_abspath(file_path)
         args = 'releng.dir'
         para = '/home/opnfv/repos/releng'
-        self.assertEqual(para, utils.get_para_from_yaml(file_path, args))
+        self.assertEqual(para, utils.get_param(args))
 
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))

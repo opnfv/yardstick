@@ -11,8 +11,8 @@ import uuid
 import os
 import logging
 
-from api import conf
 from api.utils import common as common_utils
+from yardstick.common import constants as consts
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +24,7 @@ def runTestCase(args):
     except KeyError:
         return common_utils.error_handler('Lack of testcase argument')
 
-    testcase = os.path.join(conf.SAMPLE_PATH, testcase_name + '.yaml')
+    testcase = os.path.join(consts.SAMPLE_CASE_DIR, testcase_name + '.yaml')
 
     task_id = str(uuid.uuid4())
 

@@ -19,7 +19,7 @@ import pkg_resources
 
 from yardstick import ssh
 from yardstick.benchmark.contexts.base import Context
-from yardstick.common.constants import YARDSTICK_ROOT_PATH
+from yardstick.common import constants as consts
 
 LOG = logging.getLogger(__name__)
 
@@ -57,7 +57,7 @@ class NodeContext(Context):
         except IOError as ioerror:
             if ioerror.errno == errno.ENOENT:
                 self.file_path = \
-                    os.path.join(YARDSTICK_ROOT_PATH, self.file_path)
+                    os.path.join(consts.YARDSTICK_ROOT_PATH, self.file_path)
                 cfg = self.read_config_file()
             else:
                 raise
@@ -108,8 +108,7 @@ class NodeContext(Context):
 
     def _do_ansible_job(self, path):
         cmd = 'ansible-playbook -i inventory.ini %s' % path
-        base = '/home/opnfv/repos/yardstick/ansible'
-        p = subprocess.Popen(cmd, shell=True, cwd=base)
+        p = subprocess.Popen(cmd, shell=True, cwd=consts.ANSIBLE_DIR)
         p.communicate()
 
     def _get_server(self, attr_name):
@@ -164,7 +163,7 @@ class NodeContext(Context):
 
     def _execute_local_script(self, info):
         script, options = self._get_script(info)
-        script = os.path.join(YARDSTICK_ROOT_PATH, script)
+        script = os.path.join(consts.YARDSTICK_ROOT_PATH, script)
         cmd = ['bash', script, options]
 
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
