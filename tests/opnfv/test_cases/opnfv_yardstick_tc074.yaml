@@ -20,7 +20,7 @@ scenarios:
   type: StorPerf
   options:
     agent_count: 1
-    agent_image: "Ubuntu-14.04"
+    agent_image: "Ubuntu-16.04"
     public_network: {{public_network}}
     volume_size: 4
     block_sizes: "4096"
