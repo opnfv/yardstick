@@ -16,6 +16,9 @@ ARG BRANCH=master
 # GIT repo directory
 ENV REPOS_DIR /home/opnfv/repos
 
+# Set work directory
+WORKDIR /home/opnfv/repos
+
 # Yardstick repo
 ENV YARDSTICK_REPO_DIR ${REPOS_DIR}/yardstick
 ENV RELENG_REPO_DIR ${REPOS_DIR}/releng
