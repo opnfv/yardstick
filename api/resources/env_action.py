@@ -19,16 +19,16 @@ import glob
 
 from six.moves import configparser
 from oslo_serialization import jsonutils
+from docker import Client
 
-from api import conf as api_conf
 from api.database.handler import AsyncTaskHandler
 from api.utils import influx
 from api.utils.common import result_handler
-from docker import Client
-from yardstick.common import constants as config
+from yardstick.common import constants as consts
 from yardstick.common import utils as yardstick_utils
 from yardstick.common import openstack_utils
 from yardstick.common.httpClient import HttpClient
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -46,12 +46,12 @@ def createGrafanaContainer(args):
 def _create_grafana(task_id):
     _create_task(task_id)
 
-    client = Client(base_url=config.DOCKER_URL)
+    client = Client(base_url=consts.DOCKER_URL)
 
     try:
-        if not _check_image_exist(client, '%s:%s' % (config.GRAFANA_IMAGE,
-                                                     config.GRAFANA_TAGS)):
-            client.pull(config.GRAFANA_IMAGE, config.GRAFANA_TAGS)
+        image = '{}:{}'.format(consts.GRAFANA_IMAGE, consts.GRAFANA_TAG)
+        if not _check_image_exist(client, image):
+            client.pull(consts.GRAFANA_IMAGE, consts.GRAFANA_TAG)
 
         _create_grafana_container(client)
 
@@ -64,13 +64,12 @@ def _create_grafana(task_id):
         _update_task_status(task_id)
     except Exception as e:
         _update_task_error(task_id, str(e))
-        logger.debug('Error: %s', e)
+        logger.exception('Error: %s', e)
 
 
 def _create_dashboard():
-    url = 'http://admin:admin@%s:3000/api/dashboards/db' % api_conf.GATEWAY_IP
-    path = os.path.join(config.YARDSTICK_REPOS_DIR, 'dashboard',
-                        '*dashboard.json')
+    url = 'http://admin:admin@%s:3000/api/dashboards/db' % consts.GRAFANA_IP
+    path = os.path.join(consts.REPOS_DIR, 'dashboard', '*dashboard.json')
 
     for i in sorted(glob.iglob(path)):
         with open(i) as f:
@@ -79,12 +78,12 @@ def _create_dashboard():
 
 
 def _create_data_source():
-    url = 'http://admin:admin@%s:3000/api/datasources' % api_conf.GATEWAY_IP
+    url = 'http://admin:admin@%s:3000/api/datasources' % consts.GRAFANA_IP
     data = {
         "name": "yardstick",
         "type": "influxdb",
         "access": "proxy",
-        "url": "http://%s:8086" % api_conf.GATEWAY_IP,
+        "url": "http://%s:8086" % consts.INFLUXDB_IP,
         "password": "root",
         "user": "root",
         "database": "yardstick",
@@ -101,8 +100,8 @@ def _create_grafana_container(client):
     port_bindings = {k: k for k in ports}
     host_config = client.create_host_config(port_bindings=port_bindings)
 
-    container = client.create_container(image='%s:%s' % (config.GRAFANA_IMAGE,
-                                                         config.GRAFANA_TAGS),
+    container = client.create_container(image='%s:%s' % (consts.GRAFANA_IMAGE,
+                                                         consts.GRAFANA_TAG),
                                         ports=ports,
                                         detach=True,
                                         tty=True,
@@ -126,14 +125,14 @@ def createInfluxDBContainer(args):
 def _create_influxdb(task_id):
     _create_task(task_id)
 
-    client = Client(base_url=config.DOCKER_URL)
+    client = Client(base_url=consts.DOCKER_URL)
 
     try:
         _change_output_to_influxdb()
 
-        if not _check_image_exist(client, '%s:%s' % (config.INFLUXDB_IMAGE,
-                                                     config.INFLUXDB_TAG)):
-            client.pull(config.INFLUXDB_IMAGE, tag=config.INFLUXDB_TAG)
+        if not _check_image_exist(client, '%s:%s' % (consts.INFLUXDB_IMAGE,
+                                                     consts.INFLUXDB_TAG)):
+            client.pull(consts.INFLUXDB_IMAGE, tag=consts.INFLUXDB_TAG)
 
         _create_influxdb_container(client)
 
@@ -153,8 +152,8 @@ def _create_influxdb_container(client):
     port_bindings = {k: k for k in ports}
     host_config = client.create_host_config(port_bindings=port_bindings)
 
-    container = client.create_container(image='%s:%s' % (config.INFLUXDB_IMAGE,
-                                                         config.INFLUXDB_TAG),
+    container = client.create_container(image='%s:%s' % (consts.INFLUXDB_IMAGE,
+                                                         consts.INFLUXDB_TAG),
                                         ports=ports,
                                         detach=True,
                                         tty=True,
@@ -165,24 +164,26 @@ def _create_influxdb_container(client):
 def _config_influxdb():
     try:
         client = influx.get_data_db_client()
-        client.create_user(config.USER, config.PASSWORD, config.DATABASE)
-        client.create_database(config.DATABASE)
+        client.create_user(consts.INFLUXDB_USER,
+                           consts.INFLUXDB_PASS,
+                           consts.INFLUXDB_DB_NAME)
+        client.create_database(consts.INFLUXDB_DB_NAME)
         logger.info('Success to config influxDB')
     except Exception as e:
         logger.debug('Failed to config influxDB: %s', e)
 
 
 def _change_output_to_influxdb():
-    yardstick_utils.makedirs(config.YARDSTICK_CONFIG_DIR)
+    yardstick_utils.makedirs(consts.CONF_DIR)
 
     parser = configparser.ConfigParser()
-    parser.read(config.YARDSTICK_CONFIG_SAMPLE_FILE)
+    parser.read(consts.CONF_SAMPLE_FILE)
 
     parser.set('DEFAULT', 'dispatcher', 'influxdb')
     parser.set('dispatcher_influxdb', 'target',
-               'http://%s:8086' % api_conf.GATEWAY_IP)
+               'http://%s:8086' % consts.INFLUXDB_IP)
 
-    with open(config.YARDSTICK_CONFIG_FILE, 'w') as f:
+    with open(consts.CONF_FILE, 'w') as f:
         parser.write(f)
 
 
@@ -213,7 +214,7 @@ def _prepare_env_daemon(task_id):
 
         _create_directories()
 
-        rc_file = config.OPENSTACK_RC_FILE
+        rc_file = consts.OPENRC
 
         if not _already_source_openrc():
             _get_remote_rc_file(rc_file, installer_ip, installer_type)
@@ -240,12 +241,12 @@ def _check_variables(installer_ip, installer_type):
 
     if installer_type == 'undefined':
         raise SystemExit('Missing INSTALLER_TYPE')
-    elif installer_type not in config.INSTALLERS:
+    elif installer_type not in consts.INSTALLERS:
         raise SystemExit('INSTALLER_TYPE is not correct')
 
 
 def _create_directories():
-    yardstick_utils.makedirs(config.YARDSTICK_CONFIG_DIR)
+    yardstick_utils.makedirs(consts.CONF_DIR)
 
 
 def _source_file(rc_file):
@@ -254,7 +255,7 @@ def _source_file(rc_file):
 
 def _get_remote_rc_file(rc_file, installer_ip, installer_type):
 
-    os_fetch_script = os.path.join(config.RELENG_DIR, config.OS_FETCH_SCRIPT)
+    os_fetch_script = os.path.join(consts.RELENG_DIR, consts.FETCH_SCRIPT)
 
     try:
         cmd = [os_fetch_script, '-d', rc_file, '-i', installer_type,
@@ -287,17 +288,15 @@ def _append_external_network(rc_file):
 
 
 def _clean_images():
-    cmd = [config.CLEAN_IMAGES_SCRIPT]
-    p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                         cwd=config.YARDSTICK_REPOS_DIR)
+    cmd = [consts.CLEAN_IMAGES_SCRIPT]
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, cwd=consts.REPOS_DIR)
     output = p.communicate()[0]
     logger.debug('The result is: %s', output)
 
 
 def _load_images():
-    cmd = [config.LOAD_IMAGES_SCRIPT]
-    p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                         cwd=config.YARDSTICK_REPOS_DIR)
+    cmd = [consts.LOAD_IMAGES_SCRIPT]
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, cwd=consts.REPOS_DIR)
     output = p.communicate()[0]
     logger.debug('The result is: %s', output)
 
