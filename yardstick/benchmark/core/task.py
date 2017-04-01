@@ -503,7 +503,7 @@ def check_environment():
     auth_url = os.environ.get('OS_AUTH_URL', None)
     if not auth_url:
         try:
-            source_env(constants.OPENSTACK_RC_FILE)
+            source_env(constants.OPENRC)
         except IOError as e:
             if e.errno != errno.EEXIST:
                 raise

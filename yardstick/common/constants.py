@@ -9,61 +9,78 @@
 from __future__ import absolute_import
 import os
 
-DOCKER_URL = 'unix://var/run/docker.sock'
+from yardstick.common.utils import get_param
 
-# database config
-USER = 'root'
-PASSWORD = 'root'
-DATABASE = 'yardstick'
-
-INFLUXDB_IMAGE = 'tutum/influxdb'
-INFLUXDB_TAG = '0.13'
-
-GRAFANA_IMAGE = 'grafana/grafana'
-GRAFANA_TAGS = '3.1.1'
 
 dirname = os.path.dirname
 abspath = os.path.abspath
 join = os.path.join
 sep = os.path.sep
 
-INSTALLERS = ['apex', 'compass', 'fuel', 'joid']
+try:
+    SERVER_IP = get_param('api.server_ip')
+except KeyError:
+    try:
+        from pyroute2 import IPDB
+    except ImportError:
+        SERVER_IP = '172.17.0.1'
+    else:
+        with IPDB() as ip:
+            SERVER_IP = ip.routes['default'].gateway
 
+# dir
+CONF_DIR = get_param('dir.conf', '/etc/yardstick')
+REPOS_DIR = get_param('dir.repos', '/home/opnfv/repos/yardstick')
+RELENG_DIR = get_param('dir.releng', '/home/opnfv/repos/releng')
+LOG_DIR = get_param('dir.log', '/tmp/yardstick/')
 YARDSTICK_ROOT_PATH = dirname(dirname(dirname(abspath(__file__)))) + sep
-
+CONF_SAMPLE_DIR = join(REPOS_DIR, 'etc/yardstick/')
+ANSIBLE_DIR = join(REPOS_DIR, 'ansible')
+SAMPLE_CASE_DIR = join(REPOS_DIR, 'samples')
 TESTCASE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_cases/')
-
 TESTSUITE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_suites/')
 
-YARDSTICK_REPOS_DIR = '/home/opnfv/repos/yardstick'
+# file
+OPENRC = get_param('file.openrc', '/etc/yardstick/yardstick.conf')
+CONF_FILE = join(CONF_DIR, 'yardstick.conf')
+CONF_SAMPLE_FILE = join(CONF_SAMPLE_DIR, 'yardstick.conf.sample')
+FETCH_SCRIPT = get_param('file.fetch_script', 'utils/fetch_os_creds.sh')
+FETCH_SCRIPT = join(RELENG_DIR, FETCH_SCRIPT)
+CLEAN_IMAGES_SCRIPT = get_param('file.clean_image_script',
+                                'tests/ci/clean_images.sh')
+CLEAN_IMAGES_SCRIPT = join(REPOS_DIR, CLEAN_IMAGES_SCRIPT)
+LOAD_IMAGES_SCRIPT = get_param('file.load_image_script',
+                               'tests/ci/load_images.sh')
+LOAD_IMAGES_SCRIPT = join(REPOS_DIR, LOAD_IMAGES_SCRIPT)
+DEFAULT_OUTPUT_FILE = get_param('file.output_file', '/tmp/yardstick.out')
+DEFAULT_HTML_FILE = get_param('file.html_file', '/tmp/yardstick.htm')
 
-YARDSTICK_LOG_DIR = '/tmp/yardstick/'
+# influxDB
+INFLUXDB_IP = get_param('influxdb.ip', SERVER_IP)
+INFLUXDB_PORT = get_param('influxdb.port', 8086)
+INFLUXDB_USER = get_param('influxdb.username', 'root')
+INFLUXDB_PASS = get_param('influxdb.password', 'root')
+INFLUXDB_DB_NAME = get_param('influxdb.db_name', 'yardstick')
+INFLUXDB_IMAGE = get_param('influxdb.image', 'tutum/influxdb')
+INFLUXDB_TAG = get_param('influxdb.tag', '0.13')
 
-YARDSTICK_CONFIG_DIR = '/etc/yardstick/'
+# grafana
+GRAFANA_IP = get_param('grafana.ip', SERVER_IP)
+GRAFANA_PORT = get_param('grafana.port', 3000)
+GRAFANA_USER = get_param('grafana.username', 'admin')
+GRAFANA_PASS = get_param('grafana.password', 'admin')
+GRAFANA_IMAGE = get_param('grafana.image', 'grafana/grafana')
+GRAFANA_TAG = get_param('grafana.tag', '3.1.1')
 
-YARDSTICK_CONFIG_FILE = join(YARDSTICK_CONFIG_DIR, 'yardstick.conf')
-
-YARDSTICK_CONFIG_SAMPLE_DIR = join(YARDSTICK_ROOT_PATH, 'etc/yardstick/')
-
-YARDSTICK_CONFIG_SAMPLE_FILE = join(YARDSTICK_CONFIG_SAMPLE_DIR,
-                                    'yardstick.conf.sample')
-
-RELENG_DIR = '/home/opnfv/repos/releng'
-
-OS_FETCH_SCRIPT = 'utils/fetch_os_creds.sh'
-
-CLEAN_IMAGES_SCRIPT = 'tests/ci/clean_images.sh'
-
-LOAD_IMAGES_SCRIPT = 'tests/ci/load_images.sh'
-
-OPENSTACK_RC_FILE = join(YARDSTICK_CONFIG_DIR, 'openstack.creds')
+# api
+DOCKER_URL = 'unix://var/run/docker.sock'
+INSTALLERS = ['apex', 'compass', 'fuel', 'joid']
+SQLITE = 'sqlite:////tmp/yardstick.db'
 
 BASE_URL = 'http://localhost:5000'
 ENV_ACTION_API = BASE_URL + '/yardstick/env/action'
 ASYNC_TASK_API = BASE_URL + '/yardstick/asynctask'
 
-SQLITE = 'sqlite:////tmp/yardstick.db'
-
-DEFAULT_OUTPUT_FILE = '/tmp/yardstick.out'
-
-DEFAULT_HTML_FILE = '/tmp/yardstick.htm'
+# general
+TESTCASE_PRE = 'opnfv_yardstick_'
+TESTSUITE_PRE = 'opnfv_'

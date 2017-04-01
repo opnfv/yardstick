@@ -14,7 +14,7 @@ import six.moves.configparser as ConfigParser
 from six.moves.urllib.parse import urlsplit
 from influxdb import InfluxDBClient
 
-from api import conf
+from yardstick.common import constants as consts
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 def get_data_db_client():
     parser = ConfigParser.ConfigParser()
     try:
-        parser.read(conf.OUTPUT_CONFIG_FILE_PATH)
+        parser.read(consts.CONF_FILE)
 
         if parser.get('DEFAULT', 'dispatcher') != 'influxdb':
             raise RuntimeError
@@ -35,10 +35,10 @@ def get_data_db_client():
 
 def _get_client(parser):
     ip = _get_ip(parser.get('dispatcher_influxdb', 'target'))
-    username = parser.get('dispatcher_influxdb', 'username')
+    user = parser.get('dispatcher_influxdb', 'username')
     password = parser.get('dispatcher_influxdb', 'password')
     db_name = parser.get('dispatcher_influxdb', 'db_name')
-    return InfluxDBClient(ip, conf.PORT, username, password, db_name)
+    return InfluxDBClient(ip, consts.INFLUXDB_PORT, user, password, db_name)
 
 
 def _get_ip(url):

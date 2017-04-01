@@ -84,26 +84,30 @@ def import_modules_from_package(package):
             try_append_module(module_name, sys.modules)
 
 
-def get_para_from_yaml(file_path, args):
-
-    def func(a, b):
-        if a is None:
-            return None
-        return a.get(b)
-
-    if os.path.exists(file_path):
+def parse_yaml(file_path):
+    try:
         with open(file_path) as f:
             value = yaml.safe_load(f)
-            value = reduce(func, args.split('.'), value)
-
-            if value is None:
-                print('parameter not found')
-                return None
-
-            return value
+    except IOError:
+        return {}
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
     else:
-        print('file not exist')
-        return None
+        return value
+
+
+def get_param(key, default=''):
+
+    conf_file = os.environ.get('CONF_FILE', '/etc/yardstick/yardstick.yaml')
+
+    conf = parse_yaml(conf_file)
+    try:
+        return reduce(lambda a, b: a[b], key.split('.'), conf)
+    except KeyError:
+        if not default:
+            raise
+        return default
 
 
 def makedirs(d):
