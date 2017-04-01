@@ -254,6 +254,8 @@ main()
         for filename in tests/opnfv/test_cases/*; do
             sed -i "s/cidr: '10.0.1.0\/24'/cidr: '10.3.1.0\/24'/g" "${filename}"
         done
+        # Update file changes
+        pip install -U .
     else
         load_cirros_image
         load_ubuntu_image
