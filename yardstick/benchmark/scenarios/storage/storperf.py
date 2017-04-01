@@ -117,7 +117,8 @@ class StorPerf(base.Scenario):
         """Query the status of the supplied job_id and report on metrics"""
         LOG.info("Fetching report for %s...", job_id)
         report_res = requests.get('http://{}:5000/api/v1.0/jobs'.format
-                                  (self.target), params={'id': job_id})
+                                  (self.target),
+                                  params={'id': job_id, 'type': 'status'})
 
         report_res_content = jsonutils.loads(
             report_res.content)
@@ -126,10 +127,10 @@ class StorPerf(base.Scenario):
             raise RuntimeError("Failed to fetch report, error message:",
                                report_res_content["message"])
         else:
-            job_status = report_res_content["status"]
+            job_status = report_res_content["Status"]
 
         LOG.debug("Job is: %s...", job_status)
-        self.job_completed = job_status == "completed"
+        self.job_completed = job_status == "Completed"
 
         # TODO: Support using StorPerf ReST API to read Job ETA.
 
