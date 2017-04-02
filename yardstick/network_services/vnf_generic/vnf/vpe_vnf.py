@@ -54,9 +54,11 @@ class VpeApproxVnf(GenericVNF):
     def _resource_collect_start(self):
         self.resource.initiate_systemagent(self.bin_path)
         self.resource.start()
+        self.resource.amqp_process_for_nfvi_kpi()
 
     def _resource_collect_stop(self):
-        self.resource.stop()
+        if self.resource:
+            self.resource.stop()
 
     def _collect_resource_kpi(self):
         result = {}
@@ -185,6 +187,7 @@ class VpeApproxVnf(GenericVNF):
         self.execute_command("quit")
         if self._vnf_process:
             self._vnf_process.terminate()
+        self._resource_collect_stop()
 
     def _run_vpe(self, filewrapper, vnf_cfg):
         mgmt_interface = self.vnfd["mgmt-interface"]
@@ -294,7 +297,7 @@ class VpeApproxVnf(GenericVNF):
         result = self.get_stats_vpe()
         collect_stats = self._collect_resource_kpi()
         result["collect_stats"] = collect_stats
-        LOG.debug("vPE collet Kpis: %s", result)
+        LOG.debug("vPE KPIs: %s", result)
         return result
 
     def get_stats_vpe(self):
