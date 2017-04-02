@@ -38,6 +38,8 @@ class ResourceProfile(object):
         self.enable = True
         self.connection = None
         self.cores = cores
+        self._queue = multiprocessing.Queue()
+        self.amqp_client = None
 
         mgmt_interface = vnfd.get("mgmt-interface")
         # why the host or ip?
@@ -98,25 +100,20 @@ class ResourceProfile(object):
 
         return res
 
-    def amqp_collect_nfvi_kpi(self, _queue=multiprocessing.Queue()):
+    def amqp_process_for_nfvi_kpi(self):
         """ amqp collect and return nfvi kpis """
-        try:
-            metric = {}
-            amqp_client = \
+        if self.amqp_client is None:
+            self.amqp_client = \
                 multiprocessing.Process(target=self.run_collectd_amqp,
-                                        args=(_queue,))
-            amqp_client.start()
-            amqp_client.join(7)
-            amqp_client.terminate()
+                                        args=(self._queue,))
+            self.amqp_client.start()
 
-            while not _queue.empty():
-                metric.update(_queue.get())
-        except (AttributeError, RuntimeError, TypeError, ValueError):
-            logging.debug("Failed to get NFVi stats...")
-            msg = {}
-        else:
-            msg = self.parse_collectd_result(metric, self.cores)
-
+    def amqp_collect_nfvi_kpi(self):
+        """ amqp collect and return nfvi kpis """
+        metric = {}
+        while not self._queue.empty():
+            metric.update(self._queue.get())
+        msg = self.parse_collectd_result(metric, self.cores)
         return msg
 
     @classmethod
@@ -135,7 +132,8 @@ class ResourceProfile(object):
 
         # Run collectd
         connection.execute(collectd)
-        connection.execute(os.path.join(bin_path, "collectd", "collectd"))
+        connection.execute(
+            "sudo %s" % os.path.join(bin_path, "collectd", "collectd"))
 
     def initiate_systemagent(self, bin_path):
         """ Start system agent for NFVi collection on host """
