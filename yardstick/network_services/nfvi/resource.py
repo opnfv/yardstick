@@ -24,7 +24,7 @@ from yardstick import ssh
 from yardstick.network_services.nfvi.collectd import AmqpConsumer
 from yardstick.network_services.utils import provision_tool
 
-LOGGING = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 CONF = cfg.CONF
 ZMQ_OVS_PORT = 5567
@@ -40,6 +40,8 @@ class ResourceProfile(object):
         self.enable = True
         self.connection = None
         self.cores = cores
+        self._queue = multiprocessing.Queue()
+        self.amqp_client = None
 
         mgmt_interface = vnfd.get("mgmt-interface")
         # why the host or ip?
@@ -100,37 +102,32 @@ class ResourceProfile(object):
 
         return res
 
-    def amqp_collect_nfvi_kpi(self, _queue=multiprocessing.Queue()):
+    def amqp_process_for_nfvi_kpi(self):
         """ amqp collect and return nfvi kpis """
-        try:
-            metric = {}
-            amqp_client = \
+        if self.amqp_client is None:
+            self.amqp_client = \
                 multiprocessing.Process(target=self.run_collectd_amqp,
-                                        args=(_queue,))
-            amqp_client.start()
-            amqp_client.join(7)
-            amqp_client.terminate()
+                                        args=(self._queue,))
+            self.amqp_client.start()
 
-            while not _queue.empty():
-                metric.update(_queue.get())
-        except (AttributeError, RuntimeError, TypeError, ValueError):
-            LOGGING.debug("Failed to get NFVi stats...")
-            msg = {}
-        else:
-            msg = self.parse_collectd_result(metric, self.cores)
-
+    def amqp_collect_nfvi_kpi(self):
+        """ amqp collect and return nfvi kpis """
+        metric = {}
+        while not self._queue.empty():
+            metric.update(self._queue.get())
+        msg = self.parse_collectd_result(metric, self.cores)
         return msg
 
     @classmethod
     def _start_collectd(cls, connection, bin_path):
-        LOGGING.debug("Starting collectd to collect NFVi stats")
+        LOG.debug("Starting collectd to collect NFVi stats")
         connection.execute('sudo pkill -9 collectd')
         collectd = os.path.join(bin_path, "collectd.sh")
         provision_tool(connection, collectd)
         provision_tool(connection, os.path.join(bin_path, "collectd.conf"))
 
         # Reset amqp queue
-        LOGGING.debug("reset and setup amqp to collect data from collectd")
+        LOG.debug("reset and setup amqp to collect data from collectd")
         connection.execute("sudo service rabbitmq-server start")
         connection.execute("sudo rabbitmqctl stop_app")
         connection.execute("sudo rabbitmqctl reset")
@@ -140,9 +137,10 @@ class ResourceProfile(object):
         # Run collectd
 
         connection.execute("sudo %s" % collectd)
-        LOGGING.debug("Start collectd service.....")
-        connection.execute(os.path.join(bin_path, "collectd", "collectd"))
-        LOGGING.debug("Done")
+        LOG.debug("Start collectd service.....")
+        connection.execute(
+            "sudo %s" % os.path.join(bin_path, "collectd", "collectd"))
+        LOG.debug("Done")
 
     def initiate_systemagent(self, bin_path):
         """ Start system agent for NFVi collection on host """
@@ -152,13 +150,17 @@ class ResourceProfile(object):
     def start(self):
         """ start nfvi collection """
         if self.enable:
-            logging.debug("Start NVFi metric collection...")
+            LOG.debug("Start NVFi metric collection...")
 
     def stop(self):
         """ stop nfvi collection """
         if self.enable:
             agent = "collectd"
-            logging.debug("Stop resource monitor...")
+            LOG.debug("Stop resource monitor...")
+
+            if self.amqp_client is not None:
+                self.amqp_client.terminate()
+
             status, pid = self.check_if_sa_running(agent)
             if status:
                 self.connection.execute('sudo kill -9 %s' % pid)
