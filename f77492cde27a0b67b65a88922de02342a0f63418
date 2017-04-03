@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_631787ee",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-03T05:32:27Z",
+      "side": 1,
+      "message": "please extract \u0027sriov\u0027 to a module or class level constant.\n\n  PROVIDER_SRIOV \u003d \u0027sriov\u0027\n\n  elif provider \u003d\u003d PROVIDER_SRIOV\n\n\nin case we have to change YAML keywords in the future, better to have a single constant.",
+      "revId": "f77492cde27a0b67b65a88922de02342a0f63418",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
