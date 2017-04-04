@@ -40,19 +40,19 @@ class GeneralAttacker(BaseAttacker):
         if "action_parameter" in self._config:
             actionParameter = self._config['action_parameter']
             str = util.buildshellparams(actionParameter)
-            LOG.debug("inject parameter is: {0}".format(actionParameter))
-            LOG.debug("inject parameter values are: {0}"
-                      .format(list(actionParameter.values())))
-            l = list(item for item in actionParameter.values())
+            LOG.debug("inject parameter is: %s", actionParameter)
+            LOG.debug("inject parameter values are: %s",
+                      list(actionParameter.values()))
+            l = list(actionParameter.values())
             self.action_param = str.format(*l)
 
         if "rollback_parameter" in self._config:
             rollbackParameter = self._config['rollback_parameter']
             str = util.buildshellparams(rollbackParameter)
-            LOG.debug("recover parameter is: {0}".format(rollbackParameter))
-            LOG.debug("recover parameter values are: {0}".
-                      format(list(rollbackParameter.values())))
-            l = list(item for item in rollbackParameter.values())
+            LOG.debug("recover parameter is: %s", rollbackParameter)
+            LOG.debug("recover parameter values are: %s",
+                      list(rollbackParameter.values()))
+            l = list(rollbackParameter.values())
             self.rollback_param = str.format(*l)
 
         self.fault_cfg = BaseAttacker.attacker_cfgs.get(self.attack_key)
@@ -77,10 +77,9 @@ class GeneralAttacker(BaseAttacker):
                     "/bin/bash -s ",
                     stdin=stdin_file)
 
-        LOG.debug("the inject_fault's exit status is: {0}".format(exit_status))
+        LOG.debug("the inject_fault's exit status is: %s", exit_status)
         if exit_status == 0:
-            LOG.debug("success,the inject_fault's output is: {0}"
-                      .format(stdout))
+            LOG.debug("success,the inject_fault's output is: %s", stdout)
         else:
             LOG.error(
                 "the inject_fault's error, stdout:%s, stderr:%s",
