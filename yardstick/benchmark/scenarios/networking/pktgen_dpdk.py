@@ -137,7 +137,7 @@ class PktgenDPDKLatency(base.Scenario):
         # wait for finishing test
         time.sleep(1)
 
-        cmd = "cat ~/result.log -vT \
+        cmd = r"cat ~/result.log -vT \
                |awk '{match($0,/\[8;40H +[0-9]+/)} \
                {print substr($0,RSTART,RLENGTH)}' \
                |grep -v ^$ |awk '{if ($2 != 0) print $2}'"
