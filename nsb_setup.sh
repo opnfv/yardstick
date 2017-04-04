@@ -241,5 +241,5 @@ else
 clear
 echo "Installation completed..."
 echo "Virtual Environment : $INSTALL_BIN_PATH/yardstick_venv"
-echo "Please Refer README.NSB.rst document on how to get started on VNF testing."
+echo "Please refer user guide (Chapter 13) document on how to get started on VNF testing."
 fi
