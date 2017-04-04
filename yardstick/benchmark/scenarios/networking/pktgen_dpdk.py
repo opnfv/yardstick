@@ -137,10 +137,12 @@ class PktgenDPDKLatency(base.Scenario):
         # wait for finishing test
         time.sleep(1)
 
-        cmd = "cat ~/result.log -vT \
-               |awk '{match($0,/\[8;40H +[0-9]+/)} \
-               {print substr($0,RSTART,RLENGTH)}' \
-               |grep -v ^$ |awk '{if ($2 != 0) print $2}'"
+        cmd = r"""\
+cat ~/result.log -vT \
+|awk '{match($0,/\[8;40H +[0-9]+/)} \
+{print substr($0,RSTART,RLENGTH)}' \
+|grep -v ^$ |awk '{if ($2 != 0) print $2}'\
+"""
         client_status, client_stdout, client_stderr = self.client.execute(cmd)
 
         if client_status:
