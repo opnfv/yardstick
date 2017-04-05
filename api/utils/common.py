@@ -11,10 +11,10 @@ import collections
 import logging
 
 from flask import jsonify
+import six
 
 from api.utils.daemonthread import DaemonThread
 from yardstick.cmd.cli import YardstickCLI
-import six
 
 logger = logging.getLogger(__name__)
 

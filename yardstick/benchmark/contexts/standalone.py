@@ -20,7 +20,7 @@ import collections
 import yaml
 
 from yardstick.benchmark.contexts.base import Context
-from yardstick.definitions import YARDSTICK_ROOT_PATH
+from yardstick.common.constants import YARDSTICK_ROOT_PATH
 
 LOG = logging.getLogger(__name__)
 

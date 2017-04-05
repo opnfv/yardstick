@@ -1,0 +1,33 @@
+dir:
+  conf: /etc/yardstick
+  repos: /home/opnfv/repos/yardstick
+  releng: /home/opnfv/repos/releng
+  log: /tmp/yardstick
+
+file:
+  openrc: /etc/yardstick/openstack.creds
+  fetch_script: utils/fetch_os_creds.sh
+  clean_image_script: tests/ci/clean_images.sh
+  load_image_script: tests/ci/load_images.sh
+  output_file: /tmp/yardstick.out
+  html_file: /tmp/yardstick.htm
+
+influxdb:
+  ip: 172.17.0.1
+  port: 8086
+  username: root
+  password: root
+  db_name: yardstick
+  image: tutum/influxdb
+  tag: 0.13
+
+grafana:
+  ip: 172.17.0.1
+  port: 3000
+  username: admin
+  password: admin
+  image: grafana/grafana
+  tag: 3.1.1
+
+api:
+  server_ip: 172.17.0.1
