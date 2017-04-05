@@ -38,7 +38,7 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 EXPOSE 5000
 
 ADD http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img ${IMAGE_DIR}
-ADD http://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img ${IMAGE_DIR}
+ADD http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img ${IMAGE_DIR}
 
 COPY ./exec_tests.sh /usr/local/bin/
 
