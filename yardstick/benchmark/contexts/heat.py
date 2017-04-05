@@ -46,7 +46,8 @@ class HeatContext(Context):
         self.secgroup_name = None
         self._server_map = {}
         self._image = None
-        self._flavor = None
+        self.flavor_name = None
+        self.flavor = []
         self._user = None
         self.template_file = None
         self.heat_parameters = None
@@ -81,10 +82,8 @@ class HeatContext(Context):
 
         self.keypair_name = self.name + "-key"
         self.secgroup_name = self.name + "-secgroup"
-
+        self.flavor_name = self.name + "-flavor"
         self._image = attrs.get("image")
-
-        self._flavor = attrs.get("flavor")
 
         self.placement_groups = [PlacementGroup(name, self, pgattrs["policy"])
                                  for name, pgattrs in attrs.get(
@@ -118,17 +117,15 @@ class HeatContext(Context):
         return self._image
 
     @property
-    def flavor(self):
-        """returns application's default flavor name"""
-        return self._flavor
-
-    @property
     def user(self):
         """return login user name corresponding to image"""
         return self._user
 
     def _add_resources_to_template(self, template):
-        """add to the template the resources represented by this context"""
+        """add to the template the resources represented by this context
+        :type template: object
+        """
+        template.add_flavor(self.flavor_name)
         template.add_keypair(self.keypair_name, self.key_uuid)
         template.add_security_group(self.secgroup_name)
 
