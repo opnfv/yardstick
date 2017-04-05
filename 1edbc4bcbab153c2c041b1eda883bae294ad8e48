@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_383d35bc",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-05T16:14:15Z",
+      "side": 1,
+      "message": "whitespace",
+      "revId": "1edbc4bcbab153c2c041b1eda883bae294ad8e48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
