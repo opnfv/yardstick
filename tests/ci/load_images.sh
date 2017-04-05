@@ -193,7 +193,7 @@ load_ubuntu_image()
     echo
     echo "========== Loading ubuntu cloud image =========="
 
-    local ubuntu_image_file=/home/opnfv/images/trusty-server-cloudimg-amd64-disk1.img
+    local ubuntu_image_file=/home/opnfv/images/xenial-server-cloudimg-amd64-disk1.img
 
     EXTRA_PARAMS=""
     # VPP requires guest memory to be backed by large pages

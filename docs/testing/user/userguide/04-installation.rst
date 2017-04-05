@@ -212,9 +212,9 @@ The created image can be added to OpenStack using the ``glance image-create`` or
   --file /tmp/workspace/yardstick/yardstick-image.img
 
 .. _`Cirros 0.3.5`: http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img
-.. _`Ubuntu 14.04`: https://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img
+.. _`Ubuntu 16.04`: https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img
 
-Some Yardstick test cases use a `Cirros 0.3.5`_ image and/or a `Ubuntu 14.04`_ image. Add Cirros and Ubuntu images to OpenStack::
+Some Yardstick test cases use a `Cirros 0.3.5`_ image and/or a `Ubuntu 16.04`_ image. Add Cirros and Ubuntu images to OpenStack::
 
   openstack image create \
       --disk-format qcow2 \
@@ -226,7 +226,7 @@ Some Yardstick test cases use a `Cirros 0.3.5`_ image and/or a `Ubuntu 14.04`_ i
       --disk-format qcow2 \
       --container-format bare \
       --file $ubuntu_image_file \
-      Ubuntu-14.04
+      Ubuntu-16.04
 
 
 The third way
