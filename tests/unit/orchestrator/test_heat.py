@@ -11,10 +11,12 @@
 
 # Unittest for yardstick.benchmark.orchestrator.heat
 
+from tempfile import NamedTemporaryFile
 import unittest
 import uuid
 import mock
 
+from yardstick.benchmark.contexts import node
 from yardstick.orchestrator import heat
 
 
@@ -66,6 +68,91 @@ class HeatTemplateTestCase(unittest.TestCase):
 
         self.assertEqual(self.template.resources['some-server-group']['type'], 'OS::Nova::ServerGroup')
         self.assertEqual(self.template.resources['some-server-group']['properties']['policies'], ['anti-affinity'])
+
+    def test__add_resources_to_template_raw(self):
+
+        self.test_context = node.NodeContext()
+        self.test_context.name = 'foo'
+        self.test_context.template_file = '/tmp/some-heat-file'
+        self.test_context.heat_parameters = {'image': 'cirros'}
+        self.test_context.key_filename = "/tmp/1234"
+        self.test_context.keypair_name = "foo-key"
+        self.test_context.secgroup_name = "foo-secgroup"
+        self.test_context.key_uuid = "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b"
+        self._template = {
+            'outputs' : {},
+            'resources' : {}
+        }
+
+        self.heat_object = heat.HeatObject()
+        self.heat_tmp_object = heat.HeatObject()
+
+        self.heat_stack = heat.HeatStack("tmpStack")
+        self.heat_stack.stacks_exist()
+
+        self.test_context.tmpfile = NamedTemporaryFile(delete=True, mode='w+t')
+        self.test_context.tmpfile.write("heat_template_version: 2015-04-30")
+        self.test_context.tmpfile.flush()
+        self.test_context.tmpfile.seek(0)
+        self.heat_tmp_template = heat.HeatTemplate(self.heat_tmp_object, self.test_context.tmpfile.name,
+                                                   heat_parameters= {"dict1": 1, "dict2": 2})
+
+        self.heat_template = heat.HeatTemplate(self.heat_object)
+        self.heat_template.resources = {}
+
+        self.heat_template.add_network("network1")
+        self.heat_template.add_network("network2")
+        self.heat_template.add_security_group("sec_group1")
+        self.heat_template.add_security_group("sec_group2")
+        self.heat_template.add_subnet("subnet1", "network1", "cidr1")
+        self.heat_template.add_subnet("subnet2", "network2", "cidr2")
+        self.heat_template.add_router("router1", "gw1", "subnet1")
+        self.heat_template.add_router_interface("router_if1", "router1", "subnet1")
+        self.heat_template.add_port("port1", "network1", "subnet1")
+        self.heat_template.add_port("port2", "network2", "subnet2", sec_group_id="sec_group1",provider="not-sriov")
+        self.heat_template.add_port("port3", "network2", "subnet2", sec_group_id="sec_group1",provider="sriov")
+        self.heat_template.add_floating_ip("floating_ip1", "network1", "port1", "router_if1")
+        self.heat_template.add_floating_ip("floating_ip2", "network2", "port2", "router_if2", "foo-secgroup")
+        self.heat_template.add_floating_ip_association("floating_ip1_association", "floating_ip1", "port1")
+        self.heat_template.add_servergroup("server_grp2", "affinity")
+        self.heat_template.add_servergroup("server_grp3", "anti-affinity")
+        self.heat_template.add_security_group("security_group")
+        self.heat_template.add_server(name="server1", image="image1", flavor="flavor1", flavors=[])
+        self.heat_template.add_server_group(name="servergroup", policies=["policy1","policy2"])
+        self.heat_template.add_server_group(name="servergroup", policies="policy1")
+        self.heat_template.add_server(name="server2", image="image1", flavor="flavor1", flavors=[], ports=["port1", "port2"],
+                                 networks=["network1", "network2"], scheduler_hints="hints1", user="user1",
+                                 key_name="foo-key", user_data="user", metadata={"cat": 1, "doc": 2},
+                                 additional_properties={"prop1": 1, "prop2": 2})
+        self.heat_template.add_server(name="server2", image="image1", flavor="flavor1", flavors=["flavor1", "flavor2"],
+                                 ports=["port1", "port2"],
+                                 networks=["network1", "network2"], scheduler_hints="hints1", user="user1",
+                                 key_name="foo-key", user_data="user", metadata={"cat": 1, "doc": 2},
+                                 additional_properties={"prop1": 1, "prop2": 2} )
+        self.heat_template.add_server(name="server2", image="image1", flavor="flavor1", flavors=["flavor3", "flavor4"],
+                                 ports=["port1", "port2"],
+                                 networks=["network1", "network2"], scheduler_hints="hints1", user="user1",
+                                 key_name="foo-key", user_data="user", metadata={"cat": 1, "doc": 2},
+                                 additional_properties={"prop1": 1, "prop2": 2})
+        self.heat_template.add_flavor(name="flavor1", vcpus=1, ram=2048, disk=1,extra_specs={"cat": 1, "dog": 2})
+        self.heat_template.add_flavor(name=None, vcpus=1, ram=2048)
+        self.heat_template.add_server(name="server1",
+                                      image="image1",
+                                      flavor="flavor1",
+                                      flavors=[],
+                                      ports=["port1", "port2"],
+                                      networks=["network1", "network2"],
+                                      scheduler_hints="hints1",
+                                      user="user1",
+                                      key_name="foo-key",
+                                      user_data="user",
+                                      metadata={"cat": 1, "doc": 2},
+                                      additional_properties= {"prop1": 1, "prop2": 2} )
+        self.heat_template.add_network("network1")
+
+        self.heat_template.add_flavor("test")
+        self.assertEqual(self.heat_template.resources['test']['type'], 'OS::Nova::Flavor')
+
 
 class HeatStackTestCase(unittest.TestCase):
 
