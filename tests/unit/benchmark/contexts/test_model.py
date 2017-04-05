@@ -170,6 +170,7 @@ class ServerTestCase(unittest.TestCase):
         self.mock_context.keypair_name = 'some-keys'
         self.mock_context.secgroup_name = 'some-secgroup'
         self.mock_context.user = "some-user"
+        self.mock_context.flavors = ["some-flavors"]
 
     def test_construct_defaults(self):
 
@@ -208,7 +209,7 @@ class ServerTestCase(unittest.TestCase):
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_instance(self, mock_template):
 
-        attrs = {'image': 'some-image', 'flavor': 'some-flavor'}
+        attrs = {'image': 'some-image', 'flavor': 'some-flavor', 'flavors': ['some-flavors']}
         test_server = model.Server('foo', self.mock_context, attrs)
 
         mock_network = mock.Mock()
@@ -226,7 +227,9 @@ class ServerTestCase(unittest.TestCase):
             sec_group_id=self.mock_context.secgroup_name)
 
         mock_template.add_server.assert_called_with(
-            'some-server', 'some-image', 'some-flavor',
+            'some-server', 'some-image',
+            flavor='some-flavor',
+            flavors=['some-flavors'],
             ports=['some-server-some-network-port'],
             user=self.mock_context.user,
             key_name=self.mock_context.keypair_name,
