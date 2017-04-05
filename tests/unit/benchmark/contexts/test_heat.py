@@ -108,6 +108,8 @@ class HeatContextTestCase(unittest.TestCase):
             "foo-key",
             "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b")
         mock_template.add_security_group.assert_called_with("foo-secgroup")
+        mock_template.add_flavor("test")
+        mock_template.add_flavor(vcpus=4, ram=2048)
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_deploy(self, mock_template):
