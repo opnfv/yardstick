@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_150d9c3e",
+        "filename": "tests/unit/orchestrator/test_heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-05T18:27:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_b51cd078",
+      "revId": "63bf5007e5bdeda7d560075a8c0818c85e7c3589",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_f818fd76",
         "filename": "yardstick/benchmark/contexts/model.py",
         "patchSetId": 6
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_98ea210e",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-05T18:27:14Z",
+      "side": 1,
+      "message": "This is already been taken care of with the current code.\n\nI have had a stack deployed on my lab doing two physical ports SRIOV testing, two VMs each has three ports 1 ovs port for yardstick control + 2 SRIOV ports for traffic.\n\nI just add a second stack running exactly the same test, the only change in the test case yaml file is to change the context and host names:\n\n(1) First stack uses\n\n  host: demeter.yardstick-TC008\n  target: poseidon.yardstick-TC008\n\ncontext:\n  name: yardstick-TC008\n\n(2) Second stack uses\n\n  host: demeter.yardstick-TC008-2\n  target: poseidon.yardstick-TC008-2\n\ncontext:\n  name: yardstick-TC008-2\n\nyardstick@yardstick-201:~$ heat stack-list\n+--------------------------------------+-------------------+-----------------+---------------------+--------------+\n| id                                   | stack_name        | stack_status    | creation_time       | updated_time |\n+--------------------------------------+-------------------+-----------------+---------------------+--------------+\n| def91b29-91e7-44bd-bdee-4132840ee359 | yardstick-TC008   | CREATE_COMPLETE | 2017-04-04T15:19:58 | None         |\n| 7430c6b0-6e04-4fc7-819d-9057958ae7b7 | yardstick-TC008-2 | CREATE_COMPLETE | 2017-04-05T18:21:06 | None         |\n+--------------------------------------+-------------------+-----------------+---------------------+--------------+\n\nyardstick@yardstick-201:~$ neutron net-list\n+--------------------------------------+------------------------+------------------------------------------------------+\n| id                                   | name                   | subnets                                              |\n+--------------------------------------+------------------------+------------------------------------------------------+\n| da175ec1-7f73-42e8-baf6-f41fee252094 | sriov_network          | cc42007c-7ed9-46ae-85af-a1068060fe64 10.0.2.0/24     |\n|                                      |                        | 31ed10cc-148d-4337-841a-a76f860f8f2a 10.0.1.0/24     |\n| 6db2f361-2e46-4fae-a29f-432780b71438 | yardstick-TC008-test   | 9000fa79-2410-4f34-ab49-79b85267ce32 10.0.1.0/24     |\n| ac379e3d-52e6-4d5f-888a-bb75c49a55b9 | yardstick-TC008-2-test | 6631b04c-3fa7-4d79-bf17-39b939c465a7 10.0.1.0/24     |\n| 852a2cf0-0c1a-4c97-b5c8-4b1d34c69d8b | sriov_network2         | 4193b3bb-1428-4bd0-bbfa-8b8c1477df8d 10.0.3.0/24     |\n| f122fc0f-c7c1-469e-895b-8a677ee433d3 | demo-net               | 880481cd-f687-450d-a089-ca0ec7847d43 192.168.10.0/24 |\n| 9282553d-cf4f-4343-b365-169b740de681 | ext-net1               | 0d55e915-29d5-48d4-bca9-2cbfb746dfec 10.5.201.0/24   |\n+--------------------------------------+------------------------+------------------------------------------------------+\n\nyardstick@yardstick-201:~$ neutron subnet-list\n+--------------------------------------+-------------------------------+-----------------+----------------------------------------------------+\n| id                                   | name                          | cidr            | allocation_pools                                   |\n+--------------------------------------+-------------------------------+-----------------+----------------------------------------------------+\n| cc42007c-7ed9-46ae-85af-a1068060fe64 | sriov_subnet2                 | 10.0.2.0/24     | {\"start\": \"10.0.2.5\", \"end\": \"10.0.2.225\"}         |\n| 6631b04c-3fa7-4d79-bf17-39b939c465a7 | yardstick-TC008-2-test-subnet | 10.0.1.0/24     | {\"start\": \"10.0.1.2\", \"end\": \"10.0.1.254\"}         |\n| 880481cd-f687-450d-a089-ca0ec7847d43 | demo-subnet                   | 192.168.10.0/24 | {\"start\": \"192.168.10.2\", \"end\": \"192.168.10.254\"} |\n| 4193b3bb-1428-4bd0-bbfa-8b8c1477df8d | sriov_subnet3                 | 10.0.3.0/24     | {\"start\": \"10.0.3.5\", \"end\": \"10.0.3.225\"}         |\n| 9000fa79-2410-4f34-ab49-79b85267ce32 | yardstick-TC008-test-subnet   | 10.0.1.0/24     | {\"start\": \"10.0.1.2\", \"end\": \"10.0.1.254\"}         |\n| 31ed10cc-148d-4337-841a-a76f860f8f2a | sriov_subnet1                 | 10.0.1.0/24     | {\"start\": \"10.0.1.5\", \"end\": \"10.0.1.225\"}         |\n| 0d55e915-29d5-48d4-bca9-2cbfb746dfec | ext-subnet1                   | 10.5.201.0/24   | {\"start\": \"10.5.201.100\", \"end\": \"10.5.201.150\"}   |\n+--------------------------------------+-------------------------------+-----------------+----------------------------------------------------+\n\n\nIs this what you are looking for?",
+      "parentUuid": "9ab8dda7_f818fd76",
+      "revId": "63bf5007e5bdeda7d560075a8c0818c85e7c3589",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_58582932",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 6
@@ -47,6 +83,24 @@
       "writtenOn": "2017-04-05T16:05:50Z",
       "side": 1,
       "message": "This won\u0027t work, only the first string is the docstring, you have to make a multi-line docstring.\n\nand if we are being proper we should add reStructedText docstring, e.g.  https://pythonhosted.org/an_example_pypi_project/sphinx.html#function-definitions\n\n        \"\"\"add to the template a Neutron RouterInterface and interface\n        \n        :param name: resource name\n        :type name: str\n        :param router_name:  router name\n        :type router_name: str\n        :param subnet_name: subnet name\n        :type subnet_name:  str\n        :param provider: if not None then the net and subnet already exist,\n         default None\n        :type provider: str|None\n        \"\"\"",
+      "revId": "63bf5007e5bdeda7d560075a8c0818c85e7c3589",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_389215a0",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-05T18:27:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_58582932",
       "revId": "63bf5007e5bdeda7d560075a8c0818c85e7c3589",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
