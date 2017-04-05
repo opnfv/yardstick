@@ -188,6 +188,38 @@ class HeatTemplate(HeatObject):
 
         log.debug("template object '%s' created", name)
 
+    def add_flavor(self, name, vcpus=1, ram=1024, disk=1, ephemeral=0, 
+                  is_public=True, rxtx_factor=1.0, swap=0, tenants=None,
+                  extra_specs=None):
+        """add to the template a Flavor description"""
+        if name is None:
+            name = 'auto'
+        log.debug("adding Nova::Flavor '%s'", name)
+        self.resources[name] = {
+            'type': 'OS::Nova::Flavor',
+            'properties': {'name': name,
+                           'disk': disk,
+                           'vcpus': vcpus,
+                           'swap': swap,
+                           'flavorid': name,
+                           'rxtx_factor': rxtx_factor,
+                           'ram': ram,
+                           'is_public' : is_public,
+                           'ephemeral': ephemeral
+            }
+        }
+
+        if tenants:
+            self.resources[name]['tenants'] = tenants
+
+        if extra_specs:
+            self.resources[name]['extra_specs'] = extra_specs
+
+        self._template['outputs'][name] = {
+            'description': 'Flavor %s ID' % name,
+            'value': {'get_resource': name}
+        }
+
     def add_network(self, name):
         """add to the template a Neutron Net"""
         log.debug("adding Neutron::Net '%s'", name)
@@ -390,26 +422,27 @@ class HeatTemplate(HeatObject):
                   "ports %s", name, image, flavor, ports)
 
         self.resources[name] = {
-            'type': 'OS::Nova::Server'
+            'type': 'OS::Nova::Server',
+            'depends_on': [flavor]  # list of dictionaries
         }
 
         server_properties = {
             'name': name,
             'image': image,
-            'flavor': flavor,
-            'networks': []  # list of dictionaries
+            'flavor': {'get_resource': flavor},
+            'networks': [] # list of dictionaries
+
         }
 
         if user:
             server_properties['admin_user'] = user
 
         if key_name:
-            self.resources[name]['depends_on'] = [key_name]
+            self.resources[name]['depends_on'].append(key_name)
             server_properties['key_name'] = {'get_resource': key_name}
 
         if ports:
-            self.resources[name]['depends_on'] = ports
-
+            self.resources[name]['depends_on'].extend(ports)
             for port in ports:
                 server_properties['networks'].append(
                     {'port': {'get_resource': port}}

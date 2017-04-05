@@ -144,6 +144,7 @@ class Server(Object):     # pragma: no cover
         self.stack_name = self.name + "." + context.name
         self.keypair_name = context.keypair_name
         self.secgroup_name = context.secgroup_name
+        self.flavor_name = context.flavor_name
         self.user = context.user
         self.context = context
         self.public_ip = None
@@ -245,7 +246,7 @@ class Server(Object):     # pragma: no cover
                         self.floating_ip["stack_name"],
                         port_name)
 
-        template.add_server(server_name, self.image, self.flavor,
+        template.add_server(server_name, self.image, self.flavor_name,
                             ports=port_name_list,
                             user=self.user,
                             key_name=self.keypair_name,
