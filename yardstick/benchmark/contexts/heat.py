@@ -47,6 +47,7 @@ class HeatContext(Context):
         self._server_map = {}
         self._image = None
         self._flavor = None
+        self.flavors = set()
         self._user = None
         self.template_file = None
         self.heat_parameters = None
@@ -129,6 +130,13 @@ class HeatContext(Context):
 
     def _add_resources_to_template(self, template):
         """add to the template the resources represented by this context"""
+
+        if self.flavor:
+            if isinstance(self.flavor, dict):
+                flavor = self.flavor.setdefault("name", self.name + "-flavor")
+                template.add_flavor(**self.flavor)
+                self.flavors.add(flavor)
+
         template.add_keypair(self.keypair_name, self.key_uuid)
         template.add_security_group(self.secgroup_name)
 
@@ -136,8 +144,7 @@ class HeatContext(Context):
             template.add_network(network.stack_name,
                                  network.physical_network,
                                  network.provider)
-            template.add_subnet(network.subnet_stack_name,
-                                network.stack_name,
+            template.add_subnet(network.subnet_stack_name, network.stack_name,
                                 network.subnet_cidr)
 
             if network.router:
@@ -163,6 +170,13 @@ class HeatContext(Context):
                 if pg.policy == "availability":
                     availability_servers.append(server)
                     break
+
+        for server in availability_servers:
+            if isinstance(server.flavor, dict):
+                try:
+                    self.flavors.add(server.flavor["name"])
+                except KeyError:
+                    self.flavors.add(server.stack_name + "-flavor")
 
         # add servers with availability policy
         added_servers = []
