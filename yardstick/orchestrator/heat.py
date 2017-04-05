@@ -16,11 +16,13 @@ import collections
 import datetime
 import getpass
 import logging
+
 import socket
 import time
 
 import heatclient
 import pkg_resources
+
 from oslo_utils import encodeutils
 
 import yardstick.common.openstack_utils as op_utils
@@ -37,7 +39,7 @@ def get_short_key_uuid(uuid):
 
 
 class HeatObject(object):
-    """ base class for template and stack"""
+    """base class for template and stack"""
 
     def __init__(self):
         self._heat_client = None
@@ -63,7 +65,7 @@ class HeatObject(object):
 
 
 class HeatStack(HeatObject):
-    """ Represents a Heat stack (deployed template) """
+    """Represents a Heat stack (deployed template) """
     stacks = []
 
     def __init__(self, name):
@@ -187,6 +189,40 @@ class HeatTemplate(HeatObject):
         self.outputs = {}
 
         log.debug("template object '%s' created", name)
+
+    def add_flavor(self, name, vcpus=1, ram=1024, disk=1, ephemeral=0,
+                   is_public=True, rxtx_factor=1.0, swap=0,
+                   extra_specs=None):
+        """add to the template a Flavor description"""
+        if name is None:
+            name = 'auto'
+        log.debug("adding Nova::Flavor '%s' vcpus '%d' ram '%d' disk '%d' " +
+                  "ephemeral '%d' is_public '%s' rxtx_factor '%d' " +
+                  "swap '%d' extra_specs '%s' ",
+                  name, vcpus, ram, disk, ephemeral, is_public,
+                  rxtx_factor, swap, str(extra_specs))
+
+        if extra_specs:
+            assert isinstance(extra_specs, collections.Mapping)
+
+        self.resources[name] = {
+            'type': 'OS::Nova::Flavor',
+            'properties': {'name': name,
+                           'disk': disk,
+                           'vcpus': vcpus,
+                           'swap': swap,
+                           'flavorid': name,
+                           'rxtx_factor': rxtx_factor,
+                           'ram': ram,
+                           'is_public': is_public,
+                           'ephemeral': ephemeral,
+                           'extra_specs': extra_specs}
+        }
+
+        self._template['outputs'][name] = {
+            'description': 'Flavor %s ID' % name,
+            'value': {'get_resource': name}
+        }
 
     def add_network(self, name):
         """add to the template a Neutron Net"""
@@ -382,34 +418,41 @@ class HeatTemplate(HeatObject):
             'value': {'get_resource': name}
         }
 
-    def add_server(self, name, image, flavor, ports=None, networks=None,
-                   scheduler_hints=None, user=None, key_name=None,
-                   user_data=None, metadata=None, additional_properties=None):
+    def add_server(self, name, image, flavor, flavors, ports=None,
+                   networks=None, scheduler_hints=None, user=None,
+                   key_name=None, user_data=None, metadata=None,
+                   additional_properties=None):
         """add to the template a Nova Server"""
         log.debug("adding Nova::Server '%s', image '%s', flavor '%s', "
                   "ports %s", name, image, flavor, ports)
 
         self.resources[name] = {
-            'type': 'OS::Nova::Server'
+            'type': 'OS::Nova::Server',
+            'depends_on': []
         }
 
         server_properties = {
             'name': name,
             'image': image,
-            'flavor': flavor,
+            'flavor': {},
             'networks': []  # list of dictionaries
         }
+
+        if flavor in flavors:
+            self.resources[name]['depends_on'].append(flavor)
+            server_properties["flavor"] = {'get_resource': flavor}
+        else:
+            server_properties["flavor"] = flavor
 
         if user:
             server_properties['admin_user'] = user
 
         if key_name:
-            self.resources[name]['depends_on'] = [key_name]
+            self.resources[name]['depends_on'].append(key_name)
             server_properties['key_name'] = {'get_resource': key_name}
 
         if ports:
-            self.resources[name]['depends_on'] = ports
-
+            self.resources[name]['depends_on'].extend(ports)
             for port in ports:
                 server_properties['networks'].append(
                     {'port': {'get_resource': port}}
@@ -445,7 +488,8 @@ class HeatTemplate(HeatObject):
 
     def create(self, block=True):
         """creates a template in the target cloud using heat
-        returns a dict with the requested output values from the template"""
+        returns a dict with the requested output values from the template
+        """
         log.info("Creating stack '%s'", self.name)
 
         # create stack early to support cleanup, e.g. ctrl-c while waiting
