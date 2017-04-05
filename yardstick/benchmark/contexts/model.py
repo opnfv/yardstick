@@ -130,7 +130,8 @@ class Network(Object):
     @staticmethod
     def find_external_network():
         """return the name of an external network some network in this
-        context has a route to"""
+        context has a route to
+        """
         for network in Network.list:
             if network.router:
                 return network.router.external_gateway_info
@@ -250,8 +251,17 @@ class Server(Object):     # pragma: no cover
                         self.floating_ip_assoc["stack_name"],
                         self.floating_ip["stack_name"],
                         port_name)
+        if self.flavor:
+            if isinstance(self.flavor, dict):
+                self.flavor["name"] = \
+                    self.flavor.setdefault("name", self.stack_name + "-flavor")
+                template.add_flavor(**self.flavor)
+                self.flavor_name = self.flavor["name"]
+            else:
+                self.flavor_name = self.flavor
 
-        template.add_server(server_name, self.image, self.flavor,
+        template.add_server(server_name, self.image, flavor=self.flavor_name,
+                            flavors=self.context.flavors,
                             ports=port_name_list,
                             user=self.user,
                             key_name=self.keypair_name,
@@ -273,7 +283,7 @@ class Server(Object):     # pragma: no cover
 
 
 def update_scheduler_hints(scheduler_hints, added_servers, placement_group):
-    """ update scheduler hints from server's placement configuration
+    """update scheduler hints from server's placement configuration
     TODO: this code is openstack specific and should move somewhere else
     """
     if placement_group.policy == "affinity":
