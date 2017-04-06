@@ -14,7 +14,6 @@ pool_size = 2M
 [RXQ1.0]
 mempool = MEMPOOL1
 
-;;;;;;;;;;Begin of upstream 0;;;;;;;;;;;;;;;;;;
 [PIPELINE1]
 type = FIREWALL
 core = s{socket}c1
@@ -25,24 +24,24 @@ pkt_type = qinq_ipv4
 
 [PIPELINE2]
 type = FLOW_CLASSIFICATION
-core = s{socket}c1
+core = s{socket}c2
 pktq_in = SWQ0
 pktq_out = SWQ1 SINK1
 n_flows = 65536
-key_size = 8; dma_size
-key_offset = 268; dma_dst_offset
-key_mask = 00000FFF00000FFF; qinq
-flowid_offset = 172; mbuf (128) + 64
+key_size = 8
+key_offset = 268
+key_mask = 00000FFF00000FFF
+flowid_offset = 172
 
 [PIPELINE3]
 type = FLOW_ACTIONS
-core = s{socket}c1h
+core = s{socket}c2h
 pktq_in = SWQ1
 pktq_out = SWQ2
 n_flows = 65536
-n_meters_per_flow = 1;dscp is not considered for per user metering
-flow_id_offset = 172; mbuf (128) + 64
-ip_hdr_offset = 278 ; should not needed, but who knows?
+n_meters_per_flow = 1
+flow_id_offset = 172
+ip_hdr_offset = 278
 color_offset = 176
 
 [PIPELINE4]
@@ -51,51 +50,49 @@ core = s{socket}c1h
 pktq_in = SWQ2
 pktq_out = SWQ3
 n_flows = 65536
-n_meters_per_flow = 4; Use dscp to classify into 1 out of 4 TC
-flow_id_offset = 172; mbuf (128) + 64
-ip_hdr_offset = 278 ; should not needed, but who knows?
+n_meters_per_flow = 4
+flow_id_offset = 172
+ip_hdr_offset = 278
 color_offset = 176
 
 [PIPELINE5]
 type = ROUTING
-core = s{socket}c1
+core = s0c3
 pktq_in = SWQ3
-pktq_out = TXQ1.0 SINK2
+pktq_out = TXQ1.0
 encap = ethernet_mpls
 mpls_color_mark = yes
-ip_hdr_offset = 278 ; should not needed, but who knows?
+ip_hdr_offset = 278
 color_offset = 176
 
-;;;;;;;;;;Begin of downstream 0;;;;;;;;;;;;;;;;;;
 [PIPELINE6]
 type = ROUTING
-core = s{socket}c2
+core = s{socket}c4
 pktq_in = RXQ1.0
-pktq_out = SWQ4 SINK3
+pktq_out = SWQ4 SINK2
 encap = ethernet_qinq
 qinq_sched = yes
-ip_hdr_offset = 270; mbuf (128) + headroom (128) + ethernet header (14) = 270
-
+ip_hdr_offset = 270
 
 [PIPELINE7]
 type = PASS-THROUGH
-core = s{socket}c2h
+core = s{socket}c5h
 pktq_in = SWQ4
 pktq_out = SWQ5
 
 [PIPELINE8]
 type = PASS-THROUGH
-core = s{socket}c2h
+core = s{socket}c5h
 pktq_in = SWQ5 TM0
-pktq_out = TM0 SWQ6
+pktq_out = SWQ6 TM0
 
 [PIPELINE9]
 type = PASS-THROUGH
-core = s{socket}c2
+core = s{socket}c5h
 pktq_in = SWQ6
 pktq_out = TXQ0.0
 
 [TM0]
-burst_read = 24;dequeue should be slightly slower then enqueue to create buffer
+burst_read = 24
 burst_write = 32
 cfg = /tmp/full_tm_profile_10G.cfg
