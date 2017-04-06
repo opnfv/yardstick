@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_78bacd6f",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T07:39:41Z",
+      "side": 1,
+      "message": "don\u0027t we get this from yardstick.conf\n\nor using\n\n  get_nsb_option(\"bin_path\")",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_18b1518f",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T07:39:41Z",
+      "side": 1,
+      "message": "this should be a constant somewhere centralized.",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_f8a55d47",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T07:39:41Z",
+      "side": 1,
+      "message": "don\u0027t we usually remove the uuid so it auto-generates?",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_38ac5535",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T07:39:41Z",
+      "side": 1,
+      "message": "doesn\u0027t this depend on VNFd flavor info?\n\nOr do we change it later?",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_d8aad918",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T07:39:41Z",
+      "side": 1,
+      "message": "why hardcode to kvm-spice?  this is distro specfic.",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_78716ddf",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T07:39:41Z",
+      "side": 1,
+      "message": "does libvirt generate unique MAC addresses?",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_187871c3",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T07:39:41Z",
+      "side": 1,
+      "message": "remove commented code",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_3873f5e8",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T07:39:41Z",
+      "side": 1,
+      "message": "we should be using regular logging scheme.\n\nLOG.exception(\"IOError opening %s\", self.file_path)\n\nbut we can\u0027t assume this was ENOENT unless we check errno.\n\n        if e.errno \u003d\u003d errno.ENOENT:\n\nit could be any other of other two dozen open errnos.",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_d8817990",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T07:39:41Z",
+      "side": 1,
+      "message": "this will be standardized in https://gerrit.opnfv.org/gerrit/#/c/32931/\n\nand we will follow default paramiko ssh auth rules,  pkey, then key_filename then password.",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_b84e0595",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T07:39:41Z",
+      "side": 1,
+      "message": "please use single dict literal\n\n        nic_details \u003d {\n            \u0027interface\u0027: {},\n            \u0027pci\u0027: self.sriov[0][\u0027phy_ports\u0027],\n            \u0027phy_driver\u0027: self.sriov[0][\u0027phy_driver\u0027],\n            \u0027vf_macs\u0027: self.sriov[0][\u0027vf_macs\u0027]\n        }",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_5845896e",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T07:39:41Z",
+      "side": 1,
+      "message": "use # comment",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_78488d87",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T07:39:41Z",
+      "side": 1,
+      "message": "please using logging methods\n\n LOG.debug(\"%s\", nic_details)",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_185f1143",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T07:39:41Z",
+      "side": 1,
+      "message": "use comments",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
