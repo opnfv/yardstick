@@ -11,7 +11,7 @@ import threading
 import os
 import errno
 
-from api import conf
+from yardstick.common import constants as consts
 from api.database.handlers import TasksHandler
 
 
@@ -43,7 +43,7 @@ class DaemonThread(threading.Thread):
 
 def _handle_testsuite_file(task_id):
     try:
-        os.remove(os.path.join(conf.TEST_SUITE_PATH, task_id + '.yaml'))
+        os.remove(os.path.join(consts.TESTSUITE_DIR, task_id + '.yaml'))
     except OSError as e:
         if e.errno != errno.ENOENT:
             raise

@@ -20,8 +20,8 @@ from yardstick.common import utils as yardstick_utils
 # without having to install apexlake.
 sys.path.append(os.path.dirname(apexlake.__file__))
 
-yardstick_utils.makedirs(constants.YARDSTICK_LOG_DIR)
-LOG_FILE = os.path.join(constants.YARDSTICK_LOG_DIR, 'yardstick.log')
+yardstick_utils.makedirs(constants.LOG_DIR)
+LOG_FILE = os.path.join(constants.LOG_DIR, 'yardstick.log')
 LOG_FORMATTER = ('%(asctime)s '
                  '%(name)s %(filename)s:%(lineno)d '
                  '%(levelname)s %(message)s')

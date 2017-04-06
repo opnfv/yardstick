@@ -25,7 +25,7 @@ from yardstick.benchmark.contexts.model import PlacementGroup, ServerGroup
 from yardstick.benchmark.contexts.model import Server
 from yardstick.benchmark.contexts.model import update_scheduler_hints
 from yardstick.orchestrator.heat import HeatTemplate, get_short_key_uuid
-from yardstick.definitions import YARDSTICK_ROOT_PATH
+from yardstick.common.constants import YARDSTICK_ROOT_PATH
 
 LOG = logging.getLogger(__name__)
 
