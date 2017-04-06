@@ -97,18 +97,6 @@ error_exit()
 set -o errexit
 set -o pipefail
 
-install_yardstick()
-{
-    echo
-    echo "========== Installing yardstick =========="
-
-    # uninstall previous version
-    pip uninstall -y yardstick || true
-
-    # Install yardstick
-    pip install .
-}
-
 install_storperf()
 {
     # Install Storper on huawei-pod1
@@ -319,9 +307,6 @@ main()
     for net in $(openstack network list --external -c Name -f value); do
         echo "  external network: $net"
     done
-
-    # install yardstick
-    install_yardstick
 
     source $YARDSTICK_REPO_DIR/tests/ci/clean_images.sh
 

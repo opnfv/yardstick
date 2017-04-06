@@ -59,7 +59,7 @@ git config --global http.sslVerify false
 # install yardstick + dependencies
 easy_install -U pip
 pip install -r requirements.txt
-pip install .
+pip install -e .
 
 /bin/bash "$(pwd)/api/api-prepare.sh"
 
