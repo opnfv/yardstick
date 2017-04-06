@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_78d5edb7",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T07:09:04Z",
+      "side": 1,
+      "message": "rephrasing:\n\nPlease refer to Chapter 13 of the Yardstick User Guide for how to get started with VNF testing.",
+      "revId": "b3e1ef7c5dd184d8021d9b32fae676fa7ffeff0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
