@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_f81b1dc8",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T06:46:45Z",
+      "side": 1,
+      "message": "It has to do with the Task API and concurrent support.\n\nI think the tasks API allows the same test to run twice, so we make the stack unique with the task UUID.\n\nfrom task.py\n\n        name_suffix \u003d \u0027-{}\u0027.format(task_id[:8])\n        for cfg_attrs in context_cfgs:\n            try:\n                cfg_attrs[\u0027name\u0027] \u003d \u0027{}{}\u0027.format(cfg_attrs[\u0027name\u0027],\n                                                  name_suffix)\n\nthe last 8 digits of the task id are appended to the name to become context.name.\n\nSee https://gerrit.opnfv.org/gerrit/#/c/26763/\n\nwe might need to ask Jack Chan",
+      "parentUuid": "9ab8dda7_98ea210e",
+      "revId": "63bf5007e5bdeda7d560075a8c0818c85e7c3589",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_58582932",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 6
