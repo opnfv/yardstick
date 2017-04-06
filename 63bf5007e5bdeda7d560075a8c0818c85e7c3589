@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_78872dd8",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T06:47:43Z",
+      "side": 1,
+      "message": "also https://gerrit.opnfv.org/gerrit/#/c/29371/",
+      "parentUuid": "9ab8dda7_f81b1dc8",
+      "revId": "63bf5007e5bdeda7d560075a8c0818c85e7c3589",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_58582932",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 6
