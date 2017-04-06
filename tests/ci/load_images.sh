@@ -206,7 +206,7 @@ load_ubuntu_image()
         --container-format bare \
         $EXTRA_PARAMS \
         --file $ubuntu_image_file \
-        Ubuntu-14.04)
+        Ubuntu-16.04)
     echo "$output"
 
     UBUNTU_IMAGE_ID=$(echo "$output" | grep " id " | awk '{print $(NF-1)}')
