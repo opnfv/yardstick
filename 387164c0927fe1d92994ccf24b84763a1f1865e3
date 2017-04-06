@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_be510d10",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-06T16:21:19Z",
+      "side": 1,
+      "message": "flake8 wants this de-indented 4 spaces.\n\n\nif you are using pycharm code formatter,\n\nSettings \u003e Editor \u003e Code Style \u003e Python \u003e Tabs and Indents\n\nContinuation indent: 4   needs to be set to 4 instead of 8",
+      "revId": "387164c0927fe1d92994ccf24b84763a1f1865e3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
