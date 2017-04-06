@@ -118,6 +118,8 @@ class ResourceProfile(object):
         return res
 
     def amqp_process_for_nfvi_kpi(self):
+        if not self.enable:
+            return
         """ amqp collect and return nfvi kpis """
         if self.amqp_client is None:
             self.amqp_client = \
@@ -126,6 +128,9 @@ class ResourceProfile(object):
             self.amqp_client.start()
 
     def amqp_collect_nfvi_kpi(self):
+        if not self.enable:
+            return {}
+
         """ amqp collect and return nfvi kpis """
         metric = {}
         while not self._queue.empty():
