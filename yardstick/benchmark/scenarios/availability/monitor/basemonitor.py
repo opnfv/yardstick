@@ -34,6 +34,11 @@ class MonitorMgr(object):
         for monitor_cfg in monitor_cfgs:
             monitor_type = monitor_cfg["monitor_type"]
             monitor_cls = BaseMonitor.get_monitor_cls(monitor_type)
+
+            monitor_number = monitor_cfg.get("monitor_number", 1)
+            if monitor_number > 1:
+                monitor_cls = BaseMonitor.get_monitor_cls("multi-monitor")
+
             monitor_ins = monitor_cls(monitor_cfg, context)
             if "key" in monitor_cfg:
                 monitor_ins.key = monitor_cfg["key"]
@@ -133,6 +138,8 @@ class BaseMonitor(multiprocessing.Process):
 
         self._queue.put({"total_time": total_time,
                          "outage_time": last_outage - first_outage,
+                         "last_outage": last_outage,
+                         "first_outage": first_outage,
                          "total_count": total_count,
                          "outage_count": outage_count})
 
@@ -152,3 +159,6 @@ class BaseMonitor(multiprocessing.Process):
 
     def verify_SLA(self):
         pass
+
+    def result(self):
+        return self._result
