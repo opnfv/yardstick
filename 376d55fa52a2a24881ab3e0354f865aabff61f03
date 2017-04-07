@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "9ab8dda7_1e7859c3",
+        "filename": "tests/unit/benchmark/contexts/test_sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-07T07:22:31Z",
+      "side": 1,
+      "message": "need Intel copyright Apache 2.0 header",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_7e7155df",
+        "filename": "yardstick/benchmark/contexts/sriov.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-07T07:22:31Z",
+      "side": 1,
+      "message": "needs Intel copyright Apache 2.0 header",
+      "revId": "376d55fa52a2a24881ab3e0354f865aabff61f03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_78bacd6f",
         "filename": "yardstick/benchmark/contexts/sriov.py",
         "patchSetId": 5
