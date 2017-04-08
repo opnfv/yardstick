@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (c) 2016 ZTE corporation and others.
+# Copyright (c) 2017 Nokia and others.
 #
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
@@ -9,6 +9,7 @@
 from __future__ import absolute_import
 import pkg_resources
 import logging
+import json
 import time
 
 import yardstick.ssh as ssh
@@ -17,33 +18,37 @@ from yardstick.benchmark.scenarios import base
 LOG = logging.getLogger(__name__)
 
 
-class PktgenDPDKLatency(base.Scenario):
+class PktgenDPDK(base.Scenario):
     """Execute pktgen-dpdk on one vm and execute testpmd on the other vm
-
-  Parameters
-    packetsize - packet size in bytes without the CRC
-        type:    int
-        unit:    bytes
-        default: 64
     """
-    __scenario_type__ = "PktgenDPDKLatency"
+    __scenario_type__ = "PktgenDPDK"
 
-    PKTGEN_DPDK_SCRIPT = 'pktgen_dpdk_latency_benchmark.bash'
-    TESTPMD_SCRIPT = 'testpmd_fwd.bash'
+    PKTGEN_DPDK_SCRIPT = 'pktgen_dpdk_benchmark.bash'
+    TESTPMD_SCRIPT = 'testpmd_rev.bash'
 
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
+        self.source_ipaddr = [None] * 2
+        self.source_ipaddr[0] = \
+            self.context_cfg["host"].get("ipaddr", '127.0.0.1')
+        self.target_ipaddr = [None] * 2
+        self.target_ipaddr[0] = \
+            self.context_cfg["target"].get("ipaddr", '127.0.0.1')
+        self.target_macaddr = [None] * 2
         self.setup_done = False
+        self.dpdk_setup_done = False
 
     def setup(self):
         """scenario setup"""
+
         self.pktgen_dpdk_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
-            PktgenDPDKLatency.PKTGEN_DPDK_SCRIPT)
+            PktgenDPDK.PKTGEN_DPDK_SCRIPT)
         self.testpmd_script = pkg_resources.resource_filename(
             'yardstick.benchmark.scenarios.networking',
-            PktgenDPDKLatency.TESTPMD_SCRIPT)
+            PktgenDPDK.TESTPMD_SCRIPT)
+
         host = self.context_cfg['host']
         host_user = host.get('user', 'ubuntu')
         host_ssh_port = host.get('ssh_port', ssh.DEFAULT_PORT)
@@ -54,6 +59,7 @@ class PktgenDPDKLatency(base.Scenario):
         target_ssh_port = target.get('ssh_port', ssh.DEFAULT_PORT)
         target_ip = target.get('ip', None)
         target_key_filename = target.get('key_filename', '~/.ssh/id_rsa')
+
         LOG.info("user:%s, target:%s", target_user, target_ip)
         self.server = ssh.SSH(target_user, target_ip,
                               key_filename=target_key_filename,
@@ -61,7 +67,7 @@ class PktgenDPDKLatency(base.Scenario):
         self.server.wait(timeout=600)
 
         # copy script to host
-        self.server._put_file_shell(self.testpmd_script, '~/testpmd_fwd.sh')
+        self.server._put_file_shell(self.testpmd_script, '~/testpmd_rev.sh')
 
         LOG.info("user:%s, host:%s", host_user, host_ip)
         self.client = ssh.SSH(host_user, host_ip,
@@ -70,12 +76,65 @@ class PktgenDPDKLatency(base.Scenario):
         self.client.wait(timeout=600)
 
         # copy script to host
-        self.client._put_file_shell(
-            self.pktgen_dpdk_script, '~/pktgen_dpdk.sh')
+        self.client._put_file_shell(self.pktgen_dpdk_script,
+                                    '~/pktgen_dpdk.sh')
 
         self.setup_done = True
-        self.testpmd_args = ''
-        self.pktgen_args = []
+
+    def dpdk_setup(self):
+        """dpdk setup"""
+
+        # disable Address Space Layout Randomization (ASLR)
+        cmd = "echo 0 | sudo tee /proc/sys/kernel/randomize_va_space"
+        self.server.send_command(cmd)
+        self.client.send_command(cmd)
+
+        if not self._is_dpdk_setup("client"):
+            cmd = "sudo ifup eth1"
+            LOG.debug("Executing command: %s", cmd)
+            self.client.send_command(cmd)
+            time.sleep(1)
+            self.source_ipaddr[1] = self.get_port_ip(self.client, 'eth1')
+            self.client.run("tee ~/.pktgen-dpdk.ipaddr.eth1 > /dev/null",
+                            stdin=self.source_ipaddr[1])
+        else:
+            cmd = "cat ~/.pktgen-dpdk.ipaddr.eth1"
+            status, stdout, stderr = self.client.execute(cmd)
+            if status:
+                raise RuntimeError(stderr)
+            self.source_ipaddr[1] = stdout
+
+        if not self._is_dpdk_setup("server"):
+            cmd = "sudo ifup eth1"
+            LOG.debug("Executing command: %s", cmd)
+            self.server.send_command(cmd)
+            time.sleep(1)
+            self.target_ipaddr[1] = self.get_port_ip(self.server, 'eth1')
+            self.target_macaddr[1] = self.get_port_mac(self.server, 'eth1')
+            self.server.run("tee ~/.testpmd.ipaddr.eth1 > /dev/null",
+                            stdin=self.target_ipaddr[1])
+            self.server.run("tee ~/.testpmd.macaddr.eth1 > /dev/null",
+                            stdin=self.target_macaddr[1])
+
+            cmd = "screen sudo -E bash ~/testpmd_rev.sh %s"
+            LOG.debug("Executing command: %s", cmd)
+            self.server.send_command(cmd)
+
+            time.sleep(1)
+        else:
+            cmd = "cat ~/.testpmd.ipaddr.eth1"
+            status, stdout, stderr = self.server.execute(cmd)
+            if status:
+                raise RuntimeError(stderr)
+            self.target_ipaddr[1] = stdout
+
+            cmd = "cat ~/.testpmd.macaddr.eth1"
+            status, stdout, stderr = self.server.execute(cmd)
+            if status:
+                raise RuntimeError(stderr)
+            self.target_macaddr[1] = stdout
+
+        self.dpdk_setup_done = True
 
     @staticmethod
     def get_port_mac(sshclient, port):
@@ -85,8 +144,7 @@ class PktgenDPDKLatency(base.Scenario):
 
         if status:
             raise RuntimeError(stderr)
-        else:
-            return stdout.rstrip()
+        return stdout.rstrip()
 
     @staticmethod
     def get_port_ip(sshclient, port):
@@ -97,8 +155,41 @@ class PktgenDPDKLatency(base.Scenario):
 
         if status:
             raise RuntimeError(stderr)
+        return stdout.rstrip()
+
+    def _is_dpdk_setup(self, host):
+        """Is dpdk already setup in the host?"""
+        is_run = True
+        cmd = "ip a | grep eth1 2>/dev/null"
+        LOG.debug("Executing command: %s in %s", cmd, host)
+        if "server" in host:
+            status, stdout, stderr = self.server.execute(cmd)
+            if stdout:
+                is_run = False
         else:
-            return stdout.rstrip()
+            status, stdout, stderr = self.client.execute(cmd)
+            if stdout:
+                is_run = False
+
+        return is_run
+
+    def _dpdk_get_result(self):
+        """Get packet statistics from server"""
+        cmd = "sudo /dpdk/destdir/bin/dpdk-procinfo -- --stats 2>/dev/null | \
+              awk '$1 ~ /RX-packets/' | cut -d ':' -f2  | cut -d ' ' -f2 | \
+              head -n 1"
+        LOG.debug("Executing command: %s", cmd)
+        status, stdout, stderr = self.server.execute(cmd)
+        if status:
+            raise RuntimeError(stderr)
+        received = int(stdout)
+
+        cmd = "sudo /dpdk/destdir/bin/dpdk-procinfo -- --stats-reset \
+            > /dev/null 2>&1"
+        self.server.execute(cmd)
+        time.sleep(1)
+        self.server.execute(cmd)
+        return received
 
     def run(self, result):
         """execute the benchmark"""
@@ -106,61 +197,50 @@ class PktgenDPDKLatency(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        if not self.testpmd_args:
-            self.testpmd_args = self.get_port_mac(self.client, 'eth2')
-
-        if not self.pktgen_args:
-            server_rev_mac = self.get_port_mac(self.server, 'eth1')
-            server_send_mac = self.get_port_mac(self.server, 'eth2')
-            client_src_ip = self.get_port_ip(self.client, 'eth1')
-            client_dst_ip = self.get_port_ip(self.client, 'eth2')
-
-            self.pktgen_args = [client_src_ip, client_dst_ip,
-                                server_rev_mac, server_send_mac]
+        if not self.dpdk_setup_done:
+            self.dpdk_setup()
 
         options = self.scenario_cfg['options']
-        packetsize = options.get("packetsize", 64)
+        packetsize = options.get("packetsize", 60)
         rate = options.get("rate", 100)
+        self.number_of_ports = options.get("number_of_ports", 10)
+        # if run by a duration runner
+        duration_time = self.scenario_cfg["runner"].get("duration", None) \
+            if "runner" in self.scenario_cfg else None
+        # if run by an arithmetic runner
+        arithmetic_time = options.get("duration", None)
 
-        cmd = "screen sudo -E bash ~/testpmd_fwd.sh %s " % (self.testpmd_args)
+        if duration_time:
+            duration = duration_time
+        elif arithmetic_time:
+            duration = arithmetic_time
+        else:
+            duration = 20
+
+        cmd = "sudo bash pktgen_dpdk.sh %s %s %s %s %s %s %s" \
+            % (self.source_ipaddr[1],
+               self.target_ipaddr[1], self.target_macaddr[1],
+               self.number_of_ports, packetsize, duration, rate)
+
         LOG.debug("Executing command: %s", cmd)
-        self.server.send_command(cmd)
+        status, stdout, stderr = self.client.execute(cmd)
 
-        time.sleep(1)
+        if status:
+            raise RuntimeError(stderr)
 
-        cmd = "screen sudo -E bash ~/pktgen_dpdk.sh %s %s %s %s %s %s" % \
-            (self.pktgen_args[0], self.pktgen_args[1], self.pktgen_args[2],
-             self.pktgen_args[3], rate, packetsize)
-        LOG.debug("Executing command: %s", cmd)
-        self.client.send_command(cmd)
+        result.update(json.loads(stdout))
 
-        # wait for finishing test
-        time.sleep(1)
+        result['packets_received'] = self._dpdk_get_result()
 
-        cmd = "cat ~/result.log -vT \
-               |awk '{match($0,/\[8;40H +[0-9]+/)} \
-               {print substr($0,RSTART,RLENGTH)}' \
-               |grep -v ^$ |awk '{if ($2 != 0) print $2}'"
-        client_status, client_stdout, client_stderr = self.client.execute(cmd)
+        result['packetsize'] = packetsize
 
-        if client_status:
-            raise RuntimeError(client_stderr)
-
-        avg_latency = 0
-        if client_stdout:
-            latency_list = client_stdout.split('\n')[0:-2]
-            LOG.info("10 samples of latency: %s", latency_list)
-            latency_sum = 0
-            for i in latency_list:
-                latency_sum += int(i)
-            avg_latency = latency_sum / len(latency_list)
-
-        result.update({"avg_latency": avg_latency})
-
-        if avg_latency and "sla" in self.scenario_cfg:
-            sla_max_latency = int(self.scenario_cfg["sla"]["max_latency"])
-            LOG.info("avg_latency : %d ", avg_latency)
-            LOG.info("sla_max_latency: %d", sla_max_latency)
-            debug_info = "avg_latency %d > sla_max_latency %d" \
-                % (avg_latency, sla_max_latency)
-            assert avg_latency <= sla_max_latency, debug_info
+        if "sla" in self.scenario_cfg:
+            sent = result['packets_sent']
+            received = result['packets_received']
+            ppm = 1000000 * (sent - received) / sent
+            # Added by Jing
+            ppm += (sent - received) % sent > 0
+            LOG.debug("Lost packets %d - Lost ppm %d", (sent - received), ppm)
+            sla_max_ppm = int(self.scenario_cfg["sla"]["max_ppm"])
+            assert ppm <= sla_max_ppm, "ppm %d > sla_max_ppm %d; " \
+                % (ppm, sla_max_ppm)
