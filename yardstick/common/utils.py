@@ -167,3 +167,22 @@ def parse_ini_file(path):
                       s)} for s in parser.sections()})
 
     return config
+
+
+def get_port_mac(sshclient, port):
+    cmd = "ifconfig |grep HWaddr |grep %s |awk '{print $5}' " % port
+    status, stdout, stderr = sshclient.execute(cmd)
+
+    if status:
+        raise RuntimeError(stderr)
+    return stdout.rstrip()
+
+
+def get_port_ip(sshclient, port):
+    cmd = "ifconfig %s |grep 'inet addr' |awk '{print $2}' " \
+        "|cut -d ':' -f2 " % port
+    status, stdout, stderr = sshclient.execute(cmd)
+
+    if status:
+        raise RuntimeError(stderr)
+    return stdout.rstrip()
