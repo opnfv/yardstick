@@ -1,0 +1,72 @@
+##############################################################################
+# Copyright (c) 2017 Ericsson AB and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+
+schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC008 config file;
+    Measure network throughput and packet loss using testpmd and pktgen-dpdk;
+    Different amount of flows, from 2 up to 1001000, in combination
+    with different packet sizes are run in each test.
+    Each combination of packet size and flow amount is run 10 times.
+    First 10 times with the smallest packet size, starting with the
+    least amount of ports/flows, then next amount of ports with same
+    packet size, and so on. The test sequence continues with the next
+    packet size, with same ports/flows sequence as before.
+
+scenarios:
+{% for pkt_size in [64, 128, 256, 512, 1024, 1280, 1518] %}
+  {% for num_ports in [1, 10, 50, 100, 500, 1000] %}
+-
+  type: PktgenDPDK
+  options:
+    packetsize: {{pkt_size}}
+    number_of_ports: {{num_ports}}
+    duration: 20
+
+  host: demeter.yardstick-TC008
+  target: poseidon.yardstick-TC008
+
+  runner:
+    type: Iteration
+    iterations: 10
+    interval: 1
+
+  sla:
+    max_ppm: 1
+    action: rate-control
+  {% endfor %}
+{% endfor %}
+
+context:
+  name: yardstick-TC008
+  image: yardstick-dpdk-image
+  flavor: yardstick-dpdk-flavor
+  user: ubuntu
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    demeter:
+      floating_ip: true
+      placement: "pgrp1"
+    poseidon:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+    test2:
+      cidr: '10.0.2.0/24'
+      provider: "sriov"
+      net: "sriov_network"
+      subnet: "sriov_subnet"

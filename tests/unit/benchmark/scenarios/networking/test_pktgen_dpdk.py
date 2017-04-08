@@ -16,6 +16,7 @@ import unittest
 
 import mock
 
+import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios.networking import pktgen_dpdk
 
 
@@ -60,11 +61,10 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
 
         mock_ssh.SSH().execute.return_value = (0, '', '')
 
-        p.get_port_ip(p.server, "eth1")
+        utils.get_port_ip(p.server, "eth1")
 
         mock_ssh.SSH().execute.assert_called_with(
-            "ifconfig eth1 |grep 'inet addr' |awk '{print $2}' \
-            |cut -d ':' -f2 ")
+            "ifconfig eth1 |grep 'inet addr' |awk '{print $2}' |cut -d ':' -f2 ")
 
     def test_pktgen_dpdk_unsuccessful_get_port_ip(self, mock_ssh):
 
@@ -76,7 +76,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
         p.server = mock_ssh.SSH()
 
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
-        self.assertRaises(RuntimeError, p.get_port_ip, p.server, "eth1")
+        self.assertRaises(RuntimeError, utils.get_port_ip, p.server, "eth1")
 
     def test_pktgen_dpdk_successful_get_port_mac(self, mock_ssh):
 
@@ -88,7 +88,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
 
         mock_ssh.SSH().execute.return_value = (0, '', '')
 
-        p.get_port_mac(p.server, "eth1")
+        utils.get_port_mac(p.server, "eth1")
 
         mock_ssh.SSH().execute.assert_called_with(
             "ifconfig |grep HWaddr |grep eth1 |awk '{print $5}' ")
@@ -103,7 +103,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
         p.server = mock_ssh.SSH()
 
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
-        self.assertRaises(RuntimeError, p.get_port_mac, p.server, "eth1")
+        self.assertRaises(RuntimeError, utils.get_port_mac, p.server, "eth1")
 
     def test_pktgen_dpdk_successful_no_sla(self, mock_ssh):
 
