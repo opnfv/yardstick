@@ -53,6 +53,7 @@ class TestQueueFileWrapper(unittest.TestCase):
         queue_file_wrapper.bufsize = 5
         queue_file_wrapper.write("pipeline>")
         queue_file_wrapper.close()
+        self.assertIsNone(queue_file_wrapper.clear())
         self.assertIsNotNone(queue_file_wrapper.q_out.empty())
 
     def test_close(self):
@@ -152,7 +153,8 @@ class TestGenericVNF(unittest.TestCase):
                                     {'type': 'VPORT', 'name': 'xe1'}],
                'id': 'VpeApproxVnf', 'name': 'VPEVnfSsh'}]}}
 
-    def test___init__(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.base.partial")
+    def test___init__(self, partial):
         generic_vn_f = GenericVNF(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
         assert generic_vn_f.kpi
 
