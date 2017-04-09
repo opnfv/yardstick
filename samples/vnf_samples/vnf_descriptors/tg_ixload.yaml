@@ -1,0 +1,80 @@
+#
+#    Copyright 2016 Intel Corporation
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#        http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+#
+vnfd:vnfd-catalog:
+    vnfd:
+    -   id: IxLoadTrafficGen
+        name: IxLoadTrafficGenVnfSshIntel
+        short-name: IxLoadTrafficGenVnf
+        description: IxLoad client/server connection details
+        mgmt-interface:
+            user: '{{user}}'  # Value filled by vnfdgen
+            password: '{{password}}'  # Value filled by vnfdgen
+            ip: '{{ip}}'  # Value filled by vnfdgen
+            tg-config:
+                ixchassis: '{{tg_config.ixchassis}}' #ixia chassis ip
+                tcl_port: '{{tg_config.tcl_port}}' # tcl server port
+                lib_path: '{{tg_config.lib_path}}'
+                root_dir: '{{tg_config.root_dir}}'
+                py_lib_path: '{{tg_config.py_lib_path}}'
+                py_bin_path: '{{tg_config.py_bin_path}}'
+                dut_result_dir: '{{tg_config.dut_result_dir}}'
+                version: '{{tg_config.version}}'
+        vdu:
+        -   id: abclient-baremetal
+            name: abclient-baremetal
+            description: AB client interface details
+            external-interface:
+            -   name: xe0
+                virtual-interface:
+                    type: PCI-PASSTHROUGH
+                    vpci: '{{ interfaces.xe0.vpci }}' # Value filled by vnfdgen
+                    local_iface_name: '{{ interfaces.xe0.local_iface_name }}' # Value filled by vnfdgen
+                    local_ip: '{{ interfaces.xe0.local_ip }}' # Value filled by vnfdgen
+                    dst_ip: '{{ interfaces.xe0.dst_ip }}' # Value filled by vnfdgen
+                    local_mac: '{{ interfaces.xe0.local_mac }}' # Value filled by vnfdgen
+                    dst_mac: '{{ interfaces.xe0.dst_mac }}' # Value filled by vnfdgen
+                    netmask: '{{ interfaces.xe0.netmask }}' # Value filled by vnfdgen
+                    bandwidth: 10 Gbps
+                vnfd-connection-point-ref: xe0
+            -   name: xe1
+                virtual-interface:
+                    type: PCI-PASSTHROUGH
+                    vpci: '{{ interfaces.xe1.vpci }}' # Value filled by vnfdgen
+                    local_iface_name: '{{ interfaces.xe1.local_iface_name }}' # Value filled by vnfdgen
+                    local_ip: '{{ interfaces.xe1.local_ip }}' # Value filled by vnfdgen
+                    dst_ip: '{{ interfaces.xe1.dst_ip }}' # Value filled by vnfdgen
+                    local_mac: '{{ interfaces.xe1.local_mac }}' # Value filled by vnfdgen
+                    dst_mac: '{{ interfaces.xe1.dst_mac }}' # Value filled by vnfdgen
+                    netmask: '{{ interfaces.xe1.netmask }}' # Value filled by vnfdgen
+                    bandwidth: 10 Gbps
+                vnfd-connection-point-ref: xe1
+        benchmark:
+            kpi:
+                - complete_requests
+                - failed_requests
+                - time_taken_for_tests [seconds]
+                - requests_per_second [#/sec] (mean)
+                - time_per_request [ms] (mean, across all concurrent requests)
+                - transfer_rate [Kbytes/sec] received
+                - requests_served_50% (ms)
+                - requests_served_66% (ms)
+                - requests_served_75% (ms)
+                - requests_served_80% (ms)
+                - requests_served_90% (ms)
+                - requests_served_95% (ms)
+                - requests_served_98% (ms)
+                - requests_served_99% (ms)
+                - requests_served_100% (ms)
