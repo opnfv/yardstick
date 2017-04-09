@@ -41,8 +41,8 @@ class TestTrafficProfile(unittest.TestCase):
         for k, v in kw.items():
             setattr(_mock, k, v)
             return _mock
-
-    def test___init__(self):
+    @mock.patch("yardstick.network_services.traffic_profile.base.partial")
+    def test___init__(self, partial):
         traffic_profile = TrafficProfile(self.TRAFFIC_PROFILE)
         self.assertEqual(self.TRAFFIC_PROFILE, traffic_profile.params)
 

@@ -1,0 +1,90 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+nodes:
+-
+    name: trafficgen_1
+    role: IxNet
+    ip: 1.2.1.1 #ixia machine ip
+    user: user
+    password: r00t
+    key_filename: /root/.ssh/id_rsa
+    tg_config:
+        ixchassis: "1.2.1.7" #ixia chassis ip
+        tcl_port: "8009" # tcl server port
+        lib_path: "/opt/ixia/ixos-api/8.01.0.2/lib/ixTcl1.0"
+        root_dir: "/opt/ixia/ixos-api/8.01.0.2/"
+        py_bin_path: "/opt/ixia/ixload/8.01.106.3/bin/"
+        py_lib_path: "/opt/ixia/ixnetwork/8.01.1029.14/lib/PythonApi"
+        dut_result_dir: "/mnt/ixia"
+        version: 8.1
+    interfaces:
+        xe0:  # logical name from topology.yaml and vnfd.yaml
+            vpci: "2:5" # Card:port
+            driver:    "none"
+            dpdk_port_num: 0
+            local_ip: "152.16.100.20"
+            netmask:   "255.255.0.0"
+            local_mac: "00:98:10:64:14:00"
+        xe1:  # logical name from topology.yaml and vnfd.yaml
+            vpci: "2:6" # [(Card, port)]
+            driver:    "none"
+            dpdk_port_num: 1
+            local_ip: "152.40.40.20"
+            netmask:   "255.255.0.0"
+            local_mac: "00:98:28:28:14:00"
+-
+    name: vnf
+    role: VirtualNetworkFunction
+    ip: 192.168.100.101
+    user: root
+    password: r00t
+    host: 192.168.100.101
+    key_filename: /root/.ssh/id_rsa
+    interfaces:
+        xe0:  # logical name from topology.yaml and vnfd.yaml
+            vpci:      "0000:07:00.2"
+            driver:    "i40e"
+            dpdk_port_num: 0
+            local_ip: "152.16.100.10"
+            netmask:   "255.255.0.0"
+            local_mac: "00:00:00:00:00:03"
+
+        xe1:  # logical name from topology.yaml and vnfd.yaml
+            vpci:      "0000:07:00.3"
+            driver:    "i40e"
+            dpdk_port_num: 1
+            local_ip: "152.40.40.10"
+            netmask:   "255.255.0.0"
+            local_mac: "00:00:00:00:00:04"
+
+    routing_table:
+    - network: "152.16.100.20"
+      netmask: "255.255.0.0"
+      gateway: "152.16.100.20"
+      if: "xe0"
+    - network: "152.40.40.20"
+      netmask: "255.255.0.0"
+      gateway: "152.40.40.20"
+      if: "xe1"
+
+    nd_route_tbl:
+    - network: "0064:ff9b:0:0:0:0:9810:6414"
+      netmask: "112"
+      gateway: "0064:ff9b:0:0:0:0:9810:6414"
+      if: "xe0"
+    - network: "0064:ff9b:0:0:0:0:9828:2814"
+      netmask: "112"
+      gateway: "0064:ff9b:0:0:0:0:9828:2814"
+      if: "xe1"
