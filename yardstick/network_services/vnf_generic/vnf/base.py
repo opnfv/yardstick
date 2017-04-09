@@ -16,6 +16,9 @@
 from __future__ import absolute_import
 import logging
 import ipaddress
+import os
+from functools import partial
+
 import six
 
 from yardstick.network_services.utils import get_nsb_option
@@ -74,6 +77,8 @@ class GenericVNF(object):
         self.runs_traffic = False
         self.name = "vnf__1"  # name in topology file
         self.bin_path = get_nsb_option("bin_path", "")
+        self.rel_bin_path = partial(os.path.join, self.bin_path)
+
 
     @classmethod
     def _get_kpi_definition(cls, vnfd):
