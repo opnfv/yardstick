@@ -33,6 +33,9 @@ close-on-exec = 1
 daemonize= /var/log/yardstick/uwsgi.log
 socket = /var/run/yardstick.sock
 EOF
+    if [[ "${YARDSTICK_VENV}" ]];then
+        echo "virtualenv = ${YARDSTICK_VENV}" >> "${uwsgi_config}"
+    fi
 fi
 
 # nginx config
