@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_f85558c6",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/basemonitor.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-10T08:38:12Z",
+      "side": 1,
+      "message": "space after if and no parens\n\n  if monitor_number \u003e 1:\n     monitor_cls \u003d ...",
+      "revId": "a59e9528650fbd648a27ace40cc3eba540a1f03f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_3873f081",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_multi.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-10T08:38:12Z",
+      "side": 1,
+      "message": "we aren\u0027t we using super()?\n\n\n  super(MultiMonitor, self).__init__(config, context)",
+      "revId": "a59e9528650fbd648a27ace40cc3eba540a1f03f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
