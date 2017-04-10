@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_b82da048",
+        "filename": "yardstick/benchmark/runners/dynamictp.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-10T09:11:00Z",
+      "side": 1,
+      "message": "could extract this to a function, and unittest this piece.",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 66
+      },
+      "revId": "feb4229a134f82668c024fb670b0a34e21e2639c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
