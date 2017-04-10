@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_643c68e3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ping.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-10T03:20:50Z",
+      "side": 1,
+      "message": "isn\u0027t this the same as posixpath.basename()?\n\ncan we use the path method so we are more explicit that we want the basename of the path returned from find.",
+      "range": {
+        "startLine": 98,
+        "startChar": 21,
+        "endLine": 98,
+        "endChar": 39
+      },
+      "revId": "419dadd4c8cc5aab501cb353babd2b52e7106173",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
