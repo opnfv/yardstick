@@ -47,9 +47,7 @@ apt-get update && apt-get install -y \
     uwsgi-plugin-python \
     supervisor \
     python-pip \
-    vim \
-    python-setuptools && \
-    easy_install -U setuptools==30.0.0
+    vim
 
 apt-get -y autoremove && apt-get clean
 
