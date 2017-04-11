@@ -29,12 +29,21 @@ scenarios:
     packetsize: {{pkt_size}}
     number_of_ports: {{num_ports}}
     duration: 20
+    # choose vnic name: default to eth0
+    # vnic_name: 'ens3'
+    # turn on multiqueue inside VM
+    # multiqueue: True
+    # choose starting pps: default 1M;
+    # works with binary search runner Dynamictp to find max throughput per sla
+    # pps: 3000000
 
   host: demeter.yardstick-TC008
   target: poseidon.yardstick-TC008
 
   runner:
     type: Iteration
+    # binary search runner
+    # type: Dynamictp
     iterations: 10
     interval: 1
 
