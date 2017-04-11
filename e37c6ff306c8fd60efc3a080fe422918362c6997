@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_aebb1ae4",
+        "filename": "requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-11T17:35:25Z",
+      "side": 1,
+      "message": "please pin and sort\n\n ansible\u003d\u003d2.2.0.0",
+      "revId": "e37c6ff306c8fd60efc3a080fe422918362c6997",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_cebe8ed4",
+        "filename": "requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-11T17:35:25Z",
+      "side": 1,
+      "message": "please pin and sort\n\n  shade\u003d\u003d1.17.0 # for ansible",
+      "revId": "e37c6ff306c8fd60efc3a080fe422918362c6997",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
