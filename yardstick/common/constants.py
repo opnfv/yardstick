@@ -26,7 +26,15 @@ except KeyError:
         SERVER_IP = '172.17.0.1'
     else:
         with IPDB() as ip:
-            SERVER_IP = ip.routes['default'].gateway
+            try:
+                SERVER_IP = ip.routes['default'].gateway
+            except KeyError:
+                # during unittests ip.routes['default'] can be invalid
+                SERVER_IP = '127.0.0.1'
+
+if not SERVER_IP:
+    SERVER_IP = '127.0.0.1'
+
 
 # dir
 CONF_DIR = get_param('dir.conf', '/etc/yardstick')
