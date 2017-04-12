@@ -37,6 +37,29 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_51855fab",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-04-12T09:23:22Z",
+      "side": 1,
+      "message": "the default value is None. So attrs.get(\u0027provider\u0027) maybe OK.",
+      "range": {
+        "startLine": 109,
+        "startChar": 24,
+        "endLine": 109,
+        "endChar": 51
+      },
+      "revId": "63bf5007e5bdeda7d560075a8c0818c85e7c3589",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_f818fd76",
         "filename": "yardstick/benchmark/contexts/model.py",
         "patchSetId": 6
@@ -102,6 +125,24 @@
       "side": 1,
       "message": "also https://gerrit.opnfv.org/gerrit/#/c/29371/",
       "parentUuid": "9ab8dda7_f81b1dc8",
+      "revId": "63bf5007e5bdeda7d560075a8c0818c85e7c3589",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_318a2bc0",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-04-12T09:23:22Z",
+      "side": 1,
+      "message": "Currently the context.name \u003d context.name(set in yaml) + task_id[:8], for example: demo-39a71ef8, it make concurrent task in yardstick possible.\n\nFrom your demo, I think it can support concurrent. But still need to be test. Have you try to run use one testcase.yaml file to run two times?",
+      "parentUuid": "9ab8dda7_98ea210e",
       "revId": "63bf5007e5bdeda7d560075a8c0818c85e7c3589",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
