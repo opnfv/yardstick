@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_71274365",
+        "filename": "requirements.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-12T07:40:29Z",
+      "side": 1,
+      "message": "shade goes after scp\n\nI think openstack uses C.UTF-8 sort, (capitalized packages first)\n\nso could use\n\n  LANG\u003dC.UTF-8 sort requirements.txt",
+      "revId": "a1a4277b0d16a53379f5452814458cbd8e90295a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
