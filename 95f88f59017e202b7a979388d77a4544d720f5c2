@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_2e7dea1c",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-12T12:02:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_8e13b60c",
+      "revId": "95f88f59017e202b7a979388d77a4544d720f5c2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_8e2ad62a",
         "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2017-04-11T16:08:34Z",
       "side": 1,
       "message": "can we use sysfs and the kernel directly.\n\nit avoids having to call ethtool, grep, awk, etc.\n\n cmd \u003d \u0027readlink /sys/class/net/eth0/device/driver\u0027\n return os.path.basename(stdout.strip())",
+      "revId": "95f88f59017e202b7a979388d77a4544d720f5c2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_ce7d2ee9",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-12T12:02:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_8e2ad62a",
       "revId": "95f88f59017e202b7a979388d77a4544d720f5c2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
