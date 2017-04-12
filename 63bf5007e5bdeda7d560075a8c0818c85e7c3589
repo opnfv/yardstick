@@ -60,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_8ca65e0f",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-12T12:54:36Z",
+      "side": 1,
+      "message": "Prefer to stay with this.",
+      "parentUuid": "9ab8dda7_51855fab",
+      "range": {
+        "startLine": 109,
+        "startChar": 24,
+        "endLine": 109,
+        "endChar": 51
+      },
+      "revId": "63bf5007e5bdeda7d560075a8c0818c85e7c3589",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_f818fd76",
         "filename": "yardstick/benchmark/contexts/model.py",
         "patchSetId": 6
@@ -143,6 +167,24 @@
       "side": 1,
       "message": "Currently the context.name \u003d context.name(set in yaml) + task_id[:8], for example: demo-39a71ef8, it make concurrent task in yardstick possible.\n\nFrom your demo, I think it can support concurrent. But still need to be test. Have you try to run use one testcase.yaml file to run two times?",
       "parentUuid": "9ab8dda7_98ea210e",
+      "revId": "63bf5007e5bdeda7d560075a8c0818c85e7c3589",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_aca9e2e0",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-12T12:54:36Z",
+      "side": 1,
+      "message": "I see. If so, my code change has no conflict with your concurrent task contexts. My lab is still on Corolado 1.0 where the context name does not have \"task_id\" attached, but as I show above, if I manually change the context name in the yaml file, I can have concurrent runs. I have been waiting for the official release of Danube to upgrade my lab...I may have to upgrade to what is available this week, I have things scheduled to do on Danube this month.",
+      "parentUuid": "9ab8dda7_318a2bc0",
       "revId": "63bf5007e5bdeda7d560075a8c0818c85e7c3589",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
