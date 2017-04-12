@@ -45,6 +45,23 @@
       "revId": "8e1a77e21b231c9eb2074464fe02afd7737669f3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_b12dbb48",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-12T07:31:55Z",
+      "side": 1,
+      "message": "SafeConfigParser is being removed from Python 3\n\nhttp://stackoverflow.com/a/32507890\n\n from six.moves import configparser\n import six\n\n if six.PY2:\n   ConfigParser \u003d configparser.SafeConfigParser\n else:\n   ConfigParser \u003d configparser.ConfigParser",
+      "revId": "8e1a77e21b231c9eb2074464fe02afd7737669f3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
