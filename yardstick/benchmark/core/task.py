@@ -356,7 +356,14 @@ class TaskParser(object):       # pragma: no cover
         # TODO: support one or many contexts? Many would simpler and precise
         # TODO: support hybrid context type
         if "context" in cfg:
-            context_cfgs = [cfg["context"]]
+            if isinstance(cfg["context"], list):
+                LOG.error(
+                    "context is a list, not a dict, did you mean 'contexts'"
+                    " to specify multiple contexts?")
+                context_cfgs = cfg["context"]
+            else:
+                # convert to list
+                context_cfgs = [cfg["context"]]
         elif "contexts" in cfg:
             context_cfgs = cfg["contexts"]
         else:
