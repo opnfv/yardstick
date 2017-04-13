@@ -22,6 +22,30 @@
       "revId": "96a34172ce596bb52d2865591a0f32914bb3f570",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_6736a5e9",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-13T04:59:41Z",
+      "side": 1,
+      "message": "Yes, Martin should have an updated patch soon.\n\nalso I updated the example in the Jira\n\nhttps://jira.opnfv.org/browse/YARDSTICK-582",
+      "parentUuid": "9ab8dda7_a70d7d39",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 45
+      },
+      "revId": "96a34172ce596bb52d2865591a0f32914bb3f570",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
