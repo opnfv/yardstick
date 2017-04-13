@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_6c21aab3",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_multi.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-04-13T02:58:47Z",
+      "side": 1,
+      "message": "would it be more clear if we use the same name of monitor_type as the class name?",
+      "range": {
+        "startLine": 21,
+        "startChar": 24,
+        "endLine": 21,
+        "endChar": 38
+      },
+      "revId": "747a3260fef52fb5f7da337bc149ec202a05be6e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
