@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_a70d7d39",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-04-13T04:21:54Z",
+      "side": 1,
+      "message": "i like the idea to add flavor support in heat context. now it\u0027s using the default value to create a flavor. do you plan to enhance it to create a specific flavor with parameter input? What\u0027s more, i think it should be compatible with the original ways with yardstick-flavor.",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 45
+      },
+      "revId": "96a34172ce596bb52d2865591a0f32914bb3f570",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
