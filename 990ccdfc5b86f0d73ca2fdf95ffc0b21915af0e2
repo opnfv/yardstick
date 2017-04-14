@@ -22,6 +22,30 @@
       "revId": "990ccdfc5b86f0d73ca2fdf95ffc0b21915af0e2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_e23b639a",
+        "filename": "yardstick/common/constants.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-04-14T01:19:37Z",
+      "side": 1,
+      "message": "Sorry for my late reply. Since yardstick use docker in default. This ip is the docker  container gateway ip. It is equal to the docker host ip.",
+      "parentUuid": "9ab8dda7_31978b92",
+      "range": {
+        "startLine": 26,
+        "startChar": 23,
+        "endLine": 26,
+        "endChar": 24
+      },
+      "revId": "990ccdfc5b86f0d73ca2fdf95ffc0b21915af0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
