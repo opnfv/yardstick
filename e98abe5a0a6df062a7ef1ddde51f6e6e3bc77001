@@ -22,6 +22,30 @@
       "revId": "e98abe5a0a6df062a7ef1ddde51f6e6e3bc77001",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_c2897f27",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-14T06:08:59Z",
+      "side": 1,
+      "message": "Yes, if people are stupid like me and forget to add the extra \u0027s\u0027 to \u0027context\u0027.\n\nI hit this case, and decided to add a warning so I know next time what the mistake was.\n\nThis is purely for UX",
+      "parentUuid": "9ab8dda7_424caf42",
+      "range": {
+        "startLine": 359,
+        "startChar": 8,
+        "endLine": 366,
+        "endChar": 47
+      },
+      "revId": "e98abe5a0a6df062a7ef1ddde51f6e6e3bc77001",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
