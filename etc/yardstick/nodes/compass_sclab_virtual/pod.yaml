@@ -20,30 +20,35 @@
 nodes:
 -
     name: node1
+    host_name: host1
     role: Controller
     ip: 10.1.0.50
     user: root
     password: root
 -
     name: node2
+    host_name: host2
     role: Controller
     ip: 10.1.0.51
     user: root
     password: root
 -
     name: node3
+    host_name: host3
     role: Controller
     ip: 10.1.0.52
     user: root
     password: root
 -
     name: node4
+    host_name: host4
     role: Compute
     ip: 10.1.0.53
     user: root
     password: root
 -
     name: node5
+    host_name: host5
     role: Compute
     ip: 10.1.0.54
     user: root

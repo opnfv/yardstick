@@ -1,0 +1,168 @@
+---
+
+schema: "yardstick:task:0.1"
+
+{% set file = file or "etc/yardstick/nodes/compass_sclab_virtual/pod.yaml" %}
+{% set cpu_set = cpu_set or "0,1,2,3" %}
+{% set memory_load = memory_load or 0 %}
+
+{% set flavor = flavor or "yardstick-migrate-flavor" %}
+{% set ram = ram or "2048" %}
+{% set vcpus = vcpus or "2" %}
+{% set disk = disk or "3" %}
+
+scenarios:
+-
+  type: GetServer
+
+  output: status server
+
+  host: server.migrate
+
+  runner:
+    type: Iteration
+    iteration: 1
+-
+  type: GetNumaInfo
+
+  options:
+    server: $server
+    file: {{ file }}
+
+  output: origin_numa_info
+
+  host: server.migrate
+
+  runner:
+    type: Iteration
+    iteration: 1
+-
+  type: GetMigrateTargetHost
+
+  options:
+    server: $server
+  output: target_host
+
+  runner:
+    type: Iteration
+    iteration: 1
+-
+  type: GetServerIp
+
+  options:
+    server: $server
+
+  output: server_ip
+
+  runner:
+    type: Iteration
+    iteration: 1
+-
+  type: AddMemoryLoad
+
+  options:
+    memory_load: {{ memory_load }}
+
+  host: server.migrate
+
+  runner:
+    type: Iteration
+    iteration: 1
+-
+  type: MIGRATE
+
+  options:
+    server: $server
+    host: $target_host
+    server_ip: $server_ip
+
+  output: status migrate_time1 downtime1
+
+  runner:
+    type: Iteration
+    iteration: 1
+-
+  type: CheckValue
+
+  options:
+    value1: $status
+    value2: 0
+    operator: eq
+
+  runner:
+    type: Iteration
+    iteration: 1
+-
+  type: GetServer
+
+  output: status server
+
+  host: server.migrate
+
+  runner:
+    type: Iteration
+    iteration: 1
+-
+  type: GetNumaInfo
+
+  options:
+    server: $server
+    file: {{ file }}
+
+  output: new_numa_info
+
+  host: server.migrate
+
+  runner:
+    type: Iteration
+    iteration: 1
+-
+  type: CheckNumaInfo
+
+  options:
+    info1: $origin_numa_info
+    info2: $new_numa_info
+    cpu_set: {{ cpu_set }}
+
+  output: status
+
+  runner:
+    type: Iteration
+    iteration: 1
+-
+  type: CheckValue
+
+  options:
+    value1: $status
+    value2: true
+    operator: eq
+
+  runner:
+    type: Iteration
+    iteration: 1
+
+
+contexts:
+-
+  type: Node
+  name: env-prepare
+  file: {{ file }}
+
+  env:
+    type: ansible
+    setup: migrate_pinning_setup.yaml -e "flavor={{ flavor }} ram={{ ram }} vcpus={{ vcpus }} disk={{ disk }} cpu_set={{ cpu_set }}"
+    teardown: migrate_pinning_teardown.yaml -e "flavor={{ flavor }}"
+
+-
+  name: migrate
+  image: yardstick-image
+  flavor: {{ flavor }}
+  user: ubuntu
+
+  servers:
+    server:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
