@@ -1,0 +1,31 @@
+---
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+- hosts: localhost
+  roles:
+    - delete_flavor
+
+- hosts: nodes
+  roles:
+    - recover_nova_conf
+
+- hosts: controller
+  roles:
+    - role: restart_nova_service
+      service: "nova-scheduler"
+    - role: restart_nova_service
+      service: "nova-api"
+    - role: restart_nova_service
+      service: "nova-conductor"
+
+- hosts: compute
+  roles:
+    - role: restart_nova_service
+      service: "nova-compute"

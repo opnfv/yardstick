@@ -1,0 +1,6 @@
+- name: set flavor "{{ flavor }}" property {{ key }} = {{ value }}
+  shell:
+    source /etc/yardstick/openstack.creds;
+    openstack flavor set --property {{ key }}={{ value }}  {{ flavor }};
+  args:
+      executable: /bin/bash
