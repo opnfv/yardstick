@@ -59,6 +59,7 @@ oslo.utils==3.22.0
 paramiko==2.1.1
 pbr==1.10.0
 pep8==1.7.0
+ping==0.2
 pika==0.10.0
 positional==1.1.1
 prettytable==0.7.2
