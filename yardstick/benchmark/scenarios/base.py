@@ -63,3 +63,15 @@ class Scenario(object):
                 return scenario.__module__ + "." + scenario.__name__
 
         raise RuntimeError("No such scenario type %s" % scenario_type)
+
+    def _push_to_outputs(self, keys, values):
+        return dict(zip(keys, values))
+
+    def _change_obj_to_dict(self, obj):
+        dic = {}
+        for k, v in vars(obj).items():
+            try:
+                vars(v)
+            except TypeError:
+                dic.update({k: v})
+        return dic

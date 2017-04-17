@@ -1,0 +1,8 @@
+- name: create flavor {{ flavor }}
+  os_nova_flavor:
+    cloud: opnfv
+    state: present
+    name: "{{ flavor }}"
+    ram: "{{ ram }}"
+    vcpus: "{{ vcpus }}"
+    disk: "{{ disk }}"

@@ -1,0 +1,5 @@
+- name: delete flavor {{ flavor }}
+  os_nova_flavor:
+    cloud: opnfv
+    state: absent
+    name: "{{ flavor }}"
