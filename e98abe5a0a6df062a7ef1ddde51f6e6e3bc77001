@@ -70,6 +70,30 @@
       "revId": "e98abe5a0a6df062a7ef1ddde51f6e6e3bc77001",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_1de1369a",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-17T02:54:35Z",
+      "side": 1,
+      "message": "Yes, it would make sense to raise error, but in other places we allow for single items and lists and such.\n\nThe other options are to get rid of contexts, and just use context but allow for a list or single items, or only allow multiple contexts and always require a list.\n\nI think all the NSB VNF characterization tests are going to use external TGs, so they will all require multiple contexts, either two node contexts, or a heat context and a node context.",
+      "parentUuid": "9ab8dda7_3d40baa4",
+      "range": {
+        "startLine": 359,
+        "startChar": 8,
+        "endLine": 366,
+        "endChar": 47
+      },
+      "revId": "e98abe5a0a6df062a7ef1ddde51f6e6e3bc77001",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
