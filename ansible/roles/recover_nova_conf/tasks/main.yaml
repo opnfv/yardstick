@@ -1,0 +1,7 @@
+- name: recover nova.conf file
+  copy:
+    src: /tmp/nova.conf
+    dest: /etc/nova/nova.conf
+    owner: nova
+    group: nova
+    remote_src: True

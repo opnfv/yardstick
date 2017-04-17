@@ -15,6 +15,7 @@ build
 htmlcov
 .agignore
 .coverage
+*.retry
 Session*.vim
 .tags*
 .coverage.*

@@ -1,0 +1,24 @@
+---
+- name: set live_migration_flag in nova.conf
+ini_file:
+    path: /etc/nova/nova.conf
+    section: DEFAULT
+    option: live_migration_flag
+    value: VIR_MIGRATE_UNDEFINE_SOURCE,VIR_MIGRATE_PEER2PEER,VIR_MIGRATE_LIVE,VIR_MIGRATE_TUNNELLEDIGRATE_LIVE,VIR_MIGRATE_TUNNELLED
+    backup: yes
+
+- name: set vncserver_listen in nova.conf
+ini_file:
+    path: /etc/nova/nova.conf
+    section: DEFAULT
+    option: vncserver_listen
+    value: 0.0.0.0
+    backup: yes
+
+- name: set scheduler_default_filters in nova.conf
+ini_file:
+    path: /etc/nova/nova.conf
+    section: DEFAULT
+    option: scheduler_default_filters
+    value: NUMATopologyFilter,AggregateInstanceExtraSpecsFilter
+    backup: yes
