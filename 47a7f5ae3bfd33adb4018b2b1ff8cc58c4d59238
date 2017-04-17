@@ -22,6 +22,23 @@
       "revId": "47a7f5ae3bfd33adb4018b2b1ff8cc58c4d59238",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_9dd526bb",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-17T02:45:21Z",
+      "side": 1,
+      "message": "why did appdirs move here?",
+      "revId": "47a7f5ae3bfd33adb4018b2b1ff8cc58c4d59238",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
