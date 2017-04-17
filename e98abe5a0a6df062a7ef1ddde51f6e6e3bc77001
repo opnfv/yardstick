@@ -46,6 +46,30 @@
       "revId": "e98abe5a0a6df062a7ef1ddde51f6e6e3bc77001",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_3d40baa4",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-04-17T01:26:16Z",
+      "side": 1,
+      "message": "Yes, you are right. But can we raise this error?  Since if someone forget it and we do not raise it, he may do not know it forever. But if we raise it and log.error it, he can add \u0027s\u0027 to \u0027context\u0027 and then run the testcase again. Just suggestion.",
+      "parentUuid": "9ab8dda7_c2897f27",
+      "range": {
+        "startLine": 359,
+        "startChar": 8,
+        "endLine": 366,
+        "endChar": 47
+      },
+      "revId": "e98abe5a0a6df062a7ef1ddde51f6e6e3bc77001",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
