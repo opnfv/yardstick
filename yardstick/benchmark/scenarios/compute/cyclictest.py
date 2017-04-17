@@ -172,6 +172,7 @@ class Cyclictest(base.Scenario):
 
         options = self.scenario_cfg["options"]
         affinity = options.get("affinity", 1)
+        breaktrace = options.get("breaktrace", 1000)
         interval = options.get("interval", 1000)
         priority = options.get("priority", 99)
         loops = options.get("loops", 1000)
@@ -179,7 +180,7 @@ class Cyclictest(base.Scenario):
         histogram = options.get("histogram", 90)
 
         cmd_args = "-a %s -i %s -p %s -l %s -t %s -h %s %s" \
-                   % (affinity, interval, priority, loops,
+                   % (affinity, breaktrace, interval, priority, loops,
                       threads, histogram, default_args)
         cmd = "bash cyclictest_benchmark.sh %s" % (cmd_args)
         LOG.debug("Executing command: %s", cmd)
@@ -221,6 +222,7 @@ def _test():    # pragma: no cover
 
     options = {
         "affinity": 2,
+        "breaktrace": 1000,
         "interval": 100,
         "priority": 88,
         "loops": 10000,
