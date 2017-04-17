@@ -1,0 +1,52 @@
+---
+
+schema: "yardstick:task:0.1"
+{% set file = file or "etc/yardstick/nodes/compass_sclab_virtual/pod.yaml" %}
+
+{% set flavor = flavor or "migrate-flavor" %}
+{% set ram = ram or "2048" %}
+{% set vcpus = vcpus or "1" %}
+{% set disk = disk or "3" %}
+{% set memory_load = memory_load or 0 %}
+
+scenarios:
+-
+  type: Migrate
+  option:
+    memory_load: {{ memory_load }}
+
+  host: jack.migrate
+
+  runner:
+    type: Iteration
+    iteration: 1
+
+contexts:
+-
+  type: Node
+  name: LF
+  file: {{ file }}
+
+  env:
+    type: ansible
+    setup: migrate_setup.yaml -e "flavor={{ flavor }} ram={{ ram }} vcpus={{ vcpus }} disk={{ disk }}"
+    teardown: migrate_teardown.yaml -e "flavor={{ flavor }}"
+
+-
+  name: migrate
+  image: yardstick-image
+  flavor: {{ flavor }}
+  user: ubuntu
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    jack:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'

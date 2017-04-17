@@ -1,0 +1,7 @@
+- name: backup nova.conf file
+  copy:
+    src: /etc/nova/nova.conf
+    dest: /tmp/nova.conf
+    owner: nova
+    group: nova
+    remote_src: True
