@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_1d1cd6c0",
+        "filename": "api/api-prepare.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-04-17T01:56:53Z",
+      "side": 1,
+      "message": "please make this env_variable name more clear and describe it in the commit log. also it this patch approved, you may need to update the userguide/devguide.",
+      "range": {
+        "startLine": 36,
+        "startChar": 13,
+        "endLine": 36,
+        "endChar": 23
+      },
+      "revId": "47a7f5ae3bfd33adb4018b2b1ff8cc58c4d59238",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
