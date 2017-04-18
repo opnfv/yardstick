@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_c79aec6d",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-18T23:45:54Z",
+      "side": 1,
+      "message": "I was indeed hesitated on this...yes maybe it is a good idea to init to \u0027physnet1\u0027 here.",
+      "parentUuid": "9ab8dda7_47b83ce5",
+      "revId": "48e9521ff42b0735bb13eaa1969efdb688a4d1a3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_e7ce1083",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 10
@@ -30,6 +48,24 @@
       "writtenOn": "2017-04-18T21:42:57Z",
       "side": 1,
       "message": "also maybe set physnet1 default here as well.",
+      "revId": "48e9521ff42b0735bb13eaa1969efdb688a4d1a3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_6789c025",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-18T23:45:54Z",
+      "side": 1,
+      "message": "I will go with init \u0027physical_network\u0027 to \u0027physnet1\u0027 hence no more need to provide default value here.",
+      "parentUuid": "9ab8dda7_e7ce1083",
       "revId": "48e9521ff42b0735bb13eaa1969efdb688a4d1a3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
