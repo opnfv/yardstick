@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Kubi <jean.gaoliang@huawei.com>
+Code-Review+1: Jiang, Yunhong <yunhong.jiang@intel.com>
+Submitted-by: Kubi <jean.gaoliang@huawei.com>
+Submitted-at: Tue, 18 Apr 2017 07:02:15 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/33407
+Project: yardstick
+Branch: refs/heads/master
