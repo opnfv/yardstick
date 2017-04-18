@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_47b83ce5",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-18T21:42:57Z",
+      "side": 1,
+      "message": "why not set physnet1 default here?",
+      "revId": "48e9521ff42b0735bb13eaa1969efdb688a4d1a3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_e7ce1083",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-18T21:42:57Z",
+      "side": 1,
+      "message": "also maybe set physnet1 default here as well.",
+      "revId": "48e9521ff42b0735bb13eaa1969efdb688a4d1a3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
