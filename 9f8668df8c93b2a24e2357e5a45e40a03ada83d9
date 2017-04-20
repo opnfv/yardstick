@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_b067ecb6",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen_dpdk_benchmark.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-20T23:31:22Z",
+      "side": 1,
+      "message": "I checked, I think we still need expect for the reasons below:\n\n(1) I see no LUA API available for quit(), but TC008 requires running pktgen-dpdk tens of times.\n \n(2) I can not get true packet counters in the lua script even after long delay but I can get the counters by manually run lua command in pktgen:\n\nportRates \u003d {\n  [0] \u003d {\n    [\"ibytes\"] \u003d 0,\n    [\"ipackets\"] \u003d 0,\n    [\"rx_nombuf\"] \u003d 0,\n    [\"ierrors\"] \u003d 0,\n    [\"opackets\"] \u003d 0,\n    [\"oerrors\"] \u003d 0,\n    [\"obytes\"] \u003d 0,\n  },\n  [\"n\"] \u003d 1,\n}\n\nPktgen\u003e !lua prints(\"portRates\", pktgen.portStats(\"all\", \"port\"));\nportRates \u003d {\n  [0] \u003d {\n    [\"ibytes\"] \u003d 0,\n    [\"ipackets\"] \u003d 0,\n    [\"rx_nombuf\"] \u003d 0,\n    [\"ierrors\"] \u003d 0,\n    [\"opackets\"] \u003d 13875520,\n    [\"oerrors\"] \u003d 0,\n    [\"obytes\"] \u003d 888033280,\n  },\n  [\"n\"] \u003d 1,\n}",
+      "parentUuid": "9ab8dda7_d5b0528d",
+      "revId": "9f8668df8c93b2a24e2357e5a45e40a03ada83d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_150d8a90",
         "filename": "yardstick/benchmark/scenarios/networking/pktgen_dpdk_throughput.py",
         "patchSetId": 5
