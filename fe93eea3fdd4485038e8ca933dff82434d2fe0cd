@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_15210a9f",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-20T21:22:14Z",
+      "side": 1,
+      "message": "we can use setdefault\n\n  self.flavor.setdefault(\"name\", self.name + \"-flavor\")\n\npython idiom is to not check dict key before access.\n\nwe use dict.get() or dict.setdefault()",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 63
+      },
+      "revId": "fe93eea3fdd4485038e8ca933dff82434d2fe0cd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_35244eae",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-20T21:22:14Z",
+      "side": 1,
+      "message": "can use get()\n\n  self.flavors.append(self.flavor.get(\"name\", server.stack_name + \"-flavor\"))",
+      "range": {
+        "startLine": 175,
+        "startChar": 15,
+        "endLine": 178,
+        "endChar": 70
+      },
+      "revId": "fe93eea3fdd4485038e8ca933dff82434d2fe0cd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_b0504cd5",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-20T21:22:14Z",
+      "side": 1,
+      "message": "to uniqify we use sets or if order matters, use OrderedDict\n\n  self.flavors \u003d list(OrderdedDict.from_keys(self.flavors).keys())\n\nor \n\n  self.flavors \u003d set(self.flavors)",
+      "revId": "fe93eea3fdd4485038e8ca933dff82434d2fe0cd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
