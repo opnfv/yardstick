@@ -39,6 +39,24 @@
       "revId": "47a7f5ae3bfd33adb4018b2b1ff8cc58c4d59238",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_75e166cf",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-04-20T06:16:12Z",
+      "side": 1,
+      "message": "There is an error when install appdirs in virtualenv.",
+      "parentUuid": "9ab8dda7_9dd526bb",
+      "revId": "47a7f5ae3bfd33adb4018b2b1ff8cc58c4d59238",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
