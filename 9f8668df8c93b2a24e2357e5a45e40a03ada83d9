@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_55bd4267",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen_dpdk_benchmark.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-20T12:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_752f26f7",
+      "range": {
+        "startLine": 80,
+        "startChar": 41,
+        "endLine": 80,
+        "endChar": 42
+      },
+      "revId": "9f8668df8c93b2a24e2357e5a45e40a03ada83d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_95497ad2",
         "filename": "yardstick/benchmark/scenarios/networking/pktgen_dpdk_benchmark.bash",
         "patchSetId": 5
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_d5b0528d",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen_dpdk_benchmark.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-20T12:43:08Z",
+      "side": 1,
+      "message": "OK, I will take a look.",
+      "parentUuid": "9ab8dda7_95497ad2",
+      "revId": "9f8668df8c93b2a24e2357e5a45e40a03ada83d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_150d8a90",
         "filename": "yardstick/benchmark/scenarios/networking/pktgen_dpdk_throughput.py",
         "patchSetId": 5
@@ -53,6 +95,30 @@
       "writtenOn": "2017-04-20T07:17:55Z",
       "side": 1,
       "message": "Is it a copy form pktfen_dpdk.py? Maybe these two functions can become common functions.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 30
+      },
+      "revId": "9f8668df8c93b2a24e2357e5a45e40a03ada83d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_75c086e0",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen_dpdk_throughput.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-20T12:43:08Z",
+      "side": 1,
+      "message": "yes, they are cloned from your latency script. Where (which file) do I put them if we change them to common functions?",
+      "parentUuid": "9ab8dda7_150d8a90",
       "range": {
         "startLine": 139,
         "startChar": 0,
