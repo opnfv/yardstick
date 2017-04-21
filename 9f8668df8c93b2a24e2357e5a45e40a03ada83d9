@@ -120,6 +120,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_9b76893d",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen_dpdk_benchmark.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-21T14:24:50Z",
+      "side": 1,
+      "message": "OK, I will do that.",
+      "parentUuid": "9ab8dda7_d5b0528d",
+      "revId": "9f8668df8c93b2a24e2357e5a45e40a03ada83d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_150d8a90",
         "filename": "yardstick/benchmark/scenarios/networking/pktgen_dpdk_throughput.py",
         "patchSetId": 5
@@ -179,6 +197,30 @@
       "side": 1,
       "message": "can you create a new file for them? like utils.py? They might be useful to the next networking test cases. That is my suggestion.",
       "parentUuid": "9ab8dda7_75c086e0",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 30
+      },
+      "revId": "9f8668df8c93b2a24e2357e5a45e40a03ada83d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_5b901143",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen_dpdk_throughput.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-04-21T14:24:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_d0f940c9",
       "range": {
         "startLine": 139,
         "startChar": 0,
