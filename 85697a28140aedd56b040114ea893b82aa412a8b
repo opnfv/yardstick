@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_870954df",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-04-21T09:25:52Z",
+      "side": 1,
+      "message": "looking into it now!",
+      "parentUuid": "9ab8dda7_076ec496",
+      "revId": "85697a28140aedd56b040114ea893b82aa412a8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_a76c989d",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 9
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_2710a800",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-04-21T09:25:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_a76c989d",
+      "revId": "85697a28140aedd56b040114ea893b82aa412a8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_c7674cb6",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 9
@@ -47,6 +83,24 @@
       "writtenOn": "2017-04-18T18:31:26Z",
       "side": 1,
       "message": "str is redundant,  %s does str() already.",
+      "revId": "85697a28140aedd56b040114ea893b82aa412a8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_47135c0d",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-04-21T09:25:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_c7674cb6",
       "revId": "85697a28140aedd56b040114ea893b82aa412a8b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
