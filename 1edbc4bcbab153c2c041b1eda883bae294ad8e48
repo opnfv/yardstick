@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_c3a50eb6",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-04-21T09:25:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_585b4987",
+      "revId": "1edbc4bcbab153c2c041b1eda883bae294ad8e48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_383d35bc",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2017-04-05T16:14:15Z",
       "side": 1,
       "message": "whitespace",
+      "revId": "1edbc4bcbab153c2c041b1eda883bae294ad8e48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_63ac62a1",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-04-21T09:25:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_383d35bc",
       "revId": "1edbc4bcbab153c2c041b1eda883bae294ad8e48",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_83af1694",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-04-21T09:25:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_d8773901",
+      "revId": "1edbc4bcbab153c2c041b1eda883bae294ad8e48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_f8723d10",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2017-04-06T07:03:59Z",
       "side": 1,
       "message": "another minor point.\n\nif ports is a list then we probably want extend.\n\n\n    self.resources[name][\u0027depends_on\u0027].extend(ports)\n    for port in ports:\n                server_properties[\u0027networks\u0027].append(\n                    {\u0027port\u0027: {\u0027get_resource\u0027: port}}\n                )\n\n  \n\n\n\nand really the second part in modern form would use generator expression and extend, but if we start, we\u0027ll end up refactoring the whole thing.\n\n\n server_properties[\u0027networks\u0027]server_properties[\u0027networks\u0027].extend({\u0027port\u0027: {\u0027get_resource\u0027: port}} for port in ports)",
+      "revId": "1edbc4bcbab153c2c041b1eda883bae294ad8e48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_23966a4d",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-04-21T09:25:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_f8723d10",
       "revId": "1edbc4bcbab153c2c041b1eda883bae294ad8e48",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
