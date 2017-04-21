@@ -267,14 +267,23 @@ Docker image from Docker hub::
 Install Yardstick
 ^^^^^^^^^^^^^^^^^^^^^
 
+Prerequisite preparation::
+
+  apt-get update && apt-get install -y git python-setuptools python-pip
+  easy_install -U setuptools==30.0.0
+  pip install appdirs==1.4.0
+  pip install virtualenv
+
 Create a virtual environment::
 
   virtualenv ~/yardstick_venv
+  export YARDSTICK_VENV=~/yardstick_venv
   source ~/yardstick_venv/bin/activate
 
 Download the source code and install Yardstick from it::
 
   git clone https://gerrit.opnfv.org/gerrit/yardstick
+  export YARDSTICK_REPO_DIR=~/yardstick
   cd yardstick
   ./install.sh
 
