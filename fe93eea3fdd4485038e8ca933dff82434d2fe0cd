@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_3b72fdad",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-04-21T09:25:52Z",
+      "side": 1,
+      "message": "It is possible for flavor to be a string or a dict. In this case the code applies to dict structure only. \neg. \nflavor: yardstick_flavor\nor\nflavor:\n   name: yardstick-new-flavor\n   vcpus: 4\n   ram: 2048\n\n\nself.flavor.setdefault(\"name\", self.name + \"-flavor\")\nwill do!",
+      "parentUuid": "9ab8dda7_15210a9f",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 63
+      },
+      "revId": "fe93eea3fdd4485038e8ca933dff82434d2fe0cd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_35244eae",
         "filename": "yardstick/benchmark/contexts/heat.py",
         "patchSetId": 17
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_db6881bc",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-04-21T09:25:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_35244eae",
+      "range": {
+        "startLine": 175,
+        "startChar": 15,
+        "endLine": 178,
+        "endChar": 70
+      },
+      "revId": "fe93eea3fdd4485038e8ca933dff82434d2fe0cd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_b0504cd5",
         "filename": "yardstick/benchmark/contexts/heat.py",
         "patchSetId": 17
@@ -59,6 +107,24 @@
       "writtenOn": "2017-04-20T21:22:14Z",
       "side": 1,
       "message": "to uniqify we use sets or if order matters, use OrderedDict\n\n  self.flavors \u003d list(OrderdedDict.from_keys(self.flavors).keys())\n\nor \n\n  self.flavors \u003d set(self.flavors)",
+      "revId": "fe93eea3fdd4485038e8ca933dff82434d2fe0cd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_fb6305db",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-04-21T09:25:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_b0504cd5",
       "revId": "fe93eea3fdd4485038e8ca933dff82434d2fe0cd",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
