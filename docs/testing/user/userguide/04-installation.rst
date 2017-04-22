@@ -63,6 +63,10 @@ Prepare the Yardstick container
 
 .. _dockerhub: https://hub.docker.com/r/opnfv/yardstick/
 
+Install docker on your guest system with the following command, if not done yet::
+
+  wget -qO- https://get.docker.com/ | sh
+
 Pull the Yardstick Docker image (``opnfv/yardstick``) from the public dockerhub
 registry under the OPNFV account: dockerhub_, with the following docker
 command::
@@ -145,7 +149,9 @@ In the Yardstick container, the Yardstick repository is located in the ``/home/o
 
   yardstick env prepare
 
-**NOTE**: The above command just works for four OPNFV installers -- **Apex**, **Compass**, **Fuel** and **Joid**.
+**NOTE**: The above command just works for four OPNFV installers -- **Apex**, **Compass**, **Fuel** and **Joid**. The env prepare command may take up to 6-8 minutes to finish building yardstick-image and other environment preparation. Meanwhile if you wish to monitor the env prepare process, you can enter the Yardstick container in a new terminal window and execute the following command::
+
+  tail -f /var/log/yardstick/uwsgi.log
 
 
 The second way
@@ -267,14 +273,23 @@ Docker image from Docker hub::
 Install Yardstick
 ^^^^^^^^^^^^^^^^^^^^^
 
+Prerequisite preparation::
+
+  apt-get update && apt-get install -y git python-setuptools python-pip
+  easy_install -U setuptools==30.0.0
+  pip install appdirs==1.4.0
+  pip install virtualenv
+
 Create a virtual environment::
 
   virtualenv ~/yardstick_venv
+  export YARDSTICK_VENV=~/yardstick_venv
   source ~/yardstick_venv/bin/activate
 
 Download the source code and install Yardstick from it::
 
   git clone https://gerrit.opnfv.org/gerrit/yardstick
+  export YARDSTICK_REPO_DIR=~/yardstick
   cd yardstick
   ./install.sh
 
@@ -487,4 +502,3 @@ yaml file and add test cases, constraint or task arguments if necessary.
 
 Proxy Support (**Todo**)
 ---------------------------
-
