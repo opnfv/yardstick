@@ -105,6 +105,8 @@ class Network(Object):
         self.subnet_stack_name = self.stack_name + "-subnet"
         self.subnet_cidr = attrs.get('cidr', '10.0.1.0/24')
         self.router = None
+        self.physical_network = attrs.get('physical_network', 'physnet1')
+        self.provider = attrs.get('provider', None)
 
         if "external_network" in attrs:
             self.router = Router("router", self.name,
@@ -226,7 +228,8 @@ class Server(Object):     # pragma: no cover
             self.ports[network.name] = {"stack_name": port_name}
             template.add_port(port_name, network.stack_name,
                               network.subnet_stack_name,
-                              sec_group_id=self.secgroup_name)
+                              sec_group_id=self.secgroup_name,
+                              provider=network.provider)
             port_name_list.append(port_name)
 
             if self.floating_ip:
