@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Kubi <jean.gaoliang@huawei.com>
+Code-Review+1: Ace Lee <liyin11@huawei.com>
+Submitted-by: Kubi <jean.gaoliang@huawei.com>
+Submitted-at: Sun, 23 Apr 2017 10:41:27 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/32789
+Project: yardstick
+Branch: refs/heads/master
