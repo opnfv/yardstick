@@ -66,7 +66,7 @@ class GeneralOperaion(BaseOperation):
                     stdin=stdin_file)
 
         if exit_status == 0:
-            LOG.debug("success,the operation's output is: {0}".format(stdout))
+            LOG.debug("success,the operation's output is: %s", stdout)
         else:
             LOG.error(
                 "the operation's error, stdout:%s, stderr:%s",
