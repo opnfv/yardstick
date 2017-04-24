@@ -155,6 +155,9 @@ class Runner(object):
             log.debug("post-stop data: \n%s", data)
             self.result_queue.put({'post-stop-action-data': data})
 
+    def _run_benchmark(self, cls, method_name, scenario_cfg, context_cfg):
+        raise NotImplementedError
+
     def run(self, scenario_cfg, context_cfg):
         scenario_type = scenario_cfg["type"]
         class_name = base_scenario.Scenario.get(scenario_type)

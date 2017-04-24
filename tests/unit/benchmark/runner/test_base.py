@@ -17,6 +17,7 @@ import time
 
 from mock import mock
 
+from yardstick.benchmark.runners.base import Runner
 from yardstick.benchmark.runners.iteration import IterationRunner
 
 
@@ -39,6 +40,12 @@ class RunnerTestCase(unittest.TestCase):
                 break
         actual_result = runner.get_output()
         self.assertEqual(idle_result, actual_result)
+
+    def test__run_benchmark(self):
+        runner = Runner(mock.Mock())
+
+        with self.assertRaises(NotImplementedError):
+            runner._run_benchmark(mock.Mock(), mock.Mock(), mock.Mock(), mock.Mock())
 
 
 def main():
