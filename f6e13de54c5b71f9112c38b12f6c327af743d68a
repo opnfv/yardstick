@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_b6184476",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2017-04-24T07:11:39Z",
+      "side": 1,
+      "message": "Yardstick",
+      "range": {
+        "startLine": 247,
+        "startChar": 21,
+        "endLine": 247,
+        "endChar": 30
+      },
+      "revId": "f6e13de54c5b71f9112c38b12f6c327af743d68a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
