@@ -63,7 +63,7 @@ class AttackerBaremetalTestCase(unittest.TestCase):
         ins = attacker_baremetal.BaremetalAttacker(self.attacker_cfg,
                                                    self.context)
 
-        mock_ssh.SSH().execute.return_value = (0, "running", '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
         ins.setup()
         ins.inject_fault()
         ins.recover()
@@ -71,7 +71,7 @@ class AttackerBaremetalTestCase(unittest.TestCase):
     def test__attacker_baremetal_check_failuer(self, mock_ssh):
         ins = attacker_baremetal.BaremetalAttacker(self.attacker_cfg,
                                                    self.context)
-        mock_ssh.SSH().execute.return_value = (0, "error check", '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, "error check", '')
         ins.setup()
 
     def test__attacker_baremetal_recover_successful(self, mock_ssh):
@@ -81,6 +81,6 @@ class AttackerBaremetalTestCase(unittest.TestCase):
         ins = attacker_baremetal.BaremetalAttacker(self.attacker_cfg,
                                                    self.context)
 
-        mock_ssh.SSH().execute.return_value = (0, "running", '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
         ins.setup()
         ins.recover()

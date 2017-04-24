@@ -50,7 +50,7 @@ class GeneralOperaionTestCase(unittest.TestCase):
     def test__operation_successful(self, mock_open, mock_ssh):
         ins = operation_general.GeneralOperaion(self.operation_cfg,
                                                 self.context)
-        mock_ssh.SSH().execute.return_value = (0, "success", '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, "success", '')
         ins.setup()
         ins.run()
         ins.rollback()
@@ -58,7 +58,7 @@ class GeneralOperaionTestCase(unittest.TestCase):
     def test__operation_successful_noparam(self, mock_open, mock_ssh):
         ins = operation_general.GeneralOperaion(self.operation_cfg_noparam,
                                                 self.context)
-        mock_ssh.SSH().execute.return_value = (0, "success", '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, "success", '')
         ins.setup()
         ins.run()
         ins.rollback()
@@ -66,7 +66,7 @@ class GeneralOperaionTestCase(unittest.TestCase):
     def test__operation_fail(self, mock_open, mock_ssh):
         ins = operation_general.GeneralOperaion(self.operation_cfg,
                                                 self.context)
-        mock_ssh.SSH().execute.return_value = (1, "failed", '')
+        mock_ssh.SSH.from_node().execute.return_value = (1, "failed", '')
         ins.setup()
         ins.run()
         ins.rollback()

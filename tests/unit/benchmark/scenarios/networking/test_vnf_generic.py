@@ -316,7 +316,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             for node, node_dict in self.context_cfg["nodes"].items():
                 with SshManager(node_dict) as conn:
                     self.assertIsNotNone(conn)
@@ -357,7 +357,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             self.s.map_topology_to_infrastructure(self.context_cfg,
                                                   self.topology)
         self.assertEqual("tg_trex_tpl.yaml",
@@ -371,7 +371,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(1, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
 
             self.assertRaises(IncorrectSetup,
                               self.s.map_topology_to_infrastructure,
@@ -384,7 +384,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
 
             self.assertRaises(IncorrectConfig,
                               self.s.map_topology_to_infrastructure,
@@ -395,7 +395,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
 
             del self.context_cfg['nodes']
             self.assertRaises(IncorrectConfig, self.s._resolve_topology,
@@ -428,7 +428,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
 
             tgen = mock.Mock(autospec=GenericTrafficGen)
             tgen.traffic_finished = True

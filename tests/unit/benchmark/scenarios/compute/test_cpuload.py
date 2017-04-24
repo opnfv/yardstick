@@ -42,7 +42,7 @@ class CPULoadTestCase(unittest.TestCase):
         args = {'options': options}
 
         l = cpuload.CPULoad(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
 
         l.setup()
         self.assertIsNotNone(l.client)
@@ -58,7 +58,7 @@ class CPULoadTestCase(unittest.TestCase):
         args = {'options': options}
 
         l = cpuload.CPULoad(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (127, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (127, '', '')
 
         l.setup()
         self.assertIsNotNone(l.client)
@@ -74,11 +74,11 @@ class CPULoadTestCase(unittest.TestCase):
         args = {'options': options}
 
         l = cpuload.CPULoad(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         l.setup()
 
         expected_result = 'abcdefg'
-        mock_ssh.SSH().execute.return_value = (0, expected_result, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, expected_result, '')
         result = l._execute_command("foo")
         self.assertEqual(result, expected_result)
 
@@ -91,10 +91,10 @@ class CPULoadTestCase(unittest.TestCase):
         args = {'options': options}
 
         l = cpuload.CPULoad(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         l.setup()
 
-        mock_ssh.SSH().execute.return_value = (127, '', 'abcdefg')
+        mock_ssh.SSH.from_node().execute.return_value = (127, '', 'abcdefg')
         self.assertRaises(RuntimeError, l._execute_command,
                           "cat /proc/loadavg")
 
@@ -107,10 +107,10 @@ class CPULoadTestCase(unittest.TestCase):
         args = {'options': options}
 
         l = cpuload.CPULoad(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         l.setup()
 
-        mock_ssh.SSH().execute.return_value = \
+        mock_ssh.SSH.from_node().execute.return_value = \
             (0, '1.50 1.45 1.51 3/813 14322', '')
         result = l._get_loadavg()
         expected_result = \
@@ -126,13 +126,13 @@ class CPULoadTestCase(unittest.TestCase):
         args = {'options': options}
 
         l = cpuload.CPULoad(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         l.setup()
 
         l.interval = 1
         l.count = 1
         mpstat_output = self._read_file("cpuload_sample_output1.txt")
-        mock_ssh.SSH().execute.return_value = (0, mpstat_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, mpstat_output, '')
         result = l._get_cpu_usage_mpstat()
 
         expected_result = \
@@ -175,12 +175,12 @@ class CPULoadTestCase(unittest.TestCase):
         args = {'options': options}
 
         l = cpuload.CPULoad(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         l.setup()
 
         l.interval = 0
         output = self._read_file("cpuload_sample_output2.txt")
-        mock_ssh.SSH().execute.return_value = (0, output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, output, '')
         result = l._get_cpu_usage()
 
         expected_result = \
@@ -219,12 +219,12 @@ class CPULoadTestCase(unittest.TestCase):
         args = {'options': options}
 
         l = cpuload.CPULoad(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (1, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
         l.setup()
 
         l.interval = 0
         stat_output = self._read_file("cpuload_sample_output2.txt")
-        mock_ssh.SSH().execute.side_effect = \
+        mock_ssh.SSH.from_node().execute.side_effect = \
             [(0, '1.50 1.45 1.51 3/813 14322', ''), (0, stat_output, '')]
 
         l.run(self.result)

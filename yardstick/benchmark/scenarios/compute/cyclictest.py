@@ -85,24 +85,17 @@ class Cyclictest(base.Scenario):
 
     def _connect_host(self):
         host = self.context_cfg["host"]
-        user = host.get("user", "root")
-        ip = host.get("ip", None)
-        key_filename = host.get("key_filename", "~/.ssh/id_rsa")
 
-        LOG.debug("user:%s, host:%s", user, ip)
-        self.host = ssh.SSH(user, ip, key_filename=key_filename)
+        self.host = ssh.SSH.from_node(host, defaults={"user": "root"})
         self.host.wait(timeout=600)
 
     def _connect_guest(self):
         host = self.context_cfg["host"]
-        user = host.get("user", "root")
-        ip = host.get("ip", None)
-        ssh_port = host.get("ssh_port", 5555)
-        key_filename = host.get("key_filename", "~/.ssh/id_rsa")
-
-        LOG.debug("user:%s, host:%s", user, ip)
-        self.guest = ssh.SSH(user, ip, port=ssh_port,
-                             key_filename=key_filename)
+        # why port 5555?
+        self.guest = ssh.SSH.from_node(host,
+                                       defaults={
+                                           "user": "root", "ssh_port": 5555
+                                       })
         self.guest.wait(timeout=600)
 
     def _run_setup_cmd(self, client, cmd):

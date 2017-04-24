@@ -195,7 +195,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             self.assertIsNotNone(trex_traffic_gen._terminated)
@@ -206,7 +206,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             restult = trex_traffic_gen.collect_kpi()
@@ -218,7 +218,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             self.assertEqual(None, trex_traffic_gen.listen_traffic({}))
@@ -233,7 +233,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             trex_traffic_gen._start_server = mock.Mock(return_value=0)
@@ -251,7 +251,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
                 mock.Mock(return_value=(1, "", ""))
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             scenario_cfg = {"tc": "tc_baremetal_rfc2544_ipv4_1flow_64B"}
@@ -265,7 +265,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             self.assertEqual([0.8, 1.0],
@@ -282,7 +282,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             self.assertEqual(None, trex_traffic_gen._start_server())
@@ -304,7 +304,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             self.sut = TrexTrafficGenRFC(vnfd)
             self.sut.connection = mock.Mock()
@@ -327,7 +327,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             result = ['0x00', '0x00', '0x00', '0x00', '0x00', '0x01']
@@ -342,7 +342,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             tg_rfc2544_trex.WAIT_TIME = 1
@@ -358,7 +358,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             self.sut = TrexTrafficGenRFC(vnfd)
             self.sut.connection = mock.Mock()
@@ -376,7 +376,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             flavor = ""
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
@@ -389,7 +389,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             self.assertEqual(None, trex_traffic_gen.terminate())
 
@@ -399,7 +399,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             client = mock.Mock(autospec=STLClient)
             client.connect = mock.Mock(return_value=0)

@@ -80,33 +80,17 @@ class Plugin(object):
         self.script = pkg_resources.resource_filename(
             'yardstick.resources', 'scripts/install/' + target_script)
 
-        deployment_user = deployment.get("user")
-        deployment_ssh_port = deployment.get("ssh_port", ssh.DEFAULT_PORT)
         deployment_ip = deployment.get("ip", None)
-        deployment_password = deployment.get("password", None)
-        deployment_key_filename = deployment.get("key_filename",
-                                                 "/root/.ssh/id_rsa")
 
         if deployment_ip == "local":
-            installer_ip = os.environ.get("INSTALLER_IP", None)
-
-            if deployment_password is not None:
-                self._login_via_password(deployment_user, installer_ip,
-                                         deployment_password,
-                                         deployment_ssh_port)
-            else:
-                self._login_via_key(self, deployment_user, installer_ip,
-                                    deployment_key_filename,
-                                    deployment_ssh_port)
+            self.client = ssh.SSH.from_node(deployment, overrides={
+                # host can't be None, fail if no INSTALLER_IP
+                'ip': os.environ["INSTALLER_IP"],
+            })
         else:
-            if deployment_password is not None:
-                self._login_via_password(deployment_user, deployment_ip,
-                                         deployment_password,
-                                         deployment_ssh_port)
-            else:
-                self._login_via_key(self, deployment_user, deployment_ip,
-                                    deployment_key_filename,
-                                    deployment_ssh_port)
+            self.client = ssh.SSH.from_node(deployment)
+        self.client.wait(timeout=600)
+
         # copy script to host
         remotepath = '~/%s.sh' % plugin_name
 
@@ -119,33 +103,16 @@ class Plugin(object):
         self.script = pkg_resources.resource_filename(
             'yardstick.resources', 'scripts/remove/' + target_script)
 
-        deployment_user = deployment.get("user")
-        deployment_ssh_port = deployment.get("ssh_port", ssh.DEFAULT_PORT)
         deployment_ip = deployment.get("ip", None)
-        deployment_password = deployment.get("password", None)
-        deployment_key_filename = deployment.get("key_filename",
-                                                 "/root/.ssh/id_rsa")
 
         if deployment_ip == "local":
-            installer_ip = os.environ.get("INSTALLER_IP", None)
-
-            if deployment_password is not None:
-                self._login_via_password(deployment_user, installer_ip,
-                                         deployment_password,
-                                         deployment_ssh_port)
-            else:
-                self._login_via_key(self, deployment_user, installer_ip,
-                                    deployment_key_filename,
-                                    deployment_ssh_port)
+            self.client = ssh.SSH.from_node(deployment, overrides={
+                # host can't be None, fail if no INSTALLER_IP
+                'ip': os.environ["INSTALLER_IP"],
+            })
         else:
-            if deployment_password is not None:
-                self._login_via_password(deployment_user, deployment_ip,
-                                         deployment_password,
-                                         deployment_ssh_port)
-            else:
-                self._login_via_key(self, deployment_user, deployment_ip,
-                                    deployment_key_filename,
-                                    deployment_ssh_port)
+            self.client = ssh.SSH.from_node(deployment)
+        self.client.wait(timeout=600)
 
         # copy script to host
         remotepath = '~/%s.sh' % plugin_name
@@ -153,23 +120,12 @@ class Plugin(object):
         LOG.info("copying script to host: %s", remotepath)
         self.client._put_file_shell(self.script, remotepath)
 
-    def _login_via_password(self, user, ip, password, ssh_port):
-        LOG.info("Log in via pw, user:%s, host:%s", user, ip)
-        self.client = ssh.SSH(user, ip, password=password, port=ssh_port)
-        self.client.wait(timeout=600)
-
-    def _login_via_key(self, user, ip, key_filename, ssh_port):
-        LOG.info("Log in via key, user:%s, host:%s", user, ip)
-        self.client = ssh.SSH(user, ip, key_filename=key_filename,
-                              port=ssh_port)
-        self.client.wait(timeout=600)
-
     def _run(self, plugin_name):
         """Run installation script """
         cmd = "sudo bash %s" % plugin_name + ".sh"
 
         LOG.info("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        self.client.execute(cmd)
 
 
 class PluginParser(object):
