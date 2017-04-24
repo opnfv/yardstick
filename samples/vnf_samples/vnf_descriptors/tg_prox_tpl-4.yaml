@@ -1,0 +1,102 @@
+# Copyright (c) 2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+vnfd:vnfd-catalog:
+    vnfd:
+    -   id: ProxTrafficGen  # nsb class mapping
+        name: proxverifier
+        short-name: proxverifier
+        description: prox stateless traffic verifier
+        mgmt-interface:
+            vdu-id: proxgen-baremetal
+            {% if user is defined %}
+            user: '{{user}}'  # Value filled by vnfdgen
+            {% endif %}
+            {% if password is defined %}
+            password: '{{password}}'  # Value filled by vnfdgen
+            {% endif %}
+            {% if ip is defined %}
+            ip: '{{ip}}'  # Value filled by vnfdgen
+            {% endif %}
+            {% if key_filename is defined %}
+            key_filename: '{{key_filename}}'  # Value filled by vnfdgen
+            {% endif %}
+        connection-point:
+        -   name: xe0
+            type: VPORT
+        -   name: xe1
+            type: VPORT
+        vdu:
+        -   id: proxgen-baremetal
+            name: proxgen-baremetal
+            description: prox stateless traffic verifier
+            external-interface:
+            -   name: xe0
+                virtual-interface:
+                    type: PCI-PASSTHROUGH
+                    # Substitution variables MUST be quoted. Otherwise Python can misinterpet them.
+                    vpci: '{{ interfaces.xe0.vpci }}' # Value filled by vnfdgen
+                    local_iface_name: '{{ interfaces.xe0.local_iface_name }}' # Value filled by vnfdgen
+                    local_ip: '{{ interfaces.xe0.local_ip }}' # Value filled by vnfdgen
+                    driver: '{{ interfaces.xe0.driver}}' # Value filled by vnfdgen
+                    dst_ip: '{{ interfaces.xe0.dst_ip }}' # Value filled by vnfdgen
+                    local_mac: '{{ interfaces.xe0.local_mac }}' # Value filled by vnfdgen
+                    dst_mac: '{{ interfaces.xe0.dst_mac }}' # Value filled by vnfdgen
+                    bandwidth: 10 Gbps
+                vnfd-connection-point-ref: xe0
+            -   name: xe1
+                virtual-interface:
+                    type: PCI-PASSTHROUGH
+                    vpci: '{{ interfaces.xe1.vpci }}' # Value filled by vnfdgen
+                    local_iface_name: '{{ interfaces.xe1.local_iface_name }}' # Value filled by vnfdgen
+                    local_ip: '{{ interfaces.xe1.local_ip }}' # Value filled by vnfdgen
+                    driver: '{{ interfaces.xe1.driver}}' # Value filled by vnfdgen
+                    dst_ip: '{{ interfaces.xe1.dst_ip }}' # Value filled by vnfdgen
+                    local_mac: '{{ interfaces.xe1.local_mac }}' # Value filled by vnfdgen
+                    dst_mac: '{{ interfaces.xe1.dst_mac }}' # Value filled by vnfdgen
+                    bandwidth: 10 Gbps
+                vnfd-connection-point-ref: xe1
+            -   name: xe2
+                virtual-interface:
+                    type: PCI-PASSTHROUGH
+                    vpci: '{{ interfaces.xe2.vpci }}' # Value filled by vnfdgen
+                    local_iface_name: '{{ interfaces.xe2.local_iface_name }}' # Value filled by vnfdgen
+                    local_ip: '{{ interfaces.xe2.local_ip }}' # Value filled by vnfdgen
+                    driver: '{{ interfaces.xe2.driver}}' # Value filled by vnfdgen
+                    dst_ip: '{{ interfaces.xe2.dst_ip }}' # Value filled by vnfdgen
+                    local_mac: '{{ interfaces.xe2.local_mac }}' # Value filled by vnfdgen
+                    dst_mac: '{{ interfaces.xe2.dst_mac }}' # Value filled by vnfdgen
+                    bandwidth: 10 Gbps
+                vnfd-connection-point-ref: xe2
+            -   name: xe3
+                virtual-interface:
+                    type: PCI-PASSTHROUGH
+                    vpci: '{{ interfaces.xe3.vpci }}' # Value filled by vnfdgen
+                    local_iface_name: '{{ interfaces.xe3.local_iface_name }}' # Value filled by vnfdgen
+                    local_ip: '{{ interfaces.xe3.local_ip }}' # Value filled by vnfdgen
+                    driver: '{{ interfaces.xe3.driver}}' # Value filled by vnfdgen
+                    dst_ip: '{{ interfaces.xe3.dst_ip }}' # Value filled by vnfdgen
+                    local_mac: '{{ interfaces.xe3.local_mac }}' # Value filled by vnfdgen
+                    dst_mac: '{{ interfaces.xe3.dst_mac }}' # Value filled by vnfdgen
+                    bandwidth: 10 Gbps
+                vnfd-connection-point-ref: xe3
+
+        benchmark:
+            kpi:
+                - rx_throughput_fps
+                - tx_throughput_fps
+                - tx_throughput_mbps
+                - rx_throughput_mbps
+                - in_packets
+                - out_packets

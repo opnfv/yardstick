@@ -165,6 +165,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         self.bound_pci = None
         self._dpdk_nic_bind = None
         self.socket = None
+        self.used_drivers = None
 
     @property
     def dpdk_nic_bind(self):

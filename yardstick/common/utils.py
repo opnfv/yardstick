@@ -297,7 +297,7 @@ def get_ip_version(ip_addr):
         return address.version
 
 
-def ip_to_hex(ip_addr):
+def ip_to_hex(ip_addr, separator=''):
     try:
         address = ipaddress.ip_address(six.text_type(ip_addr))
     except ValueError:
@@ -306,7 +306,11 @@ def ip_to_hex(ip_addr):
 
     if address.version != 4:
         return ip_addr
-    return '{:08x}'.format(int(address))
+
+    if not separator:
+        return '{:08x}'.format(int(address))
+
+    return separator.join('{:02x}'.format(octet) for octet in address.packed)
 
 
 def try_int(s, *args):
@@ -319,6 +323,29 @@ def try_int(s, *args):
 
 class SocketTopology(dict):
 
+    @classmethod
+    def parse_cpuinfo(cls, cpuinfo):
+        socket_map = {}
+
+        lines = cpuinfo.splitlines()
+
+        core_details = []
+        core_lines = {}
+        for line in lines:
+            if line.strip():
+                name, value = line.split(":", 1)
+                core_lines[name.strip()] = try_int(value.strip())
+            else:
+                core_details.append(core_lines)
+                core_lines = {}
+
+        for core in core_details:
+            socket_map.setdefault(core["physical id"], {}).setdefault(
+                core["core id"], {})[core["processor"]] = (
+                core["processor"], core["core id"], core["physical id"])
+
+        return cls(socket_map)
+
     def sockets(self):
         return sorted(self.keys())
 
@@ -329,29 +356,6 @@ class SocketTopology(dict):
         return sorted(
             proc for cores in self.values() for procs in cores.values() for
             proc in procs)
-
-
-def parse_cpuinfo(cpuinfo):
-    socket_map = {}
-
-    lines = cpuinfo.splitlines()
-
-    core_details = []
-    core_lines = {}
-    for line in lines:
-        if line.strip():
-            name, value = line.split(":", 1)
-            core_lines[name.strip()] = try_int(value.strip())
-        else:
-            core_details.append(core_lines)
-            core_lines = {}
-
-    for core in core_details:
-        socket_map.setdefault(core["physical id"], {}).setdefault(
-            core["core id"], {})[core["processor"]] = (
-            core["processor"], core["core id"], core["physical id"])
-
-    return SocketTopology(socket_map)
 
 
 def config_to_dict(config):

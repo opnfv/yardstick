@@ -1,0 +1,123 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+#;
+
+nodes:
+-
+    name: "trafficgen_1"
+    role: TrafficGen
+    ip: 1.1.1.1
+    user: "root"
+    ssh_port: "22"
+    password: "r00t"
+    interfaces:
+        xe0:
+            vpci: "0000:05:00.0"
+            local_mac: "68:05:ca:30:3d:50"
+            driver: "i40e"
+            local_ip: "152.16.100.19"
+            netmask: "255.255.255.0"
+            dpdk_port_num: 0
+        xe1:
+            vpci: "0000:05:00.1"
+            local_mac: "68:05:ca:30:3d:51"
+            driver: "i40e"
+            local_ip: "152.16.40.19"
+            netmask: "255.255.255.0"
+            dpdk_port_num: 1
+        xe2:
+            vpci: "0000:05:00.2"
+            local_mac: "68:05:ca:30:3d:52"
+            driver: "i40e"
+            local_ip: "192.16.100.11"
+            netmask: "255.255.255.0"
+            dpdk_port_num: 2
+        xe3:
+            vpci: "0000:05:00.3"
+            local_mac: "68:05:ca:30:3d:53"
+            driver: "i40e"
+            local_ip: "192.16.40.11"
+            netmask: "255.255.255.0"
+            dpdk_port_num: 3
+-
+    name: "vnf"
+    role: VNF
+    ip: 1.1.1.2
+    user: "root"
+    ssh_port: "22"
+    password: "r00t"
+    interfaces:
+        xe0:
+            vpci: "0000:05:00.0"
+            local_mac: "68:05:ca:30:3c:68"
+            driver: "i40e"
+            local_ip: "152.16.100.21"
+            netmask: "255.255.255.0"
+            dpdk_port_num: 0
+        xe1:
+            vpci: "0000:05:00.1"
+            local_mac: "68:05:ca:30:3c:69"
+            driver: "i40e"
+            local_ip: "152.16.40.21"
+            netmask: "255.255.255.0"
+            dpdk_port_num: 1
+        xe2:
+            vpci: "0000:05:00.2"
+            local_mac: "68:05:ca:30:3c:6a"
+            driver: "i40e"
+            local_ip: "192.16.100.22"
+            netmask: "255.255.255.0"
+            dpdk_port_num: 2
+        xe3:
+            vpci: "0000:05:00.3"
+            local_mac: "68:05:ca:30:3c:6b"
+            driver: "i40e"
+            local_ip: "192.16.40.22"
+            netmask: "255.255.255.0"
+            dpdk_port_num: 3
+    routing_table:
+    - network: "152.16.100.20"
+      netmask: "255.255.255.0"
+      gateway: "152.16.100.20"
+      if: "xe0"
+    - network: "152.16.40.20"
+      netmask: "255.255.255.0"
+      gateway: "152.16.40.20"
+      if: "xe1"
+    - network: "192.16.100.20"
+      netmask: "255.255.255.0"
+      gateway: "192.16.100.20"
+      if: "xe2"
+    - network: "192.16.40.20"
+      netmask: "255.255.255.0"
+      gateway: "192.16.40.20"
+      if: "xe3"
+    nd_route_tbl:
+    - network: "0064:ff9b:0:0:0:0:9810:6414"
+      netmask: "112"
+      gateway: "0064:ff9b:0:0:0:0:9810:6414"
+      if: "xe0"
+    - network: "0064:ff9b:0:0:0:0:9810:2814"
+      netmask: "112"
+      gateway: "0064:ff9b:0:0:0:0:9810:2814"
+      if: "xe1"
+    - network: "0064:ff9b:0:0:0:0:C010:6414"
+      netmask: "112"
+      gateway: "0064:ff9b:0:0:0:0:C010:6414"
+      if: "xe2"
+    - network: "0064:ff9b:0:0:0:0:C010:2814"
+      netmask: "112"
+      gateway: "0064:ff9b:0:0:0:0:C010:2814"
+      if: "xe3"
