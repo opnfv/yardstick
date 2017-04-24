@@ -41,6 +41,10 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
     interval = runner_cfg.get("interval", 1)
     iterations = runner_cfg.get("iterations", 1)
     run_step = runner_cfg.get("run_step", "setup,run,teardown")
+    delta = runner_cfg.get("delta", 2)
+    options_cfg = scenario_cfg['options']
+    initial_rate = options_cfg.get("rate", 100)
+    scenario_cfg['options']['rate'] = initial_rate
     LOG.info("worker START, iterations %d times, class %s", iterations, cls)
 
     runner_cfg['runner_id'] = os.getpid()
@@ -77,6 +81,10 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                 elif sla_action == "monitor":
                     LOG.warning("SLA validation failed: %s", assertion.args)
                     errors = assertion.args
+                elif sla_action == "rate-control":
+                    scenario_cfg['options']['rate'] -= delta
+                    sequence = 1
+                    continue
             except Exception as e:
                 errors = traceback.format_exc()
                 LOG.exception(e)
