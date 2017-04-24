@@ -59,8 +59,9 @@ def mock_ssh(ssh, spec=None, exec_result=_LOCAL_OBJECT, run_result=_LOCAL_OBJECT
         run_result = 0, "", ""
 
     ssh_mock = mock.Mock(autospec=spec)
-    ssh_mock.execute = mock.Mock(return_value=exec_result)
-    ssh_mock.run = mock.Mock(return_value=run_result)
+    ssh_mock._get_client.return_value = mock.Mock()
+    ssh_mock.execute.return_value = exec_result
+    ssh_mock.run.return_value = run_result
     ssh.from_node.return_value = ssh_mock
 
 
