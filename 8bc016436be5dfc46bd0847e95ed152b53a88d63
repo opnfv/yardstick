@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_e046f14e",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-25T22:22:07Z",
+      "side": 1,
+      "message": "well so really we should make flavors a set here\n\n self.flavors \u003d set()\n\nthen we use .add()\n\n  self.flavors.add(....)\n\n\nThen everytime we add an element to the set it will enforce uniqueness.",
+      "revId": "8bc016436be5dfc46bd0847e95ed152b53a88d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
