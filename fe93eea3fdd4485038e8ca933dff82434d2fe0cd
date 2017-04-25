@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_c04bad57",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-25T22:22:07Z",
+      "side": 1,
+      "message": "Odd, how did it fail?  The isinstance(server.flavor, dict) should have prevented the append from running.\n\nDo you have a testcase that exercises the failure?\n\n\nmaybe\n \n try:\n     flavor \u003d server.flavor.get(\"name\", server.stack_name + \"-flavor\")\n except AttributeError:\n     # if server.flavor is a string it won\u0027t have .get()\n     pass\n else:\n   self.flavors.append(flavor)",
+      "parentUuid": "9ab8dda7_7bd71524",
+      "range": {
+        "startLine": 175,
+        "startChar": 15,
+        "endLine": 178,
+        "endChar": 70
+      },
+      "revId": "fe93eea3fdd4485038e8ca933dff82434d2fe0cd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_b0504cd5",
         "filename": "yardstick/benchmark/contexts/heat.py",
         "patchSetId": 17
