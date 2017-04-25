@@ -12,6 +12,8 @@ schema: "yardstick:task:0.1"
 description: >
     Sample test case for the HA of OpenStack Controll Node abnormally shutdown.
 
+{% set file = file or 'etc/yardstick/nodes/fuel_virtual/pod.yaml' %}
+
 scenarios:
 -
   type: ServiceHA
@@ -49,4 +51,4 @@ scenarios:
 context:
   type: Node
   name: LF
-  file: etc/yardstick/nodes/fuel_virtual/pod.yaml
+  file: {{file}}
