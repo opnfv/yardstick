@@ -84,9 +84,13 @@ def get_session():
 
 def get_endpoint(service_type, endpoint_type='publicURL'):
     auth = get_session_auth()
+    # for multi-region, we need to specify region
+    # when finding the endpoint
     return get_session().get_endpoint(auth=auth,
                                       service_type=service_type,
-                                      endpoint_type=endpoint_type)
+                                      endpoint_type=endpoint_type,
+                                      region_name=os.environ.get(
+                                          "OS_REGION_NAME"))
 
 
 # *********************************************
