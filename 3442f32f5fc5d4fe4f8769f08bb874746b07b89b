@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_60b8c1e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-04-26T04:49:30Z",
+      "side": 1,
+      "message": "needs more explanation.  what was the problem and what was fixed?\n\nLooks like we are caching amqp client now, and terminating it?",
+      "revId": "3442f32f5fc5d4fe4f8769f08bb874746b07b89b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
