@@ -199,30 +199,25 @@ def prepareYardstickEnv(args):
 def _already_source_openrc():
     """Check if openrc is sourced already"""
     return all(os.environ.get(k) for k in ['OS_AUTH_URL', 'OS_USERNAME',
-                                           'OS_PASSWORD', 'OS_TENANT_NAME',
-                                           'EXTERNAL_NETWORK'])
+                                           'OS_PASSWORD', 'EXTERNAL_NETWORK'])
 
 
 def _prepare_env_daemon(task_id):
     _create_task(task_id)
 
-    installer_ip = os.environ.get('INSTALLER_IP', 'undefined')
-    installer_type = os.environ.get('INSTALLER_TYPE', 'undefined')
-
     try:
-        _check_variables(installer_ip, installer_type)
-
         _create_directories()
 
         rc_file = consts.OPENRC
 
         if not _already_source_openrc():
-            _get_remote_rc_file(rc_file, installer_ip, installer_type)
+            if not os.path.exists(rc_file):
+                installer_ip = os.environ.get('INSTALLER_IP', '192.168.200.2')
+                installer_type = os.environ.get('INSTALLER_TYPE', 'compass')
+                _get_remote_rc_file(rc_file, installer_ip, installer_type)
+                _source_file(rc_file)
+                _append_external_network(rc_file)
             _source_file(rc_file)
-            _append_external_network(rc_file)
-
-        # update the external_network
-        _source_file(rc_file)
 
         _clean_images()
 
@@ -232,17 +227,6 @@ def _prepare_env_daemon(task_id):
     except Exception as e:
         _update_task_error(task_id, str(e))
         logger.debug('Error: %s', e)
-
-
-def _check_variables(installer_ip, installer_type):
-
-    if installer_ip == 'undefined':
-        raise SystemExit('Missing INSTALLER_IP')
-
-    if installer_type == 'undefined':
-        raise SystemExit('Missing INSTALLER_TYPE')
-    elif installer_type not in consts.INSTALLERS:
-        raise SystemExit('INSTALLER_TYPE is not correct')
 
 
 def _create_directories():
