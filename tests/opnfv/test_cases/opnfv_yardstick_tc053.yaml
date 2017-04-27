@@ -34,7 +34,7 @@ scenarios:
           host: node1
           monitor_time: 20
           sla:
-            max_recover_time: 30
+            max_recover_time: 20
 
         -
           monitor_type: "openstack-cmd"
