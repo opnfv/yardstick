@@ -55,16 +55,7 @@ class MonitorOpenstackCmd(basemonitor.BaseMonitor):
 
     def monitor_func(self):
         exit_status = 0
-        if self.connection:
-            with open(self.check_script, "r") as stdin_file:
-                exit_status, stdout, stderr = self.connection.execute(
-                    "/bin/bash -s '{0}'".format(self.cmd),
-                    stdin=stdin_file)
-
-            LOG.debug("the ret stats: %s stdout: %s stderr: %s",
-                      exit_status, stdout, stderr)
-        else:
-            exit_status, stdout = _execute_shell_command(self.cmd)
+        exit_status, stdout = _execute_shell_command(self.cmd)
         if exit_status:
             return False
         return True

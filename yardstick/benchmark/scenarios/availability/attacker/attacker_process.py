@@ -47,7 +47,7 @@ class ProcessAttacker(BaseAttacker):
                 "/bin/sh -s {0}".format(self.service_name),
                 stdin=stdin_file)
 
-        if stdout and "running" in stdout:
+        if stdout:
             LOG.info("check the envrioment success!")
             return True
         else:
