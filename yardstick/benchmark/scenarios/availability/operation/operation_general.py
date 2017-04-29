@@ -14,7 +14,7 @@ from yardstick.benchmark.scenarios.availability.operation.baseoperation \
     BaseOperation
 
 import yardstick.ssh as ssh
-from yardstick.benchmark.scenarios.availability.util import buildshellparams
+from yardstick.benchmark.scenarios.availability.util import build_shell_command,buildshellparams,read_stdout_item
 
 LOG = logging.getLogger(__name__)
 
@@ -35,10 +35,8 @@ class GeneralOperaion(BaseOperation):
         self.operation_key = self._config['operation_key']
 
         if "action_parameter" in self._config:
-            actionParameter = self._config['action_parameter']
-            str = buildshellparams(actionParameter)
-            l = list(item for item in actionParameter.values())
-            self.action_param = str.format(*l)
+            self.actionParameter_config = self._config['action_parameter']
+
 
         if "rollback_parameter" in self._config:
             rollbackParameter = self._config['rollback_parameter']
@@ -55,6 +53,8 @@ class GeneralOperaion(BaseOperation):
 
     def run(self):
         if "action_parameter" in self._config:
+            self.action_param = build_shell_command(self.actionParameter_config, True if self.connection else False,
+                                                    self.intermediate_variables)
             with open(self.action_script, "r") as stdin_file:
                 exit_status, stdout, stderr = self.connection.execute(
                     self.action_param,
@@ -67,10 +67,19 @@ class GeneralOperaion(BaseOperation):
 
         if exit_status == 0:
             LOG.debug("success,the operation's output is: %s", stdout)
+
+            if "return_parameter" in self._config:
+                returnParameter = self._config['return_parameter']
+                for item in returnParameter.keys():
+                    value = read_stdout_item(stdout, item)
+                    LOG.debug("intermediate variables %s: %s", returnParameter[item], value)
+                    self.intermediate_variables[returnParameter[item]] = value
+
         else:
             LOG.error(
                 "the operation's error, stdout:%s, stderr:%s",
                 stdout, stderr)
+
 
     def rollback(self):
         if "rollback_parameter" in self._config:
