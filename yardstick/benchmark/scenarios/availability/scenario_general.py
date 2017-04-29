@@ -25,6 +25,7 @@ class ScenarioGeneral(base.Scenario):
             "scenario_cfg:%s context_cfg:%s", scenario_cfg, context_cfg)
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
+        self.intermediate_variables = {}
 
     def setup(self):
         self.director = Director(self.scenario_cfg, self.context_cfg)
@@ -38,7 +39,8 @@ class ScenarioGeneral(base.Scenario):
                 orderedSteps.index(step) + 1)
             try:
                 actionPlayer = self.director.createActionPlayer(
-                    step['actionType'], step['actionKey'])
+                    step['actionType'], step['actionKey'],
+                    self.intermediate_variables)
                 actionPlayer.action()
                 actionRollbacker = self.director.createActionRollbacker(
                     step['actionType'], step['actionKey'])
