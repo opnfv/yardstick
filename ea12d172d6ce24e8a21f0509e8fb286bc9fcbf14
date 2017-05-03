@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_5fbf8fd0",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/create_flavor.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-05-03T14:11:39Z",
+      "side": 0,
+      "message": "since you\u0027re using operation_general to create flavor. And in operation_general, it requires to log on the node to run this script.if you remove this openrc, how is possible to run the openstack client.\n\nFor openstack command, it\u0027s better to execute in locally(yardstick docker), do we must log on the node?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "ea12d172d6ce24e8a21f0509e8fb286bc9fcbf14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
