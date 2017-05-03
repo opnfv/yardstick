@@ -14,6 +14,4 @@
 
 set -e
 
-source /root/openrc
-
 openstack flavor delete $1
