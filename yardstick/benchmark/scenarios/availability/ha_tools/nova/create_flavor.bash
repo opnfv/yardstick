@@ -14,6 +14,4 @@
 
 set -e
 
-source /root/openrc
-
 openstack flavor create $1 --id $2 --ram $3 --disk $4 --vcpus $5
