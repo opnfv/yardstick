@@ -1,0 +1,221 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_7f77f33a",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-03T14:32:26Z",
+      "side": 1,
+      "message": "we could use the constuctor, except it handles \u0027name\u0027 different, but we should be able to use configure_mock\n\n  mock_network.configure_mock(name\u003d\u0027some-network\u0027, stack_name\u003d\u0027some-network-stack\u0027, subnet_stack_name\u003d\u0027some-network-stack-subnet\u0027, provider\u003d\u0027some-provider\u0027)\n\nI slight prefer one-pass initialization versus piece-meal initialization using multiple statement.\n\nif we didn\u0027t have \u0027name\u0027 we could do\n\n  mock_network \u003d mock.Mock(stack_name\u003d\u0027some-network-stack\u0027)",
+      "range": {
+        "startLine": 267,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 47
+      },
+      "revId": "91dff4cd7b469cbd71d29c28bc3be0c3a86c24f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_3f917b47",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-03T14:32:26Z",
+      "side": 1,
+      "message": "whitespace?",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 1
+      },
+      "revId": "91dff4cd7b469cbd71d29c28bc3be0c3a86c24f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_5f946f36",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-03T14:32:26Z",
+      "side": 1,
+      "message": "are we supposed to assert something?",
+      "revId": "91dff4cd7b469cbd71d29c28bc3be0c3a86c24f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_1f9ef756",
+        "filename": "tests/unit/orchestrator/test_heat.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-03T14:32:26Z",
+      "side": 1,
+      "message": "please use dict literals.  pychar can do this conversion for you automatically.\n\n  self._template \u003d {\n       \u0027outputs\u0027: {},\n       \u0027resources\u0027: {},\n}",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 40
+      },
+      "revId": "91dff4cd7b469cbd71d29c28bc3be0c3a86c24f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_df9fff4e",
+        "filename": "tests/unit/orchestrator/test_heat.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-03T14:32:26Z",
+      "side": 1,
+      "message": "please use tempfile.NamedTemporary file object.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 128
+      },
+      "revId": "91dff4cd7b469cbd71d29c28bc3be0c3a86c24f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_7fae1387",
+        "filename": "tests/unit/orchestrator/test_heat.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-03T14:32:26Z",
+      "side": 1,
+      "message": "are we asserting something?",
+      "revId": "91dff4cd7b469cbd71d29c28bc3be0c3a86c24f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_bf21eb4e",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-03T14:32:26Z",
+      "side": 1,
+      "message": "we shouldn\u0027t need to this line, it is should be redundant.\n\nwe know self.flavor is a dict,  self.flavor.setdefault() will set value if name is not present.",
+      "revId": "91dff4cd7b469cbd71d29c28bc3be0c3a86c24f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_dfca9f6d",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-03T14:32:26Z",
+      "side": 1,
+      "message": "setdefault returns the value either from the dict, or what was set, so we can do\n  \n flavor \u003d self.flavor.setdefault(\"name\", self.name + \"-flavor\")\n template.add_flavor(**self.flavor)\n self.flavors.add(flavor)",
+      "revId": "91dff4cd7b469cbd71d29c28bc3be0c3a86c24f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_bfcfab7e",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-03T14:32:26Z",
+      "side": 1,
+      "message": "It looks like we lost network.physical_network, network.provider args during the rebase.\n\nWe need them now for provider networks.",
+      "revId": "91dff4cd7b469cbd71d29c28bc3be0c3a86c24f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_1fb917e9",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-03T14:32:26Z",
+      "side": 1,
+      "message": "can we try:\n\n\n  if isinstance(server.flavor, dict):\n     try:\n        self.flavors.add(server.flavor[\"name\"])\n     except KeyError:\n        self.flavors.add(server.stack_name + \"-flavor\")\n\nusing KeyError is a common python idiom.",
+      "revId": "91dff4cd7b469cbd71d29c28bc3be0c3a86c24f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_7fc93377",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-03T14:32:26Z",
+      "side": 1,
+      "message": "can we use setdefault here again\n\n  self.flavor_name \u003d self.flavor.setdefault(\"name\", self.stack_name + \"-flavor\")\n  template.add_flavor(**self.flavor)",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 69
+      },
+      "revId": "91dff4cd7b469cbd71d29c28bc3be0c3a86c24f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
