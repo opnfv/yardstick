@@ -150,6 +150,101 @@ class GenericVNF(object):
             if name == intf['name']:
                 return intf['virtual-interface']['dpdk_port_num']
 
+    def _update_config_file(self, ip_pipeline_cfg, mcpi, vnf_type):
+        pipeline_config_str = ip_pipeline_cfg
+        for i in range(len(mcpi)):
+            find_str = mcpi[i].split('=')
+            if find_str[1] != '':
+                where = pipeline_config_str.find(find_str[0])
+                if where != -1:
+                    l = pipeline_config_str[:where]
+                    r = pipeline_config_str[where:]
+                    tmp = r.find('\n')
+                    r = r[tmp:]
+                    cmd = find_str[0] + '= ' + find_str[1]
+                    cmd += '\n'
+                    pipeline_config_str = l + cmd + r
+                else:
+                    where = pipeline_config_str.find('type ' + '= ' + vnf_type)
+                    l = pipeline_config_str[:where]
+                    r = pipeline_config_str[where:]
+                    tmp = r.find('\n')
+                    r = r[tmp:]
+                    cmd_1 = "type =" + " " + vnf_type
+                    cmd_1 += '\n'
+                    cmd_2 = find_str[0] + '= ' + find_str[1]
+                    cmd_2 += '\n'
+                    pipeline_config_str = l + cmd_1 + cmd_2 + r
+
+            elif find_str[1] == '':
+                where = pipeline_config_str.find(find_str[0])
+                l = pipeline_config_str[:where]
+                r = pipeline_config_str[where:]
+                tmp = r.find('\n')
+                r = r[tmp:]
+                cmd = ''
+                cmd += '\n'
+                pipeline_config_str = l + cmd + r
+
+        return pipeline_config_str
+
+    def _update_traffic_type(self, ip_pipeline_cfg, traffic_options):
+        if traffic_options['vnf_type'] is not 'CGNAT':
+            pipeline_config_str = ip_pipeline_cfg.replace(
+                'traffic_type = 4', 'traffic_type = ' + str(
+                    traffic_options['traffic_type']))
+        else:
+            t_type = 'IPv4'
+            if traffic_options['traffic_type'] is 4:
+                t_type = 'ipv4'
+            else:
+                t_type = 'ipv6'
+            pipeline_config_str = ip_pipeline_cfg.replace(
+                'pkt_type = ipv4', 'pkt_type = ' + t_type)
+
+        return pipeline_config_str
+
+    def _update_packet_type(self, ip_pipeline_cfg, traffic_options):
+        pipeline_config_str = ip_pipeline_cfg.replace(
+            'pkt_type = ipv4', 'pkt_type = ' + traffic_options['pkt_type'])
+
+        return pipeline_config_str
+
+    def _update_fw_script_file(self, ip_pipeline_cfg, mcpi, vnf_str):
+
+        pipeline_config_str = ip_pipeline_cfg
+        input_cmds = ''
+        for i in range(len(mcpi)):
+            input_cmds += mcpi[i]
+            input_cmds += '\n'
+        for i in range(len(mcpi)):
+            where = pipeline_config_str.find(vnf_str)
+            l = pipeline_config_str[:where]
+            r = pipeline_config_str[where:]
+            tmp = r.find('\n')
+            r = r[tmp:]
+            cmd_1 = vnf_str
+            cmd_1 += '\n'
+            pipeline_config_str = l + cmd_1 + input_cmds + r
+            break
+
+        return pipeline_config_str
+
+    def _update_cgnat_script_file(self, ip_pipeline_cfg, mcpi, vnf_str):
+
+        pipeline_config_str = ip_pipeline_cfg
+        input_cmds = ''
+        icmp_flag = False
+        for i in range(len(mcpi)):
+            if mcpi[i] == 'link 0 down':
+                icmp_flag = True
+            input_cmds += mcpi[i]
+            input_cmds += '\n'
+        if icmp_flag is True:
+            return '\n' + input_cmds
+        else:
+            return pipeline_config_str + '\n' + input_cmds
+
     def _append_routes(self, ip_pipeline_cfg):
         if 'routing_table' in self.vnfd['vdu'][0]:
             routing_table = self.vnfd['vdu'][0]['routing_table']

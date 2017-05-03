@@ -23,7 +23,6 @@ from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic import vnfdgen
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.traffic_profile.base import TrafficProfile
-from yardstick import ssh
 
 LOG = logging.getLogger(__name__)
 
@@ -46,30 +45,6 @@ class IncorrectConfig(Exception):
 class IncorrectSetup(Exception):
     """Class handles incorrect setup during setup"""
     pass
-
-
-class SshManager(object):
-    def __init__(self, node):
-        super(SshManager, self).__init__()
-        self.node = node
-        self.conn = None
-
-    def __enter__(self):
-        """
-        args -> network device mappings
-        returns -> ssh connection ready to be used
-        """
-        try:
-            self.conn = ssh.SSH.from_node(self.node)
-            self.conn.wait()
-        except SSHError as error:
-            LOG.info("connect failed to %s, due to %s", self.node["ip"], error)
-        # self.conn defaults to None
-        return self.conn
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if self.conn:
-            self.conn.close()
 
 
 class NetworkServiceTestCase(base.Scenario):
@@ -202,22 +177,15 @@ class NetworkServiceTestCase(base.Scenario):
         """
 
         for node, node_dict in context_cfg["nodes"].items():
-
-            cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
-            with SshManager(node_dict) as conn:
-                exit_status = conn.execute(cmd)[0]
-                if exit_status != 0:
-                    raise IncorrectSetup("Node's %s lacks ip tool." % node)
-
-                for interface in node_dict["interfaces"]:
-                    network = node_dict["interfaces"][interface]
-                    keys = ["vpci", "local_ip", "netmask",
-                            "local_mac", "driver", "dpdk_port_num"]
-                    missing = set(keys).difference(network)
-                    if missing:
-                        raise IncorrectConfig("Require interface fields '%s' "
-                                              "not found, topology file "
-                                              "corrupted" % ', '.join(missing))
+            for interface in node_dict["interfaces"]:
+                network = node_dict["interfaces"][interface]
+                keys = ["vpci", "local_ip", "netmask",
+                        "local_mac", "driver", "dpdk_port_num"]
+                missing = set(keys).difference(network)
+                if missing:
+                    raise IncorrectConfig("Require interface fields '%s' "
+                                          "not found, topology file "
+                                          "corrupted" % ', '.join(missing))
 
         # 3. Use topology file to find connections & resolve dest address
         self._resolve_topology(context_cfg, topology)
