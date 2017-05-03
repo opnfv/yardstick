@@ -13,6 +13,4 @@
 
 set -e
 
-source /root/openrc
-
 nova flavor-list

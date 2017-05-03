@@ -14,6 +14,10 @@ description: >
     This test case is written by new scenario-based HA testing framework.
 
 {% set file = file or 'etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
+{% set external-net = external-net or 'br-ex' %}
+{% set management-net = management-net or 'br-mgmt' %}
+{% set storage-net = storage-net or 'br-storage' %}
+{% set internal-net = internal-net or 'br-mesh' %}
 
 scenarios:
   -
@@ -26,9 +30,9 @@ scenarios:
           key: "close-br-public"
           attack_key: "close-interface"
           action_parameter:
-            interface: "br-ex"
+            interface: {{external-net}}
           rollback_parameter:
-            interface: "br-ex"
+            interface: {{external-net}}
 
         -
           fault_type: "general-attacker"
@@ -36,9 +40,9 @@ scenarios:
           key: "close-br-mgmt"
           attack_key: "close-interface"
           action_parameter:
-            interface: "br-mgmt"
+            interface: {{management-net}}
           rollback_parameter:
-            interface: "br-mgmt"
+            interface: {{management-net}}
 
         -
           fault_type: "general-attacker"
@@ -46,9 +50,9 @@ scenarios:
           key: "close-br-storage"
           attack_key: "close-interface"
           action_parameter:
-            interface: "br-storage"
+            interface: {{storage-net}}
           rollback_parameter:
-            interface: "br-storage"
+            interface: {{storage-net}}
 
         -
           fault_type: "general-attacker"
@@ -56,9 +60,9 @@ scenarios:
           key: "close-br-private"
           attack_key: "close-interface"
           action_parameter:
-            interface: "br-mesh"
+            interface: {{internal-net}}
           rollback_parameter:
-            interface: "br-mesh"
+            interface: {{internal-net}}
 
       monitors:
         -
