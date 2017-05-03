@@ -22,6 +22,7 @@ import logging
 import multiprocessing
 import subprocess
 import time
+import os
 import traceback
 
 from oslo_config import cfg
@@ -40,7 +41,11 @@ def _output_serializer_main(filename, queue, config):
     Use of this process enables multiple instances of a scenario without
     messing up the output file.
     """
-    out_type = config['yardstick'].get('DEFAULT', {}).get('dispatcher', 'file')
+    try:
+        out_type = config['yardstick'].get('DEFAULT', {})['dispatcher']
+    except KeyError:
+        out_type = os.environ.get('DISPATCHER', 'file')
+
     conf = {
         'type': out_type.capitalize(),
         'file_path': filename
