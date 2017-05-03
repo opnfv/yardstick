@@ -177,6 +177,77 @@ class TestGenericVNF(unittest.TestCase):
         hex_ip = generic_vn_f._ip_to_hex("192.168.10.1")
         self.assertEqual("C0A80A01", hex_ip)
 
+    def test__update_config_file(self):
+        generic_vn_f = GenericVNF(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        vnf_str = "link"
+        mcpi = ["pkt_type=1"]
+        ip_pipeline_cfg = 'pkt_type'
+        cfg_file = \
+            generic_vn_f._update_config_file(ip_pipeline_cfg,
+                                             mcpi, vnf_str)
+        self.assertEqual("pkt_type= 1\ne", cfg_file)
+        ip_pipeline_cfg = '1'
+        cfg_file = \
+            generic_vn_f._update_config_file(ip_pipeline_cfg,
+                                             mcpi, vnf_str)
+        self.assertEqual("type = link\npkt_type= 1\n1", cfg_file)
+        mcpi = ["pkt_type="]
+        ip_pipeline_cfg = '1'
+        cfg_file = \
+            generic_vn_f._update_config_file(ip_pipeline_cfg,
+                                             mcpi, vnf_str)
+        self.assertEqual("\n1", cfg_file)
+
+    def test_update_packet_type(self):
+        generic_vn_f = GenericVNF(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        ip_pipeline_cfg = 'pkt_type = ipv4'
+        hex_ip = generic_vn_f._update_packet_type(ip_pipeline_cfg,
+                                                  {'pkt_type': '1'})
+        self.assertEqual("pkt_type = 1", hex_ip)
+
+    def test_update_traffic_type(self):
+        generic_vn_f = GenericVNF(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        ip_pipeline_cfg = 'pkt_type = ipv4'
+        traffic_options = {"vnf_type": 'ACL', 'traffic_type': 4}
+        result = generic_vn_f._update_traffic_type(ip_pipeline_cfg,
+                                                   traffic_options)
+        self.assertEqual("pkt_type = ipv4", result)
+        traffic_options = {"vnf_type": 'CGNAT', 'traffic_type': 6}
+        result = generic_vn_f._update_traffic_type(ip_pipeline_cfg,
+                                                   traffic_options)
+        self.assertEqual("pkt_type = ipv6", result)
+        traffic_options = {"vnf_type": 'CGNAT', 'traffic_type': 4}
+        result = generic_vn_f._update_traffic_type(ip_pipeline_cfg,
+                                                   traffic_options)
+        self.assertEqual("pkt_type = ipv4", result)
+
+    def test__update_fw_script_file(self):
+        generic_vn_f = GenericVNF(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        vnf_str = "link"
+        mcpi = ["link 0 down"]
+        ip_pipeline_cfg = 'link 0 down\n link 0 config 152.16.100.10 24\n link 0'
+        'p\nlink 1 down\nlink 1 config 152.40.40.10 24\nlink 1 up\np 1 arpadd'
+        '152.40.40.20 00:00:00:00:00:02\np 1 arpadd 0 152.16.100.20 00:00:00:00:00:01\n'
+        result = generic_vn_f._update_fw_script_file(ip_pipeline_cfg,
+                                                     mcpi, vnf_str)
+        self.assertIsNotNone(result)
+
+    def test__update_cgnat_script_file(self):
+        generic_vn_f = GenericVNF(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        ip_pipeline_cfg = "pipelineconfig"
+        mcpi = ["link 0 down"]
+        vnf_str = ''
+        arp_route = generic_vn_f._update_cgnat_script_file(ip_pipeline_cfg,
+                                                           mcpi, vnf_str)
+        expected = '\nlink 0 down\n'
+        self.assertEqual(expected, arp_route)
+        mcpi = ["link 1 down"]
+        arp_route = generic_vn_f._update_cgnat_script_file(ip_pipeline_cfg,
+                                                           mcpi, vnf_str)
+        expected = 'pipelineconfig\nlink 1 down\n'
+        self.assertEqual(expected, arp_route)
+
+
     def test_append_routes(self):
         generic_vn_f = GenericVNF(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
         arp_route = generic_vn_f._append_routes(IP_PIPELINE_CFG_FILE_TPL)
