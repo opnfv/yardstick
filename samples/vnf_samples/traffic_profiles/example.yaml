@@ -24,7 +24,7 @@ traffic_profile:
   flow_number: {{ flow.number }}  #This decides how many frames should be generated. Each frame should have a random of the field
   # that specifies a range (e.g. ipv4 address, port)
 
-private:
+private_1:
 	- ipv4_1:
 	  outer_l2:
 		framesize:
@@ -139,7 +139,7 @@ private:
 			srcport: {{ get(flow.inner_srcport, "3002") }}
 			dstport: {{ get(flow.inner_dstport, "3001") }}
 
-public:
+public_1:
 	- ipv4_2:
 		outer_l2:
 			framesize:
