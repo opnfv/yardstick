@@ -25,7 +25,7 @@ import unittest
 import mock
 
 from yardstick.benchmark.scenarios.networking.vnf_generic import \
-    SshManager, NetworkServiceTestCase, IncorrectConfig, IncorrectSetup
+    NetworkServiceTestCase, IncorrectConfig, IncorrectSetup
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic.vnf.base import \
     GenericTrafficGen, GenericVNF
@@ -311,16 +311,6 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
-    def test_ssh_manager(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
-            ssh.from_node.return_value = ssh_mock
-            for node, node_dict in self.context_cfg["nodes"].items():
-                with SshManager(node_dict) as conn:
-                    self.assertIsNotNone(conn)
-
     def test___init__(self):
         assert self.topology
 
@@ -373,7 +363,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 mock.Mock(return_value=(1, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.from_node.return_value = ssh_mock
 
-            self.assertRaises(IncorrectSetup,
+            self.assertRaises(IncorrectConfig,
                               self.s.map_topology_to_infrastructure,
                               self.context_cfg, self.topology)
 
