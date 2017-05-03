@@ -37,9 +37,21 @@ test_cases:
         huawei-pod1: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
         "host": "node4.LF","target": "node5.LF"}'
 -
+    file_name: opnfv_yardstick_tc019.yaml
+    constraint:
+        installer: compass,fuel
+        pod: huawei-pod2,ericsson-pod1
+    task_args:
+        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+-
     file_name: opnfv_yardstick_tc045.yaml
     constraint:
-        installer: fuel
+        installer: compass,fuel
+        pod: huawei-pod2,ericsson-pod1
+    task_args:
+        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc046.yaml
     constraint:
@@ -47,11 +59,19 @@ test_cases:
 -
     file_name: opnfv_yardstick_tc047.yaml
     constraint:
-        installer: fuel
+        installer: compass,fuel
+        pod: huawei-pod2,ericsson-pod1
+    task_args:
+        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc048.yaml
     constraint:
-        installer: fuel
+        installer: compass,fuel
+        pod: huawei-pod2,ericsson-pod1
+    task_args:
+        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc049.yaml
     constraint:
@@ -63,7 +83,11 @@ test_cases:
 -
     file_name: opnfv_yardstick_tc051.yaml
     constraint:
-        installer: fuel
+        installer: compass,fuel
+        pod: huawei-pod2,ericsson-pod1
+    task_args:
+        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc052.yaml
     constraint:
