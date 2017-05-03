@@ -376,7 +376,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 mock.Mock(return_value=(1, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.from_node.return_value = ssh_mock
 
-            self.assertRaises(IncorrectSetup,
+            self.assertRaises(IncorrectConfig,
                               self.s.map_topology_to_infrastructure,
                               self.context_cfg, self.topology)
 

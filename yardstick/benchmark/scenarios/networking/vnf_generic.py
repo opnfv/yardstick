@@ -241,7 +241,6 @@ class NetworkServiceTestCase(base.Scenario):
         """
 
         for node, node_dict in context_cfg["nodes"].items():
-
             cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
             with SshManager(node_dict) as conn:
                 exit_status = conn.execute(cmd)[0]
