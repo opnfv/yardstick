@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9ab8dda7_3f65fb1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-03T16:30:06Z",
+      "side": 1,
+      "message": "also please remove DRAFT, we are almost ready",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "91dff4cd7b469cbd71d29c28bc3be0c3a86c24f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_7f77f33a",
         "filename": "tests/unit/benchmark/contexts/test_model.py",
         "patchSetId": 24
