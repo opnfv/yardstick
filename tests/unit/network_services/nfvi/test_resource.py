@@ -90,7 +90,7 @@ class TestResourceProfile(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
 
             self.resource_profile = \
                 ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
@@ -120,7 +120,7 @@ class TestResourceProfile(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             resource_profile = \
                 ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
                                 [1, 2, 3])
@@ -132,7 +132,7 @@ class TestResourceProfile(unittest.TestCase):
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
-            ssh.return_value = ssh_mock
+            ssh.from_node.return_value = ssh_mock
             resource_profile = \
                 ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
                                 [1, 2, 3])

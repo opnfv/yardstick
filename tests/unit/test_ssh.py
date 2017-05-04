@@ -52,6 +52,62 @@ class SSHTestCase(unittest.TestCase):
         self.assertEqual("kf", test_ssh.key_filename)
         self.assertEqual("secret", test_ssh.password)
 
+    @mock.patch("yardstick.ssh.SSH._get_pkey")
+    def test_ssh_from_node(self, mock_ssh__get_pkey):
+        mock_ssh__get_pkey.return_value = "pkey"
+        node = {
+            "user": "root", "ip": "example.net", "ssh_port": 33,
+            "key_filename": "kf", "password": "secret"
+        }
+        test_ssh = ssh.SSH.from_node(node)
+        self.assertEqual("root", test_ssh.user)
+        self.assertEqual("example.net", test_ssh.host)
+        self.assertEqual(33, test_ssh.port)
+        self.assertEqual("kf", test_ssh.key_filename)
+        self.assertEqual("secret", test_ssh.password)
+
+    @mock.patch("yardstick.ssh.SSH._get_pkey")
+    def test_ssh_from_node_password_default(self, mock_ssh__get_pkey):
+        mock_ssh__get_pkey.return_value = "pkey"
+        node = {
+            "user": "root", "ip": "example.net", "ssh_port": 33,
+            "key_filename": "kf"
+        }
+        test_ssh = ssh.SSH.from_node(node)
+        self.assertEqual("root", test_ssh.user)
+        self.assertEqual("example.net", test_ssh.host)
+        self.assertEqual(33, test_ssh.port)
+        self.assertEqual("kf", test_ssh.key_filename)
+        self.assertIsNone(test_ssh.password)
+
+    @mock.patch("yardstick.ssh.SSH._get_pkey")
+    def test_ssh_from_node_ssh_port_default(self, mock_ssh__get_pkey):
+        mock_ssh__get_pkey.return_value = "pkey"
+        node = {
+            "user": "root", "ip": "example.net",
+            "key_filename": "kf", "password": "secret"
+        }
+        test_ssh = ssh.SSH.from_node(node)
+        self.assertEqual("root", test_ssh.user)
+        self.assertEqual("example.net", test_ssh.host)
+        self.assertEqual(ssh.SSH_PORT, test_ssh.port)
+        self.assertEqual("kf", test_ssh.key_filename)
+        self.assertEqual("secret", test_ssh.password)
+
+    @mock.patch("yardstick.ssh.SSH._get_pkey")
+    def test_ssh_from_node_key_filename_default(self, mock_ssh__get_pkey):
+        mock_ssh__get_pkey.return_value = "pkey"
+        node = {
+            "user": "root", "ip": "example.net", "ssh_port": 33,
+            "password": "secret"
+        }
+        test_ssh = ssh.SSH.from_node(node)
+        self.assertEqual("root", test_ssh.user)
+        self.assertEqual("example.net", test_ssh.host)
+        self.assertEqual(33, test_ssh.port)
+        self.assertIsNone(test_ssh.key_filename)
+        self.assertEqual("secret", test_ssh.password)
+
     def test_construct_default(self):
         self.assertEqual("root", self.test_client.user)
         self.assertEqual("example.net", self.test_client.host)

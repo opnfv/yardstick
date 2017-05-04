@@ -69,12 +69,7 @@ class PingTrafficGen(GenericTrafficGen):
         self._traffic_process = None
 
         mgmt_interface = vnfd["mgmt-interface"]
-        ssh_port = mgmt_interface.get("ssh_port", ssh.DEFAULT_PORT)
-        LOG.debug("Connecting to %s", mgmt_interface["ip"])
-
-        self.connection = ssh.SSH(mgmt_interface["user"], mgmt_interface["ip"],
-                                  password=mgmt_interface["password"],
-                                  port=ssh_port)
+        self.connection = ssh.SSH.from_node(mgmt_interface)
         self.connection.wait()
 
     def _bind_device_kernel(self, connection):
@@ -130,10 +125,7 @@ class PingTrafficGen(GenericTrafficGen):
     def _traffic_runner(self, traffic_profile, filewrapper):
 
         mgmt_interface = self.vnfd["mgmt-interface"]
-        ssh_port = mgmt_interface.get("ssh_port", ssh.DEFAULT_PORT)
-        self.connection = ssh.SSH(mgmt_interface["user"], mgmt_interface["ip"],
-                                  password=mgmt_interface["password"],
-                                  port=ssh_port)
+        self.connection = ssh.SSH.from_node(mgmt_interface)
         self.connection.wait()
         external_interface = self.vnfd["vdu"][0]["external-interface"]
         virtual_interface = external_interface[0]["virtual-interface"]

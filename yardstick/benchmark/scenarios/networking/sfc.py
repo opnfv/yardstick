@@ -53,15 +53,12 @@ class Sfc(base.Scenario):  # pragma: no cover
         subprocess.call(cmd_tacker, shell=True)
 
         target = self.context_cfg['target']
-        target_user = target.get('user', 'root')
-        target_ssh_port = target.get('ssh_port', ssh.DEFAULT_PORT)
-        target_pwd = target.get('password', 'opnfv')
-        target_ip = target.get('ip', None)
 
         """ webserver start automatically during the vm boot """
-        LOG.info("user:%s, target:%s", target_user, target_ip)
-        self.server = ssh.SSH(target_user, target_ip, password=target_pwd,
-                              port=target_ssh_port)
+        LOG.info("user:%s, target:%s", target['user'], target['ip'])
+        self.server = ssh.SSH.from_node(target, defaults={
+            "user": "root", "password": "opnfv"
+        })
         self.server.wait(timeout=600)
         self.server._put_file_shell(self.server_script, '~/server.sh')
         cmd_server = "sudo bash server.sh"
@@ -72,36 +69,35 @@ class Sfc(base.Scenario):  # pragma: no cover
         ips = sfc_openstack.get_an_IP()
 
         target = self.context_cfg['target']
-        SF1_user = target.get('user', 'root')
-        SF1_ssh_port = target.get('ssh_port', ssh.DEFAULT_PORT)
-        SF1_pwd = target.get('password', 'opnfv')
-        SF1_ip = ips[0]
 
-        LOG.info("user:%s, host:%s", SF1_user, SF1_ip)
-        self.server = ssh.SSH(SF1_user, SF1_ip, password=SF1_pwd,
-                              port=SF1_ssh_port)
+        LOG.info("user:%s, target:%s", target['user'], target['ip'])
+        self.server = ssh.SSH.from_node(
+            target,
+            defaults={"user": "root", "password": "opnfv"},
+            # we must override ip
+            overrides={"ip": ips[0]}
+        )
         self.server.wait(timeout=600)
         cmd_SF1 = ("nohup python vxlan_tool.py -i eth0 "
                    "-d forward -v off -b 80 &")
         LOG.debug("Starting HTTP firewall in SF1")
-        status, stdout, stderr = self.server.execute(cmd_SF1)
+        self.server.execute(cmd_SF1)
         result = self.server.execute("ps lax | grep python")
         if "vxlan_tool.py" in result[1]:  # pragma: no cover
             LOG.debug("HTTP firewall started")
 
-        SF2_user = target.get('user', 'root')
-        SF2_ssh_port = target.get('ssh_port', ssh.DEFAULT_PORT)
-        SF2_pwd = target.get('password', 'opnfv')
-        SF2_ip = ips[1]
-
-        LOG.info("user:%s, host:%s", SF2_user, SF2_ip)
-        self.server = ssh.SSH(SF2_user, SF2_ip, password=SF2_pwd,
-                              port=SF2_ssh_port)
+        LOG.info("user:%s, target:%s", target['user'], target['ip'])
+        self.server = ssh.SSH.from_node(
+            target,
+            defaults={"user": "root", "password": "opnfv"},
+            # we must override ip
+            overrides={"ip": ips[1]}
+        )
         self.server.wait(timeout=600)
         cmd_SF2 = ("nohup python vxlan_tool.py -i eth0 "
                    "-d forward -v off -b 22 &")
         LOG.debug("Starting SSH firewall in SF2")
-        status, stdout, stderr = self.server.execute(cmd_SF2)
+        self.server.execute(cmd_SF2)
 
         result = self.server.execute("ps lax | grep python")
         if "vxlan_tool.py" in result[1]:  # pragma: no cover
@@ -112,14 +108,11 @@ class Sfc(base.Scenario):  # pragma: no cover
     def run(self, result):
         """ Creating client and server VMs to perform the test"""
         host = self.context_cfg['host']
-        host_user = host.get('user', 'root')
-        ssh_port = host.get("ssh_port", ssh.DEFAULT_PORT)
-        host_pwd = host.get('password', 'opnfv')
-        host_ip = host.get('ip', None)
 
-        LOG.info("user:%s, host:%s", host_user, host_ip)
-        self.client = ssh.SSH(host_user, host_ip, password=host_pwd,
-                              port=ssh_port)
+        LOG.info("user:%s, host:%s", host['user'], host['ip'])
+        self.client = ssh.SSH.from_node(host, defaults={
+            "user": "root", "password": "opnfv"
+        })
         self.client.wait(timeout=600)
 
         if not self.setup_done:  # pragma: no cover

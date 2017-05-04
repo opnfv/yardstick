@@ -35,7 +35,7 @@ class CACHEstatTestCase(unittest.TestCase):
 
     def test_cachestat_successful_setup(self, mock_ssh):
         c = cachestat.CACHEstat({}, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
 
         c.setup()
         self.assertIsNotNone(c.client)
@@ -43,20 +43,20 @@ class CACHEstatTestCase(unittest.TestCase):
 
     def test_execute_command_success(self, mock_ssh):
         c = cachestat.CACHEstat({}, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         c.setup()
 
         expected_result = 'abcdefg'
-        mock_ssh.SSH().execute.return_value = (0, expected_result, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, expected_result, '')
         result = c._execute_command("foo")
         self.assertEqual(result, expected_result)
 
     def test_execute_command_failed(self, mock_ssh):
         c = cachestat.CACHEstat({}, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         c.setup()
 
-        mock_ssh.SSH().execute.return_value = (127, '', 'Failed executing \
+        mock_ssh.SSH.from_node().execute.return_value = (127, '', 'Failed executing \
             command')
         self.assertRaises(RuntimeError, c._execute_command,
                           "cat /proc/meminfo")
@@ -67,11 +67,11 @@ class CACHEstatTestCase(unittest.TestCase):
         }
         args = {"options": options}
         c = cachestat.CACHEstat(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         c.setup()
 
         output = self._read_file("cachestat_sample_output.txt")
-        mock_ssh.SSH().execute.return_value = (0, output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, output, '')
         result = c._get_cache_usage()
         expected_result = {"cachestat": {"cache0": {"HITS": "6462",
                                                     "DIRTIES": "29",

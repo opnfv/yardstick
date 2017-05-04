@@ -51,7 +51,7 @@ class FioTestCase(unittest.TestCase):
         p = fio.Fio(args, self.ctx)
         p.setup()
 
-        mock_ssh.SSH().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         self.assertIsNotNone(p.client)
         self.assertEqual(p.setup_done, True)
 
@@ -67,10 +67,10 @@ class FioTestCase(unittest.TestCase):
         p = fio.Fio(args, self.ctx)
         result = {}
 
-        p.client = mock_ssh.SSH()
+        p.client = mock_ssh.SSH.from_node()
 
         sample_output = self._read_sample_output(self.sample_output['rw'])
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         p.run(result)
 
@@ -92,10 +92,10 @@ class FioTestCase(unittest.TestCase):
         p = fio.Fio(args, self.ctx)
         result = {}
 
-        p.client = mock_ssh.SSH()
+        p.client = mock_ssh.SSH.from_node()
 
         sample_output = self._read_sample_output(self.sample_output['read'])
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         p.run(result)
 
@@ -116,10 +116,10 @@ class FioTestCase(unittest.TestCase):
         p = fio.Fio(args, self.ctx)
         result = {}
 
-        p.client = mock_ssh.SSH()
+        p.client = mock_ssh.SSH.from_node()
 
         sample_output = self._read_sample_output(self.sample_output['write'])
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         p.run(result)
 
@@ -143,10 +143,10 @@ class FioTestCase(unittest.TestCase):
         p = fio.Fio(args, self.ctx)
         result = {}
 
-        p.client = mock_ssh.SSH()
+        p.client = mock_ssh.SSH.from_node()
 
         sample_output = self._read_sample_output(self.sample_output['rw'])
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         p.run(result)
 
@@ -171,10 +171,10 @@ class FioTestCase(unittest.TestCase):
         p = fio.Fio(args, self.ctx)
         result = {}
 
-        p.client = mock_ssh.SSH()
+        p.client = mock_ssh.SSH.from_node()
 
         sample_output = self._read_sample_output(self.sample_output['rw'])
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, p.run, result)
 
     def test_fio_successful_bw_iops_sla(self, mock_ssh):
@@ -192,10 +192,10 @@ class FioTestCase(unittest.TestCase):
         p = fio.Fio(args, self.ctx)
         result = {}
 
-        p.client = mock_ssh.SSH()
+        p.client = mock_ssh.SSH.from_node()
 
         sample_output = self._read_sample_output(self.sample_output['rw'])
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         p.run(result)
 
@@ -220,10 +220,10 @@ class FioTestCase(unittest.TestCase):
         p = fio.Fio(args, self.ctx)
         result = {}
 
-        p.client = mock_ssh.SSH()
+        p.client = mock_ssh.SSH.from_node()
 
         sample_output = self._read_sample_output(self.sample_output['rw'])
-        mock_ssh.SSH().execute.return_value = (0, sample_output, '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, p.run, result)
 
     def test_fio_unsuccessful_script_error(self, mock_ssh):
@@ -238,9 +238,9 @@ class FioTestCase(unittest.TestCase):
         p = fio.Fio(args, self.ctx)
         result = {}
 
-        p.client = mock_ssh.SSH()
+        p.client = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
+        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p.run, result)
 
     def _read_sample_output(self, file_name):

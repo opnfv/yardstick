@@ -40,13 +40,11 @@ class ResourceProfile(object):
         self.cores = cores
 
         mgmt_interface = vnfd.get("mgmt-interface")
-        user = mgmt_interface.get("user")
-        passwd = mgmt_interface.get("password")
-        ip_addr = mgmt_interface.get("ip")
-        self.vnfip = mgmt_interface.get("host", ip_addr)
-        ssh_port = mgmt_interface.get("ssh_port", ssh.DEFAULT_PORT)
-        self.connection = ssh.SSH(user, self.vnfip,
-                                  password=passwd, port=ssh_port)
+        # why the host or ip?
+        self.vnfip = mgmt_interface.get("host", mgmt_interface["ip"])
+        self.connection = ssh.SSH.from_node(mgmt_interface,
+                                            overrides={"ip": self.vnfip})
+
         self.connection.wait()
 
     def check_if_sa_running(self, process):

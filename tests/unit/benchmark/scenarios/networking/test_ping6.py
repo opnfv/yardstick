@@ -56,7 +56,7 @@ class PingTestCase(unittest.TestCase):
             'sla': {'max_rtt': 50}
         }
         p = ping6.Ping6(args, self.ctx)
-        mock_ssh.SSH().execute.return_value = (0, '0', '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, '0', '')
         p.setup()
 
         self.assertEqual(p.setup_done, True)
@@ -70,8 +70,8 @@ class PingTestCase(unittest.TestCase):
         result = {}
 
         p = ping6.Ping6(args, self.ctx)
-        p.client = mock_ssh.SSH()
-        mock_ssh.SSH().execute.side_effect = [(0, 'host1', ''), (0, 100, '')]
+        p.client = mock_ssh.SSH.from_node()
+        mock_ssh.SSH.from_node().execute.side_effect = [(0, 'host1', ''), (0, 100, '')]
         p.run(result)
         self.assertEqual(result, {'rtt': 100.0})
 
@@ -84,8 +84,8 @@ class PingTestCase(unittest.TestCase):
         result = {}
 
         p = ping6.Ping6(args, self.ctx)
-        p.client = mock_ssh.SSH()
-        mock_ssh.SSH().execute.side_effect = [(0, 'host1', ''), (0, 100, '')]
+        p.client = mock_ssh.SSH.from_node()
+        mock_ssh.SSH.from_node().execute.side_effect = [(0, 'host1', ''), (0, 100, '')]
         p.run(result)
         self.assertEqual(result, {'rtt': 100.0})
 
@@ -98,8 +98,8 @@ class PingTestCase(unittest.TestCase):
         result = {}
 
         p = ping6.Ping6(args, self.ctx)
-        p.client = mock_ssh.SSH()
-        mock_ssh.SSH().execute.side_effect = [(0, 'host1', ''), (0, 100, '')]
+        p.client = mock_ssh.SSH.from_node()
+        mock_ssh.SSH.from_node().execute.side_effect = [(0, 'host1', ''), (0, 100, '')]
         self.assertRaises(AssertionError, p.run, result)
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping6.ssh')
@@ -112,8 +112,8 @@ class PingTestCase(unittest.TestCase):
         result = {}
 
         p = ping6.Ping6(args, self.ctx)
-        p.client = mock_ssh.SSH()
-        mock_ssh.SSH().execute.side_effect = [
+        p.client = mock_ssh.SSH.from_node()
+        mock_ssh.SSH.from_node().execute.side_effect = [
             (0, 'host1', ''), (1, '', 'FOOBAR')]
         self.assertRaises(RuntimeError, p.run, result)
 
