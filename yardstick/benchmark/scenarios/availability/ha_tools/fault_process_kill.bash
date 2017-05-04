@@ -15,4 +15,8 @@ set -e
 
 process_name=$1
 
-killall -9 $process_name
+if [ "$process_name" = "keystone" ]; then
+    killall -9 -u $process_name 
+else
+    killall -9 $process_name
+fi
