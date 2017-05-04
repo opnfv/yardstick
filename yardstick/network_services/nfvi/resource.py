@@ -14,7 +14,10 @@
 """ Resource collection definitions """
 
 from __future__ import absolute_import
+from __future__ import print_function
+import tempfile
 import logging
+import os
 import os.path
 import re
 import multiprocessing
@@ -29,6 +32,8 @@ LOG = logging.getLogger(__name__)
 CONF = cfg.CONF
 ZMQ_OVS_PORT = 5567
 ZMQ_POLLING_TIME = 12000
+LIST_PLUGINS_ENABLED = ["amqp", "cpu", "cpufreq", "intel_rdt", "memory",
+                        "hugepages", "dpdkstat", "virt", "ovs_stats"]
 
 
 class ResourceProfile(object):
@@ -36,18 +41,17 @@ class ResourceProfile(object):
     This profile adds a resource at the beginning of the test session
     """
 
-    def __init__(self, vnfd, cores):
+    def __init__(self, mgmt, interfaces=[], cores=[]):
         self.enable = True
         self.connection = None
         self.cores = cores
         self._queue = multiprocessing.Queue()
         self.amqp_client = None
+        self.interfaces = interfaces
 
-        mgmt_interface = vnfd.get("mgmt-interface")
         # why the host or ip?
-        self.vnfip = mgmt_interface.get("host", mgmt_interface["ip"])
-        self.connection = ssh.SSH.from_node(mgmt_interface,
-                                            overrides={"ip": self.vnfip})
+        self.vnfip = mgmt.get("host", mgmt["ip"])
+        self.connection = ssh.SSH.from_node(mgmt, overrides={"ip": self.vnfip})
 
         self.connection.wait()
 
@@ -70,34 +74,70 @@ class ResourceProfile(object):
     def get_cpu_data(cls, reskey, value):
         """ Get cpu topology of the host """
         pattern = r"-(\d+)"
-        if "cpufreq" in reskey[1]:
-            match = re.search(pattern, reskey[2], re.MULTILINE)
-            metric = reskey[1]
-        else:
+        if "cpufreq" in reskey[0]:
             match = re.search(pattern, reskey[1], re.MULTILINE)
-            metric = reskey[2]
+            metric = reskey[0]
+        else:
+            match = re.search(pattern, reskey[0], re.MULTILINE)
+            metric = reskey[1]
 
         time, val = re.split(":", value)
         if match:
             return [str(match.group(1)), metric, val, time]
 
-        return ["error", "Invalid", ""]
+        return ["error", "Invalid", "", ""]
+
+    @classmethod
+    def _parse_hugepages(cls, reskey, value):
+        key = '/'.join(reskey)
+        val = re.split(":", value)[1]
+        return {key: val}
+
+    @classmethod
+    def _parse_dpdkstat(cls, reskey, value):
+        key = '/'.join(reskey)
+        val = re.split(":", value)[1]
+        return {key: val}
+
+    @classmethod
+    def _parse_virt(cls, reskey, value):
+        key = '/'.join(reskey)
+        val = re.split(":", value)[1]
+        return {key: val}
+
+    @classmethod
+    def _parse_ovs_stats(cls, reskey, value):
+        key = '/'.join(reskey)
+        val = re.split(":", value)[1]
+        return {key: val}
 
     def parse_collectd_result(self, metrics, listcores):
         """ convert collectd data into json"""
-        res = {"cpu": {}, "memory": {}}
+        res = {"cpu": {}, "memory": {}, "hugepages": {},
+               "dpdkstat": {}, "virt": {}, "ovs_stats": {}}
         testcase = ""
 
         for key, value in metrics.items():
             reskey = key.rsplit("/")
-            if "cpu" in reskey[1] or "intel_rdt" in reskey[1]:
+            reskey = [rkey for rkey in reskey if "nsb_stats" not in rkey]
+
+            if "cpu" in reskey[0] or "intel_rdt" in reskey[0]:
                 cpu_key, name, metric, testcase = \
                     self.get_cpu_data(reskey, value)
                 if cpu_key in listcores:
                     res["cpu"].setdefault(cpu_key, {}).update({name: metric})
-            elif "memory" in reskey[1]:
-                val = re.split(":", value)[1]
-                res["memory"].update({reskey[2]: val})
+            elif "memory" in reskey[0]:
+                val = re.split(":", value)[0]
+                res["memory"].update({reskey[1]: val})
+            elif "hugepages" in reskey[0]:
+                res["hugepages"].update(self._parse_hugepages(reskey, value))
+            elif "dpdkstat" in reskey[0]:
+                res["dpdkstat"].update(self._parse_dpdkstat(reskey, value))
+            elif "virt" in reskey[1]:
+                res["virt"].update(self._parse_virt(reskey, value))
+            elif "ovs_stats" in reskey[0]:
+                res["ovs_stats"].update(self._parse_ovs_stats(reskey, value))
+
         res["timestamp"] = testcase
 
         return res
@@ -118,15 +158,43 @@ class ResourceProfile(object):
         msg = self.parse_collectd_result(metric, self.cores)
         return msg
 
-    @classmethod
-    def _start_collectd(cls, connection, bin_path):
+    def _provide_config_file(self, bin_path, nfvi_cfg, vars):
+        template = ""
+        with open(os.path.join(bin_path, nfvi_cfg), 'r') as cfg:
+            template = cfg.read()
+        cfg, cfg_content = tempfile.mkstemp()
+        cfg = os.fdopen(cfg, "w+")
+        cfg.write(template.format(**vars))
+        cfg.close()
+        cfg_file = os.path.join(bin_path, nfvi_cfg)
+        self.connection.put(cfg_content, cfg_file)
+
+    def _prepare_collectd_conf(self, bin_path):
+        """ Prepare collectd conf """
+        loadplugin = ""
+        for plugin in LIST_PLUGINS_ENABLED:
+            loadplugin += "LoadPlugin %s\n" % plugin
+
+        intrf = ""
+        for interface in self.interfaces:
+            intrf += "PortName '%s'\n" % interface["name"]
+
+        args = {"interval": '25',
+                "loadplugin": loadplugin,
+                "dpdk_interface": intrf}
+
+        self._provide_config_file(bin_path, 'collectd.conf', args)
+
+    def _start_collectd(self, connection, bin_path):
+        LOG.debug("Starting collectd to collect NFVi stats")
         connection.execute('sudo pkill -9 collectd')
         collectd = os.path.join(bin_path, "collectd.sh")
         provision_tool(connection, collectd)
-        provision_tool(connection, os.path.join(bin_path, "collectd.conf"))
+        self._prepare_collectd_conf(bin_path)
 
         # Reset amqp queue
         LOG.debug("reset and setup amqp to collect data from collectd")
+        connection.execute("sudo rm -rf /var/lib/rabbitmq/mnesia/rabbit*")
         connection.execute("sudo service rabbitmq-server start")
         connection.execute("sudo rabbitmqctl stop_app")
         connection.execute("sudo rabbitmqctl reset")
@@ -134,7 +202,10 @@ class ResourceProfile(object):
         connection.execute("sudo service rabbitmq-server restart")
 
         # Run collectd
-        connection.execute("sudo %s" % collectd)
+        http_proxy = os.environ.get('http_proxy', '')
+        https_proxy = os.environ.get('https_proxy', '')
+        connection.execute("sudo %s '%s' '%s'" %
+                           (collectd, http_proxy, https_proxy))
         LOG.debug("Start collectd service.....")
         connection.execute(
             "sudo %s" % os.path.join(bin_path, "collectd", "collectd"))
