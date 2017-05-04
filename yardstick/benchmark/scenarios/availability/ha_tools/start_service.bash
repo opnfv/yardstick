@@ -15,4 +15,8 @@ set -e
 
 service_name=$1
 
-service $service_name start
+if [ "$service_name" = "keystone" ]; then
+    service apache2 start
+else
+    service $service_name start
+fi
