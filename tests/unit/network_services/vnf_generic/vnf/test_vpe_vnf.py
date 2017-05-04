@@ -288,7 +288,8 @@ class TestVpeApproxVnf(unittest.TestCase):
             self.assertEqual(None,
                              vpe_approx_vnf._run_vpe(queue_wrapper, vpe_vnf))
 
-    def test_instantiate(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.vpe_vnf.ResourceProfile")
+    def test_instantiate(self, ResourceProfile):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -305,7 +306,8 @@ class TestVpeApproxVnf(unittest.TestCase):
             self.assertEqual(0, vpe_approx_vnf.instantiate(self.scenario_cfg,
                               self.context_cfg))
 
-    def test_instantiate_panic(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.vpe_vnf.ResourceProfile")
+    def test_instantiate_panic(self, ResourceProfile):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
