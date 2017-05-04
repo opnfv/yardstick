@@ -22,6 +22,30 @@
       "revId": "ea12d172d6ce24e8a21f0509e8fb286bc9fcbf14",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_c5c5f28e",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/create_flavor.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2017-05-04T06:22:53Z",
+      "side": 0,
+      "message": "I\u0027ll commit another patch on executing openstack commands locally.",
+      "parentUuid": "9ab8dda7_5fbf8fd0",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "ea12d172d6ce24e8a21f0509e8fb286bc9fcbf14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
