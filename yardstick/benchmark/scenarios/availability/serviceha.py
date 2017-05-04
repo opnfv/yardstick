@@ -59,20 +59,21 @@ class ServiceHA(base.Scenario):
             return
 
         self.monitorMgr.start_monitors()
-        LOG.info("monitor start!")
+        LOG.info("HA monitor start!")
 
         for attacker in self.attackers:
             attacker.inject_fault()
 
         self.monitorMgr.wait_monitors()
-        LOG.info("monitor stop!")
+        LOG.info("HA monitor stop!")
 
         sla_pass = self.monitorMgr.verify_SLA()
         if sla_pass:
             result['sla_pass'] = 1
+            LOG.info("The HA test case PASS the SLA")
         else:
             result['sla_pass'] = 0
-        assert sla_pass is True, "the test cases is not pass the SLA"
+        assert sla_pass is True, "The HA test case NOT pass the SLA"
 
         return
 

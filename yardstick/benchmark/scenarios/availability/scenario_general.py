@@ -29,7 +29,7 @@ class ScenarioGeneral(base.Scenario):
     def setup(self):
         self.director = Director(self.scenario_cfg, self.context_cfg)
 
-    def run(self, args):
+    def run(self, result):
         steps = self.scenario_cfg["options"]["steps"]
         orderedSteps = sorted(steps, key=lambda x: x['index'])
         for step in orderedSteps:
@@ -55,12 +55,14 @@ class ScenarioGeneral(base.Scenario):
 
         self.director.stopMonitors()
         if self.director.verify():
-            LOG.debug(
-                "\033[92m congratulations, "
-                "the test cases scenario is pass! \033[0m")
+            result['sla_pass'] = 1
+            LOG.info(
+                "\033[92m Congratulations, "
+                "the HA test case PASS! \033[0m")
         else:
-            LOG.debug(
-                "\033[91m aoh,the test cases scenario failed,"
+            result['sla_pass'] = 0
+            LOG.info(
+                "\033[91m Aoh, the HA test case FAIL,"
                 "please check the detail debug information! \033[0m")
 
     def teardown(self):
