@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_74bb9fe5",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-05-04T11:06:08Z",
+      "side": 1,
+      "message": "If the flavor dict does not contain a name.\n\neg\nflavor:\n  vcpus: 4\n  ram: 2048\n  disk: xxx etc..\n\nIt is a dioctionary but not containing the name attribute.\nIn this case the flavor inherits the server-name + \"-flavor\"\nname",
+      "parentUuid": "9ab8dda7_c04bad57",
+      "range": {
+        "startLine": 175,
+        "startChar": 15,
+        "endLine": 178,
+        "endChar": 70
+      },
+      "revId": "fe93eea3fdd4485038e8ca933dff82434d2fe0cd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_b0504cd5",
         "filename": "yardstick/benchmark/contexts/heat.py",
         "patchSetId": 17
