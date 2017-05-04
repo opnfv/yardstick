@@ -14,6 +14,7 @@
 """ Resource collection definitions """
 
 from __future__ import absolute_import
+from __future__ import print_function
 import logging
 import os.path
 import re
@@ -70,34 +71,45 @@ class ResourceProfile(object):
     def get_cpu_data(cls, reskey, value):
         """ Get cpu topology of the host """
         pattern = r"-(\d+)"
-        if "cpufreq" in reskey[1]:
-            match = re.search(pattern, reskey[2], re.MULTILINE)
-            metric = reskey[1]
-        else:
+        if "cpufreq" in reskey[0]:
             match = re.search(pattern, reskey[1], re.MULTILINE)
-            metric = reskey[2]
+            metric = reskey[0]
+        else:
+            match = re.search(pattern, reskey[0], re.MULTILINE)
+            metric = reskey[1]
 
         time, val = re.split(":", value)
         if match:
             return [str(match.group(1)), metric, val, time]
 
-        return ["error", "Invalid", ""]
+        return ["error", "Invalid", "", ""]
+
+    @classmethod
+    def _parse_hugepages(cls, reskey, value):
+        key = '/'.join(reskey)
+        val = re.split(":", value)[1]
+        return {key: val}
 
     def parse_collectd_result(self, metrics, listcores):
         """ convert collectd data into json"""
-        res = {"cpu": {}, "memory": {}}
+        res = {"cpu": {}, "memory": {}, "hugepages": {}}
         testcase = ""
 
         for key, value in metrics.items():
             reskey = key.rsplit("/")
-            if "cpu" in reskey[1] or "intel_rdt" in reskey[1]:
+            reskey = [rkey for rkey in reskey if "nsb_stats" not in rkey]
+
+            if "cpu" in reskey[0] or "intel_rdt" in reskey[0]:
                 cpu_key, name, metric, testcase = \
                     self.get_cpu_data(reskey, value)
                 if cpu_key in listcores:
                     res["cpu"].setdefault(cpu_key, {}).update({name: metric})
-            elif "memory" in reskey[1]:
-                val = re.split(":", value)[1]
-                res["memory"].update({reskey[2]: val})
+            elif "memory" in reskey[0]:
+                val = re.split(":", value)[0]
+                res["memory"].update({reskey[1]: val})
+            elif "hugepages" in reskey[0]:
+                res["hugepages"].update(self._parse_hugepages(reskey, value))
+
         res["timestamp"] = testcase
 
         return res
