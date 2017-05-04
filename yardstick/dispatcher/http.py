@@ -32,7 +32,7 @@ LOG = logging.getLogger(__name__)
 CONF = cfg.CONF
 http_dispatcher_opts = [
     cfg.StrOpt('target',
-               default='http://127.0.0.1:8000/results',
+               default=os.getenv('TARGET', 'http://127.0.0.1:8000/results'),
                help='The target where the http request will be sent. '
                     'If this is not set, no data will be posted. For '
                     'example: target = http://hostname:1234/path'),
@@ -62,7 +62,8 @@ class HttpDispatcher(DispatchBase):
             "description": "yardstick test cases result",
             "pod_name": os.environ.get('NODE_NAME', 'unknown'),
             "installer": os.environ.get('INSTALLER_TYPE', 'unknown'),
-            "version": os.environ.get('YARDSTICK_VERSION', 'unknown')
+            "version": os.environ.get('YARDSTICK_VERSION', 'unknown'),
+            "build_tag": os.environ.get('BUILD_TAG')
         }
 
     def record_result_data(self, data):
@@ -75,7 +76,7 @@ class HttpDispatcher(DispatchBase):
                       'be posted.')
             return
 
-        self.result["details"] = self.raw_result
+        self.result["details"] = {'results': self.raw_result}
 
         case_name = ""
         for v in self.raw_result:
