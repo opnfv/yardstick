@@ -107,13 +107,13 @@ class TestResourceProfile(unittest.TestCase):
         reskey = ["", "cpufreq", "cpufreq-0"]
         value = "metric:10"
         val = self.resource_profile.get_cpu_data(reskey, value)
-        self.assertEqual(val, ['0', 'cpufreq', '10', 'metric'])
+        self.assertIsNotNone(val)
 
     def test_get_cpu_data_error(self):
         reskey = ["", "", ""]
         value = "metric:10"
         val = self.resource_profile.get_cpu_data(reskey, value)
-        self.assertEqual(val, ['error', 'Invalid', ''])
+        self.assertEqual(val, ['error', 'Invalid', '', ''])
 
     def test__start_collectd(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -123,11 +123,104 @@ class TestResourceProfile(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             resource_profile = \
                 ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
-                                [1, 2, 3])
+                                [1, 2, 3], "baremetal")
+            resource_profile._prepare_collectd_conf = mock.Mock()
             self.assertIsNone(
                 resource_profile._start_collectd(ssh_mock, "/opt/nsb_bin"))
 
-    def test_initiate_systemagent(self):
+    def test__prepare_collectd_conf_BM(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            resource_profile = \
+                ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
+                                [1, 2, 3], "baremetal")
+            ResourceProfile._prepare_collectd_conf = mock.Mock()
+            resource_profile._provide_config_file = mock.Mock()
+            self.assertIsNotNone(
+                resource_profile._prepare_collectd_conf("/opt/nsb_bin"))
+
+    def test__prepare_collectd_conf_managed_ovs_dpdk(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            resource_profile = \
+                ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
+                                [1, 2, 3], "managed-ovs")
+            ResourceProfile._prepare_collectd_conf = mock.Mock()
+            resource_profile._provide_config_file = mock.Mock()
+            self.assertIsNotNone(
+                resource_profile._prepare_collectd_conf("/opt/nsb_bin"))
+
+    def test__prepare_collectd_conf_ovs_dpdk(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            resource_profile = \
+                ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
+                                [1, 2, 3], "ovs_dpdk")
+            ResourceProfile._prepare_collectd_conf = mock.Mock()
+            resource_profile._provide_config_file = mock.Mock()
+            self.assertIsNotNone(
+                resource_profile._prepare_collectd_conf("/opt/nsb_bin"))
+
+    def test__prepare_collectd_conf_managed_sriov(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            resource_profile = \
+                ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
+                                [1, 2, 3], "managed-sriov")
+            ResourceProfile._prepare_collectd_conf = mock.Mock()
+            resource_profile._provide_config_file = mock.Mock()
+            self.assertIsNotNone(
+                resource_profile._prepare_collectd_conf("/opt/nsb_bin"))
+
+    def test__prepare_collectd_conf_sriov(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            resource_profile = \
+                ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
+                                [1, 2, 3], "sriov")
+            ResourceProfile._prepare_collectd_conf = mock.Mock()
+            resource_profile._provide_config_file = mock.Mock()
+            self.assertIsNotNone(
+                resource_profile._prepare_collectd_conf("/opt/nsb_bin"))
+
+    @mock.patch("yardstick.network_services.nfvi.resource.open")
+    @mock.patch("yardstick.network_services.nfvi.resource.tempfile")
+    @mock.patch("yardstick.network_services.nfvi.resource.os")
+    def test__provide_config_file(self, mock_open, mock_tempfile, mock_os):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            resource_profile = \
+                ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
+                                [1, 2, 3], "sriov")
+            ResourceProfile._prepare_collectd_conf = mock.Mock()
+            resource_profile.connection = ssh_mock
+            resource_profile.connection.put = \
+                mock.Mock(return_value=(0, "", ""))
+            mock_tempfile.mkstemp = mock.Mock(return_value=["test", ""])
+            self.assertIsNone(
+                resource_profile._provide_config_file("/opt/nsb_bin",
+                                                      "collectd.cfg", {}))
+
+    @mock.patch("yardstick.network_services.nfvi.resource.open")
+    def test_initiate_systemagent(self, mock_open):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -139,9 +232,100 @@ class TestResourceProfile(unittest.TestCase):
             self.assertIsNone(
                 resource_profile.initiate_systemagent("/opt/nsb_bin"))
 
+    def test__parse_hugepages(self):
+        reskey = ["cpu", "cpuFreq"]
+        value = "timestamp:12345"
+        res = self.resource_profile._parse_hugepages(reskey, value)
+        self.assertEqual({'cpu/cpuFreq': '12345'}, res)
+
+    def test__parse_dpdkstat(self):
+        reskey = ["dpdk0", "0"]
+        value = "tx:12345"
+        res = self.resource_profile._parse_dpdkstat(reskey, value)
+        self.assertEqual({'dpdk0/0': '12345'}, res)
+
+    def test__parse_virt(self):
+        reskey = ["vm0", "cpu"]
+        value = "load:45"
+        res = self.resource_profile._parse_virt(reskey, value)
+        self.assertEqual({'vm0/cpu': '45'}, res)
+
+    def test__parse_ovs_stats(self):
+        reskey = ["ovs", "stats"]
+        value = "tx:45"
+        res = self.resource_profile._parse_ovs_stats(reskey, value)
+        self.assertEqual({'ovs/stats': '45'}, res)
+
     def test_parse_collectd_result(self):
         res = self.resource_profile.parse_collectd_result({}, [0, 1, 2])
-        self.assertDictEqual(res, {'timestamp': '', 'cpu': {}, 'memory': {}})
+        expected_result = {'cpu': {}, 'dpdkstat': {}, 'hugepages': {},
+                           'memory': {}, 'ovs_stats': {}, 'timestamp': '',
+                           'virt': {}}
+        self.assertDictEqual(res, expected_result)
+
+    def test_parse_collectd_result_cpu(self):
+        metric = {"nsb_stats/cpu/0/ipc": "101"}
+        self.resource_profile.get_cpu_data = mock.Mock(return_value=[1,
+                                                                     "ipc",
+                                                                     "1234",
+                                                                     ""])
+        res = self.resource_profile.parse_collectd_result(metric, [0, 1, 2])
+        expected_result = {'cpu': {1: {'ipc': '1234'}}, 'dpdkstat': {}, 'hugepages': {},
+                           'memory': {}, 'ovs_stats': {}, 'timestamp': '',
+                           'virt': {}}
+        self.assertDictEqual(res, expected_result)
+
+    def test_parse_collectd_result_memory(self):
+        metric = {"nsb_stats/memory/bw": "101"}
+        res = self.resource_profile.parse_collectd_result(metric, [0, 1, 2])
+        expected_result = {'cpu': {}, 'dpdkstat': {}, 'hugepages': {},
+                           'memory': {'bw': '101'}, 'ovs_stats': {}, 'timestamp': '',
+                           'virt': {}}
+        self.assertDictEqual(res, expected_result)
+
+    def test_parse_collectd_result_hugepage(self):
+        metric = {"nsb_stats/hugepages/free": "101"}
+        self.resource_profile._parse_hugepages = \
+        mock.Mock(return_value={"free": "101"})
+        res = self.resource_profile.parse_collectd_result(metric, [0, 1, 2])
+        expected_result = {'cpu': {}, 'dpdkstat': {}, 'hugepages': {'free':
+                                                                     '101'},
+                           'memory': {}, 'ovs_stats': {}, 'timestamp': '',
+                           'virt': {}}
+        self.assertDictEqual(res, expected_result)
+
+    def test_parse_collectd_result_dpdk_virt_ovs(self):
+        metric = {"nsb_stats/dpdkstat/tx": "101",
+                  "nsb_stats/ovs_stats/tx": "101",
+                  "nsb_stats/virt/virt/memory": "101"}
+        self.resource_profile._parse_dpdkstat = \
+            mock.Mock(return_value={"tx": "101"})
+        self.resource_profile._parse_virt = \
+            mock.Mock(return_value={"memory": "101"})
+        self.resource_profile._parse_ovs_stats = \
+            mock.Mock(return_value={"tx": "101"})
+        res = self.resource_profile.parse_collectd_result(metric, [0, 1, 2])
+        expected_result = {'cpu': {}, 'dpdkstat': {'tx': '101'}, 'hugepages': {},
+                           'memory': {}, 'ovs_stats': {'tx': '101'}, 'timestamp': '',
+                           'virt': {'memory': '101'}}
+        self.assertDictEqual(res, expected_result)
+
+    def test_amqp_process_for_nfvi_kpi(self):
+        self.resource_profile.amqp_client = \
+            mock.MagicMock(side_effect=[None, mock.MagicMock()])
+        self.resource_profile.run_collectd_amqp = \
+            mock.Mock(return_value=0)
+        res = self.resource_profile.amqp_process_for_nfvi_kpi()
+        self.assertEqual(None, res)
+
+    def test_amqp_collect_nfvi_kpi(self):
+        self.resource_profile.amqp_client = \
+            mock.MagicMock(side_effect=[None, mock.MagicMock()])
+        self.resource_profile.run_collectd_amqp = \
+            mock.Mock(return_value=0)
+        self.resource_profile.parse_collectd_result = mock.Mock()
+        res = self.resource_profile.amqp_collect_nfvi_kpi()
+        self.assertIsNotNone(res)
 
     def test_run_collectd_amqp(self):
         _queue = multiprocessing.Queue()
