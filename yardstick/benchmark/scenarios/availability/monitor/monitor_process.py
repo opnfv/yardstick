@@ -54,6 +54,7 @@ class MonitorProcess(basemonitor.BaseMonitor):
             LOG.error("SLA failure: %f > %f", outage_time, max_outage_time)
             return False
         else:
+            LOG.info("the sla is passed")
             return True
 
 
