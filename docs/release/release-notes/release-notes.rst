@@ -41,7 +41,7 @@ Version History
 |                |  3.0               | Yardstick for Danube release    |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
-|                |  2.0               | Yardstick for Danube release    |
+| May 4th, 2017  |  2.0               | Yardstick for Danube release    |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
 | Mar 31st, 2017 |  1.0               | Yardstick for Danube release    |
@@ -139,19 +139,19 @@ Release Data
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/Danube.1.0                 |
+| **Repo/tag**                         | yardstick/Danube.2.0                 |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | Danube.1.0                           |
+| **Yardstick Docker image tag**       | Danube.2.0                           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Danube                               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | March 31st, 2017                     |
+| **Release date**                     | May 4th, 2017                        |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFV Danube release 1.0             |
+| **Purpose of the delivery**          | OPNFV Danube release 2.0             |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 
@@ -170,27 +170,8 @@ Documents
 Software Deliverables
 ---------------------
 
-**Yardstick framework source code <Danube.1.0>**
 
-+--------------------------------------+--------------------------------------+
-| **Project**                          | Yardstick                            |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/Danube.1.0                 |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | Danube.1.0                           |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-| **Release designation**              | Danube                               |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-| **Release date**                     | March 31st, 2017                     |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFV Danube release                 |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
+ - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: danube.2.0)
 
 
 **Contexts**
@@ -534,7 +515,7 @@ Feature additions
 Scenario Matrix
 ===============
 
-For Danube 1.0, Yardstick was tested on the following scenarios:
+For Danube 2.0, Yardstick was tested on the following scenarios:
 
 +-------------------------+---------+---------+---------+---------+
 |         Scenario        |  Apex   | Compass |  Fuel   |   Joid  |
@@ -598,7 +579,9 @@ For Danube 1.0, Yardstick was tested on the following scenarios:
 | os-nosdn-kvm_ovs_dpdk   |         |         |    X    |         |
 | _bar-noha               |         |         |         |         |
 +-------------------------+---------+---------+---------+---------+
-
+| opnfv_os-ovn-nofeature- |    X    |         |         |         |
+| noha_daily              |         |         |         |         |
++-------------------------+---------+---------+---------+---------+
 
 Test results
 ============
@@ -630,6 +613,52 @@ Known Issues/Faults
 Corrected Faults
 ----------------
 
+Danube.2.0:
+
++----------------------------+------------------------------------------------+
+| **JIRA REFERENCE**         | **SLOGAN**                                     |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-608        | Set work directory in Yardstick container      |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-616        | Bugfix: https support should adapt insecure    |
+|                            | situation                                      |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-620        | Yardstick virtualenv support                   |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-621        | Bugfix: fix query job status in TC074          |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-622        | Bugfix: take test case modification into       |
+|                            | effect in load_images.sh                       |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-623        | change openrc file path to                     |
+|                            | /etc/yardstick/openstack.creds                 |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-624        | Add opnfv_os-ovn-nofeature-noha_daily test     |
+|                            | suite                                          |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-628        | Bugfix: Make tc019 and tc025 accept            |
+|                            | --task-args options                            |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-629        | Bugfix: yardstick env prepare cmd do not       |
+|                            | support other installer                        |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-632        | Bugfix: KeyError when using http dispatcher    |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-633        | Bugfix: Environment Compatibility Issues in HA |
+|                            | Test Cases                                     |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-634        | fix ha issue when run tc050~tc054 in ci        |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-635        | Bugfix: Local Openstack Operation in HA test   |
+|                            | frameworks                                     |
++----------------------------+------------------------------------------------+
+
 Danube.1.0:
 
 +----------------------------+------------------------------------------------+
@@ -644,7 +673,7 @@ Danube.1.0:
 +----------------------------+------------------------------------------------+
 
 
-Danube 1.0 known restrictions/issues
+Danube 2.0 known restrictions/issues
 ====================================
 +-----------+-----------+----------------------------------------------+
 | Installer | Scenario  |  Issue                                       |
@@ -662,13 +691,15 @@ Danube 1.0 known restrictions/issues
 +-----------+-----------+----------------------------------------------+
 
 
-
 Open JIRA tickets
 =================
 
 +----------------------------+------------------------------------------------+
 | **JIRA REFERENCE**         | **SLOGAN**                                     |
 |                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-626        | Fio and Lmbench don't work in Ubuntu-arm64     |
+|                            | image                                          |
 +----------------------------+------------------------------------------------+
 | JIRA: YARDSTICK-603        | Timeout waiting for floating ip                |
 |                            | (which actually pingable)                      |
