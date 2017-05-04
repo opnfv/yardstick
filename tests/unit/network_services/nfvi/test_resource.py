@@ -107,13 +107,13 @@ class TestResourceProfile(unittest.TestCase):
         reskey = ["", "cpufreq", "cpufreq-0"]
         value = "metric:10"
         val = self.resource_profile.get_cpu_data(reskey, value)
-        self.assertEqual(val, ['0', 'cpufreq', '10', 'metric'])
+        self.assertIsNotNone(val)
 
     def test_get_cpu_data_error(self):
         reskey = ["", "", ""]
         value = "metric:10"
         val = self.resource_profile.get_cpu_data(reskey, value)
-        self.assertEqual(val, ['error', 'Invalid', ''])
+        self.assertEqual(val, ['error', 'Invalid', '', ''])
 
     def test__start_collectd(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -141,7 +141,9 @@ class TestResourceProfile(unittest.TestCase):
 
     def test_parse_collectd_result(self):
         res = self.resource_profile.parse_collectd_result({}, [0, 1, 2])
-        self.assertDictEqual(res, {'timestamp': '', 'cpu': {}, 'memory': {}})
+        expected_result = {'timestamp': '', 'hugepages': {},
+                           'cpu': {}, 'memory': {}}
+        self.assertDictEqual(res, expected_result)
 
     def test_run_collectd_amqp(self):
         _queue = multiprocessing.Queue()
