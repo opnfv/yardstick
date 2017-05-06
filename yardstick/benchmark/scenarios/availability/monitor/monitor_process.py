@@ -33,7 +33,7 @@ class MonitorProcess(basemonitor.BaseMonitor):
     def monitor_func(self):
         with open(self.check_script, "r") as stdin_file:
             exit_status, stdout, stderr = self.connection.execute(
-                "/bin/sh -s {0}".format(self.process_name),
+                "sudo /bin/sh -s {0}".format(self.process_name),
                 stdin=stdin_file)
         if not stdout or int(stdout) <= 0:
             LOG.info("the process (%s) is not running!", self.process_name)
