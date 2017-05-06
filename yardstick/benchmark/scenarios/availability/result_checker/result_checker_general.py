@@ -59,7 +59,7 @@ class GeneralResultChecker(BaseResultChecker):
             if self.connection:
                 with open(self.verify_script, "r") as stdin_file:
                     exit_status, stdout, stderr = self.connection.execute(
-                        self.shell_cmd,
+                        "sudo {}".format(self.shell_cmd),
                         stdin=stdin_file)
             else:
                 exit_status, stdout = \
@@ -76,7 +76,7 @@ class GeneralResultChecker(BaseResultChecker):
             if self.connection:
                 with open(self.verify_script, "r") as stdin_file:
                     exit_status, stdout, stderr = self.connection.execute(
-                        "/bin/bash -s ",
+                        "sudo /bin/bash -s ",
                         stdin=stdin_file)
             else:
                 exit_status, stdout = execute_shell_command(

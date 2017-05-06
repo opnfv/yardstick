@@ -64,7 +64,7 @@ class GeneralOperaion(BaseOperation):
             if self.connection:
                 with open(self.action_script, "r") as stdin_file:
                     exit_status, stdout, stderr = self.connection.execute(
-                        self.action_param,
+                        "sudo {}".format(self.action_param),
                         stdin=stdin_file)
             else:
                 exit_status, stdout = \
@@ -75,7 +75,7 @@ class GeneralOperaion(BaseOperation):
             if self.connection:
                 with open(self.action_script, "r") as stdin_file:
                     exit_status, stdout, stderr = self.connection.execute(
-                        "/bin/sh -s ",
+                        "sudo /bin/sh -s ",
                         stdin=stdin_file)
             else:
                 exit_status, stdout = execute_shell_command(
@@ -93,7 +93,7 @@ class GeneralOperaion(BaseOperation):
             if self.connection:
                 with open(self.rollback_script, "r") as stdin_file:
                     exit_status, stdout, stderr = self.connection.execute(
-                        self.rollback_param,
+                        "sudo {}".format(self.rollback_param),
                         stdin=stdin_file)
             else:
                 exit_status, stdout = \
@@ -104,7 +104,7 @@ class GeneralOperaion(BaseOperation):
             if self.connection:
                 with open(self.rollback_script, "r") as stdin_file:
                     exit_status, stdout, stderr = self.connection.execute(
-                        "/bin/sh -s ",
+                        "sudo /bin/sh -s ",
                         stdin=stdin_file)
             else:
                 exit_status, stdout = execute_shell_command(
