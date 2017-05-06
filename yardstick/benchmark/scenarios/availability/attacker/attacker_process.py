@@ -44,7 +44,7 @@ class ProcessAttacker(BaseAttacker):
     def check(self):
         with open(self.check_script, "r") as stdin_file:
             exit_status, stdout, stderr = self.connection.execute(
-                "/bin/sh -s {0}".format(self.service_name),
+                "sudo /bin/sh -s {0}".format(self.service_name),
                 stdin=stdin_file)
 
         if stdout:
@@ -59,11 +59,11 @@ class ProcessAttacker(BaseAttacker):
     def inject_fault(self):
         with open(self.inject_script, "r") as stdin_file:
             exit_status, stdout, stderr = self.connection.execute(
-                "/bin/sh -s {0}".format(self.service_name),
+                "sudo /bin/sh -s {0}".format(self.service_name),
                 stdin=stdin_file)
 
     def recover(self):
         with open(self.recovery_script, "r") as stdin_file:
             exit_status, stdout, stderr = self.connection.execute(
-                "/bin/sh -s {0} ".format(self.service_name),
+                "sudo /bin/bash -s {0} ".format(self.service_name),
                 stdin=stdin_file)

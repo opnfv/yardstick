@@ -46,12 +46,12 @@ class GeneralMonitor(basemonitor.BaseMonitor):
         if "parameter" in self._config:
             with open(self.monitor_script, "r") as stdin_file:
                 exit_status, stdout, stderr = self.connection.execute(
-                    self.cmd_param,
+                    "sudo {}".format(self.cmd_param),
                     stdin=stdin_file)
         else:
             with open(self.monitor_script, "r") as stdin_file:
                 exit_status, stdout, stderr = self.connection.execute(
-                    "/bin/bash -s ",
+                    "sudo /bin/bash -s ",
                     stdin=stdin_file)
 
         if exit_status:
