@@ -141,8 +141,10 @@ class TestResourceProfile(unittest.TestCase):
 
     def test_parse_collectd_result(self):
         res = self.resource_profile.parse_collectd_result({}, [0, 1, 2])
-        expected_result = {'timestamp': '', 'hugepages': {},
-                           'cpu': {}, 'memory': {}}
+        expected_result =  {'cpu': {}, 'dpdkstat': {}, 'hugepages': {},
+                            'memory': {}, 'ovs_stats': {}, 'timestamp': '',
+                            'virt': {}}
+
         self.assertDictEqual(res, expected_result)
 
     def test_run_collectd_amqp(self):
