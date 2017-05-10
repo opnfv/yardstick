@@ -23,7 +23,7 @@ if [ "$(whoami)" != "root" ]; then
 fi
 
 echo "Install required libraries to run collectd..."
-pkg=(git flex bison build-essential pkg-config automake  autotools-dev libltdl-dev librabbitmq-dev rabbitmq-server)
+pkg=(git flex bison build-essential pkg-config automake  autotools-dev libltdl-dev librabbitmq-dev rabbitmq-server cmake)
 for i in "${pkg[@]}"; do
 dpkg-query -W --showformat='${Status}\n' "${i}"|grep "install ok installed"
     if [  "$?" -eq "1" ]; then
@@ -51,7 +51,57 @@ else
     echo "Done."
 fi
 
-which /opt/nsb_bin/collectd/collectd >/dev/null
+which /usr/lib/libdpdk.so >/dev/null
+if [ $? -eq 0 ]
+then
+    echo "DPDK already installed. Done"
+else
+    pushd .
+
+    echo "Get dpdk and install..."
+    mkdir -p $INSTALL_NSB_BIN
+    rm -rf "$INSTALL_NSB_BIN"/dpdk >/dev/null
+    git clone http://dpdk.org/git/dpdk
+    pushd dpdk
+    git checkout tags/v16.04 -b v16.04
+    mkdir -p /mnt/huge
+    mount -t hugetlbfs nodev /mnt/huge
+    sed -i 's/CONFIG_RTE_BUILD_SHARED_LIB=n/CONFIG_RTE_BUILD_SHARED_LIB=y/g' config/common_base
+    sed -i 's/CONFIG_RTE_EAL_PMD_PATH=""/CONFIG_RTE_EAL_PMD_PATH="\/usr\/lib\/dpdk-pmd\/"/g' config/common_base
+
+				echo "Build dpdk v16.04"
+				make config T=x86_64-native-linuxapp-gcc
+				make
+				sudo make install prefix=/usr
+				mkdir -p /usr/lib/dpdk-pmd
+				find /usr/lib -type f -name 'librte_pmd*' | while read path ; do ln -s $path /usr/lib/dpdk-pmd/`echo $path | grep -o 'librte_.*so'` ;  done
+
+				echo "Disable ASLR."
+				echo 0 > /proc/sys/kernel/randomize_va_space
+    make install PREFIX=/usr
+    popd
+
+    popd
+    echo "Done."
+fi
+
+while $INSTALL_NSB_BIN/yajl > /dev/null
+if [ $? -eq 0]
+then
+								echo "ovs stats libs already installed."
+else
+								echo "installing ovs stats libraries"
+								pushd .
+								cd $INSTALL_NSB_BIN
+								git clone https://github.com/lloyd/yajl.git
+								cd yajl
+								mkdir build
+								cmake
+								make
+								make install
+fi
+
+which $INSTALL_NSB_BIN/collectd/collectd >/dev/null
 if [ $? -eq 0 ]
 then
     echo "Collectd already installed. Done"
@@ -64,7 +114,7 @@ else
     git stash
     git checkout -b collectd 43a4db3b3209f497a0ba408aebf8aee385c6262d
     ./build.sh
-    ./configure --with-libpqos=/usr/
+    ./configure --with-libpqos=/usr/ --with-libdpdk=/usr --with-libyajl=/usr/local --enable-debug --enable-dpdkstat --enable-virt --enable-ovs_stats
     make install > /dev/null
     popd
     echo "Done."
