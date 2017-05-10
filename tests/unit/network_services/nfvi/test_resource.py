@@ -139,11 +139,53 @@ class TestResourceProfile(unittest.TestCase):
             self.assertIsNone(
                 resource_profile.initiate_systemagent("/opt/nsb_bin"))
 
+    def test__parse_hugepages(self):
+        reskey = ["cpu", "cpuFreq"]
+        value = "timestamp:12345"
+        res = self.resource_profile._parse_hugepages(reskey, value)
+        self.assertEqual({'cpu/cpuFreq': '12345'}, res)
+
+    def test__parse_dpdkstat(self):
+        reskey = ["dpdk0", "0"]
+        value = "tx:12345"
+        res = self.resource_profile._parse_dpdkstat(reskey, value)
+        self.assertEqual({'dpdk0/0': '12345'}, res)
+
+    def test__parse_virt(self):
+        reskey = ["vm0", "cpu"]
+        value = "load:45"
+        res = self.resource_profile._parse_virt(reskey, value)
+        self.assertEqual({'vm0/cpu': '45'}, res)
+
+    def test__parse_ovs_stats(self):
+        reskey = ["ovs", "stats"]
+        value = "tx:45"
+        res = self.resource_profile._parse_ovs_stats(reskey, value)
+        self.assertEqual({'ovs/stats': '45'}, res)
+
     def test_parse_collectd_result(self):
         res = self.resource_profile.parse_collectd_result({}, [0, 1, 2])
-        expected_result = {'timestamp': '', 'hugepages': {},
-                           'cpu': {}, 'memory': {}}
+        expected_result = {'cpu': {}, 'dpdkstat': {}, 'hugepages': {},
+                           'memory': {}, 'ovs_stats': {}, 'timestamp': '',
+                           'virt': {}}
         self.assertDictEqual(res, expected_result)
+
+    def test_amqp_process_for_nfvi_kpi(self):
+        self.resource_profile.amqp_client = \
+            mock.MagicMock(side_effect=[None, mock.MagicMock()])
+        self.resource_profile.run_collectd_amqp = \
+            mock.Mock(return_value=0)
+        res = self.resource_profile.amqp_process_for_nfvi_kpi()
+        self.assertEqual(None, res)
+
+    def test_amqp_collect_nfvi_kpi(self):
+        self.resource_profile.amqp_client = \
+            mock.MagicMock(side_effect=[None, mock.MagicMock()])
+        self.resource_profile.run_collectd_amqp = \
+            mock.Mock(return_value=0)
+        self.resource_profile.parse_collectd_result = mock.Mock()
+        res = self.resource_profile.amqp_collect_nfvi_kpi()
+        self.assertIsNotNone(res)
 
     def test_run_collectd_amqp(self):
         _queue = multiprocessing.Queue()
