@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_7d4cd142",
+        "filename": "etc/yardstick/nodes/pod.yaml.nsb.sample.ixia",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-10T04:50:40Z",
+      "side": 1,
+      "message": "whitespace",
+      "revId": "7fa13ce4d1471cba0556ea8925ed09958582d59c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_9d47451d",
+        "filename": "yardstick/network_services/traffic_profile/http_ixload.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-10T04:50:40Z",
+      "side": 1,
+      "message": "Python3 print()",
+      "revId": "7fa13ce4d1471cba0556ea8925ed09958582d59c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_3d5659d3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ixload.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-10T04:50:40Z",
+      "side": 1,
+      "message": "convert tabs to spaces",
+      "revId": "7fa13ce4d1471cba0556ea8925ed09958582d59c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_5d51cdd6",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ixload.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-10T04:50:40Z",
+      "side": 1,
+      "message": "please use subprocess module",
+      "revId": "7fa13ce4d1471cba0556ea8925ed09958582d59c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
