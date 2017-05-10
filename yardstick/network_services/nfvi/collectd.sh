@@ -22,8 +22,20 @@ if [ "$(whoami)" != "root" ]; then
         exit 1;
 fi
 
+echo "setup proxy..."
+http_proxy=$1
+https_proxy=$2
+if [[ "$http_proxy" != "" ]]; then
+    export http_proxy=$http_proxy
+    export https_proxy=$http_proxy
+fi
+
+if [[ "$https_proxy" != "" ]]; then
+    export https_proxy=$https_proxy
+fi
+
 echo "Install required libraries to run collectd..."
-pkg=(git flex bison build-essential pkg-config automake  autotools-dev libltdl-dev librabbitmq-dev rabbitmq-server)
+pkg=(git flex bison build-essential pkg-config automake  autotools-dev libltdl-dev librabbitmq-dev rabbitmq-server cmake)
 for i in "${pkg[@]}"; do
 dpkg-query -W --showformat='${Status}\n' "${i}"|grep "install ok installed"
     if [  "$?" -eq "1" ]; then
@@ -43,7 +55,6 @@ else
     rm -rf intel-cmt-cat >/dev/null
     git clone https://github.com/01org/intel-cmt-cat.git
     pushd intel-cmt-cat
-    git checkout tags/v1.5 -b v1.5
     make install PREFIX=/usr
     popd
 
@@ -51,7 +62,60 @@ else
     echo "Done."
 fi
 
-which /opt/nsb_bin/collectd/collectd >/dev/null
+ls /usr/lib/libdpdk.so >/dev/null
+if [ $? -eq 0 ]
+then
+    echo "DPDK already installed. Done"
+else
+    pushd .
+
+    echo "Get dpdk and install..."
+    mkdir -p $INSTALL_NSB_BIN
+    rm -rf "$INSTALL_NSB_BIN"/dpdk >/dev/null
+    git clone http://dpdk.org/git/dpdk
+    pushd dpdk
+    git checkout tags/v16.04 -b v16.04
+    mkdir -p /mnt/huge
+    mount -t hugetlbfs nodev /mnt/huge
+    sed -i 's/CONFIG_RTE_BUILD_SHARED_LIB=n/CONFIG_RTE_BUILD_SHARED_LIB=y/g' config/common_base
+    sed -i 's/CONFIG_RTE_EAL_PMD_PATH=""/CONFIG_RTE_EAL_PMD_PATH="\/usr\/lib\/dpdk-pmd\/"/g' config/common_base
+
+				echo "Build dpdk v16.04"
+				make config T=x86_64-native-linuxapp-gcc
+				make
+				sudo make install prefix=/usr
+				mkdir -p /usr/lib/dpdk-pmd
+				find /usr/lib -type f -name 'librte_pmd*' | while read path ; do ln -s $path /usr/lib/dpdk-pmd/`echo $path | grep -o 'librte_.*so'` ;  done
+
+				echo "Disable ASLR."
+				echo 0 > /proc/sys/kernel/randomize_va_space
+    make install PREFIX=/usr
+    popd
+
+    popd
+    echo "Done."
+fi
+
+which $INSTALL_NSB_BIN/yajl > /dev/null
+if [ $? -eq 0 ]
+then
+								echo "ovs stats libs already installed."
+else
+				echo "installing ovs stats libraries"
+				pushd .
+
+				cd $INSTALL_NSB_BIN
+				git clone https://github.com/lloyd/yajl.git
+				pushd yajl
+				./configure
+				make
+				make install
+				popd
+
+    popd
+fi
+
+which $INSTALL_NSB_BIN/collectd/collectd >/dev/null
 if [ $? -eq 0 ]
 then
     echo "Collectd already installed. Done"
@@ -62,9 +126,9 @@ else
     git clone https://github.com/collectd/collectd.git
     pushd collectd
     git stash
-    git checkout -b collectd 43a4db3b3209f497a0ba408aebf8aee385c6262d
+    git revert -n cdb49f39d11028bd99a0e4b0aa02d3ac956982fe
     ./build.sh
-    ./configure --with-libpqos=/usr/
+    ./configure --with-libpqos=/usr/ --with-libdpdk=/usr --with-libyajl=/usr/local --enable-debug --enable-dpdkstat --enable-virt --enable-ovs_stats
     make install > /dev/null
     popd
     echo "Done."
