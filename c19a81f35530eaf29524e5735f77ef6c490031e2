@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_bdcb29a4",
+        "filename": "yardstick/network_services/nfvi/collectd.conf",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-10T04:18:41Z",
+      "side": 1,
+      "message": "can we not mix tabs and spaces?",
+      "revId": "c19a81f35530eaf29524e5735f77ef6c490031e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_ddce1db4",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-10T04:18:41Z",
+      "side": 1,
+      "message": "for Python3  \n\n  print(metrics)",
+      "revId": "c19a81f35530eaf29524e5735f77ef6c490031e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
