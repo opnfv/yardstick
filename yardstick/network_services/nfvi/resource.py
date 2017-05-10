@@ -15,8 +15,10 @@
 
 from __future__ import absolute_import
 import logging
+import os
 import os.path
 import re
+import time
 import multiprocessing
 from oslo_config import cfg
 
@@ -89,15 +91,30 @@ class ResourceProfile(object):
         val = re.split(":", value)[1]
         return {key: val}
 
+    @classmethod
+    def _parse_dpdkstat(cls, reskey, value):
+        key = '/'.join(reskey)
+        val = re.split(":", value)[1]
+        return {key: val}
+
+    @classmethod
+    def _parse_virt(cls, reskey, value):
+        key = '/'.join(reskey)
+        val = re.split(":", value)[1]
+        return {key: val}
+
+    @classmethod
+    def _parse_ovs_stats(cls, reskey, value):
+        key = '/'.join(reskey)
+        val = re.split(":", value)[1]
+        return {key: val}
+
     def parse_collectd_result(self, metrics, listcores):
         """ convert collectd data into json"""
-        res = {"cpu": {}, "memory": {}, "hugepages": {}}
+        res = {"cpu": {}, "memory": {}, "hugepages": {},
+                "dpdkstat": {}, "virt": {}, "ovs_stats": {}}
         testcase = ""
 
-        print metrics
-        print metrics
-        print metrics
-        print metrics
         for key, value in metrics.items():
             reskey = key.rsplit("/")
             reskey = [rkey for rkey in reskey if "nsb_stats" not in rkey]
@@ -112,6 +129,12 @@ class ResourceProfile(object):
                 res["memory"].update({reskey[1]: val})
             elif "hugepages" in reskey[0]:
                 res["hugepages"].update(self._parse_hugepages(reskey, value))
+            elif "dpdkstat" in reskey[0]:
+                res["dpdkstat"].update(self._parse_dpdkstat(reskey, value))
+            elif "virt" in reskey[1]:
+                res["virt"].update(self._parse_virt(reskey, value))
+            elif "ovs_stats" in reskey[0]:
+                res["ovs_stats"].update(self._parse_ovs_stats(reskey, value))
 
         res["timestamp"] = testcase
 
@@ -148,6 +171,7 @@ class ResourceProfile(object):
 
         # Reset amqp queue
         LOG.debug("reset and setup amqp to collect data from collectd")
+        connection.execute("sudo rm -rf /var/lib/rabbitmq/mnesia/rabbit*")
         connection.execute("sudo service rabbitmq-server start")
         connection.execute("sudo rabbitmqctl stop_app")
         connection.execute("sudo rabbitmqctl reset")
@@ -156,7 +180,9 @@ class ResourceProfile(object):
 
         # Run collectd
 
-        connection.execute("sudo %s" % collectd)
+        connection.execute("sudo %s '%s' '%s'" %
+                           (collectd, os.environ['http_proxy'],
+                            os.environ['https_proxy']))
         LOG.debug("Start collectd service.....")
         connection.execute(
             "sudo %s" % os.path.join(bin_path, "collectd", "collectd"))
