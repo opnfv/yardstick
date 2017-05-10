@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_7dde116f",
+        "filename": "samples/vnf_samples/vnf_descriptors/vfw_vnf.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-10T04:16:19Z",
+      "side": 1,
+      "message": "we need support for key_filename\n\n            {% if user is defined %}\n            user: \u0027{{user}}\u0027  # Value filled by vnfdgen\n            {% endif %}\n            {% if password is defined %}\n            password: \u0027{{password}}\u0027  # Value filled by vnfdgen\n            {% endif %}\n            {% if ip is defined %}\n            ip: \u0027{{ip}}\u0027  # Value filled by vnfdgen\n            {% endif %}\n            {% if key_filename is defined %}\n            key_filename: \u0027{{key_filename}}\u0027  # Value filled by vnfdgen\n            {% endif %}",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 55
+      },
+      "revId": "74064ac50683994d579255c25ca42eac788bda89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_9dd98585",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vfw_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-10T04:16:19Z",
+      "side": 1,
+      "message": "we refactored ssh to create from node dict.\n\n        self.connection \u003d ssh.SSH.from_node(mgmt_interface)",
+      "revId": "74064ac50683994d579255c25ca42eac788bda89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_3de8990f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vfw_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-10T04:16:19Z",
+      "side": 1,
+      "message": "dpdk 17.02 this is now usertools/dpdk-devbind.py?\n\nwe need to refactor to support multiple dpdk versions?",
+      "revId": "74064ac50683994d579255c25ca42eac788bda89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_5de30d33",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vfw_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-10T04:16:19Z",
+      "side": 1,
+      "message": "don\u0027t use {} with log\n\n  LOG.debug(\"Failed to read the yaml %s\", e)",
+      "revId": "74064ac50683994d579255c25ca42eac788bda89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_fdd1a157",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vfw_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-10T04:16:19Z",
+      "side": 1,
+      "message": "please use tempfile.NamedTemporaryFile",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 34
+      },
+      "revId": "74064ac50683994d579255c25ca42eac788bda89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
