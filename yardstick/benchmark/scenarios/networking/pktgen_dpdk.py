@@ -12,7 +12,9 @@ import logging
 import time
 
 import yardstick.ssh as ssh
+import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base
+
 
 LOG = logging.getLogger(__name__)
 
@@ -65,29 +67,6 @@ class PktgenDPDKLatency(base.Scenario):
         self.testpmd_args = ''
         self.pktgen_args = []
 
-    @staticmethod
-    def get_port_mac(sshclient, port):
-        cmd = "ifconfig |grep HWaddr |grep %s |awk '{print $5}' " % port
-        LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = sshclient.execute(cmd)
-
-        if status:
-            raise RuntimeError(stderr)
-        else:
-            return stdout.rstrip()
-
-    @staticmethod
-    def get_port_ip(sshclient, port):
-        cmd = "ifconfig %s |grep 'inet addr' |awk '{print $2}' \
-            |cut -d ':' -f2 " % port
-        LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = sshclient.execute(cmd)
-
-        if status:
-            raise RuntimeError(stderr)
-        else:
-            return stdout.rstrip()
-
     def run(self, result):
         """execute the benchmark"""
 
@@ -95,13 +74,13 @@ class PktgenDPDKLatency(base.Scenario):
             self.setup()
 
         if not self.testpmd_args:
-            self.testpmd_args = self.get_port_mac(self.client, 'eth2')
+            self.testpmd_args = utils.get_port_mac(self.client, 'eth2')
 
         if not self.pktgen_args:
-            server_rev_mac = self.get_port_mac(self.server, 'eth1')
-            server_send_mac = self.get_port_mac(self.server, 'eth2')
-            client_src_ip = self.get_port_ip(self.client, 'eth1')
-            client_dst_ip = self.get_port_ip(self.client, 'eth2')
+            server_rev_mac = utils.get_port_mac(self.server, 'eth1')
+            server_send_mac = utils.get_port_mac(self.server, 'eth2')
+            client_src_ip = utils.get_port_ip(self.client, 'eth1')
+            client_dst_ip = utils.get_port_ip(self.client, 'eth2')
 
             self.pktgen_args = [client_src_ip, client_dst_ip,
                                 server_rev_mac, server_send_mac]
