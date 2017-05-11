@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_c6b5eeee",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-11T18:07:46Z",
+      "side": 1,
+      "message": "flavor\u003d\u0027some-flavor\u0027,\nflavors\u003dself.mock_context.flavors,",
+      "revId": "b7d56d675840817da448b7be30bcd9c7870c9b7b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_46f25ed3",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-11T18:07:46Z",
+      "side": 1,
+      "message": "user_data\u003d\u0027\u0027",
+      "revId": "b7d56d675840817da448b7be30bcd9c7870c9b7b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_a6e31a04",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-11T18:07:46Z",
+      "side": 1,
+      "message": "user_data\u003d\u0027\u0027",
+      "revId": "b7d56d675840817da448b7be30bcd9c7870c9b7b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
