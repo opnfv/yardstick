@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_63a67455",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-05-11T18:56:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_0039aea3",
+      "revId": "6bc790732271863e81a2d2d6657bd83f1450bf73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_203cf292",
         "filename": "tests/unit/benchmark/contexts/test_model.py",
         "patchSetId": 26
@@ -30,6 +48,24 @@
       "writtenOn": "2017-05-10T16:03:49Z",
       "side": 1,
       "message": "unfortunately I merged user_data patch, so now we need\n\n   user_data\u003d\u0027\u0027)",
+      "revId": "6bc790732271863e81a2d2d6657bd83f1450bf73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_0365381d",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-05-11T18:56:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_203cf292",
       "revId": "6bc790732271863e81a2d2d6657bd83f1450bf73",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_23687cf4",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-05-11T18:56:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_c042b60f",
+      "revId": "6bc790732271863e81a2d2d6657bd83f1450bf73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_60518ad7",
         "filename": "tests/unit/orchestrator/test_heat.py",
         "patchSetId": 26
@@ -64,6 +118,30 @@
       "writtenOn": "2017-05-10T16:03:49Z",
       "side": 1,
       "message": "please use context manager.\n\nand we can delete\u003dTrue if we keep the file open during HeatTemplate() call\n\n        with NamedTemporaryFile(delete\u003dTrue, mode\u003d\u0027w+t\u0027) as self.tmpfile:\n            self.tmpfile.write(\"heat_template_version: 2015-04-30\")\n            self.tmpfile.flush()\n            self.tmpfile.seek(0)\n            self.heat_tmp_template \u003d heat.HeatTemplate(\n                self.heat_tmp_object, self.tmpfile.name,\n                heat_parameters\u003d{\"dict1\": 1, \"dict2\": 2})",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 93
+      },
+      "revId": "6bc790732271863e81a2d2d6657bd83f1450bf73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_e3482489",
+        "filename": "tests/unit/orchestrator/test_heat.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-05-11T18:56:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_60518ad7",
       "range": {
         "startLine": 93,
         "startChar": 0,
