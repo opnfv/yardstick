@@ -16,6 +16,7 @@ import threading
 import time
 import uuid
 import glob
+import collections
 
 from six.moves import configparser
 from oslo_serialization import jsonutils
@@ -25,7 +26,7 @@ from api.database.handler import AsyncTaskHandler
 from api.utils import influx
 from api.utils.common import result_handler
 from yardstick.common import constants as consts
-from yardstick.common import utils as yardstick_utils
+from yardstick.common import utils as common_utils
 from yardstick.common import openstack_utils
 from yardstick.common.httpClient import HttpClient
 
@@ -174,7 +175,7 @@ def _config_influxdb():
 
 
 def _change_output_to_influxdb():
-    yardstick_utils.makedirs(consts.CONF_DIR)
+    common_utils.makedirs(consts.CONF_DIR)
 
     parser = configparser.ConfigParser()
     parser.read(consts.CONF_SAMPLE_FILE)
@@ -230,11 +231,11 @@ def _prepare_env_daemon(task_id):
 
 
 def _create_directories():
-    yardstick_utils.makedirs(consts.CONF_DIR)
+    common_utils.makedirs(consts.CONF_DIR)
 
 
 def _source_file(rc_file):
-    yardstick_utils.source_env(rc_file)
+    common_utils.source_env(rc_file)
 
 
 def _get_remote_rc_file(rc_file, installer_ip, installer_type):
@@ -307,3 +308,34 @@ def _update_task_error(task_id, error):
     task = async_handler.get_task_by_taskid(task_id)
     async_handler.update_status(task, 2)
     async_handler.update_error(task, error)
+
+
+def update_openrc(args):
+    try:
+        openrc_vars = args['openrc']
+    except KeyError:
+        return result_handler(consts.API_ERROR, 'openrc must be provided')
+    else:
+        if not isinstance(openrc_vars, collections.Mapping):
+            return result_handler(consts.API_ERROR, 'args should be a dict')
+
+    lines = ['export {}={}\n'.format(k, v) for k, v in openrc_vars.items()]
+    logger.debug('Writing: %s', ''.join(lines))
+
+    logger.info('Writing openrc: Writing')
+    if not os.path.exists(consts.CONF_DIR):
+        common_utils.makedirs(consts.CONF_DIR)
+
+    with open(consts.OPENRC, 'w') as f:
+        f.writelines(lines)
+    logger.info('Writing openrc: Done')
+
+    logger.info('Source openrc: Sourcing')
+    try:
+        _source_file(consts.OPENRC)
+    except Exception as e:
+        logger.exception('Failed to source openrc')
+        return result_handler(consts.API_ERROR, str(e))
+    logger.info('Source openrc: Done')
+
+    return result_handler(consts.API_SUCCESS, {'openrc': openrc_vars})
