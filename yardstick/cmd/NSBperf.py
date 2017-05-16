@@ -34,9 +34,9 @@ PYTHONPATH = os.environ.get("PYTHONPATH", False)
 VIRTUAL_ENV = os.environ.get("VIRTUAL_ENV", False)
 
 
-if not PYTHONPATH or not VIRTUAL_ENV:
-    print("Please setup env PYTHONPATH & VIRTUAL_ENV environment varaible.")
-    raise SystemExit(1)
+# if not PYTHONPATH or not VIRTUAL_ENV:
+#     print("Please setup env PYTHONPATH & VIRTUAL_ENV environment varaible.")
+#     raise SystemExit(1)
 
 
 def handler():
