@@ -27,7 +27,6 @@ dpkg --add-architecture arm64
 # install tools
 apt-get update && apt-get install -y \
     qemu-user-static/xenial \
-    libc6:arm64 \
     wget \
     expect \
     curl \

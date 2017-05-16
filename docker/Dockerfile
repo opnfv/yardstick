@@ -45,5 +45,15 @@ ADD http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-d
 
 COPY ./exec_tests.sh /usr/local/bin/
 
+# copy TRex client API library
+ARG TREX_VERSION=v2.20
+ARG TREX_TMP_PATH=/tmp/trex
+ARG TREX_WEB_URL=http://trex-tgn.cisco.com/trex/release
+ENV TREX_CLIENT_LIB=/opt/trex_client/stl
+RUN mkdir "$TREX_TMP_PATH" && wget -nv --no-cache "$TREX_WEB_URL/$TREX_VERSION.tar.gz" -P "$TREX_TMP_PATH" \
+&& tar -C "$TREX_TMP_PATH" -xvf "$TREX_TMP_PATH/$TREX_VERSION.tar.gz" \
+&& tar -C /opt/ -xvf "$TREX_TMP_PATH/$TREX_VERSION/trex_client_$TREX_VERSION.tar.gz" \
+&& rm "$TREX_TMP_PATH/$TREX_VERSION.tar.gz" && rm "$TREX_TMP_PATH/$TREX_VERSION/trex_client_$TREX_VERSION.tar.gz"
+
 WORKDIR ${REPOS_DIR}
 CMD ["/usr/bin/supervisord"]
