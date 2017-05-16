@@ -21,8 +21,8 @@ Yardstick Test Case Description TC019
 +--------------+--------------------------------------------------------------+
 |test method   | This test case kills the processes of a specific Openstack   |
 |              | service on a selected control node, then checks whether the  |
-|              | request of the related Openstack command is OK and the killed|
-|              | processes are recovered.                                     |
+|              | request of the related Openstack command is OK and the       |
+|              | killed processes are recovered.                              |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |attackers     | In this test case, an attacker called "kill-process" is      |
@@ -52,8 +52,8 @@ Yardstick Test Case Description TC019
 |              |                                                              |
 |              | 2. the "process" monitor check whether a process is running  |
 |              |    on a specific node, which needs three parameters:         |
-|              | 1) monitor_type: which used for finding the monitor class and|
-|              | related scritps. It should be always set to "process"        |
+|              | 1) monitor_type: which used for finding the monitor class    |
+|              | and related scritps. It should be always set to "process"    |
 |              | for this monitor.                                            |
 |              | 2) process_name: which is the process name for monitor       |
 |              | 3) host: which is the name of the node runing the process    |
@@ -61,7 +61,7 @@ Yardstick Test Case Description TC019
 |              | e.g.                                                         |
 |              | monitor1:                                                    |
 |              | -monitor_type: "openstack-cmd"                               |
-|              | -command_name: "nova image-list"                             |
+|              | -command_name: "openstack server list"                       |
 |              | monitor2:                                                    |
 |              | -monitor_type: "process"                                     |
 |              | -process_name: "nova-api"                                    |
@@ -123,9 +123,9 @@ Yardstick Test Case Description TC019
 |              | Result: The test case is passed or not.                      |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|post-action   | It is the action when the test cases exist. It will check the|
-|              | status of the specified process on the host, and restart the |
-|              | process if it is not running for next test cases             |
+|post-action   | It is the action when the test cases exist. It will check    |
+|              | the status of the specified process on the host, and restart |
+|              | the process if it is not running for next test cases         |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test verdict  | Fails only if SLA is not passed, or if there is a test case  |
