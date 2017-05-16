@@ -18,12 +18,12 @@
 # Unittest for yardstick.benchmark.scenarios.networking.test_vnf_generic
 
 from __future__ import absolute_import
-
 import os
 import errno
 import unittest
 import mock
 
+from tests.unit import STL_MOCKS
 from yardstick.benchmark.scenarios.networking.vnf_generic import \
     SshManager, NetworkServiceTestCase, IncorrectConfig, \
     IncorrectSetup, open_relative_file
@@ -31,65 +31,6 @@ from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic.vnf.base import \
     GenericTrafficGen, GenericVNF
 
-STL_MOCKS = {
-    'stl': mock.MagicMock(),
-    'stl.trex_stl_lib': mock.MagicMock(),
-    'stl.trex_stl_lib.base64': mock.MagicMock(),
-    'stl.trex_stl_lib.binascii': mock.MagicMock(),
-    'stl.trex_stl_lib.collections': mock.MagicMock(),
-    'stl.trex_stl_lib.copy': mock.MagicMock(),
-    'stl.trex_stl_lib.datetime': mock.MagicMock(),
-    'stl.trex_stl_lib.functools': mock.MagicMock(),
-    'stl.trex_stl_lib.imp': mock.MagicMock(),
-    'stl.trex_stl_lib.inspect': mock.MagicMock(),
-    'stl.trex_stl_lib.json': mock.MagicMock(),
-    'stl.trex_stl_lib.linecache': mock.MagicMock(),
-    'stl.trex_stl_lib.math': mock.MagicMock(),
-    'stl.trex_stl_lib.os': mock.MagicMock(),
-    'stl.trex_stl_lib.platform': mock.MagicMock(),
-    'stl.trex_stl_lib.pprint': mock.MagicMock(),
-    'stl.trex_stl_lib.random': mock.MagicMock(),
-    'stl.trex_stl_lib.re': mock.MagicMock(),
-    'stl.trex_stl_lib.scapy': mock.MagicMock(),
-    'stl.trex_stl_lib.socket': mock.MagicMock(),
-    'stl.trex_stl_lib.string': mock.MagicMock(),
-    'stl.trex_stl_lib.struct': mock.MagicMock(),
-    'stl.trex_stl_lib.sys': mock.MagicMock(),
-    'stl.trex_stl_lib.threading': mock.MagicMock(),
-    'stl.trex_stl_lib.time': mock.MagicMock(),
-    'stl.trex_stl_lib.traceback': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_async_client': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_client': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_exceptions': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_ext': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_jsonrpc_client': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_packet_builder_interface': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_packet_builder_scapy': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_port': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_stats': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_streams': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_types': mock.MagicMock(),
-    'stl.trex_stl_lib.types': mock.MagicMock(),
-    'stl.trex_stl_lib.utils': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.argparse': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.collections': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.common': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.json': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.os': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.parsing_opts': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.pwd': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.random': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.re': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.string': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.sys': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.text_opts': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.text_tables': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.texttable': mock.MagicMock(),
-    'stl.trex_stl_lib.warnings': mock.MagicMock(),
-    'stl.trex_stl_lib.yaml': mock.MagicMock(),
-    'stl.trex_stl_lib.zlib': mock.MagicMock(),
-    'stl.trex_stl_lib.zmq': mock.MagicMock(),
-}
 
 COMPLETE_TREX_VNFD = \
     {'vnfd:vnfd-catalog':
