@@ -26,7 +26,7 @@ fi
 # iperf3 only available for trusty in backports
 if grep -q trusty /etc/apt/sources.list ; then
     if [ "${YARD_IMG_ARCH}" = "arm64" ]; then
-        echo "deb [arch=${YARD_IMG_ARCH}] http://ports.ubuntu.com/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
+        echo "deb http://ports.ubuntu.com/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
     else
         echo "deb http://archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
     fi
