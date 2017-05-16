@@ -509,6 +509,13 @@ def check_environment():
                 raise
             LOG.debug('OPENRC file not found')
 
+    try:
+        trex_lib_path = os.environ["TREX_CLIENT_LIB"]
+        sys.path.append(trex_lib_path)
+    except KeyError:
+        LOG.warning('TREX_CLIENT_LIB environment variable not set with path' +
+                    'to TRex python client')
+
 
 def change_server_name(scenario, suffix):
     try:
