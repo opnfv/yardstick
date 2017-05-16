@@ -77,6 +77,9 @@ DOCKER_URL = 'unix://var/run/docker.sock'
 INSTALLERS = ['apex', 'compass', 'fuel', 'joid']
 SQLITE = 'sqlite:////tmp/yardstick.db'
 
+API_SUCCESS = 1
+API_ERROR = 2
+
 BASE_URL = 'http://localhost:5000'
 ENV_ACTION_API = BASE_URL + '/yardstick/env/action'
 ASYNC_TASK_API = BASE_URL + '/yardstick/asynctask'
