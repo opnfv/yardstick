@@ -33,6 +33,7 @@ scenarios:
           process_name: "haproxy"
           host: node1
           monitor_time: 20
+          monitor_number: 3
           sla:
             max_recover_time: 20
 
@@ -41,6 +42,7 @@ scenarios:
           key: "list-images"
           command_name: "openstack image list"
           monitor_time: 10
+          monitor_number: 3
           sla:
             max_outage_time: 5
 
