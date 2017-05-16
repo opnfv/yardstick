@@ -1,0 +1,42 @@
+From: Alexandru Nemes <alexandru.nemes@enea.com>
+Date: Mon, 19 Jun 2017 14:18:24 +0300
+Subject: [PATCH] Patch for Yardstick AARCH64 Docker file
+
+Signed-off-by: Alexandru Nemes <alexandru.nemes@enea.com>
+---
+ docker/Dockerfile | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/docker/Dockerfile b/docker/Dockerfile
+index 96a5d77..03307a2 100644
+--- a/docker/Dockerfile
++++ b/docker/Dockerfile
+@@ -1,5 +1,5 @@
+ ##############################################################################
+-# Copyright (c) 2015 Ericsson AB and others.
++# Copyright (c) 2017 Enea AB and others.
+ #
+ # All rights reserved. This program and the accompanying materials
+ # are made available under the terms of the Apache License, Version 2.0
+@@ -7,9 +7,9 @@
+ # http://www.apache.org/licenses/LICENSE-2.0
+ ##############################################################################
+
+-FROM ubuntu:14.04
++FROM aarch64/ubuntu:14.04
+
+-LABEL image=opnfv/yardstick
++LABEL image=opnfv/yardstick_aarch64
+
+ ARG BRANCH=master
+
+@@ -40,8 +40,8 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+
+ EXPOSE 5000
+
+-ADD http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img ${IMAGE_DIR}
+-ADD http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img ${IMAGE_DIR}
++ADD http://download.cirros-cloud.net/daily/20161201/cirros-d161201-aarch64-disk.img ${IMAGE_DIR}
++ADD http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-arm64-disk1.img ${IMAGE_DIR}
+
+ COPY ./exec_tests.sh /usr/local/bin/
