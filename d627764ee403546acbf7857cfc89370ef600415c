@@ -68,6 +68,24 @@
       "revId": "d627764ee403546acbf7857cfc89370ef600415c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_46ba590b",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-05-16T03:26:04Z",
+      "side": 1,
+      "message": "Good idea! Always can learn a lot from you. Thank you~",
+      "parentUuid": "9ab8dda7_e6d10d58",
+      "revId": "d627764ee403546acbf7857cfc89370ef600415c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
