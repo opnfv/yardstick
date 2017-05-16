@@ -42,20 +42,20 @@ class MultiMonitorServiceTestCase(unittest.TestCase):
         }
 
     def test__monitor_multi_all_successful(self, mock_open, mock_ssh):
-        ins = monitor_multi.MultiMonitor(self.monitor_cfg, self.context);
+        ins = monitor_multi.MultiMonitor(self.monitor_cfg, self.context)
 
-        mock_ssh.SSH().execute.return_value = (0, "running", '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
 
-        ins.start_monitor();
-        ins.wait_monitor();
+        ins.start_monitor()
+        ins.wait_monitor()
         ins.verify_SLA()
 
     def test__monitor_multi_all_fail(self, mock_open, mock_ssh):
-        ins = monitor_multi.MultiMonitor(self.monitor_cfg, self.context);
+        ins = monitor_multi.MultiMonitor(self.monitor_cfg, self.context)
 
-        mock_ssh.SSH().execute.return_value = (1, "failed", '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
 
-        ins.start_monitor();
-        ins.wait_monitor();
+        ins.start_monitor()
+        ins.wait_monitor()
         ins.verify_SLA()
 
