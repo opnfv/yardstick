@@ -50,6 +50,24 @@
       "revId": "d627764ee403546acbf7857cfc89370ef600415c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_e6d10d58",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-16T03:09:46Z",
+      "side": 1,
+      "message": "rephrase: try to reduce the amount of time a file is open \n\nIn general I try to avoid keeping files open for long periods of time.",
+      "parentUuid": "9ab8dda7_468c997f",
+      "revId": "d627764ee403546acbf7857cfc89370ef600415c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
