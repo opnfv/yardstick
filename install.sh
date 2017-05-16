@@ -22,12 +22,15 @@ deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ trusty-updates main unive
 deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ trusty-security main universe multiverse restricted
 deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ trusty-proposed main universe multiverse restricted" > "${sub_source_file}"
 echo "vm.mmap_min_addr = 0" > /etc/sysctl.d/mmap_min_addr.conf
-dpkg --add-architecture arm64
+
+proc_type=$(uname -m)
+if [[ $proc_type == "arm"* ]]; then
+    dpkg --add-architecture arm64
+fi
 
 # install tools
 apt-get update && apt-get install -y \
     qemu-user-static/xenial \
-    libc6:arm64 \
     wget \
     expect \
     curl \
@@ -48,6 +51,10 @@ apt-get update && apt-get install -y \
     supervisor \
     python-pip \
     vim
+
+if [[ $proc_type == "arm"* ]]; then
+    apt-get install -y libc6:arm64
+fi
 
 apt-get -y autoremove && apt-get clean
 
