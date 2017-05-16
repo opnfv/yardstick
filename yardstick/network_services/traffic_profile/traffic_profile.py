@@ -21,16 +21,16 @@ from random import SystemRandom
 import six
 
 from yardstick.network_services.traffic_profile.base import TrafficProfile
-from stl.trex_stl_lib.trex_stl_client import STLStream
-from stl.trex_stl_lib.trex_stl_streams import STLFlowLatencyStats
-from stl.trex_stl_lib.trex_stl_streams import STLTXCont
-from stl.trex_stl_lib.trex_stl_streams import STLProfile
-from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLVmWrFlowVar
-from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLVmFlowVar
-from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLPktBuilder
-from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLScVmRaw
-from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLVmFixIpv4
-from stl.trex_stl_lib import api as Pkt
+from trex_stl_lib.trex_stl_client import STLStream
+from trex_stl_lib.trex_stl_streams import STLFlowLatencyStats
+from trex_stl_lib.trex_stl_streams import STLTXCont
+from trex_stl_lib.trex_stl_streams import STLProfile
+from trex_stl_lib.trex_stl_packet_builder_scapy import STLVmWrFlowVar
+from trex_stl_lib.trex_stl_packet_builder_scapy import STLVmFlowVar
+from trex_stl_lib.trex_stl_packet_builder_scapy import STLPktBuilder
+from trex_stl_lib.trex_stl_packet_builder_scapy import STLScVmRaw
+from trex_stl_lib.trex_stl_packet_builder_scapy import STLVmFixIpv4
+from trex_stl_lib import api as Pkt
 
 
 class TrexProfile(TrafficProfile):
