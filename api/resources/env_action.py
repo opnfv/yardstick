@@ -307,3 +307,26 @@ def _update_task_error(task_id, error):
     task = async_handler.get_task_by_taskid(task_id)
     async_handler.update_status(task, 2)
     async_handler.update_error(task, error)
+
+
+def updateOpenrc(args):
+    if not isinstance(args, dict):
+        return result_handler(2, 'args should be a dict')
+
+    logger.info('Writing openrc: Writing')
+    with open(consts.OPENRC, 'w') as f:
+        for k, v in args.items():
+            cmd = 'export {}={}'.format(k, v)
+            logger.debug('Writing: %s', cmd)
+            f.write(cmd + '\n')
+    logger.info('Writing openrc: Done')
+
+    logger.info('Source openrc: Sourcing')
+    try:
+        _source_file(consts.OPENRC)
+    except Exception as e:
+        logger.exception('Failed to source openrc')
+        return result_handler(2, str(e))
+    logger.info('Source openrc: Done')
+
+    return result_handler(1, 'success')
