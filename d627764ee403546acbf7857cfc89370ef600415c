@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_e6834d54",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-16T03:05:20Z",
+      "side": 1,
+      "message": "can we use regular python naming conventions\n  \ndef  update_openrc():\n\nalso args is usually reserved for the *args, **kwargs form.\n\ncan we use openrc_vars or openrc_dict or something so we know we expect a single dict.",
+      "revId": "d627764ee403546acbf7857cfc89370ef600415c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_06878162",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-16T03:05:20Z",
+      "side": 1,
+      "message": "why not add the \\n in the .format() here,\n\nthen for debug\n\n logger.debug(\u0027Writing: %s\u0027, cmd[:-1])\n\nor something, if necessary.",
+      "revId": "d627764ee403546acbf7857cfc89370ef600415c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_468c997f",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-16T03:05:20Z",
+      "side": 1,
+      "message": "in general I try to avoid the amount of time a file is open to reduce file descriptor contention, and just in general to separate calculation from I/O\n\ncould we move the loop outside the open(), something like:\n\n  lines \u003d [\u0027export {}\u003d{}\\n\u0027.format(k, v) for k, v in args.items()]\n  logging.debug(\"Writing: %s\", \u0027\u0027.join(lines))\n  with open(... , \u0027w\u0027) as f:\n    f.writelines(lines)",
+      "revId": "d627764ee403546acbf7857cfc89370ef600415c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
