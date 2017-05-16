@@ -7,7 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 LABEL image=opnfv/yardstick
 
@@ -23,8 +23,11 @@ ENV IMAGE_DIR /home/opnfv/images/
 ENV YARDSTICK_REPO_DIR ${REPOS_DIR}/yardstick
 ENV RELENG_REPO_DIR ${REPOS_DIR}/releng
 
-RUN apt-get update && apt-get install -y git python-setuptools python-pip
-RUN easy_install -U setuptools==30.0.0
+RUN apt-get update && apt-get install -y git python-setuptools python-pip build-essential \
+ libssl-dev libffi-dev python-dev
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
+    && python get-pip.py pip==9.0.1 \
+    && rm get-pip.py
 RUN pip install appdirs==1.4.0
 
 RUN mkdir -p ${REPOS_DIR}
@@ -44,6 +47,16 @@ ADD http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img ${IMAGE_
 ADD http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img ${IMAGE_DIR}
 
 COPY ./exec_tests.sh /usr/local/bin/
+
+# copy TRex client API library
+ARG TREX_VERSION=v2.20
+ARG TREX_TMP_PATH=/tmp/trex
+ARG TREX_WEB_URL=http://trex-tgn.cisco.com/trex/release
+ENV TREX_CLIENT_LIB=/opt/trex_client/stl
+RUN mkdir "$TREX_TMP_PATH" && wget -nv --no-cache "$TREX_WEB_URL/$TREX_VERSION.tar.gz" -P "$TREX_TMP_PATH" \
+&& tar -C "$TREX_TMP_PATH" -xvf "$TREX_TMP_PATH/$TREX_VERSION.tar.gz" \
+&& tar -C /opt/ -xvf "$TREX_TMP_PATH/$TREX_VERSION/trex_client_$TREX_VERSION.tar.gz" \
+&& rm "$TREX_TMP_PATH/$TREX_VERSION.tar.gz" && rm "$TREX_TMP_PATH/$TREX_VERSION/trex_client_$TREX_VERSION.tar.gz"
 
 WORKDIR ${REPOS_DIR}
 CMD ["/usr/bin/supervisord"]

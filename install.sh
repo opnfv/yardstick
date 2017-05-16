@@ -12,7 +12,7 @@
 source_file=/etc/apt/sources.list
 sed -i -e 's/^deb \([^/[]\)/deb [arch=amd64] \1/g' "${source_file}"
 sed -i -e 's/^deb-src /# deb-src /g' "${source_file}"
-echo "APT::Default-Release \"trusty\";" > /etc/apt/apt.conf.d/default-distro
+#echo "APT::Default-Release \"xenial\";" > /etc/apt/apt.conf.d/default-distro
 
 sub_source_file=/etc/apt/sources.list.d/yardstick.list
 touch "${sub_source_file}"

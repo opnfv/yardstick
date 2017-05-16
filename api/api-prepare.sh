@@ -15,7 +15,7 @@ mkdir -p /etc/yardstick
 uwsgi_config='/etc/yardstick/yardstick.ini'
 if [[ ! -e "${uwsgi_config}" ]];then
 
-    cat << EOF > "${uwsgi_config}"
+    cat > "${uwsgi_config}" <<EOF
 [uwsgi]
 master = true
 debug = true
@@ -43,7 +43,7 @@ nginx_config='/etc/nginx/conf.d/yardstick.conf'
 
 if [[ ! -e "${nginx_config}" ]];then
 
-    cat << EOF > "${nginx_config}"
+    cat > "${nginx_config}" <<EOF
 server {
     listen 5000;
     server_name localhost;
@@ -60,7 +60,7 @@ fi
 supervisor_config='/etc/supervisor/conf.d/yardstick.conf'
 
 if [[ ! -e "${supervisor_config}" ]];then
-    cat << EOF > "${supervisor_config}"
+    cat > "${supervisor_config}" <<EOF
 [supervisord]
 nodaemon = true
 
