@@ -26,7 +26,7 @@ scenarios:
     wait_time: 10
     monitors:
     - monitor_type: "openstack-cmd"
-      command_name: "openstack image list"
+      command_name: "openstack server list"
       monitor_time: 10
       sla:
         max_outage_time: 5
