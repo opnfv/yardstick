@@ -7,7 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-ansible==2.2.0.0
+ansible==2.2.2.0
 Babel==2.3.4
 backport-ipaddress==0.1
 chainmap==1.0.2
