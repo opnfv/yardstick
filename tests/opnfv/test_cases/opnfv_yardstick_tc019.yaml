@@ -28,12 +28,14 @@ scenarios:
     - monitor_type: "openstack-cmd"
       command_name: "openstack image list"
       monitor_time: 10
+      monitor_number: 3
       sla:
         max_outage_time: 5
     - monitor_type: "process"
       process_name: "nova-api"
       host: node1
       monitor_time: 20
+      monitor_number: 3
       sla:
         max_recover_time: 20
 

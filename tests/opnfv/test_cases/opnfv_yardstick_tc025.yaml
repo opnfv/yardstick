@@ -26,15 +26,19 @@ scenarios:
     - monitor_type: "openstack-cmd"
       command_name: "openstack image list"
       monitor_time: 10
+      monitor_number: 3
     - monitor_type: "openstack-cmd"
       command_name: "openstack router list"
       monitor_time: 10
+      monitor_number: 3
     - monitor_type: "openstack-cmd"
       command_name: "openstack stack list"
       monitor_time: 10
+      monitor_number: 3
     - monitor_type: "openstack-cmd"
       command_name: "openstack volume list"
       monitor_time: 10
+      monitor_number: 3
 
   nodes:
     node1: node1.LF
