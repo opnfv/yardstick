@@ -150,13 +150,21 @@ load_yardstick_image()
 
 load_cirros_image()
 {
-    if [[ -n $(openstack image list | grep -e Cirros-0.3.5) ]]; then
-        echo "Cirros-0.3.5 image already exist, skip loading cirros image"
+    if [ "${YARD_IMG_ARCH}" == "arm64" ]; then
+        CIRROS_IMAGE_VERSION="cirros-d161201"
+        CIRROS_IMAGE_PATH="/home/opnfv/images/cirros-d161201-aarch64-disk.img"
+    else:
+        CIRROS_IMAGE_VERSION="Cirros-0.3.5"
+        CIRROS_IMAGE_PATH="/home/opnfv/images/cirros-0.3.5-x86_64-disk.img"
+    fi
+
+    if [[ -n $(openstack image list | grep -e "${CIRROS_IMAGE_VERSION}") ]]; then
+        echo "${CIRROS_IMAGE_VERSION} image already exist, skip loading cirros image"
     else
         echo
         echo "========== Loading cirros cloud image =========="
 
-        local image_file=/home/opnfv/images/cirros-0.3.5-x86_64-disk.img
+        local image_file="${CIRROS_IMAGE_PATH}"
 
         EXTRA_PARAMS=""
         # VPP requires guest memory to be backed by large pages
