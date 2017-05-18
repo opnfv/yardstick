@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_aba996e0",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-18T18:05:31Z",
+      "side": 1,
+      "message": "tar can extract single file, you just have to match the path exactly.\n\n  tar -C \"$TREX_TMP_PATH\" -xvf \"$TREX_TMP_PATH/$TREX_VERSION.tar.gz\"  \"$TREX_VERSION/trex_client_$TREX_VERSION.tar.gz\"",
+      "revId": "d33f97b05fd14c6001e332e6555a3e5b3d121c9c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
