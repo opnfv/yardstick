@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_eb51ce0e",
+        "filename": "yardstick/network_services/nfvi/collectd.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-18T17:39:26Z",
+      "side": 1,
+      "message": "don\u0027t use ls to test for file existance\n\nuse the test -x, or -f, or -r",
+      "revId": "f9daacf6b116edab834a953320e2827071754d65",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_8b585233",
+        "filename": "yardstick/network_services/nfvi/collectd.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-18T17:39:26Z",
+      "side": 1,
+      "message": "replace tabs with spaces",
+      "revId": "f9daacf6b116edab834a953320e2827071754d65",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_ab5bd62c",
+        "filename": "yardstick/network_services/nfvi/collectd.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-18T17:39:26Z",
+      "side": 1,
+      "message": "we need a comment explaining why",
+      "revId": "f9daacf6b116edab834a953320e2827071754d65",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_cb4e4a6f",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-18T17:39:26Z",
+      "side": 1,
+      "message": "these three functions are the same, please make generic function and call that.",
+      "revId": "f9daacf6b116edab834a953320e2827071754d65",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
