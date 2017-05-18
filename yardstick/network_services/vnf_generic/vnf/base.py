@@ -96,7 +96,6 @@ class GenericVNF(object):
             return address.version
 
     def _ip_to_hex(self, ip_addr):
-        ip_to_convert = ip_addr.split(".")
         ip_x = ip_addr
         if self.get_ip_version(ip_addr) == 4:
             ip_to_convert = ip_addr.split(".")
