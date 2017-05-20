@@ -35,6 +35,7 @@ scenarios:
           key: "list-images"
           command_name: "openstack image list"
           monitor_time: 10
+          monitor_number: 3
           sla:
             max_outage_time: 5
 
@@ -44,6 +45,7 @@ scenarios:
           key: "vip-mgmt-status"
           host: node2
           monitor_time: 10
+          monitor_number: 3
           sla:
             max_outage_time: 5
           parameter:
@@ -55,6 +57,7 @@ scenarios:
           key: "vip-routerp-status"
           host: node2
           monitor_time: 10
+          monitor_number: 3
           sla:
             max_outage_time: 5
           parameter:
@@ -66,6 +69,7 @@ scenarios:
           key: "vip-router-status"
           host: node2
           monitor_time: 10
+          monitor_number: 3
           sla:
             max_outage_time: 5
           parameter:
@@ -77,6 +81,7 @@ scenarios:
           key: "vip-pub"
           host: node2
           monitor_time: 10
+          monitor_number: 3
           sla:
             max_outage_time: 5
           parameter:
