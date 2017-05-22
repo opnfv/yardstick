@@ -11,6 +11,7 @@
 
 # Unittest for yardstick.benchmark.orchestrator.heat
 from contextlib import contextmanager
+from itertools import count
 from tempfile import NamedTemporaryFile
 import unittest
 import uuid
@@ -37,6 +38,15 @@ def timer():
     finally:
         data['end'] = end = time.time()
         data['delta'] = end - start
+
+
+def index_value_iter(index, index_value, base_value=None):
+    for current_index in count():
+        if current_index == index:
+            yield index_value
+        else:
+            yield base_value
+
 
 def get_error_message(error):
     try:
@@ -249,7 +259,7 @@ class HeatTemplateTestCase(unittest.TestCase):
     @mock_patch_target_module('op_utils')
     @mock_patch_target_module('heatclient.client.Client')
     def test_create(self, mock_heat_client_class, mock_op_utils):
-        self.template.HEAT_WAIT_LOOP_INTERVAL = interval = 0.2
+        self.template.HEAT_WAIT_LOOP_INTERVAL = 0.2
         mock_heat_client = mock_heat_client_class()
 
         # populate attributes of the constructed mock
@@ -270,12 +280,11 @@ class HeatTemplateTestCase(unittest.TestCase):
         expected_op_utils_usage = 0
 
         with mock.patch.object(self.template, 'status') as mock_status:
-            # no block
-            with timer() as time_data:
-                self.assertIsInstance(self.template.create(block=False, timeout=2), heat.HeatStack)
+            self.template.name = 'no block test'
+            mock_status.return_value = None
 
-            # ensure runtime is much less than one interval
-            self.assertLess(time_data['delta'], interval * 0.2)
+            # no block
+            self.assertIsInstance(self.template.create(block=False, timeout=2), heat.HeatStack)
 
             # ensure op_utils was used
             expected_op_utils_usage += 1
@@ -296,12 +305,10 @@ class HeatTemplateTestCase(unittest.TestCase):
             self.assertEqual(self.template.outputs, {})
 
             # block with immediate complete
-            mock_status.return_value = u'CREATE_COMPLETE'
-            with timer() as time_data:
-                self.assertIsInstance(self.template.create(block=True, timeout=2), heat.HeatStack)
+            self.template.name = 'block, immediate complete test'
 
-            # ensure runtime is less than one interval
-            self.assertLess(time_data['delta'], interval * 0.2)
+            mock_status.return_value = self.template.HEAT_CREATE_COMPLETE_STATUS
+            self.assertIsInstance(self.template.create(block=True, timeout=2), heat.HeatStack)
 
             # ensure existing instance was re-used and op_utils was not used
             expected_create_calls += 1
@@ -319,14 +326,10 @@ class HeatTemplateTestCase(unittest.TestCase):
             self.template.outputs = None
 
             # block with delayed complete
-            mock_status.side_effect = iter([None, None, u'CREATE_COMPLETE'])
-            with timer() as time_data:
-                self.assertIsInstance(self.template.create(block=True, timeout=2), heat.HeatStack)
+            self.template.name = 'block, delayed complete test'
 
-            # ensure runtime is approximately two intervals
-            expected_time_low = interval * 1.8
-            expected_time_high = interval * 2.2
-            self.assertTrue(expected_time_low < time_data['delta'] < expected_time_high)
+            mock_status.side_effect = index_value_iter(3, self.template.HEAT_CREATE_COMPLETE_STATUS)
+            self.assertIsInstance(self.template.create(block=True, timeout=2), heat.HeatStack)
 
             # ensure existing instance was re-used and op_utils was not used
             expected_create_calls += 1
