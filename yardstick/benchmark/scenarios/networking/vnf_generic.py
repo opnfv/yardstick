@@ -164,38 +164,60 @@ class NetworkServiceTestCase(base.Scenario):
                      for vnfd in topology["constituent-vnfd"]
                      if vnf_id == vnfd["member-vnf-index"]), None)
 
+    @staticmethod
+    def get_vld_networks(networks):
+        return {n['vld_id']: n for n in networks.values()}
+
     def _resolve_topology(self, context_cfg, topology):
         for vld in topology["vld"]:
-            if len(vld["vnfd-connection-point-ref"]) > 2:
-                raise IncorrectConfig("Topology file corrupted, "
-                                      "too many endpoint for connection")
-
-            node_0, node_1 = vld["vnfd-connection-point-ref"]
-
-            node0 = self._find_vnf_name_from_id(topology,
-                                                node_0["member-vnf-index-ref"])
-            node1 = self._find_vnf_name_from_id(topology,
-                                                node_1["member-vnf-index-ref"])
-
-            if0 = node_0["vnfd-connection-point-ref"]
-            if1 = node_1["vnfd-connection-point-ref"]
-
             try:
-                nodes = context_cfg["nodes"]
-                nodes[node0]["interfaces"][if0]["vld_id"] = vld["id"]
-                nodes[node1]["interfaces"][if1]["vld_id"] = vld["id"]
+                node_0, node_1 = vld["vnfd-connection-point-ref"]
+            except (TypeError, ValueError):
+                raise IncorrectConfig("Topology file corrupted, "
+                                      "wrong number of endpoints for connection")
 
-                nodes[node0]["interfaces"][if0]["dst_mac"] = \
-                    nodes[node1]["interfaces"][if1]["local_mac"]
-                nodes[node0]["interfaces"][if0]["dst_ip"] = \
-                    nodes[node1]["interfaces"][if1]["local_ip"]
+            node_0_name = self._find_vnf_name_from_id(topology,
+                                                      node_0["member-vnf-index-ref"])
+            node_1_name = self._find_vnf_name_from_id(topology,
+                                                      node_1["member-vnf-index-ref"])
 
-                nodes[node1]["interfaces"][if1]["dst_mac"] = \
-                    nodes[node0]["interfaces"][if0]["local_mac"]
-                nodes[node1]["interfaces"][if1]["dst_ip"] = \
-                    nodes[node0]["interfaces"][if0]["local_ip"]
+            node_0_ifname = node_0["vnfd-connection-point-ref"]
+            node_1_ifname = node_1["vnfd-connection-point-ref"]
+
+            node_0_if = context_cfg["nodes"][node_0_name]["interfaces"][node_0_ifname]
+            node_1_if = context_cfg["nodes"][node_1_name]["interfaces"][node_1_ifname]
+            try:
+                vld_networks = self.get_vld_networks(context_cfg["networks"])
+
+                node_0_if["vld_id"] = vld["id"]
+                node_1_if["vld_id"] = vld["id"]
+
+                # set peer name
+                node_0_if["peer_name"] = node_1_name
+                node_1_if["peer_name"] = node_0_name
+
+                # set peer interface name
+                node_0_if["peer_ifname"] = node_1_ifname
+                node_1_if["peer_ifname"] = node_0_ifname
+
+                # just load the whole network dict
+                node_0_if["network"] = vld_networks.get(vld["id"], {})
+                node_1_if["network"] = vld_networks.get(vld["id"], {})
+
+                node_0_if["dst_mac"] = node_1_if["local_mac"]
+                node_0_if["dst_ip"] = node_1_if["local_ip"]
+
+                node_1_if["dst_mac"] = node_0_if["local_mac"]
+                node_1_if["dst_ip"] = node_0_if["local_ip"]
+
+                # add peer interface dict, but remove circular link
+                # TODO: don't waste memory
+                node_0_copy = node_0_if.copy()
+                node_1_copy = node_1_if.copy()
+                node_0_if["peer_intf"] = node_1_copy
+                node_1_if["peer_intf"] = node_0_copy
             except KeyError:
-                raise IncorrectConfig("Required interface not found,"
+                raise IncorrectConfig("Required interface not found, "
                                       "topology file corrupted")
 
     @classmethod
@@ -308,21 +330,36 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
         return dict(network_devices)
 
     @classmethod
-    def get_vnf_impl(cls, vnf_model):
+    def get_vnf_impl(cls, vnf_model_id):
         """ Find the implementing class from vnf_model["vnf"]["name"] field
 
-        :param vnf_model: dictionary containing a parsed vnfd
+        :param vnf_model_id: parsed vnfd model ID field
         :return: subclass of GenericVNF
         """
         import_modules_from_package(
             "yardstick.network_services.vnf_generic.vnf")
-        expected_name = vnf_model['id']
-        impl = (c for c in itersubclasses(GenericVNF)
-                if c.__name__ == expected_name)
+        expected_name = vnf_model_id
+        classes_found = []
+
+        def impl():
+            for name, class_ in ((c.__name__, c) for c in itersubclasses(GenericVNF)):
+                if name == expected_name:
+                    yield class_
+                classes_found.append(name)
+
         try:
-            return next(impl)
+            return next(impl())
         except StopIteration:
-            raise IncorrectConfig("No implementation for %s", expected_name)
+            pass
+
+        raise IncorrectConfig("No implementation for %s found in %s" %
+                              (expected_name, classes_found))
+
+    @staticmethod
+    def update_interfaces_from_node(vnfd, node):
+        for intf in vnfd["vdu"][0]["external-interface"]:
+            node_intf = node['interfaces'][intf['name']]
+            intf['virtual-interface'].update(node_intf)
 
     def load_vnf_models(self, scenario_cfg, context_cfg):
         """ Create VNF objects based on YAML descriptors
@@ -339,8 +376,11 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
                                     scenario_cfg['task_path']) as stream:
                 vnf_model = stream.read()
             vnfd = vnfdgen.generate_vnfd(vnf_model, node)
-            vnf_impl = self.get_vnf_impl(vnfd["vnfd:vnfd-catalog"]["vnfd"][0])
-            vnf_instance = vnf_impl(vnfd["vnfd:vnfd-catalog"]["vnfd"][0])
+            # TODO: here add extra context_cfg["nodes"] regardless of template
+            vnfd = vnfd["vnfd:vnfd-catalog"]["vnfd"][0]
+            self.update_interfaces_from_node(vnfd, node)
+            vnf_impl = self.get_vnf_impl(vnfd['id'])
+            vnf_instance = vnf_impl(vnfd)
             vnf_instance.name = node_name
             vnfs.append(vnf_instance)
 

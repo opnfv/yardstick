@@ -534,6 +534,7 @@ name (i.e. %s).\
         }
 
     HEAT_WAIT_LOOP_INTERVAL = 2
+    HEAT_CREATE_COMPLETE_STATUS = u'CREATE_COMPLETE'
 
     def create(self, block=True, timeout=3600):
         """
@@ -558,10 +559,13 @@ name (i.e. %s).\
 
         if not block:
             self.outputs = stack.outputs = {}
+            end_time = time.time()
+            log.info("Created stack '%s' in %.3e secs",
+                     self.name, end_time - start_time)
             return stack
 
         time_limit = start_time + timeout
-        for status in iter(self.status, u'CREATE_COMPLETE'):
+        for status in iter(self.status, self.HEAT_CREATE_COMPLETE_STATUS):
             log.debug("stack state %s", status)
             if status == u'CREATE_FAILED':
                 stack_status_reason = heat_client.stacks.get(self.uuid).stack_status_reason
@@ -574,7 +578,7 @@ name (i.e. %s).\
 
         end_time = time.time()
         outputs = heat_client.stacks.get(self.uuid).outputs
-        log.info("Created stack '%s' in %d secs",
+        log.info("Created stack '%s' in %.3e secs",
                  self.name, end_time - start_time)
 
         # keep outputs as unicode

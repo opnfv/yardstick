@@ -91,68 +91,97 @@ STL_MOCKS = {
     'stl.trex_stl_lib.zmq': mock.MagicMock(),
 }
 
-COMPLETE_TREX_VNFD = \
-    {'vnfd:vnfd-catalog':
-     {'vnfd':
-      [{'benchmark':
-        {'kpi':
-         ['rx_throughput_fps',
-          'tx_throughput_fps',
-          'tx_throughput_mbps',
-          'rx_throughput_mbps',
-          'tx_throughput_pc_linerate',
-          'rx_throughput_pc_linerate',
-          'min_latency',
-          'max_latency',
-          'avg_latency']},
-        'connection-point': [{'name': 'xe0',
-                              'type': 'VPORT'},
-                             {'name': 'xe1',
-                              'type': 'VPORT'}],
-        'description': 'TRex stateless traffic generator for RFC2544',
-        'id': 'TrexTrafficGen',
-        'mgmt-interface': {'ip': '1.1.1.1',
-                           'password': 'berta',
-                           'user': 'berta',
-                           'vdu-id': 'trexgen-baremetal'},
-        'name': 'trexgen',
-        'short-name': 'trexgen',
-        'vdu': [{'description': 'TRex stateless traffic generator for RFC2544',
-                 'external-interface':
-                 [{'name': 'xe0',
-                   'virtual-interface': {'bandwidth': '10 Gbps',
-                                         'dst_ip': '1.1.1.1',
-                                         'dst_mac': '00:01:02:03:04:05',
-                                         'local_ip': '1.1.1.2',
-                                         'local_mac': '00:01:02:03:05:05',
-                                         'type': 'PCI-PASSTHROUGH',
-                                         'netmask': "255.255.255.0",
-                                         'driver': 'i40',
-                                         'vpci': '0000:00:10.2'},
-                   'vnfd-connection-point-ref': 'xe0'},
-                  {'name': 'xe1',
-                   'virtual-interface': {'bandwidth': '10 Gbps',
-                                         'dst_ip': '2.1.1.1',
-                                         'dst_mac': '00:01:02:03:04:06',
-                                         'local_ip': '2.1.1.2',
-                                         'local_mac': '00:01:02:03:05:06',
-                                         'type': 'PCI-PASSTHROUGH',
-                                         'netmask': "255.255.255.0",
-                                         'driver': 'i40',
-                                         'vpci': '0000:00:10.1'},
-                   'vnfd-connection-point-ref': 'xe1'}],
-                 'id': 'trexgen-baremetal',
-                 'name': 'trexgen-baremetal'}]}]}}
+COMPLETE_TREX_VNFD = {
+    'vnfd:vnfd-catalog': {
+        'vnfd': [
+            {
+                'benchmark': {
+                    'kpi': [
+                        'rx_throughput_fps',
+                        'tx_throughput_fps',
+                        'tx_throughput_mbps',
+                        'rx_throughput_mbps',
+                        'tx_throughput_pc_linerate',
+                        'rx_throughput_pc_linerate',
+                        'min_latency',
+                        'max_latency',
+                        'avg_latency',
+                    ],
+                },
+                'connection-point': [
+                    {
+                        'name': 'xe0',
+                        'type': 'VPORT',
+                    },
+                    {
+                        'name': 'xe1',
+                        'type': 'VPORT',
+                    },
+                ],
+                'description': 'TRex stateless traffic generator for RFC2544',
+                'id': 'TrexTrafficGen',
+                'mgmt-interface': {
+                    'ip': '1.1.1.1',
+                    'password': 'berta',
+                    'user': 'berta',
+                    'vdu-id': 'trexgen-baremetal',
+                },
+                'name': 'trexgen',
+                'short-name': 'trexgen',
+                'class-name': 'TrexTrafficGen',
+                'vdu': [
+                    {
+                        'description': 'TRex stateless traffic generator for RFC2544',
+                        'external-interface': [
+                            {
+                                'name': 'xe0',
+                                'virtual-interface': {
+                                    'bandwidth': '10 Gbps',
+                                    'dst_ip': '1.1.1.1',
+                                    'dst_mac': '00:01:02:03:04:05',
+                                    'local_ip': '1.1.1.2',
+                                    'local_mac': '00:01:02:03:05:05',
+                                    'type': 'PCI-PASSTHROUGH',
+                                    'netmask': "255.255.255.0",
+                                    'driver': 'i40',
+                                    'vpci': '0000:00:10.2',
+                                },
+                                'vnfd-connection-point-ref': 'xe0',
+                            },
+                            {
+                                'name': 'xe1',
+                                'virtual-interface': {
+                                    'bandwidth': '10 Gbps',
+                                    'dst_ip': '2.1.1.1',
+                                    'dst_mac': '00:01:02:03:04:06',
+                                    'local_ip': '2.1.1.2',
+                                    'local_mac': '00:01:02:03:05:06',
+                                    'type': 'PCI-PASSTHROUGH',
+                                    'netmask': "255.255.255.0",
+                                    'driver': 'i40',
+                                    'vpci': '0000:00:10.1',
+                                },
+                                'vnfd-connection-point-ref': 'xe1',
+                            },
+                        ],
+                        'id': 'trexgen-baremetal',
+                        'name': 'trexgen-baremetal',
+                    },
+                ],
+            },
+        ],
+    },
+}
 
 IP_ADDR_SHOW = """
-28: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP """
-"""group default qlen 1000
+28: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP \
+group default qlen 1000
     link/ether 90:e2:ba:a7:6a:c8 brd ff:ff:ff:ff:ff:ff
     inet 1.1.1.1/8 brd 1.255.255.255 scope global eth1
     inet6 fe80::92e2:baff:fea7:6ac8/64 scope link
        valid_lft forever preferred_lft forever
-29: eth5: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP """
-"""group default qlen 1000
+29: eth5: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP \
+group default qlen 1000
     link/ether 90:e2:ba:a7:6a:c9 brd ff:ff:ff:ff:ff:ff
     inet 2.1.1.1/8 brd 2.255.255.255 scope global eth5
     inet6 fe80::92e2:baff:fea7:6ac9/64 scope link tentative
@@ -160,10 +189,10 @@ IP_ADDR_SHOW = """
 """
 
 SYS_CLASS_NET = """
-lrwxrwxrwx 1 root root 0 sie 10 14:16 eth1 -> """
-"""../../devices/pci0000:80/0000:80:02.2/0000:84:00.1/net/eth1
-lrwxrwxrwx 1 root root 0 sie  3 10:37 eth2 -> """
-"""../../devices/pci0000:00/0000:00:01.1/0000:84:00.2/net/eth5
+lrwxrwxrwx 1 root root 0 sie 10 14:16 eth1 -> \
+../../devices/pci0000:80/0000:80:02.2/0000:84:00.1/net/eth1
+lrwxrwxrwx 1 root root 0 sie  3 10:37 eth2 -> \
+../../devices/pci0000:00/0000:00:01.1/0000:84:00.2/net/eth5
 """
 
 TRAFFIC_PROFILE = {
@@ -174,137 +203,195 @@ TRAFFIC_PROFILE = {
         "traffic_type": "FixedTraffic",
         "frame_rate": 100,  # pps
         "flow_number": 10,
-        "frame_size": 64}}
+        "frame_size": 64,
+    },
+}
 
 
 class TestNetworkServiceTestCase(unittest.TestCase):
     def setUp(self):
-        self.context_cfg = \
-            {'nodes':
-             {'trexgen__1': {'role': 'TrafficGen',
-                             'name': 'trafficgen_1.yardstick',
-                             'ip': '10.10.10.11',
-                             'interfaces':
-                             {'xe0':
-                              {'netmask': '255.255.255.0',
-                               'local_ip': '152.16.100.20',
-                               'local_mac': '00:00:00:00:00:01',
-                               'driver': 'i40e',
-                               'vpci': '0000:07:00.0',
-                               'dpdk_port_num': 0},
-                              'xe1':
-                              {'netmask': '255.255.255.0',
-                               'local_ip': '152.16.40.20',
-                               'local_mac': '00:00:00:00:00:02',
-                               'driver': 'i40e',
-                               'vpci': '0000:07:00.1',
-                               'dpdk_port_num': 1}},
-                             'password': 'r00t',
-                             'user': 'root'},
-              'trexvnf__1': {'name': 'vnf.yardstick',
-                             'ip': '10.10.10.12',
-                             'interfaces':
-                             {'xe0':
-                              {'netmask': '255.255.255.0',
-                               'local_ip': '152.16.100.19',
-                               'local_mac': '00:00:00:00:00:03',
-                               'driver': 'i40e',
-                               'vpci': '0000:07:00.0',
-                               'dpdk_port_num': 0},
-                              'xe1': {'netmask': '255.255.255.0',
-                                      'local_ip': '152.16.40.19',
-                                      'local_mac': '00:00:00:00:00:04',
-                                      'driver': 'i40e',
-                                      'vpci': '0000:07:00.1',
-                                      'dpdk_port_num': 1}},
-                             'routing_table': [{'netmask': '255.255.255.0',
-                                                'gateway': '152.16.100.20',
-                                                'network': '152.16.100.20',
-                                                'if': 'xe0'},
-                                               {'netmask': '255.255.255.0',
-                                                'gateway': '152.16.40.20',
-                                                'network': '152.16.40.20',
-                                                'if': 'xe1'}],
-                             'host': '10.223.197.164',
-                             'role': 'vnf',
-                             'user': 'root',
-                             'nd_route_tbl':
-                             [{'netmask': '112',
-                               'gateway': '0064:ff9b:0:0:0:0:9810:6414',
-                               'network': '0064:ff9b:0:0:0:0:9810:6414',
-                               'if': 'xe0'},
-                              {'netmask': '112',
-                               'gateway': '0064:ff9b:0:0:0:0:9810:2814',
-                               'network': '0064:ff9b:0:0:0:0:9810:2814',
-                               'if': 'xe1'}],
-                             'password': 'r00t'}}}
+        self.trexgen__1 = {
+            'name': 'trafficgen_1.yardstick',
+            'ip': '10.10.10.11',
+            'role': 'TrafficGen',
+            'user': 'root',
+            'password': 'r00t',
+            'interfaces': {
+                'xe0': {
+                    'netmask': '255.255.255.0',
+                    'local_ip': '152.16.100.20',
+                    'local_mac': '00:00:00:00:00:01',
+                    'driver': 'i40e',
+                    'vpci': '0000:07:00.0',
+                    'dpdk_port_num': 0,
+                },
+                'xe1': {
+                    'netmask': '255.255.255.0',
+                    'local_ip': '152.16.40.20',
+                    'local_mac': '00:00:00:00:00:02',
+                    'driver': 'i40e',
+                    'vpci': '0000:07:00.1',
+                    'dpdk_port_num': 1,
+                },
+            },
+        }
 
-        self.topology = {
-            'short-name': 'trex-tg-topology',
-            'constituent-vnfd':
-                [{'member-vnf-index': '1',
-                  'VNF model': 'tg_trex_tpl.yaml',
-                  'vnfd-id-ref': 'trexgen__1'},
-                 {'member-vnf-index': '2',
-                  'VNF model': 'tg_trex_tpl.yaml',
-                  'vnfd-id-ref': 'trexvnf__1'}],
-            'description': 'trex-tg-topology',
-            'name': 'trex-tg-topology',
-            'vld': [
+        self.trexvnf__1 = {
+            'name': 'vnf.yardstick',
+            'ip': '10.10.10.12',
+            'host': '10.223.197.164',
+            'role': 'vnf',
+            'user': 'root',
+            'password': 'r00t',
+            'interfaces': {
+                'xe0': {
+                    'netmask': '255.255.255.0',
+                    'local_ip': '152.16.100.19',
+                    'local_mac': '00:00:00:00:00:03',
+                    'driver': 'i40e',
+                    'vpci': '0000:07:00.0',
+                    'dpdk_port_num': 0,
+                },
+                'xe1': {
+                    'netmask': '255.255.255.0',
+                    'local_ip': '152.16.40.19',
+                    'local_mac': '00:00:00:00:00:04',
+                    'driver': 'i40e',
+                    'vpci': '0000:07:00.1',
+                    'dpdk_port_num': 1,
+                },
+            },
+            'routing_table': [
                 {
-                    'vnfd-connection-point-ref': [
-                        {
-                            'vnfd-connection-point-ref': 'xe0',
-                            'member-vnf-index-ref': '1',
-                            'vnfd-id-ref': 'trexgen'
-                        },
-                        {
-                            'vnfd-connection-point-ref': 'xe0',
-                            'member-vnf-index-ref': '2',
-                            'vnfd-id-ref': 'trexgen'
-                        }
-                    ],
-                    'type': 'ELAN',
-                    'id': 'private',
-                    'name': 'trexgen__1 to trexvnf__1 link 1'
+                    'netmask': '255.255.255.0',
+                    'gateway': '152.16.100.20',
+                    'network': '152.16.100.20',
+                    'if': 'xe0',
                 },
                 {
-                    'vnfd-connection-point-ref': [
-                        {
-                            'vnfd-connection-point-ref': 'xe1',
-                            'member-vnf-index-ref': '1',
-                            'vnfd-id-ref': 'trexgen'
-                        },
-                        {
-                            'vnfd-connection-point-ref': 'xe1',
-                            'member-vnf-index-ref': '2',
-                            'vnfd-id-ref': 'trexgen'
-                        }
-                    ],
-                    'type': 'ELAN',
-                    'id': 'public',
-                    'name': 'trexvnf__1 to trexgen__1 link 2'
-                }],
+                    'netmask': '255.255.255.0',
+                    'gateway': '152.16.40.20',
+                    'network': '152.16.40.20',
+                    'if': 'xe1',
+                },
+            ],
+            'nd_route_tbl': [
+                {
+                    'netmask': '112',
+                    'gateway': '0064:ff9b:0:0:0:0:9810:6414',
+                    'network': '0064:ff9b:0:0:0:0:9810:6414',
+                    'if': 'xe0',
+                },
+                {
+                    'netmask': '112',
+                    'gateway': '0064:ff9b:0:0:0:0:9810:2814',
+                    'network': '0064:ff9b:0:0:0:0:9810:2814',
+                    'if': 'xe1',
+                },
+            ],
+        }
+
+        self.context_cfg = {
+            'nodes': {
+                'trexgen__1': self.trexgen__1,
+                'trexvnf__1': self.trexvnf__1,
+            },
+            'networks': {
+                'private': {
+                    'vld_id': 'private',
+                },
+                'public': {
+                    'vld_id': 'public',
+                },
+            },
+        }
+
+        self.vld0 = {
+            'vnfd-connection-point-ref': [
+                {
+                    'vnfd-connection-point-ref': 'xe0',
+                    'member-vnf-index-ref': '1',
+                    'vnfd-id-ref': 'trexgen'
+                },
+                {
+                    'vnfd-connection-point-ref': 'xe0',
+                    'member-vnf-index-ref': '2',
+                    'vnfd-id-ref': 'trexgen'
+                }
+            ],
+            'type': 'ELAN',
+            'id': 'private',
+            'name': 'trexgen__1 to trexvnf__1 link 1'
+        }
+
+        self.vld1 = {
+            'vnfd-connection-point-ref': [
+                {
+                    'vnfd-connection-point-ref': 'xe1',
+                    'member-vnf-index-ref': '1',
+                    'vnfd-id-ref': 'trexgen'
+                },
+                {
+                    'vnfd-connection-point-ref': 'xe1',
+                    'member-vnf-index-ref': '2',
+                    'vnfd-id-ref': 'trexgen'
+                }
+            ],
+            'type': 'ELAN',
+            'id': 'public',
+            'name': 'trexvnf__1 to trexgen__1 link 2'
+        }
+
+        self.topology = {
             'id': 'trex-tg-topology',
+            'short-name': 'trex-tg-topology',
+            'name': 'trex-tg-topology',
+            'description': 'trex-tg-topology',
+            'constituent-vnfd': [
+                {
+                    'member-vnf-index': '1',
+                    'VNF model': 'tg_trex_tpl.yaml',
+                    'vnfd-id-ref': 'trexgen__1',
+                },
+                {
+                    'member-vnf-index': '2',
+                    'VNF model': 'tg_trex_tpl.yaml',
+                    'vnfd-id-ref': 'trexvnf__1',
+                },
+            ],
+            'vld': [self.vld0, self.vld1],
         }
 
         self.scenario_cfg = {
             'task_path': "",
-            'tc_options': {'rfc2544': {'allowed_drop_rate': '0.8 - 1'}},
+            "topology": self._get_file_abspath("vpe_vnf_topology.yaml"),
             'task_id': 'a70bdf4a-8e67-47a3-9dc1-273c14506eb7',
             'tc': 'tc_ipv4_1Mflow_64B_packetsize',
-            'runner': {'object': 'NetworkServiceTestCase',
-                       'interval': 35,
-                       'output_filename': 'yardstick.out',
-                       'runner_id': 74476,
-                       'duration': 400, 'type': 'Duration'},
             'traffic_profile': 'ipv4_throughput_vpe.yaml',
-            'traffic_options': {'flow': 'ipv4_1flow_Packets_vpe.yaml',
-                                'imix': 'imix_voice.yaml'}, 'type': 'ISB',
-            'nodes': {'tg__2': 'trafficgen_2.yardstick',
-                      'tg__1': 'trafficgen_1.yardstick',
-                      'vnf__1': 'vnf.yardstick'},
-            "topology": self._get_file_abspath("vpe_vnf_topology.yaml")}
+            'type': 'ISB',
+            'tc_options': {
+                'rfc2544': {
+                    'allowed_drop_rate': '0.8 - 1',
+                },
+            },
+            'runner': {
+                'object': 'NetworkServiceTestCase',
+                'interval': 35,
+                'output_filename': 'yardstick.out',
+                'runner_id': 74476,
+                'duration': 400,
+                'type': 'Duration',
+            },
+            'traffic_options': {
+                'flow': 'ipv4_1flow_Packets_vpe.yaml',
+                'imix': 'imix_voice.yaml'
+            },
+            'nodes': {
+                'tg__2': 'trafficgen_2.yardstick',
+                'tg__1': 'trafficgen_1.yardstick',
+                'vnf__1': 'vnf.yardstick',
+            },
+        }
 
         self.s = NetworkServiceTestCase(self.scenario_cfg, self.context_cfg)
 
@@ -339,9 +426,17 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         self.assertEqual({}, self.s._get_traffic_flow(self.scenario_cfg))
 
     def test_get_vnf_imp(self):
-        vnfd = COMPLETE_TREX_VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        vnfd = COMPLETE_TREX_VNFD['vnfd:vnfd-catalog']['vnfd'][0]['class-name']
         with mock.patch.dict("sys.modules", STL_MOCKS):
             self.assertIsNotNone(self.s.get_vnf_impl(vnfd))
+
+            with self.assertRaises(IncorrectConfig) as raised:
+                self.s.get_vnf_impl('NonExistentClass')
+
+            exc_str = str(raised.exception)
+            print(exc_str)
+            self.assertIn('No implementation', exc_str)
+            self.assertIn('found in', exc_str)
 
     def test_load_vnf_models_invalid(self):
         self.context_cfg["nodes"]['trexgen__1']['VNF model'] = \
@@ -363,10 +458,10 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             self.s.map_topology_to_infrastructure(self.context_cfg,
                                                   self.topology)
-        self.assertEqual("tg_trex_tpl.yaml",
-                         self.context_cfg["nodes"]['trexgen__1']['VNF model'])
-        self.assertEqual("tg_trex_tpl.yaml",
-                         self.context_cfg["nodes"]['trexvnf__1']['VNF model'])
+
+        nodes = self.context_cfg["nodes"]
+        self.assertEqual("tg_trex_tpl.yaml", nodes['trexgen__1']['VNF model'])
+        self.assertEqual("tg_trex_tpl.yaml", nodes['trexvnf__1']['VNF model'])
 
     def test_map_topology_to_infrastructure_insufficient_nodes(self):
         del self.context_cfg['nodes']['trexvnf__1']
@@ -376,9 +471,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 mock.Mock(return_value=(1, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.from_node.return_value = ssh_mock
 
-            self.assertRaises(IncorrectSetup,
-                              self.s.map_topology_to_infrastructure,
-                              self.context_cfg, self.topology)
+            with self.assertRaises(IncorrectSetup):
+                self.s.map_topology_to_infrastructure(self.context_cfg, self.topology)
 
     def test_map_topology_to_infrastructure_config_invalid(self):
         cfg = dict(self.context_cfg)
@@ -389,9 +483,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.from_node.return_value = ssh_mock
 
-            self.assertRaises(IncorrectConfig,
-                              self.s.map_topology_to_infrastructure,
-                              self.context_cfg, self.topology)
+            with self.assertRaises(IncorrectConfig):
+                self.s.map_topology_to_infrastructure(self.context_cfg, self.topology)
 
     def test__resolve_topology_invalid_config(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -400,14 +493,32 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.from_node.return_value = ssh_mock
 
-            del self.context_cfg['nodes']
-            self.assertRaises(IncorrectConfig, self.s._resolve_topology,
-                              self.context_cfg, self.topology)
+            # purge an important key from the data structure
+            for interface in self.trexgen__1['interfaces'].values():
+                del interface['local_mac']
 
-            self.topology['vld'][0]['vnfd-connection-point-ref'].append(
-                self.topology['vld'][0]['vnfd-connection-point-ref'])
-            self.assertRaises(IncorrectConfig, self.s._resolve_topology,
-                              self.context_cfg, self.topology)
+            with self.assertRaises(IncorrectConfig) as raised:
+                self.s._resolve_topology(self.context_cfg, self.topology)
+
+            self.assertIn('not found', str(raised.exception))
+
+            # make a connection point ref with 3 points
+            self.vld0['vnfd-connection-point-ref'].append(
+                self.vld0['vnfd-connection-point-ref'][0])
+
+            with self.assertRaises(IncorrectConfig) as raised:
+                self.s._resolve_topology(self.context_cfg, self.topology)
+
+            self.assertIn('wrong number of endpoints', str(raised.exception))
+
+            # make a connection point ref with 1 point
+            self.vld0['vnfd-connection-point-ref'] = \
+                self.vld0['vnfd-connection-point-ref'][:1]
+
+            with self.assertRaises(IncorrectConfig) as raised:
+                self.s._resolve_topology(self.context_cfg, self.topology)
+
+            self.assertIn('wrong number of endpoints', str(raised.exception))
 
     def test_run(self):
         tgen = mock.Mock(autospec=GenericTrafficGen)
@@ -462,8 +573,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
     def test__get_traffic_profile_exception(self):
         cfg = dict(self.scenario_cfg)
         cfg["traffic_profile"] = ""
-        self.assertRaises(IOError, self.s._get_traffic_profile, cfg,
-                          self.context_cfg)
+        with self.assertRaises(IOError):
+            self.s._get_traffic_profile(cfg, self.context_cfg)
 
     def test___get_traffic_imix_exception(self):
         cfg = dict(self.scenario_cfg)

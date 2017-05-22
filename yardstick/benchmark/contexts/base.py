@@ -23,7 +23,7 @@ class Context(object):
 
     @abc.abstractmethod
     def init(self, attrs):
-        "Initiate context."
+        """Initiate context."""
 
     @staticmethod
     def get_cls(context_type):
@@ -56,20 +56,34 @@ class Context(object):
         """get server info by name from context
         """
 
+    @abc.abstractmethod
+    def _get_network(self, attr_name):
+        """get network info by name from context
+        """
+
     @staticmethod
     def get_server(attr_name):
         """lookup server info by name from context
         attr_name: either a name for a server created by yardstick or a dict
         with attribute name mapping when using external heat templates
         """
-        server = None
-        for context in Context.list:
-            server = context._get_server(attr_name)
-            if server is not None:
-                break
-
-        if server is None:
+        servers = (context._get_server(attr_name) for context in Context.list)
+        try:
+            return next(s for s in servers if s)
+        except StopIteration:
             raise ValueError("context not found for server '%r'" %
                              attr_name)
 
-        return server
+    @staticmethod
+    def get_network(attr_name):
+        """lookup server info by name from context
+        attr_name: either a name for a server created by yardstick or a dict
+        with attribute name mapping when using external heat templates
+        """
+
+        networks = (context._get_network(attr_name) for context in Context.list)
+        try:
+            return next(n for n in networks if n)
+        except StopIteration:
+            raise ValueError("context not found for server '%r'" %
+                             attr_name)
