@@ -37,3 +37,6 @@ class DummyContext(Context):
 
     def _get_server(self, attr_name):
         return None
+
+    def _get_network(self, attr_name):
+        return None

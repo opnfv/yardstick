@@ -114,35 +114,35 @@ COMPLETE_TREX_VNFD = \
         'mgmt-interface': {'ip': '1.1.1.1',
                            'password': 'berta',
                            'user': 'berta',
-                           'vdu-id': 'trexgen-baremetal'},
+                                   'vdu-id': 'trexgen-baremetal'},
         'name': 'trexgen',
-        'short-name': 'trexgen',
-        'vdu': [{'description': 'TRex stateless traffic generator for RFC2544',
-                 'external-interface':
-                 [{'name': 'xe0',
-                   'virtual-interface': {'bandwidth': '10 Gbps',
-                                         'dst_ip': '1.1.1.1',
-                                         'dst_mac': '00:01:02:03:04:05',
-                                         'local_ip': '1.1.1.2',
-                                         'local_mac': '00:01:02:03:05:05',
-                                         'type': 'PCI-PASSTHROUGH',
-                                         'netmask': "255.255.255.0",
-                                         'driver': 'i40',
-                                         'vpci': '0000:00:10.2'},
-                   'vnfd-connection-point-ref': 'xe0'},
-                  {'name': 'xe1',
-                   'virtual-interface': {'bandwidth': '10 Gbps',
-                                         'dst_ip': '2.1.1.1',
-                                         'dst_mac': '00:01:02:03:04:06',
-                                         'local_ip': '2.1.1.2',
-                                         'local_mac': '00:01:02:03:05:06',
-                                         'type': 'PCI-PASSTHROUGH',
-                                         'netmask': "255.255.255.0",
-                                         'driver': 'i40',
-                                         'vpci': '0000:00:10.1'},
-                   'vnfd-connection-point-ref': 'xe1'}],
-                 'id': 'trexgen-baremetal',
-                 'name': 'trexgen-baremetal'}]}]}}
+                'short-name': 'trexgen',
+                'vdu': [{'description': 'TRex stateless traffic generator for RFC2544',
+                         'external-interface':
+                             [{'name': 'xe0',
+                               'virtual-interface': {'bandwidth': '10 Gbps',
+                                                     'dst_ip': '1.1.1.1',
+                                                     'dst_mac': '00:01:02:03:04:05',
+                                                     'local_ip': '1.1.1.2',
+                                                     'local_mac': '00:01:02:03:05:05',
+                                                     'type': 'PCI-PASSTHROUGH',
+                                                     'netmask': "255.255.255.0",
+                                                     'driver': 'i40',
+                                                     'vpci': '0000:00:10.2'},
+                               'vnfd-connection-point-ref': 'xe0'},
+                              {'name': 'xe1',
+                               'virtual-interface': {'bandwidth': '10 Gbps',
+                                                     'dst_ip': '2.1.1.1',
+                                                     'dst_mac': '00:01:02:03:04:06',
+                                                     'local_ip': '2.1.1.2',
+                                                     'local_mac': '00:01:02:03:05:06',
+                                                     'type': 'PCI-PASSTHROUGH',
+                                                     'netmask': "255.255.255.0",
+                                                     'driver': 'i40',
+                                                     'vpci': '0000:00:10.1'},
+                               'vnfd-connection-point-ref': 'xe1'}],
+                         'id': 'trexgen-baremetal',
+                         'name': 'trexgen-baremetal'}]}]}}
 
 IP_ADDR_SHOW = """
 28: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP """
@@ -178,6 +178,7 @@ TRAFFIC_PROFILE = {
 
 
 class TestNetworkServiceTestCase(unittest.TestCase):
+
     def setUp(self):
         self.context_cfg = \
             {'nodes':
@@ -185,59 +186,62 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                              'name': 'trafficgen_1.yardstick',
                              'ip': '10.10.10.11',
                              'interfaces':
-                             {'xe0':
-                              {'netmask': '255.255.255.0',
-                               'local_ip': '152.16.100.20',
-                               'local_mac': '00:00:00:00:00:01',
-                               'driver': 'i40e',
-                               'vpci': '0000:07:00.0',
-                               'dpdk_port_num': 0},
-                              'xe1':
-                              {'netmask': '255.255.255.0',
-                               'local_ip': '152.16.40.20',
-                               'local_mac': '00:00:00:00:00:02',
-                               'driver': 'i40e',
-                               'vpci': '0000:07:00.1',
-                               'dpdk_port_num': 1}},
-                             'password': 'r00t',
-                             'user': 'root'},
+                                     {'xe0':
+                                      {'netmask': '255.255.255.0',
+                                       'local_ip': '152.16.100.20',
+                                       'local_mac': '00:00:00:00:00:01',
+                                       'driver': 'i40e',
+                                       'vpci': '0000:07:00.0',
+                                       'dpdk_port_num': 0},
+                                      'xe1':
+                                          {'netmask': '255.255.255.0',
+                                           'local_ip': '152.16.40.20',
+                                           'local_mac': '00:00:00:00:00:02',
+                                           'driver': 'i40e',
+                                           'vpci': '0000:07:00.1',
+                                           'dpdk_port_num': 1}},
+                                 'password': 'r00t',
+                                 'user': 'root'},
               'trexvnf__1': {'name': 'vnf.yardstick',
                              'ip': '10.10.10.12',
                              'interfaces':
-                             {'xe0':
-                              {'netmask': '255.255.255.0',
-                               'local_ip': '152.16.100.19',
-                               'local_mac': '00:00:00:00:00:03',
-                               'driver': 'i40e',
-                               'vpci': '0000:07:00.0',
-                               'dpdk_port_num': 0},
-                              'xe1': {'netmask': '255.255.255.0',
-                                      'local_ip': '152.16.40.19',
-                                      'local_mac': '00:00:00:00:00:04',
-                                      'driver': 'i40e',
-                                      'vpci': '0000:07:00.1',
-                                      'dpdk_port_num': 1}},
-                             'routing_table': [{'netmask': '255.255.255.0',
-                                                'gateway': '152.16.100.20',
-                                                'network': '152.16.100.20',
-                                                'if': 'xe0'},
-                                               {'netmask': '255.255.255.0',
-                                                'gateway': '152.16.40.20',
-                                                'network': '152.16.40.20',
-                                                'if': 'xe1'}],
-                             'host': '10.223.197.164',
-                             'role': 'vnf',
-                             'user': 'root',
-                             'nd_route_tbl':
-                             [{'netmask': '112',
-                               'gateway': '0064:ff9b:0:0:0:0:9810:6414',
-                               'network': '0064:ff9b:0:0:0:0:9810:6414',
-                               'if': 'xe0'},
-                              {'netmask': '112',
-                               'gateway': '0064:ff9b:0:0:0:0:9810:2814',
-                               'network': '0064:ff9b:0:0:0:0:9810:2814',
-                               'if': 'xe1'}],
-                             'password': 'r00t'}}}
+                                     {'xe0':
+                                      {'netmask': '255.255.255.0',
+                                       'local_ip': '152.16.100.19',
+                                       'local_mac': '00:00:00:00:00:03',
+                                       'driver': 'i40e',
+                                       'vpci': '0000:07:00.0',
+                                       'dpdk_port_num': 0},
+                                      'xe1': {'netmask': '255.255.255.0',
+                                              'local_ip': '152.16.40.19',
+                                              'local_mac': '00:00:00:00:00:04',
+                                              'driver': 'i40e',
+                                              'vpci': '0000:07:00.1',
+                                              'dpdk_port_num': 1}},
+                                 'routing_table': [{'netmask': '255.255.255.0',
+                                                    'gateway': '152.16.100.20',
+                                                    'network': '152.16.100.20',
+                                                    'if': 'xe0'},
+                                                   {'netmask': '255.255.255.0',
+                                                    'gateway': '152.16.40.20',
+                                                    'network': '152.16.40.20',
+                                                    'if': 'xe1'}],
+                                 'host': '10.223.197.164',
+                                 'role': 'vnf',
+                                 'user': 'root',
+                                 'nd_route_tbl':
+                                     [{'netmask': '112',
+                                       'gateway': '0064:ff9b:0:0:0:0:9810:6414',
+                                       'network': '0064:ff9b:0:0:0:0:9810:6414',
+                                       'if': 'xe0'},
+                                      {'netmask': '112',
+                                       'gateway': '0064:ff9b:0:0:0:0:9810:2814',
+                                       'network': '0064:ff9b:0:0:0:0:9810:2814',
+                                       'if': 'xe1'}],
+                                 'password': 'r00t'}
+              },
+             "networks": {},
+             }
 
         self.topology = {
             'short-name': 'trex-tg-topology',
@@ -493,31 +497,31 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         self.assertIsNone(self.s.teardown())
 
     SAMPLE_NETDEVS = {
-            'enp11s0': {
-                'address': '0a:de:ad:be:ef:f5',
-                'device': '0x1533',
-                'driver': 'igb',
-                'ifindex': '2',
-                'interface_name': 'enp11s0',
-                'operstate': 'down',
-                'pci_bus_id': '0000:0b:00.0',
-                'subsystem_device': '0x1533',
-                'subsystem_vendor': '0x15d9',
-                'vendor': '0x8086'
-                },
-            'lan': {
-                'address': '0a:de:ad:be:ef:f4',
-                'device': '0x153a',
-                'driver': 'e1000e',
-                'ifindex': '3',
-                'interface_name': 'lan',
-                'operstate': 'up',
-                'pci_bus_id': '0000:00:19.0',
-                'subsystem_device': '0x153a',
-                'subsystem_vendor': '0x15d9',
-                'vendor': '0x8086'
-                }
+        'enp11s0': {
+            'address': '0a:de:ad:be:ef:f5',
+            'device': '0x1533',
+            'driver': 'igb',
+            'ifindex': '2',
+            'interface_name': 'enp11s0',
+            'operstate': 'down',
+            'pci_bus_id': '0000:0b:00.0',
+            'subsystem_device': '0x1533',
+            'subsystem_vendor': '0x15d9',
+            'vendor': '0x8086'
+        },
+        'lan': {
+            'address': '0a:de:ad:be:ef:f4',
+            'device': '0x153a',
+            'driver': 'e1000e',
+            'ifindex': '3',
+            'interface_name': 'lan',
+            'operstate': 'up',
+            'pci_bus_id': '0000:00:19.0',
+            'subsystem_device': '0x153a',
+            'subsystem_vendor': '0x15d9',
+            'vendor': '0x8086'
         }
+    }
     SAMPLE_VM_NETDEVS = {
         'eth1': {
             'address': 'fa:de:ad:be:ef:5b',
