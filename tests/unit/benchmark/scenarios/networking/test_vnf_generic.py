@@ -237,7 +237,9 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                                'gateway': '0064:ff9b:0:0:0:0:9810:2814',
                                'network': '0064:ff9b:0:0:0:0:9810:2814',
                                'if': 'xe1'}],
-                             'password': 'r00t'}}}
+                             'password': 'r00t'}},
+             "networks": {},
+             }
 
         self.topology = {
             'short-name': 'trex-tg-topology',
