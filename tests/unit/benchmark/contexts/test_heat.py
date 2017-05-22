@@ -120,7 +120,8 @@ class HeatContextTestCase(unittest.TestCase):
         mock_template.add_router_interface.assert_called_with("bar-fool-network-router-if0", "bar-fool-network-router", "bar-fool-network-subnet")
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
-    def test_deploy(self, mock_template):
+    @mock.patch('yardstick.benchmark.contexts.heat.get_neutron_client')
+    def test_deploy(self, mock_neutron, mock_template):
 
         self.test_context.name = 'foo'
         self.test_context.template_file = '/bar/baz/some-heat-file'

@@ -36,6 +36,7 @@ class StandaloneContext(Context):
         self.name = None
         self.file_path = None
         self.nodes = []
+        self.networks = {}
         self.nfvi_node = []
         super(StandaloneContext, self).__init__()
 
@@ -66,8 +67,11 @@ class StandaloneContext(Context):
         self.nodes.extend(cfg["nodes"])
         self.nfvi_node.extend([node for node in cfg["nodes"]
                                if node["role"] == "nfvi_node"])
+        # add optional static network definition
+        self.networks.update(cfg.get("networks", {}))
         LOG.debug("Nodes: %r", self.nodes)
         LOG.debug("NFVi Node: %r", self.nfvi_node)
+        LOG.debug("Networks: %r", self.networks)
 
     def deploy(self):
         """don't need to deploy"""
@@ -114,3 +118,31 @@ class StandaloneContext(Context):
 
         node["name"] = attr_name
         return node
+
+    def _get_network(self, attr_name):
+        if isinstance(attr_name, collections.Mapping):
+            # Don't generalize too much  Just support vld_id
+            vld_id = attr_name.get('vld_id')
+            if vld_id is None:
+                return None
+            try:
+                network = next(n for n in self.networks.values() if
+                               getattr(n, "vld_id") == vld_id)
+            except StopIteration:
+                return None
+
+        else:
+            network = self.networks[attr_name]
+
+        if network is None:
+            return None
+
+        result = {
+            # name is required
+            "name": network["name"],
+            "vld_id": network.get("vld_id"),
+            "segmentation_id": network.get("segmentation_id"),
+            "network_type": network.get("network_type"),
+            "physical_network": network.get("physical_network"),
+        }
+        return result
