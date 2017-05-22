@@ -348,7 +348,8 @@ class HeatStackTestCase(unittest.TestCase):
         # call once and then call again if uuid is not none
         self.assertGreater(delete_mock.call_count, 1)
 
-    def test_delete_all_calls_delete(self):
+    @mock.patch('yardstick.orchestrator.heat.op_utils')
+    def test_delete_all_calls_delete(self, mock_op):
         stack = heat.HeatStack('test')
         stack.uuid = 1
         with mock.patch.object(stack, "delete") as delete_mock:
