@@ -29,3 +29,5 @@ cover/
 /docs_build/
 /docs_output/
 /docs/apidocs/yardstick*.rst
+#PyCharm IDE project configuration files
+.idea/
