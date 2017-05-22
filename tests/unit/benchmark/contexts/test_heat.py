@@ -13,6 +13,7 @@
 
 from __future__ import absolute_import
 
+import ipaddress
 import logging
 import os
 import unittest
@@ -133,6 +134,59 @@ class HeatContextTestCase(unittest.TestCase):
                                          self.test_context.heat_parameters)
         self.assertIsNotNone(self.test_context.stack)
 
+    def test_add_server_port(self):
+        network1 = mock.MagicMock()
+        network1.vld_id = 'vld111'
+        network2 = mock.MagicMock()
+        network2.vld_id = 'vld777'
+        self.test_context.name = 'foo'
+        self.test_context.stack = mock.MagicMock()
+        self.test_context.networks = {
+            'a': network1,
+            'c': network2,
+        }
+        self.test_context.stack.outputs = {
+            'b': '10.20.30.45',
+            'b-subnet_id': 1,
+            'foo-a-subnet-cidr': '10.20.0.0/15',
+            'foo-a-subnet-gateway_ip': '10.20.30.1',
+            'b-mac_address': '00:01',
+            'b-device_id': 'dev21',
+            'b-network_id': 'net789',
+            'd': '40.30.20.15',
+            'd-subnet_id': 2,
+            'foo-c-subnet-cidr': '40.30.0.0/18',
+            'foo-c-subnet-gateway_ip': '40.30.20.254',
+            'd-mac_address': '00:10',
+            'd-device_id': 'dev43',
+            'd-network_id': 'net987',
+        }
+        server = mock.MagicMock()
+        server.ports = OrderedDict([
+            ('a', {'stack_name': 'b'}),
+            ('c', {'stack_name': 'd'}),
+        ])
+
+        expected = {
+            "private_ip": '10.20.30.45',
+            "subnet_id": 1,
+            "subnet_cidr": '10.20.0.0/15',
+            "network": '10.20.0.0',
+            "netmask": '255.254.0.0',
+            "gateway_ip": '10.20.30.1',
+            "mac_address": '00:01',
+            "device_id": 'dev21',
+            "network_id": 'net789',
+            "network_name": 'a',
+            "local_mac": '00:01',
+            "local_ip": '10.20.30.45',
+            "vld_id": 'vld111',
+        }
+        self.test_context.add_server_port(server)
+        self.assertEqual(server.private_ip, '10.20.30.45')
+        self.assertEqual(len(server.interfaces), 2)
+        self.assertDictEqual(server.interfaces['a'], expected)
+
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_undeploy(self, mock_template):
 
@@ -155,3 +209,57 @@ class HeatContextTestCase(unittest.TestCase):
 
         self.assertEqual(result['ip'], '127.0.0.1')
         self.assertEqual(result['private_ip'], '10.0.0.1')
+
+    def test__get_network(self):
+        network1 = mock.MagicMock()
+        network1.name = 'net_1'
+        network1.vld_id = 'vld111'
+        network1.segmentation_id = 'seg54'
+        network1.network_type = 'type_a'
+        network1.physical_network = 'phys'
+
+        network2 = mock.MagicMock()
+        network2.name = 'net_2'
+        network2.vld_id = 'vld999'
+        network2.segmentation_id = 'seg45'
+        network2.network_type = 'type_b'
+        network2.physical_network = 'virt'
+
+        self.test_context.networks = {
+            'a': network1,
+            'b': network2,
+        }
+
+        attr_name = None
+        self.assertIsNone(self.test_context._get_network(attr_name))
+
+        attr_name = {}
+        self.assertIsNone(self.test_context._get_network(attr_name))
+
+        attr_name = {'vld_id': 'vld777'}
+        self.assertIsNone(self.test_context._get_network(attr_name))
+
+        attr_name = 'vld777'
+        self.assertIsNone(self.test_context._get_network(attr_name))
+
+        attr_name = {'vld_id': 'vld999'}
+        expected = {
+            "name": 'net_2',
+            "vld_id": 'vld999',
+            "segmentation_id": 'seg45',
+            "network_type": 'type_b',
+            "physical_network": 'virt',
+        }
+        result = self.test_context._get_network(attr_name)
+        self.assertDictEqual(result, expected)
+
+        attr_name = 'a'
+        expected = {
+            "name": 'net_1',
+            "vld_id": 'vld111',
+            "segmentation_id": 'seg54',
+            "network_type": 'type_a',
+            "physical_network": 'phys',
+        }
+        result = self.test_context._get_network(attr_name)
+        self.assertDictEqual(result, expected)
