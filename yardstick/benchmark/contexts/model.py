@@ -106,12 +106,14 @@ class Network(Object):
         self.subnet_cidr = attrs.get('cidr', '10.0.1.0/24')
         self.router = None
         self.physical_network = attrs.get('physical_network', 'physnet1')
-        self.provider = attrs.get('provider', None)
+        self.segmentation_id = attrs.get('segmentation_id')
+        self.network_type = attrs.get('network_type')
+        self.provider = attrs.get('provider')
 
         if "external_network" in attrs:
             self.router = Router("router", self.name,
                                  context, attrs["external_network"])
-        self.vld_id = attrs.get("vld_id", "")
+        self.vld_id = attrs.get("vld_id")
 
         Network.list.append(self)
 
