@@ -129,3 +129,47 @@ class StandaloneContextTestCase(unittest.TestCase):
         curr_path = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(curr_path, filename)
         return file_path
+
+    def test__get_network(self):
+        network1 = {
+            'name': 'net_1',
+            'vld_id': 'vld111',
+            'segmentation_id': 'seg54',
+            'network_type': 'type_a',
+            'physical_network': 'phys',
+        }
+        network2 = {
+            'name': 'net_2',
+            'vld_id': 'vld999',
+        }
+        self.test_context.networks = {
+            'a': network1,
+            'b': network2,
+        }
+
+        attr_name = {}
+        self.assertIsNone(self.test_context._get_network(attr_name))
+
+        attr_name = {'vld_id': 'vld777'}
+        self.assertIsNone(self.test_context._get_network(attr_name))
+
+        self.assertIsNone(self.test_context._get_network(None))
+
+        attr_name = 'vld777'
+        self.assertIsNone(self.test_context._get_network(attr_name))
+
+        attr_name = {'vld_id': 'vld999'}
+        expected = {
+            "name": 'net_2',
+            "vld_id": 'vld999',
+            "segmentation_id": None,
+            "network_type": None,
+            "physical_network": None,
+        }
+        result = self.test_context._get_network(attr_name)
+        self.assertDictEqual(result, expected)
+
+        attr_name = 'a'
+        expected = network1
+        result = self.test_context._get_network(attr_name)
+        self.assertDictEqual(result, expected)

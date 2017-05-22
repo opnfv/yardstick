@@ -48,6 +48,67 @@ class TaskTestCase(unittest.TestCase):
         self.assertEqual(context_cfg["target"], server_info)
 
     @mock.patch('yardstick.benchmark.core.task.Context')
+    def test_parse_networks_from_nodes(self, mock_context):
+        nodes = {
+            'node1': {
+                'interfaces': {
+                    'eth0': {
+                        'name': 'mgmt',
+                    },
+                    'eth1': {
+                        'name': 'external',
+                        'vld_id': '23',
+                    }
+                },
+            },
+            'node2': {
+                'interfaces': {
+                    'eth4': {
+                        'name': 'mgmt',
+                    },
+                    'eth2': {
+                        'name': 'external',
+                        'vld_id': '55',
+                    },
+                    'eth11': {
+                        'name': 'internal',
+                        'vld_id': '55',
+                    }
+                },
+            }
+        }
+
+        mock_context.get_network.side_effect = iter([
+            None,
+            {
+                'name': 'a',
+                'vld_id': 'z'
+            },
+            {},
+            {
+                'name': 'b',
+                'vld_id': 'y',
+            },
+            {
+                'name': 'c',
+                'vld_id': 'x',
+            }
+            {
+                'name': 'd',
+                'vld_id': 'w',
+            }
+        ])
+
+        expected = {
+            'a': {'name': 'a', 'vld_id': 'z'},
+            'b': {'name': 'b', 'vld_id': 'y'},
+            'c': {'name': 'c', 'vld_id': 'x'},
+        }
+
+        networks = task.get_networks_from_nodes(nodes)
+        self.assertDictEqual(networks, expected)
+
+    @mock.patch('yardstick.benchmark.core.task.Context')
     @mock.patch('yardstick.benchmark.core.task.base_runner')
     def test_run(self, mock_base_runner, mock_ctx):
         scenario = {
