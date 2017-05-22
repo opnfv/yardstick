@@ -326,6 +326,8 @@ class Task(object):     # pragma: no cover
 
         if "nodes" in scenario_cfg:
             context_cfg["nodes"] = parse_nodes_with_context(scenario_cfg)
+            context_cfg["networks"] = get_networks_from_nodes(
+                context_cfg["nodes"])
         runner = base_runner.Runner.get(runner_cfg)
 
         print("Starting runner of type '%s'" % runner_cfg["type"])
@@ -578,13 +580,23 @@ def _is_background_scenario(scenario):
 
 def parse_nodes_with_context(scenario_cfg):
     """paras the 'nodes' fields in scenario """
-    nodes = scenario_cfg["nodes"]
+    return {nodename: Context.get_server(scenario_cfg["nodes"][nodename])
+            for nodename in scenario_cfg["nodes"]}
 
-    nodes_cfg = {}
-    for nodename in nodes:
-        nodes_cfg[nodename] = Context.get_server(nodes[nodename])
 
-    return nodes_cfg
+def get_networks_from_nodes(nodes):
+    """paras the 'nodes' fields in scenario """
+    networks = {}
+    for node in nodes.values():
+        if node:
+            for vals in node['interfaces'].values():
+                vld_id = vals.get('vld_id')
+                # mgmt network doesn't have vld_id
+                if vld_id:
+                    network = Context.get_network({"vld_id": vld_id})
+                    if network:
+                        networks[network['name']] = network
+    return networks
 
 
 def runner_join(runner):
