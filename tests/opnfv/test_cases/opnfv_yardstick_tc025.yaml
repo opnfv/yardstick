@@ -11,16 +11,21 @@
 schema: "yardstick:task:0.1"
 description: >
     Sample test case for the HA of OpenStack Controll Node abnormally shutdown.
+    In order to power on the shutdown node after testing, the jumphost is
+    required to install ipmitool. Ipmi jumphost info and each nodes' ipmi ip,
+    username, password are needed in pod file .
 
 {% set file = file or 'etc/yardstick/nodes/fuel_virtual/pod.yaml' %}
+{% set jumphost = jumphost or 'node0' %}
 
 scenarios:
 -
   type: ServiceHA
   options:
     attackers:
-    - fault_type: "host-shutdown"
+    - fault_type: "bare-metal-down"
       host: node1
+      jump_host: {{jumphost}}
 
     monitors:
     - monitor_type: "openstack-cmd"
@@ -42,6 +47,7 @@ scenarios:
 
   nodes:
     node1: node1.LF
+    node0: node0.LF
 
   runner:
     type: Iteration
