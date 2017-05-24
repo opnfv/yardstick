@@ -46,10 +46,10 @@ class MultiMonitor(basemonitor.BaseMonitor):
 
         for monitor in self.monitors:
             monitor_result = monitor.result()
-            monitor_first_outage = monitor_result.get('first_outage', None)
-            monitor_last_outage = monitor_result.get('last_outage', None)
+            monitor_first_outage = monitor_result.get('first_outage', 0)
+            monitor_last_outage = monitor_result.get('last_outage', 0)
 
-            if monitor_first_outage is None or monitor_last_outage is None:
+            if monitor_first_outage == 0 or monitor_last_outage == 0:
                 continue
 
             if monitor_first_outage < first_outage:
@@ -57,10 +57,19 @@ class MultiMonitor(basemonitor.BaseMonitor):
 
             if monitor_last_outage > last_outage:
                 last_outage = monitor_last_outage
-        LOG.debug("multi monitor result: %f , %f", first_outage, last_outage)
+        outage_time = (
+            last_outage - first_outage if last_outage > first_outage else 0
+        )
+        LOG.debug("outage_time is: %f", outage_time)
 
-        outage_time = last_outage - first_outage
-        max_outage_time = self._config["sla"]["max_outage_time"]
+        max_outage_time = 0
+        if "max_outage_time" in self._config["sla"]:
+            max_outage_time = self._config["sla"]["max_outage_time"]
+        elif "max_recover_time" in self._config["sla"]:
+            max_outage_time = self._config["sla"]["max_recover_time"]
+        else:
+            raise RuntimeError("monitor max_outage_time config is not found")
+
         if outage_time > max_outage_time:
             LOG.error("SLA failure: %f > %f", outage_time, max_outage_time)
             return False
