@@ -162,3 +162,6 @@ class BaseMonitor(multiprocessing.Process):
 
     def result(self):
         return self._result
+
+    def setResult(self, result):
+        self._result = result
