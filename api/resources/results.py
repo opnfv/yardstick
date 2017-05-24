@@ -28,7 +28,7 @@ def getResult(args):
         uuid.UUID(task_id)
     except KeyError:
         message = 'task_id must be provided'
-        return common_utils.error_handler(message)
+        return common_utils.result_handler(2, message)
 
     task = TasksHandler().get_task_by_taskid(task_id)
 
@@ -44,7 +44,7 @@ def getResult(args):
             data = common_utils.translate_to_str(influx_utils.query(query_sql))
             return data
 
-        result = {k: get_data(k) for k in testcases}
+        result = _format_data({k: get_data(k) for k in testcases})
 
         return common_utils.result_handler(1, result)
 
@@ -61,4 +61,59 @@ def getResult(args):
         }
         return switcher.get(status, lambda: 'nothing')()
     except IndexError:
-        return common_utils.error_handler('no such task')
+        return common_utils.result_handler(2, 'no such task')
+
+
+def _format_data(data):
+    try:
+        first_value = data.values()[0][0]
+    except IndexError:
+        return {'criteria': 'FAIL', 'testcases': {}}
+    else:
+        info = {
+            'deploy_scenario': first_value.get('deploy_scenario'),
+            'installer': first_value.get('installer'),
+            'pod_name': first_value.get('pod_name'),
+            'version': first_value.get('version')
+        }
+        task_id = first_value.get('task_id')
+        criteria = first_value.get('criteria')
+        testcases = {k: _get_case_data(v) for k, v in data.items()}
+
+        result = {
+            'criteria': criteria,
+            'info': info,
+            'task_id': task_id,
+            'testcases': testcases
+        }
+        return result
+
+
+def _get_case_data(data):
+    try:
+        scenario = data[0]
+    except IndexError:
+        return {'tc_data': [], 'criteria': 'FAIL'}
+    else:
+        tc_data = [_get_scenario_data(s) for s in data]
+        criteria = scenario.get('criteria')
+        return {'tc_data': tc_data, 'criteria': criteria}
+
+
+def _get_scenario_data(data):
+    result = {
+        'data': {},
+        'timestamp': ''
+    }
+
+    blacklist = ['criteria', 'deploy_scenario', 'host', 'installer',
+                 'pod_name', 'runner_id', 'scenarios', 'target',
+                 'task_id', 'time', 'version']
+
+    for k, v in data.items():
+        if k not in blacklist:
+            result['data'].update({k: v})
+
+    result['timestamp'] = data.get('time')
+
+    return result

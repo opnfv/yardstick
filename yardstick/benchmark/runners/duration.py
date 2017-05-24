@@ -52,10 +52,6 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
     if "sla" in scenario_cfg:
         sla_action = scenario_cfg["sla"].get("action", "assert")
 
-    queue.put({'runner_id': runner_cfg['runner_id'],
-               'scenario_cfg': scenario_cfg,
-               'context_cfg': context_cfg})
-
     start = time.time()
     while True:
 
@@ -87,10 +83,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
             'errors': errors
         }
 
-        record = {'runner_id': runner_cfg['runner_id'],
-                  'benchmark': benchmark_output}
-
-        queue.put(record)
+        queue.put(benchmark_output)
 
         LOG.debug("runner=%(runner)s seq=%(sequence)s END",
                   {"runner": runner_cfg["runner_id"], "sequence": sequence})
