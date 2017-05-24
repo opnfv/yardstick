@@ -22,18 +22,17 @@ from yardstick.benchmark.runners.iteration import IterationRunner
 class RunnerTestCase(unittest.TestCase):
 
     def test_get_output(self):
-        queue = multiprocessing.Queue()
-        runner = IterationRunner({}, queue)
-        runner.output_queue.put({'case': 'opnfv_yardstick_tc002'})
-        runner.output_queue.put({'criteria': 'PASS'})
+        runner = IterationRunner({})
+        runner.result_queue.put({'case': 'opnfv_yardstick_tc002'})
+        runner.result_queue.put({'criteria': 'PASS'})
 
-        idle_result = {
-            'case': 'opnfv_yardstick_tc002',
-            'criteria': 'PASS'
-        }
+        idle_result = [
+            {'case': 'opnfv_yardstick_tc002'},
+            {'criteria': 'PASS'}
+        ]
 
         time.sleep(1)
-        actual_result = runner.get_output()
+        actual_result = runner.get_result()
         self.assertEqual(idle_result, actual_result)
 
 
