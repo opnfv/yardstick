@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_34733eb3",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc025.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-05-24T06:05:18Z",
+      "side": 1,
+      "message": "should add \"node0\" here",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 19
+      },
+      "revId": "f0904537e18a6419f1442e4fe47e3710431d1673",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
