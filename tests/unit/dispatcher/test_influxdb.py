@@ -94,31 +94,31 @@ class InfluxdbDispatcherTestCase(unittest.TestCase):
             }
         }
 
-        self.yardstick_conf = {'yardstick': {}}
-
-    def test_record_result_data_no_target(self):
-        influxdb = InfluxdbDispatcher(None, self.yardstick_conf)
-        influxdb.target = ''
-        self.assertEqual(influxdb.record_result_data(self.data1), -1)
-
-    def test_record_result_data_no_case_name(self):
-        influxdb = InfluxdbDispatcher(None, self.yardstick_conf)
-        self.assertEqual(influxdb.record_result_data(self.data2), -1)
+        self.yardstick_conf = {'dispatcher_influxdb': {}}
 
     @mock.patch('yardstick.dispatcher.influxdb.requests')
     def test_record_result_data(self, mock_requests):
         type(mock_requests.post.return_value).status_code = 204
-        influxdb = InfluxdbDispatcher(None, self.yardstick_conf)
-        self.assertEqual(influxdb.record_result_data(self.data1), 0)
-        self.assertEqual(influxdb.record_result_data(self.data2), 0)
-        self.assertEqual(influxdb.flush_result_data(), 0)
+        influxdb = InfluxdbDispatcher(self.yardstick_conf)
+        data = {
+            'status': 1,
+            'result': {
+                'criteria': 'PASS',
+                'info': {
+                },
+                'task_id': 'b9e2bbc2-dfd8-410d-8c24-07771e9f7979',
+                'testcases': {
+                }
+            }
+        }
+        self.assertEqual(influxdb.flush_result_data(data), 0)
 
     def test__dict_key_flatten(self):
         line = 'mpstat.loadavg1=0.29,rtt=1.03,mpstat.loadavg0=1.09,' \
                'mpstat.cpu0.%idle=99.00,mpstat.cpu0.%sys=0.00'
         # need to sort for assert to work
         line = ",".join(sorted(line.split(',')))
-        influxdb = InfluxdbDispatcher(None, self.yardstick_conf)
+        influxdb = InfluxdbDispatcher(self.yardstick_conf)
         flattened_data = influxdb._dict_key_flatten(
             self.data3['benchmark']['data'])
         result = ",".join(
@@ -126,15 +126,15 @@ class InfluxdbDispatcherTestCase(unittest.TestCase):
         self.assertEqual(result, line)
 
     def test__get_nano_timestamp(self):
-        influxdb = InfluxdbDispatcher(None, self.yardstick_conf)
-        results = {'benchmark': {'timestamp': '1451461248.925574'}}
+        influxdb = InfluxdbDispatcher(self.yardstick_conf)
+        results = {'timestamp': '1451461248.925574'}
         self.assertEqual(influxdb._get_nano_timestamp(results),
                          '1451461248925574144')
 
     @mock.patch('yardstick.dispatcher.influxdb.time')
     def test__get_nano_timestamp_except(self, mock_time):
         results = {}
-        influxdb = InfluxdbDispatcher(None, self.yardstick_conf)
+        influxdb = InfluxdbDispatcher(self.yardstick_conf)
         mock_time.time.return_value = 1451461248.925574
         self.assertEqual(influxdb._get_nano_timestamp(results),
                          '1451461248925574144')

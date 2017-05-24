@@ -13,7 +13,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 
 import unittest
-import multiprocessing
 import time
 
 from yardstick.benchmark.runners.iteration import IterationRunner
@@ -22,8 +21,7 @@ from yardstick.benchmark.runners.iteration import IterationRunner
 class RunnerTestCase(unittest.TestCase):
 
     def test_get_output(self):
-        queue = multiprocessing.Queue()
-        runner = IterationRunner({}, queue)
+        runner = IterationRunner({})
         runner.output_queue.put({'case': 'opnfv_yardstick_tc002'})
         runner.output_queue.put({'criteria': 'PASS'})
 
