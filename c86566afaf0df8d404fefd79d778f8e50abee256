@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_34257eab",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_multi.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-05-24T04:41:55Z",
+      "side": 1,
+      "message": "yardstick/benchmark/scenarios/availability/monitor/monitor_multi.py:45:55: E231 missing whitespace after \u0027,\u0027\nyardstick/benchmark/scenarios/availability/monitor/monitor_multi.py:46:53: E231 missing whitespace after \u0027,\u0027",
+      "range": {
+        "startLine": 45,
+        "startChar": 7,
+        "endLine": 46,
+        "endChar": 55
+      },
+      "revId": "c86566afaf0df8d404fefd79d778f8e50abee256",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
