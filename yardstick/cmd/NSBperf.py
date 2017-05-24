@@ -158,7 +158,7 @@ class YardstickNSCli(object):
                 testcases = os.listdir(test_path + vnf)
                 print(("VNF :(%s)" % vnf))
                 print("================")
-                for testcase in [tc for tc in testcases if "tc" in tc]:
+                for testcase in [tc for tc in testcases if "tc_" in tc]:
                     print('%s' % testcase)
                 print(os.linesep)
             raise SystemExit(0)
