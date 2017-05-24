@@ -41,8 +41,9 @@ class MultiMonitor(basemonitor.BaseMonitor):
             monitor.wait_monitor()
 
     def verify_SLA(self):
-        first_outage = time.time()
-        last_outage = 0
+        multi_result = self.monitors[0].result()
+        first_outage = multi_result.get('first_outage',time.time())
+        last_outage = multi_result.get('last_outage',0)
 
         for monitor in self.monitors:
             monitor_result = monitor.result()
@@ -59,10 +60,7 @@ class MultiMonitor(basemonitor.BaseMonitor):
                 last_outage = monitor_last_outage
         LOG.debug("multi monitor result: %f , %f", first_outage, last_outage)
 
-        outage_time = last_outage - first_outage
-        max_outage_time = self._config["sla"]["max_outage_time"]
-        if outage_time > max_outage_time:
-            LOG.error("SLA failure: %f > %f", outage_time, max_outage_time)
-            return False
-        else:
-            return True
+        multi_result['first_outage'] = first_outage
+        multi_result['last_outage'] = last_outage
+		  self.monitors[0].setResult(multi_result)
+        return self.monitors[0].verify_SLA()
