@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_d4250a0b",
+        "filename": "docker/Dockerfile.aarch64",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-05-24T14:10:13Z",
+      "side": 1,
+      "message": "2017",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "81b1bab1a26c2b67060f692d1b1671114a1afd23",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_f4228600",
+        "filename": "docker/Dockerfile.aarch64",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-05-24T14:10:13Z",
+      "side": 1,
+      "message": "to be updated to mainline yardstick when ready, this probably means this patch depends on others",
+      "range": {
+        "startLine": 33,
+        "startChar": 54,
+        "endLine": 33,
+        "endChar": 63
+      },
+      "revId": "81b1bab1a26c2b67060f692d1b1671114a1afd23",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_941f92b7",
+        "filename": "docker/Dockerfile.aarch64",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-05-24T14:10:13Z",
+      "side": 1,
+      "message": "Overall, this Dockerfile looks very similar to the x86 Dockerfile. Would it be easier to go with the Dockerfile.aarch64.patch approach instead?",
+      "revId": "81b1bab1a26c2b67060f692d1b1671114a1afd23",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_54791afb",
+        "filename": "install.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-05-24T14:10:13Z",
+      "side": 1,
+      "message": "Let\u0027s make the variable name more explicit, e.g. UBUNTU_PORTS_URL, UBUNTU_ARCHIVE_URL",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 8
+      },
+      "revId": "81b1bab1a26c2b67060f692d1b1671114a1afd23",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_1483a2cd",
+        "filename": "install.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-05-24T14:10:13Z",
+      "side": 1,
+      "message": "I think this can be compacted a bit, but I don\u0027t have any suggestions on how to do it right now ...",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 2
+      },
+      "revId": "81b1bab1a26c2b67060f692d1b1671114a1afd23",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_34881ee7",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-05-24T14:10:13Z",
+      "side": 1,
+      "message": "whitespace",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 8
+      },
+      "revId": "81b1bab1a26c2b67060f692d1b1671114a1afd23",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_d46c2a39",
+        "filename": "tools/ubuntu-server-cloudimg-modify.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-05-24T14:10:13Z",
+      "side": 1,
+      "message": "After removing the arch qualification, will this still work for x86 Docker and aarch64 POD?",
+      "revId": "81b1bab1a26c2b67060f692d1b1671114a1afd23",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
