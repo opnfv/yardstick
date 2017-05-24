@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5aaae553_b4b5ee32",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_multi.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2017-05-24T06:46:34Z",
+      "side": 1,
+      "message": "Assume that one of monitors(Monitor A) check the outage time, another monitor(Monitor B) didn\u0027t check the outage time. the monitor_first_outage(Monitor B) time will become zero. then, as your code, the first_outage will become zero. but I believe that is not what you want.",
+      "range": {
+        "startLine": 56,
+        "startChar": 11,
+        "endLine": 57,
+        "endChar": 51
+      },
+      "revId": "dba19dbc77d23d68e899cd7a18c41f1f8f726106",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_f4ab66d4",
         "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_multi.py",
         "patchSetId": 3
