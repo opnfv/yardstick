@@ -17,6 +17,10 @@ from __future__ import absolute_import
 from __future__ import division
 import logging
 
+from stl.trex_stl_lib.trex_stl_client import STLStream
+from stl.trex_stl_lib.trex_stl_streams import STLFlowLatencyStats
+from stl.trex_stl_lib.trex_stl_streams import STLTXCont
+
 from yardstick.network_services.traffic_profile.traffic_profile \
     import TrexProfile
 
@@ -110,3 +114,46 @@ class RFC2544Profile(TrexProfile):
                                        mult=self.get_multiplier(),
                                        duration=30, force=True)
         return samples
+
+    def execute_latency(self, traffic_generator, samples):
+        self.pps, multiplier = self.calculate_pps(samples)
+        self.ports = []
+        self.pg_id = self.params['traffic_profile'].get('pg_id', 1)
+        for index, priv_port in enumerate(traffic_generator.priv_ports):
+            self.profile_data = \
+                self.params.get('private_%s' % str(index + 1), '')
+            self.ports.append(traffic_generator.priv_ports[index])
+            privports = traffic_generator.priv_ports[index]
+            traffic_generator.client.add_streams(self.get_streams(),
+                                                 ports=privports)
+            profile_data = \
+                self.params.get('public_%s' % str(index + 1), '')
+            if profile_data:
+                self.profile_data = profile_data
+                self.ports.append(traffic_generator.pub_ports[index])
+                pubports = traffic_generator.pub_ports[index]
+                traffic_generator.client.add_streams(self.get_streams(),
+                                                     ports=pubports)
+        traffic_generator.client.start(mult=str(multiplier),
+                                       ports=self.ports,
+                                       duration=120, force=True)
+        self.first_run = False
+        self.traffic_gen = None
+
+    def calculate_pps(self, samples):
+        pps = round(samples['Throughput'] / 2, 2)
+        multiplier = round(self.rate / self.pps, 2)
+        return [pps, multiplier]
+
+    def create_single_stream(self, packet_size, pps, isg=0):
+        packet = self.create_single_packet(packet_size)
+        if self.pg_id:
+            LOGGING.debug("pg_id: %s", self.pg_id)
+            stream = STLStream(
+                isg=isg, packet=packet, mode=STLTXCont(pps=self.pps),
+                flow_stats=STLFlowLatencyStats(pg_id=self.pg_id))
+            self.pg_id += 1
+        else:
+            stream = STLStream(
+                isg=isg, packet=packet, mode=STLTXCont(pps=self.pps))
+        return stream
