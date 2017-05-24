@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_f41cc615",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_multi.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-05-24T09:25:17Z",
+      "side": 1,
+      "message": "I think the way to force update first outage_time when first_outage equals zero is very easy to understand\n\nyou can trry to use the code below:\n\nfirst_outage \u003d time.time()\nlast_outage \u003d 0\n\nfor monitor in self.monitors:\n    monitor_result \u003d monitor.result()\n    monitor_first_outage \u003d monitor_result.get(\u0027first_outage\u0027, 0)\n    monitor_last_outage \u003d monitor_result.get(\u0027last_outage\u0027, 0)\n\n    if monitor_first_outage \u003d\u003d 0 or monitor_last_outage \u003d\u003d 0:\n        continue\n\n    if monitor_first_outage \u003c first_outage:\n        first_outage \u003d monitor_first_outage\n\n    if monitor_last_outage \u003e last_outage:\n        last_outage \u003d monitor_last_outage\n\noutage_time \u003d last_outage - first_outage if last_outage \u003e first_outage else 0\n\nLOG.debug(\"outage_time is: %f\", outage_time)",
+      "range": {
+        "startLine": 43,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 48
+      },
+      "revId": "5e7fcead44c35b44a6df0540241619b472af92a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
