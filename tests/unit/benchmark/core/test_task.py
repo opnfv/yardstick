@@ -64,6 +64,7 @@ class TaskTestCase(unittest.TestCase):
         t = task.Task()
         runner = mock.Mock()
         runner.join.return_value = 0
+        runner.get_result.return_value = []
         mock_base_runner.Runner.get.return_value = runner
         t._run([scenario], False, "yardstick.out")
         self.assertTrue(runner.run.called)

@@ -29,18 +29,10 @@ class FileDispatcher(DispatchBase):
 
     __dispatcher_type__ = "File"
 
-    def __init__(self, conf, config):
+    def __init__(self, conf):
         super(FileDispatcher, self).__init__(conf)
-        self.result = []
+        self.target = conf['dispatcher_file'].get('file_path',
+                                                  consts.DEFAULT_OUTPUT_FILE)
 
-    def record_result_data(self, data):
-        self.result.append(data)
-
-    def flush_result_data(self):
-        file_path = self.conf.get('file_path', consts.DEFAULT_OUTPUT_FILE)
-
-        res = utils.read_json_from_file(file_path).get('result')
-        res.extend(self.result)
-
-        data = {'status': 0, 'result': res}
-        utils.write_json_to_file(file_path, data)
+    def flush_result_data(self, data):
+        utils.write_json_to_file(self.target, data)
