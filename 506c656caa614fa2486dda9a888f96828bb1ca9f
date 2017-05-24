@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_14dde242",
+        "filename": "api/resources/results.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-05-24T09:23:14Z",
+      "side": 1,
+      "message": "2 means error. yes, use a constant is better.",
+      "parentUuid": "5aaae553_f4d92684",
+      "revId": "506c656caa614fa2486dda9a888f96828bb1ca9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_94e6b243",
         "filename": "api/resources/results.py",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2017-05-24T07:35:46Z",
       "side": 1,
       "message": "sometimes we can use set operations, like set difference.\n\n  keys \u003d set(data.keys()) - blacklist\n  for k in keys:\n    result[\u0027data\u0027][k] \u003d data[v]",
+      "revId": "506c656caa614fa2486dda9a888f96828bb1ca9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_94f0f2ca",
+        "filename": "api/resources/results.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-05-24T09:23:14Z",
+      "side": 1,
+      "message": "set is a good idea!",
+      "parentUuid": "5aaae553_54d03a53",
       "revId": "506c656caa614fa2486dda9a888f96828bb1ca9f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
