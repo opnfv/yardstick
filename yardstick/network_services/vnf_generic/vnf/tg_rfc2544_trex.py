@@ -35,6 +35,7 @@ DURATION = 30
 WAIT_TIME = 3
 TREX_SYNC_PORT = 4500
 TREX_ASYNC_PORT = 4501
+LATENCY_TIME_SLEEP = 120
 
 
 class TrexTrafficGenRFC(GenericTrafficGen):
@@ -54,6 +55,7 @@ class TrexTrafficGenRFC(GenericTrafficGen):
         self.tc_file_name = None
         self.client = None
         self.my_ports = None
+        self.iteration = multiprocessing.Value('i', 0)
 
         mgmt_interface = self.vnfd["mgmt-interface"]
 
@@ -117,6 +119,7 @@ class TrexTrafficGenRFC(GenericTrafficGen):
     def instantiate(self, scenario_cfg, context_cfg):
         self._generate_trex_cfg(self.vnfd)
         self.tc_file_name = '{0}.yaml'.format(scenario_cfg['tc'])
+        self.nodes = scenario_cfg['nodes']
         trex = os.path.join(self.bin_path, "trex")
         err, _, _ = \
             self.connection.execute("ls {} >/dev/null 2>&1".format(trex))
@@ -155,7 +158,8 @@ class TrexTrafficGenRFC(GenericTrafficGen):
         self._traffic_process = \
             multiprocessing.Process(target=self._traffic_runner,
                                     args=(traffic_profile, self._queue,
-                                          client_started, self._terminated))
+                                          client_started, self._terminated,
+                                          self.iteration))
         self._traffic_process.start()
         # Wait for traffic process to start
         while client_started.value == 0:
@@ -212,8 +216,16 @@ class TrexTrafficGenRFC(GenericTrafficGen):
 
         return [min_tol, max_tol]
 
+    @classmethod
+    def _get_rfc_latency(cls, tc_yaml):
+        latency = False
+        if 'tc_options' in tc_yaml['scenarios'][0]:
+            tc_options = tc_yaml['scenarios'][0]['tc_options']
+            latency = tc_options.get("latency", False)
+        return latency
+
     def _traffic_runner(self, traffic_profile, queue,
-                        client_started, terminated):
+                        client_started, terminated, iteration):
         LOGGING.info("Starting TRex client...")
         tc_yaml = {}
 
@@ -221,6 +233,7 @@ class TrexTrafficGenRFC(GenericTrafficGen):
             tc_yaml = yaml.load(tc_file.read())
 
         tolerance = self._get_rfc_tolerance(tc_yaml)
+        latency = self._get_rfc_latency(tc_yaml)
 
         # fixme: fix passing correct trex config file,
         # instead of searching the default path
@@ -266,11 +279,55 @@ class TrexTrafficGenRFC(GenericTrafficGen):
                 traffic_profile.get_drop_percentage(self, samples,
                                                     tolerance[0], tolerance[1])
             queue.put(samples)
+            if latency and iteration.value > 10:
+                self.client.stop(self.my_ports)
+                self.client.reset(ports=self.my_ports)
+                self.client.remove_all_streams(self.my_ports)
+                traffic_profile.execute_latency(self, samples)
+                multiplier = traffic_profile.calculate_pps(samples)[1]
+                for _ in range(5):
+                    time.sleep(LATENCY_TIME_SLEEP)
+                    self.client.stop(self.my_ports)
+                    time.sleep(WAIT_TIME)
+                    last_res = self.client.get_stats(self.my_ports)
+                    samples = {}
+                    for vpci_idx in range(len(self._vpci_ascending)):
+                        name = \
+                            self._get_logical_if_name(
+                                self._vpci_ascending[vpci_idx])
+                        # fixme: VNFDs KPIs values needs to be mapped to TRex
+                        if not isinstance(last_res, dict):
+                            terminated.value = 1
+                            last_res = {}
+
+                        samples[name] = \
+                            {"rx_throughput_fps":
+                             float(last_res.get(vpci_idx, {}).get("rx_pps",
+                                                                  0.0)),
+                             "tx_throughput_fps":
+                             float(last_res.get(vpci_idx, {}).get("tx_pps",
+                                                                  0.0)),
+                             "rx_throughput_mbps":
+                             float(last_res.get(vpci_idx, {}).get("rx_bps",
+                                                                  0.0)),
+                             "tx_throughput_mbps":
+                             float(last_res.get(vpci_idx, {}).get("tx_bps",
+                                                                  0.0)),
+                             "in_packets":
+                             last_res.get(vpci_idx, {}).get("ipackets", 0),
+                             "out_packets":
+                             last_res.get(vpci_idx, {}).get("opackets", 0),
+                             "latency": last_res.get('latency', {})}
+                    queue.put(samples)
+                    self.client.start(mult=str(multiplier),
+                                      ports=self.my_ports,
+                                      duration=120, force=True)
         self.client.stop(self.my_ports)
         self.client.disconnect()
         queue.put(samples)
 
     def collect_kpi(self):
+        self.iteration.value += 1
         if not self._queue.empty():
             result = self._queue.get()
             self._result.update(result)
