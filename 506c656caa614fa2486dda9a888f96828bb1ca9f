@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_f4d92684",
+        "filename": "api/resources/results.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-24T07:35:46Z",
+      "side": 1,
+      "message": "what does status 2 mean?  can we use a constant?",
+      "revId": "506c656caa614fa2486dda9a888f96828bb1ca9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_94e6b243",
+        "filename": "api/resources/results.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-24T07:35:46Z",
+      "side": 1,
+      "message": "can we use a set?\n\n  blacklist \u003d {\u0027criteria\u0027, \u0027deploy_scenario\u0027, \u0027host\u0027, \u0027installer\u0027,\n                 \u0027pod_name\u0027, \u0027runner_id\u0027, \u0027scenarios\u0027, \u0027target\u0027,\n                 \u0027task_id\u0027, \u0027time\u0027, \u0027version\u0027}\n\nthen we can do set difference to find keys not in the blacklist.",
+      "revId": "506c656caa614fa2486dda9a888f96828bb1ca9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_54d03a53",
+        "filename": "api/resources/results.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-24T07:35:46Z",
+      "side": 1,
+      "message": "sometimes we can use set operations, like set difference.\n\n  keys \u003d set(data.keys()) - blacklist\n  for k in keys:\n    result[\u0027data\u0027][k] \u003d data[v]",
+      "revId": "506c656caa614fa2486dda9a888f96828bb1ca9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_14cac2a1",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-24T07:35:46Z",
+      "side": 1,
+      "message": "maybe we can use any() predicate and iterate over testcases.values()\n\n  fail \u003d any(testcase.get(\u0027criteria\u0027) !\u003d \u0027PASS\u0027 for testcase in testcases.values())\n  if fail:\n     return \u0027FAIL\u0027\n  else:\n     return \u0027PASS\u0027",
+      "revId": "506c656caa614fa2486dda9a888f96828bb1ca9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
