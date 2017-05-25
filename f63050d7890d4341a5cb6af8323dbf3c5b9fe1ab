@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_111def0f",
+        "filename": "install.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-05-25T23:27:08Z",
+      "side": 1,
+      "message": "Armband currently has only ARMv8 targets, which are reported by $(uname -m) as \"aarch64\"",
+      "range": {
+        "startLine": 27,
+        "startChar": 21,
+        "endLine": 27,
+        "endChar": 24
+      },
+      "revId": "f63050d7890d4341a5cb6af8323dbf3c5b9fe1ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
