@@ -1,0 +1,185 @@
+#!/bin/bash
+
+##############################################################################
+# Copyright (c) 2015 Ericsson AB and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+# yardstick-img-modify - download and modify a Ubuntu cloud image
+#
+# The actual customization is done by a script passed with an absolute path as
+# the only single argument. The command needs to be invoked as sudo
+#
+# Example invocation:
+# yardstick-img-modify /home/yardstick/tools/ubuntu-server-cloudimg-modify.sh
+#
+# Warning: the script will create files by default in:
+#   /tmp/workspace/yardstick
+# the files will be owned by root!
+#
+# TODO: image resize is needed if the base image is too small
+#
+set -e
+set -x
+
+die() {
+    echo "error: $1" >&2
+    exit 1
+}
+
+test $# -eq 1 -o $# -eq 2 || die "no image specific script as argument"
+test $(id -u) -eq 0 || die "should invoke using sudo"
+
+cmd=$1
+RELEASE=$2
+test -x $cmd
+mountdir="/mnt/yardstick"
+workspace=${WORKSPACE:-"/tmp/workspace/yardstick"}
+host=${HOST:-"cloud-images.ubuntu.com"}
+release=${RELEASE:-"xenial"}
+YARD_IMG_ARCH="amd64"
+boot_mode="disk1"
+if [[ "${YARD_IMG_ARCH}" = "arm64" ]]; then
+    boot_mode="uefi1"
+fi
+
+image_path="${release}/current/${release}-server-cloudimg-${YARD_IMG_ARCH}-${boot_mode}.img"
+image_url=${IMAGE_URL:-"https://${host}/${image_path}"}
+sha256sums_path="${release}/current/SHA256SUMS"
+sha256sums_url=${SHA256SUMS_URL:-"https://${host}/${sha256sums_path}"}
+
+imgfile="${workspace}/yardstick-vsperf-image.img"
+raw_imgfile_basename="yardstick-${release}-server.raw"
+raw_imgfile="${workspace}/${raw_imgfile_basename}"
+filename=$(basename $image_url)
+
+apt-get install -y parted
+
+# download and checksum base image, conditionally if local copy is outdated
+download() {
+    test -d $workspace || mkdir -p $workspace
+    cd $workspace
+    rm -f SHA256SUMS # always download the checksum file to a detect stale image
+    wget $sha256sums_url
+    test -e $filename || wget -nc --progress=dot:giga $image_url
+    grep $filename SHA256SUMS | sha256sum -c ||
+    if [ $? -ne 0 ]; then
+        rm $filename
+        wget -nc --progress=dot:giga $image_url
+        grep $filename SHA256SUMS | sha256sum -c
+    fi
+
+    for i in $(seq 0 9); do
+        [ -a /dev/loop$i ] || mknod -m 660 /dev/loop$i b 7 $i
+    done
+
+    qemu-img convert $filename $raw_imgfile
+    cd -
+}
+
+# mount image
+setup() {
+    # qemu-img resize $raw_imgfile +5GB
+    mkdir -p $mountdir
+
+    loopdevice=$(kpartx -l $raw_imgfile | head -1 | cut -f1 -d ' ')
+
+    kpartx -av $raw_imgfile
+
+    # for trouble shooting
+    sleep 2
+    dmsetup ls
+    parted -l /dev/${loopdevice:0:5} || true
+    mount /dev/mapper/$loopdevice $mountdir
+    mount -t proc none $mountdir/proc
+
+    cp $cmd $mountdir/$(basename $cmd)
+    if [ "${YARD_IMG_ARCH}" = "arm64" ]; then
+        cp /usr/bin/qemu-aarch64-static $mountdir/usr/bin
+    fi
+}
+
+# modify image running a script using in a chrooted environment
+modify() {
+    # resolv.conf does not exist in base image, pass nameserver value from host
+    nameserver_ip=$(grep -m 1 '^nameserver' \
+        /etc/resolv.conf | awk '{ print $2 '})
+
+    # prevent init scripts from running during install
+    echo $'#!/bin/sh\nexit 101' >$mountdir/usr/sbin/policy-rc.d
+    chmod a+x $mountdir/usr/sbin/policy-rc.d
+
+    chroot $mountdir /$(basename $cmd) $nameserver_ip
+
+    rm -rf $mountdir/usr/sbin/policy-rc.d
+
+    umount -f $mountdir/proc
+    umount $mountdir
+
+    qemu-img convert -c -o compat=0.10 -O qcow2 $raw_imgfile $imgfile
+
+    if dmsetup table | grep $loopdevice; then
+       dmsetup clear $loopdevice || true
+    fi
+}
+
+# cleanup (umount) the image
+cleanup() {
+    # designed to be idempotent
+    mount | grep $mountdir/proc && umount $mountdir/proc
+    mount | grep $mountdir && umount $mountdir
+    mount | grep "/mnt/${release}" && umount "/mnt/${release}"
+
+    if [ -f "${raw_imgfile}" ]; then
+        #kpartx -dv $raw_imgfile sometimes failed, we should checked it agein.
+        #if [ -z "$(kpartx -l $raw_imgfile | grep 'loop deleted')" ]; then
+        #    kpartx -dv $raw_imgfile
+        #fi
+        kpartx -dv $raw_imgfile || true
+    fi
+
+    rm -f $raw_imgfile
+    rm -rf $mountdir
+}
+
+exitcode=""
+error_trap()
+{
+    local rc=$?
+
+    set +e
+
+    if [ -z "$exitcode" ]; then
+        exitcode=$rc
+    fi
+
+    dmesg -T | tail -50
+
+    cleanup
+
+    echo "Image build failed with $exitcode"
+
+    exit $exitcode
+}
+
+main() {
+    cleanup
+
+    trap "error_trap" EXIT SIGTERM
+
+    download
+    setup
+    modify
+
+    trap - EXIT SIGTERM
+    cleanup
+
+    echo "the modified image is found here: $imgfile"
+}
+
+main
+
