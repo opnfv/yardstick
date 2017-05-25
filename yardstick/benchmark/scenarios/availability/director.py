@@ -24,7 +24,7 @@ LOG = logging.getLogger(__name__)
 class Director(object):
     """
     Director is used to direct a test scenaio
-    including the creation of  action players, test result verification
+    including the creation of action players, test result verification
     and rollback of actions.
     """
 
@@ -33,6 +33,7 @@ class Director(object):
         # A stack store Rollbacker that will be called after
         # all actionplayers finish.
         self.executionSteps = []
+        self.data = {}
 
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
@@ -42,12 +43,14 @@ class Director(object):
             LOG.debug("start init attackers...")
             attacker_cfgs = self.scenario_cfg["options"]["attackers"]
             self.attackerMgr = baseattacker.AttackerMgr()
-            self.attackerMgr.init_attackers(attacker_cfgs, nodes)
+            self.data = self.attackerMgr.init_attackers(attacker_cfgs,
+                                                           nodes)
+
         # setup monitors
         if "monitors" in self.scenario_cfg["options"]:
             LOG.debug("start init monitors...")
             monitor_cfgs = self.scenario_cfg["options"]["monitors"]
-            self.monitorMgr = basemonitor.MonitorMgr()
+            self.monitorMgr = basemonitor.MonitorMgr(self.data)
             self.monitorMgr.init_monitors(monitor_cfgs, nodes)
         # setup operations
         if "operations" in self.scenario_cfg["options"]:
