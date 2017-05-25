@@ -32,7 +32,7 @@ LOG = logging.getLogger(__name__)
 
 
 def _worker_process(queue, cls, method_name, scenario_cfg,
-                    context_cfg, aborted):
+                    context_cfg, aborted, output_queue):
 
     sequence = 1
 
@@ -73,7 +73,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
             errors = ""
 
             try:
-                method(data)
+                result = method(data)
             except AssertionError as assertion:
                 # SLA validation failed in scenario, determine what to do now
                 if sla_action == "assert":
@@ -88,6 +88,9 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
             except Exception as e:
                 errors = traceback.format_exc()
                 LOG.exception(e)
+            else:
+                if result:
+                    output_queue.put(result)
 
             time.sleep(interval)
 
@@ -138,5 +141,5 @@ If the scenario ends before the time has elapsed, it will be started again.
         self.process = multiprocessing.Process(
             target=_worker_process,
             args=(self.result_queue, cls, method, scenario_cfg,
-                  context_cfg, self.aborted))
+                  context_cfg, self.aborted, self.output_queue))
         self.process.start()
