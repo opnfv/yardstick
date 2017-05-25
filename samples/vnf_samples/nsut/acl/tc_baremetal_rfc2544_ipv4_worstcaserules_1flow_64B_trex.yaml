@@ -17,7 +17,7 @@ schema: yardstick:task:0.1
 scenarios:
 - type: NSPerf
   traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
-  topology: vfw-tg-topology.yaml
+  topology: acl-tg-topology.yaml
   nodes:
     tg__1: trafficgen_1.yardstick
     vnf__1: vnf.yardstick
@@ -30,8 +30,8 @@ scenarios:
       rules: acl_1rule.yaml
       vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
   runner:
-    type: Duration
-    duration: 400
+    type: Iteration
+    iterations: 10
     interval: 35
   traffic_options:
     flow: ../../traffic_profiles/ipv4_1flow_Packets.yaml
