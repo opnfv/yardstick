@@ -15,6 +15,7 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+import tempfile
 import logging
 import os
 import os.path
@@ -31,6 +32,12 @@ LOG = logging.getLogger(__name__)
 CONF = cfg.CONF
 ZMQ_OVS_PORT = 5567
 ZMQ_POLLING_TIME = 12000
+LIST_PLUGINS_ENABLED = ["amqp", "cpu", "cpufreq", "intel_rdt", "memory",
+                        "hugepages", "dpdkstat"]
+
+STANDALONE_PLUGINS_OVS = ["virt", "ovs_stats"]
+STANDALONE_PLUGINS_SRIOV = ["virt"]
+MANAGED_DEPLOY_PLUGIN = ["ceilometer"]
 
 
 class ResourceProfile(object):
@@ -38,12 +45,14 @@ class ResourceProfile(object):
     This profile adds a resource at the beginning of the test session
     """
 
-    def __init__(self, vnfd, cores):
+    def __init__(self, vnfd, cores, nfvi_type="baremetal"):
         self.enable = True
         self.connection = None
         self.cores = cores
         self._queue = multiprocessing.Queue()
         self.amqp_client = None
+        self.nfvi_type = nfvi_type
+        self.vnfd = vnfd
 
         mgmt_interface = vnfd.get("mgmt-interface")
         # why the host or ip?
@@ -156,13 +165,50 @@ class ResourceProfile(object):
         msg = self.parse_collectd_result(metric, self.cores)
         return msg
 
-    @classmethod
-    def _start_collectd(cls, connection, bin_path):
+    def _provide_config_file(self, bin_path, nfvi_cfg, vars):
+        template = ""
+        with open(os.path.join(bin_path, nfvi_cfg), 'r') as cfg:
+            template = cfg.read()
+        cfg, cfg_content = tempfile.mkstemp()
+        cfg = os.fdopen(cfg, "w+")
+        cfg.write(template.format(**vars))
+        cfg.close()
+        cfg_file = os.path.join(bin_path, nfvi_cfg)
+        self.connection.put(cfg_content, cfg_file)
+
+    def _prepare_collectd_conf(self, bin_path):
+        """ Prepare collectd conf based on the nfvi_type """
+        loadplugin = ""
+        ENABLE_PLUGIN = LIST_PLUGINS_ENABLED
+        if self.nfvi_type in ["ovs", "ovs_dpdk"]:
+            ENABLE_PLUGIN += STANDALONE_PLUGINS_OVS
+        elif self.nfvi_type in ['sriov']:
+            ENABLE_PLUGIN += STANDALONE_PLUGINS_SRIOV
+        elif self.nfvi_type in ['managed-sriov']:
+            ENABLE_PLUGIN += MANAGED_DEPLOY_PLUGIN + STANDALONE_PLUGINS_SRIOV
+        elif self.nfvi_type in ['managed-ovs', 'managed-ovs_dpdk']:
+            ENABLE_PLUGIN += MANAGED_DEPLOY_PLUGIN + STANDALONE_PLUGINS_OVS
+
+        for plugin in ENABLE_PLUGIN:
+            loadplugin += "LoadPlugin %s\n" % plugin
+
+        interfaces = self.vnfd["vdu"][0]['external-interface']
+        intrf = ""
+        for interface in interfaces:
+            intrf += "PortName '%s'\n" % interface["name"]
+
+        args = {"interval": '25',
+                "loadplugin": loadplugin,
+                "dpdk_interface": intrf}
+
+        self._provide_config_file(bin_path, 'collectd.conf', args)
+
+    def _start_collectd(self, connection, bin_path):
         LOG.debug("Starting collectd to collect NFVi stats")
         connection.execute('sudo pkill -9 collectd')
         collectd = os.path.join(bin_path, "collectd.sh")
         provision_tool(connection, collectd)
-        provision_tool(connection, os.path.join(bin_path, "collectd.conf"))
+        self._prepare_collectd_conf(bin_path)
 
         # Reset amqp queue
         LOG.debug("reset and setup amqp to collect data from collectd")

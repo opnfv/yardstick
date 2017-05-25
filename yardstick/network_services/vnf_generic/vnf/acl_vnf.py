@@ -109,6 +109,16 @@ class AclApproxVnf(GenericVNF):
     def deploy_acl_vnf(self):
         self.deploy.deploy_vnfs("vACL")
 
+    def get_nfvi_type(self, scenario_cfg):
+        tc_data = None
+        tc_file = '%s.yaml' % scenario_cfg['tc']
+
+        with open(tc_file) as tfh:
+            tc_data = yaml.safe_load(tfh)
+
+        nfvi_type = tc_data['context'].get('nfvi_type', 'baremetal')
+        return nfvi_type
+
     def instantiate(self, scenario_cfg, context_cfg):
         cores = ["0", "1", "2", "3", "4"]
         self.vnf_cfg = scenario_cfg['vnf_options']['acl']['cfg']
@@ -122,7 +132,8 @@ class AclApproxVnf(GenericVNF):
 
         self.setup_vnf_environment(self.connection)
 
-        self.resource = ResourceProfile(self.vnfd, cores)
+        self.nfvi_type = self.get_nfvi_type(scenario_cfg)
+        self.resource = ResourceProfile(self.vnfd, cores, self.nfvi_type)
 
         self.connection.execute("pkill vACL")
         self.dpdk_nic_bind = \

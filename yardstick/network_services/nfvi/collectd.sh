@@ -74,7 +74,6 @@ else
     rm -rf "$INSTALL_NSB_BIN"/dpdk >/dev/null
     git clone http://dpdk.org/git/dpdk
     pushd dpdk
-    git checkout tags/v16.04 -b v16.04
     mkdir -p /mnt/huge
     mount -t hugetlbfs nodev /mnt/huge
     sed -i 's/CONFIG_RTE_BUILD_SHARED_LIB=n/CONFIG_RTE_BUILD_SHARED_LIB=y/g' config/common_base
@@ -97,7 +96,7 @@ else
 fi
 
 which $INSTALL_NSB_BIN/yajl > /dev/null
-if [ $? -eq 0 ]
+if [ -f "/usr/local/lib/libyajl.so.2.1.1" ]
 then
 								echo "ovs stats libs already installed."
 else
@@ -126,7 +125,7 @@ else
     git clone https://github.com/collectd/collectd.git
     pushd collectd
     git stash
-    git revert -n cdb49f39d11028bd99a0e4b0aa02d3ac956982fe
+    git checkout -n nfvi 47c86ace348a1d7a5352a83d10935209f89aa4f5
     ./build.sh
     ./configure --with-libpqos=/usr/ --with-libdpdk=/usr --with-libyajl=/usr/local --enable-debug --enable-dpdkstat --enable-virt --enable-ovs_stats
     make install > /dev/null
