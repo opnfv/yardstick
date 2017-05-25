@@ -42,7 +42,7 @@ class MultiMonitorServiceTestCase(unittest.TestCase):
         }
 
     def test__monitor_multi_all_successful(self, mock_open, mock_ssh):
-        ins = monitor_multi.MultiMonitor(self.monitor_cfg, self.context)
+        ins = monitor_multi.MultiMonitor(self.monitor_cfg, self.contexti, {"process_num": 10})
 
         mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
 
@@ -51,7 +51,7 @@ class MultiMonitorServiceTestCase(unittest.TestCase):
         ins.verify_SLA()
 
     def test__monitor_multi_all_fail(self, mock_open, mock_ssh):
-        ins = monitor_multi.MultiMonitor(self.monitor_cfg, self.context)
+        ins = monitor_multi.MultiMonitor(self.monitor_cfg, self.context, {"process_num": 10})
 
         mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
 

@@ -47,7 +47,7 @@ class ServiceHA(base.Scenario):
 
         monitor_cfgs = self.scenario_cfg["options"]["monitors"]
 
-        self.monitorMgr = basemonitor.MonitorMgr()
+        self.monitorMgr = basemonitor.MonitorMgr(attacker_ins.data)
         self.monitorMgr.init_monitors(monitor_cfgs, nodes)
 
         self.setup_done = True

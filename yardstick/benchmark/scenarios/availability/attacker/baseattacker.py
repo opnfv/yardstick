@@ -57,6 +57,7 @@ class BaseAttacker(object):
 
         self._config = config
         self._context = context
+        self.data = {}
         self.setup_done = False
 
     @staticmethod
