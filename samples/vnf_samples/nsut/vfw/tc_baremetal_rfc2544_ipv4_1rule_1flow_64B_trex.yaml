@@ -28,9 +28,11 @@ scenarios:
     vfw:
       rules: acl_1rule.yaml
       cfg: vfw_config
+  options:
+    packetsize: 64
   runner:
-    type: Duration
-    duration: 400
+    type: Iteration
+    iterations: 10
     interval: 35
   traffic_options:
     flow: ../../traffic_profiles/ipv4_1flow_Packets.yaml
