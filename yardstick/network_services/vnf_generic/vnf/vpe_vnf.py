@@ -307,7 +307,7 @@ class VpeApproxVnf(GenericVNF):
             '/sys/kernel/mm/hugepages/hugepages-%s/nr_hugepages' % hugepages
         connection.execute("awk -F: '{ print $1 }' < %s" % memory_path)
 
-        pages = 4096 if hugepages.rstrip() == "2048kB" else 4
+        pages = 16384 if hugepages.rstrip() == "2048kB" else 16
         connection.execute("sudo echo %s > %s" % (pages, memory_path))
 
     def setup_vnf_environment(self, connection):
@@ -371,7 +371,7 @@ class VpeApproxVnf(GenericVNF):
         self.topology = os.path.abspath(scenario_cfg['topology'])
 
         cores = self._get_cpu_sibling_list()
-        self.resource = ResourceProfile(self.vnfd, cores)
+        self.resource = ResourceProfile(self.vnfd, cores, self.nfvi_type)
 
         self.connection.execute("sudo pkill vPE_vnf")
         dpdk_nic_bind = \

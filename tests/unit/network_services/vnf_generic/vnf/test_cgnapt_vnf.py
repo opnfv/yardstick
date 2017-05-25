@@ -364,7 +364,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             cgnapt_approx_vnf = CgnaptApproxVnf(vnfd)
             self.scenario_cfg['vnf_options'] = {'cgnapt': {'cfg': "",
-                                                           'rules': ""}}
+                                                'rules': ""}}
             cgnapt_approx_vnf._run_vcgnapt = mock.Mock(return_value=0)
             cgnapt_approx_vnf._parse_rule_file = mock.Mock(return_value={})
             cgnapt_approx_vnf._resource_collect_start = \
@@ -372,6 +372,8 @@ class TestCgnaptApproxVnf(unittest.TestCase):
             cgnapt_approx_vnf.deploy_cgnapt_vnf = mock.Mock(return_value=0)
             cgnapt_approx_vnf.q_out.put("pipeline>")
             cgnapt_vnf.WAIT_TIME = 3
+            cgnapt_approx_vnf.get_nfvi_type = \
+                mock.Mock(return_value="baremetal")
             self.assertIsNone(cgnapt_approx_vnf.instantiate(self.scenario_cfg,
                               self.context_cfg))
 
@@ -385,14 +387,22 @@ class TestCgnaptApproxVnf(unittest.TestCase):
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             cgnapt_approx_vnf = CgnaptApproxVnf(vnfd)
             self.scenario_cfg['vnf_options'] = {'cgnapt': {'cfg': "",
-                                                        'rules': ""}}
+                                                'rules': ""}}
             cgnapt_approx_vnf._run_vcgnapt = mock.Mock(return_value=0)
             cgnapt_approx_vnf._parse_rule_file = mock.Mock(return_value={})
             cgnapt_approx_vnf.deploy_cgnapt_vnf = mock.Mock(return_value=0)
             cgnapt_vnf.WAIT_TIME = 1
-            cgnapt_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
+            cgnapt_approx_vnf.get_nfvi_type = \
+                mock.Mock(return_value="baremetal")
             self.assertRaises(RuntimeError, cgnapt_approx_vnf.instantiate,
                               self.scenario_cfg, self.context_cfg)
+
+    def test_get_nfvi_type(self):
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        cgnapt_approx_vnf = CgnaptApproxVnf(vnfd)
+        self.scenario_cfg['tc'] = self._get_file_abspath("nsb_test_case")
+        self.assertEqual("baremetal",
+                         cgnapt_approx_vnf.get_nfvi_type(self.scenario_cfg))
 
     def test_scale(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
