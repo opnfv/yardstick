@@ -65,7 +65,9 @@ class Director(object):
             self.resultCheckerMgr = baseresultchecker.ResultCheckerMgr()
             self.resultCheckerMgr.init_ResultChecker(result_check_cfgs, nodes)
 
-    def createActionPlayer(self, type, key):
+    def createActionPlayer(self, type, key, intermediate_variables=None):
+        if intermediate_variables is None:
+            intermediate_variables = {}
         LOG.debug(
             "the type of current action is %s, the key is %s", type, key)
         if type == ActionType.ATTACKER:
@@ -76,7 +78,8 @@ class Director(object):
             return actionplayers.ResultCheckerPlayer(
                 self.resultCheckerMgr[key])
         if type == ActionType.OPERATION:
-            return actionplayers.OperationPlayer(self.operationMgr[key])
+            return actionplayers.OperationPlayer(self.operationMgr[key],
+                                                 intermediate_variables)
         LOG.debug("something run when creatactionplayer")
 
     def createActionRollbacker(self, type, key):
