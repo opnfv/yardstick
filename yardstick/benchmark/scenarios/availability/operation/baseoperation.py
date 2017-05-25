@@ -58,6 +58,7 @@ class BaseOperation(object):
         self.key = ''
         self._config = config
         self._context = context
+        self.intermediate_variables = {}
 
     @staticmethod
     def get_operation_cls(type):
