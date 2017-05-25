@@ -18,5 +18,8 @@ process_name=$1
 if [ "$process_name" = "keystone" ]; then
     killall -9 -u $process_name 
 else
-    killall -9 $process_name
+    for pid in `ps aux | grep "/usr/.*/${process_name}" | grep -v grep | grep -v /bin/sh | awk '{print $2}'`; \
+        do
+            kill -9 ${pid}
+        done
 fi
