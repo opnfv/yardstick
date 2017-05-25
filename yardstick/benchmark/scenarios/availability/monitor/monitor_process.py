@@ -35,10 +35,12 @@ class MonitorProcess(basemonitor.BaseMonitor):
             exit_status, stdout, stderr = self.connection.execute(
                 "sudo /bin/sh -s {0}".format(self.process_name),
                 stdin=stdin_file)
-        if not stdout or int(stdout) <= 0:
-            LOG.info("the process (%s) is not running!", self.process_name)
+
+        if not stdout or int(stdout) < self.monitor_data["process_num"]:
+            LOG.info("the (%s) processes are in recovery!", self.process_name)
             return False
 
+        LOG.info("the (%s) processes have been fully recovered!", self.process_name)
         return True
 
     def verify_SLA(self):
