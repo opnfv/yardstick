@@ -14,6 +14,7 @@ DOCKER_ARCH="$(uname -m)"
 UBUNTU_PORTS_URL="http://ports.ubuntu.com/ubuntu-ports/"
 UBUNTU_ARCHIVE_URL="http://archive.ubuntu.com/ubuntu/"
 
+source /etc/os-release
 source_file=/etc/apt/sources.list
 
 if [[ "${DOCKER_ARCH}" == "aarch64" ]]; then
@@ -33,18 +34,29 @@ else
 fi
 
 sed -i -e 's/^deb-src /# deb-src /g' "${source_file}"
-echo "APT::Default-Release \"trusty\";" > /etc/apt/apt.conf.d/default-distro
+
+if [ "${VERSION_CODENAME}" = "" ]; then
+    VERSION_CODENAME='trusty'
+fi
+
+echo "APT::Default-Release \""${VERSION_CODENAME}"\";" > /etc/apt/apt.conf.d/default-distro
 
 sub_source_file=/etc/apt/sources.list.d/yardstick.list
 touch "${sub_source_file}"
 
 # first add xenial repo needed for installing qemu_static_user/xenial in the container
 # then add complementary architecture repositories in case the cloud image is of different arch
-echo -e "deb [arch="${DOCKER_ARCH}"] "${DOCKER_REPO}" xenial-updates universe
-deb [arch="${EXTRA_ARCH}"] "${EXTRA_REPO}" trusty main universe multiverse restricted
-deb [arch="${EXTRA_ARCH}"] "${EXTRA_REPO}" trusty-updates main universe multiverse restricted
-deb [arch="${EXTRA_ARCH}"] "${EXTRA_REPO}" trusty-security main universe multiverse restricted
-deb [arch="${EXTRA_ARCH}"] "${EXTRA_REPO}" trusty-proposed main universe multiverse restricted" > "${sub_source_file}"
+if [[ "${VERSION_CODENAME}" == "trusty" ]]; then
+    REPO_UPDATE="deb [arch="${DOCKER_ARCH}"] "${DOCKER_REPO}" xenial-updates universe"
+else
+    REPO_UPDATE="deb [arch="${DOCKER_ARCH}"] "${DOCKER_REPO}" "${VERSION_CODENAME}"-updates universe"
+fi
+
+echo -e ""${REPO_UPDATE}"
+deb [arch="${EXTRA_ARCH}"] "${EXTRA_REPO}" "${VERSION_CODENAME}" main universe multiverse restricted
+deb [arch="${EXTRA_ARCH}"] "${EXTRA_REPO}" "${VERSION_CODENAME}"-updates main universe multiverse restricted
+deb [arch="${EXTRA_ARCH}"] "${EXTRA_REPO}" "${VERSION_CODENAME}"-security main universe multiverse restricted
+deb [arch="${EXTRA_ARCH}"] "${EXTRA_REPO}" "${VERSION_CODENAME}"-proposed main universe multiverse restricted" > "${sub_source_file}"
 
 echo "vm.mmap_min_addr = 0" > /etc/sysctl.d/mmap_min_addr.conf
 
