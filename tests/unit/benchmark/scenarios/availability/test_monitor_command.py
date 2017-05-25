@@ -59,7 +59,7 @@ class MonitorOpenstackCmdTestCase(unittest.TestCase):
 
     def test__monitor_command_monitor_func_successful(self, mock_subprocess):
 
-        instance = monitor_command.MonitorOpenstackCmd(self.config, None)
+        instance = monitor_command.MonitorOpenstackCmd(self.config, None, {"nova-api": 10})
         instance.setup()
         mock_subprocess.check_output.return_value = (0, 'unittest')
         ret = instance.monitor_func()
@@ -69,7 +69,7 @@ class MonitorOpenstackCmdTestCase(unittest.TestCase):
 
     def test__monitor_command_monitor_func_failure(self, mock_subprocess):
         mock_subprocess.check_output.return_value = (1, 'unittest')
-        instance = monitor_command.MonitorOpenstackCmd(self.config, None)
+        instance = monitor_command.MonitorOpenstackCmd(self.config, None, {"nova-api": 10})
         instance.setup()
         mock_subprocess.check_output.side_effect = RuntimeError
         ret = instance.monitor_func()
@@ -85,7 +85,7 @@ class MonitorOpenstackCmdTestCase(unittest.TestCase):
 
         self.config["host"] = "node1"
         instance = monitor_command.MonitorOpenstackCmd(
-            self.config, self.context)
+            self.config, self.context, {"nova-api": 10})
         instance.setup()
         mock_ssh.SSH.from_node().execute.return_value = (0, "0", '')
         ret = instance.monitor_func()
