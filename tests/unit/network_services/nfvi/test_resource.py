@@ -123,9 +123,96 @@ class TestResourceProfile(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             resource_profile = \
                 ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
-                                [1, 2, 3])
+                                [1, 2, 3], "baremetal")
+            resource_profile._prepare_collectd_conf = mock.Mock()
             self.assertIsNone(
                 resource_profile._start_collectd(ssh_mock, "/opt/nsb_bin"))
+
+    def test__prepare_collectd_conf_BM(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            resource_profile = \
+                ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
+                                [1, 2, 3], "baremetal")
+            ResourceProfile._prepare_collectd_conf = mock.Mock()
+            resource_profile._provide_config_file = mock.Mock()
+            self.assertIsNotNone(
+                resource_profile._prepare_collectd_conf("/opt/nsb_bin"))
+
+    def test__prepare_collectd_conf_managed_ovs_dpdk(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            resource_profile = \
+                ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
+                                [1, 2, 3], "managed-ovs")
+            ResourceProfile._prepare_collectd_conf = mock.Mock()
+            resource_profile._provide_config_file = mock.Mock()
+            self.assertIsNotNone(
+                resource_profile._prepare_collectd_conf("/opt/nsb_bin"))
+
+    def test__prepare_collectd_conf_ovs_dpdk(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            resource_profile = \
+                ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
+                                [1, 2, 3], "ovs_dpdk")
+            ResourceProfile._prepare_collectd_conf = mock.Mock()
+            resource_profile._provide_config_file = mock.Mock()
+            self.assertIsNotNone(
+                resource_profile._prepare_collectd_conf("/opt/nsb_bin"))
+
+    def test__prepare_collectd_conf_managed_sriov(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            resource_profile = \
+                ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
+                                [1, 2, 3], "managed-sriov")
+            ResourceProfile._prepare_collectd_conf = mock.Mock()
+            resource_profile._provide_config_file = mock.Mock()
+            self.assertIsNotNone(
+                resource_profile._prepare_collectd_conf("/opt/nsb_bin"))
+
+    def test__prepare_collectd_conf_sriov(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            resource_profile = \
+                ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
+                                [1, 2, 3], "sriov")
+            ResourceProfile._prepare_collectd_conf = mock.Mock()
+            resource_profile._provide_config_file = mock.Mock()
+            self.assertIsNotNone(
+                resource_profile._prepare_collectd_conf("/opt/nsb_bin"))
+
+    @mock.patch("yardstick.network_services.nfvi.resource.open")
+    def test__provide_config_file(self, mock_open):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            resource_profile = \
+                ResourceProfile(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0],
+                                [1, 2, 3], "sriov")
+            ResourceProfile._prepare_collectd_conf = mock.Mock()
+            resource_profile._provide_config_file = mock.Mock()
+            self.assertIsNotNone(
+                resource_profile._provide_config_file("/opt/nsb_bin",
+                                                      "collectd.cfg", {}))
 
     def test_initiate_systemagent(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:

@@ -371,7 +371,7 @@ class VpeApproxVnf(GenericVNF):
         self.topology = os.path.abspath(scenario_cfg['topology'])
 
         cores = self._get_cpu_sibling_list()
-        self.resource = ResourceProfile(self.vnfd, cores)
+        self.resource = ResourceProfile(self.vnfd, cores, self.nfvi_type)
 
         self.connection.execute("sudo pkill vPE_vnf")
         dpdk_nic_bind = \
