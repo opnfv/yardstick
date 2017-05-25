@@ -40,7 +40,7 @@ install_libs()
 {
     echo "Install libs needed to build and run NSB Testing..."
     apt-get update > /dev/null 2>&1
-    pkg=(git build-essential python-dev virtualenv python-virtualenv virtualenv linux-headers-$(uname -r) unzip  python-pip libpcap-dev)
+    pkg=(git build-essential python-dev virtualenv python-virtualenv virtualenv linux-headers-$(uname -r) unzip  python-pip libpcap-dev cmake)
     for i in "${pkg[@]}"; do
     dpkg-query -W --showformat='${Status}\n' "${i}"|grep "install ok installed"
     if [  "$?" -eq "1" ]; then
