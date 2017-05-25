@@ -34,7 +34,7 @@ class MonitorMgrTestCase(unittest.TestCase):
         self.monitor_configs.append(config)
 
     def test__MonitorMgr_setup_successful(self, mock_monitor):
-        instance = basemonitor.MonitorMgr()
+        instance = basemonitor.MonitorMgr({"nova-api": 10})
         instance.init_monitors(self.monitor_configs, None)
         instance.start_monitors()
         instance.wait_monitors()
@@ -42,7 +42,7 @@ class MonitorMgrTestCase(unittest.TestCase):
         ret = instance.verify_SLA()
 
     def test_MonitorMgr_getitem(self, mock_monitor):
-        monitorMgr = basemonitor.MonitorMgr()
+        monitorMgr = basemonitor.MonitorMgr({"nova-api": 10})
         monitorMgr.init_monitors(self.monitor_configs, None)
         monitorIns = monitorMgr['service-status']
 
@@ -67,12 +67,12 @@ class BaseMonitorTestCase(unittest.TestCase):
         }
 
     def test__basemonitor_start_wait_successful(self):
-        ins = basemonitor.BaseMonitor(self.monitor_cfg, None)
+        ins = basemonitor.BaseMonitor(self.monitor_cfg, None, {"nova-api": 10})
         ins.start_monitor()
         ins.wait_monitor()
 
     def test__basemonitor_all_successful(self):
-        ins = self.MonitorSimple(self.monitor_cfg, None)
+        ins = self.MonitorSimple(self.monitor_cfg, None, {"nova-api": 10})
         ins.setup()
         ins.run()
         ins.verify_SLA()
@@ -81,7 +81,7 @@ class BaseMonitorTestCase(unittest.TestCase):
         'yardstick.benchmark.scenarios.availability.monitor.basemonitor'
         '.multiprocessing')
     def test__basemonitor_func_false(self, mock_multiprocess):
-        ins = self.MonitorSimple(self.monitor_cfg, None)
+        ins = self.MonitorSimple(self.monitor_cfg, None, {"nova-api": 10})
         ins.setup()
         mock_multiprocess.Event().is_set.return_value = False
         ins.run()

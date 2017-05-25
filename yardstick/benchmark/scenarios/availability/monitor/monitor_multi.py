@@ -20,16 +20,18 @@ class MultiMonitor(basemonitor.BaseMonitor):
 
     __monitor_type__ = "multi-monitor"
 
-    def __init__(self, config, context):
-        super(MultiMonitor, self).__init__(config, context)
+    def __init__(self, config, context, data):
+        super(MultiMonitor, self).__init__(config, context, data)
 
         self.monitors = []
+        self.monitor_data = data
         monitor_type = self._config["monitor_type"]
         monitor_cls = basemonitor.BaseMonitor.get_monitor_cls(monitor_type)
 
         monitor_number = self._config.get("monitor_number", 1)
         for i in range(monitor_number):
-            monitor_ins = monitor_cls(self._config, self._context)
+            monitor_ins = monitor_cls(self._config, self._context,
+                                      self.monitor_data)
             self.monitors.append(monitor_ins)
 
     def start_monitor(self):
