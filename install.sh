@@ -9,18 +9,18 @@
 ##############################################################################
 
 # fit for arm64
+source /etc/os-release
 source_file=/etc/apt/sources.list
 sed -i -e 's/^deb \([^/[]\)/deb [arch=amd64] \1/g' "${source_file}"
 sed -i -e 's/^deb-src /# deb-src /g' "${source_file}"
-echo "APT::Default-Release \"trusty\";" > /etc/apt/apt.conf.d/default-distro
+echo "APT::Default-Release \"$VERSION_CODENAME\";" > /etc/apt/apt.conf.d/default-distro
 
 sub_source_file=/etc/apt/sources.list.d/yardstick.list
 touch "${sub_source_file}"
-echo -e "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ xenial-updates universe
-deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ trusty main universe multiverse restricted
-deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ trusty-updates main universe multiverse restricted
-deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ trusty-security main universe multiverse restricted
-deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ trusty-proposed main universe multiverse restricted" > "${sub_source_file}"
+echo -e "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ $VERSION_CODENAME main universe multiverse restricted
+deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ $VERSION_CODENAME-updates main universe multiverse restricted
+deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ $VERSION_CODENAME-security main universe multiverse restricted
+deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ $VERSION_CODENAME-proposed main universe multiverse restricted" > "${sub_source_file}"
 echo "vm.mmap_min_addr = 0" > /etc/sysctl.d/mmap_min_addr.conf
 
 proc_type=$(uname -m)
