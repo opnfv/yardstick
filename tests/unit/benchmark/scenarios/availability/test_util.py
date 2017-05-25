@@ -19,6 +19,15 @@ from yardstick.benchmark.scenarios.availability import util
 @mock.patch('yardstick.benchmark.scenarios.availability.util.subprocess')
 class ExecuteShellTestCase(unittest.TestCase):
 
+    def setUp(self):
+        self.param_config = {'serviceName': '$serviceName', 'value': 1}
+        self.intermediate_variables = {'$serviceName': 'nova-api'}
+
+    def test_util_build_command_shell(self,mock_subprocess):
+        result = util.build_shell_command(self.param_config, True,
+                                          self.intermediate_variables)
+        self.assertEqual(result.find("nova-api") != -1, True)
+
     def test__fun_execute_shell_command_successful(self, mock_subprocess):
         cmd = "env"
         mock_subprocess.check_output.return_value = (0, 'unittest')
