@@ -1,0 +1,125 @@
+##############################################################################
+# Copyright (c) 2017 Nokia
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+heat_template_version: 2015-04-30
+
+description: >
+  Used to run VMs with Vsperf
+
+parameters:
+  image:
+    type: string
+    description: Name of the image
+    default: yardstick-vsperf
+
+  flavor:
+    type: string
+    default: vsperf-flavor
+
+  timeout:
+    type: number
+    description: Timeout in seconds for WaitCondition, depends on your image and environment
+    default: 6000
+
+  external_net_name:
+    type: string
+    description: Name of the external network which management network will connect to
+    default: ext-net1
+
+resources:
+  network:
+    type: OS::Neutron::Net
+    properties:
+      name: vsperf_net
+
+  subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      name: vsperf_subnet
+      ip_version: 4
+      cidr: 192.168.0.0/24
+      network: { get_resource: network }
+
+  management_router:
+    type: OS::Neutron::Router
+    properties:
+      name: management_router
+      external_gateway_info:
+        network: { get_param: external_net_name }
+
+  management_router_interface:
+    type: OS::Neutron::RouterInterface
+    properties:
+      router: { get_resource: management_router }
+      subnet: { get_resource: subnet }
+
+  floating_ip:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network: { get_param: external_net_name }
+
+  floating_ip_association:
+    type: OS::Nova::FloatingIPAssociation
+    properties:
+      floating_ip: { get_resource: floating_ip }
+      server_id: {get_resource: vsperf_vm}
+
+  keypair:
+    type: OS::Nova::KeyPair
+    properties:
+      name: yardstick-key
+      public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD0RkXfW6pksd1cZmXuvXZF/Mlqqq3ahIGcGoULOC97XMpu0vdxMpcUwdjwGqMwEXTVyfHidu0l99bLqOCpSUKCmbWx3ONJ+1kqFx4HwsKEWLiyDYqsuMrDeZT1eFjC5avCoTcrIw2wq5NaBb00lDGagNZOeopaL5YIa4+PizEY23+cir24D67NU21Fg3JE92AIeGlNa4j66L3a+lL0hZq74Dilmp42wm4GsbplRO6KJfyaraowHb1X+TmhCjBgHk6M/OJ9yPAroZyJNcwjMAuuxhAYWRuT3SdbnoUR0RG2VhfDh0qNid7vOqLbhKPeaLLFmzkN+9w3WdCp6LbSYt87 yardstick@yardstick.opnfv.org
+
+  wait_handle:
+    type: OS::Heat::WaitConditionHandle
+
+  wait_condition:
+    type: OS::Heat::WaitCondition
+    properties:
+      handle: { get_resource: wait_handle }
+      count: 1
+      timeout: { get_param: timeout }
+
+  vsperf_vm:
+    type: OS::Nova::Server
+    depends_on: [subnet, keypair]
+    properties:
+      name: { get_param: "OS::stack_name" }
+      image: { get_param: image }
+      flavor: { get_param: flavor }
+      key_name: {get_resource: keypair}
+      networks:
+        - network: { get_resource: network }
+      config_drive: True
+      user_data_format : RAW
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/bash
+            cat <<'CEOF' > /tmp/vsperf_post_build.sh
+            echo "Install vswitchperf"
+            mv /root/vswitchperf /home/ubuntu
+            chown -R ubuntu:ubuntu /home/ubuntu/vswitchperf
+            cd /home/ubuntu/vswitchperf/systems
+            sudo -H -u ubuntu ./build_base_machine.sh
+            echo "Set password less access to MoonGen server"
+            sudo -H -u ubuntu ssh-keygen -b 2048 -t rsa -f /home/ubuntu/.ssh/id_rsa -N ''
+            sudo -H -u ubuntu touch /home/ubuntu/.cloud-warnings.skip
+            echo "Enable 1GB huge pages"
+            update-grub
+            $NOTIFY --data-binary '{"status": "SUCCESS"}'
+            CEOF
+            chmod +x /tmp/vsperf_post_build.sh
+            nohup /tmp/vsperf_post_build.sh &
+          params:
+            $NOTIFY: { get_attr: ['wait_handle', 'curl_cli'] }
+
+outputs:
+  vm_uuid:
+    description: uuid of the VM
+    value: { get_attr: [ vsperf_vm, show,id ] }
