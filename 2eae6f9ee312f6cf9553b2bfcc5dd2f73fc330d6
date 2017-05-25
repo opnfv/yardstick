@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_fffedf37",
+        "filename": "etc/yardstick/nodes/pod.yaml.nsb.sample",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-25T05:38:41Z",
+      "side": 1,
+      "message": "don\u0027t set key_filename,  paramiko will search the default locations itself.  We don\u0027t want to override paramiko behavior.",
+      "revId": "2eae6f9ee312f6cf9553b2bfcc5dd2f73fc330d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_3fed578c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ping.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-25T05:38:41Z",
+      "side": 1,
+      "message": "can we check for non-zero exit status instead?  it is usually cleaner to check exit status",
+      "revId": "2eae6f9ee312f6cf9553b2bfcc5dd2f73fc330d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
