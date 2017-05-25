@@ -22,9 +22,9 @@ nodes:
 -
     name: node1
     role: Controller
-    ip: ip1
+    ip: 192.168.23.10
     user: root
-    key_filename: /root/.ssh/id_rsa
+    password: root
 -
     name: node2
     role: Controller

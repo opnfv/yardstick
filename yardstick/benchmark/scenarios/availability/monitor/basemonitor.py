@@ -25,8 +25,9 @@ monitor_conf_path = pkg_resources.resource_filename(
 class MonitorMgr(object):
     """docstring for MonitorMgr"""
 
-    def __init__(self):
+    def __init__(self, data):
         self._monitor_list = []
+        self.monitor_mgr_data = data
 
     def init_monitors(self, monitor_cfgs, context):
         LOG.debug("monitorMgr config: %s", monitor_cfgs)
@@ -39,7 +40,8 @@ class MonitorMgr(object):
             if monitor_number > 1:
                 monitor_cls = BaseMonitor.get_monitor_cls("multi-monitor")
 
-            monitor_ins = monitor_cls(monitor_cfg, context)
+            monitor_ins = monitor_cls(monitor_cfg, context,
+                                      self.monitor_mgr_data)
             if "key" in monitor_cfg:
                 monitor_ins.key = monitor_cfg["key"]
             self._monitor_list.append(monitor_ins)
@@ -69,7 +71,7 @@ class BaseMonitor(multiprocessing.Process):
     """docstring for BaseMonitor"""
     monitor_cfgs = {}
 
-    def __init__(self, config, context):
+    def __init__(self, config, context, data):
         if not BaseMonitor.monitor_cfgs:
             with open(monitor_conf_path) as stream:
                 BaseMonitor.monitor_cfgs = yaml.load(stream)
@@ -78,6 +80,7 @@ class BaseMonitor(multiprocessing.Process):
         self._context = context
         self._queue = multiprocessing.Queue()
         self._event = multiprocessing.Event()
+        self.monitor_data = data
         self.setup_done = False
 
     @staticmethod
