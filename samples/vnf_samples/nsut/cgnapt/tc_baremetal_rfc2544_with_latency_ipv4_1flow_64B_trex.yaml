@@ -24,12 +24,15 @@ scenarios:
   tc_options:
     rfc2544:
       allowed_drop_rate: 0.0001 - 0.0001
+    latency: true
   vnf_options:
     cgnapt:
       cfg: cgnapt_config
+  options:
+    packetsize: 64
   runner:
-    type: Duration
-    duration: 400
+    type: Iteration
+    iterations: 28
     interval: 35
   traffic_options:
     flow: ../../traffic_profiles/ipv4_1flow_Packets.yaml
