@@ -38,8 +38,7 @@ class ProcessAttacker(BaseAttacker):
         self.recovery_script = self.get_script_fullpath(
             self.fault_cfg['recovery_script'])
 
-        if self.check():
-            self.setup_done = True
+        self.data["process_num"] = self.check()
 
     def check(self):
         with open(self.check_script, "r") as stdin_file:
@@ -49,7 +48,7 @@ class ProcessAttacker(BaseAttacker):
 
         if stdout:
             LOG.info("check the envrioment success!")
-            return True
+            return int(stdout.strip('\n'))
         else:
             LOG.error(
                 "the host envrioment is error, stdout:%s, stderr:%s",
