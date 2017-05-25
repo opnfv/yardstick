@@ -40,7 +40,7 @@ class MonitorProcessTestCase(unittest.TestCase):
 
     def test__monitor_process_all_successful(self, mock_ssh):
 
-        ins = monitor_process.MonitorProcess(self.monitor_cfg, self.context)
+        ins = monitor_process.MonitorProcess(self.monitor_cfg, self.context, {"process_num": 10})
 
         mock_ssh.SSH.from_node().execute.return_value = (0, "1", '')
         ins.setup()
@@ -50,7 +50,7 @@ class MonitorProcessTestCase(unittest.TestCase):
 
     def test__monitor_process_down_failuer(self, mock_ssh):
 
-        ins = monitor_process.MonitorProcess(self.monitor_cfg, self.context)
+        ins = monitor_process.MonitorProcess(self.monitor_cfg, self.context, {"process_num": 10})
 
         mock_ssh.SSH.from_node().execute.return_value = (0, "0", '')
         ins.setup()

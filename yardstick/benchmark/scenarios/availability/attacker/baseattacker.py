@@ -35,6 +35,7 @@ class AttackerMgr(object):
             attacker_ins.key = cfg['key']
             attacker_ins.setup()
             self._attacker_list.append(attacker_ins)
+            return attacker_ins
 
     def __getitem__(self, item):
         for obj in self._attacker_list:
@@ -57,6 +58,7 @@ class BaseAttacker(object):
 
         self._config = config
         self._context = context
+        self.data = {}
         self.setup_done = False
 
     @staticmethod
