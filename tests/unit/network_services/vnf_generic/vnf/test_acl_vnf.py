@@ -354,6 +354,7 @@ class TestAclApproxVnf(unittest.TestCase):
             acl_approx_vnf._run_acl = mock.Mock(return_value=0)
             acl_approx_vnf._parse_rule_file = mock.Mock(return_value={})
             acl_approx_vnf._resource_collect_start = mock.Mock(return_value=0)
+            acl_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
             acl_approx_vnf.deploy_acl_vnf = mock.Mock(return_value=0)
             acl_approx_vnf.q_out.put("pipeline>")
             acl_vnf.WAIT_TIME = 3
@@ -378,6 +379,13 @@ class TestAclApproxVnf(unittest.TestCase):
             acl_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
             self.assertRaises(RuntimeError, acl_approx_vnf.instantiate,
                               self.scenario_cfg, self.context_cfg)
+
+    def test_get_nfvi_type(self):
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        acl_approx_vnf = AclApproxVnf(vnfd)
+        self.scenario_cfg['tc'] = self._get_file_abspath("nsb_test_case")
+        self.assertEqual("baremetal",
+                         acl_approx_vnf.get_nfvi_type(self.scenario_cfg))
 
     def test_scale(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
