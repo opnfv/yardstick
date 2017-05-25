@@ -69,7 +69,7 @@ class GeneralOperaion(BaseOperation):
             else:
                 exit_status, stdout = \
                     execute_shell_command(
-                        "/bin/bash {0} {1}".format(
+                        "sudo /bin/bash {0} {1}".format(
                             self.action_script, self.action_param))
         else:
             if self.connection:
@@ -79,7 +79,7 @@ class GeneralOperaion(BaseOperation):
                         stdin=stdin_file)
             else:
                 exit_status, stdout = execute_shell_command(
-                    "/bin/bash {0}".format(self.action_script))
+                    "sudo /bin/bash {0}".format(self.action_script))
 
         if exit_status == 0:
             LOG.debug("success,the operation's output is: %s", stdout)
@@ -98,7 +98,7 @@ class GeneralOperaion(BaseOperation):
             else:
                 exit_status, stdout = \
                     execute_shell_command(
-                        "/bin/bash {0} {1}".format(
+                        "sudo /bin/bash {0} {1}".format(
                             self.rollback_script, self.rollback_param))
         else:
             if self.connection:
@@ -108,4 +108,4 @@ class GeneralOperaion(BaseOperation):
                         stdin=stdin_file)
             else:
                 exit_status, stdout = execute_shell_command(
-                    "/bin/bash {0}".format(self.rollback_script))
+                    "sudo /bin/bash {0}".format(self.rollback_script))

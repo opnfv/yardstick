@@ -28,6 +28,7 @@ class ServiceHA(base.Scenario):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
         self.setup_done = False
+        self.data = {}
 
     def setup(self):
         """scenario setup"""
@@ -44,10 +45,11 @@ class ServiceHA(base.Scenario):
             attacker_ins = attacker_cls(attacker_cfg, nodes)
             attacker_ins.setup()
             self.attackers.append(attacker_ins)
+            self.data = attacker_ins.data
 
         monitor_cfgs = self.scenario_cfg["options"]["monitors"]
 
-        self.monitorMgr = basemonitor.MonitorMgr()
+        self.monitorMgr = basemonitor.MonitorMgr(attacker_ins.data)
         self.monitorMgr.init_monitors(monitor_cfgs, nodes)
 
         self.setup_done = True
@@ -68,7 +70,11 @@ class ServiceHA(base.Scenario):
         LOG.info("HA monitor stop!")
 
         sla_pass = self.monitorMgr.verify_SLA()
-        if sla_pass:
+        if self.data["process_num"] == 0:
+            result['sla_pass'] = 0
+            LOG.info("The service process not found in the host envrioment, \
+the HA test case NOT pass")
+        elif sla_pass:
             result['sla_pass'] = 1
             LOG.info("The HA test case PASS the SLA")
         else:
