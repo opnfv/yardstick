@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_f1f7f38a",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/baseattacker.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-05-26T03:41:48Z",
+      "side": 1,
+      "message": "currently there\u0027s only one attacker, but i think this is designed for several attackers, and you return in the for loop, it is not right.",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 31
+      },
+      "revId": "d5fb1048717c1e3bfe2bbb3daf37d078dd68a0e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_917ebfe3",
+        "filename": "yardstick/benchmark/scenarios/availability/director.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-05-26T03:41:48Z",
+      "side": 1,
+      "message": "you directly use data from the instance but not via a api function.",
+      "range": {
+        "startLine": 52,
+        "startChar": 53,
+        "endLine": 52,
+        "endChar": 70
+      },
+      "revId": "d5fb1048717c1e3bfe2bbb3daf37d078dd68a0e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_d173d713",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/basemonitor.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-05-26T03:41:48Z",
+      "side": 1,
+      "message": "i think this name is not a python style since you use uppercase and lowercase in a field name",
+      "range": {
+        "startLine": 30,
+        "startChar": 13,
+        "endLine": 30,
+        "endChar": 28
+      },
+      "revId": "d5fb1048717c1e3bfe2bbb3daf37d078dd68a0e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
