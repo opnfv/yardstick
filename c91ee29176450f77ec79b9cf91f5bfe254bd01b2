@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_472ba530",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2017-05-26T17:27:08Z",
+      "side": 1,
+      "message": "why downgrading the number of hugepages?",
+      "range": {
+        "startLine": 308,
+        "startChar": 16,
+        "endLine": 308,
+        "endChar": 20
+      },
+      "revId": "c91ee29176450f77ec79b9cf91f5bfe254bd01b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
