@@ -1,0 +1,8 @@
+{% extends "execute_test/base.html" %}
+{% block content %}
+<h3><strong>Verification Test Results</strong></h3>
+<p><strong>Result: </strong><small>{{ result }}</small>
+<p><strong>Total packets verified: </strong><small>{{ verified }}</small>
+<p><strong>Total packets match: </strong><small>{{ match }}</small>
+<p><strong>Total packets mismatch: </strong><small>{{ mismatch }}</small>
+{% endblock content %}

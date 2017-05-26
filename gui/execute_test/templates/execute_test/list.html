@@ -1,0 +1,7 @@
+{% extends "execute_test/base.html" %}
+{% block content %}
+<h3><strong>{{ title }}</strong></h3>
+{% for item in data %}
+<p><a href="/execute_test/{{ item | lower }}/{{ next | lower }}" class="btn btn-primary btn-lg" role="button" style="font-weight:lighter;width:200px;color:#FFFFFF">{{ item | upper }}</a></p>
+{% endfor %}
+{% endblock content %}

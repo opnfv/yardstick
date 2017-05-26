@@ -1,0 +1,7 @@
+{% extends "execute_test/base.html" %}
+{% block content %}
+<h3><strong>Traffic Generator</strong></h3>
+{% for tg in tg_list %}
+    <p><a href="/execute_test/{{ tg | lower }}/vnf-types" class="btn btn-primary btn-lg" role="button" style="font-weight:lighter;width:200px;color:#FFFFFF">{{ tg | upper }}</a></p>
+{% endfor %}
+{% endblock content %}

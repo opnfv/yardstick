@@ -1,0 +1,7 @@
+{% extends "execute_test/base.html" %}
+{% block content %}
+<h3><strong>Network Service</strong></h3>
+{% for vnf in vnf_list %}
+    <p><a href="/execute_test/{{ tg }}/{{ vnf | lower }}/deployment-types" class="btn btn-primary btn-lg" role="button" style="font-weight:lighter;width:200px;color:#FFFFFF">{{ vnf | upper }}</a></p>
+{% endfor %}
+{% endblock content %}

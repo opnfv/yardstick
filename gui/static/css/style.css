@@ -1,0 +1,70 @@
+	#image-logo{margin:20px 20px 20px 0px;width:200px;height:100px;border-radius:20px;background-color:#F8F8F8;}
+	#image-loader{margin:20px 20px 20px 0px;width:20px;height:10px;background-color:#F8F8F8;}
+	#heading{background-color:#F8F8F8;color:#006699;}
+	#use_case , #test_suite , #test_cases , #select_input{color:#006699;background-color:#F8F8F8;}		
+	.container{width:1200px;background-color:#F8F8F8;margin-top:10px;margin-bottom:10px;border-radius:25px;min-height:600px;border: 1px solid #006699;}
+	#close{font-size:30px;color:#006699;}
+	#select_input{height:75px;width:300px;}
+	.select-text{width: 150px;float:left;display:inline-block;height: 30px;}
+	.ladda-label{margin-left:5px;font-size:15px;}
+	.glyphicon, .glyphicon-ok-sign{font-size:25px;height:35px;}
+	.glyphicon, .glyphicon-remove-sign{font-size:25px;height:35px;}
+	.glyphicon-remove-sign:hover ,.glyphicon-remove-sign:focus, .glyphicon-ok-sign:hover , .glyphicon-ok-sign:focus{	font-color:white; text-decoration:none;}
+	.result-text{color:white;font-size:15px;line-height: 30px;word-spacing:-10px;}
+	.text_input {width:115%;float:left;display:inline-block;height:45px;}
+	.txt_input {width:115%;float:left;display:inline-block;height:45px;}
+	.text_int {width:115%;float:left;display:inline-block;height:45px;}
+	#text-input {width:800px;height:45px;margin-top:5px;}
+	#txt-input {width:800px;height:45px;margin-top:5px;}
+	#text-int {width:800px;height:45px;margin-top:5px;}
+	#select_options, #select_option{color:#006699;width:250px;display:inline-block;}
+	#selct_options, #selct_option{color:#006699;width:250px;display:inline-block;}
+	#select_input{width:auto;height:35px;display:inline-block;border-radius:10px;}
+	#test-cases , #test_cases{display:block;	font-size:20px; margin-top:10px;}
+	.clear-fix{clear:both;}
+	#use-cases , #test-types {float:left;margin:15px 0px 15px 25px;width:150px;height:35px;display:inline-block;border-radius:10px;}
+	.view{width:1130px;height:275px;overflow:auto;margin:5px 5px 5px 5px;}
+	.panel-view{width:1130px;margin:0px -5px 0px -5px;}
+	.panel-head{margin:5px 10px 5px 10px;overflow:auto;width:1130px;height:600px;}
+	ul , li , a{color:#006699;background-color:#F8F8F8;}
+	#result_statistics_data , #result_summary_data{width:1150px;height: 650px;overflow:auto;	border: 1px solid #006699;border-radius:10px;margin:5px 5px 5px 5px;}
+	.functional{height:400px;width:1050px;overflow:auto;margin-top:15px;}
+	.performance{height:200px;width:1050px;overflow:auto;margin-top:15px;}
+	.ladda-button{data-style:expand-right;data-color:green;data-size:medium;data-spinner-size:40;data-spinner-color:#006699;}
+	#test-cases{margin:5px 0px 5px 0px;padding: 0 !important;border:none;outline: none;border: 0px;box-sizing: none;background-color: none;border-radius:5px;}
+	#test_types{float:left;display:inline-block;width:1150px;}
+	#vnf_types{float:left;display:inline-block;width:1150px;}
+	#test_cases #image-loader{ margin:8px 5px}
+	.header-text{margin-top:45px;margin-left:-20px;}
+	.back-btn{margin: 12px 10px;    display: inline-block;    font-size: 15px;}
+	.btn-text{display:inline-block; width:150px; font-size:15px; text-color:#006699;}
+	#vnf_types p:nth-child(3) #use-cases, #test_types p:nth-child(2) #test-types{margin-left:0px;}
+	.white-c:hover, .white-c:focus{color:white !important}
+	.error{color:red; font-size:15px;height:30px;display: inline-block; padding-top: 5px;    padding-left: 16px;}
+	.error1{color:red; font-size:15px;height:30px;display: inline-block; padding-top: 5px;    padding-left: 16px;}
+	.error2{color:red; font-size:15px;height:30px;display: inline-block; padding-top: 5px;    padding-left: 16px;}
+	#txt ,.error{float:left;width:20%}
+	#level{float:left;width:20%}
+	#text {float:left;width:20%}
+	
+	.error1{float:left;width:25%}
+	.error2{float:left;width:25%}
+.loader {
+  border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid #3498db;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

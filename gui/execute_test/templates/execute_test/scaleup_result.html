@@ -1,0 +1,41 @@
+{% extends "execute_test/base.html" %}
+{% block content %}
+<h3><strong>Scaleup Results</strong></h3>
+<table class="table table-bordered">
+    <thead>
+	    <tr>
+		    <th>Threads</th>
+		    <th>Configuration</th>
+		    <th>Throughput</th>
+		    <th>Drop Percentage</th>
+	    </tr>
+     </thead>
+     <tbody>
+{% for item  in data %}
+	    <tr>
+		    <td>{{ item.worker_threads }}</td>
+		    <td>{{ item.worker_configuration }}</td>
+		    <td>{{ item.Throughput }}</td>
+		    <td>{{ item.DropPercentage }}</td>
+	    </tr>
+{% endfor %}
+</tbody>
+</table>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+	var tmp = "{{ graph_data }}".replace(/&quot;/g,'"');
+	var graph_data = JSON.parse(tmp.replace(/&quot;/g,'"'));
+	var data = google.visualization.arrayToDataTable(graph_data);
+	var options = {
+		title: 'Throughput v/s Cores',
+		legend: { position: 'bottom' }
+	};
+	var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+	chart.draw(data, options);
+}
+</script>
+<div id="curve_chart" style="height: 500px; margin-bottom: 10px"></div>
+{% endblock content %}

@@ -1,0 +1,66 @@
+{% extends "execute_test/base.html" %}
+{% block style %}
+<style type="text/css">
+@page {
+	size: A4;
+	margin: 1cm;
+	@frame footer {
+		-pdf-frame-content: footerContent;
+		bottom: 0cm;
+		margin-left: 9cm;
+		margin-right: 9cm;
+		height: 1cm;
+	}
+	}
+
+</style>
+{% endblock style %}
+{% block content %}
+<h3><strong>Test Results</strong></h3>
+<table class="table table-bordered">
+    <thead>
+	    <tr>
+		    <th>Iteration</th>
+		    <th>RX Throughput</th>
+		    <th>TX Throughput</th>
+		    <th>Current Drop Percentage</th>
+		    <th>Throughput</th>
+		    <th>Drop Percentage</th>
+	    </tr>
+     </thead>
+     <tbody>
+{% for item  in data %}
+
+	    <tr>
+		    <td>{{ forloop.counter }}</td>
+		    <td>{{ item.RxThroughput }}</td>
+		    <td>{{ item.TxThroughput }}</td>
+		    <td>{{ item.CurrentDropPercentage }}</td>
+		    <td>{{ item.Throughput }}</td>
+		    <td>{{ item.DropPercentage }}</td>
+	    </tr>
+{% endfor %}
+</tbody>
+</table>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawVisualization);
+function drawVisualization() {
+	// Some raw data (not necessarily accurate)
+	tmp = "{{ graph_data }}".replace(/&quot;/g,'"');
+	var graph_data = JSON.parse(tmp.replace(/&quot;/g,'"'));
+	var data = google.visualization.arrayToDataTable(graph_data);
+	var options = {
+		title : 'TX & RX Throuput v/s Drop Percentage',
+		vAxis: {title: 'Throughput & Drop Percentage'},
+		hAxis: {title: 'Iterations'},
+		seriesType: 'bars',
+		series: {2: {type: 'line'}}
+	};
+	var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+	chart.draw(data, options);
+}
+</script>
+<div id="chart_div" style="width: 1100px; height: 375px;"></div>
+{% endblock content %}

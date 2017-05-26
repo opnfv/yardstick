@@ -1,0 +1,12 @@
+{% extends "execute_test/base.html" %}
+{% block content %}
+<h3><strong>{{ title }}</strong></h3>
+<form action="/execute_test/config/vnf" method="POST">
+	  {% csrf_token %}
+	    <ul>
+		        {{ form }}
+			  </ul>
+			    <input type="submit" value="Submit" />
+			    
+		    </form>
+{% endblock content %}

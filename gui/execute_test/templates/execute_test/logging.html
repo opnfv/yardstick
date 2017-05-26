@@ -1,0 +1,41 @@
+{% extends "execute_test/base.html" %}
+{% block content %}
+<h3><strong>Test Execution Logs</strong></h3>
+{% load static %}
+<script type="text/javascript" src="{% static "js/ws4redis.js" %}"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+		    var url = 'ws://' + document.domain + ':' + location.port+'/ws/logging?subscribe-broadcast&publish-broadcast&echo'
+		    console.log(url)
+		    var ws4redis = WS4Redis({
+			            uri: url,
+			            connecting: on_connecting,
+			            connected: on_connected,
+			            receive_message: receiveMessage,
+			            disconnected: on_disconnected,
+			            heartbeat_msg: {{ WS4REDIS_HEARTBEAT }}
+			});
+
+		        // attach this function to an event handler on your site
+		        function sendMessage() {
+			        ws4redis.send_message('A message');
+			}
+
+			function on_connecting() {
+			         $('#log_div').append('<p>Websocket is connecting...');
+			}
+
+			function on_connected() {
+				ws4redis.send_message('<p>Connected....');
+			}
+			function on_disconnected(evt) {
+			    $('#log_div').append('<p>Websocket was disconnected: ' + JSON.stringify(evt));
+			}
+		        // receive a message though the websocket from the server
+		        function receiveMessage(msg) {
+	                	$('#log_div').append('<p>' + msg);
+										    }
+});
+</script>
+<div id="log_div"></div>
+{% endblock content %}

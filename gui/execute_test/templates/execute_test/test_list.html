@@ -1,0 +1,7 @@
+{% extends "execute_test/base.html" %}
+{% block content %}
+<h3><strong>Traffic Profile</strong></h3>
+{% for test_type in test_list%}
+    <p><a href="/execute_test/{{ tg | lower}}/{{ vnf | lower }}/{{ deployment_type | lower }}/{{ test_type | lower}}/ip-versions" class="btn btn-primary btn-lg" role="button" style="font-weight:lighter;width:200px;color:#FFFFFF">{{ test_type | upper }}</a></p>
+{% endfor %}
+{% endblock content %}

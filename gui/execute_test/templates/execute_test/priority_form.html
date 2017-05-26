@@ -1,0 +1,11 @@
+{% extends "execute_test/base.html" %}
+{% block content %}
+<h3><strong>{{ title }}</strong></h3>
+<form action="/execute_test/regression/priority/" method="POST">
+	  {% csrf_token %}
+	    <ul>
+		        {{ form }}
+			  </ul>
+			    <input type="submit" value="Execute Test" onclick='window.open("/execute_test/logging","Logging","menubar=no, status=no, scrollbars=no")'/>
+		    </form>
+{% endblock content %}

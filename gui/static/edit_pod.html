@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>Industry Standard Benchmarking - Intel</title>
+
+		<!-- Bootstrap -->
+		<link href="static/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="static/css/bootstrap-theme.min.css">
+		<link href="static/css/style.css" rel="stylesheet">
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+   // var url = 'http://10.223.197.182:5000/api/v1.0/vnf/';
+    var url = 'http://' + document.domain + ':' + location.port + '/api/v1.0/vnf/pod/edit';
+
+    $.ajax({
+        url: url,
+        dataType: "json"
+    }).then(function(result) {
+	    console.log(result.result);
+		//data = result;
+        //var out = $.parseJson(data);
+        var data = result.result;
+
+        var html_data = '<table class="table table-striped table-bordered"><thead><tr><th></th><th>Node 1</th><th>Node 2</th><th>Node 3</th></tr></thead><tbody><tr><td>Name</td><td><input type="text" name="node_1_name" value="'+data.node_1_name+'" disabled="disabled"></td><td><input type="text" name="node_2_name" value="'+data.node_2_name+'" disabled="disabled"></td><td><input type="text" name="node_3_name" value="'+data.node_3_name+'" disabled="disabled"></td><tr><tr><td>Role</td><td><input type="text" name="node_1_role" value="'+data.node_1_role+'"></td><td><input type="text" name="node_2_role" value="'+data.node_2_role+'"></td>	<td><input type="text" name="node_3_role" value="'+data.node_3_role+'"></td><tr><tr><td>IP</td><td><input type="text" name="node_1_ip" value="'+data.node_1_ip+'"></td><td><input type="text" name="node_2_ip" value="'+data.node_2_ip+'"></td><td><input type="text" name="node_3_ip" value="'+data.node_3_ip+'"></td><tr><tr><td>Username</td><td><input type="text" name="node_1_usr" value="'+data.node_1_usr+'"></td>		<td><input type="text" name="node_2_usr" value="'+data.node_2_usr+'"></td><td><input type="text" name="node_3_usr" value="'+data.node_3_usr+'"></td></tr><tr><td>Password</td><td><input type="text" name="node_1_pwd" value="'+data.node_1_pwd+'"></td><td><input type="text" name="node_2_pwd" value="'+data.node_2_pwd+'"></td><td><input type="text" name="node_3_pwd" value="'+data.node_3_pwd+'"></td></tr><tr><td>XE0 - VPCI</td><td><input type="text" name="node_1_xe0_vpci" value="'+data.node_1_xe0_vpci+'"></td><td><input type="text" name="node_2_xe0_vpci" value="'+data.node_2_xe0_vpci+'"></td><td><input type="text" name="node_3_xe0_vpci" value="'+data.node_3_xe0_vpci+'"></td></tr><tr><td>XE0 - Driver</td><td><input type="text" name="node_1_xe0_driver" value="'+data.node_1_xe0_driver+'"></td><td><input type="text" name="node_2_xe0_driver" value="'+data.node_2_xe0_driver+'"></td><td><input type="text" name="node_3_xe0_driver" value="'+data.node_3_xe0_driver+'"></td></tr><tr><td>XE1 - VPCI</td><td><input type="text" name="node_1_xe1_vpci" value="'+data.node_1_xe1_vpci+'"></td><td><input type="text" name="node_2_xe1_vpci" value="'+data.node_2_xe1_vpci+'"></td><td><input type="text" name="node_3_xe1_vpci" value="'+data.node_3_xe1_vpci+'"></td></tr><tr><td>XE1 - Driver</td><td><input type="text" name="node_1_xe1_driver" value="'+data.node_1_xe1_driver+'"></td><td><input type="text" name="node_2_xe1_driver" value="'+data.node_2_xe1_driver+'"></td><td><input type="text" name="node_3_xe1_driver" value="'+data.node_3_xe1_driver+'"></td></tr></tbody></table><button type="button" class="btn">Submit</button>';
+
+        $('#pod').append(html_data);
+        $('#pod').removeClass('hidden').addClass('show');
+		$("button").click(function(){
+
+        var r = confirm("This will update the POD. Please click OK to confirm");
+        if (r == true){
+        data = { 'node_1_role': $('input[name="node_1_role"]').val(),
+        'node_1_ip': $('input[name="node_1_ip"]').val(),
+        'node_1_usr': $('input[name="node_1_usr"]').val(),
+        'node_1_pwd': $('input[name="node_1_pwd"]').val(),
+        'node_1_xe0_vpci': $('input[name="node_1_xe0_vpci"]').val(),
+        'node_1_xe0_driver': $('input[name="node_1_xe0_driver"]').val(),
+        'node_1_xe1_vpci': $('input[name="node_1_xe1_vpci"]').val(),
+        'node_1_xe1_driver': $('input[name="node_1_xe1_driver"]').val(),
+        'node_2_role': $('input[name="node_2_role"]').val(),
+        'node_2_ip': $('input[name="node_2_ip"]').val(),
+        'node_2_usr': $('input[name="node_2_usr"]').val(),
+        'node_2_pwd': $('input[name="node_2_pwd"]').val(),
+        'node_2_xe0_vpci': $('input[name="node_2_xe0_vpci"]').val(),
+        'node_2_xe0_driver': $('input[name="node_2_xe0_driver"]').val(),
+        'node_2_xe1_vpci': $('input[name="node_2_xe1_vpci"]').val(),
+        'node_2_xe1_driver': $('input[name="node_2_xe1_driver"]').val(),
+        'node_3_role': $('input[name="node_3_role"]').val(),
+        'node_3_ip': $('input[name="node_3_ip"]').val(),
+        'node_3_usr': $('input[name="node_3_usr"]').val(),
+        'node_3_pwd': $('input[name="node_3_pwd"]').val(),
+        'node_3_xe0_vpci': $('input[name="node_3_xe0_vpci"]').val(),
+        'node_3_xe0_driver': $('input[name="node_3_xe0_driver"]').val(),
+        'node_3_xe1_vpci': $('input[name="node_3_xe1_vpci"]').val(),
+        'node_3_xe1_driver': $('input[name="node_3_xe1_driver"]').val()}
+
+
+		console.log(data);
+		$.post(url,data).done(
+                alert('Updated POD info'));
+        //window.location.assign('http://' + document.domain + ':' + location.port + '/pod'));
+        }
+
+		});
+		});
+
+
+	})
+
+</script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+</head>
+<body>
+<div class="container">
+<div id="header">
+
+			<div>
+				<div id="image-logo" class="pull-left">
+					<IMG SRC="static/img/Intelimages.png" WIDTH=180 HEIGHT=100>
+				</div>
+				<h1 class="pull-left header-text"> <strong id="heading">Test Harness - Industry Standard Benchmarking - Intel</strong></h1>
+			</div>
+		</div>
+		<div class="clear-fix"></div>
+        <div id="home" class="pull-right show">
+				<a href="/" target="_top" class="back-btn">Back to Home</a>
+			</div>
+			<div class="clear-fix"></div>
+	<div id="pod_head" class='show'>
+
+		<h3><strong id="use_case">Configure POD</strong></h3>
+		<div id="pod" class='show'>
+        </div>
+
+		</div>
+</div>
+</body>

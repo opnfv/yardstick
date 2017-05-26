@@ -1,0 +1,66 @@
+{% extends "execute_test/base.html" %}
+{% block content %}
+<h3><strong>Functional Test Results</strong></h3>
+<h4><strong>Summary</strong></h4>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Testcase</th>
+			<th>Result</th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>{{ tc }}</td>
+		<td>{{ result }}</td>
+		</tr>
+		</tbody>
+		 </table>
+<h4><strong>Traffic Generator KPIs</strong></h4>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Packets send from TG 1</th>
+			<th>Packets received at TG 1</th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>{{ tg1_xe0 }}</td>
+		<td>{{ tg1_xe1 }}</td>
+		</tr>
+		</tbody>
+		 </table>
+<h4><strong>VNF KPIs</strong></h4>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Packets received by VNF</th>
+			<th>Packets forwarded by VNF</th>
+			<th>Packets dropped by VNF</th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>{{ vnf_rcvd }}</td>
+		<td>{{ vnf_fwd }}</td>
+		<td>{{ vnf_drop }}</td>
+		</tr>
+		</tbody>
+		 </table>
+<h4><strong>Traffic Verifier KPIs</strong></h4>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Packets send from TG 2</th>
+			<th>Packets received at TG 2</th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>{{ tg2_xe1 }}</td>
+		<td>{{ tg2_xe0 }}</td>
+		</tr>
+		</tbody>
+		 </table>
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends "execute_test/base.html" %}
+{% block content %}
+<h3><strong>HTTP Test Results</strong></h3>
+<h4><strong>Summary</strong></h4>
+<p><strong>Result: </strong><small>{{ result }}</small>
+<p><strong>Complete requests: </strong><small>{{ complete_requests }}</small>
+<p><strong>Failed requests: </strong><small>{{ failed_requests }}</small>
+<p><strong>Time taken for tests: </strong><small>{{ total_time }} seconds</small>
+<p><strong>Time per request: </strong><small>{{ time_per_request }} ms</small>
+<p><strong>Requests per second: </strong><small>{{ requests_per_second }}/sec</small>
+<h4><strong>Details</strong></h4>
+<table class="table table-bordered">
+     <tbody>
+{% for key, value in requests_served.items %}
+	    <tr>
+		    <td><strong>{{ key }}</strong></td>
+		    <td>{{ value }}</td>
+	    </tr>
+{% endfor %}
+</tbody>
+</table>
+<h4><strong>VNF KPIs</strong></h4>
+<table class="table table-bordered">
+    <thead>
+	    <tr>
+		    <th>Sequence</th>
+		    <th>Packets In</th>
+		    <th>Packets Dropped</th>
+		    <th>Packets Forwarded</th>
+	    </tr>
+     </thead>
+     <tbody>
+{% for item in vnf_1_data %}
+
+	    <tr>
+		    <td>{{ forloop.counter }}</td>
+		    <td>{{ item.packets_in }}</td>
+		    <td>{{ item.packets_dropped }}</td>
+		    <td>{{ item.packets_fwd }}</td>
+	    </tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock content %}

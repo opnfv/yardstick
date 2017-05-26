@@ -1,0 +1,7 @@
+{% extends "execute_test/base.html" %}
+{% block content %}
+<h3><strong>Test Execution Results</strong></h3>
+<p><a href="{% url 'execute_test:tc-result' %}" target="_top" class="btn btn-link btn-inverse">Test Case Result</a></p>
+<!--p><a href="{% url 'execute_test:regression-results' %}" target="_top" class="btn btn-link btn-inverse">Regression Result</a></p>
+<p><a href="{% url 'execute_test:scaleup-results' %}" target="_top" class="btn btn-link btn-inverse">Scaleup Result</a></p-->
+{% endblock content %}

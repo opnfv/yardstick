@@ -1,0 +1,7 @@
+{% extends "execute_test/base.html" %}
+{% block content %}
+<h3><strong>IP Versions</strong></h3>
+{% for ip in ip_list%}
+    <p><a href="/execute_test/{{ tg | lower}}/{{ vnf | lower }}/{{ deployment_type | lower }}/{{ test_type | lower}}/{{ ip | lower }}/pack-types" class="btn btn-primary btn-lg" role="button" style="font-weight:lighter;width:200px;color:#FFFFFF">{{ ip | upper }}</a></p>
+{% endfor %}
+{% endblock content %}

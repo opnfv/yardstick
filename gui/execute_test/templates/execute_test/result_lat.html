@@ -1,0 +1,337 @@
+{% extends "execute_test/base.html" %}
+{% block content %}
+<h2><strong>Performance Test Results - Latency</strong></h3>
+<h4><strong>Result Summary</strong></h4>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Testcase</th>
+			<th>Throughput</th>
+			<th>Drop Percentage</th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>{{ tc }}</td>
+		<td>{{ throughput }}</td>
+		<td>{{ drop_percentage }}</td>
+		</tr>
+		</tbody>
+		 </table>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Interface</th>
+			<th>Dropped</th>
+			<th>Jitter</th>
+			<th>Average</th>
+			<th>Total Min</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for key, value in lat_stats.items %}
+	<tr>
+		<td>{{ key }}</td>
+		<td>{{ value.dropped }}</td>
+		<td>{{ value.jitter }}</td>
+		<td>{{ value.average }}</td>
+		<td>{{ value.total_min }}</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+		 </table>
+
+
+<h4><strong>System Under Test Details</strong></h4>
+<table class="table table-bordered">
+	<thead><tr><th colspan=2 align='center'>Hardware</th></thead>
+     <tbody>
+	    <tr>
+		    <td><strong>Platform</strong></td>
+		    <td></td>
+	    </tr>
+	    <tr>
+		    <td><strong>Processor</strong></td>
+		    <td></td>
+	    </tr>
+	    <tr>
+		    <td><strong># cores</strong></td>
+		    <td></td>
+	    </tr>
+	    <tr>
+		    <td><strong>RAM</strong></td>
+		    <td></td>
+	    </tr>
+	    <tr>
+		    <td><strong>DPDK Ports</strong></td>
+		    <td></td>
+	    </tr>
+	    </tbody>
+    </table>
+<table class="table table-bordered">
+	<thead><tr><th colspan=2 align='center'>Software (BareMetal)</th></thead>
+     <tbody>
+	    <tr>
+		    <td><strong>BIOS Version</strong></td>
+		    <td></td>
+	    </tr>
+	    <tr>
+		    <td><strong>Bios Release Date</strong></td>
+		    <td></td>
+	    </tr>
+	    <tr>
+		    <td><strong>OS</strong></td>
+		    <td></td>
+	    </tr>
+	    <tr>
+		    <td><strong>Kernel</strong></td>
+		    <td></td>
+	    </tr>
+	    <tr>
+		    <td><strong>ISB Version</strong></td>
+		    <td></td>
+	    </tr>
+	    <tr>
+		    <td><strong>DPDK Version</strong></td>
+		    <td></td>
+	    </tr>
+	    <tr>
+		    <td><strong>Hugepages - 2048kB</strong></td>
+		    <td></td>
+	    </tr>
+	    <tr>
+		    <td><strong>Hugepages - 1GB</strong></td>
+		    <td></td>
+	    </tr>
+	    </tbody>
+    </table>
+<h4><strong>Test Details</strong></h4>
+<table class="table table-bordered">
+    <thead>
+	    <tr>
+		    <th>Iteration</th>
+		    <th>Time</th>
+		    <th>RX Throughput</th>
+		    <th>TX Throughput</th>
+		    <th>Current Drop Percentage</th>
+		    <th>Throughput</th>
+		    <th>Drop Percentage</th>
+	    </tr>
+     </thead>
+     <tbody>
+{% for item  in data %}
+
+	    <tr>
+		    <td>{{ forloop.counter }}</td>
+		    <td>{{ item.timestamp }}</td>
+		    <td>{{ item.RxThroughput }}</td>
+		    <td>{{ item.TxThroughput }}</td>
+		    <td>{{ item.CurrentDropPercentage }}</td>
+		    <td>{{ item.Throughput }}</td>
+		    <td>{{ item.DropPercentage }}</td>
+	    </tr>
+{% endfor %}
+</tbody>
+</table>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawVisualization);
+function drawVisualization() {
+	var tmp = "{{ graph_data }}".replace(/&quot;/g,'"');
+	var graph_data = JSON.parse(tmp.replace(/&quot;/g,'"'));
+	console.log(graph_data);
+	var data = google.visualization.arrayToDataTable(graph_data);
+	var options = {
+		title : 'TX & RX Throuput v/s Current Drop Percentage',
+		vAxis: {title: 'Throughput & Drop Percentage'},
+		hAxis: {title: 'Iterations'},
+		seriesType: 'bars',
+		series: {2: {type: 'line'}}
+	};
+	var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+	chart.draw(data, options);
+}
+</script>
+<script type="text/javascript">
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawVisualization);
+function drawVisualization() {
+	var tmp = "{{ graph_data_1 }}".replace(/&quot;/g,'"');
+	var graph_data = JSON.parse(tmp.replace(/&quot;/g,'"'));
+	console.log(graph_data);
+	var data = google.visualization.arrayToDataTable(graph_data);
+	var options = {
+		title : 'Throuput v/s Drop Percentage',
+		vAxis: {title: 'Throughput & Drop Percentage'},
+		hAxis: {title: 'Iterations'},
+		seriesType: 'bars',
+		series: {1: {type: 'line'}}
+	};
+	var chart = new google.visualization.ComboChart(document.getElementById('chart_div_1'));
+	chart.draw(data, options);
+}
+</script>
+<div id="chart_div" style="width: 1100px; height: 375px;margin-bottom: 20px"></div>
+<div id="chart_div_1" style="width: 1100px; height: 375px;margin-bottom: 20px"></div>
+
+<h3><strong>Latency Details</strong></h4>
+{% for key, value in latency_data.items %}
+<h4><strong>{{ key | upper }} Statistics</strong></h4>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Iteration</th>
+			<th>Time</th>
+			<th>Latency(usec)</th>
+			<th>Jitter(usec)</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for item  in value %}
+	<tr>
+		<td>{{ forloop.counter }}</td>
+		<td>{{ item.timestamp }}</td>
+		<td>{{ item.latency }}</td>
+		<td>{{ item.jitter }}</td>
+	</tr>
+	{% endfor %}
+	</tbody>
+</table>
+{% endfor %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+	var tmp = "{{ graph_data_2 }}".replace(/&quot;/g,'"');
+	var graph_data = JSON.parse(tmp.replace(/&quot;/g,'"'));
+	var data = google.visualization.arrayToDataTable(graph_data);
+	var options = {
+		 hAxis: {
+				title: 'Iteration'
+			},
+		vAxis: {
+			       title: 'Average Latency'
+		       },
+		};
+	var chart = new google.visualization.LineChart(document.getElementById('chart_div_2'));
+	chart.draw(data, options);
+}
+</script>
+<div id="chart_div_2" style="width: 1100px; height: 375px;margin-bottom: 20px"></div>
+<h3><strong>Traffic Generator KPIs</strong></h4>
+{% for key, value in xe_stats.items %}
+<h4><strong>NIC {{ key | upper }} Statistics</strong></h4>
+<table class="table table-bordered">
+    <thead>
+	    <tr>
+		    <th>Sequence</th>
+		    <th>In Packets</th>
+		    <th>Out Packets</th>
+		    <th>TX Throughput FPS</th>
+		    <th>RX Throughput FPS</th>
+		    <th>TX Throughput MBPS</th>
+		    <th>RX Throughput MBPS</th>
+	    </tr>
+     </thead>
+     <tbody>
+{% for item in value %}
+
+	    <tr>
+		    <td>{{ forloop.counter }}</td>
+		    <td>{{ item.in_packets }}</td>
+		    <td>{{ item.out_packets }}</td>
+		    <td>{{ item.tx_throughput_fps }}</td>
+		    <td>{{ item.rx_throughput_fps }}</td>
+		    <td>{{ item.tx_throughput_mbps }}</td>
+		    <td>{{ item.rx_throughput_mbps }}</td>
+	    </tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endfor %}
+<h3><strong>VNF KPIs</strong></h4>
+<table class="table table-bordered">
+    <thead>
+	    <tr>
+		    <th>Sequence</th>
+		    <th>Packets In</th>
+		    <th>Packets Dropped</th>
+		    <th>Packets Forwarded</th>
+	    </tr>
+     </thead>
+     <tbody>
+{% for item in vnf_1_data %}
+
+	    <tr>
+		    <td>{{ forloop.counter }}</td>
+		    <td>{{ item.packets_in }}</td>
+		    <td>{{ item.packets_dropped }}</td>
+		    <td>{{ item.packets_fwd }}</td>
+	    </tr>
+{% endfor %}
+</tbody>
+</table>
+<h3><strong>L4Reply/Verifier KPIs</strong></h4>
+<table class="table table-bordered">
+    <thead>
+	    <tr>
+		    <th>Sequence</th>
+		    <th>Packets Out</th>
+		    <th>Packets Out Dropped</th>
+		    <th>Packets In</th>
+		    <th>Packets In Dropped</th>
+	    </tr>
+     </thead>
+     <tbody>
+{% for item in tg_2_data %}
+
+	    <tr>
+		    <td>{{ forloop.counter }}</td>
+		    <td>{{ item.packets_out }}</td>
+		    <td>{{ item.packets_out_dropped }}</td>
+		    <td>{{ item.packets_in }}</td>
+		    <td>{{ item.packets_in_dropped }}</td>
+	    </tr>
+{% endfor %}
+</tbody>
+</table>
+
+
+
+<h3><strong>NFVI KPIs</strong></h4>
+
+<h4><strong>CPU Core KPIs</strong></h4>
+<table class="table table-bordered">
+    <thead>
+	    <tr>
+		    <th>ID</th>
+		    <th>HZ</th>
+		    <th>Instruction Per Cloack(IPC)</th>
+		    <th>Branch misses</th>
+		    <th>L1 Instruction Cache Misses</th>
+		    <th>L2 Instruction Cache Misses</th>
+		    <th>Last Level Cache Misses</th>
+		    <th>dTLB load Misses</th>
+		    <th>dTLB Store Misses</th>
+		    <th>iTLB load Misses</th>
+	    </tr>
+     </thead>
+     <tbody>
+</tbody>
+</table>
+<h4><strong>Memory KPIs</strong></h4>
+<table class="table table-bordered">
+    <thead>
+	    <tr>
+		    <th>System Memory Write Throughput(MB/s)</th>
+		    <th>System Memory Read Throughput(MB/s)</th>
+		    <th>System Memory Throughput(MB/s)</th>
+	    </tr>
+     </thead>
+     <tbody>
+</tbody>
+</table>
+{% endblock content %}

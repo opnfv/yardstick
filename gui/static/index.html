@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">	
+		<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+		<meta  HTTP-EQUIV="Expires" CONTENT="-1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>Industry Standard Benchmarking - Intel</title>
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<link href="static/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="static/css/bootstrap-theme.min.css">
+		<link href="static/css/style.css" rel="stylesheet">
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<script>
+			var win_do;
+			function open_win(url)
+			{
+				url = window.location.href + url;
+				sessionStorage.setItem("sent", 0);
+				var win = window.open(url, '_blank');
+			}
+		</script>
+	</head>
+<body>
+        <a href="#error" id="dialog" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all" style="display:none" >Error poup</a>
+
+        <div data-role="popup" id="error" class="ui-content" style="left: 220px;top:200px">
+	      <h3>Error!</h3>
+	      <p id="errMsg"></p>
+        </div>
+	<div class="container">
+		<div id="header">
+			
+			<div>
+				<div id="image-logo" class="pull-left">
+					<IMG SRC="static/img/Intelimages.png" WIDTH=180 HEIGHT=100>				
+				</div>
+				<h1 class="pull-left header-text"> <strong id="heading">Test Harness - Industry Standard Benchmarking - Intel</strong></h1>
+			</div>
+		</div>
+		<div id="test_selection" class='show'>
+			<div id="home" class="pull-right show">
+				<a href="/pod" target="_top" class="back-btn">Configure POD</a><a href="/" target="_top" class="back-btn">Back to Home</a>
+			</div>
+            <div class="clear-fix"></div>
+			<div class="clear-fix"></div>
+            <div id="navigation" class="pull-left show">
+                <ul class="breadcrumb">
+                    <li>HOME</li>
+                    </ul>
+                
+            </div>
+			<div id="tg_types" class='hidden'><br/>
+				<h3><strong>Select Traffic generator</strong></h3>
+				<button id="sw" class="btn-primary" style="font-weight:lighter;width:400px;color:#FFFFFF;display:inline"  type="button" value='SOFTWARE'>Software (trex/pktgen/ab/iperf etc)</button>&emsp;&emsp;
+				<button id="ixia" class="btn-primary" style="font-weight:lighter;width:400px;color:#FFFFFF;display:inline"  type="button" value='IXIA'>&emsp;&emsp;&emsp;IXIA&emsp;&emsp;&emsp;</button>
+			</div>
+
+			<div id="vnf_types" class='hidden'>
+				
+				<h3><strong id="use_case">Network Service</strong></h3>
+			</div>
+			<div class="clear-fix"></div>
+			<div class="clear-fix"></div>
+			<div id="deployment_types" class="hidden">
+				<h3><strong id="">Deployment Types</strong></h3>
+			</div>
+			<div class="clear-fix"></div>
+			<div id="test_types" class="hidden">
+				<h3><strong id="">Traffic Profile</strong></h3>
+			</div>
+			<div class="clear-fix"></div>
+			<div class="clear-fix"></div>
+			
+			<div id="ip_version" class="hidden">
+				<h3><strong id="">IP Version</strong></h3>
+				<button id="ip" class="btn btn-primary"  type="button" style="font-weight:lighter;width:100px;color:#FFFFFF;display:inline" value='ipv4'>IPv4</button>
+				<button id="ip" class="btn btn-primary"  type="button" style="font-weight:lighter;width:100px;color:#FFFFFF;display:inline" value='ipv6'>IPv6</button>
+			</div>
+			<div class="clear-fix"></div>
+			<div class="clear-fix"></div>
+			<div id="packet_size" class="hidden">
+				<h3><strong id="">Packet Size</strong></h3>
+				<button id="packet_size" class="btn btn-primary"  type="button" style="font-weight:lighter;width:100px;color:#FFFFFF;display:inline" value='64b'>64B</button>
+				<button id="packet_size" class="btn btn-primary"  type="button" style="font-weight:lighter;width:100px;color:#FFFFFF;display:inline" value='128b'>128B</button>
+				<button id="packet_size" class="btn btn-primary"  type="button" style="font-weight:lighter;width:100px;color:#FFFFFF;display:inline" value='1518b'>1518B</button>
+				<button id="packet_size" class="btn btn-primary"  type="button" style="font-weight:lighter;width:100px;color:#FFFFFF;display:inline" value='imix'>IMIX</button>
+			</div>
+			
+			<div class="clear-fix"></div>
+			<button class="hidden" href='javascript:void(0);' onclick='open_win("/static/summary.html");'style="width:100px; height:60px;float: right;color:white;background-color:#44c767; border-radius:28px;border:1px solid #18ab29;" id="result" class="btn btn-primary"  type="button" >Results</button>
+			<div id="test_cases" class="hidden">
+				<h3><strong id="test_case">Test Cases</strong></h3>
+			</div>
+			
+		</div>
+		
+		
+	</div>
+
+</body>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="static/js_scripts.js"></script>
+<!-- Ladda -->
+<script>
+document.getElementById('txt').addEventListener('keydown', function(e) {
+    var key   = e.keyCode ? e.keyCode : e.which;
+    
+    if (!( [8, 9, 13, 27, 46, 110, 190].indexOf(key) !== -1 ||
+         (key == 65 && ( e.ctrlKey || e.metaKey  ) ) || 
+         (key >= 35 && key <= 40) ||
+         (key >= 48 && key <= 57 && !(e.shiftKey || e.altKey)) ||
+         (key >= 96 && key <= 105)
+       )) e.preventDefault();
+});
+document.getElementById('text').addEventListener('keydown', function(e) {
+    var key   = e.keyCode ? e.keyCode : e.which;
+    
+    if (!( [8, 9, 13, 27, 46, 110, 190].indexOf(key) !== -1 ||
+         (key == 65 && ( e.ctrlKey || e.metaKey  ) ) || 
+         (key >= 35 && key <= 40) ||
+         (key >= 48 && key <= 57 && !(e.shiftKey || e.altKey)) ||
+         (key >= 96 && key <= 105)
+       )) e.preventDefault();
+});
+document.getElementById('level').addEventListener('keydown', function(e) {
+    var key   = e.keyCode ? e.keyCode : e.which;
+    
+    if (!( [8, 9, 13, 27, 46, 110, 190].indexOf(key) !== -1 ||
+         (key == 65 && ( e.ctrlKey || e.metaKey  ) ) || 
+         (key >= 35 && key <= 40) ||
+         (key >= 48 && key <= 57 && !(e.shiftKey || e.altKey)) ||
+         (key >= 96 && key <= 105)
+       )) e.preventDefault();
+});
+</script>
+</html>
