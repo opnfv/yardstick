@@ -1,0 +1,16 @@
+Code-Review+2: Kubi <jean.gaoliang@huawei.com>
+Code-Review+2: Trevor Cooper <trevor.cooper@intel.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Code-Review+2: Ross Brattain <ross.b.brattain@intel.com>
+Code-Review+2: Jing Lu <lvjing5@huawei.com>
+Code-Review+1: Kanglin Yin <14_ykl@tongji.edu.cn>
+Code-Review+2: zhihui wu <wu.zhihui1@zte.com.cn>
+Code-Review+1: Maciej Skrocki <maciej.skrocki@intel.com>
+Code-Review+2: Vincenzo Riccobene <vincenzo.m.riccobene@intel.com>
+Code-Review+1: Michail-Alexandros Kourtis <akis.kourtis@iit.demokritos.gr>
+Submitted-by: Kubi <jean.gaoliang@huawei.com>
+Submitted-at: Sat, 27 May 2017 06:22:25 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/35141
+Project: yardstick
+Branch: refs/heads/master
