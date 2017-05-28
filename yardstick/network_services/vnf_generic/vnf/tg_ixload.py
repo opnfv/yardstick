@@ -146,7 +146,7 @@ class IxLoadTrafficGen(GenericTrafficGen):
     def listen_traffic(self, traffic_profile):
         pass
 
-    def instantiate(self, scenario_cfg, context_cfg):
+    def instantiate(self, node_name, scenario_cfg, context_cfg):
 
         makedirs(self.RESULTS_MOUNT)
         cmd = MOUNT_CMD.format(ip=self.vnfd["mgmt-interface"]["ip"],
@@ -154,6 +154,7 @@ class IxLoadTrafficGen(GenericTrafficGen):
                                passwd=self.vnfd["mgmt-interface"]["password"],
                                RESULTS_MOUNT=self.RESULTS_MOUNT)
         LOG.debug(cmd)
+        self.node_name = node_name
 
         if not os.path.ismount(self.RESULTS_MOUNT):
             call(cmd, shell=True)
