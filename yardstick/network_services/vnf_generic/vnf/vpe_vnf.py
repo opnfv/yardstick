@@ -357,7 +357,8 @@ class VpeApproxVnf(GenericVNF):
         nfvi_type = tc_data['context'].get('nfvi_type', 'baremetal')
         return nfvi_type
 
-    def instantiate(self, scenario_cfg, context_cfg):
+    def instantiate(self, node_name, scenario_cfg, context_cfg):
+        self.node_name = node_name
         vnf_cfg = scenario_cfg['vnf_options']['vpe']['cfg']
 
         mgmt_interface = self.vnfd["mgmt-interface"]

@@ -155,7 +155,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
             ixload_traffic_gen.RESULTS_MOUNT = "/tmp/result"
             shutil.copy = mock.Mock()
             self.assertRaises(IOError,
-                              ixload_traffic_gen.instantiate(scenario_cfg,
+                              ixload_traffic_gen.instantiate("tg__1", scenario_cfg,
                                                              {}))
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
