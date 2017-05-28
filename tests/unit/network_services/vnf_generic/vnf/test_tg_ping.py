@@ -168,7 +168,7 @@ class TestPingTrafficGen(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ping_traffic_gen = PingTrafficGen(vnfd)
-            self.assertEqual(None, ping_traffic_gen.instantiate({}, {}))
+            self.assertEqual(None, ping_traffic_gen.instantiate("tg__1", {}, {}))
 
     def test_listen_traffic(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:

@@ -240,7 +240,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             scenario_cfg = {"tc": "tc_baremetal_rfc2544_ipv4_1flow_64B"}
             tg_rfc2544_trex.WAIT_TIME = 3
             scenario_cfg.update({"nodes": ["tg_1", "vnf_1"]})
-            self.assertEqual(0, trex_traffic_gen.instantiate(scenario_cfg, {}))
+            self.assertEqual(0, trex_traffic_gen.instantiate("tg__1", scenario_cfg, {}))
 
     def test_instantiate_error(self):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
@@ -258,7 +258,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             scenario_cfg = {"tc": "tc_baremetal_rfc2544_ipv4_1flow_64B"}
             scenario_cfg.update({"nodes": ["tg_1", "vnf_1"]})
             self.assertRaises(RuntimeError,
-                              trex_traffic_gen.instantiate, scenario_cfg, {})
+                              trex_traffic_gen.instantiate, "vnf__1", scenario_cfg, {})
 
     def test__get_rfc_tolerance(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:

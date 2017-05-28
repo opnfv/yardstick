@@ -98,16 +98,8 @@ class PingTrafficGen(GenericTrafficGen):
         ''' scale vnfbased on flavor input '''
         super(PingTrafficGen, self).scale(flavor)
 
-    def instantiate(self, scenario_cfg, context_cfg):
-        LOG.debug("***************************************")
-        LOG.debug("***************************************")
-        LOG.debug("***************************************")
-        LOG.debug(scenario_cfg)
-        LOG.debug(context_cfg)
-        LOG.debug(self.vnfd)
-        LOG.debug("***************************************")
-        LOG.debug("***************************************")
-        LOG.debug("***************************************")
+    def instantiate(self, node_name, scenario_cfg, context_cfg):
+        self.node_name = node_name
         self._result = {"packets_received": 0, "rtt": 0}
         self._bind_device_kernel(self.connection)
 

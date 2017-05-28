@@ -119,10 +119,11 @@ class AclApproxVnf(GenericVNF):
         nfvi_type = tc_data['context'].get('nfvi_type', 'baremetal')
         return nfvi_type
 
-    def instantiate(self, scenario_cfg, context_cfg):
+    def instantiate(self, node_name, scenario_cfg, context_cfg):
         cores = ["0", "1", "2", "3", "4"]
         self.vnf_cfg = scenario_cfg['vnf_options']['acl']['cfg']
 
+        self.node_name = node_name
         rule_file = scenario_cfg['vnf_options']['acl']['rules']
         mgmt_interface = self.vnfd["mgmt-interface"]
         self.connection = ssh.SSH.from_node(mgmt_interface)

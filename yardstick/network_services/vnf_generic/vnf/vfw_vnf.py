@@ -117,8 +117,9 @@ class FWApproxVnf(GenericVNF):
         nfvi_type = tc_data['context'].get('nfvi_type', 'baremetal')
         return nfvi_type
 
-    def instantiate(self, scenario_cfg, context_cfg):
+    def instantiate(self, node_name, scenario_cfg, context_cfg):
         cores = ["0", "1", "2", "3", "4"]
+        self.node_name = node_name
         self.vnf_cfg = scenario_cfg['vnf_options']['vfw']['cfg']
 
         rule_file = scenario_cfg['vnf_options']['vfw']['rules']
