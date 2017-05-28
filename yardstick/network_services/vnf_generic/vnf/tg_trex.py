@@ -145,7 +145,8 @@ class TrexTrafficGen(GenericTrafficGen):
         ''' scale vnfbased on flavor input '''
         super(TrexTrafficGen, self).scale(flavor)
 
-    def instantiate(self, scenario_cfg, context_cfg):
+    def instantiate(self, node_name, scenario_cfg, context_cfg):
+        self.node_name = node_name
         self._generate_trex_cfg(self.vnfd)
         self.setup_vnf_environment(self.connection)
 

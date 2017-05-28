@@ -120,7 +120,8 @@ class VpeApproxVnf(GenericVNF):
         ''' scale vnfbased on flavor input '''
         super(VpeApproxVnf, self).scale(flavor)
 
-    def instantiate(self, scenario_cfg, context_cfg):
+    def instantiate(self, node_name, scenario_cfg, context_cfg):
+        self.node_name = node_name
         vnf_cfg = scenario_cfg['vnf_options']['vpe']['cfg']
 
         mgmt_interface = self.vnfd["mgmt-interface"]
@@ -265,7 +266,8 @@ class VpeApproxVnf(GenericVNF):
                                    os.path.join(self.bin_path, "vPE_vnf"))
         cmd = VPE_PIPELINE_COMMAND.format(cfg_file="/tmp/vpe_config",
                                           script="/tmp/vpe_script",
-                                          tool_path=tool_path)
+                                          tool_path=tool_path,
+                                          ports_len_hex="0x3")
         self.connection.run(cmd, stdin=filewrapper, stdout=filewrapper,
                             keep_stdin_open=True, pty=True)
 

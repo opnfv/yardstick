@@ -277,7 +277,7 @@ class NetworkServiceTestCase(base.Scenario):
         try:
             for vnf in self.vnfs:
                 LOG.info("Instantiating %s", vnf.name)
-                vnf.instantiate(self.scenario_cfg, self.context_cfg)
+                vnf.instantiate(vnf.name, self.scenario_cfg, self.context_cfg)
         except RuntimeError:
             for vnf in self.vnfs:
                 vnf.terminate()
