@@ -374,7 +374,7 @@ class TestFWApproxVnf(unittest.TestCase):
             vfw_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
             vfw_approx_vnf.q_out.put("pipeline>")
             vfw_vnf.WAIT_TIME = 3
-            self.assertIsNone(vfw_approx_vnf.instantiate(self.scenario_cfg,
+            self.assertIsNone(vfw_approx_vnf.instantiate("vnf__1", self.scenario_cfg,
                               self.context_cfg))
 
     def test_instantiate_panic(self):
@@ -394,7 +394,7 @@ class TestFWApproxVnf(unittest.TestCase):
             vfw_vnf.WAIT_TIME = 1
             vfw_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
             self.assertRaises(RuntimeError, vfw_approx_vnf.instantiate,
-                              self.scenario_cfg, self.context_cfg)
+                              "vnf__1", self.scenario_cfg, self.context_cfg)
 
     def test_get_nfvi_type(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]

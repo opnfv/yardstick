@@ -145,7 +145,7 @@ class TestIXIATrafficGen(unittest.TestCase):
             ixnet_traffic_gen._IxiaTrafficGen._connect = mock.Mock()
             self.assertRaises(
                 IOError,
-                ixnet_traffic_gen.instantiate(scenario_cfg, {}))
+                ixnet_traffic_gen.instantiate("tg__1", scenario_cfg, {}))
 
     def test_collect_kpi(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:

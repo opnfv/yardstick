@@ -134,7 +134,8 @@ class IXIATrafficGen(GenericTrafficGen):
         from IxNet import IxNextgen
         return IxNextgen()
 
-    def instantiate(self, scenario_cfg, context_cfg):
+    def instantiate(self, node_name, scenario_cfg, context_cfg):
+        self.node_name = node_name
         self._IxiaTrafficGen = self.get_ixobj()
         self.done = False
         self.tc_file_name = '{0}.yaml'.format(scenario_cfg['tc'])

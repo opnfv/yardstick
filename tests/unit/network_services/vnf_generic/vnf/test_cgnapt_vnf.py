@@ -374,7 +374,9 @@ class TestCgnaptApproxVnf(unittest.TestCase):
             cgnapt_vnf.WAIT_TIME = 3
             cgnapt_approx_vnf.get_nfvi_type = \
                 mock.Mock(return_value="baremetal")
-            self.assertIsNone(cgnapt_approx_vnf.instantiate(self.scenario_cfg,
+            CgnaptApproxVnf._vnf_process = mock.MagicMock()
+            CgnaptApproxVnf._vnf_process.is_alive = mock.Mock(return_value=1)
+            self.assertIsNone(cgnapt_approx_vnf.instantiate("vnf__1", self.scenario_cfg,
                               self.context_cfg))
 
     def test_instantiate_panic(self):
@@ -395,7 +397,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
             cgnapt_approx_vnf.get_nfvi_type = \
                 mock.Mock(return_value="baremetal")
             self.assertRaises(RuntimeError, cgnapt_approx_vnf.instantiate,
-                              self.scenario_cfg, self.context_cfg)
+                              "vnf__1", self.scenario_cfg, self.context_cfg)
 
     def test_get_nfvi_type(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
