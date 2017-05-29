@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_1d3e5eb9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-29T05:10:34Z",
+      "side": 1,
+      "message": "we can\u0027t re-parse the test case, the test case is a Jinja2 template, it is not valid YAML.\n\nUse scenario_cfg.",
+      "revId": "1057767c1a8e8a461254df3b402b56743cea2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_fd402237",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-29T05:10:34Z",
+      "side": 1,
+      "message": "don\u0027t use eval.\n\n         ports_len_hex \u003d hex(2**len(self.my_ports) - 1)",
+      "revId": "1057767c1a8e8a461254df3b402b56743cea2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
