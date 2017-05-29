@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_4212b363",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-29T01:47:01Z",
+      "side": 1,
+      "message": "we set the vnf name equal to the node_name here.",
+      "revId": "c90763ee5187b410fc25c7781d4c74e21042d989",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_a21da775",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-29T01:47:01Z",
+      "side": 1,
+      "message": "we already set the name,  vnf.name is the node_name, we set it during load_vnf_models.",
+      "revId": "c90763ee5187b410fc25c7781d4c74e21042d989",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
