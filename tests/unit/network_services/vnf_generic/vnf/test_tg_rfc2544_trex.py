@@ -238,6 +238,16 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             trex_traffic_gen._start_server = mock.Mock(return_value=0)
             scenario_cfg = {"tc": "tc_baremetal_rfc2544_ipv4_1flow_64B"}
+            scenario_cfg.update({"topology": 'nsb_test_case.yaml'})
+            scenario_cfg.update({'options': {'packetsize': 64, 'traffic_type': 4 ,
+                                'rfc2544': {'allowed_drop_rate': '0.8 - 1'},
+                                'vnf__1': {'rules': 'acl_1rule.yaml',
+                                           'vnf_config': {'lb_config': 'SW',
+                                                          'lb_count': 1,
+                                                          'worker_config':
+                                                          '1C/1T',
+                                                          'worker_threads': 1}}
+                               }})
             tg_rfc2544_trex.WAIT_TIME = 3
             scenario_cfg.update({"nodes": ["tg_1", "vnf_1"]})
             self.assertEqual(0, trex_traffic_gen.instantiate("tg__1", scenario_cfg, {}))
@@ -257,6 +267,16 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             scenario_cfg = {"tc": "tc_baremetal_rfc2544_ipv4_1flow_64B"}
             scenario_cfg.update({"nodes": ["tg_1", "vnf_1"]})
+            scenario_cfg.update({"topology": 'nsb_test_case.yaml'})
+            scenario_cfg.update({'options': {'packetsize': 64, 'traffic_type': 4 ,
+                                'rfc2544': {'allowed_drop_rate': '0.8 - 1'},
+                                'vnf__1': {'rules': 'acl_1rule.yaml',
+                                           'vnf_config': {'lb_config': 'SW',
+                                                          'lb_count': 1,
+                                                          'worker_config':
+                                                          '1C/1T',
+                                                          'worker_threads': 1}}
+                               }})
             self.assertRaises(RuntimeError,
                               trex_traffic_gen.instantiate, "vnf__1", scenario_cfg, {})
 
@@ -270,12 +290,30 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
+            trex_traffic_gen.options = {'packetsize': 64, 'traffic_type': 4 ,
+                                'rfc2544': {'allowed_drop_rate': '0.8 - 1'},
+                                'vnf__1': {'rules': 'acl_1rule.yaml',
+                                           'vnf_config': {'lb_config': 'SW',
+                                                          'lb_count': 1,
+                                                          'worker_config':
+                                                          '1C/1T',
+                                                          'worker_threads': 1}}
+                               }
             self.assertEqual([0.8, 1.0],
-                             trex_traffic_gen._get_rfc_tolerance(self.TC_YAML))
+                             trex_traffic_gen._get_rfc_tolerance())
             self.TC_YAML["scenarios"][0]["tc_options"]['rfc2544'][
                 'allowed_drop_rate'] = '0.8'
+            trex_traffic_gen.options = {'packetsize': 64, 'traffic_type': 4 ,
+                                'rfc2544': {'allowed_drop_rate': '0.8'},
+                                'vnf__1': {'rules': 'acl_1rule.yaml',
+                                           'vnf_config': {'lb_config': 'SW',
+                                                          'lb_count': 1,
+                                                          'worker_config':
+                                                          '1C/1T',
+                                                          'worker_threads': 1}}
+                               }
             self.assertEqual([0.8, 0.8],
-                             trex_traffic_gen._get_rfc_tolerance(self.TC_YAML))
+                             trex_traffic_gen._get_rfc_tolerance())
 
     def test__start_server(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -326,6 +364,19 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             self.sut.vnf_port_pairs = [[[0], [1]]]
             self.sut.iteration = 0
             self.sut._get_rfc_latency = mock.Mock(return_value=False)
+            self.sut.options = {'packetsize': 64, 'traffic_type': 4 ,
+                                'rfc2544': {'allowed_drop_rate': '0.8 - 1'},
+                                'vnf__1': {'rules': 'acl_1rule.yaml',
+                                           'vnf_config': {'lb_config': 'SW',
+                                                          'lb_count': 1,
+                                                          'worker_config':
+                                                          '1C/1T',
+                                                          'worker_threads': 1}}
+                               }
+
+            self.sut.topology = "nsb_test.yaml"
+            self.sut.generate_port_pairs = mock.Mock()
+
             self.sut._traffic_runner(mock_traffic_profile, q, client_started,
                                      self.sut._terminated, self.sut.iteration)
 
@@ -365,7 +416,18 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             mock_traffic_profile.calculate_pps = \
                 mock.Mock(return_value=[1234, 0.0])
             self.sut.client = mock.MagicMock()
+            self.sut.options = {'packetsize': 64, 'traffic_type': 4 ,
+                                'rfc2544': {'allowed_drop_rate': '0.8 - 1'},
+                                'vnf__1': {'rules': 'acl_1rule.yaml',
+                                           'vnf_config': {'lb_config': 'SW',
+                                                          'lb_count': 1,
+                                                          'worker_config':
+                                                          '1C/1T',
+                                                          'worker_threads': 1}}
+                               }
 
+            self.sut.topology = "nsb_test.yaml"
+            self.sut.generate_port_pairs = mock.Mock()
             self.sut._traffic_runner(mock_traffic_profile, q, client_started,
                                      self.sut._terminated, self.sut.iteration)
 

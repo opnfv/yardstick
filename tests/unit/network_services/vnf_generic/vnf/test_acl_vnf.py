@@ -97,8 +97,15 @@ class TestAclApproxVnf(unittest.TestCase):
                                     {'type': 'VPORT', 'name': 'xe1'}],
                'id': 'AclApproxVnf', 'name': 'VPEVnfSsh'}]}}
 
-    scenario_cfg = {'tc_options': {'rfc2544':
-                                   {'allowed_drop_rate': '0.8 - 1'}},
+    scenario_cfg = {'options': {'packetsize': 64, 'traffic_type': 4 ,
+                                'rfc2544': {'allowed_drop_rate': '0.8 - 1'},
+                                'vnf__1': {'rules': 'acl_1rule.yaml',
+                                           'vnf_config': {'lb_config': 'SW',
+                                                          'lb_count': 1,
+                                                          'worker_config':
+                                                          '1C/1T',
+                                                          'worker_threads': 1}}
+                               },
                     'task_id': 'a70bdf4a-8e67-47a3-9dc1-273c14506eb7',
                     'tc': 'tc_ipv4_1Mflow_64B_packetsize',
                     'runner': {'object': 'NetworkServiceTestCase',
@@ -275,7 +282,10 @@ class TestAclApproxVnf(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
-    def test_run_acl(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.MultiPortConfig")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.hex")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.eval")
+    def test_run_acl(self, MultiPortConfig, hex, eval):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -295,8 +305,36 @@ class TestAclApproxVnf(unittest.TestCase):
             acl_approx_vnf.generate_port_pairs = mock.Mock()
             acl_approx_vnf.tg_port_pairs = [[[0], [1]]]
             acl_approx_vnf.vnf_port_pairs = [[[0], [1]]]
+            acl_approx_vnf.vnf_cfg = {'lb_config': 'SW',
+                                      'lb_count': 1,
+                                      'worker_config': '1C/1T',
+                                      'worker_threads': 1}
+            acl_approx_vnf.options = {'traffic_type': '4',
+                                      'topology': 'nsb_test_case.yaml'}
+            acl_approx_vnf.topology = "nsb_test_case.yaml"
+            acl_approx_vnf.nfvi_type = "baremetal"
+            acl_approx_vnf._provide_config_file = mock.Mock()
             self.assertEqual(None,
                              acl_approx_vnf._run_acl(queue_wrapper, ""))
+
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.acl_vnf.os')
+    def test__provide_config_file(self, os):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh_mock.put = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            acl_approx_vnf = AclApproxVnf(vnfd)
+            acl_approx_vnf._read_yang_model_config = mock.Mock(return_value=1)
+            acl_approx_vnf._get_converted_yang_entries = mock.Mock(return_value=1)
+            prefix = 'acl_config'
+            template = mock.MagicMock()
+            acl_approx_vnf.connection = ssh_mock
+            self.assertIsNotNone(acl_approx_vnf._provide_config_file(prefix,
+                                                                    template))
 
     def test__parse_rule_file(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -340,7 +378,8 @@ class TestAclApproxVnf(unittest.TestCase):
             acl_approx_vnf.bin_path = "/tmp"
             self.assertEqual(None, acl_approx_vnf.deploy_acl_vnf())
 
-    def test_instantiate(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.Context")
+    def test_instantiate(self, Context):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -358,10 +397,214 @@ class TestAclApproxVnf(unittest.TestCase):
             acl_approx_vnf.deploy_acl_vnf = mock.Mock(return_value=0)
             acl_approx_vnf.q_out.put("pipeline>")
             acl_vnf.WAIT_TIME = 3
+            acl_approx_vnf.Context = mock.MagicMock()
+            self.scenario_cfg.update({"nodes": {"vnf__1": ""}})
+            acl_approx_vnf._validate_cpu_cfg = \
+                mock.Mock(return_value=[1, 2, 3])
             self.assertIsNone(acl_approx_vnf.instantiate("vnf__1",
                               self.scenario_cfg, self.context_cfg))
 
-    def test_instantiate_panic(self):
+    def test__resource_collect_start(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            acl_approx_vnf = AclApproxVnf(vnfd)
+            self.scenario_cfg['vnf_options'] = {'acl': {'cfg': "",
+                                                        'rules': ""}}
+            acl_approx_vnf._run_acl = mock.Mock(return_value=0)
+            acl_approx_vnf._parse_rule_file = mock.Mock(return_value={})
+            acl_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
+            acl_approx_vnf.deploy_acl_vnf = mock.Mock(return_value=0)
+            acl_approx_vnf.q_out.put("pipeline>")
+            acl_vnf.WAIT_TIME = 3
+            acl_approx_vnf._validate_cpu_cfg = mock.Mock(return_value=[1, 2 , 3])
+            acl_approx_vnf.resource = mock.MagicMock()
+            acl_approx_vnf.resource.initiate_systemagent = mock.Mock()
+            acl_approx_vnf.resource.start = mock.Mock()
+            acl_approx_vnf.resource.amqp_process_for_nfvi_kpi = mock.Mock()
+            self.assertIsNone(acl_approx_vnf._resource_collect_start())
+
+    def test__resource_collect_stop(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            acl_approx_vnf = AclApproxVnf(vnfd)
+            self.scenario_cfg['vnf_options'] = {'acl': {'cfg': "",
+                                                        'rules': ""}}
+            acl_approx_vnf._run_acl = mock.Mock(return_value=0)
+            acl_approx_vnf._parse_rule_file = mock.Mock(return_value={})
+            acl_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
+            acl_approx_vnf.deploy_acl_vnf = mock.Mock(return_value=0)
+            acl_approx_vnf.q_out.put("pipeline>")
+            acl_vnf.WAIT_TIME = 3
+            acl_approx_vnf._validate_cpu_cfg = mock.Mock(return_value=[1, 2 , 3])
+            acl_approx_vnf.resource = mock.MagicMock()
+            acl_approx_vnf.resource.initiate_systemagent = mock.Mock()
+            acl_approx_vnf.resource.stop = mock.Mock()
+            acl_approx_vnf.resource.amqp_process_for_nfvi_kpi = mock.Mock()
+            self.assertIsNone(acl_approx_vnf._resource_collect_stop())
+
+    def test__collect_resource_kpi(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            acl_approx_vnf = AclApproxVnf(vnfd)
+            self.scenario_cfg['vnf_options'] = {'acl': {'cfg': "",
+                                                        'rules': ""}}
+            acl_approx_vnf._run_acl = mock.Mock(return_value=0)
+            acl_approx_vnf._parse_rule_file = mock.Mock(return_value={})
+            acl_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
+            acl_approx_vnf.deploy_acl_vnf = mock.Mock(return_value=0)
+            acl_approx_vnf.q_out.put("pipeline>")
+            acl_vnf.WAIT_TIME = 3
+            acl_approx_vnf._validate_cpu_cfg = mock.Mock(return_value=[1, 2 , 3])
+            acl_approx_vnf.resource = mock.MagicMock()
+            acl_approx_vnf.resource.initiate_systemagent = mock.Mock()
+            acl_approx_vnf.resource.stop = mock.Mock()
+            acl_approx_vnf.resource.amqp_process_for_nfvi_kpi = mock.Mock()
+            acl_approx_vnf.resource.check_if_sa_running(return_value=[1])
+            acl_approx_vnf.resource.amqp_collect_nfvi_kpi(return_value={})
+            self.assertIsNotNone(acl_approx_vnf._collect_resource_kpi())
+
+    def test__get_ports_gateway(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            acl_approx_vnf = AclApproxVnf(vnfd)
+            self.scenario_cfg['vnf_options'] = {'acl': {'cfg': "",
+                                                        'rules': ""}}
+            acl_approx_vnf._run_acl = mock.Mock(return_value=0)
+            acl_approx_vnf._parse_rule_file = mock.Mock(return_value={})
+            acl_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
+            acl_approx_vnf.deploy_acl_vnf = mock.Mock(return_value=0)
+            acl_approx_vnf.q_out.put("pipeline>")
+            acl_vnf.WAIT_TIME = 3
+            acl_approx_vnf._validate_cpu_cfg = mock.Mock(return_value=[1, 2 , 3])
+            acl_approx_vnf.resource = mock.MagicMock()
+            acl_approx_vnf.resource.initiate_systemagent = mock.Mock()
+            acl_approx_vnf.resource.stop = mock.Mock()
+            acl_approx_vnf.resource.amqp_process_for_nfvi_kpi = mock.Mock()
+            acl_approx_vnf.resource.check_if_sa_running(return_value=[1])
+            acl_approx_vnf.resource.amqp_collect_nfvi_kpi(return_value={})
+            self.assertEqual('152.16.100.20',
+                             acl_approx_vnf._get_ports_gateway('xe0'))
+
+    def test__get_port_pair(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "", ""))
+            ssh.from_node.return_value = ssh_mock
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            acl_approx_vnf = AclApproxVnf(vnfd)
+            self.scenario_cfg['vnf_options'] = {'acl': {'cfg': "",
+                                                        'rules': ""}}
+            acl_approx_vnf._run_acl = mock.Mock(return_value=0)
+            acl_approx_vnf._parse_rule_file = mock.Mock(return_value={})
+            acl_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
+            acl_approx_vnf.deploy_acl_vnf = mock.Mock(return_value=0)
+            acl_approx_vnf.q_out.put("pipeline>")
+            acl_vnf.WAIT_TIME = 3
+            acl_approx_vnf._validate_cpu_cfg = mock.Mock(return_value=[1, 2 , 3])
+            acl_approx_vnf.resource = mock.MagicMock()
+            acl_approx_vnf.resource.initiate_systemagent = mock.Mock()
+            acl_approx_vnf.resource.stop = mock.Mock()
+            acl_approx_vnf.resource.amqp_process_for_nfvi_kpi = mock.Mock()
+            acl_approx_vnf.resource.check_if_sa_running(return_value=[1])
+            acl_approx_vnf.resource.amqp_collect_nfvi_kpi(return_value={})
+            acl_approx_vnf.generate_port_pairs = mock.Mock()
+            acl_approx_vnf.tg_port_pairs = [[[0], [1]]]
+            acl_approx_vnf.topology = ""
+            self.assertIsNone(acl_approx_vnf._get_port_pair())
+
+    def test__get_cpu_sibling_list(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "1,2", ""))
+            ssh.from_node.return_value = ssh_mock
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            acl_approx_vnf = AclApproxVnf(vnfd)
+            self.scenario_cfg['vnf_options'] = {'acl': {'cfg': "",
+                                                        'rules': ""}}
+            acl_approx_vnf._run_acl = mock.Mock(return_value=0)
+            acl_approx_vnf._parse_rule_file = mock.Mock(return_value={})
+            acl_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
+            acl_approx_vnf.deploy_acl_vnf = mock.Mock(return_value=0)
+            acl_approx_vnf.q_out.put("pipeline>")
+            acl_vnf.WAIT_TIME = 3
+            acl_approx_vnf._validate_cpu_cfg = mock.Mock(return_value=[1, 2 , 3])
+            acl_approx_vnf.resource = mock.MagicMock()
+            acl_approx_vnf.resource.initiate_systemagent = mock.Mock()
+            acl_approx_vnf.resource.stop = mock.Mock()
+            acl_approx_vnf.resource.amqp_process_for_nfvi_kpi = mock.Mock()
+            acl_approx_vnf.resource.check_if_sa_running(return_value=[1])
+            acl_approx_vnf.resource.amqp_collect_nfvi_kpi(return_value={})
+            acl_approx_vnf.generate_port_pairs = mock.Mock()
+            acl_approx_vnf.tg_port_pairs = [[[0], [1]]]
+            acl_approx_vnf.topology = ""
+            cores = 1
+
+            self.assertEqual([], acl_approx_vnf._get_cpu_sibling_list(cores))
+            cores = ['1']
+            acl_approx_vnf.connection = ssh_mock
+            self.assertEqual(['1', '2'], acl_approx_vnf._get_cpu_sibling_list(cores))
+
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.acl_vnf.CpuSysCores')
+    def test__validate_cpu_cfg(self, CpuSysCores):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "1,2", ""))
+            ssh.from_node.return_value = ssh_mock
+            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+            acl_approx_vnf = AclApproxVnf(vnfd)
+            self.scenario_cfg['vnf_options'] = {'acl': {'cfg': "",
+                                                        'rules': ""}}
+            acl_approx_vnf._run_acl = mock.Mock(return_value=0)
+            acl_approx_vnf._parse_rule_file = mock.Mock(return_value={})
+            acl_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
+            acl_approx_vnf.deploy_acl_vnf = mock.Mock(return_value=0)
+            acl_approx_vnf.q_out.put("pipeline>")
+            acl_vnf.WAIT_TIME = 3
+            acl_approx_vnf._validate_cpu_cfg = mock.Mock(return_value=[1, 2 , 3])
+            acl_approx_vnf.resource = mock.MagicMock()
+            acl_approx_vnf.resource.initiate_systemagent = mock.Mock()
+            acl_approx_vnf.resource.stop = mock.Mock()
+            acl_approx_vnf.resource.amqp_process_for_nfvi_kpi = mock.Mock()
+            acl_approx_vnf.resource.check_if_sa_running(return_value=[1])
+            acl_approx_vnf.resource.amqp_collect_nfvi_kpi(return_value={})
+            acl_approx_vnf.generate_port_pairs = mock.Mock()
+            acl_approx_vnf.tg_port_pairs = [[[0], [1]]]
+            acl_approx_vnf.topology = ""
+            vnf_cfg = {'lb_config': 'SW', 'worker_threads': 2}
+            CpuSysCores.get_core_socket = mock.Mock(return_value=[{'0': ['1', '2']}])
+            acl_approx_vnf._get_cpu_sibling_list = mock.Mock(return_value=1)
+            self.assertEqual([1, 2, 3], acl_approx_vnf._validate_cpu_cfg(vnf_cfg))
+            vnf_cfg = {'lb_config': 'HW', 'worker_threads': 2}
+            self.assertEqual([1, 2, 3], acl_approx_vnf._validate_cpu_cfg(vnf_cfg))
+
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.Context")
+    def test_instantiate_panic(self, Context):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -377,6 +620,7 @@ class TestAclApproxVnf(unittest.TestCase):
             acl_approx_vnf.deploy_acl_vnf = mock.Mock(return_value=0)
             acl_vnf.WAIT_TIME = 1
             acl_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
+            acl_approx_vnf._validate_cpu_cfg = mock.Mock(return_value=[1, 2 , 3])
             self.assertRaises(RuntimeError, acl_approx_vnf.instantiate,
                               "vnf__1", self.scenario_cfg, self.context_cfg)
 
@@ -384,6 +628,7 @@ class TestAclApproxVnf(unittest.TestCase):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         acl_approx_vnf = AclApproxVnf(vnfd)
         self.scenario_cfg['tc'] = self._get_file_abspath("nsb_test_case")
+        acl_approx_vnf.nfvi_context = {}
         self.assertEqual("baremetal",
                          acl_approx_vnf.get_nfvi_type(self.scenario_cfg))
 

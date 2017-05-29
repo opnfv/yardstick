@@ -52,7 +52,6 @@ class TrexTrafficGenRFC(GenericTrafficGen):
         self._terminated = multiprocessing.Value('i', 0)
         self._traffic_process = None
         self._vpci_ascending = None
-        self.tc_file_name = None
         self.client = None
         self.my_ports = None
         self.iteration = multiprocessing.Value('i', 0)
@@ -117,13 +116,14 @@ class TrexTrafficGenRFC(GenericTrafficGen):
         super(TrexTrafficGenRFC, self).scale(flavor)
 
     def instantiate(self, node_name, scenario_cfg, context_cfg):
+        self.options = scenario_cfg['options']
         self.node_name = node_name
         self._generate_trex_cfg(self.vnfd)
-        self.tc_file_name = '{0}.yaml'.format(scenario_cfg['tc'])
         self.nodes = scenario_cfg['nodes']
+        self.topology = scenario_cfg['topology']
         trex = os.path.join(self.bin_path, "trex")
-        err, _, _ = \
-            self.connection.execute("ls {} >/dev/null 2>&1".format(trex))
+        err = \
+            self.connection.execute("ls {} >/dev/null 2>&1".format(trex))[0]
         if err != 0:
             self.connection.put(trex, trex, True)
 
@@ -155,7 +155,6 @@ class TrexTrafficGenRFC(GenericTrafficGen):
 
     def run_traffic(self, traffic_profile,
                     client_started=multiprocessing.Value('i', 0)):
-
         self._traffic_process = \
             multiprocessing.Process(target=self._traffic_runner,
                                     args=(traffic_profile, self._queue,
@@ -199,14 +198,10 @@ class TrexTrafficGenRFC(GenericTrafficGen):
                 time.sleep(WAIT_TIME)
         return client
 
-    @classmethod
-    def _get_rfc_tolerance(cls, tc_yaml):
-        tolerance = '0.8 - 1.0'
-        if 'tc_options' in tc_yaml['scenarios'][0]:
-            tc_options = tc_yaml['scenarios'][0]['tc_options']
-            if 'rfc2544' in tc_options:
-                tolerance = \
-                    tc_options['rfc2544'].get('allowed_drop_rate', '0.8 - 1.0')
+    def _get_rfc_tolerance(self):
+        tolerance = '0.0001 - 0.0001'
+        tolerance = \
+            self.options['rfc2544'].get('allowed_drop_rate', '0.0001 - 0.0001')
 
         tolerance = tolerance.split('-')
         min_tol = float(tolerance[0])
@@ -217,29 +212,20 @@ class TrexTrafficGenRFC(GenericTrafficGen):
 
         return [min_tol, max_tol]
 
-    @classmethod
-    def _get_rfc_latency(cls, tc_yaml):
-        latency = False
-        if 'tc_options' in tc_yaml['scenarios'][0]:
-            tc_options = tc_yaml['scenarios'][0]['tc_options']
-            latency = tc_options.get("latency", False)
+    def _get_rfc_latency(self):
+        latency = self.options["rfc2544"].get("latency", False)
         return latency
 
     def _traffic_runner(self, traffic_profile, queue,
                         client_started, terminated, iteration):
         LOGGING.info("Starting TRex client...")
-        tc_yaml = {}
 
-        with open(self.tc_file_name) as tc_file:
-            tc_yaml = yaml.load(tc_file.read())
-
-        tolerance = self._get_rfc_tolerance(tc_yaml)
-        latency = self._get_rfc_latency(tc_yaml)
+        tolerance = self._get_rfc_tolerance()
+        latency = self._get_rfc_latency()
 
         # fixme: fix passing correct trex config file,
         # instead of searching the default path
-        topology = tc_yaml['scenarios'][0]['topology']
-        self.generate_port_pairs(topology)
+        self.generate_port_pairs(self.topology)
         self.priv_ports = [int(x[0][-1]) for x in self.tg_port_pairs]
         self.pub_ports = [int(x[1][-1]) for x in self.tg_port_pairs]
         self.my_ports = list(set(self.priv_ports).union(set(self.pub_ports)))
