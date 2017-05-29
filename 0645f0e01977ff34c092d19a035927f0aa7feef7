@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_3d579a04",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-29T05:00:52Z",
+      "side": 1,
+      "message": "We should figure out how collectd is accessing the stats for each type and probe for those sockets or processes before selecting plugins.\n\ne.g. detect is OVS process is running, or check of sr_iov is enabled on any network devices or globally.",
+      "parentUuid": "5aaae553_bd338af5",
+      "revId": "0645f0e01977ff34c092d19a035927f0aa7feef7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_dd30c6ea",
         "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
         "patchSetId": 8
