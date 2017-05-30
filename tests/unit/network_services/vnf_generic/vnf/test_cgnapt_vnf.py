@@ -97,8 +97,15 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                                     {'type': 'VPORT', 'name': 'xe1'}],
                'id': 'CgnaptApproxVnf', 'name': 'VPEVnfSsh'}]}}
 
-    scenario_cfg = {'tc_options': {'rfc2544':
-                                   {'allowed_drop_rate': '0.8 - 1'}},
+    scenario_cfg = {'options': {'packetsize': 64, 'traffic_type': 4 ,
+                                'rfc2544': {'allowed_drop_rate': '0.8 - 1'},
+                                'vnf__1': {'rules': 'acl_1rule.yaml',
+                                           'vnf_config': {'lb_config': 'SW',
+                                                          'lb_count': 1,
+                                                          'worker_config':
+                                                          '1C/1T',
+                                                          'worker_threads': 1}}
+                               },
                     'task_id': 'a70bdf4a-8e67-47a3-9dc1-273c14506eb7',
                     'tc': 'tc_ipv4_1Mflow_64B_packetsize',
                     'runner': {'object': 'NetworkServiceTestCase',
@@ -260,6 +267,10 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         cgnapt_approx_vnf = CgnaptApproxVnf(vnfd)
         cgnapt_approx_vnf.execute_command = mock.Mock()
         interfaces = vnfd["vdu"][0]['external-interface']
+        cgnapt_approx_vnf._get_cgnapt_config = mock.Mock(return_value=['4.4.4.4'])
+        cgnapt_approx_vnf._get_random_public_pool_ip = mock.Mock(return_value='4.4.4.4')
+        cgnapt_approx_vnf.execute_command = mock.Mock()
+        cgnapt_approx_vnf.vnf_cfg = {'lb_config': 'HW', 'worker_threads': 1}
         self.assertEqual(None,
                          cgnapt_approx_vnf._add_static_cgnat(['xe0', 'xe1'],
                                                              interfaces))
@@ -316,7 +327,10 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
-    def test_run_vcgnapt(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.cgnapt_vnf.MultiPortConfig")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.cgnapt_vnf.hex")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.cgnapt_vnf.eval")
+    def test_run_vcgnapt(self, MultiPortConfig, hex, eval):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -336,6 +350,16 @@ class TestCgnaptApproxVnf(unittest.TestCase):
             cgnapt_approx_vnf.generate_port_pairs = mock.Mock()
             cgnapt_approx_vnf.tg_port_pairs = [[[0], [1]]]
             cgnapt_approx_vnf.vnf_port_pairs = [[[0], [1]]]
+            cgnapt_approx_vnf.vnf_cfg = {'lb_config': 'SW',
+                                      'lb_count': 1,
+                                      'worker_config': '1C/1T',
+                                      'worker_threads': 1}
+            cgnapt_approx_vnf.options = {'traffic_type': '4',
+                                      'topology': 'nsb_test_case.yaml'}
+            cgnapt_approx_vnf.topology = "nsb_test_case.yaml"
+            cgnapt_approx_vnf.nfvi_type = "baremetal"
+            cgnapt_approx_vnf._provide_config_file = mock.Mock()
+
             self.assertEqual(None,
                              cgnapt_approx_vnf._run_vcgnapt(queue_wrapper))
 
@@ -354,7 +378,8 @@ class TestCgnaptApproxVnf(unittest.TestCase):
             cgnapt_approx_vnf.bin_path = "/tmp"
             self.assertEqual(None, cgnapt_approx_vnf.deploy_cgnapt_vnf())
 
-    def test_instantiate(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.cgnapt_vnf.Context")
+    def test_instantiate(self, Context):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -376,10 +401,12 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                 mock.Mock(return_value="baremetal")
             CgnaptApproxVnf._vnf_process = mock.MagicMock()
             CgnaptApproxVnf._vnf_process.is_alive = mock.Mock(return_value=1)
+            cgnapt_approx_vnf._validate_cpu_cfg = mock.Mock(return_value=[1, 2 , 3])
             self.assertIsNone(cgnapt_approx_vnf.instantiate("vnf__1", self.scenario_cfg,
                               self.context_cfg))
 
-    def test_instantiate_panic(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.cgnapt_vnf.Context")
+    def test_instantiate_panic(self, Context):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -396,6 +423,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
             cgnapt_vnf.WAIT_TIME = 1
             cgnapt_approx_vnf.get_nfvi_type = \
                 mock.Mock(return_value="baremetal")
+            cgnapt_approx_vnf._validate_cpu_cfg = mock.Mock(return_value=[1, 2 , 3])
             self.assertRaises(RuntimeError, cgnapt_approx_vnf.instantiate,
                               "vnf__1", self.scenario_cfg, self.context_cfg)
 
@@ -403,6 +431,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         cgnapt_approx_vnf = CgnaptApproxVnf(vnfd)
         self.scenario_cfg['tc'] = self._get_file_abspath("nsb_test_case")
+        cgnapt_approx_vnf.nfvi_context = {}
         self.assertEqual("baremetal",
                          cgnapt_approx_vnf.get_nfvi_type(self.scenario_cfg))
 
