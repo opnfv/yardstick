@@ -18,6 +18,7 @@ import logging
 import errno
 import collections
 import yaml
+import time
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.common.constants import YARDSTICK_ROOT_PATH
@@ -74,19 +75,23 @@ class StandaloneContext(Context):
             else:
                 raise
 
-        self.nodes.extend(cfg["nodes"])
-        self.nfvi_node.extend([node for node in cfg["nodes"]
-                               if node["role"] == "nfvi_node"])
-        # add optional static network definition
-        self.networks.update(cfg.get("networks", {}))
+        self.vm_deploy = attrs.get("vm_deploy", True)
+        self.nodes.extend([node for node in cfg["nodes"]
+                           if str(node["role"]) != "Sriov" and
+                           str(node["role"]) != "Ovsdpdk"])
         for node in cfg["nodes"]:
             if str(node["role"]) == "Sriov":
                 self.nfvi_node.extend([node for node in cfg["nodes"]
                                        if str(node["role"]) == "Sriov"])
-            if str(node["role"]) == "ovs-dpdk":
+            if str(node["role"]) == "Ovsdpdk":
+                self.nfvi_node.extend([node for node in cfg["nodes"]
+                                       if str(node["role"]) == "Ovsdpdk"])
                 LOG.info("{0}".format(node["role"]))
             else:
                 LOG.debug("Node role is other than SRIOV and OVS")
+        self.nfvi_obj = self.get_nfvi_obj()
+        # add optional static network definition
+        self.networks.update(cfg.get("networks", {}))
         self.nfvi_obj = self.get_nfvi_obj()
         LOG.debug("Nodes: %r", self.nodes)
         LOG.debug("NFVi Node: %r", self.nfvi_node)
@@ -96,21 +101,39 @@ class StandaloneContext(Context):
         """don't need to deploy"""
 
         # Todo: NFVi deploy (sriov, vswitch, ovs etc) based on the config.
+        if not self.vm_deploy:
+            return
+
+        #    Todo: NFVi deploy (sriov, vswitch, ovs etc) based on the config.
         self.nfvi_obj.ssh_remote_machine()
         if self.nfvi_obj.first_run is True:
             self.nfvi_obj.install_req_libs()
 
         nic_details = self.nfvi_obj.get_nic_details()
         print("{0}".format(nic_details))
-        self.nfvi_obj.setup_sriov_context(
-            self.nfvi_obj.sriov[0]['phy_ports'],
-            nic_details,
-            self.nfvi_obj.sriov[0]['phy_driver'])
-        pass
+
+        if self.nfvi_node[0]["role"] == "Sriov":
+            self.nfvi_obj.setup_sriov_context(
+                self.nfvi_obj.sriov[0]['phy_ports'],
+                nic_details,
+                self.nfvi_obj.sriov[0]['phy_driver'])
+        if self.nfvi_node[0]["role"] == "Ovsdpdk":
+            self.nfvi_obj.setup_ovs(self.nfvi_obj.ovs[0]["phy_ports"])
+            self.nfvi_obj.start_ovs_serverswitch()
+            time.sleep(5)
+            self.nfvi_obj.setup_ovs_bridge()
+            self.nfvi_obj.add_oflows()
+            self.nfvi_obj.setup_ovs_context(
+                self.nfvi_obj.ovs[0]['phy_ports'],
+                nic_details,
+                self.nfvi_obj.ovs[0]['phy_driver'])
+            pass
 
     def undeploy(self):
         """don't need to undeploy"""
 
+        if not self.vm_deploy:
+            return
         # Todo: NFVi undeploy (sriov, vswitch, ovs etc) based on the config.
         # self.nfvi_obj = self.get_nfvi_obj()
         self.nfvi_obj.ssh_remote_machine()
@@ -123,16 +146,12 @@ class StandaloneContext(Context):
         Keyword arguments:
         attr_name -- A name for a server listed in nodes config file
         """
-
         if isinstance(attr_name, collections.Mapping):
             return None
-
         if self.name != attr_name.split(".")[1]:
             return None
-
         node_name = attr_name.split(".")[0]
         matching_nodes = (n for n in self.nodes if n["name"] == node_name)
-
         try:
             # A clone is created in order to avoid affecting the
             # original one.
@@ -147,7 +166,6 @@ class StandaloneContext(Context):
         else:
             raise ValueError("Duplicate nodes!!! Nodes: %s %s",
                              (matching_nodes, duplicate))
-
         node["name"] = attr_name
         return node
 

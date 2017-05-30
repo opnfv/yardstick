@@ -134,6 +134,7 @@ class Sriov(StandaloneContext):
         self.auth_type = ""
 
     def init(self):
+        log.debug("In init")
         self.parse_pod_and_get_data(self.file_path)
 
     def parse_pod_and_get_data(self, file_path):
@@ -146,8 +147,6 @@ class Sriov(StandaloneContext):
             log.error("File {0} does not exist".format(self.file_path))
             raise
 
-        self.nodes.extend([node for node in cfg["nodes"]
-                           if node["role"] != "Sriov"])
         self.sriov.extend([node for node in cfg["nodes"]
                            if node["role"] == "Sriov"])
         self.user = self.sriov[0]['user']
