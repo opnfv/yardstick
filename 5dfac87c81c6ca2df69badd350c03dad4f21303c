@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_e712d157",
+        "filename": "yardstick/benchmark/scenarios/networking/testpmd_vsperf.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-05-30T18:43:32Z",
+      "side": 1,
+      "message": "This is not from the standard DPDK, it is from vsperf\u0027s \"package\" of dpdk, no issue.",
+      "parentUuid": "5aaae553_51bb6772",
+      "revId": "5dfac87c81c6ca2df69badd350c03dad4f21303c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_31b6eb8b",
         "filename": "yardstick/benchmark/scenarios/networking/vsperf_dpdk.py",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2017-05-26T05:38:52Z",
       "side": 1,
       "message": "I added SSH.from_node() factory method to simplify this code\n  \n\n  SSH.from_node(vsperf)",
+      "revId": "5dfac87c81c6ca2df69badd350c03dad4f21303c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_47f885e5",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf_dpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-05-30T18:43:32Z",
+      "side": 1,
+      "message": "My test on target was with Danube where I didn\u0027t see your change. I have now adapted the code and tested it.",
+      "parentUuid": "5aaae553_31b6eb8b",
       "revId": "5dfac87c81c6ca2df69badd350c03dad4f21303c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
