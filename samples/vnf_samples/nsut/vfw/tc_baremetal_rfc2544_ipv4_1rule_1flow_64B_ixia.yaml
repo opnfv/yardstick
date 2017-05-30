@@ -21,16 +21,17 @@ scenarios:
   nodes:
     tg__1: trafficgen_1.yardstick
     vnf__1: vnf.yardstick
-  tc_options:
+  options:
+    packetsize: 64
+    traffic_type: 4
     rfc2544:
       allowed_drop_rate: 0.0001 - 0.0001
-  vnf_options:
-    vfw:
+    vnf__1:
       rules: acl_1rule.yaml
-      cfg: vfw_config
+      vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
   runner:
-    type: Duration
-    duration: 400
+    type: Iteration
+    iterations: 10
     interval: 35
   traffic_options:
     flow: "../../traffic_profiles/ipv4_1flow_Packets.yaml"
@@ -40,4 +41,4 @@ context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: /etc/yardstick/nodes/pod.yaml
+  ile: /etc/yardstick/nodes/pod.yaml

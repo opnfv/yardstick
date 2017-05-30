@@ -97,8 +97,15 @@ class TestFWApproxVnf(unittest.TestCase):
                                     {'type': 'VPORT', 'name': 'xe1'}],
                'id': 'FWApproxVnf', 'name': 'VPEVnfSsh'}]}}
 
-    scenario_cfg = {'tc_options': {'rfc2544':
-                                   {'allowed_drop_rate': '0.8 - 1'}},
+    scenario_cfg = {'options': {'packetsize': 64, 'traffic_type': 4 ,
+                                'rfc2544': {'allowed_drop_rate': '0.8 - 1'},
+                                'vnf__1': {'rules': 'acl_1rule.yaml',
+                                           'vnf_config': {'lb_config': 'SW',
+                                                          'lb_count': 1,
+                                                          'worker_config':
+                                                          '1C/1T',
+                                                          'worker_threads': 1}}
+                               },
                     'task_id': 'a70bdf4a-8e67-47a3-9dc1-273c14506eb7',
                     'tc': 'tc_ipv4_1Mflow_64B_packetsize',
                     'runner': {'object': 'NetworkServiceTestCase',
@@ -275,7 +282,10 @@ class TestFWApproxVnf(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
-    def test_run_vfw(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.MultiPortConfig")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.hex")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.eval")
+    def test_run_vfw(self, MultiPortConfig, hex, eval):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -295,6 +305,21 @@ class TestFWApproxVnf(unittest.TestCase):
             vfw_approx_vnf.generate_port_pairs = mock.Mock()
             vfw_approx_vnf.tg_port_pairs = [[[0], [1]]]
             vfw_approx_vnf.vnf_port_pairs = [[[0], [1]]]
+            vfw_approx_vnf.topology = "nsb_test_case yaml"
+            vfw_approx_vnf.vnf_cfg = {'lb_config': 'SW',
+                                      'lb_count': 1,
+                                      'worker_config': '1C/1T',
+                                      'worker_threads': 1}
+            vfw_approx_vnf.options = {'traffic_type': '4',
+                                      'topology': 'nsb_test_case.yaml'}
+            vfw_approx_vnf.nfvi_type = "baremetal"
+            vfw_approx_vnf._provide_config_file = mock.Mock()
+            vfw_approx_vnf.generate_config = mock.Mock()
+            vfw_approx_vnf._append_nd_routes = mock.Mock()
+            vfw_approx_vnf._append_routes = mock.Mock()
+            vfw_approx_vnf._update_traffic_type = mock.Mock()
+            vfw_approx_vnf._update_packet_type = mock.Mock()
+
             self.assertEqual(None,
                              vfw_approx_vnf._run_vfw(queue_wrapper, ""))
 
@@ -356,7 +381,8 @@ class TestFWApproxVnf(unittest.TestCase):
             vfw_approx_vnf.bin_path = "/tmp"
             self.assertEqual(None, vfw_approx_vnf.deploy_vfw_vnf())
 
-    def test_instantiate(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.Context")
+    def test_instantiate(self, Context):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -374,10 +400,13 @@ class TestFWApproxVnf(unittest.TestCase):
             vfw_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
             vfw_approx_vnf.q_out.put("pipeline>")
             vfw_vnf.WAIT_TIME = 3
+            vfw_approx_vnf.Context = mock.MagicMock()
+            vfw_approx_vnf._validate_cpu_cfg = mock.Mock(return_value=[1, 2 , 3])
             self.assertIsNone(vfw_approx_vnf.instantiate("vnf__1", self.scenario_cfg,
                               self.context_cfg))
 
-    def test_instantiate_panic(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.Context")
+    def test_instantiate_panic(self, Context):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -392,6 +421,8 @@ class TestFWApproxVnf(unittest.TestCase):
             vfw_approx_vnf._parse_rule_file = mock.Mock(return_value={})
             vfw_approx_vnf.deploy_vfw_vnf = mock.Mock(return_value=0)
             vfw_vnf.WAIT_TIME = 1
+            vfw_approx_vnf.Context = mock.MagicMock()
+            vfw_approx_vnf._validate_cpu_cfg = mock.Mock(return_value=[1, 2 , 3])
             vfw_approx_vnf.get_nfvi_type = mock.Mock(return_value="baremetal")
             self.assertRaises(RuntimeError, vfw_approx_vnf.instantiate,
                               "vnf__1", self.scenario_cfg, self.context_cfg)
@@ -400,6 +431,7 @@ class TestFWApproxVnf(unittest.TestCase):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         vfw_approx_vnf = FWApproxVnf(vnfd)
         self.scenario_cfg['tc'] = self._get_file_abspath("nsb_test_case")
+        vfw_approx_vnf.nfvi_context = {}
         self.assertEqual("baremetal",
                          vfw_approx_vnf.get_nfvi_type(self.scenario_cfg))
 
