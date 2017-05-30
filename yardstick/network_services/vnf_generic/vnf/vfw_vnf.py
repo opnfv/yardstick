@@ -23,18 +23,30 @@ import re
 import ipaddress
 import yaml
 import six
+import posixpath
 
 from yardstick import ssh
 from yardstick.network_services.utils import provision_tool
 from yardstick.network_services.helpers.samplevnf_helper import OPNFVSampleVNF
+from yardstick.network_services.helpers.samplevnf_helper import \
+    MultiPortConfig
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
 from yardstick.network_services.nfvi.resource import ResourceProfile
+from yardstick.network_services.helpers.cpu import CpuSysCores
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 # vFW should work the same on all systems, we can provide the binary
-FW_PIPELINE_COMMAND = '{tool_path} -p 0x3 -f {cfg_file} -s {script}'
+FW_PIPELINE_COMMAND = \
+    '{tool_path} -p {ports_len_hex} -f {cfg_file} -s {script}'
+VFW_CFG_CONFIG = "/tmp/vfw_config"
+VFW_CFG_SCRIPT = "/tmp/vfw_script"
+DEFAULT_CONFIG_TPL_CFG = "vfw.cfg"
+APP_NAME = "vFW"
+VNF_TYPE = "VFW"
+SW_DEFAULT_CORE = 5
+HW_DEFAULT_CORE = 2
 
 
 class FWApproxVnf(GenericVNF):
@@ -105,24 +117,27 @@ class FWApproxVnf(GenericVNF):
         super(FWApproxVnf, self).scale(flavor)
 
     def deploy_vfw_vnf(self):
-        self.deploy.deploy_vnfs("vACL")
+        self.deploy.deploy_vnfs(APP_NAME)
 
     def get_nfvi_type(self, scenario_cfg):
-        tc_data = None
-        tc_file = '%s.yaml' % scenario_cfg['tc']
-
-        with open(tc_file) as tfh:
-            tc_data = yaml.safe_load(tfh)
-
-        nfvi_type = tc_data['context'].get('nfvi_type', 'baremetal')
+        nfvi_type = 'baremetal'
+        for context in scenario_cfg.get("context", []):
+            if "nfvi_type" in context.keys():
+                nfvi_type = context.get('nfvi_type', 'baremetal')
         return nfvi_type
 
     def instantiate(self, node_name, scenario_cfg, context_cfg):
-        cores = ["0", "1", "2", "3", "4"]
+        self.options = scenario_cfg["options"]
         self.node_name = node_name
-        self.vnf_cfg = scenario_cfg['vnf_options']['vfw']['cfg']
 
-        rule_file = scenario_cfg['vnf_options']['vfw']['rules']
+        self.vnf_cfg = \
+            self.options[self.node_name].get('vnf_config',
+                                             {'lb_config': 'SW',
+                                              'lb_count': 1,
+                                              'worker_config': '1C/1T',
+                                              'worker_threads': 1})
+        self.topology = scenario_cfg['topology']
+        rule_file = self.options[self.node_name]['rules']
         mgmt_interface = self.vnfd["mgmt-interface"]
         self.connection = ssh.SSH.from_node(mgmt_interface)
 
@@ -131,18 +146,20 @@ class FWApproxVnf(GenericVNF):
 
         self.setup_vnf_environment(self.connection)
         self.nfvi_type = self.get_nfvi_type(scenario_cfg)
-        self.resource = ResourceProfile(self.vnfd, cores, self.nfvi_type)
-
-        self.connection.execute("pkill vFW")
-        self.dpdk_nic_bind = \
-            provision_tool(self.connection,
-                           os.path.join(self.bin_path, "dpdk_nic_bind.py"))
         interfaces = self.vnfd["vdu"][0]['external-interface']
         self.socket = \
             next((0 for v in interfaces
                   if v['virtual-interface']["vpci"][5] == "0"), 1)
 
         bound_pci = [v['virtual-interface']["vpci"] for v in interfaces]
+        cores = self._validate_cpu_cfg(self.vnf_cfg)
+        self.resource = ResourceProfile(self.vnfd, cores, self.nfvi_type)
+
+        self.connection.execute("pkill %s" % APP_NAME)
+        self.dpdk_nic_bind = \
+            provision_tool(self.connection,
+                           os.path.join(self.bin_path, "dpdk_nic_bind.py"))
+
         rc, dpdk_status, _ = self.connection.execute(
             "{dpdk_nic_bind} -s".format(dpdk_nic_bind=self.dpdk_nic_bind))
         pattern = "(\d{2}:\d{2}\.\d).*drv=(\w+)"
@@ -169,20 +186,20 @@ class FWApproxVnf(GenericVNF):
                 buf.append(self.q_out.get())
                 message = ''.join(buf)
                 if "pipeline>" in message:
-                    log.info("vFW VNF is up and running.")
+                    LOG.info("vFW VNF is up and running.")
                     queue_wrapper.clear()
                     self._resource_collect_start()
                     return self._vnf_process.exitcode
                 if "PANIC" in message:
                     raise RuntimeError("Error starting VNF.")
-            log.info("Waiting for vFW VNF to start.. ")
+            LOG.info("Waiting for vFW VNF to start.. ")
             time.sleep(1)
         return self._vnf_process.is_alive()
 
     def terminate(self):
         self.execute_command("quit")
         self._vnf_process.terminate()
-        self.connection.execute("pkill vFW")
+        self.connection.execute("pkill %s" % APP_NAME)
         for vpci, driver in self.used_drivers.items():
             self.connection.execute(
                 "{dpdk_nic_bind} --force  -b {driver}"
@@ -205,7 +222,7 @@ class FWApproxVnf(GenericVNF):
             with open(yaml_path) as f:
                 options = yaml.load(f)
         except Exception as e:
-            log.debug("Failed to read the yaml {}".format(e))
+            LOG.debug("Failed to read the yaml {}".format(e))
 
         return options
 
@@ -266,97 +283,86 @@ class FWApproxVnf(GenericVNF):
         return rule
 
     def _run_vfw(self, filewrapper, rules=""):
-        vfw_config = ""
         mgmt_interface = self.vnfd["mgmt-interface"]
         self.connection = ssh.SSH.from_node(mgmt_interface)
         interfaces = self.vnfd["vdu"][0]['external-interface']
-        port0_ip = ipaddress.ip_interface(six.text_type(
-            "%s/%s" % (interfaces[0]["virtual-interface"]["local_ip"],
-                       interfaces[0]["virtual-interface"]["netmask"])))
-        port1_ip = ipaddress.ip_interface(six.text_type(
-            "%s/%s" % (interfaces[1]["virtual-interface"]["local_ip"],
-                       interfaces[1]["virtual-interface"]["netmask"])))
-        dst_port0_ip = \
-            ipaddress.ip_interface(six.text_type(
-                "%s/%s" % (interfaces[0]["virtual-interface"]["dst_ip"],
-                           interfaces[0]["virtual-interface"]["netmask"])))
-        dst_port1_ip = \
-            ipaddress.ip_interface(six.text_type(
-                "%s/%s" % (interfaces[1]["virtual-interface"]["dst_ip"],
-                           interfaces[1]["virtual-interface"]["netmask"])))
 
-        vfw_vars = {"port0_local_ip": port0_ip.ip.exploded,
-                    "port0_dst_ip": dst_port0_ip.ip.exploded,
-                    "port0_dst_ip_hex":
-                    self._ip_to_hex(dst_port0_ip.ip.exploded),
-                    "port0_local_ip_hex":
-                    self._ip_to_hex(port0_ip.ip.exploded),
-                    "port0_prefixlen": port0_ip.network.prefixlen,
-                    "port0_netmask": port0_ip.network.netmask.exploded,
-                    "port0_netmask_hex":
-                    self._ip_to_hex(port0_ip.network.netmask.exploded),
-                    "port0_local_mac":
-                    interfaces[0]["virtual-interface"]["local_mac"],
-                    "port0_dst_mac":
-                    interfaces[0]["virtual-interface"]["dst_mac"],
-                    "port0_gateway":
-                    self._get_ports_gateway(interfaces[0]["name"]),
-                    "port0_local_network":
-                    port0_ip.network.network_address.exploded,
-                    "port0_prefix": port0_ip.network.prefixlen,
-                    "port1_local_ip": port1_ip.ip.exploded,
-                    "port1_dst_ip": dst_port1_ip.ip.exploded,
-                    "port1_dst_ip_hex":
-                    self._ip_to_hex(dst_port1_ip.ip.exploded),
-                    "port1_local_ip_hex":
-                    self._ip_to_hex(port1_ip.ip.exploded),
-                    "port1_prefixlen": port1_ip.network.prefixlen,
-                    "port1_netmask": port1_ip.network.netmask.exploded,
-                    "port1_netmask_hex":
-                    self._ip_to_hex(port1_ip.network.netmask.exploded),
-                    "port1_local_mac":
-                    interfaces[1]["virtual-interface"]["local_mac"],
-                    "port1_dst_mac":
-                    interfaces[1]["virtual-interface"]["dst_mac"],
-                    "port1_gateway":
-                    self._get_ports_gateway(interfaces[1]["name"]),
-                    "port1_local_network":
-                    port1_ip.network.network_address.exploded,
-                    "port1_prefix": port1_ip.network.prefixlen,
-                    "port0_local_ip6": self._get_port0localip6(),
-                    "port1_local_ip6": self._get_port1localip6(),
-                    "port0_prefixlen6": self._get_port0prefixlen6(),
-                    "port1_prefixlen6": self._get_port1prefixlen6(),
-                    "port0_gateway6": self._get_port0gateway6(),
-                    "port1_gateway6": self._get_port1gateway6(),
-                    "port0_dst_ip_hex6": self._get_port0localip6(),
-                    "port1_dst_ip_hex6": self._get_port1localip6(),
-                    "port0_dst_netmask_hex6": self._get_port0prefixlen6(),
-                    "port1_dst_netmask_hex6": self._get_port1prefixlen6(),
-                    "bin_path": self.bin_path,
-                    "socket": self.socket
-                    }
+        lb_count = self.vnf_cfg.get('lb_count', 3)
+        lb_config = self.vnf_cfg.get('lb_config', 'SW')
+        worker_config = self.vnf_cfg.get('worker_config', '1C/1T')
+        worker_threads = self.vnf_cfg.get('worker_threads', 3)
 
-        # Read the pipeline config and populate the data
-        for cfg in os.listdir(self.vnf_cfg):
-            vfw_config = ""
-            with open(os.path.join(self.vnf_cfg, cfg), 'r') as vfw_cfg:
-                vfw_config = vfw_cfg.read()
+        traffic_options = {}
+        traffic_options['traffic_type'] = self.options['traffic_type']
+        traffic_options['pkt_type'] = 'ipv%s' % self.options["traffic_type"]
 
-            self._provide_config_file(cfg, vfw_config, vfw_vars)
+        traffic_options['vnf_type'] = VNF_TYPE
+        multiport = MultiPortConfig(self.topology,
+                                    DEFAULT_CONFIG_TPL_CFG,
+                                    posixpath.basename(VFW_CFG_CONFIG),
+                                    interfaces,
+                                    VNF_TYPE,
+                                    lb_count,
+                                    worker_threads,
+                                    worker_config,
+                                    lb_config,
+                                    self.nfvi_type, self.socket)
+
+        multiport.generate_config()
+        new_config = \
+            self._append_routes(open(VFW_CFG_CONFIG, 'r').read())
+        new_config = self._append_nd_routes(new_config)
+        new_config = self._update_traffic_type(new_config, traffic_options)
+        new_config = self._update_packet_type(new_config, traffic_options)
+
+        self._provide_config_file(
+            posixpath.basename(VFW_CFG_CONFIG), new_config)
+
+        self._provide_config_file(posixpath.basename(VFW_CFG_SCRIPT),
+                                  multiport.generate_script(self.vnfd, rules))
 
         tool_path = provision_tool(self.connection,
                                    os.path.join(self.bin_path,
-                                                "vFW"))
-        time.sleep(1)
-        cmd = FW_PIPELINE_COMMAND.format(cfg_file="/tmp/vfw_config",
-                                         script="/tmp/vfw_script",
+                                                APP_NAME))
+        ports_len = len(multiport.port_pair_list) * 2
+        ports_len_hex = hex(
+            eval('0b' + "".join([str(1) for x in xrange(ports_len)])))
+        cmd = FW_PIPELINE_COMMAND.format(cfg_file=VFW_CFG_CONFIG,
+                                         script=VFW_CFG_SCRIPT,
+                                         ports_len_hex=ports_len_hex,
                                          tool_path=tool_path)
-        log.debug(cmd)
+        LOG.debug(cmd)
         self.connection.run(cmd, stdin=filewrapper, stdout=filewrapper,
                             keep_stdin_open=True, pty=True)
 
-    def _provide_config_file(self, prefix, template, vars):
+    def _get_cpu_sibling_list(self, cores):
+        try:
+            cpu_topo = []
+            for core in cores:
+                sys_cmd = \
+                    "/sys/devices/system/cpu/cpu%s/topology/thread_siblings_list" \
+                    % core
+                cpuid = \
+                    self.connection.execute("awk -F: '{ print $1 }' < %s" %
+                                            sys_cmd)[1]
+                cpu_topo += \
+                    [(idx) if idx.isdigit() else idx for idx in cpuid.split(',')]
+
+            return [cpu.strip() for cpu in cpu_topo]
+        except Exception:
+            return []
+
+    def _validate_cpu_cfg(self, vnf_cfg):
+        sysObj = CpuSysCores(self.connection)
+        self.sys_cpu = sysObj.get_core_socket()
+        if vnf_cfg["lb_config"] == 'HW':
+            num_core = HW_DEFAULT_CORE + int(vnf_cfg["worker_threads"])
+        else:
+            num_core = SW_DEFAULT_CORE + int(vnf_cfg["worker_threads"])
+        app_cpu = self.sys_cpu[str(self.socket)][:num_core]
+        return self._get_cpu_sibling_list(app_cpu)
+
+    def _provide_config_file(self, prefix, template, vars={}):
         cfg, cfg_content = tempfile.mkstemp()
         cfg = os.fdopen(cfg, "w+")
         cfg.write(template.format(**vars))
@@ -366,7 +372,7 @@ class FWApproxVnf(GenericVNF):
         return cfg_file
 
     def execute_command(self, cmd):
-        log.info("vFW command: %s", cmd)
+        LOG.info("vFW command: %s", cmd)
         self.q_in.put(cmd + "\r\n")
         time.sleep(2)
         output = []
@@ -387,7 +393,7 @@ class FWApproxVnf(GenericVNF):
                            "packets_fwd": int(m.group(2)),
                            "packets_dropped": int(m.group(3)),
                            "collect_stats": collect_stats})
-        log.debug("vFW collect KPIs {0}".format(result))
+        LOG.debug("vFW collect KPIs {0}".format(result))
         return result
 
     def get_stats_vfw(self):
