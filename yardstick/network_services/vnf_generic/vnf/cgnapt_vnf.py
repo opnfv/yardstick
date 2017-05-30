@@ -23,19 +23,32 @@ import re
 import ipaddress
 import yaml
 import six
+import posixpath
+import random
 
 from yardstick import ssh
 from yardstick.network_services.utils import provision_tool
+from yardstick.network_services.helpers.samplevnf_helper import \
+    MultiPortConfig
 from yardstick.network_services.helpers.samplevnf_helper import OPNFVSampleVNF
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
 from yardstick.network_services.nfvi.resource import ResourceProfile
+from yardstick.network_services.helpers.cpu import CpuSysCores
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 # CGNAPT should work the same on all systems, we can provide the binary
-CGNAPT_PIPELINE_COMMAND = '{tool_path} -p 0x3 -f {cfg_file} -s {script}'
-
+CGNAPT_PIPELINE_COMMAND = \
+    '{tool_path} -p {ports_len_hex} -f {cfg_file} -s {script}'
+CGNAPT_CFG_CONFIG = "/tmp/cgnapt_config"
+CGNAPT_CFG_SCRIPT = "/tmp/cgnapt_script"
+DEFAULT_CONFIG_TPL_CFG = "cgnat.cfg"
+APP_NAME = "vCGNAPT"
+VNF_TYPE = "CGNAPT"
+SW_DEFAULT_CORE = 6
+HW_DEFAULT_CORE = 3
+WAIT_FOR_STATIC_NAPT = 4
 
 class CgnaptApproxVnf(GenericVNF):
 
@@ -105,7 +118,7 @@ class CgnaptApproxVnf(GenericVNF):
         super(CgnaptApproxVnf, self).scale(flavor)
 
     def deploy_cgnapt_vnf(self):
-        self.deploy.deploy_vnfs("vACL")
+        self.deploy.deploy_vnfs(APP_NAME)
 
     def get_nfvi_type(self, scenario_cfg):
         tc_data = None
@@ -118,10 +131,20 @@ class CgnaptApproxVnf(GenericVNF):
         return nfvi_type
 
     def instantiate(self, node_name, scenario_cfg, context_cfg):
-        cores = ["0", "1", "2", "3", "4"]
-        self.vnf_cfg = scenario_cfg['vnf_options']['cgnapt']['cfg']
+        self.options = scenario_cfg["options"]
         self.nodes = scenario_cfg['nodes']
         self.node_name = node_name
+        self.vnf_cfg = \
+            self.options[self.node_name].get('vnf_config',
+                                             {'lb_config': 'SW',
+                                              'lb_count': 1,
+                                              'worker_config': '1C/1T',
+                                              'worker_threads': 1})
+        self.tc_file_name = '{0}.yaml'.format(scenario_cfg['tc'])
+        with open(self.tc_file_name) as tc_file:
+            tc_yaml = yaml.load(tc_file.read())
+
+        self.topology = tc_yaml['scenarios'][0]['topology']
 
         mgmt_interface = self.vnfd["mgmt-interface"]
         self.connection = ssh.SSH.from_node(mgmt_interface)
@@ -130,19 +153,21 @@ class CgnaptApproxVnf(GenericVNF):
         self.deploy_cgnapt_vnf()
 
         self.setup_vnf_environment(self.connection)
-        self.nfvi_type = self.get_nfvi_type(scenario_cfg)
-        self.resource = ResourceProfile(self.vnfd, cores, self.nfvi_type)
-
-        self.connection.execute("pkill vCGNAPT")
-        self.dpdk_nic_bind = \
-            provision_tool(self.connection,
-                           os.path.join(self.bin_path, "dpdk_nic_bind.py"))
         interfaces = self.vnfd["vdu"][0]['external-interface']
         self.socket = \
             next((0 for v in interfaces
                   if v['virtual-interface']["vpci"][5] == "0"), 1)
 
         bound_pci = [v['virtual-interface']["vpci"] for v in interfaces]
+
+        self.nfvi_type = self.get_nfvi_type(scenario_cfg)
+        cores = self._validate_cpu_cfg(self.vnf_cfg)
+        self.resource = ResourceProfile(self.vnfd, cores, self.nfvi_type)
+
+        self.connection.execute("pkill %s" % APP_NAME)
+        self.dpdk_nic_bind = \
+            provision_tool(self.connection,
+                           os.path.join(self.bin_path, "dpdk_nic_bind.py"))
         rc, dpdk_status, _ = self.connection.execute(
             "{dpdk_nic_bind} -s".format(dpdk_nic_bind=self.dpdk_nic_bind))
         pattern = "(\d{2}:\d{2}\.\d).*drv=(\w+)"
@@ -168,21 +193,21 @@ class CgnaptApproxVnf(GenericVNF):
                 buf.append(self.q_out.get())
                 message = ''.join(buf)
                 if "pipeline>" in message:
-                    log.info("CGNAPT VNF is up and running.")
+                    LOG.info("CGNAPT VNF is up and running.")
                     self._add_static_cgnat(self.nodes, interfaces)
                     queue_wrapper.clear()
                     self._resource_collect_start()
                     return self._vnf_process.exitcode
                 if "PANIC" in message:
                     raise RuntimeError("Error starting VNF.")
-            log.info("Waiting for CGNAPT VNF to start.. ")
+            LOG.info("Waiting for CGNAPT VNF to start.. ")
             time.sleep(1)
         return self._vnf_process.is_alive()
 
     def terminate(self):
         self.execute_command("quit")
         self._vnf_process.terminate()
-        self.connection.execute("pkill vCGNAPT")
+        self.connection.execute("pkill %s" % APP_NAME)
         for vpci, driver in self.used_drivers.items():
             self.connection.execute(
                 "{dpdk_nic_bind} --force  -b {driver}"
@@ -198,109 +223,116 @@ class CgnaptApproxVnf(GenericVNF):
                 if name == route['if']:
                     return route['gateway']
 
+    def _get_random_public_pool_ip(self, ip):
+        ip_addr = '.'.join(str(int(addr) + 1) if idx == 2 else addr for
+                           idx, addr in enumerate(ip.split('.')))
+        return ip_addr
+
     def _add_static_cgnat(self, nodes, interfaces):
+        ip = "152.16.40.10"
         if len(nodes) == 2:
-            cgnapt_config = self._get_cgnapt_config(interfaces)
-            cmd = "p 5 entry addm {port0_gateway} 1 152.16.40.10 1 0 32 " \
-                  "65535 65535 65535".format(**cgnapt_config)
+            gw_ips = self._get_cgnapt_config(interfaces)
+            pipeline = SW_DEFAULT_CORE - 1
+            if self.vnf_cfg["lb_config"] == 'HW':
+                pipeline = HW_DEFAULT_CORE
+            for gw in gw_ips:
+                cmd = "p {0} entry addm {1} 1 {2} 1 0 32 " \
+                      "65535 65535 65535".format(pipeline, gw, ip)
+                wt = int(self.vnf_cfg["worker_threads"])
+                pipeline += wt + 3 if self.vnf_cfg["lb_config"] == 'HW' else wt
+                ip = self._get_random_public_pool_ip(ip)
             self.execute_command(cmd)
-            time.sleep(2)
+            time.sleep(WAIT_FOR_STATIC_NAPT)
 
     def _get_cgnapt_config(self, interfaces):
-        port0_ip = ipaddress.ip_interface(six.text_type(
-            "%s/%s" % (interfaces[0]["virtual-interface"]["local_ip"],
-                       interfaces[0]["virtual-interface"]["netmask"])))
-        port1_ip = ipaddress.ip_interface(six.text_type(
-            "%s/%s" % (interfaces[1]["virtual-interface"]["local_ip"],
-                       interfaces[1]["virtual-interface"]["netmask"])))
-        dst_port0_ip = \
-            ipaddress.ip_interface(six.text_type(
-                "%s/%s" % (interfaces[0]["virtual-interface"]["dst_ip"],
-                           interfaces[0]["virtual-interface"]["netmask"])))
-        dst_port1_ip = \
-            ipaddress.ip_interface(six.text_type(
-                "%s/%s" % (interfaces[1]["virtual-interface"]["dst_ip"],
-                           interfaces[1]["virtual-interface"]["netmask"])))
+        gateway_ips = []
 
-        cgnapt_vars = {"port0_local_ip": port0_ip.ip.exploded,
-                       "port0_dst_ip": dst_port0_ip.ip.exploded,
-                       "port0_dst_ip_hex":
-                       self._ip_to_hex(dst_port0_ip.ip.exploded),
-                       "port0_local_ip_hex":
-                       self._ip_to_hex(port0_ip.ip.exploded),
-                       "port0_prefixlen": port0_ip.network.prefixlen,
-                       "port0_netmask": port0_ip.network.netmask.exploded,
-                       "port0_netmask_hex":
-                       self._ip_to_hex(port0_ip.network.netmask.exploded),
-                       "port0_local_mac":
-                       interfaces[0]["virtual-interface"]["local_mac"],
-                       "port0_dst_mac":
-                       interfaces[0]["virtual-interface"]["dst_mac"],
-                       "port0_gateway":
-                       self._get_ports_gateway(interfaces[0]["name"]),
-                       "port0_local_network":
-                       port0_ip.network.network_address.exploded,
-                       "port0_prefix": port0_ip.network.prefixlen,
-                       "port1_local_ip": port1_ip.ip.exploded,
-                       "port1_dst_ip": dst_port1_ip.ip.exploded,
-                       "port1_dst_ip_hex":
-                       self._ip_to_hex(dst_port1_ip.ip.exploded),
-                       "port1_local_ip_hex":
-                       self._ip_to_hex(port1_ip.ip.exploded),
-                       "port1_prefixlen": port1_ip.network.prefixlen,
-                       "port1_netmask": port1_ip.network.netmask.exploded,
-                       "port1_netmask_hex":
-                       self._ip_to_hex(port1_ip.network.netmask.exploded),
-                       "port1_local_mac":
-                       interfaces[1]["virtual-interface"]["local_mac"],
-                       "port1_dst_mac":
-                       interfaces[1]["virtual-interface"]["dst_mac"],
-                       "port1_gateway":
-                       self._get_ports_gateway(interfaces[1]["name"]),
-                       "port1_local_network":
-                       port1_ip.network.network_address.exploded,
-                       "port1_prefix": port1_ip.network.prefixlen,
-                       "port0_local_ip6": self._get_port0localip6(),
-                       "port1_local_ip6": self._get_port1localip6(),
-                       "port0_prefixlen6": self._get_port0prefixlen6(),
-                       "port1_prefixlen6": self._get_port1prefixlen6(),
-                       "port0_gateway6": self._get_port0gateway6(),
-                       "port1_gateway6": self._get_port1gateway6(),
-                       "port0_dst_ip_hex6": self._get_port0localip6(),
-                       "port1_dst_ip_hex6": self._get_port1localip6(),
-                       "port0_dst_netmask_hex6": self._get_port0prefixlen6(),
-                       "port1_dst_netmask_hex6": self._get_port1prefixlen6(),
-                       "bin_path": self.bin_path,
-                       "socket": self.socket}
-        return cgnapt_vars
+        # fixme: Get private port and gateway from port list
+        priv_ports = interfaces[::2]
+        for interface in priv_ports:
+            gateway_ips.append(self._get_ports_gateway(interface["name"]))
+        return gateway_ips
 
     def _run_vcgnapt(self, filewrapper):
-        vcgnapt_config = ""
         mgmt_interface = self.vnfd["mgmt-interface"]
         self.connection = ssh.SSH.from_node(mgmt_interface)
         interfaces = self.vnfd["vdu"][0]['external-interface']
 
-        vcgnapt_vars = self._get_cgnapt_config(interfaces)
-        log.debug(vcgnapt_vars)
-        # Read the pipeline config and populate the data
-        for cfg in os.listdir(self.vnf_cfg):
-            vcgnapt_config = ""
-            with open(os.path.join(self.vnf_cfg, cfg), 'r') as vcgnapt_cfg:
-                vcgnapt_config = vcgnapt_cfg.read()
+        lb_count = self.vnf_cfg.get('lb_count', 3)
+        lb_config = self.vnf_cfg.get('lb_config', 'SW')
+        worker_config = self.vnf_cfg.get('worker_config', '1C/1T')
+        worker_threads = self.vnf_cfg.get('worker_threads', 3)
 
-            self._provide_config_file(cfg, vcgnapt_config, vcgnapt_vars)
+        traffic_options = {}
+        traffic_options['traffic_type'] = self.options.get('traffic_type', 4)
+        traffic_options['pkt_type'] = 'ipv%s' % self.options.get("traffic_type", 4)
+
+        traffic_options['vnf_type'] = VNF_TYPE
+        multiport = MultiPortConfig(self.topology,
+                                    DEFAULT_CONFIG_TPL_CFG,
+                                    posixpath.basename(CGNAPT_CFG_CONFIG),
+                                    interfaces,
+                                    VNF_TYPE,
+                                    lb_count,
+                                    worker_threads,
+                                    worker_config,
+                                    lb_config,
+                                    self.nfvi_type, self.socket)
+
+        multiport.generate_config()
+        new_config = \
+            self._append_routes(open(CGNAPT_CFG_CONFIG, 'r').read())
+        new_config = self._append_nd_routes(new_config)
+        new_config = self._update_traffic_type(new_config, traffic_options)
+        new_config = self._update_packet_type(new_config, traffic_options)
+
+        self._provide_config_file(
+            posixpath.basename(CGNAPT_CFG_CONFIG), new_config)
+
+        self._provide_config_file(posixpath.basename(CGNAPT_CFG_SCRIPT),
+                                  multiport.generate_script(self.vnfd))
 
         tool_path = provision_tool(self.connection,
                                    os.path.join(self.bin_path,
-                                                "vCGNAPT"))
-        time.sleep(1)
-        cmd = CGNAPT_PIPELINE_COMMAND.format(cfg_file="/tmp/cgnapt_config",
-                                             script="/tmp/cgnapt_script",
+                                                APP_NAME))
+        ports_len = len(multiport.port_pair_list) * 2
+        ports_len_hex = hex(
+            eval('0b' + "".join([str(1) for x in xrange(ports_len)])))
+        cmd = CGNAPT_PIPELINE_COMMAND.format(cfg_file=CGNAPT_CFG_CONFIG,
+                                             script=CGNAPT_CFG_SCRIPT,
+                                             ports_len_hex=ports_len_hex,
                                              tool_path=tool_path)
         self.connection.run(cmd, stdin=filewrapper, stdout=filewrapper,
                             keep_stdin_open=True, pty=True)
 
-    def _provide_config_file(self, prefix, template, vars):
+    def _get_cpu_sibling_list(self, cores):
+        try:
+            cpu_topo = []
+            for core in cores:
+                sys_cmd = \
+                    "/sys/devices/system/cpu/cpu%s/topology/thread_siblings_list" \
+                    % core
+                cpuid = \
+                    self.connection.execute("awk -F: '{ print $1 }' < %s" %
+                                            sys_cmd)[1]
+                cpu_topo += \
+                    [(idx) if idx.isdigit() else idx for idx in cpuid.split(',')]
+
+            return [cpu.strip() for cpu in cpu_topo]
+        except Exception:
+            return []
+
+    def _validate_cpu_cfg(self, vnf_cfg):
+        sysObj = CpuSysCores(self.connection)
+        self.sys_cpu = sysObj.get_core_socket()
+        if vnf_cfg["lb_config"] == 'HW':
+            num_core = HW_DEFAULT_CORE + int(vnf_cfg["worker_threads"])
+        else:
+            num_core = SW_DEFAULT_CORE + int(vnf_cfg["worker_threads"])
+        app_cpu = self.sys_cpu[str(self.socket)][:num_core]
+        return self._get_cpu_sibling_list(app_cpu)
+
+    def _provide_config_file(self, prefix, template, vars={}):
         cfg, cfg_content = tempfile.mkstemp()
         cfg = os.fdopen(cfg, "w+")
         cfg.write(template.format(**vars))
@@ -310,7 +342,7 @@ class CgnaptApproxVnf(GenericVNF):
         return cfg_file
 
     def execute_command(self, cmd):
-        log.info("CGNAPT command: %s", cmd)
+        LOG.info("CGNAPT command: %s", cmd)
         self.q_in.put(cmd + "\r\n")
         time.sleep(2)
         output = []
@@ -337,7 +369,7 @@ class CgnaptApproxVnf(GenericVNF):
                 "packets_dropped", 0) + int(m.group(4))
         result["collect_stats"] = collect_stats
 
-        log.debug("CGNAPT collect KPIs {0}".format(result))
+        LOG.debug("CGNAPT collect KPIs {0}".format(result))
         return result
 
     def get_stats_vcgnapt(self):
