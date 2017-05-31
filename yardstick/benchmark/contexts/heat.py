@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (c) 2015 Ericsson AB and others.
+# Copyright (c) 2015-2017 Ericsson AB and others.
 #
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
@@ -45,6 +45,7 @@ class HeatContext(Context):
         self.keypair_name = None
         self.secgroup_name = None
         self._server_map = {}
+        self.attrs = {}
         self._image = None
         self._flavor = None
         self.flavors = set()
@@ -104,6 +105,8 @@ class HeatContext(Context):
             server = Server(name, self, serverattrs)
             self.servers.append(server)
             self._server_map[server.dn] = server
+
+        self.attrs = attrs
 
         rsa_key = paramiko.RSAKey.generate(bits=2048, progress_func=None)
         rsa_key.write_private_key_file(self.key_filename)
@@ -287,6 +290,15 @@ class HeatContext(Context):
 
         super(HeatContext, self).undeploy()
 
+    def _get_context_from_server(self, name):
+        """lookup server info for a given nodename
+        name: a name for a server listed in nodes and get its attributes
+        """
+        _, name = self.split_name(name)
+        if self.name == name:
+            return self.attrs
+        return None
+
     def _get_server(self, attr_name):
         """lookup server info by name from context
         attr_name: either a name for a server created by yardstick or a dict
@@ -296,30 +308,20 @@ class HeatContext(Context):
             'yardstick.resources',
             'files/yardstick_key-' + get_short_key_uuid(self.key_uuid))
 
-        if isinstance(attr_name, collections.Mapping):
-            cname = attr_name["name"].split(".")[1]
-            if cname != self.name:
+        if not isinstance(attr_name, collections.Mapping):
+            server = self._server_map.get(attr_name, None)
+            if server is None:
                 return None
-
-            public_ip = None
-            private_ip = None
-            if "public_ip_attr" in attr_name:
-                public_ip = self.stack.outputs[attr_name["public_ip_attr"]]
-            if "private_ip_attr" in attr_name:
-                private_ip = self.stack.outputs[
-                    attr_name["private_ip_attr"]]
+        else:
+            node_name, name = self.split_name(attr_name['name'])
+            if name is None or name != self.name:
+                return None
 
             # Create a dummy server instance for holding the *_ip attributes
-            server = Server(attr_name["name"].split(".")[0], self, {})
-            server.public_ip = public_ip
-            server.private_ip = private_ip
-        else:
-            if attr_name not in self._server_map:
-                return None
-            server = self._server_map[attr_name]
-
-        if server is None:
-            return None
+            outputs = self.stack.outputs
+            server = Server(node_name, self, {})
+            server.public_ip = outputs.get(attr_name.get("public_ip_attr", object()), None)
+            server.private_ip = outputs.get(attr_name.get("private_ip_attr", object()), None)
 
         result = {
             "user": server.context.user,
