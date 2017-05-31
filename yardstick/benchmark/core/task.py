@@ -384,6 +384,12 @@ class TaskParser(object):       # pragma: no cover
             scenario["tc"] = task_name
             scenario["task_id"] = task_id
 
+
+            # For some usecases, you might want use context info setting
+            # hardware specific paramters. Adding the context info to
+            # scenario config
+            scenario["context"] = context_cfgs
+
             change_server_name(scenario, name_suffix)
 
             try:
