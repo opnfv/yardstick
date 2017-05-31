@@ -37,6 +37,7 @@ class NodeContext(Context):
         self.computes = []
         self.baremetals = []
         self.env = {}
+        self.attrs = {}
         super(NodeContext, self).__init__()
 
     def read_config_file(self):
@@ -75,6 +76,7 @@ class NodeContext(Context):
         LOG.debug("BareMetals: %r", self.baremetals)
 
         self.env = attrs.get('env', {})
+        self.attrs = attrs
         LOG.debug("Env: %r", self.env)
 
     def deploy(self):
@@ -110,6 +112,19 @@ class NodeContext(Context):
         cmd = 'ansible-playbook -i inventory.ini %s' % path
         p = subprocess.Popen(cmd, shell=True, cwd=consts.ANSIBLE_DIR)
         p.communicate()
+
+    def _get_context_from_server(self, name):
+        """lookup server info for a given nodename
+        name: a name for a server listed in nodes and get its attributes
+        """
+
+        if isinstance(name, collections.Mapping):
+            return None
+
+        if self.name != name.split(".")[1]:
+            return None
+
+        return self.attrs
 
     def _get_server(self, attr_name):
         """lookup server info by name from context

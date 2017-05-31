@@ -45,6 +45,51 @@ class NodeContextTestCase(unittest.TestCase):
 
         self.assertRaises(IOError, self.test_context.init, attrs)
 
+    def test_read_config_file(self):
+
+        attrs = {
+            'name': 'foo',
+            'file': self._get_file_abspath(self.NODES_SAMPLE)
+        }
+
+        self.test_context.init(attrs)
+
+        self.assertIsNotNone(self.test_context.read_config_file())
+
+    def test__dispatch_script(self):
+
+        attrs = {
+            'name': 'foo',
+            'file': self._get_file_abspath(self.NODES_SAMPLE)
+        }
+
+        self.test_context.init(attrs)
+
+        self.test_context.env = {'bash': [{'script': 'dummy'}]}
+        self.test_context._execute_script = mock.Mock()
+        self.assertEqual(self.test_context._dispatch_script('bash'), None)
+
+    def test__dispatch_ansible(self):
+
+        attrs = {
+            'name': 'foo',
+            'file': self._get_file_abspath(self.NODES_SAMPLE)
+        }
+
+        self.test_context.init(attrs)
+
+        self.test_context.env = {'ansible': [{'script': 'dummy'}]}
+        self.test_context._do_ansible_job = mock.Mock()
+        self.assertEqual(self.test_context._dispatch_ansible('ansible'), None)
+        self.test_context.env = {}
+        self.assertEqual(self.test_context._dispatch_ansible('ansible'), None)
+
+    @mock.patch("yardstick.benchmark.contexts.node.subprocess")
+    def test__do_ansible_job(self, mock_subprocess):
+        mock_subprocess.Popen = mock.MagicMock()
+        mock_subprocess.communicate = mock.Mock()
+        self.assertEqual(None, self.test_context._do_ansible_job('dummy'))
+
     def test_successful_init(self):
 
         attrs = {
@@ -61,6 +106,48 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertEqual(self.test_context.computes[0]["name"], "node3")
         self.assertEqual(len(self.test_context.baremetals), 1)
         self.assertEqual(self.test_context.baremetals[0]["name"], "node4")
+
+    def test__get_context_from_server_with_dic_attr_name(self):
+
+        attrs = {
+            'name': 'foo',
+            'file': self._get_file_abspath(self.NODES_SAMPLE)
+        }
+
+        self.test_context.init(attrs)
+
+        attr_name = {'name': 'foo.bar'}
+        result = self.test_context._get_context_from_server(attr_name)
+
+        self.assertEqual(result, None)
+
+    def test__get_context_from_server_not_found(self):
+
+        attrs = {
+            'name': 'foo',
+            'file': self._get_file_abspath(self.NODES_SAMPLE)
+        }
+
+        self.test_context.init(attrs)
+
+        attr_name = 'bar.foo1'
+        result = self.test_context._get_context_from_server(attr_name)
+
+        self.assertEqual(result, None)
+
+    def test__get_context_from_server_found(self):
+
+        attrs = {
+            'name': 'foo',
+            'file': self._get_file_abspath(self.NODES_SAMPLE)
+        }
+
+        self.test_context.init(attrs)
+
+        attr_name = 'node1.foo'
+        result = self.test_context._get_context_from_server(attr_name)
+
+        self.assertEqual(result, attrs)
 
     def test__get_server_with_dic_attr_name(self):
 
@@ -89,6 +176,22 @@ class NodeContextTestCase(unittest.TestCase):
         result = self.test_context._get_server(attr_name)
 
         self.assertEqual(result, None)
+
+    def test__get_server_mismatch(self):
+
+        attrs = {
+            'name': 'foo',
+            'file': self._get_file_abspath(self.NODES_SAMPLE)
+        }
+
+        self.test_context.init(attrs)
+
+        attr_name = 'bar.foo1'
+        result = self.test_context._get_server(attr_name)
+
+        self.assertEqual(result, None)
+
+
 
     def test__get_server_duplicate(self):
 
@@ -136,6 +239,15 @@ class NodeContextTestCase(unittest.TestCase):
         obj.deploy()
         self.assertTrue(dispatch_script_mock.called)
 
+    @mock.patch('{}.NodeContext._dispatch_ansible'.format(prefix))
+    def test_deploy_anisible(self, dispatch_ansible_mock):
+        obj = node.NodeContext()
+        obj.env = {
+            'type': 'ansible'
+        }
+        obj.deploy()
+        self.assertTrue(dispatch_ansible_mock.called)
+
     @mock.patch('{}.NodeContext._dispatch_script'.format(prefix))
     def test_undeploy(self, dispatch_script_mock):
         obj = node.NodeContext()
@@ -144,6 +256,15 @@ class NodeContextTestCase(unittest.TestCase):
         }
         obj.undeploy()
         self.assertTrue(dispatch_script_mock.called)
+
+    @mock.patch('{}.NodeContext._dispatch_ansible'.format(prefix))
+    def test_undeploy_anisble(self, dispatch_ansible_mock):
+        obj = node.NodeContext()
+        obj.env = {
+            'type': 'ansible'
+        }
+        obj.undeploy()
+        self.assertTrue(dispatch_ansible_mock.called)
 
     @mock.patch('{}.ssh.SSH._put_file_shell'.format(prefix))
     @mock.patch('{}.ssh.SSH.execute'.format(prefix))
