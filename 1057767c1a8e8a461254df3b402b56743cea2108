@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_167cfc1f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-31T16:17:20Z",
+      "side": 1,
+      "message": "why aren\u0027t we modifying _resolve_topology to get the info we need?\n\ncan we move all the generate_port_pairs logic into _resolve_topology.",
+      "parentUuid": "5aaae553_f6c4c060",
+      "revId": "1057767c1a8e8a461254df3b402b56743cea2108",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_fd402237",
         "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
         "patchSetId": 7
