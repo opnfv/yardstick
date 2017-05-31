@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (c) 2015 Huawei Technologies Co.,Ltd and others.
+# Copyright (c) 2015-2017 Huawei Technologies Co.,Ltd and others.
 #
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
@@ -11,7 +11,6 @@ from __future__ import absolute_import
 import errno
 import subprocess
 import os
-import collections
 import logging
 
 import yaml
@@ -37,6 +36,7 @@ class NodeContext(Context):
         self.computes = []
         self.baremetals = []
         self.env = {}
+        self.attrs = {}
         super(NodeContext, self).__init__()
 
     def read_config_file(self):
@@ -55,12 +55,11 @@ class NodeContext(Context):
         try:
             cfg = self.read_config_file()
         except IOError as ioerror:
-            if ioerror.errno == errno.ENOENT:
-                self.file_path = \
-                    os.path.join(consts.YARDSTICK_ROOT_PATH, self.file_path)
-                cfg = self.read_config_file()
-            else:
+            if ioerror.errno != errno.ENOENT:
                 raise
+            self.file_path = \
+                os.path.join(consts.YARDSTICK_ROOT_PATH, self.file_path)
+            cfg = self.read_config_file()
 
         self.nodes.extend(cfg["nodes"])
         self.controllers.extend([node for node in cfg["nodes"]
@@ -75,6 +74,7 @@ class NodeContext(Context):
         LOG.debug("BareMetals: %r", self.baremetals)
 
         self.env = attrs.get('env', {})
+        self.attrs = attrs
         LOG.debug("Env: %r", self.env)
 
     def deploy(self):
@@ -111,16 +111,23 @@ class NodeContext(Context):
         p = subprocess.Popen(cmd, shell=True, cwd=consts.ANSIBLE_DIR)
         p.communicate()
 
+    def _get_context_from_server(self, name):
+        """lookup server info for a given nodename
+        name: a name for a server listed in nodes and get its attributes
+        """
+        _, name = self.split_name(name)
+        if name is not None and self.name == name:
+            return self.attrs
+        return None
+
     def _get_server(self, attr_name):
         """lookup server info by name from context
         attr_name: a name for a server listed in nodes config file
         """
-        if isinstance(attr_name, collections.Mapping):
+        node_name, name = self.split_name(attr_name)
+        if name is None or self.name != name:
             return None
 
-        if self.name != attr_name.split(".")[1]:
-            return None
-        node_name = attr_name.split(".")[0]
         matching_nodes = (n for n in self.nodes if n["name"] == node_name)
 
         try:
@@ -135,8 +142,8 @@ class NodeContext(Context):
         except StopIteration:
             pass
         else:
-            raise ValueError("Duplicate nodes!!! Nodes: %s %s",
-                             (matching_nodes, duplicate))
+            raise ValueError("Duplicate nodes!!! Nodes: %s %s" %
+                             (node, duplicate))
 
         node["name"] = attr_name
         return node
