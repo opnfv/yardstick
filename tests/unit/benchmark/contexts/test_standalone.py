@@ -48,6 +48,17 @@ class StandaloneContextTestCase(unittest.TestCase):
 
         self.assertRaises(IOError, self.test_context.init, attrs)
 
+    def test_read_config_file(self):
+
+        attrs = {
+            'name': 'foo',
+            'file': self._get_file_abspath(self.NODES_SAMPLE)
+        }
+
+        self.test_context.init(attrs)
+
+        self.assertIsNotNone(self.test_context.read_config_file())
+
     def test_successful_init(self):
 
         attrs = {
@@ -61,6 +72,48 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.assertEqual(len(self.test_context.nodes), 3)
         self.assertEqual(len(self.test_context.nfvi_node), 1)
         self.assertEqual(self.test_context.nfvi_node[0]["name"], "node2")
+
+    def test__get_context_from_server_with_dic_attr_name(self):
+
+        attrs = {
+            'name': 'foo',
+            'file': self._get_file_abspath(self.NODES_SAMPLE)
+        }
+
+        self.test_context.init(attrs)
+
+        attr_name = {'name': 'foo.bar'}
+        result = self.test_context._get_context_from_server(attr_name)
+
+        self.assertEqual(result, None)
+
+    def test__get_context_from_server_not_found(self):
+
+        attrs = {
+            'name': 'foo',
+            'file': self._get_file_abspath(self.NODES_SAMPLE)
+        }
+
+        self.test_context.init(attrs)
+
+        attr_name = 'bar.foo1'
+        result = self.test_context._get_context_from_server(attr_name)
+
+        self.assertEqual(result, None)
+
+    def test__get_context_from_server_found(self):
+
+        attrs = {
+            'name': 'foo',
+            'file': self._get_file_abspath(self.NODES_SAMPLE)
+        }
+
+        self.test_context.init(attrs)
+
+        attr_name = 'node1.foo'
+        result = self.test_context._get_context_from_server(attr_name)
+
+        self.assertEqual(result, attrs)
 
     def test__get_server_with_dic_attr_name(self):
 
