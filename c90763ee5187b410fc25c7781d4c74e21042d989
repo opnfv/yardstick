@@ -33,6 +33,24 @@
       "revId": "c90763ee5187b410fc25c7781d4c74e21042d989",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_5626f469",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-05-31T15:40:43Z",
+      "side": 1,
+      "message": "Deepak, why do we need this patch?   vnf.name is already set. node_name \u003d vnf.name, vnf.name is already an instance attribute.",
+      "parentUuid": "5aaae553_a21da775",
+      "revId": "c90763ee5187b410fc25c7781d4c74e21042d989",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
