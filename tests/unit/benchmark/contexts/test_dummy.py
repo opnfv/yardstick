@@ -30,3 +30,12 @@ class DummyContextTestCase(unittest.TestCase):
         self.assertEqual(result, None)
 
         self.test_context.undeploy()
+
+    def test__get_context_from_server(self):
+        self.test_context.init(None)
+        self.test_context.deploy()
+
+        result = self.test_context._get_context_from_server(None)
+        self.assertEqual(result, None)
+
+        self.test_context.undeploy()
