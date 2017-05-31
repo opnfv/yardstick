@@ -45,6 +45,7 @@ class HeatContext(Context):
         self.keypair_name = None
         self.secgroup_name = None
         self._server_map = {}
+        self.attrs = {}
         self._image = None
         self._flavor = None
         self.flavors = set()
@@ -104,6 +105,8 @@ class HeatContext(Context):
             server = Server(name, self, serverattrs)
             self.servers.append(server)
             self._server_map[server.dn] = server
+
+        self.attrs = attrs
 
         rsa_key = paramiko.RSAKey.generate(bits=2048, progress_func=None)
         rsa_key.write_private_key_file(self.key_filename)
@@ -286,6 +289,19 @@ class HeatContext(Context):
                 LOG.exception("Key filename %s", self.key_filename)
 
         super(HeatContext, self).undeploy()
+
+    def _get_context_from_server(self, name):
+        """lookup server info for a given nodename
+        name: a name for a server listed in nodes and get its attributes
+        """
+
+        if isinstance(name, collections.Mapping):
+            return None
+
+        if self.name != name.split(".")[1]:
+            return None
+
+        return self.attrs
 
     def _get_server(self, attr_name):
         """lookup server info by name from context

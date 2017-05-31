@@ -56,6 +56,11 @@ class Context(object):
         """get server info by name from context
         """
 
+    @abc.abstractmethod
+    def _get_context_from_server(self, attr_name):
+        """get context info by name for given node name
+        """
+
     @staticmethod
     def get_server(attr_name):
         """lookup server info by name from context
@@ -70,6 +75,24 @@ class Context(object):
 
         if server is None:
             raise ValueError("context not found for server '%r'" %
+                             attr_name)
+
+        return server
+
+    @staticmethod
+    def get_context_from_server(attr_name):
+        """lookup context info by name from node config
+        attr_name: either a name of the node created by yardstick or a dict
+        with attribute name mapping when using external templates
+        """
+        server = None
+        for context in Context.list:
+            server = context._get_context_from_server(attr_name)
+            if server is not None:
+                break
+
+        if server is None:
+            raise ValueError("context not found for name '%r'" %
                              attr_name)
 
         return server

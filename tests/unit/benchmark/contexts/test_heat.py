@@ -117,6 +117,28 @@ class HeatContextTestCase(unittest.TestCase):
         mock_template.add_router_interface.assert_called_with("bar-fool-network-router-if0", "bar-fool-network-router", "bar-fool-network-subnet")
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
+    def test_image_flavor_user(self, mock_template):
+        self.test_context._image = 'foo'
+        self.assertIsNotNone(self.test_context.image)
+        self.test_context._flavor = 'foo'
+        self.assertIsNotNone(self.test_context.flavor)
+        self.test_context._user = 'foo'
+        self.assertIsNotNone(self.test_context.user)
+
+    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
+    def test_deploy(self, mock_template):
+
+        self.test_context.name = 'foo'
+        self.test_context.template_file = '/bar/baz/some-heat-file'
+        self.test_context.heat_parameters = {'image': 'cirros'}
+        self.test_context.deploy()
+
+        mock_template.assert_called_with(self.test_context.name,
+                                         self.test_context.template_file,
+                                         self.test_context.heat_parameters)
+        self.assertIsNotNone(self.test_context.stack)
+
+    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_deploy(self, mock_template):
 
         self.test_context.name = 'foo'
@@ -137,6 +159,46 @@ class HeatContextTestCase(unittest.TestCase):
 
         self.assertTrue(mock_template.delete.called)
 
+    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
+    @mock.patch('yardstick.benchmark.contexts.heat.os')
+    def test_undeploy_key_filename(self, mock_template, mock_os):
+
+        self.test_context.stack = mock_template
+        mock_os.path = mock.MagicMock()
+        mock_os.path.exists = mock.Mock(return_value=True)
+        self.assertEqual(None, self.test_context.undeploy())
+
+    def test__get_context_from_server_with_dic_attr_name(self):
+        self.mock_context.name = 'bar'
+        self.mock_context.stack.outputs = {'public_ip': '127.0.0.1',
+                                           'private_ip': '10.0.0.1'}
+        self.mock_context.key_uuid = uuid.uuid4()
+
+        attr_name = {'name': 'foo.bar',
+                     'public_ip_attr': 'public_ip',
+                     'private_ip_attr': 'private_ip'}
+
+        attr_name = {'name': 'foo.bar'}
+        result = self.test_context._get_context_from_server(attr_name)
+
+        self.assertEqual(result, None)
+
+    def test__get_context_from_server_not_found(self):
+
+        attr_name = 'bar.foo1'
+        self.test_context.name = "foo"
+        result = self.test_context._get_context_from_server(attr_name)
+
+        self.assertEqual(result, None)
+
+    def test__get_context_from_server_found(self):
+
+        attr_name = 'node1.foo'
+        self.test_context.name = "foo"
+        result = self.test_context._get_context_from_server(attr_name)
+
+        self.assertEqual(result, {})
+
     def test__get_server(self):
 
         self.mock_context.name = 'bar'
@@ -151,3 +213,32 @@ class HeatContextTestCase(unittest.TestCase):
 
         self.assertEqual(result['ip'], '127.0.0.1')
         self.assertEqual(result['private_ip'], '10.0.0.1')
+
+    def test__get_server_not_found(self):
+
+        self.mock_context.name = 'bar1'
+        self.mock_context.stack.outputs = {'public_ip': '127.0.0.1',
+                                           'private_ip': '10.0.0.1'}
+        self.mock_context.key_uuid = uuid.uuid4()
+
+        attr_name = {'name': 'foo.bar',
+                     'public_ip_attr': 'public_ip',
+                     'private_ip_attr': 'private_ip'}
+        result = heat.HeatContext._get_server(self.mock_context, attr_name)
+
+        self.assertEqual(result, None)
+
+    def test__get_server_not_dict(self):
+
+        self.mock_context.name = 'bar1'
+        self.mock_context.stack.outputs = {'public_ip': '127.0.0.1',
+                                           'private_ip': '10.0.0.1'}
+        self.mock_context.key_uuid = uuid.uuid4()
+
+        attr_name = 'foo.bar'
+        result = self.test_context._get_server(attr_name)
+        self.assertEqual(result, None)
+        self.test_context._server_map = [1, None, 3]
+        attr_name = 1
+        result = self.test_context._get_server(attr_name)
+        self.assertEqual(result, None)

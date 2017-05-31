@@ -37,6 +37,7 @@ class StandaloneContext(Context):
         self.file_path = None
         self.nodes = []
         self.nfvi_node = []
+        self.attrs = {}
         super(StandaloneContext, self).__init__()
 
     def read_config_file(self):
@@ -66,6 +67,7 @@ class StandaloneContext(Context):
         self.nodes.extend(cfg["nodes"])
         self.nfvi_node.extend([node for node in cfg["nodes"]
                                if node["role"] == "nfvi_node"])
+        self.attrs = attrs
         LOG.debug("Nodes: %r", self.nodes)
         LOG.debug("NFVi Node: %r", self.nfvi_node)
 
@@ -81,6 +83,19 @@ class StandaloneContext(Context):
         # Todo: NFVi undeploy (sriov, vswitch, ovs etc) based on the config.
         super(StandaloneContext, self).undeploy()
 
+    def _get_context_from_server(self, name):
+        """lookup server info for a given nodename
+        name: a name for a server listed in nodes and get its attributes
+        """
+
+        if isinstance(name, collections.Mapping):
+            return None
+
+        if self.name != name.split(".")[1]:
+            return None
+
+        return self.attrs
+
     def _get_server(self, attr_name):
         """lookup server info by name from context
 
@@ -91,7 +106,7 @@ class StandaloneContext(Context):
         if isinstance(attr_name, collections.Mapping):
             return None
 
-        if self.name.split("-")[0] != attr_name.split(".")[1]:
+        if self.name != attr_name.split(".")[1]:
             return None
 
         node_name = attr_name.split(".")[0]
