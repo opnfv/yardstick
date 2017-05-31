@@ -22,14 +22,13 @@ import logging
 import re
 from multiprocessing import Queue
 import multiprocessing
-import ipaddress
-import yaml
 import itertools
 import six.moves.configparser
 import six
 
 from yardstick import ssh
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
+from yardstick.benchmark.contexts.base import Context
 from yardstick.network_services.utils import provision_tool
 from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
 from yardstick.network_services.nfvi.resource import ResourceProfile
@@ -348,18 +347,14 @@ class VpeApproxVnf(GenericVNF):
         super(VpeApproxVnf, self).scale(flavor)
 
     def get_nfvi_type(self, scenario_cfg):
-        tc_data = None
-        tc_file = '%s.yaml' % scenario_cfg['tc']
-
-        with open(tc_file) as tfh:
-            tc_data = yaml.safe_load(tfh)
-
-        nfvi_type = tc_data['context'].get('nfvi_type', 'baremetal')
-        return nfvi_type
+        return self.nfvi_context.get("context", 'baremetal')
 
     def instantiate(self, node_name, scenario_cfg, context_cfg):
+        self.nfvi_context = \
+            Context.get_context_from_server(scenario_cfg["nodes"][node_name])
         self.node_name = node_name
-        vnf_cfg = scenario_cfg['vnf_options']['vpe']['cfg']
+        self.options = scenario_cfg["options"]
+        vnf_cfg = self.options[self.node_name]['cfg']
 
         mgmt_interface = self.vnfd["mgmt-interface"]
         self.connection = ssh.SSH.from_node(mgmt_interface)
@@ -369,7 +364,7 @@ class VpeApproxVnf(GenericVNF):
         self.setup_vnf_environment(self.connection)
 
         self.nfvi_type = self.get_nfvi_type(scenario_cfg)
-        self.topology = os.path.abspath(scenario_cfg['topology'])
+        self.topology = scenario_cfg['topology']
 
         cores = self._get_cpu_sibling_list()
         self.resource = ResourceProfile(self.vnfd, cores, self.nfvi_type)
@@ -435,71 +430,11 @@ class VpeApproxVnf(GenericVNF):
         self.connection.wait()
 
         interfaces = self.vnfd["vdu"][0]['external-interface']
-        port0_ip = ipaddress.ip_interface(six.text_type(
-            "%s/%s" % (interfaces[0]["virtual-interface"]["local_ip"],
-                       interfaces[0]["virtual-interface"]["netmask"])))
-        port1_ip = ipaddress.ip_interface(six.text_type(
-            "%s/%s" % (interfaces[1]["virtual-interface"]["local_ip"],
-                       interfaces[1]["virtual-interface"]["netmask"])))
-        dst_port0_ip = ipaddress.ip_interface(
-            u"%s/%s" % (interfaces[0]["virtual-interface"]["dst_ip"],
-                        interfaces[0]["virtual-interface"]["netmask"]))
-        dst_port1_ip = ipaddress.ip_interface(
-            u"%s/%s" % (interfaces[1]["virtual-interface"]["dst_ip"],
-                        interfaces[1]["virtual-interface"]["netmask"]))
 
-        vpe_vars = {"port0_local_ip": port0_ip.ip.exploded,
-                    "port0_dst_ip": dst_port0_ip.ip.exploded,
-                    "port0_local_ip_hex":
-                    self._ip_to_hex(port0_ip.ip.exploded),
-                    "port0_prefixlen": port0_ip.network.prefixlen,
-                    "port0_netmask": port0_ip.network.netmask.exploded,
-                    "port0_netmask_hex":
-                    self._ip_to_hex(port0_ip.network.netmask.exploded),
-                    "port0_local_mac":
-                    interfaces[0]["virtual-interface"]["local_mac"],
-                    "port0_dst_mac":
-                    interfaces[0]["virtual-interface"]["dst_mac"],
-                    "port0_gateway":
-                    self._get_ports_gateway(interfaces[0]["name"]),
-                    "port0_local_network":
-                    port0_ip.network.network_address.exploded,
-                    "port0_prefix": port0_ip.network.prefixlen,
-                    "port1_local_ip": port1_ip.ip.exploded,
-                    "port1_dst_ip": dst_port1_ip.ip.exploded,
-                    "port1_local_ip_hex":
-                    self._ip_to_hex(port1_ip.ip.exploded),
-                    "port1_prefixlen": port1_ip.network.prefixlen,
-                    "port1_netmask": port1_ip.network.netmask.exploded,
-                    "port1_netmask_hex":
-                    self._ip_to_hex(port1_ip.network.netmask.exploded),
-                    "port1_local_mac":
-                    interfaces[1]["virtual-interface"]["local_mac"],
-                    "port1_dst_mac":
-                    interfaces[1]["virtual-interface"]["dst_mac"],
-                    "port1_gateway":
-                    self._get_ports_gateway(interfaces[1]["name"]),
-                    "port1_local_network":
-                    port1_ip.network.network_address.exploded,
-                    "port1_prefix": port1_ip.network.prefixlen,
-                    "port0_local_ip6": self._get_port0localip6(),
-                    "port1_local_ip6": self._get_port1localip6(),
-                    "port0_prefixlen6": self._get_port0prefixlen6(),
-                    "port1_prefixlen6": self._get_port1prefixlen6(),
-                    "port0_gateway6": self._get_port0gateway6(),
-                    "port1_gateway6": self._get_port1gateway6(),
-                    "port0_dst_ip_hex6": self._get_port0localip6(),
-                    "port1_dst_ip_hex6": self._get_port1localip6(),
-                    "port0_dst_netmask_hex6": self._get_port0prefixlen6(),
-                    "port1_dst_netmask_hex6": self._get_port1prefixlen6(),
-                    "bin_path": self.bin_path,
+        vpe_vars = {"bin_path": self.bin_path,
                     "socket": self.socket}
 
-        with open(self.tc_file_name) as tc_file:
-            tc_yaml = yaml.load(tc_file.read())
-
-        topology = tc_yaml['scenarios'][0]['topology']
-        self.generate_port_pairs(topology)
+        self.generate_port_pairs(self.topology)
         self.priv_ports = [int(x[0][-1]) for x in self.tg_port_pairs]
         self.pub_ports = [int(x[1][-1]) for x in self.tg_port_pairs]
         self.my_ports = list(set(self.priv_ports).union(set(self.pub_ports)))
