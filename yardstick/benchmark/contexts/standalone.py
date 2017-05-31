@@ -16,7 +16,6 @@
 from __future__ import absolute_import
 import logging
 import errno
-import collections
 import yaml
 
 from yardstick.benchmark.contexts.base import Context
@@ -37,6 +36,7 @@ class StandaloneContext(Context):
         self.file_path = None
         self.nodes = []
         self.nfvi_node = []
+        self.attrs = {}
         super(StandaloneContext, self).__init__()
 
     def read_config_file(self):
@@ -66,6 +66,7 @@ class StandaloneContext(Context):
         self.nodes.extend(cfg["nodes"])
         self.nfvi_node.extend([node for node in cfg["nodes"]
                                if node["role"] == "nfvi_node"])
+        self.attrs = attrs
         LOG.debug("Nodes: %r", self.nodes)
         LOG.debug("NFVi Node: %r", self.nfvi_node)
 
@@ -81,20 +82,25 @@ class StandaloneContext(Context):
         # Todo: NFVi undeploy (sriov, vswitch, ovs etc) based on the config.
         super(StandaloneContext, self).undeploy()
 
+    def _get_context_from_server(self, name):
+        """lookup server info for a given nodename
+        name: a name for a server listed in nodes and get its attributes
+        """
+        _, name = self.split_name(name)
+        if name is not None and self.name == name:
+            return self.attrs
+        return None
+
     def _get_server(self, attr_name):
         """lookup server info by name from context
 
         Keyword arguments:
         attr_name -- A name for a server listed in nodes config file
         """
-
-        if isinstance(attr_name, collections.Mapping):
+        node_name, name = self.split_name(attr_name)
+        if name is None or self.name != name:
             return None
 
-        if self.name.split("-")[0] != attr_name.split(".")[1]:
-            return None
-
-        node_name = attr_name.split(".")[0]
         matching_nodes = (n for n in self.nodes if n["name"] == node_name)
 
         try:
