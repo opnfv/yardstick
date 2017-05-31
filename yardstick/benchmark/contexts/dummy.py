@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (c) 2015 Huawei Technologies Co.,Ltd and others.
+# Copyright (c) 2015-2017 Huawei Technologies Co.,Ltd and others.
 #
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
@@ -36,4 +36,7 @@ class DummyContext(Context):
         super(DummyContext, self).undeploy()
 
     def _get_server(self, attr_name):
+        return None
+
+    def _get_context_from_server(self, attr_name):
         return None
