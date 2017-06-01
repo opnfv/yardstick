@@ -32,6 +32,7 @@ scenarios:
           key: "nova-flavor-list"
           command_name: "openstack flavor list"
           monitor_time: 10
+          monitor_number: 3
           sla:
             max_outage_time: 5
 
