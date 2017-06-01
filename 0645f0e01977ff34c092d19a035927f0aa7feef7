@@ -37,6 +37,42 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_bc7e27e3",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-06-01T16:01:52Z",
+      "side": 1,
+      "message": "plugin fails if the bridge does not exists :(. We do not have the smartness in collectd yet. I will discuss with the team and see if we can add the support.",
+      "parentUuid": "5aaae553_3d579a04",
+      "revId": "0645f0e01977ff34c092d19a035927f0aa7feef7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_9c79ebfe",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-06-01T16:01:52Z",
+      "side": 1,
+      "message": "sriov is a subset of OVS. So it will take care :)",
+      "parentUuid": "5aaae553_bd338af5",
+      "revId": "0645f0e01977ff34c092d19a035927f0aa7feef7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_dd30c6ea",
         "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
         "patchSetId": 8
@@ -48,6 +84,24 @@
       "writtenOn": "2017-05-29T04:55:26Z",
       "side": 1,
       "message": "we can\u0027t do it this way.  There can exist multiple contexts, e.g. Heat and Node.\n\nWe don\u0027t know which node will belong to each context.  We\u0027ll have to add some type of lookup.  Maybe Context.get_server() can return this info.",
+      "revId": "0645f0e01977ff34c092d19a035927f0aa7feef7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_fc1c9fc3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-06-01T16:01:52Z",
+      "side": 1,
+      "message": "resource collection happens only on the VNF deployed system. So having NFVi type should be ok?",
+      "parentUuid": "5aaae553_dd30c6ea",
       "revId": "0645f0e01977ff34c092d19a035927f0aa7feef7",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
