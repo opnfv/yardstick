@@ -105,6 +105,24 @@
       "revId": "0645f0e01977ff34c092d19a035927f0aa7feef7",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_1c6dfb32",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-01T16:06:37Z",
+      "side": 1,
+      "message": "I don\u0027t know how we can handle NVFi type.  If we just need it to for collectd, then that should be fixed in collectd.\n\nIf we need NVFi type for other things, then it depends.\n\nBut the point here is that there is \u0027context\u0027 singular, or \u0027contexts\u0027 a list of contexts.  So tc_data[] will have multiple fields.",
+      "parentUuid": "5aaae553_fc1c9fc3",
+      "revId": "0645f0e01977ff34c092d19a035927f0aa7feef7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
