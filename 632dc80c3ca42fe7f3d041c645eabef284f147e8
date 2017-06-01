@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_f9a9117c",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc019.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-01T07:05:54Z",
+      "side": 1,
+      "message": "/scritps/scripts/",
+      "revId": "632dc80c3ca42fe7f3d041c645eabef284f147e8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
