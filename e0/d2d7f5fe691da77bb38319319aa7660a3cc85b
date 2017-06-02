@@ -1,0 +1,7 @@
+Code-Review+2: Ross Brattain <ross.b.brattain@intel.com>
+Verified+1: Jing Lu <lvjing5@huawei.com>
+Submitted-by: Jing Lu <lvjing5@huawei.com>
+Submitted-at: Fri, 02 Jun 2017 03:20:26 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/35631
+Project: yardstick
+Branch: refs/heads/stable/danube
