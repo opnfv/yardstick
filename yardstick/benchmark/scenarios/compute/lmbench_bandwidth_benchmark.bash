@@ -19,6 +19,8 @@ SIZE=$1
 TEST_NAME=$2
 WARMUP=$3
 
+NODE_CPU_ARCH="$(uname -m)"
+
 # write the result to stdout in json format
 output_json()
 {
@@ -26,4 +28,8 @@ output_json()
     echo $DATA | awk '/ /{printf "{\"size(MB)\": %s, \"bandwidth(MBps)\": %s}", $1, $2}'
 }
 
-/usr/lib/lmbench/bin/x86_64-linux-gnu/bw_mem -W $WARMUP ${SIZE}k $TEST_NAME 2>&1 | output_json
+if [ "${NODE_CPU_ARCH}" == "aarch64" ]; then
+    /usr/lib/lmbench/bin/bw_mem -W $WARMUP ${SIZE}k $TEST_NAME 2>&1 | output_json
+else
+    /usr/lib/lmbench/bin/x86_64-linux-gnu/bw_mem -W $WARMUP ${SIZE}k $TEST_NAME 2>&1 | output_json
+fi
