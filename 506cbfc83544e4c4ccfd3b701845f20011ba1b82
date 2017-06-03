@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_62d6c6c7",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-03T00:56:50Z",
+      "side": 1,
+      "message": "I don\u0027t think we want to do it this way.  It depends what info we need.\n\nAlso we do pass scenario_cfg and context_cfg to the scenario __init__()",
+      "revId": "506cbfc83544e4c4ccfd3b701845f20011ba1b82",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
