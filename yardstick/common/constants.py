@@ -42,6 +42,7 @@ TESTSUITE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_suites/')
 
 # file
 OPENRC = get_param('file.openrc', '/etc/yardstick/openstack.creds')
+ETC_HOSTS = get_param('file.etc_hosts', '/etc/hosts')
 CONF_FILE = join(CONF_DIR, 'yardstick.conf')
 CONF_SAMPLE_FILE = join(CONF_SAMPLE_DIR, 'yardstick.conf.sample')
 FETCH_SCRIPT = get_param('file.fetch_script', 'utils/fetch_os_creds.sh')
@@ -76,6 +77,9 @@ GRAFANA_TAG = get_param('grafana.tag', '3.1.1')
 DOCKER_URL = 'unix://var/run/docker.sock'
 INSTALLERS = ['apex', 'compass', 'fuel', 'joid']
 SQLITE = 'sqlite:////tmp/yardstick.db'
+TASK_NOT_DONE = 0
+TASK_DONE = 1
+TASK_ERROR = 2
 
 BASE_URL = 'http://localhost:5000'
 ENV_ACTION_API = BASE_URL + '/yardstick/env/action'
