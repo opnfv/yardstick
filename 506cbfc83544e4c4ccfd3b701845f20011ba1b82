@@ -34,6 +34,24 @@
       "revId": "506cbfc83544e4c4ccfd3b701845f20011ba1b82",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_4db09bdd",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-05T07:38:21Z",
+      "side": 1,
+      "message": "We aren\u0027t supposed to access context_cfgs info directly.\n\nWe access context info via Context.get_server().  \n\nBut we need a clear problem statement.  And one that doesn\u0027t assume baremetal.\n\nIf we need hardware info about the node, then it is best to probe the node directly.\n\nIf we need hardware info about the hypervisor, then we need to query the Context object.  Because with Heat we won\u0027t know the hypervisor location until the node is deployed.\n\nIn either case, the info we need won\u0027t be in the context_cfgs.  It will be in the Context object.\n\nIt may be that the best course is to add a Context.get_context_for_server(self.name) method\n\n    @staticmethod\n    def get_context_for_server(attr_name):\n        \"\"\"lookup server info by name from context\n        attr_name: either a name for a server created by yardstick or a dict\n        with attribute name mapping when using external heat templates\n        \"\"\"\n        con \u003d (context for context in Context.list if context._get_server(attr_name))\n        try:\n            return next(con)\n        except StopIteration:\n            raise ValueError(\"context not found for server \u0027%r\u0027\" %\n                             attr_name)\n\nmethod that returns the Context instance for a node.",
+      "parentUuid": "5aaae553_8d8f7323",
+      "revId": "506cbfc83544e4c4ccfd3b701845f20011ba1b82",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
