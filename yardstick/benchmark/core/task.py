@@ -44,6 +44,7 @@ class Task(object):     # pragma: no cover
     def __init__(self):
         self.config = {}
         self.contexts = []
+        self.outputs = {}
 
     def start(self, args, **kwargs):
         """Start a benchmark scenario."""
@@ -136,6 +137,7 @@ class Task(object):     # pragma: no cover
             # Wait for runners to finish
             for runner in runners:
                 runner_join(runner)
+                self.outputs.update(runner.get_output())
                 print("Runner ended, output in", output_file)
         else:
             # run serially
@@ -143,6 +145,7 @@ class Task(object):     # pragma: no cover
                 if not _is_background_scenario(scenario):
                     runner = self.run_one_scenario(scenario, output_file)
                     runner_join(runner)
+                    self.outputs.update(runner.get_output())
                     print("Runner ended, output in", output_file)
 
         # Abort background runners
@@ -155,6 +158,7 @@ class Task(object):     # pragma: no cover
                 # Nuke if it did not stop nicely
                 base_runner.Runner.terminate(runner)
                 runner_join(runner)
+                self.outputs.update(runner.get_output())
             else:
                 base_runner.Runner.release(runner)
             print("Background task ended")
@@ -168,10 +172,23 @@ class Task(object):     # pragma: no cover
             for context in self.contexts[::-1]:
                 context.undeploy()
 
+    def _parse_options(self, op):
+        if isinstance(op, dict):
+            return {k: self._parse_options(v) for k, v in op.items()}
+        elif isinstance(op, list):
+            return [self._parse_options(v) for v in op]
+        elif isinstance(op, str):
+            return self.outputs.get(op[1:]) if op.startswith('$') else op
+        else:
+            return op
+
     def run_one_scenario(self, scenario_cfg, output_file):
         """run one scenario using context"""
         runner_cfg = scenario_cfg["runner"]
         runner_cfg['output_filename'] = output_file
+
+        options = scenario_cfg.get('options', {})
+        scenario_cfg['options'] = self._parse_options(options)
 
         # TODO support get multi hosts/vms info
         context_cfg = {}

@@ -197,6 +197,7 @@ class Runner(object):
         self.config = config
         self.periodic_action_process = None
         self.result_queue = queue
+        self.output_queue = multiprocessing.Queue()
         self.process = None
         self.aborted = multiprocessing.Event()
         Runner.runners.append(self)
@@ -269,3 +270,9 @@ class Runner(object):
 
         self.run_post_stop_action()
         return self.process.exitcode
+
+    def get_output(self):
+        result = {}
+        while not self.output_queue.empty():
+            result.update(self.output_queue.get())
+        return result

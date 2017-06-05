@@ -64,6 +64,7 @@ class TaskTestCase(unittest.TestCase):
         t = task.Task()
         runner = mock.Mock()
         runner.join.return_value = 0
+        runner.get_output.return_value = {}
         mock_base_runner.Runner.get.return_value = runner
         t._run([scenario], False, "yardstick.out")
         self.assertTrue(runner.run.called)
@@ -154,6 +155,33 @@ class TaskTestCase(unittest.TestCase):
                          '{"host": "node1.LF","target": "node2.LF"}')
         self.assertEqual(task_args_fnames[0], None)
         self.assertEqual(task_args_fnames[1], None)
+
+    def test_parse_options(self):
+        options = {
+            'openstack': {
+                'EXTERNAL_NETWORK': '$network'
+            },
+            'ndoes': ['node1', '$node'],
+            'host': '$host'
+        }
+
+        t = task.Task()
+        t.outputs = {
+            'network': 'ext-net',
+            'node': 'node2',
+            'host': 'server.yardstick'
+        }
+
+        idle_result = {
+            'openstack': {
+                'EXTERNAL_NETWORK': 'ext-net'
+            },
+            'ndoes': ['node1', 'node2'],
+            'host': 'server.yardstick'
+        }
+
+        actual_result = t._parse_options(options)
+        self.assertEqual(idle_result, actual_result)
 
     def test_change_server_name_host_str(self):
         scenario = {'host': 'demo'}
