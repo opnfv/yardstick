@@ -81,7 +81,10 @@ def import_modules_from_package(package):
                 continue
             new_package = ".".join(root.split(os.sep)).split("....")[1]
             module_name = "%s.%s" % (new_package, filename[:-3])
-            try_append_module(module_name, sys.modules)
+            try:
+                try_append_module(module_name, sys.modules)
+            except ImportError:
+                logger.exception("unable to import %s", module_name)
 
 
 def parse_yaml(file_path):
