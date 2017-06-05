@@ -307,3 +307,15 @@ def _update_task_error(task_id, error):
     task = async_handler.get_task_by_taskid(task_id)
     async_handler.update_status(task, 2)
     async_handler.update_error(task, error)
+
+
+def update_hosts(hosts_ip):
+    if not isinstance(hosts_ip, dict):
+        return result_handler(2, 'Error, args should be a dict')
+    logger.info('Writing hosts: Writing')
+    hosts_list = ['\n{} {}'.format(ip, host_name) for host_name, ip in hosts_ip.items()]
+    logger.debug('Writing: %s', hosts_list)
+    with open(consts.ETC_HOSTS, 'a') as f:
+        f.writelines(hosts_list)
+    logger.info('Writing hosts: Done')
+    return result_handler(1, 'success') 
