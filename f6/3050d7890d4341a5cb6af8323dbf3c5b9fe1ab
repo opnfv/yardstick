@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Jing Lu <lvjing5@huawei.com>
+Code-Review+1: Maciej Skrocki <maciej.skrocki@intel.com>
+Code-Review+1: Alexandru Avadanii <Alexandru.Avadanii@enea.com>
+Submitted-by: Rex Lee <limingjiang@huawei.com>
+Submitted-at: Mon, 05 Jun 2017 08:31:01 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/35287
+Project: yardstick
+Branch: refs/heads/master
