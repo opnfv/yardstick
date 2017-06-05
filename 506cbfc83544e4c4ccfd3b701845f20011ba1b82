@@ -52,6 +52,24 @@
       "revId": "506cbfc83544e4c4ccfd3b701845f20011ba1b82",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_edc0672c",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-05T07:44:07Z",
+      "side": 1,
+      "message": "and we might be able to use Context.get_context_for_server(name) for scale-out, scale-up as well, because if we can get the Context instance we can add methods to have the context dynamically scale, adding instances or maybe adding resources.",
+      "parentUuid": "5aaae553_4db09bdd",
+      "revId": "506cbfc83544e4c4ccfd3b701845f20011ba1b82",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
