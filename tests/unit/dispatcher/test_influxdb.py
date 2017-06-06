@@ -14,10 +14,14 @@
 from __future__ import absolute_import
 import unittest
 
+
 try:
     from unittest import mock
 except ImportError:
     import mock
+
+from yardstick import _init_logging
+_init_logging()
 
 from yardstick.dispatcher.influxdb import InfluxdbDispatcher
 
