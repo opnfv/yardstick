@@ -145,12 +145,6 @@ load_yardstick_image()
         exit 1
     fi
 
-    if [[ "$DEPLOY_SCENARIO" == *"-lxd-"* ]]; then
-        sudo rm -f -- "${RAW_IMAGE}"
-    else
-        sudo rm -f -- "${QCOW_IMAGE}"
-    fi
-
     echo "Glance image id: $GLANCE_IMAGE_ID"
 }
 
