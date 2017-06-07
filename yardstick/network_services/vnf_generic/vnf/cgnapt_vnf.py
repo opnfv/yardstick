@@ -221,7 +221,7 @@ class CgnaptApproxVnf(GenericVNF):
 
     def _add_static_cgnat(self, nodes, interfaces):
         ip = "152.16.40.10"
-        if len(nodes) == 2:
+        if self.options[self.node_name].get('napt', 'static') == 'static':
             gw_ips = self._get_cgnapt_config(interfaces)
             pipeline = SW_DEFAULT_CORE - 1
             if self.vnf_cfg.get("lb_config", "SW") == 'HW':
