@@ -292,6 +292,10 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         cgnapt_approx_vnf._get_random_public_pool_ip = mock.Mock(return_value='4.4.4.4')
         cgnapt_approx_vnf.execute_command = mock.Mock()
         cgnapt_approx_vnf.vnf_cfg = {'lb_config': 'HW', 'worker_threads': 1}
+        cgnapt_approx_vnf.node_name = 'vnf__1'
+        cgnapt_approx_vnf.options = {'vnf__1': {'napt': 'static'},
+                                     'traffic_type': '4',
+                                     'topology': 'nsb_test_case.yaml'}
         self.assertEqual(None,
                          cgnapt_approx_vnf._add_static_cgnat(['xe0', 'xe1'],
                                                              interfaces))
