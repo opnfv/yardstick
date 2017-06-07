@@ -171,7 +171,7 @@ class TestRFC2544Profile(unittest.TestCase):
         tolerance = 0.0
         expected = {'DropPercentage': 0.0, 'RxThroughput': 100/3.0,
                     'TxThroughput': 100/3.0, 'CurrentDropPercentage': 0.0,
-                    'Throughput': 100/3.0,
+                    'Throughput': 66.66666666666667,
                     'xe0': {'tx_throughput_fps': 20, 'in_packets': 1000,
                             'out_packets': 1000, 'rx_throughput_mbps': 10,
                             'tx_throughput_mbps': 10, 'rx_throughput_fps': 20}}
@@ -204,7 +204,7 @@ class TestRFC2544Profile(unittest.TestCase):
         expected = {'DropPercentage': 0.1996, 'RxThroughput':
                     33.333333333333336, 'TxThroughput': 33.4,
                     'CurrentDropPercentage': 0.1996, 'Throughput':
-                    33.333333333333336, 'xe0': {'tx_throughput_fps': 20,
+                    66.66666666666667, 'xe0': {'tx_throughput_fps': 20,
                                                 'in_packets': 1000,
                                                 'out_packets': 1002,
                                                 'rx_throughput_mbps': 10,
@@ -239,7 +239,7 @@ class TestRFC2544Profile(unittest.TestCase):
         r_f_c2544_profile.tmp_throughput = 0
         expected = {'DropPercentage': 100.0, 'RxThroughput': 100/3.0,
                     'TxThroughput': 0.0, 'CurrentDropPercentage': 100.0,
-                    'Throughput': 100/3.0,
+                    'Throughput': 66.66666666666667,
                     'xe0': {'tx_throughput_fps': 20, 'in_packets': 1000,
                             'out_packets': 0, 'rx_throughput_mbps': 10,
                             'tx_throughput_mbps': 10, 'rx_throughput_fps': 20}}
