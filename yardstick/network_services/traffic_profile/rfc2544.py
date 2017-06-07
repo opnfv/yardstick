@@ -52,7 +52,7 @@ class RFC2544Profile(TrexProfile):
                                                      ports=privports)
                 profile_data = \
                     self.params.get('public_%s' % str(index + 1), '')
-                if profile_data:
+                if profile_data and not traffic_generator.corelated_traffic:
                     self.profile_data = profile_data
                     self.ports.append(traffic_generator.pub_ports[index])
                     pubports = traffic_generator.pub_ports[index]
@@ -114,6 +114,11 @@ class RFC2544Profile(TrexProfile):
                                        mult=self.get_multiplier(),
                                        duration=30, force=True)
 
+        # if corelated traffic update the Throughput
+        if traffic_generator.corelated_traffic:
+            thoughput = samples['Throughput']
+            samples.update({'Throughput': thoughput * 2})
+
         return samples
 
     def execute_latency(self, traffic_generator, samples):
@@ -129,7 +134,7 @@ class RFC2544Profile(TrexProfile):
                                                  ports=privports)
             profile_data = \
                 self.params.get('public_%s' % str(index + 1), '')
-            if profile_data:
+            if profile_data and not traffic_generator.corelated_traffic:
                 self.profile_data = profile_data
                 self.ports.append(traffic_generator.pub_ports[index])
                 pubports = traffic_generator.pub_ports[index]
