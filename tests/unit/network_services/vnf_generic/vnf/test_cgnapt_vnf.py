@@ -271,6 +271,10 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         cgnapt_approx_vnf._get_random_public_pool_ip = mock.Mock(return_value='4.4.4.4')
         cgnapt_approx_vnf.execute_command = mock.Mock()
         cgnapt_approx_vnf.vnf_cfg = {'lb_config': 'HW', 'worker_threads': 1}
+        cgnapt_approx_vnf.node_name = 'vnf__1'
+        cgnapt_approx_vnf.options = {'vnf__1': {'napt': 'static'},
+                                     'traffic_type': '4',
+                                     'topology': 'nsb_test_case.yaml'}
         self.assertEqual(None,
                          cgnapt_approx_vnf._add_static_cgnat(['xe0', 'xe1'],
                                                              interfaces))
@@ -404,11 +408,14 @@ class TestCgnaptApproxVnf(unittest.TestCase):
             cgnapt_vnf.WAIT_TIME = 3
             cgnapt_approx_vnf.get_nfvi_type = \
                 mock.Mock(return_value="baremetal")
-            CgnaptApproxVnf._vnf_process = mock.MagicMock()
-            CgnaptApproxVnf._vnf_process.is_alive = mock.Mock(return_value=1)
-            cgnapt_approx_vnf._validate_cpu_cfg = mock.Mock(return_value=[1, 2 , 3])
-            self.assertIsNone(cgnapt_approx_vnf.instantiate(self.scenario_cfg,
-                                                            self.context_cfg))
+            cgnapt_approx_vnf._vnf_process = mock.MagicMock()
+            cgnapt_approx_vnf._vnf_process.is_alive = mock.Mock(return_value=1)
+            cgnapt_approx_vnf._vnf_process.exitcode.return_value = 0
+            cgnapt_approx_vnf._validate_cpu_cfg = \
+                mock.Mock(return_value=[1, 2, 3])
+            self.assertEqual(0,
+                             cgnapt_approx_vnf.instantiate(self.scenario_cfg,
+                                                           self.context_cfg))
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.cgnapt_vnf.Context")
     def test_instantiate_panic(self, Context):
@@ -420,15 +427,16 @@ class TestCgnaptApproxVnf(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             cgnapt_approx_vnf = CgnaptApproxVnf(vnfd)
-            self.scenario_cfg['vnf_options'] = {'cgnapt': {'cfg': "",
-                                                        'rules': ""}}
+            self.scenario_cfg['vnf_options'] = \
+                {'cgnapt': {'cfg': "", 'rules': ""}}
             cgnapt_approx_vnf._run_vcgnapt = mock.Mock(return_value=0)
             cgnapt_approx_vnf._parse_rule_file = mock.Mock(return_value={})
             cgnapt_approx_vnf.deploy_cgnapt_vnf = mock.Mock(return_value=0)
             cgnapt_vnf.WAIT_TIME = 1
             cgnapt_approx_vnf.get_nfvi_type = \
                 mock.Mock(return_value="baremetal")
-            cgnapt_approx_vnf._validate_cpu_cfg = mock.Mock(return_value=[1, 2 , 3])
+            cgnapt_approx_vnf._validate_cpu_cfg = \
+                mock.Mock(return_value=[1, 2, 3])
             self.assertRaises(RuntimeError, cgnapt_approx_vnf.instantiate,
                               self.scenario_cfg, self.context_cfg)
 
