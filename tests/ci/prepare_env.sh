@@ -118,3 +118,7 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     fi
 
 fi
+
+# uncomment lines in ssh_config to allow more Ciphers/MACs to be used
+sed -i '/Ciphers/s/^#/ /g' /etc/ssh/ssh_config
+sed -i '/MACs/s/^#/ /g' /etc/ssh/ssh_config
