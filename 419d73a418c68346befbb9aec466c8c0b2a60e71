@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_30957340",
+        "filename": "yardstick/benchmark/scenarios/compute/ramspeed_mark_benchmark.bash",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-06-09T14:41:04Z",
+      "side": 1,
+      "message": "This has nothing to do with the node architecture, it is just a coincidence it only manifests on the ARM pods in our lab. The solution should be arch-agnostic.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 44
+      },
+      "revId": "419d73a418c68346befbb9aec466c8c0b2a60e71",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
