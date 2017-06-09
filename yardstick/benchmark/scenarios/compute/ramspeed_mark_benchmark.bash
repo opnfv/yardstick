@@ -19,6 +19,11 @@ LOAD=$2
 BLOCK_SIZE=$3
 OUTPUT_FILE=/tmp/ramspeed-out.log
 
+NODE_CPU_ARCH="$(uname -m)"
+
+# setting smaller mtu to avoid ssh hangs when output is passed to ssh client
+ifconfig eth0 mtu 1400
+
 run_ramspeed()
 {
     cd /opt/tempT/RAMspeed/ramspeed-2.6.0/
