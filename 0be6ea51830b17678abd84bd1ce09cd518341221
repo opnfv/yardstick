@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_154629c0",
+        "filename": "tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-06-09T00:22:34Z",
+      "side": 1,
+      "message": "shouldn\u0027t we assert before and after?\n\n def test_attrs_set(self, mock_template):\n   expected_tuple \u003d \u0027foo\u0027, \u0027foo\u0027, \u0027foo\u0027\n   attrs_tuple \u003d self.test_context.image, self.test_context.flavor, self.test_context.user\n   self.assertNotEqual(attrs_tuple, expected_tuple)\n   self.test_context._image \u003d expected_tuple[0]\n   self.test_context._flavor \u003d expected_tuple[1]\n   self.test_context._user \u003d expected_tuple[2]\n   attrs_tuple \u003d self.test_context.image, self.test_context.flavor, self.test_context.user\n   self.assertEqual(attrs_tuple, expected_tuple)\n\nadditionally, is it important enough to test that direct assignment to these attributes is not allowed?\n\n   with self.assertRaises(AttributeError):\n     self.image \u003d \u0027foo\u0027",
+      "revId": "0be6ea51830b17678abd84bd1ce09cd518341221",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_d51731a2",
+        "filename": "tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-06-09T00:22:34Z",
+      "side": 1,
+      "message": "this is a negative test, why not include \"not_found\" in the test name?\n\ni would want a \"found\" test too, and tests both a dict that includes the attr map and dict without that.",
+      "revId": "0be6ea51830b17678abd84bd1ce09cd518341221",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_b512b5b2",
+        "filename": "tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-06-09T00:22:34Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be used as input to _get_context_from_server? in addition to the smaller dict below.",
+      "revId": "0be6ea51830b17678abd84bd1ce09cd518341221",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_9511b9ae",
+        "filename": "tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-06-09T00:22:34Z",
+      "side": 1,
+      "message": "this also appears to be a \"not_found\" test.\n\ncan we also get a \"found\" test?",
+      "revId": "0be6ea51830b17678abd84bd1ce09cd518341221",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_750c3d95",
+        "filename": "tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-06-09T00:22:34Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be a dict, not a list?\n\nit works because you used an integer as the \"name\" to lookup, and the index is the None value.",
+      "revId": "0be6ea51830b17678abd84bd1ce09cd518341221",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_3526c517",
+        "filename": "tests/unit/benchmark/contexts/test_node.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-06-09T00:22:34Z",
+      "side": 1,
+      "message": "this appears to be a \"not found\" test, please name as such.\n\ncan we get a \"found\" test too?",
+      "revId": "0be6ea51830b17678abd84bd1ce09cd518341221",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_55234105",
+        "filename": "tests/unit/benchmark/contexts/test_standalone.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-06-09T00:22:34Z",
+      "side": 1,
+      "message": "please mark as a \"not found\" test.\n\ncan we get a \"found\" test too?",
+      "revId": "0be6ea51830b17678abd84bd1ce09cd518341221",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_d5309158",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-06-09T00:22:34Z",
+      "side": 1,
+      "message": "can we change this to \u0027find_context_from_server\u0027?\n\ni don\u0027t understand why the instance method is marked as private, other than to distinguish it from the \"searching\" static methods.",
+      "revId": "0be6ea51830b17678abd84bd1ce09cd518341221",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_75351d45",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-06-09T00:22:34Z",
+      "side": 1,
+      "message": "why not return the server here?\n\nif we return here, then we don\u0027t need to declare \u0027server\u0027 before the for loop and we don\u0027t need to check it against None before raising the error.",
+      "revId": "0be6ea51830b17678abd84bd1ce09cd518341221",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_953a1935",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-06-09T00:22:34Z",
+      "side": 1,
+      "message": "this name splitting seems to be commonplace among these classes, i would like to see a helper method to handle this splitting for the subclasses that want it.  something like:\n\n @staticmethod\n def split_name(name, sep\u003d\u0027.\u0027):\n   try:\n     name_iter \u003d iter(name.split(sep))\n   except AttributeError:\n     # name is not a string\n     return None, None\n   return next(name_iter), next(name_iter, None)\n\nthen this method would be like:\n\n def _get_context_from_server(self, name):\n   _, name \u003d self.split_name(name)\n   if name is None or self.name !\u003d name:\n     return None\n   return self.attrs\n\nno need to check name for a mapping or any other non-string and avoids the IndexError that is possible from the current code.",
+      "revId": "0be6ea51830b17678abd84bd1ce09cd518341221",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_353fa527",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-06-09T00:22:34Z",
+      "side": 1,
+      "message": "see my comment about method of the same name in heat.py.",
+      "revId": "0be6ea51830b17678abd84bd1ce09cd518341221",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_553ca12f",
+        "filename": "yardstick/benchmark/contexts/standalone.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-06-09T00:22:34Z",
+      "side": 1,
+      "message": "see my comment about the method of the same name in heat.py.",
+      "revId": "0be6ea51830b17678abd84bd1ce09cd518341221",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_f5482dce",
+        "filename": "yardstick/benchmark/contexts/standalone.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-06-09T00:22:34Z",
+      "side": 1,
+      "message": "the name splitting helper method could be used here too:\n\n def _get_server(self, attr_name):\n   node_name, name \u003d self.split_name(attr_name)\n   if name is None or self.name !\u003d name:\n     return None\n\n   matching_nodes \u003d (...)\n   ...",
+      "revId": "0be6ea51830b17678abd84bd1ce09cd518341221",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
