@@ -10,7 +10,7 @@
 ##############################################################################
 
 # Unittest for yardstick.benchmark.orchestrator.heat
-
+from functools import partial
 from tempfile import NamedTemporaryFile
 import unittest
 import uuid
@@ -152,6 +152,76 @@ class HeatTemplateTestCase(unittest.TestCase):
 
         self.heat_template.add_flavor("test")
         self.assertEqual(self.heat_template.resources['test']['type'], 'OS::Nova::Flavor')
+
+    def test_create_negative(self):
+        self.heat_template.HEAT_WAIT_LOOP_INTERVAL = 0.2
+        self.heat_template._heat_client = mock_heat_client = mock.Mock()
+        mock_heat_client.stacks.get.stack_status_reason = 'the reason'
+        with mock.patch.object(self.heat_template, 'status', return_value=None) as mock_status:
+            # block with timeout hit
+            with self.assertRaises(RuntimeError) as raised:
+                self.heat_template.create(block=False, timeout=2)
+
+            self.assertIn('timeout', raised.msg)
+            self.assertNotIn('the reason', raised.msg)
+            self.assertEqual(mock_heat_client.stacks.create.call_count, 1)
+
+            mock_heat_client.stacks.create.reset_mock()
+            self.heat_template._heat_client = None
+
+            # block with create failed
+            mock_status.side_effect = partial(next, iter([None, None, u'CREATE_FAILED']))
+            with self.assertRaises(RuntimeError) as raised:
+                self.heat_template.create(block=True, timeout=10)
+
+            self.assertNotIn('timeout', raised.msg)
+            self.assertIn('the reason', raised.msg)
+            self.assertEqual(mock_heat_client.stacks.create.call_count, 1)
+
+        self.heat_template._heat_client = None
+
+    def test_create(self):
+        self.heat_template.HEAT_WAIT_LOOP_INTERVAL = 0.2
+        self.heat_template._heat_client = mock_heat_client = mock.Mock()
+        mock_heat_client.stacks.get.stack_status_reason = 'the reason'
+        with mock.patch.object(self.heat_template, 'status') as mock_status:
+            mock_heat_client.stacks.get.outputs = [
+                {'output_key': 'key1', 'output_value': 'value1'},
+                {'output_key': 'key2', 'output_value': 'value2'},
+                {'output_key': 'key3', 'output_value': 'value3'},
+            ]
+            expected_outputs = {
+                'key1': 'value1',
+                'key2': 'value2',
+                'key3': 'value3',
+            }
+
+            # no block
+            self.assertIsInstance(self.heat_template.create(block=False, timeout=2), heat.HeatStack)
+            self.assertEqual(mock_heat_client.call_count, 1)
+            self.assertEqual(mock_status.call_count, 0)
+            self.assertEqual(self.heat_template.outputs, {})
+
+            mock_heat_client.stacks.create.reset_mock()
+            mock_status.reset_mock()
+
+            # block with immediate complete
+            mock_status.return_value = u'CREATE_COMPLETE'
+            self.assertIsInstance(self.heat_template.create(block=True, timeout=2), heat.HeatStack)
+            self.assertEqual(mock_heat_client.stacks.create.call_count, 1)
+            self.assertEqual(mock_status.call_count, 1)
+            self.assertEqual(self.heat_template.outputs, expected_outputs)
+
+            mock_heat_client.stacks.create.reset_mock()
+            mock_status.reset_mock()
+
+            # block with delayed complete
+            mock_status.side_effect = partial(next, iter([None, None, u'CREATE_COMPLETE']))
+            self.assertIsInstance(self.heat_template.create(block=True, timeout=2), heat.HeatStack)
+            self.assertEqual(mock_heat_client.stacks.create.call_count, 1)
+            self.assertEqual(mock_status.call_count, 3)
+
+        self.heat_template._heat_client = None
 
 
 class HeatStackTestCase(unittest.TestCase):

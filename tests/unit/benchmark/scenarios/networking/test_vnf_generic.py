@@ -22,6 +22,7 @@ from __future__ import absolute_import
 import os
 import unittest
 
+import errno
 import mock
 
 from yardstick.benchmark.scenarios.networking.vnf_generic import \
@@ -29,6 +30,7 @@ from yardstick.benchmark.scenarios.networking.vnf_generic import \
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic.vnf.base import \
     GenericTrafficGen, GenericVNF
+import yardstick.benchmark.scenarios.networking.vnf_generic as vnf_generic
 
 STL_MOCKS = {
     'stl': mock.MagicMock(),
@@ -288,6 +290,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         }
 
         self.scenario_cfg = {
+            'task_path': "",
             'tc_options': {'rfc2544': {'allowed_drop_rate': '0.8 - 1'}},
             'task_id': 'a70bdf4a-8e67-47a3-9dc1-273c14506eb7',
             'tc': 'tc_ipv4_1Mflow_64B_packetsize',
@@ -350,7 +353,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         vnf = mock.Mock(autospec=GenericVNF)
         self.s.get_vnf_impl = mock.Mock(return_value=vnf)
 
-        self.assertIsNotNone(self.s.load_vnf_models(self.context_cfg))
+        self.assertIsNotNone(
+            self.s.load_vnf_models(self.scenario_cfg, self.context_cfg))
 
     def test_map_topology_to_infrastructure(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -488,3 +492,123 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         self.s.collector.stop = \
             mock.Mock(return_value=True)
         self.assertIsNone(self.s.teardown())
+
+    SAMPLE_NETDEVS = {
+            'enp11s0': {
+                'address': '0a:de:ad:be:ef:f5',
+                'device': '0x1533',
+                'driver': 'igb',
+                'ifindex': '2',
+                'interface_name': 'enp11s0',
+                'operstate': 'down',
+                'pci_bus_id': '0000:0b:00.0',
+                'subsystem_device': '0x1533',
+                'subsystem_vendor': '0x15d9',
+                'vendor': '0x8086'
+                },
+            'lan': {
+                'address': '0a:de:ad:be:ef:f4',
+                'device': '0x153a',
+                'driver': 'e1000e',
+                'ifindex': '3',
+                'interface_name': 'lan',
+                'operstate': 'up',
+                'pci_bus_id': '0000:00:19.0',
+                'subsystem_device': '0x153a',
+                'subsystem_vendor': '0x15d9',
+                'vendor': '0x8086'
+                }
+        }
+    SAMPLE_VM_NETDEVS = {
+        'eth1': {
+            'address': 'fa:de:ad:be:ef:5b',
+            'device': '0x0001',
+            'driver': 'virtio_net',
+            'ifindex': '3',
+            'interface_name': 'eth1',
+            'operstate': 'down',
+            'pci_bus_id': '0000:00:04.0',
+            'vendor': '0x1af4'
+        }
+    }
+
+    def test_parse_netdev_info(self):
+        output = """\
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/ifindex:2
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/address:0a:de:ad:be:ef:f5
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/operstate:down
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/device/vendor:0x8086
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/device/device:0x1533
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/device/subsystem_vendor:0x15d9
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/device/subsystem_device:0x1533
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/driver:igb
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/pci_bus_id:0000:0b:00.0
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/ifindex:3
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/address:0a:de:ad:be:ef:f4
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/operstate:up
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/device/vendor:0x8086
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/device/device:0x153a
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/device/subsystem_vendor:0x15d9
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/device/subsystem_device:0x153a
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/driver:e1000e
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/pci_bus_id:0000:00:19.0
+"""
+        res = NetworkServiceTestCase.parse_netdev_info(output)
+        assert res == self.SAMPLE_NETDEVS
+
+    def test_parse_netdev_info_virtio(self):
+        output = """\
+/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/ifindex:3
+/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/address:fa:de:ad:be:ef:5b
+/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/operstate:down
+/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/device/vendor:0x1af4
+/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/device/device:0x0001
+/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/driver:virtio_net
+"""
+        res = NetworkServiceTestCase.parse_netdev_info(output)
+        assert res == self.SAMPLE_VM_NETDEVS
+
+    def test_sort_dpdk_port_num(self):
+        netdevs = self.SAMPLE_NETDEVS.copy()
+        NetworkServiceTestCase._sort_dpdk_port_num(netdevs)
+        assert netdevs['lan']['dpdk_port_num'] == 1
+        assert netdevs['enp11s0']['dpdk_port_num'] == 2
+
+    def test_probe_missing_values(self):
+        netdevs = self.SAMPLE_NETDEVS.copy()
+        NetworkServiceTestCase._sort_dpdk_port_num(netdevs)
+        network = {'local_mac': '0a:de:ad:be:ef:f5'}
+        NetworkServiceTestCase._probe_missing_values(netdevs, network, set())
+        assert network['dpdk_port_num'] == 2
+
+        network = {'local_mac': '0a:de:ad:be:ef:f4'}
+        NetworkServiceTestCase._probe_missing_values(netdevs, network, set())
+        assert network['dpdk_port_num'] == 1
+
+    @mock.patch('vnf_generic.io.open')
+    def test_open_relative_path(self, open_mock):
+        # test
+        open_mock.return_value = 234
+        self.assertEqual(vnf_generic.open_relative_file('foo', 'bar'), 234)
+        self.assertEqual(open_mock.call_count, 1)
+        self.assertIn('foo', open_mock.call_args_list[0])
+        self.assertNotIn('bar', open_mock.call_args_list[0])
+        open_mock.reset_mock()
+
+        # test an IOError of type ENOENT
+        open_mock.side_effect = IOError(errno.ENOENT)
+        with self.assertRaises(IOError):
+            # the second call still raises
+            vnf_generic.open_relative_file('foo', 'bar')
+
+        self.assertEqual(open_mock.call_count, 2)
+        self.assertIn('foo', open_mock.call_args_list[1])
+        self.assertIn('bar', open_mock.call_args_list[1])
+        open_mock.reset_mock()
+
+        # test an IOError other than ENOENT
+        open_mock.side_effect = IOError(errno.EBUSY)
+        with self.assertRaises(IOError):
+            vnf_generic.open_relative_file('foo', 'bar')
+
+        self.assertEqual(open_mock.call_count, 1)
