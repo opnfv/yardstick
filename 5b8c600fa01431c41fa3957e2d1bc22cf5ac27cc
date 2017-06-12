@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_8b03d672",
+        "filename": "yardstick/benchmark/scenarios/compute/ramspeed_mark_benchmark.bash",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-06-12T16:17:39Z",
+      "side": 1,
+      "message": "Not needed any more.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 27
+      },
+      "revId": "5b8c600fa01431c41fa3957e2d1bc22cf5ac27cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
