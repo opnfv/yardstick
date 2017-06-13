@@ -12,9 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-flow:
-    srcip4_range_1: '152.16.0.20'
-    dstip4_range_1: '152.40.0.20'
-    srcip4_range_2: '172.16.0.20'
-    dstip4_range_2: '172.40.0.20'
-    count: 1
+[PIPELINE6]
+type = ROUTING
+core = s{socket}c4
+pktq_in = RXQ1.0
+pktq_out = SWQ4 SINK3
+encap = ethernet_qinq
+qinq_sched = yes
+ip_hdr_offset = 270
+
+
+[PIPELINE7]
+type = PASS-THROUGH
+core = s{socket}c5h
+pktq_in = SWQ4
+pktq_out = SWQ5
+
+[PIPELINE8]
+type = PASS-THROUGH
+core = s{socket}c5h
+pktq_in = SWQ5 TM0
+pktq_out = TM0 SWQ6
+
+[PIPELINE9]
+type = PASS-THROUGH
+core = s{socket}c5h
+pktq_in = SWQ6
+pktq_out = TXQ0.0
