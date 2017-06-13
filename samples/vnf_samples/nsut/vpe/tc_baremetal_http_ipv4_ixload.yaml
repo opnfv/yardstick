@@ -21,8 +21,10 @@ scenarios:
   nodes:
     tg__1: trafficgen_1.yardstick
     vnf__1: vnf.yardstick
-  vnf_options:
-    vpe:
+  options:
+    packetsize: 64
+    traffic_type: 4
+    vnf__1:
       cfg: vpe_config
   runner:
     type: Duration
