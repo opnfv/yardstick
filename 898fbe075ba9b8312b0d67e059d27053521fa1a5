@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_41ce1f5c",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-13T22:56:24Z",
+      "side": 1,
+      "message": "can we use this with all yardstick testcases?\n\nwe need to remove the dependency on vnfd, and just pass in the mgmt node information.\n\n def __init__(self, mgmt, core, nfvi_type\u003d\"auto\"):\n\n  self.connection \u003d ssh.SSH_from_node(mgmt)\n  # auto-detect nvfi type.",
+      "revId": "898fbe075ba9b8312b0d67e059d27053521fa1a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
