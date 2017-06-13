@@ -19,11 +19,12 @@
 
 from __future__ import absolute_import
 import unittest
+import os
 import mock
 from multiprocessing import Queue
 
 from yardstick.network_services.vnf_generic.vnf.base import \
-    QueueFileWrapper, GenericVNF, GenericTrafficGen
+    QueueFileWrapper, GenericVNF, GenericTrafficGen, HelperFunc
 
 IP_PIPELINE_CFG_FILE_TPL = """
 arp_route_tbl = ({port0_local_ip_hex},{port0_netmask_hex},1,"""
@@ -70,6 +71,21 @@ class TestQueueFileWrapper(unittest.TestCase):
             QueueFileWrapper(self.q_in, self.q_out, self.prompt)
         queue_file_wrapper.write("pipeline>")
         self.assertIsNotNone(queue_file_wrapper.q_out.empty())
+
+
+class TestHelperFunc(unittest.TestCase):
+
+    def test___init__(self):
+        HelperFunc()
+
+    def test_generate_port_pairs(self):
+        helperfunc = HelperFunc()
+        curr_path = os.path.dirname(os.path.abspath(__file__))
+        sample_topo = "samples/vnf_samples/nsut/vpe/vpe_vnf_topology.yaml"
+        topology_file = os.path.join(curr_path,
+                                     "../../../../../%s" % sample_topo)
+        self.assertEqual(helperfunc.generate_port_pairs(topology_file),
+                         [[('xe0', 'xe1')], [('xe0', 'xe1')]])
 
 
 class TestGenericVNF(unittest.TestCase):
@@ -233,6 +249,15 @@ class TestGenericVNF(unittest.TestCase):
         generic_vn_f = GenericVNF(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
         self.assertRaises(NotImplementedError, generic_vn_f.terminate)
 
+    def test_generate_port_pairs(self):
+        generic_vn_f = \
+            GenericVNF(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        generic_vn_f.helperfunc = mock.MagicMock()
+        generic_vn_f.helperfunc.generate_port_pairs = \
+            mock.Mock(return_value=[0, 1])
+        self.assertIsNone(
+            generic_vn_f.generate_port_pairs("vnf_topology.yaml"))
+
 
 class TestGenericTrafficGen(unittest.TestCase):
     def test___init__(self):
@@ -268,3 +293,13 @@ class TestGenericTrafficGen(unittest.TestCase):
             GenericTrafficGen(vnfd)
         traffic_profile = {}
         self.assertIsNone(generic_traffic_gen.verify_traffic(traffic_profile))
+
+    def test_generate_port_pairs(self):
+        vnfd = TestGenericVNF.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        generic_traffic_gen = \
+            GenericTrafficGen(vnfd)
+        generic_traffic_gen.helperfunc = mock.MagicMock()
+        generic_traffic_gen.helperfunc.generate_port_pairs = \
+            mock.Mock(return_value=[0, 1])
+        self.assertIsNone(
+            generic_traffic_gen.generate_port_pairs("vnf_topology.yaml"))
