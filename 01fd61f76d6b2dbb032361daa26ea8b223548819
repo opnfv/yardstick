@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_eb05aa14",
+        "filename": "tests/unit/orchestrator/test_heat.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-13T02:38:21Z",
+      "side": 1,
+      "message": "I think side_effect can take an iter directly\n\n   If side_effect is an iterable then each call to the mock will return the next value from the iterable\n\nbut I haven\u0027t tried it.",
+      "revId": "01fd61f76d6b2dbb032361daa26ea8b223548819",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
