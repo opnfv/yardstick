@@ -1,0 +1,64 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[PIPELINE1]
+type = FIREWALL
+core = s{socket}c1
+pktq_in = RXQ0.0
+pktq_out = SWQ0 SINK0
+n_rules = 4096
+pkt_type = qinq_ipv4
+
+[PIPELINE2]
+type = FLOW_CLASSIFICATION
+core = s{socket}c2
+pktq_in = SWQ0
+pktq_out = SWQ1 SINK1
+n_flows = 65536
+key_size = 8
+key_offset = 268
+key_mask = 00000FFF00000FFF
+flowid_offset = 172
+
+[PIPELINE3]
+type = FLOW_ACTIONS
+core = s{socket}c2h
+pktq_in = SWQ1
+pktq_out = SWQ2
+n_flows = 65536
+n_meters_per_flow = 1
+flow_id_offset = 172
+ip_hdr_offset = 278
+color_offset = 176
+
+[PIPELINE4]
+type = FLOW_ACTIONS
+core = s{socket}c1h
+pktq_in = SWQ2
+pktq_out = SWQ3
+n_flows = 65536
+n_meters_per_flow = 4
+flow_id_offset = 172
+ip_hdr_offset = 278
+color_offset = 176
+
+[PIPELINE5]
+type = ROUTING
+core = s0c3
+pktq_in = SWQ3
+pktq_out = TXQ1.0 SINK2
+encap = ethernet_mpls
+mpls_color_mark = yes
+ip_hdr_offset = 278
+color_offset = 176
