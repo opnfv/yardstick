@@ -20,6 +20,7 @@ import time
 import logging
 import os
 import yaml
+from six.moves import range
 
 from yardstick import ssh
 from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
@@ -30,10 +31,12 @@ from stl.trex_stl_lib.trex_stl_exceptions import STLError
 
 LOGGING = logging.getLogger(__name__)
 
+TREX_CONF = "/tmp/trex_cfg.yaml"
 DURATION = 30
 WAIT_TIME = 3
 TREX_SYNC_PORT = 4500
 TREX_ASYNC_PORT = 4501
+LATENCY_TIME_SLEEP = 120
 
 
 class TrexTrafficGenRFC(GenericTrafficGen):
@@ -50,9 +53,9 @@ class TrexTrafficGenRFC(GenericTrafficGen):
         self._terminated = multiprocessing.Value('i', 0)
         self._traffic_process = None
         self._vpci_ascending = None
-        self.tc_file_name = None
         self.client = None
         self.my_ports = None
+        self.iteration = multiprocessing.Value('i', 0)
 
         mgmt_interface = self.vnfd["mgmt-interface"]
 
@@ -103,9 +106,10 @@ class TrexTrafficGenRFC(GenericTrafficGen):
         trex_cfg["interfaces"] = vpci
         cfg_file.append(trex_cfg)
 
-        with open('/tmp/trex_cfg.yaml', 'w') as outfile:
+        self.connection.execute("sudo rm %s" % TREX_CONF)
+        with open(TREX_CONF, 'w') as outfile:
             outfile.write(yaml.safe_dump(cfg_file, default_flow_style=False))
-        self.connection.put('/tmp/trex_cfg.yaml', '/tmp')
+        self.connection.put(TREX_CONF, '/tmp')
 
         self._vpci_ascending = sorted(vpci)
 
@@ -114,11 +118,13 @@ class TrexTrafficGenRFC(GenericTrafficGen):
         super(TrexTrafficGenRFC, self).scale(flavor)
 
     def instantiate(self, scenario_cfg, context_cfg):
+        self.options = scenario_cfg['options']
         self._generate_trex_cfg(self.vnfd)
-        self.tc_file_name = '{0}.yaml'.format(scenario_cfg['tc'])
         trex = os.path.join(self.bin_path, "trex")
-        err, _, _ = \
-            self.connection.execute("ls {} >/dev/null 2>&1".format(trex))
+        self.nodes = scenario_cfg['nodes']
+        self.topology = scenario_cfg['topology']
+        err = \
+            self.connection.execute("ls {} >/dev/null 2>&1".format(trex))[0]
         if err != 0:
             self.connection.put(trex, trex, True)
 
@@ -154,7 +160,8 @@ class TrexTrafficGenRFC(GenericTrafficGen):
         self._traffic_process = \
             multiprocessing.Process(target=self._traffic_runner,
                                     args=(traffic_profile, self._queue,
-                                          client_started, self._terminated))
+                                          client_started, self._terminated,
+                                          self.iteration))
         self._traffic_process.start()
         # Wait for traffic process to start
         while client_started.value == 0:
@@ -174,7 +181,7 @@ class TrexTrafficGenRFC(GenericTrafficGen):
 
         trex_path = os.path.join(self.bin_path, "trex/scripts")
         path = get_nsb_option("trex_path", trex_path)
-        cmd = "sudo ./t-rex-64 -i --cfg /tmp/trex_cfg.yaml > /dev/null 2>&1"
+        cmd = "sudo ./t-rex-64 -i --cfg %s > /dev/null 2>&1" % TREX_CONF
         trex_cmd = "cd %s ; %s" % (path, cmd)
 
         _server.execute(trex_cmd)
@@ -193,14 +200,10 @@ class TrexTrafficGenRFC(GenericTrafficGen):
                 time.sleep(WAIT_TIME)
         return client
 
-    @classmethod
-    def _get_rfc_tolerance(cls, tc_yaml):
-        tolerance = '0.8 - 1.0'
-        if 'tc_options' in tc_yaml['scenarios'][0]:
-            tc_options = tc_yaml['scenarios'][0]['tc_options']
-            if 'rfc2544' in tc_options:
-                tolerance = \
-                    tc_options['rfc2544'].get('allowed_drop_rate', '0.8 - 1.0')
+    def _get_rfc_tolerance(self):
+        tolerance = '0.0001 - 0.0001'
+        tolerance = \
+            self.options['rfc2544'].get('allowed_drop_rate', '0.0001 - 0.0001')
 
         tolerance = tolerance.split('-')
         min_tol = float(tolerance[0])
@@ -211,19 +214,26 @@ class TrexTrafficGenRFC(GenericTrafficGen):
 
         return [min_tol, max_tol]
 
+    def _get_rfc_latency(self):
+        latency = self.options["rfc2544"].get("latency", False)
+        return latency
+
     def _traffic_runner(self, traffic_profile, queue,
-                        client_started, terminated):
+                        client_started, terminated, iteration):
         LOGGING.info("Starting TRex client...")
-        tc_yaml = {}
 
-        with open(self.tc_file_name) as tc_file:
-            tc_yaml = yaml.load(tc_file.read())
+        tolerance = self._get_rfc_tolerance()
+        latency = self._get_rfc_latency()
 
-        tolerance = self._get_rfc_tolerance(tc_yaml)
+        self.corelated_traffic = \
+            self.options["rfc2544"].get("corelated_traffic", False)
 
         # fixme: fix passing correct trex config file,
         # instead of searching the default path
-        self.my_ports = [0, 1]
+        self.generate_port_pairs(self.topology)
+        self.priv_ports = [int(x[0][-1]) for x in self.tg_port_pairs]
+        self.pub_ports = [int(x[1][-1]) for x in self.tg_port_pairs]
+        self.my_ports = list(set(self.priv_ports).union(set(self.pub_ports)))
         self.client = self._connect_client()
         self.client.reset(ports=self.my_ports)
         self.client.remove_all_streams(self.my_ports)  # remove all streams
@@ -261,11 +271,55 @@ class TrexTrafficGenRFC(GenericTrafficGen):
                 traffic_profile.get_drop_percentage(self, samples,
                                                     tolerance[0], tolerance[1])
             queue.put(samples)
+            if latency and iteration.value > 10:
+                self.client.stop(self.my_ports)
+                self.client.reset(ports=self.my_ports)
+                self.client.remove_all_streams(self.my_ports)
+                traffic_profile.execute_latency(self, samples)
+                multiplier = traffic_profile.calculate_pps(samples)[1]
+                for _ in range(5):
+                    time.sleep(LATENCY_TIME_SLEEP)
+                    self.client.stop(self.my_ports)
+                    time.sleep(WAIT_TIME)
+                    last_res = self.client.get_stats(self.my_ports)
+                    samples = {}
+                    for vpci_idx in range(len(self._vpci_ascending)):
+                        name = \
+                            self._get_logical_if_name(
+                                self._vpci_ascending[vpci_idx])
+                        # fixme: VNFDs KPIs values needs to be mapped to TRex
+                        if not isinstance(last_res, dict):
+                            terminated.value = 1
+                            last_res = {}
+
+                        samples[name] = \
+                            {"rx_throughput_fps":
+                             float(last_res.get(vpci_idx, {}).get("rx_pps",
+                                                                  0.0)),
+                             "tx_throughput_fps":
+                             float(last_res.get(vpci_idx, {}).get("tx_pps",
+                                                                  0.0)),
+                             "rx_throughput_mbps":
+                             float(last_res.get(vpci_idx, {}).get("rx_bps",
+                                                                  0.0)),
+                             "tx_throughput_mbps":
+                             float(last_res.get(vpci_idx, {}).get("tx_bps",
+                                                                  0.0)),
+                             "in_packets":
+                             last_res.get(vpci_idx, {}).get("ipackets", 0),
+                             "out_packets":
+                             last_res.get(vpci_idx, {}).get("opackets", 0),
+                             "latency": last_res.get('latency', {})}
+                    queue.put(samples)
+                    self.client.start(mult=str(multiplier),
+                                      ports=self.my_ports,
+                                      duration=120, force=True)
         self.client.stop(self.my_ports)
         self.client.disconnect()
         queue.put(samples)
 
     def collect_kpi(self):
+        self.iteration.value += 1
         if not self._queue.empty():
             result = self._queue.get()
             self._result.update(result)
