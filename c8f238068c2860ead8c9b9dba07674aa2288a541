@@ -16,6 +16,24 @@
       "revId": "c8f238068c2860ead8c9b9dba07674aa2288a541",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_9d09d733",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-06-19T17:40:59Z",
+      "side": 1,
+      "message": "I was going to suggest that myself at first, so +1 from me.",
+      "parentUuid": "5aaae553_dd174f50",
+      "revId": "c8f238068c2860ead8c9b9dba07674aa2288a541",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
