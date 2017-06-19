@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_18ef3520",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-19T21:05:53Z",
+      "side": 1,
+      "message": "please rename to something like set_dispatchers(), since we don\u0027t return anything and instead set the value in output_config.",
+      "revId": "852d4be97fe6046ed8e83b3df5611a46b1745ca0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_f8e9f91a",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-19T21:05:53Z",
+      "side": 1,
+      "message": "we are not meant to use map anymore and in Python3 it returns an iterator instead of a list, so please use list comprehension.\n\n out_types \u003d [s.strip() for s in dispatchers.split(\u0027,\u0027)]",
+      "revId": "852d4be97fe6046ed8e83b3df5611a46b1745ca0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_b8f38109",
+        "filename": "yardstick/dispatcher/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-19T21:05:53Z",
+      "side": 1,
+      "message": "please use list comprehension\n\n  list_dispatcher \u003d [Base.get_cls(out_type.capitalize())(config) for out_type in config[\u0027DEFAULT\u0027][\u0027dispatcher\u0027]]",
+      "revId": "852d4be97fe6046ed8e83b3df5611a46b1745ca0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
