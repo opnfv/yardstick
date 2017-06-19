@@ -20,8 +20,12 @@ set -e
 mkdir -p /tmp/storperf-yardstick
 
 docker pull opnfv/storperf
+
+STORPERF_DIR=/tmp/storperf-yardstick/carbon
 docker run -t \
 --env-file ~/storperf_admin-rc \
 -p 5000:5000 -p 8000:8000 \
--v /tmp/storperf-yardstick/carbon:/opt/graphite/storage/whisper \
+-v $STORPERF_DIR:/opt/graphite/storage/whisper \
 --name storperf-yardstick opnfv/storperf &
+
+chown 33:33 $STORPERF_DIR

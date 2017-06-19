@@ -33,3 +33,5 @@ echo "OS_PROJECT_ID="$PROJECT_ID >> ~/storperf_admin-rc
 echo "OS_TENANT_NAME="$TENANT_NAME >> ~/storperf_admin-rc
 echo "OS_TENANT_ID="$TENANT_ID >> ~/storperf_admin-rc
 echo "OS_USER_DOMAIN_ID="$USER_DOMAIN_ID >> ~/storperf_admin-rc
+echo "OS_PROJECT_DOMAIN_NAME="$OS_PROJECT_DOMAIN_NAME >> ~/storperf_admin-rc
+echo "OS_USER_DOMAIN_NAME="$OS_USER_DOMAIN_NAME >> ~/storperf_admin-rc
