@@ -117,10 +117,10 @@ class YardstickNSCli(object):
         and generates final report in rst format.
         """
 
+        tc_name = os.path.splitext(test_case)[0]
         report_caption = '{}\n{} ({})\n{}\n\n'.format(
             '================================================================',
-            'Performance report for',
-            os.path.splitext(test_case)[0].upper(),
+            'Performance report for', tc_name.upper(),
             '================================================================')
         print(report_caption)
         if os.path.isfile("/tmp/yardstick.out"):
@@ -129,9 +129,10 @@ class YardstickNSCli(object):
                 lines = jsonutils.load(infile)
 
             if lines:
-                lines = lines['result']
+                lines = \
+                    lines['result']["testcases"][tc_name]["tc_data"]
                 tc_res = lines.pop(len(lines) - 1)
-                for key, value in tc_res["benchmark"]["data"].items():
+                for key, value in tc_res["data"].items():
                     self.generate_kpi_results(key, value)
                     self.generate_nfvi_results(value)
 
