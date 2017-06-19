@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_dd174f50",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-19T17:38:38Z",
+      "side": 1,
+      "message": "can we just change the regular default to use 1024?\n\nany objection?",
+      "revId": "c8f238068c2860ead8c9b9dba07674aa2288a541",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
