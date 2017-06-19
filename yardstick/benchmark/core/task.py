@@ -46,6 +46,12 @@ class Task(object):     # pragma: no cover
         self.contexts = []
         self.outputs = {}
 
+    def _set_dispatchers(self, output_config):
+        dispatchers = output_config.get('DEFAULT', {}).get('dispatcher',
+                                                           'file')
+        out_types = [s.strip() for s in dispatchers.split(',')]
+        output_config['DEFAULT']['dispatcher'] = out_types
+
     def start(self, args, **kwargs):
         """Start a benchmark scenario."""
 
@@ -60,7 +66,10 @@ class Task(object):     # pragma: no cover
         self._set_output_config(output_config, args.output_file)
         LOG.debug('Output configuration is: %s', output_config)
 
-        if output_config['DEFAULT'].get('dispatcher') == 'file':
+        self.i_set_dispatchers(output_config)
+
+        # update dispatcher list
+        if 'file' in output_config['DEFAULT']['dispatcher']:
             result = {'status': 0, 'result': {}}
             utils.write_json_to_file(args.output_file, result)
 
@@ -189,9 +198,10 @@ class Task(object):     # pragma: no cover
             return 'PASS'
 
     def _do_output(self, output_config, result):
+        dispatchers = DispatcherBase.get(output_config)
 
-        dispatcher = DispatcherBase.get(output_config)
-        dispatcher.flush_result_data(result)
+        for dispatcher in dispatchers:
+            dispatcher.flush_result_data(result)
 
     def _run(self, scenarios, run_in_parallel, output_file):
         """Deploys context and calls runners"""
