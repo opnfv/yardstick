@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_7d3f3b26",
+        "filename": "install.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-06-19T14:05:09Z",
+      "side": 1,
+      "message": "This is not right. If DOCKER_ARCH\u003darm64, libc is already present as a system dep.\nWe need libc6:arm64 on x86 slaves, in order to support cross-arch chroot work on the image.\nIf anything, it should be dependent on the POD arch (if that is arm64 and the jenkins slave is x86, install libc:arm64).",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 2
+      },
+      "revId": "5d97d839775f6b2dfff57eea4e08c0297c3e27b7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_9d3c7731",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-06-19T14:05:09Z",
+      "side": 1,
+      "message": "extra :",
+      "range": {
+        "startLine": 156,
+        "startChar": 8,
+        "endLine": 156,
+        "endChar": 9
+      },
+      "revId": "5d97d839775f6b2dfff57eea4e08c0297c3e27b7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
