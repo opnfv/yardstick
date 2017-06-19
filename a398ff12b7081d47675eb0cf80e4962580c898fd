@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_78dd0970",
+        "filename": "api/resources/results.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-19T23:56:41Z",
+      "side": 1,
+      "message": "please don\u0027t use magic numbers, define a constant",
+      "range": {
+        "startLine": 31,
+        "startChar": 43,
+        "endLine": 31,
+        "endChar": 44
+      },
+      "revId": "a398ff12b7081d47675eb0cf80e4962580c898fd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
