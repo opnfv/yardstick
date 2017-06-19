@@ -41,9 +41,12 @@ class Base(object):
     def get(config):
         """Returns instance of a dispatcher for dispatcher type.
         """
-        out_type = config['DEFAULT']['dispatcher']
+        list_dispatcher = []
+        out_types = config['DEFAULT']['dispatcher']
+        for out_type in out_types:
+            list_dispatcher.append(Base.get_cls(out_type.capitalize())(config))
 
-        return Base.get_cls(out_type.capitalize())(config)
+        return list_dispatcher
 
     @abc.abstractmethod
     def flush_result_data(self, data):

@@ -47,6 +47,20 @@ class TaskTestCase(unittest.TestCase):
         self.assertEqual(context_cfg["host"], server_info)
         self.assertEqual(context_cfg["target"], server_info)
 
+    def test_get_list_of_dispatchers(self):
+        t = task.Task()
+        output_config = {"DEFAULT": {"dispatcher": "file, http"}}
+        t._get_list_of_dispatchers(output_config)
+        self.assertEqual(output_config, output_config)
+
+    @mock.patch('yardstick.benchmark.core.task.DispatcherBase')
+    def test__do_output(self, mock_dispatcher):
+        t = task.Task()
+        output_config = {"DEFAULT": {"dispatcher": "file, http"}}
+        mock_dispatcher.get = mock.MagicMock(return_value=[mock.MagicMock(),
+                                                           mock.MagicMock()])
+        self.assertEqual(None, t._do_output(output_config, {}))
+
     @mock.patch('yardstick.benchmark.core.task.Context')
     @mock.patch('yardstick.benchmark.core.task.base_runner')
     def test_run(self, mock_base_runner, mock_ctx):
