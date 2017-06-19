@@ -225,7 +225,7 @@ create_nova_flavor()
         echo
         echo "========== Creating yardstick-flavor =========="
         # Create the nova flavor used by some sample test cases
-        openstack flavor create --id 100 --ram 512 --disk 3 --vcpus 1 yardstick-flavor
+        openstack flavor create --id 100 --ram 1024 --disk 3 --vcpus 1 yardstick-flavor
         # DPDK-enabled OVS requires guest memory to be backed by large pages
         if [[ $DEPLOY_SCENARIO == *[_-]ovs[_-]* ]]; then
             openstack flavor set --property hw:mem_page_size=large yardstick-flavor
