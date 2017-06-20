@@ -1,0 +1,41 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[PIPELINE6]
+type = ROUTING
+core = s{socket}c4
+pktq_in = RXQ1.0
+pktq_out = SWQ4 SINK3
+encap = ethernet_qinq
+qinq_sched = yes
+ip_hdr_offset = 270
+
+
+[PIPELINE7]
+type = PASS-THROUGH
+core = s{socket}c5h
+pktq_in = SWQ4
+pktq_out = SWQ5
+
+[PIPELINE8]
+type = PASS-THROUGH
+core = s{socket}c5h
+pktq_in = SWQ5 TM0
+pktq_out = TM0 SWQ6
+
+[PIPELINE9]
+type = PASS-THROUGH
+core = s{socket}c5h
+pktq_in = SWQ6
+pktq_out = TXQ0.0

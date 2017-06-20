@@ -15,6 +15,7 @@ from __future__ import absolute_import
 import unittest
 import mock
 
+from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts.kubernetes import KubernetesContext
 
 
@@ -40,7 +41,11 @@ service ssh restart;while true ; do sleep 10000; done']
 prefix = 'yardstick.benchmark.contexts.kubernetes'
 
 
-class UndeployTestCase(unittest.TestCase):
+class KubernetesTestCase(unittest.TestCase):
+
+    def tearDown(self):
+        # clear kubernetes contexts from global list so we don't break other tests
+        Context.list = []
 
     @mock.patch('{}.KubernetesContext._delete_ssh_key'.format(prefix))
     @mock.patch('{}.KubernetesContext._delete_rcs'.format(prefix))
@@ -57,9 +62,6 @@ class UndeployTestCase(unittest.TestCase):
         self.assertTrue(mock_delete_rcs.called)
         self.assertTrue(mock_delete_pods.called)
 
-
-class DeployTestCase(unittest.TestCase):
-
     @mock.patch('{}.KubernetesContext._wait_until_running'.format(prefix))
     @mock.patch('{}.KubernetesTemplate.get_rc_pods'.format(prefix))
     @mock.patch('{}.KubernetesContext._create_rcs'.format(prefix))
@@ -72,14 +74,12 @@ class DeployTestCase(unittest.TestCase):
 
         k8s_context = KubernetesContext()
         k8s_context.init(context_cfg)
-        k8s_context.deploy()
+        with mock.patch("yardstick.benchmark.contexts.kubernetes.time"):
+            k8s_context.deploy()
         self.assertTrue(mock_set_ssh_key.called)
         self.assertTrue(mock_create_rcs.called)
         self.assertTrue(mock_get_rc_pods.called)
         self.assertTrue(mock_wait_until_running.called)
-
-
-class SSHKeyTestCase(unittest.TestCase):
 
     @mock.patch('{}.k8s_utils.delete_config_map'.format(prefix))
     @mock.patch('{}.k8s_utils.create_config_map'.format(prefix))
@@ -92,9 +92,6 @@ class SSHKeyTestCase(unittest.TestCase):
         self.assertTrue(mock_create.called)
         self.assertTrue(mock_delete.called)
 
-
-class WaitUntilRunningTestCase(unittest.TestCase):
-
     @mock.patch('{}.k8s_utils.read_pod_status'.format(prefix))
     def test_wait_until_running(self, mock_read_pod_status):
 
@@ -103,9 +100,6 @@ class WaitUntilRunningTestCase(unittest.TestCase):
         k8s_context.template.pods = ['server']
         mock_read_pod_status.return_value = 'Running'
         k8s_context._wait_until_running()
-
-
-class GetServerTestCase(unittest.TestCase):
 
     @mock.patch('{}.k8s_utils.get_pod_list'.format(prefix))
     def test_get_server(self, mock_get_pod_list):
@@ -116,18 +110,12 @@ class GetServerTestCase(unittest.TestCase):
         server = k8s_context._get_server('server')
         self.assertIsNone(server)
 
-
-class CreateRcsTestCase(unittest.TestCase):
-
     @mock.patch('{}.KubernetesContext._create_rc'.format(prefix))
     def test_create_rcs(self, mock_create_rc):
         k8s_context = KubernetesContext()
         k8s_context.init(context_cfg)
         k8s_context._create_rcs()
         self.assertTrue(mock_create_rc.called)
-
-
-class CreateRcTestCase(unittest.TestCase):
 
     @mock.patch('{}.k8s_utils.create_replication_controller'.format(prefix))
     def test_create_rc(self, mock_create_replication_controller):
@@ -136,18 +124,12 @@ class CreateRcTestCase(unittest.TestCase):
         k8s_context._create_rc({})
         self.assertTrue(mock_create_replication_controller.called)
 
-
-class DeleteRcsTestCases(unittest.TestCase):
-
     @mock.patch('{}.KubernetesContext._delete_rc'.format(prefix))
     def test_delete_rcs(self, mock_delete_rc):
         k8s_context = KubernetesContext()
         k8s_context.init(context_cfg)
         k8s_context._delete_rcs()
         self.assertTrue(mock_delete_rc.called)
-
-
-class DeleteRcTestCase(unittest.TestCase):
 
     @mock.patch('{}.k8s_utils.delete_replication_controller'.format(prefix))
     def test_delete_rc(self, mock_delete_replication_controller):
