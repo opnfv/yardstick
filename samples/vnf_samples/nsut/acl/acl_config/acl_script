@@ -1,0 +1,53 @@
+# Copyright (c) 2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License")#
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http:#www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+link 0 down
+link 0 config {port0_local_ip} {port0_prefixlen}
+link 0 up
+link 1 down
+link 1 config {port1_local_ip} {port1_prefixlen}
+link 1 up
+
+p action add 0 accept
+p action add 0 fwd 0
+p action add 0 count
+
+p action add 1 accept
+p action add 1 fwd 1
+p action add 1 count
+
+#p acl add 1 0.0.0.0 0 0.0.0.0 0 0 65535 0 65535 0 0 0
+#p acl add 1 0.0.0.0 0 0.0.0.0 0 0 65535 0 65535 0 0 1
+
+# action rule matches dest port
+p acl add 1 {port1_local_network} {port1_prefix} 0.0.0.0 0 0 65535 0 65535 0 0 0
+p acl add 1 0.0.0.0 0 {port1_local_network} {port1_prefix} 0 65535 0 65535 0 0 1
+
+p acl add 1 {port0_local_network} {port0_prefix} 0.0.0.0 0 0 65535 0 65535 0 0 1
+p acl add 1 0.0.0.0 0 {port0_local_network} {port0_prefix} 0 65535 0 65535 0 0 0
+
+p acl add 1 {port0_local_network} {port0_prefix} {port1_local_network} {port1_prefix} 0 65535 0 65535 0 0 1
+p acl add 1 {port1_local_network} {port1_prefix} {port0_local_network} {port0_prefix} 0 65535 0 65535 0 0 0
+
+# gateway is the remote port
+p 1 arpadd 0 {port0_gateway} {port0_local_mac}
+p 1 arpadd 0 {port0_local_ip} {port0_local_mac}
+p 1 arpadd 0 {port0_dst_ip} {port0_dst_mac}
+p 1 arpadd 1 {port1_gateway} {port1_local_mac}
+p 1 arpadd 1 {port1_local_ip} {port1_local_mac}
+p 1 arpadd 1 {port1_dst_ip} {port1_dst_mac}
+
+p acl applyruleset
+
+#p acl dbg 1
