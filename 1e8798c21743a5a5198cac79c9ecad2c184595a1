@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_63179aee",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vfw_vnf.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T13:16:26Z",
+      "side": 1,
+      "message": "As we have indicated before, don\u0027t use \u0027\u0027\u0027, use \"\"\".",
+      "revId": "1e8798c21743a5a5198cac79c9ecad2c184595a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
