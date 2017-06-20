@@ -19,6 +19,40 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_c3fe8e6b",
+        "filename": "yardstick/benchmark/scenarios/availability/director.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T14:37:07Z",
+      "side": 1,
+      "message": "there is an gotcha in python where we don\u0027t use mutable defautl arguements.\n\nhttp://python-guide-pt-br.readthedocs.io/en/latest/writing/gotchas/\n\nthis should be\n\n def createActionPlayer(self, type, key, intermediate_variables\u003dNone):\n   if intermediate_variables is None:\n     intermediate_variables \u003d {}",
+      "revId": "c92706e4d6a75dbf995a6d7bc4de3400eb697905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_e3114aad",
+        "filename": "yardstick/benchmark/scenarios/availability/operation/operation_general.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T14:37:07Z",
+      "side": 1,
+      "message": "don\u0027t double-check dicts, use .get()\n\nplease use .items() instead of .keys() and then looking up by key\n\n            for key, item in self._config(\u0027return_parameter\u0027, {}).items():\n                value \u003d read_stdout_item(stdout, key)\n                LOG.debug(\"intermediate variables %s: %s\",\n                          item, value)\n                self.intermediate_variables[item] \u003d value",
+      "revId": "c92706e4d6a75dbf995a6d7bc4de3400eb697905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_23bc42bb",
         "filename": "yardstick/benchmark/scenarios/availability/util.py",
         "patchSetId": 2
