@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_631d5abd",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T14:42:27Z",
+      "side": 1,
+      "message": "technically this should be collections.abc.Mapping so we can accept OrderedDict for example\n\nthe Abstract Base Classes were added for slightly better type checking\n\nhttps://docs.python.org/3/library/collections.abc.html#module-collections.abc\n\n if not isinstance(openrc_vars, Mapping):",
+      "revId": "9cd92b39815b6eb57e028bb8a191ea61d6e3cb98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_037a66f1",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T14:42:27Z",
+      "side": 1,
+      "message": "please use constant instead of 2",
+      "range": {
+        "startLine": 314,
+        "startChar": 30,
+        "endLine": 314,
+        "endChar": 31
+      },
+      "revId": "9cd92b39815b6eb57e028bb8a191ea61d6e3cb98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
