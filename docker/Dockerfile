@@ -24,7 +24,8 @@ ENV YARDSTICK_REPO_DIR ${REPOS_DIR}/yardstick
 ENV RELENG_REPO_DIR ${REPOS_DIR}/releng
 ENV STORPERF_REPO_DIR ${REPOS_DIR}/storperf
 
-RUN apt-get update && apt-get install -y git python-setuptools python-pip
+# noninteractive will prevent questions from being asked during the install
+RUN  apt-get update && env DEBIAN_FRONTEND=noninteractive apt-get install -y git python-setuptools python-pip && apt-get clean
 RUN easy_install -U setuptools==30.0.0
 RUN pip install appdirs==1.4.0
 
