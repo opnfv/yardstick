@@ -185,26 +185,21 @@ class TestVnfdGen(unittest.TestCase):
         generated_tp = vnfdgen.generate_vnfd(TRAFFIC_PROFILE_TPL, {"imix": {}})
         self.assertDictEqual(TRAFFIC_PROFILE, generated_tp)
 
-    def test_dict_flatten_empty_dict(self):
-        self.assertEqual(vnfdgen.dict_key_flatten({}), {})
+    def test_deepgetitem(self):
+        d = {'a': 1, 'b': 2}
+        self.assertEqual(vnfdgen.deepgetitem(d, "a"), 1)
 
     def test_dict_flatten_int(self):
         d = {'a': 1, 'b': 2}
-        self.assertEqual(vnfdgen.dict_key_flatten(d), d)
-
-    def test_dict_flatten_str(self):
-        d = {'a': "1", 'b': '2'}
-        self.assertEqual(vnfdgen.dict_key_flatten(d), d)
+        self.assertEqual(vnfdgen.deepgetitem(d, "a"), 1)
 
     def test_dict_flatten_list(self):
         d = {'a': 1, 'b': list(range(2))}
-        self.assertEqual(vnfdgen.dict_key_flatten(d),
-                         {'a': 1, 'b0': 0, 'b1': 1})
+        self.assertEqual(vnfdgen.deepgetitem(d, "b.0"), 0)
 
     def test_dict_flatten_dict(self):
         d = {'a': 1, 'b': {x: x for x in list(range(2))}}
-        self.assertEqual(vnfdgen.dict_key_flatten(d),
-                         {'a': 1, 'b.0': 0, 'b.1': 1})
+        self.assertEqual(vnfdgen.deepgetitem(d, "b.0"), 0)
 
     def test_generate_tp_single_var(self):
         """ Function to verify traffic profile generation with imix """

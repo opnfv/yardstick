@@ -15,6 +15,7 @@
 
 from __future__ import absolute_import
 import logging
+import os
 import errno
 import collections
 import yaml
@@ -41,14 +42,15 @@ class StandaloneContext(Context):
         self.networks = {}
         self.nfvi_node = []
         self.nfvi_obj = None
-        super(self.__class__, self).__init__()
+        self.attrs = {}
+        super(StandaloneContext, self).__init__()
 
     def read_config_file(self):
         """Read from config file"""
 
         with open(self.file_path) as stream:
             LOG.info("Parsing pod file: %s", self.file_path)
-            cfg = yaml.load(stream)
+            cfg = yaml.safe_load(stream)
         return cfg
 
     def get_nfvi_obj(self):
@@ -63,17 +65,15 @@ class StandaloneContext(Context):
         """initializes itself from the supplied arguments"""
 
         self.name = attrs["name"]
-        self.file_path = attrs.get("file", "pod.yaml")
-        LOG.info("Parsing pod file: %s", self.file_path)
+        self.file_path = file_path = attrs.get("file", "pod.yaml")
 
         try:
             cfg = self.read_config_file()
-        except IOError as ioerror:
-            if ioerror.errno == errno.ENOENT:
-                self.file_path = YARDSTICK_ROOT_PATH + self.file_path
-                cfg = self.read_config_file()
-            else:
+        except IOError as io_error:
+            if io_error.errno != errno.ENOENT:
                 raise
+            self.file_path = os.path.join(YARDSTICK_ROOT_PATH, file_path)
+            cfg = self.read_config_file()
 
         self.vm_deploy = attrs.get("vm_deploy", True)
         self.nodes.extend([node for node in cfg["nodes"]
@@ -90,6 +90,7 @@ class StandaloneContext(Context):
             else:
                 LOG.debug("Node role is other than SRIOV and OVS")
         self.nfvi_obj = self.get_nfvi_obj()
+        self.attrs = attrs
         # add optional static network definition
         self.networks.update(cfg.get("networks", {}))
         self.nfvi_obj = self.get_nfvi_obj()
@@ -146,11 +147,10 @@ class StandaloneContext(Context):
         Keyword arguments:
         attr_name -- A name for a server listed in nodes config file
         """
-        if isinstance(attr_name, collections.Mapping):
+        node_name, name = self.split_name(attr_name)
+        if name is None or self.name != name:
             return None
-        if self.name != attr_name.split(".")[1]:
-            return None
-        node_name = attr_name.split(".")[0]
+
         matching_nodes = (n for n in self.nodes if n["name"] == node_name)
         try:
             # A clone is created in order to avoid affecting the
@@ -165,7 +165,8 @@ class StandaloneContext(Context):
             pass
         else:
             raise ValueError("Duplicate nodes!!! Nodes: %s %s",
-                             (matching_nodes, duplicate))
+                             (node, duplicate))
+
         node["name"] = attr_name
         return node
 
@@ -175,14 +176,10 @@ class StandaloneContext(Context):
 
         else:
             # Don't generalize too much  Just support vld_id
-            vld_id = attr_name.get('vld_id')
-            if vld_id is None:
-                return None
-            try:
-                network = next(n for n in self.networks.values() if
-                               n.get("vld_id") == vld_id)
-            except StopIteration:
-                return None
+            vld_id = attr_name.get('vld_id', {})
+            # for standalone context networks are dicts
+            iter1 = (n for n in self.networks.values() if n.get('vld_id') == vld_id)
+            network = next(iter1, None)
 
         if network is None:
             return None
