@@ -19,7 +19,7 @@ import pkg_resources
 
 from yardstick import ssh
 from yardstick.benchmark.contexts.base import Context
-from yardstick.common import constants as consts
+from yardstick.common.constants import ANSIBLE_DIR, YARDSTICK_ROOT_PATH
 
 LOG = logging.getLogger(__name__)
 
@@ -38,6 +38,7 @@ class NodeContext(Context):
         self.computes = []
         self.baremetals = []
         self.env = {}
+        self.attrs = {}
         super(NodeContext, self).__init__()
 
     def read_config_file(self):
@@ -45,23 +46,22 @@ class NodeContext(Context):
 
         with open(self.file_path) as stream:
             LOG.info("Parsing pod file: %s", self.file_path)
-            cfg = yaml.load(stream)
+            cfg = yaml.safe_load(stream)
         return cfg
 
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
         self.name = attrs["name"]
-        self.file_path = attrs.get("file", "pod.yaml")
+        self.file_path = file_path = attrs.get("file", "pod.yaml")
 
         try:
             cfg = self.read_config_file()
-        except IOError as ioerror:
-            if ioerror.errno == errno.ENOENT:
-                self.file_path = \
-                    os.path.join(consts.YARDSTICK_ROOT_PATH, self.file_path)
-                cfg = self.read_config_file()
-            else:
+        except IOError as io_error:
+            if io_error.errno != errno.ENOENT:
                 raise
+
+            self.file_path = os.path.join(YARDSTICK_ROOT_PATH, file_path)
+            cfg = self.read_config_file()
 
         self.nodes.extend(cfg["nodes"])
         self.controllers.extend([node for node in cfg["nodes"]
@@ -76,6 +76,7 @@ class NodeContext(Context):
         LOG.debug("BareMetals: %r", self.baremetals)
 
         self.env = attrs.get('env', {})
+        self.attrs = attrs
         LOG.debug("Env: %r", self.env)
 
         # add optional static network definition
@@ -112,19 +113,17 @@ class NodeContext(Context):
 
     def _do_ansible_job(self, path):
         cmd = 'ansible-playbook -i inventory.ini %s' % path
-        p = subprocess.Popen(cmd, shell=True, cwd=consts.ANSIBLE_DIR)
+        p = subprocess.Popen(cmd, shell=True, cwd=ANSIBLE_DIR)
         p.communicate()
 
     def _get_server(self, attr_name):
         """lookup server info by name from context
         attr_name: a name for a server listed in nodes config file
         """
-        if isinstance(attr_name, collections.Mapping):
+        node_name, name = self.split_name(attr_name)
+        if name is None or self.name != name:
             return None
 
-        if self.name != attr_name.split(".")[1]:
-            return None
-        node_name = attr_name.split(".")[0]
         matching_nodes = (n for n in self.nodes if n["name"] == node_name)
 
         try:
@@ -140,9 +139,10 @@ class NodeContext(Context):
             pass
         else:
             raise ValueError("Duplicate nodes!!! Nodes: %s %s",
-                             (matching_nodes, duplicate))
+                             (node, duplicate))
 
         node["name"] = attr_name
+        node.setdefault("interfaces", {})
         return node
 
     def _get_network(self, attr_name):
@@ -151,12 +151,10 @@ class NodeContext(Context):
 
         else:
             # Don't generalize too much  Just support vld_id
-            vld_id = attr_name.get('vld_id')
-            if vld_id is None:
-                return None
-
-            network = next((n for n in self.networks.values() if
-                           n.get("vld_id") == vld_id), None)
+            vld_id = attr_name.get('vld_id', {})
+            # for node context networks are dicts
+            iter1 = (n for n in self.networks.values() if n.get('vld_id') == vld_id)
+            network = next(iter1, None)
 
         if network is None:
             return None
@@ -193,7 +191,7 @@ class NodeContext(Context):
 
     def _execute_local_script(self, info):
         script, options = self._get_script(info)
-        script = os.path.join(consts.YARDSTICK_ROOT_PATH, script)
+        script = os.path.join(YARDSTICK_ROOT_PATH, script)
         cmd = ['bash', script, options]
 
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
