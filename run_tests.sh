@@ -13,6 +13,9 @@
 
 getopts ":f" FILE_OPTION
 
+# don't write .pyc files this can cause odd unittest results
+export PYTHONDONTWRITEBYTECODE=1
+
 run_flake8() {
     echo "Running flake8 ... "
     logfile=test_results.log
@@ -57,8 +60,11 @@ run_tests() {
 }
 
 run_coverage() {
-    source tests/ci/cover.sh
-    run_coverage_test
+    # don't re-run coverage on both py27 py3, it takes too long
+    if [[ -z $SKIP_COVERAGE ]] ; then
+        source tests/ci/cover.sh
+        run_coverage_test
+    fi
 }
 
 run_functional_test() {
