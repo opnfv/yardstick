@@ -209,8 +209,9 @@ TRAFFIC_PROFILE = {
 
 
 class TestNetworkServiceTestCase(unittest.TestCase):
+
     def setUp(self):
-        self.trexgen__1 = {
+        self.tg__1 = {
             'name': 'trafficgen_1.yardstick',
             'ip': '10.10.10.11',
             'role': 'TrafficGen',
@@ -236,7 +237,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             },
         }
 
-        self.trexvnf__1 = {
+        self.vnf__1 = {
             'name': 'vnf.yardstick',
             'ip': '10.10.10.12',
             'host': '10.223.197.164',
@@ -293,8 +294,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
 
         self.context_cfg = {
             'nodes': {
-                'trexgen__1': self.trexgen__1,
-                'trexvnf__1': self.trexvnf__1,
+                'tg__1': self.tg__1,
+                'vnf__1': self.vnf__1,
             },
             'networks': {
                 'private': {
@@ -321,7 +322,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ],
             'type': 'ELAN',
             'id': 'private',
-            'name': 'trexgen__1 to trexvnf__1 link 1'
+            'name': 'tg__1 to vnf__1 link 1'
         }
 
         self.vld1 = {
@@ -339,7 +340,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ],
             'type': 'ELAN',
             'id': 'public',
-            'name': 'trexvnf__1 to trexgen__1 link 2'
+            'name': 'vnf__1 to tg__1 link 2'
         }
 
         self.topology = {
@@ -351,12 +352,12 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 {
                     'member-vnf-index': '1',
                     'VNF model': 'tg_trex_tpl.yaml',
-                    'vnfd-id-ref': 'trexgen__1',
+                    'vnfd-id-ref': 'tg__1',
                 },
                 {
                     'member-vnf-index': '2',
                     'VNF model': 'tg_trex_tpl.yaml',
-                    'vnfd-id-ref': 'trexvnf__1',
+                    'vnfd-id-ref': 'vnf__1',
                 },
             ],
             'vld': [self.vld0, self.vld1],
@@ -418,12 +419,12 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
         result = {'flow': {'dstip4_range': '152.40.0.20',
                            'srcip4_range': '152.16.0.20', 'count': 1}}
-        self.assertEqual(result, self.s._get_traffic_flow(self.scenario_cfg))
+        self.assertEqual(result, self.s._get_traffic_flow())
 
     def test___get_traffic_flow_error(self):
         self.scenario_cfg["traffic_options"]["flow"] = \
             "ipv4_1flow_Packets_vpe.yaml1"
-        self.assertEqual({}, self.s._get_traffic_flow(self.scenario_cfg))
+        self.assertEqual({}, self.s._get_traffic_flow())
 
     def test_get_vnf_imp(self):
         vnfd = COMPLETE_TREX_VNFD['vnfd:vnfd-catalog']['vnfd'][0]['class-name']
@@ -439,9 +440,9 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self.assertIn('found in', exc_str)
 
     def test_load_vnf_models_invalid(self):
-        self.context_cfg["nodes"]['trexgen__1']['VNF model'] = \
+        self.context_cfg["nodes"]['tg__1']['VNF model'] = \
             self._get_file_abspath("tg_trex_tpl.yaml")
-        self.context_cfg["nodes"]['trexvnf__1']['VNF model'] = \
+        self.context_cfg["nodes"]['vnf__1']['VNF model'] = \
             self._get_file_abspath("tg_trex_tpl.yaml")
 
         vnf = mock.Mock(autospec=GenericVNF)
@@ -456,15 +457,14 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.from_node.return_value = ssh_mock
-            self.s.map_topology_to_infrastructure(self.context_cfg,
-                                                  self.topology)
+            self.s.map_topology_to_infrastructure()
 
         nodes = self.context_cfg["nodes"]
-        self.assertEqual("tg_trex_tpl.yaml", nodes['trexgen__1']['VNF model'])
-        self.assertEqual("tg_trex_tpl.yaml", nodes['trexvnf__1']['VNF model'])
+        self.assertEqual("../../vnf_descriptors/tg_rfc2544_tpl.yaml", nodes['tg__1']['VNF model'])
+        self.assertEqual("../../vnf_descriptors/vpe_vnf.yaml", nodes['vnf__1']['VNF model'])
 
     def test_map_topology_to_infrastructure_insufficient_nodes(self):
-        del self.context_cfg['nodes']['trexvnf__1']
+        del self.context_cfg['nodes']['vnf__1']
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -472,11 +472,11 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
 
             with self.assertRaises(IncorrectSetup):
-                self.s.map_topology_to_infrastructure(self.context_cfg, self.topology)
+                self.s.map_topology_to_infrastructure()
 
     def test_map_topology_to_infrastructure_config_invalid(self):
         cfg = dict(self.context_cfg)
-        del cfg['nodes']['trexvnf__1']['interfaces']['xe0']['local_mac']
+        del cfg['nodes']['vnf__1']['interfaces']['xe0']['local_mac']
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -484,7 +484,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
 
             with self.assertRaises(IncorrectConfig):
-                self.s.map_topology_to_infrastructure(self.context_cfg, self.topology)
+                self.s.map_topology_to_infrastructure()
 
     def test__resolve_topology_invalid_config(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -494,31 +494,41 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
 
             # purge an important key from the data structure
-            for interface in self.trexgen__1['interfaces'].values():
+            for interface in self.tg__1['interfaces'].values():
                 del interface['local_mac']
 
-            with self.assertRaises(IncorrectConfig) as raised:
-                self.s._resolve_topology(self.context_cfg, self.topology)
+            with mock.patch(
+                "yardstick.benchmark.scenarios.networking.vnf_generic.LOG") as mock_log:
+                with self.assertRaises(IncorrectConfig) as raised:
+                    self.s._resolve_topology()
 
             self.assertIn('not found', str(raised.exception))
 
+            # restore local_mac
+            for index, interface in enumerate(self.tg__1['interfaces'].values()):
+                interface['local_mac'] = '00:00:00:00:00:{:2x}'.format(index)
+
             # make a connection point ref with 3 points
-            self.vld0['vnfd-connection-point-ref'].append(
-                self.vld0['vnfd-connection-point-ref'][0])
+            self.s.topology["vld"][0]['vnfd-connection-point-ref'].append(
+                self.s.topology["vld"][0]['vnfd-connection-point-ref'][0])
 
-            with self.assertRaises(IncorrectConfig) as raised:
-                self.s._resolve_topology(self.context_cfg, self.topology)
+            with mock.patch(
+                "yardstick.benchmark.scenarios.networking.vnf_generic.LOG") as mock_log:
+                with self.assertRaises(IncorrectConfig) as raised:
+                    self.s._resolve_topology()
 
-            self.assertIn('wrong number of endpoints', str(raised.exception))
+            self.assertIn('wrong endpoint count', str(raised.exception))
 
             # make a connection point ref with 1 point
-            self.vld0['vnfd-connection-point-ref'] = \
-                self.vld0['vnfd-connection-point-ref'][:1]
+            self.s.topology["vld"][0]['vnfd-connection-point-ref'] = \
+                self.s.topology["vld"][0]['vnfd-connection-point-ref'][:1]
 
-            with self.assertRaises(IncorrectConfig) as raised:
-                self.s._resolve_topology(self.context_cfg, self.topology)
+            with mock.patch(
+                "yardstick.benchmark.scenarios.networking.vnf_generic.LOG") as mock_log:
+                with self.assertRaises(IncorrectConfig) as raised:
+                    self.s._resolve_topology()
 
-            self.assertIn('wrong number of endpoints', str(raised.exception))
+            self.assertIn('wrong endpoint count', str(raised.exception))
 
     def test_run(self):
         tgen = mock.Mock(autospec=GenericTrafficGen)
@@ -567,19 +577,16 @@ class TestNetworkServiceTestCase(unittest.TestCase):
     def test__get_traffic_profile(self):
         self.scenario_cfg["traffic_profile"] = \
             self._get_file_abspath("ipv4_throughput_vpe.yaml")
-        self.assertIsNotNone(self.s._get_traffic_profile(self.scenario_cfg,
-                                                         self.context_cfg))
+        self.assertIsNotNone(self.s._get_traffic_profile())
 
     def test__get_traffic_profile_exception(self):
-        cfg = dict(self.scenario_cfg)
-        cfg["traffic_profile"] = ""
-        with self.assertRaises(IOError):
-            self.s._get_traffic_profile(cfg, self.context_cfg)
+        with mock.patch.dict(self.scenario_cfg, {'traffic_profile': ''}):
+            with self.assertRaises(IOError):
+                self.s._get_traffic_profile()
 
     def test___get_traffic_imix_exception(self):
-        cfg = dict(self.scenario_cfg)
-        cfg["traffic_options"]["imix"] = ""
-        self.assertEqual({}, self.s._get_traffic_imix(cfg))
+        with mock.patch.dict(self.scenario_cfg["traffic_options"], {'imix': ''}):
+            self.assertEqual({}, self.s._get_traffic_imix())
 
     def test__fill_traffic_profile(self):
         with mock.patch.dict("sys.modules", STL_MOCKS):
@@ -589,8 +596,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
             self.scenario_cfg["traffic_options"]["imix"] = \
                 self._get_file_abspath("imix_voice.yaml")
-            self.assertIsNotNone(self.s._fill_traffic_profile(self.scenario_cfg,
-                                                              self.context_cfg))
+            self.assertIsNotNone(self.s._fill_traffic_profile())
 
     def test_teardown(self):
         vnf = mock.Mock(autospec=GenericVNF)
@@ -604,31 +610,32 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         self.assertIsNone(self.s.teardown())
 
     SAMPLE_NETDEVS = {
-            'enp11s0': {
-                'address': '0a:de:ad:be:ef:f5',
-                'device': '0x1533',
-                'driver': 'igb',
-                'ifindex': '2',
-                'interface_name': 'enp11s0',
-                'operstate': 'down',
-                'pci_bus_id': '0000:0b:00.0',
-                'subsystem_device': '0x1533',
-                'subsystem_vendor': '0x15d9',
-                'vendor': '0x8086'
-                },
-            'lan': {
-                'address': '0a:de:ad:be:ef:f4',
-                'device': '0x153a',
-                'driver': 'e1000e',
-                'ifindex': '3',
-                'interface_name': 'lan',
-                'operstate': 'up',
-                'pci_bus_id': '0000:00:19.0',
-                'subsystem_device': '0x153a',
-                'subsystem_vendor': '0x15d9',
-                'vendor': '0x8086'
-                }
+        'enp11s0': {
+            'address': '0a:de:ad:be:ef:f5',
+            'device': '0x1533',
+            'driver': 'igb',
+            'ifindex': '2',
+            'interface_name': 'enp11s0',
+            'operstate': 'down',
+            'pci_bus_id': '0000:0b:00.0',
+            'subsystem_device': '0x1533',
+            'subsystem_vendor': '0x15d9',
+            'vendor': '0x8086'
+        },
+        'lan': {
+            'address': '0a:de:ad:be:ef:f4',
+            'device': '0x153a',
+            'driver': 'e1000e',
+            'ifindex': '3',
+            'interface_name': 'lan',
+            'operstate': 'up',
+            'pci_bus_id': '0000:00:19.0',
+            'subsystem_device': '0x153a',
+            'subsystem_vendor': '0x15d9',
+            'vendor': '0x8086'
         }
+    }
+
     SAMPLE_VM_NETDEVS = {
         'eth1': {
             'address': 'fa:de:ad:be:ef:5b',
@@ -681,19 +688,18 @@ class TestNetworkServiceTestCase(unittest.TestCase):
     def test_sort_dpdk_port_num(self):
         netdevs = self.SAMPLE_NETDEVS.copy()
         NetworkServiceTestCase._sort_dpdk_port_num(netdevs)
-        assert netdevs['lan']['dpdk_port_num'] == 1
-        assert netdevs['enp11s0']['dpdk_port_num'] == 2
+        assert netdevs['lan']['dpdk_port_num'] == 0
+        assert netdevs['enp11s0']['dpdk_port_num'] == 1
 
     def test_probe_missing_values(self):
         netdevs = self.SAMPLE_NETDEVS.copy()
-        NetworkServiceTestCase._sort_dpdk_port_num(netdevs)
         network = {'local_mac': '0a:de:ad:be:ef:f5'}
         NetworkServiceTestCase._probe_missing_values(netdevs, network, set())
-        assert network['dpdk_port_num'] == 2
+        assert network['vpci'] == '0000:0b:00.0'
 
         network = {'local_mac': '0a:de:ad:be:ef:f4'}
         NetworkServiceTestCase._probe_missing_values(netdevs, network, set())
-        assert network['dpdk_port_num'] == 1
+        assert network['vpci'] == '0000:00:19.0'
 
     def test_open_relative_path(self):
         mock_open = mock.mock_open()
