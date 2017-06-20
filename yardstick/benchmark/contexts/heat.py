@@ -17,7 +17,6 @@ import uuid
 from collections import OrderedDict
 
 import ipaddress
-import paramiko
 import pkg_resources
 
 from yardstick.benchmark.contexts.base import Context
@@ -28,10 +27,19 @@ from yardstick.benchmark.contexts.model import update_scheduler_hints
 from yardstick.common.openstack_utils import get_neutron_client
 from yardstick.orchestrator.heat import HeatTemplate, get_short_key_uuid
 from yardstick.common.constants import YARDSTICK_ROOT_PATH
+from yardstick.ssh import SSH
 
 LOG = logging.getLogger(__name__)
 
 DEFAULT_HEAT_TIMEOUT = 3600
+
+
+def join_args(sep, *args):
+    return sep.join(args)
+
+
+def h_join(*args):
+    return '-'.join(args)
 
 
 class HeatContext(Context):
@@ -43,12 +51,14 @@ class HeatContext(Context):
         self.name = None
         self.stack = None
         self.networks = OrderedDict()
+        self.heat_timeout = None
         self.servers = []
         self.placement_groups = []
         self.server_groups = []
         self.keypair_name = None
         self.secgroup_name = None
         self._server_map = {}
+        self.attrs = {}
         self._image = None
         self._flavor = None
         self.flavors = set()
@@ -65,7 +75,8 @@ class HeatContext(Context):
              get_short_key_uuid(self.key_uuid)])
         super(HeatContext, self).__init__()
 
-    def assign_external_network(self, networks):
+    @staticmethod
+    def assign_external_network(networks):
         sorted_networks = sorted(networks.items())
         external_network = os.environ.get("EXTERNAL_NETWORK", "net04_ext")
 
@@ -74,8 +85,7 @@ class HeatContext(Context):
             # no external net defined, assign it to first network using os.environ
             sorted_networks[0][1]["external_network"] = external_network
 
-        self.networks = OrderedDict((name, Network(name, self, attrs))
-                                    for name, attrs in sorted_networks)
+        return sorted_networks
 
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
@@ -88,8 +98,8 @@ class HeatContext(Context):
             self.heat_parameters = attrs.get("heat_parameters")
             return
 
-        self.keypair_name = self.name + "-key"
-        self.secgroup_name = self.name + "-secgroup"
+        self.keypair_name = h_join(self.name, "key")
+        self.secgroup_name = h_join(self.name, "secgroup")
 
         self._image = attrs.get("image")
 
@@ -97,29 +107,29 @@ class HeatContext(Context):
 
         self.heat_timeout = attrs.get("timeout", DEFAULT_HEAT_TIMEOUT)
 
-        self.placement_groups = [PlacementGroup(name, self, pgattrs["policy"])
-                                 for name, pgattrs in attrs.get(
+        self.placement_groups = [PlacementGroup(name, self, pg_attrs["policy"])
+                                 for name, pg_attrs in attrs.get(
                                  "placement_groups", {}).items()]
 
-        self.server_groups = [ServerGroup(name, self, sgattrs["policy"])
-                              for name, sgattrs in attrs.get(
+        self.server_groups = [ServerGroup(name, self, sg_attrs["policy"])
+                              for name, sg_attrs in attrs.get(
                               "server_groups", {}).items()]
 
         # we have to do this first, because we are injecting external_network
         # into the dict
-        self.assign_external_network(attrs["networks"])
+        sorted_networks = self.assign_external_network(attrs["networks"])
 
-        for name, serverattrs in sorted(attrs["servers"].items()):
-            server = Server(name, self, serverattrs)
+        self.networks = OrderedDict(
+            (name, Network(name, self, net_attrs)) for name, net_attrs in
+            sorted_networks)
+
+        for name, server_attrs in sorted(attrs["servers"].items()):
+            server = Server(name, self, server_attrs)
             self.servers.append(server)
             self._server_map[server.dn] = server
 
-        rsa_key = paramiko.RSAKey.generate(bits=2048, progress_func=None)
-        rsa_key.write_private_key_file(self.key_filename)
-        print("Writing %s ..." % self.key_filename)
-        with open(self.key_filename + ".pub", "w") as pubkey_file:
-            pubkey_file.write(
-                "%s %s\n" % (rsa_key.get_name(), rsa_key.get_base64()))
+        self.attrs = attrs
+        SSH.gen_keys(self.key_filename)
 
     @property
     def image(self):
@@ -188,7 +198,7 @@ class HeatContext(Context):
                 try:
                     self.flavors.add(server.flavor["name"])
                 except KeyError:
-                    self.flavors.add(server.stack_name + "-flavor")
+                    self.flavors.add(h_join(server.stack_name, "flavor"))
 
         # add servers with availability policy
         added_servers = []
@@ -286,7 +296,7 @@ class HeatContext(Context):
             # let the other failures happen, we want stack trace
             raise
 
-        # TODO: use Neutron to get segementation-id
+        # TODO: use Neutron to get segmentation-id
         self.get_neutron_info()
 
         # copy some vital stack output into server objects
@@ -311,24 +321,26 @@ class HeatContext(Context):
 
     def make_interface_dict(self, network_name, stack_name, outputs):
         private_ip = outputs[stack_name]
-        mac_addr = outputs[stack_name + "-mac_address"]
-        subnet_cidr_key = "-".join([self.name, network_name, 'subnet', 'cidr'])
-        gateway_key = "-".join([self.name, network_name, 'subnet', 'gateway_ip'])
-        subnet_cidr = outputs[subnet_cidr_key]
-        subnet_ip = ipaddress.ip_network(subnet_cidr)
+        mac_address = outputs[h_join(stack_name, "mac_address")]
+        output_subnet_cidr = outputs[h_join(self.name, network_name,
+                                            'subnet', 'cidr')]
+
+        output_subnet_gateway = outputs[h_join(self.name, network_name,
+                                               'subnet', 'gateway_ip')]
+
         return {
             "private_ip": private_ip,
-            "subnet_id": outputs[stack_name + "-subnet_id"],
-            "subnet_cidr": subnet_cidr,
-            "network": str(subnet_ip.network_address),
-            "netmask": str(subnet_ip.netmask),
-            "gateway_ip": outputs[gateway_key],
-            "mac_address": mac_addr,
-            "device_id": outputs[stack_name + "-device_id"],
-            "network_id": outputs[stack_name + "-network_id"],
+            "subnet_id": outputs[h_join(stack_name, "subnet_id")],
+            "subnet_cidr": output_subnet_cidr,
+            "network": str(ipaddress.ip_network(output_subnet_cidr).network_address),
+            "netmask": str(ipaddress.ip_network(output_subnet_cidr).netmask),
+            "gateway_ip": output_subnet_gateway,
+            "mac_address": mac_address,
+            "device_id": outputs[h_join(stack_name, "device_id")],
+            "network_id": outputs[h_join(stack_name, "network_id")],
             "network_name": network_name,
             # to match vnf_generic
-            "local_mac": mac_addr,
+            "local_mac": mac_address,
             "local_ip": private_ip,
             "vld_id": self.networks[network_name].vld_id,
         }
@@ -357,7 +369,8 @@ class HeatContext(Context):
                 "network": intf["network"],
                 "netmask": intf["netmask"],
                 "if": name,
-                "gateway": intf["gateway_ip"],
+                # We have to encode a None gateway as '' for Jinja2 to YAML conversion
+                "gateway": intf["gateway_ip"] if intf["gateway_ip"] else '',
             }
             for name, intf in server.interfaces.items()
         ]
@@ -370,31 +383,24 @@ class HeatContext(Context):
         """
         key_filename = pkg_resources.resource_filename(
             'yardstick.resources',
-            'files/yardstick_key-' + get_short_key_uuid(self.key_uuid))
+            h_join('files/yardstick_key', get_short_key_uuid(self.key_uuid)))
 
-        if not isinstance(attr_name, collections.Mapping):
-            server = self._server_map.get(attr_name, None)
-
-        else:
-            cname = attr_name["name"].split(".")[1]
-            if cname != self.name:
+        if isinstance(attr_name, collections.Mapping):
+            node_name, cname = self.split_name(attr_name['name'])
+            if cname is None or cname != self.name:
                 return None
 
-            public_ip = None
-            private_ip = None
-            if "public_ip_attr" in attr_name:
-                public_ip = self.stack.outputs[attr_name["public_ip_attr"]]
-            if "private_ip_attr" in attr_name:
-                private_ip = self.stack.outputs[
-                    attr_name["private_ip_attr"]]
-
             # Create a dummy server instance for holding the *_ip attributes
-            server = Server(attr_name["name"].split(".")[0], self, {})
-            server.public_ip = public_ip
-            server.private_ip = private_ip
+            server = Server(node_name, self, {})
+            server.public_ip = self.stack.outputs.get(
+                attr_name.get("public_ip_attr", object()), None)
 
-        if server is None:
-            return None
+            server.private_ip = self.stack.outputs.get(
+                attr_name.get("private_ip_attr", object()), None)
+        else:
+            server = self._server_map.get(attr_name, None)
+            if server is None:
+                return None
 
         result = {
             "user": server.context.user,
@@ -417,12 +423,9 @@ class HeatContext(Context):
 
         else:
             # Don't generalize too much  Just support vld_id
-            vld_id = attr_name.get('vld_id')
-            if vld_id is None:
-                return None
-
-            network = next((n for n in self.networks.values() if
-                           getattr(n, "vld_id", None) == vld_id), None)
+            vld_id = attr_name.get('vld_id', {})
+            network_iter = (n for n in self.networks.values() if n.vld_id == vld_id)
+            network = next(network_iter, None)
 
         if network is None:
             return None

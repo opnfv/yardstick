@@ -316,7 +316,9 @@ name (i.e. %s).\
                 'enable_dhcp': enable_dhcp,
             }
         }
-        if gateway_ip is not None:
+        if gateway_ip == 'null':
+            self.resources[name]['properties']['gateway_ip'] = None
+        elif gateway_ip is not None:
             self.resources[name]['properties']['gateway_ip'] = gateway_ip
 
         self._template['outputs'][name] = {
