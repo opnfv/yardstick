@@ -194,8 +194,6 @@ class StandaloneContextTestCase(unittest.TestCase):
         result = self.test_context._get_server(attr_name)
         self.assertEqual(result, None)
 
-
-
     def test__get_server_duplicate_sriov(self, mock_sriov_time, mock_standlalone_time,
                                          mock_ovsdpdk_time):
         attrs = {
@@ -244,6 +242,7 @@ class StandaloneContextTestCase(unittest.TestCase):
             ValueError,
             self.test_context._get_server,
             attr_name)
+
     def test__get_server_found_sriov(self, mock_sriov_time, mock_standlalone_time,
                                      mock_ovsdpdk_time):
         attrs = {
@@ -452,11 +451,6 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_obj.start_ovs_serverswitch = mock.Mock()
         self.test_context.nfvi_obj.setup_ovs_bridge = mock.Mock()
         self.test_context.nfvi_obj.add_oflows = mock.Mock()
-
-        # self.test_context.nfvi_obj.setup_ovs(PORTS)
-        # self.test_context.nfvi_obj.start_ovs_serverswitch()
-        # self.test_context.nfvi_obj.setup_ovs_bridge()
-        # self.test_context.nfvi_obj.add_oflows()
 
         result = self.test_context.nfvi_obj.setup_ovs_context(
             PORTS,
@@ -681,6 +675,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         expected = network1
         result = self.test_context._get_network(attr_name)
         self.assertDictEqual(result, expected)
+
 if __name__ == '__main__':
     unittest.main()
 
