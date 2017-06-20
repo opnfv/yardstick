@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 import os
+import socket
 import unittest
 import tempfile
 
@@ -14,7 +15,12 @@ class APITestCase(unittest.TestCase):
     def setUp(self):
         self.db_fd, self.db_path = tempfile.mkstemp()
         consts.SQLITE = 'sqlite:///{}'.format(self.db_path)
-        from api import server
+
+        try:
+            from api import server
+        except socket.gaierror:
+            self.app = None
+            return
 
         server.app.config['TESTING'] = True
         self.app = server.app.test_client()
