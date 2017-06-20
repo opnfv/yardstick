@@ -1,15 +1,15 @@
-From: Cristina Pauna <cristina.pauna@enea.com>
-Date: Thu, 11 Jan 2018 19:06:26 +0200
-Subject: [PATCH] Patch for Yardstick AARCH64 Docker file
+From: Ross Brattain <ross.b.brattain@intel.com>
+Date: Mon, 12 Feb 2018 17:18:02 -0800
+Subject: [PATCH] Update Dockerfile to add DEBIAN_FRONTEND=noninteractive
 
-Signed-off-by: Cristina Pauna <cristina.pauna@enea.com>
-Signed-off-by: Alexandru Nemes <alexandru.nemes@enea.com>
+Change-Id: I7b0c7167ec38202771d3d91de3888b03c57f3b28
+Signed-off-by: Ross Brattain <ross.b.brattain@intel.com>
 ---
- docker/Dockerfile | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ docker/Dockerfile | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/docker/Dockerfile b/docker/Dockerfile
-index 2ee5b4c..23e5ea5 100644
+index 0a23edbe..407b3077 100644
 --- a/docker/Dockerfile
 +++ b/docker/Dockerfile
 @@ -1,5 +1,5 @@
@@ -31,17 +31,18 @@ index 2ee5b4c..23e5ea5 100644
 
  ARG BRANCH=master
 
-@@ -24,7 +24,8 @@ ENV YARDSTICK_REPO_DIR="${REPOS_DIR}/yardstick" \
+@@ -24,8 +24,8 @@ ENV YARDSTICK_REPO_DIR="${REPOS_DIR}/yardstick" \
      RELENG_REPO_DIR="${REPOS_DIR}/releng" \
      STORPERF_REPO_DIR="${REPOS_DIR}/storperf"
 
--RUN apt-get update && apt-get install -y git python-setuptools python-pip && apt-get -y autoremove && apt-get clean
-+RUN apt-get update && apt-get install -y git python-setuptools python-pip && apt-get -y autoremove && \
+-# noninteractive will prevent questions from being asked during the install
+-RUN apt-get update && env DEBIAN_FRONTEND=noninteractive apt-get install -y git python-setuptools python-pip && apt-get -y autoremove && apt-get clean
++RUN apt-get update && env DEBIAN_FRONTEND=noninteractive apt-get install -y git python-setuptools python-pip && apt-get -y autoremove && \
 +    apt-get install -y libssl-dev && apt-get -y install libffi-dev && apt-get clean
  RUN easy_install -U setuptools==30.0.0
- RUN pip install appdirs==1.4.0 pyopenssl==17.5.0
+ RUN pip install appdirs==1.4.0 pyopenssl==17.5.0 python-openstackclient==3.11.0
 
-@@ -43,8 +44,8 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+@@ -44,8 +44,8 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
  EXPOSE 5000
 
