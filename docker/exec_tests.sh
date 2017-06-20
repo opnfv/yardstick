@@ -16,7 +16,8 @@ set -e
 
 : ${RELENG_REPO:='https://gerrit.opnfv.org/gerrit/releng'}
 : ${RELENG_REPO_DIR:='/home/opnfv/repos/releng'}
-: ${RELENG_BRANCH:='master'} # branch, tag, sha1 or refspec
+# TEMP HACK to freeze releng version to workaround fetch_os_creds.sh problem
+: ${RELENG_BRANCH:='abbf19f'} # branch, tag, sha1 or refspec
 
 git_checkout()
 {
