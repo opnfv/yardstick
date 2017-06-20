@@ -1,0 +1,84 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+vnfd:vnfd-catalog:
+    vnfd:
+    -   id: FWApproxVnf
+        name: FWVnfSshIntel
+        short-name: vFWVnf
+        description: FW approximation using DPDK
+        mgmt-interface:
+            vdu-id: aclvnf-baremetal
+            {% if user is defined %}
+            user: '{{user}}'  # Value filled by vnfdgen
+            {% endif %}
+            {% if password is defined %}
+            password: '{{password}}'  # Value filled by vnfdgen
+            {% endif %}
+            {% if ip is defined %}
+            ip: '{{ip}}'  # Value filled by vnfdgen
+            {% endif %}
+            {% if key_filename is defined %}
+            key_filename: '{{key_filename}}'  # Value filled by vnfdgen
+            {% endif %}
+        connection-point:
+        -   name: xe0
+            type: VPORT
+        -   name: xe1
+            type: VPORT
+        vdu:
+        -   id: aclvnf-baremetal
+            name: aclvnf-baremetal
+            description: ACL approximation using DPDK
+            vm-flavor:
+                vcpu-count: '4'
+                memory-mb: '4096'
+            external-interface:
+            -   name: xe0
+                virtual-interface:
+                    type: PCI-PASSTHROUGH
+                    # Substitution variables MUST be quoted. Otherwise Python can misinterpet them.
+                    vpci: '{{ interfaces.xe0.vpci }}' # Value filled by vnfdgen
+                    dpdk_port_num:   '{{ interfaces.xe0.dpdk_port_num }}' # Value filled by vnfdgen
+                    local_ip: '{{ interfaces.xe0.local_ip }}' # Value filled by vnfdgen
+                    driver: '{{ interfaces.xe0.driver}}' # Value filled by vnfdgen
+                    dst_ip: '{{ interfaces.xe0.dst_ip }}' # Value filled by vnfdgen
+                    local_mac: '{{ interfaces.xe0.local_mac }}' # Value filled by vnfdgen
+                    netmask: '{{ interfaces.xe0.netmask }}' # Value filled by vnfdgen
+                    dst_mac: '{{ interfaces.xe0.dst_mac }}' # Value filled by vnfdgen
+                    vld_id:  '{{ interfaces.xe0.vld_id }}' # Value filled by vnfdgen
+                    bandwidth: 10 Gbps
+                vnfd-connection-point-ref: xe0
+            -   name: xe1
+                virtual-interface:
+                    type: PCI-PASSTHROUGH
+                    # Substitution variables MUST be quoted. Otherwise Python can misinterpet them.
+                    vpci: '{{ interfaces.xe1.vpci }}' # Value filled by vnfdgen
+                    dpdk_port_num:   '{{ interfaces.xe1.dpdk_port_num }}' # Value filled by vnfdgen
+                    local_ip: '{{ interfaces.xe1.local_ip }}' # Value filled by vnfdgen
+                    driver: '{{ interfaces.xe1.driver}}' # Value filled by vnfdgen
+                    dst_ip: '{{ interfaces.xe1.dst_ip }}' # Value filled by vnfdgen
+                    local_mac: '{{ interfaces.xe1.local_mac }}' # Value filled by vnfdgen
+                    netmask: '{{ interfaces.xe1.netmask }}' # Value filled by vnfdgen
+                    dst_mac: '{{ interfaces.xe1.dst_mac }}' # Value filled by vnfdgen
+                    vld_id:  '{{ interfaces.xe1.vld_id }}' # Value filled by vnfdgen
+                    bandwidth: 10 Gbps
+                vnfd-connection-point-ref: xe1
+            routing_table: {{ routing_table }}
+            nd_route_tbl: {{ nd_route_tbl }}
+        benchmark:
+            kpi:
+                - packets_in
+                - packets_fwd
+                - packets_dropped
