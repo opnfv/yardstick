@@ -328,7 +328,8 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
             self.socket = 1
 
         cores = self._validate_cpu_cfg()
-        return ResourceProfile(self.vnfd_helper.mgmt_interface, cores)
+        return ResourceProfile(self.vnfd_helper.mgmt_interface,
+                               interfaces=self.vnfd_helper.interfaces, cores=cores)
 
     def _detect_drivers(self):
         interfaces = self.vnfd_helper.interfaces
