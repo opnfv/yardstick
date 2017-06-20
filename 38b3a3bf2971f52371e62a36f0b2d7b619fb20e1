@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_434e1ec3",
+        "filename": "ansible/migrate_pinning_setup.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T14:53:06Z",
+      "side": 1,
+      "message": "this is ugly YAML, please use regular indent\n\n  - role: set_flavor_property\n    key: \"hw:cpu_policy\"\n    value: \"dedicated\"\n\nI know other project do this, but it is still ugly confusing YAML",
+      "revId": "38b3a3bf2971f52371e62a36f0b2d7b619fb20e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_03c82621",
+        "filename": "yardstick/benchmark/scenarios/base.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T14:53:06Z",
+      "side": 1,
+      "message": "for changing a single value, it is better to use setitem\n\n  dic[k] \u003d v",
+      "revId": "38b3a3bf2971f52371e62a36f0b2d7b619fb20e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_c35a0e83",
+        "filename": "yardstick/benchmark/scenarios/compute/migrate.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T14:53:06Z",
+      "side": 1,
+      "message": "please use ssh.SSH.from_node(self.context_cfg[\u0027host\u0027])",
+      "revId": "38b3a3bf2971f52371e62a36f0b2d7b619fb20e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_63747afd",
+        "filename": "yardstick/benchmark/scenarios/lib/add_memory_load.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T14:53:06Z",
+      "side": 1,
+      "message": "please use ssh.SSH.from_node(self.context_cfg[\u0027host\u0027])\n\nand don\u0027t specify key_filename, let paramiko use default.",
+      "revId": "38b3a3bf2971f52371e62a36f0b2d7b619fb20e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_23668252",
+        "filename": "yardstick/benchmark/scenarios/lib/add_memory_load.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T14:53:06Z",
+      "side": 1,
+      "message": "redundant grep\n  \n  \"free | awk \u0027/Mem/ {print $2}\u0027\"",
+      "revId": "38b3a3bf2971f52371e62a36f0b2d7b619fb20e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_a36a7218",
+        "filename": "yardstick/benchmark/scenarios/lib/migrate.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T14:53:06Z",
+      "side": 1,
+      "message": "redundant grep.  awk has grep builtin\n\n | awk \u0027/%s/ {print $4}\u0027",
+      "revId": "38b3a3bf2971f52371e62a36f0b2d7b619fb20e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
