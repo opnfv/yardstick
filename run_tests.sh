@@ -60,8 +60,11 @@ run_tests() {
 }
 
 run_coverage() {
-    source tests/ci/cover.sh
-    run_coverage_test
+    # don't re-run coverage on both py27 py3, it takes too long
+    if [[ -z $SKIP_COVERAGE ]] ; then
+        source tests/ci/cover.sh
+        run_coverage_test
+    fi
 }
 
 run_functional_test() {
