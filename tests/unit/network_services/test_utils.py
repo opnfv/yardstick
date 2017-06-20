@@ -27,7 +27,7 @@ from yardstick.network_services import utils
 class UtilsTestCase(unittest.TestCase):
     """Test all VNF helper methods."""
 
-    DPDK_PATH = os.path.join(utils.NSB_ROOT, "dpdk_nic_bind.py")
+    DPDK_PATH = os.path.join(utils.NSB_ROOT, "dpdk-devbind.py")
 
     def setUp(self):
         super(UtilsTestCase, self).setUp()

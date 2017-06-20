@@ -20,10 +20,10 @@ import errno
 import os
 
 import re
+from itertools import chain
+import yaml
 from operator import itemgetter
 from collections import defaultdict
-
-import yaml
 
 from yardstick.benchmark.scenarios import base
 from yardstick.common.utils import import_modules_from_package, itersubclasses
@@ -80,6 +80,22 @@ class SshManager(object):
             self.conn.close()
 
 
+def find_relative_file(path, task_path):
+    # fixme: create schema to validate all fields have been provided
+    try:
+        with open(path):
+            pass
+        return path
+    except IOError as e:
+        if e.errno != errno.ENOENT:
+            raise
+        else:
+            rel_path = os.path.join(task_path, path)
+            with open(rel_path):
+                pass
+            return rel_path
+
+
 def open_relative_file(path, task_path):
     try:
         return open(path)
@@ -103,166 +119,176 @@ class NetworkServiceTestCase(base.Scenario):
         # fixme: create schema to validate all fields have been provided
         with open_relative_file(scenario_cfg["topology"],
                                 scenario_cfg['task_path']) as stream:
-            topology_yaml = yaml.load(stream)
+            topology_yaml = yaml.safe_load(stream)
 
         self.topology = topology_yaml["nsd:nsd-catalog"]["nsd"][0]
         self.vnfs = []
         self.collector = None
         self.traffic_profile = None
 
-    @classmethod
-    def _get_traffic_flow(cls, scenario_cfg):
+    def _get_traffic_flow(self):
         try:
-            with open(scenario_cfg["traffic_options"]["flow"]) as fflow:
-                flow = yaml.load(fflow)
+            with open(self.scenario_cfg["traffic_options"]["flow"]) as fflow:
+                flow = yaml.safe_load(fflow)
         except (KeyError, IOError, OSError):
             flow = {}
         return flow
 
-    @classmethod
-    def _get_traffic_imix(cls, scenario_cfg):
+    def _get_traffic_imix(self):
         try:
-            with open(scenario_cfg["traffic_options"]["imix"]) as fimix:
-                imix = yaml.load(fimix)
+            with open(self.scenario_cfg["traffic_options"]["imix"]) as fimix:
+                imix = yaml.safe_load(fimix)
         except (KeyError, IOError, OSError):
             imix = {}
         return imix
 
-    @classmethod
-    def _get_traffic_profile(cls, scenario_cfg, context_cfg):
-        traffic_profile_tpl = ""
-        private = {}
-        public = {}
-        try:
-            with open_relative_file(scenario_cfg["traffic_profile"],
-                                    scenario_cfg["task_path"]) as infile:
-                traffic_profile_tpl = infile.read()
+    def _get_traffic_profile(self):
+        profile = self.scenario_cfg["traffic_profile"]
+        path = self.scenario_cfg["task_path"]
+        with open_relative_file(profile, path) as infile:
+            return infile.read()
 
-        except (KeyError, IOError, OSError):
-            raise
+    def _fill_traffic_profile(self):
+        traffic_mapping = self._get_traffic_profile()
+        traffic_map_data = {
+            'flow': self._get_traffic_flow(),
+            'imix': self._get_traffic_imix(),
+            'private': {},
+            'public': {},
+        }
 
-        return [traffic_profile_tpl, private, public]
+        traffic_vnfd = vnfdgen.generate_vnfd(traffic_mapping, traffic_map_data)
+        self.traffic_profile = TrafficProfile.get(traffic_vnfd)
+        return self.traffic_profile
 
-    def _fill_traffic_profile(self, scenario_cfg, context_cfg):
-        flow = self._get_traffic_flow(scenario_cfg)
-
-        imix = self._get_traffic_imix(scenario_cfg)
-
-        traffic_mapping, private, public = \
-            self._get_traffic_profile(scenario_cfg, context_cfg)
-
-        traffic_profile = vnfdgen.generate_vnfd(traffic_mapping,
-                                                {"imix": imix, "flow": flow,
-                                                 "private": private,
-                                                 "public": public})
-
-        return TrafficProfile.get(traffic_profile)
-
-    @classmethod
-    def _find_vnf_name_from_id(cls, topology, vnf_id):
+    def _find_vnf_name_from_id(self, vnf_id):
         return next((vnfd["vnfd-id-ref"]
-                     for vnfd in topology["constituent-vnfd"]
+                     for vnfd in self.topology["constituent-vnfd"]
                      if vnf_id == vnfd["member-vnf-index"]), None)
 
     @staticmethod
     def get_vld_networks(networks):
         return {n['vld_id']: n for n in networks.values()}
 
-    def _resolve_topology(self, context_cfg, topology):
-        for vld in topology["vld"]:
+    def _resolve_topology(self):
+        for vld in self.topology["vld"]:
             try:
-                node_0, node_1 = vld["vnfd-connection-point-ref"]
-            except (TypeError, ValueError):
+                node0_data, node1_data = vld["vnfd-connection-point-ref"]
+            except (ValueError, TypeError):
                 raise IncorrectConfig("Topology file corrupted, "
-                                      "wrong number of endpoints for connection")
+                                      "wrong endpoint count for connection")
 
-            node_0_name = self._find_vnf_name_from_id(topology,
-                                                      node_0["member-vnf-index-ref"])
-            node_1_name = self._find_vnf_name_from_id(topology,
-                                                      node_1["member-vnf-index-ref"])
+            node0_name = self._find_vnf_name_from_id(node0_data["member-vnf-index-ref"])
+            node1_name = self._find_vnf_name_from_id(node1_data["member-vnf-index-ref"])
 
-            node_0_ifname = node_0["vnfd-connection-point-ref"]
-            node_1_ifname = node_1["vnfd-connection-point-ref"]
+            node0_if_name = node0_data["vnfd-connection-point-ref"]
+            node1_if_name = node1_data["vnfd-connection-point-ref"]
 
-            node_0_if = context_cfg["nodes"][node_0_name]["interfaces"][node_0_ifname]
-            node_1_if = context_cfg["nodes"][node_1_name]["interfaces"][node_1_ifname]
             try:
-                vld_networks = self.get_vld_networks(context_cfg["networks"])
+                nodes = self.context_cfg["nodes"]
+                node0_if = nodes[node0_name]["interfaces"][node0_if_name]
+                node1_if = nodes[node1_name]["interfaces"][node1_if_name]
 
-                node_0_if["vld_id"] = vld["id"]
-                node_1_if["vld_id"] = vld["id"]
+                # names so we can do reverse lookups
+                node0_if["ifname"] = node0_if_name
+                node1_if["ifname"] = node1_if_name
+
+                node0_if["node_name"] = node0_name
+                node1_if["node_name"] = node1_name
+
+                vld_networks = self.get_vld_networks(self.context_cfg["networks"])
+                node0_if["vld_id"] = vld["id"]
+                node1_if["vld_id"] = vld["id"]
 
                 # set peer name
-                node_0_if["peer_name"] = node_1_name
-                node_1_if["peer_name"] = node_0_name
+                node0_if["peer_name"] = node1_name
+                node1_if["peer_name"] = node0_name
 
                 # set peer interface name
-                node_0_if["peer_ifname"] = node_1_ifname
-                node_1_if["peer_ifname"] = node_0_ifname
+                node0_if["peer_ifname"] = node1_if_name
+                node1_if["peer_ifname"] = node0_if_name
 
-                # just load the whole network dict
-                node_0_if["network"] = vld_networks.get(vld["id"], {})
-                node_1_if["network"] = vld_networks.get(vld["id"], {})
+                # just load the network
+                node0_if["network"] = vld_networks.get(vld["id"], {})
+                node1_if["network"] = vld_networks.get(vld["id"], {})
 
-                node_0_if["dst_mac"] = node_1_if["local_mac"]
-                node_0_if["dst_ip"] = node_1_if["local_ip"]
+                node0_if["dst_mac"] = node1_if["local_mac"]
+                node0_if["dst_ip"] = node1_if["local_ip"]
 
-                node_1_if["dst_mac"] = node_0_if["local_mac"]
-                node_1_if["dst_ip"] = node_0_if["local_ip"]
+                node1_if["dst_mac"] = node0_if["local_mac"]
+                node1_if["dst_ip"] = node0_if["local_ip"]
 
-                # add peer interface dict, but remove circular link
-                # TODO: don't waste memory
-                node_0_copy = node_0_if.copy()
-                node_1_copy = node_1_if.copy()
-                node_0_if["peer_intf"] = node_1_copy
-                node_1_if["peer_intf"] = node_0_copy
             except KeyError:
+                LOG.exception("")
                 raise IncorrectConfig("Required interface not found, "
                                       "topology file corrupted")
 
-    @classmethod
-    def _find_list_index_from_vnf_idx(cls, topology, vnf_idx):
-        return next((topology["constituent-vnfd"].index(vnfd)
-                     for vnfd in topology["constituent-vnfd"]
+        for vld in self.topology['vld']:
+            try:
+                node0_data, node1_data = vld["vnfd-connection-point-ref"]
+            except (ValueError, TypeError):
+                raise IncorrectConfig("Topology file corrupted, "
+                                      "wrong endpoint count for connection")
+
+            node0_name = self._find_vnf_name_from_id(node0_data["member-vnf-index-ref"])
+            node1_name = self._find_vnf_name_from_id(node1_data["member-vnf-index-ref"])
+
+            node0_if_name = node0_data["vnfd-connection-point-ref"]
+            node1_if_name = node1_data["vnfd-connection-point-ref"]
+
+            nodes = self.context_cfg["nodes"]
+            node0_if = nodes[node0_name]["interfaces"][node0_if_name]
+            node1_if = nodes[node1_name]["interfaces"][node1_if_name]
+
+            # add peer interface dict, but remove circular link
+            # TODO: don't waste memory
+            node0_copy = node0_if.copy()
+            node1_copy = node1_if.copy()
+            node0_if["peer_intf"] = node1_copy
+            node1_if["peer_intf"] = node0_copy
+
+    def _find_vnfd_from_vnf_idx(self, vnf_idx):
+        return next((vnfd for vnfd in self.topology["constituent-vnfd"]
                      if vnf_idx == vnfd["member-vnf-index"]), None)
 
-    def _update_context_with_topology(self, context_cfg, topology):
-        for idx in topology["constituent-vnfd"]:
-            vnf_idx = idx["member-vnf-index"]
-            nodes = context_cfg["nodes"]
-            node = self._find_vnf_name_from_id(topology, vnf_idx)
-            list_idx = self._find_list_index_from_vnf_idx(topology, vnf_idx)
-            nodes[node].update(topology["constituent-vnfd"][list_idx])
+    def _update_context_with_topology(self):
+        for vnfd in self.topology["constituent-vnfd"]:
+            vnf_idx = vnfd["member-vnf-index"]
+            vnf_name = self._find_vnf_name_from_id(vnf_idx)
+            vnfd = self._find_vnfd_from_vnf_idx(vnf_idx)
+            self.context_cfg["nodes"][vnf_name].update(vnfd)
 
     @staticmethod
     def _sort_dpdk_port_num(netdevs):
         # dpdk_port_num is PCI BUS ID ordering, lowest first
         s = sorted(netdevs.values(), key=itemgetter('pci_bus_id'))
-        for dpdk_port_num, netdev in enumerate(s, 1):
+        for dpdk_port_num, netdev in enumerate(s):
             netdev['dpdk_port_num'] = dpdk_port_num
 
     @classmethod
     def _probe_missing_values(cls, netdevs, network, missing):
-        mac = network['local_mac']
+        mac_lower = network['local_mac'].lower()
         for netdev in netdevs.values():
-            if netdev['address'].lower() == mac.lower():
-                network['driver'] = netdev['driver']
-                network['vpci'] = netdev['pci_bus_id']
-                network['dpdk_port_num'] = netdev['dpdk_port_num']
-                network['ifindex'] = netdev['ifindex']
+            if netdev['address'].lower() != mac_lower:
+                continue
+            network.update({
+                'driver': netdev['driver'],
+                'vpci': netdev['pci_bus_id'],
+                'ifindex': netdev['ifindex'],
+            })
 
     TOPOLOGY_REQUIRED_KEYS = frozenset({
-        "vpci", "local_ip", "netmask", "local_mac", "driver", "dpdk_port_num"})
+        "vpci", "local_ip", "netmask", "local_mac", "driver"})
 
-    def map_topology_to_infrastructure(self, context_cfg, topology):
+    def map_topology_to_infrastructure(self):
         """ This method should verify if the available resources defined in pod.yaml
         match the topology.yaml file.
 
+        :param context_cfg:
         :param topology:
         :return: None. Side effect: context_cfg is updated
         """
-
-        for node, node_dict in context_cfg["nodes"].items():
+        for node, node_dict in self.context_cfg["nodes"].items():
 
             cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
             with SshManager(node_dict) as conn:
@@ -276,28 +302,28 @@ class NetworkServiceTestCase(base.Scenario):
                         "Cannot find netdev info in sysfs" % node)
                 netdevs = node_dict['netdevs'] = self.parse_netdev_info(
                     stdout)
-                self._sort_dpdk_port_num(netdevs)
 
                 for network in node_dict["interfaces"].values():
                     missing = self.TOPOLOGY_REQUIRED_KEYS.difference(network)
+                    if not missing:
+                        continue
+
+                    try:
+                        self._probe_missing_values(netdevs, network,
+                                                   missing)
+                    except KeyError:
+                        pass
+                    else:
+                        missing = self.TOPOLOGY_REQUIRED_KEYS.difference(
+                            network)
                     if missing:
-                        try:
-                            self._probe_missing_values(netdevs, network,
-                                                       missing)
-                        except KeyError:
-                            pass
-                        else:
-                            missing = self.TOPOLOGY_REQUIRED_KEYS.difference(
-                                network)
-                        if missing:
-                            raise IncorrectConfig(
-                                "Require interface fields '%s' "
-                                "not found, topology file "
-                                "corrupted" % ', '.join(missing))
+                        raise IncorrectConfig(
+                            "Require interface fields '%s' not found, topology file "
+                            "corrupted" % ', '.join(missing))
 
         # 3. Use topology file to find connections & resolve dest address
-        self._resolve_topology(context_cfg, topology)
-        self._update_context_with_topology(context_cfg, topology)
+        self._resolve_topology()
+        self._update_context_with_topology()
 
     FIND_NETDEVICE_STRING = r"""find /sys/devices/pci* -type d -name net -exec sh -c '{ grep -sH ^ \
 $1/ifindex $1/address $1/operstate $1/device/vendor $1/device/device \
@@ -361,7 +387,7 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
             node_intf = node['interfaces'][intf['name']]
             intf['virtual-interface'].update(node_intf)
 
-    def load_vnf_models(self, scenario_cfg, context_cfg):
+    def load_vnf_models(self, scenario_cfg=None, context_cfg=None):
         """ Create VNF objects based on YAML descriptors
 
         :param scenario_cfg:
@@ -369,21 +395,29 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
         :param context_cfg:
         :return:
         """
+        if scenario_cfg is None:
+            scenario_cfg = self.scenario_cfg
+
+        if context_cfg is None:
+            context_cfg = self.context_cfg
+
         vnfs = []
+        # we assume OrderedDict for consistenct in instantiation
         for node_name, node in context_cfg["nodes"].items():
             LOG.debug(node)
-            with open_relative_file(node["VNF model"],
-                                    scenario_cfg['task_path']) as stream:
+            file_name = node["VNF model"]
+            file_path = scenario_cfg['task_path']
+            with open_relative_file(file_name, file_path) as stream:
                 vnf_model = stream.read()
             vnfd = vnfdgen.generate_vnfd(vnf_model, node)
             # TODO: here add extra context_cfg["nodes"] regardless of template
             vnfd = vnfd["vnfd:vnfd-catalog"]["vnfd"][0]
             self.update_interfaces_from_node(vnfd, node)
             vnf_impl = self.get_vnf_impl(vnfd['id'])
-            vnf_instance = vnf_impl(vnfd)
-            vnf_instance.name = node_name
+            vnf_instance = vnf_impl(node_name, vnfd)
             vnfs.append(vnf_instance)
 
+        self.vnfs = vnfs
         return vnfs
 
     def setup(self):
@@ -392,18 +426,22 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
         :return:
         """
         # 1. Verify if infrastructure mapping can meet topology
-        self.map_topology_to_infrastructure(self.context_cfg, self.topology)
+        self.map_topology_to_infrastructure()
         # 1a. Load VNF models
-        self.vnfs = self.load_vnf_models(self.scenario_cfg, self.context_cfg)
+        self.load_vnf_models()
         # 1b. Fill traffic profile with information from topology
-        self.traffic_profile = self._fill_traffic_profile(self.scenario_cfg,
-                                                          self.context_cfg)
+        self._fill_traffic_profile()
 
         # 2. Provision VNFs
+        traffic_runners = [vnf for vnf in self.vnfs if vnf.runs_traffic]
+        non_traffic_runners = [vnf for vnf in self.vnfs if not vnf.runs_traffic]
         try:
-            for vnf in self.vnfs:
+            for vnf in chain(non_traffic_runners, traffic_runners):
                 LOG.info("Instantiating %s", vnf.name)
                 vnf.instantiate(self.scenario_cfg, self.context_cfg)
+            for vnf in chain(non_traffic_runners, traffic_runners):
+                LOG.info("Waiting for %s to instantiate", vnf.name)
+                vnf.wait_for_instantiate()
         except RuntimeError:
             for vnf in self.vnfs:
                 vnf.terminate()
@@ -411,7 +449,6 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
 
         # 3. Run experiment
         # Start listeners first to avoid losing packets
-        traffic_runners = [vnf for vnf in self.vnfs if vnf.runs_traffic]
         for traffic_gen in traffic_runners:
             traffic_gen.listen_traffic(self.traffic_profile)
 
