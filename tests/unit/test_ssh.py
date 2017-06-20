@@ -90,7 +90,7 @@ class SSHTestCase(unittest.TestCase):
         test_ssh = ssh.SSH.from_node(node)
         self.assertEqual("root", test_ssh.user)
         self.assertEqual("example.net", test_ssh.host)
-        self.assertEqual(ssh.SSH_PORT, test_ssh.port)
+        self.assertEqual(ssh.SSH.SSH_PORT, test_ssh.port)
         self.assertEqual("kf", test_ssh.key_filename)
         self.assertEqual("secret", test_ssh.password)
 
