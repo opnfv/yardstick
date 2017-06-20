@@ -13,6 +13,10 @@ LABEL image=opnfv/yardstick
 
 ARG BRANCH=master
 
+# http proxy settings
+#ENV https_proxy=''
+#ENV http_proxy=''
+
 # GIT repo directory
 ENV REPOS_DIR /home/opnfv/repos
 
@@ -34,6 +38,7 @@ deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ trusty-proposed main univ
 
 # This will prevent questions from being asked during the install
 ENV DEBIAN_FRONTEND=noninteractive
+ENV LC_ALL=C
 RUN apt-get update && apt-get install -y \
     qemu-user-static \
     libc6:arm64 \
@@ -64,6 +69,10 @@ RUN mkdir -p ${REPOS_DIR} && \
     git config --global http.sslVerify false && \
     git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR}  && \
     git clone --depth 1 https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR}
+RUN for i in ${YARDSTICK_REPO_DIR} ${RELENG_REPO_DIR} ${STORPERF_REPO_DIR}; do \
+        rm -r "${i}/.git"; \
+    done
+
 
 # install yardstick + dependencies
 # explicity pin pip version to avoid future issues like the ill-fated pip 8.0.0 release

@@ -17,7 +17,7 @@ DOCKER_TAG = brahmaputra.0
 all: .docker
 
 .docker:
-	/usr/bin/docker build --rm=true --no-cache=true -t $(IMAGE):$(DOCKER_TAG) yardstick-ci
+	/usr/bin/docker build --rm=true --no-cache=true -t $(IMAGE):$(DOCKER_TAG) -f ./Dockerfile_aarch64 yardstick-ci
 	/usr/bin/docker tag -f $(IMAGE):$(DOCKER_TAG) $(IMAGE):latest
 	touch .docker
 
