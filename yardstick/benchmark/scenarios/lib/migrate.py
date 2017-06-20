@@ -16,7 +16,7 @@ import threading
 import time
 
 from datetime import datetime
-import ping
+
 
 from yardstick.common import openstack_utils
 from yardstick.common.utils import change_obj_to_dict
@@ -26,6 +26,15 @@ LOG = logging.getLogger(__name__)
 
 TIMEOUT = 0.05
 PACKAGE_SIZE = 64
+
+
+try:
+    import ping
+except ImportError:
+    # temp fix for ping module import error on Python3
+    # we need to replace the ping module anyway
+    import mock
+    ping = mock.MagicMock()
 
 
 class Migrate(base.Scenario):       # pragma: no cover
