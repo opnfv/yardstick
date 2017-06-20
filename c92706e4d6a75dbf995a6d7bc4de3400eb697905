@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_23bc42bb",
+        "filename": "yardstick/benchmark/scenarios/availability/util.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T13:58:15Z",
+      "side": 1,
+      "message": "updated to use more idiomatic python\n\n\ndef buildshellparams(param, remote\u003dTrue):\n    if remote:\n        result \u003d \u0027/bin/bash -s\u0027\n    else:\n        result \u003d \u0027\u0027\n    result +\u003d \"\".join(\" {%d}\" % i for i in range(len(param)))\n    return result\n\n\ndef execute_shell_command(command):\n    \"\"\"execute shell script with error handling\"\"\"\n    exitcode \u003d 0\n    try:\n        LOG.debug(\"the command is: %s\", command)\n        output \u003d subprocess.check_output(command, shell\u003dTrue)\n    except subprocess.CalledProcessError:\n        exitcode \u003d -1\n        output \u003d traceback.format_exc()\n        LOG.error(\"exec command \u0027%s\u0027 error:\\n \", command, exc_info\u003dTrue)\n    return exitcode, output\n\nPREFIX \u003d \"$\"\n\n\ndef build_shell_command(param_config, remote\u003dTrue,\n                        intermediate_variables\u003dNone):\n    if remote:\n        param_template \u003d \u0027/bin/bash -s\u0027\n    else:\n        param_template \u003d \u0027\u0027\n    if intermediate_variables:\n        for key, val in param_config.items():\n            if str(val).startswith(PREFIX):\n                try:\n                    param_config[key] \u003d intermediate_variables[val]\n                except KeyError:\n                    pass\n    result \u003d param_template + \"\".join(\" {}\".format(v) for v\n                                      in param_config.values())\n    LOG.debug(\"THE RESULT OF build_shell_command IS: %s\", result)\n    return result\n\n\ndef read_stdout_item(stdout, key):\n    for item in stdout.splitlines():\n        if key in item:\n            attributes \u003d item.split(\"|\")\n            if attributes[1].lstrip().startswith(key):\n                return attributes[2].strip()\n    return None",
+      "revId": "c92706e4d6a75dbf995a6d7bc4de3400eb697905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_c399ae6f",
+        "filename": "yardstick/benchmark/scenarios/availability/util.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T13:58:15Z",
+      "side": 1,
+      "message": "the default iterator for dicts are the keys(), so we never use .keys()\n\n for key in param_config:",
+      "revId": "c92706e4d6a75dbf995a6d7bc4de3400eb697905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_83a3b69d",
+        "filename": "yardstick/benchmark/scenarios/availability/util.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T13:58:15Z",
+      "side": 1,
+      "message": "we don\u0027t use type() to compare types, we use isinstance()\n\nTo check if something is None, we use \u0027is\u0027, but in this case we should check if intermediate_variables is empty.\n\n if intermediate_variables:",
+      "revId": "c92706e4d6a75dbf995a6d7bc4de3400eb697905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_a3a03291",
+        "filename": "yardstick/benchmark/scenarios/availability/util.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T13:58:15Z",
+      "side": 1,
+      "message": "this line is redundant, we can just pass the param_config.values() to format and it will convert.\n\n  result \u003d param_template(*param_config.values())",
+      "revId": "c92706e4d6a75dbf995a6d7bc4de3400eb697905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_43adbe87",
+        "filename": "yardstick/benchmark/scenarios/availability/util.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T13:58:15Z",
+      "side": 1,
+      "message": "please use splitlines()",
+      "revId": "c92706e4d6a75dbf995a6d7bc4de3400eb697905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_63aa3a72",
+        "filename": "yardstick/benchmark/scenarios/availability/util.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T13:58:15Z",
+      "side": 1,
+      "message": ".find() is rarely used.\n\nthis should be\n\n  if key in item:",
+      "revId": "c92706e4d6a75dbf995a6d7bc4de3400eb697905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_03b7c6d9",
+        "filename": "yardstick/benchmark/scenarios/availability/util.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T13:58:15Z",
+      "side": 1,
+      "message": ".find() is rarely used and there is also redundant parens.\n\nthis should be\n\n             if attributes[1].lstrip().startswith(key):",
+      "revId": "c92706e4d6a75dbf995a6d7bc4de3400eb697905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
