@@ -34,6 +34,24 @@
       "revId": "c8f238068c2860ead8c9b9dba07674aa2288a541",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_589ccd69",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-20T02:19:11Z",
+      "side": 1,
+      "message": "okay, so we agreed at yardstick meeting to increase default to 1024.\n\nplease go ahead and change the default to 1024.",
+      "parentUuid": "5aaae553_9d09d733",
+      "revId": "c8f238068c2860ead8c9b9dba07674aa2288a541",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
