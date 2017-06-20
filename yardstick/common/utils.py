@@ -26,6 +26,7 @@ import sys
 import collections
 import socket
 import random
+import ipaddress
 from functools import reduce
 from contextlib import closing
 
@@ -221,12 +222,12 @@ def flatten_dict_key(data):
                for v in data.values()):
         return data
 
-    for k, v in six.iteritems(data):
+    for k, v in data.items():
         if isinstance(v, collections.Mapping):
-            for n_k, n_v in six.iteritems(v):
+            for n_k, n_v in v.items():
                 next_data["%s.%s" % (k, n_k)] = n_v
         # use list because iterable is too generic
-        elif isinstance(v, list):
+        elif isinstance(v, collections.Iterable) and not isinstance(v, six.string_types):
             for index, item in enumerate(v):
                 next_data["%s%d" % (k, index)] = item
         else:
@@ -267,7 +268,6 @@ def set_dict_value(dic, keys, value):
     return_dic = dic
 
     for key in keys.split('.'):
-
         return_dic.setdefault(key, {})
         if key == keys.split('.')[-1]:
             return_dic[key] = value
@@ -282,3 +282,91 @@ def get_free_port(ip):
             port = random.randint(5000, 10000)
             if s.connect_ex((ip, port)) != 0:
                 return port
+
+
+def mac_address_to_hex_list(mac):
+    octets = ["0x{:02x}".format(int(elem, 16)) for elem in mac.split(':')]
+    assert len(octets) == 6 and all(len(octet) == 4 for octet in octets)
+    return octets
+
+
+def safe_ip_address(ip_addr):
+    """ get ip address version v6 or v4 """
+    try:
+        return ipaddress.ip_address(six.text_type(ip_addr))
+    except ValueError:
+        logging.error("%s is not valid", ip_addr)
+        return None
+
+
+def get_ip_version(ip_addr):
+    """ get ip address version v6 or v4 """
+    try:
+        address = ipaddress.ip_address(six.text_type(ip_addr))
+    except ValueError:
+        logging.error("%s is not valid", ip_addr)
+        return None
+    else:
+        return address.version
+
+
+def ip_to_hex(ip_addr):
+    try:
+        address = ipaddress.ip_address(six.text_type(ip_addr))
+    except ValueError:
+        logging.error("%s is not valid", ip_addr)
+        return ip_addr
+
+    if address.version != 4:
+        return ip_addr
+    return '{:08x}'.format(int(address))
+
+
+def try_int(s, *args):
+    """Convert to integer if possible."""
+    try:
+        return int(s)
+    except (TypeError, ValueError):
+        return args[0] if args else s
+
+
+class SocketTopology(dict):
+
+    def sockets(self):
+        return sorted(self.keys())
+
+    def cores(self):
+        return sorted(core for cores in self.values() for core in cores)
+
+    def processors(self):
+        return sorted(
+            proc for cores in self.values() for procs in cores.values() for
+            proc in procs)
+
+
+def parse_cpuinfo(cpuinfo):
+    socket_map = {}
+
+    lines = cpuinfo.splitlines()
+
+    core_details = []
+    core_lines = {}
+    for line in lines:
+        if line.strip():
+            name, value = line.split(":", 1)
+            core_lines[name.strip()] = try_int(value.strip())
+        else:
+            core_details.append(core_lines)
+            core_lines = {}
+
+    for core in core_details:
+        socket_map.setdefault(core["physical id"], {}).setdefault(
+            core["core id"], {})[core["processor"]] = (
+            core["processor"], core["core id"], core["physical id"])
+
+    return SocketTopology(socket_map)
+
+
+def config_to_dict(config):
+    return {section: dict(config.items(section)) for section in
+            config.sections()}
