@@ -28,8 +28,6 @@ from yardstick.benchmark.scenarios.networking import vsperf
 
 @mock.patch('yardstick.benchmark.scenarios.networking.vsperf.subprocess')
 @mock.patch('yardstick.benchmark.scenarios.networking.vsperf.ssh')
-@mock.patch("yardstick.benchmark.scenarios.networking.vsperf.open",
-            mock.mock_open())
 class VsperfTestCase(unittest.TestCase):
 
     def setUp(self):

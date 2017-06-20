@@ -13,6 +13,8 @@ from __future__ import absolute_import
 from __future__ import print_function
 import sys
 import os
+from collections import OrderedDict
+
 import yaml
 import atexit
 import ipaddress
@@ -121,6 +123,7 @@ class Task(object):     # pragma: no cover
             except KeyboardInterrupt:
                 raise
             except Exception:
+                LOG.exception('')
                 testcases[case_name] = {'criteria': 'FAIL', 'tc_data': []}
             else:
                 testcases[case_name] = {'criteria': 'PASS', 'tc_data': data}
@@ -591,8 +594,9 @@ def _is_background_scenario(scenario):
 
 def parse_nodes_with_context(scenario_cfg):
     """parse the 'nodes' fields in scenario """
-    nodes = scenario_cfg["nodes"]
-    return {nodename: Context.get_server(node) for nodename, node in nodes.items()}
+    # ensure consistency in node instantiation order
+    return OrderedDict((nodename, Context.get_server(scenario_cfg["nodes"][nodename]))
+                       for nodename in sorted(scenario_cfg["nodes"]))
 
 
 def get_networks_from_nodes(nodes):
