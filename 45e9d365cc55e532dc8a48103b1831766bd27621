@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_92122161",
+        "filename": "yardstick/benchmark/scenarios/compute/lmbench_bandwidth_benchmark.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-21T20:43:55Z",
+      "side": 1,
+      "message": "if just the path changes, it would be nice to have less duplication, so we know the args are the same.\n\n if [ \"${NODE_CPU_ARCH}\" \u003d\u003d \"aarch64\" ]; then\n     BW_MEM\u003d/usr/lib/lmbench/bin/bw_mem\n else\n     BW_MEM\u003d/usr/lib/lmbench/bin/x86_64-linux-gnu/bw_mem\n fi\n\n \"${BW_MEM}\" -W $WARMUP ${SIZE}k $TEST_NAME 2\u003e\u00261 | output_json",
+      "revId": "45e9d365cc55e532dc8a48103b1831766bd27621",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
