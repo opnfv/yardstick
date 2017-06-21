@@ -71,7 +71,7 @@ class ServiceHA(base.Scenario):
 
         sla_pass = self.monitorMgr.verify_SLA()
         for k, v in self.data.items():
-            if self.data[k] == 0:
+            if v == 0:
                 result['sla_pass'] = 0
                 LOG.info("The service process not found in the host envrioment, \
 the HA test case NOT pass")
