@@ -14,4 +14,10 @@
 
 set -e
 
-openstack flavor create $1 --id $2 --ram $3 --disk $4 --vcpus $5
+if [ $OS_CACERT ] && [ "$(echo $OS_CACERT | tr '[:upper:]' '[:lower:]')" = "false" ]; then
+    SECURE="--insecure"
+else
+    SECURE=""
+fi
+
+openstack "${SECURE}" flavor create $1 --id $2 --ram $3 --disk $4 --vcpus $5
