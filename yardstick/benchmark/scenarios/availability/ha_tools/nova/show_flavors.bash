@@ -13,4 +13,8 @@
 
 set -e
 
-nova flavor-list
+if [ $OS_CACERT ] && [ "$(echo $OS_CACERT | tr '[:upper:]' '[:lower:]')" = "false" ]; then
+    openstack --insecure flavor list
+else
+    openstack flavor list
+fi
