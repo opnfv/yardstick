@@ -56,6 +56,7 @@ class ScenarioGeneralTestCase(unittest.TestCase):
         mock_obj = mock.Mock()
         mock_obj.createActionPlayer.side_effect = KeyError('Wrong')
         ins.director = mock_obj
+        ins.director.data = []
         ins.run({})
         ins.teardown()
 
@@ -64,5 +65,6 @@ class ScenarioGeneralTestCase(unittest.TestCase):
         mock_obj = mock.Mock()
         mock_obj.verify.return_value = False
         ins.director = mock_obj
+        ins.director.data = []
         ins.run({})
         ins.teardown()
