@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_520ca942",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-21T20:59:03Z",
+      "side": 1,
+      "message": "would prefer this as constant\n\n VNIC_DRIVER \u003d \"ixgbevf\"\n\ncan we support i40evf as well?\n\n  VNIC_TYPES \u003d { \n    \"ixgbevf\": \"ixgbevf\",\n    \"i40evf\": \"i40evf\",\n  }\n\n  try:\n     self.vnic_type \u003d VNIC_TYPES[vnic_type]\n  except KeyError:\n     self.vnic_type \u003d \"ovs\"\n     # OVS stuff\n  else:\n     # one time setup stuff\n     cmd \u003d \"sudo ethool ....\"\n     # ixgbevf, i40evf stuff",
+      "revId": "994449b40f2281c801539aa81906083a3565303c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_7209a530",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-21T20:59:03Z",
+      "side": 1,
+      "message": "why only eth0?  can we take interface as arg and default to eth0?",
+      "range": {
+        "startLine": 107,
+        "startChar": 39,
+        "endLine": 107,
+        "endChar": 43
+      },
+      "revId": "994449b40f2281c801539aa81906083a3565303c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_12063121",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-21T20:59:03Z",
+      "side": 1,
+      "message": "*sigh* everyone disables irqbalance, nobody ever fixes it.",
+      "revId": "994449b40f2281c801539aa81906083a3565303c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_32032d11",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-21T20:59:03Z",
+      "side": 1,
+      "message": "can we pre-compute smp_affinity in python and not use $((1\u003c\u003c%s))?\n\n cmd \u003d \"echo \u0027%s\u0027 | sudo tee /proc/irq/%s/smp_affinity\" \\\n                % (1\u003c\u003ci, int(stdout))",
+      "revId": "994449b40f2281c801539aa81906083a3565303c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
