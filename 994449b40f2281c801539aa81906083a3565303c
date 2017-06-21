@@ -73,6 +73,63 @@
       "revId": "994449b40f2281c801539aa81906083a3565303c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_351a376f",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-21T21:42:53Z",
+      "side": 1,
+      "message": "this will only check client error status?\n\nmaybe refactor extract a helper method\n\n  def both(cmd):\n    for node in [\"server\", \"client\"]\"\n      status, stdout, stderr \u003d getattr(self, node).execute(cmd)\n      if status:\n         raise RuntimeError(stderr)\n\n\n  self.both(cmd)",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 42
+      },
+      "revId": "994449b40f2281c801539aa81906083a3565303c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_151dbb66",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-21T21:42:53Z",
+      "side": 1,
+      "message": "please use interface as parameter and default to eth0\n\n  cmd \u003d \"grep {}-TxRx- /proc/interrupts | wc -l\".format(intf)",
+      "revId": "994449b40f2281c801539aa81906083a3565303c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_7510af4e",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-21T21:42:53Z",
+      "side": 1,
+      "message": "can we have better comment?  we know you added it from git history.\n\nis this some float round thing?  why the modulo?",
+      "revId": "994449b40f2281c801539aa81906083a3565303c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
