@@ -66,3 +66,6 @@ class ProcessAttacker(BaseAttacker):
             exit_status, stdout, stderr = self.connection.execute(
                 "sudo /bin/bash -s {0} ".format(self.service_name),
                 stdin=stdin_file)
+            if exit_status:
+                LOG.info("Fail to restart service!")
+

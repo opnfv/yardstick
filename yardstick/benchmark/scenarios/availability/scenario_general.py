@@ -54,7 +54,18 @@ class ScenarioGeneral(base.Scenario):
                 pass
 
         self.director.stopMonitors()
-        if self.director.verify():
+
+        verify_result = self.director.verify()
+
+        for k, v in self.director.data.items():
+            if self.director.data[k] == 0:
+                result['sla_pass'] = 0
+                verify_result = False
+                LOG.info(
+                    "\033[92m The service process not found in the host \
+envrioment, the HA test case NOT pass")
+
+        if verify_result:
             result['sla_pass'] = 1
             LOG.info(
                 "\033[92m Congratulations, "

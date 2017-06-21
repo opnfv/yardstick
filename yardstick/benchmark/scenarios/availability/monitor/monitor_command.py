@@ -7,6 +7,8 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 from __future__ import absolute_import
+
+import os
 import logging
 import subprocess
 import traceback
@@ -52,6 +54,14 @@ class MonitorOpenstackCmd(basemonitor.BaseMonitor):
             "ha_tools/check_openstack_cmd.bash")
 
         self.cmd = self._config["command_name"]
+        
+        try:
+            cacert = os.environ['OS_CACERT']
+        except KeyError:
+            pass
+        else:
+            if cacert.lower() == "false":
+                self.cmd = self.cmd + " --insecure"
 
     def monitor_func(self):
         exit_status = 0
