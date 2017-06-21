@@ -88,7 +88,7 @@ load_yardstick_image()
         if [ ! -f "${CLOUD_KERNEL}" ]; then
             tar xf "${CLOUD_IMAGE}" "${CLOUD_KERNEL##**/}"
         fi
-        create_kernel=$(openstack image create \
+        create_kernel=$(openstack "${SECURE}" image create \
                 --public \
                 --disk-format qcow2 \
                 --container-format bare \
@@ -119,7 +119,7 @@ load_yardstick_image()
     fi
 
     if [[ "$DEPLOY_SCENARIO" == *"-lxd-"* ]]; then
-        output=$(eval openstack image create \
+        output=$(eval openstack "${SECURE}" image create \
             --public \
             --disk-format raw \
             --container-format bare \
@@ -127,7 +127,7 @@ load_yardstick_image()
             --file ${RAW_IMAGE} \
             yardstick-image)
     else
-        output=$(eval openstack image create \
+        output=$(eval openstack "${SECURE}" image create \
             --public \
             --disk-format qcow2 \
             --container-format bare \
@@ -156,7 +156,7 @@ load_yardstick_image()
 
 load_cirros_image()
 {
-    if [[ -n $(openstack image list | grep -e Cirros-0.3.5) ]]; then
+    if [[ -n $(openstack "${SECURE}" image list | grep -e Cirros-0.3.5) ]]; then
         echo "Cirros-0.3.5 image already exist, skip loading cirros image"
     else
         echo
@@ -170,7 +170,7 @@ load_cirros_image()
             EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
         fi
 
-        output=$(openstack image create \
+        output=$(openstack "${SECURE}" image create \
             --disk-format qcow2 \
             --container-format bare \
             ${EXTRA_PARAMS} \
@@ -201,7 +201,7 @@ load_ubuntu_image()
         EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
     fi
 
-    output=$(openstack image create \
+    output=$(openstack "${SECURE}" image create \
         --disk-format qcow2 \
         --container-format bare \
         $EXTRA_PARAMS \
@@ -221,26 +221,26 @@ load_ubuntu_image()
 
 create_nova_flavor()
 {
-    if ! openstack flavor list | grep -q yardstick-flavor; then
+    if ! openstack "${SECURE}" flavor list | grep -q yardstick-flavor; then
         echo
         echo "========== Creating yardstick-flavor =========="
         # Create the nova flavor used by some sample test cases
-        openstack flavor create --id 100 --ram 1024 --disk 3 --vcpus 1 yardstick-flavor
+        openstack "${SECURE}" flavor create --id 100 --ram 1024 --disk 3 --vcpus 1 yardstick-flavor
         # DPDK-enabled OVS requires guest memory to be backed by large pages
         if [[ $DEPLOY_SCENARIO == *[_-]ovs[_-]* ]]; then
-            openstack flavor set --property hw:mem_page_size=large yardstick-flavor
+            openstack "${SECURE}" flavor set --property hw:mem_page_size=large yardstick-flavor
         fi
         # VPP requires guest memory to be backed by large pages
         if [[ "$DEPLOY_SCENARIO" == *"-fdio-"* ]]; then
-            openstack flavor set --property hw:mem_page_size=large yardstick-flavor
+            openstack "${SECURE}" flavor set --property hw:mem_page_size=large yardstick-flavor
         fi
     fi
 
-    if ! openstack flavor list | grep -q storperf; then
+    if ! openstack "${SECURE}" flavor list | grep -q storperf; then
         echo
         echo "========== Creating storperf flavor =========="
         # Create the nova flavor used by storperf test case
-        openstack flavor create --id auto --ram 8192 --disk 4 --vcpus 2 storperf
+        openstack "${SECURE}" flavor create --id auto --ram 8192 --disk 4 --vcpus 2 storperf
     fi
 }
 
@@ -254,6 +254,12 @@ main()
     fi
     if [ -f /home/opnfv/images/yardstick-image.tar.gz ];then
         RAW_IMAGE='/home/opnfv/images/yardstick-image.tar.gz'
+    fi
+
+    if [ $OS_CACERT ] && [ "$(echo $OS_CACERT | tr '[:upper:]' '[:lower:]')" = "false" ]; then
+        SECURE="--insecure"
+    else
+        SECURE=""
     fi
 
     build_yardstick_image
