@@ -16,10 +16,13 @@ set -e
 process_name=$1
 
 if [ "$process_name" = "keystone" ]; then
-    killall -9 -u $process_name
-else
-    for pid in `ps aux | grep "/usr/.*/${process_name}" | grep -v grep | grep -v /bin/sh | awk '{print $2}'`; \
+    for pid in $(ps aux | grep "keystone" | grep -iv heartbeat | grep -iv monitor | grep -v grep | grep -v /bin/sh | awk '{print $2}'); \
         do
-            kill -9 ${pid}
+            kill -9 "${pid}"
+        done
+else
+    for pid in $(pgrep -f "/usr/.*/${process_name}");
+        do
+            kill -9 "${pid}"
         done
 fi
