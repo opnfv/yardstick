@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_b2407d57",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-21T20:32:12Z",
+      "side": 1,
+      "message": "s/improvemnet/improvment/",
+      "revId": "e72ac778497e1de85220fcdb8d008b00b337baaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_522589c0",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/attacker_process.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-21T20:32:12Z",
+      "side": 1,
+      "message": "please de-indent, this doesn\u0027t need to be inside context manager",
+      "revId": "e72ac778497e1de85220fcdb8d008b00b337baaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_322c8dab",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/fault_process_kill.bash",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-21T20:32:12Z",
+      "side": 1,
+      "message": "prefer [[ ]] with bash, it avoid word splitting issues.",
+      "revId": "e72ac778497e1de85220fcdb8d008b00b337baaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_722205bb",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/fault_process_kill.bash",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-21T20:32:12Z",
+      "side": 1,
+      "message": "use $() instead of ``\n\nyou can combine grep -v,   grep -v -e grep -e monitor -e /bin/sh\n\nor grep -v -E \u0027grep|monitor|/bin/sh\u0027 \n\nbut we should be able to simplify this further.\n\ncan we use pgrep or pkill?\n\npgrep supports Extended Regular Expression",
+      "revId": "e72ac778497e1de85220fcdb8d008b00b337baaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_122f11a3",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/fault_process_kill.bash",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-21T20:32:12Z",
+      "side": 1,
+      "message": "always quote args\n\n kill -9 \"${pid}\"",
+      "revId": "e72ac778497e1de85220fcdb8d008b00b337baaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_d2189986",
+        "filename": "yardstick/benchmark/scenarios/availability/scenario_general.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-21T20:32:12Z",
+      "side": 1,
+      "message": "we are using items() we don\u0027t need to lookup again the value is already in v.\n\n if v \u003d\u003d 0:\n   result[\u0027sla_pass\u0027] \u003d 0",
+      "revId": "e72ac778497e1de85220fcdb8d008b00b337baaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
