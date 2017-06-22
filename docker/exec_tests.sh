@@ -19,14 +19,55 @@ set -e
 # TEMP HACK to freeze releng version to workaround fetch_os_creds.sh problem
 : ${RELENG_BRANCH:='abbf19f'} # branch, tag, sha1 or refspec
 
+# git update using reference as a branch.
+# git_update_branch ref
+function git_update_branch {
+    local git_branch=$1
+
+    git checkout -f origin/$git_branch
+    # a local branch might not exist
+    git branch -D $git_branch || true
+    git checkout -b $git_branch
+}
+
+# git update using reference as a branch.
+# git_update_remote_branch ref
+function git_update_remote_branch {
+    local git_branch=$1
+
+    git checkout -b $git_branch -t origin/$git_branch
+}
+
+# git update using reference as a tag. Be careful editing source at that repo
+# as working copy will be in a detached mode
+# git_update_tag ref
+function git_update_tag {
+    local git_tag=$1
+
+    git tag -d $git_tag
+    # fetching given tag only
+    git fetch origin tag $git_tag
+    git checkout -f $git_tag
+}
+
+
+# OpenStack Functions
+
 git_checkout()
 {
-    if git cat-file -e $1^{commit} 2>/dev/null; then
+    if [[ -n "$(git show-ref refs/tags/$git_ref)" ]]; then
+        git_update_tag $git_ref
+    elif [[ -n "$(git show-ref refs/heads/$git_ref)" ]]; then
+        git_update_branch $git_ref
+    elif [[ -n "$(git show-ref refs/remotes/origin/$git_ref)" ]]; then
+        git_update_remote_branch $git_ref
+    elif git cat-file -e $1^{commit} 2>/dev/null; then
         # branch, tag or sha1 object
-        git checkout $1 && git pull
+        # always checkout from origin to update
+        git checkout -f $1
     else
         # refspec / changeset
-        git fetch --tags --progress $2 $1
+        git fetch --tags --progress $1
         git checkout FETCH_HEAD
     fi
 }
@@ -37,8 +78,13 @@ if [ ! -d $RELENG_REPO_DIR ]; then
     git clone $RELENG_REPO $RELENG_REPO_DIR
 fi
 cd $RELENG_REPO_DIR
-git checkout master
-git_checkout $RELENG_BRANCH $RELENG_REPO
+# reset remote so we know origin is valid
+git remote set-url origin $RELENG_REPO
+# only update origin
+git fetch origin
+# purge pyc files
+find . -name '*.pyc' -delete
+git_checkout $RELENG_BRANCH
 
 echo
 echo "INFO: Updating yardstick -> $YARDSTICK_BRANCH"
