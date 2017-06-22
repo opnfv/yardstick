@@ -8,14 +8,35 @@
 ##############################################################################
 from __future__ import absolute_import
 import os
+from functools import reduce
 
-from yardstick.common.utils import get_param
+import pkg_resources
 
+from yardstick.common.utils import parse_yaml
 
 dirname = os.path.dirname
 abspath = os.path.abspath
 join = os.path.join
 sep = os.path.sep
+
+CONF = None
+
+
+def get_param(key, default=''):
+
+    conf_file = os.environ.get('CONF_FILE', '/etc/yardstick/yardstick.yaml')
+
+    global CONF
+    # don't re-parse yaml for each lookup
+    if not CONF:
+        CONF = parse_yaml(conf_file)
+    try:
+        return reduce(lambda a, b: a[b], key.split('.'), CONF)
+    except KeyError:
+        if not default:
+            raise
+        return default
+
 
 try:
     SERVER_IP = get_param('api.server_ip')
@@ -33,7 +54,7 @@ CONF_DIR = get_param('dir.conf', '/etc/yardstick')
 REPOS_DIR = get_param('dir.repos', '/home/opnfv/repos/yardstick')
 RELENG_DIR = get_param('dir.releng', '/home/opnfv/repos/releng')
 LOG_DIR = get_param('dir.log', '/tmp/yardstick/')
-YARDSTICK_ROOT_PATH = dirname(dirname(dirname(abspath(__file__)))) + sep
+YARDSTICK_ROOT_PATH = dirname(dirname(abspath(pkg_resources.resource_filename(__name__, "")))) + sep
 CONF_SAMPLE_DIR = join(REPOS_DIR, 'etc/yardstick/')
 ANSIBLE_DIR = join(REPOS_DIR, 'ansible')
 SAMPLE_CASE_DIR = join(REPOS_DIR, 'samples')
