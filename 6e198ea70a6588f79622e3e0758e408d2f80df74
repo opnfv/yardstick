@@ -16,6 +16,24 @@
       "revId": "6e198ea70a6588f79622e3e0758e408d2f80df74",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_b5462722",
+        "filename": "yardstick/resources/scripts/install/storperf.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-06-22T01:49:41Z",
+      "side": 1,
+      "message": "www-data, sync with storperf. This dir map to storperf docker, since storperf need to write to this dir, so the owner should not be root",
+      "parentUuid": "5aaae553_63e23aa1",
+      "revId": "6e198ea70a6588f79622e3e0758e408d2f80df74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
