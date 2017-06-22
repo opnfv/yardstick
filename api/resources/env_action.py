@@ -16,6 +16,8 @@ import threading
 import time
 import uuid
 import glob
+import yaml
+import collections
 
 from six.moves import configparser
 from oslo_serialization import jsonutils
@@ -307,3 +309,22 @@ def _update_task_error(task_id, error):
     task = async_handler.get_task_by_taskid(task_id)
     async_handler.update_status(task, 2)
     async_handler.update_error(task, error)
+
+
+def upload_pod_file(args):
+    try:
+        pod_file = args['file']
+    except KeyError:
+        return result_handler(consts.ERROR, 'file must be provided')
+
+    logger.info('Checking file')
+    data = yaml.load(pod_file.read())
+    if not isinstance(data, collections.Mapping):
+        return result_handler(consts.ERROR, 'invalid yaml file')
+
+    logger.info('Writing file')
+    with open(consts.POD_FILE, 'w') as f:
+        yaml.dump(data, f, default_flow_style=False)
+    logger.info('Writing finished')
+
+    return result_handler(consts.SUCCESS, {'pod_info': data})
