@@ -1,0 +1,7 @@
+Code-Review+2: Ross Brattain <ross.b.brattain@intel.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Submitted-by: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-at: Thu, 22 Jun 2017 15:27:54 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/36383
+Project: yardstick
+Branch: refs/heads/stable/danube
