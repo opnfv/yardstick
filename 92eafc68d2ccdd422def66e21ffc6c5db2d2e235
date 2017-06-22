@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_e8a602c1",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-06-22T09:39:25Z",
+      "side": 1,
+      "message": "Do we have YARDSTICK_BRANCH?\nActually releng project only have master branch.\nBTW, why not\ngit clone https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR} \u0026\u0026 git checkout ${BRANCH}\n\nSorry, it seems to long I think.",
+      "range": {
+        "startLine": 33,
+        "startChar": 132,
+        "endLine": 33,
+        "endChar": 148
+      },
+      "revId": "92eafc68d2ccdd422def66e21ffc6c5db2d2e235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
