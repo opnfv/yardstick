@@ -69,6 +69,30 @@
       "revId": "12dbc4cf73f4252f4b78631db584282eef3f8953",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_68f692d9",
+        "filename": "docker/exec_tests.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-22T09:08:24Z",
+      "side": 1,
+      "message": "and we weren\u0027t offline to begin with because we did a git pull after the checkout.",
+      "parentUuid": "5aaae553_08559ec5",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 12
+      },
+      "revId": "12dbc4cf73f4252f4b78631db584282eef3f8953",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
