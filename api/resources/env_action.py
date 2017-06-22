@@ -16,12 +16,12 @@ import threading
 import time
 import uuid
 import glob
+import yaml
 import collections
 
 from six.moves import configparser
 from oslo_serialization import jsonutils
 from docker import Client
-from docker.utils import create_host_config
 
 from api.database.handler import AsyncTaskHandler
 from api.utils import influx
@@ -343,3 +343,22 @@ def update_openrc(args):
     logger.info('Source openrc: Done')
 
     return result_handler(consts.API_SUCCESS, {'openrc': openrc_vars})
+
+
+def upload_pod_file(args):
+    try:
+        pod_file = args['file']
+    except KeyError:
+        return result_handler(consts.API_ERROR, 'file must be provided')
+
+    logger.info('Checking file')
+    data = yaml.load(pod_file.read())
+    if not isinstance(data, collections.Mapping):
+        return result_handler(consts.API_ERROR, 'invalid yaml file')
+
+    logger.info('Writing file')
+    with open(consts.POD_FILE, 'w') as f:
+        yaml.dump(data, f, default_flow_style=False)
+    logger.info('Writing finished')
+
+    return result_handler(consts.API_SUCCESS, {'pod_info': data})
