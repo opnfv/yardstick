@@ -27,7 +27,6 @@ import collections
 import socket
 import random
 import ipaddress
-from functools import reduce
 from contextlib import closing
 
 import yaml
@@ -105,19 +104,6 @@ def parse_yaml(file_path):
             raise
     else:
         return value
-
-
-def get_param(key, default=''):
-
-    conf_file = os.environ.get('CONF_FILE', '/etc/yardstick/yardstick.yaml')
-
-    conf = parse_yaml(conf_file)
-    try:
-        return reduce(lambda a, b: a[b], key.split('.'), conf)
-    except KeyError:
-        if not default:
-            raise
-        return default
 
 
 def makedirs(d):
