@@ -43,6 +43,7 @@ TESTSUITE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_suites/')
 # file
 OPENRC = get_param('file.openrc', '/etc/yardstick/openstack.creds')
 CONF_FILE = join(CONF_DIR, 'yardstick.conf')
+POD_FILE = join(CONF_DIR, 'pod.yaml')
 CONF_SAMPLE_FILE = join(CONF_SAMPLE_DIR, 'yardstick.conf.sample')
 FETCH_SCRIPT = get_param('file.fetch_script', 'utils/fetch_os_creds.sh')
 FETCH_SCRIPT = join(RELENG_DIR, FETCH_SCRIPT)

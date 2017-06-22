@@ -23,9 +23,16 @@ logger.setLevel(logging.DEBUG)
 class ApiResource(Resource):
 
     def _post_args(self):
-        params = common_utils.translate_to_str(request.json)
-        action = params.get('action', '')
+        data = request.json if request.json else {}
+        params = common_utils.translate_to_str(data)
+        action = params.get('action', request.form.get('action', ''))
         args = params.get('args', {})
+
+        try:
+            args['file'] = request.files['file']
+        except KeyError:
+            pass
+
         logger.debug('Input args is: action: %s, args: %s', action, args)
 
         return action, args
