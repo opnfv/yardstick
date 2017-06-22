@@ -30,8 +30,10 @@ RUN pip install appdirs==1.4.0
 RUN mkdir -p ${REPOS_DIR}
 
 RUN git config --global http.sslVerify false
-RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR}
-RUN git clone --depth 1 https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR}
+RUN git clone https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR} && pushd ${YARDSTICK_REPO_RDIR} && git fetch origin ${YARDSTICK_BRANCH} ; git checkout FETCH_HEAD ; popd
+RUN git clone https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR} && pushd ${RELENG_REPO_RDIR} && git fetch origin ${RELENG_BRANCH} ; git checkout FETCH_HEAD ; popd
+
+
 
 WORKDIR ${YARDSTICK_REPO_DIR}
 RUN ${YARDSTICK_REPO_DIR}/install.sh
