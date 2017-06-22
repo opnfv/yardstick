@@ -34,6 +34,24 @@
       "revId": "6e198ea70a6588f79622e3e0758e408d2f80df74",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_d55e43e9",
+        "filename": "yardstick/resources/scripts/install/storperf.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-22T01:52:56Z",
+      "side": 1,
+      "message": "can we use the name instead of uid/gid, or is docker build not able to lookup uid/gid?",
+      "parentUuid": "5aaae553_b5462722",
+      "revId": "6e198ea70a6588f79622e3e0758e408d2f80df74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
