@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (c) 2015 Ericsson AB and others.
+# Copyright (c) 2015-2017 Ericsson AB and others.
 #
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
@@ -11,6 +11,7 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+from six.moves import range
 
 import collections
 import datetime
@@ -47,7 +48,8 @@ class HeatObject(object):
         self._heat_client = None
         self.uuid = None
 
-    def _get_heat_client(self):
+    @property
+    def heat_client(self):
         """returns a heat client instance"""
 
         if self._heat_client is None:
@@ -61,9 +63,9 @@ class HeatObject(object):
 
     def status(self):
         """returns stack state as a string"""
-        heat = self._get_heat_client()
-        stack = heat.stacks.get(self.uuid)
-        return getattr(stack, 'stack_status')
+        heat_client = self.heat_client
+        stack = heat_client.stacks.get(self.uuid)
+        return stack.stack_status
 
 
 class HeatStack(HeatObject):
@@ -88,20 +90,18 @@ class HeatStack(HeatObject):
             return
 
         log.info("Deleting stack '%s', uuid:%s", self.name, self.uuid)
-        heat = self._get_heat_client()
+        heat = self.heat_client
         template = heat.stacks.get(self.uuid)
         start_time = time.time()
         template.delete()
-        status = self.status()
 
-        while status != u'DELETE_COMPLETE':
+        for status in iter(self.status, u'DELETE_COMPLETE'):
             log.debug("stack state %s", status)
             if status == u'DELETE_FAILED':
                 raise RuntimeError(
                     heat.stacks.get(self.uuid).stack_status_reason)
 
             time.sleep(2)
-            status = self.status()
 
         end_time = time.time()
         log.info("Deleted stack '%s' in %d secs", self.name,
@@ -120,15 +120,13 @@ class HeatStack(HeatObject):
             self._delete()
             return
 
-        i = 0
-        while i < retries:
+        for _ in range(retries):
             try:
                 self._delete()
                 break
             except RuntimeError as err:
                 log.warning(err.args)
                 time.sleep(2)
-            i += 1
 
         # if still not deleted try once more and let it fail everything
         if self.uuid is not None:
@@ -177,7 +175,6 @@ name (i.e. %s).\
         self.name = name
         self.state = "NOT_CREATED"
         self.keystone_client = None
-        self.heat_client = None
         self.heat_parameters = {}
 
         # heat_parameters is passed to heat in stack create, empty dict when
@@ -279,6 +276,14 @@ name (i.e. %s).\
             'description': 'subnet %s ID' % name,
             'value': {'get_resource': name}
         }
+        self._template['outputs'][name + "-cidr"] = {
+            'description': 'subnet %s cidr' % name,
+            'value': {'get_attr': [name, 'cidr']}
+        }
+        self._template['outputs'][name + "-gateway_ip"] = {
+            'description': 'subnet %s gateway_ip' % name,
+            'value': {'get_attr': [name, 'gateway_ip']}
+        }
 
     def add_router(self, name, ext_gw_net, subnet_name):
         """add to the template a Neutron Router and interface"""
@@ -335,6 +340,22 @@ name (i.e. %s).\
         self._template['outputs'][name] = {
             'description': 'Address for interface %s' % name,
             'value': {'get_attr': [name, 'fixed_ips', 0, 'ip_address']}
+        }
+        self._template['outputs'][name + "-subnet_id"] = {
+            'description': 'Address for interface %s' % name,
+            'value': {'get_attr': [name, 'fixed_ips', 0, 'subnet_id']}
+        }
+        self._template['outputs'][name + "-mac_address"] = {
+            'description': 'MAC Address for interface %s' % name,
+            'value': {'get_attr': [name, 'mac_address']}
+        }
+        self._template['outputs'][name + "-device_id"] = {
+            'description': 'Device ID for interface %s' % name,
+            'value': {'get_attr': [name, 'device_id']}
+        }
+        self._template['outputs'][name + "-network_id"] = {
+            'description': 'Network ID for interface %s' % name,
+            'value': {'get_attr': [name, 'network_id']}
         }
 
     def add_floating_ip(self, name, network_name, port_name, router_if_name,
@@ -508,38 +529,48 @@ name (i.e. %s).\
             'value': {'get_resource': name}
         }
 
-    def create(self, block=True):
-        """creates a template in the target cloud using heat
+    HEAT_WAIT_LOOP_INTERVAL = 2
+
+    def create(self, block=True, timeout=3600):
+        """
+        creates a template in the target cloud using heat
         returns a dict with the requested output values from the template
+
+        :param block: Wait for Heat create to finish
+        :type block: bool
+        :param: timeout: timeout in seconds for Heat create, default 3600s
+        :type timeout: int
         """
         log.info("Creating stack '%s'", self.name)
 
         # create stack early to support cleanup, e.g. ctrl-c while waiting
         stack = HeatStack(self.name)
 
-        heat = self._get_heat_client()
+        heat_client = self.heat_client
         start_time = time.time()
-        stack.uuid = self.uuid = heat.stacks.create(
+        stack.uuid = self.uuid = heat_client.stacks.create(
             stack_name=self.name, template=self._template,
             parameters=self.heat_parameters)['stack']['id']
 
-        status = self.status()
-        outputs = []
+        if not block:
+            self.outputs = stack.outputs = {}
+            return stack
 
-        if block:
-            while status != u'CREATE_COMPLETE':
-                log.debug("stack state %s", status)
-                if status == u'CREATE_FAILED':
-                    raise RuntimeError(getattr(heat.stacks.get(self.uuid),
-                                               'stack_status_reason'))
+        time_limit = start_time + timeout
+        for status in iter(self.status, u'CREATE_COMPLETE'):
+            log.debug("stack state %s", status)
+            if status == u'CREATE_FAILED':
+                raise RuntimeError(
+                    heat_client.stacks.get(self.uuid).stack_status_reason)
+            if time.time() > time_limit:
+                raise RuntimeError("Heat stack create timeout")
 
-                time.sleep(2)
-                status = self.status()
+            time.sleep(self.HEAT_WAIT_LOOP_INTERVAL)
 
-            end_time = time.time()
-            outputs = getattr(heat.stacks.get(self.uuid), 'outputs')
-            log.info("Created stack '%s' in %d secs",
-                     self.name, end_time - start_time)
+        end_time = time.time()
+        outputs = heat_client.stacks.get(self.uuid).outputs
+        log.info("Created stack '%s' in %d secs",
+                 self.name, end_time - start_time)
 
         # keep outputs as unicode
         self.outputs = {output["output_key"]: output["output_value"] for output

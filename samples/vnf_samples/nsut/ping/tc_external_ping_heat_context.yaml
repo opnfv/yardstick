@@ -1,0 +1,61 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: NSPerf
+  traffic_profile: ../../traffic_profiles/fixed.yaml
+  topology: ping_tg_topology.yaml
+
+  nodes:
+    tg__1: trafficgen_1.baremetal
+    vnf__1: vnf.yardstick
+
+  runner:
+    type: Duration
+    duration: 10
+
+contexts:
+  - name: yardstick
+    image: yardstick-image
+    flavor: yardstick-flavor
+    user: ubuntu
+
+    placement_groups:
+      pgrp1:
+        policy: "availability"
+
+    servers:
+      vnf:
+        floating_ip: true
+        placement: "pgrp1"
+
+    networks:
+      mgmt:
+        cidr: '10.0.1.0/24'
+        external_network: "yardstick-public"
+      xe0:
+        cidr: '10.0.2.0/24'
+        vld_id: public
+
+      xe1:
+        cidr: '10.0.3.0/24'
+        vld_id: private
+
+  - name: baremetal
+    type: Node
+    file: baremetal-pod.yaml

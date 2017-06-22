@@ -400,6 +400,9 @@ class TaskParser(object):       # pragma: no cover
             task_name = os.path.splitext(os.path.basename(self.path))[0]
             scenario["tc"] = task_name
             scenario["task_id"] = task_id
+            # embed task path into scenario so we can load other files
+            # relative to task path
+            scenario["task_path"] = os.path.dirname(self.path)
 
             change_server_name(scenario, name_suffix)
 
