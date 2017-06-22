@@ -16,7 +16,7 @@ set -e
 
 : ${RELENG_REPO:='https://gerrit.opnfv.org/gerrit/releng'}
 : ${RELENG_REPO_DIR:='/home/opnfv/repos/releng'}
-: ${RELENG_BRANCH:='master'} # branch, tag, sha1 or refspec
+: ${RELENG_BRANCH:='abbf19f'} # branch, tag, sha1 or refspec
 
 # git update using reference as a branch.
 # git_update_branch ref
