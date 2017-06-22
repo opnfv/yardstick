@@ -19,6 +19,8 @@ SIZE=$1
 shift
 STRIDE=$1
 
+NODE_CPU_ARCH="$(uname -m)"
+
 # write the result to stdout in json format
 output_json()
 {
@@ -37,5 +39,10 @@ output_json()
     echo ]
 }
 
-/usr/lib/lmbench/bin/x86_64-linux-gnu/lat_mem_rd $SIZE $STRIDE 2>&1 | output_json
+if [ "${NODE_CPU_ARCH}" == "aarch64" ]; then
+    REL_PATH="lat_mem_rd"
+else
+    REL_PATH="x86_64-linux-gnu/lat_mem_rd"
+fi
 
+/usr/lib/lmbench/bin/${REL_PATH} $SIZE $STRIDE 2>&1 | output_json
