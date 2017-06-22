@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_15037bb9",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/create_flavor.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-22T02:04:24Z",
+      "side": 1,
+      "message": "s/inscure/insecure/",
+      "range": {
+        "startLine": 18,
+        "startChar": 14,
+        "endLine": 18,
+        "endChar": 23
+      },
+      "revId": "9c190a9ad7114e1abae792a0c1425ab14979cba0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_75f66fd9",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/create_flavor.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-22T02:04:24Z",
+      "side": 1,
+      "message": "duplicated lines make it slightly harder to diff\n\ncan we use extra arg\n\n if [ $OS_CACERT ] \u0026\u0026 [ \"$(echo $OS_CACERT | tr \u0027[:upper:]\u0027 \n \u0027[:lower:]\u0027)\" \u003d \"false\" ]; then\n     SECURE\u003d\"--insecure\"\n else\n     SECURE\u003d\"\"\n fi\n\n openstack \"${SECURE}\" flavor create $1 --id $2 --ram $3 --disk $4 --vcpus $5",
+      "revId": "9c190a9ad7114e1abae792a0c1425ab14979cba0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
