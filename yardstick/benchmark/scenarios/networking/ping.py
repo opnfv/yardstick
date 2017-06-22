@@ -76,7 +76,10 @@ class Ping(base.Scenario):
                 raise RuntimeError(stderr)
 
             if stdout:
-                target_vm_name = target_vm.split('.')[0]
+                if isinstance(target_vm, dict):
+                    target_vm_name = target_vm.get("name")
+                else:
+                    target_vm_name = target_vm.split('.')[0]
                 rtt_result[target_vm_name] = float(stdout)
                 if "sla" in self.scenario_cfg:
                     sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
