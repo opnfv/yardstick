@@ -16,6 +16,24 @@
       "revId": "98fdb2810a7010edf0f12af0ed5d706df2af615c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_75d8afef",
+        "filename": "tox.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-22T05:54:18Z",
+      "side": 1,
+      "message": "eventually I would like to replace with https://gerrit.opnfv.org/gerrit/#/c/25001/\n\nand turn E501 into a warning but not a failure.",
+      "parentUuid": "5aaae553_354b17b2",
+      "revId": "98fdb2810a7010edf0f12af0ed5d706df2af615c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
