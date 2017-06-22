@@ -22,6 +22,30 @@
       "revId": "92eafc68d2ccdd422def66e21ffc6c5db2d2e235",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_68921259",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-22T09:52:29Z",
+      "side": 1,
+      "message": "\u003e Actually releng project only have master branch.\n\nThat is the whole point.  We are broken because releng did not branch for danube.  They will be adding releng branches soon probably.\n\nBecause releng doesn\u0027t have a stable/danube branch, we have to freeze on a particular commit instead of a named ref like a tag or branch.\n\nBut yes, we need to add YARDSTICK_BRANCH and RELENG_BRANCH.",
+      "parentUuid": "5aaae553_e8a602c1",
+      "range": {
+        "startLine": 33,
+        "startChar": 132,
+        "endLine": 33,
+        "endChar": 148
+      },
+      "revId": "92eafc68d2ccdd422def66e21ffc6c5db2d2e235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
