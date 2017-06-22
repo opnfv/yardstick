@@ -20,6 +20,7 @@ import glob
 from six.moves import configparser
 from oslo_serialization import jsonutils
 from docker import Client
+from docker.utils import create_host_config
 
 from api.database.handler import AsyncTaskHandler
 from api.utils import influx
@@ -98,7 +99,9 @@ def _create_data_source():
 def _create_grafana_container(client):
     ports = [3000]
     port_bindings = {k: k for k in ports}
-    host_config = client.create_host_config(port_bindings=port_bindings)
+    restart_policy = {"MaximumRetryCount": 0, "Name": "always"}
+    host_config = client.create_host_config(port_bindings=port_bindings,
+                                            restart_policy=restart_policy)
 
     container = client.create_container(image='%s:%s' % (consts.GRAFANA_IMAGE,
                                                          consts.GRAFANA_TAG),
@@ -150,7 +153,9 @@ def _create_influxdb_container(client):
 
     ports = [8083, 8086]
     port_bindings = {k: k for k in ports}
-    host_config = client.create_host_config(port_bindings=port_bindings)
+    restart_policy = {"MaximumRetryCount": 0, "Name": "always"}
+    host_config = client.create_host_config(port_bindings=port_bindings,
+                                            restart_policy=restart_policy)
 
     container = client.create_container(image='%s:%s' % (consts.INFLUXDB_IMAGE,
                                                          consts.INFLUXDB_TAG),
