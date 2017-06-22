@@ -22,7 +22,7 @@ git_checkout()
 {
     if git cat-file -e $1^{commit} 2>/dev/null; then
         # branch, tag or sha1 object
-        git checkout $1 && git pull
+        git checkout $1
     else
         # refspec / changeset
         git fetch --tags --progress $2 $1
