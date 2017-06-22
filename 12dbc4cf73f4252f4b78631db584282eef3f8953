@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_a82b2a2f",
+        "filename": "docker/exec_tests.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-22T09:15:07Z",
+      "side": 1,
+      "message": "see https://gerrit.opnfv.org/gerrit/36365",
+      "parentUuid": "5aaae553_880f4ee1",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 16
+      },
+      "revId": "12dbc4cf73f4252f4b78631db584282eef3f8953",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_08559ec5",
         "filename": "docker/exec_tests.sh",
         "patchSetId": 4
