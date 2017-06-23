@@ -149,7 +149,12 @@ In the Yardstick container, the Yardstick repository is located in the ``/home/o
 
   yardstick env prepare
 
-**NOTE**: The above command just works for four OPNFV installers -- **Apex**, **Compass**, **Fuel** and **Joid**.
+**NOTE**: The above command works for four OPNFV installers -- **Apex**, **Compass**, **Fuel** and **Joid**.
+For Non-OPNFV installer OpenStack environment, the above command can also be used to configure the environment.
+But before running the above command in a Non-OPNFV installer environment, it is necessary to create the /etc/yardtrick/openstack.creds file and
+save OpenStack environment variables in it. For details of the required OpenStack environment variables please refer to
+section **Export OpenStack environment variables**
+
 The env prepare command may take up to 6-8 minutes to finish building
 yardstick-image and other environment preparation. Meanwhile if you wish to
 monitor the env prepare process, you can enter the Yardstick container in a new
@@ -506,3 +511,4 @@ yaml file and add test cases, constraint or task arguments if necessary.
 
 Proxy Support (**Todo**)
 ---------------------------
+
