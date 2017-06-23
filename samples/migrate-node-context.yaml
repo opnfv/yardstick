@@ -1,0 +1,40 @@
+---
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: QemuMigrate
+  options:
+    smp: 2
+    migrate_to_port: 4444
+    incoming_ip: 0
+    qmp_src_path: "/tmp/qmp-sock-src"
+    qmp_dst_path: "/tmp/qmp-sock-dst"
+    max_down_time: "0.10"
+  host: kvm.LF
+  runner:
+    type: Duration
+    duration: 1
+    interval: 1
+  sla:
+    max_totaltime: 10
+    max_downtime: 0.10
+    max_setuptime: 0.50
+    action: monitor
+  setup_options:
+    rpm_dir: "/opt/rpm"
+    script_dir: "/opt/scripts"
+    image_dir: "/opt/image"
+    host_setup_seqs:
+    - "host-setup0.sh"
+    - "reboot"
+    - "host-setup1.sh"
+    - "setup-ovsdpdk.sh"
+    - "host-install-qemu.sh"
+    - "host-run-qemu4lm.sh"
+
+context:
+  type: Node
+  name: LF
+  file: /root/yardstick/pod.yaml
