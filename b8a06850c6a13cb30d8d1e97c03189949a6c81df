@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_66e270d7",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-23T21:44:07Z",
+      "side": 1,
+      "message": "this assume yardstick runs as root.\n\nis there other code that assume we run as root?\n\nI don\u0027t think we can make this assumption.  There is no need to run as root.\n\nWe need to come up with another non-root alternative",
+      "revId": "b8a06850c6a13cb30d8d1e97c03189949a6c81df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
