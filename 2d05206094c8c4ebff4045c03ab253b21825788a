@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_e6c66049",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-23T21:30:03Z",
+      "side": 1,
+      "message": "we don\u0027t need os.path.exists, makedirs will ignore EEXIST if directory already exists.",
+      "revId": "2d05206094c8c4ebff4045c03ab253b21825788a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
