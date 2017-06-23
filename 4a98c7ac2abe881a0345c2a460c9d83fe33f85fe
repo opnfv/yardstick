@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_a6c0682b",
+        "filename": "api/base.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-23T21:34:27Z",
+      "side": 1,
+      "message": "why do we need upload_file, can this simplify to\n\n        try:\n            args[\u0027file\u0027] \u003d request.files[\u0027file\u0027]\n        except KeyError:\n            pass",
+      "revId": "4a98c7ac2abe881a0345c2a460c9d83fe33f85fe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
