@@ -81,6 +81,9 @@ BASE_URL = 'http://localhost:5000'
 ENV_ACTION_API = BASE_URL + '/yardstick/env/action'
 ASYNC_TASK_API = BASE_URL + '/yardstick/asynctask'
 
+API_SUCCESS = 1
+API_ERROR = 2
+
 # general
 TESTCASE_PRE = 'opnfv_yardstick_'
 TESTSUITE_PRE = 'opnfv_'

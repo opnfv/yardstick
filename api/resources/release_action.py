@@ -10,34 +10,55 @@ from __future__ import absolute_import
 import uuid
 import os
 import logging
+import json
+import threading
 
-from api.utils import common as common_utils
+from api.utils.common import result_handler
 from yardstick.common import constants as consts
+from yardstick.benchmark.core import Param
+from yardstick.benchmark.core.task import Task
 
 logger = logging.getLogger(__name__)
 
 
 def runTestCase(args):
     try:
-        opts = args.get('opts', {})
-        testcase = args['testcase']
+        # opts = args.get('opts', {})
+        case_name = args['testcase']
     except KeyError:
-        return common_utils.error_handler('Lack of testcase argument')
+        return result_handler(consts.API_ERROR, 'testcase must be provided')
 
-    testcase_name = consts.TESTCASE_PRE + testcase
-    testcase = os.path.join(consts.TESTCASE_DIR, testcase_name + '.yaml')
+    testcase = os.path.join(consts.TESTCASE_DIR, '{}.yaml'.format(case_name))
 
     task_id = str(uuid.uuid4())
 
-    command_list = ['task', 'start']
-    command_list = common_utils.get_command_list(command_list, opts, testcase)
-    logger.debug('The command_list is: %s', command_list)
-
-    logger.debug('Start to execute command list')
-    task_dict = {
+    task_args = {
+        'inputfile': [testcase],
         'task_id': task_id,
-        'details': testcase_name
+        'output-file': '/tmp/{}.out'.format(task_id)
     }
-    common_utils.exec_command_task(command_list, task_dict)
 
-    return common_utils.result_handler('success', task_id)
+    param = Param(task_args)
+    task_thread = TaskThread(Task().start, param)
+    task_thread.start()
+
+    return result_handler(consts.API_SUCCESS, {'task_id': task_id})
+
+
+class TaskThread(threading.Thread):
+
+    def __init__(self, target, args):
+        super(TaskThread, self).__init__(target=target, args=args)
+        self.target = target
+        self.args = args
+
+    def run(self):
+        try:
+            self.target(self.args)
+        except Exception:
+            pass
+        else:
+            with open('/tmp/{}.out'.format(self.args['task_id'])) as f:
+                data = json.loads(f.read())
+                print(data)
+            os.remove('/tmp/{}.out'.format(self.args['task_id']))
