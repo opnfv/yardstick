@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_e6ac2038",
+        "filename": "api/resources/release_action.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2017-06-24T02:37:26Z",
+      "side": 1,
+      "message": "how about outputfile? like the above inputfile.",
+      "range": {
+        "startLine": 38,
+        "startChar": 9,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "54ad35c3ab2760a3d1c1a5491f751bf46ae7962e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_86a9ac26",
+        "filename": "api/resources/release_action.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2017-06-24T02:37:26Z",
+      "side": 1,
+      "message": "Since you already declare the variables \"logger\", can we use \"logger\" to replace \"print\"?",
+      "revId": "54ad35c3ab2760a3d1c1a5491f751bf46ae7962e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
