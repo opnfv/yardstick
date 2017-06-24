@@ -16,6 +16,24 @@
       "revId": "b8a06850c6a13cb30d8d1e97c03189949a6c81df",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_c676c4d8",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-06-24T02:39:28Z",
+      "side": 1,
+      "message": "this api only applies when yardstick is deployed via docker.  yardstick restapi in docker is now using root as user.",
+      "parentUuid": "1aa4ed85_66e270d7",
+      "revId": "b8a06850c6a13cb30d8d1e97c03189949a6c81df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
