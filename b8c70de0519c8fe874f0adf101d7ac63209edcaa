@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_a95ef910",
+        "filename": "yardstick/common/constants.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-06-24T06:25:31Z",
+      "side": 1,
+      "message": "should remove these 2 line, due to duplicate with line L81~L82",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 15
+      },
+      "revId": "b8c70de0519c8fe874f0adf101d7ac63209edcaa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
