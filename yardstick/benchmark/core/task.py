@@ -20,6 +20,8 @@ import time
 import logging
 import uuid
 import errno
+import collections
+
 from six.moves import filter
 
 from yardstick.benchmark.contexts.base import Context
@@ -51,7 +53,7 @@ class Task(object):     # pragma: no cover
 
         atexit.register(self.atexit_handler)
 
-        self.task_id = kwargs.get('task_id', str(uuid.uuid4()))
+        self.task_id = getattr(args, 'task_id', str(uuid.uuid4()))
 
         check_environment()
 
@@ -133,6 +135,7 @@ class Task(object):     # pragma: no cover
               scenario['task_id'], scenario['tc'])
 
         print("Done, exiting")
+        return result
 
     def _init_output_config(self, output_config):
         output_config.setdefault('DEFAULT', {})
@@ -594,6 +597,9 @@ def print_invalid_header(source_name, args):
 
 
 def parse_task_args(src_name, args):
+    if isinstance(args, collections.Mapping):
+        return args
+
     try:
         kw = args and yaml.safe_load(args)
         kw = {} if kw is None else kw

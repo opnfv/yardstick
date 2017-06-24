@@ -23,7 +23,7 @@ from six.moves import configparser
 from oslo_serialization import jsonutils
 from docker import Client
 
-from api.database.handler import AsyncTaskHandler
+from api.database.v1.handlers import AsyncTaskHandler
 from api.utils import influx
 from api.utils.common import result_handler
 from yardstick.common import constants as consts
