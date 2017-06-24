@@ -19,7 +19,7 @@ from flask_restful import Api
 from api.database import Base
 from api.database import db_session
 from api.database import engine
-from api.database import models
+from api.database.v1 import models
 from api.urls import urlpatterns
 from yardstick import _init_logging
 
