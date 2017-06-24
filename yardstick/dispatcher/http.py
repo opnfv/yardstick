@@ -20,29 +20,14 @@ from __future__ import absolute_import
 
 import logging
 import os
+from datetime import datetime
 
 from oslo_serialization import jsonutils
 import requests
-from oslo_config import cfg
 
 from yardstick.dispatcher.base import Base as DispatchBase
 
 LOG = logging.getLogger(__name__)
-
-CONF = cfg.CONF
-http_dispatcher_opts = [
-    cfg.StrOpt('target',
-               default=os.getenv('TARGET', 'http://127.0.0.1:8000/results'),
-               help='The target where the http request will be sent. '
-                    'If this is not set, no data will be posted. For '
-                    'example: target = http://hostname:1234/path'),
-    cfg.IntOpt('timeout',
-               default=5,
-               help='The max time in seconds to wait for a request to '
-                    'timeout.'),
-]
-
-CONF.register_opts(http_dispatcher_opts, group="dispatcher_http")
 
 
 class HttpDispatcher(DispatchBase):
@@ -51,55 +36,61 @@ class HttpDispatcher(DispatchBase):
 
     __dispatcher_type__ = "Http"
 
-    def __init__(self, conf, config):
+    def __init__(self, conf):
         super(HttpDispatcher, self).__init__(conf)
+        http_conf = conf['dispatcher_http']
         self.headers = {'Content-type': 'application/json'}
-        self.timeout = CONF.dispatcher_http.timeout
-        self.target = CONF.dispatcher_http.target
-        self.raw_result = []
-        self.result = {
-            "project_name": "yardstick",
-            "description": "yardstick test cases result",
-            "pod_name": os.environ.get('NODE_NAME', 'unknown'),
-            "installer": os.environ.get('INSTALLER_TYPE', 'unknown'),
-            "version": os.environ.get('YARDSTICK_VERSION', 'unknown'),
-            "build_tag": os.environ.get('BUILD_TAG')
-        }
+        self.timeout = int(http_conf.get('timeout', 5))
+        self.target = http_conf.get('target', 'http://127.0.0.1:8000/results')
 
-    def record_result_data(self, data):
-        self.raw_result.append(data)
-
-    def flush_result_data(self):
+    def flush_result_data(self, data):
         if self.target == '':
             # if the target was not set, do not do anything
             LOG.error('Dispatcher target was not set, no data will'
                       'be posted.')
             return
 
-        self.result["details"] = {'results': self.raw_result}
+        result = data['result']
+        self.info = result['info']
+        self.task_id = result['task_id']
+        self.criteria = result['criteria']
+        testcases = result['testcases']
 
-        case_name = ""
-        for v in self.raw_result:
-            if isinstance(v, dict) and "scenario_cfg" in v:
-                case_name = v["scenario_cfg"]["tc"]
-                break
-        if case_name == "":
-            LOG.error('Test result : %s',
-                      jsonutils.dump_as_bytes(self.result))
-            LOG.error('The case_name cannot be found, no data will be posted.')
-            return
+        for case, data in testcases.items():
+            self._upload_case_result(case, data)
 
-        self.result["case_name"] = case_name
+    def _upload_case_result(self, case, data):
+        try:
+            scenario_data = data.get('tc_data', [])[0]
+        except IndexError:
+            current_time = datetime.now()
+        else:
+            timestamp = float(scenario_data.get('timestamp', 0.0))
+            current_time = datetime.fromtimestamp(timestamp)
+
+        result = {
+            "project_name": "yardstick",
+            "case_name": case,
+            "description": "yardstick ci scenario status",
+            "scenario": self.info.get('deploy_scenario'),
+            "version": self.info.get('version'),
+            "pod_name": self.info.get('pod_name'),
+            "installer": self.info.get('installer'),
+            "build_tag": os.environ.get('BUILD_TAG'),
+            "criteria": data.get('criteria'),
+            "start_date": current_time.strftime('%Y-%m-%d %H:%M:%S'),
+            "stop_date": current_time.strftime('%Y-%m-%d %H:%M:%S'),
+            "trust_indicator": "",
+            "details": ""
+        }
 
         try:
-            LOG.debug('Test result : %s',
-                      jsonutils.dump_as_bytes(self.result))
+            LOG.debug('Test result : %s', result)
             res = requests.post(self.target,
-                                data=jsonutils.dump_as_bytes(self.result),
+                                data=jsonutils.dump_as_bytes(result),
                                 headers=self.headers,
                                 timeout=self.timeout)
             LOG.debug('Test result posting finished with status code'
                       ' %d.' % res.status_code)
         except Exception as err:
-            LOG.exception('Failed to record result data: %s',
-                          err)
+            LOG.exception('Failed to record result data: %s', err)
