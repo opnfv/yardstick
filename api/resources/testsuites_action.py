@@ -6,57 +6,41 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
-"""Yardstick test suite api action"""
-
 from __future__ import absolute_import
 import uuid
 import os
 import logging
-import yaml
 
-from api.utils import common as common_utils
+from api.utils.common import result_handler
+from api.utils.thread import TaskThread
 from yardstick.common import constants as consts
-from yardstick.common.task_template import TaskTemplate
+from yardstick.benchmark.core import Param
+from yardstick.benchmark.core.task import Task
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
-def runTestSuite(args):
+def run_test_suite(args):
     try:
-        opts = args.get('opts', {})
-        testsuite = args['testsuite']
+        suite_name = args['testsuite']
     except KeyError:
-        return common_utils.error_handler('Lack of testsuite argument')
+        return result_handler(consts.API_ERROR, 'testsuite must be provided')
 
-    if 'suite' not in opts:
-        opts['suite'] = 'true'
-
-    testsuite = os.path.join(consts.TESTSUITE_DIR, '{}.yaml'.format(testsuite))
+    testsuite = os.path.join(consts.TESTSUITE_DIR, '{}.yaml'.format(suite_name))
 
     task_id = str(uuid.uuid4())
 
-    command_list = ['task', 'start']
-    command_list = common_utils.get_command_list(command_list, opts, testsuite)
-    logger.debug('The command_list is: %s', command_list)
-
-    logger.debug('Start to execute command list')
-    task_dic = {
+    task_args = {
+        'inputfile': [testsuite],
         'task_id': task_id,
-        'details': _get_cases_from_suite_file(testsuite)
+        'output-file': '/tmp/{}.out'.format(task_id),
+        'suite': True
     }
-    common_utils.exec_command_task(command_list, task_dic)
+    task_args.update(args.get('opts', {}))
 
-    return common_utils.result_handler('success', task_id)
+    param = Param(task_args)
+    task_thread = TaskThread(Task().start, param)
+    task_thread.start()
 
-
-def _get_cases_from_suite_file(testsuite):
-    def get_name(full_name):
-        return os.path.splitext(full_name)[0]
-
-    with open(testsuite) as f:
-        contents = TaskTemplate.render(f.read())
-
-    suite_dic = yaml.safe_load(contents)
-    testcases = (get_name(c['file_name']) for c in suite_dic['test_cases'])
-    return ','.join(testcases)
+    return result_handler(consts.API_SUCCESS, {'task_id': task_id})

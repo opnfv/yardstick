@@ -7,7 +7,8 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 from api.database import db_session
-from api.database.models import Tasks
+from api.database.v1.models import Tasks
+from api.database.v1.models import AsyncTasks
 
 
 class TasksHandler(object):
@@ -28,4 +29,34 @@ class TasksHandler(object):
 
     def get_task_by_taskid(self, task_id):
         task = Tasks.query.filter_by(task_id=task_id).first()
+        if not task:
+            raise ValueError
+
+        return task
+
+    def update_attr(self, task_id, attr):
+        task =  self.get_task_by_taskid(task_id)
+
+        for k, v in attr.items():
+            setattr(task, k, v)
+        db_session.commit()
+
+
+class AsyncTaskHandler(object):
+    def insert(self, kwargs):
+        task = AsyncTasks(**kwargs)
+        db_session.add(task)
+        db_session.commit()
+        return task
+
+    def update_status(self, task, status):
+        task.status = status
+        db_session.commit()
+
+    def update_error(self, task, error):
+        task.error = error
+        db_session.commit()
+
+    def get_task_by_taskid(self, task_id):
+        task = AsyncTasks.query.filter_by(task_id=task_id).first()
         return task

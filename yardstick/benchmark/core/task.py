@@ -51,7 +51,7 @@ class Task(object):     # pragma: no cover
 
         atexit.register(self.atexit_handler)
 
-        self.task_id = kwargs.get('task_id', str(uuid.uuid4()))
+        self.task_id = getattr(args, 'task_id', str(uuid.uuid4()))
 
         check_environment()
 
@@ -133,6 +133,7 @@ class Task(object):     # pragma: no cover
               scenario['task_id'], scenario['tc'])
 
         print("Done, exiting")
+        return result
 
     def _init_output_config(self, output_config):
         output_config.setdefault('DEFAULT', {})

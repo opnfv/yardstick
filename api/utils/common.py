@@ -13,10 +13,8 @@ import logging
 from flask import jsonify
 import six
 
-from api.utils.daemonthread import DaemonThread
-from yardstick.cmd.cli import YardstickCLI
-
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 def translate_to_str(obj):
@@ -27,24 +25,6 @@ def translate_to_str(obj):
     elif isinstance(obj, six.text_type):
         return str(obj)
     return obj
-
-
-def get_command_list(command_list, opts, args):
-
-    command_list.append(args)
-
-    command_list.extend(('--{}'.format(k) for k in opts if k != 'task-args'))
-
-    task_args = opts.get('task-args', '')
-    if task_args:
-        command_list.extend(['--task-args', str(task_args)])
-
-    return command_list
-
-
-def exec_command_task(command_list, task_dict):   # pragma: no cover
-    daemonthread = DaemonThread(YardstickCLI().api, (command_list, task_dict))
-    daemonthread.start()
 
 
 def error_handler(message):
