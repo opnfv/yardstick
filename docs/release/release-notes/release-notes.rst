@@ -139,19 +139,19 @@ Release Data
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/Danube.2.0                 |
+| **Repo/tag**                         | yardstick/Danube.3.0                 |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | Danube.2.0                           |
+| **Yardstick Docker image tag**       | Danube.3.0                           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Danube                               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | May 4th, 2017                        |
+| **Release date**                     |                                      |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFV Danube release 2.0             |
+| **Purpose of the delivery**          | OPNFV Danube release 3.0             |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 
@@ -171,7 +171,7 @@ Software Deliverables
 ---------------------
 
 
- - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: danube.2.0)
+ - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: danube.3.0)
 
 
 **Contexts**
@@ -515,7 +515,7 @@ Feature additions
 Scenario Matrix
 ===============
 
-For Danube 2.0, Yardstick was tested on the following scenarios:
+For Danube 3.0, Yardstick was tested on the following scenarios:
 
 +-------------------------+---------+---------+---------+---------+
 |         Scenario        |  Apex   | Compass |  Fuel   |   Joid  |
@@ -613,10 +613,47 @@ Known Issues/Faults
 Corrected Faults
 ----------------
 
+Danube.3.0:
+
++----------------------------+------------------------------------------------+
+| **JIRA REFERENCE**         | **DESCRIPTION**                                |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-655        | Monitor command in tc019 may not show the      |
+|                            | real nova-api service status                   |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-397        | HA testing framework improvement               |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-660        | Improve monitor_process pass criteria          |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-657        | HA monitor_multi bug,                          |
+|                            | KeyError: 'max_outage_time'                    |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-647        | TC025 fault_type value is wrong when using     |
+|                            | baremetal pod scripts                          |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-659        | Terminate openstack service process using kill |
+|                            | command in HA test cases                       |
++----------------------------+------------------------------------------------+
+| JIRA: ARMBAND-275          | Yardstick TC005 fails with                     |
+|                            | "Cannot map zero-fill pages" error             |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-561        | Bugfix: AttributeError: 'dict' object has no   |
+|                            | attribute 'split' if run sample/ping-hot.yaml  |
++----------------------------+------------------------------------------------+
+| JIRA: ARMBAND-268          | ERROR No JSON object could be decoded from     |
+|                            | LMBENCH in TC010                               |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-680        | storperf test case tc074 do not get results    |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+
 Danube.2.0:
 
 +----------------------------+------------------------------------------------+
-| **JIRA REFERENCE**         | **SLOGAN**                                     |
+| **JIRA REFERENCE**         | **DESCRIPTION**                                |
 |                            |                                                |
 +----------------------------+------------------------------------------------+
 | JIRA: YARDSTICK-608        | Set work directory in Yardstick container      |
@@ -662,7 +699,7 @@ Danube.2.0:
 Danube.1.0:
 
 +----------------------------+------------------------------------------------+
-| **JIRA REFERENCE**         | **SLOGAN**                                     |
+| **JIRA REFERENCE**         | **DESCRIPTION**                                |
 |                            |                                                |
 +----------------------------+------------------------------------------------+
 | JIRA: YARDSTICK-599        | Could not load EntryPoint.parse when using     |
@@ -673,7 +710,7 @@ Danube.1.0:
 +----------------------------+------------------------------------------------+
 
 
-Danube 2.0 known restrictions/issues
+Danube 3.0 known restrictions/issues
 ====================================
 +-----------+-----------+----------------------------------------------+
 | Installer | Scenario  |  Issue                                       |
@@ -695,7 +732,7 @@ Open JIRA tickets
 =================
 
 +----------------------------+------------------------------------------------+
-| **JIRA REFERENCE**         | **SLOGAN**                                     |
+| **JIRA REFERENCE**         | **DESCRIPTION**                                |
 |                            |                                                |
 +----------------------------+------------------------------------------------+
 | JIRA: YARDSTICK-626        | Fio and Lmbench don't work in Ubuntu-arm64     |
