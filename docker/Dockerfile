@@ -40,6 +40,13 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 EXPOSE 5000
 
+# Install k8s client
+RUN apt-get install -y apt-transport-https
+RUN curl -s http://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+RUN echo "deb http://apt.kubernetes.io/ kubernetes-trusty main" | tee /etc/apt/sources.list.d/kubernetes.list
+RUN apt-get update -y
+RUN apt-get install -y kubectl
+
 ADD http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img ${IMAGE_DIR}
 ADD http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img ${IMAGE_DIR}
 
