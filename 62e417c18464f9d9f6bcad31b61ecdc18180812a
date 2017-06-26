@@ -16,6 +16,24 @@
       "revId": "62e417c18464f9d9f6bcad31b61ecdc18180812a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_ec087f2f",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-06-26T09:17:32Z",
+      "side": 1,
+      "message": "this level set to debug, since it doesn\u0027t need to show the detail of hosts_list in common situation. line 370 set to be info level is to show the dynamic status of the program running, like a tag.\n\nhttps://fangpenlin.com/posts/2012/08/26/good-logging-practice-in-python/",
+      "parentUuid": "1aa4ed85_6c3c8f94",
+      "revId": "62e417c18464f9d9f6bcad31b61ecdc18180812a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
