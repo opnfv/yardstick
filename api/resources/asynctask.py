@@ -9,7 +9,7 @@
 import uuid
 
 from api.utils import common as common_utils
-from api.database.models import AsyncTasks
+from api.database.v1.models import AsyncTasks
 
 
 def default(args):
