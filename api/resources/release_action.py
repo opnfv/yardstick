@@ -11,33 +11,34 @@ import uuid
 import os
 import logging
 
-from api.utils import common as common_utils
+from api.utils.common import result_handler
+from api.utils.thread import TaskThread
 from yardstick.common import constants as consts
+from yardstick.benchmark.core import Param
+from yardstick.benchmark.core.task import Task
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
-def runTestCase(args):
+def run_test_case(args):
     try:
-        opts = args.get('opts', {})
-        testcase = args['testcase']
+        case_name = args['testcase']
     except KeyError:
-        return common_utils.error_handler('Lack of testcase argument')
+        return result_handler(consts.API_ERROR, 'testcase must be provided')
 
-    testcase_name = consts.TESTCASE_PRE + testcase
-    testcase = os.path.join(consts.TESTCASE_DIR, testcase_name + '.yaml')
+    testcase = os.path.join(consts.TESTCASE_DIR, '{}.yaml'.format(case_name))
 
     task_id = str(uuid.uuid4())
 
-    command_list = ['task', 'start']
-    command_list = common_utils.get_command_list(command_list, opts, testcase)
-    logger.debug('The command_list is: %s', command_list)
-
-    logger.debug('Start to execute command list')
-    task_dict = {
-        'task_id': task_id,
-        'details': testcase_name
+    task_args = {
+        'inputfile': [testcase],
+        'task_id': task_id
     }
-    common_utils.exec_command_task(command_list, task_dict)
+    task_args.update(args.get('opts', {}))
 
-    return common_utils.result_handler('success', task_id)
+    param = Param(task_args)
+    task_thread = TaskThread(Task().start, param)
+    task_thread.start()
+
+    return result_handler(consts.API_SUCCESS, {'task_id': task_id})
