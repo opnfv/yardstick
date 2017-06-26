@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_6c3c8f94",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2017-06-26T06:00:38Z",
+      "side": 1,
+      "message": "How about changing the level from debug to info and deleting line 370. Line 370 looks redundant.",
+      "revId": "62e417c18464f9d9f6bcad31b61ecdc18180812a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
