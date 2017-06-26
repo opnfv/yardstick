@@ -14,7 +14,7 @@ PyYAML==3.12
 SQLAlchemy==1.1.4
 ansible==2.2.2.0
 appdirs==1.4.3
-backport-ipaddress==0.1
+backport-ipaddress==0.1; python_version <= '2.7'
 chainmap==1.0.2
 cliff==2.4.0
 cmd2==0.6.9
