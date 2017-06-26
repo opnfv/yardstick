@@ -81,6 +81,24 @@
       "revId": "54ad35c3ab2760a3d1c1a5491f751bf46ae7962e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_e908712f",
+        "filename": "api/resources/release_action.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2017-06-26T03:42:02Z",
+      "side": 1,
+      "message": "Got it. a small suggestion: add \"[WIP]\" into the commit message title.",
+      "parentUuid": "1aa4ed85_89b8dd2b",
+      "revId": "54ad35c3ab2760a3d1c1a5491f751bf46ae7962e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
