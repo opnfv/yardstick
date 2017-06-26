@@ -34,6 +34,23 @@
       "revId": "62e417c18464f9d9f6bcad31b61ecdc18180812a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_12573204",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-26T17:11:05Z",
+      "side": 1,
+      "message": "we should use stdin to \n\n  sudo tee -a /etc/hosts\n\nor separate this function into a different python file and run\n\n  sudo python update_hosts.py \u003cJSON\u003e",
+      "revId": "62e417c18464f9d9f6bcad31b61ecdc18180812a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
