@@ -34,6 +34,24 @@
       "revId": "b8a06850c6a13cb30d8d1e97c03189949a6c81df",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_524daa71",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-26T17:05:59Z",
+      "side": 1,
+      "message": "using root as user isn\u0027t really acceptable, we should be using least privilege principle by using sudo or dropping privleges.\n\nThis code here would probably be better to send stdin to\n\n  sudo tee -a /etc/hosts\n\nor something similar.",
+      "parentUuid": "1aa4ed85_c676c4d8",
+      "revId": "b8a06850c6a13cb30d8d1e97c03189949a6c81df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
