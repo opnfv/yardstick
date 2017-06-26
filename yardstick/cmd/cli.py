@@ -53,7 +53,7 @@ def find_config_files(path_list):
     return None
 
 
-class YardstickCLI():
+class YardstickCLI():   # pragma: no cover
     """Command-line interface to yardstick"""
 
     # Command categories

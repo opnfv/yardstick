@@ -19,7 +19,7 @@ from yardstick.cmd.commands import change_osloobj_to_paras
 from yardstick.common.utils import cliargs
 
 
-class ReportCommands(object):
+class ReportCommands(object):   # pragma: no cover
     """Report commands.
 
     Set of commands to manage benchmark tasks.

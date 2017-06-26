@@ -10,6 +10,7 @@ from __future__ import absolute_import
 from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import String
+from sqlalchemy import Text
 
 from api.database import Base
 
@@ -20,6 +21,7 @@ class Tasks(Base):
     task_id = Column(String(30))
     status = Column(Integer)
     error = Column(String(120))
+    result = Column(Text)
     details = Column(String(120))
 
     def __repr__(self):

@@ -15,7 +15,7 @@ from yardstick.benchmark.scenarios.base import Scenario
 from yardstick.benchmark.core import print_hbar
 
 
-class Scenarios(object):
+class Scenarios(object):    # pragma: no cover
     """Scenario commands.
 
        Set of commands to discover and display scenario types.
