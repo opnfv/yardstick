@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_b245feb4",
+        "filename": "samples/ping_k8s.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1630
+      },
+      "writtenOn": "2017-06-27T05:18:20Z",
+      "side": 1,
+      "message": "can ip address move to another files or add variables?",
+      "revId": "3f564403768b00f4017e9c038760b69794dac342",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_52128ab5",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1630
+      },
+      "writtenOn": "2017-06-27T05:18:20Z",
+      "side": 1,
+      "message": "why need to add \u0027target.demo\u0027?",
+      "revId": "3f564403768b00f4017e9c038760b69794dac342",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
