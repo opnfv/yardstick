@@ -51,6 +51,24 @@
       "revId": "62e417c18464f9d9f6bcad31b61ecdc18180812a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_5d74db9b",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-06-27T07:35:34Z",
+      "side": 1,
+      "message": "Thanks Ross, I believe you\u0027re right about the root privilege.  I\u0027ll try to use the 2nd way. please help to review.",
+      "parentUuid": "1aa4ed85_12573204",
+      "revId": "62e417c18464f9d9f6bcad31b61ecdc18180812a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
