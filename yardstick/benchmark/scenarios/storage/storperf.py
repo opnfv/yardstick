@@ -8,6 +8,7 @@
 ##############################################################################
 from __future__ import absolute_import
 
+import os
 import logging
 import time
 
@@ -147,7 +148,18 @@ class StorPerf(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        job_args = {}
+        metadata = {"build_tag": "latest", "test_case": "opnfv_yardstick_tc074"}
+        metadata_payload_dict = {"pod_name": "NODE_NAME",
+                                 "scenario_name": "DEPLOY_SCENARIO",
+                                 "version": "YARDSTICK_BRANCH"}
+
+        for key, value in metadata_payload_dict.items():
+            try:
+                metadata[key] = os.environ[value]
+            except KeyError:
+                pass
+
+        job_args = {"metadate": metadata}
         job_args_payload_list = ["block_sizes", "queue_depths", "deadline",
                                  "target", "nossd", "nowarm", "workload"]
 
