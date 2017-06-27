@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_127c1272",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-27T00:28:49Z",
+      "side": 1,
+      "message": "I understand, I might be able to test on i40evf.  But the main point is that there are more than one VNIC_DRIVER, so we shouldn\u0027t assume only ixgbe.",
+      "parentUuid": "1aa4ed85_66d83054",
+      "revId": "994449b40f2281c801539aa81906083a3565303c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_7209a530",
         "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
         "patchSetId": 11
@@ -136,6 +154,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_32810e4b",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-27T00:28:49Z",
+      "side": 1,
+      "message": "Do the 1\u003c\u003ci in python\n\nThis should work\n\n  cmd \u003d \"echo \u0027%s\u0027 | sudo tee /proc/irq/%s/smp_affinity\" \\\n                % (1\u003c\u003ci, int(stdout))",
+      "parentUuid": "1aa4ed85_06b4dcf0",
+      "revId": "994449b40f2281c801539aa81906083a3565303c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_351a376f",
         "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
         "patchSetId": 11
@@ -171,6 +207,30 @@
       "side": 1,
       "message": "Client and server have the same configuration, checking one is enough.",
       "parentUuid": "5aaae553_351a376f",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 42
+      },
+      "revId": "994449b40f2281c801539aa81906083a3565303c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_d2951a89",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-27T00:28:49Z",
+      "side": 1,
+      "message": "they may have the same config, but different ssh sessions.\n\nIf it doesn\u0027t matter for the test, then that is fine.",
+      "parentUuid": "1aa4ed85_26b9d8e9",
       "range": {
         "startLine": 200,
         "startChar": 0,
