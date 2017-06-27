@@ -1,0 +1,40 @@
+##############################################################################
+# Copyright (c) 2017 Huawei AB and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+---
+# Sample benchmark task config file
+# measure network latency using ping in container
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Ping
+  options:
+    packetsize: 200
+  
+  host: host-k8s
+  target: target-k8s
+
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+
+  sla:
+    max_rtt: 10
+    action: monitor
+
+context:
+  type: Kubernetes
+  name: k8s
+
+  servers:
+    host:
+    target:
