@@ -1,0 +1,46 @@
+##############################################################################
+# Copyright (c) 2017 Huawei AB and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+---
+# Sample benchmark task config file
+# measure network latency using ping in container
+
+schema: "yardstick:task:0.1"
+
+{% set host_ip = host_ip or '10.36.0.1' %}
+{% set user = user or 'root' %}
+{% set key_path = key_path or '/root/.ssh/id_rsa' %}
+
+{% set target_ip = target_ip or '10.42.0.1' %}
+
+scenarios:
+-
+  type: Ping
+  options:
+    packetsize: 200
+    context:
+      host:
+        user: {{ user }}
+        ip: {{ host_ip }}
+        key_filename: {{ key_path }}
+      target:
+        ipaddr: {{ target_ip }}
+
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+
+  sla:
+    max_rtt: 10
+    action: monitor
+
+context:
+  type: Dummy
+  name: k8s_demo

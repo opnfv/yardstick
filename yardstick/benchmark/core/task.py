@@ -285,6 +285,9 @@ class Task(object):     # pragma: no cover
 
         # TODO support get multi hosts/vms info
         context_cfg = {}
+        if 'context' in scenario_cfg.get('options', {}):
+            context_cfg = scenario_cfg['options']['context']
+
         if "host" in scenario_cfg:
             context_cfg['host'] = Context.get_server(scenario_cfg["host"])
 

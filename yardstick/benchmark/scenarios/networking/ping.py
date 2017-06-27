@@ -64,7 +64,7 @@ class Ping(base.Scenario):
             if 'targets' in self.scenario_cfg:
                 target_vm = self.scenario_cfg['targets'][pos]
             else:
-                target_vm = self.scenario_cfg['target']
+                target_vm = self.scenario_cfg.get('target', 'target.demo')
 
             LOG.debug("ping '%s' '%s'", options, dest)
             with open(self.target_script, "r") as stdin_file:
