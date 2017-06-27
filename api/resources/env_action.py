@@ -417,8 +417,10 @@ def update_hosts(hosts_ip):
     LOG.info('Writing hosts: Writing')
     hosts_list = ['\n{} {}'.format(ip, host_name)
                   for host_name, ip in hosts_ip.items()]
-    LOG.debug('Writing: %s', hosts_list)
-    with open(consts.ETC_HOSTS, 'a') as f:
-        f.writelines(hosts_list)
-    LOG.info('Writing hosts: Done')
+    logger.debug('Writing: %s', hosts_list)
+    cmd = ["sudo", "python", "write_hosts.py", jsonutils.dumps(hosts_list)]
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                         cwd = os.path.join(consts.REPOS_DIR, "api/resources"))
+    p.communicate()
+    logger.info('Writing hosts: Done')
     return result_handler(consts.API_SUCCESS, 'success')
