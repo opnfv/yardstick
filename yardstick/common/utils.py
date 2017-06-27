@@ -124,6 +124,14 @@ def makedirs(d):
             raise
 
 
+def remove_file(path):
+    try:
+        os.remove(path)
+    except OSError as e:
+        if e.errno != errno.ENOENT:
+            raise
+
+
 def execute_command(cmd):
     exec_msg = "Executing command: '%s'" % cmd
     logger.debug(exec_msg)
@@ -232,3 +240,17 @@ def result_handler(status, data):
         'result': data
     }
     return jsonify(result)
+
+
+def set_dict_value(dic, keys, value):
+    return_dic = dic
+
+    for key in keys.split('.'):
+
+        return_dic.setdefault(key, {})
+        if key == keys.split('.')[-1]:
+            return_dic[key] = value
+        else:
+            return_dic = return_dic[key]
+
+    return dic
