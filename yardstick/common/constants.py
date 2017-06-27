@@ -42,6 +42,7 @@ TESTSUITE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_suites/')
 
 # file
 OPENRC = get_param('file.openrc', '/etc/yardstick/openstack.creds')
+ETC_HOSTS = get_param('file.etc_hosts', '/etc/hosts')
 CONF_FILE = join(CONF_DIR, 'yardstick.conf')
 POD_FILE = join(CONF_DIR, 'pod.yaml')
 CONF_SAMPLE_FILE = join(CONF_SAMPLE_DIR, 'yardstick.conf.sample')

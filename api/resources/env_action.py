@@ -362,3 +362,16 @@ def upload_pod_file(args):
     logger.info('Writing finished')
 
     return result_handler(consts.API_SUCCESS, {'pod_info': data})
+
+
+def update_hosts(hosts_ip):
+    if not isinstance(hosts_ip, dict):
+        return result_handler(consts.API_ERROR, 'Error, args should be a dict')
+    logger.info('Writing hosts: Writing')
+    hosts_list = ['\n{} {}'.format(ip, host_name)
+                  for host_name, ip in hosts_ip.items()]
+    logger.debug('Writing: %s', hosts_list)
+    with open(consts.ETC_HOSTS, 'a') as f:
+        f.writelines(hosts_list)
+    logger.info('Writing hosts: Done')
+    return result_handler(consts.API_SUCCESS, 'success')
