@@ -212,3 +212,17 @@ def flatten_dict_key(data):
             next_data[k] = v
 
     return flatten_dict_key(next_data)
+
+
+def set_dict_value(dic, keys, value):
+    return_dic = dic
+
+    for key in keys.split('.'):
+
+        return_dic.setdefault(key, {})
+        if key == keys.split('.')[-1]:
+            return_dic[key] = value
+        else:
+            return_dic = return_dic[key]
+
+    return dic

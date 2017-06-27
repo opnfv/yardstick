@@ -128,6 +128,7 @@ class CommonUtilTestCase(unittest.TestCase):
                 }
             }
         }
+
     def test__dict_key_flatten(self):
         line = 'mpstat.loadavg1=0.29,rtt=1.03,mpstat.loadavg0=1.09,' \
                'mpstat.cpu0.%idle=99.00,mpstat.cpu0.%sys=0.00'
@@ -138,6 +139,15 @@ class CommonUtilTestCase(unittest.TestCase):
         result = ",".join(
             ("=".join(item) for item in sorted(flattened_data.items())))
         self.assertEqual(result, line)
+
+
+class SetDictValueTestCase(unittest.TestCase):
+    def test_set_dict_value(self):
+        input_dic = {
+            'hello': 'world'
+        }
+        output_dic = utils.set_dict_value(input_dic, 'welcome.to', 'yardstick')
+        self.assertEqual(output_dic.get('welcome', {}).get('to'), 'yardstick')
 
 
 def main():
