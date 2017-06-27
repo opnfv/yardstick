@@ -109,6 +109,15 @@ class GetParaFromYaml(unittest.TestCase):
         return file_path
 
 
+class SetDictValueTestCase(unittest.TestCase):
+    def test_set_dict_value(self):
+        input_dic = {
+            'hello': 'world'
+        }
+        output_dic = utils.set_dict_value(input_dic, 'welcome.to', 'yardstick')
+        self.assertEqual(output_dic.get('welcome', {}).get('to'), 'yardstick')
+
+
 def main():
     unittest.main()
 
