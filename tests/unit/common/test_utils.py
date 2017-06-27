@@ -109,6 +109,23 @@ class GetParaFromYaml(unittest.TestCase):
         return file_path
 
 
+class SetDictValueTestCase(unittest.TestCase):
+    def test_set_dict_value(self):
+        input_dic = {
+            'hello': 'world'
+        }
+        output_dic = utils.set_dict_value(input_dic, 'welcome.to', 'yardstick')
+        self.assertEqual(output_dic.get('welcome', {}).get('to'), 'yardstick')
+
+
+class DeleteKeyFromDict(unittest.TestCase):
+
+    def test_delete_key_from_dict(self):
+        input_dic = {'a': 'b', 'c': 'd'}
+        utils.delete_key_from_dict(input_dic, 'c')
+        self.assertEqual(input_dic, {'a': 'b'})
+
+
 def main():
     unittest.main()
 

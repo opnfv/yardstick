@@ -189,3 +189,24 @@ def get_port_ip(sshclient, port):
     if status:
         raise RuntimeError(stderr)
     return stdout.rstrip()
+
+
+def set_dict_value(dic, keys, value):
+    return_dic = dic
+
+    for key in keys.split('.'):
+
+        return_dic.setdefault(key, {})
+        if key == keys.split('.')[-1]:
+            return_dic[key] = value
+        else:
+            return_dic = return_dic[key]
+
+    return dic
+
+
+def delete_key_from_dict(dic, key):
+    try:
+        dic.pop(key)
+    except KeyError:
+        pass
