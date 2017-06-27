@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_f23b7636",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-27T05:09:37Z",
+      "side": 1,
+      "message": "I don\u0027t think we want to re-use the yardstick container itself for ping test.\n\nI think want one of the many docker-ssh containers, e.g.  https://hub.docker.com/r/jeroenpeeters/docker-ssh/",
+      "revId": "b5c3b423afab4c460788e8ae533553695896e668",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
