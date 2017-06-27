@@ -22,6 +22,8 @@ test_cases:
   file_name: opnfv_yardstick_tc010.yaml
 -
   file_name: opnfv_yardstick_tc011.yaml
+  constraint:
+      installer: compass
 -
   file_name: opnfv_yardstick_tc012.yaml
 -
