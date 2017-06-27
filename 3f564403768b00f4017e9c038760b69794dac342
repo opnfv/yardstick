@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_f22136b5",
+        "filename": "samples/ping_k8s.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-06-27T06:59:18Z",
+      "side": 1,
+      "message": "sorry, I can\u0027t get your point. But it is a draft. Now I\u0027m working yardstick get the ip automatically.",
+      "parentUuid": "1aa4ed85_b245feb4",
+      "revId": "3f564403768b00f4017e9c038760b69794dac342",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_52128ab5",
         "filename": "yardstick/benchmark/scenarios/networking/ping.py",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2017-06-27T05:18:20Z",
       "side": 1,
       "message": "why need to add \u0027target.demo\u0027?",
+      "revId": "3f564403768b00f4017e9c038760b69794dac342",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_fd0fc72c",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-06-27T06:59:18Z",
+      "side": 1,
+      "message": "It is used to report. It is just the first version. I am still working on it.",
+      "parentUuid": "1aa4ed85_52128ab5",
       "revId": "3f564403768b00f4017e9c038760b69794dac342",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
