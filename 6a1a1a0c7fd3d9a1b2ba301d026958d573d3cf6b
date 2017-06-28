@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_8fee9821",
+        "filename": "install.sh",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-06-28T11:26:00Z",
+      "side": 1,
+      "message": "With this change, we are missing xenial-updates, which has a newer qemu-user-static package, required since the version in trusty segfaults ...",
+      "revId": "6a1a1a0c7fd3d9a1b2ba301d026958d573d3cf6b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
