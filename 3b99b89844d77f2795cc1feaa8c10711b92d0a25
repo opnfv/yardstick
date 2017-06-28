@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_cfc0102d",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-06-28T14:26:19Z",
+      "side": 1,
+      "message": "Actually we have ssh.SSH.from_node method to do the same thing.",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 35
+      },
+      "revId": "3b99b89844d77f2795cc1feaa8c10711b92d0a25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_8fe218d4",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-06-28T14:26:19Z",
+      "side": 1,
+      "message": "We have ssh.SSH._put_file_shell method for you. I don\u0027t know if it is fit for you.",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 62
+      },
+      "revId": "3b99b89844d77f2795cc1feaa8c10711b92d0a25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_4fec20c8",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-06-28T14:26:19Z",
+      "side": 1,
+      "message": "The setup method will be executed automatically. Can we remove it?",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 24
+      },
+      "revId": "3b99b89844d77f2795cc1feaa8c10711b92d0a25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
