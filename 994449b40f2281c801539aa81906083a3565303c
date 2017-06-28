@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_4f5d00e9",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-06-28T12:43:12Z",
+      "side": 1,
+      "message": "Can you add support on i40evf? The thing is I don\u0027t know how to how the interrupt file looks like for this vnic type. Also, I simply get the patch pass the coverage test in Jenkin, locally, the coverage is only 4 line difference and coverage is close to 100%. I do need help on this coverage thing.\nAllowed to introduce missing lines : 10\nMissing lines in master            : 1120\nMissing lines in proposed change   : 1122\nName                                                                                  Stmts   Miss Branch BrPart      Cover\n@@ -74 +74 @@\n-yardstick/benchmark/scenarios/networking/pktgen.py                                       82      0     16      1    98.980%\n+yardstick/benchmark/scenarios/networking/pktgen.py                                      246      2     78      1    99.074%",
+      "parentUuid": "1aa4ed85_127c1272",
+      "revId": "994449b40f2281c801539aa81906083a3565303c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_7209a530",
         "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
         "patchSetId": 11
@@ -166,6 +184,24 @@
       "side": 1,
       "message": "Do the 1\u003c\u003ci in python\n\nThis should work\n\n  cmd \u003d \"echo \u0027%s\u0027 | sudo tee /proc/irq/%s/smp_affinity\" \\\n                % (1\u003c\u003ci, int(stdout))",
       "parentUuid": "1aa4ed85_06b4dcf0",
+      "revId": "994449b40f2281c801539aa81906083a3565303c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_af54b4ca",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-06-28T12:43:12Z",
+      "side": 1,
+      "message": "I see, will change this.",
+      "parentUuid": "1aa4ed85_32810e4b",
       "revId": "994449b40f2281c801539aa81906083a3565303c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
