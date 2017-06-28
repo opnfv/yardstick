@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_af76f404",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-06-28T15:46:54Z",
+      "side": 1,
+      "message": "I use k8s python client in my patch. We just need to admin.conf in yardstick docker container now.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 30
+      },
+      "revId": "32b5bdb8983ba759018e254193627fcc9a101888",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
