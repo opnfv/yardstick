@@ -39,6 +39,7 @@ ANSIBLE_DIR = join(REPOS_DIR, 'ansible')
 SAMPLE_CASE_DIR = join(REPOS_DIR, 'samples')
 TESTCASE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_cases/')
 TESTSUITE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_suites/')
+DOCS_DIR = join(REPOS_DIR, 'docs/testing/user/userguide/')
 
 # file
 OPENRC = get_param('file.openrc', '/etc/yardstick/openstack.creds')
