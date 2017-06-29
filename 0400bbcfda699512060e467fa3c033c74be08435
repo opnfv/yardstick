@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_e2ae43e7",
+        "filename": "tools/vsperf_install.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5439
+      },
+      "writtenOn": "2017-06-29T00:47:37Z",
+      "side": 1,
+      "message": "Maybe we should add the following line:\n\ndns_nameservers: [\"8.8.8.8\"]\n\nto make the instance have the name server.",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 46,
+        "endChar": 40
+      },
+      "revId": "0400bbcfda699512060e467fa3c033c74be08435",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
