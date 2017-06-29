@@ -364,6 +364,23 @@ def upload_pod_file(args):
     return result_handler(consts.API_SUCCESS, {'pod_info': data})
 
 
+def update_pod_file(args):
+    try:
+        pod_dic = args['pod']
+    except KeyError:
+        return result_handler(consts.API_ERROR, 'pod must be provided')
+    else:
+        if not isinstance(pod_dic, collections.Mapping):
+            return result_handler(consts.API_ERROR, 'pod should be a dict')
+
+    logger.info('Writing file')
+    with open(consts.POD_FILE, 'w') as f:
+        yaml.dump(pod_dic, f, default_flow_style=False)
+    logger.info('Writing finished')
+
+    return result_handler(consts.API_SUCCESS, {'pod_info': pod_dic})
+
+
 def update_hosts(hosts_ip):
     if not isinstance(hosts_ip, dict):
         return result_handler(consts.API_ERROR, 'Error, args should be a dict')
