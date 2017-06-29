@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_82d8af54",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-06-29T04:04:15Z",
+      "side": 1,
+      "message": "the action name in the commit log is different.\nalso this json uploaded format is not unified with other api.\nlike openrc, you\u0027re using {\"action\":\"update_openrc\", \"args\": {\"openrc\":{}}},here you\u0027re using {\"action\":\"update_pod_file\", \"pod\":{}}",
+      "range": {
+        "startLine": 367,
+        "startChar": 0,
+        "endLine": 367,
+        "endChar": 26
+      },
+      "revId": "07e86e74f610512657e52b457e5388b00e9d7ba4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
