@@ -74,3 +74,9 @@ class EnvAction(ApiResource):
 
     def post(self):
         return self._dispatch_post()
+
+
+class CaseDocs(ApiResource):
+
+    def get(self, case_name):
+        return self._dispatch_get(case_name=case_name)

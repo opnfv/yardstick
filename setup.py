@@ -40,6 +40,9 @@ setup(
         'tests': [
             'opnfv/*/*.yaml',
             'ci/*.sh'
+        ],
+        'docs': [
+            'testing/user/userguide/*.rst'
         ]
     },
     url="https://www.opnfv.org",
