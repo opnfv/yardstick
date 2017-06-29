@@ -34,7 +34,7 @@ test_cases:
         installer: compass
         pod: huawei-pod1
     task_args:
-        huawei-pod1: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
+        huawei-pod1: '{"pod": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
         "host": "node4.LF","target": "node5.LF"}'
 -
     file_name: opnfv_yardstick_tc019.yaml
@@ -42,16 +42,16 @@ test_cases:
         installer: compass,fuel
         pod: huawei-pod2,ericsson-pod1
     task_args:
-        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
-        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod2: '{"pod": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        ericsson-pod1: '{"pod": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc045.yaml
     constraint:
         installer: compass,fuel
         pod: huawei-pod2,ericsson-pod1
     task_args:
-        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
-        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod2: '{"pod": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        ericsson-pod1: '{"pod": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc046.yaml
     constraint:
@@ -62,16 +62,16 @@ test_cases:
         installer: compass,fuel
         pod: huawei-pod2,ericsson-pod1
     task_args:
-        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
-        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod2: '{"pod": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        ericsson-pod1: '{"pod": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc048.yaml
     constraint:
         installer: compass,fuel
         pod: huawei-pod2,ericsson-pod1
     task_args:
-        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
-        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod2: '{"pod": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        ericsson-pod1: '{"pod": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc049.yaml
     constraint:
@@ -86,8 +86,8 @@ test_cases:
         installer: compass,fuel
         pod: huawei-pod2,ericsson-pod1
     task_args:
-        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
-        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod2: '{"pod": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        ericsson-pod1: '{"pod": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc052.yaml
     constraint:
@@ -102,7 +102,7 @@ test_cases:
         installer: compass
         pod: huawei-pod1
     task_args:
-        huawei-pod1: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
+        huawei-pod1: '{"pod": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
         "host": "node5.yardstick-TC055"}'
 -
     file_name: opnfv_yardstick_tc063.yaml
@@ -110,7 +110,7 @@ test_cases:
         installer: compass
         pod: huawei-pod1
     task_args:
-        huawei-pod1: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
+        huawei-pod1: '{"pod": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
         "host": "node5.yardstick-TC063"}'
 -
     file_name: opnfv_yardstick_tc069.yaml
@@ -134,7 +134,7 @@ test_cases:
         installer: compass
         pod: huawei-pod1
     task_args:
-        huawei-pod1: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
+        huawei-pod1: '{"pod": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
         "host": "node1.LF"}'
 -
     file_name: opnfv_yardstick_tc027.yaml
@@ -142,8 +142,8 @@ test_cases:
         installer: compass,fuel
         pod: huawei-pod1,lf-pod2,ericsson-pod3,ericsson-pod4
     task_args:
-        huawei-pod1: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
-        lf-pod2: '{"pod_info": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
-        ericsson-pod3: '{"pod_info": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
-        ericsson-pod4: '{"pod_info": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
+        huawei-pod1: '{"pod": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        lf-pod2: '{"pod": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
+        ericsson-pod3: '{"pod": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
+        ericsson-pod4: '{"pod": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
 

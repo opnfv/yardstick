@@ -13,7 +13,7 @@ description: >
     Test case for TC054 :OpenStack VIP Master Node abnormally shutdown High Availability;
     This test case is written by new scenario-based HA testing framework.
 
-{% set file = file or 'etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
+{% set pod = pod or 'etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
 {% set vip_management = vip_management or '192.168.0.2' %}
 {% set vip_public = vip_public or '172.16.0.3' %}
 {% set vip_router_management = vip_router_management or '192.168.0.1' %}
@@ -131,4 +131,4 @@ scenarios:
 context:
   type: Node
   name: LF
-  file: {{file}}
+  pod: {{pod}}

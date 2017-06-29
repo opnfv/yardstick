@@ -12,7 +12,7 @@ schema: "yardstick:task:0.1"
 description: >
     Sample test case for the HA of controller node Openstack service.
 
-{% set file = file or 'etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
+{% set pod = pod or 'etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
 
 scenarios:
 -
@@ -54,4 +54,4 @@ scenarios:
 context:
   type: Node
   name: LF
-  file: {{file}}
+  pod: {{pod}}

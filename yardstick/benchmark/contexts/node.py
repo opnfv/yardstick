@@ -31,7 +31,7 @@ class NodeContext(Context):
 
     def __init__(self):
         self.name = None
-        self.file_path = None
+        self.pod = None
         self.nodes = []
         self.controllers = []
         self.computes = []
@@ -42,22 +42,22 @@ class NodeContext(Context):
     def read_config_file(self):
         """Read from config file"""
 
-        with open(self.file_path) as stream:
-            LOG.info("Parsing pod file: %s", self.file_path)
+        with open(self.pod) as stream:
+            LOG.info("Parsing pod file: %s", self.pod)
             cfg = yaml.load(stream)
         return cfg
 
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
         self.name = attrs["name"]
-        self.file_path = attrs.get("file", "pod.yaml")
+        self.pod = attrs.get("pod", "pod.yaml")
 
         try:
             cfg = self.read_config_file()
         except IOError as ioerror:
             if ioerror.errno == errno.ENOENT:
-                self.file_path = \
-                    os.path.join(consts.YARDSTICK_ROOT_PATH, self.file_path)
+                self.pod = \
+                    os.path.join(consts.YARDSTICK_ROOT_PATH, self.pod)
                 cfg = self.read_config_file()
             else:
                 raise

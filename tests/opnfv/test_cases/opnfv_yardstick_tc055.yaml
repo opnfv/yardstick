@@ -20,7 +20,7 @@ description: >
     HT (Hyper-Thread) support status, 1 for open, 0 for close.
 
 {% set host = host or "node5.yardstick-TC055" %}
-{% set pod_info = pod_info or "etc/yardstick/nodes/compass_sclab_virtual/pod.yaml" %}
+{% set pod = pod or "etc/yardstick/nodes/compass_sclab_virtual/pod.yaml" %}
 scenarios:
 -
   type: ComputeCapacity
@@ -36,4 +36,4 @@ scenarios:
 context:
   type: Node
   name: yardstick-TC055
-  file: {{pod_info}}
+  pod: {{pod}}
