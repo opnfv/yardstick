@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Jing Lu <lvjing5@huawei.com>
+Submitted-by: Rex Lee <limingjiang@huawei.com>
+Submitted-at: Thu, 29 Jun 2017 12:07:27 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/36507
+Project: yardstick
+Branch: refs/heads/master
