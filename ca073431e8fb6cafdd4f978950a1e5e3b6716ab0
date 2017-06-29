@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_2299bb6e",
+        "filename": "samples/ping_k8s.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1630
+      },
+      "writtenOn": "2017-06-29T07:01:24Z",
+      "side": 1,
+      "message": "remove blank",
+      "revId": "ca073431e8fb6cafdd4f978950a1e5e3b6716ab0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_e2a2c399",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1630
+      },
+      "writtenOn": "2017-06-29T07:01:24Z",
+      "side": 1,
+      "message": "user can specify command in yaml file",
+      "revId": "ca073431e8fb6cafdd4f978950a1e5e3b6716ab0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_02a03f8f",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1630
+      },
+      "writtenOn": "2017-06-29T07:01:24Z",
+      "side": 1,
+      "message": "user can specify command in yaml file",
+      "revId": "ca073431e8fb6cafdd4f978950a1e5e3b6716ab0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
