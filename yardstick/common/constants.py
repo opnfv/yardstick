@@ -81,6 +81,9 @@ SQLITE = 'sqlite:////tmp/yardstick.db'
 
 API_SUCCESS = 1
 API_ERROR = 2
+TASK_NOT_DONE = 0
+TASK_DONE = 1
+TASK_FAILED = 2
 
 BASE_URL = 'http://localhost:5000'
 ENV_ACTION_API = BASE_URL + '/yardstick/env/action'

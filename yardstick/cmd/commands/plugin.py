@@ -17,7 +17,7 @@ from yardstick.common.utils import cliargs
 from yardstick.cmd.commands import change_osloobj_to_paras
 
 
-class PluginCommands(object):
+class PluginCommands(object):   # pragma: no cover
     """Plugin commands.
 
        Set of commands to manage plugins.

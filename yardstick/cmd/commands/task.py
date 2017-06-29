@@ -19,7 +19,7 @@ from yardstick.cmd.commands import change_osloobj_to_paras
 output_file_default = "/tmp/yardstick.out"
 
 
-class TaskCommands(object):
+class TaskCommands(object):     # pragma: no cover
     """Task commands.
 
        Set of commands to manage benchmark tasks.
