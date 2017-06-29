@@ -22,6 +22,30 @@
       "revId": "0400bbcfda699512060e467fa3c033c74be08435",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_658fbd24",
+        "filename": "tools/vsperf_install.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6675
+      },
+      "writtenOn": "2017-06-29T12:14:22Z",
+      "side": 1,
+      "message": "The name server is already set by the basic image in vsperf-img-modify.sh following the yardstick image convention.",
+      "parentUuid": "1aa4ed85_e2ae43e7",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 46,
+        "endChar": 40
+      },
+      "revId": "0400bbcfda699512060e467fa3c033c74be08435",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
