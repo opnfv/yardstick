@@ -17,6 +17,7 @@ urlpatterns = [
     Url('/yardstick/testcases', views.Testcases, 'testcases'),
     Url('/yardstick/testcases/release/action', views.ReleaseAction, 'release'),
     Url('/yardstick/testcases/samples/action', views.SamplesAction, 'samples'),
+    Url('/yardstick/testcases/<case_name>/docs', views.CaseDocs, 'casedocs'),
     Url('/yardstick/testsuites/action', views.TestsuitesAction, 'testsuites'),
     Url('/yardstick/results', views.Results, 'results'),
     Url('/yardstick/env/action', views.EnvAction, 'env')
