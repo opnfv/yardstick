@@ -68,6 +68,57 @@
       "revId": "3b99b89844d77f2795cc1feaa8c10711b92d0a25",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_e2cde387",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-29T06:24:49Z",
+      "side": 1,
+      "message": "always use \"\"\" instead of \u0027\u0027\u0027",
+      "revId": "3b99b89844d77f2795cc1feaa8c10711b92d0a25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_c2c46761",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate_benchmark.bash",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-29T06:24:49Z",
+      "side": 1,
+      "message": "use $() instead of ``\n\ndon\u0027t pipe cat into grep, grep reads file directly.\n\n  $(grep \"setup\" $OUTPUT_FILE | cut -d\u0027 \u0027 -f2)",
+      "revId": "3b99b89844d77f2795cc1feaa8c10711b92d0a25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_a2c7eb63",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate_benchmark.bash",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-06-29T06:24:49Z",
+      "side": 1,
+      "message": "why not use cat \u003c\u003cEOF\n\ncat \u003c\u003cEOF\n{\n   \"total_time\": \"$total_time\",\n}\nEOF",
+      "revId": "3b99b89844d77f2795cc1feaa8c10711b92d0a25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
