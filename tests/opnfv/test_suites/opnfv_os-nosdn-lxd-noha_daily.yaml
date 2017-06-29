@@ -40,7 +40,7 @@ test_cases:
       installer: compass
       pod: huawei-pod1
   task_args:
-      huawei-pod1: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
+      huawei-pod1: '{"pod": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
       "host": "node5.yardstick-TC055"}'
 -
   file_name: opnfv_yardstick_tc063.yaml
@@ -48,7 +48,7 @@ test_cases:
       installer: compass
       pod: huawei-pod1
   task_args:
-      huawei-pod1: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
+      huawei-pod1: '{"pod": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
       "host": "node5.yardstick-TC063"}'
 -
   file_name: opnfv_yardstick_tc069.yaml
@@ -64,5 +64,5 @@ test_cases:
       installer: compass
       pod: huawei-pod1
   task_args:
-      huawei-pod1: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
+      huawei-pod1: '{"pod": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
       "host": "node1.LF"}'

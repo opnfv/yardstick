@@ -13,7 +13,7 @@ description: >
     Test case for TC050 :OpenStack Controller Node Network High Availability;
     This test case is written by new scenario-based HA testing framework.
 
-{% set file = file or 'etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
+{% set pod = pod or 'etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
 {% set external_net = external_net or 'br-ex' %}
 {% set management_net = management_net or 'br-mgmt' %}
 {% set storage_net = storage_net or 'br-storage' %}
@@ -156,4 +156,4 @@ scenarios:
 context:
   type: Node
   name: LF
-  file: {{file}}
+  pod: {{pod}}
