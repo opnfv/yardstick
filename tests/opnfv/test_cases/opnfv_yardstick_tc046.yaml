@@ -12,7 +12,7 @@ schema: "yardstick:task:0.1"
 description: >
     Test case for TC046 :Control node Openstack service down - keystone.
 
-{% set file = file or 'etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
+{% set file = file or '/etc/yardstick/pod.yaml' %}
 
 scenarios:
 -

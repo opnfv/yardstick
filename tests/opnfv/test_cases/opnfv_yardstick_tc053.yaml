@@ -13,7 +13,7 @@ description: >
     Test case for TC053 :Openstack Controller Load Balance Service High Availability;
     This test case is written by new scenario-based HA testing framework.
 
-{% set file = file or 'etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
+{% set file = file or '/etc/yardstick/pod.yaml' %}
 
 scenarios:
   -

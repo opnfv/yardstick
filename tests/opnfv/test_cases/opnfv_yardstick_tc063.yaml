@@ -14,7 +14,7 @@ description: >
     Measure disk size, block size and disk utilization using fdisk and iostat.
 
 {% set host = host or "node5.yardstick-TC063" %}
-{% set pod_info = pod_info or "etc/yardstick/nodes/compass_sclab_virtual/pod.yaml" %}
+{% set file = file or '/etc/yardstick/pod.yaml' %}
 
 scenarios:
 -
@@ -31,4 +31,4 @@ scenarios:
 context:
   type: Node
   name: yardstick-TC063
-  file: {{pod_info}}
+  file: {{file}}
