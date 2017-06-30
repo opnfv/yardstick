@@ -13,8 +13,8 @@ import logging
 from flask import jsonify
 import six
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+LOG = logging.getLogger(__name__)
+LOG.setLevel(logging.DEBUG)
 
 
 def translate_to_str(obj):
@@ -25,15 +25,6 @@ def translate_to_str(obj):
     elif isinstance(obj, six.text_type):
         return str(obj)
     return obj
-
-
-def error_handler(message):
-    logger.debug(message)
-    result = {
-        'status': 'error',
-        'message': message
-    }
-    return jsonify(result)
 
 
 def result_handler(status, data):
