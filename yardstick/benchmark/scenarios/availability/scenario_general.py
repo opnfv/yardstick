@@ -25,6 +25,7 @@ class ScenarioGeneral(base.Scenario):
             "scenario_cfg:%s context_cfg:%s", scenario_cfg, context_cfg)
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
+        self.pass_flag = True
 
     def setup(self):
         self.director = Director(self.scenario_cfg, self.context_cfg)
@@ -61,6 +62,7 @@ class ScenarioGeneral(base.Scenario):
             if v == 0:
                 result['sla_pass'] = 0
                 verify_result = False
+                self.pass_flag = False
                 LOG.info(
                     "\033[92m The service process not found in the host \
 envrioment, the HA test case NOT pass")
@@ -72,9 +74,15 @@ envrioment, the HA test case NOT pass")
                 "the HA test case PASS! \033[0m")
         else:
             result['sla_pass'] = 0
+            self.pass_flag = False
             LOG.info(
                 "\033[91m Aoh, the HA test case FAIL,"
                 "please check the detail debug information! \033[0m")
 
     def teardown(self):
         self.director.knockoff()
+
+        try:
+            assert self.pass_flag is True, "The HA test case NOT passed"
+        except AssertionError, e:
+            raise Exception(e.args)
