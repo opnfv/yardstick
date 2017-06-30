@@ -92,3 +92,11 @@ ASYNC_TASK_API = BASE_URL + '/yardstick/asynctask'
 # general
 TESTCASE_PRE = 'opnfv_yardstick_'
 TESTSUITE_PRE = 'opnfv_'
+
+# testcases
+NODE_TESTCASES = ["opnfv_yardstick_tc019", "opnfv_yardstick_tc025", "opnfv_yardstick_tc027",
+                  "opnfv_yardstick_tc043", "opnfv_yardstick_tc045", "opnfv_yardstick_tc046",
+                  "opnfv_yardstick_tc047", "opnfv_yardstick_tc048", "opnfv_yardstick_tc049",
+                  "opnfv_yardstick_tc050", "opnfv_yardstick_tc051", "opnfv_yardstick_tc052",
+                  "opnfv_yardstick_tc053", "opnfv_yardstick_tc054", "opnfv_yardstick_tc055",
+                  "opnfv_yardstick_tc063", "opnfv_yardstick_tc073", "opnfv_yardstick_tc075"]
