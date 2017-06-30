@@ -32,17 +32,19 @@ from yardstick.common import openstack_utils
 from yardstick.common.httpClient import HttpClient
 
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+LOG = logging.getLogger(__name__)
+LOG.setLevel(logging.DEBUG)
+
+async_handler = AsyncTaskHandler()
 
 
-def createGrafanaContainer(args):
+def create_grafana(args):
     task_id = str(uuid.uuid4())
 
     thread = threading.Thread(target=_create_grafana, args=(task_id,))
     thread.start()
 
-    return result_handler('success', {'task_id': task_id})
+    return result_handler(consts.API_SUCCESS, {'task_id': task_id})
 
 
 def _create_grafana(task_id):
@@ -51,22 +53,29 @@ def _create_grafana(task_id):
     client = Client(base_url=consts.DOCKER_URL)
 
     try:
+        LOG.info('Checking if grafana image exist')
         image = '{}:{}'.format(consts.GRAFANA_IMAGE, consts.GRAFANA_TAG)
         if not _check_image_exist(client, image):
+            LOG.info('Grafana image not exist, start pulling')
             client.pull(consts.GRAFANA_IMAGE, consts.GRAFANA_TAG)
 
+        LOG.info('Createing grafana container')
         _create_grafana_container(client)
+        LOG.info('Grafana container is created')
 
         time.sleep(5)
 
+        LOG.info('Creating data source for grafana')
         _create_data_source()
 
+        LOG.info('Creating dashboard for grafana')
         _create_dashboard()
 
         _update_task_status(task_id)
+        LOG.info('Finished')
     except Exception as e:
         _update_task_error(task_id, str(e))
-        logger.exception('Error: %s', e)
+        LOG.exception('Create grafana failed')
 
 
 def _create_dashboard():
@@ -76,7 +85,11 @@ def _create_dashboard():
     for i in sorted(glob.iglob(path)):
         with open(i) as f:
             data = jsonutils.load(f)
-        HttpClient().post(url, data)
+        try:
+            HttpClient().post(url, data)
+        except Exception:
+            LOG.exception('Create dashboard %s failed', i)
+            raise
 
 
 def _create_data_source():
@@ -94,7 +107,11 @@ def _create_data_source():
         "basicAuthPassword": "admin",
         "isDefault": False,
     }
-    HttpClient().post(url, data)
+    try:
+        HttpClient().post(url, data)
+    except Exception:
+        LOG.exception('Create datasources failed')
+        raise
 
 
 def _create_grafana_container(client):
@@ -104,12 +121,14 @@ def _create_grafana_container(client):
     host_config = client.create_host_config(port_bindings=port_bindings,
                                             restart_policy=restart_policy)
 
+    LOG.info('Creating container')
     container = client.create_container(image='%s:%s' % (consts.GRAFANA_IMAGE,
                                                          consts.GRAFANA_TAG),
                                         ports=ports,
                                         detach=True,
                                         tty=True,
                                         host_config=host_config)
+    LOG.info('Starting container')
     client.start(container)
 
 
@@ -117,13 +136,13 @@ def _check_image_exist(client, t):
     return any(t in a['RepoTags'][0] for a in client.images() if a['RepoTags'])
 
 
-def createInfluxDBContainer(args):
+def create_influxdb(args):
     task_id = str(uuid.uuid4())
 
     thread = threading.Thread(target=_create_influxdb, args=(task_id,))
     thread.start()
 
-    return result_handler('success', {'task_id': task_id})
+    return result_handler(consts.API_SUCCESS, {'task_id': task_id})
 
 
 def _create_influxdb(task_id):
@@ -132,22 +151,30 @@ def _create_influxdb(task_id):
     client = Client(base_url=consts.DOCKER_URL)
 
     try:
+        LOG.info('Changing output to influxdb')
         _change_output_to_influxdb()
 
+        LOG.info('Checking if influxdb image exist')
         if not _check_image_exist(client, '%s:%s' % (consts.INFLUXDB_IMAGE,
                                                      consts.INFLUXDB_TAG)):
+            LOG.info('Influxdb image not exist, start pulling')
             client.pull(consts.INFLUXDB_IMAGE, tag=consts.INFLUXDB_TAG)
 
+        LOG.info('Createing influxdb container')
         _create_influxdb_container(client)
+        LOG.info('Influxdb container is created')
 
         time.sleep(5)
 
+        LOG.info('Config influxdb')
         _config_influxdb()
 
         _update_task_status(task_id)
+
+        LOG.info('Finished')
     except Exception as e:
         _update_task_error(task_id, str(e))
-        logger.debug('Error: %s', e)
+        LOG.exception('Creating influxdb failed')
 
 
 def _create_influxdb_container(client):
@@ -158,12 +185,14 @@ def _create_influxdb_container(client):
     host_config = client.create_host_config(port_bindings=port_bindings,
                                             restart_policy=restart_policy)
 
+    LOG.info('Creating container')
     container = client.create_container(image='%s:%s' % (consts.INFLUXDB_IMAGE,
                                                          consts.INFLUXDB_TAG),
                                         ports=ports,
                                         detach=True,
                                         tty=True,
                                         host_config=host_config)
+    LOG.info('Starting container')
     client.start(container)
 
 
@@ -174,32 +203,35 @@ def _config_influxdb():
                            consts.INFLUXDB_PASS,
                            consts.INFLUXDB_DB_NAME)
         client.create_database(consts.INFLUXDB_DB_NAME)
-        logger.info('Success to config influxDB')
-    except Exception as e:
-        logger.debug('Failed to config influxDB: %s', e)
+        LOG.info('Success to config influxDB')
+    except Exception:
+        LOG.exception('Config influxdb failed')
 
 
 def _change_output_to_influxdb():
     common_utils.makedirs(consts.CONF_DIR)
 
     parser = configparser.ConfigParser()
+    LOG.info('Reading output sample configuration')
     parser.read(consts.CONF_SAMPLE_FILE)
 
+    LOG.info('Set dispatcher to influxdb')
     parser.set('DEFAULT', 'dispatcher', 'influxdb')
     parser.set('dispatcher_influxdb', 'target',
                'http://%s:8086' % consts.INFLUXDB_IP)
 
+    LOG.info('Writing to %s', consts.CONF_FILE)
     with open(consts.CONF_FILE, 'w') as f:
         parser.write(f)
 
 
-def prepareYardstickEnv(args):
+def prepare_env(args):
     task_id = str(uuid.uuid4())
 
     thread = threading.Thread(target=_prepare_env_daemon, args=(task_id,))
     thread.start()
 
-    return result_handler('success', {'task_id': task_id})
+    return result_handler(consts.API_SUCCESS, {'task_id': task_id})
 
 
 def _already_source_openrc():
@@ -216,23 +248,33 @@ def _prepare_env_daemon(task_id):
 
         rc_file = consts.OPENRC
 
+        LOG.info('Checkout Openrc Environment variable')
         if not _already_source_openrc():
+            LOG.info('Openrc variable not found in Environment')
             if not os.path.exists(rc_file):
+                LOG.info('Openrc file not found')
                 installer_ip = os.environ.get('INSTALLER_IP', '192.168.200.2')
                 installer_type = os.environ.get('INSTALLER_TYPE', 'compass')
+                LOG.info('Getting openrc file from %s', installer_type)
                 _get_remote_rc_file(rc_file, installer_ip, installer_type)
+                LOG.info('Source openrc file')
                 _source_file(rc_file)
+                LOG.info('Appending external network')
                 _append_external_network(rc_file)
+            LOG.info('Openrc file exist, source openrc file')
             _source_file(rc_file)
 
+        LOG.info('Cleaning images')
         _clean_images()
 
+        LOG.info('Loading images')
         _load_images()
 
         _update_task_status(task_id)
+        LOG.info('Finished')
     except Exception as e:
         _update_task_error(task_id, str(e))
-        logger.debug('Error: %s', e)
+        LOG.exception('Prepare env failed')
 
 
 def _create_directories():
@@ -254,7 +296,7 @@ def _get_remote_rc_file(rc_file, installer_ip, installer_type):
         p.communicate()
 
         if p.returncode != 0:
-            logger.debug('Failed to fetch credentials from installer')
+            LOG.error('Failed to fetch credentials from installer')
     except OSError as e:
         if e.errno != errno.EEXIST:
             raise
@@ -266,7 +308,7 @@ def _append_external_network(rc_file):
     try:
         ext_network = next(n['name'] for n in networks if n['router:external'])
     except StopIteration:
-        logger.warning("Can't find external network")
+        LOG.warning("Can't find external network")
     else:
         cmd = 'export EXTERNAL_NETWORK=%s' % ext_network
         try:
@@ -281,38 +323,26 @@ def _clean_images():
     cmd = [consts.CLEAN_IMAGES_SCRIPT]
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, cwd=consts.REPOS_DIR)
     output = p.communicate()[0]
-    logger.debug('The result is: %s', output)
+    LOG.debug(output)
 
 
 def _load_images():
     cmd = [consts.LOAD_IMAGES_SCRIPT]
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, cwd=consts.REPOS_DIR)
     output = p.communicate()[0]
-    logger.debug('The result is: %s', output)
+    LOG.debug(output)
 
 
 def _create_task(task_id):
-    async_handler = AsyncTaskHandler()
-    task_dict = {
-        'task_id': task_id,
-        'status': 0
-    }
-    async_handler.insert(task_dict)
+    async_handler.insert({'status': 0, 'task_id': task_id})
 
 
 def _update_task_status(task_id):
-    async_handler = AsyncTaskHandler()
-
-    task = async_handler.get_task_by_taskid(task_id)
-    async_handler.update_status(task, 1)
+    async_handler.update_attr(task_id, {'status': 1})
 
 
 def _update_task_error(task_id, error):
-    async_handler = AsyncTaskHandler()
-
-    task = async_handler.get_task_by_taskid(task_id)
-    async_handler.update_status(task, 2)
-    async_handler.update_error(task, error)
+    async_handler.update_attr(task_id, {'status': 2, 'error': error})
 
 
 def update_openrc(args):
@@ -325,22 +355,22 @@ def update_openrc(args):
             return result_handler(consts.API_ERROR, 'args should be a dict')
 
     lines = ['export {}={}\n'.format(k, v) for k, v in openrc_vars.items()]
-    logger.debug('Writing: %s', ''.join(lines))
+    LOG.debug('Writing: %s', ''.join(lines))
 
-    logger.info('Writing openrc: Writing')
+    LOG.info('Writing openrc: Writing')
     common_utils.makedirs(consts.CONF_DIR)
 
     with open(consts.OPENRC, 'w') as f:
         f.writelines(lines)
-    logger.info('Writing openrc: Done')
+    LOG.info('Writing openrc: Done')
 
-    logger.info('Source openrc: Sourcing')
+    LOG.info('Source openrc: Sourcing')
     try:
         _source_file(consts.OPENRC)
     except Exception as e:
-        logger.exception('Failed to source openrc')
+        LOG.exception('Failed to source openrc')
         return result_handler(consts.API_ERROR, str(e))
-    logger.info('Source openrc: Done')
+    LOG.info('Source openrc: Done')
 
     return result_handler(consts.API_SUCCESS, {'openrc': openrc_vars})
 
@@ -351,15 +381,15 @@ def upload_pod_file(args):
     except KeyError:
         return result_handler(consts.API_ERROR, 'file must be provided')
 
-    logger.info('Checking file')
+    LOG.info('Checking file')
     data = yaml.load(pod_file.read())
     if not isinstance(data, collections.Mapping):
         return result_handler(consts.API_ERROR, 'invalid yaml file')
 
-    logger.info('Writing file')
+    LOG.info('Writing file')
     with open(consts.POD_FILE, 'w') as f:
         yaml.dump(data, f, default_flow_style=False)
-    logger.info('Writing finished')
+    LOG.info('Writing finished')
 
     return result_handler(consts.API_SUCCESS, {'pod_info': data})
 
@@ -373,10 +403,10 @@ def update_pod_file(args):
         if not isinstance(pod_dic, collections.Mapping):
             return result_handler(consts.API_ERROR, 'pod should be a dict')
 
-    logger.info('Writing file')
+    LOG.info('Writing file')
     with open(consts.POD_FILE, 'w') as f:
         yaml.dump(pod_dic, f, default_flow_style=False)
-    logger.info('Writing finished')
+    LOG.info('Writing finished')
 
     return result_handler(consts.API_SUCCESS, {'pod_info': pod_dic})
 
@@ -384,11 +414,11 @@ def update_pod_file(args):
 def update_hosts(hosts_ip):
     if not isinstance(hosts_ip, dict):
         return result_handler(consts.API_ERROR, 'Error, args should be a dict')
-    logger.info('Writing hosts: Writing')
+    LOG.info('Writing hosts: Writing')
     hosts_list = ['\n{} {}'.format(ip, host_name)
                   for host_name, ip in hosts_ip.items()]
-    logger.debug('Writing: %s', hosts_list)
+    LOG.debug('Writing: %s', hosts_list)
     with open(consts.ETC_HOSTS, 'a') as f:
         f.writelines(hosts_list)
-    logger.info('Writing hosts: Done')
+    LOG.info('Writing hosts: Done')
     return result_handler(consts.API_SUCCESS, 'success')
