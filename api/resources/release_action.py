@@ -35,8 +35,14 @@ def run_test_case(args):
         'inputfile': [testcase],
         'task_id': task_id
     }
-    task_args.update(args.get('opts', {}))
-
+    # update default pod.yaml for using api to run Node type testcases
+    options = args.get('opts', {})
+    if case_name in consts.NODE_TESTCASES and os.path.exists(consts.POD_FILE):
+        if "task-args" not in options:
+            options.update({"task-args": {"file": consts.POD_FILE}})
+        elif "file" not in options["task-args"]:
+            options["task-args"].update({"file": consts.POD_FILE})
+    task_args.update(options)
     param = Param(task_args)
     task_thread = TaskThread(Task().start, param)
     task_thread.start()

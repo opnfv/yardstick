@@ -15,7 +15,7 @@ description: >
 
 {% set openrc = openrc or "/opt/admin-openrc.sh" %}
 {% set external_network = external_network or "ext-net" %}
-{% set pod_info = pod_info or "etc/yardstick/nodes/compass_sclab_physical/pod.yaml" %}
+{% set file = file or "etc/yardstick/nodes/compass_sclab_physical/pod.yaml" %}
 scenarios:
 -
   type: Ping6
@@ -44,5 +44,5 @@ scenarios:
 context:
   type: Node
   name: IPV6
-  file: {{pod_info}}
+  file: {{file}}
 

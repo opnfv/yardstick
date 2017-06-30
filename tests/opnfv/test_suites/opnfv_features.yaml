@@ -20,8 +20,8 @@ test_cases:
         installer: compass,fuel
         pod: huawei-pod1,lf-pod2
     task_args:
-        huawei-pod1: '{"pod_info": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
-        lf-pod2: '{"pod_info": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        lf-pod2: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
 -
     file_name: opnfv_yardstick_tc045.yaml
     constraint:
