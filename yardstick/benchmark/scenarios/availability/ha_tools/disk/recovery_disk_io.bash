@@ -13,3 +13,5 @@
 
 sudo kill `pidof dd`
 
+sudo rm -f /test.dbf
+
