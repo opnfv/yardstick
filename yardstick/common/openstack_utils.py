@@ -79,7 +79,8 @@ def get_session():
     except KeyError:
         return session.Session(auth=auth)
     else:
-        cacert = False if cacert.lower() == "false" else cacert
+        insecure = os.getenv('OS_INSECURE', '').lower() == 'true'
+        cacert = False if insecure else cacert
         return session.Session(auth=auth, verify=cacert)
 
 

@@ -56,11 +56,11 @@ class MonitorOpenstackCmd(basemonitor.BaseMonitor):
         self.cmd = self._config["command_name"]
 
         try:
-            cacert = os.environ['OS_CACERT']
+            insecure = os.environ['OS_INSECURE']
         except KeyError:
             pass
         else:
-            if cacert.lower() == "false":
+            if insecure.lower() == "true":
                 self.cmd = self.cmd + " --insecure"
 
     def monitor_func(self):
