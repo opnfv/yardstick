@@ -12,4 +12,4 @@
 # recover a node from disk io block status
 
 sudo kill `pidof dd`
-
+sudo rm -rf /test.dbf
