@@ -35,7 +35,7 @@ class TasksHandler(object):
         return task
 
     def update_attr(self, task_id, attr):
-        task =  self.get_task_by_taskid(task_id)
+        task = self.get_task_by_taskid(task_id)
 
         for k, v in attr.items():
             setattr(task, k, v)
@@ -59,4 +59,14 @@ class AsyncTaskHandler(object):
 
     def get_task_by_taskid(self, task_id):
         task = AsyncTasks.query.filter_by(task_id=task_id).first()
+        if not task:
+            raise ValueError
+
         return task
+
+    def update_attr(self, task_id, attr):
+        task = self.get_task_by_taskid(task_id)
+
+        for k, v in attr.items():
+            setattr(task, k, v)
+        db_session.commit()
