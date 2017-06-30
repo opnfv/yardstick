@@ -7,9 +7,14 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 # ############################################################################
 import uuid
+import logging
 
-from api.utils import common as common_utils
-from api.database.v1.models import AsyncTasks
+from api.utils.common import result_handler
+from api.database.v1.handlers import AsyncTaskHandler
+from yardstick.common import constants as consts
+
+LOG = logging.getLogger(__name__)
+LOG.setLevel(logging.DEBUG)
 
 
 def default(args):
@@ -19,17 +24,41 @@ def default(args):
 def _get_status(args):
     try:
         task_id = args['task_id']
-        uuid.UUID(task_id)
     except KeyError:
-        message = 'measurement and task_id must be provided'
-        return common_utils.error_handler(message)
-
-    asynctask = AsyncTasks.query.filter_by(task_id=task_id).first()
+        return result_handler(consts.API_ERROR, 'task_id must be provided')
 
     try:
-        status = asynctask.status
-        error = asynctask.error if asynctask.error else []
+        uuid.UUID(task_id)
+    except ValueError:
+        return result_handler(consts.API_ERROR, 'invalid task_id')
 
-        return common_utils.result_handler(status, error)
-    except AttributeError:
-        return common_utils.error_handler('no such task')
+    asynctask_handler = AsyncTaskHandler()
+    try:
+        asynctask = asynctask_handler.get_task_by_taskid(task_id)
+    except ValueError:
+        return result_handler(consts.API_ERROR, 'invalid task_id')
+
+    def _unfinished():
+        return result_handler(consts.TASK_NOT_DONE, {})
+
+    def _finished():
+        return result_handler(consts.TASK_DONE, {})
+
+    def _error():
+        return result_handler(consts.TASK_FAILED, asynctask.error)
+
+    status = asynctask.status
+    LOG.debug('Task status is: %s', status)
+
+    if status not in [consts.TASK_NOT_DONE,
+                      consts.TASK_DONE,
+                      consts.TASK_FAILED]:
+        return result_handler(consts.API_ERROR, 'internal server error')
+
+    switcher = {
+        consts.TASK_NOT_DONE: _unfinished,
+        consts.TASK_DONE: _finished,
+        consts.TASK_FAILED: _error
+    }
+
+    return switcher.get(status)()

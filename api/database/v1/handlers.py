@@ -19,14 +19,6 @@ class TasksHandler(object):
         db_session.commit()
         return task
 
-    def update_status(self, task, status):
-        task.status = status
-        db_session.commit()
-
-    def update_error(self, task, error):
-        task.error = error
-        db_session.commit()
-
     def get_task_by_taskid(self, task_id):
         task = Tasks.query.filter_by(task_id=task_id).first()
         if not task:
@@ -35,7 +27,7 @@ class TasksHandler(object):
         return task
 
     def update_attr(self, task_id, attr):
-        task =  self.get_task_by_taskid(task_id)
+        task = self.get_task_by_taskid(task_id)
 
         for k, v in attr.items():
             setattr(task, k, v)
@@ -49,14 +41,16 @@ class AsyncTaskHandler(object):
         db_session.commit()
         return task
 
-    def update_status(self, task, status):
-        task.status = status
-        db_session.commit()
-
-    def update_error(self, task, error):
-        task.error = error
-        db_session.commit()
-
     def get_task_by_taskid(self, task_id):
         task = AsyncTasks.query.filter_by(task_id=task_id).first()
+        if not task:
+            raise ValueError
+
         return task
+
+    def update_attr(self, task_id, attr):
+        task = self.get_task_by_taskid(task_id)
+
+        for k, v in attr.items():
+            setattr(task, k, v)
+        db_session.commit()

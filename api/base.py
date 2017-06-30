@@ -15,6 +15,7 @@ from flask import request
 from flask_restful import Resource
 
 from api.utils import common as common_utils
+from yardstick.common import constants as consts
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -59,5 +60,5 @@ class ApiResource(Resource):
         resources = importlib.import_module(module_name)
         try:
             return getattr(resources, action)(args)
-        except NameError:
-            common_utils.error_handler('Wrong action')
+        except AttributeError:
+            common_utils.result_handler(consts.API_ERROR, 'No such action')
