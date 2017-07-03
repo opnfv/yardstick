@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_386563e1",
+        "filename": "requirements.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1630
+      },
+      "writtenOn": "2017-07-03T01:30:41Z",
+      "side": 1,
+      "message": "snapshot is release version?",
+      "revId": "abc17fa46bdcd2d4b23fa6d60969268d9be0a487",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_d861afd4",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1630
+      },
+      "writtenOn": "2017-07-03T01:30:41Z",
+      "side": 1,
+      "message": "the default image is opnfv/yardstick",
+      "revId": "abc17fa46bdcd2d4b23fa6d60969268d9be0a487",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
