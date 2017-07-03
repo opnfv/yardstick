@@ -215,6 +215,8 @@ follwing the commands below::
 
 This image can be built using the following command in the directory where Yardstick is installed::
 
+  export YARD_IMG_ARCH='amd64'
+  sudo echo "Defaults env_keep += \'YARD_IMG_ARCH\'" >> /etc/sudoers
   sudo tools/yardstick-img-modify tools/ubuntu-server-cloudimg-modify.sh
 
 **Warning:** Before building the guest image inside the Yardstick container, make sure the container is granted with privilege. The script will create files by default in ``/tmp/workspace/yardstick`` and the files will be owned by root!
