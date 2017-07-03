@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_98d01755",
+        "filename": "requirements.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-07-03T02:01:40Z",
+      "side": 1,
+      "message": "I am afraid not. I will change it to release version.",
+      "parentUuid": "1aa4ed85_386563e1",
+      "revId": "abc17fa46bdcd2d4b23fa6d60969268d9be0a487",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_d861afd4",
         "filename": "yardstick/orchestrator/kubernetes.py",
         "patchSetId": 4
@@ -30,6 +48,29 @@
       "writtenOn": "2017-07-03T01:30:41Z",
       "side": 1,
       "message": "the default image is opnfv/yardstick",
+      "revId": "abc17fa46bdcd2d4b23fa6d60969268d9be0a487",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_f88cab81",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-07-03T02:01:40Z",
+      "side": 1,
+      "message": "Yardstick container will launch two containers here. So currently it will be openretriever/yardstick, later we will build image ourself.",
+      "range": {
+        "startLine": 12,
+        "startChar": 42,
+        "endLine": 12,
+        "endChar": 63
+      },
       "revId": "abc17fa46bdcd2d4b23fa6d60969268d9be0a487",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
