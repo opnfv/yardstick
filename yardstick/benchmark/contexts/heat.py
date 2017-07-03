@@ -152,7 +152,8 @@ class HeatContext(Context):
         for network in self.networks.values():
             template.add_network(network.stack_name,
                                  network.physical_network,
-                                 network.provider)
+                                 network.provider,
+                                 network.segmentation_id)
             template.add_subnet(network.subnet_stack_name, network.stack_name,
                                 network.subnet_cidr)
 
