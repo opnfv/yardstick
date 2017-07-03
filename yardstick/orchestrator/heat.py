@@ -1,4 +1,4 @@
-##############################################################################
+#############################################################################
 # Copyright (c) 2015-2017 Ericsson AB and others.
 #
 # All rights reserved. This program and the accompanying materials
@@ -230,7 +230,8 @@ name (i.e. %s).\
             'value': {'get_resource': name}
         }
 
-    def add_network(self, name, physical_network='physnet1', provider=None):
+    def add_network(self, name, physical_network='physnet1', provider=None,
+                    segmentation_id=None):
         """add to the template a Neutron Net"""
         log.debug("adding Neutron::Net '%s'", name)
         if provider is None:
@@ -247,6 +248,9 @@ name (i.e. %s).\
                     'physical_network': physical_network
                 }
             }
+            if segmentation_id:
+                seg_id_dit = {'segmentation_id': segmentation_id}
+                self.resources[name]["properties"].update(seg_id_dit)
 
     def add_server_group(self, name, policies):     # pragma: no cover
         """add to the template a ServerGroup"""
