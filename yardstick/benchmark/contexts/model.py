@@ -107,6 +107,7 @@ class Network(Object):
         self.router = None
         self.physical_network = attrs.get('physical_network', 'physnet1')
         self.provider = attrs.get('provider', None)
+        self.segmentation_id = attrs.get('segmentation_id', None)
 
         if "external_network" in attrs:
             self.router = Router("router", self.name,
