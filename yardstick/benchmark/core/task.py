@@ -375,10 +375,10 @@ class TaskParser(object):       # pragma: no cover
                 tc_fit_installer = constraint.get('installer', None)
                 LOG.info("cur_pod:%s, cur_installer:%s,tc_constraints:%s",
                          cur_pod, cur_installer, constraint)
-                if cur_pod and tc_fit_pod and cur_pod not in tc_fit_pod:
+                if (cur_pod is None) or (cur_pod and tc_fit_pod and cur_pod not in tc_fit_pod):
                     return False
-                if cur_installer and tc_fit_installer and \
-                        cur_installer not in tc_fit_installer:
+                if (cur_pod is None) or (cur_installer and tc_fit_installer and \
+                        cur_installer not in tc_fit_installer):
                     return False
         return True
 
