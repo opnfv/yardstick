@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_84ff5201",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-07-04T12:12:29Z",
+      "side": 1,
+      "message": "should be:\nif (cur_pod is None) or (tc_fit_pod and cur_pod not in tc_fit_pod):",
+      "range": {
+        "startLine": 378,
+        "startChar": 16,
+        "endLine": 378,
+        "endChar": 95
+      },
+      "revId": "3383e9ab49e4ff2fe68f452191001a60a94071f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_a404ce15",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-07-04T12:12:29Z",
+      "side": 1,
+      "message": "should be:\n(cur_installer is None) or (tc_fit_installer and cur_installer not in tc_fit_installer):",
+      "range": {
+        "startLine": 380,
+        "startChar": 19,
+        "endLine": 381,
+        "endChar": 66
+      },
+      "revId": "3383e9ab49e4ff2fe68f452191001a60a94071f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
