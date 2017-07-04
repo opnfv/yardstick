@@ -250,10 +250,12 @@ class Task(object):     # pragma: no cover
                 # Nuke if it did not stop nicely
                 base_runner.Runner.terminate(runner)
                 status = runner_join(runner)
-                self.outputs.update(runner.get_output())
-                result.extend(runner.get_result())
             else:
                 base_runner.Runner.release(runner)
+
+            self.outputs.update(runner.get_output())
+            result.extend(runner.get_result())
+
             if status != 0:
                 raise RuntimeError
             print("Background task ended")
