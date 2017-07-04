@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_fbed85f0",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6471
+      },
+      "writtenOn": "2017-07-04T07:19:27Z",
+      "side": 1,
+      "message": "Hi Jack,Thanks for the comments,modified accordindly as suggested",
+      "parentUuid": "1aa4ed85_cfc0102d",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 35
+      },
+      "revId": "3b99b89844d77f2795cc1feaa8c10711b92d0a25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_8fe218d4",
         "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2017-06-28T14:26:19Z",
       "side": 1,
       "message": "We have ssh.SSH._put_file_shell method for you. I don\u0027t know if it is fit for you.",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 62
+      },
+      "revId": "3b99b89844d77f2795cc1feaa8c10711b92d0a25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_bbbf0dd0",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6471
+      },
+      "writtenOn": "2017-07-04T07:19:27Z",
+      "side": 1,
+      "message": "Not sure whether it will fit for us.I have used cyclictest.py as a reference which we are using and it is using the same method",
+      "parentUuid": "1aa4ed85_8fe218d4",
       "range": {
         "startLine": 47,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_bb8dcd33",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6471
+      },
+      "writtenOn": "2017-07-04T07:19:27Z",
+      "side": 1,
+      "message": "Sure,will remove it",
+      "parentUuid": "1aa4ed85_4fec20c8",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 24
+      },
+      "revId": "3b99b89844d77f2795cc1feaa8c10711b92d0a25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_e2cde387",
         "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
         "patchSetId": 6
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_7b875510",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6471
+      },
+      "writtenOn": "2017-07-04T07:19:27Z",
+      "side": 1,
+      "message": "Hi Brattain,\n\nThanks for the comments.will modify as suggested",
+      "parentUuid": "1aa4ed85_e2cde387",
+      "revId": "3b99b89844d77f2795cc1feaa8c10711b92d0a25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_c2c46761",
         "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate_benchmark.bash",
         "patchSetId": 6
@@ -99,6 +189,24 @@
       "writtenOn": "2017-06-29T06:24:49Z",
       "side": 1,
       "message": "use $() instead of ``\n\ndon\u0027t pipe cat into grep, grep reads file directly.\n\n  $(grep \"setup\" $OUTPUT_FILE | cut -d\u0027 \u0027 -f2)",
+      "revId": "3b99b89844d77f2795cc1feaa8c10711b92d0a25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_db752933",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate_benchmark.bash",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6471
+      },
+      "writtenOn": "2017-07-04T07:19:27Z",
+      "side": 1,
+      "message": "Sure,Will do it",
+      "parentUuid": "1aa4ed85_c2c46761",
       "revId": "3b99b89844d77f2795cc1feaa8c10711b92d0a25",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
