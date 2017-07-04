@@ -253,13 +253,9 @@ class Task(object):     # pragma: no cover
             else:
                 base_runner.Runner.release(runner)
 
-            self.outputs.update(runner.get_output())
-            result.extend(runner.get_result())
-
-            if status != 0:
-                raise RuntimeError
+	    self.outputs.update(runner.get_output())
+	    result.extend(runner.get_result())
             print("Background task ended")
-
         return result
 
     def atexit_handler(self):
