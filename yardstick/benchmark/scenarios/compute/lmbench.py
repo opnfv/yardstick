@@ -15,6 +15,7 @@ import pkg_resources
 from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
+from yardstick.common import utils
 from yardstick.benchmark.scenarios import base
 
 LOG = logging.getLogger(__name__)
@@ -127,30 +128,32 @@ class Lmbench(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
+        lmbench_result = {}
         if test_type == 'latency':
-            result.update(
+            lmbench_result.update(
                 {"latencies": jsonutils.loads(stdout)})
         else:
-            result.update(jsonutils.loads(stdout))
+            lmbench_result.update(jsonutils.loads(stdout))
+        result.update(utils.flatten_dict_key(lmbench_result))
 
         if "sla" in self.scenario_cfg:
             sla_error = ""
             if test_type == 'latency':
                 sla_max_latency = int(self.scenario_cfg['sla']['max_latency'])
-                for t_latency in result["latencies"]:
+                for t_latency in lmbench_result["latencies"]:
                     latency = t_latency['latency']
                     if latency > sla_max_latency:
                         sla_error += "latency %f > sla:max_latency(%f); " \
                             % (latency, sla_max_latency)
             elif test_type == 'bandwidth':
                 sla_min_bw = int(self.scenario_cfg['sla']['min_bandwidth'])
-                bw = result["bandwidth(MBps)"]
+                bw = lmbench_result["bandwidth(MBps)"]
                 if bw < sla_min_bw:
                     sla_error += "bandwidth %f < " \
                                  "sla:min_bandwidth(%f)" % (bw, sla_min_bw)
             elif test_type == 'latency_for_cache':
                 sla_latency = float(self.scenario_cfg['sla']['max_latency'])
-                cache_latency = float(result['L1cache'])
+                cache_latency = float(lmbench_result['L1cache'])
                 if sla_latency < cache_latency:
                     sla_error += "latency %f > sla:max_latency(%f); " \
                         % (cache_latency, sla_latency)
