@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_8fa1abab",
+        "filename": "yardstick/benchmark/contexts/kubernetes.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-05T06:49:21Z",
+      "side": 1,
+      "message": "who are others?",
+      "range": {
+        "startLine": 2,
+        "startChar": 53,
+        "endLine": 2,
+        "endChar": 59
+      },
+      "revId": "a76db3d95904ddd5bd23ad53f24295a04e8e21c2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_afa6e7bf",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-05T06:49:21Z",
+      "side": 1,
+      "message": "copyright?",
+      "revId": "a76db3d95904ddd5bd23ad53f24295a04e8e21c2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_6fb0eff4",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-05T06:49:21Z",
+      "side": 1,
+      "message": "not needed, just pop with a default of None\n\n  dic.pop(key, None)",
+      "revId": "a76db3d95904ddd5bd23ad53f24295a04e8e21c2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_0f95bb3f",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-05T06:49:21Z",
+      "side": 1,
+      "message": "by convention we prefer to always call super() in __init__",
+      "revId": "a76db3d95904ddd5bd23ad53f24295a04e8e21c2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
