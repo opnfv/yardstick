@@ -104,11 +104,16 @@ class Network(Object):
         self.stack_name = context.name + "-" + self.name
         self.subnet_stack_name = self.stack_name + "-subnet"
         self.subnet_cidr = attrs.get('cidr', '10.0.1.0/24')
+        self.enable_dhcp = attrs.get('enable_dhcp', 'true')
+        # we require 'null' or '' to disable setting gateway_ip
+        self.gateway_ip = attrs.get('gateway_ip')
         self.router = None
         self.physical_network = attrs.get('physical_network', 'physnet1')
         self.provider = attrs.get('provider')
         self.segmentation_id = attrs.get('segmentation_id')
         self.network_type = attrs.get('network_type')
+        self.port_security_enabled = attrs.get('port_security_enabled', True)
+        self.allowed_address_pairs = attrs.get('allowed_address_pairs', [])
 
         if "external_network" in attrs:
             self.router = Router("router", self.name,
@@ -234,10 +239,16 @@ class Server(Object):     # pragma: no cover
         for network in networks:
             port_name = server_name + "-" + network.name + "-port"
             self.ports[network.name] = {"stack_name": port_name}
-            template.add_port(port_name, network.stack_name,
-                              network.subnet_stack_name,
-                              sec_group_id=self.secgroup_name,
-                              provider=network.provider)
+            # we can't use secgroups if port_security_enabled is False
+            if network.port_security_enabled:
+                sec_group_id = self.secgroup_name
+            else:
+                sec_group_id = None
+            # don't refactor to pass in network object, that causes JSON
+            # circular ref encode errors
+            template.add_port(port_name, network.stack_name, network.subnet_stack_name,
+                              sec_group_id=sec_group_id, provider=network.provider,
+                              allowed_address_pairs=network.allowed_address_pairs)
             port_name_list.append(port_name)
 
             if self.floating_ip:
@@ -248,7 +259,7 @@ class Server(Object):     # pragma: no cover
                                              external_network,
                                              port_name,
                                              network.router.stack_if_name,
-                                             self.secgroup_name)
+                                             sec_group_id)
                     self.floating_ip_assoc["stack_name"] = \
                         server_name + "-fip-assoc"
                     template.add_floating_ip_association(
