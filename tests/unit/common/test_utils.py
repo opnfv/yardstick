@@ -109,6 +109,37 @@ class GetParaFromYaml(unittest.TestCase):
         return file_path
 
 
+class CommonUtilTestCase(unittest.TestCase):
+    def setUp(self):
+        self.data = {
+            "benchmark": {
+                "data": {
+                    "mpstat": {
+                        "cpu0": {
+                            "%sys": "0.00",
+                            "%idle": "99.00"
+                        },
+                        "loadavg": [
+                            "1.09",
+                            "0.29"
+                        ]
+                    },
+                    "rtt": "1.03"
+                }
+            }
+        }
+    def test__dict_key_flatten(self):
+        line = 'mpstat.loadavg1=0.29,rtt=1.03,mpstat.loadavg0=1.09,' \
+               'mpstat.cpu0.%idle=99.00,mpstat.cpu0.%sys=0.00'
+        # need to sort for assert to work
+        line = ",".join(sorted(line.split(',')))
+        flattened_data = utils.flatten_dict_key(
+            self.data['benchmark']['data'])
+        result = ",".join(
+            [k + "=" + v for k, v in sorted(flattened_data.items())])
+        self.assertEqual(result, line)
+
+
 def main():
     unittest.main()
 
