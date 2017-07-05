@@ -12,10 +12,9 @@ from __future__ import absolute_import
 import logging
 import time
 
-import collections
 import requests
-import six
 
+from yardstick.common import utils
 from third_party.influxdb.influxdb_line_protocol import make_lines
 from yardstick.dispatcher.base import Base as DispatchBase
 
@@ -80,7 +79,7 @@ class InfluxdbDispatcher(DispatchBase):
         msg = {}
         point = {
             "measurement": case,
-            "fields": self._dict_key_flatten(data["data"]),
+            "fields": utils.flatten_dict_key(data["data"]),
             "time": self._get_nano_timestamp(data),
             "tags": self._get_extended_tags(criteria),
         }
@@ -88,27 +87,6 @@ class InfluxdbDispatcher(DispatchBase):
         msg["tags"] = self.tags
 
         return make_lines(msg).encode('utf-8')
-
-    def _dict_key_flatten(self, data):
-        next_data = {}
-
-        # use list, because iterable is too generic
-        if not [v for v in data.values() if
-                isinstance(v, (collections.Mapping, list))]:
-            return data
-
-        for k, v in six.iteritems(data):
-            if isinstance(v, collections.Mapping):
-                for n_k, n_v in six.iteritems(v):
-                    next_data["%s.%s" % (k, n_k)] = n_v
-            # use list because iterable is too generic
-            elif isinstance(v, list):
-                for index, item in enumerate(v):
-                    next_data["%s%d" % (k, index)] = item
-            else:
-                next_data[k] = v
-
-        return self._dict_key_flatten(next_data)
 
     def _get_nano_timestamp(self, results):
         try:
