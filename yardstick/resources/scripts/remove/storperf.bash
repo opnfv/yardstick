@@ -13,8 +13,23 @@
 
 set -e
 
-docker stop storperf-yardstick
-docker rm -f storperf-yardstick
-docker rmi opnfv/storperf
+export TAG=${DOCKER_TAG:-latest}
+export ENV_FILE=~/storperf_admin-rc
+export CARBON_DIR=~/carbon
 
-rm -rf /tmp/storperf-yardstick
+if [ -d ~/carbon ]
+then
+    rm -rf ~/carbon
+fi
+
+docker-compose down
+
+for container_name in storperf swagger-ui http-front-end
+do
+    container=`docker ps -a -q -f name=$container_name`
+    if [ ! -z $container ]
+    then
+        echo "Stopping any existing $container_name container"
+        docker rm -fv $container
+    fi
+done
