@@ -15,7 +15,7 @@ description: >
 
 {% set host = host or "node1.LF" %}
 {% set target = target or "node2.LF" %}
-{% set pod_info = pod_info or "etc/yardstick/nodes/compass_sclab_physical/pod.yaml" %}
+{% set file = file or '/etc/yardstick/pod.yaml' %}
 scenarios:
 -
   type: Ping
@@ -37,5 +37,5 @@ scenarios:
 context:
   type: Node
   name: LF
-  file: {{pod_info}}
+  file: {{file}}
 

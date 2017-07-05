@@ -385,7 +385,7 @@ class TaskParser(object):       # pragma: no cover
     def _get_task_para(self, task, cur_pod):
         task_args = task.get('task_args', None)
         if task_args is not None:
-            task_args = task_args.get(cur_pod, None)
+            task_args = task_args.get(cur_pod, task_args.get('default'))
         task_args_fnames = task.get('task_args_fnames', None)
         if task_args_fnames is not None:
             task_args_fnames = task_args_fnames.get(cur_pod, None)

@@ -16,7 +16,7 @@ description: >
     username, password are needed in pod file (There is a sample pod file in
     "etc/yardstick/nodes/pod.yaml.ipmi.sample").
 
-{% set file = file or 'etc/yardstick/nodes/fuel_virtual/pod.yaml' %}
+{% set file = file or '/etc/yardstick/pod.yaml' %}
 {% set jumphost = jumphost or 'node0' %}
 
 scenarios:
