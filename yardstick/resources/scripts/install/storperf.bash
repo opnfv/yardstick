@@ -12,20 +12,22 @@
 # StorPerf plugin installation script
 # After installation, it will run StorPerf container on Jump Host
 # Requirements:
-#     1. docker has been installed on the Jump Host
-#     2. Openstack environment file for storperf, '~/storperf_admin-rc', is ready.
+#     1. docker and docker-compose have been installed on the Jump Host
+#     2. Openstack environment file for storperf, '~/storperf_admin-rc', is ready
+#     3. Jump Host must have internet connectivity for downloading docker image
+#     4. Jump Host has access to the OpenStack Controller API
+#     5. Enough OpenStack floating IPs must be available to match your agent count
+#     6. The following ports are exposed if you use the supplied docker-compose.yaml file:
+#        * 5000 for StorPerf ReST API and Swagger UI
+#        * 8000 for StorPerf's Graphite Web Server
 
 set -e
 
-mkdir -p /tmp/storperf-yardstick
+export TAG=${DOCKER_TAG:-latest}
+export ENV_FILE=~/storperf_admin-rc
+export CARBON_DIR=~/carbon
 
-docker pull opnfv/storperf
+sudo install --owner=www-data --group=www-data -d "${CARBON_DIR}"
 
-STORPERF_DIR=/tmp/storperf-yardstick/carbon
-docker run -t \
---env-file ~/storperf_admin-rc \
--p 5000:5000 -p 8000:8000 \
--v $STORPERF_DIR:/opt/graphite/storage/whisper \
---name storperf-yardstick opnfv/storperf &
-
-chown www-data:www-data $STORPERF_DIR
+docker-compose -f ~/docker-compose.yaml pull
+docker-compose -f ~/docker-compose.yaml up -d
