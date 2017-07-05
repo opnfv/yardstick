@@ -258,7 +258,7 @@ main()
         RAW_IMAGE='/home/opnfv/images/yardstick-image.tar.gz'
     fi
 
-    if [ $OS_CACERT ] && [ "$(echo $OS_CACERT | tr '[:upper:]' '[:lower:]')" = "false" ]; then
+    if [ $OS_INSECURE ] && [ "$(echo $OS_INSECURE | tr '[:upper:]' '[:lower:]')" = "true" ]; then
         SECURE="--insecure"
     else
         SECURE=""
