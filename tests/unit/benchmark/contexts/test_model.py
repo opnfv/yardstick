@@ -214,11 +214,12 @@ class ServerTestCase(unittest.TestCase):
         attrs = {'image': 'some-image', 'flavor': 'some-flavor', 'floating_ip': '192.168.1.10', 'floating_ip_assoc': 'some-vm'}
         test_server = model.Server('foo', self.mock_context, attrs)
 
-        self.mock_context.flavors =  ['flavor1', 'flavor2', 'some-flavor']
+        self.mock_context.flavors = ['flavor1', 'flavor2', 'some-flavor']
 
         mock_network = mock.Mock()
         mock_network.name = 'some-network'
         mock_network.stack_name = 'some-network-stack'
+        mock_network.allowed_address_pairs = ["1", "2"]
         mock_network.subnet_stack_name = 'some-network-stack-subnet'
         mock_network.provider = 'sriov'
         mock_network.external_network = 'ext_net'
@@ -232,7 +233,8 @@ class ServerTestCase(unittest.TestCase):
             mock_network.stack_name,
             mock_network.subnet_stack_name,
             sec_group_id=self.mock_context.secgroup_name,
-            provider=mock_network.provider)
+            provider=mock_network.provider,
+            allowed_address_pairs=mock_network.allowed_address_pairs)
 
         mock_template.add_floating_ip.assert_called_with(
             'some-server-fip',
@@ -290,11 +292,12 @@ class ServerTestCase(unittest.TestCase):
         }
         test_server = model.Server('ServerFlavor-2', self.mock_context, attrs)
 
-        self.mock_context.flavors =  ['flavor2']
+        self.mock_context.flavors = ['flavor2']
         mock_network = mock.Mock()
-        mock_network.configure_mock(name='some-network', stack_name= 'some-network-stack',
-                                    subnet_stack_name = 'some-network-stack-subnet',
-                                    provider = 'some-provider')
+        mock_network.allowed_address_pairs = ["1", "2"]
+        mock_network.configure_mock(name='some-network', stack_name='some-network-stack',
+                                    subnet_stack_name='some-network-stack-subnet',
+                                    provider='some-provider')
 
         test_server._add_instance(mock_template, 'ServerFlavor-2',
                                   [mock_network], 'hints')
@@ -304,7 +307,8 @@ class ServerTestCase(unittest.TestCase):
             mock_network.stack_name,
             mock_network.subnet_stack_name,
             provider=mock_network.provider,
-            sec_group_id=self.mock_context.secgroup_name)
+            sec_group_id=self.mock_context.secgroup_name,
+            allowed_address_pairs=mock_network.allowed_address_pairs)
 
         mock_template.add_server.assert_called_with(
             'ServerFlavor-2', 'some-image',
