@@ -23,6 +23,8 @@ import logging
 import os
 import subprocess
 import sys
+import collections
+import six
 from functools import reduce
 
 import yaml
@@ -189,3 +191,25 @@ def get_port_ip(sshclient, port):
     if status:
         raise RuntimeError(stderr)
     return stdout.rstrip()
+
+
+def flatten_dict_key(data):
+    next_data = {}
+
+    # use list, because iterable is too generic
+    if not [v for v in data.values() if
+            isinstance(v, (collections.Mapping, list))]:
+        return data
+
+    for k, v in six.iteritems(data):
+        if isinstance(v, collections.Mapping):
+            for n_k, n_v in six.iteritems(v):
+                next_data["%s.%s" % (k, n_k)] = n_v
+        # use list because iterable is too generic
+        elif isinstance(v, list):
+            for index, item in enumerate(v):
+                next_data["%s%d" % (k, index)] = item
+        else:
+            next_data[k] = v
+
+    return flatten_dict_key(next_data)

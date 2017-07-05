@@ -45,7 +45,7 @@ class PingTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (0, '100', '')
         p.run(result)
-        self.assertEqual(result, {'rtt': {'ares': 100.0}})
+        self.assertEqual(result, {'rtt.ares': 100.0})
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_successful_sla(self, mock_ssh):
@@ -61,7 +61,7 @@ class PingTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (0, '100', '')
         p.run(result)
-        self.assertEqual(result, {'rtt': {'ares': 100.0}})
+        self.assertEqual(result, {'rtt.ares': 100.0})
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_unsuccessful_sla(self, mock_ssh):
