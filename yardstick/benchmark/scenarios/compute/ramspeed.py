@@ -14,6 +14,7 @@ import pkg_resources
 from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
+from yardstick.common import utils
 from yardstick.benchmark.scenarios import base
 
 LOG = logging.getLogger(__name__)
@@ -128,12 +129,13 @@ class Ramspeed(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
-        result.update(jsonutils.loads(stdout))
+        ramspeed_result = jsonutils.loads(stdout)
+        result.update(utils.flatten_dict_key(ramspeed_result))
 
         if "sla" in self.scenario_cfg:
             sla_error = ""
             sla_min_bw = int(self.scenario_cfg['sla']['min_bandwidth'])
-            for i in result["Result"]:
+            for i in ramspeed_result["Result"]:
                 bw = i["Bandwidth(MBps)"]
                 if bw < sla_min_bw:
                     sla_error += "Bandwidth %f < " \
