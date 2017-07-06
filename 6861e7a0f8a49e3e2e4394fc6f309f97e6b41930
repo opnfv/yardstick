@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_6137a3e4",
+        "filename": "tests/unit/common/test_utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:25:52Z",
+      "side": 1,
+      "message": "don\u0027t always need to tuple unpack, could use join\n\n        result \u003d \",\".join(\n            (\"\u003d\".join(item) for item in sorted(flattened_data.items())))",
+      "revId": "6861e7a0f8a49e3e2e4394fc6f309f97e6b41930",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_41c4e791",
+        "filename": "yardstick/benchmark/scenarios/compute/ramspeed.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:25:52Z",
+      "side": 1,
+      "message": "this doesn\u0027t make sense.  Don\u0027t create an empty dict and then update it, especially since jsonutils.loads() returns a dict anyway.\n\nalways prefer creating dicts in a single step.\n\n  ramspeed_result \u003d jsonutils.loads(stdout)",
+      "revId": "6861e7a0f8a49e3e2e4394fc6f309f97e6b41930",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_0134afdc",
+        "filename": "yardstick/benchmark/scenarios/networking/iperf3.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:25:52Z",
+      "side": 1,
+      "message": "this doesn\u0027t make sense.  Don\u0027t create an empty dict and then update it, especially since jsonutils.loads() returns a dict anyway.\n\nalways prefer creating dicts in a single step.\n\n  iperf_result \u003d jsonutils.loads(stdout, parse_int\u003dfloat)",
+      "revId": "6861e7a0f8a49e3e2e4394fc6f309f97e6b41930",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_21b68b3e",
+        "filename": "yardstick/benchmark/scenarios/networking/ping.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:25:52Z",
+      "side": 1,
+      "message": "reverse order\n \n  rtt_result \u003d {}\n  ping_result \u003d {\"rtt\": rtt_result}",
+      "revId": "6861e7a0f8a49e3e2e4394fc6f309f97e6b41930",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_01e7cf41",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:25:52Z",
+      "side": 1,
+      "message": "probably better to use predicate that will short-circuit evaluate\n\n    if not any(isinstance(v, (collections.Mapping, list)) for v in data.values()):\n        return data",
+      "revId": "6861e7a0f8a49e3e2e4394fc6f309f97e6b41930",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
