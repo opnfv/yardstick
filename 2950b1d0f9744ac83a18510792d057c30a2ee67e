@@ -16,6 +16,24 @@
       "revId": "2950b1d0f9744ac83a18510792d057c30a2ee67e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_21aa0b71",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-07-06T07:19:31Z",
+      "side": 1,
+      "message": "If a background runner cannot finish properly, we force to terminate the runner. Background scenarios are mainly used for measuring system capacity and this force terminate won\u0027t cause dirty data as data will be stored once they are collected.",
+      "parentUuid": "1aa4ed85_8182dffe",
+      "revId": "2950b1d0f9744ac83a18510792d057c30a2ee67e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
