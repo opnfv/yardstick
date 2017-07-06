@@ -564,8 +564,9 @@ name (i.e. %s).\
         for status in iter(self.status, u'CREATE_COMPLETE'):
             log.debug("stack state %s", status)
             if status == u'CREATE_FAILED':
-                raise RuntimeError(
-                    heat_client.stacks.get(self.uuid).stack_status_reason)
+               stack_status_reason = heat_client.stacks.get(self.uuid).stack_status_reason
+               heat_client.stacks.delete(self.uuid)
+               raise RuntimeError(stack_status_reason)
             if time.time() > time_limit:
                 raise RuntimeError("Heat stack create timeout")
 
