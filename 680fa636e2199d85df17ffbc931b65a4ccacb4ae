@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_3edb06ef",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-07-06T03:25:10Z",
+      "side": 1,
+      "message": "Do we need to get the status of command and handler the error? Maybe there are some errors occur.",
+      "range": {
+        "startLine": 424,
+        "startChar": 4,
+        "endLine": 424,
+        "endChar": 19
+      },
+      "revId": "680fa636e2199d85df17ffbc931b65a4ccacb4ae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
