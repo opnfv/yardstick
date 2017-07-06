@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_8182dffe",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T07:06:32Z",
+      "side": 1,
+      "message": "so it a background runner fails, we get results in data, but we don\u0027t check for failure in data?  we always pass?",
+      "revId": "2950b1d0f9744ac83a18510792d057c30a2ee67e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
