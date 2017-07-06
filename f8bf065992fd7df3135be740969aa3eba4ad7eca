@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_011d8f66",
+        "filename": "yardstick/resources/scripts/install/storperf.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:06:11Z",
+      "side": 1,
+      "message": "don\u0027t check and then execute, this is a filesystem race condition and insecure.\n\nuse the \u0027install\u0027 command it was designed for this to combine operations and not return errors.\n\n  sudo install -o33 -g33 -d ~/carbon",
+      "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_a10efb32",
+        "filename": "yardstick/resources/scripts/install/storperf.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:06:11Z",
+      "side": 1,
+      "message": "no magic numbers, which user/group is 33?",
+      "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_211a0b6f",
+        "filename": "yardstick/resources/scripts/remove/storperf.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:06:11Z",
+      "side": 1,
+      "message": "don\u0027t check then delete, just delete,  rm -rf does not error if the dir doesn\u0027t exist.",
+      "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_c12697ba",
+        "filename": "yardstick/resources/scripts/remove/storperf.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:06:11Z",
+      "side": 1,
+      "message": "don\u0027t use ``, always use $()",
+      "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_e12b9380",
+        "filename": "yardstick/resources/scripts/remove/storperf.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:06:11Z",
+      "side": 1,
+      "message": "use [[]] or use \"\" to prevent word splitting.\n\nhttp://mywiki.wooledge.org/BashFAQ/031",
+      "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
