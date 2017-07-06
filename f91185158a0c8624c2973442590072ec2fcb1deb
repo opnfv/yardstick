@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_01f10fcd",
+        "filename": "yardstick/benchmark/contexts/kubernetes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:57:21Z",
+      "side": 1,
+      "message": "try to fail fast, move exceptions and fatal error checks first, so we don\u0027t have to execute extra code to detect a failure.",
+      "revId": "f91185158a0c8624c2973442590072ec2fcb1deb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_61e4830d",
+        "filename": "yardstick/benchmark/contexts/kubernetes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:57:21Z",
+      "side": 1,
+      "message": "maybe we can split the loop into predicate form\n\n    def _wait_until_running(self):\n        while not all(self.check_pod_status(pod) for pod in self.template.pods):\n            time.sleep(1)\n\n    @staticmethod\n    def check_pod_status(pod):\n        status \u003d k8s_utils.read_pod_status(pod)\n        LOG.debug(\u0027%s:%s\u0027, pod, status)\n        if status \u003d\u003d \u0027Failed\u0027:\n            LOG.error(\u0027Pod %s status is failed\u0027, pod)\n            raise RuntimeError\n        elif status !\u003d \u0027Running\u0027:\n            return False\n        return True",
+      "revId": "f91185158a0c8624c2973442590072ec2fcb1deb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_c1ba17e1",
+        "filename": "yardstick/benchmark/contexts/kubernetes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:57:21Z",
+      "side": 1,
+      "message": "calculate values before opening the file, attempt to minimize amount of time file is open.\n\n key \u003d \u0027{} {}\\n\u0027.format(rsa_key.get_name(), rsa_key.get_base64())\n with open(self.public_key_path, \u0027w\u0027) as f:\n   f.write(key)",
+      "revId": "f91185158a0c8624c2973442590072ec2fcb1deb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_21c52b5b",
+        "filename": "yardstick/benchmark/contexts/kubernetes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:57:21Z",
+      "side": 1,
+      "message": "I assume eventually we will have multiple data plan interfaces, and thus follow the Heat context interfaces dict convention.",
+      "revId": "f91185158a0c8624c2973442590072ec2fcb1deb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_e1a633c1",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:57:21Z",
+      "side": 1,
+      "message": "copyright?",
+      "revId": "f91185158a0c8624c2973442590072ec2fcb1deb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
