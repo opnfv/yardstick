@@ -11,12 +11,17 @@
 from __future__ import print_function
 from __future__ import absolute_import
 
+import logging
+
 from yardstick.benchmark.core.task import Task
 from yardstick.common.utils import cliargs
 from yardstick.common.utils import write_json_to_file
 from yardstick.cmd.commands import change_osloobj_to_paras
 
 output_file_default = "/tmp/yardstick.out"
+
+
+LOG = logging.getLogger(__name__)
 
 
 class TaskCommands(object):     # pragma: no cover
@@ -49,7 +54,7 @@ class TaskCommands(object):     # pragma: no cover
             Task().start(param, **kwargs)
         except Exception as e:
             self._write_error_data(e)
-            raise
+            LOG.exception("")
 
     def _write_error_data(self, error):
         data = {'status': 2, 'result': str(error)}
