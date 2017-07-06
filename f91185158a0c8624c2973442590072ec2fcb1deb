@@ -84,6 +84,40 @@
       "revId": "f91185158a0c8624c2973442590072ec2fcb1deb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_a1b03bf5",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T07:01:26Z",
+      "side": 1,
+      "message": "why sh?  can we use bash?",
+      "revId": "f91185158a0c8624c2973442590072ec2fcb1deb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_4195c73e",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T07:01:26Z",
+      "side": 1,
+      "message": "why do we assume root?\n\nshould probably be os.path.expanduser(\u0027~/.ssh\u0027)",
+      "revId": "f91185158a0c8624c2973442590072ec2fcb1deb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
