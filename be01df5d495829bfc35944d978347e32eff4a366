@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_616fa393",
+        "filename": "yardstick/resources/scripts/install/storperf.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:31:37Z",
+      "side": 1,
+      "message": "why do we set CARBON_DIR and then not use it?\n\n sudo install --owner\u003dwww-data --group\u003dwww-data -d \"${CARBON_DIR}\"\n\nDRY (Don\u0027t repeat yourself), use a single source of truth. \n\nhttps://en.wikipedia.org/wiki/Don%27t_repeat_yourself\nhttp://wiki.c2.com/?DontRepeatYourself\nhttps://en.wikipedia.org/wiki/Single_source_of_truth",
+      "revId": "be01df5d495829bfc35944d978347e32eff4a366",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_2169ab8b",
+        "filename": "yardstick/resources/scripts/remove/storperf.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T06:31:37Z",
+      "side": 1,
+      "message": "please use \"${CARBON_DIR}\"",
+      "revId": "be01df5d495829bfc35944d978347e32eff4a366",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
