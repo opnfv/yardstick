@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "1aa4ed85_94b53bcf",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2017-07-06T14:38:53Z",
+      "side": 1,
+      "message": "Is it possible to open this to more pods than just huawei pod 1?",
+      "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_011d8f66",
         "filename": "yardstick/resources/scripts/install/storperf.bash",
         "patchSetId": 1
@@ -54,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_74b0bfdd",
+        "filename": "yardstick/resources/scripts/install/storperf.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2017-07-06T14:38:53Z",
+      "side": 1,
+      "message": "Need the magic number for now.  The user/group 33 is www-data in the docker container, but that does not mean that the docker host uses 33 for www-data.  Unless you can guarantee that the host has an entry www-data explicitly listed as user 33, group 33, we should be using the number.",
+      "parentUuid": "1aa4ed85_a10efb32",
+      "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_211a0b6f",
         "filename": "yardstick/resources/scripts/remove/storperf.bash",
         "patchSetId": 1
@@ -88,6 +123,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_54c7c345",
+        "filename": "yardstick/resources/scripts/remove/storperf.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2017-07-06T14:38:53Z",
+      "side": 1,
+      "message": "Silly question, why always use $()?  Is this documented in the Yardstick coding guidelines or somewhere?",
+      "parentUuid": "1aa4ed85_c12697ba",
+      "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_e12b9380",
         "filename": "yardstick/resources/scripts/remove/storperf.bash",
         "patchSetId": 1
@@ -99,6 +152,40 @@
       "writtenOn": "2017-07-06T06:06:11Z",
       "side": 1,
       "message": "use [[]] or use \"\" to prevent word splitting.\n\nhttp://mywiki.wooledge.org/BashFAQ/031",
+      "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_f4c34f36",
+        "filename": "yardstick/resources/storperf/docker-compose.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2017-07-06T14:38:53Z",
+      "side": 1,
+      "message": "Perhaps it is better do a git clone of StorPerf and use the version that is there to avoid duplication.  This file is going to go through several more revisions before Euphrates is released.  For example, there will be more containers added for the graphing, although that might not be relevant to Yardstick.",
+      "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_14c14b2e",
+        "filename": "yardstick/resources/storperf/nginx.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2017-07-06T14:38:53Z",
+      "side": 1,
+      "message": "Same comment as the docker-compose.yaml",
       "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
