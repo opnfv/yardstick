@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_be31360d",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T05:55:27Z",
+      "side": 1,
+      "message": "I was thinking more along the lines of\n\n    cmd \u003d [\"sudo\", \"python\", \"write_hosts.py\"]\n    p \u003d Popen(cmd, stdout\u003dPIPE, stdin\u003dPIPE, stderr\u003dPIPE, cwd\u003dos.path.join(consts.REPOS_DIR, \"api/resources\"))\n    _, err \u003d p.communicate(jsonutils.dumps(hosts_ip))\n    if p.returncode !\u003d 0 :\n        return result_handler(consts.API_ERROR, err)",
+      "revId": "e1ea896c3179c9847af2297076ff4d311c48e754",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_e104f316",
+        "filename": "api/resources/env_action.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T05:55:27Z",
+      "side": 1,
+      "message": "we need stderr\u003dPIPE to capture err",
+      "revId": "e1ea896c3179c9847af2297076ff4d311c48e754",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_5e5b6254",
+        "filename": "api/resources/write_hosts.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T05:55:27Z",
+      "side": 1,
+      "message": "the sudo python is not going to run in the virtualenv, so it should not use anything outside of stdlib.\n\nalso should not import yardstick.common\n\ndef write_hosts(hosts_ip):\n    hosts_list \u003d (\u0027\\n{} {}\u0027.format(ip, host_name)\n                  for host_name, ip in hosts_ip.items())\n    # with open(\"/etc/hosts\", \u0027a\u0027) as f:\n    with open(\"/tmp/hosts\", \u0027a\u0027) as f:\n        f.writelines(hosts_list)\n        f.write(\"\\n\")\n\n\nif __name__ \u003d\u003d \"__main__\":\n    write_hosts(json.load(sys.stdin))",
+      "revId": "e1ea896c3179c9847af2297076ff4d311c48e754",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
