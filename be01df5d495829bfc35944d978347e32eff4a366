@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_94ec5bc9",
+        "filename": "yardstick/resources/scripts/install/storperf.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2017-07-06T14:38:53Z",
+      "side": 1,
+      "message": "Unless we can guarantee that the docker host maps www-data to 33, we should use the numbers here.",
+      "parentUuid": "1aa4ed85_616fa393",
+      "revId": "be01df5d495829bfc35944d978347e32eff4a366",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_2169ab8b",
         "filename": "yardstick/resources/scripts/remove/storperf.bash",
         "patchSetId": 2
