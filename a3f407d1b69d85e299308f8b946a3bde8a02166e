@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_5474a3ce",
+        "filename": "yardstick/benchmark/scenarios/availability/scenario_general.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T21:06:40Z",
+      "side": 1,
+      "message": "\u0027is\u0027 is for object identity, not boolean truth.  We don\u0027t want to check object identity with the singleton True value, we what to check if something is true in a boolean sense.\n\njust use plain assert\n\n    assert self.pass_flag\n\n\nand why are we catching and re-raising the assert?  Just let the exception raise itself.",
+      "revId": "a3f407d1b69d85e299308f8b946a3bde8a02166e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_14a70b51",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T21:06:40Z",
+      "side": 1,
+      "message": "see previous comment",
+      "revId": "a3f407d1b69d85e299308f8b946a3bde8a02166e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
