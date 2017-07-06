@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_d41733a2",
+        "filename": "yardstick/resources/scripts/install/storperf.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T16:06:53Z",
+      "side": 1,
+      "message": "Okay, then we specify as constant\n\n WWW_DATA_UID\u003d33\n WWW_DATA_GID\u003d33",
+      "parentUuid": "1aa4ed85_74b0bfdd",
+      "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_211a0b6f",
         "filename": "yardstick/resources/scripts/remove/storperf.bash",
         "patchSetId": 1
@@ -135,6 +153,24 @@
       "side": 1,
       "message": "Silly question, why always use $()?  Is this documented in the Yardstick coding guidelines or somewhere?",
       "parentUuid": "1aa4ed85_c12697ba",
+      "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_543ca32f",
+        "filename": "yardstick/resources/scripts/remove/storperf.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-06T16:06:53Z",
+      "side": 1,
+      "message": "Thank you for the question.  The Bash FAQ is the authority on these matters.\n\nhttp://mywiki.wooledge.org/BashFAQ/082",
+      "parentUuid": "1aa4ed85_54c7c345",
       "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
