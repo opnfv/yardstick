@@ -8,17 +8,16 @@
 ##############################################################################
 from __future__ import absolute_import
 
-from api import views
-from api.utils.common import Url
+from api import Url
 
 
 urlpatterns = [
-    Url('/yardstick/asynctask', views.Asynctask, 'asynctask'),
-    Url('/yardstick/testcases', views.Testcases, 'testcases'),
-    Url('/yardstick/testcases/release/action', views.ReleaseAction, 'release'),
-    Url('/yardstick/testcases/samples/action', views.SamplesAction, 'samples'),
-    Url('/yardstick/testcases/<case_name>/docs', views.CaseDocs, 'casedocs'),
-    Url('/yardstick/testsuites/action', views.TestsuitesAction, 'testsuites'),
-    Url('/yardstick/results', views.Results, 'results'),
-    Url('/yardstick/env/action', views.EnvAction, 'env')
+    Url('/yardstick/asynctask', 'v1_async_task'),
+    Url('/yardstick/testcases', 'v1_test_case'),
+    Url('/yardstick/testcases/release/action', 'v1_release_case'),
+    Url('/yardstick/testcases/samples/action', 'v1_sample_case'),
+    Url('/yardstick/testcases/<case_name>/docs', 'v1_case_docs'),
+    Url('/yardstick/testsuites/action', 'v1_test_suite'),
+    Url('/yardstick/results', 'v1_result'),
+    Url('/yardstick/env/action', 'v1_env')
 ]
