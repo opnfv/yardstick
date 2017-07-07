@@ -16,6 +16,24 @@
       "revId": "1f2490cff12a3b97fda15294d540ce7212ee30c4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_cd6806f8",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6471
+      },
+      "writtenOn": "2017-07-07T19:01:26Z",
+      "side": 1,
+      "message": "Hi Brattain,\n\nThanks for the comments.Will modify accordingly",
+      "parentUuid": "1aa4ed85_eda94225",
+      "revId": "1f2490cff12a3b97fda15294d540ce7212ee30c4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
