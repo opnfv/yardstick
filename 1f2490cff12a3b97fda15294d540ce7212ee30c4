@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_eda94225",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-07T18:22:58Z",
+      "side": 1,
+      "message": "please try self.host.put_file\n\n  self.host.put_file(self.target_script, \"~/qemu_migrate_benchmark.sh\")",
+      "revId": "1f2490cff12a3b97fda15294d540ce7212ee30c4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
