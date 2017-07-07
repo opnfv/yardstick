@@ -177,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_edf14296",
+        "filename": "yardstick/resources/scripts/remove/storperf.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2017-07-07T15:24:03Z",
+      "side": 1,
+      "message": "Perfect, thanks :)",
+      "parentUuid": "1aa4ed85_543ca32f",
+      "revId": "f8bf065992fd7df3135be740969aa3eba4ad7eca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_e12b9380",
         "filename": "yardstick/resources/scripts/remove/storperf.bash",
         "patchSetId": 1
