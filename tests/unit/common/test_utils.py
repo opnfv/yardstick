@@ -110,6 +110,7 @@ class GetParaFromYaml(unittest.TestCase):
 
 
 class CommonUtilTestCase(unittest.TestCase):
+
     def setUp(self):
         self.data = {
             "benchmark": {
@@ -128,6 +129,7 @@ class CommonUtilTestCase(unittest.TestCase):
                 }
             }
         }
+
     def test__dict_key_flatten(self):
         line = 'mpstat.loadavg1=0.29,rtt=1.03,mpstat.loadavg0=1.09,' \
                'mpstat.cpu0.%idle=99.00,mpstat.cpu0.%sys=0.00'
@@ -138,6 +140,27 @@ class CommonUtilTestCase(unittest.TestCase):
         result = ",".join(
             ("=".join(item) for item in sorted(flattened_data.items())))
         self.assertEqual(result, line)
+
+
+class TranslateToStrTestCase(unittest.TestCase):
+
+    def test_translate_to_str_unicode(self):
+        input_str = u'hello'
+        output_str = utils.translate_to_str(input_str)
+
+        result = 'hello'
+        self.assertEqual(result, output_str)
+
+    def test_translate_to_str_dict_list_unicode(self):
+        input_str = {
+            u'hello': {u'hello': [u'world']}
+        }
+        output_str = utils.translate_to_str(input_str)
+
+        result = {
+            'hello': {'hello': ['world']}
+        }
+        self.assertEqual(result, output_str)
 
 
 def main():
