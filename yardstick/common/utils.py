@@ -24,13 +24,15 @@ import os
 import subprocess
 import sys
 import collections
-import six
 from functools import reduce
 
 import yaml
+import six
+from flask import jsonify
 from six.moves import configparser
 from oslo_utils import importutils
 from oslo_serialization import jsonutils
+from oslo_utils.encodeutils import to_utf8
 
 import yardstick
 
@@ -197,7 +199,8 @@ def flatten_dict_key(data):
     next_data = {}
 
     # use list, because iterable is too generic
-    if not any(isinstance(v, (collections.Mapping, list)) for v in data.values()):
+    if not any(isinstance(v, (collections.Mapping, list))
+               for v in data.values()):
         return data
 
     for k, v in six.iteritems(data):
@@ -212,3 +215,21 @@ def flatten_dict_key(data):
             next_data[k] = v
 
     return flatten_dict_key(next_data)
+
+
+def translate_to_str(obj):
+    if isinstance(obj, collections.Mapping):
+        return {to_utf8(k): translate_to_str(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [translate_to_str(ele) for ele in obj]
+    elif isinstance(obj, six.text_type):
+        return to_utf8(obj)
+    return obj
+
+
+def result_handler(status, data):
+    result = {
+        'status': status,
+        'result': data
+    }
+    return jsonify(result)
