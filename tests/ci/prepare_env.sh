@@ -63,7 +63,7 @@ $YARDSTICK_REPO_DIR/tests/ci/prepare_storperf_admin-rc.sh
 
 # copy a admin-rc file for StorPerf integration to the deployment location
 if [ "$NODE_NAME" == "huawei-pod1" ]; then
-    bash $YARDSTICK_REPO_DIR/tests/ci/scp_storperf_admin-rc.sh
+    bash $YARDSTICK_REPO_DIR/tests/ci/scp_storperf_files.sh
 fi
 
 # Fetching id_rsa file from jump_server..."
