@@ -16,6 +16,29 @@
       "revId": "30317ca8ffc2f79f57efe1b5ae50745475ca5d8e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_87daea76",
+        "filename": "install.sh",
+        "patchSetId": 14
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-07-10T13:07:26Z",
+      "side": 1,
+      "message": "This should be outside the if block, otherwise (e.g. for VERSION_CODENAME\u003dxenial) we end up with 2 x xenial-updates/main and no xenial/main.",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 121
+      },
+      "revId": "30317ca8ffc2f79f57efe1b5ae50745475ca5d8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
