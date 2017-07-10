@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_031a6f6e",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-10T04:36:17Z",
+      "side": 1,
+      "message": "this will break if/when storperf does not tag danube3.0 or other release tag at the exact same time we tag.\n\nWe can\u0027t use the same branch variable for all projects.",
+      "revId": "3ef4228a89aeb6b3814f0b5ef89c75acfa7f382d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
