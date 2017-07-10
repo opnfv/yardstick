@@ -118,6 +118,24 @@
       "revId": "f91185158a0c8624c2973442590072ec2fcb1deb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_f79ef162",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-07-10T06:26:21Z",
+      "side": 1,
+      "message": "this is for key mapping. I don\u0027t know if ~/.ssh/ could work.",
+      "parentUuid": "1aa4ed85_4195c73e",
+      "revId": "f91185158a0c8624c2973442590072ec2fcb1deb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
