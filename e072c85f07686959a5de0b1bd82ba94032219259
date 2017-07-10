@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_c75f8271",
+        "filename": "tests/unit/common/test_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-10T18:48:26Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is precise.\n\nTechnically we encode/decode from Unicode.  Is this meant to do the encode/decode or is this something else?",
+      "revId": "e072c85f07686959a5de0b1bd82ba94032219259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_67548e54",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-10T18:48:26Z",
+      "side": 1,
+      "message": "str on a string shouldn\u0027t do anything, unless you meant to bytes.decode() or str.encode()",
+      "revId": "e072c85f07686959a5de0b1bd82ba94032219259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
