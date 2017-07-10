@@ -88,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_a3791bfe",
+        "filename": "yardstick/benchmark/contexts/kubernetes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-10T08:04:44Z",
+      "side": 1,
+      "message": "see also\n\nhttps://builders.intel.com/docs/networkbuilders/nfv-reference-design-for-a-containerized-vepc-application.pdf",
+      "parentUuid": "1aa4ed85_63b483f2",
+      "revId": "f91185158a0c8624c2973442590072ec2fcb1deb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_e1a633c1",
         "filename": "yardstick/common/kubernetes_utils.py",
         "patchSetId": 11
