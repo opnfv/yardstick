@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_0a535f18",
+        "filename": "tests/unit/common/test_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-07-11T02:08:28Z",
+      "side": 1,
+      "message": "Actually it meant to change unicode to utf8.",
+      "parentUuid": "1aa4ed85_c75f8271",
+      "revId": "e072c85f07686959a5de0b1bd82ba94032219259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_67548e54",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 2
