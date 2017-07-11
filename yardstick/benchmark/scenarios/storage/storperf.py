@@ -87,8 +87,9 @@ class StorPerf(base.Scenario):
     def setup(self):
         """Set the configuration."""
         env_args = {}
-        env_args_payload_list = ["agent_count", "public_network",
-                                 "agent_image", "volume_size"]
+        env_args_payload_list = ["agent_count", "agent_flavor",
+                                 "public_network","agent_image",
+                                 "volume_size"]
 
         for env_argument in env_args_payload_list:
             try:
@@ -206,7 +207,7 @@ class StorPerf(base.Scenario):
         #           terminate_res = requests.delete('http://%s:5000/api/v1.0
         #                                           /jobs' % self.target)
         #       else:
-        #           time.sleep(int(est_time)/2)
+        #           time.sleep(int(esti_time)/2)
 
             result_res = requests.get('http://%s:5000/api/v1.0/jobs?id=%s' %
                                       (self.target, job_id))
