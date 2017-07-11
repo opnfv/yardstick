@@ -11,7 +11,7 @@
 # Perepare the environment to run yardstick ci
 
 : ${DEPLOY_TYPE:='bm'} # Can be any of 'bm' (Bare Metal) or 'virt' (Virtual)
-
+: ${INSTALLER_TYPE:='unknown'}
 : ${NODE_NAME:='unknown'}
 : ${EXTERNAL_NETWORK:='admin_floating_net'}
 
@@ -61,9 +61,9 @@ export EXTERNAL_NETWORK INSTALLER_TYPE DEPLOY_TYPE NODE_NAME
 # Prepare a admin-rc file for StorPerf integration
 $YARDSTICK_REPO_DIR/tests/ci/prepare_storperf_admin-rc.sh
 
-# copy a admin-rc file for StorPerf integration to the deployment location
-if [ "$NODE_NAME" == "huawei-pod1" ]; then
-    bash $YARDSTICK_REPO_DIR/tests/ci/scp_storperf_files.sh
+# copy Storperf related files to the deployment location
+if [ "$INSTALLER_TYPE" == "compass" ]; then
+    source $YARDSTICK_REPO_DIR/tests/ci/scp_storperf_files.sh
 fi
 
 # Fetching id_rsa file from jump_server..."

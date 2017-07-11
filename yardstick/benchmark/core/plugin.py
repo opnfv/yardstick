@@ -84,8 +84,8 @@ class Plugin(object):
 
         if deployment_ip == "local":
             self.client = ssh.SSH.from_node(deployment, overrides={
-                # host can't be None, fail if no INSTALLER_IP
-                'ip': os.environ["INSTALLER_IP"],
+                # host can't be None, fail if no JUMP_HOST_IP
+                'ip': os.environ["JUMP_HOST_IP"],
             })
         else:
             self.client = ssh.SSH.from_node(deployment)
