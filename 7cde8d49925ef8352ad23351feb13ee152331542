@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_2ae73b42",
+        "filename": "tests/ci/scp_storperf_files.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-11T02:42:32Z",
+      "side": 1,
+      "message": "case statement?\n\n    case \"$NODE_NAME\" in\n        \"huawei-pod1\")\n            INSTALLER_IP\u003d\u0027192.168.10.6\u0027\n            ;;\n        \"huawei-pod2\")\n            INSTALLER_IP\u003d\u0027192.168.11.2\u0027\n            ;;\n        *)\n            # no node name, exit\n            exit 1\n            ;;\n    esac\n    export INSTALLER_IP",
+      "revId": "7cde8d49925ef8352ad23351feb13ee152331542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
