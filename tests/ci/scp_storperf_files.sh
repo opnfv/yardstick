@@ -12,9 +12,24 @@
 # Copy storperf_admin-rc to deployment location.
 
 ssh_options="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+
+case "$NODE_NAME" in
+    "huawei-pod1")
+        JUMP_HOST_IP='192.168.10.6'
+        ;;
+    "huawei-pod2")
+        JUMP_HOST_IP='192.168.11.2'
+        ;;
+    *)
+        # no node name, exit
+        exit 1
+        ;;
+esac
+export JUMP_HOST_IP
+
 sshpass -p root scp 2>/dev/null $ssh_options ~/storperf_admin-rc \
-        root@192.168.10.6:/root/ &> /dev/null
+        root@${JUMP_HOST_IP}:/root/ &> /dev/null
 sshpass -p root scp 2>/dev/null $ssh_options /home/opnfv/repos/storperf/docker-compose/docker-compose.yaml \
-        root@192.168.10.6:/root/ &> /dev/null
+        root@${JUMP_HOST_IP}:/root/ &> /dev/null
 sshpass -p root scp 2>/dev/null $ssh_options /home/opnfv/repos/storperf/docker-compose/nginx.conf \
-        root@192.168.10.6:/root/ &> /dev/null
+        root@${JUMP_HOST_IP}:/root/ &> /dev/null
