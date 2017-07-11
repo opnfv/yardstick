@@ -105,6 +105,24 @@
       "revId": "e072c85f07686959a5de0b1bd82ba94032219259",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_4a74f7fc",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-07-11T08:03:47Z",
+      "side": 1,
+      "message": "we want str, in python2 is str, in python3 is bytes. So when run unit test case, they are not equal.",
+      "parentUuid": "1aa4ed85_4ac5d759",
+      "revId": "e072c85f07686959a5de0b1bd82ba94032219259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
