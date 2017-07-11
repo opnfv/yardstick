@@ -87,6 +87,24 @@
       "revId": "e072c85f07686959a5de0b1bd82ba94032219259",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_4ac5d759",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-11T05:46:41Z",
+      "side": 1,
+      "message": "python 3, unicode is str,  b\u0027\u0027 is bytes\npython 2, unicode is u\u0027\u0027, str is bytes\n\ndo you want bytes or unicode?",
+      "parentUuid": "1aa4ed85_ead04355",
+      "revId": "e072c85f07686959a5de0b1bd82ba94032219259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
