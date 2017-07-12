@@ -66,6 +66,7 @@ INFLUXDB_PASS = get_param('influxdb.password', 'root')
 INFLUXDB_DB_NAME = get_param('influxdb.db_name', 'yardstick')
 INFLUXDB_IMAGE = get_param('influxdb.image', 'tutum/influxdb')
 INFLUXDB_TAG = get_param('influxdb.tag', '0.13')
+INFLUXDB_DASHBOARD_PORT = 8083
 
 # grafana
 GRAFANA_IP = get_param('grafana.ip', SERVER_IP)
@@ -74,6 +75,7 @@ GRAFANA_USER = get_param('grafana.username', 'admin')
 GRAFANA_PASS = get_param('grafana.password', 'admin')
 GRAFANA_IMAGE = get_param('grafana.image', 'grafana/grafana')
 GRAFANA_TAG = get_param('grafana.tag', '3.1.1')
+GRAFANA_MAPPING_PORT = 1948
 
 # api
 DOCKER_URL = 'unix://var/run/docker.sock'
