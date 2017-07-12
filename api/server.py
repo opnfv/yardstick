@@ -65,7 +65,7 @@ def app_wrapper(*args, **kwargs):
 
 
 for u in urlpatterns:
-    api.add_resource(get_resource(u.endpoint), u.url, endpoint=u.endpoint)
+    api.add_resource(get_resource(u.endpoint), u.url)
 
 
 if __name__ == '__main__':
