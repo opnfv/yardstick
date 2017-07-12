@@ -65,16 +65,20 @@ class V1Env(ApiResource):
                 client.pull(consts.GRAFANA_IMAGE, consts.GRAFANA_TAG)
 
             LOG.info('Createing grafana container')
-            self._create_grafana_container(client)
+            container = self._create_grafana_container(client)
             LOG.info('Grafana container is created')
 
             time.sleep(5)
 
+            container = client.inspect_container(container['Id'])
+            ip = container['NetworkSettings']['Networks']['bridge']['IPAddress']
+            LOG.debug('container ip is: %s', ip)
+
             LOG.info('Creating data source for grafana')
-            self._create_data_source()
+            self._create_data_source(ip)
 
             LOG.info('Creating dashboard for grafana')
-            self._create_dashboard()
+            self._create_dashboard(ip)
 
             self._update_task_status(task_id)
             LOG.info('Finished')
@@ -82,8 +86,8 @@ class V1Env(ApiResource):
             self._update_task_error(task_id, str(e))
             LOG.exception('Create grafana failed')
 
-    def _create_dashboard(self):
-        url = 'http://admin:admin@%s:3000/api/dashboards/db' % consts.GRAFANA_IP
+    def _create_dashboard(self, ip):
+        url = 'http://admin:admin@%s:3000/api/dashboards/db' % ip
         path = os.path.join(consts.REPOS_DIR, 'dashboard', '*dashboard.json')
 
         for i in sorted(glob.iglob(path)):
@@ -95,13 +99,15 @@ class V1Env(ApiResource):
                 LOG.exception('Create dashboard %s failed', i)
                 raise
 
-    def _create_data_source(self):
-        url = 'http://admin:admin@%s:3000/api/datasources' % consts.GRAFANA_IP
+    def _create_data_source(self, ip):
+        url = 'http://admin:admin@%s:3000/api/datasources' % ip
+        influx_conf = utils.parse_ini_file(consts.CONF_FILE)
+        influx_url = influx_conf.get('dispatcher_influxdb', {}).get('target')
         data = {
             "name": "yardstick",
             "type": "influxdb",
             "access": "proxy",
-            "url": "http://%s:8086" % consts.INFLUXDB_IP,
+            "url": influx_url,
             "password": "root",
             "user": "root",
             "database": "yardstick",
@@ -133,6 +139,7 @@ class V1Env(ApiResource):
                                             host_config=host_config)
         LOG.info('Starting container')
         client.start(container)
+        return container
 
     def _check_image_exist(self, client, t):
         return any(t in a['RepoTags'][0]
@@ -152,9 +159,6 @@ class V1Env(ApiResource):
         client = Client(base_url=consts.DOCKER_URL)
 
         try:
-            LOG.info('Changing output to influxdb')
-            self._change_output_to_influxdb()
-
             LOG.info('Checking if influxdb image exist')
             if not self._check_image_exist(client, '%s:%s' %
                                            (consts.INFLUXDB_IMAGE,
@@ -163,10 +167,17 @@ class V1Env(ApiResource):
                 client.pull(consts.INFLUXDB_IMAGE, tag=consts.INFLUXDB_TAG)
 
             LOG.info('Createing influxdb container')
-            self._create_influxdb_container(client)
+            container = self._create_influxdb_container(client)
             LOG.info('Influxdb container is created')
 
             time.sleep(5)
+
+            container = client.inspect_container(container['Id'])
+            ip = container['NetworkSettings']['Networks']['bridge']['IPAddress']
+            LOG.debug('container ip is: %s', ip)
+
+            LOG.info('Changing output to influxdb')
+            self._change_output_to_influxdb(ip)
 
             LOG.info('Config influxdb')
             self._config_influxdb()
@@ -196,6 +207,7 @@ class V1Env(ApiResource):
                                             host_config=host_config)
         LOG.info('Starting container')
         client.start(container)
+        return container
 
     def _config_influxdb(self):
         try:
@@ -208,7 +220,7 @@ class V1Env(ApiResource):
         except Exception:
             LOG.exception('Config influxdb failed')
 
-    def _change_output_to_influxdb(self):
+    def _change_output_to_influxdb(self, ip):
         utils.makedirs(consts.CONF_DIR)
 
         parser = configparser.ConfigParser()
@@ -218,7 +230,7 @@ class V1Env(ApiResource):
         LOG.info('Set dispatcher to influxdb')
         parser.set('DEFAULT', 'dispatcher', 'influxdb')
         parser.set('dispatcher_influxdb', 'target',
-                   'http://%s:8086' % consts.INFLUXDB_IP)
+                   'http://%s:8086' % ip)
 
         LOG.info('Writing to %s', consts.CONF_FILE)
         with open(consts.CONF_FILE, 'w') as f:
