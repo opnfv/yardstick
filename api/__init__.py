@@ -57,9 +57,9 @@ class ApiResource(Resource):
 
 class Url(object):
 
-    def __init__(self, url, endpoint):
+    def __init__(self, url, target):
         super(Url, self).__init__()
         self.url = url
-        self.endpoint = endpoint
+        self.target = target
 
 common_utils.import_modules_from_package("api.resources")
