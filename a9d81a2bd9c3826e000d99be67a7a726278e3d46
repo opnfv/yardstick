@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_b67cf273",
+        "filename": "samples/migrate-node-context.yaml",
+        "patchSetId": 20
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-07-12T06:19:49Z",
+      "side": 1,
+      "message": "Can we put these args under options? We assume that all input args are under options field.",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "a9d81a2bd9c3826e000d99be67a7a726278e3d46",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
