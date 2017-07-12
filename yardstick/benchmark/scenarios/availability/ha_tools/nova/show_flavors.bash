@@ -19,4 +19,4 @@ else
     SECURE=""
 fi
 
-openstack "${SECURE}" flavor list
+openstack ${SECURE} flavor list
