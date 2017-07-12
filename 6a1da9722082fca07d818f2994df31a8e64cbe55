@@ -16,6 +16,23 @@
       "revId": "6a1da9722082fca07d818f2994df31a8e64cbe55",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_d6b5eecd",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/fault_lxc_process_kill.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-12T07:43:59Z",
+      "side": 1,
+      "message": "In /tmp/fault_lxc_process_kill.bash line 18:\nlxc_filter\u003d$(echo ${process_name} | sed \u0027s/-/_/g\u0027)\n             ^-- SC2001: See if you can use ${variable//search/replace} instead.\n                  ^-- SC2086: Double quote to prevent globbing and word splitting.\n\n\nIn /tmp/fault_lxc_process_kill.bash line 20:\ncontainer\u003d$(lxc-ls -1 --filter\u003d${lxc_filter})\n                               ^-- SC2086: Double quote to prevent globbing and word splitting.\n\n\nIn /tmp/fault_lxc_process_kill.bash line 23:\n    pids\u003d$(lxc-attach -n ${container} -- ps aux | grep \"keystone\" | grep -iv heartbeat | grep -iv monitor | grep -v grep | grep -v /bin/sh | awk \u0027{print $2}\u0027)\n                         ^-- SC2086: Double quote to prevent globbing and word splitting.\n\n\nIn /tmp/fault_lxc_process_kill.bash line 29:\n    pids\u003d$(lxc-attach -n ${container} -- pgrep -f \"/openstack/.*/${process_name}\")\n                         ^-- SC2086: Double quote to prevent globbing and word splitting.\n\n\nIn /tmp/fault_lxc_process_kill.bash line 32:\n        lxc-attach -n ${container} -- kill -9 \"${pid}\"\n                      ^-- SC2086: Double quote to prevent globbing and word splitting.",
+      "revId": "6a1da9722082fca07d818f2994df31a8e64cbe55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
