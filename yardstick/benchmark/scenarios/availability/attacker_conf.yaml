@@ -16,6 +16,11 @@ kill-process:
   inject_script: ha_tools/fault_process_kill.bash
   recovery_script: ha_tools/start_service.bash
 
+kill-lxc-process:
+  check_script: ha_tools/check_lxc_process_python.bash
+  inject_script: ha_tools/fault_lxc_process_kill.bash
+  recovery_script: ha_tools/start_lxc_service.bash
+
 bare-metal-down:
   check_script: ha_tools/check_host_ping.bash
   recovery_script: ha_tools/ipmi_power.bash
