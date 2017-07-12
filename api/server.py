@@ -10,6 +10,8 @@ from __future__ import absolute_import
 
 import inspect
 import logging
+import socket
+import urlparse
 from six.moves import filter
 
 from flasgger import Swagger
@@ -24,6 +26,7 @@ from api.urls import urlpatterns
 from api import ApiResource
 from yardstick import _init_logging
 from yardstick.common import utils
+from yardstick.common import constants as consts
 
 logger = logging.getLogger(__name__)
 
@@ -64,8 +67,13 @@ def app_wrapper(*args, **kwargs):
     return app(*args, **kwargs)
 
 
+def get_endpoint(url):
+    ip = socket.gethostbyname(socket.gethostname())
+    return urlparse.urljoin('http://{}:{}'.format(ip, consts.API_PORT), url)
+
+
 for u in urlpatterns:
-    api.add_resource(get_resource(u.endpoint), u.url, endpoint=u.endpoint)
+    api.add_resource(get_resource(u.target), u.url, endpoint=get_endpoint(u.url))
 
 
 if __name__ == '__main__':

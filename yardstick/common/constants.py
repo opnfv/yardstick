@@ -84,6 +84,7 @@ GRAFANA_IMAGE = get_param('grafana.image', 'grafana/grafana')
 GRAFANA_TAG = get_param('grafana.tag', '3.1.1')
 
 # api
+API_PORT = 5000
 DOCKER_URL = 'unix://var/run/docker.sock'
 INSTALLERS = ['apex', 'compass', 'fuel', 'joid']
 SQLITE = 'sqlite:////tmp/yardstick.db'
