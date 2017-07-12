@@ -13,6 +13,8 @@ schema: "yardstick:task:0.1"
 
 process-status:
   monitor_script: ha_tools/check_process_python.bash
+lxc_process-status:
+  monitor_script: ha_tools/check_lxc_process_python.bash
 nova-image-list:
   monitor_script: ha_tools/nova_image_list.bash
 service-status:
