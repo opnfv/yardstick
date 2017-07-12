@@ -21,7 +21,9 @@ from api.database import db_session
 from api.database import engine
 from api.database.v1 import models
 from api.urls import urlpatterns
+from api import ApiResource
 from yardstick import _init_logging
+from yardstick.common import utils
 
 logger = logging.getLogger(__name__)
 
@@ -37,8 +39,10 @@ def shutdown_session(exception=None):
     db_session.remove()
 
 
-for u in urlpatterns:
-    api.add_resource(u.resource, u.url, endpoint=u.endpoint)
+def get_resource(resource_name):
+    name = ''.join(resource_name.split('_'))
+    return next((r for r in utils.itersubclasses(ApiResource)
+                 if r.__name__.lower() == name))
 
 
 def init_db():
@@ -58,6 +62,10 @@ def init_db():
 def app_wrapper(*args, **kwargs):
     init_db()
     return app(*args, **kwargs)
+
+
+for u in urlpatterns:
+    api.add_resource(get_resource(u.endpoint), u.url, endpoint=u.endpoint)
 
 
 if __name__ == '__main__':
