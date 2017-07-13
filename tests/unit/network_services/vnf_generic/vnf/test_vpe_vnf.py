@@ -16,17 +16,20 @@
 #
 
 from __future__ import absolute_import
-import unittest
-import mock
-import os
 
-from yardstick.network_services.vnf_generic.vnf.vpe_vnf import VpeApproxVnf
-from yardstick.network_services.vnf_generic.vnf import vpe_vnf
+import os
+import unittest
+
+import mock
+
 from yardstick.network_services.nfvi.resource import ResourceProfile
+from yardstick.network_services.vnf_generic.vnf import vpe_vnf
 from yardstick.network_services.vnf_generic.vnf.base import \
     QueueFileWrapper
+from yardstick.network_services.vnf_generic.vnf.vpe_vnf import VpeApproxVnf
 
 
+@mock.patch('yardstick.network_services.vnf_generic.vnf.vpe_vnf.time')
 class TestVpeApproxVnf(unittest.TestCase):
     VNFD = {'vnfd:vnfd-catalog':
             {'vnfd':
@@ -218,12 +221,12 @@ class TestVpeApproxVnf(unittest.TestCase):
                               'password': 'r00t',
                               'VNF model': 'vpe_vnf.yaml'}}}
 
-    def test___init__(self):
+    def test___init__(self, mock_time):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         vpe_approx_vnf = VpeApproxVnf(vnfd)
         self.assertIsNone(vpe_approx_vnf._vnf_process)
 
-    def test_collect_kpi(self):
+    def test_collect_kpi(self, mock_time):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -235,15 +238,17 @@ class TestVpeApproxVnf(unittest.TestCase):
             vpe_approx_vnf.resource = mock.Mock(autospec=ResourceProfile)
             vpe_approx_vnf.resource.check_if_sa_running = \
                 mock.Mock(return_value=[0, 1])
-            vpe_approx_vnf.resource.amqp_collect_nfvi_kpi= \
+            vpe_approx_vnf.resource.amqp_collect_nfvi_kpi = \
                 mock.Mock(return_value={})
             result = {'pkt_in_down_stream': 0,
                       'pkt_in_up_stream': 0,
                       'collect_stats': {'core': {}},
                       'pkt_drop_down_stream': 0, 'pkt_drop_up_stream': 0}
-            self.assertEqual(result, vpe_approx_vnf.collect_kpi())
+            # mock execute_command because it sleeps for 3 seconds.
+            with mock.patch.object(vpe_approx_vnf, "execute_command", return_value=""):
+                self.assertEqual(result, vpe_approx_vnf.collect_kpi())
 
-    def test_execute_command(self):
+    def test_execute_command(self, mock_time):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -255,7 +260,7 @@ class TestVpeApproxVnf(unittest.TestCase):
             cmd = "quit"
             self.assertEqual("", vpe_approx_vnf.execute_command(cmd))
 
-    def test_get_stats_vpe(self):
+    def test_get_stats_vpe(self, mock_time):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -270,7 +275,7 @@ class TestVpeApproxVnf(unittest.TestCase):
                       'pkt_drop_down_stream': 400, 'pkt_drop_up_stream': 600}
             self.assertEqual(result, vpe_approx_vnf.get_stats_vpe())
 
-    def test_run_vpe(self):
+    def test_run_vpe(self, mock_time):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -288,7 +293,7 @@ class TestVpeApproxVnf(unittest.TestCase):
             self.assertEqual(None,
                              vpe_approx_vnf._run_vpe(queue_wrapper, vpe_vnf))
 
-    def test_instantiate(self):
+    def test_instantiate(self, mock_time):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -301,11 +306,12 @@ class TestVpeApproxVnf(unittest.TestCase):
             vpe_approx_vnf._run_vpe = mock.Mock(return_value=0)
             vpe_approx_vnf._resource_collect_start = mock.Mock(return_value=0)
             vpe_approx_vnf.q_out.put("pipeline>")
-            vpe_vnf.WAIT_TIME = 3
-            self.assertEqual(0, vpe_approx_vnf.instantiate(self.scenario_cfg,
-                              self.context_cfg))
+            vpe_vnf.WAIT_TIME = 0.1
+            # if process it still running exitcode will be None
+            self.assertIn(vpe_approx_vnf.instantiate(self.scenario_cfg, self.context_cfg),
+                          {0, None})
 
-    def test_instantiate_panic(self):
+    def test_instantiate_panic(self, mock_time):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -316,17 +322,17 @@ class TestVpeApproxVnf(unittest.TestCase):
             vpe_approx_vnf = VpeApproxVnf(vnfd)
             self.scenario_cfg['vnf_options'] = {'vpe': {'cfg': ""}}
             vpe_approx_vnf._run_vpe = mock.Mock(return_value=0)
-            vpe_vnf.WAIT_TIME = 1
+            vpe_vnf.WAIT_TIME = 0.1
             self.assertRaises(RuntimeError, vpe_approx_vnf.instantiate,
                               self.scenario_cfg, self.context_cfg)
 
-    def test_scale(self):
+    def test_scale(self, mock_time):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         vpe_approx_vnf = VpeApproxVnf(vnfd)
         flavor = ""
         self.assertRaises(NotImplementedError, vpe_approx_vnf.scale, flavor)
 
-    def test_setup_vnf_environment(self):
+    def test_setup_vnf_environment(self, mock_time):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -338,7 +344,7 @@ class TestVpeApproxVnf(unittest.TestCase):
             self.assertEqual(None,
                              vpe_approx_vnf.setup_vnf_environment(ssh_mock))
 
-    def test_terminate(self):
+    def test_terminate(self, mock_time):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         vpe_approx_vnf = VpeApproxVnf(vnfd)
         self.assertEqual(None, vpe_approx_vnf.terminate())
