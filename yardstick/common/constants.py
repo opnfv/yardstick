@@ -48,12 +48,14 @@ SAMPLE_CASE_DIR = join(REPOS_DIR, 'samples')
 TESTCASE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_cases/')
 TESTSUITE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_suites/')
 DOCS_DIR = join(REPOS_DIR, 'docs/testing/user/userguide/')
+OPENSTACK_CONF_DIR = '/etc/openstack'
 
 # file
 OPENRC = get_param('file.openrc', '/etc/yardstick/openstack.creds')
 ETC_HOSTS = get_param('file.etc_hosts', '/etc/hosts')
 CONF_FILE = join(CONF_DIR, 'yardstick.conf')
 POD_FILE = join(CONF_DIR, 'pod.yaml')
+CLOUDS_CONF = join(OPENSTACK_CONF_DIR, 'clouds.yml')
 CONF_SAMPLE_FILE = join(CONF_SAMPLE_DIR, 'yardstick.conf.sample')
 FETCH_SCRIPT = get_param('file.fetch_script', 'utils/fetch_os_creds.sh')
 FETCH_SCRIPT = join(RELENG_DIR, FETCH_SCRIPT)
