@@ -292,7 +292,8 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
-    def test__traffic_runner(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_rfc2544_trex.time")
+    def test__traffic_runner(self, mock_time):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.execute.return_value = "64"

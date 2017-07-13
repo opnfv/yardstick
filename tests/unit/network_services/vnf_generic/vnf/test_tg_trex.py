@@ -205,7 +205,8 @@ class TestTrexTrafficGen(unittest.TestCase):
             trex_traffic_gen = TrexTrafficGen(vnfd)
             self.assertEqual(None, trex_traffic_gen.listen_traffic({}))
 
-    def test_instantiate(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_trex.time")
+    def test_instantiate(self, mock_time):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
@@ -218,9 +219,10 @@ class TestTrexTrafficGen(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGen(vnfd)
-            self.assertEqual(0, trex_traffic_gen.instantiate({}, {}))
+            self.assertIn(trex_traffic_gen.instantiate({}, {}), {0, None})
 
-    def test_instantiate_error(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_trex.time")
+    def test_instantiate_error(self, mock_time):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
@@ -248,7 +250,8 @@ class TestTrexTrafficGen(unittest.TestCase):
             trex_traffic_gen = TrexTrafficGen(vnfd)
             self.assertEqual(None, trex_traffic_gen._start_server())
 
-    def test__traffic_runner(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_trex.time")
+    def test__traffic_runner(self, mock_time):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.execute.return_value = "64"
