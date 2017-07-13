@@ -1,3 +1,5 @@
+*.DS_Store
+*.log
 *.pyc
 .vimrc
 .ropeproject
@@ -21,8 +23,6 @@ Session*.vim
 *~
 setuptools*zip
 dist/
-pep8.log
-test.log
 .testrepository/
 cover/
 .*.sw?
