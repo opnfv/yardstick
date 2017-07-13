@@ -21,13 +21,13 @@ class EnvTestCase(APITestCase):
         data = {'action': 'create_grafana'}
         resp = self._post(url, data)
 
-        time.sleep(1)
+        time.sleep(0)
 
         task_id = resp['result']['task_id']
         url = '/yardstick/asynctask?task_id={}'.format(task_id)
         resp = self._get(url)
 
-        time.sleep(2)
+        time.sleep(0)
 
         self.assertTrue(u'status' in resp)
 
