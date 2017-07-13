@@ -20,6 +20,7 @@ import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios.networking import pktgen_dpdk
 
 
+@mock.patch('yardstick.benchmark.scenarios.networking.pktgen_dpdk.time')
 @mock.patch('yardstick.benchmark.scenarios.networking.pktgen_dpdk.ssh')
 class PktgenDPDKLatencyTestCase(unittest.TestCase):
 
@@ -38,7 +39,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
             }
         }
 
-    def test_pktgen_dpdk_successful_setup(self, mock_ssh):
+    def test_pktgen_dpdk_successful_setup(self, mock_ssh, mock_time):
 
         args = {
             'options': {'packetsize': 60},
@@ -51,7 +52,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
         self.assertIsNotNone(p.client)
         self.assertEqual(p.setup_done, True)
 
-    def test_pktgen_dpdk_successful_get_port_ip(self, mock_ssh):
+    def test_pktgen_dpdk_successful_get_port_ip(self, mock_ssh, mock_time):
 
         args = {
             'options': {'packetsize': 60},
@@ -66,7 +67,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.assert_called_with(
             "ifconfig eth1 |grep 'inet addr' |awk '{print $2}' |cut -d ':' -f2 ")
 
-    def test_pktgen_dpdk_unsuccessful_get_port_ip(self, mock_ssh):
+    def test_pktgen_dpdk_unsuccessful_get_port_ip(self, mock_ssh, mock_time):
 
         args = {
             'options': {'packetsize': 60},
@@ -78,7 +79,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, utils.get_port_ip, p.server, "eth1")
 
-    def test_pktgen_dpdk_successful_get_port_mac(self, mock_ssh):
+    def test_pktgen_dpdk_successful_get_port_mac(self, mock_ssh, mock_time):
 
         args = {
             'options': {'packetsize': 60},
@@ -93,7 +94,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.assert_called_with(
             "ifconfig |grep HWaddr |grep eth1 |awk '{print $5}' ")
 
-    def test_pktgen_dpdk_unsuccessful_get_port_mac(self, mock_ssh):
+    def test_pktgen_dpdk_unsuccessful_get_port_mac(self, mock_ssh, mock_time):
 
         args = {
             'options': {'packetsize': 60},
@@ -105,7 +106,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, utils.get_port_mac, p.server, "eth1")
 
-    def test_pktgen_dpdk_successful_no_sla(self, mock_ssh):
+    def test_pktgen_dpdk_successful_no_sla(self, mock_ssh, mock_time):
 
         args = {
             'options': {'packetsize': 60},
@@ -124,7 +125,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
         delta = result['avg_latency'] - 132
         self.assertLessEqual(delta, 1)
 
-    def test_pktgen_dpdk_successful_sla(self, mock_ssh):
+    def test_pktgen_dpdk_successful_sla(self, mock_ssh, mock_time):
 
         args = {
             'options': {'packetsize': 60},
@@ -141,7 +142,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
 
         self.assertEqual(result, {"avg_latency": 100})
 
-    def test_pktgen_dpdk_unsuccessful_sla(self, mock_ssh):
+    def test_pktgen_dpdk_unsuccessful_sla(self, mock_ssh, mock_time):
 
         args = {
             'options': {'packetsize': 60},
@@ -158,7 +159,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, p.run, result)
 
-    def test_pktgen_dpdk_unsuccessful_script_error(self, mock_ssh):
+    def test_pktgen_dpdk_unsuccessful_script_error(self, mock_ssh, mock_time):
 
         args = {
             'options': {'packetsize': 60},
