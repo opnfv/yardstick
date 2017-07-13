@@ -34,6 +34,7 @@ class ApiResource(Resource):
         except KeyError:
             pass
 
+        args.update({k: v for k, v in request.form.items()})
         LOG.debug('Input args is: action: %s, args: %s', action, args)
 
         return action, args
