@@ -39,12 +39,11 @@ if not PYTHONPATH or not VIRTUAL_ENV:
     raise SystemExit(1)
 
 
-def handler():
+def handler(*args, **kwargs):
     """ Capture ctrl+c and exit cli """
     subprocess.call(["pkill", "-9", "yardstick"])
     raise SystemExit(1)
 
-signal.signal(signal.SIGINT, handler)
 
 
 class YardstickNSCli(object):
@@ -214,5 +213,6 @@ class YardstickNSCli(object):
         self.run_test(args, test_path)
 
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, handler)
     NS_CLI = YardstickNSCli()
     NS_CLI.main()
