@@ -24,6 +24,9 @@ class V2EnvironmentHandler(object):
         db_session.commit()
         return environment
 
+    def list_all(self):
+        return V2Environment.query.all()
+
     def get_by_uuid(self, uuid):
         environment = V2Environment.query.filter_by(uuid=uuid).first()
         if not environment:

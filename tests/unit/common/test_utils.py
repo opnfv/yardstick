@@ -163,6 +163,19 @@ class TranslateToStrTestCase(unittest.TestCase):
         self.assertEqual(result, output_str)
 
 
+class ChangeObjToDictTestCase(unittest.TestCase):
+
+    def test_change_obj_to_dict(self):
+        class A(object):
+            def __init__(self):
+                self.name = 'yardstick'
+
+        obj = A()
+        obj_r = utils.change_obj_to_dict(obj)
+        obj_s = {'name': 'yardstick'}
+        self.assertEqual(obj_r, obj_s)
+
+
 def main():
     unittest.main()
 

@@ -232,3 +232,13 @@ def result_handler(status, data):
         'result': data
     }
     return jsonify(result)
+
+
+def change_obj_to_dict(obj):
+    dic = {}
+    for k, v in vars(obj).items():
+        try:
+            vars(v)
+        except TypeError:
+            dic.update({k: v})
+    return dic
