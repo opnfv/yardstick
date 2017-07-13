@@ -238,8 +238,8 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             trex_traffic_gen._start_server = mock.Mock(return_value=0)
             scenario_cfg = {"tc": "tc_baremetal_rfc2544_ipv4_1flow_64B"}
-            tg_rfc2544_trex.WAIT_TIME = 3
-            self.assertEqual(0, trex_traffic_gen.instantiate(scenario_cfg, {}))
+            tg_rfc2544_trex.WAIT_TIME = 0
+            self.assertIn(trex_traffic_gen.instantiate(scenario_cfg, {}), {0, None})
 
     def test_instantiate_error(self):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
@@ -255,6 +255,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
             scenario_cfg = {"tc": "tc_baremetal_rfc2544_ipv4_1flow_64B"}
+            tg_rfc2544_trex.WAIT_TIME = 0
             self.assertRaises(RuntimeError,
                               trex_traffic_gen.instantiate, scenario_cfg, {})
 
@@ -318,7 +319,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
                 self._get_file_abspath(
                     "tc_baremetal_rfc2544_ipv4_1flow_64B.yaml")
             tg_rfc2544_trex.DURATION = 1
-            tg_rfc2544_trex.WAIT_TIME = 1
+            tg_rfc2544_trex.WAIT_TIME = 0
             self.sut._traffic_runner(mock_traffic_profile, q, client_started,
                                      self.sut._terminated)
 
@@ -345,7 +346,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             trex_traffic_gen = TrexTrafficGenRFC(vnfd)
-            tg_rfc2544_trex.WAIT_TIME = 1
+            tg_rfc2544_trex.WAIT_TIME = 0
             self.assertEqual(None, trex_traffic_gen._generate_trex_cfg(vnfd))
 
     def test_run_traffic(self):
