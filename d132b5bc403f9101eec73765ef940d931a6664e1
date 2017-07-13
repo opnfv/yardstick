@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_fc880924",
+        "filename": "requirements.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-07-13T00:59:24Z",
+      "side": 1,
+      "message": "it is the latest version. I check 2.0.0, but not work actually. Now I have tried 3.0.0a1, it works. So we can use 3.0.0a1 then.",
+      "parentUuid": "1aa4ed85_3b58eb55",
+      "revId": "d132b5bc403f9101eec73765ef940d931a6664e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_fb31f30b",
         "filename": "yardstick/benchmark/contexts/kubernetes.py",
         "patchSetId": 13
