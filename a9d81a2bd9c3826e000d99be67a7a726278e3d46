@@ -22,6 +22,30 @@
       "revId": "a9d81a2bd9c3826e000d99be67a7a726278e3d46",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_109389fb",
+        "filename": "samples/migrate-node-context.yaml",
+        "patchSetId": 20
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6471
+      },
+      "writtenOn": "2017-07-13T08:50:44Z",
+      "side": 1,
+      "message": "Hi Jack,\nThese scripts are not input arguments and the directories,scripts are used for configuring the node.So I have included it in the setup section and a sequence of host scripts that need to be executed on the node.",
+      "parentUuid": "1aa4ed85_b67cf273",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "a9d81a2bd9c3826e000d99be67a7a726278e3d46",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
