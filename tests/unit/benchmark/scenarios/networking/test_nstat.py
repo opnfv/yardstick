@@ -43,7 +43,7 @@ class NstatTestCase(unittest.TestCase):
     def test_nstat_successful_no_sla(self, mock_ssh):
 
         options = {
-            "duration": 60
+            "duration": 0.1
         }
         args = {
             "options": options,
@@ -67,7 +67,7 @@ class NstatTestCase(unittest.TestCase):
     def test_nstat_successful_sla(self, mock_ssh):
 
         options = {
-            "duration": 60
+            "duration": 0.1
         }
         sla = {
             "IP_datagram_error_rate": 0.1
@@ -95,7 +95,7 @@ class NstatTestCase(unittest.TestCase):
     def test_nstat_unsuccessful_cmd_error(self, mock_ssh):
 
         options = {
-            "duration": 60
+            "duration": 0.1
         }
         sla = {
             "IP_datagram_error_rate": 0.1
