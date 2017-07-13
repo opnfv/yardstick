@@ -19,5 +19,8 @@ urlpatterns = [
     Url('/yardstick/testcases/<case_name>/docs', 'v1_case_docs'),
     Url('/yardstick/testsuites/action', 'v1_test_suite'),
     Url('/yardstick/results', 'v1_result'),
-    Url('/yardstick/env/action', 'v1_env')
+    Url('/yardstick/env/action', 'v1_env'),
+
+    # api v2
+    Url('/api/v2/yardstick/environments/action', 'v2_environments'),
 ]
