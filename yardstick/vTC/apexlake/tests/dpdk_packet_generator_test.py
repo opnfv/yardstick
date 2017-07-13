@@ -359,6 +359,7 @@ class MockRunCommand:
             return MockRunCommand.ret_val_finalization
 
 
+@mock.patch('experimental_framework.packet_generators.dpdk_packet_generator.time')
 class TestDpdkPacketGenOthers(unittest.TestCase):
 
     def setUp(self):
@@ -370,7 +371,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
     @mock.patch('experimental_framework.packet_generators.'
                 'dpdk_packet_generator.DpdkPacketGenerator.'
                 '_cores_configuration')
-    def test__get_core_nics_for_failure(self, mock_cores_configuration):
+    def test__get_core_nics_for_failure(self, mock_cores_configuration, mock_time):
         mock_cores_configuration.return_value = None
         self.assertRaises(ValueError, mut.DpdkPacketGenerator._get_core_nics,
                           '', '')
@@ -379,7 +380,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
                 'dpdk_packet_generator.DpdkPacketGenerator.'
                 '_cores_configuration')
     def test__get_core_nics_one_nic_for_success(self,
-                                                mock_cores_configuration):
+                                                mock_cores_configuration, mock_time):
         mock_cores_configuration.return_value = 'ret_val'
         expected = 'ret_val'
         output = mut.DpdkPacketGenerator._get_core_nics(1, 'coremask')
@@ -390,7 +391,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
                 'dpdk_packet_generator.DpdkPacketGenerator.'
                 '_cores_configuration')
     def test__get_core_nics_two_nics_for_success(self,
-                                                 mock_cores_configuration):
+                                                 mock_cores_configuration, mock_time):
         mock_cores_configuration.return_value = 'ret_val'
         expected = 'ret_val'
         output = mut.DpdkPacketGenerator._get_core_nics(2, 'coremask')
@@ -398,7 +399,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
         mock_cores_configuration.assert_called_once_with('coremask', 1, 2, 2)
 
     @mock.patch('os.path.isfile')
-    def test__init_input_validation_for_success(self, mock_is_file):
+    def test__init_input_validation_for_success(self, mock_is_file, mock_time):
         mock_is_file.return_value = True
 
         pcap_file_0 = 'pcap_file_0'
@@ -419,7 +420,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
             variables), None)
 
     @mock.patch('os.path.isfile')
-    def test__init_input_validation_for_failure(self, mock_is_file):
+    def test__init_input_validation_for_failure(self, mock_is_file, mock_time):
         mock_is_file.return_value = True
 
         pcap_file_0 = 'pcap_file_0'
@@ -440,7 +441,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
                           lua_script, pcap_directory, lua_directory, variables)
 
     @mock.patch('os.path.isfile')
-    def test__init_input_validation_for_failure_2(self, mock_is_file):
+    def test__init_input_validation_for_failure_2(self, mock_is_file, mock_time):
         mock_is_file.return_value = True
 
         pcap_directory = None
@@ -461,7 +462,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
                           lua_script, pcap_directory, lua_directory, variables)
 
     @mock.patch('os.path.isfile')
-    def test__init_input_validation_for_failure_3(self, mock_is_file):
+    def test__init_input_validation_for_failure_3(self, mock_is_file, mock_time):
         mock_is_file.return_value = True
 
         pcap_directory = 'directory'
@@ -482,7 +483,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
                           lua_script, pcap_directory, lua_directory, variables)
 
     @mock.patch('os.path.isfile')
-    def test__init_input_validation_for_failure_4(self, mock_is_file):
+    def test__init_input_validation_for_failure_4(self, mock_is_file, mock_time):
         mock_is_file.return_value = True
 
         pcap_directory = 'directory'
@@ -503,7 +504,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
                           lua_script, pcap_directory, lua_directory, variables)
 
     @mock.patch('os.path.isfile')
-    def test__init_input_validation_for_failure_5(self, mock_is_file):
+    def test__init_input_validation_for_failure_5(self, mock_is_file, mock_time):
         mock_is_file.return_value = True
 
         pcap_directory = 'directory'
@@ -524,7 +525,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
                           lua_script, pcap_directory, lua_directory, variables)
 
     @mock.patch('os.path.isfile', side_effect=[False])
-    def test__init_input_validation_for_failure_6(self, mock_is_file):
+    def test__init_input_validation_for_failure_6(self, mock_is_file, mock_time):
         # mock_is_file.return_value = False
 
         pcap_directory = 'directory'
@@ -545,7 +546,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
                           lua_script, pcap_directory, lua_directory, variables)
 
     @mock.patch('os.path.isfile', side_effect=[True, False])
-    def test__init_input_validation_for_failure_7(self, mock_is_file):
+    def test__init_input_validation_for_failure_7(self, mock_is_file, mock_time):
         pcap_directory = 'directory'
         pcap_file_0 = 'pcap_file_0'
         pcap_file_1 = 'pcap_file_1'
@@ -564,7 +565,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
                           lua_script, pcap_directory, lua_directory, variables)
 
     @mock.patch('os.path.isfile', side_effect=[True, True, False])
-    def test__init_input_validation_for_failure_8(self, mock_is_file):
+    def test__init_input_validation_for_failure_8(self, mock_is_file, mock_time):
         pcap_directory = 'directory'
         pcap_file_0 = 'pcap_file_0'
         pcap_file_1 = 'pcap_file_1'
@@ -583,13 +584,13 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
                           lua_script, pcap_directory, lua_directory, variables)
 
     @mock.patch('os.chdir')
-    def test__chdir_for_success(self, mock_os_chdir):
+    def test__chdir_for_success(self, mock_os_chdir, mock_time):
         mut.DpdkPacketGenerator._chdir('directory')
         mock_os_chdir.assert_called_once_with('directory')
 
     @mock.patch('experimental_framework.common.run_command',
                 side_effect=MockRunCommand.mock_run_command)
-    def test__init_physical_nics_for_success(self, mock_run_command):
+    def test__init_physical_nics_for_success(self, mock_run_command, mock_time):
         dpdk_interfaces = 1
         dpdk_vars = dict()
 
@@ -608,7 +609,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
 
     @mock.patch('experimental_framework.common.run_command',
                 side_effect=MockRunCommand.mock_run_command)
-    def test__init_physical_nics_for_success_2(self, mock_run_command):
+    def test__init_physical_nics_for_success_2(self, mock_run_command, mock_time):
         dpdk_interfaces = 2
         dpdk_vars = dict()
 
@@ -626,7 +627,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
                          [True, True, True, True, True, True])
 
     @mock.patch('experimental_framework.common.run_command')
-    def test__init_physical_nics_for_failure(self, mock_run_command):
+    def test__init_physical_nics_for_failure(self, mock_run_command, mock_time):
         dpdk_interfaces = 3
         dpdk_vars = dict()
         self.assertRaises(ValueError, self.mut._init_physical_nics,
@@ -634,7 +635,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
 
     @mock.patch('experimental_framework.common.run_command',
                 side_effect=MockRunCommand.mock_run_command_finalization)
-    def test__finalize_physical_nics_for_success(self, mock_run_command):
+    def test__finalize_physical_nics_for_success(self, mock_run_command, mock_time):
         dpdk_interfaces = 1
         dpdk_vars = dict()
         dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] = 'dpdk_directory/'
@@ -652,7 +653,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
 
     @mock.patch('experimental_framework.common.run_command',
                 side_effect=MockRunCommand.mock_run_command_finalization)
-    def test__finalize_physical_nics_for_success_2(self, mock_run_command):
+    def test__finalize_physical_nics_for_success_2(self, mock_run_command, mock_time):
         dpdk_interfaces = 2
         dpdk_vars = dict()
         dpdk_vars[conf_file.CFSP_DPDK_DPDK_DIRECTORY] = 'dpdk_directory/'
@@ -668,34 +669,34 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
         self.assertEqual(MockRunCommand.mock_run_command_finalization(),
                          [True, True, True, True, True, True])
 
-    def test__finalize_physical_nics_for_failure(self):
+    def test__finalize_physical_nics_for_failure(self, mock_time):
         dpdk_interfaces = 0
         dpdk_vars = dict()
         self.assertRaises(ValueError, self.mut._finalize_physical_nics,
                           dpdk_interfaces, dpdk_vars)
 
-    def test__cores_configuration_for_success(self):
+    def test__cores_configuration_for_success(self, mock_time):
         coremask = '1f'
         expected = '[2:1].0,[4:3].1'
         output = mut.DpdkPacketGenerator._cores_configuration(coremask,
                                                               1, 2, 2)
         self.assertEqual(expected, output)
 
-    def test__cores_configuration_for_success_2(self):
+    def test__cores_configuration_for_success_2(self, mock_time):
         coremask = '1f'
         expected = '2.0,[4:3].1'
         output = mut.DpdkPacketGenerator._cores_configuration(coremask,
                                                               1, 1, 2)
         self.assertEqual(expected, output)
 
-    def test__cores_configuration_for_success_3(self):
+    def test__cores_configuration_for_success_3(self, mock_time):
         coremask = '1f'
         expected = '[3:2].0,4.1'
         output = mut.DpdkPacketGenerator._cores_configuration(coremask,
                                                               1, 2, 1)
         self.assertEqual(expected, output)
 
-    def test__cores_configuration_for_failure(self):
+    def test__cores_configuration_for_failure(self, mock_time):
         coremask = '1'
         self.assertRaises(ValueError,
                           mut.DpdkPacketGenerator._cores_configuration,
@@ -703,7 +704,7 @@ class TestDpdkPacketGenOthers(unittest.TestCase):
 
     @mock.patch('experimental_framework.common.LOG')
     @mock.patch('experimental_framework.common.run_command')
-    def test__change_vlan_for_success(self, mock_run_command, mock_log):
+    def test__change_vlan_for_success(self, mock_run_command, mock_log, mock_time):
         mut.DpdkPacketGenerator._change_vlan('/directory/', 'pcap_file', '10')
         expected_param = '/directory/vlan_tag.sh /directory/pcap_file 10'
         mock_run_command.assert_called_with(expected_param)

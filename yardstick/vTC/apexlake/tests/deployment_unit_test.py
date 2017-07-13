@@ -130,6 +130,7 @@ class DummyDeploymentUnit(mut.DeploymentUnit):
         raise Exception
 
 
+@mock.patch("experimental_framework.deployment_unit.time")
 class TestDeploymentUnit(unittest.TestCase):
 
     def setUp(self):
@@ -140,7 +141,7 @@ class TestDeploymentUnit(unittest.TestCase):
 
     @mock.patch('experimental_framework.heat_manager.HeatManager',
                 side_effect=DummyHeatManager)
-    def test_constructor_for_sanity(self, mock_heat_manager):
+    def test_constructor_for_sanity(self, mock_heat_manager, mock_time):
         du = mut.DeploymentUnit(dict())
         self.assertTrue(isinstance(du.heat_manager, DummyHeatManager))
         mock_heat_manager.assert_called_once_with(dict())
@@ -150,7 +151,7 @@ class TestDeploymentUnit(unittest.TestCase):
                 side_effect=DummyHeatManager)
     @mock.patch('os.path.isfile')
     def test_deploy_heat_template_for_failure(self, mock_os_is_file,
-                                              mock_heat_manager):
+                                              mock_heat_manager, mock_time):
         mock_os_is_file.return_value = False
         du = mut.DeploymentUnit(dict())
         template_file = ''
@@ -163,7 +164,7 @@ class TestDeploymentUnit(unittest.TestCase):
                 side_effect=DummyHeatManager)
     @mock.patch('os.path.isfile')
     def test_deploy_heat_template_for_success(self, mock_os_is_file,
-                                              mock_heat_manager):
+                                              mock_heat_manager, mock_time):
         mock_os_is_file.return_value = True
         du = mut.DeploymentUnit(dict())
         template_file = ''
@@ -178,7 +179,7 @@ class TestDeploymentUnit(unittest.TestCase):
                 side_effect=DummyHeatManagerComplete)
     @mock.patch('os.path.isfile')
     def test_deploy_heat_template_2_for_success(self, mock_os_is_file,
-                                                mock_heat_manager):
+                                                mock_heat_manager, mock_time):
         mock_os_is_file.return_value = True
         du = mut.DeploymentUnit(dict())
         template_file = ''
@@ -196,7 +197,7 @@ class TestDeploymentUnit(unittest.TestCase):
                 side_effect=DummyDeploymentUnit)
     def test_deploy_heat_template_3_for_success(self, mock_dep_unit,
                                                 mock_os_is_file,
-                                                mock_heat_manager):
+                                                mock_heat_manager, mock_time):
         mock_os_is_file.return_value = True
         du = mut.DeploymentUnit(dict())
         template_file = ''
@@ -212,7 +213,7 @@ class TestDeploymentUnit(unittest.TestCase):
                 side_effect=DummyHeatManagerFailed)
     @mock.patch('os.path.isfile')
     def test_deploy_heat_template_for_success_2(self, mock_os_is_file,
-                                                mock_heat_manager, mock_log):
+                                                mock_heat_manager, mock_log, mock_time):
         mock_os_is_file.return_value = True
         du = DummyDeploymentUnit(dict())
         template_file = ''
@@ -226,7 +227,7 @@ class TestDeploymentUnit(unittest.TestCase):
                 side_effect=DummyHeatManagerDestroy)
     @mock.patch('experimental_framework.common.LOG')
     def test_destroy_heat_template_for_success(self, mock_log,
-                                               mock_heat_manager):
+                                               mock_heat_manager, mock_time):
         openstack_credentials = dict()
         du = mut.DeploymentUnit(openstack_credentials)
         du.deployed_stacks = ['stack']
@@ -238,14 +239,14 @@ class TestDeploymentUnit(unittest.TestCase):
                 side_effect=DummyHeatManagerDestroyException)
     @mock.patch('experimental_framework.common.LOG')
     def test_destroy_heat_template_for_success_2(self, mock_log,
-                                                 mock_heat_manager):
+                                                 mock_heat_manager, mock_time):
         openstack_credentials = dict()
         du = mut.DeploymentUnit(openstack_credentials)
         du.deployed_stacks = ['stack']
         stack_name = 'stack'
         self.assertFalse(du.destroy_heat_template(stack_name))
 
-    def test_destroy_all_deployed_stacks_for_success(self):
+    def test_destroy_all_deployed_stacks_for_success(self, mock_time):
         du = DeploymentUnitDestroy()
         du.destroy_all_deployed_stacks()
         self.assertTrue(du.destroy_heat_template())
@@ -254,7 +255,7 @@ class TestDeploymentUnit(unittest.TestCase):
                 side_effect=DummyHeatManagerReiteration)
     @mock.patch('os.path.isfile')
     def test_deploy_heat_template_for_success_3(self, mock_os_is_file,
-                                                mock_heat_manager):
+                                                mock_heat_manager, mock_time):
         mock_os_is_file.return_value = True
         du = mut.DeploymentUnit(dict())
         template = 'template_reiteration'

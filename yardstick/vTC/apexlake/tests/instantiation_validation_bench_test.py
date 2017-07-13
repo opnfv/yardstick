@@ -257,6 +257,7 @@ class InstantiationValidationInitTest(unittest.TestCase):
         self.assertEqual(dummy_os_kill('', '', True), [1, 1])
         self.assertEqual(dummy_run_command('', True), [1, 1, 0, 0, 0])
 
+    @mock.patch('experimental_framework.benchmarks.instantiation_validation_benchmark.time')
     @mock.patch('os.chdir')
     @mock.patch('experimental_framework.common.run_command',
                 side_effect=dummy_run_command_2)
@@ -265,7 +266,7 @@ class InstantiationValidationInitTest(unittest.TestCase):
                 'InstantiationValidationBenchmark._get_pids')
     @mock.patch('os.kill', side_effect=dummy_os_kill)
     def test__init_packet_checker_for_success(self, mock_kill, mock_pids,
-                                              mock_run_command, mock_chdir):
+                                              mock_run_command, mock_chdir, mock_time):
         global command_counter
         command_counter = [0, 0, 0, 0, 0]
         mock_pids.return_value = [1234, 4321]
@@ -314,13 +315,14 @@ class InstantiationValidationInitTest(unittest.TestCase):
         self.assertEqual(dummy_replace_in_file('', '', '', True),
                          [0, 0, 0, 1, 1, 1])
 
+    @mock.patch('experimental_framework.benchmarks.instantiation_validation_benchmark.time')
     @mock.patch('experimental_framework.common.LOG')
     @mock.patch('experimental_framework.packet_generators.'
                 'dpdk_packet_generator.DpdkPacketGenerator',
                 side_effect=DummyDpdkPacketGenerator)
     @mock.patch('experimental_framework.common.get_dpdk_pktgen_vars')
     def test_run_for_success(self, mock_common_get_vars, mock_pktgen,
-                             mock_log):
+                             mock_log, mock_time):
         rval = dict()
         rval[cfs.CFSP_DPDK_BUS_SLOT_NIC_2] = 'bus_2'
         rval[cfs.CFSP_DPDK_NAME_IF_2] = 'if_2'
