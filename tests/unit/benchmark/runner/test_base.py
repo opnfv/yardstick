@@ -15,12 +15,15 @@ from __future__ import absolute_import
 import unittest
 import time
 
+from mock import mock
+
 from yardstick.benchmark.runners.iteration import IterationRunner
 
 
 class RunnerTestCase(unittest.TestCase):
 
-    def test_get_output(self):
+    @mock.patch("yardstick.benchmark.runners.iteration.multiprocessing")
+    def test_get_output(self, mock_process):
         runner = IterationRunner({})
         runner.output_queue.put({'case': 'opnfv_yardstick_tc002'})
         runner.output_queue.put({'criteria': 'PASS'})
@@ -30,7 +33,10 @@ class RunnerTestCase(unittest.TestCase):
             'criteria': 'PASS'
         }
 
-        time.sleep(1)
+        for retries in range(1000):
+            time.sleep(0.01)
+            if not runner.output_queue.empty():
+                break
         actual_result = runner.get_output()
         self.assertEqual(idle_result, actual_result)
 
