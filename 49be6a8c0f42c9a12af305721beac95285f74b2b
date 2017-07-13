@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_b0463522",
+        "filename": "api/urls.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-07-13T06:16:26Z",
+      "side": 1,
+      "message": "comma here",
+      "range": {
+        "startLine": 25,
+        "startChar": 67,
+        "endLine": 25,
+        "endChar": 68
+      },
+      "revId": "49be6a8c0f42c9a12af305721beac95285f74b2b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
