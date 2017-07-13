@@ -2,9 +2,13 @@ import uuid
 import logging
 
 from oslo_serialization import jsonutils
+from docker import Client
 
 from api import ApiResource
 from api.database.v2.handlers import V2EnvironmentHandler
+from api.database.v2.handlers import V2OpenrcHandler
+from api.database.v2.handlers import V2PodHandler
+from api.database.v2.handlers import V2ContainerHandler
 from yardstick.common.utils import result_handler
 from yardstick.common.utils import change_obj_to_dict
 from yardstick.common import constants as consts
@@ -69,3 +73,45 @@ class V2Environment(ApiResource):
         container_id = environment['container_id']
         environment['container_id'] = jsonutils.loads(container_id) if container_id else {}
         return result_handler(consts.API_SUCCESS, {'environment': environment})
+
+    def delete(self, environment_id):
+        try:
+            uuid.UUID(environment_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid environment id')
+
+        environment_handler = V2EnvironmentHandler()
+        try:
+            environment = environment_handler.get_by_uuid(environment_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such environment id')
+
+        if environment.openrc_id:
+            LOG.info('delete openrc: %s', environment.openrc_id)
+            openrc_handler = V2OpenrcHandler()
+            openrc_handler.delete_by_uuid(environment.openrc_id)
+
+        if environment.pod_id:
+            LOG.info('delete pod: %s', environment.pod_id)
+            pod_handler = V2PodHandler()
+            pod_handler.delete_by_uuid(environment.pod_id)
+
+        if environment.container_id:
+            LOG.info('delete containers')
+            container_info = jsonutils.loads(environment.container_id)
+
+            container_handler = V2ContainerHandler()
+            client = Client(base_url=consts.DOCKER_URL)
+            for k, v in container_info.items():
+                LOG.info('start delete: %s', k)
+                container = container_handler.get_by_uuid(v)
+                LOG.debug('container name: %s', container.name)
+                try:
+                    client.remove_container(container.name, force=True)
+                except Exception:
+                    LOG.exception('remove container failed')
+                container_handler.delete_by_uuid(v)
+
+        environment_handler.delete_by_uuid(environment_id)
+
+        return result_handler(consts.API_SUCCESS, {'environment': environment_id})
