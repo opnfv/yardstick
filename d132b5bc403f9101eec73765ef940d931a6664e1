@@ -88,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_bc8291fe",
+        "filename": "yardstick/benchmark/contexts/kubernetes.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-07-13T01:06:37Z",
+      "side": 1,
+      "message": "OK, maybe I should write it in utils.",
+      "parentUuid": "1aa4ed85_bb3b7bea",
+      "revId": "d132b5bc403f9101eec73765ef940d931a6664e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_7b2503c1",
         "filename": "yardstick/benchmark/contexts/kubernetes.py",
         "patchSetId": 13
@@ -122,6 +140,24 @@
       "writtenOn": "2017-07-12T05:02:35Z",
       "side": 1,
       "message": "never hardcode username.  use\n\n  os.path.join(os.environ[\"$HOME\"], \".ssh\")",
+      "revId": "d132b5bc403f9101eec73765ef940d931a6664e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_dc9e6d56",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-07-13T01:06:37Z",
+      "side": 1,
+      "message": "This path is for the container we will launch. But os.environ[\"$HOME\"] is from our side. So I wonder how could we write it.",
+      "parentUuid": "1aa4ed85_3b2f8ba3",
       "revId": "d132b5bc403f9101eec73765ef940d931a6664e1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
