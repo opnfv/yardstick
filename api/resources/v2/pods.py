@@ -58,3 +58,22 @@ class V2Pods(ApiResource):
         environment_handler.update_attr(environment_id, {'pod_id': pod_id})
 
         return result_handler(consts.API_SUCCESS, {'uuid': pod_id, 'pod': data})
+
+
+class V2Pod(ApiResource):
+
+    def get(self, pod_id):
+        try:
+            uuid.UUID(pod_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid pod id')
+
+        pod_handler = V2PodHandler()
+        try:
+            pod = pod_handler.get_by_uuid(pod_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such pod')
+
+        content = jsonutils.loads(pod.content)
+
+        return result_handler(consts.API_SUCCESS, {'pod': content})

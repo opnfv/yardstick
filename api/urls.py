@@ -30,4 +30,5 @@ urlpatterns = [
     Url('/api/v2/yardstick/environments/openrcs/<openrc_id>', 'v2_openrc'),
 
     Url('/api/v2/yardstick/pods/action', 'v2_pods'),
+    Url('/api/v2/yardstick/pods/<pod_id>', 'v2_pod'),
 ]
