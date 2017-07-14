@@ -11,7 +11,10 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+import multiprocessing
 import os
+from functools import partial
+
 import yaml
 import logging
 
@@ -27,15 +30,21 @@ class Testcase(object):
        Set of commands to discover and display test cases.
     """
 
-    def list_all(self, args):
+    @classmethod
+    def list_all(cls, args):
         """List existing test cases"""
 
-        testcase_files = self._get_testcase_file_list()
-        testcase_list = [self._get_record(f) for f in testcase_files]
+        testcase_files = cls._get_testcase_file_list()
+        pool = multiprocessing.Pool()
+
+        # use multiprocessing to parallelize I/O reading the file
+        # On Python2 have can't use instance methods, have to wrap in partial
+        testcase_list = pool.map(get_record, testcase_files)
 
         return testcase_list
 
-    def _get_testcase_file_list(self):
+    @staticmethod
+    def _get_testcase_file_list():
         try:
             testcase_files = sorted(os.listdir(consts.TESTCASE_DIR))
         except OSError:
@@ -44,7 +53,8 @@ class Testcase(object):
 
         return testcase_files
 
-    def _get_record(self, testcase_file):
+    @classmethod
+    def _get_record(cls, testcase_file):
 
         file_path = os.path.join(consts.TESTCASE_DIR, testcase_file)
         with open(file_path) as f:
@@ -54,7 +64,7 @@ class Testcase(object):
                 LOG.exception('Failed to load test case:\n%s\n', testcase_file)
                 raise
 
-        description, installer, deploy_scenarios = self._parse_testcase(
+        description, installer, deploy_scenarios = cls._parse_testcase(
             testcase_info)
 
         record = {
@@ -66,7 +76,8 @@ class Testcase(object):
 
         return record
 
-    def _parse_testcase(self, testcase_info):
+    @classmethod
+    def _parse_testcase(cls, testcase_info):
 
         rendered_testcase = TaskTemplate.render(testcase_info)
         testcase_cfg = yaml.load(rendered_testcase)
@@ -75,11 +86,12 @@ class Testcase(object):
         installer_type = test_precondition.get('installer_type', 'all')
         deploy_scenarios = test_precondition.get('deploy_scenarios', 'all')
 
-        description = self._get_description(testcase_cfg)
+        description = cls._get_description(testcase_cfg)
 
         return description, installer_type, deploy_scenarios
 
-    def _get_description(self, testcase_cfg):
+    @staticmethod
+    def _get_description(testcase_cfg):
         try:
             description_list = testcase_cfg['description'].split(';')
         except KeyError:
@@ -90,7 +102,8 @@ class Testcase(object):
             except IndexError:
                 return description_list[0].replace(os.linesep, '').strip()
 
-    def show(self, args):
+    @staticmethod
+    def show(args):
         """Show details of a specific test case"""
         testcase_name = args.casename[0]
         testcase_path = os.path.join(consts.TESTCASE_DIR,
@@ -104,3 +117,9 @@ class Testcase(object):
 
             print(testcase_info)
         return True
+
+
+def _get_record(obj, arg):
+    return obj._get_record(arg)
+
+get_record = partial(_get_record, Testcase)
