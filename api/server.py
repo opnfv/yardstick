@@ -32,7 +32,7 @@ try:
 except ImportError:
     from urllib.parse import urljoin
 
-logger = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
@@ -62,7 +62,7 @@ def init_db():
         return False
 
     subclses = filter(func, inspect.getmembers(models, inspect.isclass))
-    logger.debug('Import models: %s', [a[1] for a in subclses])
+    LOG.debug('Import models: %s', [a[1] for a in subclses])
     Base.metadata.create_all(bind=engine)
 
 
@@ -77,12 +77,15 @@ def get_endpoint(url):
 
 
 for u in urlpatterns:
-    api.add_resource(get_resource(u.target), u.url, endpoint=get_endpoint(u.url))
+    try:
+        api.add_resource(get_resource(u.target), u.url, endpoint=get_endpoint(u.url))
+    except StopIteration:
+        LOG.error('url resource not found: %s', u.url)
 
 
 if __name__ == '__main__':
     _init_logging()
-    logger.setLevel(logging.DEBUG)
-    logger.info('Starting server')
+    LOG.setLevel(logging.DEBUG)
+    LOG.info('Starting server')
     init_db()
     app.run(host='0.0.0.0')

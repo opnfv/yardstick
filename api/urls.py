@@ -26,9 +26,31 @@ urlpatterns = [
     Url('/api/v2/yardstick/environments/action', 'v2_environments'),
     Url('/api/v2/yardstick/environments/<environment_id>', 'v2_environment'),
 
-    Url('/api/v2/yardstick/environments/openrcs/action', 'v2_openrcs'),
-    Url('/api/v2/yardstick/environments/openrcs/<openrc_id>', 'v2_openrc'),
+    Url('/api/v2/yardstick/openrcs/action', 'v2_openrcs'),
+    Url('/api/v2/yardstick/openrcs/<openrc_id>', 'v2_openrc'),
 
     Url('/api/v2/yardstick/pods/action', 'v2_pods'),
     Url('/api/v2/yardstick/pods/<pod_id>', 'v2_pod'),
+
+    Url('/api/v2/yardstick/images', 'v2_images'),
+    Url('/api/v2/yardstick/images/action', 'v2_images'),
+
+    Url('/api/v2/yardstick/containers/action', 'v2_containers'),
+    Url('/api/v2/yardstick/containers/<container_id>', 'v2_container'),
+
+    Url('/api/v2/yardstick/projects', 'v2_projects'),
+    Url('/api/v2/yardstick/projects/action', 'v2_projects'),
+    Url('/api/v2/yardstick/projects/<project_id>', 'v2_project'),
+
+    Url('/api/v2/yardstick/tasks', 'v2_tasks'),
+    Url('/api/v2/yardstick/tasks/action', 'v2_tasks'),
+    Url('/api/v2/yardstick/tasks/<task_id>', 'v2_task'),
+
+    Url('/api/v2/yardstick/testcases', 'v2_testcases'),
+    Url('/api/v2/yardstick/testcases/action', 'v2_testcases'),
+    Url('/api/v2/yardstick/testcases/<case_name>', 'v2_testcase'),
+
+    Url('/api/v2/yardstick/testsuites', 'v2_testsuites'),
+    Url('/api/v2/yardstick/testsuites/action', 'v2_testsuites'),
+    Url('/api/v2/yardstick/testsuites/<suite_name>', 'v2_testsuites')
 ]
