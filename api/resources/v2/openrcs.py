@@ -188,3 +188,24 @@ class V2Openrc(ApiResource):
         content = jsonutils.loads(openrc.content)
 
         return result_handler(consts.API_ERROR, {'openrc': content})
+
+    def delete(self, openrc_id):
+        try:
+            uuid.UUID(openrc_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid openrc id')
+
+        LOG.info('Geting openrc: %s', openrc_id)
+        openrc_handler = V2OpenrcHandler()
+        try:
+            openrc = openrc_handler.get_by_uuid(openrc_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such openrc id')
+
+        LOG.info('update openrc in environment')
+        environment_handler = V2EnvironmentHandler()
+        environment_handler.update_attr(openrc.environment_id, {'openrc_id': None})
+
+        openrc_handler.delete_by_uuid(openrc_id)
+
+        return result_handler(consts.API_SUCCESS, {'openrc': openrc_id})
