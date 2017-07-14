@@ -18,7 +18,7 @@ LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
 
 
-class V2Openrc(ApiResource):
+class V2Openrcs(ApiResource):
 
     def post(self):
         return self._dispatch_post()
@@ -33,6 +33,11 @@ class V2Openrc(ApiResource):
             environment_id = args['environment_id']
         except KeyError:
             return result_handler(consts.API_ERROR, 'environment_id must be provided')
+
+        try:
+            uuid.UUID(environment_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid environment id')
 
         LOG.info('writing openrc: %s', consts.OPENRC)
         makedirs(consts.CONF_DIR)
@@ -69,6 +74,11 @@ class V2Openrc(ApiResource):
             environment_id = args['environment_id']
         except KeyError:
             return result_handler(consts.API_ERROR, 'environment_id must be provided')
+
+        try:
+            uuid.UUID(environment_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid environment id')
 
         LOG.info('writing openrc: %s', consts.OPENRC)
         makedirs(consts.CONF_DIR)
@@ -157,3 +167,24 @@ class V2Openrc(ApiResource):
         makedirs(consts.OPENSTACK_CONF_DIR)
         with open(consts.CLOUDS_CONF, 'w') as f:
             yaml.dump(ansible_conf, f, default_flow_style=False)
+
+
+class V2Openrc(ApiResource):
+
+    def get(self, openrc_id):
+        try:
+            uuid.UUID(openrc_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid openrc id')
+
+        LOG.info('Geting openrc: %s', openrc_id)
+        openrc_handler = V2OpenrcHandler()
+        try:
+            openrc = openrc_handler.get_by_uuid(openrc_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such openrc id')
+
+        LOG.info('load openrc content')
+        content = jsonutils.loads(openrc.content)
+
+        return result_handler(consts.API_ERROR, {'openrc': content})
