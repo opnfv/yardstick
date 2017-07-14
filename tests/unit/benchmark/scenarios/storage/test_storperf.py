@@ -130,7 +130,7 @@ class StorPerfTestCase(unittest.TestCase):
             "queue_depths": 4,
             "workload": "rs",
             "StorPerf_ip": "192.168.23.2",
-            "query_interval": 10,
+            "query_interval": 0,
             "timeout": 60
         }
 
@@ -160,7 +160,7 @@ class StorPerfTestCase(unittest.TestCase):
             "queue_depths": 4,
             "workload": "rs",
             "StorPerf_ip": "192.168.23.2",
-            "query_interval": 10,
+            "query_interval": 0,
             "timeout": 60
         }
 
