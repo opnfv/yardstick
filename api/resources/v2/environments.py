@@ -49,3 +49,23 @@ class V2Environments(ApiResource):
         environment_handler.insert(env_init_data)
 
         return result_handler(consts.API_SUCCESS, {'uuid': env_id})
+
+
+class V2Environment(ApiResource):
+
+    def get(self, environment_id):
+        try:
+            uuid.UUID(environment_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid environment id')
+
+        environment_handler = V2EnvironmentHandler()
+        try:
+            environment = environment_handler.get_by_uuid(environment_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such environment id')
+
+        environment = change_obj_to_dict(environment)
+        container_id = environment['container_id']
+        environment['container_id'] = jsonutils.loads(container_id) if container_id else {}
+        return result_handler(consts.API_SUCCESS, {'environment': environment})

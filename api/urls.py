@@ -24,4 +24,5 @@ urlpatterns = [
     # api v2
     Url('/api/v2/yardstick/environments', 'v2_environments'),
     Url('/api/v2/yardstick/environments/action', 'v2_environments'),
+    Url('/api/v2/yardstick/environments/<environment_id>', 'v2_environment'),
 ]
