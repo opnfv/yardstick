@@ -22,4 +22,5 @@ urlpatterns = [
     Url('/yardstick/env/action', 'v1_env'),
 
     Url('/api/v2/yardstick/pods/action', 'v2_pods'),
+    Url('/api/v2/yardstick/pods/<pod_id>', 'v2_pod'),
 ]
