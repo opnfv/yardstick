@@ -36,7 +36,7 @@ class MultiMonitorServiceTestCase(unittest.TestCase):
             'key': 'service-status',
             'monitor_key': 'service-status',
             'host': 'node1',
-            'monitor_time': 3,
+            'monitor_time': 0.1,
             'parameter': {'serviceName': 'haproxy'},
             'sla': {'max_outage_time': 1}
         }
