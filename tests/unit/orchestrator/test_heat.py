@@ -183,7 +183,7 @@ class HeatTemplateTestCase(unittest.TestCase):
     @mock_patch_target_module('op_utils')
     @mock_patch_target_module('heatclient.client.Client')
     def test_create_negative(self, mock_heat_client_class, mock_op_utils):
-        self.template.HEAT_WAIT_LOOP_INTERVAL = interval = 0.2
+        self.template.HEAT_WAIT_LOOP_INTERVAL = 0
         mock_heat_client = mock_heat_client_class()  # get the constructed mock
 
         # populate attributes of the constructed mock
@@ -196,14 +196,9 @@ class HeatTemplateTestCase(unittest.TestCase):
 
         with mock.patch.object(self.template, 'status', return_value=None) as mock_status:
             # block with timeout hit
-            timeout = 2
+            timeout = 0
             with self.assertRaises(RuntimeError) as raised, timer() as time_data:
                 self.template.create(block=True, timeout=timeout)
-
-            # ensure runtime is approximately the timeout value
-            expected_time_low = timeout - interval * 0.2
-            expected_time_high = timeout + interval * 0.2
-            self.assertTrue(expected_time_low < time_data['delta'] < expected_time_high)
 
             # ensure op_utils was used
             expected_op_utils_usage += 1
@@ -231,11 +226,6 @@ class HeatTemplateTestCase(unittest.TestCase):
             mock_status.side_effect = iter([None, None, u'CREATE_FAILED'])
             with self.assertRaises(RuntimeError) as raised, timer() as time_data:
                 self.template.create(block=True, timeout=timeout)
-
-            # ensure runtime is approximately two intervals
-            expected_time_low = interval * 1.8
-            expected_time_high = interval * 2.2
-            self.assertTrue(expected_time_low < time_data['delta'] < expected_time_high)
 
             # ensure the existing heat_client was used and op_utils was used again
             self.assertEqual(mock_op_utils.get_session.call_count, expected_op_utils_usage)
