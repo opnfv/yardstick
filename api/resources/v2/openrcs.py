@@ -59,6 +59,47 @@ class V2Openrc(ApiResource):
 
         return result_handler(consts.API_SUCCESS, {'openrc': openrc_data, 'uuid': openrc_id})
 
+    def update_openrc(self, args):
+        try:
+            openrc_vars = args['openrc']
+        except KeyError:
+            return result_handler(consts.API_ERROR, 'openrc must be provided')
+
+        try:
+            environment_id = args['environment_id']
+        except KeyError:
+            return result_handler(consts.API_ERROR, 'environment_id must be provided')
+
+        LOG.info('writing openrc: %s', consts.OPENRC)
+        makedirs(consts.CONF_DIR)
+
+        lines = ['export {}={}\n'.format(k, v) for k, v in openrc_vars.items()]
+        LOG.debug('writing: %s', ''.join(lines))
+        with open(consts.OPENRC, 'w') as f:
+            f.writelines(lines)
+        LOG.info('writing openrc: Done')
+
+        LOG.info('source openrc: %s', consts.OPENRC)
+        try:
+            source_env(consts.OPENRC)
+        except Exception:
+            LOG.exception('source openrc failed')
+            return result_handler(consts.API_ERROR, 'source openrc failed')
+        LOG.info('source openrc: Done')
+
+        openrc_id = str(uuid.uuid4())
+        self._write_into_database(environment_id, openrc_id, openrc_vars)
+
+        LOG.info('writing ansible cloud conf')
+        try:
+            self._generate_ansible_conf_file(openrc_vars)
+        except Exception:
+            LOG.exception('write cloud conf failed')
+            return result_handler(consts.API_ERROR, 'genarate ansible conf failed')
+        LOG.info('finish writing ansible cloud conf')
+
+        return result_handler(consts.API_SUCCESS, {'openrc': openrc_vars, 'uuid': openrc_id})
+
     def _write_into_database(self, environment_id, openrc_id, openrc_data):
         LOG.info('writing openrc to database')
         openrc_handler = V2OpenrcHandler()
