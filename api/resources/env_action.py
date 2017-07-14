@@ -49,17 +49,27 @@ def _create_grafana(task_id):
     client = Client(base_url=consts.DOCKER_URL)
 
     try:
+        print('5')
         image = '{}:{}'.format(consts.GRAFANA_IMAGE, consts.GRAFANA_TAG)
+        print('6')
         if not _check_image_exist(client, image):
             client.pull(consts.GRAFANA_IMAGE, consts.GRAFANA_TAG)
 
-        _create_grafana_container(client)
+        print('7')
+        container = _create_grafana_container(client)
 
         time.sleep(5)
 
-        _create_data_source()
+        print('1')
+        container = client.inspect_container(container['Id'])
+        ip = container['NetworkSettings']['Networks']['bridge']['IPAddress']
 
-        _create_dashboard()
+        print('2')
+        _create_data_source(ip)
+
+        print('3')
+        _create_dashboard(ip)
+        print('4')
 
         _update_task_status(task_id)
     except Exception as e:
@@ -67,8 +77,8 @@ def _create_grafana(task_id):
         logger.exception('Error: %s', e)
 
 
-def _create_dashboard():
-    url = 'http://admin:admin@%s:3000/api/dashboards/db' % consts.GRAFANA_IP
+def _create_dashboard(ip):
+    url = 'http://admin:admin@{}:{}/api/dashboards/db'.format(ip, consts.GRAFANA_PORT)
     path = os.path.join(consts.REPOS_DIR, 'dashboard', '*dashboard.json')
 
     for i in sorted(glob.iglob(path)):
@@ -77,13 +87,21 @@ def _create_dashboard():
         HttpClient().post(url, data)
 
 
-def _create_data_source():
-    url = 'http://admin:admin@%s:3000/api/datasources' % consts.GRAFANA_IP
+def _create_data_source(ip):
+    url = 'http://admin:admin@{}:{}/api/datasources'.format(ip, consts.GRAFANA_PORT)
+
+    influx_conf = yardstick_utils.parse_ini_file(consts.CONF_FILE)
+    try:
+        influx_url = influx_conf['dispatcher_influxdb']['target']
+    except KeyError:
+        logger.exception('influxdb url not set in yardstick.conf')
+        raise
+
     data = {
         "name": "yardstick",
         "type": "influxdb",
         "access": "proxy",
-        "url": "http://%s:8086" % consts.INFLUXDB_IP,
+        "url": influx_url,
         "password": "root",
         "user": "root",
         "database": "yardstick",
@@ -96,8 +114,8 @@ def _create_data_source():
 
 
 def _create_grafana_container(client):
-    ports = [3000]
-    port_bindings = {k: k for k in ports}
+    ports = [consts.GRAFANA_PORT]
+    port_bindings = {consts.GRAFANA_PORT: consts.GRAFANA_MAPPING_PORT}
     host_config = client.create_host_config(port_bindings=port_bindings)
 
     container = client.create_container(image='%s:%s' % (consts.GRAFANA_IMAGE,
@@ -107,6 +125,7 @@ def _create_grafana_container(client):
                                         tty=True,
                                         host_config=host_config)
     client.start(container)
+    return container
 
 
 def _check_image_exist(client, t):
@@ -128,15 +147,19 @@ def _create_influxdb(task_id):
     client = Client(base_url=consts.DOCKER_URL)
 
     try:
-        _change_output_to_influxdb()
-
         if not _check_image_exist(client, '%s:%s' % (consts.INFLUXDB_IMAGE,
                                                      consts.INFLUXDB_TAG)):
             client.pull(consts.INFLUXDB_IMAGE, tag=consts.INFLUXDB_TAG)
 
-        _create_influxdb_container(client)
+        container = _create_influxdb_container(client)
 
         time.sleep(5)
+
+        container = client.inspect_container(container['Id'])
+        ip = container['NetworkSettings']['Networks']['bridge']['IPAddress']
+
+        logger.info('Changing output to influxdb')
+        _change_output_to_influxdb(ip)
 
         _config_influxdb()
 
@@ -148,7 +171,7 @@ def _create_influxdb(task_id):
 
 def _create_influxdb_container(client):
 
-    ports = [8083, 8086]
+    ports = [consts.INFLUXDB_DASHBOARD_PORT, consts.INFLUXDB_PORT]
     port_bindings = {k: k for k in ports}
     host_config = client.create_host_config(port_bindings=port_bindings)
 
@@ -159,6 +182,7 @@ def _create_influxdb_container(client):
                                         tty=True,
                                         host_config=host_config)
     client.start(container)
+    return container
 
 
 def _config_influxdb():
@@ -173,7 +197,7 @@ def _config_influxdb():
         logger.debug('Failed to config influxDB: %s', e)
 
 
-def _change_output_to_influxdb():
+def _change_output_to_influxdb(ip):
     yardstick_utils.makedirs(consts.CONF_DIR)
 
     parser = configparser.ConfigParser()
@@ -181,7 +205,7 @@ def _change_output_to_influxdb():
 
     parser.set('DEFAULT', 'dispatcher', 'influxdb')
     parser.set('dispatcher_influxdb', 'target',
-               'http://%s:8086' % consts.INFLUXDB_IP)
+               'http://{}:{}'.format(ip, consts.INFLUXDB_PORT))
 
     with open(consts.CONF_FILE, 'w') as f:
         parser.write(f)
