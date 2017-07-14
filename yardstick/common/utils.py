@@ -155,7 +155,14 @@ def write_file(path, data, mode='w'):
 
 def parse_ini_file(path):
     parser = configparser.ConfigParser()
-    parser.read(path)
+    try:
+        files = parser.read(path)
+    except configparser.MissingSectionHeaderError:
+        logger.exception('invalid file type')
+        raise
+    else:
+        if not files:
+            raise RuntimeError('file not exist')
 
     try:
         default = {k: v for k, v in parser.items('DEFAULT')}
