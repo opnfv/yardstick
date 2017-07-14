@@ -27,9 +27,7 @@ def _execute_shell_command(command):
         output = subprocess.check_output(command, shell=True)
     except Exception:
         exitcode = -1
-        output = traceback.format_exc()
-        LOG.error("exec command '%s' error:\n ", command)
-        LOG.error(traceback.format_exc())
+        LOG.error("exec command '%s' error:\n ", command, exc_info=True)
 
     return exitcode, output
 
