@@ -77,3 +77,24 @@ class V2Pod(ApiResource):
         content = jsonutils.loads(pod.content)
 
         return result_handler(consts.API_SUCCESS, {'pod': content})
+
+    def delete(self, pod_id):
+        try:
+            uuid.UUID(pod_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid pod id')
+
+        pod_handler = V2PodHandler()
+        try:
+            pod = pod_handler.get_by_uuid(pod_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such pod')
+
+        LOG.info('update pod in environment')
+        environment_handler = V2EnvironmentHandler()
+        environment_handler.update_attr(pod.environment_id, {'pod_id': None})
+
+        LOG.info('delete pod in database')
+        pod_handler.delete_by_uuid(pod_id)
+
+        return result_handler(consts.API_SUCCESS, {'pod': pod_id})
