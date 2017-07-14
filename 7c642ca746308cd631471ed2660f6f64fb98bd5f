@@ -16,6 +16,24 @@
       "revId": "7c642ca746308cd631471ed2660f6f64fb98bd5f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_ba5ccc26",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-07-14T08:36:36Z",
+      "side": 1,
+      "message": "sorry, my bad. I forget remove it.",
+      "parentUuid": "1aa4ed85_fa524412",
+      "revId": "7c642ca746308cd631471ed2660f6f64fb98bd5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
