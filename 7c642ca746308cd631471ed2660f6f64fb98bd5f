@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_fa524412",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-14T08:32:30Z",
+      "side": 1,
+      "message": "it looks like we are calling parser.read() twice?\n\nhow does work?  won\u0027t it fail on the first call?",
+      "revId": "7c642ca746308cd631471ed2660f6f64fb98bd5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
