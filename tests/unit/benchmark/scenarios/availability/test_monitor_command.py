@@ -30,12 +30,14 @@ class ExecuteShellTestCase(unittest.TestCase):
         exitcode, output = monitor_command._execute_shell_command(cmd)
         self.assertEqual(exitcode, 0)
 
-    def test__fun_execute_shell_command_fail_cmd_exception(self,
+    @mock.patch('yardstick.benchmark.scenarios.availability.monitor.monitor_command.LOG')
+    def test__fun_execute_shell_command_fail_cmd_exception(self, mock_log,
                                                            mock_subprocess):
         cmd = "env"
         mock_subprocess.check_output.side_effect = RuntimeError
         exitcode, output = monitor_command._execute_shell_command(cmd)
         self.assertEqual(exitcode, -1)
+        mock_log.error.assert_called_once()
 
 
 @mock.patch(
@@ -67,13 +69,15 @@ class MonitorOpenstackCmdTestCase(unittest.TestCase):
         instance._result = {"outage_time": 0}
         instance.verify_SLA()
 
-    def test__monitor_command_monitor_func_failure(self, mock_subprocess):
+    @mock.patch('yardstick.benchmark.scenarios.availability.monitor.monitor_command.LOG')
+    def test__monitor_command_monitor_func_failure(self, mock_log, mock_subprocess):
         mock_subprocess.check_output.return_value = (1, 'unittest')
         instance = monitor_command.MonitorOpenstackCmd(self.config, None, {"nova-api": 10})
         instance.setup()
         mock_subprocess.check_output.side_effect = RuntimeError
         ret = instance.monitor_func()
         self.assertEqual(ret, False)
+        mock_log.error.assert_called_once()
         instance._result = {"outage_time": 10}
         instance.verify_SLA()
 

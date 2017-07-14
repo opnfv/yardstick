@@ -11,7 +11,6 @@ from __future__ import absolute_import
 import os
 import logging
 import subprocess
-import traceback
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios.availability.monitor import basemonitor
@@ -27,9 +26,7 @@ def _execute_shell_command(command):
         output = subprocess.check_output(command, shell=True)
     except Exception:
         exitcode = -1
-        output = traceback.format_exc()
-        LOG.error("exec command '%s' error:\n ", command)
-        LOG.error(traceback.format_exc())
+        LOG.error("exec command '%s' error:\n ", command, exc_info=True)
 
     return exitcode, output
 
