@@ -152,7 +152,7 @@ Release Data
 | **Release designation**              | Danube                               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     |                                      |
+| **Release date**                     | July 14th, 2017                      |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | OPNFV Danube release 3.0             |
