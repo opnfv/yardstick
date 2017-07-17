@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "1aa4ed85_fc3b1fe9",
+        "filename": "api/resources/v2/containers.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-17T04:36:24Z",
+      "side": 1,
+      "message": "pass SERVER_IP as a parameter here",
+      "revId": "610529f210e1f6379822562441bc69c9a6aaba03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_3c4bf788",
         "filename": "yardstick/common/constants.py",
         "patchSetId": 4
