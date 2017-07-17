@@ -355,8 +355,10 @@ class HeatStackTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.orchestrator.heat.op_utils')
     def test_delete_all_calls_delete(self, mock_op):
-        stack = heat.HeatStack('test')
-        stack.uuid = 1
-        with mock.patch.object(stack, "delete") as delete_mock:
+        # we must patch the object before we create an instance
+        # so we can override delete() in all the instances
+        with mock.patch.object(heat.HeatStack, "delete") as delete_mock:
+            stack = heat.HeatStack('test')
+            stack.uuid = 1
             stack.delete_all()
-        self.assertGreater(delete_mock.call_count, 0)
+            self.assertGreater(delete_mock.call_count, 0)
