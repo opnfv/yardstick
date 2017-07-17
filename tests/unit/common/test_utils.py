@@ -176,6 +176,25 @@ class ChangeObjToDictTestCase(unittest.TestCase):
         self.assertEqual(obj_r, obj_s)
 
 
+class SetDictValueTestCase(unittest.TestCase):
+
+    def test_set_dict_value(self):
+        input_dic = {
+            'hello': 'world'
+        }
+        output_dic = utils.set_dict_value(input_dic, 'welcome.to', 'yardstick')
+        self.assertEqual(output_dic.get('welcome', {}).get('to'), 'yardstick')
+
+
+class RemoveFileTestCase(unittest.TestCase):
+
+    def test_remove_file(self):
+        try:
+            utils.remove_file('notexistfile.txt')
+        except Exception as e:
+            self.assertTrue(isinstance(e, OSError))
+
+
 def main():
     unittest.main()
 
