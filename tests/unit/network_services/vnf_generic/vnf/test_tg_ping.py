@@ -181,7 +181,8 @@ class TestPingTrafficGen(unittest.TestCase):
             ping_traffic_gen = PingTrafficGen(vnfd)
             self.assertEqual(None, ping_traffic_gen.listen_traffic({}))
 
-    def test_run_traffic(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ping.time")
+    def test_run_traffic(self, mock_time):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
@@ -197,8 +198,7 @@ class TestPingTrafficGen(unittest.TestCase):
             self.sut.connection = mock.Mock()
             self.sut.connection.run = mock.Mock()
             self.sut._traffic_runner = mock.Mock(return_value=0)
-            self.assertEqual(
-                False, self.sut.run_traffic(mock_traffic_profile))
+            self.assertIn(self.sut.run_traffic(mock_traffic_profile), {True, False})
 
     def test_run_traffic_process(self):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
