@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_1fa5cd52",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2017-07-17T08:31:45Z",
+      "side": 1,
+      "message": "+ apt-get clean to save space ?\nI would have removed env here",
+      "revId": "84d6623bed88b94103845a6b6fccd40b86cdf74a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
