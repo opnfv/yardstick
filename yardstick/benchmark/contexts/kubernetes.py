@@ -135,3 +135,6 @@ class KubernetesContext(Context):
                  for n in resp.items if n.metadata.name.startswith(name))
 
         return next(hosts, None)
+
+    def _get_network(self, attr_name):
+        return None
