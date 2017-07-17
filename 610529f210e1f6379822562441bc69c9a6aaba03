@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_bc25a7c3",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-07-17T04:38:37Z",
+      "side": 1,
+      "message": "yes, make it be param is a good idea. Thanks.",
+      "parentUuid": "1aa4ed85_3c321711",
+      "revId": "610529f210e1f6379822562441bc69c9a6aaba03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_dc5bc352",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 4
@@ -100,6 +118,24 @@
       "writtenOn": "2017-07-17T04:33:47Z",
       "side": 1,
       "message": "close() needs to be in a try/finally block, or in a closing() context manager\n\nhttps://docs.python.org/3/library/contextlib.html#contextlib.closing\n\n with closing(socket.socket(...)) as s:\n    while True:\n    if s.connect_ex(...)",
+      "revId": "610529f210e1f6379822562441bc69c9a6aaba03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_dc22e3b8",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-07-17T04:38:37Z",
+      "side": 1,
+      "message": "will do it.",
+      "parentUuid": "1aa4ed85_dc5bc352",
       "revId": "610529f210e1f6379822562441bc69c9a6aaba03",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
