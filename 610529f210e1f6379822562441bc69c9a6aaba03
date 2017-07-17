@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_3c4bf788",
+        "filename": "yardstick/common/constants.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-17T04:28:43Z",
+      "side": 1,
+      "message": "please use caps,  CONF for module-level scope.\n\n\nplease use  parse_yaml\n\nfrom yardstick.common.utils import parse_yaml",
+      "revId": "610529f210e1f6379822562441bc69c9a6aaba03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
