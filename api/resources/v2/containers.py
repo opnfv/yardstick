@@ -12,6 +12,8 @@ import logging
 import threading
 import time
 import uuid
+import os
+import glob
 
 from six.moves import configparser
 from oslo_serialization import jsonutils
@@ -25,6 +27,7 @@ from yardstick.common import constants as consts
 from yardstick.common import utils
 from yardstick.common.utils import result_handler
 from yardstick.common.utils import get_free_port
+from yardstick.common.httpClient import HttpClient
 
 
 LOG = logging.getLogger(__name__)
@@ -114,16 +117,16 @@ class V2Containers(ApiResource):
             LOG.debug('container ip is: %s', ip)
 
             LOG.info('Changing output to influxdb')
-            self._change_output_to_influxdb(ip, port)
+            self._change_output_to_influxdb(ip)
 
             LOG.info('Config influxdb')
-            self._config_influxdb(port)
+            self._config_influxdb()
 
-            container_handler.update_attr(container_id, 'status', 1)
+            container_handler.update_attr(container_id, {'status': 1})
 
             LOG.info('Finished')
         except Exception:
-            container_handler.update_attr(container_id, 'status', 2)
+            container_handler.update_attr(container_id, {'status': 2})
             LOG.exception('Creating influxdb failed')
 
     def _create_influxdb_container(self, client, name, port):
@@ -147,7 +150,7 @@ class V2Containers(ApiResource):
         client.start(container)
         return container
 
-    def _config_influxdb(self, port):
+    def _config_influxdb(self):
         try:
             client = influx.get_data_db_client()
             client.create_user(consts.INFLUXDB_USER,
@@ -158,7 +161,7 @@ class V2Containers(ApiResource):
         except Exception:
             LOG.exception('Config influxdb failed')
 
-    def _change_output_to_influxdb(self, ip, port):
+    def _change_output_to_influxdb(self, ip):
         utils.makedirs(consts.CONF_DIR)
 
         parser = configparser.ConfigParser()
@@ -168,8 +171,150 @@ class V2Containers(ApiResource):
         LOG.info('Set dispatcher to influxdb')
         parser.set('DEFAULT', 'dispatcher', 'influxdb')
         parser.set('dispatcher_influxdb', 'target',
-                   'http://{}:{}'.format(ip, port))
+                   'http://{}:{}'.format(ip, 8086))
 
         LOG.info('Writing to %s', consts.CONF_FILE)
         with open(consts.CONF_FILE, 'w') as f:
             parser.write(f)
+
+    def create_grafana(self, args):
+        try:
+            environment_id = args['environment_id']
+        except KeyError:
+            return result_handler(consts.API_ERROR, 'environment_id must be provided')
+
+        try:
+            uuid.UUID(environment_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid environment id')
+
+        try:
+            environment = environment_handler.get_by_uuid(environment_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such environment id')
+
+        container_info = environment.container_id
+        container_info = jsonutils.loads(container_info) if container_info else {}
+
+        if not container_info.get('influxdb'):
+            return result_handler(consts.API_ERROR, 'influxdb not set')
+
+        if container_info.get('grafana'):
+            return result_handler(consts.API_ERROR, 'grafana container already exists')
+
+        name = 'grafana-{}'.format(environment_id[:8])
+        port = get_free_port(consts.SERVER_IP)
+        container_id = str(uuid.uuid4())
+
+        args = (name, port, container_id)
+        thread = threading.Thread(target=self._create_grafana, args=args)
+        thread.start()
+
+        container_init_data = {
+            'uuid': container_id,
+            'environment_id': environment_id,
+            'name': name,
+            'port': port,
+            'status': 0
+        }
+        container_handler.insert(container_init_data)
+
+        container_info['grafana'] = container_id
+        environment_info = {'container_id': jsonutils.dumps(container_info)}
+        environment_handler.update_attr(environment_id, environment_info)
+
+        return result_handler(consts.API_SUCCESS, {'uuid': container_id})
+
+    def _create_grafana(self, name, port, container_id):
+        client = Client(base_url=consts.DOCKER_URL)
+
+        try:
+            LOG.info('Checking if grafana image exist')
+            image = '{}:{}'.format(consts.GRAFANA_IMAGE, consts.GRAFANA_TAG)
+            if not self._check_image_exist(client, image):
+                LOG.info('Grafana image not exist, start pulling')
+                client.pull(consts.GRAFANA_IMAGE, consts.GRAFANA_TAG)
+
+            LOG.info('Createing grafana container')
+            container = self._create_grafana_container(client, name, port)
+            LOG.info('Grafana container is created')
+
+            time.sleep(5)
+
+            container = client.inspect_container(container['Id'])
+            ip = container['NetworkSettings']['Networks']['bridge']['IPAddress']
+            LOG.debug('container ip is: %s', ip)
+
+            LOG.info('Creating data source for grafana')
+            self._create_data_source(ip)
+
+            LOG.info('Creating dashboard for grafana')
+            self._create_dashboard(ip)
+
+            container_handler.update_attr(container_id, {'status': 1})
+            LOG.info('Finished')
+        except Exception:
+            container_handler.update_attr(container_id, {'status': 2})
+            LOG.exception('Create grafana failed')
+
+    def _create_dashboard(self, ip):
+        url = 'http://admin:admin@{}:{}/api/dashboards/db'.format(ip, 3000)
+        path = os.path.join(consts.REPOS_DIR, 'dashboard', '*dashboard.json')
+
+        for i in sorted(glob.iglob(path)):
+            with open(i) as f:
+                data = jsonutils.load(f)
+            try:
+                HttpClient().post(url, data)
+            except Exception:
+                LOG.exception('Create dashboard %s failed', i)
+                raise
+
+    def _create_data_source(self, ip):
+        url = 'http://admin:admin@{}:{}/api/datasources'.format(ip, 3000)
+
+        influx_conf = utils.parse_ini_file(consts.CONF_FILE)
+        try:
+            influx_url = influx_conf['dispatcher_influxdb']['target']
+        except KeyError:
+            LOG.exception('influxdb url not set in yardstick.conf')
+            raise
+
+        data = {
+            "name": "yardstick",
+            "type": "influxdb",
+            "access": "proxy",
+            "url": influx_url,
+            "password": "root",
+            "user": "root",
+            "database": "yardstick",
+            "basicAuth": True,
+            "basicAuthUser": "admin",
+            "basicAuthPassword": "admin",
+            "isDefault": False,
+        }
+        try:
+            HttpClient().post(url, data)
+        except Exception:
+            LOG.exception('Create datasources failed')
+            raise
+
+    def _create_grafana_container(self, client, name, port):
+        ports = [3000]
+        port_bindings = {3000: port}
+        restart_policy = {"MaximumRetryCount": 0, "Name": "always"}
+        host_config = client.create_host_config(port_bindings=port_bindings,
+                                                restart_policy=restart_policy)
+
+        LOG.info('Creating container')
+        container = client.create_container(image='%s:%s' %
+                                            (consts.GRAFANA_IMAGE,
+                                             consts.GRAFANA_TAG),
+                                            name=name,
+                                            ports=ports,
+                                            detach=True,
+                                            tty=True,
+                                            host_config=host_config)
+        LOG.info('Starting container')
+        client.start(container)
+        return container
