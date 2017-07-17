@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_e23cda31",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2017-07-17T10:59:02Z",
+      "side": 1,
+      "message": "I bet it works without. You could set LC_ALL\u003dC to avoid possible warnings about locale unset too.",
+      "parentUuid": "1aa4ed85_82908696",
+      "revId": "84d6623bed88b94103845a6b6fccd40b86cdf74a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_ff6d5105",
         "filename": "docker/Dockerfile",
         "patchSetId": 3
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "we should check out alpine as well",
       "parentUuid": "1aa4ed85_ff6d5105",
+      "revId": "84d6623bed88b94103845a6b6fccd40b86cdf74a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_42136eb8",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2017-07-17T10:59:02Z",
+      "side": 1,
+      "message": "Yes. I think it\u0027s not so difficult here.\nYou could remove .git to save space too (rm should be done in the same RUN to take care of layers). Here --depth 1 is enough.\n\nI\u0027m maybe wrong about pip install instead of git clone as it seems you don\u0027t use python packages at all.",
+      "parentUuid": "1aa4ed85_62d9ca56",
       "revId": "84d6623bed88b94103845a6b6fccd40b86cdf74a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
