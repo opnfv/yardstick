@@ -48,6 +48,73 @@ class TaskTestCase(unittest.TestCase):
         self.assertEqual(context_cfg["target"], server_info)
 
     @mock.patch('yardstick.benchmark.core.task.Context')
+    def test_parse_networks_from_nodes(self, mock_context):
+        nodes = {
+            'node1': {
+                'interfaces': {
+                    'eth0': {
+                        'name': 'mgmt',
+                    },
+                    'eth1': {
+                        'name': 'external',
+                        'vld_id': '23',
+                    },
+                    'eth10': {
+                        'name': 'internal',
+                        'vld_id': '55',
+                    },
+                },
+            },
+            'node2': {
+                'interfaces': {
+                    'eth4': {
+                        'name': 'mgmt',
+                    },
+                    'eth2': {
+                        'name': 'external',
+                        'vld_id': '32',
+                    },
+                    'eth11': {
+                        'name': 'internal',
+                        'vld_id': '55',
+                    },
+                },
+            },
+        }
+
+        mock_context.get_network.side_effect = iter([
+            None,
+            {
+                'name': 'a',
+                'network_type': 'private',
+            },
+            {},
+            {
+                'name': 'b',
+                'vld_id': 'y',
+                'subnet_cidr': '10.20.0.0/16',
+            },
+            {
+                'name': 'c',
+                'vld_id': 'x',
+            },
+            {
+                'name': 'd',
+                'vld_id': 'w',
+            },
+        ])
+
+        expected_get_network_calls = 4 # once for each vld_id in the nodes dict
+        expected = {
+            'a': {'name': 'a', 'network_type': 'private'},
+            'b': {'name': 'b', 'vld_id': 'y', 'subnet_cidr': '10.20.0.0/16'},
+        }
+
+        networks = task.get_networks_from_nodes(nodes)
+        self.assertEqual(mock_context.get_network.call_count, expected_get_network_calls)
+        self.assertDictEqual(networks, expected)
+
+    @mock.patch('yardstick.benchmark.core.task.Context')
     @mock.patch('yardstick.benchmark.core.task.base_runner')
     def test_run(self, mock_base_runner, mock_ctx):
         scenario = {

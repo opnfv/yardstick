@@ -33,6 +33,7 @@ class NodeContext(Context):
         self.name = None
         self.file_path = None
         self.nodes = []
+        self.networks = {}
         self.controllers = []
         self.computes = []
         self.baremetals = []
@@ -76,6 +77,9 @@ class NodeContext(Context):
 
         self.env = attrs.get('env', {})
         LOG.debug("Env: %r", self.env)
+
+        # add optional static network definition
+        self.networks.update(cfg.get("networks", {}))
 
     def deploy(self):
         config_type = self.env.get('type', '')
@@ -140,6 +144,32 @@ class NodeContext(Context):
 
         node["name"] = attr_name
         return node
+
+    def _get_network(self, attr_name):
+        if not isinstance(attr_name, collections.Mapping):
+            network = self.networks.get(attr_name)
+
+        else:
+            # Don't generalize too much  Just support vld_id
+            vld_id = attr_name.get('vld_id')
+            if vld_id is None:
+                return None
+
+            network = next((n for n in self.networks.values() if
+                           n.get("vld_id") == vld_id), None)
+
+        if network is None:
+            return None
+
+        result = {
+            # name is required
+            "name": network["name"],
+            "vld_id": network.get("vld_id"),
+            "segmentation_id": network.get("segmentation_id"),
+            "network_type": network.get("network_type"),
+            "physical_network": network.get("physical_network"),
+        }
+        return result
 
     def _execute_script(self, node_name, info):
         if node_name == 'local':
