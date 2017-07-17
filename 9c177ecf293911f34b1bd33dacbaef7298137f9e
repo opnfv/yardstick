@@ -22,6 +22,30 @@
       "revId": "9c177ecf293911f34b1bd33dacbaef7298137f9e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_bfdb59ec",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-17T08:20:06Z",
+      "side": 1,
+      "message": "Yes, RUN is better if docker RUN invokes the shell correctly?\n\nmaybe we need to use /usr/bin/env\n\nRUN env RUN DEBIAN_FRONTEND\u003dnoninteractive apt-get update \u0026\u0026 apt-get install -y git python-setuptools python-pip",
+      "parentUuid": "1aa4ed85_bf6d9934",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 73
+      },
+      "revId": "9c177ecf293911f34b1bd33dacbaef7298137f9e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
