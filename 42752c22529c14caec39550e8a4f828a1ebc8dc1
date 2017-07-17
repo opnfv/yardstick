@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_1ff94de9",
+        "filename": "tests/ci/scp_storperf_files.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-07-17T06:30:14Z",
+      "side": 1,
+      "message": "INSTALLER_IP is already used as installer ip like compass core. this ip is more of jump host ip, they are kind of different. and it should not be exported because it\u0027ll replace the original value.",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "42752c22529c14caec39550e8a4f828a1ebc8dc1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
