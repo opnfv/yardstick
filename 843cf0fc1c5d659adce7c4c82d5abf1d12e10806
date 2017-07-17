@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_5cf4b35a",
+        "filename": "yardstick/common/constants.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-17T04:12:27Z",
+      "side": 1,
+      "message": "there is no need to re-parse the yaml for each constant.\n\nplease combine with the constants caching patch \nhttps://gerrit.opnfv.org/gerrit/#/c/36343/",
+      "revId": "843cf0fc1c5d659adce7c4c82d5abf1d12e10806",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
