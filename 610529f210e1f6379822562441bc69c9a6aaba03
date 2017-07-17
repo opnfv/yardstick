@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_3c321711",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-17T04:35:57Z",
+      "side": 1,
+      "message": "we could just parameterize it and take the IP as a parameter\n\n def get_free_port(ip):\n   ....\n   if s.connect_ex((ip, port)) !\u003d 0:\n\n\nThen it would be a general purpose function and suitable for util.py",
+      "parentUuid": "1aa4ed85_fc447f75",
+      "revId": "610529f210e1f6379822562441bc69c9a6aaba03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_dc5bc352",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 4
