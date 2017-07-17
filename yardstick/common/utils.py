@@ -24,6 +24,8 @@ import os
 import subprocess
 import sys
 import collections
+import socket
+import random
 from functools import reduce
 
 import yaml
@@ -34,6 +36,7 @@ from oslo_utils import importutils
 from oslo_serialization import jsonutils
 
 import yardstick
+from yardstick.common import constants as consts
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -263,3 +266,13 @@ def set_dict_value(dic, keys, value):
         else:
             return_dic = return_dic[key]
     return dic
+
+
+def get_free_port():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    while True:
+        port = random.randint(5000, 10000)
+        if s.connect_ex((consts.SERVER_IP, port)) != 0:
+            s.close()
+            return port
