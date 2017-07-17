@@ -9,13 +9,33 @@
 from __future__ import absolute_import
 import os
 
-from yardstick.common.utils import get_param
+import yaml
+from functools import reduce
 
 
 dirname = os.path.dirname
 abspath = os.path.abspath
 join = os.path.join
 sep = os.path.sep
+
+
+CONF_DIR = '/etc/yardstick'
+CONFIGURATION_FILE = join(CONF_DIR, 'yardstick.yaml')
+
+try:
+    with open(CONFIGURATION_FILE) as f:
+        conf = yaml.safe_load(f)
+except Exception:
+    conf = {}
+
+
+def get_param(key, default=''):
+    try:
+        return reduce(lambda a, b: a[b], key.split('.'), conf)
+    except KeyError:
+        if not default:
+            raise
+        return default
 
 try:
     SERVER_IP = get_param('api.server_ip')
@@ -37,7 +57,6 @@ if not SERVER_IP:
 
 
 # dir
-CONF_DIR = get_param('dir.conf', '/etc/yardstick')
 REPOS_DIR = get_param('dir.repos', '/home/opnfv/repos/yardstick')
 RELENG_DIR = get_param('dir.releng', '/home/opnfv/repos/releng')
 LOG_DIR = get_param('dir.log', '/tmp/yardstick/')
