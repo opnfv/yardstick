@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_82908696",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-17T09:07:18Z",
+      "side": 1,
+      "message": "the env needs to go on the apt-get install only I think.",
+      "parentUuid": "1aa4ed85_1fa5cd52",
+      "revId": "84d6623bed88b94103845a6b6fccd40b86cdf74a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_ff6d5105",
         "filename": "docker/Dockerfile",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2017-07-17T08:35:07Z",
       "side": 1,
       "message": "pip install git+https:// would have installed dependencies too (see Alpine containers provided by functest).",
+      "revId": "84d6623bed88b94103845a6b6fccd40b86cdf74a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_c2967e94",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-17T09:07:18Z",
+      "side": 1,
+      "message": "I assume git+https:// supports branches or commit ids.\n\nYes, we need to fix all this up.",
+      "parentUuid": "1aa4ed85_ff6d5105",
       "revId": "84d6623bed88b94103845a6b6fccd40b86cdf74a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
