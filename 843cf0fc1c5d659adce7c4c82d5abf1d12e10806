@@ -51,6 +51,24 @@
       "revId": "843cf0fc1c5d659adce7c4c82d5abf1d12e10806",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_7c93affa",
+        "filename": "yardstick/common/constants.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-17T04:19:16Z",
+      "side": 1,
+      "message": "can we review and merge https://gerrit.opnfv.org/gerrit/#/c/36343/  ?",
+      "parentUuid": "1aa4ed85_1ca5db52",
+      "revId": "843cf0fc1c5d659adce7c4c82d5abf1d12e10806",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
