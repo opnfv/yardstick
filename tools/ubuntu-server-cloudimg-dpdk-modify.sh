@@ -33,9 +33,14 @@ grep wily /etc/apt/sources.list && \
 # Force apt to use ipv4 due to build problems on LF POD.
 echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4
 
-echo 'GRUB_CMDLINE_LINUX="resume=/dev/sda1 default_hugepagesz=1G hugepagesz=1G hugepages=2 iommu=on iommu=pt intel_iommu=on"' >> /etc/default/grub
+GRUB_CMDLINE_LINUX="resume=/dev/sda1 default_hugepagesz=1G hugepagesz=1G hugepages=2 iommu=on iommu=pt intel_iommu=on"
+echo "GRUB_CMDLINE_LINUX=\"$GRUB_CMDLINE_LINUX\"" >> /etc/default/grub
+grubcfg_regex="\s\+linux\s\+/boot/.*"
+sed -i -e "s|$grubcfg_regex|& $GRUB_CMDLINE_LINUX|g" /boot/grub/grub.cfg
+
 echo 'vm.nr_hugepages=1024' >> /etc/sysctl.conf
 echo 'huge /mnt/huge hugetlbfs defaults 0 0' >> vi /etc/fstab
+
 
 mkdir /mnt/huge
 chmod 777 /mnt/huge
@@ -59,7 +64,7 @@ chpasswd: { expire: False }
 ssh_pwauth: True
 EOF
 
-linuxheadersversion=$(echo ls boot/vmlinuz* | cut -d- -f2-)
+linuxheadersversion=$(echo ls /boot/vmlinuz* | cut -d- -f2-)
 
 apt-get update
 apt-get install -y \
@@ -74,6 +79,7 @@ apt-get install -y \
     linux-tools-generic \
     lmbench \
     make \
+    unzip \
     netperf \
     patch \
     perl \
@@ -82,7 +88,22 @@ apt-get install -y \
     sysstat \
     linux-headers-"${linuxheadersversion}" \
     libpcap-dev \
-    lua5.2
+    lua5.2 \
+    net-tools \
+    wget \
+    unzip \
+    ncurses-dev \
+    libedit-dev \
+    pciutils \
+    pkg-config \
+    liblua5.2-dev \
+    libncursesw5-dev \
+    ncurses-dev \
+    libedit-dev
+
+dpkg -L liblua5.2-dev
+cp /usr/include/lua5.2/lua.h /usr/include/
+cp /usr/include/lua5.2/lua.h /usr/include/x86_64-linux-gnu/
 
 git clone http://dpdk.org/git/dpdk
 git clone http://dpdk.org/git/apps/pktgen-dpdk
@@ -99,6 +120,25 @@ mkdir temp
 bash build.sh
 
 git clone https://github.com/beefyamoeba5/cachestat.git "${CLONE_DEST}"/Cachestat
+
+cd /root
+wget http://dpdk.org/browse/dpdk/snapshot/dpdk-17.02.zip
+unzip dpdk-17.02.zip
+cd dpdk-17.02
+sed -i -e 's/CONFIG_RTE_PORT_STATS_COLLECT=n/CONFIG_RTE_PORT_STATS_COLLECT=y/g' config/common_base
+sed -i -e 's/CONFIG_RTE_PORT_PCAP=n/CONFIG_RTE_PORT_PCAP=y/g' config/common_base
+sed -i -e 's/CONFIG_RTE_TABLE_STATS_COLLECT=n/CONFIG_RTE_TABLE_STATS_COLLECT=y/g' config/common_base
+sed -i -e 's/CONFIG_RTE_PIPELINE_STATS_COLLECT=n/CONFIG_RTE_PIPELINE_STATS_COLLECT=y/g' config/common_base
+make install T=x86_64-native-linuxapp-gcc
+
+cd /root
+wget https://01.org/sites/default/files/downloads/intelr-data-plane-performance-demonstrators/dppd-prox-v037.tar.gz
+tar xfz dppd-prox-v037.tar.gz
+cd dppd-PROX-v037
+chmod +x helper-scripts/trailing.sh
+export RTE_SDK=/root/dpdk-17.02
+export RTE_TARGET=x86_64-native-linuxapp-gcc
+make
 
 # restore symlink
 ln -sfrT /run/resolvconf/resolv.conf /etc/resolv.conf

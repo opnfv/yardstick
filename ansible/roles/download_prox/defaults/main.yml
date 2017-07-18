@@ -1,0 +1,7 @@
+---
+prox_version: v035
+prox_url: "https://01.org/sites/default/files/downloads/intelr-data-plane-performance-demonstrators/dppd-prox-{{ prox_version }}.zip"
+prox_file: "{{ prox_url|basename }}"
+prox_unarchive: "{{ prox_file|regex_replace('[.]zip$', '')|regex_replace('-prox-', '-PROX-') }}"
+prox_dest: "{{ clone_dest }}/"
+prox_sha256: "sha256:f5d3f7c3855ca198d2babbc7045ed4373f0ddc13dc243fedbe23ed395ce65cc9"

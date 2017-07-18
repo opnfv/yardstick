@@ -1,0 +1,22 @@
+---
+nodes:
+{% for node in groups[pod_group] %}
+-
+  name: "{{ node }}"
+{% if "control" in hostvars[node].group_names %}
+  role: Controller
+{% elif "compute" in hostvars[node].group_names %}
+  role: Compute
+{% endif %}
+  ip: "{{ hostvars[node].ansible_host }}"
+  user: "{{ hostvars[node].ansible_user }}"
+{% if hostvars[node].ansible_port is defined %}
+  ssh_port: "{{ hostvars[node].ansible_port }}"
+{% endif %}
+{% if hostvars[node].ansible_ssh_pass is defined %}
+  password: "{{ hostvars[node].ansible_ssh_pass }}"
+{% endif %}
+{% if hostvars[node].ansible_ssh_private_key_file is defined %}
+  key_filename: "{{ hostvars[node].ansible_ssh_private_key_file }}"
+{% endif %}
+{% endfor %}

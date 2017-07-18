@@ -1,0 +1,69 @@
+# Copyright (c) 2017 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- hosts: yardstick
+  vars_files:
+    - yardstick_config.yml
+
+  pre_tasks:
+    - name: check for openrc
+      stat: path="{{ OPENRC }}"
+      ignore_errors: yes
+      register: openrc_stat
+
+    - set_fact:
+        openrc_present: "{{ openrc_stat.stat.isreg|default(False) }}"
+
+    - fail: msg="{{ INSTALLER_TYPE }} not in {{ INSTALLERS }}"
+      when: not openrc_present and (INSTALLER_TYPE not in INSTALLERS)
+
+    - name: fetch OS credentials
+      command: "{{ RELENG_REPO_DIR }}/utils/fetch_os_creds.sh {{ '-v' if DEPLOY_TYPE == 'virt' else '' }} -d {{ OPENRC }} -i {{ INSTALLER_TYPE }} -a {{ INSTALLER_IP }}"
+      when: not openrc_present
+
+
+  roles:
+    - role: convert_openrc
+      openrc_file: "{{ OPENRC }}"
+      cloud_yaml_path: "{{ opnfv_root }}/clouds.yaml"
+    - role: create_storperf_admin_rc
+    - role: add_fuel_jumphost
+      when: "INSTALLER_TYPE == 'fuel'"
+
+
+  post_tasks:
+    # if huawei-pod1 then copy storeperf_adminrc to deployment location?
+    - name: add huawei-pod1 so we can copy storeperf_admin-rc to pod
+      add_host:
+        name: huawei-pod1
+        ansible_ssh_host: "192.168.200.1"
+        ansible_ssh_pass: root
+        ansible_ssh_use: root
+      when: "NODE_NAME == 'huawei-pod1'"
+
+
+- hosts: huawei-pod1
+  tasks:
+    - name: copy a admin-rc file for StorPerf integration to the deployment location
+      copy:
+        src: "{{ storperf_rc }}"
+        dest: /root/
+
+
+- hosts: fuel_jumphost
+  roles:
+    - create_fuel_pod_yaml
+
+
+

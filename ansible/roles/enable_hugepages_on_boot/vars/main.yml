@@ -1,0 +1,13 @@
+---
+hugepage_param_regex: '^GRUB_CMDLINE_LINUX="\$GRUB_CMDLINE_LINUX.*# added by hugepages role'
+hugepage_param: 'GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX default_hugepagesz={{ huge_pagesize_short[huge_pagesize_mb] }} hugepagesz={{ huge_pagesize_short[huge_pagesize_mb] }} hugepages={{ num_hugepages }}"  # added by hugepages role'
+
+update_grub:
+  Debian: "update-grub2"
+  RedHat: "grub2-mkconfig -o /boot/grub2/grub.cfg"
+
+huge_pagesize_short:
+  1024: "1G"
+  2: "2M"
+
+hugetable_mount: /mnt/huge
