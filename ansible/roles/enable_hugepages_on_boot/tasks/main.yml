@@ -1,0 +1,59 @@
+# Copyright (c) 2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: check if hugepages are set by this role
+  command: "grep -o '{{ hugepage_param_regex }}' /etc/default/grub"
+  register: is_mine_huge
+  ignore_errors: True
+
+- name: check if hugepages are set by someone else
+  command: "grep -o 'default_hugepagesz=' /etc/default/grub"
+  register: is_huge
+  ignore_errors: True
+
+- fail:
+    msg: "Hugepages already set by someone else"
+  when: is_mine_huge.stdout == "" and is_huge.stdout != ""
+
+- name: use 16 for auto num_hugepages and 1G size
+  set_fact:
+    num_hugepages: 16
+  when: num_hugepages|default("auto") == "auto"
+
+- name: set hugepages in grub
+  lineinfile:
+    dest: /etc/default/grub
+    regexp: '{{ hugepage_param_regex }}'
+    line: '{{ hugepage_param }}'
+    state: present
+
+- name: Update grub
+  command: "{{ update_grub[ansible_os_family] }}"
+
+- name: create hugetables mount
+  file:
+    path: "{{ hugetable_mount }}"
+    state: directory
+
+
+- name: mount hugetlbfs
+  mount:
+    name: "{{ hugetable_mount }}"
+    src: nodev
+    fstype: hugetlbfs
+    state: present
+
+- service:
+    name: procps
+    enabled: yes

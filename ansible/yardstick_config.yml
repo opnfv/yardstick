@@ -1,0 +1,40 @@
+# Copyright (c) 2017 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+opnfv_root: /home/opnfv
+ # Can be any of 'bm' (Bare Metal) or 'virt' (Virtual)
+DEPLOY_TYPE: "{{ lookup('env', 'DEPLOY_TYPE')|default('bm', true) }}"
+NODE_NAME: "{{ lookup('env', 'NODE_NAME')|default('unknown', true) }}"
+EXTERNAL_NETWORK: "{{ lookup('env', 'EXTERNAL_NETWORK')|default('admin_floating_net', true)|attr('split')(';')|first }}"
+OPENRC: "{{ opnfv_root }}/openrc"
+INSTALLERS: [apex, compass, fuel, joid]
+INSTALLER_TYPE: "{{ lookup('env', 'INSTALLER_TYPE') }}"
+YARDSTICK_REPO_DIR: "{{ lookup('env', 'YARDSTICK_REPO_DIR')|default('/home/opnfv/repos/yardstick', true) }}"
+RELENG_REPO_DIR: "{{ lookup('env', 'RELENG_REPO_DIR')|default('/home/opnfv/repos/releng', true) }}"
+storperf_rc: "{{ opnfv_root }}/storperf_admin-rc"
+
+DISPATCHER_TYPES:
+  file:
+      DISPATCHER_FILE_NAME: "/tmp/yardstick.out"
+      DISPATCHER_HTTP_TARGET: "http://testresults.opnfv.org/test/api/v1/results"
+      DISPATCHER_INFLUXDB_TARGET: ""
+  http:
+      DISPATCHER_TYPE: http
+      DISPATCHER_HTTP_TARGET: "{{ dispatcher_target }}"
+      DISPATCHER_FILE_NAME: ""
+  influxdb:
+      DISPATCHER_TYPE: influxdb
+      DISPATCHER_INFLUXDB_TARGET: "{{ dispatcher_target }}"
+      DISPATCHER_FILE_NAME: ""
+

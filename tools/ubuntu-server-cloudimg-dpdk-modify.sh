@@ -59,7 +59,7 @@ chpasswd: { expire: False }
 ssh_pwauth: True
 EOF
 
-linuxheadersversion=$(echo ls boot/vmlinuz* | cut -d- -f2-)
+linuxheadersversion=$(echo ls /boot/vmlinuz* | cut -d- -f2-)
 
 apt-get update
 apt-get install -y \
@@ -74,6 +74,7 @@ apt-get install -y \
     linux-tools-generic \
     lmbench \
     make \
+    unzip \
     netperf \
     patch \
     perl \
@@ -82,7 +83,23 @@ apt-get install -y \
     sysstat \
     linux-headers-"${linuxheadersversion}" \
     libpcap-dev \
-    lua5.2
+    lua5.2 \
+    net-tools \
+    wget \
+    unzip \
+    libpcap-dev \
+    ncurses-dev \
+    libedit-dev \
+    pciutils \
+    pkg-config \
+    liblua5.2-dev \
+    libncursesw5-dev \
+    ncurses-dev \
+    libedit-dev
+
+dpkg -L liblua5.2-dev
+cp /usr/include/lua5.2/lua.h /usr/include/
+cp /usr/include/lua5.2/lua.h /usr/include/x86_64-linux-gnu/
 
 git clone http://dpdk.org/git/dpdk
 git clone http://dpdk.org/git/apps/pktgen-dpdk
@@ -99,6 +116,21 @@ mkdir temp
 bash build.sh
 
 git clone https://github.com/beefyamoeba5/cachestat.git "${CLONE_DEST}"/Cachestat
+
+cd /root
+wget http://dpdk.org/browse/dpdk/snapshot/dpdk-17.02.zip
+unzip dpdk-17.02.zip
+cd dpdk-17.02
+make install T=x86_64-native-linuxapp-gcc
+
+cd /root
+wget https://01.org/sites/default/files/downloads/intelr-data-plane-performance-demonstrators/dppd-prox-v035.zip
+unzip dppd-prox-v035.zip
+cd dppd-PROX-v035
+chmod +x helper-scripts/trailing.sh
+export RTE_SDK=/root/dpdk-17.02
+export RTE_TARGET=x86_64-native-linuxapp-gcc
+make
 
 # restore symlink
 ln -sfrT /run/resolvconf/resolv.conf /etc/resolv.conf

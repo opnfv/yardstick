@@ -1,0 +1,90 @@
+# Copyright (c) 2017 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+#- patch: src="{{ item }}" basedir="{{ dpdk_path }}" strip=0
+#  with_fileglob:
+#    - "{{ local_nsb_path }}/patches/dpdk_custom_patch/rte_pipeline.patch"
+#
+#- patch: src="{{ item }}" basedir="{{ dpdk_path }}" strip=1
+#  with_fileglob:
+#    - "{{ local_nsb_path }}/patches/dpdk_custom_patch/0*.patch"
+
+- include: "{{ ansible_os_family }}.yml"
+
+- my_make:
+    chdir: "{{ dpdk_path }}"
+    target: config
+    params:
+      T: "{{ dpdk_make_arch }}"
+      O: "{{ dpdk_make_arch }}"
+    extra_args: "-j {{ ansible_processor_vcpus }}"
+
+- name: enable RTE_PORT_STATS_COLLECT
+  lineinfile:
+    dest: "{{ dpdk_path }}/{{ dpdk_make_arch }}/.config"
+    regexp: '^CONFIG_RTE_PORT_STATS_COLLECT=n'
+    line: 'CONFIG_RTE_PORT_STATS_COLLECT=y'
+
+- name: enable DPDK RTE_PORT_PCAP
+  lineinfile:
+    dest: "{{ dpdk_path }}/{{ dpdk_make_arch }}/.config"
+    regexp: '^CONFIG_RTE_PORT_PCAP=n'
+    line: 'CONFIG_RTE_PORT_PCAP=y'
+
+- name: enable DPDK RTE_TABLE_STATS_COLLECT
+  lineinfile:
+    dest: "{{ dpdk_path }}/{{ dpdk_make_arch }}/.config"
+    regexp: '^CONFIG_RTE_TABLE_STATS_COLLECT=n'
+    line: 'CONFIG_RTE_TABLE_STATS_COLLECT=y'
+
+- name: enable DPDK RTE_PIPELINE_STATS_COLLECT
+  lineinfile:
+    dest: "{{ dpdk_path }}/{{ dpdk_make_arch }}/.config"
+    regexp: '^CONFIG_RTE_PIPELINE_STATS_COLLECT=n'
+    line: 'CONFIG_RTE_PIPELINE_STATS_COLLECT=y'
+
+- my_make:
+    chdir: "{{ dpdk_path }}/{{ dpdk_make_arch}}"
+    extra_args: "-j {{ ansible_processor_vcpus }}"
+
+- file:
+    path: "{{ dpdk_module_dir}}"
+    state: directory
+
+- copy:
+    src: "{{ dpdk_path }}/{{ dpdk_make_arch }}/kmod/igb_uio.ko"
+    dest: "{{ dpdk_module_dir }}/igb_uio.ko"
+    remote_src: yes
+
+- command: depmod -a
+
+- file:
+    path: "{{ INSTALL_BIN_PATH }}"
+    state:  directory
+
+- name: copy dpdk-devbind.py to correct location
+  copy:
+    src: "{{ dpdk_devbind[dpdk_version] }}"
+    dest: "{{ INSTALL_BIN_PATH }}/dpdk-devbind.py"
+    remote_src: yes
+    force: yes
+    mode: 0755
+
+- name: make dpdk_nic_bind.py for backwards compatibility
+  copy:
+    src: "{{ dpdk_devbind[dpdk_version] }}"
+    dest: "{{ INSTALL_BIN_PATH }}/dpdk_nic_bind.py"
+    remote_src: yes
+    force: yes
+    mode: 0755
