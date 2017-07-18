@@ -1,0 +1,41 @@
+---
+pkg_mgr_retries: 3
+epel_rpm_el7: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+install_dependencies:
+  Debian:
+    - bc
+    - fio
+    - git
+    - gcc
+    - iperf3
+    - ethtool
+    - iproute2
+    - linux-tools-common
+    - linux-tools-generic
+    - lmbench
+    - make
+    - netperf
+    - patch
+    - perl
+    - rt-tests
+    - stress
+    - sysstat
+  RedHat:
+    - bc
+    - fio
+    - git
+    - gcc
+    - iperf3
+    - ethtool
+    - iproute
+    - perf
+    - kernel-tools
+    - lmbench
+    - make
+    - netperf
+    - patch
+    - perl
+    - rt-tests
+    - stress
+    - sysstat

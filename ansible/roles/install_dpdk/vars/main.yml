@@ -1,0 +1,4 @@
+---
+dpdk_make_arch: x86_64-native-linuxapp-gcc
+dpdk_module_dir: "/lib/modules/{{ ansible_kernel }}/extra"
+hugetable_mount: /mnt/huge

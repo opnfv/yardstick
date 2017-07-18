@@ -1,0 +1,51 @@
+# Copyright (c) 2017 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- hosts: yardstick
+  vars:
+    ansible_python_interpreter: "/usr/bin/env python"
+    # needed for virtualenv
+    NSB_INSTALL_DIR: /root/nsb_install
+    INSTALL_BIN_PATH: /opt/nsb_bin
+    #TREX_DOWNLOAD: "https://trex-tgn.cisco.com/trex/release/v2.05.tar.gz"
+    TREX_VERSION: v2.20
+    TREX_DOWNLOAD: "https://trex-tgn.cisco.com/trex/release/{{ TREX_VERSION }}.tar.gz"
+
+  tasks:
+    - get_url:
+        url: "{{ TREX_DOWNLOAD }}"
+        dest: "{{ NSB_INSTALL_DIR }}"
+        checksum: "sha256:b9620341e552d2ef71d5ffa39ef92f12a1186836c250390db77bd7228497b91c"
+
+    - unarchive:
+        src: "{{ NSB_INSTALL_DIR }}/{{ TREX_DOWNLOAD|basename }}"
+        dest: "{{ NSB_INSTALL_DIR }}"
+        copy: no
+
+    - file: path="{{ INSTALL_BIN_PATH }}/trex" state=absent
+    - file: path="{{ INSTALL_BIN_PATH }}/trex" state=directory
+
+    - command: mv "{{ NSB_INSTALL_DIR }}/{{ TREX_DOWNLOAD|basename|regex_replace('\.tar.gz', '') }}" "{{ INSTALL_BIN_PATH }}/trex/scripts"
+
+    - file: path="{{ INSTALL_BIN_PATH }}/trex/scripts/automation/trex_control_plane/stl/__init__.py" state=touch
+
+    - command: cp "{{ INSTALL_BIN_PATH }}/trex/scripts/dpdk_nic_bind.py" "{{ INSTALL_BIN_PATH }}"
+
+    - name: add scripts to PYTHONPATH
+      lineinfile:
+        dest: /etc/environment
+        regexp: "^PYTHONPATH="
+        line: "PYTHONPATH={{ INSTALL_BIN_PATH }}/trex/scripts/automation/trex_control_plane:{{ INSTALL_BIN_PATH }}/trex/scripts/automation/trex_control_plane/stl:{{ NSB_INSTALL_DIR }}/yardstick"
+        state: present
+        create: yes

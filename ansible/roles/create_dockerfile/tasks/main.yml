@@ -1,0 +1,82 @@
+# Copyright (c) 2017 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- set_fact:
+    yardstick_image_name: "yardstick_python{{ python_version }}_{{ target_os }}"
+  tags:
+    - create_template
+
+- debug: var=docker_build_dir
+
+- file: dest="{{ docker_build_dir }}" state=directory
+  tags:
+    - create_template
+
+- template: "src={{ target_os }}/Dockerfile dest={{ docker_build_dir }}/Dockerfile"
+  tags:
+    - create_template
+
+- name: bootstrap repos
+  template: "src=Ubuntu-repos.j2 dest={{ docker_build_dir}}/sources.list"
+  when: use_ext == "intr"
+
+- name: Create apt.conf.d/ proxy config
+  template:
+    src: apt_conf.j2
+    dest: "{{ docker_build_dir }}/20proxy"
+  when: "'http_proxy' in proxy_env"
+
+- name: set pip mirror
+  template: "src=pip.conf.j2 dest={{ docker_build_dir }}/pip.conf"
+  when: pip_mirror_url is defined and pip_mirror_url
+
+- name: easy_utils mirror
+  template: "src=pydistutils.cfg.j2 dest={{ docker_build_dir }}/pydistutils.cfg"
+  when: pip_mirror_url is defined and pip_mirror_url
+
+- set_fact:
+    yardstick_base: "{{ docker_registry ~ '/' if docker_registry|default('') else '' }}{{ yardstick_image_name}}"
+
+
+- set_fact:
+    yardstick_base_tag: "{{ docker_image_tag|default('v1') }}"
+
+- debug: var=yardstick_base
+
+#- command: "docker build {{ docker_build_dir }}"
+#- fail: msg="don't build"
+
+- docker_image:
+    name: "{{ yardstick_base }}"
+    tag: "{{ yardstick_base_tag }}"
+    path: "{{ docker_build_dir }}"
+    state: present
+    force: yes
+    rm: true
+    # push is broken, manually push
+    push: no
+  ignore_errors: yes
+  register: docker_image_results
+  when: not release
+- debug: var=docker_image_results
+
+- name: manual push image
+  command: docker push {{ yardstick_base }}
+  when: not release and docker_image_results|changed
+  register: docker_image_push
+  tags:
+    - push_image
+
+- debug: var=docker_image_push
+
