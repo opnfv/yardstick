@@ -66,15 +66,15 @@ link 1 up
 """
         header = "This is a header"
 
-        out = CgnaptApproxSetupEnvHelper._update_cgnat_script_file(header, sample.splitlines(), "")
+        out = CgnaptApproxSetupEnvHelper._update_cgnat_script_file(header, sample.splitlines())
         self.assertNotIn("This is a header", out)
 
-    def test__get_cgnapt_confgi(self):
+    def test__get_cgnapt_config(self):
 
         c = CgnaptApproxSetupEnvHelper(mock.MagicMock(), mock.MagicMock(), mock.MagicMock())
         c._get_ports_gateway = mock.Mock(return_value=3)
         ret = c._get_cgnapt_config([{"name": 'a'}, {}, {"name": "b"}, {}, {"name": "c"}])
-        self.assertEqual(ret, [3, 3, 3])
+        self.assertEqual(ret, [])
 
 
 @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Process")
@@ -111,7 +111,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                     'local_ip': '152.16.100.19',
                     'type': 'PCI-PASSTHROUGH',
                     'netmask': '255.255.255.0',
-                    'dpdk_port_num': '0',
+                    'dpdk_port_num': 0,
                     'bandwidth': '10 Gbps',
                     'driver': "i40e",
                     'dst_ip': '152.16.100.20',
@@ -126,7 +126,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                     'type': 'PCI-PASSTHROUGH',
                     'driver': "i40e",
                     'netmask': '255.255.255.0',
-                    'dpdk_port_num': '1',
+                    'dpdk_port_num': 1,
                     'bandwidth': '10 Gbps',
                     'dst_ip': '152.16.40.20',
                     'local_iface_name': 'xe1',
@@ -148,7 +148,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
 
     scenario_cfg = {'options': {'packetsize': 64, 'traffic_type': 4,
                                 'rfc2544': {'allowed_drop_rate': '0.8 - 1'},
-                                'vnf__1': {'rules': 'acl_1rule.yaml',
+                                'vnf__1': {'napt': 'dynamic',
                                            'vnf_config': {'lb_config': 'SW',
                                                           'lb_count': 1,
                                                           'worker_config':
@@ -399,7 +399,6 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         cgnapt_approx_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
         cgnapt_approx_vnf._resource_collect_stop = mock.Mock()
         cgnapt_approx_vnf._vnf_up_post()
-        cgnapt_approx_vnf.vnf_execute.assert_called_once()
 
 
 if __name__ == '__main__':

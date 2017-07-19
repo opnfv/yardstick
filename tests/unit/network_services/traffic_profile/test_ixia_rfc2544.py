@@ -178,7 +178,6 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                           self.PROFILE, mac, xfile="tmp",
                           static_traffic=STATIC_TRAFFIC)
 
-
     @mock.patch("yardstick.network_services.traffic_profile.ixia_rfc2544.open")
     def test_get_ixia_traffic_profile(self, mock_open):
         traffic_generator = mock.Mock(autospec=TrexProfile)
@@ -437,9 +436,10 @@ class TestIXIARFC2544Profile(unittest.TestCase):
 
     def test__ixia_traffic_generate(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
-        traffic_generator.my_ports = [0, 1]
-        traffic_generator.priv_ports = [-1]
-        traffic_generator.pub_ports = [1]
+        traffic_generator.networks = {
+            "private_0": ["xe0"],
+            "public_0": ["xe1"],
+        }
         traffic_generator.client = \
             mock.Mock(return_value=True)
         traffic = {"public": {'iload': 10},
@@ -451,12 +451,12 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                                                           traffic, ixia_obj)
         self.assertIsNone(result)
 
-
     def test_execute(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
-        traffic_generator.my_ports = [0, 1]
-        traffic_generator.priv_ports = [-1]
-        traffic_generator.pub_ports = [1]
+        traffic_generator.networks = {
+            "private_0": ["xe0"],
+            "public_0": ["xe1"],
+        }
         traffic_generator.client = \
             mock.Mock(return_value=True)
         r_f_c2544_profile = IXIARFC2544Profile(self.TRAFFIC_PROFILE)
@@ -470,14 +470,14 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         r_f_c2544_profile.get_multiplier = mock.Mock()
         r_f_c2544_profile._ixia_traffic_generate = mock.Mock()
         ixia_obj = mock.MagicMock()
-        self.assertEqual(None, r_f_c2544_profile.execute(traffic_generator,
-                                                         ixia_obj))
+        self.assertEqual(None, r_f_c2544_profile.execute_traffic(traffic_generator, ixia_obj))
 
     def test_get_drop_percentage(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
-        traffic_generator.my_ports = [0, 1]
-        traffic_generator.priv_ports = [0]
-        traffic_generator.pub_ports = [1]
+        traffic_generator.networks = {
+            "private_0": ["xe0"],
+            "public_0": ["xe1"],
+        }
         traffic_generator.client = \
             mock.Mock(return_value=True)
         r_f_c2544_profile = IXIARFC2544Profile(self.TRAFFIC_PROFILE)
@@ -584,9 +584,10 @@ class TestIXIARFC2544Profile(unittest.TestCase):
 
     def test_start_ixia_latency(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
-        traffic_generator.my_ports = [0, 1]
-        traffic_generator.priv_ports = [0]
-        traffic_generator.pub_ports = [1]
+        traffic_generator.networks = {
+            "private_0": ["xe0"],
+            "public_0": ["xe1"],
+        }
         traffic_generator.client = \
             mock.Mock(return_value=True)
         r_f_c2544_profile = IXIARFC2544Profile(self.TRAFFIC_PROFILE)

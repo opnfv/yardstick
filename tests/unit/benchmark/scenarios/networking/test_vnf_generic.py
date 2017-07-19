@@ -653,12 +653,6 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         res = NetworkServiceTestCase.parse_netdev_info(output)
         assert res == self.SAMPLE_VM_NETDEVS
 
-    def test_sort_dpdk_port_num(self):
-        netdevs = self.SAMPLE_NETDEVS.copy()
-        NetworkServiceTestCase._sort_dpdk_port_num(netdevs)
-        assert netdevs['lan']['dpdk_port_num'] == 0
-        assert netdevs['enp11s0']['dpdk_port_num'] == 1
-
     def test_probe_missing_values(self):
         netdevs = self.SAMPLE_NETDEVS.copy()
         network = {'local_mac': '0a:de:ad:be:ef:f5'}

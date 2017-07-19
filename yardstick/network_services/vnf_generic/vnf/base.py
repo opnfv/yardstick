@@ -16,6 +16,8 @@
 from __future__ import absolute_import
 import logging
 
+from yardstick.network_services.helpers.samplevnf_helper import PortPairs
+
 LOG = logging.getLogger(__name__)
 
 
@@ -59,6 +61,10 @@ class QueueFileWrapper(object):
 
 class VnfdHelper(dict):
 
+    def __init__(self, *args, **kwargs):
+        super(VnfdHelper, self).__init__(*args, **kwargs)
+        self.port_pairs = PortPairs(self['vdu'][0]['external-interface'])
+
     @property
     def mgmt_interface(self):
         return self["mgmt-interface"]
@@ -91,6 +97,28 @@ class VnfdHelper(dict):
         for interface in self.interfaces:
             if interface[key] == value:
                 return interface
+
+    # hide dpdk_port_num key so we can abstract
+    def find_interface_by_port(self, port):
+        for interface in self.interfaces:
+            virtual_intf = interface["virtual-interface"]
+            # we have to convert to int to compare
+            if int(virtual_intf['dpdk_port_num']) == port:
+                return interface
+
+    def port_num(self, name):
+        # we need interface name -> DPDK port num (PMD ID) -> LINK ID
+        # LINK ID -> PMD ID is governed by the port mask
+        """
+
+        :rtype: int
+        :type name: str
+        """
+        intf = self.find_interface(name=name)
+        return int(intf["virtual-interface"]["dpdk_port_num"])
+
+    def port_nums(self, intfs):
+        return [self.port_num(i) for i in intfs]
 
 
 class VNFObject(object):

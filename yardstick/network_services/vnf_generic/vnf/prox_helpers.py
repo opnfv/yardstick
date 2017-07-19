@@ -639,9 +639,10 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         prox_config.parse()
 
         # Ensure MAC is set "hardware"
-        ext_intf = self.vnfd_helper.interfaces
-        # we are using enumeration to map logical port numbers to interfaces
-        for port_num, intf in enumerate(ext_intf):
+        all_ports = self.vnfd_helper.port_pairs.all_ports
+        # use dpdk port number
+        for port_name in all_ports:
+            port_num = self.vnfd_helper.port_num(port_name)
             port_section_name = "port {}".format(port_num)
             for section_name, section in sections:
                 if port_section_name != section_name:
@@ -659,13 +660,15 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
                 if item_val.startswith("@@dst_mac"):
                     tx_port_iter = re.finditer(r'\d+', item_val)
                     tx_port_no = int(next(tx_port_iter).group(0))
-                    mac = ext_intf[tx_port_no]["virtual-interface"]["dst_mac"]
+                    intf = self.vnfd_helper.find_interface_by_port(tx_port_no)
+                    mac = intf["virtual-interface"]["dst_mac"]
                     section_data[1] = mac.replace(":", " ", 6)
 
                 if item_key == "dst mac" and item_val.startswith("@@"):
                     tx_port_iter = re.finditer(r'\d+', item_val)
                     tx_port_no = int(next(tx_port_iter).group(0))
-                    mac = ext_intf[tx_port_no]["virtual-interface"]["dst_mac"]
+                    intf = self.vnfd_helper.find_interface_by_port(tx_port_no)
+                    mac = intf["virtual-interface"]["dst_mac"]
                     section_data[1] = mac
 
         # if addition file specified in prox config
@@ -714,13 +717,15 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
 
     def generate_prox_lua_file(self):
         p = OrderedDict()
-        ext_intf = self.vnfd_helper.interfaces
+        all_ports = self.vnfd_helper.port_pairs.all_ports
         lua_param = self.LUA_PARAMETER_NAME
-        for intf in ext_intf:
+        for port_name in all_ports:
             peer = self.LUA_PARAMETER_PEER[lua_param]
-            port_num = intf["virtual-interface"]["dpdk_port_num"]
-            local_ip = intf["local_ip"]
-            dst_ip = intf["dst_ip"]
+            port_num = self.vnfd_helper.port_num(port_name)
+            intf = self.vnfd_helper.find_interface(name=port_name)
+            vintf = intf['virtual-interface']
+            local_ip = vintf["local_ip"]
+            dst_ip = vintf["dst_ip"]
             local_ip_hex = ip_to_hex(local_ip, separator=' ')
             dst_ip_hex = ip_to_hex(dst_ip, separator=' ')
             p.update([
@@ -880,7 +885,7 @@ class ProxResourceHelper(ClientResourceHelper):
             self._run_traffic_once(traffic_profile)
 
     def _run_traffic_once(self, traffic_profile):
-        traffic_profile.execute(self)
+        traffic_profile.execute_traffic(self)
         if traffic_profile.done:
             self._queue.put({'done': True})
             LOG.debug("tg_prox done")
@@ -922,12 +927,11 @@ class ProxResourceHelper(ClientResourceHelper):
             self.sut.stop_all()
 
     def run_test(self, pkt_size, duration, value, tolerated_loss=0.0):
-        # type: (object, object, object, object) -> object
         # do this assert in init?  unless we expect interface count to
         # change from one run to another run...
-        interfaces = self.vnfd_helper.interfaces
-        interface_count = len(interfaces)
-        assert interface_count in {1, 2, 4}, \
+        ports = self.vnfd_helper.port_pairs.all_ports
+        port_count = len(ports)
+        assert port_count in {1, 2, 4}, \
             "Invalid number of ports: 1, 2 or 4 ports only supported at this time"
 
         with self.traffic_context(pkt_size, value):
@@ -942,14 +946,15 @@ class ProxResourceHelper(ClientResourceHelper):
             latency = self.get_latency()
 
         deltas = data['delta']
-        rx_total, tx_total = self.sut.port_stats(range(interface_count))[6:8]
-        pps = value / 100.0 * self.line_rate_to_pps(pkt_size, interface_count)
+        rx_total, tx_total = self.sut.port_stats(range(port_count))[6:8]
+        pps = value / 100.0 * self.line_rate_to_pps(pkt_size, port_count)
 
         samples = {}
         # we are currently using enumeration to map logical port num to interface
-        for index, iface in enumerate(interfaces):
-            port_rx_total, port_tx_total = self.sut.port_stats([index])[6:8]
-            samples[iface["name"]] = {"in_packets": port_rx_total,
+        for port_name in ports:
+            port = self.vnfd_helper.port_num(port_name)
+            port_rx_total, port_tx_total = self.sut.port_stats([port])[6:8]
+            samples[port_name] = {"in_packets": port_rx_total,
                                       "out_packets": port_tx_total}
 
         result = ProxTestDataTuple(tolerated_loss, tsc_hz, deltas.rx, deltas.tx,

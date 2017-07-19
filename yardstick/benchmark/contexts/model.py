@@ -11,7 +11,13 @@
 
 """
 from __future__ import absolute_import
+
+import six
+import logging
 from six.moves import range
+
+
+LOG = logging.getLogger(__name__)
 
 
 class Object(object):
@@ -257,44 +263,51 @@ class Server(Object):     # pragma: no cover
             # if explicit mapping skip unused networks
             if self.network_ports:
                 try:
-                    port = self.network_ports[network.name]
+                    ports = self.network_ports[network.name]
                 except KeyError:
                     # no port for this network
                     continue
+                else:
+                    if isinstance(ports, six.string_types):
+                        if ports.startswith('-'):
+                            LOG.warning("possible YAML error, port name starts with - '%s", ports)
+                        ports = [ports]
             # otherwise add a port for every network with port name as network name
             else:
-                port = network.name
-            port_name = "{0}-{1}-port".format(server_name, port)
-            self.ports[network.name] = {"stack_name": port_name, "port": port}
-            # we can't use secgroups if port_security_enabled is False
-            if network.port_security_enabled is False:
-                sec_group_id = None
-            else:
-                # if port_security_enabled is None we still need to add to secgroup
-                sec_group_id = self.secgroup_name
-            # don't refactor to pass in network object, that causes JSON
-            # circular ref encode errors
-            template.add_port(port_name, network.stack_name, network.subnet_stack_name,
-                              network.vnic_type, sec_group_id=sec_group_id,
-                              provider=network.provider,
-                              allowed_address_pairs=network.allowed_address_pairs)
-            port_name_list.append(port_name)
+                ports = [network.name]
+            for port in ports:
+                port_name = "{0}-{1}-port".format(server_name, port)
+                self.ports.setdefault(network.name, []).append(
+                    {"stack_name": port_name, "port": port})
+                # we can't use secgroups if port_security_enabled is False
+                if network.port_security_enabled is False:
+                    sec_group_id = None
+                else:
+                    # if port_security_enabled is None we still need to add to secgroup
+                    sec_group_id = self.secgroup_name
+                # don't refactor to pass in network object, that causes JSON
+                # circular ref encode errors
+                template.add_port(port_name, network.stack_name, network.subnet_stack_name,
+                                  network.vnic_type, sec_group_id=sec_group_id,
+                                  provider=network.provider,
+                                  allowed_address_pairs=network.allowed_address_pairs)
+                port_name_list.append(port_name)
 
-            if self.floating_ip:
-                external_network = self.floating_ip["external_network"]
-                if network.has_route_to(external_network):
-                    self.floating_ip["stack_name"] = server_name + "-fip"
-                    template.add_floating_ip(self.floating_ip["stack_name"],
-                                             external_network,
-                                             port_name,
-                                             network.router.stack_if_name,
-                                             sec_group_id)
-                    self.floating_ip_assoc["stack_name"] = \
-                        server_name + "-fip-assoc"
-                    template.add_floating_ip_association(
-                        self.floating_ip_assoc["stack_name"],
-                        self.floating_ip["stack_name"],
-                        port_name)
+                if self.floating_ip:
+                    external_network = self.floating_ip["external_network"]
+                    if network.has_route_to(external_network):
+                        self.floating_ip["stack_name"] = server_name + "-fip"
+                        template.add_floating_ip(self.floating_ip["stack_name"],
+                                                 external_network,
+                                                 port_name,
+                                                 network.router.stack_if_name,
+                                                 sec_group_id)
+                        self.floating_ip_assoc["stack_name"] = \
+                            server_name + "-fip-assoc"
+                        template.add_floating_ip_association(
+                            self.floating_ip_assoc["stack_name"],
+                            self.floating_ip["stack_name"],
+                            port_name)
         if self.flavor:
             if isinstance(self.flavor, dict):
                 self.flavor["name"] = \
