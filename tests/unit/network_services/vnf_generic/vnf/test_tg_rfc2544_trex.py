@@ -19,7 +19,7 @@ from __future__ import absolute_import
 import unittest
 import mock
 
-SSH_HELPER = "yardstick.ssh.SSH"
+SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
 
 STL_MOCKS = {
     'stl': mock.MagicMock(),
@@ -297,8 +297,9 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
         self.assertIsNone(trex_traffic_gen.listen_traffic({}))
 
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.DpdkVnfSetupEnvHelper.setup_vnf_environment')
     @mock.patch(SSH_HELPER)
-    def test_instantiate(self, ssh):
+    def test_instantiate(self, ssh, _):
         mock_ssh(ssh)
 
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
@@ -308,6 +309,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
         trex_traffic_gen._start_server = mock.Mock(return_value=0)
         trex_traffic_gen.resource_helper = mock.MagicMock()
+
         scenario_cfg = {
             "tc": "tc_baremetal_rfc2544_ipv4_1flow_64B",
             "topology": 'nsb_test_case.yaml',
@@ -332,8 +334,9 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         scenario_cfg.update({"nodes": ["tg_1", "vnf_1"]})
         self.assertIsNone(trex_traffic_gen.instantiate(scenario_cfg, {}))
 
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.DpdkVnfSetupEnvHelper.setup_vnf_environment')
     @mock.patch(SSH_HELPER)
-    def test_instantiate_error(self, ssh):
+    def test_instantiate_error(self, ssh, _):
         mock_ssh(ssh, exec_result=(1, "", ""))
 
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
