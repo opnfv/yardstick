@@ -318,3 +318,30 @@ class V2Containers(ApiResource):
         LOG.info('Starting container')
         client.start(container)
         return container
+
+
+class V2Container(ApiResource):
+
+    def get(self, container_id):
+        try:
+            uuid.UUID(container_id)
+        except ValueError:
+            result_handler(consts.API_ERROR, 'invalid container id')
+
+        try:
+            container = container_handler.get_by_uuid(container_id)
+        except ValueError:
+            result_handler(consts.API_ERROR, 'no such container id')
+
+        name = container.name
+        client = Client(base_url=consts.DOCKER_URL)
+        info = client.inspect_container(name)
+
+        data = {
+            'name': name,
+            'status': info.get('State', {}).get('Status', 'error'),
+            'time': info.get('Created'),
+            'port': container.port
+        }
+
+        return result_handler(consts.API_SUCCESS, {'container': data})
