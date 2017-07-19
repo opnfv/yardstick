@@ -193,8 +193,6 @@ class ResourceProfile(object):
 
     def _start_collectd(self, connection, bin_path):
         LOG.debug("Starting collectd to collect NFVi stats")
-        # temp disable
-        return
         connection.execute('sudo pkill -9 collectd')
         collectd = os.path.join(bin_path, "collectd.sh")
         provision_tool(connection, collectd)
@@ -210,7 +208,6 @@ class ResourceProfile(object):
         connection.execute("sudo service rabbitmq-server restart")
 
         # Run collectd
-
         http_proxy = os.environ.get('http_proxy', '')
         https_proxy = os.environ.get('https_proxy', '')
         connection.execute("sudo %s '%s' '%s'" %
