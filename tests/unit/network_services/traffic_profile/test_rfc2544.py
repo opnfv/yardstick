@@ -50,7 +50,7 @@ class TestRFC2544Profile(unittest.TestCase):
                'name': 'rfc2544',
                'traffic_profile': {'traffic_type': 'RFC2544Profile',
                                    'frame_rate': 100},
-               'public_1': {'ipv4':
+               'public_0': {'ipv4':
                           {'outer_l2': {'framesize':
                                         {'64B': '100', '1518B': '0',
                                          '128B': '0', '1400B': '0',
@@ -62,7 +62,7 @@ class TestRFC2544Profile(unittest.TestCase):
                                           'dscp': 0, 'ttl': 32, 'count': 1},
                            'outer_l4': {'srcport': '2001',
                                'dsrport': '1234', 'count': 1}}},
-               'private_1': {'ipv4':
+               'private_0': {'ipv4':
                            {'outer_l2': {'framesize':
                                          {'64B': '100', '1518B': '0',
                                           '128B': '0', '1400B': '0',
@@ -82,27 +82,29 @@ class TestRFC2544Profile(unittest.TestCase):
 
     def test_execute(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
-        traffic_generator.my_ports = [0, 1]
-        traffic_generator.priv_ports = [-1]
-        traffic_generator.pub_ports = [1]
+        traffic_generator.networks = {
+            "private_0": ["xe0"],
+            "public_0": ["xe1"],
+        }
         traffic_generator.client = \
             mock.Mock(return_value=True)
         r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
         r_f_c2544_profile.params = self.PROFILE
         r_f_c2544_profile.first_run = True
-        self.assertEqual(None, r_f_c2544_profile.execute(traffic_generator))
+        self.assertEqual(None, r_f_c2544_profile.execute_traffic(traffic_generator))
 
     def test_get_drop_percentage(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
-        traffic_generator.my_ports = [0, 1]
-        traffic_generator.priv_ports = [0]
-        traffic_generator.pub_ports = [1]
+        traffic_generator.networks = {
+            "private_0": ["xe0"],
+            "public_0": ["xe1"],
+        }
         traffic_generator.client = mock.Mock(return_value=True)
 
         r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
         r_f_c2544_profile.params = self.PROFILE
         r_f_c2544_profile.register_generator(traffic_generator)
-        self.assertIsNone(r_f_c2544_profile.execute(traffic_generator))
+        self.assertIsNone(r_f_c2544_profile.execute_traffic(traffic_generator))
 
         samples = {}
         for ifname in range(1):
@@ -140,15 +142,16 @@ class TestRFC2544Profile(unittest.TestCase):
 
     def test_get_drop_percentage_update(self):
         traffic_generator = mock.Mock(autospec=RFC2544Profile)
-        traffic_generator.my_ports = [0, 1]
-        traffic_generator.priv_ports = [0]
-        traffic_generator.pub_ports = [1]
+        traffic_generator.networks = {
+            "private_0": ["xe0"],
+            "public_0": ["xe1"],
+        }
         traffic_generator.client = mock.Mock(return_value=True)
 
         r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
         r_f_c2544_profile.params = self.PROFILE
         r_f_c2544_profile.register_generator(traffic_generator)
-        self.assertIsNone(r_f_c2544_profile.execute())
+        self.assertIsNone(r_f_c2544_profile.execute_traffic())
 
         samples = {}
         for ifname in range(1):
@@ -187,14 +190,15 @@ class TestRFC2544Profile(unittest.TestCase):
 
     def test_get_drop_percentage_div_zero(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
-        traffic_generator.my_ports = [0, 1]
-        traffic_generator.priv_ports = [0]
-        traffic_generator.pub_ports = [1]
+        traffic_generator.networks = {
+            "private_0": ["xe0"],
+            "public_0": ["xe1"],
+        }
         traffic_generator.client = \
             mock.Mock(return_value=True)
         r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
         r_f_c2544_profile.params = self.PROFILE
-        self.assertEqual(None, r_f_c2544_profile.execute(traffic_generator))
+        self.assertEqual(None, r_f_c2544_profile.execute_traffic(traffic_generator))
         samples = {}
         for ifname in range(1):
             name = "xe{}".format(ifname)

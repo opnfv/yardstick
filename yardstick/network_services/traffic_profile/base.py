@@ -44,7 +44,7 @@ class TrafficProfile(object):
         # IMIX = {"10K": 0.1, "100M": 0.5}
         self.params = tp_config
 
-    def execute(self, traffic_generator):
+    def execute_traffic(self, traffic_generator):
         """ This methods defines the behavior of the traffic generator.
         It will be called in a loop until the traffic generator exits.
 

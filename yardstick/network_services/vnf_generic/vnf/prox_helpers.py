@@ -641,7 +641,9 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         # Ensure MAC is set "hardware"
         ext_intf = self.vnfd_helper.interfaces
         # we are using enumeration to map logical port numbers to interfaces
-        for port_num, intf in enumerate(ext_intf):
+        # TODO use dpdk port number
+        for intf in ext_intf.values():
+            port_num = self.vnfd_helper.port_num(intf)
             port_section_name = "port {}".format(port_num)
             for section_name, section in sections:
                 if port_section_name != section_name:
@@ -718,7 +720,7 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         lua_param = self.LUA_PARAMETER_NAME
         for intf in ext_intf:
             peer = self.LUA_PARAMETER_PEER[lua_param]
-            port_num = intf["virtual-interface"]["dpdk_port_num"]
+            port_num = self.vnfd_helper.port_num(intf)
             local_ip = intf["local_ip"]
             dst_ip = intf["dst_ip"]
             local_ip_hex = ip_to_hex(local_ip, separator=' ')
@@ -880,7 +882,7 @@ class ProxResourceHelper(ClientResourceHelper):
             self._run_traffic_once(traffic_profile)
 
     def _run_traffic_once(self, traffic_profile):
-        traffic_profile.execute(self)
+        traffic_profile.execute_traffic(self)
         if traffic_profile.done:
             self._queue.put({'done': True})
             LOG.debug("tg_prox done")
@@ -947,8 +949,9 @@ class ProxResourceHelper(ClientResourceHelper):
 
         samples = {}
         # we are currently using enumeration to map logical port num to interface
-        for index, iface in enumerate(interfaces):
-            port_rx_total, port_tx_total = self.sut.port_stats([index])[6:8]
+        for iface in interfaces.values():
+            port = self.vnfd_helper.port_num(iface)
+            port_rx_total, port_tx_total = self.sut.port_stats([port])[6:8]
             samples[iface["name"]] = {"in_packets": port_rx_total,
                                       "out_packets": port_tx_total}
 

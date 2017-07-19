@@ -33,10 +33,10 @@ scenarios:
     traffic_type: 4
     rfc2544:
       allowed_drop_rate: 0.0001 - 0.0001
-      corelated_traffic: true
+      correlated_traffic: true
     vnf__1:
-      cfg: vpe_config
       nfvi_enable: True
+      vnf_config: vpe_config
   runner:
     type: Iteration
     iterations: 10

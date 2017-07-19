@@ -22,7 +22,7 @@ from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF, Dpd
 LOG = logging.getLogger(__name__)
 
 # CGNAPT should work the same on all systems, we can provide the binary
-CGNAPT_PIPELINE_COMMAND = 'sudo {tool_path} -p {ports_len_hex} -f {cfg_file} -s {script}'
+CGNAPT_PIPELINE_COMMAND = 'sudo {tool_path} -p {port_mask_hex} -f {cfg_file} -s {script}'
 WAIT_FOR_STATIC_NAPT = 4
 
 CGNAPT_COLLECT_KPI = """\
@@ -55,7 +55,7 @@ class CgnaptApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
             yield '.'.join(ip_parts)
 
     @staticmethod
-    def _update_cgnat_script_file(ip_pipeline_cfg, mcpi, vnf_str):
+    def _update_cgnat_script_file(ip_pipeline_cfg, mcpi):
         pipeline_config_str = str(ip_pipeline_cfg)
         input_cmds = '\n'.join(mcpi)
         icmp_flag = 'link 0 down' in input_cmds
@@ -67,13 +67,14 @@ class CgnaptApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
         raise NotImplementedError
 
     def _get_cgnapt_config(self, interfaces=None):
+        # TODO: static CGNAPT is broken, don't use it
         if interfaces is None:
             interfaces = self.vnfd_helper.interfaces
 
         gateway_ips = []
 
         # fixme: Get private port and gateway from port list
-        priv_ports = interfaces[::2]
+        priv_ports = self.vnfd_helper.port_pairs.priv_ports
         for interface in priv_ports:
             gateway_ips.append(self._get_ports_gateway(interface["name"]))
         return gateway_ips
@@ -113,6 +114,7 @@ class CgnaptApproxVnf(SampleVNF):
             offset = 0
 
         worker_threads = int(self.scenario_helper.vnf_cfg["worker_threads"])
+        # p <pipeline id> entry addm <prv_ipv4/6> prvport> <pub_ip> <pub_port> <phy_port> <ttl> <no_of_entries> <end_prv_port> <end_pub_port>
         cmd_template = "p {0} entry addm {1} 1 {2} 1 0 32 65535 65535 65535"
         for gw, ip in zip(gw_ips, ip_iter):
             cmd = cmd_template.format(pipeline, gw, ip)
