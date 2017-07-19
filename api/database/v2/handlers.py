@@ -130,6 +130,9 @@ class V2ContainerHandler(object):
 
 class V2ProjectHandler(object):
 
+    def list_all(self):
+        return V2Project.query.all()
+
     def insert(self, kwargs):
         project = V2Project(**kwargs)
         db_session.add(project)

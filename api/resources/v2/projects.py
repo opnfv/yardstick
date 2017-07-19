@@ -5,10 +5,21 @@ from datetime import datetime
 from api import ApiResource
 from api.database.v2.handlers import V2ProjectHandler
 from yardstick.common.utils import result_handler
+from yardstick.common.utils import change_obj_to_dict
 from yardstick.common import constants as consts
 
 
 class V2Projects(ApiResource):
+
+    def get(self):
+        project_handler = V2ProjectHandler()
+        projects = [change_obj_to_dict(p) for p in project_handler.list_all()]
+
+        for p in projects:
+            tasks = p['tasks']
+            p['tasks'] = tasks.split(',') if tasks else []
+
+        return result_handler(consts.API_SUCCESS, {'projects': projects})
 
     def post(self):
         return self._dispatch_post()
