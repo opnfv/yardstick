@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_25de7712",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-07-19T19:32:56Z",
+      "side": 1,
+      "message": "we need to convert back to None if the gateway_ip is excplictly set to None in the yaml and then converted to \u0027null\u0027:\n\nif gateway_ip is \u0027null\u0027:\n            self.resources[name][\u0027properties\u0027] \u0027gateway_ip\u0027] \u003d None\nelif gateway_ip is not None:\n            self.resources[name][\u0027properties\u0027][\u0027gateway_ip\u0027] \u003d gateway_ip",
+      "revId": "d99e5c4cb635a09c4b4f19592c657bdee3fa692c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
