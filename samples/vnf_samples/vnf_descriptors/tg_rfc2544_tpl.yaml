@@ -32,41 +32,10 @@ vnfd:vnfd-catalog:
             {% if key_filename is defined %}
             key_filename: '{{key_filename}}'  # Value filled by vnfdgen
             {% endif %}
-        connection-point:
-        -   name: xe0
-            type: VPORT
-        -   name: xe1
-            type: VPORT
         vdu:
         -   id: trexgen-baremetal
             name: trexgen-baremetal
             description: TRex stateless traffic verifier
-            external-interface:
-            -   name: xe0
-                virtual-interface:
-                    type: PCI-PASSTHROUGH
-                    # Substitution variables MUST be quoted. Otherwise Python can misinterpet them.
-                    vpci: '{{ interfaces.xe0.vpci }}' # Value filled by vnfdgen
-                    local_iface_name: '{{ interfaces.xe0.local_iface_name }}' # Value filled by vnfdgen
-                    local_ip: '{{ interfaces.xe0.local_ip }}' # Value filled by vnfdgen
-                    driver: '{{ interfaces.xe0.driver}}' # Value filled by vnfdgen
-                    dst_ip: '{{ interfaces.xe0.dst_ip }}' # Value filled by vnfdgen
-                    local_mac: '{{ interfaces.xe0.local_mac }}' # Value filled by vnfdgen
-                    dst_mac: '{{ interfaces.xe0.dst_mac }}' # Value filled by vnfdgen
-                    bandwidth: 10 Gbps
-                vnfd-connection-point-ref: xe0
-            -   name: xe1
-                virtual-interface:
-                    type: PCI-PASSTHROUGH
-                    vpci: '{{ interfaces.xe1.vpci }}' # Value filled by vnfdgen
-                    local_iface_name: '{{ interfaces.xe1.local_iface_name }}' # Value filled by vnfdgen
-                    local_ip: '{{ interfaces.xe1.local_ip }}' # Value filled by vnfdgen
-                    driver: '{{ interfaces.xe1.driver}}' # Value filled by vnfdgen
-                    dst_ip: '{{ interfaces.xe1.dst_ip }}' # Value filled by vnfdgen
-                    local_mac: '{{ interfaces.xe1.local_mac }}' # Value filled by vnfdgen
-                    dst_mac: '{{ interfaces.xe1.dst_mac }}' # Value filled by vnfdgen
-                    bandwidth: 10 Gbps
-                vnfd-connection-point-ref: xe1
 
         benchmark:
             kpi:

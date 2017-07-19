@@ -68,15 +68,15 @@ private_1:
 
         outer_l3v4:
             proto: "tcp"
-            srcip4: "{{get(flow, 'flow.src_ip0', '192.168.0.0-192.168.255.255') }}"
-            dstip4: "{{get(flow, 'flow.dst_ip0', '192.16.0.0-192.16.0.31') }}"
+            srcip4: "{{get(flow, 'flow.src_ip_0', '192.168.0.0-192.168.255.255') }}"
+            dstip4: "{{get(flow, 'flow.dst_ip_0', '192.16.0.0-192.16.0.31') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
             ttl: 32
             dscp: 32
 
         outer_l4:
-            srcport: "{{get(flow, 'flow.src_port0', '0') }}"
-            dstport: "{{get(flow, 'flow.dst_port0', '0') }}"
+            srcport: "{{get(flow, 'flow.src_port_0', '0') }}"
+            dstport: "{{get(flow, 'flow.dst_port_0', '0') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
 public_1:
       ipv4:
@@ -92,15 +92,15 @@ public_1:
 
         outer_l3v4:
             proto: "tcp"
-            srcip4: "{{get(flow, 'flow.dst_ip0', '192.16.0.0-192.16.0.31') }}"
-            dstip4: "{{get(flow, 'flow.src_ip0', '192.168.0.0-192.168.255.255') }}"
+            srcip4: "{{get(flow, 'flow.dst_ip_0', '192.16.0.0-192.16.0.31') }}"
+            dstip4: "{{get(flow, 'flow.src_ip_0', '192.168.0.0-192.168.255.255') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
             ttl: 32
             dscp: 32
 
         outer_l4:
-            srcport: "{{get(flow, 'flow.dst_port0', '0') }}"
-            dstport: "{{get(flow, 'flow.src_port0', '0') }}"
+            srcport: "{{get(flow, 'flow.dst_port_0', '0') }}"
+            dstport: "{{get(flow, 'flow.src_port_0', '0') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
 private_2:
       ipv4:

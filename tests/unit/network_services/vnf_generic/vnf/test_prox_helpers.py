@@ -751,33 +751,6 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = ProxDpdkVnfSetupEnvHelper.write_prox_config(input_data)
         self.assertEqual(result, expected)
 
-    def test_rebind_drivers(self):
-        def find_drivers(*args, **kwargs):
-            setup_helper.used_drivers = used_drivers
-
-        used_drivers = {
-            'a': (1, 'b'),
-            'c': (2, 'd'),
-        }
-
-        vnfd_helper = mock.MagicMock()
-        ssh_helper = mock.MagicMock()
-        scenario_helper = mock.MagicMock()
-        setup_helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        setup_helper._find_used_drivers = mock_find = mock.MagicMock(side_effect=find_drivers)
-
-        setup_helper.rebind_drivers()
-        self.assertEqual(mock_find.call_count, 1)
-        self.assertEqual(ssh_helper.execute.call_count, 2)
-        self.assertIn('--force', ssh_helper.execute.call_args[0][0])
-
-        mock_find.reset_mock()
-        ssh_helper.execute.reset_mock()
-        setup_helper.rebind_drivers(False)
-        self.assertEqual(mock_find.call_count, 0)
-        self.assertEqual(ssh_helper.execute.call_count, 2)
-        self.assertNotIn('--force', ssh_helper.execute.call_args[0][0])
-
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
     def test_build_config_file_no_additional_file(self, mock_find_path):
         vnf1 = {
@@ -1604,7 +1577,7 @@ class TestProxResourceHelper(unittest.TestCase):
             yield stats
 
         setup_helper = mock.MagicMock()
-        setup_helper.vnfd_helper.interfaces = []
+        setup_helper.vnfd_helper.interfaces = {}
 
         stats = {
             'delta': TotStatsTuple(6, 7, 8, 9),

@@ -111,7 +111,7 @@ class ResourceProfile(object):
 
     @classmethod
     def parse_intel_pmu_stats(cls, key, value):
-        return {''.join(key): value.split(":")[1]}
+        return {''.join(str(v) for v in key): value.split(":")[1]}
 
     def parse_collectd_result(self, metrics, core_list):
         """ convert collectd data into json"""
@@ -234,7 +234,7 @@ class ResourceProfile(object):
         connection.execute("sudo rabbitmqctl delete_user guest")
         connection.execute("sudo rabbitmqctl add_user admin admin")
         connection.execute("sudo rabbitmqctl authenticate_user admin admin")
-        connection.execute("sudo rabbitmqctl set_permissions -p / admin \".*\" \".*\" \".*\"")
+        connection.execute("sudo rabbitmqctl set_permissions -p / admin '.*' '.*' '.*'")
 
         LOG.debug("Start collectd service.....")
         connection.execute("sudo %s" % collectd_path)

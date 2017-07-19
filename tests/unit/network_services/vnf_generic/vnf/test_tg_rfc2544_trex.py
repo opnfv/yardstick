@@ -24,7 +24,6 @@ from tests.unit import STL_MOCKS
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
 
 
-
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
@@ -101,7 +100,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
                             'local_ip': '152.16.100.19',
                             'type': 'PCI-PASSTHROUGH',
                             'netmask': '255.255.255.0',
-                            'vld_id': 'private_1',
+                            'vld_id': 'private_0',
                             'dpdk_port_num': '0',
                             'bandwidth': '10 Gbps',
                             'driver': "i40e",
@@ -121,7 +120,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
                             'type': 'PCI-PASSTHROUGH',
                             'driver': "i40e",
                             'netmask': '255.255.255.0',
-                            'vld_id': 'public_1',
+                            'vld_id': 'public_0',
                             'dpdk_port_num': '1',
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.40.20',
