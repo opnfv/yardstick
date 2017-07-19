@@ -326,12 +326,12 @@ class V2Container(ApiResource):
         try:
             uuid.UUID(container_id)
         except ValueError:
-            result_handler(consts.API_ERROR, 'invalid container id')
+            return result_handler(consts.API_ERROR, 'invalid container id')
 
         try:
             container = container_handler.get_by_uuid(container_id)
         except ValueError:
-            result_handler(consts.API_ERROR, 'no such container id')
+            return result_handler(consts.API_ERROR, 'no such container id')
 
         name = container.name
         client = Client(base_url=consts.DOCKER_URL)
@@ -345,3 +345,39 @@ class V2Container(ApiResource):
         }
 
         return result_handler(consts.API_SUCCESS, {'container': data})
+
+    def delete(self, container_id):
+        try:
+            uuid.UUID(container_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid container id')
+
+        try:
+            container = container_handler.get_by_uuid(container_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such container id')
+
+        environment_id = container.environment_id
+
+        client = Client(base_url=consts.DOCKER_URL)
+        LOG.info('delete container: %s', container.name)
+        try:
+            client.remove_container(container.name, force=True)
+        except Exception:
+            LOG.exception('delete container failed')
+            return result_handler(consts.API_ERROR, 'delete container failed')
+
+        LOG.info('delete container in database')
+        container_handler.delete_by_uuid(container_id)
+
+        LOG.info('update container in environment')
+        environment = environment_handler.get_by_uuid(environment_id)
+        container_info = jsonutils.loads(environment.container_id)
+        key = next((k for k, v in container_info.items() if v == container_id))
+        container_info.pop(key)
+        environment_delete_data = {
+            'container_id': jsonutils.dumps(container_info)
+        }
+        environment_handler.update_attr(environment_id, environment_delete_data)
+
+        return result_handler(consts.API_SUCCESS, {'container': container_id})
