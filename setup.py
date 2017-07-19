@@ -15,6 +15,7 @@ setup(
     version="0.1.dev0",
     packages=find_packages(),
     include_package_data=True,
+    data_files=[('/etc/yardstick', ['etc/yardstick/yardstick.conf'])],
     package_data={
         'yardstick': [
             'benchmark/scenarios/availability/*.yaml',
