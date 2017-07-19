@@ -24,7 +24,10 @@ import os
 import subprocess
 import sys
 import collections
+import socket
+import random
 from functools import reduce
+from contextlib import closing
 
 import yaml
 import six
@@ -263,3 +266,11 @@ def set_dict_value(dic, keys, value):
         else:
             return_dic = return_dic[key]
     return dic
+
+
+def get_free_port(ip):
+    with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
+        while True:
+            port = random.randint(5000, 10000)
+            if s.connect_ex((ip, port)) != 0:
+                return port
