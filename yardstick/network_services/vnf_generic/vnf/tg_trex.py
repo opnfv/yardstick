@@ -25,8 +25,17 @@ from yardstick.common.utils import mac_address_to_hex_list
 from yardstick.network_services.utils import get_nsb_option
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
 
 LOG = logging.getLogger(__name__)
+
+
+class TrexDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
+    APP_NAME = "t-rex-64"
+    CFG_CONFIG = ""
+    CFG_SCRIPT = ""
+    PIPELINE_COMMAND = ""
+    VNF_TYPE = "TG"
 
 
 class TrexResourceHelper(ClientResourceHelper):
@@ -36,16 +45,14 @@ class TrexResourceHelper(ClientResourceHelper):
     RESOURCE_WORD = 'trex'
     RUN_DURATION = 0
 
-    SYNC_PORT = 4500
-    ASYNC_PORT = 4501
+    ASYNC_PORT = 4500
+    SYNC_PORT = 4501
 
     def generate_cfg(self):
         ext_intf = self.vnfd_helper.interfaces
         vpci_list = []
         port_list = []
         trex_cfg = {
-            'port_limit': 0,
-            'version': '2',
             'interfaces': vpci_list,
             'port_info': port_list,
             "port_limit": len(ext_intf),
@@ -79,6 +86,7 @@ class TrexResourceHelper(ClientResourceHelper):
     DISABLE_DEPLOY = True
 
     def setup(self):
+        super(TrexResourceHelper, self).setup()
         if self.DISABLE_DEPLOY:
             return
 
@@ -129,6 +137,9 @@ class TrexTrafficGen(SampleVNFTrafficGen):
     def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
         if resource_helper_type is None:
             resource_helper_type = TrexResourceHelper
+
+        if setup_env_helper_type is None:
+            setup_env_helper_type = TrexDpdkVnfSetupEnvHelper
 
         super(TrexTrafficGen, self).__init__(name, vnfd, setup_env_helper_type,
                                              resource_helper_type)
