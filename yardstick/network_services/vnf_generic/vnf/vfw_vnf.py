@@ -22,7 +22,7 @@ from yardstick.network_services.yang_model import YangModel
 LOG = logging.getLogger(__name__)
 
 # vFW should work the same on all systems, we can provide the binary
-FW_PIPELINE_COMMAND = """sudo {tool_path} -p {ports_len_hex} -f {cfg_file} -s {script}"""
+FW_PIPELINE_COMMAND = """sudo {tool_path} -p {port_mask_hex} -f {cfg_file} -s {script}"""
 
 FW_COLLECT_KPI = (r"""VFW TOTAL:[^p]+pkts_received"?:\s(\d+),[^p]+pkts_fw_forwarded"?:\s(\d+),"""
                   r"""[^p]+pkts_drop_fw"?:\s(\d+),\s""")

@@ -18,91 +18,130 @@
 from __future__ import absolute_import
 from __future__ import division
 
-import os
 import unittest
 
 import mock
 
-from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
+from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig, PortPairs
+from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
+
+
+class TestPortPairs(unittest.TestCase):
+    def test_port_pairs_list(self):
+        vnfd = TestMultiPortConfig.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        interfaces = vnfd['vdu'][0]['external-interface']
+        port_pairs = PortPairs(interfaces)
+        self.assertEqual(port_pairs.port_pair_list, [("xe0", "xe1")])
+
+    def test_valid_networks(self):
+        vnfd = TestMultiPortConfig.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        interfaces = vnfd['vdu'][0]['external-interface']
+        port_pairs = PortPairs(interfaces)
+        self.assertEqual(port_pairs.valid_networks, [("private_0", "public_0")])
+
+    def test_all_ports(self):
+        vnfd = TestMultiPortConfig.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        interfaces = vnfd['vdu'][0]['external-interface']
+        port_pairs = PortPairs(interfaces)
+        self.assertEqual(set(port_pairs.all_ports), {"xe0", "xe1"})
+
+    def test_priv_ports(self):
+        vnfd = TestMultiPortConfig.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        interfaces = vnfd['vdu'][0]['external-interface']
+        port_pairs = PortPairs(interfaces)
+        self.assertEqual(port_pairs.priv_ports, ["xe0"])
+
+    def test_pub_ports(self):
+        vnfd = TestMultiPortConfig.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        interfaces = vnfd['vdu'][0]['external-interface']
+        port_pairs = PortPairs(interfaces)
+        self.assertEqual(port_pairs.pub_ports, ["xe1"])
 
 
 class TestMultiPortConfig(unittest.TestCase):
-    VNFD = {'vnfd:vnfd-catalog':
-                {'vnfd':
-                     [{'short-name': 'VpeVnf',
-                       'vdu':
-                           [{'routing_table':
-                                 [{'network': '152.16.100.20',
-                                   'netmask': '255.255.255.0',
-                                   'gateway': '152.16.100.20',
-                                   'if': 'xe0'},
-                                  {'network': '152.16.40.20',
-                                   'netmask': '255.255.255.0',
-                                   'gateway': '152.16.40.20',
-                                   'if': 'xe1'}],
-                             'description': 'VPE approximation using DPDK',
-                             'name': 'vpevnf-baremetal',
-                             'nd_route_tbl':
-                                 [{'network': '0064:ff9b:0:0:0:0:9810:6414',
-                                   'netmask': '112',
-                                   'gateway': '0064:ff9b:0:0:0:0:9810:6414',
-                                   'if': 'xe0'},
-                                  {'network': '0064:ff9b:0:0:0:0:9810:2814',
-                                   'netmask': '112',
-                                   'gateway': '0064:ff9b:0:0:0:0:9810:2814',
-                                   'if': 'xe1'}],
-                             'id': 'vpevnf-baremetal',
-                             'external-interface':
-                                 [
-                                     {'virtual-interface':
-                                         {
-                                             'dst_mac': '00:00:00:00:00:04',
-                                             'vpci': '0000:05:00.0',
-                                             'local_ip': '152.16.100.19',
-                                             'type': 'PCI-PASSTHROUGH',
-                                             'netmask': '255.255.255.0',
-                                             'dpdk_port_num': '0',
-                                             'bandwidth': '10 Gbps',
-                                             'driver': "i40e",
-                                             'dst_ip': '152.16.100.20',
-                                             'ifname': 'xe0',
-                                             'local_iface_name': 'eth0',
-                                             'local_mac': '00:00:00:00:00:02',
-                                             'vld_id': 'private_1',
-                                         },
-                                         'vnfd-connection-point-ref': 'xe0',
-                                         'name': 'xe0'},
-                                     {'virtual-interface':
-                                         {
-                                             'dst_mac': '00:00:00:00:00:03',
-                                             'vpci': '0000:05:00.1',
-                                             'local_ip': '152.16.40.19',
-                                             'type': 'PCI-PASSTHROUGH',
-                                             'driver': "i40e",
-                                             'netmask': '255.255.255.0',
-                                             'dpdk_port_num': '1',
-                                             'bandwidth': '10 Gbps',
-                                             'dst_ip': '152.16.40.20',
-                                             'ifname': 'xe1',
-                                             'local_iface_name': 'eth1',
-                                             'local_mac': '00:00:00:00:00:01',
-                                             'vld_id': 'public_1',
-                                         },
-                                         'vnfd-connection-point-ref': 'xe1',
-                                         'name': 'xe1'}
-                                 ]}],
-                       'description': 'Vpe approximation using DPDK',
-                       'mgmt-interface':
-                           {'vdu-id': 'vpevnf-baremetal',
-                            'host': '1.2.1.1',
-                            'password': 'r00t',
-                            'user': 'root',
-                            'ip': '1.2.1.1'},
-                       'benchmark':
-                           {'kpi': ['packets_in', 'packets_fwd', 'packets_dropped']},
-                       'connection-point': [{'type': 'VPORT', 'name': 'xe0'},
-                                            {'type': 'VPORT', 'name': 'xe1'}],
-                       'id': 'AclApproxVnf', 'name': 'VPEVnfSsh'}]}}
+
+    VNFD_0 = {'short-name': 'VpeVnf',
+              'vdu':
+                  [{'routing_table':
+                        [{'network': '152.16.100.20',
+                          'netmask': '255.255.255.0',
+                          'gateway': '152.16.100.20',
+                          'if': 'xe0'},
+                         {'network': '152.16.40.20',
+                          'netmask': '255.255.255.0',
+                          'gateway': '152.16.40.20',
+                          'if': 'xe1'}],
+                    'description': 'VPE approximation using DPDK',
+                    'name': 'vpevnf-baremetal',
+                    'nd_route_tbl':
+                        [{'network': '0064:ff9b:0:0:0:0:9810:6414',
+                          'netmask': '112',
+                          'gateway': '0064:ff9b:0:0:0:0:9810:6414',
+                          'if': 'xe0'},
+                         {'network': '0064:ff9b:0:0:0:0:9810:2814',
+                          'netmask': '112',
+                          'gateway': '0064:ff9b:0:0:0:0:9810:2814',
+                          'if': 'xe1'}],
+                    'id': 'vpevnf-baremetal',
+                    'external-interface':
+                        [
+                            {'virtual-interface':
+                                {
+                                    'dst_mac': '00:00:00:00:00:04',
+                                    'vpci': '0000:05:00.0',
+                                    'local_ip': '152.16.100.19',
+                                    'type': 'PCI-PASSTHROUGH',
+                                    'netmask': '255.255.255.0',
+                                    'dpdk_port_num': '0',
+                                    'bandwidth': '10 Gbps',
+                                    'driver': "i40e",
+                                    'dst_ip': '152.16.100.20',
+                                    'ifname': 'xe0',
+                                    'local_iface_name': 'eth0',
+                                    'local_mac': '00:00:00:00:00:02',
+                                    'vld_id': 'private_0',
+                                },
+                                'vnfd-connection-point-ref': 'xe0',
+                                'name': 'xe0'},
+                            {'virtual-interface':
+                                {
+                                    'dst_mac': '00:00:00:00:00:03',
+                                    'vpci': '0000:05:00.1',
+                                    'local_ip': '152.16.40.19',
+                                    'type': 'PCI-PASSTHROUGH',
+                                    'driver': "i40e",
+                                    'netmask': '255.255.255.0',
+                                    'dpdk_port_num': '1',
+                                    'bandwidth': '10 Gbps',
+                                    'dst_ip': '152.16.40.20',
+                                    'ifname': 'xe1',
+                                    'local_iface_name': 'eth1',
+                                    'local_mac': '00:00:00:00:00:01',
+                                    'vld_id': 'public_0',
+                                },
+                                'vnfd-connection-point-ref': 'xe1',
+                                'name': 'xe1'}
+                        ]}],
+              'description': 'Vpe approximation using DPDK',
+              'mgmt-interface':
+                  {'vdu-id': 'vpevnf-baremetal',
+                   'host': '1.2.1.1',
+                   'password': 'r00t',
+                   'user': 'root',
+                   'ip': '1.2.1.1'},
+              'benchmark':
+                  {'kpi': ['packets_in', 'packets_fwd', 'packets_dropped']},
+              'connection-point': [{'type': 'VPORT', 'name': 'xe0'},
+                                   {'type': 'VPORT', 'name': 'xe1'}],
+              'id': 'AclApproxVnf', 'name': 'VPEVnfSsh'}
+
+    VNFD = {
+        'vnfd:vnfd-catalog': {
+            'vnfd': [
+                VNFD_0,
+            ]
+        }
+    }
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
@@ -111,11 +150,12 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         self.assertEqual(0, opnfv_vnf.swq)
         mock_os.path = mock.MagicMock()
         mock_os.path.isfile = mock.Mock(return_value=False)
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         self.assertEqual(0, opnfv_vnf.swq)
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
@@ -125,7 +165,8 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
@@ -139,7 +180,8 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = VnfdHelper(self.VNFD_0)
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
@@ -148,7 +190,7 @@ class TestMultiPortConfig(unittest.TestCase):
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
                                     'rules': ''})
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         self.assertIsNotNone(opnfv_vnf.generate_script(self.VNFD))
         opnfv_vnf.lb_config = 'HW'
         self.assertIsNotNone(opnfv_vnf.generate_script(self.VNFD))
@@ -160,12 +202,13 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
         opnfv_vnf.update_write_parser = mock.MagicMock()
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.vnf_type = 'ACL'
         opnfv_vnf.generate_link_config = mock.Mock()
         opnfv_vnf.generate_arp_config = mock.Mock()
@@ -181,7 +224,8 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
@@ -190,7 +234,7 @@ class TestMultiPortConfig(unittest.TestCase):
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
                                     'rules': ''})
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.get_port_pairs = mock.Mock()
         opnfv_vnf.vnf_type = 'ACL'
         opnfv_vnf.get_ports_gateway = mock.Mock(return_value=u'1.1.1.1')
@@ -212,7 +256,8 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
@@ -221,7 +266,7 @@ class TestMultiPortConfig(unittest.TestCase):
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
                                     'rules': ''})
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.get_port_pairs = mock.Mock()
         opnfv_vnf.vnf_type = 'VFW'
         opnfv_vnf.get_ports_gateway = mock.Mock(return_value=u'1.1.1.1')
@@ -239,7 +284,8 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
@@ -248,7 +294,7 @@ class TestMultiPortConfig(unittest.TestCase):
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
                                     'rules': ''})
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.get_port_pairs = mock.Mock()
         opnfv_vnf.vnf_type = 'VFW'
         opnfv_vnf.get_ports_gateway = mock.Mock(return_value=u'1.1.1.1')
@@ -268,7 +314,8 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
@@ -277,7 +324,7 @@ class TestMultiPortConfig(unittest.TestCase):
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
                                     'rules': ''})
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.get_port_pairs = mock.Mock()
         opnfv_vnf.vnf_type = 'VFW'
         opnfv_vnf.get_ports_gateway = mock.Mock(return_value=u'1.1.1.1')
@@ -297,7 +344,8 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
@@ -306,7 +354,7 @@ class TestMultiPortConfig(unittest.TestCase):
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
                                     'rules': ''})
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.get_port_pairs = mock.Mock()
         opnfv_vnf.vnf_type = 'VFW'
         opnfv_vnf.txrx_pipeline = ''
@@ -323,7 +371,8 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
@@ -332,7 +381,7 @@ class TestMultiPortConfig(unittest.TestCase):
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
                                     'rules': ''})
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.get_port_pairs = mock.Mock()
         opnfv_vnf.vnf_type = 'VFW'
         opnfv_vnf.txrx_pipeline = ''
@@ -349,7 +398,8 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
@@ -358,7 +408,7 @@ class TestMultiPortConfig(unittest.TestCase):
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
                                     'rules': ''})
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.get_port_pairs = mock.Mock()
         opnfv_vnf.vnf_type = 'VFW'
         opnfv_vnf.txrx_pipeline = ''
@@ -375,7 +425,8 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
@@ -384,7 +435,7 @@ class TestMultiPortConfig(unittest.TestCase):
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
                                     'rules': ''})
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.get_port_pairs = mock.Mock()
         opnfv_vnf.vnf_type = 'VFW'
         opnfv_vnf.txrx_pipeline = ''
@@ -401,7 +452,8 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
@@ -410,7 +462,7 @@ class TestMultiPortConfig(unittest.TestCase):
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
                                     'rules': ''})
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.get_port_pairs = mock.Mock()
         opnfv_vnf.vnf_type = 'VFW'
         opnfv_vnf.txrx_pipeline = ''
@@ -427,7 +479,8 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
@@ -436,7 +489,7 @@ class TestMultiPortConfig(unittest.TestCase):
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
                                     'rules': ''})
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.get_ports_gateway6 = mock.Mock()
@@ -459,10 +512,11 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -482,10 +536,11 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -505,10 +560,11 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -533,10 +589,11 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -556,10 +613,11 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -581,10 +639,11 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -614,10 +673,11 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -649,10 +709,10 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = VnfdHelper(self.VNFD_0)
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -666,10 +726,12 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.worker_config = '1t'
         opnfv_vnf.start_core = 0
         opnfv_vnf.lb_count = 1
+        opnfv_vnf._port_pairs = PortPairs(vnfd_mock.interfaces)
+        opnfv_vnf.port_pair_list = opnfv_vnf._port_pairs.port_pair_list
         result = opnfv_vnf.generate_lb_to_port_pair_mapping()
         self.assertEqual(None, result)
         result = opnfv_vnf.set_priv_to_pub_mapping()
-        self.assertEqual('(0, 1)', result)
+        self.assertEqual('(0,1)', result)
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
@@ -680,11 +742,12 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = VnfdHelper(self.VNFD_0)
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
-        opnfv_vnf.port_pairs = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
+        opnfv_vnf.port_pairs = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -710,11 +773,12 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
-        opnfv_vnf.port_pairs = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
+        opnfv_vnf.port_pairs = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -754,11 +818,12 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
-        opnfv_vnf.port_pairs = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
+        opnfv_vnf.port_pairs = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -795,11 +860,12 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
-        opnfv_vnf.port_pairs = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
+        opnfv_vnf.port_pairs = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -848,11 +914,12 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
-        opnfv_vnf.port_pairs = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
+        opnfv_vnf.port_pairs = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -884,11 +951,12 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
-        opnfv_vnf.port_pairs = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
+        opnfv_vnf.port_pairs = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -932,11 +1000,12 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = VnfdHelper(self.VNFD_0)
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
-        opnfv_vnf.port_pairs = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
+        opnfv_vnf.port_pairs = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
@@ -982,61 +1051,11 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.loadb_tpl = mock.MagicMock()
         opnfv_vnf.vnf_type = 'CGNAPT'
         opnfv_vnf.update_timer = mock.Mock()
-        opnfv_vnf.port_pair_list = [[[0], [1], [2]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1"), ("xe0", "xe2")]
         opnfv_vnf.lb_to_port_pair_mapping = [0, 1]
         opnfv_vnf.generate_arpicmp_data = mock.Mock()
         result = opnfv_vnf.generate_config_data()
         self.assertIsNone(result)
-
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_get_port_pairs(self, mock_open, mock_os, ConfigParser,
-                            OrderedDict):
-        topology_file = mock.Mock()
-        config_tpl = mock.Mock()
-        tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
-        opnfv_vnf.socket = 0
-        opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
-        opnfv_vnf.port_pairs = [[[0], [1]]]
-        opnfv_vnf.txrx_pipeline = ''
-        opnfv_vnf.rules = ''
-        opnfv_vnf.write_parser = mock.MagicMock()
-        opnfv_vnf.read_parser = mock.MagicMock()
-        opnfv_vnf.read_parser.sections = mock.Mock(return_value=['MASTER'])
-        opnfv_vnf.read_parser.has_option = mock.Mock(return_value=[])
-        opnfv_vnf.write_parser.set = mock.Mock()
-        opnfv_vnf.write_parser.add_section = mock.Mock()
-        opnfv_vnf.read_parser.items = mock.MagicMock()
-        opnfv_vnf.pipeline_counter = 0
-        opnfv_vnf.worker_config = '1t'
-        opnfv_vnf.start_core = 0
-        opnfv_vnf.lb_count = 1
-        opnfv_vnf.vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        opnfv_vnf.interfaces = opnfv_vnf.vnfd['vdu'][0]['external-interface']
-        opnfv_vnf.lb_to_port_pair_mapping = [0, 1]
-        opnfv_vnf.lb_index = 1
-        opnfv_vnf.ports_len = 1
-        opnfv_vnf.pktq_out = ['1', '2']
-        opnfv_vnf.prv_que_handler = 0
-        opnfv_vnf.init_write_parser_template = mock.Mock()
-        opnfv_vnf.arpicmp_tpl = mock.MagicMock()
-        opnfv_vnf.txrx_tpl = mock.MagicMock()
-        opnfv_vnf.loadb_tpl = mock.MagicMock()
-        opnfv_vnf.vnf_tpl = {'public_ip_port_range': '98164810 (1,65535)',
-                             'vnf_set': '(2,4,5)'}
-        opnfv_vnf.generate_vnf_data = mock.Mock(return_value={})
-        opnfv_vnf.update_write_parser = mock.Mock()
-
-        curr_path = os.path.dirname(os.path.abspath(__file__))
-        opnfv_vnf.topology_file = \
-            os.path.join(curr_path, 'acl_vnf_topology_ixia.yaml')
-        opnfv_vnf.lb_count = 10
-        result = opnfv_vnf.get_port_pairs(opnfv_vnf.interfaces)
-        self.assertEqual(result[0], [('xe0', 'xe1')])
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
@@ -1047,11 +1066,12 @@ class TestMultiPortConfig(unittest.TestCase):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file)
+        vnfd_mock = mock.MagicMock()
+        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [[[0], [1]]]
-        opnfv_vnf.port_pairs = [[[0], [1]]]
+        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
+        opnfv_vnf.port_pairs = [("xe0", "xe1")]
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()

@@ -19,14 +19,22 @@ from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 
+
 LOG = logging.getLogger(__name__)
 
 # UDP_Replay should work the same on all systems, we can provide the binary
+
+# we can't match the prompt regexp due to extra noise
+# yardstick.ssh ssh.py:302 DEBUG stdout: UDP_Replay: lcore 0 has nothing to do
+# eplUDP_Replay:  -- lcoreid=1 portid=0 rxqueueid=0
+# ay>
+#
+# try decreasing log level to RTE_LOG_NOTICE (5)
 REPLAY_PIPELINE_COMMAND = (
-    """sudo {tool_path} -c {cpu_mask_hex} -n 4 -w {whitelist} -- """
-    """{hw_csum} -p {ports_len_hex} --config='{config}'"""
+    """sudo {tool_path} --log-level=5 -c {cpu_mask_hex} -n 4 -w {whitelist} -- """
+    """{hw_csum} -p {port_mask_hex} --config='{config}'"""
 )
-# {tool_path} -p {ports_len_hex} -f {cfg_file} -s {script}'
+# {tool_path} -p {port_mask_hex} -f {cfg_file} -s {script}'
 
 
 class UdpReplaySetupEnvHelper(DpdkVnfSetupEnvHelper):
@@ -42,7 +50,8 @@ class UdpReplayApproxVnf(SampleVNF):
 
     APP_NAME = "UDP_Replay"
     APP_WORD = "UDP_Replay"
-    VNF_PROMPT = 'Replay>'
+    # buffering issue?
+    VNF_PROMPT = 'eplay>'
 
     VNF_TYPE = 'UdpReplay'
 
@@ -60,36 +69,30 @@ class UdpReplayApproxVnf(SampleVNF):
         super(UdpReplayApproxVnf, self).__init__(name, vnfd, setup_env_helper_type,
                                                  resource_helper_type)
 
-    def _start_server(self):
-        super(UdpReplayApproxVnf, self)._start_server()
-        self.resource_helper.start()
-
-    def scale(self, flavor=""):
-        """ scale vnfbased on flavor input """
-        raise NotImplementedError
-
-    def _deploy(self):
-        self.generate_port_pairs()
-        super(UdpReplayApproxVnf, self)._deploy()
-
     def _build_pipeline_kwargs(self):
-        all_ports = [i for i, _ in enumerate(self.vnfd_helper.interfaces)]
-        number_of_ports = len(all_ports)
+        ports = self.vnfd_helper.port_pairs.all_ports
+        number_of_ports = len(ports)
 
         tool_path = self.ssh_helper.provision_tool(tool_file=self.APP_NAME)
-        ports_mask = 2 ** number_of_ports - 1
-        ports_mask_hex = hex(ports_mask)
+        port_nums = self.vnfd_helper.port_nums(ports)
+        ports_mask_hex = hex(sum(2 ** num for num in port_nums))
+        # one core extra for master
         cpu_mask_hex = hex(2 ** (number_of_ports + 1) - 1)
         hw_csum = ""
         if (not self.scenario_helper.options.get('hw_csum', False) or
                 self.nfvi_context.attrs.get('nfvi_type') not in self.HW_OFFLOADING_NFVI_TYPES):
             hw_csum = '--no-hw-csum'
 
-        config_value = "".join(str((port, 0, port + 1)) for port in all_ports)
+        # tuples of (FLD_PORT, FLD_QUEUE, FLD_LCORE)
+        #  [--config (port,queue,lcore)[,(port,queue,lcore]]"
+        # start with lcore = 1 since we use lcore=0 for master
+        config_value = ",".join(
+            str((self.vnfd_helper.port_num(port), 0, core)).replace(" ", "") for core, port in
+            enumerate(self.vnfd_helper.port_pairs.all_ports, 1))
 
         whitelist = " -w ".join(self.setup_helper.bound_pci)
         self.pipeline_kwargs = {
-            'ports_len_hex': ports_mask_hex,
+            'port_mask_hex': ports_mask_hex,
             'tool_path': tool_path,
             'hw_csum': hw_csum,
             'whitelist': whitelist,
@@ -105,7 +108,7 @@ class UdpReplayApproxVnf(SampleVNF):
         def get_sum(offset):
             return sum(int(i) for i in split_stats[offset::5])
 
-        number_of_ports = len(self.vnfd_helper.interfaces)
+        number_of_ports = len(self.vnfd_helper.port_pairs.all_ports)
 
         stats = self.get_stats()
         stats_words = stats.split()

@@ -48,7 +48,7 @@ class TestTrafficProfile(unittest.TestCase):
 
     def test_execute(self):
         traffic_profile = TrafficProfile(self.TRAFFIC_PROFILE)
-        self.assertRaises(NotImplementedError, traffic_profile.execute, {})
+        self.assertRaises(NotImplementedError, traffic_profile.execute_traffic, {})
 
     def test_get(self):
         traffic_profile = TrafficProfile(self.TRAFFIC_PROFILE)

@@ -880,7 +880,7 @@ class ProxResourceHelper(ClientResourceHelper):
             self._run_traffic_once(traffic_profile)
 
     def _run_traffic_once(self, traffic_profile):
-        traffic_profile.execute(self)
+        traffic_profile.execute_traffic(self)
         if traffic_profile.done:
             self._queue.put({'done': True})
             LOG.debug("tg_prox done")
