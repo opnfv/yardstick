@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_ee260168",
+        "filename": "setup.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-19T04:30:39Z",
+      "side": 1,
+      "message": "I don\u0027t know why we need to be in /etc.  This is not system related.\n\nwe should probably be using XDG standard\n\n$XDG_CONFIG_HOME (default: \"$HOME/.config\"): user-specific configuration files.\n\nhttps://stackoverflow.com/questions/1024114/location-of-ini-config-files-in-linux-unix/1024339#1024339",
+      "revId": "b95952fcb9cfd9fc00bd2a76376c8fb685a2e251",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
