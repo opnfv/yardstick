@@ -82,3 +82,5 @@ mkdir -p /var/log/yardstick
 
 # create yardstick.sock for communicating
 touch /var/run/yardstick.sock
+
+cp "${YARDSTICK_REPO_DIR}/etc/yardstick/yardstick.conf.sample" /etc/yardstick/yardstick.conf
