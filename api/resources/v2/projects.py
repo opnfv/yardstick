@@ -42,3 +42,24 @@ class V2Projects(ApiResource):
         project_handler.insert(project_init_data)
 
         return result_handler(consts.API_SUCCESS, {'uuid': project_id})
+
+
+class V2Project(ApiResource):
+
+    def get(self, project_id):
+        try:
+            uuid.UUID(project_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid project id')
+
+        project_handler = V2ProjectHandler()
+        try:
+            project = project_handler.get_by_uuid(project_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such project id')
+
+        project_info = change_obj_to_dict(project)
+        tasks = project_info['tasks']
+        project_info['tasks'] = tasks.split(',') if tasks else []
+
+        return result_handler(consts.API_SUCCESS, {'project': project_info})
