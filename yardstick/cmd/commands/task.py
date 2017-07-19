@@ -50,6 +50,8 @@ class TaskCommands(object):     # pragma: no cover
         param = change_osloobj_to_paras(args)
         self.output_file = param.output_file
 
+        result = {}
+
         try:
             result = Task().start(param, **kwargs)
         except Exception as e:
