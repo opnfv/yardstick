@@ -680,19 +680,19 @@ class ScenarioHelper(object):
 
     @property
     def task_path(self):
-        return self.scenario_cfg["task_path"]
+        return self.scenario_cfg['task_path']
 
     @property
     def nodes(self):
-        return self.scenario_cfg['nodes']
+        return self.scenario_cfg.get('nodes')
 
     @property
     def all_options(self):
-        return self.scenario_cfg["options"]
+        return self.scenario_cfg.get('options', {})
 
     @property
     def options(self):
-        return self.all_options[self.name]
+        return self.all_options.get(self.name, {})
 
     @property
     def vnf_cfg(self):
@@ -742,7 +742,6 @@ class SampleVNF(GenericVNF):
         self.q_out = Queue()
         self.queue_wrapper = None
         self.run_kwargs = {}
-        self.scenario_cfg = None
         self.tg_port_pairs = None
         self.used_drivers = {}
         self.vnf_port_pairs = None
@@ -937,7 +936,6 @@ class SampleVNFTrafficGen(GenericTrafficGen):
     def instantiate(self, scenario_cfg, context_cfg):
         self.scenario_helper.scenario_cfg = scenario_cfg
         self.resource_helper.generate_cfg()
-        self.setup_helper.setup_vnf_environment()
         self.resource_helper.setup()
 
         LOG.info("Starting %s server...", self.APP_NAME)

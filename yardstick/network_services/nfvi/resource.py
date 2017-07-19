@@ -203,6 +203,7 @@ class ResourceProfile(object):
         self._provide_config_file(bin_path, 'collectd.conf', kwargs)
 
     def _start_collectd(self, connection, bin_path):
+        LOG.debug("Starting collectd to collect NFVi stats")
         connection.execute('sudo pkill -9 collectd')
         bin_path = get_nsb_option("bin_path")
         collectd_path = os.path.join(bin_path, "collectd", "collectd")

@@ -229,10 +229,15 @@ class MultiPortConfig(object):
     @staticmethod
     def get_port_pairs(interfaces):
         port_pair_list = []
-        networks = defaultdict(list)
+        networks = {}
         for private_intf in interfaces:
             vintf = private_intf['virtual-interface']
-            networks[vintf['vld_id']].append(vintf)
+            try:
+                vld_id = vintf['vld_id']
+            except KeyError:
+                pass
+            else:
+                networks.setdefault(vld_id, []).append(vintf)
 
         for name, net in networks.items():
             # partition returns a tuple
