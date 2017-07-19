@@ -420,7 +420,8 @@ class ResourceHelper(object):
     def start_collect(self):
         self.resource.initiate_systemagent(self.ssh_helper.bin_path)
         self.resource.start()
-        self.resource.amqp_process_for_nfvi_kpi()
+        # FIXME: There is no such method... what was the intention?
+        # self.resource.amqp_process_for_nfvi_kpi()
 
     def stop_collect(self):
         if self.resource:
@@ -659,19 +660,19 @@ class ScenarioHelper(object):
 
     @property
     def task_path(self):
-        return self.scenario_cfg["task_path"]
+        return self.scenario_cfg['task_path']
 
     @property
     def nodes(self):
-        return self.scenario_cfg['nodes']
+        return self.scenario_cfg.get('nodes', {})
 
     @property
     def all_options(self):
-        return self.scenario_cfg["options"]
+        return self.scenario_cfg.get('options', {})
 
     @property
     def options(self):
-        return self.all_options[self.name]
+        return self.all_options.get(self.name, {})
 
     @property
     def vnf_cfg(self):
