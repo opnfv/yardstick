@@ -73,6 +73,30 @@ class V2Task(ApiResource):
 
         return result_handler(consts.API_SUCCESS, {'task': task_info})
 
+    def delete(self, task_id):
+        try:
+            uuid.UUID(task_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid task id')
+
+        task_handler = V2TaskHandler()
+        try:
+            project_id = task_handler.get_by_uuid(task_id).project_id
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such task id')
+
+        LOG.info('delete task in database')
+        task_handler.delete_by_uuid(task_id)
+
+        project_handler = V2ProjectHandler()
+        project = project_handler.get_by_uuid(project_id)
+
+        if project.tasks:
+            new_tasks = ','.join(project.tasks.split(',').remove(task_id))
+            project_handler.update_attr(project_id, {'tasks': new_tasks})
+
+        return result_handler(consts.API_SUCCESS, {'task': task_id})
+
     def put(self, task_id):
 
         try:
