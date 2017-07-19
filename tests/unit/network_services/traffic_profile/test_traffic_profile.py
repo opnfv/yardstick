@@ -29,8 +29,18 @@ stl_patch.start()
 
 if stl_patch:
     from yardstick.network_services.traffic_profile.base import TrafficProfile
-    from yardstick.network_services.traffic_profile.traffic_profile import \
-        TrexProfile
+    from yardstick.network_services.traffic_profile.traffic_profile import (TrexProfile,
+                                                                            SRC,
+                                                                            DST,
+                                                                            ETHERNET,
+                                                                            IP,
+                                                                            IPv6,
+                                                                            UDP,
+                                                                            DSCP,
+                                                                            SRC_PORT,
+                                                                            DST_PORT,
+                                                                            TYPE_OF_SERVICE,
+                                                                            )
 
 
 class TestTrexProfile(unittest.TestCase):
@@ -43,6 +53,10 @@ class TestTrexProfile(unittest.TestCase):
             "frame_rate": 100,  # pps
             "flow_number": 10,
             "frame_size": 64}}
+
+    EXAMPLE_ETHERNET_ADDR = "00:00:00:00:00:01"
+    EXAMPLE_IP_ADDR = "10.0.0.1"
+    EXAMPLE_IPv6_ADDR = "0064:ff9b:0:0:0:0:9810:6414"
 
     PROFILE = {'description': 'Traffic profile to run RFC2544 latency',
                'name': 'rfc2544',
@@ -129,87 +143,6 @@ class TestTrexProfile(unittest.TestCase):
             TrexProfile(TrafficProfile)
         self.assertEqual(None, trex_profile.execute({}))
 
-    def test_set_src_mac(self):
-        src_mac = "00:00:00:00:00:01"
-        trex_profile = \
-            TrexProfile(TrafficProfile)
-        self.assertEqual(None, trex_profile.set_src_mac(src_mac))
-
-        src_mac = "00:00:00:00:00:01-00:00:00:00:00:02"
-        self.assertEqual(None, trex_profile.set_src_mac(src_mac))
-
-    def test_set_dst_mac(self):
-        dst_mac = "00:00:00:00:00:03"
-        trex_profile = \
-            TrexProfile(TrafficProfile)
-        self.assertEqual(None, trex_profile.set_dst_mac(dst_mac))
-
-        dst_mac = "00:00:00:00:00:03-00:00:00:00:00:04"
-        self.assertEqual(None, trex_profile.set_dst_mac(dst_mac))
-
-    def test_set_src_ip4(self):
-        src_ipv4 = "152.16.100.20"
-        trex_profile = \
-            TrexProfile(TrafficProfile)
-        self.assertEqual(None, trex_profile.set_src_ip4(src_ipv4))
-
-        src_ipv4 = "152.16.100.20-152.16.100.30"
-        self.assertEqual(None, trex_profile.set_src_ip4(src_ipv4))
-
-    def test_set_dst_ip4(self):
-        dst_ipv4 = "152.16.100.20"
-        trex_profile = \
-            TrexProfile(TrafficProfile)
-        self.assertEqual(None, trex_profile.set_dst_ip4(dst_ipv4))
-
-        dst_ipv4 = "152.16.100.20-152.16.100.30"
-        self.assertEqual(None, trex_profile.set_dst_ip4(dst_ipv4))
-
-    def test_set_src_ip6(self):
-        src_ipv6 = "0064:ff9b:0:0:0:0:9810:6414"
-        trex_profile = \
-            TrexProfile(TrafficProfile)
-        self.assertEqual(None, trex_profile.set_src_ip6(src_ipv6))
-
-        src_ipv6 = "0064:ff9b:0:0:0:0:9810:6414-0064:ff9b:0:0:0:0:9810:6420"
-        self.assertEqual(None, trex_profile.set_src_ip6(src_ipv6))
-
-    def test_set_dst_ip6(self):
-        dst_ipv6 = "0064:ff9b:0:0:0:0:9810:6414"
-        trex_profile = \
-            TrexProfile(TrafficProfile)
-        self.assertEqual(None, trex_profile.set_dst_ip6(dst_ipv6))
-
-        dst_ipv6 = "0064:ff9b:0:0:0:0:9810:6414-0064:ff9b:0:0:0:0:9810:6420"
-        self.assertEqual(None, trex_profile.set_dst_ip6(dst_ipv6))
-
-    def test_dscp(self):
-        dscp = "0"
-        trex_profile = \
-            TrexProfile(TrafficProfile)
-        self.assertEqual(None, trex_profile.set_dscp(dscp))
-
-        dscp = "0-1"
-        self.assertEqual(None, trex_profile.set_dscp(dscp))
-
-    def test_src_port(self):
-        port = "1234"
-        trex_profile = \
-            TrexProfile(TrafficProfile)
-        self.assertEqual(None, trex_profile.set_src_port(port))
-
-        port = "1234-5678"
-        self.assertEqual(None, trex_profile.set_src_port(port))
-
-    def test_dst_port(self):
-        port = "1234"
-        trex_profile = \
-            TrexProfile(TrafficProfile)
-        self.assertEqual(None, trex_profile.set_dst_port(port))
-
-        port = "1234-5678"
-        self.assertEqual(None, trex_profile.set_dst_port(port))
-
     def test_qinq(self):
         qinq = {"S-VLAN": {"id": 128, "priority": 0, "cfi": 0},
                 "C-VLAN": {"id": 512, "priority": 0, "cfi": 0}}
@@ -222,36 +155,36 @@ class TestTrexProfile(unittest.TestCase):
                 "C-VLAN": {"id": "512-515", "priority": 0, "cfi": 0}}
         self.assertEqual(None, trex_profile.set_qinq(qinq))
 
-    def test_set_outer_l2_fields(self):
+    def test__set_outer_l2_fields(self):
         trex_profile = \
             TrexProfile(TrafficProfile)
         qinq = {"S-VLAN": {"id": 128, "priority": 0, "cfi": 0},
                 "C-VLAN": {"id": 512, "priority": 0, "cfi": 0}}
         outer_l2 = self.PROFILE['private']['ipv4']['outer_l2']
         outer_l2['QinQ'] = qinq
-        self.assertEqual(None, trex_profile.set_outer_l2_fields(outer_l2))
+        self.assertEqual(None, trex_profile._set_outer_l2_fields(outer_l2))
 
-    def test_set_outer_l3v4_fields(self):
+    def test__set_outer_l3v4_fields(self):
         trex_profile = \
             TrexProfile(TrafficProfile)
         outer_l3v4 = self.PROFILE['private']['ipv4']['outer_l3v4']
         outer_l3v4['proto'] = 'tcp'
-        self.assertEqual(None, trex_profile.set_outer_l3v4_fields(outer_l3v4))
+        self.assertEqual(None, trex_profile._set_outer_l3v4_fields(outer_l3v4))
 
-    def test_set_outer_l3v6_fields(self):
+    def test__set_outer_l3v6_fields(self):
         trex_profile = \
             TrexProfile(TrafficProfile)
         outer_l3v6 = self.PROFILE_v6['private']['ipv6']['outer_l3v4']
         outer_l3v6['proto'] = 'tcp'
         outer_l3v6['tc'] = 1
         outer_l3v6['hlim'] = 10
-        self.assertEqual(None, trex_profile.set_outer_l3v6_fields(outer_l3v6))
+        self.assertEqual(None, trex_profile._set_outer_l3v6_fields(outer_l3v6))
 
-    def test_set_outer_l4_fields(self):
+    def test__set_outer_l4_fields(self):
         trex_profile = \
             TrexProfile(TrafficProfile)
         outer_l4 = self.PROFILE['private']['ipv4']['outer_l4']
-        self.assertEqual(None, trex_profile.set_outer_l4_fields(outer_l4))
+        self.assertEqual(None, trex_profile._set_outer_l4_fields(outer_l4))
 
     def test_get_streams(self):
         trex_profile = \
@@ -284,3 +217,40 @@ class TestTrexProfile(unittest.TestCase):
             TrexProfile(TrafficProfile)
         self.assertRaises(SystemExit, trex_profile._get_start_end_ipv6,
                           "1.1.1.3", "1.1.1.1")
+
+    def test__general_single_action_partial(self):
+        trex_profile = TrexProfile(TrafficProfile)
+
+        trex_profile._general_single_action_partial(ETHERNET)(SRC)(self.EXAMPLE_ETHERNET_ADDR)
+        self.assertEqual(self.EXAMPLE_ETHERNET_ADDR, trex_profile.ether_packet.src)
+
+        trex_profile._general_single_action_partial(IP)(DST)(self.EXAMPLE_IP_ADDR)
+        self.assertEqual(self.EXAMPLE_IP_ADDR, trex_profile.ip_packet.dst)
+
+        trex_profile._general_single_action_partial(IPv6)(DST)(self.EXAMPLE_IPv6_ADDR)
+        self.assertEqual(self.EXAMPLE_IPv6_ADDR, trex_profile.ip6_packet.dst)
+
+        trex_profile._general_single_action_partial(UDP)(SRC_PORT)('5060')
+        self.assertEqual('5060', trex_profile.udp_packet.sport)
+
+        trex_profile._general_single_action_partial(IP)(TYPE_OF_SERVICE)("0")
+        self.assertEqual("0", trex_profile.ip_packet.tos)
+
+    def test__set_proto_addr(self):
+        trex_profile = TrexProfile(TrafficProfile)
+
+        ether_range = "00:00:00:00:00:01-00:00:00:00:00:02"
+        ip_range = "1.1.1.2-1.1.1.10"
+        ipv6_range =  '0064:ff9b:0:0:0:0:9810:6414-0064:ff9b:0:0:0:0:9810:6420'
+
+        trex_profile._set_proto_addr(ETHERNET, SRC, ether_range)
+        trex_profile._set_proto_addr(ETHERNET, DST, ether_range)
+        trex_profile._set_proto_addr(IP, SRC, ip_range)
+        trex_profile._set_proto_addr(IP, DST, ip_range)
+        trex_profile._set_proto_addr(IPv6, SRC, ipv6_range)
+        trex_profile._set_proto_addr(IPv6, DST, ipv6_range)
+        trex_profile._set_proto_addr(UDP, SRC_PORT, "5060-5090")
+        trex_profile._set_proto_addr(UDP, DST_PORT, "5060")
+
+
+
