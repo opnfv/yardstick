@@ -122,6 +122,12 @@ class V2ContainerHandler(object):
             raise ValueError
         return container
 
+    def update_attr(self, uuid, attr):
+        container = self.get_by_uuid(uuid)
+        for k, v in attr.items():
+            setattr(container, k, v)
+        db_session.commit()
+
     def delete_by_uuid(self, uuid):
         container = self.get_by_uuid(uuid)
         db_session.delete(container)
