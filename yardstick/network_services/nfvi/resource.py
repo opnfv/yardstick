@@ -212,7 +212,6 @@ class ResourceProfile(object):
         connection.execute("sudo service rabbitmq-server restart")
 
         # Run collectd
-
         http_proxy = os.environ.get('http_proxy', '')
         https_proxy = os.environ.get('https_proxy', '')
         connection.execute("sudo %s '%s' '%s'" %

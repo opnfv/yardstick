@@ -182,8 +182,8 @@ class TrexProfile(TrafficProfile):
     def set_src_ip6(self, src_ip6):
         """ set source ipv6 address fields """
         src_ips = src_ip6.split('-')
-        min_value = src_ips[0]
-        max_value = src_ips[1] if len(src_ips) == 2 else src_ips[0]
+        min_value = str(src_ips[0])
+        max_value = str(src_ips[1] if len(src_ips) == 2 else src_ips[0])
         src_ip6 = min_value
         self._set_ip6_fields(src=src_ip6)
         if len(src_ips) == 2:
@@ -327,7 +327,7 @@ class TrexProfile(TrafficProfile):
         """ setup outer l3v4 fields from traffic profile """
         ip_params = {}
         if 'proto' in outer_l3v4:
-            ip_params['proto'] = outer_l3v4['proto']
+            ip_params['proto'] = socket.getprotobyname(outer_l3v4['proto'])
             if outer_l3v4['proto'] == 'tcp':
                 self.udp_packet = Pkt.TCP()
                 self.udp_dport = 'TCP.dport'
