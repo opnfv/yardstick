@@ -45,8 +45,9 @@ class ApiResource(Resource):
 
         return args
 
-    def _dispatch_post(self):
+    def _dispatch_post(self, **kwargs):
         action, args = self._post_args()
+        args.update(kwargs)
         return self._dispatch(args, action)
 
     def _dispatch(self, args, action):
