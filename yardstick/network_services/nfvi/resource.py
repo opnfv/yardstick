@@ -121,7 +121,7 @@ class ResourceProfile(object):
 
     @classmethod
     def _start_collectd(cls, connection, bin_path):
-        connection.execute('pkill -9 collectd')
+        connection.execute('sudo pkill -9 collectd')
         collectd = os.path.join(bin_path, "collectd.sh")
         provision_tool(connection, collectd)
         provision_tool(connection, os.path.join(bin_path, "collectd.conf"))
@@ -134,8 +134,8 @@ class ResourceProfile(object):
         connection.execute("sudo service rabbitmq-server restart")
 
         # Run collectd
-        connection.execute(collectd)
-        connection.execute(os.path.join(bin_path, "collectd", "collectd"))
+        connection.execute("sudo {}".format(collectd))
+        connection.execute("sudo {}".format(os.path.join(bin_path, "collectd", "collectd")))
 
     def initiate_systemagent(self, bin_path):
         """ Start system agent for NFVi collection on host """

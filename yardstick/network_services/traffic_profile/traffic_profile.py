@@ -32,6 +32,11 @@ from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLScVmRaw
 from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLVmFixIpv4
 from stl.trex_stl_lib import api as Pkt
 
+PROTOCOL_MAP = {
+    'udp': 17,
+    'tcp': 6,
+}
+
 
 class TrexProfile(TrafficProfile):
     """ This class handles Trex Traffic profile generation and execution """
@@ -135,8 +140,8 @@ class TrexProfile(TrafficProfile):
     def set_src_ip4(self, src_ip4):
         """ set source ipv4 address fields """
         src_ips = src_ip4.split('-')
-        min_value = src_ips[0]
-        max_value = src_ips[1] if len(src_ips) == 2 else src_ips[0]
+        min_value = str(src_ips[0])
+        max_value = str(src_ips[1] if len(src_ips) == 2 else src_ips[0])
         if len(src_ips) == 1:
             src_ip4 = min_value
             self._set_ip_fields(src=src_ip4)
@@ -157,8 +162,8 @@ class TrexProfile(TrafficProfile):
     def set_dst_ip4(self, dst_ip4):
         """ set destination ipv4 address fields """
         dst_ips = dst_ip4.split('-')
-        min_value = dst_ips[0]
-        max_value = dst_ips[1] if len(dst_ips) == 2 else dst_ips[0]
+        min_value = str(dst_ips[0])
+        max_value = str(dst_ips[1] if len(dst_ips) == 2 else dst_ips[0])
         if len(dst_ips) == 1:
             dst_ip4 = min_value
             self._set_ip_fields(dst=dst_ip4)
@@ -179,8 +184,8 @@ class TrexProfile(TrafficProfile):
     def set_src_ip6(self, src_ip6):
         """ set source ipv6 address fields """
         src_ips = src_ip6.split('-')
-        min_value = src_ips[0]
-        max_value = src_ips[1] if len(src_ips) == 2 else src_ips[0]
+        min_value = str(src_ips[0])
+        max_value = str(src_ips[1] if len(src_ips) == 2 else src_ips[0])
         src_ip6 = min_value
         self._set_ip6_fields(src=src_ip6)
         if len(src_ips) == 2:
@@ -322,7 +327,7 @@ class TrexProfile(TrafficProfile):
         """ setup outer l3v4 fields from traffic profile """
         ip_params = {}
         if 'proto' in outer_l3v4:
-            ip_params['proto'] = outer_l3v4['proto']
+            ip_params['proto'] = PROTOCOL_MAP[outer_l3v4['proto']]
             if outer_l3v4['proto'] == 'tcp':
                 self.udp_packet = Pkt.TCP()
                 self.udp_dport = 'TCP.dport'
