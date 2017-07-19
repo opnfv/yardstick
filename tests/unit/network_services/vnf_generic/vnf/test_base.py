@@ -150,7 +150,7 @@ class TestGenericVNF(unittest.TestCase):
                             'local_ip': '152.16.100.19',
                             'type': 'PCI-PASSTHROUGH',
                             'netmask': '255.255.255.0',
-                            'dpdk_port_num': '0',
+                            'dpdk_port_num': 0,
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.100.20',
                             'local_mac': '00:00:00:00:00:01'
@@ -165,7 +165,7 @@ class TestGenericVNF(unittest.TestCase):
                             'local_ip': '152.16.40.19',
                             'type': 'PCI-PASSTHROUGH',
                             'netmask': '255.255.255.0',
-                            'dpdk_port_num': '1',
+                            'dpdk_port_num': 1,
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.40.20',
                             'local_mac': '00:00:00:00:00:02'
