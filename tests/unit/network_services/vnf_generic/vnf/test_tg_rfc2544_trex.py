@@ -21,9 +21,9 @@ import unittest
 import mock
 
 from tests.unit import STL_MOCKS
+SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
 
 
-SSH_HELPER = "yardstick.ssh.SSH"
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
@@ -252,6 +252,8 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
         trex_traffic_gen._start_server = mock.Mock(return_value=0)
         trex_traffic_gen.resource_helper = mock.MagicMock()
+        trex_traffic_gen.setup_helper.setup_vnf_environment = mock.MagicMock()
+
         scenario_cfg = {
             "tc": "tc_baremetal_rfc2544_ipv4_1flow_64B",
             "topology": 'nsb_test_case.yaml',
@@ -286,6 +288,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
 
         trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
         trex_traffic_gen.resource_helper = mock.MagicMock()
+        trex_traffic_gen.setup_helper.setup_vnf_environment = mock.MagicMock()
         scenario_cfg = {
             "tc": "tc_baremetal_rfc2544_ipv4_1flow_64B",
             "nodes": [

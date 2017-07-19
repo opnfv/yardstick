@@ -138,7 +138,6 @@ class MultiPortConfig(object):
         self.start_core = ""
         self.pipeline_counter = ""
         self.txrx_pipeline = ""
-        self.port_pair_list = []
         self.lb_to_port_pair_mapping = {}
         self.init_eal()
 

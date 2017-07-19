@@ -588,7 +588,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             'pci_bus_id': '0000:0b:00.0',
             'subsystem_device': '0x1533',
             'subsystem_vendor': '0x15d9',
-            'vendor': '0x8086'
+            'vendor': '0x8086',
         },
         'lan': {
             'address': '0a:de:ad:be:ef:f4',
@@ -600,7 +600,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             'pci_bus_id': '0000:00:19.0',
             'subsystem_device': '0x153a',
             'subsystem_vendor': '0x15d9',
-            'vendor': '0x8086'
+            'vendor': '0x8086',
         }
     }
 
@@ -613,7 +613,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             'interface_name': 'eth1',
             'operstate': 'down',
             'pci_bus_id': '0000:00:04.0',
-            'vendor': '0x1af4'
+            'vendor': '0x1af4',
         }
     }
 
@@ -662,6 +662,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
     def test_probe_missing_values(self):
         netdevs = self.SAMPLE_NETDEVS.copy()
         network = {'local_mac': '0a:de:ad:be:ef:f5'}
+        netdevs['lan']['dpdk_port_num'] = 0
+        netdevs['enp11s0']['dpdk_port_num'] = 1
         NetworkServiceTestCase._probe_missing_values(netdevs, network)
         assert network['vpci'] == '0000:0b:00.0'
 

@@ -22,6 +22,7 @@ import os
 import re
 import subprocess
 from collections import Mapping
+import contextlib
 
 from multiprocessing import Queue, Value, Process
 
@@ -31,6 +32,7 @@ from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
 from yardstick.network_services.helpers.cpu import CpuSysCores
 from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
+from yardstick.network_services.helpers.dpdknicbind_helper import DpdkNicBindHelper
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
@@ -131,7 +133,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
     HW_DEFAULT_CORE = 3
     SW_DEFAULT_CORE = 2
 
-    DPDK_STATUS_DRIVER_RE = re.compile(r"(\d{2}:\d{2}\.\d).*drv=([-\w]+)")
+    DPDK_STATUS_DRIVER_RE = re.compile(r"(\d{4}:\d{2}:\d{2}\.\d).*drv=([-\w]+)")
 
     @staticmethod
     def _update_packet_type(ip_pipeline_cfg, traffic_options):
@@ -163,15 +165,9 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         super(DpdkVnfSetupEnvHelper, self).__init__(vnfd_helper, ssh_helper, scenario_helper)
         self.all_ports = None
         self.bound_pci = None
-        self._dpdk_nic_bind = None
         self.socket = None
         self.used_drivers = None
-
-    @property
-    def dpdk_nic_bind(self):
-        if self._dpdk_nic_bind is None:
-            self._dpdk_nic_bind = self.ssh_helper.provision_tool(tool_file="dpdk-devbind.py")
-        return self._dpdk_nic_bind
+        self.dpdk_nic_bind_helper = DpdkNicBindHelper(ssh_helper)
 
     def _setup_hugepages(self):
         cmd = "awk '/Hugepagesize/ { print $2$3 }' < /proc/meminfo"
@@ -188,7 +184,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
 
         self.ssh_helper.execute("echo %s | sudo tee %s" % (pages, memory_path))
 
-    def _get_dpdk_port_num(self, name):
+    def get_dpdk_port_num(self, name):
         interface = self.vnfd_helper.find_interface(name=name)
         return interface['virtual-interface']['dpdk_port_num']
 
@@ -283,17 +279,6 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
     def _validate_cpu_cfg(self):
         return self._get_cpu_sibling_list()
 
-    def _find_used_drivers(self):
-        cmd = "{0} -s".format(self.dpdk_nic_bind)
-        rc, dpdk_status, _ = self.ssh_helper.execute(cmd)
-
-        self.used_drivers = {
-            vpci: (index, driver)
-            for index, (vpci, driver)
-            in enumerate(self.DPDK_STATUS_DRIVER_RE.findall(dpdk_status))
-            if any(b.endswith(vpci) for b in self.bound_pci)
-        }
-
     def setup_vnf_environment(self):
         self._setup_dpdk()
         resource = self._setup_resources()
@@ -338,56 +323,24 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
     def _detect_drivers(self):
         interfaces = self.vnfd_helper.interfaces
 
-        self._find_used_drivers()
-        for vpci, (index, _) in self.used_drivers.items():
+        self.dpdk_nic_bind_helper.read_status()
+        self.used_drivers = self.dpdk_nic_bind_helper.interface_driver_map
+
+        self.dpdk_nic_bind_helper.bind(self.bound_pci, 'igb_uio')
+
+        for dpdk_port_num, vpci in enumerate(sorted(self.dpdk_nic_bind_helper.dpdk_bound_pci_addresses)):
             try:
-                intf1 = next(v for v in interfaces if vpci == v['virtual-interface']['vpci'])
-            except StopIteration:
+                intf = next(v for v in interfaces
+                            if vpci == v['virtual-interface']['vpci'])
+                intf['virtual-interface']['dpdk_port_num'] = dpdk_port_num
+            except:
                 pass
-            else:
-                intf1['dpdk_port_num'] = index
+        time.sleep(2)
 
-        for vpci in self.bound_pci:
-            self._bind_dpdk('igb_uio', vpci)
-            time.sleep(2)
-
-    def _bind_dpdk(self, driver, vpci, force=True):
-        if force:
-            force = '--force '
-        else:
-            force = ''
-        cmd = self.DPDK_BIND_CMD.format(force=force,
-                                        dpdk_nic_bind=self.dpdk_nic_bind,
-                                        driver=driver,
-                                        vpci=vpci)
-        self.ssh_helper.execute(cmd)
-
-    def _detect_and_bind_dpdk(self, vpci, driver):
-        find_net_cmd = self.FIND_NET_CMD.format(vpci)
-        exit_status, _, _ = self.ssh_helper.execute(find_net_cmd)
-        if exit_status == 0:
-            # already bound
-            return None
-        self._bind_dpdk(driver, vpci)
-        exit_status, stdout, _ = self.ssh_helper.execute(find_net_cmd)
-        if exit_status != 0:
-            # failed to bind
-            return None
-        return stdout
-
-    def _bind_kernel_devices(self):
-        for intf in self.vnfd_helper.interfaces:
-            vi = intf["virtual-interface"]
-            stdout = self._detect_and_bind_dpdk(vi["vpci"], vi["driver"])
-            if stdout is not None:
-                vi["local_iface_name"] = posixpath.basename(stdout)
 
     def tear_down(self):
-        for vpci, (_, driver) in self.used_drivers.items():
-            self.ssh_helper.execute(self.DPDK_UNBIND_CMD.format(dpdk_nic_bind=self.dpdk_nic_bind,
-                                                                driver=driver,
-                                                                vpci=vpci))
-
+        for vpci, driver in self.used_drivers.iteritems():
+            self.dpdk_nic_bind_helper.bind(vpci, driver)
 
 class ResourceHelper(object):
 
@@ -666,19 +619,19 @@ class ScenarioHelper(object):
 
     @property
     def task_path(self):
-        return self.scenario_cfg["task_path"]
+        return self.scenario_cfg['task_path']
 
     @property
     def nodes(self):
-        return self.scenario_cfg['nodes']
+        return self.scenario_cfg.get('nodes')
 
     @property
     def all_options(self):
-        return self.scenario_cfg["options"]
+        return self.scenario_cfg.get('options', {})
 
     @property
     def options(self):
-        return self.all_options[self.name]
+        return self.all_options.get(self.name, {})
 
     @property
     def vnf_cfg(self):
@@ -728,7 +681,6 @@ class SampleVNF(GenericVNF):
         self.q_out = Queue()
         self.queue_wrapper = None
         self.run_kwargs = {}
-        self.scenario_cfg = None
         self.tg_port_pairs = None
         self.used_drivers = {}
         self.vnf_port_pairs = None
@@ -923,7 +875,6 @@ class SampleVNFTrafficGen(GenericTrafficGen):
     def instantiate(self, scenario_cfg, context_cfg):
         self.scenario_helper.scenario_cfg = scenario_cfg
         self.resource_helper.generate_cfg()
-        self.setup_helper.setup_vnf_environment()
         self.resource_helper.setup()
 
         LOG.info("Starting %s server...", self.APP_NAME)
