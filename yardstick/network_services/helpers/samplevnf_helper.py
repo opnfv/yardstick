@@ -19,7 +19,7 @@ import logging
 import os
 import sys
 from collections import OrderedDict, defaultdict
-from itertools import chain
+from itertools import chain, repeat
 
 import six
 from six.moves.configparser import ConfigParser
@@ -60,6 +60,97 @@ SCRIPT_TPL = """
 {rules}
 
 """
+
+
+class PortPairs(object):
+
+    PUBLIC = "public"
+    PRIVATE = "private"
+
+    def __init__(self, interfaces):
+        super(PortPairs, self).__init__()
+        self.interfaces = interfaces
+        self._all_ports = None
+        self._priv_ports = None
+        self._pub_ports = None
+        self._networks = None
+        self._port_pair_list = None
+        self._valid_networks = None
+
+    @property
+    def networks(self):
+        if self._networks is None:
+            self._networks = {}
+            for intf in self.interfaces:
+                vintf = intf['virtual-interface']
+                try:
+                    vld_id = vintf['vld_id']
+                except KeyError:
+                    # probably unused port?
+                    LOG.warning("intf without vld_id, %s", vintf)
+                else:
+                    self._networks.setdefault(vld_id, []).append(vintf["ifname"])
+        return self._networks
+
+    @classmethod
+    def get_public_id(cls, vld_id):
+        # partition returns a tuple
+        parts = list(vld_id.partition(cls.PRIVATE))
+        if parts[0]:
+            # 'private' was not in or not leftmost in the string
+            return
+        parts[1] = cls.PUBLIC
+        public_id = ''.join(parts)
+        return public_id
+
+    @property
+    # this only works for vnfs that have both private and public visible
+    def valid_networks(self):
+        if self._valid_networks is None:
+            self._valid_networks = []
+            for vld_id in self.networks:
+                public_id = self.get_public_id(vld_id)
+                if public_id in self.networks:
+                    self._valid_networks.append((vld_id, public_id))
+        return self._valid_networks
+
+    @property
+    def all_ports(self):
+        if self._all_ports is None:
+            self._all_ports = sorted(set(self.priv_ports + self.pub_ports))
+        return self._all_ports
+
+    @property
+    def priv_ports(self):
+        if self._priv_ports is None:
+            intfs = chain.from_iterable(
+                intfs for vld_id, intfs in self.networks.items() if
+                vld_id.startswith(self.PRIVATE))
+            self._priv_ports = sorted(set(intfs))
+        return self._priv_ports
+
+    @property
+    def pub_ports(self):
+        if self._pub_ports is None:
+            intfs = chain.from_iterable(
+                intfs for vld_id, intfs in self.networks.items() if vld_id.startswith(self.PUBLIC))
+            self._pub_ports = sorted(set(intfs))
+        return self._pub_ports
+
+    @property
+    def port_pair_list(self):
+        if self._port_pair_list is None:
+            self._port_pair_list = []
+
+            for priv, pub in self.valid_networks:
+                for private_intf in self.networks[priv]:
+                    # only VNFs have private, public peers
+                    peer_intfs = self.networks.get(pub, [])
+                    if peer_intfs:
+                        for public_intf in peer_intfs:
+                            port_pair = private_intf, public_intf
+                            self._port_pair_list.append(port_pair)
+        return self._port_pair_list
 
 
 class MultiPortConfig(object):
@@ -108,7 +199,7 @@ class MultiPortConfig(object):
         ip_addr = cls.make_ip_addr(ip_addr, prefixlen)
         return ip_addr.ip.exploded, ip_addr.network.prefixlen
 
-    def __init__(self, topology_file, config_tpl, tmp_file, interfaces=None,
+    def __init__(self, topology_file, config_tpl, tmp_file, vnfd_helper,
                  vnf_type='CGNAT', lb_count=2, worker_threads=3,
                  worker_config='1C/1T', lb_config='SW', socket=0):
 
@@ -118,8 +209,7 @@ class MultiPortConfig(object):
         self.worker_threads = self.get_worker_threads(worker_threads)
         self.vnf_type = vnf_type
         self.pipe_line = 0
-        self.interfaces = interfaces if interfaces else {}
-        self.networks = {}
+        self.vnfd_helper = vnfd_helper
         self.write_parser = ConfigParser()
         self.read_parser = ConfigParser()
         self.read_parser.read(config_tpl)
@@ -138,6 +228,8 @@ class MultiPortConfig(object):
         self.start_core = ""
         self.pipeline_counter = ""
         self.txrx_pipeline = ""
+        self._port_pairs = None
+        self.all_ports = []
         self.port_pair_list = []
         self.lb_to_port_pair_mapping = {}
         self.init_eal()
@@ -145,12 +237,11 @@ class MultiPortConfig(object):
         self.lb_index = None
         self.mul = 0
         self.port_pairs = []
-        self.port_pair_list = []
         self.ports_len = 0
         self.prv_que_handler = None
         self.vnfd = None
         self.rules = None
-        self.pktq_out = ''
+        self.pktq_out = []
 
     @staticmethod
     def gen_core(core):
@@ -160,18 +251,19 @@ class MultiPortConfig(object):
         return str(core)
 
     def make_port_pairs_iter(self, operand, iterable):
-        return (operand(x[-1], y) for y in iterable for x in chain(*self.port_pairs))
+        return (operand(self.vnfd_helper.port_num(x), y) for y in iterable for x in
+                chain.from_iterable(self.port_pairs))
 
     def make_range_port_pairs_iter(self, operand, start, end):
         return self.make_port_pairs_iter(operand, range(start, end))
 
     def init_eal(self):
-        vpci = [v['virtual-interface']["vpci"] for v in self.interfaces]
+        lines = ['[EAL]\n']
+        vpci = (v['virtual-interface']["vpci"] for v in self.vnfd_helper.interfaces)
+        lines.extend('w = {0}\n'.format(item) for item in vpci)
+        lines.append('\n')
         with open(self.tmp_file, 'w') as fh:
-            fh.write('[EAL]\n')
-            for item in vpci:
-                fh.write('w = {0}\n'.format(item))
-            fh.write('\n')
+            fh.writelines(lines)
 
     def update_timer(self):
         timer_tpl = self.get_config_tpl_data('TIMER')
@@ -226,40 +318,6 @@ class MultiPortConfig(object):
         except ValueError:
             self.start_core = int(self.start_core[:-1]) + 1
 
-    @staticmethod
-    def get_port_pairs(interfaces):
-        port_pair_list = []
-        networks = {}
-        for private_intf in interfaces:
-            vintf = private_intf['virtual-interface']
-            try:
-                vld_id = vintf['vld_id']
-            except KeyError:
-                pass
-            else:
-                networks.setdefault(vld_id, []).append(vintf)
-
-        for name, net in networks.items():
-            # partition returns a tuple
-            parts = list(name.partition('private'))
-            if parts[0]:
-                # 'private' was not in or not leftmost in the string
-                continue
-            parts[1] = 'public'
-            public_id = ''.join(parts)
-            for private_intf in net:
-                try:
-                    public_peer_intfs = networks[public_id]
-                except KeyError:
-                    LOG.warning("private network without peer %s, %s not found", name, public_id)
-                    continue
-
-                for public_intf in public_peer_intfs:
-                    port_pair = private_intf["ifname"], public_intf["ifname"]
-                    port_pair_list.append(port_pair)
-
-        return port_pair_list, networks
-
     def get_lb_count(self):
         self.lb_count = int(min(len(self.port_pair_list), self.lb_count))
 
@@ -267,50 +325,51 @@ class MultiPortConfig(object):
         self.lb_to_port_pair_mapping = defaultdict(int)
         port_pair_count = len(self.port_pair_list)
         lb_pair_count = int(port_pair_count / self.lb_count)
-        for i in range(self.lb_count):
-            self.lb_to_port_pair_mapping[i + 1] = lb_pair_count
-        for i in range(port_pair_count % self.lb_count):
-            self.lb_to_port_pair_mapping[i + 1] += 1
+        extra = port_pair_count % self.lb_count
+        extra_iter = repeat(lb_pair_count + 1, extra)
+        norm_iter = repeat(lb_pair_count, port_pair_count - extra)
+        new_values = {i: v for i, v in enumerate(chain(extra_iter, norm_iter), 1)}
+        self.lb_to_port_pair_mapping.update(new_values)
 
     def set_priv_to_pub_mapping(self):
-        return "".join(str(y) for y in [(int(x[0][-1]), int(x[1][-1])) for x in
-                                        self.port_pair_list])
+        port_nums = [tuple(self.vnfd_helper.port_nums(x)) for x in self.port_pair_list]
+        return "".join(str(y).replace(" ", "") for y in
+                       port_nums)
 
     def set_priv_que_handler(self):
         # iterated twice, can't be generator
-        priv_to_pub_map = [(int(x[0][-1]), int(x[1][-1])) for x in self.port_pairs]
+        priv_to_pub_map = [tuple(self.vnfd_helper.port_nums(x)) for x in self.port_pairs]
         # must be list to use .index()
         port_list = list(chain.from_iterable(priv_to_pub_map))
         priv_ports = (x[0] for x in priv_to_pub_map)
         self.prv_que_handler = '({})'.format(
-            ",".join((str(port_list.index(x)) for x in priv_ports)))
+            "".join(("{},".format(port_list.index(x)) for x in priv_ports)))
 
     def generate_arp_route_tbl(self):
-        arp_config = []
         arp_route_tbl_tmpl = "({port0_dst_ip_hex},{port0_netmask_hex},{port_num}," \
                              "{next_hop_ip_hex})"
-        for port_pair in self.port_pair_list:
-            for port in port_pair:
-                port_num = int(port[-1])
-                interface = self.interfaces[port_num]
-                # We must use the dst because we are on the VNF and we need to
-                # reach the TG.
-                dst_port0_ip = \
-                    ipaddress.ip_interface(six.text_type(
-                        "%s/%s" % (interface["virtual-interface"]["dst_ip"],
-                                   interface["virtual-interface"]["netmask"])))
-                arp_vars = {
-                    "port0_dst_ip_hex": ip_to_hex(dst_port0_ip.network.network_address.exploded),
-                    "port0_netmask_hex": ip_to_hex(dst_port0_ip.network.netmask.exploded),
-                    # this is the port num that contains port0 subnet and next_hop_ip_hex
-                    "port_num": port_num,
-                    # next hop is dst in this case
-                    # must be within subnet
-                    "next_hop_ip_hex": ip_to_hex(dst_port0_ip.ip.exploded),
-                }
-                arp_config.append(arp_route_tbl_tmpl.format(**arp_vars))
 
-        return ' '.join(arp_config)
+        def build_arp_config(port):
+            dpdk_port_num = self.vnfd_helper.port_num(port)
+            interface = self.vnfd_helper.find_interface(name=port)["virtual-interface"]
+            # We must use the dst because we are on the VNF and we need to
+            # reach the TG.
+            dst_port0_ip = ipaddress.ip_interface(six.text_type(
+                "%s/%s" % (interface["dst_ip"], interface["netmask"])))
+
+            arp_vars = {
+                "port0_dst_ip_hex": ip_to_hex(dst_port0_ip.network.network_address.exploded),
+                "port0_netmask_hex": ip_to_hex(dst_port0_ip.network.netmask.exploded),
+                # this is the port num that contains port0 subnet and next_hop_ip_hex
+                # this is LINKID which should be based on DPDK port number
+                "port_num": dpdk_port_num,
+                # next hop is dst in this case
+                # must be within subnet
+                "next_hop_ip_hex": ip_to_hex(dst_port0_ip.ip.exploded),
+            }
+            return arp_route_tbl_tmpl.format(**arp_vars)
+
+        return ' '.join(build_arp_config(port) for port in self.all_ports)
 
     def generate_arpicmp_data(self):
         swq_in_str = self.make_range_str('SWQ{}', self.swq, offset=self.lb_count)
@@ -318,9 +377,11 @@ class MultiPortConfig(object):
         swq_out_str = self.make_range_str('SWQ{}', self.swq, offset=self.lb_count)
         self.swq += self.lb_count
         # ports_mac_list is disabled for some reason
-        # mac_iter = (self.interfaces[int(x[-1])]['virtual-interface']['local_mac']
-        #             for port_pair in self.port_pair_list for x in port_pair)
-        pktq_in_iter = ('RXQ{}'.format(float(x[0][-1])) for x in self.port_pair_list)
+
+        # mac_iter = (self.vnfd_helper.find_interface(name=port)['virtual-interface']['local_mac']
+        #             for port in self.all_ports)
+        pktq_in_iter = ('RXQ{}.0'.format(self.vnfd_helper.port_num(x[0])) for x in
+                        self.port_pair_list)
 
         arpicmp_data = {
             'core': self.gen_core(self.start_core),
@@ -505,7 +566,10 @@ class MultiPortConfig(object):
             self.vnf_tpl = self.get_config_tpl_data(self.vnf_type)
 
     def generate_config(self):
-        self.port_pair_list, self.networks = self.get_port_pairs(self.interfaces)
+        self._port_pairs = PortPairs(self.vnfd_helper.interfaces)
+        self.port_pair_list = self._port_pairs.port_pair_list
+        self.all_ports = self._port_pairs.all_ports
+
         self.get_lb_count()
         self.generate_lb_to_port_pair_mapping()
         self.generate_config_data()
@@ -514,18 +578,16 @@ class MultiPortConfig(object):
             self.write_parser.write(tfh)
 
     def generate_link_config(self):
+        def build_args(port):
+            # lookup interface by name
+            virtual_interface = self.vnfd_helper.find_interface(name=port)["virtual-interface"]
+            local_ip = virtual_interface["local_ip"]
+            netmask = virtual_interface["netmask"]
+            port_num = self.vnfd_helper.port_num(port)
+            port_ip, prefix_len = self.validate_ip_and_prefixlen(local_ip, netmask)
+            return LINK_CONFIG_TEMPLATE.format(port_num, port_ip, prefix_len)
 
-        link_configs = []
-        for port_pair in self.port_pair_list:
-            for port in port_pair:
-                port = port[-1]
-                virtual_interface = self.interfaces[int(port)]["virtual-interface"]
-                local_ip = virtual_interface["local_ip"]
-                netmask = virtual_interface["netmask"]
-                port_ip, prefix_len = self.validate_ip_and_prefixlen(local_ip, netmask)
-                link_configs.append(LINK_CONFIG_TEMPLATE.format(port, port_ip, prefix_len))
-
-        return ''.join(link_configs)
+        return ''.join(build_args(port) for port in self.all_ports)
 
     def get_route_data(self, src_key, data_key, port):
         route_list = self.vnfd['vdu'][0].get(src_key, [])
@@ -548,37 +610,38 @@ class MultiPortConfig(object):
 
     def generate_arp_config(self):
         arp_config = []
-        for port_pair in self.port_pair_list:
-            for port in port_pair:
-                # ignore gateway, always use TG IP
-                # gateway = self.get_ports_gateway(port)
-                dst_mac = self.interfaces[int(port[-1])]["virtual-interface"]["dst_mac"]
-                dst_ip = self.interfaces[int(port[-1])]["virtual-interface"]["dst_ip"]
-                # arp_config.append((port[-1], gateway, dst_mac, self.txrx_pipeline))
-                # so dst_mac is the TG dest mac, so we need TG dest IP.
-                arp_config.append((port[-1], dst_ip, dst_mac, self.txrx_pipeline))
+        for port in self.all_ports:
+            # ignore gateway, always use TG IP
+            # gateway = self.get_ports_gateway(port)
+            vintf = self.vnfd_helper.find_interface(name=port)["virtual-interface"]
+            dst_mac = vintf["dst_mac"]
+            dst_ip = vintf["dst_ip"]
+            # arp_config.append(
+            #     (self.vnfd_helper.port_num(port), gateway, dst_mac, self.txrx_pipeline))
+            # so dst_mac is the TG dest mac, so we need TG dest IP.
+            # should be dpdk_port_num
+            arp_config.append(
+                (self.vnfd_helper.port_num(port), dst_ip, dst_mac, self.txrx_pipeline))
 
         return '\n'.join(('p {3} arpadd {0} {1} {2}'.format(*values) for values in arp_config))
 
     def generate_arp_config6(self):
         arp_config6 = []
-        for port_pair in self.port_pair_list:
-            for port in port_pair:
-                # ignore gateway, always use TG IP
-                # gateway6 = self.get_ports_gateway6(port)
-                dst_mac6 = self.interfaces[int(port[-1])]["virtual-interface"]["dst_mac"]
-                dst_ip6 = self.interfaces[int(port[-1])]["virtual-interface"]["dst_ip"]
-                # arp_config6.append((port[-1], gateway6, dst_mac6, self.txrx_pipeline))
-                arp_config6.append((port[-1], dst_ip6, dst_mac6, self.txrx_pipeline))
+        for port in self.all_ports:
+            # ignore gateway, always use TG IP
+            # gateway6 = self.get_ports_gateway6(port)
+            vintf = self.vnfd_helper.find_interface(name=port)["virtual-interface"]
+            dst_mac6 = vintf["dst_mac"]
+            dst_ip6 = vintf["dst_ip"]
+            # arp_config6.append(
+            #     (self.vnfd_helper.port_num(port), gateway6, dst_mac6, self.txrx_pipeline))
+            arp_config6.append(
+                (self.vnfd_helper.port_num(port), dst_ip6, dst_mac6, self.txrx_pipeline))
 
         return '\n'.join(('p {3} arpadd {0} {1} {2}'.format(*values) for values in arp_config6))
 
     def generate_action_config(self):
-        port_list = []
-        for port_pair in self.port_pair_list:
-            for port in port_pair:
-                port_list.append(port[-1])
-
+        port_list = (self.vnfd_helper.port_num(p) for p in self.all_ports)
         if self.vnf_type == "VFW":
             template = FW_ACTION_TEMPLATE
         else:
@@ -589,8 +652,9 @@ class MultiPortConfig(object):
     def get_ip_from_port(self, port):
         # we can't use gateway because in OpenStack gateways interfer with floating ip routing
         # return self.make_ip_addr(self.get_ports_gateway(port), self.get_netmask_gateway(port))
-        ip = self.interfaces[port]["virtual-interface"]["local_ip"]
-        netmask = self.interfaces[port]["virtual-interface"]["netmask"]
+        vintf = self.vnfd_helper.find_interface(name=port)["virtual-interface"]
+        ip = vintf["local_ip"]
+        netmask = vintf["netmask"]
         return self.make_ip_addr(ip, netmask)
 
     def get_network_and_prefixlen_from_ip_of_port(self, port):
@@ -607,12 +671,12 @@ class MultiPortConfig(object):
         new_rules = []
         new_ipv6_rules = []
         pattern = 'p {0} add {1} {2} {3} {4} {5} 0 65535 0 65535 0 0 {6}'
-        for port_pair in self.port_pair_list:
-            src_port = int(port_pair[0][-1])
-            dst_port = int(port_pair[1][-1])
+        for src_intf, dst_intf in self.port_pair_list:
+            src_port = self.vnfd_helper.port_num(src_intf)
+            dst_port = self.vnfd_helper.port_num(dst_intf)
 
-            src_net, src_prefix_len = self.get_network_and_prefixlen_from_ip_of_port(src_port)
-            dst_net, dst_prefix_len = self.get_network_and_prefixlen_from_ip_of_port(dst_port)
+            src_net, src_prefix_len = self.get_network_and_prefixlen_from_ip_of_port(src_intf)
+            dst_net, dst_prefix_len = self.get_network_and_prefixlen_from_ip_of_port(dst_intf)
             # ignore entires with empty values
             if all((src_net, src_prefix_len, dst_net, dst_prefix_len)):
                 new_rules.append((cmd, self.txrx_pipeline, src_net, src_prefix_len,
@@ -637,7 +701,8 @@ class MultiPortConfig(object):
         return ''.join([rules_config, new_rules_config, acl_apply])
 
     def generate_script_data(self):
-        self.port_pair_list, self.networks = self.get_port_pairs(self.interfaces)
+        self._port_pairs = PortPairs(self.vnfd_helper.interfaces)
+        self.port_pair_list = self._port_pairs.port_pair_list
         self.get_lb_count()
         script_data = {
             'link_config': self.generate_link_config(),
@@ -675,5 +740,5 @@ set_hash_input_set {0} ipv6-udp src-ipv6 udp-src-port add
 set_hash_input_set {1} ipv6-udp dst-ipv6 udp-dst-port add
 """
             for port_pair in self.port_pair_list:
-                script += hwlb_tpl.format(port_pair[0][-1], port_pair[1][-1])
+                script += hwlb_tpl.format(*(self.vnfd_helper.port_nums(port_pair)))
         return script

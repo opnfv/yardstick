@@ -43,7 +43,7 @@ class RFC2544Profile(TrexProfile):
     def register_generator(self, generator):
         self.generator = generator
 
-    def execute(self, traffic_generator=None):
+    def execute_traffic(self, traffic_generator=None):
         """ Generate the stream and run traffic on the given ports """
         if traffic_generator is not None and self.generator is None:
             self.generator = traffic_generator
@@ -52,21 +52,18 @@ class RFC2544Profile(TrexProfile):
             return
 
         self.ports = []
-        priv_ports = self.generator.priv_ports
-        pub_ports = self.generator.pub_ports
-        # start from 1 for private_1, public_1, etc.
-        for index, (priv_port, pub_port) in enumerate(zip(priv_ports, pub_ports), 1):
-            profile_data = self.params.get('private_{}'.format(index), '')
-            self.ports.append(priv_port)
-            # pass profile_data directly, don't use self.profile_data
-            self.generator.client.add_streams(self.get_streams(profile_data), ports=priv_port)
-            profile_data = self.params.get('public_{}'.format(index), '')
-            # correlated traffic doesn't use public traffic?
-            if not profile_data or self.generator.rfc2544_helper.correlated_traffic:
+        for vld_id, intfs in sorted(self.generator.networks.items()):
+            profile_data = self.params.get(vld_id)
+            # no profile for this port
+            if not profile_data:
                 continue
-            # just get the pub_port
-            self.ports.append(pub_port)
-            self.generator.client.add_streams(self.get_streams(profile_data), ports=pub_port)
+            # correlated traffic doesn't use public traffic?
+            if vld_id.startswith("public") and self.generator.rfc2544_helper.correlated_traffic:
+                continue
+            for intf in intfs:
+                port = self.generator.vnfd_helper.port_num(intf)
+                self.ports.append(port)
+                self.generator.client.add_streams(self.get_streams(profile_data), ports=port)
 
         self.max_rate = self.rate
         self.min_rate = 0
@@ -86,7 +83,7 @@ class RFC2544Profile(TrexProfile):
         if generator is None:
             generator = self.generator
         run_duration = self.generator.RUN_DURATION
-        samples = self.generator.generate_samples()
+        samples = self.generator.generate_samples(self.ports)
 
         in_packets = sum([value['in_packets'] for value in samples.values()])
         out_packets = sum([value['out_packets'] for value in samples.values()])
@@ -135,8 +132,8 @@ class RFC2544Profile(TrexProfile):
             # TODO(esm): why don't we discard results that are out of tolerance?
             self.min_rate = self.rate
 
-        generator.clear_client_stats()
-        generator.start_client(mult=self.get_multiplier(),
+        generator.clear_client_stats(self.ports)
+        generator.start_client(self.ports, mult=self.get_multiplier(),
                                duration=run_duration, force=True)
 
         # if correlated traffic update the Throughput

@@ -25,7 +25,6 @@ import re
 from itertools import chain
 
 import six
-from operator import itemgetter
 from collections import defaultdict
 
 from yardstick.benchmark.scenarios import base
@@ -134,6 +133,7 @@ class NetworkServiceTestCase(base.Scenario):
         self.vnfs = []
         self.collector = None
         self.traffic_profile = None
+        self.node_netdevs = {}
 
     def _get_ip_flow_range(self, ip_start_range):
 
@@ -168,15 +168,17 @@ class NetworkServiceTestCase(base.Scenario):
     def _get_traffic_flow(self):
         flow = {}
         try:
+            # TODO: should be .0  or .1 so we can use list
+            # but this also roughly matches private_0, public_0
             fflow = self.scenario_cfg["options"]["flow"]
             for index, src in enumerate(fflow.get("src_ip", [])):
-                flow["src_ip{}".format(index)] = self._get_ip_flow_range(src)
+                flow["src_ip_{}".format(index)] = self._get_ip_flow_range(src)
 
             for index, dst in enumerate(fflow.get("dst_ip", [])):
-                flow["dst_ip{}".format(index)] = self._get_ip_flow_range(dst)
+                flow["dst_ip_{}".format(index)] = self._get_ip_flow_range(dst)
 
-            for index, publicip in enumerate(fflow.get("publicip", [])):
-                flow["public_ip{}".format(index)] = publicip
+            for index, publicip in enumerate(fflow.get("public_ip", [])):
+                flow["public_ip_{}".format(index)] = publicip
 
             flow["count"] = fflow["count"]
         except KeyError:
@@ -263,7 +265,6 @@ class NetworkServiceTestCase(base.Scenario):
                 node0_if["node_name"] = node0_name
                 node1_if["node_name"] = node1_name
 
-                vld_networks = self.get_vld_networks(self.context_cfg["networks"])
                 node0_if["vld_id"] = vld["id"]
                 node1_if["vld_id"] = vld["id"]
 
@@ -276,6 +277,7 @@ class NetworkServiceTestCase(base.Scenario):
                 node1_if["peer_ifname"] = node0_if_name
 
                 # just load the network
+                vld_networks = self.get_vld_networks(self.context_cfg["networks"])
                 node0_if["network"] = vld_networks.get(vld["id"], {})
                 node1_if["network"] = vld_networks.get(vld["id"], {})
 
@@ -325,16 +327,15 @@ class NetworkServiceTestCase(base.Scenario):
             vnfd = self._find_vnfd_from_vnf_idx(vnf_idx)
             self.context_cfg["nodes"][vnf_name].update(vnfd)
 
-    @staticmethod
-    def _sort_dpdk_port_num(netdevs):
-        # dpdk_port_num is PCI BUS ID ordering, lowest first
-        s = sorted(netdevs.values(), key=itemgetter('pci_bus_id'))
-        for dpdk_port_num, netdev in enumerate(s):
-            netdev['dpdk_port_num'] = dpdk_port_num
+    def _probe_netdevs(self, node, node_dict, timeout=120):
+        try:
+            return self.node_netdevs[node]
+        except KeyError:
+            pass
 
-    def _probe_netdevs(self, node, node_dict):
-        cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
         netdevs = {}
+        cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
+
         with SshManager(node_dict) as conn:
             if conn:
                 exit_status = conn.execute(cmd)[0]
@@ -346,6 +347,8 @@ class NetworkServiceTestCase(base.Scenario):
                     raise IncorrectSetup(
                         "Cannot find netdev info in sysfs" % node)
                 netdevs = node_dict['netdevs'] = self.parse_netdev_info(stdout)
+
+        self.node_netdevs[node] = netdevs
         return netdevs
 
     @classmethod
@@ -458,10 +461,22 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
                               (expected_name, classes_found))
 
     @staticmethod
-    def update_interfaces_from_node(vnfd, node):
-        for intf in vnfd["vdu"][0]["external-interface"]:
-            node_intf = node['interfaces'][intf['name']]
-            intf['virtual-interface'].update(node_intf)
+    def create_interfaces_from_node(vnfd, node):
+        ext_intfs = vnfd["vdu"][0]["external-interface"] = []
+        # have to sort so xe0 goes first
+        for intf_name, intf in sorted(node['interfaces'].items()):
+            if intf.get('vld_id'):
+                # force dpkd_port_num to int so we can do reverse lookup
+                try:
+                    intf['dpdk_port_num'] = int(intf['dpdk_port_num'])
+                except KeyError:
+                    pass
+                ext_intf = {
+                    "name": intf_name,
+                    "virtual-interface": intf,
+                    "vnfd-connection-point-ref": intf_name,
+                }
+                ext_intfs.append(ext_intf)
 
     def load_vnf_models(self, scenario_cfg=None, context_cfg=None):
         """ Create VNF objects based on YAML descriptors
@@ -491,7 +506,7 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
             vnfd = vnfdgen.generate_vnfd(vnf_model, node)
             # TODO: here add extra context_cfg["nodes"] regardless of template
             vnfd = vnfd["vnfd:vnfd-catalog"]["vnfd"][0]
-            self.update_interfaces_from_node(vnfd, node)
+            self.create_interfaces_from_node(vnfd, node)
             vnf_impl = self.get_vnf_impl(vnfd['id'])
             vnf_instance = vnf_impl(node_name, vnfd)
             vnfs.append(vnf_instance)

@@ -21,6 +21,8 @@ import os
 import unittest
 import mock
 
+from copy import deepcopy
+
 from tests.unit import STL_MOCKS
 from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 
@@ -66,15 +68,22 @@ link 1 up
 """
         header = "This is a header"
 
-        out = CgnaptApproxSetupEnvHelper._update_cgnat_script_file(header, sample.splitlines(), "")
+        out = CgnaptApproxSetupEnvHelper._update_cgnat_script_file(header, sample.splitlines())
         self.assertNotIn("This is a header", out)
 
-    def test__get_cgnapt_confgi(self):
+    def test__get_cgnapt_config(self):
+        vnfd_helper = mock.Mock()
+        vnfd_helper.port_pairs.priv_ports = [{"name": 'a'}, {"name": "b"}, {"name": "c"}]
 
-        c = CgnaptApproxSetupEnvHelper(mock.MagicMock(), mock.MagicMock(), mock.MagicMock())
-        c._get_ports_gateway = mock.Mock(return_value=3)
-        ret = c._get_cgnapt_config([{"name": 'a'}, {}, {"name": "b"}, {}, {"name": "c"}])
-        self.assertEqual(ret, [3, 3, 3])
+        helper = CgnaptApproxSetupEnvHelper(vnfd_helper, mock.Mock(), mock.Mock())
+        helper._get_ports_gateway = mock.Mock(side_effect=[3, 5, 2])
+        result = helper._get_cgnapt_config([{"name": 'a'}, {}, {"name": "b"}, {}, {"name": "c"}])
+        self.assertEqual(result, [3, 5, 2])
+
+    def test_scale(self):
+        helper = CgnaptApproxSetupEnvHelper(mock.Mock(), mock.Mock(), mock.Mock())
+        with self.assertRaises(NotImplementedError):
+            helper.scale()
 
 
 @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Process")
@@ -111,7 +120,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                     'local_ip': '152.16.100.19',
                     'type': 'PCI-PASSTHROUGH',
                     'netmask': '255.255.255.0',
-                    'dpdk_port_num': '0',
+                    'dpdk_port_num': 0,
                     'bandwidth': '10 Gbps',
                     'driver': "i40e",
                     'dst_ip': '152.16.100.20',
@@ -126,7 +135,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                     'type': 'PCI-PASSTHROUGH',
                     'driver': "i40e",
                     'netmask': '255.255.255.0',
-                    'dpdk_port_num': '1',
+                    'dpdk_port_num': 1,
                     'bandwidth': '10 Gbps',
                     'dst_ip': '152.16.40.20',
                     'local_iface_name': 'xe1',
@@ -146,31 +155,48 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                                     {'type': 'VPORT', 'name': 'xe1'}],
                'id': 'CgnaptApproxVnf', 'name': 'VPEVnfSsh'}]}}
 
-    scenario_cfg = {'options': {'packetsize': 64, 'traffic_type': 4,
-                                'rfc2544': {'allowed_drop_rate': '0.8 - 1'},
-                                'vnf__1': {'rules': 'acl_1rule.yaml',
-                                           'vnf_config': {'lb_config': 'SW',
-                                                          'lb_count': 1,
-                                                          'worker_config':
-                                                          '1C/1T',
-                                                          'worker_threads': 1}}
-                                },
-                    'task_id': 'a70bdf4a-8e67-47a3-9dc1-273c14506eb7',
-                    'task_path': '/tmp',
-                    'tc': 'tc_ipv4_1Mflow_64B_packetsize',
-                    'runner': {'object': 'NetworkServiceTestCase',
-                               'interval': 35,
-                               'output_filename': '/tmp/yardstick.out',
-                               'runner_id': 74476, 'duration': 400,
-                               'type': 'Duration'},
-                    'traffic_profile': 'ipv4_throughput_acl.yaml',
-                    'traffic_options': {'flow': 'ipv4_Packets_acl.yaml',
-                                        'imix': 'imix_voice.yaml'},
-                    'type': 'ISB',
-                    'nodes': {'tg__2': 'trafficgen_2.yardstick',
-                              'tg__1': 'trafficgen_1.yardstick',
-                              'vnf__1': 'vnf.yardstick'},
-                    'topology': 'vpe-tg-topology-baremetal.yaml'}
+    SCENARIO_CFG = {
+        'options': {
+            'packetsize': 64,
+            'traffic_type': 4,
+            'rfc2544': {
+                'allowed_drop_rate': '0.8 - 1',
+            },
+            'vnf__1': {
+                'napt': 'dynamic',
+                'vnf_config': {
+                    'lb_config': 'SW',
+                    'lb_count': 1,
+                    'worker_config':
+                    '1C/1T',
+                    'worker_threads': 1,
+                },
+            },
+        },
+        'task_id': 'a70bdf4a-8e67-47a3-9dc1-273c14506eb7',
+        'task_path': '/tmp',
+        'tc': 'tc_ipv4_1Mflow_64B_packetsize',
+        'runner': {
+            'object': 'NetworkServiceTestCase',
+            'interval': 35,
+            'output_filename': '/tmp/yardstick.out',
+            'runner_id': 74476,
+            'duration': 400,
+            'type': 'Duration',
+        },
+        'traffic_profile': 'ipv4_throughput_acl.yaml',
+        'traffic_options': {
+            'flow': 'ipv4_Packets_acl.yaml',
+            'imix': 'imix_voice.yaml',
+        },
+        'type': 'ISB',
+        'nodes': {
+            'tg__2': 'trafficgen_2.yardstick',
+            'tg__1': 'trafficgen_1.yardstick',
+            'vnf__1': 'vnf.yardstick',
+        },
+        'topology': 'vpe-tg-topology-baremetal.yaml',
+    }
 
     context_cfg = {'nodes': {'tg__2':
                              {'member-vnf-index': '3',
@@ -277,14 +303,16 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                               'password': 'r00t',
                               'VNF model': 'cgnapt_vnf.yaml'}}}
 
+    def setUp(self):
+        self.scenario_cfg = deepcopy(self.SCENARIO_CFG)
+
     def test___init__(self, mock_process):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
         self.assertIsNone(cgnapt_approx_vnf._vnf_process)
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh, mock_time, mock_process):
+    def test_collect_kpi(self, ssh, mock_process):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -296,9 +324,8 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         result = {'packets_dropped': 0, 'packets_fwd': 0, 'packets_in': 0}
         self.assertEqual(result, cgnapt_approx_vnf.collect_kpi())
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
-    def test_vnf_execute_command(self, ssh, mock_time, mock_process):
+    def test_vnf_execute_command(self, ssh, mock_process):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -386,9 +413,24 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         self.assertEqual(None, cgnapt_approx_vnf.terminate())
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.cgnapt_vnf.time")
     @mock.patch(SSH_HELPER)
-    def test__vnf_up_post(self, ssh, mock_time, mock_cgnapt_time, mock_process):
+    def test__vnf_up_post(self, ssh, mock_time, mock_process):
+        mock_ssh(ssh)
+
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        self.scenario_cfg['options'][name]['napt'] = 'static'
+
+        cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf._vnf_process = mock.MagicMock()
+        cgnapt_approx_vnf._vnf_process.terminate = mock.Mock()
+        cgnapt_approx_vnf.vnf_execute = mock.MagicMock()
+        cgnapt_approx_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
+        cgnapt_approx_vnf._resource_collect_stop = mock.Mock()
+        cgnapt_approx_vnf._vnf_up_post()
+
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
+    @mock.patch(SSH_HELPER)
+    def test__vnf_up_post_short(self, ssh, mock_time, mock_process):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -399,7 +441,6 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         cgnapt_approx_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
         cgnapt_approx_vnf._resource_collect_stop = mock.Mock()
         cgnapt_approx_vnf._vnf_up_post()
-        cgnapt_approx_vnf.vnf_execute.assert_called_once()
 
 
 if __name__ == '__main__':

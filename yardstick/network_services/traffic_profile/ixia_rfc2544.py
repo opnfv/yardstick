@@ -23,11 +23,17 @@ LOG = logging.getLogger(__name__)
 
 
 class IXIARFC2544Profile(TrexProfile):
-    def _get_ixia_traffic_profile(self, profile_data, mac={},
-                                  xfile=None, static_traffic={}):
+
+    def _get_ixia_traffic_profile(self, profile_data, mac=None, xfile=None, static_traffic=None):
+        if mac is None:
+            mac = {}
+
+        if static_traffic is None:
+            static_traffic = {}
+
         result = {}
         if xfile:
-            with open(xfile, 'r') as stream:
+            with open(xfile) as stream:
                 try:
                     static_traffic = json.load(stream)
                 except Exception as exc:
@@ -73,7 +79,7 @@ class IXIARFC2544Profile(TrexProfile):
     def _ixia_traffic_generate(self, traffic_generator, traffic, ixia_obj):
         for key, value in traffic.items():
             if "public" in key or "private" in key:
-                traffic[key]["iload"] = str(self.rate)
+                value["iload"] = str(self.rate)
         ixia_obj.ix_update_frame(traffic)
         ixia_obj.ix_update_ether(traffic)
         ixia_obj.add_ip_header(traffic, 4)
@@ -81,19 +87,27 @@ class IXIARFC2544Profile(TrexProfile):
         self.tmp_drop = 0
         self.tmp_throughput = 0
 
-    def update_traffic_profile(self):
-        self.profile = 'private_1'
-        for key, value in self.params.items():
-            if "private" in key or "public" in key:
-                self.profile_data = self.params[key]
+    def update_traffic_profile(self, traffic_generator):
+        def port_generator():
+            for vld_id, intfs in sorted(traffic_generator.networks.items()):
+                if not vld_id.startswith(("private", "public")):
+                    continue
+                profile_data = self.params.get(vld_id)
+                if not profile_data:
+                    continue
+                self.profile_data = profile_data
                 self.get_streams(self.profile_data)
-                self.full_profile.update({key: self.profile_data})
+                self.full_profile.update({vld_id: self.profile_data})
+                for intf in intfs:
+                    yield traffic_generator.vnfd_helper.port_num(intf)
 
-    def execute(self, traffic_generator, ixia_obj, mac={}, xfile=None):
+        self.ports = [port for port in port_generator()]
+
+    def execute_traffic(self, traffic_generator, ixia_obj, mac={}, xfile=None):
         if self.first_run:
             self.full_profile = {}
             self.pg_id = 0
-            self.update_traffic_profile()
+            self.update_traffic_profile(traffic_generator)
             traffic = \
                 self._get_ixia_traffic_profile(self.full_profile, mac, xfile)
             self.max_rate = self.rate
@@ -108,7 +122,7 @@ class IXIARFC2544Profile(TrexProfile):
 
     def start_ixia_latency(self, traffic_generator, ixia_obj,
                            mac={}, xfile=None):
-        self.update_traffic_profile()
+        self.update_traffic_profile(traffic_generator)
         traffic = \
             self._get_ixia_traffic_profile(self.full_profile, mac, xfile)
         self._ixia_traffic_generate(traffic_generator, traffic,

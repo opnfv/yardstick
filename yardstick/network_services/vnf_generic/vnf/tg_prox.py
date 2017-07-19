@@ -56,7 +56,6 @@ class ProxTrafficGen(SampleVNFTrafficGen):
 
         self.runs_traffic = True
         self.traffic_finished = False
-        self.tg_port_pairs = None
         self._tg_process = None
         self._traffic_process = None
 
