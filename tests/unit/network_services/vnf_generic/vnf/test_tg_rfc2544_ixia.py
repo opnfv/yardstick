@@ -23,7 +23,6 @@ import mock
 
 from tests.unit import STL_MOCKS
 
-
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
@@ -36,13 +35,11 @@ if stl_patch:
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
 
-
 NAME = "tg__1"
 
 
 @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.IxNextgen")
 class TestIxiaResourceHelper(unittest.TestCase):
-
     def test___init___with_custom_rfc_helper(self, mock_ix_nextgen):
         class MyRfcHelper(IxiaRfc2544Helper):
             pass
@@ -63,71 +60,71 @@ class TestIxiaResourceHelper(unittest.TestCase):
 @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.IxNextgen")
 class TestIXIATrafficGen(unittest.TestCase):
     VNFD = {'vnfd:vnfd-catalog':
-            {'vnfd':
-             [{'short-name': 'VpeVnf',
-               'vdu':
-               [{'routing_table':
-                 [{'network': '152.16.100.20',
-                   'netmask': '255.255.255.0',
-                   'gateway': '152.16.100.20',
-                   'if': 'xe0'},
-                  {'network': '152.16.40.20',
-                   'netmask': '255.255.255.0',
-                   'gateway': '152.16.40.20',
-                   'if': 'xe1'}],
-                 'description': 'VPE approximation using DPDK',
-                 'name': 'vpevnf-baremetal',
-                 'nd_route_tbl':
-                 [{'network': '0064:ff9b:0:0:0:0:9810:6414',
-                   'netmask': '112',
-                   'gateway': '0064:ff9b:0:0:0:0:9810:6414',
-                   'if': 'xe0'},
-                  {'network': '0064:ff9b:0:0:0:0:9810:2814',
-                   'netmask': '112',
-                   'gateway': '0064:ff9b:0:0:0:0:9810:2814',
-                   'if': 'xe1'}],
-                 'id': 'vpevnf-baremetal',
-                 'external-interface':
-                 [{'virtual-interface':
-                   {'dst_mac': '00:00:00:00:00:04',
-                    'vpci': '0000:05:00.0',
-                    'local_ip': '152.16.100.19',
-                    'type': 'PCI-PASSTHROUGH',
-                    'netmask': '255.255.255.0',
-                    'dpdk_port_num': '0',
-                    'bandwidth': '10 Gbps',
-                    'driver': "i40e",
-                    'dst_ip': '152.16.100.20',
-                    'local_iface_name': 'xe0',
-                    'local_mac': '00:00:00:00:00:02'},
-                   'vnfd-connection-point-ref': 'xe0',
-                   'name': 'xe0'},
-                  {'virtual-interface':
-                   {'dst_mac': '00:00:00:00:00:03',
-                    'vpci': '0000:05:00.1',
-                    'local_ip': '152.16.40.19',
-                    'type': 'PCI-PASSTHROUGH',
-                    'driver': "i40e",
-                    'netmask': '255.255.255.0',
-                    'dpdk_port_num': '1',
-                    'bandwidth': '10 Gbps',
-                    'dst_ip': '152.16.40.20',
-                    'local_iface_name': 'xe1',
-                    'local_mac': '00:00:00:00:00:01'},
-                   'vnfd-connection-point-ref': 'xe1',
-                   'name': 'xe1'}]}],
-               'description': 'Vpe approximation using DPDK',
-               'mgmt-interface':
-                   {'vdu-id': 'vpevnf-baremetal',
-                    'host': '1.1.1.1',
-                    'password': 'r00t',
-                    'user': 'root',
-                    'ip': '1.1.1.1'},
-               'benchmark':
-                   {'kpi': ['packets_in', 'packets_fwd', 'packets_dropped']},
-               'connection-point': [{'type': 'VPORT', 'name': 'xe0'},
-                                    {'type': 'VPORT', 'name': 'xe1'}],
-               'id': 'VpeApproxVnf', 'name': 'VPEVnfSsh'}]}}
+                {'vnfd':
+                     [{'short-name': 'VpeVnf',
+                       'vdu':
+                           [{'routing_table':
+                                 [{'network': '152.16.100.20',
+                                   'netmask': '255.255.255.0',
+                                   'gateway': '152.16.100.20',
+                                   'if': 'xe0'},
+                                  {'network': '152.16.40.20',
+                                   'netmask': '255.255.255.0',
+                                   'gateway': '152.16.40.20',
+                                   'if': 'xe1'}],
+                             'description': 'VPE approximation using DPDK',
+                             'name': 'vpevnf-baremetal',
+                             'nd_route_tbl':
+                                 [{'network': '0064:ff9b:0:0:0:0:9810:6414',
+                                   'netmask': '112',
+                                   'gateway': '0064:ff9b:0:0:0:0:9810:6414',
+                                   'if': 'xe0'},
+                                  {'network': '0064:ff9b:0:0:0:0:9810:2814',
+                                   'netmask': '112',
+                                   'gateway': '0064:ff9b:0:0:0:0:9810:2814',
+                                   'if': 'xe1'}],
+                             'id': 'vpevnf-baremetal',
+                             'external-interface':
+                                 [{'virtual-interface':
+                                       {'dst_mac': '00:00:00:00:00:04',
+                                        'vpci': '0000:05:00.0',
+                                        'local_ip': '152.16.100.19',
+                                        'type': 'PCI-PASSTHROUGH',
+                                        'netmask': '255.255.255.0',
+                                        'dpdk_port_num': '0',
+                                        'bandwidth': '10 Gbps',
+                                        'driver': "i40e",
+                                        'dst_ip': '152.16.100.20',
+                                        'local_iface_name': 'xe0',
+                                        'local_mac': '00:00:00:00:00:02'},
+                                   'vnfd-connection-point-ref': 'xe0',
+                                   'name': 'xe0'},
+                                  {'virtual-interface':
+                                       {'dst_mac': '00:00:00:00:00:03',
+                                        'vpci': '0000:05:00.1',
+                                        'local_ip': '152.16.40.19',
+                                        'type': 'PCI-PASSTHROUGH',
+                                        'driver': "i40e",
+                                        'netmask': '255.255.255.0',
+                                        'dpdk_port_num': '1',
+                                        'bandwidth': '10 Gbps',
+                                        'dst_ip': '152.16.40.20',
+                                        'local_iface_name': 'xe1',
+                                        'local_mac': '00:00:00:00:00:01'},
+                                   'vnfd-connection-point-ref': 'xe1',
+                                   'name': 'xe1'}]}],
+                       'description': 'Vpe approximation using DPDK',
+                       'mgmt-interface':
+                           {'vdu-id': 'vpevnf-baremetal',
+                            'host': '1.1.1.1',
+                            'password': 'r00t',
+                            'user': 'root',
+                            'ip': '1.1.1.1'},
+                       'benchmark':
+                           {'kpi': ['packets_in', 'packets_fwd', 'packets_dropped']},
+                       'connection-point': [{'type': 'VPORT', 'name': 'xe0'},
+                                            {'type': 'VPORT', 'name': 'xe1'}],
+                       'id': 'VpeApproxVnf', 'name': 'VPEVnfSsh'}]}}
 
     TRAFFIC_PROFILE = {
         "schema": "isb:traffic_profile:0.1",
@@ -140,12 +137,12 @@ class TestIXIATrafficGen(unittest.TestCase):
             "frame_size": 64}}
 
     TC_YAML = {'scenarios': [{'tc_options':
-                              {'rfc2544': {'allowed_drop_rate': '0.8 - 1'}},
+                                  {'rfc2544': {'allowed_drop_rate': '0.8 - 1'}},
                               'runner': {'duration': 400,
                                          'interval': 35, 'type': 'Duration'},
                               'traffic_options':
-                              {'flow': 'ipv4_1flow_Packets_vpe.yaml',
-                               'imix': 'imix_voice.yaml'},
+                                  {'flow': 'ipv4_1flow_Packets_vpe.yaml',
+                                   'imix': 'imix_voice.yaml'},
                               'vnf_options': {'vpe': {'cfg': 'vpe_config'}},
                               'traffic_profile': 'ipv4_throughput_vpe.yaml',
                               'type': 'NSPerf',
@@ -195,7 +192,7 @@ class TestIXIATrafficGen(unittest.TestCase):
                                                         'vnf_config': {'lb_config': 'SW',
                                                                        'lb_count': 1,
                                                                        'worker_config':
-                                                                       '1C/1T',
+                                                                           '1C/1T',
                                                                        'worker_threads': 1}}
                                              }})
             ixnet_traffic_gen.topology = ""
@@ -255,6 +252,7 @@ class TestIXIATrafficGen(unittest.TestCase):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
+        mock_traffic_profile.ports = [0, 1]
 
         mock_ssh_instance = mock.Mock(autospec=mock_ssh.SSH)
         mock_ssh_instance.execute.return_value = 0, "", ""
@@ -306,11 +304,10 @@ class TestIXIATrafficGen(unittest.TestCase):
             },
         ]
 
-        mock_traffic_profile.execute.return_value = ['Completed', samples]
+        mock_traffic_profile.execute_traffic.return_value = ['Completed', samples]
         mock_traffic_profile.get_drop_percentage.return_value = ['Completed', samples]
 
         sut = IxiaTrafficGen(name, vnfd)
-        sut.tg_port_pairs = [[[0], [1]]]
         sut.vnf_port_pairs = [[[0], [1]]]
         sut.tc_file_name = self._get_file_abspath(TEST_FILE_YAML)
         sut.topology = ""
@@ -349,7 +346,8 @@ class TestIXIATrafficGen(unittest.TestCase):
             'task_path': '/path/to/task'
         }
 
-        with mock.patch('yardstick.benchmark.scenarios.networking.vnf_generic.open', create=True) as mock_open:
+        with mock.patch('yardstick.benchmark.scenarios.networking.vnf_generic.open',
+                        create=True) as mock_open:
             mock_open.return_value = mock.MagicMock()
             result = sut._traffic_runner(mock_traffic_profile)
             self.assertIsNone(result)

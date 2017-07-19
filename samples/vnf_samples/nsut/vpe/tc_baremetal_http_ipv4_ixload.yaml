@@ -31,8 +31,8 @@ scenarios:
       count: 1
     traffic_type: 4
     vnf__1:
-      cfg: vpe_config
       nfvi_enable: True
+      vnf_config: vpe_config
   runner:
     type: Duration
     duration: 4

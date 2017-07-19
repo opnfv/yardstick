@@ -30,7 +30,9 @@ from six.moves import cStringIO
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
 from yardstick.network_services.helpers.cpu import CpuSysCores
+from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
+from yardstick.network_services.helpers.dpdknicbind_helper import DpdkBindHelper
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
@@ -126,14 +128,10 @@ class SetupEnvHelper(object):
 class DpdkVnfSetupEnvHelper(SetupEnvHelper):
 
     APP_NAME = 'DpdkVnf'
-    DPDK_BIND_CMD = "sudo {dpdk_nic_bind} {force} -b {driver} {vpci}"
-    DPDK_UNBIND_CMD = "sudo {dpdk_nic_bind} --force -b {driver} {vpci}"
     FIND_NET_CMD = "find /sys/class/net -lname '*{}*' -printf '%f'"
 
     HW_DEFAULT_CORE = 3
     SW_DEFAULT_CORE = 2
-
-    DPDK_STATUS_DRIVER_RE = re.compile(r"(\d{2}:\d{2}\.\d).*drv=([-\w]+)")
 
     @staticmethod
     def _update_packet_type(ip_pipeline_cfg, traffic_options):
@@ -165,15 +163,9 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         super(DpdkVnfSetupEnvHelper, self).__init__(vnfd_helper, ssh_helper, scenario_helper)
         self.all_ports = None
         self.bound_pci = None
-        self._dpdk_nic_bind = None
         self.socket = None
         self.used_drivers = None
-
-    @property
-    def dpdk_nic_bind(self):
-        if self._dpdk_nic_bind is None:
-            self._dpdk_nic_bind = self.ssh_helper.provision_tool(tool_file="dpdk-devbind.py")
-        return self._dpdk_nic_bind
+        self.dpdk_bind_helper = DpdkBindHelper(ssh_helper)
 
     def _setup_hugepages(self):
         cmd = "awk '/Hugepagesize/ { print $2$3 }' < /proc/meminfo"
@@ -189,10 +181,6 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
             pages = 16
 
         self.ssh_helper.execute("echo %s | sudo tee %s" % (pages, memory_path))
-
-    def _get_dpdk_port_num(self, name):
-        interface = self.vnfd_helper.find_interface(name=name)
-        return interface['virtual-interface']['dpdk_port_num']
 
     def build_config(self):
         vnf_cfg = self.scenario_helper.vnf_cfg
@@ -216,7 +204,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         multiport = MultiPortConfig(self.scenario_helper.topology,
                                     config_tpl_cfg,
                                     config_basename,
-                                    self.vnfd_helper.interfaces,
+                                    self.vnfd_helper,
                                     self.VNF_TYPE,
                                     lb_count,
                                     worker_threads,
@@ -234,7 +222,6 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         self.ssh_helper.upload_config_file(config_basename, new_config)
         self.ssh_helper.upload_config_file(script_basename,
                                            multiport.generate_script(self.vnfd_helper))
-        self.all_ports = multiport.port_pair_list
 
         LOG.info("Provision and start the %s", self.APP_NAME)
         self._build_pipeline_kwargs()
@@ -242,11 +229,19 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
 
     def _build_pipeline_kwargs(self):
         tool_path = self.ssh_helper.provision_tool(tool_file=self.APP_NAME)
-        ports_len_hex = hex(2 ** (len(self.all_ports) + 1) - 1)
+        # count the number of actual ports in the list of pairs
+        # remove duplicate ports
+        # this is really a mapping from LINK ID to DPDK PMD ID
+        # e.g. 0x110 maps LINK0 -> PMD_ID_1, LINK1 -> PMD_ID_2
+        #      0x1010 maps LINK0 -> PMD_ID_1, LINK1 -> PMD_ID_3
+        ports = self.vnfd_helper.port_pairs.all_ports
+        port_nums = self.vnfd_helper.port_nums(ports)
+        # create mask from all the dpdk port numbers
+        ports_mask_hex = hex(sum(2 ** num for num in port_nums))
         self.pipeline_kwargs = {
             'cfg_file': self.CFG_CONFIG,
             'script': self.CFG_SCRIPT,
-            'ports_len_hex': ports_len_hex,
+            'port_mask_hex': ports_mask_hex,
             'tool_path': tool_path,
         }
 
@@ -284,17 +279,6 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
 
     def _validate_cpu_cfg(self):
         return self._get_cpu_sibling_list()
-
-    def _find_used_drivers(self):
-        cmd = "{0} -s".format(self.dpdk_nic_bind)
-        rc, dpdk_status, _ = self.ssh_helper.execute(cmd)
-
-        self.used_drivers = {
-            vpci: (index, driver)
-            for index, (vpci, driver)
-            in enumerate(self.DPDK_STATUS_DRIVER_RE.findall(dpdk_status))
-            if any(b.endswith(vpci) for b in self.bound_pci)
-        }
 
     def setup_vnf_environment(self):
         self._setup_dpdk()
@@ -341,65 +325,30 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
     def _detect_and_bind_drivers(self):
         interfaces = self.vnfd_helper.interfaces
 
-        self._find_used_drivers()
-        for vpci, (index, _) in self.used_drivers.items():
+        self.dpdk_bind_helper.read_status()
+        self.dpdk_bind_helper.save_used_drivers()
+
+        self.dpdk_bind_helper.bind(self.bound_pci, 'igb_uio')
+
+        sorted_dpdk_pci_addresses = sorted(self.dpdk_bind_helper.dpdk_bound_pci_addresses)
+        for dpdk_port_num, vpci in enumerate(sorted_dpdk_pci_addresses):
             try:
-                intf1 = next(v for v in interfaces if vpci == v['virtual-interface']['vpci'])
-            except StopIteration:
+                intf = next(v for v in interfaces
+                            if vpci == v['virtual-interface']['vpci'])
+                intf['virtual-interface']['dpdk_port_num'] = dpdk_port_num
+            except:
                 pass
-            else:
-                intf1['dpdk_port_num'] = index
+        time.sleep(2)
 
-        for vpci in self.bound_pci:
-            self._bind_dpdk('igb_uio', vpci)
-            time.sleep(2)
-
-        # debug dump after binding
-        self.ssh_helper.execute("sudo {} -s".format(self.dpdk_nic_bind))
-
-    def rebind_drivers(self, force=True):
-        if not self.used_drivers:
-            self._find_used_drivers()
-        for vpci, (_, driver) in self.used_drivers.items():
-            self._bind_dpdk(driver, vpci, force)
-
-    def _bind_dpdk(self, driver, vpci, force=True):
-        if force:
-            force = '--force '
-        else:
-            force = ''
-        cmd = self.DPDK_BIND_CMD.format(force=force,
-                                        dpdk_nic_bind=self.dpdk_nic_bind,
-                                        driver=driver,
-                                        vpci=vpci)
-        self.ssh_helper.execute(cmd)
-
-    def _detect_and_bind_dpdk(self, vpci, driver):
+    def get_local_iface_name_by_vpci(self, vpci):
         find_net_cmd = self.FIND_NET_CMD.format(vpci)
-        exit_status, _, _ = self.ssh_helper.execute(find_net_cmd)
-        if exit_status == 0:
-            # already bound
-            return None
-        self._bind_dpdk(driver, vpci)
         exit_status, stdout, _ = self.ssh_helper.execute(find_net_cmd)
-        if exit_status != 0:
-            # failed to bind
-            return None
-        return stdout
-
-    def _bind_kernel_devices(self):
-        # only used by PingSetupEnvHelper?
-        for intf in self.vnfd_helper.interfaces:
-            vi = intf["virtual-interface"]
-            stdout = self._detect_and_bind_dpdk(vi["vpci"], vi["driver"])
-            if stdout is not None:
-                vi["local_iface_name"] = posixpath.basename(stdout)
+        if exit_status == 0:
+            return stdout
+        return None
 
     def tear_down(self):
-        for vpci, (_, driver) in self.used_drivers.items():
-            self.ssh_helper.execute(self.DPDK_UNBIND_CMD.format(dpdk_nic_bind=self.dpdk_nic_bind,
-                                                                driver=driver,
-                                                                vpci=vpci))
+        self.dpdk_bind_helper.rebind_drivers()
 
 
 class ResourceHelper(object):
@@ -458,14 +407,17 @@ class ClientResourceHelper(ResourceHelper):
 
         self.client = None
         self.client_started = Value('i', 0)
-        self.my_ports = None
+        self.all_ports = None
         self._queue = Queue()
         self._result = {}
         self._terminated = Value('i', 0)
         self._vpci_ascending = None
 
     def _build_ports(self):
-        self.my_ports = [0, 1]
+        self.networks = self.vnfd_helper.port_pairs.networks
+        self.priv_ports = self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.priv_ports)
+        self.pub_ports = self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.pub_ports)
+        self.all_ports = self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.all_ports)
 
     def get_stats(self, *args, **kwargs):
         try:
@@ -474,8 +426,9 @@ class ClientResourceHelper(ResourceHelper):
             LOG.exception("TRex client not connected")
             return {}
 
-    def generate_samples(self, key=None, default=None):
-        last_result = self.get_stats(self.my_ports)
+    def generate_samples(self, ports, key=None, default=None):
+        # needs to be used ports
+        last_result = self.get_stats(ports)
         key_value = last_result.get(key, default)
 
         if not isinstance(last_result, Mapping):  # added for mock unit test
@@ -483,27 +436,29 @@ class ClientResourceHelper(ResourceHelper):
             return {}
 
         samples = {}
-        for vpci_idx, vpci in enumerate(self._vpci_ascending):
-            name = self.vnfd_helper.find_virtual_interface(vpci=vpci)["name"]
-            # fixme: VNFDs KPIs values needs to be mapped to TRex structure
-            xe_value = last_result.get(vpci_idx, {})
-            samples[name] = {
-                "rx_throughput_fps": float(xe_value.get("rx_pps", 0.0)),
-                "tx_throughput_fps": float(xe_value.get("tx_pps", 0.0)),
-                "rx_throughput_mbps": float(xe_value.get("rx_bps", 0.0)),
-                "tx_throughput_mbps": float(xe_value.get("tx_bps", 0.0)),
-                "in_packets": int(xe_value.get("ipackets", 0)),
-                "out_packets": int(xe_value.get("opackets", 0)),
-            }
-            if key:
-                samples[name][key] = key_value
+        # recalculate port for interface and see if it matches ports provided
+        for intf in self.vnfd_helper.interfaces:
+            name = intf["name"]
+            port = self.vnfd_helper.port_num(name)
+            if port in ports:
+                xe_value = last_result.get(port, {})
+                samples[name] = {
+                    "rx_throughput_fps": float(xe_value.get("rx_pps", 0.0)),
+                    "tx_throughput_fps": float(xe_value.get("tx_pps", 0.0)),
+                    "rx_throughput_mbps": float(xe_value.get("rx_bps", 0.0)),
+                    "tx_throughput_mbps": float(xe_value.get("tx_bps", 0.0)),
+                    "in_packets": int(xe_value.get("ipackets", 0)),
+                    "out_packets": int(xe_value.get("opackets", 0)),
+                }
+                if key:
+                    samples[name][key] = key_value
         return samples
 
     def _run_traffic_once(self, traffic_profile):
-        traffic_profile.execute(self)
+        traffic_profile.execute_traffic(self)
         self.client_started.value = 1
         time.sleep(self.RUN_DURATION)
-        samples = self.generate_samples()
+        samples = self.generate_samples(traffic_profile.ports)
         time.sleep(self.QUEUE_WAIT_TIME)
         self._queue.put(samples)
 
@@ -513,14 +468,14 @@ class ClientResourceHelper(ResourceHelper):
         try:
             self._build_ports()
             self.client = self._connect()
-            self.client.reset(ports=self.my_ports)
-            self.client.remove_all_streams(self.my_ports)  # remove all streams
+            self.client.reset(ports=self.all_ports)
+            self.client.remove_all_streams(self.all_ports)  # remove all streams
             traffic_profile.register_generator(self)
 
             while self._terminated.value == 0:
                 self._run_traffic_once(traffic_profile)
 
-            self.client.stop(self.my_ports)
+            self.client.stop(self.all_ports)
             self.client.disconnect()
             self._terminated.value = 0
         except STLError:
@@ -534,12 +489,12 @@ class ClientResourceHelper(ResourceHelper):
 
     def clear_stats(self, ports=None):
         if ports is None:
-            ports = self.my_ports
+            ports = self.all_ports
         self.client.clear_stats(ports=ports)
 
     def start(self, ports=None, *args, **kwargs):
         if ports is None:
-            ports = self.my_ports
+            ports = self.all_ports
         self.client.start(ports=ports, *args, **kwargs)
 
     def collect_kpi(self):
@@ -730,7 +685,6 @@ class SampleVNF(GenericVNF):
 
         self.resource_helper = resource_helper_type(self.setup_helper)
 
-        self.all_ports = None
         self.context_cfg = None
         self.nfvi_context = None
         self.pipeline_kwargs = {}
@@ -742,10 +696,16 @@ class SampleVNF(GenericVNF):
         self.q_out = Queue()
         self.queue_wrapper = None
         self.run_kwargs = {}
-        self.tg_port_pairs = None
         self.used_drivers = {}
         self.vnf_port_pairs = None
         self._vnf_process = None
+
+    def _build_ports(self):
+        self._port_pairs = PortPairs(self.vnfd_helper.interfaces)
+        self.networks = self._port_pairs.networks
+        self.priv_ports = self.vnfd_helper.port_nums(self._port_pairs.priv_ports)
+        self.pub_ports = self.vnfd_helper.port_nums(self._port_pairs.pub_ports)
+        self.my_ports = self.vnfd_helper.port_nums(self._port_pairs.all_ports)
 
     def _get_route_data(self, route_index, route_type):
         route_iter = iter(self.vnfd_helper.vdu0.get('nd_route_tbl', []))
@@ -825,6 +785,8 @@ class SampleVNF(GenericVNF):
 
             LOG.info("Waiting for %s VNF to start.. ", self.APP_NAME)
             time.sleep(1)
+            # put newline to force new prompt?
+            self.q_in.put("\r\n")
 
     def _build_run_kwargs(self):
         self.run_kwargs = {
@@ -925,7 +887,6 @@ class SampleVNFTrafficGen(GenericTrafficGen):
 
         self.runs_traffic = True
         self.traffic_finished = False
-        self.tg_port_pairs = None
         self._tg_process = None
         self._traffic_process = None
 

@@ -136,11 +136,6 @@ class TestTrexProfile(unittest.TestCase):
             TrexProfile(TrafficProfile)
         self.assertEqual(trex_profile.pps, 100)
 
-    def test_execute(self):
-        trex_profile = \
-            TrexProfile(TrafficProfile)
-        self.assertEqual(None, trex_profile.execute({}))
-
     def test_qinq(self):
         qinq = {"S-VLAN": {"id": 128, "priority": 0, "cfi": 0},
                 "C-VLAN": {"id": 512, "priority": 0, "cfi": 0}}
@@ -239,7 +234,7 @@ class TestTrexProfile(unittest.TestCase):
 
         ether_range = "00:00:00:00:00:01-00:00:00:00:00:02"
         ip_range = "1.1.1.2-1.1.1.10"
-        ipv6_range =  '0064:ff9b:0:0:0:0:9810:6414-0064:ff9b:0:0:0:0:9810:6420'
+        ipv6_range = '0064:ff9b:0:0:0:0:9810:6414-0064:ff9b:0:0:0:0:9810:6420'
 
         trex_profile._set_proto_addr(ETHERNET, SRC, ether_range)
         trex_profile._set_proto_addr(ETHERNET, DST, ether_range)
@@ -249,6 +244,3 @@ class TestTrexProfile(unittest.TestCase):
         trex_profile._set_proto_addr(IPv6, DST, ipv6_range)
         trex_profile._set_proto_addr(UDP, SRC_PORT, "5060-5090")
         trex_profile._set_proto_addr(UDP, DST_PORT, "5060")
-
-
-

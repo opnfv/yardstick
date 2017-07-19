@@ -188,9 +188,9 @@ class TrexProfile(TrafficProfile):
                   ),
         }
 
-    def execute(self, traffic_generator):
+    def execute_traffic(self, traffic_generator):
         """ Generate the stream and run traffic on the given ports """
-        pass
+        raise NotImplementedError()
 
     def _call_on_range(self, range, single_action, range_action, count=1, to_int=False):
         def convert_to_int(val):
