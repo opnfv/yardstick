@@ -164,3 +164,26 @@ class V2Task(ApiResource):
         task_handler.update_attr(task_id, task_update_data)
 
         return result_handler(consts.API_SUCCESS, {'uuid': task_id})
+
+    def add_suite(self, args):
+        task_id = args['task_id']
+        try:
+            name = args['suite_name']
+        except KeyError:
+            return result_handler(consts.API_ERROR, 'suite_name must be provided')
+
+        try:
+            content = args['suite_content']
+        except KeyError:
+            return result_handler(consts.API_ERROR, 'suite_content must be provided')
+
+        LOG.info('update suite info in task')
+        task_handler = V2TaskHandler()
+        task_update_data = {
+            'case_name': name,
+            'content': content,
+            'suite': True
+        }
+        task_handler.update_attr(task_id, task_update_data)
+
+        return result_handler(consts.API_SUCCESS, {'uuid': task_id})
