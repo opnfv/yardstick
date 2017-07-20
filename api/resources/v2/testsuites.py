@@ -1,4 +1,5 @@
 import os
+import errno
 import logging
 
 import yaml
@@ -54,3 +55,17 @@ class V2Testsuites(ApiResource):
             yaml.dump(suite_content, f, default_flow_style=False)
 
         return result_handler(consts.API_SUCCESS, {'suite': suite_name})
+
+
+class V2Testsuite(ApiResource):
+
+    def get(self, suite_name):
+        suite_path = os.path.join(consts.TESTSUITE_DIR, '{}.yaml'.format(suite_name))
+        try:
+            with open(suite_path) as f:
+                data = f.read()
+        except IOError as e:
+            if e.errno == errno.ENOENT:
+                return result_handler(consts.API_ERROR, 'suite does not exist')
+
+        return result_handler(consts.API_SUCCESS, {'testsuite': data})
