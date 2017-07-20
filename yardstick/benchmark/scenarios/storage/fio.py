@@ -40,10 +40,26 @@ class Fio(base.Scenario):
         type:    string
         unit:    na
         default: write
+    rwmixwrite - percentage of a mixed workload that should be writes
+        type: int
+        unit: percentage
+        default: 50
     ramp_time - run time before logging any performance
         type:    int
         unit:    seconds
         default: 20
+    direct - whether use non-buffered I/O or not
+        type:    boolean
+        unit:    na
+        default: 1
+    size - total size of I/O for this job.
+        type:    string
+        unit:    na
+        default: 1g
+    numjobs - number of clones (processes/threads performing the same workload) of this job
+        type:    int
+        unit:    na
+        default: 1
 
     Read link below for more fio args description:
         http://www.bluestop.org/fio/HOWTO.txt
@@ -74,8 +90,8 @@ class Fio(base.Scenario):
 
     def run(self, result):
         """execute the benchmark"""
-        default_args = "-ioengine=libaio -direct=1 -group_reporting " \
-            "-numjobs=1 -time_based --output-format=json"
+        default_args = "-ioengine=libaio -group_reporting -time_based -time_based " \
+            "--output-format=json"
 
         if not self.setup_done:
             self.setup()
@@ -86,6 +102,10 @@ class Fio(base.Scenario):
         iodepth = options.get("iodepth", "1")
         rw = options.get("rw", "write")
         ramp_time = options.get("ramp_time", 20)
+        size = options.get("size", "1g")
+        direct = options.get("direct", "1")
+        numjobs = options.get("numjobs", "1")
+        rwmixwrite = options.get("rwmixwrite", 50)
         name = "yardstick-fio"
         # if run by a duration runner
         duration_time = self.scenario_cfg["runner"].get("duration", None) \
@@ -99,10 +119,10 @@ class Fio(base.Scenario):
         else:
             runtime = 30
 
-        cmd_args = "-filename=%s -bs=%s -iodepth=%s -rw=%s -ramp_time=%s " \
-                   "-runtime=%s -name=%s %s" \
-                   % (filename, bs, iodepth, rw, ramp_time, runtime, name,
-                      default_args)
+        cmd_args = "-filename=%s -direct=%s -bs=%s -iodepth=%s -rw=%s -rwmixwrite=%s " \
+                   "-size=%s -ramp_time=%s -numjobs=%s -runtime=%s -name=%s %s" \
+                   % (filename, direct, bs, iodepth, rw, rwmixwrite, size, ramp_time, numjobs,
+                      runtime, name, default_args)
         cmd = "sudo bash fio.sh %s %s" % (filename, cmd_args)
         LOG.debug("Executing command: %s", cmd)
         # Set timeout, so that the cmd execution does not exit incorrectly
