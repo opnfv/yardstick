@@ -69,3 +69,13 @@ class V2Testsuite(ApiResource):
                 return result_handler(consts.API_ERROR, 'suite does not exist')
 
         return result_handler(consts.API_SUCCESS, {'testsuite': data})
+
+    def delete(self, suite_name):
+        suite_path = os.path.join(consts.TESTSUITE_DIR, '{}.yaml'.format(suite_name))
+        try:
+            os.remove(suite_path)
+        except IOError as e:
+            if e.errno == errno.ENOENT:
+                return result_handler(consts.API_ERROR, 'suite does not exist')
+
+        return result_handler(consts.API_SUCCESS, {'testsuite': suite_name})
