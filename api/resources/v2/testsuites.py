@@ -6,12 +6,24 @@ import yaml
 from api import ApiResource
 from yardstick.common.utils import result_handler
 from yardstick.common import constants as consts
+from yardstick.benchmark.core.testsuite import Testsuite
+from yardstick.benchmark.core import Param
 
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
 
 
 class V2Testsuites(ApiResource):
+
+    def get(self):
+        param = Param({})
+        testsuite_list = Testsuite().list_all(param)
+
+        data = {
+            'testsuites': testsuite_list
+        }
+
+        return result_handler(consts.API_SUCCESS, data)
 
     def post(self):
         return self._dispatch_post()
