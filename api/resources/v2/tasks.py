@@ -8,9 +8,12 @@ from api import ApiResource
 from api.database.v2.handlers import V2TaskHandler
 from api.database.v2.handlers import V2ProjectHandler
 from api.database.v2.handlers import V2EnvironmentHandler
+from api.utils.thread import TaskThread
 from yardstick.common.utils import result_handler
 from yardstick.common.utils import change_obj_to_dict
 from yardstick.common import constants as consts
+from yardstick.benchmark.core.task import Task
+from yardstick.benchmark.core import Param
 
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
@@ -185,5 +188,48 @@ class V2Task(ApiResource):
             'suite': True
         }
         task_handler.update_attr(task_id, task_update_data)
+
+        return result_handler(consts.API_SUCCESS, {'uuid': task_id})
+
+    def run(self, args):
+        try:
+            task_id = args['task_id']
+        except KeyError:
+            return result_handler(consts.API_ERROR, 'task_id must be provided')
+
+        try:
+            uuid.UUID(task_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid task id')
+
+        task_handler = V2TaskHandler()
+        try:
+            task = task_handler.get_by_uuid(task_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such task id')
+
+        if not task.environment_id:
+            return result_handler(consts.API_ERROR, 'environment not set')
+
+        if not task.case_name or not task.content:
+            return result_handler(consts.API_ERROR, 'case not set')
+
+        if task.status == 0:
+            return result_handler(consts.API_ERROR, 'task is already running')
+
+        with open('/tmp/{}.yaml'.format(task.case_name), 'w') as f:
+            f.write(task.content)
+
+        data = {
+            'inputfile': ['/tmp/{}.yaml'.format(task.case_name)],
+            'task_id': task_id
+        }
+        if task.suite:
+            data.update({'suite': True})
+
+        LOG.info('start task thread')
+        param = Param(data)
+        task_thread = TaskThread(Task().start, param, task_handler)
+        task_thread.start()
 
         return result_handler(consts.API_SUCCESS, {'uuid': task_id})
