@@ -2,11 +2,14 @@ import uuid
 import logging
 from datetime import datetime
 
+from oslo_serialization import jsonutils
+
 from api import ApiResource
 from api.database.v2.handlers import V2TaskHandler
 from api.database.v2.handlers import V2ProjectHandler
 from api.database.v2.handlers import V2EnvironmentHandler
 from yardstick.common.utils import result_handler
+from yardstick.common.utils import change_obj_to_dict
 from yardstick.common import constants as consts
 
 LOG = logging.getLogger(__name__)
@@ -51,6 +54,24 @@ class V2Tasks(ApiResource):
 
 
 class V2Task(ApiResource):
+
+    def get(self, task_id):
+        try:
+            uuid.UUID(task_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid task id')
+
+        task_handler = V2TaskHandler()
+        try:
+            task = task_handler.get_by_uuid(task_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such task id')
+
+        task_info = change_obj_to_dict(task)
+        result = task_info['result']
+        task_info['result'] = jsonutils.loads(result) if result else None
+
+        return result_handler(consts.API_SUCCESS, {'task': task_info})
 
     def put(self, task_id):
 
