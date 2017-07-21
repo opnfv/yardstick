@@ -1,4 +1,5 @@
 import logging
+import errno
 import os
 
 from api import ApiResource
@@ -33,3 +34,18 @@ class V2Testcases(ApiResource):
         upload_file.save(case_name)
 
         return result_handler(consts.API_SUCCESS, {'testcase': upload_file.filename})
+
+
+class V2Testcase(ApiResource):
+
+    def get(self, case_name):
+        case_path = os.path.join(consts.TESTCASE_DIR, '{}.yaml'.format(case_name))
+
+        try:
+            with open(case_path) as f:
+                data = f.read()
+        except IOError as e:
+            if e.errno == errno.ENOENT:
+                return result_handler(consts.API_ERROR, 'case does not exist')
+
+        return result_handler(consts.API_SUCCESS, {'testcase': data})
