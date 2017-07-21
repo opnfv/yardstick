@@ -1,12 +1,17 @@
 import uuid
+import logging
 
 from datetime import datetime
 
 from api import ApiResource
 from api.database.v2.handlers import V2ProjectHandler
+from api.database.v2.handlers import V2TaskHandler
 from yardstick.common.utils import result_handler
 from yardstick.common.utils import change_obj_to_dict
 from yardstick.common import constants as consts
+
+LOG = logging.getLogger(__name__)
+LOG.setLevel(logging.DEBUG)
 
 
 class V2Projects(ApiResource):
@@ -63,3 +68,30 @@ class V2Project(ApiResource):
         project_info['tasks'] = tasks.split(',') if tasks else []
 
         return result_handler(consts.API_SUCCESS, {'project': project_info})
+
+    def delete(self, project_id):
+        try:
+            uuid.UUID(project_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid project id')
+
+        project_handler = V2ProjectHandler()
+        try:
+            project = project_handler.get_by_uuid(project_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such project id')
+
+        if project.tasks:
+            LOG.info('delete related task')
+            task_handler = V2TaskHandler()
+            for task_id in project.tasks.split(','):
+                LOG.debug('delete task: %s', task_id)
+                try:
+                    task_handler.delete_by_uuid(task_id)
+                except ValueError:
+                    LOG.exception('no such task id: %s', task_id)
+
+        LOG.info('delete project in database')
+        project_handler.delete_by_uuid(project_id)
+
+        return result_handler(consts.API_SUCCESS, {'project': project_id})
