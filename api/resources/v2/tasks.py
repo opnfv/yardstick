@@ -21,6 +21,16 @@ LOG.setLevel(logging.DEBUG)
 
 class V2Tasks(ApiResource):
 
+    def get(self):
+        task_handler = V2TaskHandler()
+        tasks = [change_obj_to_dict(t) for t in task_handler.list_all()]
+
+        for t in tasks:
+            result = t['result']
+            t['result'] = jsonutils.loads(result) if result else None
+
+        return result_handler(consts.API_SUCCESS, {'tasks': tasks})
+
     def post(self):
         return self._dispatch_post()
 

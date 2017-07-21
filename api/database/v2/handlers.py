@@ -173,6 +173,9 @@ class V2ProjectHandler(object):
 
 class V2TaskHandler(object):
 
+    def list_all(self):
+        return V2Task.query.all()
+
     def insert(self, kwargs):
         task = V2Task(**kwargs)
         db_session.add(task)
