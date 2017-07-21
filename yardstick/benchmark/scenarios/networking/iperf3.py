@@ -50,6 +50,17 @@ For more info see http://software.es.net/iperf
         type:    int
         unit:    bytes
         default: -
+    buffer_len - length of buffer to read or write,
+      (default 128 KB for TCP, 8 KB for UDP)
+        type:    int
+        unit:    bytes
+        default: -
+    windows_size - set window size / socket buffer size
+      set TCP windows size. for UDP way to test, this will set to accept UDP
+      packet buffer size, limit the max size of acceptable data packet.
+        type:    int
+        unit:    bytes
+        default: -
     """
     __scenario_type__ = "Iperf3"
 
@@ -122,17 +133,23 @@ For more info see http://software.es.net/iperf
         elif "blockcount" in options:
             cmd += " --blockcount %d" % options["blockcount"]
 
+        if "buffer_len" in options:
+            cmd += " -l %s" % options["buffer_len"]
+
+        if "windows_size" in options:
+            cmd += " -w %s" % options["windows_size"]
+
         LOG.debug("Executing command: %s", cmd)
 
         status, stdout, stderr = self.host.execute(cmd)
         if status:
             # error cause in json dict on stdout
             raise RuntimeError(stdout)
-
+        out_result = {"result": stdout}
         # Note: convert all ints to floats in order to avoid
         # schema conflicts in influxdb. We probably should add
         # a format func in the future.
-        iperf_result = jsonutils.loads(stdout, parse_int=float)
+        iperf_result = jsonutils.loads(out_result, parse_int=float)
         result.update(utils.flatten_dict_key(iperf_result))
 
         if "sla" in self.scenario_cfg:
