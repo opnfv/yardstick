@@ -50,6 +50,17 @@ For more info see http://software.es.net/iperf
         type:    int
         unit:    bytes
         default: -
+    length - length of buffer to read or write,
+      (default 128 KB for TCP, 8 KB for UDP)
+        type:    int
+        unit:    k
+        default: -
+    window - set window size / socket buffer size
+      set TCP windows size. for UDP way to test, this will set to accept UDP
+      packet buffer size, limit the max size of acceptable data packet.
+        type:    int
+        unit:    k
+        default: -
     """
     __scenario_type__ = "Iperf3"
 
@@ -121,6 +132,12 @@ For more info see http://software.es.net/iperf
             cmd += " --bytes %d" % options["bytes"]
         elif "blockcount" in options:
             cmd += " --blockcount %d" % options["blockcount"]
+
+        if "length" in options:
+            cmd += " --length %s" % options["length"]
+
+        if "window" in options:
+            cmd += " --window %s" % options["window"]
 
         LOG.debug("Executing command: %s", cmd)
 
