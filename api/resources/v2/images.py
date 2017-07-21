@@ -5,6 +5,8 @@ import threading
 from api import ApiResource
 from yardstick.common.utils import result_handler
 from yardstick.common.utils import source_env
+from yardstick.common.utils import change_obj_to_dict
+from yardstick.common.openstack_utils import get_nova_client
 from yardstick.common import constants as consts
 
 LOG = logging.getLogger(__name__)
@@ -13,8 +15,34 @@ LOG.setLevel(logging.DEBUG)
 
 class V2Images(ApiResource):
 
+    def get(self):
+        try:
+            source_env(consts.OPENRC)
+        except:
+            return result_handler(consts.API_ERROR, 'source openrc error')
+
+        nova_client = get_nova_client()
+        try:
+            images_list = nova_client.images.list()
+        except:
+            return result_handler(consts.API_ERROR, 'get images error')
+        else:
+            images = [self.get_info(change_obj_to_dict(i)) for i in images_list]
+            status = 1 if all(i['status'] == 'ACTIVE' for i in images) else 0
+
+        return result_handler(consts.API_SUCCESS, {'status': status, 'images': images})
+
     def post(self):
         return self._dispatch_post()
+
+    def get_info(self, data):
+        result = {
+            'name': data.get('name', ''),
+            'size': data.get('OS-EXT-IMG-SIZE:size', ''),
+            'status': data.get('status', ''),
+            'time': data.get('updated', '')
+        }
+        return result
 
     def load_image(self, args):
         thread = threading.Thread(target=self._load_images)
