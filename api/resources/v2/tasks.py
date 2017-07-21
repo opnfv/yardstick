@@ -141,3 +141,26 @@ class V2Task(ApiResource):
         task_handler.update_attr(task_id, {'environment_id': environment_id})
 
         return result_handler(consts.API_SUCCESS, {'uuid': task_id})
+
+    def add_case(self, args):
+        task_id = args['task_id']
+        try:
+            name = args['case_name']
+        except KeyError:
+            return result_handler(consts.API_ERROR, 'case_name must be provided')
+
+        try:
+            content = args['case_content']
+        except KeyError:
+            return result_handler(consts.API_ERROR, 'case_content must be provided')
+
+        LOG.info('update case info in task')
+        task_handler = V2TaskHandler()
+        task_update_data = {
+            'case_name': name,
+            'content': content,
+            'suite': False
+        }
+        task_handler.update_attr(task_id, task_update_data)
+
+        return result_handler(consts.API_SUCCESS, {'uuid': task_id})
