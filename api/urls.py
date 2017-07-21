@@ -52,5 +52,5 @@ urlpatterns = [
 
     Url('/api/v2/yardstick/testsuites', 'v2_testsuites'),
     Url('/api/v2/yardstick/testsuites/action', 'v2_testsuites'),
-    Url('/api/v2/yardstick/testsuites/<suite_name>', 'v2_testsuites')
+    Url('/api/v2/yardstick/testsuites/<suite_name>', 'v2_testsuite')
 ]
