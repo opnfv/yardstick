@@ -49,3 +49,14 @@ class V2Testcase(ApiResource):
                 return result_handler(consts.API_ERROR, 'case does not exist')
 
         return result_handler(consts.API_SUCCESS, {'testcase': data})
+
+    def delete(self, case_name):
+        case_path = os.path.join(consts.TESTCASE_DIR, '{}.yaml'.format(case_name))
+
+        try:
+            os.remove(case_path)
+        except IOError as e:
+            if e.errno == errno.ENOENT:
+                return result_handler(consts.API_ERROR, 'case does not exist')
+
+        return result_handler(consts.API_SUCCESS, {'testcase': case_name})
