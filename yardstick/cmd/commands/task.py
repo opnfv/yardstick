@@ -46,6 +46,7 @@ class TaskCommands(object):     # pragma: no cover
              output_file_default, default=output_file_default)
     @cliargs("--suite", help="process test suite file instead of a task file",
              action="store_true")
+    @cliargs("--task_id", help="task_id")
     def do_start(self, args, **kwargs):
         param = change_osloobj_to_paras(args)
         self.output_file = param.output_file

@@ -10,23 +10,28 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+import base64
 import collections
 import logging
 import os
 import uuid
-import errno
 from collections import OrderedDict
 
 import ipaddress
+
+import errno
 import pkg_resources
+import json
+
+import time
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts.model import Network
 from yardstick.benchmark.contexts.model import PlacementGroup, ServerGroup
 from yardstick.benchmark.contexts.model import Server
 from yardstick.benchmark.contexts.model import update_scheduler_hints
-from yardstick.common.openstack_utils import get_neutron_client
-from yardstick.orchestrator.heat import HeatTemplate, get_short_key_uuid
+from yardstick.common.openstack_utils import get_neutron_client, get_nova_client
+from yardstick.orchestrator.heat import HeatTemplate, get_short_key_uuid, HeatStack
 from yardstick.common import constants as consts
 from yardstick.common.utils import source_env
 from yardstick.ssh import SSH
@@ -89,9 +94,36 @@ class HeatContext(Context):
 
         return sorted_networks
 
+    def load_persist(self, attrs):
+        self.recycle = False
+        try:
+            with open("/tmp/stack.json") as stack_file:
+                persist = json.load(stack_file)
+        except IOError as e:
+            if e.errno != errno.ENOENT:
+                raise
+            return attrs
+        try:
+            with open(persist['key_filename']) as key_file:
+                key_file.read()
+        except IOError:
+            LOG.exception("Can't read persisted key_filename, is stack running?")
+            raise
+        else:
+            attrs = persist["attrs"]
+            self.key_filename = persist['key_filename']
+            uuid_bytes = base64.b64decode(persist['key_uuid'])
+            self.key_uuid = uuid.UUID(bytes=uuid_bytes, version=4)
+            self.stack = HeatStack(attrs['name'])
+            self.stack.uuid = persist['stack.uuid']
+            self.stack.outputs = persist['stack.outputs']
+            self.recycle = True
+            return attrs
+
     def init(self, attrs):
         self.check_environment()
         """initializes itself from the supplied arguments"""
+        attrs = self.load_persist(attrs)
         self.name = attrs["name"]
 
         self._user = attrs.get("user")
@@ -132,7 +164,8 @@ class HeatContext(Context):
             self._server_map[server.dn] = server
 
         self.attrs = attrs
-        SSH.gen_keys(self.key_filename)
+        if not self.recycle:
+            SSH.gen_keys(self.key_filename)
 
     def check_environment(self):
         try:
@@ -282,7 +315,6 @@ class HeatContext(Context):
     def get_neutron_info(self):
         if not self.neutron_client:
             self.neutron_client = get_neutron_client()
-
         networks = self.neutron_client.list_networks()
         for network in self.networks.values():
             for neutron_net in networks['networks']:
@@ -292,6 +324,18 @@ class HeatContext(Context):
                     # network.physical_network = neutron_net.get('provider:physical_network')
                     network.network_type = neutron_net.get('provider:network_type')
                     network.neutron_info = neutron_net
+
+    def save_stack(self):
+
+        persist = {
+            'attrs': self.attrs,
+            'stack.uuid': self.stack.uuid,
+            'stack.outputs': self.stack.outputs,
+            'key_filename': self.key_filename,
+            'key_uuid': base64.b64encode(self.key_uuid.bytes).decode('utf-8'),
+        }
+        with open("/tmp/stack.json", "w") as stack_file:
+            json.dump(persist, stack_file)
 
     def deploy(self):
         """deploys template into a stack using cloud"""
@@ -303,15 +347,16 @@ class HeatContext(Context):
         if self.template_file is None:
             self._add_resources_to_template(heat_template)
 
-        try:
-            self.stack = heat_template.create(block=True,
-                                              timeout=self.heat_timeout)
-        except KeyboardInterrupt:
-            raise SystemExit("\nStack create interrupted")
-        except:
-            LOG.exception("stack failed")
-            # let the other failures happen, we want stack trace
-            raise
+        if not self.recycle:
+            try:
+                self.stack = heat_template.create(block=True,
+                                                  timeout=self.heat_timeout)
+            except KeyboardInterrupt:
+                raise SystemExit("\nStack create interrupted")
+            except:
+                LOG.exception("stack failed")
+                # let the other failures happen, we want stack trace
+                raise
 
         # TODO: use Neutron to get segmentation-id
         self.get_neutron_info()
@@ -326,6 +371,11 @@ class HeatContext(Context):
                     self.stack.outputs[server.floating_ip["stack_name"]]
 
         print("Context '%s' deployed" % self.name)
+        if self.recycle:
+            # self.reboot_all()
+            pass
+        else:
+            self.save_stack()
 
     def add_server_port(self, server):
         # TODO(hafe) can only handle one internal network for now
@@ -363,18 +413,21 @@ class HeatContext(Context):
 
     def undeploy(self):
         """undeploys stack from cloud"""
-        if self.stack:
-            print("Undeploying context '%s'" % self.name)
-            self.stack.delete()
-            self.stack = None
-            print("Context '%s' undeployed" % self.name)
-
-        if os.path.exists(self.key_filename):
-            try:
-                os.remove(self.key_filename)
-                os.remove(self.key_filename + ".pub")
-            except OSError:
-                LOG.exception("Key filename %s", self.key_filename)
+        LOG.debug("undeploy")
+        if not self.recycle:
+            # if self.stack:
+            #     print("Undeploying context '%s'" % self.name)
+            #     self.stack.delete()
+            #     self.stack = None
+            #     print("Context '%s' undeployed" % self.name)
+            #
+            # if os.path.exists(self.key_filename):
+            #     try:
+            #         os.remove(self.key_filename)
+            #         os.remove(self.key_filename + ".pub")
+            #     except OSError:
+            #         LOG.exception("Key filename %s", self.key_filename)
+            pass
 
         super(HeatContext, self).undeploy()
 
