@@ -58,7 +58,7 @@ class BaseResultChecker(object):
     def __init__(self, config, context):
         if not BaseResultChecker.resultchecker_cfgs:
             with open(resultchecker_conf_path) as stream:
-                BaseResultChecker.resultchecker_cfgs = yaml.load(stream)
+                BaseResultChecker.resultchecker_cfgs = yaml.safe_load(stream)
         self.actualResult = object()
         self.expectedResult = object()
         self.success = False
