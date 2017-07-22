@@ -393,7 +393,7 @@ class V1Env(ApiResource):
             return result_handler(consts.API_ERROR, 'file must be provided')
 
         LOG.info('Checking file')
-        data = yaml.load(pod_file.read())
+        data = yaml.safe_load(pod_file.read())
         if not isinstance(data, collections.Mapping):
             return result_handler(consts.API_ERROR, 'invalid yaml file')
 

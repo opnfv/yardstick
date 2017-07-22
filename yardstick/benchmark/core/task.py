@@ -411,7 +411,7 @@ class TaskParser(object):       # pragma: no cover
 
         try:
             with open(self.path) as stream:
-                cfg = yaml.load(stream)
+                cfg = yaml.safe_load(stream)
         except IOError as ioerror:
             sys.exit(ioerror)
 
@@ -475,7 +475,7 @@ class TaskParser(object):       # pragma: no cover
                     raise e
                 print("Input task is:\n%s\n" % rendered_task)
 
-                cfg = yaml.load(rendered_task)
+                cfg = yaml.safe_load(rendered_task)
         except IOError as ioerror:
             sys.exit(ioerror)
 
