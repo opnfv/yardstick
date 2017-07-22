@@ -74,7 +74,7 @@ class BaseMonitor(multiprocessing.Process):
     def __init__(self, config, context, data):
         if not BaseMonitor.monitor_cfgs:
             with open(monitor_conf_path) as stream:
-                BaseMonitor.monitor_cfgs = yaml.load(stream)
+                BaseMonitor.monitor_cfgs = yaml.safe_load(stream)
         multiprocessing.Process.__init__(self)
         self._config = config
         self._context = context

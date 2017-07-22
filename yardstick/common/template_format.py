@@ -51,6 +51,7 @@ def parse(tmpl_str):
         tpl = jsonutils.loads(tmpl_str)
     else:
         try:
+            # we already use SafeLoader when constructing special Heat YAML loader class
             tpl = yaml.load(tmpl_str, Loader=yaml_loader)
         except yaml.YAMLError as yea:
             raise ValueError(yea)

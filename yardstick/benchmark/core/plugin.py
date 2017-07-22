@@ -153,7 +153,7 @@ class PluginParser(object):
                     raise e
                 print("Input plugin is:\n%s\n" % rendered_plugin)
 
-                cfg = yaml.load(rendered_plugin)
+                cfg = yaml.safe_load(rendered_plugin)
         except IOError as ioerror:
             sys.exit(ioerror)
 

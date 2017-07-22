@@ -56,7 +56,7 @@ class BaseAttacker(object):
     def __init__(self, config, context):
         if not BaseAttacker.attacker_cfgs:
             with open(attacker_conf_path) as stream:
-                BaseAttacker.attacker_cfgs = yaml.load(stream)
+                BaseAttacker.attacker_cfgs = yaml.safe_load(stream)
 
         self._config = config
         self._context = context
