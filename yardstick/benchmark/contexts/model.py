@@ -111,6 +111,8 @@ class Network(Object):
         self.segmentation_id = attrs.get('segmentation_id')
         self.network_type = attrs.get('network_type')
         self.port_security_enabled = attrs.get('port_security_enabled')
+        self.vnic_type = attrs.get('vnic_type', 'normal')
+        self.port_security_enabled = attrs.get('port_security_enabled', True)
         self.allowed_address_pairs = attrs.get('allowed_address_pairs', [])
         try:
             # we require 'null' or '' to disable setting gateway_ip
@@ -255,7 +257,8 @@ class Server(Object):     # pragma: no cover
             # don't refactor to pass in network object, that causes JSON
             # circular ref encode errors
             template.add_port(port_name, network.stack_name, network.subnet_stack_name,
-                              sec_group_id=sec_group_id, provider=network.provider,
+                              network.vnic_type, sec_group_id=sec_group_id,
+                              provider=network.provider,
                               allowed_address_pairs=network.allowed_address_pairs)
             port_name_list.append(port_name)
 
