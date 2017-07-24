@@ -26,15 +26,18 @@ urlpatterns = [
     Url('/api/v2/yardstick/environments/action', 'v2_environments'),
     Url('/api/v2/yardstick/environments/<environment_id>', 'v2_environment'),
 
+    Url('/api/v2/yardstick/openrcs', 'v2_openrcs'),
     Url('/api/v2/yardstick/openrcs/action', 'v2_openrcs'),
     Url('/api/v2/yardstick/openrcs/<openrc_id>', 'v2_openrc'),
 
+    Url('/api/v2/yardstick/pods', 'v2_pods'),
     Url('/api/v2/yardstick/pods/action', 'v2_pods'),
     Url('/api/v2/yardstick/pods/<pod_id>', 'v2_pod'),
 
     Url('/api/v2/yardstick/images', 'v2_images'),
     Url('/api/v2/yardstick/images/action', 'v2_images'),
 
+    Url('/api/v2/yardstick/containers', 'v2_containers'),
     Url('/api/v2/yardstick/containers/action', 'v2_containers'),
     Url('/api/v2/yardstick/containers/<container_id>', 'v2_container'),
 
