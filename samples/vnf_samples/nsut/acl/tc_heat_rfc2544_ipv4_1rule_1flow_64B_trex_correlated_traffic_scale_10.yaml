@@ -1,0 +1,370 @@
+# Copyright (c) 2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: yardstick:task:0.1
+scenarios:
+  - type: NSPerf
+    traffic_profile: ../../traffic_profiles/ipv4_throughput-10.yaml
+    topology: acl-tg-topology-3node-10.yaml
+    nodes:
+      tg__0: tg_0.yardstick
+      tg__1: tg_1.yardstick
+      vnf__0: vnf_0.yardstick
+      vnf__1: vnf_1.yardstick
+      vnf__2: vnf_2.yardstick
+      vnf__3: vnf_3.yardstick
+      vnf__4: vnf_4.yardstick
+      vnf__5: vnf_5.yardstick
+      vnf__6: vnf_6.yardstick
+      vnf__7: vnf_7.yardstick
+      vnf__8: vnf_8.yardstick
+      vnf__9: vnf_9.yardstick
+    options:
+      framesize:
+        uplink: {64B: 100}
+        downlink: {64B: 100}
+      flow:
+        src_ip:
+          - {'tg__0': 'xe0'}
+          - {'tg__0': 'xe1'}
+          - {'tg__0': 'xe2'}
+          - {'tg__0': 'xe3'}
+          - {'tg__0': 'xe4'}
+          - {'tg__0': 'xe5'}
+          - {'tg__0': 'xe6'}
+          - {'tg__0': 'xe7'}
+          - {'tg__0': 'xe8'}
+          - {'tg__0': 'xe9'}
+        dst_ip:
+          - {'tg__1': 'xe0'}
+          - {'tg__1': 'xe1'}
+          - {'tg__1': 'xe2'}
+          - {'tg__1': 'xe3'}
+          - {'tg__1': 'xe4'}
+          - {'tg__1': 'xe5'}
+          - {'tg__1': 'xe6'}
+          - {'tg__1': 'xe7'}
+          - {'tg__1': 'xe8'}
+          - {'tg__1': 'xe9'}
+        count: 1
+      traffic_type: 4
+      rfc2544:
+        allowed_drop_rate: 0.0001 - 0.0001
+        correlated_traffic: true
+      vnf__0:
+        rules: acl_1rule.yaml
+        vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      vnf__1:
+        rules: acl_1rule.yaml
+        vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      vnf__2:
+        rules: acl_1rule.yaml
+        vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      vnf__3:
+        rules: acl_1rule.yaml
+        vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      vnf__4:
+        rules: acl_1rule.yaml
+        vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      vnf__5:
+        rules: acl_1rule.yaml
+        vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      vnf__6:
+        rules: acl_1rule.yaml
+        vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      vnf__7:
+        rules: acl_1rule.yaml
+        vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      vnf__8:
+        rules: acl_1rule.yaml
+        vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      vnf__9:
+        rules: acl_1rule.yaml
+        vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+    runner:
+      type: Iteration
+      iterations: 10
+      interval: 35
+context:
+  name: yardstick
+  image: yardstick-samplevnfs
+  flavor:
+    vcpus: 10
+    ram: 10240
+    disk: 6
+    extra_specs:
+      hw:cpu_sockets: 1
+      hw:cpu_cores: 10
+      hw:cpu_threads: 1
+  user: ubuntu
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+  servers:
+    tg_0:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+        uplink_0:
+          - xe0
+        uplink_1:
+          - xe1
+        uplink_2:
+          - xe2
+        uplink_3:
+          - xe3
+        uplink_4:
+          - xe4
+        uplink_5:
+          - xe5
+        uplink_6:
+          - xe6
+        uplink_7:
+          - xe7
+        uplink_8:
+          - xe8
+        uplink_9:
+          - xe9
+    tg_1:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+        downlink_0:
+          - xe0
+        downlink_1:
+          - xe1
+        downlink_2:
+          - xe2
+        downlink_3:
+          - xe3
+        downlink_4:
+          - xe4
+        downlink_5:
+          - xe5
+        downlink_6:
+          - xe6
+        downlink_7:
+          - xe7
+        downlink_8:
+          - xe8
+        downlink_9:
+          - xe9
+    vnf_0:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+        uplink_0:
+          - xe0
+        downlink_0:
+          - xe1
+    vnf_1:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+        uplink_1:
+          - xe0
+        downlink_1:
+          - xe1
+    vnf_2:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+        uplink_2:
+          - xe0
+        downlink_2:
+          - xe1
+    vnf_3:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+        uplink_3:
+          - xe0
+        downlink_3:
+          - xe1
+    vnf_4:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+        uplink_4:
+          - xe0
+        downlink_4:
+          - xe1
+    vnf_5:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+        uplink_5:
+          - xe0
+        downlink_5:
+          - xe1
+    vnf_6:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+        uplink_6:
+          - xe0
+        downlink_6:
+          - xe1
+    vnf_7:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+        uplink_7:
+          - xe0
+        downlink_7:
+          - xe1
+    vnf_8:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+        uplink_8:
+          - xe0
+        downlink_8:
+          - xe1
+    vnf_9:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+        uplink_9:
+          - xe0
+        downlink_9:
+          - xe1
+  networks:
+    mgmt:
+      cidr: '10.0.1.0/24'
+    uplink_0:
+      cidr: '10.1.0.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    downlink_0:
+      cidr: '10.1.1.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    uplink_1:
+      cidr: '10.2.0.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    downlink_1:
+      cidr: '10.2.1.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    uplink_2:
+      cidr: '10.3.0.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    downlink_2:
+      cidr: '10.3.1.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    uplink_3:
+      cidr: '10.4.0.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    downlink_3:
+      cidr: '10.4.1.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    uplink_4:
+      cidr: '10.5.0.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    downlink_4:
+      cidr: '10.5.1.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    uplink_5:
+      cidr: '10.6.0.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    downlink_5:
+      cidr: '10.6.1.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    uplink_6:
+      cidr: '10.7.0.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    downlink_6:
+      cidr: '10.7.1.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    uplink_7:
+      cidr: '10.8.0.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    downlink_7:
+      cidr: '10.8.1.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    uplink_8:
+      cidr: '10.9.0.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    downlink_8:
+      cidr: '10.9.1.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    uplink_9:
+      cidr: '10.10.0.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    downlink_9:
+      cidr: '10.10.1.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
