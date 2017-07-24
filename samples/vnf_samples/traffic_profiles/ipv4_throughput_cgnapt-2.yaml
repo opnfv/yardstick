@@ -1,4 +1,3 @@
-#jinja2:variable_start_string:'[[', variable_end_string:']]', block_start_string:'[%', block_end_string:'%]'
 # Copyright (c) 2016-2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,10 +46,8 @@ traffic_profile:
   # that specifies a range (e.g. ipv4 address, port)
 
 
-[% for vnf_num in range(num_vnfs|int) %]
-uplink_[[ vnf_num ]]:
+uplink_0:
   ipv4:
-    id: [[vnf_num * 2 + 1]]
     outer_l2:
       framesize:
         64B: "{{ get(imix, 'imix.uplink.64B', '0') }}"
@@ -64,18 +61,17 @@ uplink_[[ vnf_num ]]:
         1518B: "{{get(imix, 'imix.uplink.1518B', '0') }}"
     outer_l3v4:
       proto: "udp"
-      srcip4: "{{get(flow, 'flow.src_ip_[[ vnf_num ]]', '1.1.1.1-1.1.255.255') }}"
-      dstip4: "{{get(flow, 'flow.dst_ip_[[ vnf_num ]]', '90.90.1.1-90.90.255.255') }}"
+      srcip4: "{{get(flow, 'flow.src_ip_0', '1.1.1.1-1.1.255.255') }}"
+      dstip4: "{{get(flow, 'flow.dst_ip_0', '90.90.1.1-90.90.255.255') }}"
       count: "{{get(flow, 'flow.count', '1') }}"
       ttl: 32
       dscp: 0
     outer_l4:
-      srcport: "{{get(flow, 'flow.src_port_[[ vnf_num ]]', '1234-4321') }}"
-      dstport: "{{get(flow, 'flow.dst_port_[[ vnf_num ]]', '2001-4001') }}"
+      srcport: "{{get(flow, 'flow.src_port_0', '1234-4321') }}"
+      dstport: "{{get(flow, 'flow.dst_port_0', '2001') }}"
       count: "{{get(flow, 'flow.count', '1') }}"
-downlink_[[ vnf_num ]]:
+downlink_0:
   ipv4:
-    id: [[vnf_num * 2 + 2]]
     outer_l2:
       framesize:
         64B: "{{ get(imix, 'imix.downlink.64B', '0') }}"
@@ -90,13 +86,61 @@ downlink_[[ vnf_num ]]:
 
     outer_l3v4:
       proto: "udp"
-      srcip4: "{{get(flow, 'flow.dst_ip_[[ vnf_num ]]', '90.90.1.1-90.90.255.255') }}"
-      dstip4: "{{get(flow, 'flow.src_ip_[[ vnf_num ]]', '1.1.1.1-1.1.255.255') }}"
+      srcip4: "{{get(flow, 'flow.dst_ip_0', '10.0.3.1-10.0.3.255') }}"
+      dstip4: "{{get(flow, 'flow.downlink_0', '10.0.2.1-10.0.2.255') }}"
       count: "{{get(flow, 'flow.count', '1') }}"
       ttl: 32
       dscp: 0
     outer_l4:
-      srcport: "{{get(flow, 'flow.dst_port_[[ vnf_num ]]', '1234-4321') }}"
-      dstport: "{{get(flow, 'flow.src_port_[[ vnf_num ]]', '2001-4001') }}"
+      srcport: "{{get(flow, 'flow.dst_port_0', '1234-4321') }}"
+      dstport: "{{get(flow, 'flow.src_port_0', '2001-4001') }}"
       count: "{{get(flow, 'flow.count', '1') }}"
-[% endfor %]
+uplink_1:
+  ipv4:
+    outer_l2:
+      framesize:
+        64B: "{{ get(imix, 'imix.uplink.64B', '0') }}"
+        128B: "{{ get(imix, 'imix.uplink.128B', '0') }}"
+        256B: "{{ get(imix, 'imix.uplink.256B', '0') }}"
+        373b: "{{ get(imix, 'imix.uplink.373B', '0') }}"
+        512B: "{{ get(imix, 'imix.uplink.512B', '0') }}"
+        570B: "{{get(imix, 'imix.uplink.570B', '0') }}"
+        1400B: "{{get(imix, 'imix.uplink.1400B', '0') }}"
+        1500B: "{{get(imix, 'imix.uplink.1500B', '0') }}"
+        1518B: "{{get(imix, 'imix.uplink.1518B', '0') }}"
+    outer_l3v4:
+      proto: "udp"
+      srcip4: "{{get(flow, 'flow.src_ip_1', '1.1.1.1-1.1.255.255') }}"
+      dstip4: "{{get(flow, 'flow.dst_ip_1', '90.90.1.1-90.90.255.255') }}"
+      count: "{{get(flow, 'flow.count', '1') }}"
+      ttl: 32
+      dscp: 0
+    outer_l4:
+      srcport: "{{get(flow, 'flow.src_port_1', '1234-4321') }}"
+      dstport: "{{get(flow, 'flow.dst_port_1', '2001') }}"
+      count: "{{get(flow, 'flow.count', '1') }}"
+downlink_1:
+  ipv4:
+    outer_l2:
+      framesize:
+        64B: "{{ get(imix, 'imix.downlink.64B', '0') }}"
+        128B: "{{ get(imix, 'imix.downlink.128B', '0') }}"
+        256B: "{{ get(imix, 'imix.downlink.256B', '0') }}"
+        373b: "{{ get(imix, 'imix.downlink.373B', '0') }}"
+        512B: "{{ get(imix, 'imix.downlink.512B', '0') }}"
+        570B: "{{get(imix, 'imix.downlink.570B', '0') }}"
+        1400B: "{{get(imix, 'imix.downlink.1400B', '0') }}"
+        1500B: "{{get(imix, 'imix.downlink.1500B', '0') }}"
+        1518B: "{{get(imix, 'imix.downlink.1518B', '0') }}"
+
+    outer_l3v4:
+      proto: "udp"
+      srcip4: "{{get(flow, 'flow.dst_ip_1', '10.0.3.1-10.0.3.255') }}"
+      dstip4: "{{get(flow, 'flow.downlink_1', '10.0.2.1-10.0.2.255') }}"
+      count: "{{get(flow, 'flow.count', '1') }}"
+      ttl: 32
+      dscp: 0
+    outer_l4:
+      srcport: "{{get(flow, 'flow.dst_port_1', '1234-4321') }}"
+      dstport: "{{get(flow, 'flow.src_port_1', '2001-4001') }}"
+      count: "{{get(flow, 'flow.count', '1') }}"
