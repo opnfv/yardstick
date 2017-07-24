@@ -87,7 +87,7 @@ downlink_0:
         outer_l3v4:
             proto: "udp"
             srcip4: "{{get(flow, 'flow.dst_ip_0', '10.0.3.1-10.0.3.255') }}"
-            dstip4: "{{get(flow, 'flow.public_ip_0', '10.0.2.1-10.0.2.255') }}"
+            dstip4: "{{get(flow, 'flow.downlink_ip_0', '10.0.2.1-10.0.2.255') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
             ttl: 32
             dscp: 0
