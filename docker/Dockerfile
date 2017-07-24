@@ -37,6 +37,7 @@ RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/storperf ${ST
 
 WORKDIR ${YARDSTICK_REPO_DIR}
 RUN ${YARDSTICK_REPO_DIR}/install.sh
+RUN ${YARDSTICK_REPO_DIR}/docker/supervisor.sh
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 

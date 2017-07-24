@@ -17,7 +17,7 @@ class V2Testcases(ApiResource):
     def get(self):
         param = Param({})
         testcase_list = Testcase().list_all(param)
-        return result_handler(consts.API_SUCCESS, testcase_list)
+        return result_handler(consts.API_SUCCESS, {'testcases': testcase_list})
 
     def post(self):
         return self._dispatch_post()

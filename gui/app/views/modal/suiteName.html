@@ -1,0 +1,18 @@
+<h4>Enter Suite Name</h4>
+<hr/> You have choose:
+<div ng-repeat="selected in suitReconstructList">{{selected}}</div>
+<hr/>
+<input type="text" ng-model="name" />
+
+<div style="text-align:center;margin-top:20px;">
+    <button class="btn btn-default" ng-disabled="testsuiteList.length==0 || name==null || name==''" ng-click="createSuite(name)">Create</button>
+</div>
+
+
+<style>
+    input {
+        border-radius: 10px;
+        border: 1px solid #eeeeee;
+        width: 100%;
+    }
+</style>
