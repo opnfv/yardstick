@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (c) 2016 Huawei Technologies Co.,Ltd and others.
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd.
 #
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
