@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_eb534937",
+        "filename": "ansible/roles/detect_fuel_arch/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2017-07-24T09:34:39Z",
+      "side": 1,
+      "message": "I think this command may be not supported in release E since fuel is turned to MCP.",
+      "revId": "dafe15d5baa94f2970f0c1bdf7feee2d4ac10452",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_6b167957",
+        "filename": "ansible/roles/install_ramspeed/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2017-07-24T09:34:39Z",
+      "side": 1,
+      "message": "since you already change directory to \"{{ ramspeed_dest }}/{{ ramspeed_release }}\", it doesn\u0027t need to use the absolute path.",
+      "revId": "dafe15d5baa94f2970f0c1bdf7feee2d4ac10452",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
