@@ -29,6 +29,8 @@ class V2Images(ApiResource):
         else:
             images = [self.get_info(change_obj_to_dict(i)) for i in images_list]
             status = 1 if all(i['status'] == 'ACTIVE' for i in images) else 0
+            if not images:
+                status = 0
 
         return result_handler(consts.API_SUCCESS, {'status': status, 'images': images})
 

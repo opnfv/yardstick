@@ -106,7 +106,8 @@ class V2Task(ApiResource):
 
         if project.tasks:
             LOG.info('update tasks in project')
-            new_task_list = project.tasks.split(',').remove(task_id)
+            new_task_list = project.tasks.split(',')
+            new_task_list.remove(task_id)
             if new_task_list:
                 new_tasks = ','.join(new_task_list)
             else:

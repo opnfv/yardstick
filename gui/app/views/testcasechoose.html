@@ -1,0 +1,48 @@
+<div class="content">
+
+    <div>
+        Test case list
+        <button class="btn btn-default" style="margin-left:20px;" ng-click="openDialog()">
+                                    <div ng-show="!loadingOPENrc">Create </div>
+                                     <img src="images/loading2.gif" width="25" height="25" ng-if="loadingOPENrc" />
+                                    </button>
+
+
+        <hr/> You have choose :
+        <div ng-repeat="selected in suitReconstructList" style="display:inline;" class="item">{{selected}}</div>
+        <hr/>
+
+        <!--<div ng-repeat="env in environmentList">
+            {{env.name}}
+        </div>-->
+        <div dir-paginate="test in testcaselist.testcases | itemsPerPage: 10">
+            <div style="display:flex;flex-direction:row;">
+                <img src="images/checkyes.png" style="height:12px;cursor:pointer" ng-click="constructTestSuit(test.Name)" ng-show="testsuiteList.indexOf(test.Name)>-1" />
+                <img src="images/checkno.png" style="height:12px;cursor:pointer" ng-click="constructTestSuit(test.Name)" ng-show="testsuiteList.indexOf(test.Name)==-1" />
+                <div style="margin-left:50px;"> {{test.Name}}</div>
+                <div style="font-size:10px;margin-left:100px">{{test.Description}}</div>
+
+            </div>
+            <hr style="margin-top:5px;margin-bottom:5px;" />
+        </div>
+        <center>
+            <dir-pagination-controls></dir-pagination-controls>
+        </center>
+
+
+
+    </div>
+    <toaster-container></toaster-container>
+
+    <style>
+        .item {
+            background-color: #3498db;
+            color: #fff;
+            width: 150px;
+            border-radius: 5px;
+            padding-left: 10px;
+            margin-left: 2px;
+            margin-top: 3px;
+            padding: 4px;
+        }
+    </style>

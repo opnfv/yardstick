@@ -1,0 +1,56 @@
+<div class="content">
+    <i class="fa fa-arrow-left fa-1x" aria-hidden="true" style="color: #999;cursor:pointer" ng-click="goBack()">Back</i>
+    <h3>Yardstick Report </h3>
+    <hr/>
+    <div>
+
+        <div>Task ID : {{result.result.task_id}} </div>
+        <div style="margin-top:5px;">Criteria :
+            <font style="color:#2ECC71" ng-show="result.result.criteria=='PASS'"> {{result.result.criteria}}</font>
+            <font style="color:red" ng-show="result.result.criteria=='FAIL'"> {{result.result.criteria}}</font>
+        </div>
+        <hr/>
+        <caption>Information</caption>
+        <table class="table table-striped">
+            <tr>
+                <th>#</th>
+                <th>key</th>
+                <th>value</th>
+            </tr>
+            <tbody>
+                <tr ng-repeat="(key,value) in  result.result.info">
+                    <td>{{$index}}</td>
+                    <td>{{key}}</td>
+                    <td>{{value}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <hr/>
+
+        <caption>Test Cases</caption>
+        <table class="table table-striped">
+            <tr>
+                <th>#</th>
+                <th>key</th>
+
+                <th>value</th>
+                <th>grafana</th>
+            </tr>
+            <tbody>
+                <tr ng-repeat="(key,value) in result.result.testcases">
+                    <td>{{$index}}</td>
+                    <td>{{key}}</td>
+
+                    <td>{{value.criteria}}</td>
+                    <td> <button class="btn btn-default btn-sm" ng-click="goToExternal(key)"> grafana</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+</div>
