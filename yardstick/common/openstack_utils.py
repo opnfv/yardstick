@@ -15,6 +15,7 @@ import logging
 
 from keystoneauth1 import loading
 from keystoneauth1 import session
+from cinderclient import client as cinderclient
 from novaclient import client as novaclient
 from glanceclient import client as glanceclient
 from neutronclient.neutron import client as neutronclient
@@ -106,6 +107,21 @@ def get_heat_api_version():     # pragma: no cover
     else:
         log.info("HEAT_API_VERSION is set in env as '%s'", api_version)
         return api_version
+
+
+def get_cinder_client_version():      # pragma: no cover
+    try:
+        api_version = os.environ['OS_VOLUME_API_VERSION']
+    except KeyError:
+        return DEFAULT_API_VERSION
+    else:
+        log.info("OS_VOLUME_API_VERSION is set in env as '%s'", api_version)
+        return api_version
+
+
+def get_cinder_client():      # pragma: no cover
+    sess = get_session()
+    return cinderclient.Client(get_cinder_client_version(), session=sess)
 
 
 def get_nova_client_version():      # pragma: no cover
@@ -430,3 +446,11 @@ def get_port_id_by_ip(neutron_client, ip_address):      # pragma: no cover
 def get_image_id(glance_client, image_name):    # pragma: no cover
     images = glance_client.images.list()
     return next((i.id for i in images if i.name == image_name), None)
+
+
+# *********************************************
+#   CINDER
+# *********************************************
+def get_volume_id(volume_name):    # pragma: no cover
+    volumes = get_cinder_client().volumes.list()
+    return next((v.id for v in volumes if v.name == volume_name), None)
