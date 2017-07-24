@@ -20,4 +20,4 @@ else
     SECURE=""
 fi
 
-openstack "${SECURE}" flavor delete $1
+openstack ${SECURE} flavor delete $1
