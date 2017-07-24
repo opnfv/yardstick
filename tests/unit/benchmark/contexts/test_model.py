@@ -237,6 +237,7 @@ class ServerTestCase(unittest.TestCase):
         mock_network.name = 'some-network'
         mock_network.stack_name = 'some-network-stack'
         mock_network.allowed_address_pairs = ["1", "2"]
+        mock_network.vnic_type = 'normal'
         mock_network.subnet_stack_name = 'some-network-stack-subnet'
         mock_network.provider = 'sriov'
         mock_network.external_network = 'ext_net'
@@ -249,6 +250,7 @@ class ServerTestCase(unittest.TestCase):
             'some-server-some-network-port',
             mock_network.stack_name,
             mock_network.subnet_stack_name,
+            mock_network.vnic_type,
             sec_group_id=self.mock_context.secgroup_name,
             provider=mock_network.provider,
             allowed_address_pairs=mock_network.allowed_address_pairs)
@@ -312,6 +314,7 @@ class ServerTestCase(unittest.TestCase):
         self.mock_context.flavors = ['flavor2']
         mock_network = mock.Mock()
         mock_network.allowed_address_pairs = ["1", "2"]
+        mock_network.vnic_type = 'normal'
         mock_network.configure_mock(name='some-network', stack_name='some-network-stack',
                                     subnet_stack_name='some-network-stack-subnet',
                                     provider='some-provider')
@@ -323,6 +326,7 @@ class ServerTestCase(unittest.TestCase):
             'ServerFlavor-2-some-network-port',
             mock_network.stack_name,
             mock_network.subnet_stack_name,
+            mock_network.vnic_type,
             provider=mock_network.provider,
             sec_group_id=self.mock_context.secgroup_name,
             allowed_address_pairs=mock_network.allowed_address_pairs)
