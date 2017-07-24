@@ -7,7 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 ---
-# StorPerf plugin configration file for huawei-pod1
+# StorPerf plugin configration file for compass pod in CI
 # Used for integration StorPerf into Yardstick as a plugin
 
 schema: "yardstick:plugin:0.1"
@@ -16,6 +16,6 @@ plugins:
   name: storperf
 
 deployment:
-  ip: 192.168.10.6
+  ip: local
   user: root
   password: root
