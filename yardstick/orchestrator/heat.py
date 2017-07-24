@@ -230,6 +230,37 @@ name (i.e. %s).\
             'value': {'get_resource': name}
         }
 
+    def add_volume(self, name, size=10):
+        """add to the template a volume description"""
+        log.debug("adding Cinder::Volume '%s' size '%d' ", name, size)
+
+        self.resources[name] = {
+            'type': 'OS::Cinder::Volume',
+            'properties': {'name': name,
+                           'size': size}
+        }
+
+        self._template['outputs'][name] = {
+            'description': 'Volume %s ID' % name,
+            'value': {'get_resource': name}
+        }
+
+    def add_volume_attachment(self, server_name, volume_name):
+        """add to the template an association of volume to instance"""
+        log.debug("adding Cinder::VolumeAttachment server '%s' volume '%s' ", server_name,
+                  volume_name)
+
+        name = "%s-%s" % (server_name, volume_name)
+
+        volume_id = op_utils.get_volume_id(volume_name)
+        if not volume_id:
+            volume_id = {'get_resource': volume_name}
+        self.resources[name] = {
+            'type': 'OS::Cinder::VolumeAttachment',
+            'properties': {'instance_uuid': {'get_resource': server_name},
+                           'volume_id': volume_id}
+        }
+
     def add_network(self, name, physical_network='physnet1', provider=None,
                     segmentation_id=None, port_security_enabled=True):
         """add to the template a Neutron Net"""

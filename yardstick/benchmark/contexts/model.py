@@ -184,6 +184,10 @@ class Server(Object):     # pragma: no cover
             self.placement_groups.append(pg)
             pg.add_member(self.stack_name)
 
+        self.volume = None
+        if "volume" in attrs:
+            self.volume = attrs.get("volume")
+
         # support servergroup attr
         self.server_group = None
         sg = attrs.get("server_group")
@@ -282,6 +286,15 @@ class Server(Object):     # pragma: no cover
                 self.flavor_name = self.flavor["name"]
             else:
                 self.flavor_name = self.flavor
+
+        if self.volume:
+            if isinstance(self.volume, dict):
+                self.volume["name"] = \
+                    self.volume.setdefault("name", server_name + "-volume")
+                template.add_volume(**self.volume)
+                template.add_volume_attachment(server_name, self.volume["name"])
+            else:
+                template.add_volume_attachment(server_name, self.volume)
 
         template.add_server(server_name, self.image, flavor=self.flavor_name,
                             flavors=self.context.flavors,
