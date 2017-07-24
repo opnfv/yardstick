@@ -1,0 +1,260 @@
+# Copyright (c) 2016 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+nsd:nsd-catalog:
+  nsd:
+    - id: 10-vnf-correlated
+      name: 10-vnf-correlated
+      short-name: 10-vnf-correlated
+      description: 10-vnf-correlated
+      constituent-vnfd:
+        - member-vnf-index: '0'
+          vnfd-id-ref: tg__0
+          VNF model: ../../vnf_descriptors/tg_rfc2544_tpl.yaml      #VNF type
+        - member-vnf-index: '1'
+          vnfd-id-ref: tg__1
+          VNF model: ../../vnf_descriptors/udp_replay_vnf.yaml      #VNF type
+        - member-vnf-index: '2'
+          vnfd-id-ref: vnf__0
+          VNF model: ../../vnf_descriptors/cgnapt_vnf.yaml      #VNF type
+        - member-vnf-index: '3'
+          vnfd-id-ref: vnf__1
+          VNF model: ../../vnf_descriptors/cgnapt_vnf.yaml      #VNF type
+        - member-vnf-index: '4'
+          vnfd-id-ref: vnf__2
+          VNF model: ../../vnf_descriptors/cgnapt_vnf.yaml      #VNF type
+        - member-vnf-index: '5'
+          vnfd-id-ref: vnf__3
+          VNF model: ../../vnf_descriptors/cgnapt_vnf.yaml      #VNF type
+        - member-vnf-index: '6'
+          vnfd-id-ref: vnf__4
+          VNF model: ../../vnf_descriptors/cgnapt_vnf.yaml      #VNF type
+        - member-vnf-index: '7'
+          vnfd-id-ref: vnf__5
+          VNF model: ../../vnf_descriptors/cgnapt_vnf.yaml      #VNF type
+        - member-vnf-index: '8'
+          vnfd-id-ref: vnf__6
+          VNF model: ../../vnf_descriptors/cgnapt_vnf.yaml      #VNF type
+        - member-vnf-index: '9'
+          vnfd-id-ref: vnf__7
+          VNF model: ../../vnf_descriptors/cgnapt_vnf.yaml      #VNF type
+        - member-vnf-index: '10'
+          vnfd-id-ref: vnf__8
+          VNF model: ../../vnf_descriptors/cgnapt_vnf.yaml      #VNF type
+        - member-vnf-index: '11'
+          vnfd-id-ref: vnf__9
+          VNF model: ../../vnf_descriptors/cgnapt_vnf.yaml      #VNF type
+
+      vld:
+        - id: uplink_0
+          name: "tg__0 to vnf__0 link 0"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '0'
+              vnfd-connection-point-ref: xe0
+              vnfd-id-ref: tg__0
+            - member-vnf-index-ref: '2'
+              vnfd-connection-point-ref: xe0
+              vnfd-id-ref: vnf__0
+        - id: downlink_0
+          name: "vnf__0 to tg__1 link 0"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '2'
+              vnfd-connection-point-ref: xe1
+              vnfd-id-ref: vnf__0
+            - member-vnf-index-ref: '1'
+              vnfd-connection-point-ref: xe0
+              vnfd-id-ref: tg__1
+        - id: uplink_1
+          name: "tg__0 to vnf__1 link 1"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '0'
+              vnfd-connection-point-ref: xe1
+              vnfd-id-ref: tg__0
+            - member-vnf-index-ref: '3'
+              vnfd-connection-point-ref: xe0
+              vnfd-id-ref: vnf__1
+        - id: downlink_1
+          name: "vnf__1 to tg__1 link 1"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '3'
+              vnfd-connection-point-ref: xe1
+              vnfd-id-ref: vnf__1
+            - member-vnf-index-ref: '1'
+              vnfd-connection-point-ref: xe1
+              vnfd-id-ref: tg__1
+        - id: uplink_2
+          name: "tg__0 to vnf__2 link 2"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '0'
+              vnfd-connection-point-ref: xe2
+              vnfd-id-ref: tg__0
+            - member-vnf-index-ref: '4'
+              vnfd-connection-point-ref: xe0
+              vnfd-id-ref: vnf__2
+        - id: downlink_2
+          name: "vnf__2 to tg__1 link 2"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '4'
+              vnfd-connection-point-ref: xe1
+              vnfd-id-ref: vnf__2
+            - member-vnf-index-ref: '1'
+              vnfd-connection-point-ref: xe2
+              vnfd-id-ref: tg__1
+        - id: uplink_3
+          name: "tg__0 to vnf__3 link 3"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '0'
+              vnfd-connection-point-ref: xe3
+              vnfd-id-ref: tg__0
+            - member-vnf-index-ref: '5'
+              vnfd-connection-point-ref: xe0
+              vnfd-id-ref: vnf__3
+        - id: downlink_3
+          name: "vnf__3 to tg__1 link 3"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '5'
+              vnfd-connection-point-ref: xe1
+              vnfd-id-ref: vnf__3
+            - member-vnf-index-ref: '1'
+              vnfd-connection-point-ref: xe3
+              vnfd-id-ref: tg__1
+        - id: uplink_4
+          name: "tg__0 to vnf__4 link 4"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '0'
+              vnfd-connection-point-ref: xe4
+              vnfd-id-ref: tg__0
+            - member-vnf-index-ref: '6'
+              vnfd-connection-point-ref: xe0
+              vnfd-id-ref: vnf__4
+        - id: downlink_4
+          name: "vnf__4 to tg__1 link 4"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '6'
+              vnfd-connection-point-ref: xe1
+              vnfd-id-ref: vnf__4
+            - member-vnf-index-ref: '1'
+              vnfd-connection-point-ref: xe4
+              vnfd-id-ref: tg__1
+        - id: uplink_5
+          name: "tg__0 to vnf__5 link 5"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '0'
+              vnfd-connection-point-ref: xe5
+              vnfd-id-ref: tg__0
+            - member-vnf-index-ref: '7'
+              vnfd-connection-point-ref: xe0
+              vnfd-id-ref: vnf__5
+        - id: downlink_5
+          name: "vnf__5 to tg__1 link 5"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '7'
+              vnfd-connection-point-ref: xe1
+              vnfd-id-ref: vnf__5
+            - member-vnf-index-ref: '1'
+              vnfd-connection-point-ref: xe5
+              vnfd-id-ref: tg__1
+        - id: uplink_6
+          name: "tg__0 to vnf__6 link 6"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '0'
+              vnfd-connection-point-ref: xe6
+              vnfd-id-ref: tg__0
+            - member-vnf-index-ref: '8'
+              vnfd-connection-point-ref: xe0
+              vnfd-id-ref: vnf__6
+        - id: downlink_6
+          name: "vnf__6 to tg__1 link 6"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '8'
+              vnfd-connection-point-ref: xe1
+              vnfd-id-ref: vnf__6
+            - member-vnf-index-ref: '1'
+              vnfd-connection-point-ref: xe6
+              vnfd-id-ref: tg__1
+        - id: uplink_7
+          name: "tg__0 to vnf__7 link 7"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '0'
+              vnfd-connection-point-ref: xe7
+              vnfd-id-ref: tg__0
+            - member-vnf-index-ref: '9'
+              vnfd-connection-point-ref: xe0
+              vnfd-id-ref: vnf__7
+        - id: downlink_7
+          name: "vnf__7 to tg__1 link 7"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '9'
+              vnfd-connection-point-ref: xe1
+              vnfd-id-ref: vnf__7
+            - member-vnf-index-ref: '1'
+              vnfd-connection-point-ref: xe7
+              vnfd-id-ref: tg__1
+        - id: uplink_8
+          name: "tg__0 to vnf__8 link 8"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '0'
+              vnfd-connection-point-ref: xe8
+              vnfd-id-ref: tg__0
+            - member-vnf-index-ref: '10'
+              vnfd-connection-point-ref: xe0
+              vnfd-id-ref: vnf__8
+        - id: downlink_8
+          name: "vnf__8 to tg__1 link 8"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '10'
+              vnfd-connection-point-ref: xe1
+              vnfd-id-ref: vnf__8
+            - member-vnf-index-ref: '1'
+              vnfd-connection-point-ref: xe8
+              vnfd-id-ref: tg__1
+        - id: uplink_9
+          name: "tg__0 to vnf__9 link 9"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '0'
+              vnfd-connection-point-ref: xe9
+              vnfd-id-ref: tg__0
+            - member-vnf-index-ref: '11'
+              vnfd-connection-point-ref: xe0
+              vnfd-id-ref: vnf__9
+        - id: downlink_9
+          name: "vnf__9 to tg__1 link 9"
+          type: ELAN
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: '11'
+              vnfd-connection-point-ref: xe1
+              vnfd-id-ref: vnf__9
+            - member-vnf-index-ref: '1'
+              vnfd-connection-point-ref: xe9
+              vnfd-id-ref: tg__1
+
