@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_07dedb11",
+        "filename": "yardstick/benchmark/scenarios/networking/iperf3.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-07-24T01:59:17Z",
+      "side": 1,
+      "message": "suggest to reuse the name of iperf3 parameters so it\u0027ll be more clear.\nyou can refer to: http://software.es.net/iperf/invoking.html#iperf3-manual-page\nbuffer_len -\u003e length, -l -\u003e --length\nwindows_size -\u003e window, -w -\u003e --window",
+      "range": {
+        "startLine": 136,
+        "startChar": 12,
+        "endLine": 136,
+        "endChar": 22
+      },
+      "revId": "4d8e7eba1a5fbbb9881da2e04485116c553ba13e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
