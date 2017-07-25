@@ -58,7 +58,12 @@ class Task(object):     # pragma: no cover
 
         check_environment()
 
-        output_config = utils.parse_ini_file(config_file)
+        try:
+            output_config = utils.parse_ini_file(config_file)
+        except Exception:
+            # all error will be ignore, the default value is {}
+            output_config = {}
+
         self._init_output_config(output_config)
         self._set_output_config(output_config, args.output_file)
         LOG.debug('Output configuration is: %s', output_config)
