@@ -13,23 +13,25 @@
 
 ssh_options="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
+scp_files(){
+    export JUMP_HOST_IP
+    sshpass -p root scp 2>/dev/null $ssh_options ~/storperf_admin-rc \
+            root@${JUMP_HOST_IP}:/root/ &> /dev/null
+    sshpass -p root scp 2>/dev/null $ssh_options /home/opnfv/repos/storperf/docker-compose/docker-compose.yaml \
+            root@${JUMP_HOST_IP}:/root/ &> /dev/null
+}
+
 case "$NODE_NAME" in
     "huawei-pod1")
         JUMP_HOST_IP='192.168.10.6'
+        scp_files
         ;;
     "huawei-pod2")
         JUMP_HOST_IP='192.168.11.2'
+        scp_files
         ;;
     *)
         # no node name, exit
-        exit 1
+        echo "storperf test case will not run on this pod, skipping scp files..."
         ;;
 esac
-export JUMP_HOST_IP
-
-sshpass -p root scp 2>/dev/null $ssh_options ~/storperf_admin-rc \
-        root@${JUMP_HOST_IP}:/root/ &> /dev/null
-sshpass -p root scp 2>/dev/null $ssh_options /home/opnfv/repos/storperf/docker-compose/docker-compose.yaml \
-        root@${JUMP_HOST_IP}:/root/ &> /dev/null
-sshpass -p root scp 2>/dev/null $ssh_options /home/opnfv/repos/storperf/docker-compose/nginx.conf \
-        root@${JUMP_HOST_IP}:/root/ &> /dev/null

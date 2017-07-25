@@ -100,7 +100,7 @@ set -o pipefail
 install_storperf()
 {
     # Install Storper on huawei-pod1
-    if [ "$INSTALLER_TYPE" == "compass" ]; then
+    if [ "$NODE_NAME" == "huawei-pod1" -o "$NODE_NAME" == "huawei-pod2" ]; then
         echo
         echo "========== Installing storperf =========="
 
@@ -115,7 +115,7 @@ install_storperf()
 remove_storperf()
 {
     # remove Storper from huawei-pod1
-    if [ "$INSTALLER_TYPE" == "compass" ]; then
+    if [ "$NODE_NAME" == "huawei-pod1" -o "$NODE_NAME" == "huawei-pod2" ]; then
         echo
         echo "========== Removing storperf =========="
 
