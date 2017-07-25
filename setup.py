@@ -29,6 +29,8 @@ setup(
             'benchmark/scenarios/networking/*.txt',
             'benchmark/scenarios/parser/*.sh',
             'benchmark/scenarios/storage/*.bash',
+            'traffic_generator/conf/*.conf',
+            'traffic_generator/3rd_party/*/*.*',
             'resources/files/*',
             'resources/scripts/install/*.bash',
             'resources/scripts/remove/*.bash'

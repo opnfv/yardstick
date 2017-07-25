@@ -1,0 +1,194 @@
+{#
+This work is licensed under a Creative Commons Attribution 4.0 International License.
+http://creativecommons.org/licenses/by/4.0
+#}
+
+# CHARACTERIZE VSWITCH PERFORMANCE FOR TELCO NFV USE CASES LEVEL TEST REPORT
+
+## Table of Contents
+
+- [1. Introduction](#Introduction)
+  - [1.1. Document identifier](#DocId)
+  - [1.2. Scope](#Scope)
+  - [1.3. References](#References)
+- [2. Details of the Level Test Report](#DetailsoftheLevelTestReport)
+  - [2.1. Overview of test results](#OverviewOfTestResults)
+  - [2.2. Detailed test results](#DetailedTestResults)
+  - [2.3. Rationale for decisions](#RationaleForDecisions)
+  - [2.4. Conclusions and recommendations](#ConclusionsandRecommendations)
+- [3. General](#General)
+  - [3.1. Glossary](#Glossary)
+  - [3.2. Document change procedures and history](#DocChangeProceduresandHistory)
+
+---
+
+<a name="Introduction"></a>
+## 1. Introduction
+
+The objective of the OPNFV project titled **"Characterise vSwitch Performance
+for Telco NFV Use Cases"**, is to evaluate a virtual switch to identify its
+suitability for a Telco Network Function Virtualization (NFV) environment. As
+well as this, the project aims to identify any gaps or bottlenecks in order to
+drive architectural changes to improve virtual switch performance and
+determinism. The purpose of this document is to summarize the results of the
+tests carried out on the virtual switch in the Network Function Virtualization
+Infrastructure (NFVI) and, from these results, provide evaluations and
+recommendations for the virtual switch. Test results will be outlined in
+[Details of the Level Test Report](#DetailsoftheLevelTestReport), preceded by
+the [Document Identifier](#DocId), [Scope](#Scope) and
+[References](#References).
+
+This document is currently in draft form.
+
+<a name="DocId"></a>
+### 1.1. Document identifier
+
+The document id will be used to uniquely identify versions of the LTR. The
+format for the document id will be:
+`OPNFV_vswitchperf_LTR_ver_NUM_MONTH_YEAR_AUTHOR_STATUS`, where by the AUTHOR
+field should be replaced with the initials of the author and the status is one
+of: DRAFT, REVIEWED, CORRECTED or FINAL. The document id for this version of
+the LTR is: `OPNFV_vswitchperf_LTR_ver_1.1_Jan_15_CN_DRAFT`.
+
+<a name="Scope"></a>
+### 1.2. Scope
+
+The scope of this report is to detail the results of the tests that have been
+performed on the virtual switch. This report will also evaluate the results of
+these tests and, based on these evaluations, provide recommendations on the
+suitability of the virtual switch for use in a Telco NFV environment.
+
+<a name="References"></a>
+### 1.3. References
+
+- `OPNFV_vswitchperf_LTD_ver_1.6_Jan_15_DRAFT`
+
+---
+
+<a name="DetailsoftheLevelTestReport"></a>
+## 2. Details of the Level Test Report
+
+This section provides an overview of the test results ([Section
+2.1.](#OveriewOfTestResults)) as well as detailed test results for each test
+([Section 2.2.](#DetailedTestResults)). Also included are the rationale used to
+evaluate each test ([Section 2.3.](#RationaleForDecisions)) and the conclusions
+and recommendations for each test ([Section
+2.4.](#ConclusionsandRecommendations)).
+
+<a name="OverviewOfTestResults"></a>
+### 2.1. Overview of test results
+
+##### Test Environment
+
+Below is the environment that the test was performed in:
+
+- OS: {{tests[0].env.os}}
+- Kernel Version: {{tests[0].env.kernel}}
+- NIC(s):{% for nic in tests[0].env.nics %}
+    - {{nic}}{% endfor %}
+- Board: {{tests[0].env.platform}}
+- CPU: {{tests[0].env.cpu}}
+- CPU cores: {{tests[0].env.cpu_cores}}
+- Memory: {{tests[0].env.memory}}
+- Virtual Switch Set-up: {{tests[0].deployment}}
+- vswitchperf: GIT tag: {{tests[0].env.vsperf.get()['git_tag']}}
+- Traffic Generator: {{tests[0].env.traffic_gen.get()['name']}}, Version: {{tests[0].env.traffic_gen.get()['version']}}, GIT tag: {{tests[0].env.traffic_gen.get()['git_tag']}}
+- vSwitch: {{tests[0].env.vswitch.get()['name']}}, Version: {{tests[0].env.vswitch.get()['version']}}, GIT tag: {{tests[0].env.vswitch.get()['git_tag']}}
+{%- if 'dpdk' in tests[0].env %}
+- DPDK Version: {{tests[0].env.dpdk.get()['version']}}, GIT tag: {{tests[0].env.dpdk.get()['git_tag']}}
+{%- endif %}
+{%- if 'vnf' in tests[0].env %}
+- VNF: {{tests[0].env.vnf.get()['name']}}, Version: {{tests[0].env.vnf.get()['version']}}, GIT tag: {{tests[0].env.vnf.get()['git_tag']}}
+- VM images:{% for guest_image in tests[0].env.guest_image %}
+    - {{guest_image}}{% endfor %}
+- VM loopback apps:{% for loopback_app in tests[0].env.loopback_app %}
+    - {{loopback_app.get()['name']}}, Version: {{loopback_app.get()['version']}}, GIT tag: {{loopback_app.get()['git_tag']}}{% endfor %}
+{%- endif %}
+
+For each test, a summary of the key test results is provided.
+{% for test in tests %}
+#### Test ID: {{ test.ID }}
+
+Below are test details:
+
+- Test ID: {{ "%s"|format(test.id) }}
+- Description: {{ "%s"|format(test.conf['Description']) }}
+- Deployment: {{ "%s"|format(test.deployment) }}
+- Traffic type: {{ "%s"|format(test.result['type']) }}
+- Packet size: {{ "%s"|format(test.result['packet_size']) }}
+- Bidirectional : {{ "%s"|format(test.conf['bidir']) }}
+{%- if test.result['tunnel_type'] %}
+- Tunnel type: {{ "%s"|format(test.result['tunnel_type']) }}
+{%- endif %}
+{% endfor %}
+
+<a name="DetailedTestResults"></a>
+### 2.2. Detailed test results
+
+A detailed summary of the main results for each test is outlined below.
+{% for test in tests %}
+#### Test ID: {{ test.ID }}
+
+##### Results/Metrics Collected
+
+The following are the metrics obtained during this test:
+
+|             Metric             |             Result             |
+| ------------------------------ | ------------------------------ |
+{%- for item, value in test.result.items() %}
+| {{ "%-30s | %30s |"|format(item,value)}}
+{%- endfor %}
+
+##### Statistics collected
+
+The following system statistics were collected during testcase execution:
+{% for process in test.stats %}
+| Process: {{ "%-54s |"|format('_'.join(process.split('_')[:-1])) }}
+| ------------------------------ | ------------------------------ |
+|           Statistic            |             Value              |
+| ------------------------------ | ------------------------------ |
+{%- for item, value in test.stats[process].items() %}
+| {{ "%-30s | %30s |"|format(item,value)}}
+{%- endfor %}
+
+{% endfor %}
+
+##### Anomalies
+
+No anomalies were detected during the course of this test.
+
+##### Testing Activities/Events
+
+There were no significant testing activities for this test.
+{% endfor %}
+<a name="RationaleForDecisions"></a>
+### 2.3. Rationale for decisions
+
+The tests conducted do not have pass/fail/conditional-pass criteria. The test
+is simply conducted and the results are reported.
+
+
+<a name="ConclusionsandRecommendations"></a>
+### 2.4. Conclusions and recommendations
+
+The test results are stable. The vsperf CI jobs that were used to obtain the
+results can be found at https://wiki.opnfv.org/wiki/vsperf_results.
+
+-----
+
+<a name="General"></a>
+## 3. General
+
+<a name="Glossary"></a>
+### 3.1. Glossary
+
+- NFV - Network Function Virtualization
+- Mbps - 1,000,000bps
+
+<a name="DocChangeProceduresandHistory"></a>
+### 3.2. Document change procedures and history
+
+| Document ID | Author | Date Modified |
+| ----------- |------- | ------------- |
+| `OPNFV_vswitchperf_LTR_ver_1.0_Jan_15_CN_DRAFT` | Christopher Nolan | 23/01/2015
+| `OPNFV_vswitchperf_LTR_ver_1.1_Jan_15_CN_DRAFT` | Christopher Nolan | 28/01/2015
