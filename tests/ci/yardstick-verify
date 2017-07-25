@@ -293,8 +293,13 @@ main()
     echo
 
     # check OpenStack services
+    if [ $OS_INSECURE ] && [ "$(echo $OS_INSECURE | tr '[:upper:]' '[:lower:]')" = "true" ]; then
+        SECURE="--insecure"
+    else
+        SECURE=""
+    fi
     echo "Checking OpenStack services:"
-    for cmd in "openstack image list" "openstack server list" "openstack stack list"; do
+    for cmd in "openstack ${SECURE} image list" "openstack ${SECURE} server list" "openstack ${SECURE} stack list"; do
         echo "  checking ${cmd} ..."
         if ! $cmd >/dev/null; then
             echo "error: command \"$cmd\" failed"
