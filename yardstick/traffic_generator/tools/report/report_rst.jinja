@@ -1,0 +1,103 @@
+{#
+ Copyright (c) 2016-2017 Intel corporation.
+
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Apache License, Version 2.0
+ which accompanies this distribution, and is available at
+ http://www.apache.org/licenses/LICENSE-2.0
+#}
+
+Test ID: {{ tests[0].ID }}
+--------------------------
+
+Test Environment
+~~~~~~~~~~~~~~~~
+Below is the environment that the test was performed in:
+
+* OS: {{tests[0].env.os}}
+* Kernel Version: {{tests[0].env.kernel}}
+* NIC(s):{% for nic in tests[0].env.nics %}
+    * {{nic}}{% endfor %}
+* Board: {{tests[0].env.platform}}
+* CPU: {{tests[0].env.cpu}}
+* CPU cores: {{tests[0].env.cpu_cores}}
+* Memory: {{tests[0].env.memory}}
+* Virtual Switch Set-up: {{tests[0].deployment}}
+* vswitchperf: GIT tag: {{tests[0].env.vsperf.get()['git_tag']}}
+* Traffic Generator: {{tests[0].env.traffic_gen.get()['name']}}, Version: {{tests[0].env.traffic_gen.get()['version']}}, GIT tag: {{tests[0].env.traffic_gen.get()['git_tag']}}
+* vSwitch: {{tests[0].env.vswitch.get()['name']}}, Version: {{tests[0].env.vswitch.get()['version']}}, GIT tag: {{tests[0].env.vswitch.get()['git_tag']}}
+{%- if 'dpdk' in tests[0].env %}
+* DPDK Version: {{tests[0].env.dpdk.get()['version']}}, GIT tag: {{tests[0].env.dpdk.get()['git_tag']}}
+{%- endif %}
+{%- if 'vnf' in tests[0].env %}
+* VNF: {{tests[0].env.vnf.get()['name']}}, Version: {{tests[0].env.vnf.get()['version']}}, GIT tag: {{tests[0].env.vnf.get()['git_tag']}}
+* VM images:{% for guest_image in tests[0].env.guest_image %}
+    * {{guest_image}}{% endfor %}
+* VM loopback apps:{% for loopback_app in tests[0].env.loopback_app %}
+    * {{loopback_app.get()['name']}}, Version: {{loopback_app.get()['version']}}, GIT tag: {{loopback_app.get()['git_tag']}}{% endfor %}
+{%- endif %}
+
+Below are test details:
+
+* Test ID: {{ "%s"|format(tests[0].id) }}
+* Description: {{ "%s"|format(tests[0].conf['Description']) }}
+* Deployment: {{ "%s"|format(tests[0].deployment) }}
+* Traffic type: {{ "%s"|format(tests[0].result['type']) }}
+* Bidirectional : {{ "%s"|format(tests[0].conf['bidir']) }}
+{%- if tests[0].result['tunnel_type'] %}
+* Tunnel type: {{ "%s"|format(tests[0].result['tunnel_type']) }}
+{%- endif %}
+{% for test in tests %}
+Test results for packet size: {{ "%s"|format(test.result['packet_size']) }}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A detailed summary of the main results is outlined below.
+
+Results/Metrics Collected
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following are the metrics obtained during this test:
+
+========================== ==================================
+        Metric                          Result
+========================== ==================================
+{%- for item, value in test.result.items() %}
+{{ "%-30s %30s"|format(item,value)}}
+{%- endfor %}
+========================== ==================================
+
+Statistics collected
+^^^^^^^^^^^^^^^^^^^^
+
+The following system statistics were collected during testcase execution:
+{% for process in test.stats %}
+========================== ==================================
+Process: {{ '_'.join(process.split('_')[:-1]) }}
+-------------------------------------------------------------
+      Statistic                        Value
+========================== ==================================
+{%- for item, value in test.stats[process].items() %}
+{{ "%-30s %30s"|format(item,value)}}
+{%- endfor %}
+========================== ==================================
+
+{% endfor %}{% endfor %}
+
+Anomalies
+~~~~~~~~~~
+No anomalies were detected during the course of this test.
+
+Testing Activities/Events
+~~~~~~~~~~~~~~~~~~~~~~~~~
+pidstat is used to collect the process statistics, as such some values such as
+%CPU and %USER maybe > 100% as the values are summed across multiple cores. For
+more info on pidstat please see: http://linux.die.net/man/1/pidstat.
+
+Known issues: Some reported metrics have the value "unkown". These values are
+marked unknown as they are not values retrieved from the external tester
+(traffic generator). They were incorrectly derived in a way that made assumptions
+about packet sizes, as such they have been deprecated from vsperf and marked as
+unknown. They will be resolved in the next release.
+
+.. There must be blank lines around to ensure correct formatting.
+
+
