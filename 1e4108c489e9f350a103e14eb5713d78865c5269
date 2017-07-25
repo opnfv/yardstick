@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_1f27fb13",
+        "filename": "tests/ci/yardstick-verify",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-25T17:56:13Z",
+      "side": 1,
+      "message": "I don\u0027t think [ $OS_INSECURE ] correctly handles empty strings.\n\nplease use [[ ]]\n\nsee also http://mywiki.wooledge.org/BashFAQ/031",
+      "revId": "1e4108c489e9f350a103e14eb5713d78865c5269",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
