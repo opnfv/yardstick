@@ -18,7 +18,6 @@ import mock
 import unittest
 
 from yardstick.benchmark.contexts import ovsdpdk
-from yardstick.benchmark.contexts.ovsdpdk import Ovsdpdk
 
 NIC_INPUT = {
     'interface': {},
@@ -227,10 +226,8 @@ class OvsdpdkTestCase(unittest.TestCase):
             mock_ovs = mock.Mock()
             ssh_mock.put = mock.Mock()
             ovs_obj.check_output = mock.Mock(return_value=(0, "vm1"))
-            self.assertIsNone(ovs_obj.setup_ovs_context(
-                PCIS,
-                NIC_DETAILS,
-                DRIVER))
+            with mock.patch("yardstick.benchmark.contexts.ovsdpdk.time"):
+                self.assertIsNone(ovs_obj.setup_ovs_context(PCIS, NIC_DETAILS, DRIVER))
 
     @mock.patch(
         'yardstick.benchmark.contexts.ovsdpdk',

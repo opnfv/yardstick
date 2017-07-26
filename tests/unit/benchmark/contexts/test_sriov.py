@@ -185,8 +185,8 @@ class SriovTestCase(unittest.TestCase):
                 nic_details['vf_pci'][i] = sriov_obj.get_vf_datas.return_value
                 vf_pci = [[], []]
                 vf_pci[i] = sriov_obj.get_vf_datas.return_value
-            self.assertIsNotNone(
-                sriov_obj.configure_nics_for_sriov(DRIVER, NIC_DETAILS))
+            with mock.patch("yardstick.benchmark.contexts.sriov.time"):
+                self.assertIsNotNone(sriov_obj.configure_nics_for_sriov(DRIVER, NIC_DETAILS))
 
     def test_setup_sriov_context(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -224,8 +224,8 @@ class SriovTestCase(unittest.TestCase):
                 mock.Mock(return_value=(0, {}, ""))
             ssh_mock.put = mock.Mock()
             sriov_obj.check_output = mock.Mock(return_value=(1, {}))
-            self.assertIsNone(
-                sriov_obj.setup_sriov_context(PCIS, nic_details, DRIVER))
+            with mock.patch("yardstick.benchmark.contexts.sriov.time"):
+                self.assertIsNone(sriov_obj.setup_sriov_context(PCIS, nic_details, DRIVER))
 
     def test_setup_sriov_context_vm_already_present(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -263,10 +263,8 @@ class SriovTestCase(unittest.TestCase):
                 mock.Mock(return_value=(0, {}, ""))
             ssh_mock.put = mock.Mock()
             sriov_obj.check_output = mock.Mock(return_value=(0, "vm1"))
-            self.assertIsNone(sriov_obj.setup_sriov_context(
-                PCIS,
-                nic_details,
-                DRIVER))
+            with mock.patch("yardstick.benchmark.contexts.sriov.time"):
+                self.assertIsNone(sriov_obj.setup_sriov_context(PCIS, nic_details, DRIVER))
 
     @mock.patch(
         'yardstick.benchmark.contexts.sriov',

@@ -392,7 +392,7 @@ class Sriov(StandaloneContext):
         for i in range(0, 10):
             self.connection.execute(
                 "virsh vcpupin vm1 {0} {1}".format(
-                    i, nodes[str(num_nodes - 1)][i]))
+                    i, nodes[str(num_nodes - 1)][i % len(nodes[str(num_nodes - 1)])]))
 
     def get_numa_nodes(self):
         nodes_sysfs = glob.iglob("/sys/devices/system/node/node*")
