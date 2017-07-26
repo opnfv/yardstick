@@ -48,7 +48,7 @@ def generate_vnfd(vnf_model, node):
     rendered_vnfd = render(vnf_model, **node)
     # This is done to get rid of issues with serializing node
     del node["get"]
-    filled_vnfd = yaml.load(rendered_vnfd)
+    filled_vnfd = yaml.safe_load(rendered_vnfd)
     return filled_vnfd
 
 
