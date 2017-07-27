@@ -1,0 +1,136 @@
+<!--pod file upload-->
+
+<div class="content">
+    <div style="display:flex;flex-direction:row;">
+        <div style="width:750px;">
+            <!--<i class="fa fa-arrow-left fa-1x" aria-hidden="true" style="color: #999;cursor:pointer" ng-click="goBack()">Back</i>-->
+
+
+            <h3>{{name}} -- Pod File
+                <button class="btn btn-default" style="float:right" ng-click="goNext()">Next</button>
+            </h3>
+            <!--<p>In this process, you can input your define openrc config or upload a openrc file</p>-->
+
+            <hr/>
+
+            <button class="btn btn-default" ngf-select="uploadFiles($file, $invalidFiles)" ngf-max-size="5MB">
+                                    <div ng-show="!loadingOPENrc">Upload</div>
+                                     <img src="images/loading2.gif" width="25" height="25" ng-if="loadingOPENrc" />
+            </button>
+            <button class="btn btn-default" ng-click="openDeleteEnv(1,'pod')">Delete</button>
+
+            <!--<div ng-show="displayOpenrcFile!=null || displayOpenrcFile!=undefined ||podData.pod.nodes!=null ">
+                {{displayOpenrcFile.name}} last modified: {{filelastModified}}
+            </div>-->
+
+            <hr/>
+
+            <div>
+                <h4 ng-show="podData.pod.nodes==null">No Pod Configuration</h4>
+                <div ng-show="podData.pod.nodes!=null">
+                    <h4>Current Pod Configuration</h4>
+                    <table class="table table-striped">
+
+                        <tr>
+                            <th>ip</th>
+                            <th>name</th>
+                            <th>password</th>
+                            <th>role</th>
+                            <th>user</th>
+                        </tr>
+                        <tr ng-repeat="pod in podData.pod.nodes">
+                            <td>{{pod.ip}}</td>
+                            <td>{{pod.name}}</td>
+                            <td>{{pod.password}}</td>
+                            <td>{{pod.role}}</td>
+                            <td>{{pod.user}}</td>
+
+                        </tr>
+
+
+
+                    </table>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <!--<div style="margin-top:60px;margin-left:67px;">
+            <h3>Openrc parameters</h3>
+            <div>
+                You have already set up the openrc parameters
+            </div>
+            <div ng-repeat="(key,value) in openrcInfo.openrc">
+                <nobr>
+                    <font style="font-weight:600;font-size:15px;">{{key}} : </font>
+                    <font style="font-size:15px;">{{value}}</font>
+                </nobr>
+            </div>
+        </div>-->
+
+    </div>
+
+</div>
+<toaster-container></toaster-container>
+
+<style>
+    .form-control {
+        border-radius: 5px;
+        width: 200px;
+        margin-bottom: 10px;
+    }
+
+    .uploadbutton {
+        background-color: #007ACC;
+        color: #fff;
+        border: 0px;
+        border-radius: 5px;
+        height: 27px;
+    }
+
+    .edit-title {
+        border: 0px;
+        background-color: #ffffff;
+        margin-bottom: 5px;
+        font-size: 12px;
+    }
+
+    .null-edit-title {
+        border: 1px solid #e5e6e7;
+        border-radius: 5px;
+        margin-bottom: 3px;
+    }
+
+    .item-info {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .delete-img {
+        width: 15px;
+        height: 15px;
+        opacity: 0.8;
+        margin-left: -10px;
+        margin-top: -3px;
+        cursor: pointer;
+    }
+
+    .nextButton {
+        margin-top: 30px;
+        border: none;
+        border-radius: 5px;
+        padding: 6px;
+        background-color: #339933;
+        color: #ffffff;
+        text-align: center;
+        /* margin-left: 300px; */
+    }
+</style>

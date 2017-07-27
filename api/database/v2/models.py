@@ -31,7 +31,7 @@ class V2Environment(Base):
 
 
 class V2Openrc(Base):
-    __tablename__ = 'V2_openrc'
+    __tablename__ = 'v2_openrc'
     id = Column(Integer, primary_key=True)
     uuid = Column(String(30))
     name = Column(String(30))

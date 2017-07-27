@@ -1,0 +1,134 @@
+<!--container management-->
+
+<div class="content">
+    <div style="display:flex;flex-direction:row;">
+        <div style="width:750px;">
+
+            <h3>{{envName}} -- Container
+                <!--<button class="btn btn-default" style="float:right">Go Next</button>-->
+
+            </h3>
+            <!--<p>In this process, you can input your define openrc config or upload a openrc file</p>-->
+
+            <hr/>
+
+            <select ng-model="selectContainer" data-ng-options="container as container.name for container in containerList">
+                <option value="">Choose...</option>
+            </select>
+
+            <button class="btn btn-default" ng-click="createContainer()" ng-disabled="selectContainer==null">
+                                    <div ng-show="!showloading">Create</div>
+                                    <img src="images/loading2.gif" width="25" height="25" ng-if="showloading" />
+            </button>
+
+            <hr/>
+
+            <div>
+                <h4 ng-show="displayContainerInfo.length==0">No Container Data</h4>
+                <div ng-show="displayContainerInfo.length!=0">
+                    <h4>Current Container</h4>
+                    <table class="table table-striped">
+
+                        <tr>
+                            <th>name</th>
+                            <th>status</th>
+                            <th>time</th>
+                            <th>delete</th>
+
+                        </tr>
+                        <tr ng-repeat="con in displayContainerInfo">
+                            <td>{{con.name}}</td>
+                            <td>{{con.status}}</td>
+                            <td>{{con.time}}</td>
+                            <td>
+                                <button class="btn btn-default btn-sm" ng-click="openDeleteEnv(con.id,'container')">Delete</button>
+                            </td>
+
+
+                        </tr>
+
+
+
+                    </table>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+    </div>
+
+</div>
+<toaster-container></toaster-container>
+
+<style>
+    .form-control {
+        border-radius: 5px;
+        width: 200px;
+        margin-bottom: 10px;
+    }
+
+    .uploadbutton {
+        background-color: #007ACC;
+        color: #fff;
+        border: 0px;
+        border-radius: 5px;
+        height: 27px;
+    }
+
+    .edit-title {
+        border: 0px;
+        background-color: #ffffff;
+        margin-bottom: 5px;
+        font-size: 12px;
+    }
+
+    .null-edit-title {
+        border: 1px solid #e5e6e7;
+        border-radius: 5px;
+        margin-bottom: 3px;
+    }
+
+    .item-info {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .delete-img {
+        width: 15px;
+        height: 15px;
+        opacity: 0.8;
+        margin-left: -10px;
+        margin-top: -3px;
+        cursor: pointer;
+    }
+
+    .nextButton {
+        margin-top: 30px;
+        border: none;
+        border-radius: 5px;
+        padding: 6px;
+        background-color: #339933;
+        color: #ffffff;
+        text-align: center;
+        /* margin-left: 300px; */
+    }
+
+    select {
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #e8e8e8;
+        width: 135px;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+</style>

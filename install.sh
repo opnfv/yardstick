@@ -86,7 +86,10 @@ easy_install -U pip
 pip install -r requirements.txt
 pip install -e .
 
-/bin/bash "$(pwd)/api/api-prepare.sh"
+/bin/bash "${PWD}/docker/uwsgi.sh"
+/bin/bash "${PWD}/docker/nginx.sh"
+cd "${PWD}/gui" && /bin/bash gui.sh
+mv dist /etc/nginx/yardstick/gui
 
 service nginx restart
 uwsgi -i /etc/yardstick/yardstick.ini
