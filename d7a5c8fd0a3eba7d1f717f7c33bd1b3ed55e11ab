@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_6af42af2",
+        "filename": "install.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-07-27T03:35:58Z",
+      "side": 1,
+      "message": "does $PWD not work?  why call $(pwd)?",
+      "revId": "d7a5c8fd0a3eba7d1f717f7c33bd1b3ed55e11ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
