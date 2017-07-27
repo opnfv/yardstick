@@ -231,7 +231,7 @@ name (i.e. %s).\
         }
 
     def add_network(self, name, physical_network='physnet1', provider=None,
-                    segmentation_id=None, port_security_enabled=True):
+                    segmentation_id=None, port_security_enabled=None):
         """add to the template a Neutron Net"""
         log.debug("adding Neutron::Net '%s'", name)
         if provider is None:
@@ -239,7 +239,6 @@ name (i.e. %s).\
                 'type': 'OS::Neutron::Net',
                 'properties': {
                     'name': name,
-                    'port_security_enabled': port_security_enabled,
                 }
             }
         else:
@@ -249,11 +248,14 @@ name (i.e. %s).\
                     'name': name,
                     'network_type': 'vlan',
                     'physical_network': physical_network,
-                    'port_security_enabled': port_security_enabled,
                 },
             }
             if segmentation_id:
                 self.resources[name]['properties']['segmentation_id'] = segmentation_id
+        # if port security is not defined then don't add to template:
+        # some deployments don't have port security plugin installed
+        if port_security_enabled is not None:
+            self.resources[name]['properties']['port_security_enabled'] = port_security_enabled
 
     def add_server_group(self, name, policies):     # pragma: no cover
         """add to the template a ServerGroup"""
