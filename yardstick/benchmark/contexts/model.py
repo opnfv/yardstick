@@ -110,7 +110,7 @@ class Network(Object):
         self.provider = attrs.get('provider')
         self.segmentation_id = attrs.get('segmentation_id')
         self.network_type = attrs.get('network_type')
-        self.port_security_enabled = attrs.get('port_security_enabled', True)
+        self.port_security_enabled = attrs.get('port_security_enabled')
         self.allowed_address_pairs = attrs.get('allowed_address_pairs', [])
         try:
             # we require 'null' or '' to disable setting gateway_ip
