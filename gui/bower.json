@@ -21,6 +21,9 @@
     "angular-bootstrap": "^2.5.0",
     "angular-sanitize": "^1.6.5"
   },
+   "resolutions": {
+    "angular": "~1.6.x"
+  },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
   },
