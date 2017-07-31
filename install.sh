@@ -89,6 +89,7 @@ pip install -e .
 /bin/bash "${PWD}/docker/uwsgi.sh"
 /bin/bash "${PWD}/docker/nginx.sh"
 cd "${PWD}/gui" && /bin/bash gui.sh
+mkdir -p /etc/nginx/yardstick
 mv dist /etc/nginx/yardstick/gui
 
 service nginx restart

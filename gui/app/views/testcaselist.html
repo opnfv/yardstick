@@ -20,7 +20,7 @@
         <div dw-loading="key" dw-loading-options="{text:'loading'}">
         <div style="display:flex;flex-direction:row;justify-content:space-between;padding:8px;border-top: 1px solid #e9ecec;background-color: #f9f9f9">
             <div style="font-weight:600">Name</div>
-            <div style="font-weight:600;margin-right:4px;">Operate</div>
+            <div style="font-weight:600;margin-right:20px;">Action</div>
 
         </div>
 
@@ -28,14 +28,22 @@
             <div style="display:flex;flex-direction:row;justify-content:space-between;padding:8px;border-top: 1px solid #e9ecec;">
                 <div>
 
-                   <a style="color:#e95420" ng-click="gotoDetail(test.Name)">
+                   <a style="color:#4dc5cf" ng-click="gotoDetail(test.Name)">
                        {{test.Name}}
                    </a>
                     </div>
                 <div style="font-size:10px;">{{test.Description}}</div>
                 <div>
-                    <!-- <button class="btn btn-default btn-sm" ng-click="gotoDetail(test.Name)">Detail</button> -->
-                    <button class="btn btn-default btn-sm" ng-click="openDeleteEnv(test.Name,'test case')">Delete</button>
+                    <!-- <button class="btn btn-default btn-sm" ng-click="openDeleteEnv(test.Name,'test case')">Delete</button> -->
+                    <div class="btn-group" uib-dropdown is-open="status.isopen" >
+                            <button id="single-button" type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
+                            delete <span class="caret"></span>
+                        </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                <li role="menuitem"><a ng-click="openDeleteEnv(test.Name,'test case')">delete</a></li>
+
+                            </ul>
+                        </div>
                 </div>
 
             </div>

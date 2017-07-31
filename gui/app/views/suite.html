@@ -9,39 +9,44 @@
 
                                     </button>
 
-        <!--<div ng-show="displayOpenrcFile!=null || displayOpenrcFile!=undefined">
-            {{displayOpenrcFile.name}} last modified: {{filelastModified}}
-        </div>-->
+
         <hr/>
 
-        <!--<div ng-repeat="env in environmentList">
-            {{env.name}}
-        </div>-->
+
         <div dw-loading="key" dw-loading-options="{text:'loading'}">
-        <div style="display:flex;flex-direction:row;justify-content:space-between;padding:8px;border-top: 1px solid #e9ecec;background-color: #f9f9f9;" >
-            <div style="font-weight:600">Name</div>
-            <div style="font-weight:600;margin-right:4px;">Operate</div>
-
-        </div>
-
-
-        <div dir-paginate="suite in testsuitlist | itemsPerPage: 10">
-            <div style="display:flex;flex-direction:row;justify-content:space-between;padding:8px;border-top: 1px solid #e9ecec;">
-                <div>
-                    <a style="color:#e95420"  ng-click="gotoDetail(suite)"> {{suite}}
-                    </a>
-                    </div>
-                <div>
-                    <!-- <button class="btn btn-default btn-sm" ng-click="gotoDetail(suite)">Detail</button> -->
-                    <button class="btn btn-default btn-sm" ng-click="openDeleteEnv(suite,'test suite')">Delete</button>
-                </div>
+            <div style="display:flex;flex-direction:row;justify-content:space-between;padding:8px;border-top: 1px solid #e9ecec;background-color: #f9f9f9;">
+                <div style="font-weight:600">Name</div>
+                <div style="font-weight:600;margin-right:20px;">Action</div>
 
             </div>
 
-        </div>
-        <center>
-            <dir-pagination-controls></dir-pagination-controls>
-        </center>
+
+            <div dir-paginate="suite in testsuitlist | itemsPerPage: 10">
+                <div style="display:flex;flex-direction:row;justify-content:space-between;padding:8px;border-top: 1px solid #e9ecec;">
+                    <div>
+                        <a style="color:#4dc5cf" ng-click="gotoDetail(suite)"> {{suite}}
+                    </a>
+                    </div>
+                    <div>
+                        <!-- <button class="btn btn-default btn-sm" ng-click="openDeleteEnv(suite,'test suite')">Delete</button> -->
+                        <div class="btn-group" uib-dropdown is-open="status.isopen">
+                            <button id="single-button" type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
+                            delete <span class="caret"></span>
+                        </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                <li role="menuitem"><a ng-click="openDeleteEnv(suite,'test suite')">delete</a></li>
+
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <center>
+                <dir-pagination-controls></dir-pagination-controls>
+            </center>
         </div>
 
 
