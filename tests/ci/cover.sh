@@ -34,6 +34,9 @@ run_coverage_test() {
     git checkout HEAD^
 
     baseline_report=$(mktemp -t yardstick_coverageXXXXXXX)
+    # workaround 'db type could not be determined' bug
+    # https://bugs.launchpad.net/testrepository/+bug/1229445
+    rm -f .testrepository/times.dbm
     find . -type f -name "*.pyc" -delete && python setup.py testr --coverage --testr-args="$*"
     coverage report > $baseline_report
     baseline_missing=$(awk 'END { print $3 }' $baseline_report)
