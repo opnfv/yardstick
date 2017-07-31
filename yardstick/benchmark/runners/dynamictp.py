@@ -106,7 +106,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                         search_max = int(actual_pps * 1.5)
 
                 if ((search_max - search_min) < delta) or \
-                    (search_max <= search_min) or (10 <= sequence):
+                   (search_max <= search_min) or (10 <= sequence):
                     if last_min_data['packets_per_second'] > 0:
                         data = last_min_data
 
