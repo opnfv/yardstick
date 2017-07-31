@@ -10,6 +10,8 @@ import logging
 import errno
 import os
 
+import jinja2schema
+
 from api import ApiResource
 from yardstick.common.utils import result_handler
 from yardstick.common import constants as consts
@@ -56,7 +58,10 @@ class V2Testcase(ApiResource):
             if e.errno == errno.ENOENT:
                 return result_handler(consts.API_ERROR, 'case does not exist')
 
-        return result_handler(consts.API_SUCCESS, {'testcase': data})
+        options = {k: {'description': '', 'type': v.__class__.__name__}
+                   for k, v in jinja2schema.infer(data).items()}
+
+        return result_handler(consts.API_SUCCESS, {'testcase': data, 'args': options})
 
     def delete(self, case_name):
         case_path = os.path.join(consts.TESTCASE_DIR, '{}.yaml'.format(case_name))
