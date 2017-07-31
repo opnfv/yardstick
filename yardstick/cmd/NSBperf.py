@@ -30,13 +30,6 @@ from six.moves import input
 
 CLI_PATH = os.path.dirname(os.path.realpath(__file__))
 REPO_PATH = os.path.abspath(os.path.join(CLI_PATH, os.pardir))
-PYTHONPATH = os.environ.get("PYTHONPATH", False)
-VIRTUAL_ENV = os.environ.get("VIRTUAL_ENV", False)
-
-
-if not PYTHONPATH or not VIRTUAL_ENV:
-    print("Please setup env PYTHONPATH & VIRTUAL_ENV environment varaible.")
-    raise SystemExit(1)
 
 
 def sigint_handler(*args, **kwargs):
