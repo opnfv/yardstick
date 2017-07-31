@@ -47,6 +47,9 @@ run_coverage_test() {
 
     # Generate and save coverage report
     current_report=$(mktemp -t yardstick_coverageXXXXXXX)
+    # workaround 'db type could not be determined' bug
+    # https://bugs.launchpad.net/testrepository/+bug/1229445
+    rm -f .testrepository/times.dbm
     find . -type f -name "*.pyc" -delete && python setup.py testr --coverage --testr-args="$*"
     coverage report > $current_report
     current_missing=$(awk 'END { print $3 }' $current_report)
