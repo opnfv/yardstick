@@ -13,6 +13,9 @@
 
 getopts ":f" FILE_OPTION
 
+# don't write .pyc files this can cause odd unittest results
+export PYTHONDONTWRITEBYTECODE=1
+
 run_flake8() {
     echo "Running flake8 ... "
     logfile=test_results.log
