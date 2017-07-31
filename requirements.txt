@@ -38,6 +38,7 @@ iso8601==0.1.11
 jsonpatch==1.15
 jsonpointer==1.10
 jsonschema==2.5.1
+jinja2schema==0.1.4
 keystoneauth1==2.18.0
 kubernetes==3.0.0a1
 linecache2==1.0.0
