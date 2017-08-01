@@ -80,7 +80,6 @@ run_functional_test() {
     fi
 }
 
-export PYTHONPATH='yardstick/vTC/apexlake'
 
 run_flake8
 run_tests
