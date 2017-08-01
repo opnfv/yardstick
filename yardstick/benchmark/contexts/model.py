@@ -257,10 +257,11 @@ class Server(Object):     # pragma: no cover
             port_name = server_name + "-" + network.name + "-port"
             self.ports[network.name] = {"stack_name": port_name}
             # we can't use secgroups if port_security_enabled is False
-            if network.port_security_enabled:
-                sec_group_id = self.secgroup_name
-            else:
+            if network.port_security_enabled is False:
                 sec_group_id = None
+            else:
+                # if port_security_enabled is None we still need to add to secgroup
+                sec_group_id = self.secgroup_name
             # don't refactor to pass in network object, that causes JSON
             # circular ref encode errors
             template.add_port(port_name, network.stack_name, network.subnet_stack_name,
