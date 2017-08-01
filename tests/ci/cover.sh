@@ -36,8 +36,8 @@ run_coverage_test() {
     baseline_report=$(mktemp -t yardstick_coverageXXXXXXX)
     # workaround 'db type could not be determined' bug
     # https://bugs.launchpad.net/testrepository/+bug/1229445
-    rm -f .testrepository/times.dbm
-    find . -type f -name "*.pyc" -delete && python setup.py testr --coverage --testr-args="$*"
+    rm -rf .testrepository
+    find . -type f -name "*.pyc" -delete && python setup.py testr --coverage --slowest --testr-args="$*"
     coverage report > $baseline_report
     baseline_missing=$(awk 'END { print $3 }' $baseline_report)
 
@@ -49,8 +49,8 @@ run_coverage_test() {
     current_report=$(mktemp -t yardstick_coverageXXXXXXX)
     # workaround 'db type could not be determined' bug
     # https://bugs.launchpad.net/testrepository/+bug/1229445
-    rm -f .testrepository/times.dbm
-    find . -type f -name "*.pyc" -delete && python setup.py testr --coverage --testr-args="$*"
+    rm -rf .testrepository
+    find . -type f -name "*.pyc" -delete && python setup.py testr --coverage --slowest --testr-args="$*"
     coverage report > $current_report
     current_missing=$(awk 'END { print $3 }' $current_report)
 
