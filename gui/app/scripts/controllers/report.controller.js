@@ -54,7 +54,7 @@ angular.module('yardStickGui2App')
             }
 
             $scope.goToExternal = function goToExternal(id) {
-                var url = External_URL + ':' + $scope.jumpPort + '/dashboard/db' + '/' + id;
+                var url = Grafana_URL +':'+$scope.jumpPort+'/dashboard/db'+ '/' + id;
 
                 window.open(url, '_blank');
             }

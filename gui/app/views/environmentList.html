@@ -22,21 +22,18 @@
 
             <div dir-paginate="env in environmentList | orderBy:'-id' | itemsPerPage: 10 ">
                 <div style="display:flex;flex-direction:row;justify-content:space-between;padding:8px;border-top: 1px solid #e9ecec;">
-                    <div> <a style="color:#e95420" ng-click="gotoDetail('false',env.uuid)">{{env.name}}</a></div>
+                    <div> <a style="color:#4dc5cf" ng-click="gotoDetail('false',env.uuid)">{{env.name}}</a></div>
                     <div>
 
                         <!-- <button class="btn btn-default btn-sm" ng-click="openDeleteEnv(env.uuid,'environment')">Delete</button> -->
 
                         <div class="btn-group" uib-dropdown is-open="status.isopen" style="margin-right:60px;">
                             <button id="single-button" type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
-                            Modify <span class="caret"></span>
+                            delete <span class="caret"></span>
                         </button>
                             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                <li role="menuitem"><a ng-click="openDeleteEnv(env.uuid,'environment')">Delete</a></li>
-                                <!-- <li role="menuitem"><a href="#">Another action</a></li>
-        <li role="menuitem"><a href="#">Something else here</a></li>
-        <li class="divider"></li>
-        <li role="menuitem"><a href="#">Separated link</a></li> -->
+                                <li role="menuitem"><a ng-click="openDeleteEnv(env.uuid,'environment')">delete</a></li>
+
                             </ul>
                         </div>
                     </div>
