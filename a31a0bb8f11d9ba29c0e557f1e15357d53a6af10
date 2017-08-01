@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_1077f203",
+        "filename": "ansible/roles/uninstall_spec_cpu2006/tasks/main.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-01T14:26:12Z",
+      "side": 1,
+      "message": "this could be command instead of shell",
+      "revId": "a31a0bb8f11d9ba29c0e557f1e15357d53a6af10",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
