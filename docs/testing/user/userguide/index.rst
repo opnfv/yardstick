@@ -23,8 +23,6 @@ Performance Testing User Guide (Yardstick)
    08-api
    09-yardstick_user_interface
    10-vtc-overview
-   11-apexlake_installation
-   12-apexlake_api
    13-nsb-overview
    14-nsb_installation
    15-list-of-tcs
