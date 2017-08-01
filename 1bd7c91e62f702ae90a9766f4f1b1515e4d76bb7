@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_f04a4eab",
+        "filename": "requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-01T14:42:43Z",
+      "side": 1,
+      "message": "please we adding new dependency provide license info in the commit message.\n\njinaj2schema is BSD license, so that is okay.",
+      "revId": "1bd7c91e62f702ae90a9766f4f1b1515e4d76bb7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
