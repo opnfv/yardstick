@@ -19,6 +19,8 @@ scenarios:
   options:
     udp: udp
     bandwidth: 20m
+    length: 8K
+    window: 29200
   host: zeus.demo
   target: hera.demo
 
