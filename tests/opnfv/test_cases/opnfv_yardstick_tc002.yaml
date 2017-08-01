@@ -14,6 +14,11 @@ description: >
     measure network latency using ping;
 
 {% set image = image or "cirros-0.3.5" %}
+
+{% set provider = provider or none %}
+{% set physical_network = physical_network or 'physnet1' %}
+{% set segmentation_id = segmentation_id or none %}
+
 scenarios:
 {% for i in range(2) %}
 -
@@ -53,3 +58,10 @@ context:
   networks:
     test:
       cidr: '10.0.1.0/24'
+      {% if provider == "vlan" %}
+      provider: {{provider}}
+      physical_network: {{physical_network}}
+        {% if segmentation_id %}
+      segmentation_id: {{segmentation_id}}
+        {% endif %}
+      {% endif %}
