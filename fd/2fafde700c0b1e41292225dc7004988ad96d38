@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Alexandru Avadanii <Alexandru.Avadanii@enea.com>
+Code-Review+1: Alexandru Nemes <alexandru.nemes@enea.com>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Submitted-by: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-at: Wed, 02 Aug 2017 19:38:33 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/35353
+Project: yardstick
+Branch: refs/heads/master
