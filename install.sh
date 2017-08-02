@@ -51,6 +51,7 @@ echo "vm.mmap_min_addr = 0" > /etc/sysctl.d/mmap_min_addr.conf
 # install tools
 apt-get update && apt-get install -y \
     qemu-user-static/xenial \
+    bonnie++ \
     wget \
     expect \
     curl \
