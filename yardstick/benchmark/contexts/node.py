@@ -143,6 +143,7 @@ class NodeContext(Context):
                              (matching_nodes, duplicate))
 
         node["name"] = attr_name
+        node.setdefault("interfaces", {})
         return node
 
     def _get_network(self, attr_name):
