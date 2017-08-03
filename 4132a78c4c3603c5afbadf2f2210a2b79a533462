@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_a00cef95",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-03T18:31:32Z",
+      "side": 1,
+      "message": "use LOG.exception(\u0027\u0027)",
+      "revId": "4132a78c4c3603c5afbadf2f2210a2b79a533462",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_001ddbbd",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-03T18:31:32Z",
+      "side": 1,
+      "message": "okay, I guess some systems don\u0027t have network interfaces.\n\nNSB requires interfaces section in pod.yaml for baremetal nodes.",
+      "revId": "4132a78c4c3603c5afbadf2f2210a2b79a533462",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
