@@ -13,6 +13,9 @@ description: >
     Test case for TC054 :OpenStack VIP Master Node abnormally shutdown High Availability;
     This test case is written by new scenario-based HA testing framework.
 
+{% set attack_host = attack_host or 'node1' %}
+{% set check_host = check_host or 'node2' %}
+{% set jump_host = jump_host or 'node0' %}
 {% set file = file or '/etc/yardstick/pod.yaml' %}
 {% set vip_management = vip_management or '192.168.0.2' %}
 {% set vip_public = vip_public or '172.16.0.3' %}
@@ -26,8 +29,9 @@ scenarios:
       attackers:
         -
           fault_type: "bare-metal-down"
-          host: node1
+          host: {{attack_host}}
           key: "bare-metal-down"
+          jump_host: {{jump_host}}
 
       monitors:
         -
@@ -43,7 +47,7 @@ scenarios:
           monitor_type: "general-monitor"
           monitor_key: "ip-status"
           key: "vip-mgmt-status"
-          host: node2
+          host: {{check_host}}
           monitor_time: 10
           monitor_number: 3
           sla:
@@ -55,7 +59,7 @@ scenarios:
           monitor_type: "general-monitor"
           monitor_key: "ip-status"
           key: "vip-routerp-status"
-          host: node2
+          host: {{check_host}}
           monitor_time: 10
           monitor_number: 3
           sla:
@@ -67,7 +71,7 @@ scenarios:
           monitor_type: "general-monitor"
           monitor_key: "ip-status"
           key: "vip-router-status"
-          host: node2
+          host: {{check_host}}
           monitor_time: 10
           monitor_number: 3
           sla:
@@ -79,7 +83,7 @@ scenarios:
           monitor_type: "general-monitor"
           monitor_key: "ip-status"
           key: "vip-pub"
-          host: node2
+          host: {{check_host}}
           monitor_time: 10
           monitor_number: 3
           sla:
@@ -119,8 +123,9 @@ scenarios:
           index: 6
 
     nodes:
-      node1: node1.LF
-      node2: node2.LF
+      {{jump_host}}: {{jump_host}}.LF
+      {{attack_host}}: {{attack_host}}.LF
+      {{check_host}}: {{check_host}}.LF
     runner:
       type: Duration
       duration: 1

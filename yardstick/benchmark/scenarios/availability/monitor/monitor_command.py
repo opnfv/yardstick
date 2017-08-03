@@ -63,6 +63,7 @@ class MonitorOpenstackCmd(basemonitor.BaseMonitor):
     def monitor_func(self):
         exit_status = 0
         exit_status, stdout = _execute_shell_command(self.cmd)
+        LOG.debug("Execute command '%s' and the stdout is:\n%s", self.cmd, stdout)
         if exit_status:
             return False
         return True
