@@ -7,9 +7,8 @@ are licensed under a Creative Commons Attribution 4.0 International License.
 You should have received a copy of the license along with this.
 If not, see <http://creativecommons.org/licenses/by/4.0/>.
 
-The *Yardstick framework*, the *Yardstick test cases* and the *ApexLake*
-experimental framework are opensource software, licensed under the terms of the
-Apache License, Version 2.0.
+The *Yardstick framework*, the *Yardstick test cases* are opensource software,
+ licensed under the terms of the Apache License, Version 2.0.
 
 =========================================
 OPNFV Danube Release Note for Yardstick
@@ -302,20 +301,6 @@ Software Deliverables
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 | *NSB*               | vPE thoughput test case                               |
-|                     |                                                       |
-+---------------------+-------------------------------------------------------+
-
-
-**API to Other Frameworks**
-
-+---------------------+-------------------------------------------------------+
-| **Framework**       | **Description**                                       |
-|                     |                                                       |
-+---------------------+-------------------------------------------------------+
-| *ApexLake*          | Experimental framework that enables the user to       |
-|                     | validate NFVI from the perspective of a VNF.          |
-|                     | A virtual Traffic Classifier is utilized as VNF.      |
-|                     | Enables experiments with SR-IOV on Compute Node.      |
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 
