@@ -21,6 +21,7 @@ import logging
 import uuid
 import errno
 import collections
+import traceback
 
 from six.moves import filter
 
@@ -121,6 +122,7 @@ class Task(object):     # pragma: no cover
             except KeyboardInterrupt:
                 raise
             except Exception:
+                traceback.print_exc()
                 testcases[case_name] = {'criteria': 'FAIL', 'tc_data': []}
             else:
                 testcases[case_name] = {'criteria': 'PASS', 'tc_data': data}
@@ -601,7 +603,8 @@ def get_networks_from_nodes(nodes):
     for node in nodes.values():
         if not node:
             continue
-        for interface in node['interfaces'].values():
+        interfaces = node.get('interfaces', {})
+        for interface in interfaces.values():
             vld_id = interface.get('vld_id')
             # mgmt network doesn't have vld_id
             if not vld_id:
