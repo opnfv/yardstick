@@ -21,7 +21,7 @@ import logging
 import socket
 import time
 
-import heatclient
+import heatclient.client
 import pkg_resources
 
 from oslo_utils import encodeutils
