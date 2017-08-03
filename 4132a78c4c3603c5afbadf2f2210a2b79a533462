@@ -33,6 +33,24 @@
       "revId": "4132a78c4c3603c5afbadf2f2210a2b79a533462",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_407ec3e5",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-03T18:51:44Z",
+      "side": 1,
+      "message": "actually we should fix in the in the Contexts.\n\nso add code to node.py to default interfaces to {}.   Just like in heat.py we default to {} in Server object.\n\n\n--- a/yardstick/benchmark/contexts/node.py\n+++ b/yardstick/benchmark/contexts/node.py\n@@ -146,6 +146,7 @@ class NodeContext(Context):\n                              (node, duplicate))\n\n         node[\"name\"] \u003d attr_name\n+        node.setdefault(\"interfaces\", {})\n         return node\n\n     def _get_network(self, attr_name):",
+      "parentUuid": "da33351e_001ddbbd",
+      "revId": "4132a78c4c3603c5afbadf2f2210a2b79a533462",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
