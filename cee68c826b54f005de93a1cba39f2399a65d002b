@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_e053976a",
+        "filename": "samples/bonnie++.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2017-08-03T20:19:44Z",
+      "side": 1,
+      "message": "Just a quick note here, so it is clear: you are testing the Glance backend, using the filesystem layer of the OS running in the VM.  Unless Glance is backed by Ceph, you\u0027re not actually testing Ceph, but instead the local hard drive of the hypervisor that the VM is on.",
+      "revId": "cee68c826b54f005de93a1cba39f2399a65d002b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
