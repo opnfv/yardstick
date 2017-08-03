@@ -69,7 +69,7 @@ class Testcase(object):
     def _parse_testcase(self, testcase_info):
 
         rendered_testcase = TaskTemplate.render(testcase_info)
-        testcase_cfg = yaml.load(rendered_testcase)
+        testcase_cfg = yaml.safe_load(rendered_testcase)
 
         test_precondition = testcase_cfg.get('precondition', {})
         installer_type = test_precondition.get('installer_type', 'all')
