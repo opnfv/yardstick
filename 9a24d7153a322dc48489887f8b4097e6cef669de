@@ -16,6 +16,24 @@
       "revId": "9a24d7153a322dc48489887f8b4097e6cef669de",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3eb9202f",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-08-04T07:41:21Z",
+      "side": 1,
+      "message": "yes, miss to fix this, will fix it right now",
+      "parentUuid": "da33351e_03efa5b1",
+      "revId": "9a24d7153a322dc48489887f8b4097e6cef669de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
