@@ -13,7 +13,8 @@ import multiprocessing
 import time
 import os
 import yardstick.common.utils as utils
-import yaml
+
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 
@@ -74,7 +75,7 @@ class BaseMonitor(multiprocessing.Process):
     def __init__(self, config, context, data):
         if not BaseMonitor.monitor_cfgs:
             with open(monitor_conf_path) as stream:
-                BaseMonitor.monitor_cfgs = yaml.safe_load(stream)
+                BaseMonitor.monitor_cfgs = yaml_load(stream)
         multiprocessing.Process.__init__(self)
         self._config = config
         self._context = context
