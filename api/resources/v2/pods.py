@@ -18,6 +18,7 @@ from api.database.v2.handlers import V2EnvironmentHandler
 from yardstick.common import constants as consts
 from yardstick.common.utils import result_handler
 from yardstick.common.task_template import TaskTemplate
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
@@ -48,7 +49,7 @@ class V2Pods(ApiResource):
         upload_file.save(consts.POD_FILE)
 
         with open(consts.POD_FILE) as f:
-            data = yaml.safe_load(TaskTemplate.render(f.read()))
+            data = yaml_load(TaskTemplate.render(f.read()))
         LOG.debug('pod content is: %s', data)
 
         LOG.info('create pod in database')
