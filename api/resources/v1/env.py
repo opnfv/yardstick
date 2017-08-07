@@ -31,7 +31,7 @@ from yardstick.common import utils
 from yardstick.common.utils import result_handler
 from yardstick.common import openstack_utils
 from yardstick.common.httpClient import HttpClient
-
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
@@ -393,7 +393,7 @@ class V1Env(ApiResource):
             return result_handler(consts.API_ERROR, 'file must be provided')
 
         LOG.info('Checking file')
-        data = yaml.safe_load(pod_file.read())
+        data = yaml_load(pod_file.read())
         if not isinstance(data, collections.Mapping):
             return result_handler(consts.API_ERROR, 'invalid yaml file')
 

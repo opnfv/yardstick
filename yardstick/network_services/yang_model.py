@@ -16,8 +16,9 @@ from __future__ import absolute_import
 from __future__ import print_function
 import logging
 import ipaddress
-import yaml
 import six
+
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 
@@ -46,7 +47,7 @@ class YangModel(object):
         # TODO: add some error handling in case of empty or non-existing file
         try:
             with open(self._config_file) as f:
-                self._options = yaml.safe_load(f)
+                self._options = yaml_load(f)
         except Exception as e:
             LOG.exception("Failed to load the yaml %s", e)
             raise

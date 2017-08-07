@@ -18,12 +18,12 @@ import logging
 import os
 import errno
 import collections
-import yaml
 import time
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.common.constants import YARDSTICK_ROOT_PATH
 from yardstick.common.utils import import_modules_from_package, itersubclasses
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 
@@ -50,7 +50,7 @@ class StandaloneContext(Context):
 
         with open(self.file_path) as stream:
             LOG.info("Parsing pod file: %s", self.file_path)
-            cfg = yaml.safe_load(stream)
+            cfg = yaml_load(stream)
         return cfg
 
     def get_nfvi_obj(self):
