@@ -13,13 +13,13 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-import yaml
 import time
 import logging
 import pkg_resources
 import yardstick.ssh as ssh
 
 from yardstick.common.task_template import TaskTemplate
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 
@@ -153,7 +153,7 @@ class PluginParser(object):
                     raise e
                 print("Input plugin is:\n%s\n" % rendered_plugin)
 
-                cfg = yaml.safe_load(rendered_plugin)
+                cfg = yaml_load(rendered_plugin)
         except IOError as ioerror:
             sys.exit(ioerror)
 

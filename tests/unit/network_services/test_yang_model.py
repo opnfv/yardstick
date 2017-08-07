@@ -95,7 +95,7 @@ class YangModelTestCase(unittest.TestCase):
         y._get_entries()
         self.assertEqual(y._rules, '')
 
-    @mock.patch('yaml.safe_load')
+    @mock.patch('yardstick.network_services.yang_model.yaml_load')
     @mock.patch('yardstick.network_services.yang_model.open')
     def test__read_config(self, mock_open, mock_safe_load):
         cfg = "yang.yaml"
