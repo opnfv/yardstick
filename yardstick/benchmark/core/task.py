@@ -28,6 +28,7 @@ from six.moves import filter
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
+from yardstick.common.yaml_loader import yaml_load
 from yardstick.dispatcher.base import Base as DispatcherBase
 from yardstick.common.task_template import TaskTemplate
 from yardstick.common.utils import source_env
@@ -427,7 +428,7 @@ class TaskParser(object):       # pragma: no cover
 
         try:
             with open(self.path) as stream:
-                cfg = yaml.load(stream)
+                cfg = yaml_load(stream)
         except IOError as ioerror:
             sys.exit(ioerror)
 
@@ -491,7 +492,7 @@ class TaskParser(object):       # pragma: no cover
                     raise e
                 print("Input task is:\n%s\n" % rendered_task)
 
-                cfg = yaml.load(rendered_task)
+                cfg = yaml_load(rendered_task)
         except IOError as ioerror:
             sys.exit(ioerror)
 
@@ -647,7 +648,7 @@ def parse_task_args(src_name, args):
         return args
 
     try:
-        kw = args and yaml.safe_load(args)
+        kw = args and yaml_load(args)
         kw = {} if kw is None else kw
     except yaml.parser.ParserError as e:
         print_invalid_header(src_name, args)

@@ -17,12 +17,12 @@ import tempfile
 
 import six
 import pkg_resources
-import yaml
 
 from yardstick import ssh
 from yardstick.benchmark.contexts.base import Context
 from yardstick.common.constants import ANSIBLE_DIR, YARDSTICK_ROOT_PATH
 from yardstick.common.ansible_common import AnsibleCommon
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 
@@ -55,7 +55,7 @@ class NodeContext(Context):
 
         with open(self.file_path) as stream:
             LOG.info("Parsing pod file: %s", self.file_path)
-            cfg = yaml.safe_load(stream)
+            cfg = yaml_load(stream)
         return cfg
 
     def init(self, attrs):

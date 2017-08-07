@@ -18,7 +18,7 @@ class GetNumaInfoTestCase(unittest.TestCase):
 
     @mock.patch('{}.GetNumaInfo._check_numa_node'.format(BASE))
     @mock.patch('{}.GetNumaInfo._get_current_host_name'.format(BASE))
-    @mock.patch('yaml.safe_load')
+    @mock.patch('yardstick.benchmark.scenarios.lib.get_numa_info.yaml_load')
     @mock.patch('yardstick.common.task_template.TaskTemplate.render')
     def test_get_numa_info(self,
                            mock_render,
@@ -44,7 +44,7 @@ class GetNumaInfoTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.ssh.SSH.from_node')
     @mock.patch('{}.GetNumaInfo._get_current_host_name'.format(BASE))
-    @mock.patch('yaml.safe_load')
+    @mock.patch('yardstick.benchmark.scenarios.lib.get_numa_info.yaml_load')
     @mock.patch('yardstick.common.task_template.TaskTemplate.render')
     def test_check_numa_node(self,
                              mock_render,
@@ -74,7 +74,7 @@ class GetNumaInfoTestCase(unittest.TestCase):
 
     @mock.patch('{}.change_obj_to_dict'.format(BASE))
     @mock.patch('{}.get_nova_client'.format(BASE))
-    @mock.patch('yaml.safe_load')
+    @mock.patch('yardstick.benchmark.scenarios.lib.get_numa_info.yaml_load')
     @mock.patch('yardstick.common.task_template.TaskTemplate.render')
     def test_get_current_host_name(self,
                                    mock_render,

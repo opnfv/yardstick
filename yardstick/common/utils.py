@@ -30,7 +30,6 @@ import random
 import ipaddress
 from contextlib import closing
 
-import yaml
 import six
 from flask import jsonify
 from six.moves import configparser
@@ -38,10 +37,10 @@ from oslo_utils import importutils
 from oslo_serialization import jsonutils
 
 import yardstick
+from yardstick.common.yaml_loader import yaml_load
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-
 
 # Decorator for cli-args
 def cliargs(*args, **kwargs):
@@ -97,7 +96,7 @@ def import_modules_from_package(package):
 def parse_yaml(file_path):
     try:
         with open(file_path) as f:
-            value = yaml.safe_load(f)
+            value = yaml_load(f)
     except IOError:
         return {}
     except OSError as e:

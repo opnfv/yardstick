@@ -14,26 +14,29 @@
 """ Generic file to map and build vnf discriptor """
 
 from __future__ import absolute_import
+
 from functools import reduce
 
 import jinja2
 import logging
-import yaml
 
+from yardstick.common.task_template import finalize_for_yaml
 from yardstick.common.utils import try_int
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 
 
 def render(vnf_model, **kwargs):
     """Render jinja2 VNF template
+    Do not check for missing arguments
 
     :param vnf_model: string that contains template
     :param kwargs: Dict with template arguments
     :returns:rendered template str
     """
 
-    return jinja2.Template(vnf_model).render(**kwargs)
+    return jinja2.Template(vnf_model, finalize=finalize_for_yaml).render(**kwargs)
 
 
 def generate_vnfd(vnf_model, node):
@@ -54,7 +57,7 @@ def generate_vnfd(vnf_model, node):
     rendered_vnfd = render(vnf_model, **node)
     # This is done to get rid of issues with serializing node
     del node["get"]
-    filled_vnfd = yaml.safe_load(rendered_vnfd)
+    filled_vnfd = yaml_load(rendered_vnfd)
     return filled_vnfd
 
 
