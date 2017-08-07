@@ -31,3 +31,5 @@ cover/
 /docs/apidocs/yardstick*.rst
 #PyCharm IDE project configuration files
 .idea/
+# tox virtualenvs
+.tox/
