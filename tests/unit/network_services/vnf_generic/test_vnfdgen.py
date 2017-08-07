@@ -21,6 +21,7 @@ from __future__ import absolute_import
 import unittest
 from six.moves import range
 
+from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.vnf_generic import vnfdgen
 
 TREX_VNFD_TEMPLATE = """
@@ -65,6 +66,8 @@ vnfd:vnfd-catalog:
                     dst_mac: '{{ interfaces.xe1.dst_mac }}'
                     bandwidth: 10 Gbps
                 vnfd-connection-point-ref: xe1
+            routing_table: {{ routing_table }}
+            nd_route_tbl: {{ nd_route_tbl }}
 
         benchmark:
             kpi:
@@ -126,6 +129,22 @@ COMPLETE_TREX_VNFD = \
                                          'vpci': '0000:00:10.1'},
                    'vnfd-connection-point-ref': 'xe1'}],
                  'id': 'trexgen-baremetal',
+                 'nd_route_tbl': [{'gateway': '0064:ff9b:0:0:0:0:9810:6414',
+                                   'if': 'xe0',
+                                   'netmask': '112',
+                                   'network': '0064:ff9b:0:0:0:0:9810:6414'},
+                                  {'gateway': '0064:ff9b:0:0:0:0:9810:2814',
+                                   'if': 'xe1',
+                                   'netmask': '112',
+                                   'network': '0064:ff9b:0:0:0:0:9810:2814'}],
+                 'routing_table': [{'gateway': '152.16.100.20',
+                                    'if': 'xe0',
+                                    'netmask': '255.255.255.0',
+                                    'network': '152.16.100.20'},
+                                   {'gateway': '152.16.40.20',
+                                    'if': 'xe1',
+                                    'netmask': '255.255.255.0',
+                                    'network': '152.16.40.20'}],
                  'name': 'trexgen-baremetal'}]}]}}
 
 NODE_CFG = {'ip': '1.1.1.1',
@@ -144,7 +163,24 @@ NODE_CFG = {'ip': '1.1.1.1',
                                    'dst_mac': '00:01:02:03:04:06',
                                    'local_ip': '2.1.1.2',
                                    'local_mac': '00:01:02:03:05:06',
-                                   'vpci': '0000:00:10.1'}}}
+                                   'vpci': '0000:00:10.1'}},
+            'nd_route_tbl': [{u'gateway': u'0064:ff9b:0:0:0:0:9810:6414',
+                              u'if': u'xe0',
+                              u'netmask': u'112',
+                              u'network': u'0064:ff9b:0:0:0:0:9810:6414'},
+                             {u'gateway': u'0064:ff9b:0:0:0:0:9810:2814',
+                              u'if': u'xe1',
+                              u'netmask': u'112',
+                              u'network': u'0064:ff9b:0:0:0:0:9810:2814'}],
+            'routing_table': [{u'gateway': u'152.16.100.20',
+                               u'if': u'xe0',
+                               u'netmask': u'255.255.255.0',
+                               u'network': u'152.16.100.20'},
+                              {u'gateway': u'152.16.40.20',
+                               u'if': u'xe1',
+                               u'netmask': u'255.255.255.0',
+                               u'network': u'152.16.40.20'}],
+            }
 
 
 TRAFFIC_PROFILE_TPL = """
@@ -167,6 +203,20 @@ TRAFFIC_PROFILE = {
                                          "256B": '10', "373B": '10',
                                          "570B": '10', "1400B": '10',
                                          "1518B": '40'}}}}]}
+
+
+class TestRender(unittest.TestCase):
+
+    def test_render_none(self):
+
+        tmpl = "{{ routing_table }}"
+        self.assertEqual(vnfdgen.render(tmpl, routing_table=None), u'~')
+        self.assertEqual(yaml_load(vnfdgen.render(tmpl, routing_table=None)), None)
+
+    def test_render_unicode_dict(self):
+
+        tmpl = "{{ routing_table }}"
+        self.assertEqual(yaml_load(vnfdgen.render(tmpl, **NODE_CFG)), NODE_CFG["routing_table"])
 
 
 class TestVnfdGen(unittest.TestCase):
