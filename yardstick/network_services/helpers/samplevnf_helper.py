@@ -563,6 +563,76 @@ class MultiPortConfig(object):
         else:
             return None, None
 
+    def generate_port_vars(self):
+        interfaces = self.interfaces
+
+        port0_ip = ipaddress.ip_interface(six.text_type(
+            "%s/%s" % (interfaces[0]["virtual-interface"]["local_ip"],
+                       interfaces[0]["virtual-interface"]["netmask"])))
+        port1_ip = ipaddress.ip_interface(six.text_type(
+            "%s/%s" % (interfaces[1]["virtual-interface"]["local_ip"],
+                       interfaces[1]["virtual-interface"]["netmask"])))
+        dst_port0_ip = \
+            ipaddress.ip_interface(six.text_type(
+                "%s/%s" % (interfaces[0]["virtual-interface"]["dst_ip"],
+                           interfaces[0]["virtual-interface"]["netmask"])))
+        dst_port1_ip = \
+            ipaddress.ip_interface(six.text_type(
+                "%s/%s" % (interfaces[1]["virtual-interface"]["dst_ip"],
+                           interfaces[1]["virtual-interface"]["netmask"])))
+
+        vnf_vars = {
+            "port0_local_ip": port0_ip.ip.exploded,
+            "port0_dst_ip": dst_port0_ip.ip.exploded,
+            "port0_dst_ip_hex":
+                ip_to_hex(dst_port0_ip.ip.exploded),
+            "port0_local_ip_hex":
+                ip_to_hex(port0_ip.ip.exploded),
+            "port0_prefixlen": port0_ip.network.prefixlen,
+            "port0_netmask": port0_ip.network.netmask.exploded,
+            "port0_netmask_hex":
+                ip_to_hex(port0_ip.network.netmask.exploded),
+            "port0_local_mac":
+                interfaces[0]["virtual-interface"]["local_mac"],
+            "port0_dst_mac":
+                interfaces[0]["virtual-interface"]["dst_mac"],
+            "port0_gateway":
+                self._get_ports_gateway(interfaces[0]["name"]),
+            "port0_local_network":
+                port0_ip.network.network_address.exploded,
+            "port0_prefix": port0_ip.network.prefixlen,
+            "port1_local_ip": port1_ip.ip.exploded,
+            "port1_dst_ip": dst_port1_ip.ip.exploded,
+            "port1_dst_ip_hex":
+                ip_to_hex(dst_port1_ip.ip.exploded),
+            "port1_local_ip_hex":
+                ip_to_hex(port1_ip.ip.exploded),
+            "port1_prefixlen": port1_ip.network.prefixlen,
+            "port1_netmask": port1_ip.network.netmask.exploded,
+            "port1_netmask_hex":
+                ip_to_hex(port1_ip.network.netmask.exploded),
+            "port1_local_mac":
+                interfaces[1]["virtual-interface"]["local_mac"],
+            "port1_dst_mac":
+                interfaces[1]["virtual-interface"]["dst_mac"],
+            "port1_gateway":
+                self._get_ports_gateway(interfaces[1]["name"]),
+            "port1_local_network":
+                port1_ip.network.network_address.exploded,
+            "port1_prefix": port1_ip.network.prefixlen,
+            "port0_local_ip6": self._get_port0localip6(),
+            "port1_local_ip6": self._get_port1localip6(),
+            "port0_prefixlen6": self._get_port0prefixlen6(),
+            "port1_prefixlen6": self._get_port1prefixlen6(),
+            "port0_gateway6": self._get_port0gateway6(),
+            "port1_gateway6": self._get_port1gateway6(),
+            "port0_dst_ip_hex6": self._get_port0localip6(),
+            "port1_dst_ip_hex6": self._get_port1localip6(),
+            "port0_dst_netmask_hex6": self._get_port0prefixlen6(),
+            "port1_dst_netmask_hex6": self._get_port1prefixlen6(),
+        }
+        return vnf_vars
+
     def generate_rule_config(self):
         cmd = 'acl' if self.vnf_type == "ACL" else "vfw"
         rules_config = self.rules if self.rules else ''
@@ -594,8 +664,12 @@ class MultiPortConfig(object):
                                        src_ip, src_prefix_len, src_port))
 
         acl_apply = "\np %s applyruleset" % cmd
-        new_rules_config = '\n'.join(pattern.format(*values) for values
-                                     in chain(new_rules, new_ipv6_rules))
+        # new_rules_config = '\n'.join(pattern.format(*values) for values
+        #                              in chain(new_rules, new_ipv6_rules))
+        new_rules_config = """\
+p acl add 1 0.0.0.0 0 0.0.0.0 0 0 65535 0 65535 0 0 0
+p acl add 1 0.0.0.0 0 0.0.0.0 0 0 65535 0 65535 0 0 1
+"""
         return ''.join([rules_config, new_rules_config, acl_apply])
 
     def generate_script_data(self):
