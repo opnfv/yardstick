@@ -22,6 +22,7 @@ from yardstick.common import constants as consts
 from yardstick.common.utils import change_obj_to_dict
 from yardstick.common.openstack_utils import get_nova_client
 from yardstick.common.task_template import TaskTemplate
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 
@@ -47,7 +48,7 @@ class GetNumaInfo(base.Scenario):
                                  self.options.get('file'))
 
         with open(node_file) as f:
-            nodes = yaml.safe_load(TaskTemplate.render(f.read()))
+            nodes = yaml_load(TaskTemplate.render(f.read()))
         self.nodes = {a['host_name']: a for a in nodes['nodes']}
 
     def run(self, result):

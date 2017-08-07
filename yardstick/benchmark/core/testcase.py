@@ -17,6 +17,7 @@ import logging
 
 from yardstick.common.task_template import TaskTemplate
 from yardstick.common import constants as consts
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 
@@ -69,7 +70,7 @@ class Testcase(object):
     def _parse_testcase(self, testcase_info):
 
         rendered_testcase = TaskTemplate.render(testcase_info)
-        testcase_cfg = yaml.safe_load(rendered_testcase)
+        testcase_cfg = yaml_load(rendered_testcase)
 
         test_precondition = testcase_cfg.get('precondition', {})
         installer_type = test_precondition.get('installer_type', 'all')

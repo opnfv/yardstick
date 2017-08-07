@@ -21,12 +21,12 @@ import os
 
 import re
 from itertools import chain
-import yaml
 from operator import itemgetter
 from collections import defaultdict
 
 from yardstick.benchmark.scenarios import base
 from yardstick.common.utils import import_modules_from_package, itersubclasses
+from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic import vnfdgen
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
@@ -119,7 +119,7 @@ class NetworkServiceTestCase(base.Scenario):
         # fixme: create schema to validate all fields have been provided
         with open_relative_file(scenario_cfg["topology"],
                                 scenario_cfg['task_path']) as stream:
-            topology_yaml = yaml.safe_load(stream)
+            topology_yaml = yaml_load(stream)
 
         self.topology = topology_yaml["nsd:nsd-catalog"]["nsd"][0]
         self.vnfs = []
@@ -129,7 +129,7 @@ class NetworkServiceTestCase(base.Scenario):
     def _get_traffic_flow(self):
         try:
             with open(self.scenario_cfg["traffic_options"]["flow"]) as fflow:
-                flow = yaml.safe_load(fflow)
+                flow = yaml_load(fflow)
         except (KeyError, IOError, OSError):
             flow = {}
         return flow
@@ -137,7 +137,7 @@ class NetworkServiceTestCase(base.Scenario):
     def _get_traffic_imix(self):
         try:
             with open(self.scenario_cfg["traffic_options"]["imix"]) as fimix:
-                imix = yaml.safe_load(fimix)
+                imix = yaml_load(fimix)
         except (KeyError, IOError, OSError):
             imix = {}
         return imix

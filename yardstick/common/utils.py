@@ -30,7 +30,6 @@ import random
 import ipaddress
 from contextlib import closing
 
-import yaml
 import six
 from flask import jsonify
 from six.moves import configparser
@@ -38,6 +37,7 @@ from oslo_utils import importutils
 from oslo_serialization import jsonutils
 
 import yardstick
+from yardstick.common.yaml_loader import yaml_load
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -97,7 +97,7 @@ def import_modules_from_package(package):
 def parse_yaml(file_path):
     try:
         with open(file_path) as f:
-            value = yaml.safe_load(f)
+            value = yaml_load(f)
     except IOError:
         return {}
     except OSError as e:
@@ -399,3 +399,39 @@ class Timer(object):
 
     def __getattr__(self, item):
         return getattr(self.delta, item)
+
+
+class Port(object):
+
+    def __init__(self, intf):
+        port0_ip = ipaddress.ip_interface(six.text_type(
+            "%s/%s" % (interfaces[0]["virtual-interface"]["local_ip"],
+                       interfaces[0]["virtual-interface"]["netmask"])))
+        dst_port0_ip = \
+            ipaddress.ip_interface(six.text_type(
+                "%s/%s" % (interfaces[0]["virtual-interface"]["dst_ip"],
+                           interfaces[0]["virtual-interface"]["netmask"])))
+
+        vnf_vars = {
+            "port0_local_ip": port0_ip.ip.exploded,
+            "port0_local_ip_hex": ip_to_hex(port0_ip.ip.exploded),
+            "port0_prefixlen": port0_ip.network.prefixlen,
+            "port0_netmask": port0_ip.network.netmask.exploded,
+            "port0_netmask_hex": ip_to_hex(port0_ip.network.netmask.exploded),
+            "port0_local_network": port0_ip.network.network_address.exploded,
+            "port0_prefix": port0_ip.network.prefixlen,
+            "port0_local_mac": interfaces[0]["virtual-interface"]["local_mac"],
+            "port0_gateway": self._get_ports_gateway(interfaces[0]["name"]),
+
+            "port0_local_ip6": self._get_port0localip6(),
+            "port0_prefixlen6": self._get_port0prefixlen6(),
+            "port0_gateway6": self._get_port0gateway6(),
+
+            "port0_dst_ip": dst_port0_ip.ip.exploded,
+            "port0_dst_ip_hex": ip_to_hex(dst_port0_ip.ip.exploded),
+            "port0_dst_mac": interfaces[0]["virtual-interface"]["dst_mac"],
+
+            "port0_dst_ip_hex6": self._get_port0localip6(),
+            "port0_dst_netmask_hex6": self._get_port0prefixlen6(),
+        }
+        return vnf_vars

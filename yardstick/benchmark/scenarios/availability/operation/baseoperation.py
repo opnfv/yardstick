@@ -13,6 +13,7 @@ import logging
 import os
 
 import yardstick.common.utils as utils
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 
@@ -54,7 +55,7 @@ class BaseOperation(object):
     def __init__(self, config, context):
         if not BaseOperation.operation_cfgs:
             with open(operation_conf_path) as stream:
-                BaseOperation.operation_cfgs = yaml.safe_load(stream)
+                BaseOperation.operation_cfgs = yaml_load(stream)
         self.key = ''
         self._config = config
         self._context = context
