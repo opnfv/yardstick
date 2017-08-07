@@ -11,6 +11,22 @@ from __future__ import absolute_import
 import re
 import jinja2
 import jinja2.meta
+import yaml
+
+
+def finalize_for_yaml(elem):
+    """Render Jinja2 output specifically for YAML files"""
+    # Jinaj2 by default converts None to 'None', we can't allow this
+    # we could convert to empty string '', or we can convert to null, aka ~
+    if elem is None:
+        return '~'
+    # convert data structures to inline YAML
+    # match builtin types because we shouldn't be trying to render complex types
+    if isinstance(elem, (dict, list)):
+        # remove newlines because we are injecting back into YAML
+        # use block style for single line
+        return yaml.safe_dump(elem, default_flow_style=True).replace('\n', '')
+    return elem
 
 
 class TaskTemplate(object):
@@ -38,7 +54,7 @@ class TaskTemplate(object):
             single_msg = ("Please specify template task argument:%s")
             raise TypeError((len(real_missing) > 1 and multi_msg or single_msg)
                             % ", ".join(real_missing))
-        return jinja2.Template(task_template).render(**kwargs)
+        return jinja2.Template(task_template, finalize=finalize_for_yaml).render(**kwargs)
 
 
 def is_really_missing(mis, task_template):
