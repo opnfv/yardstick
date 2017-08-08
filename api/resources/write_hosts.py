@@ -13,11 +13,19 @@ import json
 
 
 def write_hosts(hosts_ip):
-    hosts_list = ('\n{} {}'.format(ip, host_name)
+
+    yardstick_flag = "# SUT hosts info for Yardstick"
+    hosts_list = ('\n{} {} {}'.format(ip, host_name, yardstick_flag)
                   for host_name, ip in hosts_ip.items())
-    with open("/etc/hosts", 'a') as f:
+
+    with open("/etc/hosts", 'r') as f:
+        origin_lines = [line for line in f if yardstick_flag not in line]
+
+    with open("/etc/hosts", 'w') as f:
+        f.writelines(origin_lines)
+        f.write(yardstick_flag)
         f.writelines(hosts_list)
-        f.write("\n")
+
 
 if __name__ == "__main__":
     write_hosts(json.load(sys.stdin))
