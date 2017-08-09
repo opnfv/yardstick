@@ -143,6 +143,16 @@ angular.module('yardStickGui2App')
                     }
 
                 })
+                .state('app2.taskLog', {
+                    url: '/task/:taskId/log',
+                    templateUrl: 'views/taskLog.html',
+                    controller: 'TaskLogController',
+                    params: { taskId: null },
+                    ncyBreadcrumb: {
+                        label: 'TaskLog'
+                    }
+
+                })
                 .state('app2.report', {
                     url: '/report/:taskId',
                     templateUrl: 'views/report.html',

@@ -47,6 +47,7 @@
                             <li role="menuitem" ng-show="task.status!=0"><a ng-click="runAtaskForTable(task.uuid)">run</a></li>
 
                             <li role="menuitem" ng-show="task.status!=0"><a ng-click="gotoModify(task.uuid)">modify</a></li>
+                            <li role="menuitem" ng-show="task.status!=-1"><a ng-click="gotoLog(task.uuid)">log</a></li>
                             <li role="menuitem" ng-show="task.status!=-1 && task.status!=0"><a ng-click="gotoReport(task.uuid)" style="color:#2ecc71">reporting</a></li>
                             <li role="menuitem"><a ng-click="openDeleteEnv(task.uuid,'task')">delete</a></li>
 

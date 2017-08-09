@@ -48,6 +48,7 @@ urlpatterns = [
     Url('/api/v2/yardstick/tasks', 'v2_tasks'),
     Url('/api/v2/yardstick/tasks/action', 'v2_tasks'),
     Url('/api/v2/yardstick/tasks/<task_id>', 'v2_task'),
+    Url('/api/v2/yardstick/tasks/<task_id>/log', 'v2_task_log'),
 
     Url('/api/v2/yardstick/testcases', 'v2_testcases'),
     Url('/api/v2/yardstick/testcases/action', 'v2_testcases'),
