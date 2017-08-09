@@ -18,11 +18,7 @@ angular.module('yardStickGui2App')
             $scope.showNextPod = null;
             $scope.displayContainerInfo = [];
             $scope.containerList = [{ value: 'create_influxdb', name: "InfluxDB" }, { value: 'create_grafana', name: "Grafana" }]
-            $scope.items = [
-                'The first choice!',
-                'And another choice for you.',
-                'but wait! A third!'
-            ];
+
             $scope.$on('$destroy', function() {
                 $interval.cancel($scope.intervalImgae)
             });
@@ -381,7 +377,7 @@ angular.module('yardStickGui2App')
 
 
             $scope.goBack = function goBack() {
-                    $state.go('app2.projectList');
+                    $state.go('app.projectList');
                 }
             $scope.displayContainerInfo = [];
 
