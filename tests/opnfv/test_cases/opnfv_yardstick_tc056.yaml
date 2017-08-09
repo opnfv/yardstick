@@ -1,0 +1,81 @@
+##############################################################################
+# Copyright (c) 2017 14_ykl@tongji.edu.cn and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+
+schema: "yardstick:task:0.1"
+description: >
+    Test case for TC056 :OpenStack Controller Messaging Queue Service High
+    Availability.
+
+{% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set attack_host = attack_host or 'node1' %}
+{% set monitor_time = monitor_time or 10 %}
+{% set monitor_number = monitor_number or 3 %}
+
+scenarios:
+-
+  type: ServiceHA
+  options:
+    attackers:
+    - fault_type: "kill-process"
+      process_name: "rabbitmq-server"
+      host: {{attack_host}}
+
+    monitors:
+    - monitor_type: "openstack-cmd"
+      command_name: "openstack image list"
+      monitor_time: {{monitor_time}}
+      monitor_number: {{monitor_number}}
+      sla:
+        max_outage_time: 5
+
+    - monitor_type: "openstack-cmd"
+      command_name: "openstack network list"
+      monitor_time: {{monitor_time}}
+      monitor_number: {{monitor_number}}
+      sla:
+        max_outage_time: 5
+
+    - monitor_type: "openstack-cmd"
+      command_name: "openstack volume list"
+      monitor_time: {{monitor_time}}
+      monitor_number: {{monitor_number}}
+      sla:
+        max_outage_time: 5
+
+    - monitor_type: "openstack-cmd"
+      command_name: "openstack stack list"
+      monitor_time: {{monitor_time}}
+      monitor_number: {{monitor_number}}
+      sla:
+        max_outage_time: 5
+
+    - monitor_type: "process"
+      process_name: "rabbitmq-server"
+      host: {{attack_host}}
+      monitor_time: 20
+      sla:
+        max_recover_time: 20
+
+  nodes:
+    {{attack_host}}: {{attack_host}}.LF
+
+  runner:
+    type: Duration
+    duration: 1
+  sla:
+    outage_time: 5
+    action: monitor
+
+
+context:
+  type: Node
+  name: LF
+  file: {{file}}
+
