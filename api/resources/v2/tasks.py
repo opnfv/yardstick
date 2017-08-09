@@ -8,6 +8,8 @@
 ##############################################################################
 import uuid
 import logging
+import os
+import errno
 from datetime import datetime
 
 from oslo_serialization import jsonutils
@@ -252,3 +254,37 @@ class V2Task(ApiResource):
         task_thread.start()
 
         return result_handler(consts.API_SUCCESS, {'uuid': task_id})
+
+
+class V2TaskLog(ApiResource):
+
+    def get(self, task_id):
+        try:
+            uuid.UUID(task_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid task id')
+
+        task_handler = V2TaskHandler()
+        try:
+            task = task_handler.get_by_uuid(task_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such task id')
+
+        index = int(self._get_args().get('index', 0))
+
+        try:
+            with open(os.path.join(consts.TASK_LOG_DIR, '{}.log'.format(task_id))) as f:
+                f.seek(index)
+                data = f.readlines()
+                index = f.tell()
+        except OSError as e:
+            if e.errno == errno.ENOENT:
+                return result_handler(consts.API_ERROR, 'log file does not exist')
+            return result_handler(consts.API_ERROR, 'error with log file')
+
+        return_data = {
+            'index': index,
+            'data': data
+        }
+
+        return result_handler(task.status, return_data)

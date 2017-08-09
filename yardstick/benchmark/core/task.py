@@ -62,6 +62,8 @@ class Task(object):     # pragma: no cover
         task_id = getattr(args, 'task_id')
         self.task_id = task_id if task_id else str(uuid.uuid4())
 
+        self._set_log()
+
         check_environment()
 
         try:
@@ -151,6 +153,17 @@ class Task(object):     # pragma: no cover
 
         print("Done, exiting")
         return result
+
+    def _set_log(self):
+        log_format = '%(asctime)s %(name)s %(filename)s:%(lineno)d %(levelname)s %(message)s'
+        log_formatter = logging.Formatter(log_format)
+
+        log_path = os.path.join(constants.TASK_LOG_DIR, '{}.log'.format(self.task_id))
+        log_handler = logging.FileHandler(log_path)
+        log_handler.setFormatter(log_formatter)
+        log_handler.setLevel(logging.DEBUG)
+
+        logging.root.addHandler(log_handler)
 
     def _init_output_config(self, output_config):
         output_config.setdefault('DEFAULT', {})
@@ -411,7 +424,7 @@ class TaskParser(object):       # pragma: no cover
 
         try:
             with open(self.path) as stream:
-                cfg = yaml.safe_load(stream)
+                cfg = yaml.load(stream)
         except IOError as ioerror:
             sys.exit(ioerror)
 
@@ -475,7 +488,7 @@ class TaskParser(object):       # pragma: no cover
                     raise e
                 print("Input task is:\n%s\n" % rendered_task)
 
-                cfg = yaml.safe_load(rendered_task)
+                cfg = yaml.load(rendered_task)
         except IOError as ioerror:
             sys.exit(ioerror)
 

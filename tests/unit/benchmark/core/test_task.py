@@ -118,7 +118,8 @@ class TaskTestCase(unittest.TestCase):
             },
         ])
 
-        expected_get_network_calls = 4 # once for each vld_id in the nodes dict
+        # once for each vld_id in the nodes dict
+        expected_get_network_calls = 4
         expected = {
             'a': {'name': 'a', 'network_type': 'private'},
             'b': {'name': 'b', 'vld_id': 'y', 'subnet_cidr': '10.20.0.0/16'},
@@ -288,6 +289,13 @@ class TaskTestCase(unittest.TestCase):
         suffix = '-8'
         task.change_server_name(scenario, suffix)
         self.assertTrue(scenario['target']['name'], 'demo-8')
+
+    @mock.patch('yardstick.benchmark.core.task.logging')
+    def test_set_log(self, mock_logging):
+        task_obj = task.Task()
+        task_obj.task_id = 'task_id'
+        task_obj._set_log()
+        self.assertTrue(mock_logging.root.addHandler.called)
 
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))

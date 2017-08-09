@@ -178,6 +178,14 @@ angular.module('yardStickGui2App')
                 })
             },
 
+            getTaskLog: function(){
+                return $resource(Base_URL + '/api/v2/yardstick/tasks/:taskId/log?index=:index', { taskId: "@taskId", index: "@index" }, {
+                    'get': {
+                        method: 'GET'
+                    }
+                })
+            },
+
             taskAddEnv: function() {
                 return $resource(Base_URL + '/api/v2/yardstick/tasks/:taskId', { taskId: "@taskId" }, {
                     'put': {
