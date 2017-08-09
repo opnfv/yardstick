@@ -91,7 +91,7 @@ angular.module('yardStickGui2App')
             }
 
             function gotoDetail(id) {
-                $state.go('app2.projectdetail', { projectId: id })
+                $state.go('app.projectdetail', { projectId: id })
             }
 
 
