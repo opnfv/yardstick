@@ -90,7 +90,7 @@ class MultiPortConfig(object):
     def make_ip_addr(ip, mask_len):
         try:
             return ipaddress.ip_interface(six.text_type('/'.join([ip, mask_len])))
-        except ValueError:
+        except (TypeError, ValueError):
             # None so we can skip later
             return None
 
