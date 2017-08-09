@@ -41,7 +41,7 @@ angular.module('yardStickGui2App')
             }
 
             function gotoDetail(name) {
-                $state.go('app2.testcasedetail', { name: name });
+                $state.go('app.testcasedetail', { name: name });
             }
 
 
@@ -93,7 +93,7 @@ angular.module('yardStickGui2App')
 
             }
             $scope.goBack = function goBack() {
-                $state.go('app2.projectList');
+                $state.go('app.projectList');
             }
 
             $scope.openDeleteEnv = function openDeleteEnv(id, name) {

@@ -20,14 +20,6 @@ angular.module('yardStickGui2App')
 
             $stateProvider
 
-                .state('app2', {
-                    url: "/main",
-                    controller: 'ContentController',
-                    templateUrl: "views/main2.html",
-                    ncyBreadcrumb: {
-                        label: 'Main'
-                    }
-                })
                 .state('app', {
                     url: "/main",
                     controller: 'ContentController',
@@ -37,7 +29,7 @@ angular.module('yardStickGui2App')
                     }
                 })
 
-            .state('app2.environment', {
+            .state('app.environment', {
                     url: '/environment',
                     templateUrl: 'views/environmentList.html',
                     controller: 'MainCtrl',
@@ -45,7 +37,7 @@ angular.module('yardStickGui2App')
                         label: 'Environment'
                     }
                 })
-                .state('app2.testcase', {
+                .state('app.testcase', {
                     url: '/testcase',
                     templateUrl: 'views/testcaselist.html',
                     controller: 'TestcaseController',
@@ -53,7 +45,7 @@ angular.module('yardStickGui2App')
                         label: 'Test Case'
                     }
                 })
-                .state('app2.testsuite', {
+                .state('app.testsuite', {
                     url: '/suite',
                     templateUrl: 'views/suite.html',
                     controller: 'SuiteListController',
@@ -61,7 +53,7 @@ angular.module('yardStickGui2App')
                         label: 'Test Suite'
                     }
                 })
-                .state('app2.suitcreate', {
+                .state('app.suitcreate', {
                     url: '/suitcreate',
                     templateUrl: 'views/testcasechoose.html',
                     controller: 'suitcreateController',
@@ -69,7 +61,7 @@ angular.module('yardStickGui2App')
                         label: 'Suite Create'
                     }
                 })
-                .state('app2.testcasedetail', {
+                .state('app.testcasedetail', {
                     url: '/testdetail/:name',
                     templateUrl: 'views/testcasedetail.html',
                     controller: 'testcaseDetailController',
@@ -78,7 +70,7 @@ angular.module('yardStickGui2App')
                     },
                     params: { name: null }
                 })
-                .state('app2.suitedetail', {
+                .state('app.suitedetail', {
                     url: '/suitedetail/:name',
                     templateUrl: 'views/suitedetail.html',
                     controller: 'suiteDetailController',
@@ -124,7 +116,7 @@ angular.module('yardStickGui2App')
                         label: 'Container Manage'
                     }
                 })
-                .state('app2.projectList', {
+                .state('app.projectList', {
                     url: '/project',
                     templateUrl: 'views/projectList.html',
                     controller: 'ProjectController',
@@ -133,7 +125,7 @@ angular.module('yardStickGui2App')
                     }
 
                 })
-                .state('app2.tasklist', {
+                .state('app.tasklist', {
                     url: '/task/:taskId',
                     templateUrl: 'views/taskList.html',
                     controller: 'TaskController',
@@ -143,7 +135,7 @@ angular.module('yardStickGui2App')
                     }
 
                 })
-                .state('app2.report', {
+                .state('app.report', {
                     url: '/report/:taskId',
                     templateUrl: 'views/report.html',
                     controller: 'ReportController',
@@ -153,7 +145,7 @@ angular.module('yardStickGui2App')
                     }
 
                 })
-                .state('app2.projectdetail', {
+                .state('app.projectdetail', {
                     url: '/projectdetail/:projectId',
                     templateUrl: 'views/projectdetail.html',
                     controller: 'ProjectDetailController',
@@ -163,7 +155,7 @@ angular.module('yardStickGui2App')
                     }
 
                 })
-                .state('app2.taskModify', {
+                .state('app.taskModify', {
                     url: '/taskModify/:taskId',
                     templateUrl: 'views/taskmodify.html',
                     controller: 'TaskModifyController',

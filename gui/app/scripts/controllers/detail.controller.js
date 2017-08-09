@@ -108,6 +108,7 @@ angular.module('yardStickGui2App')
 
             //buildtoEnvInfo
             function buildToEnvInfo(object) {
+                $scope.envInfo=[];
                 var tempKeyArray = Object.keys(object);
 
                 for (var i = 0; i < tempKeyArray.length; i++) {
@@ -118,7 +119,11 @@ angular.module('yardStickGui2App')
                         value: tempValue
                     };
                     $scope.envInfo.push(temp);
+
                 }
+
+                console.log($scope.envInfo);
+                console.log($scope.openrcInfo);
             }
 
             function uploadFiles($file, $invalidFiles) {

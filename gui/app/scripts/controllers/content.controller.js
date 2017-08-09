@@ -2,7 +2,7 @@
 
 angular.module('yardStickGui2App')
     .controller('ContentController', ['$scope', '$state', '$stateParams', 'mainFactory', 'Upload', 'toaster', '$location', '$localStorage',
-        function($scope, $state, $stateParams, mainFactory, Upload, toaster, $location, $localStorage) {
+        function ($scope, $state, $stateParams, mainFactory, Upload, toaster, $location, $localStorage) {
 
 
 
@@ -11,10 +11,11 @@ angular.module('yardStickGui2App')
             $scope.showEnvironment = false;
             $scope.counldGoDetail = false;
             $scope.activeStatus = 0;
+            $scope.ifshowEnvChild = false;
 
-            $scope.$watch(function() {
+            $scope.$watch(function () {
                 return location.hash
-            }, function(newvalue, oldvalue) {
+            }, function (newvalue, oldvalue) {
                 if (location.hash.indexOf('project') > -1) {
                     $scope.projectShow = true;
                     $scope.taskShow = false;
@@ -26,6 +27,13 @@ angular.module('yardStickGui2App')
                     $scope.reportShow = true;
                     $scope.taskShow = true;
                     $scope.projectShow = true;
+                } else if (location.hash.indexOf('envDetail') > -1 || location.hash.indexOf('envimageDetail') > -1 ||
+                    location.hash.indexOf('envpodupload') > -1 || location.hash.indexOf('envcontainer') > -1) {
+                    $scope.ifshowEnvChild = true;
+                    $scope.activeStatus=0;
+                }else{
+                    $scope.ifshowEnvChild=false;
+                    $scope.activeStatus=-1;
                 }
 
             })
@@ -88,30 +96,30 @@ angular.module('yardStickGui2App')
             }
 
             function gotoTestcase() {
-                $state.go('app2.testcase');
+                $state.go('app.testcase');
             }
 
             function gotoEnviron() {
                 if ($location.path().indexOf('env') > -1 || $location.path().indexOf('environment') > -1) {
                     $scope.counldGoDetail = true;
                 }
-                $state.go('app2.environment');
+                $state.go('app.environment');
             }
 
             function gotoSuite() {
-                $state.go('app2.testsuite');
+                $state.go('app.testsuite');
             }
 
             function gotoProject() {
-                $state.go('app2.projectList');
+                $state.go('app.projectList');
             }
 
             function gotoTask() {
-                $state.go('app2.tasklist');
+                $state.go('app.tasklist');
             }
 
             function gotoReport() {
-                $state.go('app2.report');
+                $state.go('app.report');
             }
 
             function goBack() {
@@ -119,7 +127,7 @@ angular.module('yardStickGui2App')
                     return;
                 } else if ($location.path().indexOf('main/envDetail/') || $location.path().indexOf('main/imageDetail/') ||
                     $location.path().indexOf('main/podupload/') || $location.path().indexOf('main/container/')) {
-                    $state.go('app2.environment');
+                    $state.go('app.environment');
                     return;
                 } else {
                     window.history.back();
