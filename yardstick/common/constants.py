@@ -64,6 +64,7 @@ RELENG_DIR = get_param('dir.releng', '/home/opnfv/repos/releng')
 LOG_DIR = get_param('dir.log', '/tmp/yardstick/')
 YARDSTICK_ROOT_PATH = dirname(
     dirname(abspath(pkg_resources.resource_filename(__name__, "")))) + sep
+TASK_LOG_DIR = get_param('dir.tasklog', '/var/log/yardstick/')
 CONF_SAMPLE_DIR = join(REPOS_DIR, 'etc/yardstick/')
 ANSIBLE_DIR = join(REPOS_DIR, 'ansible')
 SAMPLE_CASE_DIR = join(REPOS_DIR, 'samples')

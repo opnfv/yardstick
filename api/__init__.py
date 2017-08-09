@@ -35,13 +35,11 @@ class ApiResource(Resource):
             pass
 
         args.update({k: v for k, v in request.form.items()})
-        LOG.debug('Input args is: action: %s, args: %s', action, args)
 
         return action, args
 
     def _get_args(self):
         args = common_utils.translate_to_str(request.args)
-        LOG.debug('Input args is: args: %s', args)
 
         return args
 
