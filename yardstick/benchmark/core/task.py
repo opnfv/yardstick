@@ -54,7 +54,11 @@ class Task(object):     # pragma: no cover
 
         check_environment()
 
-        self.config['yardstick'] = utils.parse_ini_file(config_file)
+        try:
+            self.config['yardstick'] = utils.parse_ini_file(config_file)
+        except:
+            # all error will be ignore, the default value is {}
+            self.config['yardstick'] = {}
 
         total_start_time = time.time()
         parser = TaskParser(args.inputfile[0])
