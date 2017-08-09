@@ -16,6 +16,24 @@
       "revId": "a43270f1c2686b5603617a9bb243f55c990783cc",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d509ee2d",
+        "filename": "api/resources/write_hosts.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-08-09T02:09:13Z",
+      "side": 1,
+      "message": "thanks for pointing out, i\u0027ll update.",
+      "parentUuid": "da33351e_f23d28bd",
+      "revId": "a43270f1c2686b5603617a9bb243f55c990783cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
