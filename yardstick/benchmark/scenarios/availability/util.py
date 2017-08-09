@@ -51,6 +51,8 @@ def build_shell_command(param_config, remote=True, intermediate_variables=None):
 
 
 def read_stdout_item(stdout, key):
+    if key == "all":
+        return stdout
     for item in stdout.splitlines():
         if key in item:
             attributes = item.split("|")

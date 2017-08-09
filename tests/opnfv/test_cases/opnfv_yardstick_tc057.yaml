@@ -1,0 +1,179 @@
+##############################################################################
+# Copyright (c) 2017 14_ykl@tongji.edu.cn and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+
+schema: "yardstick:task:0.1"
+description: >
+    Test case for TC057 :OpenStack Controller Cluster Management Service High
+    Availability;
+    This test case is written by scenario-based HA testing framework.
+
+{% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set vip_mgmt = vip_mgmt or 'vip__management' %}
+{% set vip_vrouter = vip_vrouter or 'vip__vrouter' %}
+{% set attack_host = attack_host or 'node1' %}
+{% set check_host = check_host or 'node2' %}
+{% set monitor_time = monitor_time or 10 %}
+{% set monitor_number = monitor_number or 3 %}
+
+scenarios:
+  -
+    type: "GeneralHA"
+    options:
+      attackers:
+        -
+          fault_type: "general-attacker"
+          host: {{attack_host}}
+          key: "kill-process"
+          attack_key: "kill-corosync"
+          action_parameter:
+            process_name: "corosync"
+
+      monitors:
+        -
+          monitor_type: "openstack-cmd"
+          key: "check-nova-service"
+          command_name: "openstack image list"
+          monitor_time: {{monitor_time}}
+          monitor_number: {{monitor_number}}
+          sla:
+            max_outage_time: 5
+
+        -
+          monitor_type: "openstack-cmd"
+          key: "check-neutron-service"
+          command_name: "openstack network list"
+          monitor_time: {{monitor_time}}
+          monitor_number: {{monitor_number}}
+          sla:
+            max_outage_time: 5
+
+        -
+          monitor_type: "openstack-cmd"
+          key: "check-keystone-service"
+          command_name: "openstack user list"
+          monitor_time: {{monitor_time}}
+          monitor_number: {{monitor_number}}
+          sla:
+            max_outage_time: 5
+
+        -
+          monitor_type: "openstack-cmd"
+          key: "check-heat-service"
+          command_name: "openstack stack list"
+          monitor_time: {{monitor_time}}
+          monitor_number: {{monitor_number}}
+          sla:
+            max_outage_time: 5
+
+      operations:
+        -
+          operation_type: "general-operation"
+          key: "get-mgmt-vip-host"
+          operation_key: "get-vip-host"
+          host: {{check_host}}
+          action_parameter:
+            vip_name: {{vip_mgmt}}
+          return_parameter:
+            all: "$vip_mgmt_host"
+
+        -
+          operation_type: "general-operation"
+          key: "get-router-vip-host"
+          operation_key: "get-vip-host"
+          host: {{check_host}}
+          action_parameter:
+            vip_name: {{vip_vrouter}}
+          return_parameter:
+            all: "$vip_router_host"
+
+      resultCheckers:
+        -
+          checker_type: "general-result-checker"
+          key: "check-rabbitmq-master"
+          checker_key: "pacemaker-resource-checker"
+          host: {{check_host}}
+          parameter:
+            resource_name: "p_rabbitmq-server"
+            resource_host: "$vip_mgmt_host"
+          expectedValue: "Masters"
+          condition: "in"
+
+        -
+          checker_type: "general-result-checker"
+          key: "check-conntrackd-master"
+          checker_key: "pacemaker-resource-checker"
+          host: {{check_host}}
+          parameter:
+            resource_name: "p_conntrackd"
+            resource_host: "$vip_router_host"
+          expectedValue: "Masters"
+          condition: "in"
+
+      steps:
+        -
+          actionKey: "kill-process"
+          actionType: "attacker"
+          index: 1
+
+        -
+          actionKey: "check-nova-service"
+          actionType: "monitor"
+          index: 2
+
+        -
+          actionKey: "check-neutron-service"
+          actionType: "monitor"
+          index: 3
+
+        -
+          actionKey: "check-keystone-service"
+          actionType: "monitor"
+          index: 4
+
+        -
+          actionKey: "check-heat-service"
+          actionType: "monitor"
+          index: 5
+
+        -
+          actionKey: "get-mgmt-vip-host"
+          actionType: "operation"
+          index: 6
+
+        -
+          actionKey: "check-rabbitmq-master"
+          actionType: "resultchecker"
+          index: 7
+
+        -
+          actionKey: "get-router-vip-host"
+          actionType: "operation"
+          index: 8
+
+        -
+          actionKey: "check-conntrackd-master"
+          actionType: "resultchecker"
+          index: 9
+
+
+    nodes:
+      {{attack_host}}: {{attack_host}}.LF
+      {{check_host}}: {{check_host}}.LF
+    runner:
+      type: Duration
+      duration: 1
+    sla:
+      outage_time: 5
+      action: monitor
+
+context:
+  type: Node
+  name: LF
+  file: {{file}}

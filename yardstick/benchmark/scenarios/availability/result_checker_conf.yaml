@@ -19,3 +19,5 @@ nova-instance-checker:
   verify_script: ha_tools/nova/show_instances.bash
 nova-flavor-checker:
   verify_script: ha_tools/nova/show_flavors.bash
+pacemaker-resource-checker:
+  verify_script: ha_tools/pacemaker/get_resource_status_host.bash

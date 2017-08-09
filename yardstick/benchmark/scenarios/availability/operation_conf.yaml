@@ -30,3 +30,8 @@ nova-create-flavor:
 get-floatingip:
   action_script: ha_tools/nova/get_server_floatingip.bash
   rollback_script: ha_tools/nova/list_servers.bash
+
+get-vip-host:
+  action_script: ha_tools/pacemaker/get_vip_host.bash
+  rollback_script: ha_tools/pacemaker/get_resource_status.bash
+
