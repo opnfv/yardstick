@@ -41,16 +41,16 @@ angular.module('yardStickGui2App')
             function gotoDetail(name) {
                 var temp = name.split('.')[0];
 
-                $state.go('app2.suitedetail', { name: temp })
+                $state.go('app.suitedetail', { name: temp })
 
             }
 
             function gotoCreateSuite() {
-                $state.go('app2.suitcreate');
+                $state.go('app.suitcreate');
             }
 
             $scope.goBack = function goBack() {
-                $state.go('app2.projectList');
+                $state.go('app.projectList');
             }
 
 

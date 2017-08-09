@@ -18,7 +18,7 @@
 
             </div>
         </div>
-        <div class="panel-group" role="tablist" aria-multiselectable="true" bs-collapse style="margin-bottom:0px;" ng-model="activeStatus">
+        <div class="panel-group" role="tablist" aria-multiselectable="true" bs-collapse style="margin-bottom:0px;" ng-model="activeStatus" ng-if="ifshowEnvChild">
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab">
                     <h4 class="panel-title">
@@ -46,6 +46,19 @@
                         Others
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="panel-group" role="tablist" aria-multiselectable="false" bs-collapse style="margin-bottom:0px;" ng-if="!ifshowEnvChild">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab">
+                    <h4 class="panel-title">
+                        <a bs-collapse-toggle style=" text-decoration: none;">
+                            <div style="display:inline;" ng-click="gotoEnviron()">Environment </div>
+                            <!--<i class="fa fa-sort-asc" aria-hidden="true" style="margin-left: 71px;display:inline"></i>-->
+                        </a>
+                    </h4>
+                </div>
+
             </div>
         </div>
 

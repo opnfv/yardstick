@@ -606,16 +606,16 @@ angular.module('yardStickGui2App')
             function gotoDetail(id) {
 
 
-                $state.go('app2.tasklist', { taskId: id });
+                $state.go('app.tasklist', { taskId: id });
 
             }
 
             function gotoReport(id) {
-                $state.go('app2.report', { taskId: id });
+                $state.go('app.report', { taskId: id });
             }
 
             function gotoModify(id) {
-                $state.go('app2.taskModify', { taskId: id });
+                $state.go('app.taskModify', { taskId: id });
             }
 
             function goBack() {
