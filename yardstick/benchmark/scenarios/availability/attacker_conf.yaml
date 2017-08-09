@@ -40,3 +40,7 @@ stress-cpu:
 block-io:
   inject_script: ha_tools/disk/block_io.bash
   recovery_script: ha_tools/disk/recovery_disk_io.bash
+
+kill-corosync:
+  inject_script: ha_tools/fault_process_kill.bash
+  recovery_script: ha_tools/node/reboot_node.bash
