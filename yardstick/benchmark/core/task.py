@@ -149,10 +149,10 @@ class Task(object):     # pragma: no cover
                  total_end_time - total_start_time)
 
         scenario = scenarios[0]
-        print("To generate report execute => yardstick report generate ",
-              scenario['task_id'], scenario['tc'])
+        LOG.info("To generate report execute => yardstick report generate ",
+                 scenario['task_id'], scenario['tc'])
 
-        print("Done, exiting")
+        LOG.info("Done, exiting")
         return result
 
     def _init_output_config(self, output_config):
@@ -243,7 +243,7 @@ class Task(object):     # pragma: no cover
                     raise RuntimeError
                 self.outputs.update(runner.get_output())
                 result.extend(runner.get_result())
-                print("Runner ended, output in", output_file)
+                LOG.info("Runner ended, output in", output_file)
         else:
             # run serially
             for scenario in scenarios:
@@ -255,7 +255,7 @@ class Task(object):     # pragma: no cover
                         raise RuntimeError
                     self.outputs.update(runner.get_output())
                     result.extend(runner.get_result())
-                    print("Runner ended, output in", output_file)
+                    LOG.info("Runner ended, output in", output_file)
 
         # Abort background runners
         for runner in background_runners:
@@ -267,13 +267,12 @@ class Task(object):     # pragma: no cover
             if status is None:
                 # Nuke if it did not stop nicely
                 base_runner.Runner.terminate(runner)
-                status = runner_join(runner)
-            else:
-                base_runner.Runner.release(runner)
+                runner.join(60)
+            base_runner.Runner.release(runner)
 
             self.outputs.update(runner.get_output())
             result.extend(runner.get_result())
-            print("Background task ended")
+            LOG.info("Background task ended")
         return result
 
     def atexit_handler(self):
@@ -281,7 +280,7 @@ class Task(object):     # pragma: no cover
         base_runner.Runner.terminate_all()
 
         if self.contexts:
-            print("Undeploying all contexts")
+            LOG.info("Undeploying all contexts")
             for context in self.contexts[::-1]:
                 context.undeploy()
 
@@ -344,7 +343,7 @@ class Task(object):     # pragma: no cover
                 context_cfg["nodes"])
         runner = base_runner.Runner.get(runner_cfg)
 
-        print("Starting runner of type '%s'" % runner_cfg["type"])
+        LOG.info("Starting runner of type '%s'", runner_cfg["type"])
         runner.run(scenario_cfg, context_cfg)
 
         return runner
@@ -456,7 +455,7 @@ class TaskParser(object):       # pragma: no cover
 
     def parse_task(self, task_id, task_args=None, task_args_file=None):
         """parses the task file and return an context and scenario instances"""
-        print("Parsing task config:", self.path)
+        LOG.info("Parsing task config:", self.path)
 
         try:
             kw = {}
@@ -473,10 +472,10 @@ class TaskParser(object):       # pragma: no cover
                     input_task = f.read()
                     rendered_task = TaskTemplate.render(input_task, **kw)
                 except Exception as e:
-                    print("Failed to render template:\n%(task)s\n%(err)s\n"
-                          % {"task": input_task, "err": e})
+                    LOG.exception("Failed to render template:\n%(task)s\n%(err)s\n",
+                                  {"task": input_task, "err": e})
                     raise e
-                print("Input task is:\n%s\n" % rendered_task)
+                LOG.info("Input task is:\n%s\n", rendered_task)
 
                 cfg = yaml.safe_load(rendered_task)
         except IOError as ioerror:
@@ -625,8 +624,8 @@ def runner_join(runner):
 
 
 def print_invalid_header(source_name, args):
-    print("Invalid %(source)s passed:\n\n %(args)s\n"
-          % {"source": source_name, "args": args})
+    LOG.info("Invalid %(source)s passed:\n\n %(args)s\n",
+             {"source": source_name, "args": args})
 
 
 def parse_task_args(src_name, args):
@@ -638,14 +637,14 @@ def parse_task_args(src_name, args):
         kw = {} if kw is None else kw
     except yaml.parser.ParserError as e:
         print_invalid_header(src_name, args)
-        print("%(source)s has to be YAML. Details:\n\n%(err)s\n"
-              % {"source": src_name, "err": e})
+        LOG.exception("%(source)s has to be YAML. Details:\n\n%(err)s\n",
+                      {"source": src_name, "err": e})
         raise TypeError()
 
     if not isinstance(kw, dict):
         print_invalid_header(src_name, args)
-        print("%(src)s had to be dict, actually %(src_type)s\n"
-              % {"src": src_name, "src_type": type(kw)})
+        LOG.exception("%(src)s had to be dict, actually %(src_type)s\n",
+                      {"src": src_name, "src_type": type(kw)})
         raise TypeError()
     return kw
 
