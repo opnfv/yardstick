@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_4976e33f",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/pacemaker/get_resource_status_host.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-08-10T10:31:03Z",
+      "side": 1,
+      "message": "If \u0027pcs\u0027 is required to be installed on host, it is necessary to state it in the rst document.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 3
+      },
+      "revId": "628b75b067943c7c6b018d0e82b0ccb1d4ed4616",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
