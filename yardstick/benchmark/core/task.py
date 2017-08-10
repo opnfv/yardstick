@@ -267,9 +267,8 @@ class Task(object):     # pragma: no cover
             if status is None:
                 # Nuke if it did not stop nicely
                 base_runner.Runner.terminate(runner)
-                status = runner_join(runner)
-            else:
-                base_runner.Runner.release(runner)
+                runner.join(60)
+            base_runner.Runner.release(runner)
 
             self.outputs.update(runner.get_output())
             result.extend(runner.get_result())
