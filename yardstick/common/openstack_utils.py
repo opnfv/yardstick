@@ -264,81 +264,29 @@ def create_aggregate_with_host(nova_client, aggregate_name, av_zone,
         return True
 
 
-def create_instance(flavor_name,
-                    image_id,
-                    network_id,
-                    instance_name="instance-vm",
-                    confdrive=True,
-                    userdata=None,
-                    av_zone='',
-                    fixed_ip=None,
-                    files=None):    # pragma: no cover
-    nova_client = get_nova_client()
+def create_instance(json_body):    # pragma: no cover
     try:
-        flavor = nova_client.flavors.find(name=flavor_name)
-    except:
-        flavors = nova_client.flavors.list()
-        log.exception("Error: Flavor '%s' not found. Available flavors are: "
-                      "\n%s", flavor_name, flavors)
+        return get_nova_client().servers.create(**json_body)
+    except Exception:
+        log.exception("Error create instance failed")
         return None
-    if fixed_ip is not None:
-        nics = {"net-id": network_id, "v4-fixed-ip": fixed_ip}
-    else:
-        nics = {"net-id": network_id}
-    if userdata is None:
-        instance = nova_client.servers.create(
-            name=instance_name,
-            flavor=flavor,
-            image=image_id,
-            nics=[nics],
-            availability_zone=av_zone,
-            files=files
-        )
-    else:
-        instance = nova_client.servers.create(
-            name=instance_name,
-            flavor=flavor,
-            image=image_id,
-            nics=[nics],
-            config_drive=confdrive,
-            userdata=userdata,
-            availability_zone=av_zone,
-            files=files
-        )
-    return instance
 
 
-def create_instance_and_wait_for_active(flavor_name,
-                                        image_id,
-                                        network_id,
-                                        instance_name="instance-vm",
-                                        config_drive=False,
-                                        userdata="",
-                                        av_zone='',
-                                        fixed_ip=None,
-                                        files=None):    # pragma: no cover
+def create_instance_and_wait_for_active(json_body):    # pragma: no cover
     SLEEP = 3
     VM_BOOT_TIMEOUT = 180
     nova_client = get_nova_client()
-    instance = create_instance(flavor_name,
-                               image_id,
-                               network_id,
-                               instance_name,
-                               config_drive,
-                               userdata,
-                               av_zone=av_zone,
-                               fixed_ip=fixed_ip,
-                               files=files)
+    instance = create_instance(json_body)
     count = VM_BOOT_TIMEOUT / SLEEP
     for n in range(count, -1, -1):
         status = get_instance_status(nova_client, instance)
         if status.lower() == "active":
             return instance
         elif status.lower() == "error":
-            log.error("The instance %s went to ERROR status.", instance_name)
+            log.error("The instance went to ERROR status.")
             return None
         time.sleep(SLEEP)
-    log.error("Timeout booting the instance %s.", instance_name)
+    log.error("Timeout booting the instance.")
     return None
 
 
@@ -395,12 +343,31 @@ def get_server_by_name(name):   # pragma: no cover
         raise
 
 
+def create_flavor(name, ram, vcpus, disk, **kwargs):   # pragma: no cover
+    try:
+        return get_nova_client().flavors.create(name, ram, vcpus, disk, **kwargs)
+    except Exception:
+        log.exception("Error [create_flavor(nova_client, %s, %s, %s, %s, %s)]",
+                      name, ram, disk, vcpus, kwargs['is_public'])
+        return None
+
+
 def get_image_by_name(name):    # pragma: no cover
     images = get_nova_client().images.list()
     try:
         return next((a for a in images if a.name == name))
     except StopIteration:
         log.exception('No image matched')
+
+
+def get_flavor_id(nova_client, flavor_name):    # pragma: no cover
+    flavors = nova_client.flavors.list(detailed=True)
+    flavor_id = ''
+    for f in flavors:
+        if f.name == flavor_name:
+            flavor_id = f.id
+            break
+    return flavor_id
 
 
 def get_flavor_by_name(name):   # pragma: no cover
@@ -424,6 +391,16 @@ def check_status(status, name, iterations, interval):   # pragma: no cover
 
         time.sleep(interval)
     return False
+
+
+def delete_flavor(flavor_id):    # pragma: no cover
+    try:
+        get_nova_client().flavors.delete(flavor_id)
+    except Exception:
+        log.exception("Error [delete_flavor(nova_client, %s)]", flavor_id)
+        return False
+    else:
+        return True
 
 
 # *********************************************
