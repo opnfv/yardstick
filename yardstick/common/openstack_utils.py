@@ -395,6 +395,15 @@ def get_server_by_name(name):   # pragma: no cover
         raise
 
 
+def create_flavor(name, ram, vcpus, disk, **kwargs):   # pragma: no cover
+    try:
+        return get_nova_client().flavors.create(name, ram, vcpus, \
+                      disk, **kwargs)
+    except Exception:
+        log.exception("Error [create_flavor(nova_client, %s, %s, %s, %s, %s)]",
+                      name, ram, disk, vcpus, kwargs['is_public'])
+        return None
+
 def get_image_by_name(name):    # pragma: no cover
     images = get_nova_client().images.list()
     try:
