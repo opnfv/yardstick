@@ -21,6 +21,7 @@ import mock
 from six.moves import configparser
 
 from yardstick.common import utils
+from yardstick.common import constants
 
 
 class IterSubclassesTestCase(unittest.TestCase):
@@ -99,7 +100,7 @@ class GetParaFromYaml(unittest.TestCase):
         get_env.return_value = self._get_file_abspath(file_path)
         args = 'releng.file'
         default = 'hello'
-        self.assertTrue(utils.get_param(args, default), default)
+        self.assertTrue(constants.get_param(args, default), default)
 
     @mock.patch('yardstick.common.utils.os.environ.get')
     def test_get_param_para_exists(self, get_env):
@@ -107,7 +108,7 @@ class GetParaFromYaml(unittest.TestCase):
         get_env.return_value = self._get_file_abspath(file_path)
         args = 'releng.dir'
         para = '/home/opnfv/repos/releng'
-        self.assertEqual(para, utils.get_param(args))
+        self.assertEqual(para, constants.get_param(args))
 
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
