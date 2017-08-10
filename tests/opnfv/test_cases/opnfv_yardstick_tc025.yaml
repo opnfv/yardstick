@@ -17,7 +17,9 @@ description: >
     "etc/yardstick/nodes/pod.yaml.ipmi.sample").
 
 {% set file = file or '/etc/yardstick/pod.yaml' %}
-{% set jumphost = jumphost or 'node0' %}
+{% set jump_host = jump_host or 'node0' %}
+{% set attack_host = attack_host or 'node1' %}
+{% set monitor_time = monitor_time or 180 %}
 
 scenarios:
 -
@@ -25,30 +27,38 @@ scenarios:
   options:
     attackers:
     - fault_type: "bare-metal-down"
-      host: node1
-      jump_host: {{jumphost}}
+      host: {{attack_host}}
+      jump_host: {{jump_host}}
 
     monitors:
     - monitor_type: "openstack-cmd"
       command_name: "openstack image list"
-      monitor_time: 10
+      monitor_time: {{monitor_time}}
       monitor_number: 3
+      sla:
+        max_outage_time: 5
     - monitor_type: "openstack-cmd"
       command_name: "openstack router list"
-      monitor_time: 10
+      monitor_time: {{monitor_time}}
       monitor_number: 3
+      sla:
+        max_outage_time: 5
     - monitor_type: "openstack-cmd"
       command_name: "openstack stack list"
-      monitor_time: 10
+      monitor_time: {{monitor_time}}
       monitor_number: 3
+      sla:
+        max_outage_time: 5
     - monitor_type: "openstack-cmd"
       command_name: "openstack volume list"
-      monitor_time: 10
+      monitor_time: {{monitor_time}}
       monitor_number: 3
+      sla:
+        max_outage_time: 5
 
   nodes:
-    node1: node1.LF
-    node0: node0.LF
+    {{attack_host}}: {{attack_host}}.LF
+    {{jump_host}}: {{jump_host}}.LF
 
   runner:
     type: Iteration
