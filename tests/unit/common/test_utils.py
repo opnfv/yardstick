@@ -155,7 +155,7 @@ class TestMacAddressToHex(unittest.TestCase):
         self.assertEqual(utils.mac_address_to_hex_list("ea:3e:e1:9a:99:e8"),
                          ['0xea', '0x3e', '0xe1', '0x9a', '0x99', '0xe8'])
 
-                         
+
 class TranslateToStrTestCase(unittest.TestCase):
 
     def test_translate_to_str_unicode(self):
