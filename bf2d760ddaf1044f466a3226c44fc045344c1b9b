@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_c3e8147f",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-10T02:10:35Z",
+      "side": 1,
+      "message": "can we use constants here and above for timeout\n\n  JOIN_TIMEOUT \u003d 60",
+      "revId": "bf2d760ddaf1044f466a3226c44fc045344c1b9b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
