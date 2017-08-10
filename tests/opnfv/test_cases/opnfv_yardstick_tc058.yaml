@@ -1,0 +1,111 @@
+##############################################################################
+# Copyright (c) 2017 14_ykl@tongji.edu.cn and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+
+schema: "yardstick:task:0.1"
+description: >
+    Test case for TC058 :OpenStack Controller Virtual Router Service High
+    Availability;
+    This test case is written by scenario-based HA testing framework.
+
+{% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set image = image or 'yardstick-image' %}
+{% set flavor = flavor or 'yardstick-flavor' %}
+{% set attack_host = attack_host or 'node1' %}
+
+scenarios:
+  -
+    type: "GeneralHA"
+    options:
+      attackers:
+        -
+          fault_type: "kill-process"
+          host: {{attack_host}}
+          key: "kill-process"
+          process_name: "neutron-l3-agent"
+
+      monitors:
+        -
+          monitor_type: "process"
+          process_name: "neutron-l3-agent"
+          host: {{attack_host}}
+          key: "monitor-recovery"
+          monitor_time: 20
+          sla:
+            max_recover_time: 20
+
+        -
+          monitor_type: "general-monitor"
+          monitor_key: "ip-status"
+          key: "server-status"
+          monitor_time: 10
+          sla:
+            max_outage_time: 5
+          parameter:
+            ip_address: "$floating_ip"
+
+      operations:
+        -
+          operation_type: "general-operation"
+          key: "get-floatingip"
+          operation_key: "get-floatingip"
+          action_parameter:
+            server_name: "tc058"
+          return_parameter:
+            all: "$floating_ip"
+
+
+      steps:
+        -
+          actionKey: "get-floatingip"
+          actionType: "operation"
+          index: 1
+        -
+          actionKey: "kill-process"
+          actionType: "attacker"
+          index: 2
+
+        -
+          actionKey: "monitor-recovery"
+          actionType: "monitor"
+          index: 3
+
+        -
+          actionKey: "server-status"
+          actionType: "monitor"
+          index: 4
+
+    nodes:
+      {{attack_host}}: {{attack_host}}.LF
+    runner:
+      type: Duration
+      duration: 1
+    sla:
+      outage_time: 5
+      action: monitor
+
+contexts:
+-
+  type: Node
+  name: LF
+  file: {{file}}
+
+-
+  name: demo
+  image: {{image}}
+  flavor: {{flavor}}
+  user: cirros
+
+  servers:
+    tc058:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
