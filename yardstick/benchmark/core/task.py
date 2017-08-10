@@ -38,6 +38,7 @@ output_file_default = "/tmp/yardstick.out"
 config_file = '/etc/yardstick/yardstick.conf'
 test_cases_dir_default = "tests/opnfv/test_cases/"
 LOG = logging.getLogger(__name__)
+JOIN_TIMEOUT = 60
 
 
 class Task(object):     # pragma: no cover
@@ -263,13 +264,12 @@ class Task(object):     # pragma: no cover
 
         # Wait for background runners to finish
         for runner in background_runners:
-            status = runner.join(timeout=60)
+            status = runner.join(JOIN_TIMEOUT)
             if status is None:
                 # Nuke if it did not stop nicely
                 base_runner.Runner.terminate(runner)
-                status = runner_join(runner)
-            else:
-                base_runner.Runner.release(runner)
+                runner.join(JOIN_TIMEOUT)
+            base_runner.Runner.release(runner)
 
             self.outputs.update(runner.get_output())
             result.extend(runner.get_result())
