@@ -107,3 +107,4 @@ ASYNC_TASK_API = BASE_URL + '/yardstick/asynctask'
 # general
 TESTCASE_PRE = 'opnfv_yardstick_'
 TESTSUITE_PRE = 'opnfv_'
+JOIN_TIMEOUT = 60

@@ -32,7 +32,7 @@ from yardstick.dispatcher.base import Base as DispatcherBase
 from yardstick.common.task_template import TaskTemplate
 from yardstick.common.utils import source_env
 from yardstick.common import utils
-from yardstick.common import constants
+from yardstick.common.constants import OPENRC, YARDSTICK_ROOT_PATH, JOIN_TIMEOUT
 
 output_file_default = "/tmp/yardstick.out"
 config_file = '/etc/yardstick/yardstick.conf'
@@ -263,13 +263,12 @@ class Task(object):     # pragma: no cover
 
         # Wait for background runners to finish
         for runner in background_runners:
-            status = runner.join(timeout=60)
+            status = runner.join(JOIN_TIMEOUT)
             if status is None:
                 # Nuke if it did not stop nicely
                 base_runner.Runner.terminate(runner)
-                status = runner_join(runner)
-            else:
-                base_runner.Runner.release(runner)
+                runner.join(JOIN_TIMEOUT)
+            base_runner.Runner.release(runner)
 
             self.outputs.update(runner.get_output())
             result.extend(runner.get_result())
@@ -422,8 +421,7 @@ class TaskParser(object):       # pragma: no cover
         LOG.info("\nStarting scenario:%s", cfg["name"])
 
         test_cases_dir = cfg.get("test_cases_dir", test_cases_dir_default)
-        test_cases_dir = os.path.join(constants.YARDSTICK_ROOT_PATH,
-                                      test_cases_dir)
+        test_cases_dir = os.path.join(YARDSTICK_ROOT_PATH, test_cases_dir)
         if test_cases_dir[-1] != os.sep:
             test_cases_dir += os.sep
 
@@ -654,7 +652,7 @@ def check_environment():
     auth_url = os.environ.get('OS_AUTH_URL', None)
     if not auth_url:
         try:
-            source_env(constants.OPENRC)
+            source_env(OPENRC)
         except IOError as e:
             if e.errno != errno.EEXIST:
                 raise
