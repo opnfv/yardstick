@@ -284,8 +284,6 @@ class NetworkServiceTestCase(base.Scenario):
         """ This method should verify if the available resources defined in pod.yaml
         match the topology.yaml file.
 
-        :param context_cfg:
-        :param topology:
         :return: None. Side effect: context_cfg is updated
         """
         for node, node_dict in self.context_cfg["nodes"].items():
