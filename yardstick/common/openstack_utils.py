@@ -395,12 +395,31 @@ def get_server_by_name(name):   # pragma: no cover
         raise
 
 
+def create_flavor(name, ram, vcpus, disk, **kwargs):   # pragma: no cover
+    try:
+        return get_nova_client().flavors.create(name, ram, vcpus, disk, **kwargs)
+    except Exception:
+        log.exception("Error [create_flavor(nova_client, %s, %s, %s, %s, %s)]",
+                      name, ram, disk, vcpus, kwargs['is_public'])
+        return None
+
+
 def get_image_by_name(name):    # pragma: no cover
     images = get_nova_client().images.list()
     try:
         return next((a for a in images if a.name == name))
     except StopIteration:
         log.exception('No image matched')
+
+
+def get_flavor_id(nova_client, flavor_name):    # pragma: no cover
+    flavors = nova_client.flavors.list(detailed=True)
+    flavor_id = ''
+    for f in flavors:
+        if f.name == flavor_name:
+            flavor_id = f.id
+            break
+    return flavor_id
 
 
 def get_flavor_by_name(name):   # pragma: no cover
@@ -424,6 +443,16 @@ def check_status(status, name, iterations, interval):   # pragma: no cover
 
         time.sleep(interval)
     return False
+
+
+def delete_flavor(flavor_id):    # pragma: no cover
+    try:
+        get_nova_client().flavors.delete(flavor_id)
+    except Exception:
+        log.exception("Error [delete_flavor(nova_client, %s)]", flavor_name)
+        return False
+    else:
+        return True
 
 
 # *********************************************
