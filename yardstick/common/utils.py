@@ -370,3 +370,29 @@ def parse_cpuinfo(cpuinfo):
 def config_to_dict(config):
     return {section: dict(config.items(section)) for section in
             config.sections()}
+
+
+def validate_non_string_sequence(value, default=None, raise_exc=None):
+    if isinstance(value, collections.Sequence) and not isinstance(value, str):
+        return value
+    if raise_exc:
+        raise raise_exc
+    return default
+
+
+def join_non_strings(separator, *non_strings):
+    try:
+        non_strings = validate_non_string_sequence(non_strings[0], raise_exc=RuntimeError)
+    except (IndexError, RuntimeError):
+        pass
+    return str(separator).join(str(non_string) for non_string in non_strings)
+
+
+class ErrorClass(object):
+
+    def __init__(self, *args, **kwargs):
+        if 'test' not in kwargs:
+            raise RuntimeError
+
+    def __getattr__(self, item):
+        raise AttributeError

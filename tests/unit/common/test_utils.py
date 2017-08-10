@@ -916,6 +916,32 @@ class TestUtils(unittest.TestCase):
         result = utils.parse_ini_file('my_path')
         self.assertDictEqual(result, expected)
 
+    def test_join_non_strings(self):
+        self.assertEqual(utils.join_non_strings(':'), '')
+        self.assertEqual(utils.join_non_strings(':', 'a'), 'a')
+        self.assertEqual(utils.join_non_strings(':', 'a', 2, 'c'), 'a:2:c')
+        self.assertEqual(utils.join_non_strings(':', ['a', 2, 'c']), 'a:2:c')
+        self.assertEqual(utils.join_non_strings(':', 'abc'), 'abc')
+
+    def test_validate_non_string_sequence(self):
+        self.assertEqual(utils.validate_non_string_sequence([1, 2, 3]), [1, 2, 3])
+        self.assertIsNone(utils.validate_non_string_sequence('123'))
+        self.assertIsNone(utils.validate_non_string_sequence(1))
+
+        self.assertEqual(utils.validate_non_string_sequence(1, 2), 2)
+        self.assertEqual(utils.validate_non_string_sequence(1, default=2), 2)
+
+        with self.assertRaises(RuntimeError):
+            utils.validate_non_string_sequence(1, raise_exc=RuntimeError)
+
+    def test_error_class(self):
+        with self.assertRaises(RuntimeError):
+            utils.ErrorClass()
+
+        error_instance = utils.ErrorClass(test='')
+        with self.assertRaises(AttributeError):
+            error_instance.get_name()
+
 
 class TestUtilsIpAddrMethods(unittest.TestCase):
 
