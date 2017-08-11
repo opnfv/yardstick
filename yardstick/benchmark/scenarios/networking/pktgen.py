@@ -20,6 +20,7 @@ from yardstick.benchmark.scenarios import base
 
 LOG = logging.getLogger(__name__)
 
+SSH_TIMEOUT = 60
 VNIC_TYPE_LIST = ["ovs", "sriov"]
 SRIOV_DRIVER_LIST = ["ixgbevf", "i40evf"]
 
@@ -287,7 +288,7 @@ class Pktgen(base.Scenario):
               "sudo iptables -A INPUT -p udp --dport 1000:%s -j DROP" \
               % (1000 + self.number_of_ports)
         LOG.debug("Executing command: %s", cmd)
-        status, _, stderr = self.server.execute(cmd)
+        status, _, stderr = self.server.execute(cmd, timeout=SSH_TIMEOUT)
         if status:
             raise RuntimeError(stderr)
 
@@ -349,7 +350,7 @@ class Pktgen(base.Scenario):
                duration, queue_number, pps)
 
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        status, stdout, stderr = self.client.execute(cmd, timeout=SSH_TIMEOUT)
 
         if status:
             raise RuntimeError(stderr)
