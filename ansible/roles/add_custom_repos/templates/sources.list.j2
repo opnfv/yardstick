@@ -1,0 +1,5 @@
+{% if YARD_IMG_ARCH == "arm64" %}
+deb [arch={{ YARD_IMG_ARCH }}] http://ports.ubuntu.com/ {{ ubuntu_release[target_os_version] }}-backports main restricted universe multiverse
+{% else %}
+deb http://archive.ubuntu.com/ubuntu/ {{ ubuntu_release[target_os_version] }}-backports main restricted universe multiverse
+{% endif %}

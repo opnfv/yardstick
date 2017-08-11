@@ -1,0 +1,2 @@
+---
+vfw_build_dir: "{{ samplevnf_path }}/VNFs/vFW"

@@ -1,0 +1,4 @@
+---
+unixbench_repo: "https://github.com/kdlucas/byte-unixbench.git"
+unixbench_version: master
+unixbench_dest: "{{ clone_dest }}/UnixBench"

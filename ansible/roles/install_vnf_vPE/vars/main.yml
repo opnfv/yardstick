@@ -1,0 +1,2 @@
+---
+vpe_build_dir: "{{ dpdk_path }}/examples/ip_pipeline"

@@ -1,0 +1,7 @@
+OS_AUTH_URL="{{ openrc.OS_AUTH_URL }}"
+OS_USERNAME="{{ openrc.OS_USERNAME|default('admin') }}"
+OS_PASSWORD="{{ openrc.OS_PASSWORD|default('console') }}"
+OS_TENANT_NAME="{{ openrc.OS_TENANT_NAME|default('admin') }}"
+OS_VOLUME_API_VERSION="{{ openrc.OS_VOLUME_API_VERSION|default('2') }}"
+OS_PROJECT_NAME="{{ openrc.OS_PROJECT_NAME|default(openrc.OS_TENANT_NAME) }}"
+OS_TENANT_ID="{{ os_tenant_id }}"
