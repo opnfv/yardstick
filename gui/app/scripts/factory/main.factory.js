@@ -86,7 +86,28 @@ angular.module('yardStickGui2App')
                     }
                 })
             },
+            getImage: function(){
+                return $resource(Base_URL + '/api/v2/yardstick/images/:imageId', {imageId: "@imageId"}, {
+                    'get': {
+                        method: 'GET'
+                    }
+                })
+            },
+            deleteImage: function() {
+                return $resource(Base_URL + '/api/v2/yardstick/images/:imageId', { imageId: '@imageId' }, {
+                    'delete': {
+                        method: 'DELETE'
+                    }
+                })
+            },
             uploadImage: function() {
+                return $resource(Base_URL + '/api/v2/yardstick/images', {}, {
+                    'post': {
+                        method: 'POST'
+                    }
+                })
+            },
+            uploadImageByUrl: function() {
                 return $resource(Base_URL + '/api/v2/yardstick/images', {}, {
                     'post': {
                         method: 'POST'
