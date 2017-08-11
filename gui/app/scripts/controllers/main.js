@@ -15,7 +15,7 @@ angular.module('yardStickGui2App')
             $scope.showImage = null;
             $scope.showContainer = null;
             $scope.showNextOpenRc = null;
-            $scope.showNextPod = null;
+            $scope.showNextPod = 1;
             $scope.displayContainerInfo = [];
             $scope.containerList = [{ value: 'create_influxdb', name: "InfluxDB" }, { value: 'create_grafana', name: "Grafana" }]
 
@@ -51,7 +51,6 @@ angular.module('yardStickGui2App')
                 $scope.chooseResult = chooseResult;
 
                 getEnvironmentList();
-                // getImageList();
 
             }
 
@@ -85,7 +84,7 @@ angular.module('yardStickGui2App')
             }
 
             $scope.goToImage = function goToImage() {
-                getImageListSimple();
+                getImageList();
                 $scope.showImage = 1;
             }
             $scope.goToPod = function goToPod() {
@@ -290,7 +289,7 @@ angular.module('yardStickGui2App')
                 $scope.showImage = null;
                 $scope.showContainer = null;
                 $scope.showNextOpenRc = null;
-                $scope.showNextPod = null;
+                $scope.showNextPod = 1;
                 $scope.displayContainerInfo = [];
 
                 $scope.displayPodFile = null;
@@ -308,7 +307,6 @@ angular.module('yardStickGui2App')
                 ngDialog.open({
                     preCloseCallback: function(value) {
                         getEnvironmentList();
-                        // getImageList();
                     },
                     template: 'views/modal/environmentDialog.html',
                     scope: $scope,
@@ -479,106 +477,97 @@ angular.module('yardStickGui2App')
                 })
             }
 
-            $scope.uploadImage = function uploadImage() {
+            $scope.yardstickImage = {
+                'yardstick-image': {
+                    'name': 'yardstick-image',
+                    'description': '',
+                    'status': 'N/A'
+                },
+                'Ubuntu-16.04': {
+                    'name': 'Ubuntu-16.04',
+                    'description': '',
+                    'status': 'N/A'
+                },
+                'cirros-0.3.5': {
+                    'name': 'cirros-0.3.5',
+                    'description': '',
+                    'status': 'N/A'
+                }
+            };
+
+            $scope.selectImageList = [];
+
+            $scope.selectImage = function(name){
+                $scope.selectImageList.push(name);
+            }
+
+            $scope.unselectImage = function(name){
+                var index = $scope.selectImageList.indexOf(name);
+                $scope.selectImageList.splice(index, 1);
+            }
+
+            $scope.uploadImage = function() {
                 $scope.imageStatus = 0;
                 $scope.showImageStatus = 1;
                 $scope.showloading = true;
-                mainFactory.uploadImage().post({
-                    'action': 'load_image',
-                    'args': {
-                        'environment_id': $scope.uuid
 
-                    }
-                }).$promise.then(function(response) {
-                    $scope.showloading = false;
-                    if (response.status == 1) {
-                        toaster.pop({
-                            type: 'success',
-                            title: 'create success',
-                            body: 'you can go next step',
-                            timeout: 3000
-                        });
-                        setTimeout(function() {
-                            getImageList();
-                        }, 10000);
-                        $scope.showNextPod = 1;
-
-                    } else {
-                        toaster.pop({
-                            type: 'error',
-                            title: 'failed',
-                            body: 'something wrong',
-                            timeout: 3000
-                        });
-
-                    }
-                }, function(error) {
-                    toaster.pop({
-                        type: 'error',
-                        title: 'failed',
-                        body: 'something wrong',
-                        timeout: 3000
+                var updateImageTask = $interval(function(){
+                    mainFactory.ImageList().get({}).$promise.then(function(response){
+                        if(response.status == 1){
+                            var isOk = true;
+                            angular.forEach($scope.selectImageList, function(ele){
+                                if(typeof(response.result.images[ele]) != 'undefined' && response.result.images[ele].status == 'ACTIVE'){
+                                    $scope.yardstickImage[ele] = response.result.images[ele];
+                                }else{
+                                    isOk = false;
+                                }
+                            });
+                            if(isOk){
+                                $interval.cancel(updateImageTask);
+                                $scope.imageStatus = 1;
+                            }
+                        }else{
+                            mainFactory.errorHandler1(response);
+                        }
+                    }, function(response){
+                        mainFactory.errorHandler2(response);
                     });
-                })
+                }, 10000);
+
+                angular.forEach($scope.selectImageList, function(ele){
+                    mainFactory.uploadImage().post({
+                        'action': 'load_image',
+                        'args': {
+                            'name': ele
+                        }
+                    }).$promise.then(function(response) {
+                        if(response.status == 1){
+                            $scope.showloading = false;
+                            $scope.showNextPod = 1;
+                        }else{
+                            mainFactory.errorHandler1(response);
+                        }
+                    }, function(response) {
+                        mainFactory.errorHandler2(response);
+                    })
+                });
             }
 
             function getImageList() {
-                if ($scope.intervalImgae != undefined) {
-                    $interval.cancel($scope.intervalImgae);
-                }
-                mainFactory.ImageList().get({}).$promise.then(function(response) {
-                    if (response.status == 1) {
-                        $scope.imageListData = response.result.images;
-                        $scope.imageStatus = response.result.status;
-
-                        if ($scope.imageStatus == 0) {
-                            $scope.intervalImgae = $interval(function() {
-                                getImageList();
-                            }, 5000);
-                        } else if ($scope.intervalImgae != undefined) {
-                            $interval.cancel($scope.intervalImgae);
-                        }
-
-                    } else {
-                        toaster.pop({
-                            type: 'error',
-                            title: 'get data failed',
-                            body: 'please retry',
-                            timeout: 3000
-                        });
-                    }
-                }, function(error) {
-                    toaster.pop({
-                        type: 'error',
-                        title: 'get data failed',
-                        body: 'please retry',
-                        timeout: 3000
-                    });
-                })
-            }
-
-            function getImageListSimple() {
 
                 mainFactory.ImageList().get({}).$promise.then(function(response) {
                     if (response.status == 1) {
-                        $scope.imageListData = response.result.images;
-                        $scope.imageStatus = response.result.status;
-
-                    } else {
-                        toaster.pop({
-                            type: 'error',
-                            title: 'get data failed',
-                            body: 'please retry',
-                            timeout: 3000
+                        angular.forEach($scope.yardstickImage, function(value, key){
+                            if(typeof(response.result.images[key]) != 'undefined'){
+                                $scope.yardstickImage[key] = response.result.images[key];
+                            }
                         });
+                        $scope.imageStatus = response.result.status;
+                    }else{
+                        mainFactory.errorHandler1(response);
                     }
-                }, function(error) {
-                    toaster.pop({
-                        type: 'error',
-                        title: 'get data failed',
-                        body: 'please retry',
-                        timeout: 3000
-                    });
+                }, function(response) {
+                    mainFactory.errorHandler2(response);
                 })
             }
 

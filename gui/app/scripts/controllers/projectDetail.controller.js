@@ -672,7 +672,7 @@ angular.module('yardStickGui2App')
             }
 
             $scope.gotoLog = function gotoLog(task_id) {
-                $state.go('app2.taskLog', { taskId: task_id });
+                $state.go('app.taskLog', { taskId: task_id });
             }
         }
     ]);
