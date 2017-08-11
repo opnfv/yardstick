@@ -59,8 +59,8 @@
         {
           "aliasColors": {
             "kvmfornfv_cyclictest_idle_idle.avg": "#7EB26D",
-            "kvmfornfv_cyclictest_idle_idle.max": "#6ED0E0",
-            "kvmfornfv_cyclictest_idle_idle.min": "#EAB839"
+            "kvmfornfv_cyclictest_idle_idle.max": "#EAB839",
+            "kvmfornfv_cyclictest_idle_idle.min": "#6ED0E0"
           },
           "bars": false,
           "datasource": "yardstick-vtc",
