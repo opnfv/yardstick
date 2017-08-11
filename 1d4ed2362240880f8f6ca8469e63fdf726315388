@@ -22,6 +22,30 @@
       "revId": "1d4ed2362240880f8f6ca8469e63fdf726315388",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3b5e4446",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc056.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2017-08-11T09:58:43Z",
+      "side": 1,
+      "message": "In this case, the switch over is checked by checking rabbitmq-related openstack services\u0027 availability. Because if the master service of rabbitmq is killed and there is no switch over, those services will fail. Of course I plan to check switch over directly on pacemaker, but it may be in next release because I have to add some other logic on checking switch over in HA testing framework.",
+      "parentUuid": "da33351e_5b1d08bd",
+      "range": {
+        "startLine": 21,
+        "startChar": 27,
+        "endLine": 22,
+        "endChar": 75
+      },
+      "revId": "1d4ed2362240880f8f6ca8469e63fdf726315388",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
