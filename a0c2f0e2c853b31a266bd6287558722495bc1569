@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_dbaab8d3",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc057.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-08-11T06:55:43Z",
+      "side": 1,
+      "message": "better set variables like this so users know what this variable means\n{% set attack_host \u003d attack_host or \u0027node1\u0027 %}\n{% set check_host \u003d check_host or \u0027node2\u0027 %}\nrefer to tc054.yaml for an example.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 37
+      },
+      "revId": "a0c2f0e2c853b31a266bd6287558722495bc1569",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
