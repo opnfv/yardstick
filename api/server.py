@@ -35,6 +35,7 @@ except ImportError:
 LOG = logging.getLogger(__name__)
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024 * 1024
 
 Swagger(app)
 

@@ -48,9 +48,6 @@ class V2Image(Base):
     name = Column(String(30))
     description = Column(Text)
     environment_id = Column(String(30))
-    size = Column(String(30))
-    status = Column(String(30))
-    time = Column(DateTime)
 
 
 class V2Container(Base):
