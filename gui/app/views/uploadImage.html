@@ -4,56 +4,86 @@
     <div style="display:flex;flex-direction:row;">
         <div style="width:750px;">
 
-            <h3>{{baseElementInfo.name}} -- Image
+            <h3>{{environmentInfo.name}} -- Image
                 <button class="btn btn-default" style="float:right" ng-click="goNext()">Next</button>
             </h3>
             <!--<p>In this process, you can input your define openrc config or upload a openrc file</p>-->
 
-            <hr/>
-            <button class="btn btn-default" ng-click="uploadImage()">
-                 <div ng-if="!showloading">Load Image</div>
-                 <img src="images/loading2.gif" width="25" height="25" ng-if="showloading" />
-            </button>
-            <i class="fa fa-check" aria-hidden="true" style="margin-top:34px;margin-left:5px;color: #2ecc71;" ng-show="imageStatus==1&&ifshowStatus==1">done</i>
-            <i class="fa fa-spinner" aria-hidden="true" style="margin-top:34px;margin-left:5px;color: #2ecc71;" ng-show="imageStatus==0&&ifshowStatus==1">loading</i>
-            <i class="fa fa-exclamation-triangle" aria-hidden="true" style="margin-top:34px;margin-left:5px;color: red;" ng-show="imageStatus==2&&ifshowStatus==1">error</i>
-
             <hr>
-            <h4>Current Images</h4>
-
+            <h4>Alternative Images</h4>
             <div>
                 <table class="table table-striped">
 
                     <tr>
                         <th>name</th>
+                        <th>description</th>
                         <th>size</th>
                         <th>status</th>
                         <th>time</th>
+                        <th>action</th>
                     </tr>
-                    <tr ng-repeat="image in imageListData">
+                    <tr ng-repeat="image in yardstickImage">
                         <td>{{image.name}}</td>
-                        <td>{{image.size/1024}} MB</td>
+                        <td>{{image.description}}</td>
+                        <td>{{image.size | number:2}} MB</td>
                         <td>{{image.status}}</td>
                         <td>{{image.time}}</td>
-
+                        <td>
+                            <div class="btn-group" uib-dropdown>
+                                <button id="single-button" type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
+                                    action<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                    <li role="menuitem" ng-show="image.status == 'N/A'"><a ng-click="loadYardstickImage(image.name)">load</a></li>
+                                    <li role="menuitem" ng-show="image.status != 'N/A'"><a ng-click="deleteYardstickImage(image.name)">delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
                     </tr>
-
-
-
                 </table>
             </div>
 
+            <hr>
+            <h4 style="display:inline">Custom Images</h4>
+            <div class="btn-group button-margin" style="float:right;margin-top:-10px;margin-bottom:5px">
+                <button class="btn btn-default" style="width:60px" ngf-select="uploadCustomImage($file, $invalidFiles)" ngf-max-size="2048MB">
+                        <div ng-show="!showloading">Local</div>
+                        <img src="images/loading2.gif" width="25" height="25" ng-if="showloading" />
+                </button>
+                <button class="btn btn-default" style="width:60px" ng-click="openImageDialog()">Url</button>
+            </div>
+            <div>
+                <table class="table table-striped">
 
-
-
-
-
-
-
+                    <tr>
+                        <th>name</th>
+                        <th>description</th>
+                        <th>size</th>
+                        <th>status</th>
+                        <th>time</th>
+                        <th>action</th>
+                    </tr>
+                    <tr ng-repeat="image in customImage">
+                        <td>{{image.name}}</td>
+                        <td>{{image.description}}</td>
+                        <td>{{image.size | number:2}} MB</td>
+                        <td>{{image.status}}</td>
+                        <td>{{image.time}}</td>
+                        <td>
+                            <div class="btn-group" uib-dropdown>
+                                <button id="single-button" type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
+                                    action<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                    <li role="menuitem" ><a ng-click="deleteCustomImage(image.id)">delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
         </div>
-
-
     </div>
 
 </div>
