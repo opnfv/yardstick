@@ -448,6 +448,38 @@ def get_image_id(glance_client, image_name):    # pragma: no cover
     return next((i.id for i in images if i.name == image_name), None)
 
 
+def create_image(glance_client, image_name, file_path, disk_format,
+                 container_format, min_disk, min_ram, protected, tag,
+                 public, **kwargs):    # pragma: no cover
+    if not os.path.isfile(file_path):
+        log.error("Error: file %s does not exist." % file_path)
+        return None
+    try:
+        image_id = get_image_id(glance_client, image_name)
+        if image_id is not None:
+            log.info("Image %s already exists." % image_name)
+        else:
+            log.info("Creating image '%s' from '%s'...", image_name, file_path)
+
+            image = glance_client.images.create(name=image_name,
+                                                visibility=public,
+                                                disk_format=disk_format,
+                                                container_format=container_format,
+                                                min_disk=min_disk,
+                                                min_ram=min_ram,
+                                                tags=tag,
+                                                protected=protected,
+                                                **kwargs)
+            image_id = image.id
+            with open(file_path) as image_data:
+                glance_client.images.upload(image_id, image_data)
+        return image_id
+    except Exception:
+        log.error("Error [create_glance_image(glance_client, '%s', '%s', '%s')]",
+                  image_name, file_path, public)
+        return None
+
+
 # *********************************************
 #   CINDER
 # *********************************************
