@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_4ebb840e",
+        "filename": "yardstick/benchmark/scenarios/networking/testpmd_vsperf.bash",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5439
+      },
+      "writtenOn": "2017-08-11T11:34:44Z",
+      "side": 1,
+      "message": "This may cause some instance can\u0027t run this application.\nerror:\nFail: nb_rxq(2) is greater than max_rx_queues(1)\nEAL: Error - exiting with code: 1\nCause: FAIL from init_fwd_streams()\n\ncould we remove this rx and tx queue option.\nThanks.",
+      "range": {
+        "startLine": 49,
+        "startChar": 122,
+        "endLine": 49,
+        "endChar": 138
+      },
+      "revId": "64f885ad98dfb2a5c99e5f57bc7510e186bbf884",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
