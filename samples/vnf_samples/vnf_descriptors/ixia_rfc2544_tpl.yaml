@@ -15,8 +15,8 @@
 #
 vnfd:vnfd-catalog:
     vnfd:
-    -   id: IXIATrafficGen # ISB class mapping
-        name: IXIAtrafficgen
+    -   id: IxiaTrafficGen # ISB class mapping
+        name: IxiaTrafficGen
         short-name: ixia
         description: IXIA stateless traffic verifier
         mgmt-interface:
