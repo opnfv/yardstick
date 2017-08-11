@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_7b1d6c66",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc056.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-08-11T06:43:12Z",
+      "side": 1,
+      "message": "should be jinja2 variables, also for monitor_time, monitor_number",
+      "range": {
+        "startLine": 25,
+        "startChar": 12,
+        "endLine": 25,
+        "endChar": 17
+      },
+      "revId": "85f57586ad747c49dfee9d4a70658d4207c5484f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5b1a286f",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc056.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-08-11T06:43:12Z",
+      "side": 1,
+      "message": "should be jinja2 variables",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 17
+      },
+      "revId": "85f57586ad747c49dfee9d4a70658d4207c5484f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9b2b1082",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc056.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-08-11T06:43:12Z",
+      "side": 1,
+      "message": "should be jinja2 variables",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 16
+      },
+      "revId": "85f57586ad747c49dfee9d4a70658d4207c5484f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
