@@ -20,6 +20,7 @@ server {
     index  index.htm index.html;
     location / {
         include uwsgi_params;
+        client_max_body_size    2000m;
         uwsgi_pass unix:///var/run/yardstick.sock;
     }
 

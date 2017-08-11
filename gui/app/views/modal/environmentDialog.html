@@ -133,16 +133,17 @@
                     <table class="table table-striped">
 
                         <tr>
+                            <th>choose</th>
                             <th>name</th>
-                            <th>size</th>
+                            <th>description</th>
                             <th>status</th>
-                            <th>time</th>
                         </tr>
-                        <tr ng-repeat="image in imageListData">
-                            <td>{{image.name}}</td>
-                            <td>{{image.size/1024}} mb</td>
-                            <td>{{image.status}}</td>
-                            <td>{{image.time}}</td>
+                        <tr ng-repeat="(name, value) in yardstickImage">
+                            <td ng-if="selectImageList.indexOf(name) > -1"><img src="images/checkyes.png" style="height:12px;cursor:pointer" ng-click="unselectImage(name)" /></td>
+                            <td ng-if="selectImageList.indexOf(name) == -1"><img src="images/checkno.png" style="height:12px;cursor:pointer" ng-click="selectImage(name)" /></td>
+                            <td>{{name}}</td>
+                            <td>{{value.description}}</td>
+                            <td>{{value.status}}</td>
 
                         </tr>
 

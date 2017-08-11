@@ -59,6 +59,7 @@ if not SERVER_IP:
 
 # dir
 CONF_DIR = get_param('dir.conf', '/etc/yardstick')
+IMAGE_DIR = get_param('dir.images', '/home/opnfv/images/')
 REPOS_DIR = get_param('dir.repos', '/home/opnfv/repos/yardstick')
 RELENG_DIR = get_param('dir.releng', '/home/opnfv/repos/releng')
 LOG_DIR = get_param('dir.log', '/tmp/yardstick/')

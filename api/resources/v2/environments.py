@@ -35,6 +35,9 @@ class V2Environments(ApiResource):
             container_info = e['container_id']
             e['container_id'] = jsonutils.loads(container_info) if container_info else {}
 
+            image_id = e['image_id']
+            e['image_id'] = image_id.split(',') if image_id else []
+
         data = {
             'environments': environments
         }
@@ -78,8 +81,13 @@ class V2Environment(ApiResource):
             return result_handler(consts.API_ERROR, 'no such environment id')
 
         environment = change_obj_to_dict(environment)
+
         container_id = environment['container_id']
         environment['container_id'] = jsonutils.loads(container_id) if container_id else {}
+
+        image_id = environment['image_id']
+        environment['image_id'] = image_id.split(',') if image_id else []
+
         return result_handler(consts.API_SUCCESS, {'environment': environment})
 
     def delete(self, environment_id):

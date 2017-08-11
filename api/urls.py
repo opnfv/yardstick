@@ -36,6 +36,7 @@ urlpatterns = [
 
     Url('/api/v2/yardstick/images', 'v2_images'),
     Url('/api/v2/yardstick/images/action', 'v2_images'),
+    Url('/api/v2/yardstick/images/<image_id>', 'v2_image'),
 
     Url('/api/v2/yardstick/containers', 'v2_containers'),
     Url('/api/v2/yardstick/containers/action', 'v2_containers'),

@@ -9,7 +9,7 @@ var Base_URL;
 var Grafana_URL;
 
 angular.module('yardStickGui2App')
-    .factory('mainFactory', ['$resource','$rootScope','$http', '$location',function($resource, $rootScope,$http,$location) {
+    .factory('mainFactory', ['$resource','$rootScope','$http', '$location', 'toaster',function($resource, $rootScope ,$http ,$location, toaster) {
 
         Base_URL = 'http://' + $location.host() + ':' + $location.port();
         Grafana_URL = 'http://' + $location.host();
@@ -86,7 +86,28 @@ angular.module('yardStickGui2App')
                     }
                 })
             },
+            getImage: function(){
+                return $resource(Base_URL + '/api/v2/yardstick/images/:imageId', {imageId: "@imageId"}, {
+                    'get': {
+                        method: 'GET'
+                    }
+                })
+            },
+            deleteImage: function() {
+                return $resource(Base_URL + '/api/v2/yardstick/images/:imageId', { imageId: '@imageId' }, {
+                    'delete': {
+                        method: 'DELETE'
+                    }
+                })
+            },
             uploadImage: function() {
+                return $resource(Base_URL + '/api/v2/yardstick/images', {}, {
+                    'post': {
+                        method: 'POST'
+                    }
+                })
+            },
+            uploadImageByUrl: function() {
                 return $resource(Base_URL + '/api/v2/yardstick/images', {}, {
                     'post': {
                         method: 'POST'
@@ -249,6 +270,22 @@ angular.module('yardStickGui2App')
                         method: 'DELETE'
                     }
                 })
+            },
+            errorHandler1: function(response){
+                toaster.pop({
+                    'type': 'error',
+                    'title': 'error',
+                    'body': response.result,
+                    'showCloseButton': true
+                });
+            },
+            errorHandler2: function(response){
+                toaster.pop({
+                    'type': 'error',
+                    'title': response.status,
+                    'body': response.statusText,
+                    'showCloseButton': true
+                });
             }
 
         };
