@@ -264,6 +264,15 @@ def create_aggregate_with_host(nova_client, aggregate_name, av_zone,
         return True
 
 
+def create_keypair(nova_client, name, key_path=None):    # pragma: no cover
+    try:
+        with open(key_path) as fpubkey:
+            keypair = get_nova_client().keypairs.create(name=name, public_key=fpubkey.read())
+            return keypair
+    except Exception:
+        log.exception("Error [create_keypair(nova_client)]")
+
+
 def create_instance(json_body):    # pragma: no cover
     try:
         return get_nova_client().servers.create(**json_body)
@@ -288,6 +297,17 @@ def create_instance_and_wait_for_active(json_body):    # pragma: no cover
         time.sleep(SLEEP)
     log.error("Timeout booting the instance.")
     return None
+
+
+def attach_server_volume(server_id, volume_id, device=None):    # pragma: no cover
+    try:
+        get_nova_client().volumes.create_server_volume(server_id, volume_id, device)
+    except Exception:
+        log.exception("Error [attach_server_volume(nova_client, '%s', '%s')]",
+                      server_id, volume_id)
+        return False
+    else:
+        return True
 
 
 def delete_instance(nova_client, instance_id):      # pragma: no cover
@@ -415,6 +435,18 @@ def get_port_id_by_ip(neutron_client, ip_address):      # pragma: no cover
     ports = neutron_client.list_ports()['ports']
     return next((i['id'] for i in ports for j in i.get(
         'fixed_ips') if j['ip_address'] == ip_address), None)
+
+
+def create_floating_ip(neutron_client, extnet_id):      # pragma: no cover
+    props = {'floating_network_id': extnet_id}
+    try:
+        ip_json = neutron_client.create_floatingip({'floatingip': props})
+        fip_addr = ip_json['floatingip']['floating_ip_address']
+        fip_id = ip_json['floatingip']['id']
+    except Exception:
+        log.error("Error [create_floating_ip(neutron_client)]")
+        return None
+    return {'fip_addr': fip_addr, 'fip_id': fip_id}
 
 
 # *********************************************
