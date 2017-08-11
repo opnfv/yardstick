@@ -68,7 +68,7 @@ class PktgenTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.assert_called_with(
             "sudo iptables -F; "
             "sudo iptables -A INPUT -p udp --dport 1000:%s -j DROP"
-            % 1010)
+            % 1010, timeout=60)
 
     def test_pktgen_unsuccessful_iptables_setup(self, mock_ssh):
 
