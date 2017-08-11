@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_9b7e70e3",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/list_servers.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-08-11T08:55:25Z",
+      "side": 1,
+      "message": "need to support https, pls refer yardstick/benchmark/scenarios/availability/ha_tools/nova/create_flavor.bash as an example",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "18b85dfd1f3b26de52c53ab44d6155d28116fb72",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
