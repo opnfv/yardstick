@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_db5c7828",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc058.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-08-11T06:47:47Z",
+      "side": 1,
+      "message": "can default image be yardstick-image and default flavor to be yardstick-flavor?\nsince these two default values is not true in many installers.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 39
+      },
+      "revId": "44fa3d08fcd862e46524b15638be7d36b2dc35dd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_1b3700e5",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc058.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-08-11T06:47:47Z",
+      "side": 1,
+      "message": "should be jinja2 variables, also for monitor_time",
+      "range": {
+        "startLine": 28,
+        "startChar": 16,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "44fa3d08fcd862e46524b15638be7d36b2dc35dd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_db2598ac",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc058.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-08-11T06:47:47Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 33,
+        "startChar": 9,
+        "endLine": 33,
+        "endChar": 10
+      },
+      "revId": "44fa3d08fcd862e46524b15638be7d36b2dc35dd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
