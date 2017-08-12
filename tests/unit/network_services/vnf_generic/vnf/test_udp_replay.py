@@ -426,6 +426,7 @@ class TestAclApproxVnf(unittest.TestCase):
             self.scenario_cfg['vnf_options'] = {'cgnapt': {'cfg': "",
                                                            'rules': ""}}
             udp_approx_vnf._run_udp_replay = mock.Mock(return_value=0)
+            udp_approx_vnf.DISABLE_DEPLOY = True
             udp_approx_vnf._parse_rule_file = mock.Mock(return_value={})
             udp_approx_vnf.deploy_udp_replay_vnf = mock.Mock(return_value=1)
             udp_approx_vnf.q_out.put("Replay>")
@@ -436,6 +437,7 @@ class TestAclApproxVnf(unittest.TestCase):
             udp_approx_vnf._vnf_process = mock.MagicMock()
             udp_approx_vnf._vnf_process.is_alive = \
                 mock.Mock(return_value=1)
+            udp_approx_vnf.deploy_helper = mock.MagicMock()
             self.assertIsNone(udp_approx_vnf.instantiate(self.scenario_cfg,
                                                          self.context_cfg))
 
