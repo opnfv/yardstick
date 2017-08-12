@@ -108,13 +108,13 @@ class TestResourceProfile(unittest.TestCase):
     def test_get_cpu_data(self):
         reskey = ["", "cpufreq", "cpufreq-0"]
         value = "metric:10"
-        val = self.resource_profile.get_cpu_data(reskey, value)
+        val = self.resource_profile.get_cpu_data(reskey[1], reskey[2], value)
         self.assertIsNotNone(val)
 
     def test_get_cpu_data_error(self):
         reskey = ["", "", ""]
         value = "metric:10"
-        val = self.resource_profile.get_cpu_data(reskey, value)
+        val = self.resource_profile.get_cpu_data(reskey[0], reskey[1], value)
         self.assertEqual(val, ('error', 'Invalid', '', ''))
 
     def test__start_collectd(self):

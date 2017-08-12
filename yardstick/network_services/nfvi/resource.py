@@ -73,18 +73,18 @@ class ResourceProfile(object):
 
     @classmethod
     def parse_simple_resource(cls, key, value):
-        return {'/'.join(key): value.split(":")[1]}
+        reskey = [rkey for rkey in key if "nsb_stats" not in rkey]
+        return {'/'.join(reskey): value.split(":")[1]}
 
     @classmethod
-    def get_cpu_data(cls, key_split, value):
+    def get_cpu_data(cls, res_key0, res_key1, value):
         """ Get cpu topology of the host """
         pattern = r"-(\d+)"
-        if "cpufreq" in key_split[0]:
-            metric = key_split[0]
-            source = key_split[1]
+
+        if 'cpufreq' in res_key0:
+            metric, source = res_key0, res_key1
         else:
-            metric = key_split[1]
-            source = key_split[0]
+            metric, source = res_key1, res_key0
 
         match = re.search(pattern, source, re.MULTILINE)
         if not match:
@@ -128,7 +128,8 @@ class ResourceProfile(object):
             res_key1 = next(res_key_iter)
 
             if "cpu" in res_key0 or "intel_rdt" in res_key0:
-                cpu_key, name, metric, testcase = self.get_cpu_data(key_split, value)
+                cpu_key, name, metric, testcase = \
+                    self.get_cpu_data(res_key0, res_key1, value)
                 if cpu_key in core_list:
                     result["cpu"].setdefault(cpu_key, {}).update({name: metric})
 
@@ -136,16 +137,16 @@ class ResourceProfile(object):
                 result["memory"].update({res_key1: value.split(":")[0]})
 
             elif "hugepages" in res_key0:
-                result["hugepages"].update(self.parse_hugepages(key, value))
+                result["hugepages"].update(self.parse_hugepages(key_split, value))
 
             elif "dpdkstat" in res_key0:
-                result["dpdkstat"].update(self.parse_dpdkstat(key, value))
+                result["dpdkstat"].update(self.parse_dpdkstat(key_split, value))
 
             elif "virt" in res_key1:
-                result["virt"].update(self.parse_virt(key, value))
+                result["virt"].update(self.parse_virt(key_split, value))
 
             elif "ovs_stats" in res_key0:
-                result["ovs_stats"].update(self.parse_ovs_stats(key, value))
+                result["ovs_stats"].update(self.parse_ovs_stats(key_split, value))
 
         result["timestamp"] = testcase
 
@@ -153,13 +154,16 @@ class ResourceProfile(object):
 
     def amqp_process_for_nfvi_kpi(self):
         """ amqp collect and return nfvi kpis """
-        if self.amqp_client is None:
+        if self.amqp_client is None and self.enable:
             self.amqp_client = \
                 multiprocessing.Process(target=self.run_collectd_amqp)
             self.amqp_client.start()
 
     def amqp_collect_nfvi_kpi(self):
         """ amqp collect and return nfvi kpis """
+        if not self.enable:
+            return {}
+
         metric = {}
         while not self._queue.empty():
             metric.update(self._queue.get())
@@ -193,8 +197,6 @@ class ResourceProfile(object):
 
     def _start_collectd(self, connection, bin_path):
         LOG.debug("Starting collectd to collect NFVi stats")
-        # temp disable
-        return
         connection.execute('sudo pkill -9 collectd')
         collectd = os.path.join(bin_path, "collectd.sh")
         provision_tool(connection, collectd)
