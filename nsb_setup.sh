@@ -202,6 +202,15 @@ push_nsb_binary()
     cp "$REPO_DIR/yardstick/network_services/nfvi/collectd.sh" "$INSTALL_BIN_PATH"
     cp "$REPO_DIR/yardstick/network_services/nfvi/collectd.conf" "$INSTALL_BIN_PATH"
     cp "$REPO_DIR/nsb_setup.sh" "$INSTALL_BIN_PATH"
+    # Get "dpdk-devbind.py" to find the ports for VNF to run
+		wget http://dpdk.org/browse/dpdk/plain/usertools/dpdk-devbind.py?h=v17.05 -O dpdk-devbind.py
+    chmod 777 dpdk-devbind.py
+    mv dpdk-devbind.py "$INSTALL_BIN_PATH"
+
+    # some code needs dpdk_nic_bind.py. download the olderversion also
+    wget http://dpdk.org/browse/dpdk/plain/tools/dpdk_nic_bind.py?h=v16.04 -O dpdk_nic_bind.py
+    chmod 777 dpdk_nic_bind.py
+    mv dpdk_nic_bind.py "$INSTALL_BIN_PATH"
     echo "Done"
 }
 
