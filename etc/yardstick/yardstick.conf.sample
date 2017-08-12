@@ -9,7 +9,8 @@
 
 [DEFAULT]
 debug = False
-dispatcher = http # setup multiple dipatcher with comma deperted e.g. file,http
+# setup multiple dipatcher with comma deperted e.g. file,http
+dispatcher = http
 
 [dispatcher_http]
 timeout = 5
