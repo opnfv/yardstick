@@ -23,6 +23,7 @@ from stl.trex_stl_lib.trex_stl_streams import STLTXCont
 
 from yardstick.network_services.traffic_profile.traffic_profile \
     import TrexProfile
+from yardstick.common.utils import translate_to_str
 
 LOGGING = logging.getLogger(__name__)
 
@@ -59,8 +60,10 @@ class RFC2544Profile(TrexProfile):
             profile_data = self.params.get('private_{}'.format(index), '')
             self.ports.append(priv_port)
             # pass profile_data directly, don't use self.profile_data
+            profile_data = translate_to_str(profile_data)
             self.generator.client.add_streams(self.get_streams(profile_data), ports=priv_port)
             profile_data = self.params.get('public_{}'.format(index), '')
+            profile_data = translate_to_str(profile_data)
             # correlated traffic doesn't use public traffic?
             if not profile_data or self.generator.rfc2544_helper.correlated_traffic:
                 continue
