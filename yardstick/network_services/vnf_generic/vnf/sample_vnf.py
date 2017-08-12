@@ -622,7 +622,7 @@ class SampleVNFDeployHelper(object):
         self.ssh_helper = ssh_helper
         self.vnfd_helper = vnfd_helper
 
-    DISABLE_DEPLOY = True
+    DISABLE_DEPLOY = False
 
     def deploy_vnfs(self, app_name):
         # temp disable for now
