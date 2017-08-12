@@ -1561,6 +1561,7 @@ class TestSampleVNFDeployHelper(unittest.TestCase):
         sample_vnf_deploy_helper = SampleVNFDeployHelper(vnfd_helper, ssh_helper)
 
         self.assertIsNone(sample_vnf_deploy_helper.deploy_vnfs('name1'))
+        sample_vnf_deploy_helper.DISABLE_DEPLOY = True
         self.assertEqual(ssh_helper.execute.call_count, 0)
         self.assertEqual(ssh_helper.put.call_count, 0)
 
