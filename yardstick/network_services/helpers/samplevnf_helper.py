@@ -499,7 +499,10 @@ class MultiPortConfig(object):
 
     def get_route_data(self, src_key, data_key, port):
         route_list = self.vnfd['vdu'][0].get(src_key, [])
-        return next((route[data_key] for route in route_list if route['if'] == port), None)
+        try:
+            return next((route[data_key] for route in route_list if route['if'] == port), None)
+        except (TypeError, StopIteration, KeyError):
+            return None
 
     def get_ports_gateway(self, port):
         return self.get_route_data('routing_table', 'gateway', port)
