@@ -52,8 +52,8 @@ class TrexRfcResourceHelper(TrexResourceHelper):
     def _build_ports(self):
         self.tg_port_pairs, self.networks = MultiPortConfig.get_port_pairs(
             self.vnfd_helper.interfaces)
-        self.priv_ports = [int(x[0][-1]) for x in self.tg_port_pairs]
-        self.pub_ports = [int(x[1][-1]) for x in self.tg_port_pairs]
+        self.priv_ports = [int(x[0][2:]) for x in self.tg_port_pairs]
+        self.pub_ports = [int(x[1][2:]) for x in self.tg_port_pairs]
         self.my_ports = list(set(chain(self.priv_ports, self.pub_ports)))
 
     def _run_traffic_once(self, traffic_profile):
