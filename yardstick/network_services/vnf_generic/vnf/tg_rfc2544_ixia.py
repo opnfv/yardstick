@@ -63,8 +63,8 @@ class IxiaResourceHelper(ClientResourceHelper):
 
     def _build_ports(self):
         # self.generate_port_pairs(self.topology)
-        self.priv_ports = [int(x[0][-1]) for x in self.tg_port_pairs]
-        self.pub_ports = [int(x[1][-1]) for x in self.tg_port_pairs]
+        self.priv_ports = [int(x[0][2:]) for x in self.tg_port_pairs]
+        self.pub_ports = [int(x[1][2:]) for x in self.tg_port_pairs]
         self.my_ports = list(set(self.priv_ports).union(set(self.pub_ports)))
 
     def get_stats(self, *args, **kwargs):
