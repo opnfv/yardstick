@@ -18,7 +18,7 @@ import ipaddress
 import logging
 import os
 import sys
-from collections import OrderedDict, defaultdict
+from collections import OrderedDict, defaultdict, Iterable
 from itertools import chain
 
 import six
@@ -499,7 +499,9 @@ class MultiPortConfig(object):
 
     def get_route_data(self, src_key, data_key, port):
         route_list = self.vnfd['vdu'][0].get(src_key, [])
-        return next((route[data_key] for route in route_list if route['if'] == port), None)
+        if isinstance(route_list, Iterable) and not isinstance(route_list, six.string_types):
+            return next((route[data_key] for route in route_list if route['if'] == port), None)
+        return None
 
     def get_ports_gateway(self, port):
         return self.get_route_data('routing_table', 'gateway', port)
