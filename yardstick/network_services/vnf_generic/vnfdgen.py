@@ -21,6 +21,7 @@ import logging
 import yaml
 
 from yardstick.common.utils import try_int
+from yardstick.common.utils import translate_to_str
 
 LOG = logging.getLogger(__name__)
 
@@ -44,6 +45,10 @@ def generate_vnfd(vnf_model, node):
     :return: Complete VNF Descriptor that will be taken
              as input for GenericVNF.__init__
     """
+    # Node element to str this is to avoid unicode issue in
+    # yaml.safe_load eg {1:2}
+    node = translate_to_str(node)
+
     # get is unused as global method inside template
     # node["get"] = key_flatten_get
     node["get"] = deepgetitem
