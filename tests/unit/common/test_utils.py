@@ -20,6 +20,7 @@ from itertools import product, chain
 import mock
 from six.moves import configparser
 
+import yardstick
 from yardstick.common import utils
 from yardstick.common import constants
 
@@ -45,47 +46,25 @@ class IterSubclassesTestCase(unittest.TestCase):
         self.assertEqual([B, C, D], list(utils.itersubclasses(A)))
 
 
-class TryAppendModuleTestCase(unittest.TestCase):
-
-    @mock.patch('yardstick.common.utils.importutils')
-    def test_try_append_module_not_in_modules(self, mock_importutils):
-
-        modules = {}
-        name = 'foo'
-        utils.try_append_module(name, modules)
-        mock_importutils.import_module.assert_called_with(name)
-
-    @mock.patch('yardstick.common.utils.importutils')
-    def test_try_append_module_already_in_modules(self, mock_importutils):
-
-        modules = {'foo'}
-        name = 'foo'
-        utils.try_append_module(name, modules)
-        self.assertFalse(mock_importutils.import_module.called)
-
-
 class ImportModulesFromPackageTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.common.utils.os.walk')
-    @mock.patch('yardstick.common.utils.try_append_module')
-    def test_import_modules_from_package_no_mod(self, mock_append, mock_walk):
-
-        sep = os.sep
+    def test_import_modules_from_package_no_mod(self, mock_walk):
+        yardstick_root = os.path.dirname(os.path.dirname(yardstick.__file__))
         mock_walk.return_value = ([
-            ('..' + sep + 'foo', ['bar'], ['__init__.py']),
-            ('..' + sep + 'foo' + sep + 'bar', [], ['baz.txt', 'qux.rst'])
+            (os.path.join(yardstick_root, 'foo'), ['bar'], ['__init__.py']),
+            (os.path.join(yardstick_root, 'foo', 'bar'), [], ['baz.txt', 'qux.rst'])
         ])
 
         utils.import_modules_from_package('foo.bar')
-        self.assertFalse(mock_append.called)
 
     @mock.patch('yardstick.common.utils.os.walk')
     @mock.patch('yardstick.common.utils.importutils')
     def test_import_modules_from_package(self, mock_importutils, mock_walk):
 
-        sep = os.sep
+        yardstick_root = os.path.dirname(os.path.dirname(yardstick.__file__))
         mock_walk.return_value = ([
-            ('foo' + sep + '..' + sep + 'bar', [], ['baz.py'])
+            (os.path.join(yardstick_root, 'foo', os.pardir, 'bar'), [], ['baz.py'])
         ])
 
         utils.import_modules_from_package('foo.bar')
