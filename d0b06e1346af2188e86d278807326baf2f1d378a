@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_911771a3",
+        "filename": "yardstick/network_services/vnf_generic/vnfdgen.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-13T05:17:09Z",
+      "side": 1,
+      "message": "I was trying to fix this using yaml Loader constructors or something like we do in template_format.py\n\nhttps://git.opnfv.org/yardstick/tree/yardstick/common/template_format.py\n\n   yaml_loader.add_constructor(u\u0027tag:yaml.org,2002:str\u0027, _construct_yaml_str)\n\nbut this works for now I guess.\n\nWe really need a unittest for this I think, so we can tested and isolate the bug.",
+      "revId": "d0b06e1346af2188e86d278807326baf2f1d378a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
