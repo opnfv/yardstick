@@ -70,26 +70,26 @@ def itersubclasses(cls, _seen=None):
                 yield sub
 
 
-def try_append_module(name, modules):
-    if name not in modules:
-        modules[name] = importutils.import_module(name)
-
-
 def import_modules_from_package(package):
     """Import modules from package and append into sys.modules
 
     :param: package - Full package name. For example: rally.deploy.engines
     """
-    path = [os.path.dirname(yardstick.__file__), ".."] + package.split(".")
-    path = os.path.join(*path)
+    yardstick_root = os.path.dirname(os.path.dirname(yardstick.__file__))
+    path = os.path.join(yardstick_root, *package.split("."))
     for root, dirs, files in os.walk(path):
-        for filename in files:
-            if filename.startswith("__") or not filename.endswith(".py"):
-                continue
-            new_package = ".".join(root.split(os.sep)).split("....")[1]
-            module_name = "%s.%s" % (new_package, filename[:-3])
+        matches = (filename for filename in files if filename.endswith(".py") and
+                   not filename.startswith("__"))
+        new_package = os.path.relpath(root, yardstick_root).replace(os.sep, ".")
+        module_names = set(
+            ("{}.{}".format(new_package, filename.rsplit(".py", 1)[0]) for filename in matches))
+        # find modules which haven't already been imported
+        missing_modules = module_names.difference(sys.modules)
+        logger.debug("importing %s", missing_modules)
+        # we have already checked for already imported modules, so we don't need to check again
+        for module_name in missing_modules:
             try:
-                try_append_module(module_name, sys.modules)
+                sys.modules[module_name] = importutils.import_module(module_name)
             except ImportError:
                 logger.exception("unable to import %s", module_name)
 
