@@ -133,13 +133,13 @@ class YardstickCLI():   # pragma: no cover
         if CONF.debug:
             _LOG_STREAM_HDLR.setLevel(logging.DEBUG)
 
-    def _dispath_func_notask(self):
+    def _dispatch_func_notask(self):
 
         # dispatch to category parser
         func = CONF.category.func
         func(CONF.category)
 
-    def _dispath_func_task(self, task_id):
+    def _dispatch_func_task(self, task_id):
 
         # dispatch to category parser
         func = CONF.category.func
@@ -159,7 +159,7 @@ class YardstickCLI():   # pragma: no cover
 
             self._handle_global_opts()
 
-            self._dispath_func_notask()
+            self._dispatch_func_notask()
         finally:
             self._clear_config_opts()
 
@@ -172,6 +172,6 @@ class YardstickCLI():   # pragma: no cover
 
             self._handle_global_opts()
 
-            self._dispath_func_task(task_id)
+            self._dispatch_func_task(task_id)
         finally:
             self._clear_config_opts()
