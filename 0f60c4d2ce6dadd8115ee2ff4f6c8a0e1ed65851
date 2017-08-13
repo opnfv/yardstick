@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "da33351e_2c3a88cd",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-13T18:05:55Z",
+      "side": 1,
+      "message": "can we duplicate dpdk-devbind.py and rename to dpdk_nic_bind.py\n\nor hard link maybe\n\n cp dpdk-devbind.py \"$INSTALL_BIN_PATH\"\n ln \"$INSTALL_BIN_PATH\"/dpdk-devbind.py \"$INSTALL_BIN_PATH\"/dpdk_nic_bind.py",
+      "revId": "0f60c4d2ce6dadd8115ee2ff4f6c8a0e1ed65851",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_113c012f",
         "filename": "nsb_setup.sh",
         "patchSetId": 1
