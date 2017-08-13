@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_71490dd0",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-13T05:14:18Z",
+      "side": 1,
+      "message": "tabs to space",
+      "revId": "0f60c4d2ce6dadd8115ee2ff4f6c8a0e1ed65851",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_113c012f",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-13T05:14:18Z",
+      "side": 1,
+      "message": "can we just copy/rename dpdk-devbind.py to dpdk_nic_bind.py?  I think they have the same interface.",
+      "revId": "0f60c4d2ce6dadd8115ee2ff4f6c8a0e1ed65851",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
