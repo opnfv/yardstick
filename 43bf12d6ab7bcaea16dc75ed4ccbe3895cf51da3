@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_2c41e839",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-13T20:40:36Z",
+      "side": 1,
+      "message": "we have to create TASK_LOG_DIR if it doesn\u0027t exist\n\n        utils.makedirs(constants.TASK_LOG_DIR)",
+      "revId": "43bf12d6ab7bcaea16dc75ed4ccbe3895cf51da3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_8c52b411",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-13T20:40:36Z",
+      "side": 1,
+      "message": "this was an error, we must use yaml.safe_load for security.",
+      "revId": "43bf12d6ab7bcaea16dc75ed4ccbe3895cf51da3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ec570001",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-13T20:40:36Z",
+      "side": 1,
+      "message": "we must use yaml.safe_load for security",
+      "revId": "43bf12d6ab7bcaea16dc75ed4ccbe3895cf51da3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_cc5cbc28",
+        "filename": "yardstick/common/constants.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-13T20:40:36Z",
+      "side": 1,
+      "message": "this directory will not exist unless we create it",
+      "revId": "43bf12d6ab7bcaea16dc75ed4ccbe3895cf51da3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
