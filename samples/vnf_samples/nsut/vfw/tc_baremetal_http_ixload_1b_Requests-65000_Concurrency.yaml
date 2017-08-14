@@ -37,4 +37,4 @@ context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: /etc/yardstick/nodes/pod.yaml
+  file: /etc/yardstick/nodes/pod_ixia.yaml
