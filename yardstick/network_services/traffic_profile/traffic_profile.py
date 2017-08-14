@@ -26,6 +26,7 @@ from stl.trex_stl_lib.trex_stl_streams import STLFlowLatencyStats
 from stl.trex_stl_lib.trex_stl_streams import STLTXCont
 from stl.trex_stl_lib.trex_stl_streams import STLProfile
 from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLVmWrFlowVar
+from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLVmFlowVarRepeatableRandom
 from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLVmFlowVar
 from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLPktBuilder
 from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLScVmRaw
@@ -132,7 +133,7 @@ class TrexProfile(TrafficProfile):
                                                 pkt_offset='Ether.dst')
             self.vm_flow_vars.append(stl_vm_wr_flow_var)
 
-    def set_src_ip4(self, src_ip4):
+    def set_src_ip4(self, src_ip4, count=1):
         """ set source ipv4 address fields """
         src_ips = src_ip4.split('-')
         min_value = src_ips[0]
@@ -141,12 +142,13 @@ class TrexProfile(TrafficProfile):
             src_ip4 = min_value
             self._set_ip_fields(src=src_ip4)
         else:
-            stl_vm_flow_var = STLVmFlowVar(name="ip4_src",
-                                           min_value=min_value,
-                                           max_value=max_value,
-                                           size=4,
-                                           op='random',
-                                           step=1)
+            stl_vm_flow_var = \
+                STLVmFlowVarRepeatableRandom(name="ip4_src",
+                                             min_value=min_value,
+                                             max_value=max_value,
+                                             size=4,
+                                             limit=int(count),
+                                             seed=0x1235)
             self.vm_flow_vars.append(stl_vm_flow_var)
             stl_vm_wr_flow_var = STLVmWrFlowVar(fv_name='ip4_src',
                                                 pkt_offset='IP.src')
@@ -154,7 +156,7 @@ class TrexProfile(TrafficProfile):
             stl_vm_fix_ipv4 = STLVmFixIpv4(offset="IP")
             self.vm_flow_vars.append(stl_vm_fix_ipv4)
 
-    def set_dst_ip4(self, dst_ip4):
+    def set_dst_ip4(self, dst_ip4, count=1):
         """ set destination ipv4 address fields """
         dst_ips = dst_ip4.split('-')
         min_value = dst_ips[0]
@@ -163,12 +165,13 @@ class TrexProfile(TrafficProfile):
             dst_ip4 = min_value
             self._set_ip_fields(dst=dst_ip4)
         else:
-            stl_vm_flow_var = STLVmFlowVar(name="dst_ip4",
-                                           min_value=min_value,
-                                           max_value=max_value,
-                                           size=4,
-                                           op='random',
-                                           step=1)
+            stl_vm_flow_var = \
+                STLVmFlowVarRepeatableRandom(name="dst_ip4",
+                                             min_value=min_value,
+                                             max_value=max_value,
+                                             size=4,
+                                             limit=int(count),
+                                             seed=0x1235)
             self.vm_flow_vars.append(stl_vm_flow_var)
             stl_vm_wr_flow_var = STLVmWrFlowVar(fv_name='dst_ip4',
                                                 pkt_offset='IP.dst')
@@ -240,7 +243,7 @@ class TrexProfile(TrafficProfile):
                                                 pkt_offset='IP.tos')
             self.vm_flow_vars.append(stl_vm_wr_flow_var)
 
-    def set_src_port(self, src_port):
+    def set_src_port(self, src_port, count=1):
         """ set packet source port """
         src_ports = str(src_port).split('-')
         min_value = int(src_ports[0])
@@ -250,18 +253,19 @@ class TrexProfile(TrafficProfile):
             self._set_udp_fields(sport=src_port)
         else:
             max_value = int(src_ports[1])
-            stl_vm_flow_var = STLVmFlowVar(name="port_src",
-                                           min_value=min_value,
-                                           max_value=max_value,
-                                           size=2,
-                                           op='random',
-                                           step=1)
+            stl_vm_flow_var = \
+                STLVmFlowVarRepeatableRandom(name="port_src",
+                                             min_value=min_value,
+                                             max_value=max_value,
+                                             size=2,
+                                             limit=int(count),
+                                             seed=0x1235)
             self.vm_flow_vars.append(stl_vm_flow_var)
             stl_vm_wr_flow_var = STLVmWrFlowVar(fv_name='port_src',
                                                 pkt_offset=self.udp_sport)
             self.vm_flow_vars.append(stl_vm_wr_flow_var)
 
-    def set_dst_port(self, dst_port):
+    def set_dst_port(self, dst_port, count=1):
         """ set packet destnation port """
         dst_ports = str(dst_port).split('-')
         min_value = int(dst_ports[0])
@@ -271,12 +275,13 @@ class TrexProfile(TrafficProfile):
             self._set_udp_fields(dport=dst_port)
         else:
             max_value = int(dst_ports[1])
-            stl_vm_flow_var = STLVmFlowVar(name="port_dst",
-                                           min_value=min_value,
-                                           max_value=max_value,
-                                           size=2,
-                                           op='random',
-                                           step=1)
+            stl_vm_flow_var = \
+                STLVmFlowVarRepeatableRandom(name="port_dst",
+                                             min_value=min_value,
+                                             max_value=max_value,
+                                             size=2,
+                                             limit=int(count),
+                                             seed=0x1235)
             self.vm_flow_vars.append(stl_vm_flow_var)
             stl_vm_wr_flow_var = STLVmWrFlowVar(fv_name='port_dst',
                                                 pkt_offset=self.udp_dport)
@@ -335,9 +340,9 @@ class TrexProfile(TrafficProfile):
         if 'dscp' in outer_l3v4:
             self.set_dscp(outer_l3v4['dscp'])
         if 'srcip4' in outer_l3v4:
-            self.set_src_ip4(outer_l3v4['srcip4'])
+            self.set_src_ip4(outer_l3v4['srcip4'], outer_l3v4['count'])
         if 'dstip4' in outer_l3v4:
-            self.set_dst_ip4(outer_l3v4['dstip4'])
+            self.set_dst_ip4(outer_l3v4['dstip4'], outer_l3v4['count'])
 
     def set_outer_l3v6_fields(self, outer_l3v6):
         """ setup outer l3v6 fields from traffic profile """
@@ -367,9 +372,9 @@ class TrexProfile(TrafficProfile):
     def set_outer_l4_fields(self, outer_l4):
         """ setup outer l4 fields from traffic profile """
         if 'srcport' in outer_l4:
-            self.set_src_port(outer_l4['srcport'])
+            self.set_src_port(outer_l4['srcport'], outer_l4['count'])
         if 'dstport' in outer_l4:
-            self.set_dst_port(outer_l4['dstport'])
+            self.set_dst_port(outer_l4['dstport'], outer_l4['count'])
 
     def generate_imix_data(self, packet_definition):
         """ generate packet size for a given traffic profile """
