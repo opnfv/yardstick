@@ -20,7 +20,7 @@ access-list1:
           match-counter: 0
         actions: drop,count
         matches:
-          destination-ipv4-network: 152.16.40.20/24
+          destination-ipv4-network: 152.16.0.0/24
           destination-port-range:
             lower-port: 0
             upper-port: 65535
@@ -38,7 +38,7 @@ access-list1:
           destination-port-range:
             lower-port: 0
             upper-port: 65535
-          source-ipv4-network: 152.16.100.20/24
+          source-ipv4-network: 152.16.0.0/24
           source-port-range:
             lower-port: 0
             upper-port: 65535
