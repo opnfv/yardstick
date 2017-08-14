@@ -17,12 +17,17 @@ from __future__ import absolute_import
 import logging
 
 import errno
+
+import ipaddress
 import os
 
 import re
 from itertools import chain
+
+import six
 from operator import itemgetter
 from collections import defaultdict
+from netaddr import IPNetwork
 
 from yardstick.benchmark.scenarios import base
 from yardstick.common.utils import import_modules_from_package, itersubclasses
@@ -126,19 +131,50 @@ class NetworkServiceTestCase(base.Scenario):
         self.collector = None
         self.traffic_profile = None
 
+    def _get_ip_flow_range(self, ip_start_range):
+
+        node_name, range_or_interface = next(iter(ip_start_range.items()), (None, '0.0.0.0'))
+        if node_name is not None:
+            node = self.context_cfg["nodes"].get(node_name, {})
+            try:
+                # the ip_range is the interface name
+                interface = node.get("interfaces", {})[range_or_interface]
+            except KeyError:
+                ip = "0.0.0.0"
+                mask = "255.255.255.0"
+            else:
+                ip = interface["local_ip"]
+                # we can't default these values, they must both exist to be valid
+                mask = interface["netmask"]
+
+            ipaddr = ipaddress.ip_network(six.text_type('{}/{}'.format(ip, mask)), strict=False)
+            hosts = list(ipaddr.hosts())
+            ip_addr_range = "{}-{}".format(hosts[0], hosts[-1])
+        else:
+            # we are manually specifying the range
+            ip_addr_range = range_or_interface
+        return ip_addr_range
+
     def _get_traffic_flow(self):
+        flow = {}
         try:
-            with open(self.scenario_cfg["traffic_options"]["flow"]) as fflow:
-                flow = yaml_load(fflow)
-        except (KeyError, IOError, OSError):
+            fflow = self.scenario_cfg["options"]["flow"]
+            for index, src in enumerate(fflow.get("src_ip", [])):
+                flow["src_ip{}".format(index)] = self._get_ip_flow_range(src)
+
+            for index, dst in enumerate(fflow.get("dst_ip", [])):
+                flow["dst_ip{}".format(index)] = self._get_ip_flow_range(dst)
+
+            for index, publicip in enumerate(fflow.get("publicip", [])):
+                flow["public_ip{}".format(index)] = publicip
+        except KeyError:
             flow = {}
-        return flow
+        return {"flow": flow}
 
     def _get_traffic_imix(self):
         try:
-            with open(self.scenario_cfg["traffic_options"]["imix"]) as fimix:
-                imix = yaml_load(fimix)
-        except (KeyError, IOError, OSError):
+            imix = {"imix": self.scenario_cfg['options']['framesize']}
+        except KeyError:
             imix = {}
         return imix
 
