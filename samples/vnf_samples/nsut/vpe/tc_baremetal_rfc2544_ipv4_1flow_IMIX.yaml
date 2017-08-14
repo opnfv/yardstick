@@ -22,7 +22,14 @@ scenarios:
     tg__1: trafficgen_1.yardstick
     vnf__1: vnf.yardstick
   options:
-    packetsize: 64
+    framesize:
+      private: {64B: 5, 128B: 11, 256B: 16, 373B: 10, 570B: 35, 1400B: 10, 1500B: 13}
+      public: {64B: 5, 128B: 3, 256B: 4, 373B: 6, 570B: 8, 1400B: 36, 1500B: 38}
+
+    flow:
+      src_ip: [{'tg__1': 'xe0'}]
+      dst_ip: [{'tg__1': 'xe1'}]
+      count: 1
     traffic_type: 4
     rfc2544:
       allowed_drop_rate: 0.0001 - 0.0001
@@ -32,9 +39,6 @@ scenarios:
     type: Iteration
     iterations: 10
     interval: 35
-  traffic_options:
-    flow: "../../traffic_profiles/ipv4_1flow_Packets_vpe.yaml"
-    imix: "../../traffic_profiles/imix_video.yaml"
 context:
   type: Node
   name: yardstick
