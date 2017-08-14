@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_2c4ba82c",
+        "filename": "yardstick/network_services/helpers/samplevnf_helper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-14T00:37:46Z",
+      "side": 1,
+      "message": "this doesn\u0027t look like the right fix.\n\nroute_list should default to [] if the key is not present.\n\nwhat was the caller value of src_key?\n\nif route_list is really None for some reason, we should do the regular check for emptiness\n\n  if route_list:\n    return next((route[data_key] for route in route_list if route[\u0027if\u0027] \u003d\u003d port), None)",
+      "revId": "e8708cdd7e000facc06b5e39944782f4914d7103",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
