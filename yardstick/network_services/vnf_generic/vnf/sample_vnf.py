@@ -909,6 +909,7 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         self.tg_port_pairs = None
         self._tg_process = None
         self._traffic_process = None
+        self.done = False
 
     def _start_server(self):
         # we can't share ssh paramiko objects to force new connection
@@ -925,6 +926,8 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         self._tg_process.start()
 
     def wait_for_instantiate(self):
+        if self.done:
+            return True
         return self._wait_for_process()
 
     def _check_status(self):
