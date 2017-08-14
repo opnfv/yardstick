@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_cc2b1c2f",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-08-14T01:06:40Z",
+      "side": 1,
+      "message": "We have already created it in docker/uwsgi.sh.",
+      "parentUuid": "da33351e_2c41e839",
+      "revId": "43bf12d6ab7bcaea16dc75ed4ccbe3895cf51da3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_8c52b411",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2017-08-13T20:40:36Z",
       "side": 1,
       "message": "this was an error, we must use yaml.safe_load for security.",
+      "revId": "43bf12d6ab7bcaea16dc75ed4ccbe3895cf51da3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_2c20c848",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-08-14T01:06:40Z",
+      "side": 1,
+      "message": "yes, it should be replaced. We may need bug fix for it.",
+      "parentUuid": "da33351e_8c52b411",
       "revId": "43bf12d6ab7bcaea16dc75ed4ccbe3895cf51da3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
