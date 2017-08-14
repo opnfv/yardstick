@@ -26,8 +26,16 @@ try:
 except ImportError:
     import json as jsonutils
 
-from yardstick.common.utils import join_non_strings
-from yardstick.common.utils import ErrorClass
+
+class ErrorClass(object):
+
+    def __init__(self, *args, **kwargs):
+        if 'test' not in kwargs:
+            raise RuntimeError
+
+    def __getattr__(self, item):
+        raise AttributeError
+
 
 try:
     from IxLoad import IxLoad, StatCollectorUtils
@@ -80,11 +88,17 @@ Incoming stats: Time interval: %s
 """
 
 
+def join_non_strings(separator, *non_strings):
+    try:
+        non_strings = validate_non_string_sequence(non_strings[0], raise_exc=RuntimeError)
+    except (IndexError, RuntimeError):
+        pass
+    return str(separator).join(str(non_string) for non_string in non_strings)
+
+
 class IXLOADHttpTest(object):
 
     def __init__(self, test_input):
-        self.test_input = jsonutils.loads(test_input)
-        self.parse_run_test()
         self.ix_load = None
         self.stat_utils = None
         self.remote_server = None
@@ -94,6 +108,8 @@ class IXLOADHttpTest(object):
         self.chassis = None
         self.card = None
         self.ports_to_reassign = None
+        self.test_input = jsonutils.loads(test_input)
+        self.parse_run_test()
 
     @staticmethod
     def format_ports_for_reassignment(ports):
@@ -291,4 +307,5 @@ def main(args):
         ixload_obj.start_http_test()
 
 if __name__ == '__main__':
+    LOG.info("Start http_ixload test")
     main(sys.argv)

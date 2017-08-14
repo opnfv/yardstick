@@ -69,8 +69,10 @@ class SshManager(object):
         returns -> ssh connection ready to be used
         """
         try:
-            self.conn = ssh.SSH.from_node(self.node)
-            self.conn.wait()
+            # IxNet/IxLoad does not support ssh to traffic gen.
+            if self.node["role"] not in ["IxNet", "IxLoad"]:
+                self.conn = ssh.SSH.from_node(self.node)
+                self.conn.wait()
         except SSHError as error:
             LOG.info("connect failed to %s, due to %s", self.node["ip"], error)
         # self.conn defaults to None
@@ -310,17 +312,19 @@ class NetworkServiceTestCase(base.Scenario):
         for node, node_dict in self.context_cfg["nodes"].items():
 
             cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
+            netdevs = {}
             with SshManager(node_dict) as conn:
-                exit_status = conn.execute(cmd)[0]
-                if exit_status != 0:
-                    raise IncorrectSetup("Node's %s lacks ip tool." % node)
-                exit_status, stdout, _ = conn.execute(
-                    self.FIND_NETDEVICE_STRING)
-                if exit_status != 0:
-                    raise IncorrectSetup(
-                        "Cannot find netdev info in sysfs" % node)
-                netdevs = node_dict['netdevs'] = self.parse_netdev_info(
-                    stdout)
+                if conn:
+                    exit_status = conn.execute(cmd)[0]
+                    if exit_status != 0:
+                        raise IncorrectSetup("Node's %s lacks ip tool." % node)
+                    exit_status, stdout, _ = conn.execute(
+                        self.FIND_NETDEVICE_STRING)
+                    if exit_status != 0:
+                        raise IncorrectSetup(
+                            "Cannot find netdev info in sysfs" % node)
+                    netdevs = node_dict['netdevs'] = \
+                        self.parse_netdev_info(stdout)
 
                 for network in node_dict["interfaces"].values():
                     missing = self.TOPOLOGY_REQUIRED_KEYS.difference(network)
