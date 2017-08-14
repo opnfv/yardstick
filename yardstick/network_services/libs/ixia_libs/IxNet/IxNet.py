@@ -322,13 +322,13 @@ class IxNextgen(object):
 
     def ix_get_statistics(self):
         views = self.ixnet.getList('/statistics', 'view')
+        stats = {}
         view_obj = self.find_view_obj("Traffic Item Statistics", views)
         stats = self.build_stats_map(view_obj, self.STATS_NAME_MAP)
 
-        self.find_view_obj("Port Statistics", views)
+        view_obj = self.find_view_obj("Port Statistics", views)
         ports_stats = self.build_stats_map(view_obj, self.PORT_STATS_NAME_MAP)
 
-        views = self.ixnet.getList('/statistics', 'view')
         view_obj = self.find_view_obj("Flow Statistics", views)
         stats["latency"] = self.build_stats_map(view_obj, self.LATENCY_NAME_MAP)
 
