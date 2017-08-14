@@ -115,9 +115,9 @@ class TestRFC2544Profile(unittest.TestCase):
                            'outer_l3v4': {'dstip4': '1.1.1.1-1.15.255.255',
                                           'proto': 'udp',
                                           'srcip4': '90.90.1.1-90.105.255.255',
-                                          'dscp': 0, 'ttl': 32},
+                                          'dscp': 0, 'ttl': 32, 'count': 1},
                            'outer_l4': {'srcport': '2001',
-                                        'dsrport': '1234'}}},
+                               'dsrport': '1234', 'count': 1}}},
                'private_1': {'ipv4':
                            {'outer_l2': {'framesize':
                                          {'64B': '100', '1518B': '0',
@@ -127,9 +127,9 @@ class TestRFC2544Profile(unittest.TestCase):
                             'outer_l3v4': {'dstip4': '9.9.1.1-90.105.255.255',
                                            'proto': 'udp',
                                            'srcip4': '1.1.1.1-1.15.255.255',
-                                           'dscp': 0, 'ttl': 32},
+                                           'dscp': 0, 'ttl': 32, 'count': 1},
                             'outer_l4': {'dstport': '2001',
-                                         'srcport': '1234'}}},
+                                'srcport': '1234', 'count': 1}}},
                'schema': 'isb:traffic_profile:0.1'}
 
     def test___init__(self):
