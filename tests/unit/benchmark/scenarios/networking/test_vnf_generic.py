@@ -375,6 +375,9 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                     'allowed_drop_rate': '0.8 - 1',
                 },
             },
+            'options': {
+                'framesize': {'64B': 100}
+            },
             'runner': {
                 'object': 'NetworkServiceTestCase',
                 'interval': 35,
@@ -414,17 +417,29 @@ class TestNetworkServiceTestCase(unittest.TestCase):
     def test___init__(self):
         assert self.topology
 
+    def test__get_ip_range(self):
+        self.scenario_cfg["traffic_options"]["flow"] = \
+            self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
+        result = '152.16.0.0-152.16.255.255'
+        self.assertEqual(result, self.s.get_ip_range({"tg__1": 'xe0'}))
+
     def test___get_traffic_flow(self):
         self.scenario_cfg["traffic_options"]["flow"] = \
             self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
-        result = {'flow': {'dstip4_range': '152.40.0.20',
-                           'srcip4_range': '152.16.0.20', 'count': 1}}
+        self.scenario_cfg["options"] = {}
+        self.scenario_cfg["options"]["flow"] = \
+                {"src_ip": [{"tg__1": "xe0"}], "dst_ip": [{"tg__1": "xe1"}],
+                 "publicip": ["1.1.1.1"]}
+        result = {'flow': {'dstip0': '152.16.0.0-152.16.255.255',
+                           'publicip0': '1.1.1.1',
+                           'srcip0': '152.16.0.0-152.16.255.255'}}
+
         self.assertEqual(result, self.s._get_traffic_flow())
 
     def test___get_traffic_flow_error(self):
         self.scenario_cfg["traffic_options"]["flow"] = \
             "ipv4_1flow_Packets_vpe.yaml1"
-        self.assertEqual({}, self.s._get_traffic_flow())
+        self.assertEqual({'flow': {}}, self.s._get_traffic_flow())
 
     def test_get_vnf_imp(self):
         vnfd = COMPLETE_TREX_VNFD['vnfd:vnfd-catalog']['vnfd'][0]['class-name']
@@ -586,7 +601,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
 
     def test___get_traffic_imix_exception(self):
         with mock.patch.dict(self.scenario_cfg["traffic_options"], {'imix': ''}):
-            self.assertEqual({}, self.s._get_traffic_imix())
+            self.assertEqual({'imix': {'64B': 100}}, self.s._get_traffic_imix())
 
     def test__fill_traffic_profile(self):
         with mock.patch.dict("sys.modules", STL_MOCKS):
