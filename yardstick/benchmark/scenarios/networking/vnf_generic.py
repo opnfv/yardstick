@@ -23,6 +23,7 @@ import re
 from itertools import chain
 from operator import itemgetter
 from collections import defaultdict
+from netaddr import IPNetwork
 
 from yardstick.benchmark.scenarios import base
 from yardstick.common.utils import import_modules_from_package, itersubclasses
@@ -126,18 +127,38 @@ class NetworkServiceTestCase(base.Scenario):
         self.collector = None
         self.traffic_profile = None
 
+    def get_ip_range(self, iprange):
+        ip = ""
+        for key, value in iprange.items():
+           node = self.context_cfg["nodes"].get(key, {})
+           ip = \
+               node.get("interfaces", {}).get(value, {}).get("local_ip",
+                                                             "0.0.0.0")
+        ip = IPNetwork('%s/16' % ip)
+        ip_range = "%s-%s" % (ip[0], ip[-1])
+        return ip_range
+
     def _get_traffic_flow(self):
+        flow = {}
         try:
-            with open(self.scenario_cfg["traffic_options"]["flow"]) as fflow:
-                flow = yaml_load(fflow)
+            fflow = self.scenario_cfg["options"]["flow"]
+            for index, src in enumerate(fflow.get("src_ip", [])):
+                flow["srcip%s" % index] = self.get_ip_range(src)
+
+            for index, dst in enumerate(fflow.get("dst_ip", [])):
+                flow["dstip%s" % index] = self.get_ip_range(dst)
+
+            for index, publicip in enumerate(fflow.get("publicip", [])):
+                flow["publicip%s" % index] = publicip
         except (KeyError, IOError, OSError):
             flow = {}
-        return flow
+
+        return {"flow": flow}
 
     def _get_traffic_imix(self):
+        imix = {}
         try:
-            with open(self.scenario_cfg["traffic_options"]["imix"]) as fimix:
-                imix = yaml_load(fimix)
+            imix["imix"] = self.scenario_cfg['options']['framesize']
         except (KeyError, IOError, OSError):
             imix = {}
         return imix
