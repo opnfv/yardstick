@@ -57,6 +57,9 @@ class TrexRfcResourceHelper(TrexResourceHelper):
         self.my_ports = list(set(chain(self.priv_ports, self.pub_ports)))
 
     def _run_traffic_once(self, traffic_profile):
+        if self._terminated.value:
+            return
+
         traffic_profile.execute(self)
         self.client_started.value = 1
         time.sleep(self.RUN_DURATION)

@@ -497,18 +497,23 @@ class ClientResourceHelper(ResourceHelper):
     def run_traffic(self, traffic_profile):
         # fixme: fix passing correct trex config file,
         # instead of searching the default path
-        self._build_ports()
-        self.client = self._connect()
-        self.client.reset(ports=self.my_ports)
-        self.client.remove_all_streams(self.my_ports)  # remove all streams
-        traffic_profile.register_generator(self)
+        try:
+            self._build_ports()
+            self.client = self._connect()
+            self.client.reset(ports=self.my_ports)
+            self.client.remove_all_streams(self.my_ports)  # remove all streams
+            traffic_profile.register_generator(self)
 
-        while self._terminated.value == 0:
-            self._run_traffic_once(traffic_profile)
+            while self._terminated.value == 0:
+                self._run_traffic_once(traffic_profile)
 
-        self.client.stop(self.my_ports)
-        self.client.disconnect()
-        self._terminated.value = 0
+            self.client.stop(self.my_ports)
+            self.client.disconnect()
+            self._terminated.value = 0
+        except Exception:
+            if self._terminated.value:
+                return # return if trex/tg seever is stopped.
+            raise RuntimeError("Error while running the traffic")
 
     def terminate(self):
         self._terminated.value = 1  # stop client
