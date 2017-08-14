@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_8c3114a5",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-08-14T01:04:16Z",
+      "side": 1,
+      "message": "We have create it in docker/uwsgi.sh, but maybe it is better to redo it here.",
+      "range": {
+        "startLine": 165,
+        "startChar": 8,
+        "endLine": 165,
+        "endChar": 46
+      },
+      "revId": "7053020cfd7fc3ed93bdd83ca4b70a2e95818daa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
