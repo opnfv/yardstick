@@ -39,7 +39,7 @@ from yardstick.network_services.utils import get_nsb_option
 
 from stl.trex_stl_lib.trex_stl_client import STLClient
 from stl.trex_stl_lib.trex_stl_client import LoggerApi
-from stl.trex_stl_lib.trex_stl_exceptions import STLError, STLStateError
+from stl.trex_stl_lib.trex_stl_exceptions import STLError
 
 from yardstick.ssh import AutoConnectSSH
 
@@ -457,7 +457,7 @@ class ClientResourceHelper(ResourceHelper):
     def get_stats(self, *args, **kwargs):
         try:
             return self.client.get_stats(*args, **kwargs)
-        except STLStateError:
+        except STLError:
             LOG.exception("TRex client not connected")
             return {}
 
