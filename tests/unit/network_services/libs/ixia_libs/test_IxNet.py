@@ -263,7 +263,7 @@ class TestIxNextgen(unittest.TestCase):
 
         result = ixnet_gen.ix_get_statistics()
         self.assertIsNotNone(result)
-        self.assertEqual(ixnet.getList.call_count, 2)
+        self.assertEqual(ixnet.getList.call_count, 1)
         self.assertEqual(ixnet.execute.call_count, 20)
 
     def test_find_view_obj_no_where(self):
