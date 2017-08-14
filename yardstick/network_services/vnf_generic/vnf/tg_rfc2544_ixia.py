@@ -23,11 +23,6 @@ from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTraff
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import Rfc2544ResourceHelper
 
-try:
-    from IxNet import IxNextgen
-except ImportError:
-    IxNextgen = ErrorClass
-
 LOG = logging.getLogger(__name__)
 
 WAIT_AFTER_CFG_LOAD = 10
@@ -35,6 +30,11 @@ WAIT_FOR_TRAFFIC = 30
 IXIA_LIB = os.path.dirname(os.path.realpath(__file__))
 IXNET_LIB = os.path.join(IXIA_LIB, "../../libs/ixia_libs/IxNet")
 sys.path.append(IXNET_LIB)
+
+try:
+    from IxNet import IxNextgen
+except ImportError:
+    IxNextgen = ErrorClass
 
 
 class IxiaRfc2544Helper(Rfc2544ResourceHelper):
@@ -59,7 +59,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         self.pub_ports = None
 
     def _connect(self, client=None):
-        self.client.connect(self.vnfd_helper)
+        self.client._connect(self.vnfd_helper)
 
     def _build_ports(self):
         # self.generate_port_pairs(self.topology)
@@ -72,7 +72,7 @@ class IxiaResourceHelper(ClientResourceHelper):
 
     def stop_collect(self):
         self._terminated.value = 0
-        if self.client:
+        if self.client and self.client.ixnet:
             self.client.ix_stop_traffic()
 
     def generate_samples(self, key=None, default=None):
@@ -112,8 +112,8 @@ class IxiaResourceHelper(ClientResourceHelper):
         for index, interface in enumerate(self.vnfd_helper.interfaces):
             virt_intf = interface["virtual-interface"]
             mac.update({
-                "src_mac_{}".format(index): virt_intf["local_mac"],
-                "dst_mac_{}".format(index): virt_intf["dst_mac"],
+                "src_mac_{}".format(index + 1): virt_intf["local_mac"],
+                "dst_mac_{}".format(index + 1): virt_intf["dst_mac"],
             })
 
         samples = {}
@@ -146,6 +146,7 @@ class IxiaTrafficGen(SampleVNFTrafficGen):
 
         super(IxiaTrafficGen, self).__init__(name, vnfd, setup_env_helper_type,
                                              resource_helper_type)
+        self.done = True
         self._ixia_traffic_gen = None
         self.ixia_file_name = ''
         self.tg_port_pairs = []

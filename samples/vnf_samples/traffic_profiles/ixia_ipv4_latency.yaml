@@ -53,6 +53,7 @@ private_1:
         outer_l4:
             srcport: "{{get(flow, 'flow.srcport0', '1234') }}"
             dstport: "{{get(flow, 'flow.dstport0', '2001') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
 public_1:
       ipv4:
         outer_l2:
@@ -75,6 +76,7 @@ public_1:
         outer_l4:
             srcport: "{{get(flow, 'flow.srcport0', '1234') }}"
             dstport: "{{get(flow, 'flow.dstport0', '2001') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
 private_2:
       ipv4:
         outer_l2:
@@ -97,6 +99,7 @@ private_2:
         outer_l4:
             srcport: "{{get(flow, 'flow.srcport1', '1234') }}"
             dstport: "{{get(flow, 'flow.dstport1', '2001') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
 public_2:
       ipv4:
         outer_l2:
@@ -119,3 +122,4 @@ public_2:
         outer_l4:
             srcport: "{{get(flow, 'flow.dstport1', '1234') }}"
             dstport: "{{get(flow, 'flow.srcport1', '2001') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
