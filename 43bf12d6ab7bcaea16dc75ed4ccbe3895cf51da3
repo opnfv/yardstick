@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_ac8fb822",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-08-14T03:10:42Z",
+      "side": 1,
+      "message": "OK, thank you~",
+      "parentUuid": "da33351e_4ceeeced",
+      "revId": "43bf12d6ab7bcaea16dc75ed4ccbe3895cf51da3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_ec570001",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 3
