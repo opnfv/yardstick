@@ -91,6 +91,7 @@ LOAD_IMAGES_SCRIPT = get_param('file.load_image_script',
 LOAD_IMAGES_SCRIPT = join(REPOS_DIR, LOAD_IMAGES_SCRIPT)
 DEFAULT_OUTPUT_FILE = get_param('file.output_file', '/tmp/yardstick.out')
 DEFAULT_HTML_FILE = get_param('file.html_file', '/tmp/yardstick.htm')
+REPORTING_FILE = get_param('file.reporting_file', '/tmp/report.html')
 
 # influxDB
 INFLUXDB_IP = get_param('influxdb.ip', SERVER_IP)
