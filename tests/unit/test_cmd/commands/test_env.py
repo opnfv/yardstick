@@ -49,6 +49,9 @@ class EnvCommandTestCase(unittest.TestCase):
     @mock.patch('yardstick.cmd.commands.env.HttpClient.get')
     @mock.patch('yardstick.cmd.commands.env.EnvCommand._print_status')
     def test_check_status(self, print_mock, get_mock):
+        # pylint: disable=unused-argument
+        # NOTE(ralonsoh): the pylint exception must be removed. The mocked
+        # command call must be tested.
         task_id = str(uuid.uuid4())
         get_mock.return_value = {'status': 2, 'result': 'error'}
         status = EnvCommand()._check_status(task_id, 'hello world')
@@ -57,7 +60,8 @@ class EnvCommandTestCase(unittest.TestCase):
     def test_print_status(self):
         try:
             EnvCommand()._print_status('hello', 'word')
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-except
+            # NOTE(ralonsoh): try to reduce the scope of this exception.
             self.assertIsInstance(e, IndexError)
 
 
