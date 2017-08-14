@@ -126,9 +126,10 @@ class Task(object):     # pragma: no cover
             except KeyboardInterrupt:
                 raise
             except Exception:
-                LOG.exception("Running test case %s failed!", case_name)
+                LOG.error('Testcase: "%s" FAILED!!!', case_name, exe_info=True)
                 testcases[case_name] = {'criteria': 'FAIL', 'tc_data': []}
             else:
+                LOG.info('Testcase: "%s" SUCCESS!!!', case_name)
                 testcases[case_name] = {'criteria': 'PASS', 'tc_data': data}
 
             if args.keep_deploy:
@@ -265,7 +266,9 @@ class Task(object):     # pragma: no cover
                     runner = self.run_one_scenario(scenario, output_file)
                     status = runner_join(runner)
                     if status != 0:
-                        LOG.error('Scenario: %s ERROR', scenario.get('type'))
+                        LOG.error('Scenario NO.%s: "%s" ERROR!',
+                                  scenarios.index(scenario) + 1,
+                                  scenario.get('type'))
                         raise RuntimeError
                     self.outputs.update(runner.get_output())
                     result.extend(runner.get_result())
