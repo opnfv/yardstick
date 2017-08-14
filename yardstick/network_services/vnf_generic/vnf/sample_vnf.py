@@ -39,7 +39,7 @@ from yardstick.network_services.utils import get_nsb_option
 
 from stl.trex_stl_lib.trex_stl_client import STLClient
 from stl.trex_stl_lib.trex_stl_client import LoggerApi
-from stl.trex_stl_lib.trex_stl_exceptions import STLError, STLStateError
+from stl.trex_stl_lib.trex_stl_exceptions import STLError
 
 from yardstick.ssh import AutoConnectSSH
 
@@ -457,7 +457,7 @@ class ClientResourceHelper(ResourceHelper):
     def get_stats(self, *args, **kwargs):
         try:
             return self.client.get_stats(*args, **kwargs)
-        except STLStateError:
+        except STLError:
             LOG.exception("TRex client not connected")
             return {}
 
@@ -497,18 +497,24 @@ class ClientResourceHelper(ResourceHelper):
     def run_traffic(self, traffic_profile):
         # fixme: fix passing correct trex config file,
         # instead of searching the default path
-        self._build_ports()
-        self.client = self._connect()
-        self.client.reset(ports=self.my_ports)
-        self.client.remove_all_streams(self.my_ports)  # remove all streams
-        traffic_profile.register_generator(self)
+        try:
+            self._build_ports()
+            self.client = self._connect()
+            self.client.reset(ports=self.my_ports)
+            self.client.remove_all_streams(self.my_ports)  # remove all streams
+            traffic_profile.register_generator(self)
 
-        while self._terminated.value == 0:
-            self._run_traffic_once(traffic_profile)
+            while self._terminated.value == 0:
+                self._run_traffic_once(traffic_profile)
 
-        self.client.stop(self.my_ports)
-        self.client.disconnect()
-        self._terminated.value = 0
+            self.client.stop(self.my_ports)
+            self.client.disconnect()
+            self._terminated.value = 0
+        except STLStateError:
+            if self._terminated.value:
+                LOG.debug("traffic generator is stopped")
+                return  # return if trex/tg server is stopped.
+            raise
 
     def terminate(self):
         self._terminated.value = 1  # stop client
