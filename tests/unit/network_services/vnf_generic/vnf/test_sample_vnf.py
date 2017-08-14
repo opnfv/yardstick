@@ -1142,7 +1142,7 @@ class TestClientResourceHelper(unittest.TestCase):
     }
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.LOG')
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.STLStateError',
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.STLError',
                 new_callable=lambda: MockError)
     def test_get_stats_not_connected(self, mock_state_error, mock_logger):
         vnfd_helper = VnfdHelper({})
