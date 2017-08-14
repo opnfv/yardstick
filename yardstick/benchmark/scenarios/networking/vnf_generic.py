@@ -68,8 +68,10 @@ class SshManager(object):
         returns -> ssh connection ready to be used
         """
         try:
-            self.conn = ssh.SSH.from_node(self.node)
-            self.conn.wait()
+            # IxNet/IxLoad does not support ssh to traffic gen.
+            if self.node["role"] not in ["IxNet", "IxLoad"]:
+                self.conn = ssh.SSH.from_node(self.node)
+                self.conn.wait()
         except SSHError as error:
             LOG.info("connect failed to %s, due to %s", self.node["ip"], error)
         # self.conn defaults to None
@@ -265,8 +267,25 @@ class NetworkServiceTestCase(base.Scenario):
         for dpdk_port_num, netdev in enumerate(s):
             netdev['dpdk_port_num'] = dpdk_port_num
 
+    def _probe_netdevs(self, node, node_dict):
+        cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
+        netdevs = {}
+        with SshManager(node_dict) as conn:
+            if conn:
+                exit_status = conn.execute(cmd)[0]
+                if exit_status != 0:
+                    raise IncorrectSetup("Node's %s lacks ip tool." % node)
+                exit_status, stdout, _ = conn.execute(
+                    self.FIND_NETDEVICE_STRING)
+                if exit_status != 0:
+                    raise IncorrectSetup(
+                        "Cannot find netdev info in sysfs" % node)
+                netdevs = node_dict['netdevs'] = self.parse_netdev_info(stdout)
+        return netdevs
+
     @classmethod
-    def _probe_missing_values(cls, netdevs, network, missing):
+    def _probe_missing_values(cls, netdevs, network):
+
         mac_lower = network['local_mac'].lower()
         for netdev in netdevs.values():
             if netdev['address'].lower() != mac_lower:
@@ -288,36 +307,30 @@ class NetworkServiceTestCase(base.Scenario):
         """
         for node, node_dict in self.context_cfg["nodes"].items():
 
-            cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
-            with SshManager(node_dict) as conn:
-                exit_status = conn.execute(cmd)[0]
-                if exit_status != 0:
-                    raise IncorrectSetup("Node's %s lacks ip tool." % node)
-                exit_status, stdout, _ = conn.execute(
-                    self.FIND_NETDEVICE_STRING)
-                if exit_status != 0:
-                    raise IncorrectSetup(
-                        "Cannot find netdev info in sysfs" % node)
-                netdevs = node_dict['netdevs'] = self.parse_netdev_info(
-                    stdout)
+            for network in node_dict["interfaces"].values():
+                missing = self.TOPOLOGY_REQUIRED_KEYS.difference(network)
+                if not missing:
+                    continue
 
-                for network in node_dict["interfaces"].values():
-                    missing = self.TOPOLOGY_REQUIRED_KEYS.difference(network)
-                    if not missing:
-                        continue
+                # only ssh probe if there are missing values
+                # ssh probe won't work on Ixia, so we had better define all our values
 
-                    try:
-                        self._probe_missing_values(netdevs, network,
-                                                   missing)
-                    except KeyError:
-                        pass
-                    else:
-                        missing = self.TOPOLOGY_REQUIRED_KEYS.difference(
-                            network)
-                    if missing:
-                        raise IncorrectConfig(
-                            "Require interface fields '%s' not found, topology file "
-                            "corrupted" % ', '.join(missing))
+                try:
+                    netdevs = self._probe_netdevs(node, node_dict)
+                    self._probe_missing_values(netdevs, network)
+                except KeyError:
+                    pass
+                except (SSHError, SSHTimeout):
+                    raise IncorrectConfig(
+                        "Unable to probe missing interface fields '%s', on node %s "
+                        "SSH Error" % (', '.join(missing), node))
+                else:
+                    missing = self.TOPOLOGY_REQUIRED_KEYS.difference(
+                        network)
+                if missing:
+                    raise IncorrectConfig(
+                        "Require interface fields '%s' not found, topology file "
+                        "corrupted" % ', '.join(missing))
 
         # 3. Use topology file to find connections & resolve dest address
         self._resolve_topology()
