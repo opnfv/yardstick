@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_4ceeeced",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-14T02:12:11Z",
+      "side": 1,
+      "message": "I replaced this with yaml_load() due to Python 2 unicode issues.\n\nsee https://gerrit.opnfv.org/gerrit/#/c/39209/",
+      "parentUuid": "da33351e_2c20c848",
+      "revId": "43bf12d6ab7bcaea16dc75ed4ccbe3895cf51da3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_ec570001",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 3
