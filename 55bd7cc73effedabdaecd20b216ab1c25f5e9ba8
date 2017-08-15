@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_7d30bc56",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-15T04:48:47Z",
+      "side": 1,
+      "message": "I split this into a separate patch so we can merge quickly while we fix Jenkins unittest failures in the rest of this patch.",
+      "revId": "55bd7cc73effedabdaecd20b216ab1c25f5e9ba8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_dd0c6897",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-15T04:48:47Z",
+      "side": 1,
+      "message": "this method exists in resource.py, was this a rebase issue?\n\nResourceProfile:amqp_process_for_nfvi_kpi",
+      "revId": "55bd7cc73effedabdaecd20b216ab1c25f5e9ba8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_bd11a4ae",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-15T04:48:47Z",
+      "side": 1,
+      "message": "when was scenario_cfg empty?  I don\u0027t think it can be valid without nodes?\n\neventually we will define schema and required fields.",
+      "revId": "55bd7cc73effedabdaecd20b216ab1c25f5e9ba8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9d7940ff",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-15T04:48:47Z",
+      "side": 1,
+      "message": "good catch, I guess this has been there since the beginning.",
+      "revId": "55bd7cc73effedabdaecd20b216ab1c25f5e9ba8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7d7efce5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-15T04:48:47Z",
+      "side": 1,
+      "message": "in the original it is \n\n  2 ** len(self.all_ports+1) - 1\n\nwhich I think is more clear in indicating that we need to act like we have another port.",
+      "revId": "55bd7cc73effedabdaecd20b216ab1c25f5e9ba8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_dd83c8ca",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-15T04:48:47Z",
+      "side": 1,
+      "message": "ugh, nfvi_type is not really implemented properly because it is not a direct value, merely a proxy for hardware settings.\n\nis there a way we can probe hardware to check hw csum?\n\nethtool or something?",
+      "revId": "55bd7cc73effedabdaecd20b216ab1c25f5e9ba8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_bd8884e8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-15T04:48:47Z",
+      "side": 1,
+      "message": "what would be the proper fix?",
+      "revId": "55bd7cc73effedabdaecd20b216ab1c25f5e9ba8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

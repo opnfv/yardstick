@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_3d4634c0",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-15T04:48:47Z",
+      "side": 0,
+      "message": "intentional? or merge byproduct?",
+      "revId": "631162a347f8bc5f25b04729c29e4948f77b2622",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
