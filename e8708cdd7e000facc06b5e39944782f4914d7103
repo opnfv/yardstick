@@ -16,6 +16,24 @@
       "revId": "e8708cdd7e000facc06b5e39944782f4914d7103",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_dd2bc7e9",
+        "filename": "yardstick/network_services/helpers/samplevnf_helper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-08-15T07:33:31Z",
+      "side": 1,
+      "message": "if the nd_route_tbl is not there the route_list will be None not []",
+      "parentUuid": "da33351e_2c4ba82c",
+      "revId": "e8708cdd7e000facc06b5e39944782f4914d7103",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
