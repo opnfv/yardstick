@@ -193,6 +193,14 @@ class TestVnfdGen(unittest.TestCase):
         d = {'a': 1, 'b': 2}
         self.assertEqual(vnfdgen.deepgetitem(d, "a"), 1)
 
+    def test_dict_flatten_str_int_key_first(self):
+        d = {'0': 1, 0: 24, 'b': 2}
+        self.assertEqual(vnfdgen.deepgetitem(d, "0"), 1)
+
+    def test_dict_flatten_int_key_fallback(self):
+        d = {0: 1, 'b': 2}
+        self.assertEqual(vnfdgen.deepgetitem(d, "0"), 1)
+
     def test_dict_flatten_list(self):
         d = {'a': 1, 'b': list(range(2))}
         self.assertEqual(vnfdgen.deepgetitem(d, "b.0"), 0)
@@ -200,6 +208,11 @@ class TestVnfdGen(unittest.TestCase):
     def test_dict_flatten_dict(self):
         d = {'a': 1, 'b': {x: x for x in list(range(2))}}
         self.assertEqual(vnfdgen.deepgetitem(d, "b.0"), 0)
+
+    def test_dict_flatten_only_str_key(self):
+        d = {'0': 1, 0: 24, 'b': 2}
+        self.assertRaises(AttributeError, vnfdgen.deepgetitem, d, 0)
+
 
     def test_generate_tp_single_var(self):
         """ Function to verify traffic profile generation with imix """
