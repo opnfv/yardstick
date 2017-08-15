@@ -87,7 +87,6 @@ stl_patch.start()
 
 if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.acl_vnf import AclApproxVnf
-    from yardstick.network_services.vnf_generic.vnf import acl_vnf
     from yardstick.network_services.nfvi.resource import ResourceProfile
 
 
@@ -403,29 +402,6 @@ class TestAclApproxVnf(unittest.TestCase):
             self.scenario_cfg.update({"nodes": {"vnf__1": ""}})
             self.assertIsNone(acl_approx_vnf.instantiate(self.scenario_cfg,
                                                          self.context_cfg))
-
-    def test_instantiate_panic(self, mock_process):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = mock.Mock(return_value=(1, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            acl_approx_vnf = AclApproxVnf(name, vnfd)
-            self.scenario_cfg['vnf_options'] = {'acl': {'cfg': "",
-                                                        'rules': ""}}
-            acl_approx_vnf._run_acl = mock.Mock(return_value=0)
-            acl_approx_vnf.WAIT_TIME = 0
-            acl_approx_vnf.resource_helper = mock.MagicMock()
-            acl_approx_vnf._build_config = mock.MagicMock()
-            acl_approx_vnf._vnf_process = mock.MagicMock()
-            acl_approx_vnf._vnf_process.start = mock.Mock()
-            acl_approx_vnf._vnf_process.is_alive = mock.Mock(return_value=True)
-            self.assertRaises(ValueError, acl_approx_vnf.instantiate,
-                              self.scenario_cfg, self.context_cfg)
-            acl_approx_vnf.q_out.put("PANIC")
-            acl_approx_vnf.WAIT_TIME = 0
-            self.assertRaises(ValueError, acl_approx_vnf.instantiate,
-                              self.scenario_cfg, self.context_cfg)
 
     def test_scale(self, mock_process):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
