@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_802c34ad",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-15T16:10:17Z",
+      "side": 1,
+      "message": "grab this from scenario_cfg\n\nsomething like:\n\n self.scenario_cfg.options[\u0027hw_csum\u0027]",
+      "revId": "b9ced0c527fa6b4b4746a67850a30c5705f65bb0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
