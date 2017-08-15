@@ -37,10 +37,10 @@ Version History
 | *Date*         | *Version*          | *Comment*                       |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
-|                |  3.1               | Yardstick for Danube release    |
+|                |  3.2               | Yardstick for Danube release    |
 |                |                    |                                 |
-|                |                    | Note: The 3.1 tag is due to git |
-|                |                    | tag issue during Danube 3.0     |
+|                |                    | Note: The 3.2 tag is due to a   |
+|                |                    | code issue during Danube 3.1    |
 |                |                    | release                         |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
@@ -142,16 +142,16 @@ Release Data
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/Danube.3.1                 |
+| **Repo/tag**                         | yardstick/Danube.3.2                 |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | Danube.3.1                           |
+| **Yardstick Docker image tag**       | Danube.3.2                           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Danube                               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | July 14th, 2017                      |
+| **Release date**                     | August 15th, 2017                    |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | OPNFV Danube release 3.0             |
@@ -174,7 +174,7 @@ Software Deliverables
 ---------------------
 
 
- - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: danube.3.1)
+ - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: danube.3.2)
 
 
 **Contexts**
@@ -602,6 +602,17 @@ Known Issues/Faults
 Corrected Faults
 ----------------
 
+Danube.3.2:
+
++----------------------------+------------------------------------------------+
+| **JIRA REFERENCE**         | **DESCRIPTION**                                |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-776        | Bugfix: cannot run task if without             |
+|                            | yardstick.conf in danube                       |
++----------------------------+------------------------------------------------+
+
+
 Danube.3.1:
 
 +----------------------------+------------------------------------------------+
@@ -702,7 +713,7 @@ Danube.1.0:
 +----------------------------+------------------------------------------------+
 
 
-Danube 3.1 known restrictions/issues
+Danube 3.2 known restrictions/issues
 ====================================
 +-----------+-----------+----------------------------------------------+
 | Installer | Scenario  |  Issue                                       |
