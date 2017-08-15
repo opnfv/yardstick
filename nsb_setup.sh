@@ -28,7 +28,7 @@ if [ "$(whoami)" != "root" ]; then
 fi
 
 INSTALL_BIN_PATH="/opt/nsb_bin"
-TREX_VERSION="v2.20"
+TREX_VERSION="v2.28"
 TREX_DOWNLOAD="https://trex-tgn.cisco.com/trex/release/$TREX_VERSION.tar.gz"
 DPDK_DOWNLOAD="http://dpdk.org/browse/dpdk/snapshot/dpdk-16.07.zip"
 VIRTUAL_VENV="$INSTALL_BIN_PATH/yardstick_venv"
