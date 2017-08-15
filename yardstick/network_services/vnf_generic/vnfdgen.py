@@ -73,19 +73,24 @@ def deepgetitem(obj, item, default=None):
 
     add try_int to work with sequences
 
-    >>> d = {'snl_final': {'about': {'_icsd': {'icsd_id': 1, 'fr': [2, 3]}}}}
+    >>> d = {'snl_final': {'about': {'_icsd': {'icsd_id': 1, 'fr': [2, 3], '0': 24, 0: 4}}}}
     >>> deepgetitem(d, 'snl_final.about._icsd.icsd_id')
     1
     >>> deepgetitem(d, 'snl_final.about._sandbox.sbx_id')
     >>>
     >>> deepgetitem(d, 'snl_final.about._icsd.fr.1')
     3
+    >>> deepgetitem(d, 'snl_final.about._icsd.0')
+    24
     """
     def getitem(obj, name):
-        # if integer then list index
-        name = try_int(name)
+        # try string then convert to int
         try:
             return obj[name]
         except (KeyError, TypeError, IndexError):
-            return default
+            name = try_int(name)
+            try:
+                return obj[name]
+            except (KeyError, TypeError, IndexError):
+                return default
     return reduce(getitem, item.split('.'), obj)
