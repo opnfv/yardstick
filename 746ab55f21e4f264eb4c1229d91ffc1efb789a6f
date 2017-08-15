@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_43da3679",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-15T17:01:15Z",
+      "side": 1,
+      "message": "so we need to start counting from 1?\n\nplease use start parameter with enumerate\n\n  for index, interface in enumerate(self.vnfd_helper.interfaces, 1)",
+      "revId": "746ab55f21e4f264eb4c1229d91ffc1efb789a6f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
