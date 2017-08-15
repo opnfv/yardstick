@@ -25,6 +25,7 @@ import errno
 import collections
 
 from six.moves import filter
+from jinja2 import Environment
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
@@ -33,6 +34,7 @@ from yardstick.common.task_template import TaskTemplate
 from yardstick.common.utils import source_env
 from yardstick.common import utils
 from yardstick.common import constants
+from yardstick.common.html_template import report_template
 
 output_file_default = "/tmp/yardstick.out"
 config_file = '/etc/yardstick/yardstick.conf'
@@ -146,6 +148,7 @@ class Task(object):     # pragma: no cover
         result = self._get_format_result(testcases)
 
         self._do_output(output_config, result)
+        self._generate_reporting(result)
 
         total_end_time = time.time()
         LOG.info("total finished in %d secs",
@@ -157,6 +160,13 @@ class Task(object):     # pragma: no cover
 
         print("Done, exiting")
         return result
+
+    def _generate_reporting(self, result):
+        env = Environment()
+        with open(constants.REPORTING_FILE, 'w') as f:
+            f.write(env.from_string(report_template).render(result))
+
+        LOG.info('yardstick reporting generate in %s', constants.REPORTING_FILE)
 
     def _set_log(self):
         log_format = '%(asctime)s %(name)s %(filename)s:%(lineno)d %(levelname)s %(message)s'

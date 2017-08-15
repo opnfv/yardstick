@@ -26,6 +26,10 @@ server {
     location /gui/ {
         alias /etc/nginx/yardstick/gui/;
     }
+
+    location /report/ {
+        alias /tmp/;
+    }
 }
 EOF
 fi
