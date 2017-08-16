@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_576f9092",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-08-16T18:17:32Z",
+      "side": 1,
+      "message": "ok I will fix the variable",
+      "parentUuid": "da33351e_d779e094",
+      "range": {
+        "startLine": 130,
+        "startChar": 27,
+        "endLine": 130,
+        "endChar": 34
+      },
+      "revId": "e443f8cae83560e731e17efe6027b2447329f8ba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_c34f6691",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 3
@@ -249,6 +273,24 @@
       "side": 1,
       "message": "it is fine to use 16 when you want to use it, but i don\u0027t think it should be hard-coded.  can you add an argument and make it default to \"16\"?  then if someone wants \"/8\" they can do it.",
       "parentUuid": "da33351e_e6d39836",
+      "revId": "e443f8cae83560e731e17efe6027b2447329f8ba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7772947d",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-08-16T18:17:32Z",
+      "side": 1,
+      "message": "for now. I have kept 16. We need to get this from the pod file.",
+      "parentUuid": "da33351e_b7625cd6",
       "revId": "e443f8cae83560e731e17efe6027b2447329f8ba",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
