@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_37a64c11",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T16:51:43Z",
+      "side": 1,
+      "message": "please convert this to an iterator",
+      "revId": "40da054bd791764326ad10320eea5807c5d897bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_17ab48d9",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T16:51:43Z",
+      "side": 1,
+      "message": "the old way may be more statements, but it was fewer tests (if statements) and is more explicit.\n\nhow about:\n\n if \u0027cpufreq\u0027 in res_key0:\n   metric, source \u003d res_key0, res_key1\n else:\n   metric, source \u003d res_key1, res_key0",
+      "revId": "40da054bd791764326ad10320eea5807c5d897bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_77af34e4",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T16:51:43Z",
+      "side": 1,
+      "message": "i realize that this in\u0027t part of the commit, but why are we testing for something and then using \u0027setdefault\u0027?\n\nif the test succeeds, then there is a value associated with the key, so there is no need for a default value.\n\ni would want this to be a try-except block:\n\n try:\n    result[\u0027cpu\u0027][cpu_key].update({name: metric})\n except KeyError:\n    pass\n except (TypeError, AttributeError):\n    # not sure how we want to handle this",
+      "revId": "40da054bd791764326ad10320eea5807c5d897bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_57acb0ed",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T16:51:43Z",
+      "side": 1,
+      "message": "please invert this:\n\n if not self.enable:\n   return {}\n metric \u003d {}\n ...",
+      "revId": "40da054bd791764326ad10320eea5807c5d897bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
