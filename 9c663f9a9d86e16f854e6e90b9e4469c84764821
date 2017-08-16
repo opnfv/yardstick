@@ -16,6 +16,24 @@
       "revId": "9c663f9a9d86e16f854e6e90b9e4469c84764821",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_377dac6f",
+        "filename": "yardstick/network_services/yang_model.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T17:14:10Z",
+      "side": 1,
+      "message": "it appears to me that this file was merged as CRLF, only reviews #8 and #9 leave it as CRLF (my local copy is CRLF), so he is trying to make it LF, but that requires changing every line.\n\nperhaps the EOL change should be its own commit?",
+      "parentUuid": "da33351e_c0947c39",
+      "revId": "9c663f9a9d86e16f854e6e90b9e4469c84764821",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
