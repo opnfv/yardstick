@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_f7822451",
+        "filename": "yardstick/network_services/helpers/samplevnf_helper.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T17:06:24Z",
+      "side": 1,
+      "message": "i would say that it would be better to use a try-except block here:\n\n try:\n   return next(route[data_key] for route in route_list if route[\u0027if\u0027] \u003d\u003d port)\n except (TypeError, StopIteration, KeyError):\n   return None",
+      "revId": "67574b28f0da5d41ef9aa1a3ab97abe0ea3b6e31",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
