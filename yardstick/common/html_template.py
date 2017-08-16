@@ -158,7 +158,7 @@ report_template = """
                     <th>value</th>
                 </tr>
                 <tbody>
-                    {% for key, value in result.info.iteritems() %}
+                    {% for key, value in result.info.items() %}
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>{{key}}</td>
@@ -177,7 +177,7 @@ report_template = """
                     <th>value</th>
                 </tr>
                 <tbody>
-                    {% for key, value in result.testcases.iteritems() %}
+                    {% for key, value in result.testcases.items() %}
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>{{key}}</td>
