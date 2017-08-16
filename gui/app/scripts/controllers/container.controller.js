@@ -128,7 +128,7 @@ angular.module('yardStickGui2App')
                 $scope.selectContainer = name;
             }
             $scope.goBack = function goBack() {
-                $state.go('app2.projectList');
+                $state.go('app.projectList');
             }
 
             $scope.openDeleteEnv = function openDeleteEnv(id, name) {

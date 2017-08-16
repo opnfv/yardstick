@@ -113,7 +113,7 @@ angular.module('yardStickGui2App')
 
             }
             $scope.goBack = function goBack() {
-                $state.go('app2.projectList');
+                $state.go('app.projectList');
             }
 
 

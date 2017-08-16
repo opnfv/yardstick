@@ -20,6 +20,8 @@ body {
 }
 
 
+
+
 /* Custom page header */
 
 .header {
@@ -204,5 +206,9 @@ input:focus{outline: 0}
 
 .ngdialog-content {
     overflow: hidden;
+}
+
+.bs-sidenav{
+    margin-top:21px !important;
 }
 
