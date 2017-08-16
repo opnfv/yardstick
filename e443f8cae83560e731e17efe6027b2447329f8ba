@@ -1,0 +1,198 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_83555e1f",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T00:18:30Z",
+      "side": 1,
+      "message": "this should be one statement:\n\n self.scenario_cfg[\u0027options\u0027] \u003d {\n   \u0027flow\u0027: {\n     \u0027src_ip\u0027: [\n       {\n         \u0027tg__1\u0027: \u0027xe0\u0027,\n       },\n     ],\n     \u0027dst_ip\u0027: [\n       {\n          \u0027tg__1\u0027: \u0027xe1\u0027,\n       },\n     ],\n     \u0027public_ip\u0027: [\u00271.1.1.1\u0027],\n   },\n }",
+      "range": {
+        "startLine": 429,
+        "startChar": 25,
+        "endLine": 432,
+        "endChar": 41
+      },
+      "revId": "e443f8cae83560e731e17efe6027b2447329f8ba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_435b5654",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T00:18:30Z",
+      "side": 1,
+      "message": "ip_range please, though this seems to be a misnomer, isn\u0027t the input more an interface data structure?",
+      "range": {
+        "startLine": 130,
+        "startChar": 27,
+        "endLine": 130,
+        "endChar": 34
+      },
+      "revId": "e443f8cae83560e731e17efe6027b2447329f8ba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c34f6691",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T00:18:30Z",
+      "side": 1,
+      "message": "is this really the best default value?\n\nthere\u0027s a different default value inside the for loop.",
+      "revId": "e443f8cae83560e731e17efe6027b2447329f8ba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_837efeac",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T00:18:30Z",
+      "side": 1,
+      "message": "please split this into two statements\n\nand why no \u0027break\u0027 statement?\n\nor better yet:\n\n  key, value \u003d next(iprange.items(), (None, \u00270.0.0.0\u0027))",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 72
+      },
+      "revId": "e443f8cae83560e731e17efe6027b2447329f8ba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e34a6a82",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T00:18:30Z",
+      "side": 1,
+      "message": "why are we hard coding to /16?\n\nand \u0027/\u0027.join([ip, mask])",
+      "revId": "e443f8cae83560e731e17efe6027b2447329f8ba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_635e5a47",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T00:18:30Z",
+      "side": 1,
+      "message": "src_ip%s or src_ip_%s please\n\nand similar for the rest of this method.",
+      "range": {
+        "startLine": 146,
+        "startChar": 22,
+        "endLine": 146,
+        "endChar": 27
+      },
+      "revId": "e443f8cae83560e731e17efe6027b2447329f8ba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e331ca0c",
+        "filename": "yardstick/network_services/traffic_profile/traffic_profile.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T00:18:30Z",
+      "side": 1,
+      "message": "please split these arguments into separate lines like the other arguments are",
+      "revId": "e443f8cae83560e731e17efe6027b2447329f8ba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c3364603",
+        "filename": "yardstick/network_services/traffic_profile/traffic_profile.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T00:18:30Z",
+      "side": 1,
+      "message": "please split these arguments into separate lines like the other arguments are",
+      "revId": "e443f8cae83560e731e17efe6027b2447329f8ba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_233c52e2",
+        "filename": "yardstick/network_services/traffic_profile/traffic_profile.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T00:18:30Z",
+      "side": 1,
+      "message": "please split these arguments into separate lines like the other arguments are",
+      "revId": "e443f8cae83560e731e17efe6027b2447329f8ba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_03414e5a",
+        "filename": "yardstick/network_services/traffic_profile/traffic_profile.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-16T00:18:30Z",
+      "side": 1,
+      "message": "please split these arguments into separate lines like the other arguments are",
+      "revId": "e443f8cae83560e731e17efe6027b2447329f8ba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
