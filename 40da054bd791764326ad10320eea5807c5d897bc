@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_37b76c88",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-17T00:03:57Z",
+      "side": 1,
+      "message": "this request isn\u0027t about the end result or what happens to it.\n\nthe point is to avoid iterating over a list that was created with an iterator.  there\u0027s no point to the second iterator and the intermediate list, they are a waste, since we can feed a single iterator to join and join will return the string we desire\n\nfurther, even in this case where we feel that the intermediate list is small, the point is to break the habit of generating intermediate lists so that when the intermediate list is large, then we avoid the creation of large, throw away, intermediate lists.",
+      "parentUuid": "da33351e_37ac8ca0",
+      "revId": "40da054bd791764326ad10320eea5807c5d897bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_17ab48d9",
         "filename": "yardstick/network_services/nfvi/resource.py",
         "patchSetId": 3
@@ -83,6 +101,24 @@
       "side": 1,
       "message": "result[\"cpu\"].setdefault(cpu_key, {}).update({name: metric})\nI do think above will work. since first time cpu_key will not in there, we need to create the key with value as {} and then update the metric",
       "parentUuid": "da33351e_77af34e4",
+      "revId": "40da054bd791764326ad10320eea5807c5d897bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_17bce868",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-17T00:03:57Z",
+      "side": 1,
+      "message": "right, the test is on core_list, not result[\u0027cpu\u0027]",
+      "parentUuid": "da33351e_d7a600c1",
       "revId": "40da054bd791764326ad10320eea5807c5d897bc",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
