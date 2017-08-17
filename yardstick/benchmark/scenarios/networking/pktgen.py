@@ -357,17 +357,17 @@ class Pktgen(base.Scenario):
 
         result.update(jsonutils.loads(stdout))
 
-        result['packets_received'] = self._iptables_get_result()
+        received = result['packets_received'] = self._iptables_get_result()
+        sent = result['packets_sent']
         result['packetsize'] = packetsize
+        ppm = 1000000 * (sent - received) / sent
+        # if ppm is 1, then 11 out of 10 million is no pass
+        ppm += (sent - received) % sent > 0
+        result['ppm'] = ppm
 
         if "sla" in self.scenario_cfg:
-            sent = result['packets_sent']
-            received = result['packets_received']
-            ppm = 1000000 * (sent - received) / sent
-            # if ppm is 1, then 11 out of 10 million is no pass
-            ppm += (sent - received) % sent > 0
             LOG.debug("Lost packets %d - Lost ppm %d", (sent - received), ppm)
-            sla_max_ppm = int(self.scenario_cfg["sla"]["max_ppm"])
+            sla_max_ppm = result['sla_max_ppm'] = int(self.scenario_cfg["sla"]["max_ppm"])
             assert ppm <= sla_max_ppm, "ppm %d > sla_max_ppm %d; " \
                 % (ppm, sla_max_ppm)
 
