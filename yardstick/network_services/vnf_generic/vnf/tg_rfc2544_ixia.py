@@ -146,7 +146,6 @@ class IxiaTrafficGen(SampleVNFTrafficGen):
 
         super(IxiaTrafficGen, self).__init__(name, vnfd, setup_env_helper_type,
                                              resource_helper_type)
-        self.done = True
         self._ixia_traffic_gen = None
         self.ixia_file_name = ''
         self.tg_port_pairs = []
@@ -164,3 +163,7 @@ class IxiaTrafficGen(SampleVNFTrafficGen):
     def terminate(self):
         self.resource_helper.stop_collect()
         super(IxiaTrafficGen, self).terminate()
+
+    def wait_for_instantiate(self):
+        # not needed for IxNet
+        pass

@@ -32,19 +32,14 @@ class TestIxNextgen(unittest.TestCase):
         ixnet_gen = IxNextgen()
         self.assertIsNone(ixnet_gen._bidir)
 
-    @mock.patch("yardstick.network_services.libs.ixia_libs.IxNet.IxNet.IxNetwork")
     @mock.patch("yardstick.network_services.libs.ixia_libs.IxNet.IxNet.sys")
-    def test_connect(self, mock_sys, mock_ix_network):
-        mock_ix_network.IxNet.return_value = mock_ixnet = mock.Mock()
+    def test_connect(self, mock_sys):
 
         ixnet_gen = IxNextgen()
         ixnet_gen.get_config = mock.MagicMock()
         ixnet_gen.get_ixnet = mock.MagicMock()
 
-        result = ixnet_gen._connect({"py_lib_path": "/tmp"})
-        self.assertIsNotNone(result)
-        self.assertEqual(mock_ix_network.IxNet.call_count, 1)
-        self.assertEqual(mock_ixnet.connect.call_count, 1)
+        self.assertRaises(ImportError, ixnet_gen._connect, {"py_lib_path": "/tmp"})
 
     def test_clear_ixia_config(self):
         ixnet = mock.MagicMock()
