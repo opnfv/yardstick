@@ -931,6 +931,7 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         self._tg_process.start()
 
     def wait_for_instantiate(self):
+        # overridden by subclasses
         return self._wait_for_process()
 
     def _check_status(self):

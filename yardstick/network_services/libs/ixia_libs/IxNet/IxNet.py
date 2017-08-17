@@ -20,13 +20,6 @@ import logging
 import re
 from itertools import product
 
-from yardstick.common.utils import ErrorClass
-
-try:
-    import IxNetwork
-except ImportError:
-    IxNetwork = ErrorClass
-
 log = logging.getLogger(__name__)
 
 IP_VERSION_4 = 4
@@ -203,6 +196,12 @@ class IxNextgen(object):
         self._cfg = self.get_config(tg_cfg)
 
         sys.path.append(self._cfg["py_lib_path"])
+        # Import IxNetwork after getting ixia lib path
+        try:
+            import IxNetwork
+        except ImportError:
+            raise
+
         self.ixnet = IxNetwork.IxNet()
 
         machine = self._cfg['machine']

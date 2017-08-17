@@ -122,7 +122,6 @@ class IxLoadTrafficGen(SampleVNFTrafficGen):
         super(IxLoadTrafficGen, self).__init__(name, vnfd, setup_env_helper_type,
                                                resource_helper_type)
         self._result = {}
-        self.done = False
         self.data = None
 
     def run_traffic(self, traffic_profile):
