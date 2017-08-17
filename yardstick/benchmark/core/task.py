@@ -173,6 +173,7 @@ class Task(object):     # pragma: no cover
         log_format = '%(asctime)s %(name)s %(filename)s:%(lineno)d %(levelname)s %(message)s'
         log_formatter = logging.Formatter(log_format)
 
+        utils.makedirs(constants.TASK_LOG_DIR)
         log_path = os.path.join(constants.TASK_LOG_DIR, '{}.log'.format(self.task_id))
         log_handler = logging.FileHandler(log_path)
         log_handler.setFormatter(log_formatter)

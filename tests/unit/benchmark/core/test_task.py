@@ -290,8 +290,9 @@ class TaskTestCase(unittest.TestCase):
         task.change_server_name(scenario, suffix)
         self.assertTrue(scenario['target']['name'], 'demo-8')
 
+    @mock.patch('yardstick.benchmark.core.task.utils')
     @mock.patch('yardstick.benchmark.core.task.logging')
-    def test_set_log(self, mock_logging):
+    def test_set_log(self, mock_logging, mock_utils):
         task_obj = task.Task()
         task_obj.task_id = 'task_id'
         task_obj._set_log()
