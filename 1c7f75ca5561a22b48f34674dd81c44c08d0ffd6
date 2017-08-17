@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_7c771403",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-17T15:56:58Z",
+      "side": 1,
+      "message": "we should override wait_for_instantiate in the IxiaTrafficGen subclass instead",
+      "revId": "1c7f75ca5561a22b48f34674dd81c44c08d0ffd6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
