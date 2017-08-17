@@ -22,6 +22,30 @@
       "revId": "7053020cfd7fc3ed93bdd83ca4b70a2e95818daa",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6cf130cd",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-17T01:58:19Z",
+      "side": 1,
+      "message": "this affects all yardstick, not just uwsgi.sh use cases.\n\nthis broke my dev setup, also because I don\u0027t run as root.",
+      "parentUuid": "da33351e_8c3114a5",
+      "range": {
+        "startLine": 165,
+        "startChar": 8,
+        "endLine": 165,
+        "endChar": 46
+      },
+      "revId": "7053020cfd7fc3ed93bdd83ca4b70a2e95818daa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
