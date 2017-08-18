@@ -13,11 +13,13 @@
 # limitations under the License.
 
 from __future__ import absolute_import
+
 import os
-import mock
 import unittest
 
-from yardstick.benchmark.contexts import ovsdpdk
+import mock
+
+from yardstick.benchmark.contexts.standalone import ovsdpdk
 
 NIC_INPUT = {
     'interface': {},
@@ -226,11 +228,11 @@ class OvsdpdkTestCase(unittest.TestCase):
             mock_ovs = mock.Mock()
             ssh_mock.put = mock.Mock()
             ovs_obj.check_output = mock.Mock(return_value=(0, "vm1"))
-            with mock.patch("yardstick.benchmark.contexts.ovsdpdk.time"):
+            with mock.patch("yardstick.benchmark.contexts.standalone.ovsdpdk.time"):
                 self.assertIsNone(ovs_obj.setup_ovs_context(PCIS, NIC_DETAILS, DRIVER))
 
     @mock.patch(
-        'yardstick.benchmark.contexts.ovsdpdk',
+        'yardstick.benchmark.contexts.standalone.ovsdpdk',
         return_value="Domain vm1 created from /tmp/vm_ovs.xml")
     def test_is_vm_created(self, NIC_INPUT):
         with mock.patch("yardstick.ssh.SSH") as ssh:
