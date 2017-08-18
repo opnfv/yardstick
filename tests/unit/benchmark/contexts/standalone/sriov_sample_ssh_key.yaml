@@ -21,6 +21,7 @@ nodes:
     user: root
     ssh_port: 22
     key_filename: /root/.ssh/id_rsa
+    images: "/var/lib/libvirt/images/ubuntu1.img"
     interfaces:
         xe0:  # logical name from topology.yaml and vnfd.yaml
             vpci:      "0000:03:00.0"

@@ -18,10 +18,12 @@
 # Unittest for yardstick.network_services.vnf_generic.vnf.sample_vnf
 
 from __future__ import absolute_import
-import unittest
 import mock
 from copy import deepcopy
 
+from tests.unit.test_case import STL_MOCKS
+from tests.unit.test_case import MockError
+from tests.unit.test_case import YardstickTestCase
 from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from yardstick.benchmark.contexts.base import Context
 from yardstick.network_services.nfvi.resource import ResourceProfile
@@ -29,70 +31,6 @@ from yardstick.network_services.traffic_profile.base import TrafficProfile
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 from yardstick.ssh import SSHError
 
-
-class MockError(BaseException):
-    pass
-
-
-STL_MOCKS = {
-    'stl': mock.MagicMock(),
-    'stl.trex_stl_lib': mock.MagicMock(),
-    'stl.trex_stl_lib.base64': mock.MagicMock(),
-    'stl.trex_stl_lib.binascii': mock.MagicMock(),
-    'stl.trex_stl_lib.collections': mock.MagicMock(),
-    'stl.trex_stl_lib.copy': mock.MagicMock(),
-    'stl.trex_stl_lib.datetime': mock.MagicMock(),
-    'stl.trex_stl_lib.functools': mock.MagicMock(),
-    'stl.trex_stl_lib.imp': mock.MagicMock(),
-    'stl.trex_stl_lib.inspect': mock.MagicMock(),
-    'stl.trex_stl_lib.json': mock.MagicMock(),
-    'stl.trex_stl_lib.linecache': mock.MagicMock(),
-    'stl.trex_stl_lib.math': mock.MagicMock(),
-    'stl.trex_stl_lib.os': mock.MagicMock(),
-    'stl.trex_stl_lib.platform': mock.MagicMock(),
-    'stl.trex_stl_lib.pprint': mock.MagicMock(),
-    'stl.trex_stl_lib.random': mock.MagicMock(),
-    'stl.trex_stl_lib.re': mock.MagicMock(),
-    'stl.trex_stl_lib.scapy': mock.MagicMock(),
-    'stl.trex_stl_lib.socket': mock.MagicMock(),
-    'stl.trex_stl_lib.string': mock.MagicMock(),
-    'stl.trex_stl_lib.struct': mock.MagicMock(),
-    'stl.trex_stl_lib.sys': mock.MagicMock(),
-    'stl.trex_stl_lib.threading': mock.MagicMock(),
-    'stl.trex_stl_lib.time': mock.MagicMock(),
-    'stl.trex_stl_lib.traceback': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_async_client': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_client': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_exceptions': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_ext': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_jsonrpc_client': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_packet_builder_interface': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_packet_builder_scapy': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_port': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_stats': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_streams': mock.MagicMock(),
-    'stl.trex_stl_lib.trex_stl_types': mock.MagicMock(),
-    'stl.trex_stl_lib.types': mock.MagicMock(),
-    'stl.trex_stl_lib.utils': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.argparse': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.collections': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.common': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.json': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.os': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.parsing_opts': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.pwd': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.random': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.re': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.string': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.sys': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.text_opts': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.text_tables': mock.MagicMock(),
-    'stl.trex_stl_lib.utils.texttable': mock.MagicMock(),
-    'stl.trex_stl_lib.warnings': mock.MagicMock(),
-    'stl.trex_stl_lib.yaml': mock.MagicMock(),
-    'stl.trex_stl_lib.zlib': mock.MagicMock(),
-    'stl.trex_stl_lib.zmq': mock.MagicMock(),
-}
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
@@ -110,8 +48,16 @@ if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
 
+PCI_OUTPUT_1 = """\
+PCI_CLASS=20000 \
+PCI_ID=8086:154C \
+PCI_SUBSYS_ID=8086:0000 \
+PCI_SLOT_NAME=0000:06:02.0 \
+MODALIAS= \
+pci:v00008086d0000154Csv00008086sd00000000bc02sc00i00"""
 
-class TestVnfSshHelper(unittest.TestCase):
+
+class TestVnfSshHelper(YardstickTestCase):
 
     VNFD_0 = {
         'short-name': 'VpeVnf',
@@ -224,6 +170,45 @@ class TestVnfSshHelper(unittest.TestCase):
     def test_get_class(self):
         self.assertIs(VnfSshHelper.get_class(), VnfSshHelper)
 
+    def test_log_execute(self):
+        return_value = (0, 'a', 'b')
+
+        ssh_helper = VnfSshHelper(self.VNFD_0['mgmt-interface'], 'my/bin/path')
+        ssh_helper.execute = mock_execute = mock.Mock(return_value=return_value)
+
+        result = ssh_helper.log_execute('ls')
+        self.assertEqual(result, return_value)
+        self.assertEqual(mock_execute.call_count, 1)
+
+    def test_log_execute_with_loggers(self):
+        logger1 = mock.Mock()
+        logger2 = mock.Mock()
+        return_value = (0, 'a', 'b')
+
+        ssh_helper = VnfSshHelper(self.VNFD_0['mgmt-interface'], 'my/bin/path')
+        ssh_helper.execute = mock_execute = mock.Mock(return_value=return_value)
+
+        result = ssh_helper.log_execute('ls', logger1.info, logger2.debug)
+        self.assertEqual(result, return_value)
+        self.assertEqual(mock_execute.call_count, 1)
+        self.assertEqual(logger1.info.call_count, 1)
+        self.assertEqual(logger2.debug.call_count, 1)
+
+    def test_echo_to_file(self):
+        return_value = (0, 'a', 'b')
+
+        ssh_helper = VnfSshHelper(self.VNFD_0['mgmt-interface'], 'my/bin/path')
+        ssh_helper.execute = mock_execute = mock.Mock(return_value=return_value)
+
+        result = ssh_helper.echo_to_file('12321', 'some/path')
+        self.assertEqual(result, return_value)
+        self.assertEqual(mock_execute.call_count, 1)
+
+        command = mock_execute.call_args_list[0][0][0]
+        self.assertTrue(command.startswith('echo'))
+        self.assertIn('12321', command)
+        self.assertTrue(command.endswith('some/path'))
+
     @mock.patch('yardstick.ssh.paramiko')
     def test_copy(self, _):
         ssh_helper = VnfSshHelper(self.VNFD_0['mgmt-interface'], 'my/bin/path')
@@ -281,6 +266,18 @@ class TestVnfSshHelper(unittest.TestCase):
         self.assertAll(middle in result for middle in expected_middle_list)
         self.assertTrue(result.endswith(expected_end))
 
+    @mock.patch("yardstick.ssh.SSH")
+    def test_get_virtual_devices(self, mock_ssh, *_):
+        pci = "0000:06:00.0"
+
+        ssh_helper = VnfSshHelper(self.VNFD_0['mgmt-interface'], 'my/bin/path')
+
+        ssh_helper.execute = mock.Mock(return_value=(0, PCI_OUTPUT_1, ''))
+
+        expected = {'0000:06:00.0': '0000:06:02.0'}
+        result = ssh_helper.get_virtual_devices(pci)
+        self.assertDictEqual(result, expected)
+
     @mock.patch('yardstick.ssh.paramiko')
     @mock.patch('yardstick.ssh.provision_tool')
     def test_provision_tool(self, mock_provision_tool, mock_paramiko):
@@ -303,7 +300,7 @@ class TestVnfSshHelper(unittest.TestCase):
         self.assertEqual(mock_provision_tool.call_count, 3)
 
 
-class TestSetupEnvHelper(unittest.TestCase):
+class TestSetupEnvHelper(YardstickTestCase):
 
     VNFD_0 = {
         'short-name': 'VpeVnf',
@@ -428,7 +425,7 @@ class TestSetupEnvHelper(unittest.TestCase):
             setup_env_helper.tear_down()
 
 
-class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
+class TestDpdkVnfSetupEnvHelper(YardstickTestCase):
 
     VNFD_0 = {
         'short-name': 'VpeVnf',
@@ -973,7 +970,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         self.assertIsNone(dpdk_setup_helper.tear_down())
 
 
-class TestResourceHelper(unittest.TestCase):
+class TestResourceHelper(YardstickTestCase):
 
     def test_setup(self):
         resource = object()
@@ -1016,7 +1013,7 @@ class TestResourceHelper(unittest.TestCase):
 
         self.assertIsNone(resource_helper.stop_collect())
 
-class TestClientResourceHelper(unittest.TestCase):
+class TestClientResourceHelper(YardstickTestCase):
 
     VNFD_0 = {
         'short-name': 'VpeVnf',
@@ -1393,7 +1390,7 @@ class TestClientResourceHelper(unittest.TestCase):
         self.assertIs(client_resource_helper._connect(client), client)
 
 
-class TestRfc2544ResourceHelper(unittest.TestCase):
+class TestRfc2544ResourceHelper(YardstickTestCase):
 
     RFC2544_CFG_1 = {
         'latency': True,
@@ -1549,7 +1546,7 @@ class TestRfc2544ResourceHelper(unittest.TestCase):
         self.assertFalse(rfc2544_resource_helper.correlated_traffic)
 
 
-class TestSampleVNFDeployHelper(unittest.TestCase):
+class TestSampleVNFDeployHelper(YardstickTestCase):
 
     @mock.patch('subprocess.check_output')
     def test_deploy_vnfs_disabled(self, mock_check_output):
@@ -1594,7 +1591,7 @@ class TestSampleVNFDeployHelper(unittest.TestCase):
         self.assertEqual(ssh_helper.put.call_count, 0)
 
 
-class TestScenarioHelper(unittest.TestCase):
+class TestScenarioHelper(YardstickTestCase):
 
     def test_property_task_path(self):
         scenario_helper = ScenarioHelper('name1')
@@ -1672,7 +1669,7 @@ class TestScenarioHelper(unittest.TestCase):
         self.assertEqual(scenario_helper.topology, 'my_topology')
 
 
-class TestSampleVnf(unittest.TestCase):
+class TestSampleVnf(YardstickTestCase):
 
     VNFD_0 = {
         'short-name': 'VpeVnf',
@@ -2026,7 +2023,7 @@ class TestSampleVnf(unittest.TestCase):
         self.assertDictEqual(result, expected)
 
 
-class TestSampleVNFTrafficGen(unittest.TestCase):
+class TestSampleVNFTrafficGen(YardstickTestCase):
 
     VNFD_0 = {
         'short-name': 'VpeVnf',

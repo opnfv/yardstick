@@ -859,7 +859,7 @@ class TestProxResourceHelper(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.SocketTopology')
     def test_cpu_topology(self, mock_socket_topology):
-        mock_socket_topology.parse_cpuinfo.return_value = 432
+        mock_socket_topology.make_topology_from_text.return_value = 432
 
         setup_helper = mock.MagicMock()
         setup_helper.ssh_helper.execute.return_value = 0, 'output', ''

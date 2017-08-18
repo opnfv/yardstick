@@ -52,6 +52,8 @@ def provision_tool(connection, tool_path, tool_file=None):
 
     :return - Tool path
     """
+    if not tool_path:
+        tool_path = get_nsb_option('tool_path')
     if tool_file:
         tool_path = os.path.join(tool_path, tool_file)
     bin_path = get_nsb_option("bin_path")
