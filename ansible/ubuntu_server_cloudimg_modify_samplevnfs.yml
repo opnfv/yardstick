@@ -1,0 +1,52 @@
+# Copyright (c) 2017 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- hosts: chroot_image
+  connection: chroot
+  vars:
+    clone_dir: /tmp/yardstick-clone
+
+  pre_tasks:
+    - debug:
+        msg: "chrooted in {{ inventory_hostname }}"
+    - debug:
+        var: proxy_env
+        verbosity: 2
+
+  roles:
+    - reset_resolv_conf
+    - add_custom_repos
+    - role: set_package_installer_proxy
+      when: proxy_env is defined and proxy_env
+#     can't update grub in chroot/docker
+    - enable_hugepages_on_boot
+    - modify_cloud_config
+    - install_image_dependencies
+    - role: download_dpdk
+#      dpdk_version: "17.02"
+    - install_dpdk
+    - download_trex
+    - install_trex
+    - download_samplevnfs
+    - role: install_samplevnf
+      vnf_name: PROX
+    - role: install_samplevnf
+      vnf_name: UDP_Replay
+    - role: install_samplevnf
+      vnf_name: ACL
+    - role: install_samplevnf
+      vnf_name: FW
+    - role: install_samplevnf
+      vnf_name: CGNATP
+

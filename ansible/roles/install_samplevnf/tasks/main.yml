@@ -1,0 +1,51 @@
+# Copyright (c) 2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- set_fact:
+    vnf_build_dir: "{{ samplevnf_path }}/VNFs/{{ vnf_build_dirs[vnf_name] }}"
+
+- set_fact:
+    vnf_app_name: "{{ vnf_app_names[vnf_name] }}"
+
+- name: Install extra build dependencies
+  action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
+  with_items: "{{ vnf_build_dependencies.get(vnf_name, {}).get(ansible_os_family, []) }}"
+
+- name: "make {{ vnf_name }} clean"
+  my_make: chdir="{{ vnf_build_dir }}" target=clean extra_args="-j {{ ansible_processor_vcpus }}"
+  environment:
+    RTE_SDK: "{{ RTE_SDK }}"
+    RTE_TARGET: "{{ RTE_TARGET }}"
+    VNF_CORE: "{{ samplevnf_path }}"
+
+- name: "make {{ vnf_name }}"
+  my_make: chdir="{{ vnf_build_dir }}" extra_args="-j {{ ansible_processor_vcpus }}"
+  environment:
+    RTE_SDK: "{{ RTE_SDK }}"
+    RTE_TARGET: "{{ RTE_TARGET }}"
+    VNF_CORE: "{{ samplevnf_path }}"
+
+#- command: cp "{{ vnf_build_dir }}/{{ vnf_name }}/build/ip_pipeline" "{{ INSTALL_BIN_PATH }}/vACL_vnf"
+- name: "Install {{ vnf_name }} VNF"
+  copy:
+    src: "{{ vnf_build_dir }}/build/{{ vnf_app_name }}"
+    dest: "{{ INSTALL_BIN_PATH }}/{{ vnf_app_name }}"
+    remote_src: True
+    # make executable
+    mode: 0755
+
+#- command: cp "{{ vnf_build_dir }}/{{ vnf_name }}/config/full_tm_profile_10G.cfg" "{{ INSTALL_BIN_PATH }}/"
+#- copy:
+#    src: "{{ vnf_build_dir }}/{{ vnf_name }}/config/full_tm_profile_10G.cfg"
+#    dest: "{{ INSTALL_BIN_PATH }}/"

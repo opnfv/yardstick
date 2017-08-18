@@ -12,9 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-trex_version: v2.20
+trex_version: v2.28
 trex_url: "https://trex-tgn.cisco.com/trex/release/{{ trex_version }}.tar.gz"
 trex_file: "{{ trex_url|basename }}"
 trex_unarchive: "{{ trex_file|regex_replace('[.]tar.gz$', '') }}"
 trex_dest: "{{ clone_dest }}/"
-trex_sha256: "sha256:eb5a069f758a36133a185c7e27af10834ca03d11441165403529fbd7844658fb"
+trex_sha256s:
+  "v2.20": "sha256:eb5a069f758a36133a185c7e27af10834ca03d11441165403529fbd7844658fb"
+  "v2.28": "sha256:c3f08aabbd69dddb09843984d41acbe9ba1af6a6ef3380a7830f7c9e33134207"
