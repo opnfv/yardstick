@@ -18,25 +18,26 @@
 # Unittest for yardstick.benchmark.contexts.standalone
 
 from __future__ import absolute_import
+
 import os
 import unittest
+
 import mock
 
 from yardstick.benchmark.contexts import standalone
-from yardstick.benchmark.contexts import sriov
-from yardstick.benchmark.contexts import ovsdpdk
+from yardstick.benchmark.contexts.standalone import ovsdpdk, sriov
 
 MOCKS = {
     'yardstick.benchmark.contexts': mock.MagicMock(),
-    'yardstick.benchmark.contexts.sriov': mock.MagicMock(),
-    'yardstick.benchmark.contexts.ovsdpdk': mock.MagicMock(),
+    'yardstick.benchmark.contexts.standalone.sriov': mock.MagicMock(),
+    'yardstick.benchmark.contexts.standalone.ovsdpdk': mock.MagicMock(),
     'yardstick.benchmark.contexts.standalone': mock.MagicMock(),
 }
 
 
-@mock.patch('yardstick.benchmark.contexts.ovsdpdk.time')
+@mock.patch('yardstick.benchmark.contexts.standalone.ovsdpdk.time')
 @mock.patch('yardstick.benchmark.contexts.standalone.time')
-@mock.patch('yardstick.benchmark.contexts.sriov.time')
+@mock.patch('yardstick.benchmark.contexts.standalone.sriov.time')
 class StandaloneContextTestCase(unittest.TestCase):
     NODES_SAMPLE = "nodes_sample_new.yaml"
     NODES_SAMPLE_SRIOV = "nodes_sample_new_sriov.yaml"
@@ -564,7 +565,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.assertIsNone(self.test_context.undeploy())
 
     def test_get_nfvi_obj_sriov(self, mock_sriov_time, mock_standlalone_time, mock_ovsdpdk_time):
-        with mock.patch('yardstick.benchmark.contexts.sriov'):
+        with mock.patch('yardstick.benchmark.contexts.standalone.sriov'):
             attrs = {
                 'name': 'sriov',
                 'file': self._get_file_abspath(self.NODES_SAMPLE)
@@ -589,7 +590,7 @@ class StandaloneContextTestCase(unittest.TestCase):
             self.assertIsNotNone(self.test_context.get_nfvi_obj())
 
     def test_get_nfvi_obj_ovs(self, mock_sriov_time, mock_standlalone_time, mock_ovsdpdk_time):
-        with mock.patch('yardstick.benchmark.contexts.ovsdpdk'):
+        with mock.patch('yardstick.benchmark.contexts.standalone.ovsdpdk'):
             attrs = {
                 'name': 'ovs',
                 'file': self._get_file_abspath(self.NODES_SAMPLE_OVSDPDK)
