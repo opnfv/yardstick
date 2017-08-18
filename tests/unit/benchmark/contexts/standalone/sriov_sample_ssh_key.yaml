@@ -17,10 +17,10 @@ nodes:
     name: trafficgen_1
     role: TrafficGen
     ip: 10.10.10.10
-    auth_type: ssh_key
     user: root
     ssh_port: 22
     key_filename: /root/.ssh/id_rsa
+    images: "/var/lib/libvirt/images/ubuntu1.img"
     interfaces:
         xe0:  # logical name from topology.yaml and vnfd.yaml
             vpci:      "0000:03:00.0"
@@ -40,7 +40,6 @@ nodes:
     name: sriov
     role: Sriov
     ip: 10.10.10.11
-    auth_type: ssh_key
     user: root
     ssh_port: 22
     key_filename: /root/.ssh/id_rsa
