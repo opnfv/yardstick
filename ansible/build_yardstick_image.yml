@@ -260,6 +260,7 @@
         ansible_python_interpreter: /usr/bin/python3
         # set this host variable here
         nameserver_ip: "{{ ansible_dns.nameservers[0] }}"
+        image_type: vm
 
 - name: include {{ img_modify_playbook }}
   include: "{{ img_modify_playbook }}"
