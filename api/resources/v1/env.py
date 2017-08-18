@@ -88,13 +88,13 @@ class V1Env(ApiResource):
 
     def _create_dashboard(self, ip):
         url = 'http://admin:admin@{}:{}/api/dashboards/db'.format(ip, consts.GRAFANA_PORT)
-        path = os.path.join(consts.REPOS_DIR, 'dashboard', '*dashboard.json')
+        path = os.path.join(consts.REPOS_DIR, 'dashboard', 'opnfv_yardstick_tc*.json')
 
         for i in sorted(glob.iglob(path)):
             with open(i) as f:
                 data = jsonutils.load(f)
             try:
-                HttpClient().post(url, data)
+                HttpClient().post(url, {"dashboard": data})
             except Exception:
                 LOG.exception('Create dashboard %s failed', i)
                 raise
@@ -120,7 +120,7 @@ class V1Env(ApiResource):
             "basicAuth": True,
             "basicAuthUser": "admin",
             "basicAuthPassword": "admin",
-            "isDefault": False,
+            "isDefault": True,
         }
         try:
             HttpClient().post(url, data)
