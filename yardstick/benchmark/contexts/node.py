@@ -11,11 +11,11 @@ from __future__ import absolute_import
 import errno
 import subprocess
 import os
-import collections
 import logging
 import tempfile
+from collections import Mapping
 
-import six
+from six import string_types
 import pkg_resources
 
 from yardstick import ssh
@@ -61,15 +61,14 @@ class NodeContext(Context):
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
         self.name = attrs["name"]
-        self.file_path = file_path = attrs.get("file", "pod.yaml")
+        self.file_path = attrs.get("file", "pod.yaml")
 
         try:
             cfg = self.read_config_file()
-        except IOError as io_error:
-            if io_error.errno != errno.ENOENT:
+        except IOError as ioerror:
+            if ioerror.errno != errno.ENOENT:
                 raise
-
-            self.file_path = os.path.join(YARDSTICK_ROOT_PATH, file_path)
+            self.file_path = os.path.join(YARDSTICK_ROOT_PATH, self.file_path)
             cfg = self.read_config_file()
 
         self.nodes.extend(cfg["nodes"])
@@ -120,14 +119,13 @@ class NodeContext(Context):
         # playbooks relative to ansible dir
         # playbooks can also be a list of playbooks
         self.ansible_exec.gen_inventory_ini_dict()
-        if isinstance(playbooks, six.string_types):
+        if isinstance(playbooks, string_types):
             playbooks = [playbooks]
         playbooks = [self.fix_ansible_path(playbook) for playbook in playbooks]
 
-        tmpdir = tempfile.mkdtemp(prefix='ansible-')
-        self.ansible_exec.execute_ansible(playbooks, tmpdir,
-                                          verbose=self.env.get("verbose",
-                                                               False))
+        temp_dir = tempfile.mkdtemp(prefix='ansible-')
+        verbosity = self.env.get("verbose", False)
+        self.ansible_exec.execute_ansible(playbooks, temp_dir, verbose=verbosity)
 
     def fix_ansible_path(self, playbook):
         if not os.path.isabs(playbook):
@@ -157,15 +155,14 @@ class NodeContext(Context):
         except StopIteration:
             pass
         else:
-            raise ValueError("Duplicate nodes!!! Nodes: %s %s",
-                             (node, duplicate))
+            raise ValueError("Duplicate nodes!!! Nodes: %s %s" % (node, duplicate))
 
         node["name"] = attr_name
         node.setdefault("interfaces", {})
         return node
 
     def _get_network(self, attr_name):
-        if not isinstance(attr_name, collections.Mapping):
+        if not isinstance(attr_name, Mapping):
             network = self.networks.get(attr_name)
 
         else:
@@ -225,7 +222,7 @@ class NodeContext(Context):
         if node is None:
             raise SystemExit('No such node')
 
-        self.client = ssh.SSH.from_node(node, defaults={'user': 'ubuntu'})
+        self.client = ssh.AutoConnectSSH.from_node(node, defaults={'user': 'ubuntu'})
 
         self.client.wait(timeout=600)
 

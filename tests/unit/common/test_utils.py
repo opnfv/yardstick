@@ -13,13 +13,16 @@ from __future__ import absolute_import
 
 import ipaddress
 import os
+import errno
 import unittest
+import mock
+
+from collections import OrderedDict
 from copy import deepcopy
 from itertools import product, chain
-
-import mock
 from six.moves import configparser
 
+from tests.unit.test_case import YardstickTestCase
 import yardstick
 from yardstick.common import utils
 from yardstick.common import constants
@@ -71,12 +74,14 @@ class ImportModulesFromPackageTestCase(unittest.TestCase):
         mock_importutils.import_module.assert_called_with('bar.baz')
 
 
-class GetParaFromYaml(unittest.TestCase):
+class GetParaFromYaml(YardstickTestCase):
+
+    FILE_OBJ = __file__
 
     @mock.patch('yardstick.common.utils.os.environ.get')
     def test_get_param_para_not_found(self, get_env):
         file_path = 'config_sample.yaml'
-        get_env.return_value = self._get_file_abspath(file_path)
+        get_env.return_value = self.get_file_abspath(file_path)
         args = 'releng.file'
         default = 'hello'
         self.assertTrue(constants.get_param(args, default), default)
@@ -84,15 +89,10 @@ class GetParaFromYaml(unittest.TestCase):
     @mock.patch('yardstick.common.utils.os.environ.get')
     def test_get_param_para_exists(self, get_env):
         file_path = 'config_sample.yaml'
-        get_env.return_value = self._get_file_abspath(file_path)
+        get_env.return_value = self.get_file_abspath(file_path)
         args = 'releng.dir'
         para = '/home/opnfv/repos/releng'
         self.assertEqual(para, constants.get_param(args))
-
-    def _get_file_abspath(self, filename):
-        curr_path = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(curr_path, filename)
-        return file_path
 
 
 class CommonUtilTestCase(unittest.TestCase):
@@ -247,7 +247,7 @@ address sizes   : 46 bits physical, 48 bits virtual
 power management:
 
 """
-        socket_map = utils.SocketTopology.parse_cpuinfo(cpuinfo)
+        socket_map = utils.SocketTopology.make_topology_from_text(cpuinfo)
         assert sorted(socket_map.keys()) == [0]
         assert sorted(socket_map[0].keys()) == [2, 3, 4]
 
@@ -335,7 +335,7 @@ address sizes   : 39 bits physical, 48 bits virtual
 power management:
 
 """
-        socket_map = utils.SocketTopology.parse_cpuinfo(cpuinfo)
+        socket_map = utils.SocketTopology.make_topology_from_text(cpuinfo)
         assert sorted(socket_map.keys()) == [0]
         assert sorted(socket_map[0].keys()) == [1, 2, 3]
         assert sorted(socket_map[0][1]) == [5]
@@ -532,9 +532,8 @@ clflush size    : 64
 cache_alignment : 64
 address sizes   : 46 bits physical, 48 bits virtual
 power management:
-
 """
-        socket_map = utils.SocketTopology.parse_cpuinfo(cpuinfo)
+        socket_map = utils.SocketTopology.make_topology_from_text(cpuinfo)
         assert sorted(socket_map.keys()) == [0, 1]
         assert sorted(socket_map[0].keys()) == [0, 1, 2]
         assert sorted(socket_map[1].keys()) == [26, 27, 28]
@@ -737,7 +736,7 @@ address sizes   : 46 bits physical, 48 bits virtual
 power management:
 
 """
-        socket_map = utils.SocketTopology.parse_cpuinfo(cpuinfo)
+        socket_map = utils.SocketTopology.make_topology_from_text(cpuinfo)
         processors = socket_map.processors()
         assert processors == [1, 2, 43, 44, 85, 86, 87]
         cores = socket_map.cores()
@@ -780,6 +779,52 @@ class RemoveFileTestCase(unittest.TestCase):
 
 class TestUtils(unittest.TestCase):
 
+    def test_itersubclasses_non_type(self):
+        with self.assertRaises(TypeError) as raised:
+            list(utils.itersubclasses(None))
+        self.assertIn('must be called with', str(raised.exception))
+
+    def test_itersubclasses_subclasses_type_error(self):
+        class A(object):
+            pass
+
+        class B(object):
+            pass
+
+        class C(object):
+            pass
+
+        class D(object):
+            pass
+
+        A.__subclasses__ = mock.Mock(side_effect=[TypeError, [B, C, B, D]])
+        self.assertEqual(list(utils.itersubclasses(A)), [B, C, D])
+
+    @mock.patch('yardstick.common.utils.os.walk')
+    def test_import_modules_from_package_import_error(self, mock_walk):
+        mock_walk.return_value = [
+            ('x/y/../../z/q', None, ['a.py', '__b__.py', 'c.py']),
+        ]
+
+        with mock.patch.object(utils, 'try_append_module') as try_mock_append_module:
+            try_mock_append_module.side_effect = [None, ImportError, KeyError]
+            utils.import_modules_from_package('rally.deploy.engines')
+            self.assertEqual(mock_walk.call_count, 1)
+            self.assertGreater(try_mock_append_module.call_count, 0)
+
+    @mock.patch('yardstick.common.utils.os.walk')
+    def test_import_modules_from_package_import_error(self, mock_walk):
+        mock_walk.return_value = [
+            ('x/y/../../z/q', None, ['a.py', 'b.py', 'c.py']),
+        ]
+
+        with mock.patch.object(utils, 'try_append_module') as try_mock_append_module:
+            try_mock_append_module.side_effect = [None, ImportError, KeyError]
+            with self.assertRaises(KeyError):
+                utils.import_modules_from_package('rally.deploy.engines')
+            self.assertEqual(mock_walk.call_count, 1)
+            self.assertGreater(try_mock_append_module.call_count, 0)
+
     @mock.patch('yardstick.common.utils.jsonify')
     def test_result_handler(self, mock_jsonify):
         mock_jsonify.return_value = 432
@@ -796,6 +841,44 @@ class TestUtils(unittest.TestCase):
         result = utils.get_free_port('10.20.30.40')
         self.assertEqual(result, 7777)
         self.assertEqual(s.connect_ex.call_count, 2)
+
+    @mock.patch('yardstick.common.utils.open')
+    @mock.patch('yardstick.common.utils.yaml_load')
+    def test_parse_yaml_io_error_not_exist(self, mock_yaml_load, *_):
+        mock_yaml_load.side_effect = IOError(errno.EEXIST, "Doesn't exist")
+        self.assertDictEqual(utils.parse_yaml('some/path'), {})
+
+    @mock.patch('yardstick.common.utils.open')
+    @mock.patch('yardstick.common.utils.yaml_load')
+    def test_parse_yaml_os_error_not_exist(self, mock_yaml_load, *_):
+        mock_yaml_load.side_effect = OSError(errno.ENOENT, "Doesn't exist")
+        self.assertDictEqual(utils.parse_yaml('some/path'), {})
+
+    @mock.patch('yardstick.common.utils.open')
+    @mock.patch('yardstick.common.utils.yaml_load')
+    def test_parse_yaml_io_error_busy(self, mock_yaml_load, *_):
+        mock_yaml_load.side_effect = IOError(errno.EFBIG, 'Too big')
+        with self.assertRaises(IOError):
+            utils.parse_yaml('some/path')
+
+    @mock.patch('yardstick.common.utils.open')
+    @mock.patch('yardstick.common.utils.yaml_load')
+    def test_parse_yaml_os_error_busy(self, mock_yaml_load, *_):
+        mock_yaml_load.side_effect = OSError(errno.EBUSY, 'Busy')
+        with self.assertRaises(OSError):
+            utils.parse_yaml('some/path')
+
+    @mock.patch('os.makedirs')
+    def test_makedirs(self, mock_makedirs):
+        mock_makedirs.side_effect = OSError(errno.EBUSY, 'Busy')
+        with self.assertRaises(OSError):
+            utils.makedirs('some/path')
+
+    @mock.patch('os.remove')
+    def test_remove_file(self, mock_remove):
+        mock_remove.side_effect = OSError(errno.EBUSY, 'Busy')
+        with self.assertRaises(OSError):
+            utils.remove_file('some/path')
 
     @mock.patch('subprocess.check_output')
     def test_execute_command(self, mock_check_output):
@@ -819,6 +902,30 @@ class TestUtils(unittest.TestCase):
         self.assertDictEqual(result, expected)
         os.environ.clear()
         os.environ.update(base_env)
+
+    @mock.patch('yardstick.common.utils.open')
+    def test_read_json_from_file(self, mock_open):
+        with mock_open() as mock_handle:
+            mock_handle.read.return_value = '{"a": 34, "b": 43}'
+
+            expected = {'a': 34, 'b': 43}
+            result = utils.read_json_from_file('some/path')
+            self.assertDictEqual(result, expected)
+
+    @mock.patch('yardstick.common.utils.jsonutils.dump')
+    @mock.patch('yardstick.common.utils.open')
+    def test_write_json_to_file(self, mock_open, mock_dump):
+        with mock_open() as mock_handle:
+            self.assertIsNone(utils.write_json_to_file('some/path', 'some data'))
+            self.assertEqual(mock_dump.call_count, 1)
+            self.assertEqual(mock_dump.call_args_list[0][0], ('some data', mock_handle))
+
+    @mock.patch('yardstick.common.utils.open')
+    def test_write_file(self, mock_open):
+        with mock_open() as mock_handle:
+            self.assertIsNone(utils.write_file('some/path', 'some data'))
+            self.assertEqual(mock_handle.write.call_count, 1)
+            self.assertEqual(mock_handle.write.call_args_list[0][0], ('some data',))
 
     @mock.patch('yardstick.common.utils.configparser.ConfigParser')
     def test_parse_ini_file(self, mock_config_parser_type):
@@ -896,6 +1003,49 @@ class TestUtils(unittest.TestCase):
         result = utils.parse_ini_file('my_path')
         self.assertDictEqual(result, expected)
 
+    def test_config_to_dict_no_data(self):
+        mock_config = mock.Mock()
+        mock_config.sections.return_value = []
+
+        expected = {}
+        result = utils.config_to_dict(mock_config)
+        self.assertDictEqual(result, expected)
+
+    def test_config_to_dict(self):
+        def items(section_name):
+            return my_items.get(section_name, [])
+
+        mock_config = mock.Mock()
+        mock_config.sections.return_value = [
+            'section1',
+            'section2',
+            'section3',
+        ]
+        mock_config.items = items
+
+        my_items = {
+            'section1': [
+                ('lions', None),
+                ('tigers', 432),
+                ('bears', tuple()),
+            ],
+            'section2': [('unicorns', 'ambrosia')],
+        }
+
+        expected = {
+            'section1': {
+                'lions': None,
+                'tigers': 432,
+                'bears': tuple(),
+            },
+            'section2': {
+                'unicorns': 'ambrosia',
+            },
+            'section3': {},
+        }
+        result = utils.config_to_dict(mock_config)
+        self.assertDictEqual(result, expected)
+
     def test_join_non_strings(self):
         self.assertEqual(utils.join_non_strings(':'), '')
         self.assertEqual(utils.join_non_strings(':', 'a'), 'a')
@@ -921,6 +1071,24 @@ class TestUtils(unittest.TestCase):
         error_instance = utils.ErrorClass(test='')
         with self.assertRaises(AttributeError):
             error_instance.get_name()
+
+    def test_make_dict_iter(self):
+        data = {
+            'list1': ['a', 'b', 'c', 'd'],
+            'dict1': OrderedDict([('x', 234), ('y', 432), ('z', 333)]),
+            'string1': 'hello world',
+            'int1': 567,
+        }
+
+        expected = [('a', 'x'), ('b', 'y'), ('c', 'z')]
+        result = list(utils.make_dict_iter(data, 'list1', 'dict1'))
+        self.assertEqual(result, expected)
+
+        result = list(utils.make_dict_iter(data, ['list1', 'dict1']))
+        self.assertEqual(result, expected)
+
+    def test_range_list_str_generator_empty_string(self):
+        self.assertEqual(list(utils.range_list_str_generator('')), [])
 
 
 class TestUtilsIpAddrMethods(unittest.TestCase):

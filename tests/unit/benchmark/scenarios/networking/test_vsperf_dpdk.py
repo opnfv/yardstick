@@ -23,13 +23,13 @@ except ImportError:
     import mock
 import unittest
 
-from yardstick.benchmark.scenarios.networking import vsperf_dpdk
+import yardstick.benchmark.scenarios.networking.vsperf_dpdk as vsperf_dpdk
 
 
 @mock.patch('yardstick.benchmark.scenarios.networking.vsperf_dpdk.subprocess')
 @mock.patch('yardstick.benchmark.scenarios.networking.vsperf_dpdk.ssh')
 @mock.patch("yardstick.benchmark.scenarios.networking.vsperf_dpdk.open",
-            mock.mock_open())
+            mock.mock_open(), create=True)
 class VsperfDPDKTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -120,7 +120,8 @@ class VsperfDPDKTestCase(unittest.TestCase):
         result = p._is_dpdk_setup()
         self.assertEqual(result, True)
 
-    def test_vsperf_dpdk_dpdk_setup_first(self, mock_ssh, mock_subprocess):
+    @mock.patch('yardstick.benchmark.scenarios.networking.vsperf_dpdk.time')
+    def test_vsperf_dpdk_dpdk_setup_first(self, _, mock_ssh, mock_subprocess):
         p = vsperf_dpdk.VsperfDPDK(self.args, self.ctx)
 
         # setup() specific mocks
@@ -137,7 +138,8 @@ class VsperfDPDKTestCase(unittest.TestCase):
         self.assertEqual(p._is_dpdk_setup(), False)
         self.assertEqual(p.dpdk_setup_done, True)
 
-    def test_vsperf_dpdk_dpdk_setup_next(self, mock_ssh, mock_subprocess):
+    @mock.patch('yardstick.benchmark.scenarios.networking.vsperf_dpdk.time')
+    def test_vsperf_dpdk_dpdk_setup_next(self, _, mock_ssh, mock_subprocess):
         p = vsperf_dpdk.VsperfDPDK(self.args, self.ctx)
 
         # setup() specific mocks
@@ -169,7 +171,8 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
         self.assertRaises(RuntimeError, p.dpdk_setup)
 
-    def test_vsperf_dpdk_run_ok(self, mock_ssh, mock_subprocess):
+    @mock.patch('yardstick.benchmark.scenarios.networking.vsperf_dpdk.time')
+    def test_vsperf_dpdk_run_ok(self, _, mock_ssh, mock_subprocess):
         p = vsperf_dpdk.VsperfDPDK(self.args, self.ctx)
 
         # setup() specific mocks
