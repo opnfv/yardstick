@@ -23,19 +23,17 @@ if [ "$(whoami)" != "root" ]; then
 fi
 
 echo "setup proxy..."
-http_proxy=$1
-https_proxy=$2
-if [[ "$http_proxy" != "" ]]; then
-    export http_proxy=$http_proxy
-    export https_proxy=$http_proxy
+if [[ "$1" != "" ]]; then
+    export http_proxy=$1
+    export https_proxy=$2
 fi
 
-if [[ "$https_proxy" != "" ]]; then
-    export https_proxy=$https_proxy
+if [[ "$2" != "" ]]; then
+    export https_proxy=$2
 fi
 
 echo "Install required libraries to run collectd..."
-pkg=(git flex bison build-essential pkg-config automake  autotools-dev libltdl-dev librabbitmq-dev rabbitmq-server cmake)
+pkg=(git flex bison build-essential pkg-config automake  autotools-dev libltdl-dev librabbitmq-dev rabbitmq-server cmake libvirt-dev)
 for i in "${pkg[@]}"; do
 dpkg-query -W --showformat='${Status}\n' "${i}"|grep "install ok installed"
     if [  "$?" -eq "1" ]; then
@@ -71,15 +69,13 @@ else
 
     echo "Get dpdk and install..."
     mkdir -p $INSTALL_NSB_BIN
-    rm -rf "$INSTALL_NSB_BIN"/dpdk >/dev/null
-    git clone http://dpdk.org/git/dpdk
-    pushd dpdk
+    pushd dpdk-16.07
     mkdir -p /mnt/huge
     mount -t hugetlbfs nodev /mnt/huge
     sed -i 's/CONFIG_RTE_BUILD_SHARED_LIB=n/CONFIG_RTE_BUILD_SHARED_LIB=y/g' config/common_base
     sed -i 's/CONFIG_RTE_EAL_PMD_PATH=""/CONFIG_RTE_EAL_PMD_PATH="\/usr\/lib\/dpdk-pmd\/"/g' config/common_base
 
-                echo "Build dpdk v16.04"
+                echo "Build dpdk v16.07"
                 make config T=x86_64-native-linuxapp-gcc
                 make
                 sudo make install prefix=/usr
@@ -125,7 +121,7 @@ else
     git clone https://github.com/collectd/collectd.git
     pushd collectd
     git stash
-    git checkout -n nfvi 47c86ace348a1d7a5352a83d10935209f89aa4f5
+    git checkout -b nfvi 47c86ace348a1d7a5352a83d10935209f89aa4f5
     ./build.sh
     ./configure --with-libpqos=/usr/ --with-libdpdk=/usr --with-libyajl=/usr/local --enable-debug --enable-dpdkstat --enable-virt --enable-ovs_stats
     make install > /dev/null
