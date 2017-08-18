@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "da33351e_cb82d051",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-18T23:05:36Z",
+      "side": 1,
+      "message": "prepend without double-adding\n\n def prepend_path(path):\n     # equivalent to sys.path[:] \u003d [path] + [x for x in  sys.path if x !\u003d path]\n     # use sys.path[:] to mutate in place\n     sys.path[:] \u003d list(chain([path], (x for x in sys.path if x !\u003d path)))",
+      "revId": "3affedec4b033cc4916781f5b0ecddfd61c8266c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_8bb9e830",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 3
