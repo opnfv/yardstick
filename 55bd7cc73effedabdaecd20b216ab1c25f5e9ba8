@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_9d581f58",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-08-18T12:58:00Z",
+      "side": 1,
+      "message": "Probably some rebase issue. It\u0027s present now. Fixed.",
+      "parentUuid": "da33351e_dd0c6897",
+      "revId": "55bd7cc73effedabdaecd20b216ab1c25f5e9ba8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_bd11a4ae",
         "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2017-08-15T04:48:47Z",
       "side": 1,
       "message": "when was scenario_cfg empty?  I don\u0027t think it can be valid without nodes?\n\neventually we will define schema and required fields.",
+      "revId": "55bd7cc73effedabdaecd20b216ab1c25f5e9ba8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7d555b1c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-08-18T12:58:00Z",
+      "side": 1,
+      "message": "I was adding the default empty dictionaries bellow for options and was too quick with adding it also here. It\u0027s not necessary. Removed.",
+      "parentUuid": "da33351e_bd11a4ae",
       "revId": "55bd7cc73effedabdaecd20b216ab1c25f5e9ba8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -81,6 +117,24 @@
       "writtenOn": "2017-08-15T04:48:47Z",
       "side": 1,
       "message": "in the original it is \n\n  2 ** len(self.all_ports+1) - 1\n\nwhich I think is more clear in indicating that we need to act like we have another port.",
+      "revId": "55bd7cc73effedabdaecd20b216ab1c25f5e9ba8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_dd31070d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-08-18T12:58:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_7d7efce5",
       "revId": "55bd7cc73effedabdaecd20b216ab1c25f5e9ba8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
