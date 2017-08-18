@@ -13,11 +13,13 @@
 # limitations under the License.
 
 from __future__ import absolute_import
+
 import os
-import mock
 import unittest
 
-from yardstick.benchmark.contexts import ovsdpdk
+import mock
+
+from yardstick.benchmark.contexts.standalone import ovsdpdk
 
 NIC_INPUT = {
     'interface': {},

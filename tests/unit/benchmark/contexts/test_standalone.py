@@ -18,13 +18,14 @@
 # Unittest for yardstick.benchmark.contexts.standalone
 
 from __future__ import absolute_import
+
 import os
 import unittest
+
 import mock
 
 from yardstick.benchmark.contexts import standalone
-from yardstick.benchmark.contexts import sriov
-from yardstick.benchmark.contexts import ovsdpdk
+from yardstick.benchmark.contexts.standalone import ovsdpdk, sriov
 
 MOCKS = {
     'yardstick.benchmark.contexts': mock.MagicMock(),
