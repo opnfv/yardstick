@@ -11,10 +11,11 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+
 import sys
 import os
 from collections import OrderedDict
-
+from itertools import chain
 import yaml
 import atexit
 import ipaddress
@@ -684,6 +685,13 @@ def check_environment():
             if e.errno != errno.EEXIST:
                 raise
             LOG.debug('OPENRC file not found')
+
+    try:
+        trex_lib_path = os.environ.get(["TREX_CLIENT_LIB"], '')
+        sys.path[:] = list(chain([trex_lib_path], (x for x in sys.path if x != trex_lib_path)))
+    except KeyError:
+        LOG.warning('TREX_CLIENT_LIB environment variable not set with path' +
+                    'to TRex python client')
 
 
 def change_server_name(scenario, suffix):
