@@ -17,9 +17,9 @@ from __future__ import absolute_import
 from __future__ import division
 import logging
 
-from stl.trex_stl_lib.trex_stl_client import STLStream
-from stl.trex_stl_lib.trex_stl_streams import STLFlowLatencyStats
-from stl.trex_stl_lib.trex_stl_streams import STLTXCont
+from trex_stl_lib.trex_stl_client import STLStream
+from trex_stl_lib.trex_stl_streams import STLFlowLatencyStats
+from trex_stl_lib.trex_stl_streams import STLTXCont
 
 from yardstick.network_services.traffic_profile.traffic_profile \
     import TrexProfile
