@@ -17,3 +17,5 @@
   with_items:
     - libpcap-devel
 
+- name: Install kernel headers
+  action: "{{ ansible_pkg_mgr }} name=kernel-headers-{{ dpdk_kernel }} state=present"

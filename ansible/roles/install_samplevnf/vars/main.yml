@@ -12,25 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- debug:
-    var: prox_version
-    verbosity: 2
-
-- name: fetch prox
-  get_url:
-    url: "{{ prox_url }}"
-    dest: "{{ prox_dest }}"
-    validate_certs: False
-    checksum: "{{ prox_sha256s[prox_version] }}"
-
-- unarchive:
-    src: "{{ clone_dest }}/{{ prox_file }}"
-    dest: "{{ clone_dest }}/"
-    copy: no
-    
-- debug:
-    var: prox_unarchive
-    verbosity: 2
-
-- set_fact:
-    prox_path: "{{ clone_dest }}/{{ prox_unarchive }}"
+vnf_build_dependencies:
+  PROX:
+    Debian:
+      - pkg-config
+      - liblua5.2-dev
+      - libncurses5
+      - libncurses5-dev
+      - libncursesw5
+      - libncursesw5-dev
+      - libedit-dev
+    RedHat:
+      - pkgconfig
+      - lua-devel
+      - ncurses-devel
+      - libedit-devel
+vnf_build_dirs:
+  ACL: vACL
+  FW: vFW
+  CGNATP: vCGNAPT
+  UDP_Replay: UDP_Replay
+  PROX: DPPD-PROX
+vnf_app_names:
+  ACL: vACL
+  FW: vFW
+  CGNATP: vCGNAPT
+  UDP_Replay: UDP_Replay
+  PROX: prox

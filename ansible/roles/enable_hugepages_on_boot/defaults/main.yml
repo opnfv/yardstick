@@ -1,0 +1,3 @@
+---
+num_hugepages: auto
+huge_pagesize_mb: 1024

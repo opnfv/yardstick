@@ -28,11 +28,9 @@
     sha256sums_filename: "{{ sha256sums_path|basename }}"
     sha256sums_url: "{{ lookup('env', 'SHA256SUMS_URL')|default('https://' ~ host ~ '/' ~ sha256sums_path, true) }}"
 
-    mountdir: "{{ lookup('env', 'mountdir')|default('/mnt/yardstick', true) }}"
     workspace: "{{ lookup('env', 'workspace')|default('/tmp/workspace/yardstick', true) }}"
     imgfile: "{{ workspace }}/yardstick-image.img"
     raw_imgfile_basename: "yardstick-{{ release }}-server.raw"
-    raw_imgfile: "{{ workspace }}/{{ raw_imgfile_basename }}"
   environment:
     PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin
 
@@ -41,6 +39,12 @@
         key: image_builder
 
     - package: name=parted state=present
+
+    - set_fact:
+        mountdir: "{{ lookup('env', 'mountdir')|default('/mnt/yardstick', true) }}"
+
+    - set_fact:
+        raw_imgfile: "{{ workspace }}/{{ raw_imgfile_basename }}"
 
   # cleanup non-lxd
     - name: unmount all old mount points
@@ -260,9 +264,16 @@
         ansible_python_interpreter: /usr/bin/python3
         # set this host variable here
         nameserver_ip: "{{ ansible_dns.nameservers[0] }}"
+        image_type: vm
 
 - name: include {{ img_modify_playbook }}
   include: "{{ img_modify_playbook }}"
 
 - name: run post build tasks
   include: post_build_yardstick_image.yml
+
+- hosts: localhost
+
+  tasks:
+    - debug:
+        msg: "yardstick image = {{ raw_imgfile }}"
