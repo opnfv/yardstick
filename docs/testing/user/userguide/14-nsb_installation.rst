@@ -103,7 +103,7 @@ Config yardstick conf
     cp ./etc/yardstick/yardstick.conf.sample /etc/yardstick/yardstick.conf
     vi /etc/yardstick/yardstick.conf
 
-Add trex_path and bin_path in 'nsb' section.
+Add trex_path, trex_client_lib and bin_path in 'nsb' section.
 
 ::
 
@@ -121,6 +121,7 @@ Add trex_path and bin_path in 'nsb' section.
   [nsb]
   trex_path=/opt/nsb_bin/trex/scripts
   bin_path=/opt/nsb_bin
+  trex_client_lib=/opt/nsb_bin/trex_client/stl
 
 
 Config pod.yaml describing Topology
