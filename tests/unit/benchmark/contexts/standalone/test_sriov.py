@@ -13,11 +13,13 @@
 # limitations under the License.
 
 from __future__ import absolute_import
+
 import os
-import mock
 import unittest
 
-from yardstick.benchmark.contexts import sriov
+import mock
+
+from yardstick.benchmark.contexts.standalone import sriov
 
 NIC_INPUT = {
     'interface': {},
@@ -185,7 +187,7 @@ class SriovTestCase(unittest.TestCase):
                 nic_details['vf_pci'][i] = sriov_obj.get_vf_datas.return_value
                 vf_pci = [[], []]
                 vf_pci[i] = sriov_obj.get_vf_datas.return_value
-            with mock.patch("yardstick.benchmark.contexts.sriov.time"):
+            with mock.patch("yardstick.benchmark.contexts.standalone.sriov.time"):
                 self.assertIsNotNone(sriov_obj.configure_nics_for_sriov(DRIVER, NIC_DETAILS))
 
     def test_setup_sriov_context(self):
@@ -224,7 +226,7 @@ class SriovTestCase(unittest.TestCase):
                 mock.Mock(return_value=(0, {}, ""))
             ssh_mock.put = mock.Mock()
             sriov_obj.check_output = mock.Mock(return_value=(1, {}))
-            with mock.patch("yardstick.benchmark.contexts.sriov.time"):
+            with mock.patch("yardstick.benchmark.contexts.standalone.sriov.time"):
                 self.assertIsNone(sriov_obj.setup_sriov_context(PCIS, nic_details, DRIVER))
 
     def test_setup_sriov_context_vm_already_present(self):
@@ -263,11 +265,11 @@ class SriovTestCase(unittest.TestCase):
                 mock.Mock(return_value=(0, {}, ""))
             ssh_mock.put = mock.Mock()
             sriov_obj.check_output = mock.Mock(return_value=(0, "vm1"))
-            with mock.patch("yardstick.benchmark.contexts.sriov.time"):
+            with mock.patch("yardstick.benchmark.contexts.standalone.sriov.time"):
                 self.assertIsNone(sriov_obj.setup_sriov_context(PCIS, nic_details, DRIVER))
 
     @mock.patch(
-        'yardstick.benchmark.contexts.sriov',
+        'yardstick.benchmark.contexts.standalone.sriov',
         return_value="Domain vm1 created from /tmp/vm_sriov.xml")
     def test_is_vm_created(self, NIC_INPUT):
         with mock.patch("yardstick.ssh.SSH") as ssh:
