@@ -46,6 +46,7 @@
     - python-setuptools
     - libffi-devel
     - python-devel
+    - kpartx
     # don't install kernel-devel here it will trigger unwanted kernel upgrade
     # Mandatory Packages:
     # Don't use yum groups, they don't work, expand them manually

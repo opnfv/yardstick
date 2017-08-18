@@ -12,15 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- set_fact:
-    trex_file: "{{ trex_url|basename|regex_replace('[.]tar.gz', '') }}"
-
 
 - file: path="{{ INSTALL_BIN_PATH }}/trex" state=absent
 - file: path="{{ INSTALL_BIN_PATH }}/trex" state=directory
 
+- command: mv "{{ trex_dest }}/{{ trex_unarchive }}" "{{ INSTALL_BIN_PATH }}/trex/scripts"
 
-- command: mv "{{ clone_dest }}/{{ trex_unarchive }}" "{{ INSTALL_BIN_PATH }}/trex/scripts"
+- my_make:
+    chdir: "{{ INSTALL_BIN_PATH }}/trex/scripts/ko/src"
+    extra_args: "-j {{ ansible_processor_vcpus }}"
+
+- my_make:
+    chdir: "{{ INSTALL_BIN_PATH }}/trex/scripts/ko/src"
+    target: install
+    extra_args: "-j {{ ansible_processor_vcpus }}"
 
 - file: path="{{ INSTALL_BIN_PATH }}/trex/scripts/automation/trex_control_plane/stl/__init__.py" state=touch
 

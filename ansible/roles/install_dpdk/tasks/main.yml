@@ -20,7 +20,21 @@
 #  with_fileglob:
 #    - "{{ local_nsb_path }}/patches/dpdk_custom_patch/0*.patch"
 
+- name: find kernel for image, (including chroot)
+  find_kernel:
+    kernel: "{{ ansible_kernel }}"
+  register: found_kernel
+
+# Do this before installing kernel headers
+- name: Set dpdk_kernel to be the kernel we found
+  set_fact:
+    dpdk_kernel: "{{ found_kernel.kernel }}"
+
 - include: "{{ ansible_os_family }}.yml"
+
+- name: set RTE_KERNELDIR to point to found kernel
+  set_fact:
+    RTE_KERNELDIR: "/lib/modules/{{ found_kernel.kernel }}/build"
 
 - my_make:
     chdir: "{{ dpdk_path }}"
@@ -29,6 +43,8 @@
       T: "{{ dpdk_make_arch }}"
       O: "{{ dpdk_make_arch }}"
     extra_args: "-j {{ ansible_processor_vcpus }}"
+  environment:
+    RTE_KERNELDIR: "{{ RTE_KERNELDIR }}"
 
 - name: enable RTE_PORT_STATS_COLLECT
   lineinfile:
@@ -57,6 +73,8 @@
 - my_make:
     chdir: "{{ dpdk_path }}/{{ dpdk_make_arch}}"
     extra_args: "-j {{ ansible_processor_vcpus }}"
+  environment:
+    RTE_KERNELDIR: "{{ RTE_KERNELDIR }}"
 
 - file:
     path: "{{ dpdk_module_dir}}"
@@ -67,7 +85,8 @@
     dest: "{{ dpdk_module_dir }}/igb_uio.ko"
     remote_src: yes
 
-- command: depmod -a
+- name: run depmod for dpdk_kernel
+  command: depmod "{{ dpdk_kernel }}"
 
 - file:
     path: "{{ INSTALL_BIN_PATH }}"

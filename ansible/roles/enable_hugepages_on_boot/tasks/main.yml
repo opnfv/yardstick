@@ -38,14 +38,10 @@
     line: '{{ hugepage_param }}'
     state: present
 
-- name: Update grub
-  command: "{{ update_grub[ansible_os_family] }}"
-
 - name: create hugetables mount
   file:
     path: "{{ hugetable_mount }}"
     state: directory
-
 
 - name: mount hugetlbfs
   mount:
