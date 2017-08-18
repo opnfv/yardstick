@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation
+# Copyright (c) 2017 Intel Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,25 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- debug:
-    var: prox_version
-    verbosity: 2
+- name: install yardstick dependencies
+  hosts: all
 
-- name: fetch prox
-  get_url:
-    url: "{{ prox_url }}"
-    dest: "{{ prox_dest }}"
-    validate_certs: False
-    checksum: "{{ prox_sha256s[prox_version] }}"
+  roles:
+    - install_dependencies
 
-- unarchive:
-    src: "{{ clone_dest }}/{{ prox_file }}"
-    dest: "{{ clone_dest }}/"
-    copy: no
-    
-- debug:
-    var: prox_unarchive
-    verbosity: 2
-
-- set_fact:
-    prox_path: "{{ clone_dest }}/{{ prox_unarchive }}"
