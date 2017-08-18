@@ -31,6 +31,9 @@ OPTS = [
     cfg.StrOpt('trex_path',
                default=os.path.join(NSB_ROOT, 'trex/scripts'),
                help='trex automation lib pathh.'),
+    cfg.StrOpt('trex_client_lib',
+               default=os.path.join(NSB_ROOT, 'trex/scripts', 'automation/trex_control_plane/stl'),
+               help='trex automation lib pathh.'),
 ]
 CONF.register_opts(OPTS, group="nsb")
 
