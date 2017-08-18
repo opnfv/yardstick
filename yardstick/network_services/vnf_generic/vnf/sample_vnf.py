@@ -37,9 +37,9 @@ from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
 from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
 from yardstick.network_services.utils import get_nsb_option
 
-from stl.trex_stl_lib.trex_stl_client import STLClient
-from stl.trex_stl_lib.trex_stl_client import LoggerApi
-from stl.trex_stl_lib.trex_stl_exceptions import STLError
+from trex_stl_lib.trex_stl_client import STLClient
+from trex_stl_lib.trex_stl_client import LoggerApi
+from trex_stl_lib.trex_stl_exceptions import STLError
 
 from yardstick.ssh import AutoConnectSSH
 

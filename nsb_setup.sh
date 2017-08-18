@@ -83,7 +83,7 @@ install_trex()
 {
     TREX_DIR=$INSTALL_BIN_PATH/trex/scripts
     if [ -d "$TREX_DIR" ]; then
-        echo "Trex v2.20 already installed. Make sure it contains PYTHONPATH which is required to run TRex"
+        echo "Trex $TREX_VERSION already installed."
     else
         echo "Build TRex and installing Trex TG in $INSTALL_BIN_PATH/trex"
         rm -rf ${TREX_DOWNLOAD##*/}
@@ -99,8 +99,7 @@ install_trex()
         cd trex/scripts/ko/src/
         make
         make install
-        # workaround trex module issue
-        touch "$REPO_DIR/trex/scripts/automation/trex_control_plane/stl/__init__.py"
+        ln -s $TREX_DIR/automation/trex_control_plane $INSTALL_BIN_PATH/trex_client
         cp "$REPO_DIR/trex/scripts/dpdk_nic_bind.py" "$INSTALL_BIN_PATH"
         popd
     fi
