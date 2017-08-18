@@ -29,6 +29,7 @@
     - qemu-kvm
     - qemu-user-static
     - qemu-utils
+    - kpartx
     - libvirt0
     - python-libvirt
     - bridge-utils

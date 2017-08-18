@@ -21,10 +21,16 @@
     mode: 0755
   when: prox_version == "v035"
 
+- name: enable software CRC for VM image
+  set_fact:
+      crc: soft
+  when: image_type is defined and image_type == "vm"
+
 - make:
     chdir: "{{ prox_path }}"
   environment:
     RTE_SDK: "{{ RTE_SDK }}"
     RTE_TARGET: "{{ RTE_TARGET }}"
+    crc: "{{ crc|default('') }}"
 
 

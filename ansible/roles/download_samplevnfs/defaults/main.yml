@@ -1,6 +1,4 @@
 ---
-samplevnf_version: ""
-samplevnf_file: "{{ samplevnf_url|basename }}"
-samplevnf_unarchive: "{{ samplevnf_file|regex_replace('[.]tar[.]gz$', '') }}"
-samplevnf_dest: "{{ clone_dest }}/"
-samplevnf_sha256: "sha256:36457cadfd23053c9ce1cf2e6f048cad6a5d04a7371d7a122e133dcbf007989e"
+samplevnf_url: "https://git.opnfv.org/samplevnf"
+samplevnf_dest: "{{ clone_dest }}/samplevnf"
+samplevnf_version: "master"
