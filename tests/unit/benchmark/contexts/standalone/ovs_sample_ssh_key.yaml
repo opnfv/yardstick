@@ -22,7 +22,6 @@ nodes:
     name: trafficgen_1
     role: TrafficGen
     ip: 10.10.10.10
-    auth_type: ssh_key
     user: root
     ssh_port: 22
     key_filename: /root/.ssh/id_rsa
@@ -45,7 +44,6 @@ nodes:
     name: ovs
     role: Ovsdpdk
     ip: 10.223.197.222
-    auth_type: ssh_key
     user: root
     ssh_port: 22
     key_filename: /root/.ssh/id_rsa
