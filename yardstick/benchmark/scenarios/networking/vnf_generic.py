@@ -14,13 +14,13 @@
 """ NSPerf specific scenario definition """
 
 from __future__ import absolute_import
-import logging
 
+import logging
 import errno
 
 import ipaddress
 import os
-
+import sys
 import re
 from itertools import chain
 
@@ -35,7 +35,9 @@ from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic import vnfdgen
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.traffic_profile.base import TrafficProfile
+from yardstick.network_services.utils import get_nsb_option
 from yardstick import ssh
+
 
 LOG = logging.getLogger(__name__)
 
@@ -439,6 +441,9 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
         :param context_cfg:
         :return:
         """
+        trex_lib_path = get_nsb_option('trex_client_lib')
+        sys.path[:] = list(chain([trex_lib_path], (x for x in sys.path if x != trex_lib_path)))
+
         if scenario_cfg is None:
             scenario_cfg = self.scenario_cfg
 
