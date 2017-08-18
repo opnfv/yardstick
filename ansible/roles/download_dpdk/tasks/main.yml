@@ -16,6 +16,10 @@
     var: dpdk_version
     verbosity: 2
 
+- file:
+    path: "{{ dpdk_dest }}"
+    state: directory
+
 - name: fetch dpdk
   get_url:
     url: "{{ dpdk_url }}"
@@ -24,12 +28,17 @@
     checksum: "{{ dpdk_sha256s[dpdk_version] }}"
 
 - unarchive:
-    src: "{{ clone_dest }}/{{ dpdk_file }}"
-    dest: "{{ clone_dest }}/"
+    src: "{{ dpdk_dest }}/{{ dpdk_file }}"
+    dest: "{{ dpdk_dest }}/"
     copy: no
 
+- name: cleanup tar file to save space
+  file:
+      path: "{{ dpdk_dest }}/{{ dpdk_file }}"
+      state: absent
+
 - set_fact:
-    dpdk_path: "{{ clone_dest }}/{{ dpdk_unarchive }}"
+    dpdk_path: "{{ dpdk_dest }}/{{ dpdk_unarchive }}"
 
 - set_fact:
     RTE_SDK: "{{ dpdk_path }}"

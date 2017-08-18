@@ -17,16 +17,13 @@
 #    verbosity: 2
 
 - name: fetch samplevnf
-  get_url:
-    url: "{{ samplevnf_url }}"
+  git:
+    repo: "{{ samplevnf_url }}"
     dest: "{{ samplevnf_dest }}"
-    validate_certs: False
-    checksum: "{{ samplevnf_sha256 }}"
-
-- unarchive:
-    src: "{{ clone_dest }}/{{ samplevnf_file }}"
-    dest: "{{ clone_dest }}/"
-    copy: no
+    version: "{{ samplevnf_version }}"
+    accept_hostkey: yes
+    recursive: no
+    force: yes
 
 - set_fact:
-    samplevnf_path: "{{ clone_dest }}/{{ samplevnf_unarchive }}"
+    samplevnf_path: "{{ samplevnf_dest }}"
