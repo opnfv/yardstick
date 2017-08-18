@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_9a2018f9",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_rfc2544_trex.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-08-18T12:58:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_9f2bea81",
+      "revId": "97835306d68d6d6394bcc6653a27c436655c16cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_bc187c85",
         "filename": "tests/unit/network_services/vnf_generic/vnf/test_udp_replay.py",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2017-08-17T17:39:45Z",
       "side": 1,
       "message": "doesn\u0027t udp_relay use the vnfd_helper to access interfaces? making this unnecessary.",
+      "revId": "97835306d68d6d6394bcc6653a27c436655c16cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3a23cc06",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_udp_replay.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-08-18T12:58:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_bc187c85",
       "revId": "97835306d68d6d6394bcc6653a27c436655c16cb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_1a0d2891",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_udp_replay.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-08-18T12:58:00Z",
+      "side": 1,
+      "message": "mocking hex is not necessary, removed.",
+      "parentUuid": "da33351e_7c06f421",
+      "revId": "97835306d68d6d6394bcc6653a27c436655c16cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_1c09a831",
         "filename": "tests/unit/network_services/vnf_generic/vnf/test_udp_replay.py",
         "patchSetId": 7
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_5a269017",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_udp_replay.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-08-18T12:58:00Z",
+      "side": 1,
+      "message": "No usage of eval, removed.",
+      "parentUuid": "da33351e_1c09a831",
+      "revId": "97835306d68d6d6394bcc6653a27c436655c16cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_1cffe835",
         "filename": "tests/unit/network_services/vnf_generic/vnf/test_udp_replay.py",
         "patchSetId": 7
@@ -81,6 +153,24 @@
       "writtenOn": "2017-08-17T17:39:45Z",
       "side": 1,
       "message": "please use the context manager style:\n\n with self.assertRaises(RuntimeError):\n   udp_relay_approx_vnf.wait_for_instantiate()",
+      "revId": "97835306d68d6d6394bcc6653a27c436655c16cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ba17dca2",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_udp_replay.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-08-18T12:58:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_1cffe835",
       "revId": "97835306d68d6d6394bcc6653a27c436655c16cb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -127,6 +217,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_d5e9d31b",
+        "filename": "yardstick/network_services/traffic_profile/traffic_profile.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-08-18T12:58:00Z",
+      "side": 1,
+      "message": "Weird. I know there was some issue with this. The result of the split was b\u0027string\u0027 (bytes) and there was an issue with unpacking in Scapy libraries where the types didn\u0027t match. The str conversion fixed that. But now it seems to work even without this conversion.\n\nMaybe in python 3.x it would be a problem? But I don\u0027t recall running it in python 3.",
+      "parentUuid": "da33351e_9c365802",
+      "range": {
+        "startLine": 143,
+        "startChar": 20,
+        "endLine": 143,
+        "endChar": 23
+      },
+      "revId": "97835306d68d6d6394bcc6653a27c436655c16cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_5c7e90af",
         "filename": "yardstick/network_services/traffic_profile/traffic_profile.py",
         "patchSetId": 7
@@ -138,6 +252,24 @@
       "writtenOn": "2017-08-17T17:39:45Z",
       "side": 1,
       "message": "i prefer to make an iterator from the list and use next to handle the default, there are two styles:\n\n src_ips_iter \u003d iter(src_ip4.split(\u0027-\u0027))\n min_value \u003d next(src_ips_iter)\n max_value \u003d next(src_ips_iter, min_value)\n\nor\n\n src_ips_iter \u003d itertools.cycle(src_ip4.split(\u0027-\u0027))\n min_value \u003d next(src_ips_iter)\n max_value \u003d next(src_ips_iter)\n\nof course, this could be handled within the conditional statement that follows, but the iterator can inform us about the number of src_ips split, suggesting that we should do:\n\n src_ip_iter \u003d iter(src_ip4.split(\u0027-\u0027))\n min_value \u003d str(next(src_ip_iter)\n try:\n   max_value \u003d str(next(src_ip_iter))\n except StopIteration:\n   self._set_ip_fields(src\u003dmin_value)\n else:\n   stl_vm_flow_var \u003d STLVmFlowVar(...)\n   ...\n   self.vm_flow_vars.append(...)",
+      "revId": "97835306d68d6d6394bcc6653a27c436655c16cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f5cfb7ae",
+        "filename": "yardstick/network_services/traffic_profile/traffic_profile.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-08-18T12:58:00Z",
+      "side": 1,
+      "message": "I\u0027ll do this and the refactor bellow either in a next patchset or in another review.",
+      "parentUuid": "da33351e_5c7e90af",
       "revId": "97835306d68d6d6394bcc6653a27c436655c16cb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
