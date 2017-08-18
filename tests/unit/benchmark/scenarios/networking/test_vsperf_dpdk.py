@@ -29,7 +29,7 @@ from yardstick.benchmark.scenarios.networking import vsperf_dpdk
 @mock.patch('yardstick.benchmark.scenarios.networking.vsperf_dpdk.subprocess')
 @mock.patch('yardstick.benchmark.scenarios.networking.vsperf_dpdk.ssh')
 @mock.patch("yardstick.benchmark.scenarios.networking.vsperf_dpdk.open",
-            mock.mock_open())
+            mock.mock_open(), create=True)
 class VsperfDPDKTestCase(unittest.TestCase):
 
     def setUp(self):

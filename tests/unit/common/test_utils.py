@@ -268,7 +268,7 @@ address sizes   : 46 bits physical, 48 bits virtual
 power management:
 
 """
-        socket_map = utils.SocketTopology.parse_cpuinfo(cpuinfo)
+        socket_map = utils.SocketTopology.make_topology_from_text(cpuinfo)
         assert sorted(socket_map.keys()) == [0]
         assert sorted(socket_map[0].keys()) == [2, 3, 4]
 
@@ -356,7 +356,7 @@ address sizes   : 39 bits physical, 48 bits virtual
 power management:
 
 """
-        socket_map = utils.SocketTopology.parse_cpuinfo(cpuinfo)
+        socket_map = utils.SocketTopology.make_topology_from_text(cpuinfo)
         assert sorted(socket_map.keys()) == [0]
         assert sorted(socket_map[0].keys()) == [1, 2, 3]
         assert sorted(socket_map[0][1]) == [5]
@@ -555,7 +555,7 @@ address sizes   : 46 bits physical, 48 bits virtual
 power management:
 
 """
-        socket_map = utils.SocketTopology.parse_cpuinfo(cpuinfo)
+        socket_map = utils.SocketTopology.make_topology_from_text(cpuinfo)
         assert sorted(socket_map.keys()) == [0, 1]
         assert sorted(socket_map[0].keys()) == [0, 1, 2]
         assert sorted(socket_map[1].keys()) == [26, 27, 28]
@@ -758,7 +758,7 @@ address sizes   : 46 bits physical, 48 bits virtual
 power management:
 
 """
-        socket_map = utils.SocketTopology.parse_cpuinfo(cpuinfo)
+        socket_map = utils.SocketTopology.make_topology_from_text(cpuinfo)
         processors = socket_map.processors()
         assert processors == [1, 2, 43, 44, 85, 86, 87]
         cores = socket_map.cores()

@@ -689,7 +689,7 @@ class ProxResourceHelper(ClientResourceHelper):
     def cpu_topology(self):
         if not self._cpu_topology:
             stdout = self.ssh_helper.execute("cat /proc/cpuinfo")[1]
-            self._cpu_topology = SocketTopology.parse_cpuinfo(stdout)
+            self._cpu_topology = SocketTopology.make_topology_from_text(stdout)
         return self._cpu_topology
 
     @property
