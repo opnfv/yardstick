@@ -18,27 +18,31 @@
 # Unittest for yardstick.benchmark.contexts.standalone
 
 from __future__ import absolute_import
-
-import os
 import unittest
-
 import mock
 
-from yardstick.benchmark.contexts import standalone
-from yardstick.benchmark.contexts.standalone import ovsdpdk, sriov
+from tests.unit.test_case import STL_MOCKS
+from tests.unit.test_case import YardstickTestCase
+
+STLClient = mock.MagicMock()
+stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
+stl_patch.start()
+
+if stl_patch:
+    from yardstick.benchmark.contexts.standalone import StandaloneContext
 
 MOCKS = {
     'yardstick.benchmark.contexts': mock.MagicMock(),
+    'yardstick.benchmark.contexts.standalone': mock.MagicMock(),
     'yardstick.benchmark.contexts.standalone.sriov': mock.MagicMock(),
     'yardstick.benchmark.contexts.standalone.ovsdpdk': mock.MagicMock(),
-    'yardstick.benchmark.contexts.standalone': mock.MagicMock(),
 }
 
+SAMPLE_FILE = "standalone_sample_write_to_file.txt"
 
-@mock.patch('yardstick.benchmark.contexts.standalone.ovsdpdk.time')
-@mock.patch('yardstick.benchmark.contexts.standalone.time')
-@mock.patch('yardstick.benchmark.contexts.standalone.sriov.time')
-class StandaloneContextTestCase(unittest.TestCase):
+
+class StandaloneContextTestCase(YardstickTestCase):
+
     NODES_SAMPLE = "nodes_sample_new.yaml"
     NODES_SAMPLE_SRIOV = "nodes_sample_new_sriov.yaml"
     NODES_DUPLICATE_SAMPLE = "nodes_duplicate_sample_new.yaml"
@@ -47,592 +51,211 @@ class StandaloneContextTestCase(unittest.TestCase):
     NODES_SAMPLE_OVSDPDK_ROLE = "nodes_sample_ovsdpdk.yaml"
     NODES_DUPLICATE_OVSDPDK = "nodes_duplicate_sample_ovs.yaml"
 
+    @classmethod
+    def make_attrs(cls, name=None, filename=None, relative=True):
+        if name is None:
+            name = 'ctx1'
+
+        if filename is None:
+            filename = cls.NODES_SAMPLE
+
+        if relative:
+            filename = cls.get_file_abspath(filename)
+
+        return {
+            'name': name,
+            'file': filename,
+        }
+
+
+@mock.patch('yardstick.benchmark.contexts.standalone.time')
+class TestStandaloneContext(StandaloneContextTestCase):
+
+    FILE_OBJ = __file__
+
     def setUp(self):
-        self.test_context = standalone.StandaloneContext()
-
-    def test_construct(self, mock_sriov_time, mock_standlalone_time, mock_ovsdpdk_time):
-        self.assertIsNone(self.test_context.name)
-        self.assertIsNone(self.test_context.file_path)
-        self.assertEqual(self.test_context.nodes, [])
-        self.assertEqual(self.test_context.nfvi_node, [])
-
-    def test_unsuccessful_init(self, mock_sriov_time, mock_standlalone_time, mock_ovsdpdk_time):
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath("error_file")
-        }
-        self.assertRaises(IOError, self.test_context.init, attrs)
-
-    def test_successful_init_sriov(self, mock_sriov_time, mock_standlalone_time,
-                                   mock_ovsdpdk_time):
-        attrs_sriov = {
-            'name': 'sriov',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-        self.test_context.nfvi_node = [{
+        self.test_context = StandaloneContext()
+        self.test_context.nodes = [{
             'name': 'sriov',
             'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.122',
             'role': 'Sriov',
             'user': 'root',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'intel123',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-        self.test_context.get_nfvi_obj = mock.Mock()
-        self.test_context.init(attrs_sriov)
-        self.assertEqual(self.test_context.name, "sriov")
-        self.assertEqual(len(self.test_context.nodes), 2)
-        self.assertEqual(len(self.test_context.nfvi_node), 2)
-        self.assertEqual(self.test_context.nfvi_node[0]["name"], "sriov")
-
-    def test_successful_init_ovs(self, mock_sriov_time, mock_standlalone_time, mock_ovsdpdk_time):
-        attrs_ovs = {
-            'name': 'ovs',
-            'file': self._get_file_abspath(self.NODES_SAMPLE_OVSDPDK)
-        }
-        self.test_context.nfvi_node = [{
-            'name': 'ovs',
-            'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
-            'role': 'Ovsdpdk',
-            'user': 'root',
-            'vpath': '/usr/local/',
             'images': '/var/lib/libvirt/images/ubuntu1.img',
             'phy_driver': 'i40e',
             'password': 'password',
             'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-        self.test_context.get_nfvi_obj = mock.Mock()
-        self.test_context.init(attrs_ovs)
-        self.assertEqual(self.test_context.name, "ovs")
-        self.assertEqual(len(self.test_context.nodes), 2)
-        self.assertEqual(len(self.test_context.nfvi_node), 2)
-        self.assertEqual(self.test_context.nfvi_node[0]["name"], "ovs")
 
-    def test__get_server_with_dic_attr_name_sriov(self, mock_sriov_time, mock_standlalone_time,
-                                                  mock_ovsdpdk_time):
-        attrs_sriov = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-        self.test_context.nfvi_node = [{
-            'name': 'sriov',
-            'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
-            'role': 'Sriov',
-            'user': 'root',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'intel123',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-        self.test_context.init(attrs_sriov)
+    def test_read_from_file(self, *_):
+        correct_file_path = self.get_file_abspath(self.NODES_SAMPLE)
+        test_obj = StandaloneContext()
+        self.assertIsNotNone(test_obj.read_from_file(correct_file_path))
+
+    def test_write_to_file(self, *_):
+        test_obj = StandaloneContext()
+        self.assertIsNone(test_obj.write_to_file(SAMPLE_FILE, "some content"))
+
+    def test___init__(self, *_):
+        test_context = StandaloneContext()
+        self.assertIsNone(test_context.name)
+        self.assertIsNone(test_context.file_path)
+        self.assertEqual(test_context.nodes, [])
+
+    def test_init_bad_name(self, *_):
+        attrs = {}
+        with self.assertRaises(KeyError):
+            self.test_context.init(attrs)
+
+    def test_init_bad_file(self, *_):
+        attrs = self.make_attrs('foo', 'error_file')
+        with self.assertRaises(IOError):
+            self.test_context.init(attrs)
+
+    @mock.patch("yardstick.ssh.SSH")
+    def test__make_vm_template(self, mock_ssh, *_):
+        attrs = self.make_attrs('sriov')
+
+        mock_ssh.execute.return_value = 0, 'vm1', ''
+
+        self.test_context._ssh_helper = mock_ssh
+        self.test_context.init(attrs)
+
+        with self.assertRaises(NotImplementedError):
+            self.test_context._make_vm_template()
+
+    @mock.patch("yardstick.ssh.SSH")
+    def test__get_server_with_dic_attr_name(self, mock_ssh, *_):
+        attrs = self.make_attrs('foo')
         attr_name = {'name': 'foo.bar'}
-        result = self.test_context._get_server(attr_name)
-        self.assertEqual(result, None)
 
-    def test__get_server_with_dic_attr_name_ovs(self, mock_sriov_time, mock_standlalone_time,
-                                                mock_ovsdpdk_time):
-        attrs_ovs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE_OVSDPDK)
-        }
-        self.test_context.nfvi_node = [{
-            'name': 'ovs',
-            'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
-            'role': 'Ovsdpdk',
-            'user': 'root',
-            'vpath': '/usr/local/',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'intel123',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-        self.test_context.init(attrs_ovs)
-        attr_name = {'name': 'foo.bar'}
-        result = self.test_context._get_server(attr_name)
-        self.assertEqual(result, None)
-
-    def test__get_server_not_found_sriov(self, mock_sriov_time, mock_standlalone_time,
-                                         mock_ovsdpdk_time):
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-        self.test_context.nfvi_node = [{
-            'name': 'sriov',
-            'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
-            'role': 'Sriov',
-            'user': 'root',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'password',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
+        self.test_context._ssh_helper = mock_ssh
         self.test_context.init(attrs)
+
+        result = self.test_context._get_server(attr_name)
+        self.assertIsNone(result)
+
+    @mock.patch("yardstick.ssh.SSH")
+    def test__get_server_not_found(self, mock_ssh, *_):
+        attrs = self.make_attrs('foo')
         attr_name = 'bar.foo'
+
+        self.test_context._ssh_helper = mock_ssh
+        self.test_context.init(attrs)
+
         result = self.test_context._get_server(attr_name)
-        self.assertEqual(result, None)
+        self.assertIsNone(result)
 
-    def test__get_server_not_found_ovs(self, mock_sriov_time, mock_standlalone_time,
-                                       mock_ovsdpdk_time):
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE_OVSDPDK)
-        }
-        self.test_context.nfvi_node = [{
-            'name': 'ovs',
-            'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
-            'role': 'Ovsdpdk',
-            'user': 'root',
-            'vpath': '/usr/local/',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'password',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-        self.test_context.init(attrs)
-        attr_name = 'bar.foo'
-        result = self.test_context._get_server(attr_name)
-        self.assertEqual(result, None)
-
-    def test__get_server_duplicate_sriov(self, mock_sriov_time, mock_standlalone_time,
-                                         mock_ovsdpdk_time):
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_DUPLICATE_SAMPLE)
-        }
-        self.test_context.nfvi_node = [{
-            'name': 'sriov',
-            'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
-            'role': 'Sriov',
-            'user': 'root',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'password',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-        self.test_context.get_nfvi_obj = mock.Mock(return_value="sriov")
-        self.test_context.init(attrs)
+    @mock.patch("yardstick.ssh.SSH")
+    def test__get_server_duplicate(self, mock_ssh, *_):
+        attrs = self.make_attrs('foo', self.NODES_DUPLICATE_SAMPLE)
         attr_name = 'sriov.foo'
-        # self.test_context.name = "sriov"
-        self.assertRaises(ValueError, self.test_context._get_server, attr_name)
 
-    def test__get_server_duplicate_ovs(self, mock_sriov_time, mock_standlalone_time,
-                                       mock_ovsdpdk_time):
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_DUPLICATE_OVSDPDK)
-        }
-        self.test_context.nfvi_node = [{
-            'name': 'ovs',
-            'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
-            'role': 'Ovsdpdk',
-            'user': 'root',
-            'vpath': '/usr/local/',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'intel123',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-
-        self.test_context.get_nfvi_obj = mock.Mock(return_value="OvsDpdk")
+        self.test_context._ssh_helper = mock_ssh
         self.test_context.init(attrs)
 
-        attr_name = 'ovs.foo'
-        self.assertRaises(
-            ValueError,
-            self.test_context._get_server,
-            attr_name)
+        with self.assertRaises(ValueError):
+            self.test_context._get_server(attr_name)
 
-    def test__get_server_found_sriov(self, mock_sriov_time, mock_standlalone_time,
-                                     mock_ovsdpdk_time):
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE_SRIOV)
-        }
-        self.test_context.nfvi_node = [{
-            'name': 'sriov',
-            'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
-            'role': 'Sriov',
-            'user': 'root',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'intel123',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
+    @mock.patch("yardstick.ssh.SSH")
+    def test__get_server_found(self, mock_ssh, *_):
+        attrs = self.make_attrs('sriov')
+        attr_name = 'sriov.sriov'
 
-        self.test_context.get_nfvi_obj = mock.Mock(return_value="OvsDpdk")
+        self.test_context.nodes[0]['name'] = 'sriov2'
+        self.test_context._ssh_helper = mock_ssh
         self.test_context.init(attrs)
-        attr_name = 'sriov.foo'
+
         result = self.test_context._get_server(attr_name)
         self.assertEqual(result['ip'], '10.123.123.122')
-        self.assertEqual(result['name'], 'sriov.foo')
-        self.assertEqual(result['user'], 'root')
+        self.assertEqual(result['name'], 'sriov.sriov')
 
-    def test__get_server_found_ovs(self, mock_sriov_time, mock_standlalone_time,
-                                   mock_ovsdpdk_time):
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE_OVSDPDK_ROLE)
-        }
-        self.test_context.nfvi_node = [{
-            'name': 'ovs',
-            'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
-            'role': 'Ovsdpdk',
-            'user': 'root',
-            'vpath': '/usr/local/',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'password',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-        self.test_context.get_nfvi_obj = mock.Mock(return_value="OvsDpdk")
+    @mock.patch("yardstick.ssh.SSH")
+    def test_deploy(self, mock_ssh, *_):
+        attrs = self.make_attrs('sriov')
+
+        mock_ssh.execute.return_value = 0, '', ''
+
+        self.test_context._ssh_helper = mock_ssh
+        self.test_context._setup_context = mock.Mock()
+        self.test_context._make_vm_template = mock.Mock()
+        self.test_context.write_to_file = mock.Mock()
+        self.test_context._install_required_libraries = mock.Mock()
         self.test_context.init(attrs)
-        attr_name = 'ovs.foo'
-        result = self.test_context._get_server(attr_name)
-        self.assertEqual(result['ip'], '10.223.197.222')
-        self.assertEqual(result['name'], 'ovs.foo')
-        self.assertEqual(result['user'], 'root')
+        self.test_context.first_run = True
 
-    def test__deploy_unsuccessful(self, mock_sriov_time, mock_standlalone_time, mock_ovsdpdk_time):
+        self.assertIsNone(self.test_context.deploy())
+
+    @mock.patch("yardstick.ssh.SSH")
+    def test_deploy_not_first_time(self, mock_ssh, *_):
+        attrs = self.make_attrs('sriov')
+
+        mock_ssh.execute.return_value = 0, '', ''
+
+        self.test_context._ssh_helper = mock_ssh
+        self.test_context._setup_context = mock.Mock()
+        self.test_context._make_vm_template = mock.Mock()
+        self.test_context.write_to_file = mock.Mock()
+        self.test_context._install_required_libraries = mock.Mock()
+        self.test_context.init(attrs)
+        self.test_context.first_run = False
+
+        self.assertIsNone(self.test_context.deploy())
+
+    @mock.patch("yardstick.ssh.SSH")
+    def test_deploy_vm_deploy_disabled(self, mock_ssh, *_):
+        attrs = self.make_attrs('sriov')
+
+        mock_ssh.execute.return_value = 0, 'vm1', ''
+
+        self.test_context._ssh_helper = mock_ssh
+        self.test_context.init(attrs)
+        self.test_context.first_run = True
         self.test_context.vm_deploy = False
 
-    def test__deploy_sriov_firsttime(self, mock_sriov_time, mock_standlalone_time,
-                                     mock_ovsdpdk_time):
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-        self.test_context.nfvi_node = [{
-            'name': 'sriov',
-            'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
-            'role': 'Sriov',
-            'user': 'root',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'intel123',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-
-        MYSRIOV = [{
-            'name': 'sriov',
-            'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
-            'role': 'Sriov',
-            'user': 'root',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'intel123',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-
-        self.test_context.vm_deploy = True
-
-        self.test_context.get_nfvi_obj = mock.MagicMock()
-        self.test_context.init(attrs)
-        self.test_context.nfvi_obj.sriov = MYSRIOV
-        self.test_context.nfvi_obj.ssh_remote_machine = mock.Mock()
-        self.test_context.nfvi_obj.first_run = True
-        self.test_context.nfvi_obj.install_req_libs()
-        self.test_context.nfvi_obj.get_nic_details = mock.Mock()
-        PORTS = ['0000:06:00.0', '0000:06:00.1']
-        NIC_DETAILS = {
-            'interface': {0: 'enp6s0f0', 1: 'enp6s0f1'},
-            'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'pci': ['0000:06:00.0', '0000:06:00.1'],
-            'phy_driver': 'i40e'}
-        DRIVER = 'i40e'
-        result = self.test_context.nfvi_obj.setup_sriov_context(
-            PORTS,
-            NIC_DETAILS,
-            DRIVER)
-        print("{0}".format(result))
         self.assertIsNone(self.test_context.deploy())
 
-    def test__deploy_sriov_notfirsttime(self, mock_sriov_time, mock_standlalone_time,
-                                        mock_ovsdpdk_time):
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
+    @mock.patch("yardstick.ssh.SSH")
+    def test_undeploy(self, mock_ssh, *_):
+        attrs = self.make_attrs('sriov')
 
-        self.test_context.nfvi_node = [{
-            'name': 'sriov',
-            'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
-            'role': 'Sriov',
-            'user': 'root',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'intel123',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-        MYSRIOV = [{
-            'name': 'sriov',
-            'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
-            'role': 'Sriov',
-            'user': 'root',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'intel123',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
+        mock_ssh.execute.return_value = 0, '', ''
 
+        self.test_context._ssh_helper = mock_ssh
+        self.test_context.init(attrs)
         self.test_context.vm_deploy = True
-        self.test_context.get_nfvi_obj = mock.MagicMock()
-        self.test_context.init(attrs)
-        self.test_context.nfvi_obj.sriov = MYSRIOV
-        self.test_context.nfvi_obj.ssh_remote_machine = mock.Mock()
-        self.test_context.nfvi_obj.first_run = False
-        self.test_context.nfvi_obj.get_nic_details = mock.Mock()
-        PORTS = ['0000:06:00.0', '0000:06:00.1']
-        NIC_DETAILS = {
-            'interface': {0: 'enp6s0f0', 1: 'enp6s0f1'},
-            'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'pci': ['0000:06:00.0', '0000:06:00.1'],
-            'phy_driver': 'i40e'}
-        DRIVER = 'i40e'
-        result = self.test_context.nfvi_obj.setup_sriov_context(
-            PORTS,
-            NIC_DETAILS,
-            DRIVER)
-        print("{0}".format(result))
-        self.assertIsNone(self.test_context.deploy())
 
-    def test__deploy_ovs_firsttime(self, mock_sriov_time, mock_standlalone_time,
-                                   mock_ovsdpdk_time):
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE_OVSDPDK)
-        }
-
-        self.test_context.nfvi_node = [{
-            'name': 'ovs',
-            'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
-            'role': 'Ovsdpdk',
-            'user': 'root',
-            'vpath': '/usr/local/',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'password',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-
-        MYOVS = [{
-            'name': 'ovs',
-            'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
-            'role': 'Ovsdpdk',
-            'user': 'root',
-            'vpath': '/usr/local/',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'password',
-            'flow': ['ovs-ofctl add-flow br0 in_port=1,action=output:3',
-                     'ovs-ofctl add-flow br0 in_port=3,action=output:1'
-                     'ovs-ofctl add-flow br0 in_port=4,action=output:2'
-                     'ovs-ofctl add-flow br0 in_port=2,action=output:4'],
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-
-        self.test_context.vm_deploy = True
-        self.test_context.get_nfvi_obj = mock.MagicMock()
-        self.test_context.init(attrs)
-        self.test_context.ovs = MYOVS
-        self.test_context.nfvi_obj.ssh_remote_machine = mock.Mock()
-        self.test_context.nfvi_obj.first_run = True
-        self.test_context.nfvi_obj.install_req_libs()
-        self.test_context.nfvi_obj.get_nic_details = mock.Mock()
-        PORTS = ['0000:06:00.0', '0000:06:00.1']
-        NIC_DETAILS = {
-            'interface': {0: 'enp6s0f0', 1: 'enp6s0f1'},
-            'vports_mac': ['00:00:00:00:00:05', '00:00:00:00:00:06'],
-            'pci': ['0000:06:00.0', '0000:06:00.1'],
-            'phy_driver': 'i40e'}
-        DRIVER = 'i40e'
-
-        self.test_context.nfvi_obj.setup_ovs = mock.Mock()
-        self.test_context.nfvi_obj.start_ovs_serverswitch = mock.Mock()
-        self.test_context.nfvi_obj.setup_ovs_bridge = mock.Mock()
-        self.test_context.nfvi_obj.add_oflows = mock.Mock()
-
-        result = self.test_context.nfvi_obj.setup_ovs_context(
-            PORTS,
-            NIC_DETAILS,
-            DRIVER)
-        print("{0}".format(result))
-        self.assertIsNone(self.test_context.deploy())
-
-    def test__deploy_ovs_notfirsttime(self, mock_sriov_time, mock_standlalone_time,
-                                      mock_ovsdpdk_time):
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE_OVSDPDK)
-        }
-        self.test_context.nfvi_node = [{
-            'name': 'ovs',
-            'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
-            'role': 'Ovsdpdk',
-            'user': 'root',
-            'vpath': '/usr/local/',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'password',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-
-        MYOVS = [{
-            'name': 'ovs',
-            'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
-            'role': 'Ovsdpdk',
-            'user': 'root',
-            'vpath': '/usr/local/',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'password',
-            'flow': ['ovs-ofctl add-flow br0 in_port=1,action=output:3',
-                     'ovs-ofctl add-flow br0 in_port=3,action=output:1'
-                     'ovs-ofctl add-flow br0 in_port=4,action=output:2'
-                     'ovs-ofctl add-flow br0 in_port=2,action=output:4'],
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-
-        self.test_context.vm_deploy = True
-        self.test_context.get_nfvi_obj = mock.MagicMock()
-        self.test_context.init(attrs)
-        self.test_context.ovs = MYOVS
-        self.test_context.nfvi_obj.ssh_remote_machine = mock.Mock()
-        self.test_context.nfvi_obj.first_run = False
-        self.test_context.nfvi_obj.get_nic_details = mock.Mock()
-        PORTS = ['0000:06:00.0', '0000:06:00.1']
-        NIC_DETAILS = {
-            'interface': {0: 'enp6s0f0', 1: 'enp6s0f1'},
-            'vports_mac': ['00:00:00:00:00:05', '00:00:00:00:00:06'],
-            'pci': ['0000:06:00.0', '0000:06:00.1'],
-            'phy_driver': 'i40e'}
-        DRIVER = 'i40e'
-
-        self.test_context.nfvi_obj.setup_ovs(PORTS)
-        self.test_context.nfvi_obj.start_ovs_serverswitch()
-        self.test_context.nfvi_obj.setup_ovs_bridge()
-        self.test_context.nfvi_obj.add_oflows()
-
-        result = self.test_context.nfvi_obj.setup_ovs_context(
-            PORTS,
-            NIC_DETAILS,
-            DRIVER)
-        print("{0}".format(result))
-        self.assertIsNone(self.test_context.deploy())
-
-    def test_undeploy_sriov(self, mock_sriov_time, mock_standlalone_time, mock_ovsdpdk_time):
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-        self.test_context.nfvi_node = [{
-            'name': 'sriov',
-            'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
-            'role': 'Sriov',
-            'user': 'root',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'intel123',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-        self.test_context.get_nfvi_obj = mock.MagicMock()
-        self.test_context.init(attrs)
-        self.test_context.nfvi_obj.destroy_vm = mock.Mock()
         self.assertIsNone(self.test_context.undeploy())
 
-    def test_undeploy_ovs(self, mock_sriov_time, mock_standlalone_time, mock_ovsdpdk_time):
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE_OVSDPDK)
-        }
+    @mock.patch("yardstick.ssh.SSH")
+    def test_undeploy_not_deployed(self, mock_ssh, *_):
+        attrs = self.make_attrs('sriov')
 
-        self.test_context.nfvi_node = [{
-            'name': 'ovs',
-            'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
-            'role': 'Ovsdpdk',
-            'user': 'root',
-            'vpath': '/usr/local/',
-            'images': '/var/lib/libvirt/images/ubuntu1.img',
-            'phy_driver': 'i40e',
-            'password': 'password',
-            'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
+        mock_ssh.execute.return_value = 0, '', ''
 
-        self.test_context.get_nfvi_obj = mock.MagicMock()
+        self.test_context._ssh_helper = mock_ssh
         self.test_context.init(attrs)
-        self.test_context.nfvi_obj.destroy_vm = mock.Mock()
+        self.test_context.vm_deploy = False
+
         self.assertIsNone(self.test_context.undeploy())
 
-    def test_get_nfvi_obj_sriov(self, mock_sriov_time, mock_standlalone_time, mock_ovsdpdk_time):
-        with mock.patch('yardstick.benchmark.contexts.standalone.sriov'):
-            attrs = {
-                'name': 'sriov',
-                'file': self._get_file_abspath(self.NODES_SAMPLE)
-            }
-            self.test_context.init(attrs)
-            self.test_context.nfvi_obj.file_path = self._get_file_abspath(
-                self.NODES_SAMPLE)
-            self.test_context.nfvi_node = [{
-                'name': 'sriov',
-                'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-                'ip': '10.223.197.140',
-                'role': 'Sriov',
-                'user': 'root',
-                'images': '/var/lib/libvirt/images/ubuntu1.img',
-                'phy_driver': 'i40e',
-                'password': 'intel123',
-                'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-            self.test_context.get_nfvi_obj = mock.MagicMock()
-            self.test_context.init(attrs)
-            self.test_context.get_context_impl = mock.Mock(
-                return_value=sriov.Sriov)
-            self.assertIsNotNone(self.test_context.get_nfvi_obj())
+    @mock.patch("yardstick.ssh.SSH")
+    def test__start_vm_already_strated(self, mock_ssh, *_):
+        attrs = self.make_attrs('sriov')
 
-    def test_get_nfvi_obj_ovs(self, mock_sriov_time, mock_standlalone_time, mock_ovsdpdk_time):
-        with mock.patch('yardstick.benchmark.contexts.standalone.ovsdpdk'):
-            attrs = {
-                'name': 'ovs',
-                'file': self._get_file_abspath(self.NODES_SAMPLE_OVSDPDK)
-            }
-            self.test_context.init(attrs)
-            self.test_context.nfvi_obj.file_path = self._get_file_abspath(
-                self.NODES_SAMPLE)
-            self.test_context.nfvi_node = [{
-                'name': 'ovs',
-                'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-                'ip': '10.223.197.140',
-                'role': 'Ovsdpdk',
-                'user': 'root',
-                'vpath': '/usr/local/',
-                'images': '/var/lib/libvirt/images/ubuntu1.img',
-                'phy_driver': 'i40e',
-                'password': 'password',
-                'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
-            self.test_context.get_nfvi_obj = mock.MagicMock()
-            self.test_context.init(attrs)
-            self.test_context.get_context_impl = mock.Mock(
-                return_value=ovsdpdk.Ovsdpdk)
-            self.assertIsNotNone(self.test_context.get_nfvi_obj())
+        mock_ssh.execute.return_value = 0, 'vm1', ''
 
-    def test_get_context_impl_correct_obj(self, mock_sriov_time, mock_standlalone_time,
-                                          mock_ovsdpdk_time):
-        with mock.patch.dict("sys.modules", MOCKS):
-            self.assertIsNotNone(self.test_context.get_context_impl('Sriov'))
+        self.test_context._ssh_helper = mock_ssh
+        self.test_context.init(attrs)
+        self.test_context.vm_deploy = False
 
-    def test_get_context_impl_wrong_obj(self, mock_sriov_time, mock_standlalone_time,
-                                        mock_ovsdpdk_time):
-        with mock.patch.dict("sys.modules", MOCKS):
-            self.assertRaises(
-                ValueError,
-                lambda: self.test_context.get_context_impl('wrong_object'))
+        self.assertIsNone(self.test_context._start_vm())
 
-    def _get_file_abspath(self, filename):
-        curr_path = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(curr_path, filename)
-        return file_path
+    @mock.patch.dict("sys.modules", MOCKS)
+    def test_get_context_impl_wrong_obj(self, *_):
+        with self.assertRaises(ValueError):
+            self.test_context.get_context_type('wrong_object')
 
-    def test__get_network(self, mock_sriov_time, mock_standlalone_time, mock_ovsdpdk_time):
+    def test__get_network(self, *_):
         network1 = {
             'name': 'net_1',
             'vld_id': 'vld111',
@@ -677,6 +300,6 @@ class StandaloneContextTestCase(unittest.TestCase):
         result = self.test_context._get_network(attr_name)
         self.assertDictEqual(result, expected)
 
+
 if __name__ == '__main__':
     unittest.main()
-
