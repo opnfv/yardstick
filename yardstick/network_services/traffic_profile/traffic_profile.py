@@ -21,17 +21,17 @@ from random import SystemRandom
 import six
 
 from yardstick.network_services.traffic_profile.base import TrafficProfile
-from stl.trex_stl_lib.trex_stl_client import STLStream
-from stl.trex_stl_lib.trex_stl_streams import STLFlowLatencyStats
-from stl.trex_stl_lib.trex_stl_streams import STLTXCont
-from stl.trex_stl_lib.trex_stl_streams import STLProfile
-from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLVmWrFlowVar
-from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLVmFlowVarRepeatableRandom
-from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLVmFlowVar
-from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLPktBuilder
-from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLScVmRaw
-from stl.trex_stl_lib.trex_stl_packet_builder_scapy import STLVmFixIpv4
-from stl.trex_stl_lib import api as Pkt
+from trex_stl_lib.trex_stl_client import STLStream
+from trex_stl_lib.trex_stl_streams import STLFlowLatencyStats
+from trex_stl_lib.trex_stl_streams import STLTXCont
+from trex_stl_lib.trex_stl_streams import STLProfile
+from trex_stl_lib.trex_stl_packet_builder_scapy import STLVmWrFlowVar
+from trex_stl_lib.trex_stl_packet_builder_scapy import STLVmFlowVarRepeatableRandom
+from trex_stl_lib.trex_stl_packet_builder_scapy import STLVmFlowVar
+from trex_stl_lib.trex_stl_packet_builder_scapy import STLPktBuilder
+from trex_stl_lib.trex_stl_packet_builder_scapy import STLScVmRaw
+from trex_stl_lib.trex_stl_packet_builder_scapy import STLVmFixIpv4
+from trex_stl_lib import api as Pkt
 
 
 class TrexProfile(TrafficProfile):
@@ -144,9 +144,9 @@ class TrexProfile(TrafficProfile):
         else:
             stl_vm_flow_var = \
                 STLVmFlowVarRepeatableRandom(name="ip4_src",
-                                             min_value=min_value,
-                                             max_value=max_value,
-                                             size=4,
+                                           min_value=min_value,
+                                           max_value=max_value,
+                                           size=4,
                                              limit=int(count),
                                              seed=0x1235)
             self.vm_flow_vars.append(stl_vm_flow_var)
@@ -167,9 +167,9 @@ class TrexProfile(TrafficProfile):
         else:
             stl_vm_flow_var = \
                 STLVmFlowVarRepeatableRandom(name="dst_ip4",
-                                             min_value=min_value,
-                                             max_value=max_value,
-                                             size=4,
+                                           min_value=min_value,
+                                           max_value=max_value,
+                                           size=4,
                                              limit=int(count),
                                              seed=0x1235)
             self.vm_flow_vars.append(stl_vm_flow_var)
@@ -255,9 +255,9 @@ class TrexProfile(TrafficProfile):
             max_value = int(src_ports[1])
             stl_vm_flow_var = \
                 STLVmFlowVarRepeatableRandom(name="port_src",
-                                             min_value=min_value,
-                                             max_value=max_value,
-                                             size=2,
+                                           min_value=min_value,
+                                           max_value=max_value,
+                                           size=2,
                                              limit=int(count),
                                              seed=0x1235)
             self.vm_flow_vars.append(stl_vm_flow_var)
@@ -277,9 +277,9 @@ class TrexProfile(TrafficProfile):
             max_value = int(dst_ports[1])
             stl_vm_flow_var = \
                 STLVmFlowVarRepeatableRandom(name="port_dst",
-                                             min_value=min_value,
-                                             max_value=max_value,
-                                             size=2,
+                                           min_value=min_value,
+                                           max_value=max_value,
+                                           size=2,
                                              limit=int(count),
                                              seed=0x1235)
             self.vm_flow_vars.append(stl_vm_flow_var)
