@@ -36,6 +36,7 @@ from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
 from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
 from yardstick.network_services.utils import get_nsb_option
+from yardstick.network_services.utils import PciAddress
 
 from trex_stl_lib.trex_stl_client import STLClient
 from trex_stl_lib.trex_stl_client import LoggerApi
@@ -68,6 +69,17 @@ class VnfSshHelper(AutoConnectSSH):
         # i.e. the subclass, not the superclass
         return VnfSshHelper
 
+    def log_execute(self, cmd, out_logger=None, err_logger=None):
+        err, out, status = self.execute(cmd)
+        if out_logger:
+            out_logger('%s', out)
+        if err_logger:
+            err_logger('%s', err)
+        return err, out, status
+
+    def echo_to_file(self, value, file):
+        return self.execute('echo {value} > {file}'.format(**locals()))
+
     def copy(self):
         # this copy constructor is different from SSH classes, since it uses node
         return self.get_class()(self.node, self.bin_path)
@@ -86,6 +98,20 @@ class VnfSshHelper(AutoConnectSSH):
         if tool_path is None:
             tool_path = self.bin_path
         return super(VnfSshHelper, self).provision_tool(tool_path, tool_file)
+
+    def get_virtual_devices(self, pci):
+        cmd = "cat /sys/bus/pci/devices/{0}/virtfn0/uevent"
+        output = self.execute(cmd.format(pci))[1]
+
+        pattern = "PCI_SLOT_NAME=({})".format(PciAddress.PCI_PATTERN_STR)
+        m = re.search(pattern, output, re.MULTILINE)
+
+        pf_vfs = {}
+        if m:
+            pf_vfs = {pci: m.group(1).rstrip()}
+
+        LOG.info("pf_vfs:\n%s", pf_vfs)
+        return pf_vfs
 
 
 class SetupEnvHelper(object):

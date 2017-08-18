@@ -23,7 +23,7 @@ except ImportError:
     import mock
 import unittest
 
-from yardstick.benchmark.scenarios.networking import vsperf_dpdk
+import yardstick.benchmark.scenarios.networking.vsperf_dpdk as vsperf_dpdk
 
 
 @mock.patch('yardstick.benchmark.scenarios.networking.vsperf_dpdk.subprocess')

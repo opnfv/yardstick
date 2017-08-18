@@ -18,7 +18,6 @@ nodes:
     role: TrafficGen
     ip: 10.123.123.123
     user: root
-    auth_type: password
     password: password
     interfaces:
         xe0:  # logical name from topology.yaml and vnfd.yaml
@@ -40,7 +39,6 @@ nodes:
     role: Sriov
     ip: 10.123.123.122
     user: root
-    auth_type: password
     password: password
     vf_macs:
      - "00:00:00:00:00:00"
@@ -56,7 +54,6 @@ nodes:
     role: vnf
     ip: 10.123.123.121
     user: root
-    auth_type: password
     password: password
     host: 10.123.123.121 #BM host == ip, SRIOV & ovs-dpdk host == compute node.
     interfaces:
