@@ -40,5 +40,3 @@
     - name: kpartx -dv to delete all image partition device nodes
       command: kpartx -dv "{{ raw_imgfile }}"
       ignore_errors: true
-
-    - command: losetup -d "{{ loop_device }}"
