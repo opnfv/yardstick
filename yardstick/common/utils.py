@@ -30,6 +30,7 @@ import random
 import ipaddress
 from contextlib import closing
 
+import itertools
 import six
 from flask import jsonify
 from six.moves import configparser
@@ -94,15 +95,18 @@ def import_modules_from_package(package):
                 logger.exception("unable to import %s", module_name)
 
 
+def is_open_error_non_exist(e):
+    return e.errno == errno.ENOENT or (isinstance(e, IOError) and e.errno == errno.EEXIST)
+
+
 def parse_yaml(file_path):
     try:
         with open(file_path) as f:
             value = yaml_load(f)
-    except IOError:
-        return {}
-    except OSError as e:
-        if e.errno != errno.EEXIST:
-            raise
+    except (IOError, OSError) as e:
+        if is_open_error_non_exist(e):
+            return {}
+        raise
     else:
         return value
 
@@ -313,6 +317,17 @@ def ip_to_hex(ip_addr, separator=''):
     return separator.join('{:02x}'.format(octet) for octet in address.packed)
 
 
+def make_random_octet(low=0, high=0xff):
+    low = max(low, 0)
+    high = min(high, 0xff)
+    return random.randint(low, high)
+
+
+def make_random_mac_addr(*octets):
+    octets = itertools.chain(octets, iter(make_random_octet, None))
+    return ':'.join('{:02x}'.format(octet) for _, octet in zip(range(6), octets))
+
+
 def try_int(s, *args):
     """Convert to integer if possible."""
     try:
@@ -323,10 +338,8 @@ def try_int(s, *args):
 
 class SocketTopology(dict):
 
-    @classmethod
-    def parse_cpuinfo(cls, cpuinfo):
-        socket_map = {}
-
+    @staticmethod
+    def parse_cpuinfo(cpuinfo):
         lines = cpuinfo.splitlines()
 
         core_details = []
@@ -339,12 +352,24 @@ class SocketTopology(dict):
                 core_details.append(core_lines)
                 core_lines = {}
 
-        for core in core_details:
-            socket_map.setdefault(core["physical id"], {}).setdefault(
-                core["core id"], {})[core["processor"]] = (
-                core["processor"], core["core id"], core["physical id"])
+        if core_lines:
+            core_details.append(core_lines)
 
-        return cls(socket_map)
+        return core_details
+
+    @classmethod
+    def make_topology_from_text(cls, cpuinfo):
+        socket_map = cls()
+        core_details = cls.parse_cpuinfo(cpuinfo)
+        for core in core_details:
+            processor = core["processor"]
+            core_id = core["core id"]
+            physical_id = core["physical id"]
+            physical_data = socket_map.setdefault(physical_id, {})
+            core_data = physical_data.setdefault(core_id, {})
+            core_data[processor] = processor, core_id, physical_id
+
+        return socket_map
 
     def sockets(self):
         return sorted(self.keys())
@@ -358,13 +383,35 @@ class SocketTopology(dict):
             proc in procs)
 
 
+def make_dict_iter(data, arg0, *args):
+    if validate_non_string_sequence(arg0):
+        args = arg0
+    else:
+        args = itertools.chain([arg0], args)
+    return zip(*(data[key] for key in args))
+
+
+def range_list_str_generator(range_list_str):
+    if not range_list_str:
+        raise StopIteration
+
+    for range_str_list in range_list_str.split(','):
+        for bounds_list in range_str_list.split('-'):
+            # bounds_list may contain 1 or more values
+            # when only 1 value is present, that value will be needed twice,
+            # so we chain the list to itself and draw the first 2 values
+            # getting either the first 2 values it contains
+            # or the 1 value repeated twice
+            chained_bounds = itertools.chain(bounds_list, bounds_list)
+            yield int(next(chained_bounds)), int(next(chained_bounds)) + 1
+
+
 def config_to_dict(config):
-    return {section: dict(config.items(section)) for section in
-            config.sections()}
+    return {section: dict(config.items(section)) for section in config.sections()}
 
 
 def validate_non_string_sequence(value, default=None, raise_exc=None):
-    if isinstance(value, collections.Sequence) and not isinstance(value, str):
+    if isinstance(value, collections.Sequence) and not isinstance(value, six.string_types):
         return value
     if raise_exc:
         raise raise_exc

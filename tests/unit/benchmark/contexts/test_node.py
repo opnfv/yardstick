@@ -12,16 +12,20 @@
 # Unittest for yardstick.benchmark.contexts.node
 
 from __future__ import absolute_import
+
 import os
 import unittest
 import errno
 import mock
 
+from tests.unit.test_case import YardstickTestCase
 from yardstick.common import constants as consts
 from yardstick.benchmark.contexts import node
 
 
-class NodeContextTestCase(unittest.TestCase):
+class NodeContextTestCase(YardstickTestCase):
+
+    FILE_OBJ = __file__
 
     PREFIX = 'yardstick.benchmark.contexts.node'
 
@@ -31,11 +35,6 @@ class NodeContextTestCase(unittest.TestCase):
     def setUp(self):
         self.test_context = node.NodeContext()
         self.os_path_join = os.path.join
-
-    def _get_file_abspath(self, filename):
-        curr_path = os.path.dirname(os.path.abspath(__file__))
-        file_path = self.os_path_join(curr_path, filename)
-        return file_path
 
     def test___init__(self):
         self.assertIsNone(self.test_context.name)
@@ -47,10 +46,9 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertEqual(self.test_context.env, {})
         self.assertEqual(self.test_context.attrs, {})
 
-    @mock.patch('{}.os.path.join'.format(PREFIX))
-    def test_init_negative(self, mock_path_join):
+    def test_init_negative(self):
         special_path = '/foo/bar/error_file'
-        error_path = self._get_file_abspath("error_file")
+        error_path = self.get_file_abspath("error_file")
 
         def path_join(*args):
             if args == (consts.YARDSTICK_ROOT_PATH, error_path):
@@ -59,7 +57,6 @@ class NodeContextTestCase(unittest.TestCase):
 
         # we can't count mock_path_join calls because
         # it can catch join calls for .pyc files.
-        mock_path_join.side_effect = path_join
         self.test_context.read_config_file = read_mock = mock.Mock()
         read_calls = 0
 
@@ -73,30 +70,36 @@ class NodeContextTestCase(unittest.TestCase):
             'file': error_path,
         }
         read_mock.side_effect = IOError(errno.EBUSY, 'busy')
-        with self.assertRaises(IOError) as raised:
-            self.test_context.init(attrs)
 
-        read_calls += 1
-        self.assertEqual(read_mock.called, read_calls)
-        self.assertIn(attrs['file'], self.test_context.file_path)
-        self.assertEqual(raised.exception.errno, errno.EBUSY)
-        self.assertEqual(str(raised.exception), str(read_mock.side_effect))
+        join_patch = mock.patch('{}.os.path.join'.format(self.PREFIX))
 
-        read_mock.side_effect = IOError(errno.ENOENT, 'not found')
-        with self.assertRaises(IOError) as raised:
-            self.test_context.init(attrs)
+        with join_patch as mock_path_join:
+            mock_path_join.side_effect = path_join
 
-        read_calls += 2
-        self.assertEqual(read_mock.call_count, read_calls)
-        self.assertEqual(self.test_context.file_path, special_path)
-        self.assertEqual(raised.exception.errno, errno.ENOENT)
-        self.assertEqual(str(raised.exception), str(read_mock.side_effect))
+            with self.assertRaises(IOError) as raised:
+                self.test_context.init(attrs)
+
+            read_calls += 1
+            self.assertEqual(read_mock.called, read_calls)
+            self.assertIn(attrs['file'], self.test_context.file_path)
+            self.assertEqual(raised.exception.errno, errno.EBUSY)
+            self.assertEqual(str(raised.exception), str(read_mock.side_effect))
+
+            read_mock.side_effect = IOError(errno.ENOENT, 'not found')
+            with self.assertRaises(IOError) as raised:
+                self.test_context.init(attrs)
+
+            read_calls += 2
+            self.assertEqual(read_mock.call_count, read_calls)
+            self.assertEqual(self.test_context.file_path, special_path)
+            self.assertEqual(raised.exception.errno, errno.ENOENT)
+            self.assertEqual(str(raised.exception), str(read_mock.side_effect))
 
     def test_read_config_file(self):
 
         attrs = {
             'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
+            'file': self.get_file_abspath(self.NODES_SAMPLE)
         }
 
         self.test_context.init(attrs)
@@ -107,7 +110,7 @@ class NodeContextTestCase(unittest.TestCase):
 
         attrs = {
             'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
+            'file': self.get_file_abspath(self.NODES_SAMPLE)
         }
 
         self.test_context.init(attrs)
@@ -120,7 +123,7 @@ class NodeContextTestCase(unittest.TestCase):
 
         attrs = {
             'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
+            'file': self.get_file_abspath(self.NODES_SAMPLE)
         }
 
         self.test_context.init(attrs)
@@ -135,11 +138,23 @@ class NodeContextTestCase(unittest.TestCase):
     def test__do_ansible_job(self, mock_ansible):
         self.assertEqual(None, self.test_context._do_ansible_job('dummy'))
 
+    @mock.patch("{}.AnsibleCommon".format(PREFIX))
+    def test__do_ansible_job_list_input(self, _):
+        self.assertIsNone(self.test_context._do_ansible_job(['dummy']))
+
+    def test_fix_ansible_path_abs_path(self):
+        test_node = node.NodeContext()
+        self.assertTrue(node.ANSIBLE_DIR)
+
+        expected = '/some/abs/path'
+        result = test_node.fix_ansible_path('/some/abs/path')
+        self.assertEqual(result, expected)
+
     def test_successful_init(self):
 
         attrs = {
             'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
+            'file': self.get_file_abspath(self.NODES_SAMPLE)
         }
 
         self.test_context.init(attrs)
@@ -156,7 +171,7 @@ class NodeContextTestCase(unittest.TestCase):
 
         attrs = {
             'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
+            'file': self.get_file_abspath(self.NODES_SAMPLE)
         }
 
         self.test_context.init(attrs)
@@ -170,7 +185,7 @@ class NodeContextTestCase(unittest.TestCase):
 
         attrs = {
             'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
+            'file': self.get_file_abspath(self.NODES_SAMPLE)
         }
 
         self.test_context.init(attrs)
@@ -184,7 +199,7 @@ class NodeContextTestCase(unittest.TestCase):
 
         attrs = {
             'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
+            'file': self.get_file_abspath(self.NODES_SAMPLE)
         }
 
         self.test_context.init(attrs)
@@ -198,7 +213,7 @@ class NodeContextTestCase(unittest.TestCase):
 
         attrs = {
             'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_DUPLICATE_SAMPLE)
+            'file': self.get_file_abspath(self.NODES_DUPLICATE_SAMPLE)
         }
 
         self.test_context.init(attrs)
@@ -211,7 +226,7 @@ class NodeContextTestCase(unittest.TestCase):
 
         attrs = {
             'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
+            'file': self.get_file_abspath(self.NODES_SAMPLE)
         }
 
         self.test_context.init(attrs)
@@ -260,10 +275,12 @@ class NodeContextTestCase(unittest.TestCase):
         obj.undeploy()
         self.assertTrue(dispatch_ansible_mock.called)
 
-    @mock.patch('{}.ssh.SSH._put_file_shell'.format(PREFIX))
-    @mock.patch('{}.ssh.SSH.execute'.format(PREFIX))
-    def test_execute_remote_script(self, execute_mock, put_file_mock):
+    @mock.patch('{}.ssh.SSH'.format(PREFIX))
+    def test_execute_remote_script(self, mock_ssh_type):
+        mock_ssh_instance = self.mock_ssh(mock_ssh_type)
+
         obj = node.NodeContext()
+        obj.client = mock_ssh_instance
         obj.env = {'prefix': 'yardstick.benchmark.scenarios.compute'}
         node_name_args = 'node5'
         obj.nodes = [{
@@ -272,20 +289,47 @@ class NodeContextTestCase(unittest.TestCase):
             'ip': '10.10.10.10',
             'pwd': 'ubuntu',
         }]
+        obj._get_client = mock.Mock()
 
-        info = {'script': 'computecapacity.bash'}
-        execute_mock.return_value = (0, '', '')
+        info = {'script': 'compute_capacity.bash'}
         obj._execute_remote_script('node5', info)
 
-        self.assertTrue(put_file_mock.called)
-        self.assertTrue(execute_mock.called)
+        self.assertTrue(mock_ssh_instance._put_file_shell.called)
+        self.assertTrue(mock_ssh_instance.execute.called)
 
-    @mock.patch('{}.NodeContext._execute_local_script'.format(PREFIX))
-    def test_execute_script_local(self, local_execute_mock):
+    @mock.patch('{}.ssh.SSH'.format(PREFIX))
+    def test_execute_remote_script_execute_fail(self, mock_ssh_type):
+        mock_ssh_instance = self.mock_ssh(mock_ssh_type)
+        mock_ssh_instance.execute.side_effect = [
+            (1, 'bad1', 'err1'),
+            (2, 'bad2', 'err2'),
+            (3, 'bad3', 'err3'),
+        ]
+
+        obj = node.NodeContext()
+        obj.client = mock_ssh_instance
+        obj.env = {'prefix': 'yardstick.benchmark.scenarios.compute'}
+        node_name_args = 'node5'
+        obj.nodes = [{
+            'name': node_name_args,
+            'user': 'ubuntu',
+            'ip': '10.10.10.10',
+            'pwd': 'ubuntu',
+        }]
+        obj._get_client = mock.Mock()
+
+        info = {'script': 'compute_capacity.bash'}
+        with self.assertRaises(RuntimeError) as raised:
+            obj._execute_remote_script('node5', info)
+
+        self.assertIn('err1', str(raised.exception))
+
+    @mock.patch('subprocess.Popen')
+    def test_execute_script_local(self, mock_popen):
         node_name = 'local'
-        info = {}
+        info = {'script': 'compute_capacity.bash'}
         node.NodeContext()._execute_script(node_name, info)
-        self.assertTrue(local_execute_mock.called)
+        self.assertTrue(mock_popen.called)
 
     @mock.patch('{}.NodeContext._execute_remote_script'.format(PREFIX))
     def test_execute_script_remote(self, remote_execute_mock):
@@ -293,6 +337,35 @@ class NodeContextTestCase(unittest.TestCase):
         info = {}
         node.NodeContext()._execute_script(node_name, info)
         self.assertTrue(remote_execute_mock.called)
+
+    @mock.patch('{}.ssh.AutoConnectSSH'.format(PREFIX))
+    def test__get_client(self, mock_ssh_type):
+        mock_ssh_instance = self.mock_ssh(mock_ssh_type)
+
+        node_name = 'node5'
+        test_node = node.NodeContext()
+        test_node._get_node_info = mock.Mock()
+
+        test_node._get_client(node_name)
+        self.assertTrue(mock_ssh_instance.wait.called)
+
+    def test__get_client_no_node(self):
+        node_name = 'node5'
+        test_node = node.NodeContext()
+        test_node._get_node_info = mock.Mock(return_value=None)
+
+        with self.assertRaises(SystemExit) as raised:
+            test_node._get_client(node_name)
+
+        self.assertIn('No such node', str(raised.exception))
+
+    def test__get_node_info_no_nodes(self):
+        node_name = 'node5'
+        test_node = node.NodeContext()
+        test_node.nodes = []
+
+        with self.assertRaises(StopIteration):
+            test_node._get_node_info(node_name)
 
     def test_get_script(self):
         script_args = 'hello.bash'
