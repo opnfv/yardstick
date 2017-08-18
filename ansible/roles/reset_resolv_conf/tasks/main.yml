@@ -21,7 +21,7 @@
   file:
     path: "{{ resolv_conf_stat.stat.lnk_source|dirname }}"
     state: directory
-    mode: 755
+    mode: 0755
 
 - name: Override resolv.conf link source with specific nameserver
   template:

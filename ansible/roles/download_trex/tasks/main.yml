@@ -16,10 +16,16 @@
   get_url:
     url: "{{ trex_url }}"
     dest: "{{ trex_dest }}"
-    checksum: "{{ trex_sha256 }}"
+    validate_certs: False
+    checksum: "{{ trex_sha256s[trex_version] }}"
 
 - name: unarchive Trex
   unarchive:
-    src: "{{ clone_dest }}/{{ trex_file }}"
-    dest: "{{ clone_dest }}/"
+    src: "{{ trex_dest }}/{{ trex_file }}"
+    dest: "{{ trex_dest }}/"
     copy: no
+
+- name: cleanup tar file to save space
+  file:
+      path: "{{ trex_dest }}/{{ trex_file }}"
+      state: absent

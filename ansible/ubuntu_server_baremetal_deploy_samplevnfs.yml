@@ -12,30 +12,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- hosts: chroot_image
-  connection: chroot
+- hosts: all
   vars:
     clone_dir: /tmp/yardstick-clone
 
-  pre_tasks:
-    - debug: msg="chrooted in {{ inventory_hostname }}"
 
   roles:
-#    - reset_resolv_conf
-#    - add_custom_repos
-#    - role: set_package_installer_proxy
-#      when: proxy_env is defined and proxy_env
-    # can update grub in chroot/docker
-#    - enable_hugepages_on_boot
-#    - modify_cloud_config
-#    - install_image_dependencies
-#    - role: download_dpdk
-#      dpdk_version: "16.07"
-#    - install_dpdk
-#    - download_samplevnfs
-    - install_vnf_vCGNAPT
-#    - copy_L4Replay
-#    - install_L4Replay
-#    - copy_trex
-#    - install_trex
+    - add_custom_repos
+    - role: set_package_installer_proxy
+      when: proxy_env is defined and proxy_env
+#     can't update grub in chroot/docker
+    - enable_hugepages_on_boot
+    - install_image_dependencies
+    - role: download_dpdk
+#      dpdk_version: "17.02"
+    - install_dpdk
+    - download_trex
+    - install_trex
+    - download_samplevnfs
+    - role: install_samplevnf
+      vnf_name: PROX
+    - role: install_samplevnf
+      vnf_name: UDP_Replay
+    - role: install_samplevnf
+      vnf_name: ACL
+    - role: install_samplevnf
+      vnf_name: FW
+    - role: install_samplevnf
+      vnf_name: CGNATP
 
