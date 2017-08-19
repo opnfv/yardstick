@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_2b3c1c2f",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2017-08-19T10:26:29Z",
+      "side": 1,
+      "message": "Maybe you could use pip directly as we do in functest.\nhttps://pip.pypa.io/en/stable/reference/pip_install/#git",
+      "revId": "693fde3d39e00897c8a7253894b0d8573b0f824e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
