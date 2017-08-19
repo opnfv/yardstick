@@ -46,7 +46,7 @@ IXLOAD_CONFIG_TEMPLATE = '''\
     },
     "remote_server": "%s",
     "result_dir": "%s",
-    "ixload_cfg": '"C:/Results/%s"
+    "ixload_cfg": "C:/Results/%s"
 }'''
 
 IXLOAD_CMD = "{ixloadpy} {http_ixload} {args}"
@@ -130,7 +130,7 @@ class IxLoadTrafficGen(SampleVNFTrafficGen):
         for interface in self.vnfd_helper.interfaces:
             vpci_list = interface['virtual-interface']["vpci"].split(":")
             card = vpci_list[0]
-            ports.append(vpci_list[1])
+            ports.append(str(vpci_list[1]))
 
         for csv_file in glob.iglob(self.ssh_helper.join_bin_path('*.csv')):
             os.unlink(csv_file)
@@ -142,6 +142,7 @@ class IxLoadTrafficGen(SampleVNFTrafficGen):
             os.path.basename(self.resource_helper.resource_file_name))
 
         http_ixload_path = os.path.join(VNF_PATH, "../../traffic_profile")
+
         cmd = IXLOAD_CMD.format(
             ixloadpy=os.path.join(ixia_config["py_bin_path"], "ixloadpython"),
             http_ixload=os.path.join(http_ixload_path, "http_ixload.py"),
@@ -168,7 +169,10 @@ class IxLoadTrafficGen(SampleVNFTrafficGen):
 
     def instantiate(self, scenario_cfg, context_cfg):
         super(IxLoadTrafficGen, self).instantiate(scenario_cfg, context_cfg)
-        self.done = False
+
+    def wait_for_instantiate(self):
+        # not needed for Ixload
+        pass
 
     def terminate(self):
         call(["pkill", "-9", "http_ixload.py"])

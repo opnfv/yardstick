@@ -16,11 +16,33 @@
 from __future__ import absolute_import
 import unittest
 import mock
-import runpy
 
 from oslo_serialization import jsonutils
 
 from yardstick.network_services.traffic_profile import http_ixload
+from yardstick.network_services.traffic_profile.http_ixload import \
+    join_non_strings, validate_non_string_sequence
+
+
+class TestJoinNonStrings(unittest.TestCase):
+
+    def test_validate_non_string_sequence(self):
+        self.assertEqual(validate_non_string_sequence([1, 2, 3]), [1, 2, 3])
+        self.assertIsNone(validate_non_string_sequence('123'))
+        self.assertIsNone(validate_non_string_sequence(1))
+
+        self.assertEqual(validate_non_string_sequence(1, 2), 2)
+        self.assertEqual(validate_non_string_sequence(1, default=2), 2)
+
+        with self.assertRaises(RuntimeError):
+            validate_non_string_sequence(1, raise_exc=RuntimeError)
+
+    def test_join_non_strings(self):
+        self.assertEqual(join_non_strings(':'), '')
+        self.assertEqual(join_non_strings(':', 'a'), 'a')
+        self.assertEqual(join_non_strings(':', 'a', 2, 'c'), 'a:2:c')
+        self.assertEqual(join_non_strings(':', ['a', 2, 'c']), 'a:2:c')
+        self.assertEqual(join_non_strings(':', 'abc'), 'abc')
 
 
 class TestIxLoadTrafficGen(unittest.TestCase):

@@ -26,7 +26,7 @@ import mock
 
 from yardstick.benchmark.scenarios.networking.vnf_generic import \
     SshManager, NetworkServiceTestCase, IncorrectConfig, \
-    IncorrectSetup, open_relative_file
+    open_relative_file
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic.vnf.base import \
     GenericTrafficGen, GenericVNF
@@ -471,7 +471,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 mock.Mock(return_value=(1, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.from_node.return_value = ssh_mock
 
-            with self.assertRaises(IncorrectSetup):
+            with self.assertRaises(IncorrectConfig):
                 self.s.map_topology_to_infrastructure()
 
     def test_map_topology_to_infrastructure_config_invalid(self):
@@ -694,11 +694,11 @@ class TestNetworkServiceTestCase(unittest.TestCase):
     def test_probe_missing_values(self):
         netdevs = self.SAMPLE_NETDEVS.copy()
         network = {'local_mac': '0a:de:ad:be:ef:f5'}
-        NetworkServiceTestCase._probe_missing_values(netdevs, network, set())
+        NetworkServiceTestCase._probe_missing_values(netdevs, network)
         assert network['vpci'] == '0000:0b:00.0'
 
         network = {'local_mac': '0a:de:ad:be:ef:f4'}
-        NetworkServiceTestCase._probe_missing_values(netdevs, network, set())
+        NetworkServiceTestCase._probe_missing_values(netdevs, network)
         assert network['vpci'] == '0000:00:19.0'
 
     def test_open_relative_path(self):
