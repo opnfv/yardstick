@@ -312,16 +312,16 @@ class NetworkServiceTestCase(base.Scenario):
 
                 # only ssh probe if there are missing values
                 # ssh probe won't work on Ixia, so we had better define all our values
-
                 try:
                     netdevs = self._probe_netdevs(node, node_dict)
-                    self._probe_missing_values(netdevs, network)
-                except KeyError:
-                    pass
                 except (SSHError, SSHTimeout):
                     raise IncorrectConfig(
                         "Unable to probe missing interface fields '%s', on node %s "
                         "SSH Error" % (', '.join(missing), node))
+                try:
+                    self._probe_missing_values(netdevs, network)
+                except KeyError:
+                    pass
                 else:
                     missing = self.TOPOLOGY_REQUIRED_KEYS.difference(
                         network)
