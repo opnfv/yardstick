@@ -437,6 +437,38 @@ def get_port_id_by_ip(neutron_client, ip_address):      # pragma: no cover
         'fixed_ips') if j['ip_address'] == ip_address), None)
 
 
+def create_neutron_net(neutron_client, json_body):      # pragma: no cover
+    try:
+        network = neutron_client.create_network(body=json_body)
+        return network['network']['id']
+    except Exception, e:
+        log.error("Error [create_neutron_net(neutron_client)]: %s"
+                  % (e))
+        raise Exception("operation error")
+        return None
+
+
+def create_neutron_subnet(neutron_client, json_body):      # pragma: no cover
+    try:
+        subnet = neutron_client.create_subnet(body=json_body)
+        return subnet['subnets'][0]['id']
+    except Exception, e:
+        log.error("Error [create_neutron_subnet , %s" % (e))
+        raise Exception("operation error")
+        return None
+
+
+def create_neutron_router(neutron_client, json_body):      # pragma: no cover
+    try:
+        router = neutron_client.create_router(json_body)
+        return router['router']['id']
+    except Exception, e:
+        log.error("Error [create_neutron_router(neutron_client)]: %s"
+                  % (e))
+        raise Exception("operation error")
+        return None
+
+
 def create_floating_ip(neutron_client, extnet_id):      # pragma: no cover
     props = {'floating_network_id': extnet_id}
     try:
@@ -447,6 +479,46 @@ def create_floating_ip(neutron_client, extnet_id):      # pragma: no cover
         log.error("Error [create_floating_ip(neutron_client)]")
         return None
     return {'fip_addr': fip_addr, 'fip_id': fip_id}
+
+
+def create_security_group_full(neutron_client,
+                               sg_name, sg_description):      # pragma: no cover
+    sg_id = get_security_group_id(neutron_client, sg_name)
+    if sg_id != '':
+        log.info("Using existing security group '%s'..." % sg_name)
+    else:
+        log.info("Creating security group  '%s'..." % sg_name)
+        SECGROUP = create_security_group(neutron_client,
+                                         sg_name,
+                                         sg_description)
+        if not SECGROUP:
+            log.error("Failed to create the security group...")
+            return None
+
+        sg_id = SECGROUP['id']
+
+        log.debug("Security group '%s' with ID=%s created successfully."
+                  % (SECGROUP['name'], sg_id))
+
+        log.debug("Adding ICMP rules in security group '%s'..."
+                  % sg_name)
+        if not create_secgroup_rule(neutron_client, sg_id,
+                                    'ingress', 'icmp'):
+            log.error("Failed to create the security group rule...")
+            return None
+
+        log.debug("Adding SSH rules in security group '%s'..."
+                  % sg_name)
+        if not create_secgroup_rule(
+                neutron_client, sg_id, 'ingress', 'tcp', '22', '22'):
+            log.error("Failed to create the security group rule...")
+            return None
+
+        if not create_secgroup_rule(
+                neutron_client, sg_id, 'egress', 'tcp', '22', '22'):
+            log.error("Failed to create the security group rule...")
+            return None
+    return sg_id
 
 
 # *********************************************
