@@ -24,38 +24,10 @@ import subprocess
 import time
 import traceback
 
-from oslo_config import cfg
-
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base as base_scenario
-from yardstick.dispatcher.base import Base as DispatcherBase
 
 log = logging.getLogger(__name__)
-
-CONF = cfg.CONF
-
-
-def _output_serializer_main(filename, queue, config):
-    """entrypoint for the singleton subprocess writing to outfile
-    Use of this process enables multiple instances of a scenario without
-    messing up the output file.
-    """
-    out_type = config['yardstick'].get('DEFAULT', {}).get('dispatcher', 'file')
-    conf = {
-        'type': out_type.capitalize(),
-        'file_path': filename
-    }
-
-    dispatcher = DispatcherBase.get(conf, config)
-
-    while True:
-        # blocks until data becomes available
-        record = queue.get()
-        if record == '_TERMINATE_':
-            dispatcher.flush_result_data()
-            break
-        else:
-            dispatcher.record_result_data(record)
 
 
 def _execute_shell_command(command):
@@ -105,8 +77,6 @@ def _periodic_action(interval, command, queue):
 
 
 class Runner(object):
-    queue = None
-    dump_process = None
     runners = []
 
     @staticmethod
@@ -126,40 +96,16 @@ class Runner(object):
         return types
 
     @staticmethod
-    def get(runner_cfg, config):
+    def get(runner_cfg):
         """Returns instance of a scenario runner for execution type.
         """
-        # if there is no runner, start the output serializer subprocess
-        if not Runner.runners:
-            log.debug("Starting dump process file '%s'",
-                      runner_cfg["output_filename"])
-            Runner.queue = multiprocessing.Queue()
-            Runner.dump_process = multiprocessing.Process(
-                target=_output_serializer_main,
-                name="Dumper",
-                args=(runner_cfg["output_filename"], Runner.queue, config))
-            Runner.dump_process.start()
-
-        return Runner.get_cls(runner_cfg["type"])(runner_cfg, Runner.queue)
-
-    @staticmethod
-    def release_dump_process():
-        """Release the dumper process"""
-        log.debug("Stopping dump process")
-        if Runner.dump_process:
-            Runner.queue.put('_TERMINATE_')
-            Runner.dump_process.join()
-            Runner.dump_process = None
+        return Runner.get_cls(runner_cfg["type"])(runner_cfg)
 
     @staticmethod
     def release(runner):
         """Release the runner"""
         if runner in Runner.runners:
             Runner.runners.remove(runner)
-
-        # if this was the last runner, stop the output serializer subprocess
-        if not Runner.runners:
-            Runner.release_dump_process()
 
     @staticmethod
     def terminate(runner):
@@ -174,7 +120,6 @@ class Runner(object):
 
         # release dumper process as some errors before any runner is created
         if not Runner.runners:
-            Runner.release_dump_process()
             return
 
         for runner in Runner.runners:
@@ -188,10 +133,11 @@ class Runner(object):
                 runner.periodic_action_process = None
             Runner.release(runner)
 
-    def __init__(self, config, queue):
+    def __init__(self, config):
         self.config = config
         self.periodic_action_process = None
-        self.result_queue = queue
+        self.output_queue = multiprocessing.Queue()
+        self.result_queue = multiprocessing.Queue()
         self.process = None
         self.aborted = multiprocessing.Event()
         Runner.runners.append(self)
@@ -208,6 +154,9 @@ class Runner(object):
                 return
             log.debug("post-stop data: \n%s", data)
             self.result_queue.put({'post-stop-action-data': data})
+
+    def _run_benchmark(self, cls, method_name, scenario_cfg, context_cfg):
+        raise NotImplementedError
 
     def run(self, scenario_cfg, context_cfg):
         scenario_type = scenario_cfg["type"]
@@ -264,3 +213,15 @@ class Runner(object):
 
         self.run_post_stop_action()
         return self.process.exitcode
+
+    def get_output(self):
+        result = {}
+        while not self.output_queue.empty():
+            result.update(self.output_queue.get())
+        return result
+
+    def get_result(self):
+        result = []
+        while not self.result_queue.empty():
+            result.append(self.result_queue.get())
+        return result

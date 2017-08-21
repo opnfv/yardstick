@@ -24,9 +24,6 @@ metrics in the document ETSI GS NFV-TST001_, "Pre-deployment Testing; Report on
 Validation of NFV Environments and Services" are available; further OPNFV
 releases will provide extended testing of these metrics.
 
-The Project also includes a sample VNF, the Virtual Traffic Classifier (VTC)
-and its experimental framework, *ApexLake*.
-
 *Yardstick* is used in OPNFV for verifying the OPNFV infrastructure and some of
 the OPNFV features. The *Yardstick* framework is deployed in several OPNFV
 community labs. It is *installer*, *infrastructure* and *application*

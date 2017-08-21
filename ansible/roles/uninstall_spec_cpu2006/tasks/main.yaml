@@ -1,0 +1,28 @@
+---
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+- name: remove SPEC CPU 2006
+  file:
+    path: /usr/cpu2006
+    state: absent
+  become: true
+
+- name: umount SPEC CPU 2006 ISO
+  shell:
+    umount -l /mnt;
+  args:
+      executable: /bin/bash
+  become: true
+
+- name: remove SPEC CPU 2006 ISO
+  file:
+    path: ~/cpu2006-1.2.iso
+    state: absent
+  become: true

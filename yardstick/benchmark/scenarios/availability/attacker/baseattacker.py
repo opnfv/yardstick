@@ -8,11 +8,11 @@
 ##############################################################################
 from __future__ import absolute_import
 import pkg_resources
-import yaml
 import logging
 import os
 
 import yardstick.common.utils as utils
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 
@@ -25,6 +25,7 @@ class AttackerMgr(object):
 
     def __init__(self):
         self._attacker_list = []
+        self.data = {}
 
     def init_attackers(self, attacker_cfgs, context):
         LOG.debug("attackerMgr confg: %s", attacker_cfgs)
@@ -35,6 +36,8 @@ class AttackerMgr(object):
             attacker_ins.key = cfg['key']
             attacker_ins.setup()
             self._attacker_list.append(attacker_ins)
+            self.data = dict(self.data.items() + attacker_ins.data.items())
+        return self.data
 
     def __getitem__(self, item):
         for obj in self._attacker_list:
@@ -53,10 +56,11 @@ class BaseAttacker(object):
     def __init__(self, config, context):
         if not BaseAttacker.attacker_cfgs:
             with open(attacker_conf_path) as stream:
-                BaseAttacker.attacker_cfgs = yaml.load(stream)
+                BaseAttacker.attacker_cfgs = yaml_load(stream)
 
         self._config = config
         self._context = context
+        self.data = {}
         self.setup_done = False
 
     @staticmethod

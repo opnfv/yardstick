@@ -10,6 +10,7 @@ from __future__ import absolute_import
 
 import inspect
 import logging
+import socket
 from six.moves import filter
 
 from flasgger import Swagger
@@ -19,11 +20,19 @@ from flask_restful import Api
 from api.database import Base
 from api.database import db_session
 from api.database import engine
-from api.database import models
+from api.database.v1 import models
 from api.urls import urlpatterns
+from api import ApiResource
 from yardstick import _init_logging
+from yardstick.common import utils
+from yardstick.common import constants as consts
 
-logger = logging.getLogger(__name__)
+try:
+    from urlparse import urljoin
+except ImportError:
+    from urllib.parse import urljoin
+
+LOG = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
@@ -37,8 +46,10 @@ def shutdown_session(exception=None):
     db_session.remove()
 
 
-for u in urlpatterns:
-    api.add_resource(u.resource, u.url, endpoint=u.endpoint)
+def get_resource(resource_name):
+    name = ''.join(resource_name.split('_'))
+    return next((r for r in utils.itersubclasses(ApiResource)
+                 if r.__name__.lower() == name))
 
 
 def init_db():
@@ -51,7 +62,7 @@ def init_db():
         return False
 
     subclses = filter(func, inspect.getmembers(models, inspect.isclass))
-    logger.debug('Import models: %s', [a[1] for a in subclses])
+    LOG.debug('Import models: %s', [a[1] for a in subclses])
     Base.metadata.create_all(bind=engine)
 
 
@@ -60,9 +71,21 @@ def app_wrapper(*args, **kwargs):
     return app(*args, **kwargs)
 
 
+def get_endpoint(url):
+    ip = socket.gethostbyname(socket.gethostname())
+    return urljoin('http://{}:{}'.format(ip, consts.API_PORT), url)
+
+
+for u in urlpatterns:
+    try:
+        api.add_resource(get_resource(u.target), u.url, endpoint=get_endpoint(u.url))
+    except StopIteration:
+        LOG.error('url resource not found: %s', u.url)
+
+
 if __name__ == '__main__':
     _init_logging()
-    logger.setLevel(logging.DEBUG)
-    logger.info('Starting server')
+    LOG.setLevel(logging.DEBUG)
+    LOG.info('Starting server')
     init_db()
     app.run(host='0.0.0.0')

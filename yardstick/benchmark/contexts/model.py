@@ -104,13 +104,30 @@ class Network(Object):
         self.stack_name = context.name + "-" + self.name
         self.subnet_stack_name = self.stack_name + "-subnet"
         self.subnet_cidr = attrs.get('cidr', '10.0.1.0/24')
+        self.enable_dhcp = attrs.get('enable_dhcp', 'true')
         self.router = None
         self.physical_network = attrs.get('physical_network', 'physnet1')
-        self.provider = attrs.get('provider', None)
+        self.provider = attrs.get('provider')
+        self.segmentation_id = attrs.get('segmentation_id')
+        self.network_type = attrs.get('network_type')
+        self.port_security_enabled = attrs.get('port_security_enabled')
+        self.vnic_type = attrs.get('vnic_type', 'normal')
+        self.allowed_address_pairs = attrs.get('allowed_address_pairs', [])
+        try:
+            # we require 'null' or '' to disable setting gateway_ip
+            self.gateway_ip = attrs['gateway_ip']
+        except KeyError:
+            # default to explicit None
+            self.gateway_ip = None
+        else:
+            # null is None in YAML, so we have to convert back to string
+            if self.gateway_ip is None:
+                self.gateway_ip = "null"
 
         if "external_network" in attrs:
             self.router = Router("router", self.name,
                                  context, attrs["external_network"])
+        self.vld_id = attrs.get("vld_id")
 
         Network.list.append(self)
 
@@ -130,7 +147,8 @@ class Network(Object):
     @staticmethod
     def find_external_network():
         """return the name of an external network some network in this
-        context has a route to"""
+        context has a route to
+        """
         for network in Network.list:
             if network.router:
                 return network.router.external_gateway_info
@@ -150,6 +168,8 @@ class Server(Object):     # pragma: no cover
         self.context = context
         self.public_ip = None
         self.private_ip = None
+        self.user_data = ''
+        self.interfaces = {}
 
         if attrs is None:
             attrs = {}
@@ -164,6 +184,14 @@ class Server(Object):     # pragma: no cover
                                  (name, p))
             self.placement_groups.append(pg)
             pg.add_member(self.stack_name)
+
+        self.volume = None
+        if "volume" in attrs:
+            self.volume = attrs.get("volume")
+
+        self.volume_mountpoint = None
+        if "volume_mountpoint" in attrs:
+            self.volume_mountpoint = attrs.get("volume_mountpoint")
 
         # support servergroup attr
         self.server_group = None
@@ -202,6 +230,8 @@ class Server(Object):     # pragma: no cover
         if "flavor" in attrs:
             self._flavor = attrs["flavor"]
 
+        self.user_data = attrs.get('user_data', '')
+
         Server.list.append(self)
 
     @property
@@ -226,10 +256,18 @@ class Server(Object):     # pragma: no cover
         for network in networks:
             port_name = server_name + "-" + network.name + "-port"
             self.ports[network.name] = {"stack_name": port_name}
-            template.add_port(port_name, network.stack_name,
-                              network.subnet_stack_name,
-                              sec_group_id=self.secgroup_name,
-                              provider=network.provider)
+            # we can't use secgroups if port_security_enabled is False
+            if network.port_security_enabled is False:
+                sec_group_id = None
+            else:
+                # if port_security_enabled is None we still need to add to secgroup
+                sec_group_id = self.secgroup_name
+            # don't refactor to pass in network object, that causes JSON
+            # circular ref encode errors
+            template.add_port(port_name, network.stack_name, network.subnet_stack_name,
+                              network.vnic_type, sec_group_id=sec_group_id,
+                              provider=network.provider,
+                              allowed_address_pairs=network.allowed_address_pairs)
             port_name_list.append(port_name)
 
             if self.floating_ip:
@@ -240,18 +278,39 @@ class Server(Object):     # pragma: no cover
                                              external_network,
                                              port_name,
                                              network.router.stack_if_name,
-                                             self.secgroup_name)
+                                             sec_group_id)
                     self.floating_ip_assoc["stack_name"] = \
                         server_name + "-fip-assoc"
                     template.add_floating_ip_association(
                         self.floating_ip_assoc["stack_name"],
                         self.floating_ip["stack_name"],
                         port_name)
+        if self.flavor:
+            if isinstance(self.flavor, dict):
+                self.flavor["name"] = \
+                    self.flavor.setdefault("name", self.stack_name + "-flavor")
+                template.add_flavor(**self.flavor)
+                self.flavor_name = self.flavor["name"]
+            else:
+                self.flavor_name = self.flavor
 
-        template.add_server(server_name, self.image, self.flavor,
+        if self.volume:
+            if isinstance(self.volume, dict):
+                self.volume["name"] = \
+                    self.volume.setdefault("name", server_name + "-volume")
+                template.add_volume(**self.volume)
+                template.add_volume_attachment(server_name, self.volume["name"],
+                                               mountpoint=self.volume_mountpoint)
+            else:
+                template.add_volume_attachment(server_name, self.volume,
+                                               mountpoint=self.volume_mountpoint)
+
+        template.add_server(server_name, self.image, flavor=self.flavor_name,
+                            flavors=self.context.flavors,
                             ports=port_name_list,
                             user=self.user,
                             key_name=self.keypair_name,
+                            user_data=self.user_data,
                             scheduler_hints=scheduler_hints)
 
     def add_to_template(self, template, networks, scheduler_hints=None):
@@ -269,7 +328,7 @@ class Server(Object):     # pragma: no cover
 
 
 def update_scheduler_hints(scheduler_hints, added_servers, placement_group):
-    """ update scheduler hints from server's placement configuration
+    """update scheduler hints from server's placement configuration
     TODO: this code is openstack specific and should move somewhere else
     """
     if placement_group.policy == "affinity":

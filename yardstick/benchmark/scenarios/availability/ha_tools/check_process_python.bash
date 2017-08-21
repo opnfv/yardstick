@@ -15,4 +15,4 @@ set -e
 
 process_name=$1
 
-ps aux | grep -e .*python.*$process_name.* | grep -v grep | wc -l
+ps aux | grep -e $process_name | grep -v grep | grep -v /bin/sh | wc -l

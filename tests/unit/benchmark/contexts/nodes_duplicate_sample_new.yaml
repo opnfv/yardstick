@@ -1,0 +1,32 @@
+nodes:
+-
+    name: sriov
+    role: Sriov1
+    ip: 10.123.123.122
+    user: root
+    auth_type: password
+    password: password
+    vf_macs:
+     - "00:00:00:00:00:00"
+     - "00:00:00:00:00:00"
+    phy_ports: # Physical ports to configure sriov
+     - "0000:06:00.0"
+     - "0000:06:00.1"
+    phy_driver:    i40e # kernel driver
+    images: "/var/lib/libvirt/images/ubuntu1.img"
+-
+    name: sriov
+    role: Sriov1
+    ip: 10.123.123.111
+    user: root
+    auth_type: password
+    password: password
+    vf_macs:
+     - "00:00:00:00:00:00"
+     - "00:00:00:00:00:00"
+    phy_ports: # Physical ports to configure sriov
+     - "0000:06:00.0"
+     - "0000:06:00.1"
+    phy_driver:    i40e # kernel driver
+    images: "/var/lib/libvirt/images/ubuntu1.img"                                     
+

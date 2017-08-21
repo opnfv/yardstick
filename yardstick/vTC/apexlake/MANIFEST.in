@@ -1,7 +1,0 @@
-recursive-include bin *.py
-recursive-include benchmarks *.py
-recursive-include heat_templates *
-recursive-include packet_generators *
-recursive-include etc *.cfg *.json
-include *.py
-include README.rst

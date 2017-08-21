@@ -25,11 +25,12 @@ class ScenarioGeneral(base.Scenario):
             "scenario_cfg:%s context_cfg:%s", scenario_cfg, context_cfg)
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
+        self.intermediate_variables = {}
 
     def setup(self):
         self.director = Director(self.scenario_cfg, self.context_cfg)
 
-    def run(self, args):
+    def run(self, result):
         steps = self.scenario_cfg["options"]["steps"]
         orderedSteps = sorted(steps, key=lambda x: x['index'])
         for step in orderedSteps:
@@ -38,7 +39,8 @@ class ScenarioGeneral(base.Scenario):
                 orderedSteps.index(step) + 1)
             try:
                 actionPlayer = self.director.createActionPlayer(
-                    step['actionType'], step['actionKey'])
+                    step['actionType'], step['actionKey'],
+                    self.intermediate_variables)
                 actionPlayer.action()
                 actionRollbacker = self.director.createActionRollbacker(
                     step['actionType'], step['actionKey'])
@@ -54,13 +56,26 @@ class ScenarioGeneral(base.Scenario):
                 pass
 
         self.director.stopMonitors()
-        if self.director.verify():
-            LOG.debug(
-                "\033[92m congratulations, "
-                "the test cases scenario is pass! \033[0m")
+
+        verify_result = self.director.verify()
+
+        for k, v in self.director.data.items():
+            if v == 0:
+                result['sla_pass'] = 0
+                verify_result = False
+                LOG.info(
+                    "\033[92m The service process not found in the host \
+envrioment, the HA test case NOT pass")
+
+        if verify_result:
+            result['sla_pass'] = 1
+            LOG.info(
+                "\033[92m Congratulations, "
+                "the HA test case PASS! \033[0m")
         else:
-            LOG.debug(
-                "\033[91m aoh,the test cases scenario failed,"
+            result['sla_pass'] = 0
+            LOG.info(
+                "\033[91m Aoh, the HA test case FAIL,"
                 "please check the detail debug information! \033[0m")
 
     def teardown(self):

@@ -1,0 +1,26 @@
+# Copyright (c) 2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+hugepage_param_regex: '^GRUB_CMDLINE_LINUX="\$GRUB_CMDLINE_LINUX.*# added by hugepages role'
+hugepage_param: 'GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX default_hugepagesz={{ huge_pagesize_short[huge_pagesize_mb] }} hugepagesz={{ huge_pagesize_short[huge_pagesize_mb] }} hugepages={{ num_hugepages }}"  # added by hugepages role'
+
+update_grub:
+  Debian: "update-grub2"
+  RedHat: "grub2-mkconfig -o /boot/grub2/grub.cfg"
+
+huge_pagesize_short:
+  1024: "1G"
+  2: "2M"
+
+hugetable_mount: /mnt/huge

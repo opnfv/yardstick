@@ -16,14 +16,13 @@
 from __future__ import absolute_import
 from __future__ import print_function
 import logging
-import multiprocessing
 import re
-import time
-import os
 
-from yardstick import ssh
-from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
-from yardstick.network_services.utils import provision_tool
+from multiprocessing import Queue
+from ipaddress import IPv4Interface
+
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
 
 LOG = logging.getLogger(__name__)
 
@@ -42,77 +41,59 @@ class PingParser(object):
         if match:
             # IMPORTANT: in order for the data to be properly taken
             # in by InfluxDB, it needs to be converted to numeric types
-            self.queue.put({"packets_received": float(match.group(1)),
-                            "rtt": float(match.group(2))})
+            self.queue.put({
+                "packets_received": float(match.group(1)),
+                "rtt": float(match.group(2)),
+            })
 
     def close(self):
-        ''' close the ssh connection '''
-        pass
+        """ close the ssh connection """
+        self.closed = True
 
     def clear(self):
-        ''' clear queue till Empty '''
+        """ clear queue till Empty """
         while self.queue.qsize() > 0:
             self.queue.get()
 
 
-class PingTrafficGen(GenericTrafficGen):
+class PingSetupEnvHelper(DpdkVnfSetupEnvHelper):
+
+    def setup_vnf_environment(self):
+        self._bind_kernel_devices()
+
+
+class PingTrafficGen(SampleVNFTrafficGen):
     """
     This traffic generator can ping a single IP with pingsize
     and target given in traffic profile
     """
 
-    def __init__(self, vnfd):
-        super(PingTrafficGen, self).__init__(vnfd)
+    TG_NAME = 'Ping'
+    RUN_WAIT = 4
+
+    def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
+        if setup_env_helper_type is None:
+            setup_env_helper_type = PingSetupEnvHelper
+
+        super(PingTrafficGen, self).__init__(name, vnfd, setup_env_helper_type,
+                                             resource_helper_type)
+        self._queue = Queue()
+        self._parser = PingParser(self._queue)
         self._result = {}
-        self._parser = None
-        self._queue = None
-        self._traffic_process = None
-
-        mgmt_interface = vnfd["mgmt-interface"]
-        self.connection = ssh.SSH.from_node(mgmt_interface)
-        self.connection.wait()
-
-    def _bind_device_kernel(self, connection):
-        dpdk_nic_bind = \
-            provision_tool(self.connection,
-                           os.path.join(self.bin_path, "dpdk_nic_bind.py"))
-
-        drivers = {intf["virtual-interface"]["vpci"]:
-                   intf["virtual-interface"]["driver"]
-                   for intf in self.vnfd["vdu"][0]["external-interface"]}
-
-        commands = \
-            ['"{0}" --force -b "{1}" "{2}"'.format(dpdk_nic_bind, value, key)
-             for key, value in drivers.items()]
-        for command in commands:
-            connection.execute(command)
-
-        for index, out in enumerate(self.vnfd["vdu"][0]["external-interface"]):
-            vpci = out["virtual-interface"]["vpci"]
-            net = "find /sys/class/net -lname '*{}*' -printf '%f'".format(vpci)
-            out = connection.execute(net)[1]
-            ifname = out.split('/')[-1].strip('\n')
-            self.vnfd["vdu"][0]["external-interface"][index][
-                "virtual-interface"]["local_iface_name"] = ifname
 
     def scale(self, flavor=""):
-        ''' scale vnfbased on flavor input '''
-        super(PingTrafficGen, self).scale(flavor)
+        """ scale vnf-based on flavor input """
+        pass
+
+    def _check_status(self):
+        return self._tg_process.is_alive()
 
     def instantiate(self, scenario_cfg, context_cfg):
-        self._result = {"packets_received": 0, "rtt": 0}
-        self._bind_device_kernel(self.connection)
-
-    def run_traffic(self, traffic_profile):
-        self._queue = multiprocessing.Queue()
-        self._parser = PingParser(self._queue)
-        self._traffic_process = \
-            multiprocessing.Process(target=self._traffic_runner,
-                                    args=(traffic_profile, self._parser))
-        self._traffic_process.start()
-        # Wait for traffic process to start
-        time.sleep(4)
-        return self._traffic_process.is_alive()
+        self._result = {
+            "packets_received": 0,
+            "rtt": 0,
+        }
+        self.setup_helper.setup_vnf_environment()
 
     def listen_traffic(self, traffic_profile):
         """ Not needed for ping
@@ -122,38 +103,26 @@ class PingTrafficGen(GenericTrafficGen):
         """
         pass
 
-    def _traffic_runner(self, traffic_profile, filewrapper):
+    def _traffic_runner(self, traffic_profile):
+        intf = self.vnfd_helper.interfaces[0]["virtual-interface"]
+        profile = traffic_profile.params["traffic_profile"]
+        cmd_kwargs = {
+            'target_ip': IPv4Interface(intf["dst_ip"]).ip.exploded,
+            'local_ip': IPv4Interface(intf["local_ip"]).ip.exploded,
+            'local_if_name': intf["local_iface_name"].split('/')[0],
+            'packet_size': profile["frame_size"],
+        }
 
-        mgmt_interface = self.vnfd["mgmt-interface"]
-        self.connection = ssh.SSH.from_node(mgmt_interface)
-        self.connection.wait()
-        external_interface = self.vnfd["vdu"][0]["external-interface"]
-        virtual_interface = external_interface[0]["virtual-interface"]
-        target_ip = virtual_interface["dst_ip"].split('/')[0]
-        local_ip = virtual_interface["local_ip"].split('/')[0]
-        local_if_name = \
-            virtual_interface["local_iface_name"].split('/')[0]
-        packet_size = traffic_profile.params["traffic_profile"]["frame_size"]
+        cmd_list = [
+            "sudo ip addr flush {local_if_name}",
+            "sudo ip addr add {local_ip}/24 dev {local_if_name}",
+            "sudo ip link set {local_if_name} up",
+        ]
 
-        run_cmd = []
+        for cmd in cmd_list:
+            self.ssh_helper.execute(cmd.format(**cmd_kwargs))
 
-        run_cmd.append("ip addr flush %s" % local_if_name)
-        run_cmd.append("ip addr add %s/24 dev %s" % (local_ip, local_if_name))
-        run_cmd.append("ip link set %s up" % local_if_name)
-
-        for cmd in run_cmd:
-            self.connection.execute(cmd)
-
-        ping_cmd = ("ping -s %s %s" % (packet_size, target_ip))
-        self.connection.run(ping_cmd, stdout=filewrapper,
+        ping_cmd = "ping -s {packet_size} {target_ip}"
+        self.ssh_helper.run(ping_cmd.format(**cmd_kwargs),
+                            stdout=self._parser,
                             keep_stdin_open=True, pty=True)
-
-    def collect_kpi(self):
-        if not self._queue.empty():
-            kpi = self._queue.get()
-            self._result.update(kpi)
-        return self._result
-
-    def terminate(self):
-        if self._traffic_process is not None:
-            self._traffic_process.terminate()

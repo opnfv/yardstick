@@ -1,0 +1,5 @@
+---
+ramspeed_repo: "https://github.com/beefyamoeba5/ramspeed.git"
+ramspeed_version: master
+ramspeed_dest: "{{ clone_dest }}/RAMspeed"
+ramspeed_release: ramspeed-2.6.0

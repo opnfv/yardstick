@@ -29,7 +29,7 @@ from yardstick.cmd import NSBperf
 class TestHandler(unittest.TestCase):
     def test_handler(self, test):
         subprocess.call = mock.Mock(return_value=0)
-        self.assertRaises(SystemExit, NSBperf.handler)
+        self.assertRaises(SystemExit, NSBperf.sigint_handler)
 
 
 class TestYardstickNSCli(unittest.TestCase):

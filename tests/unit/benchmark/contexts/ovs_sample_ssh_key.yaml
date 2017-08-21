@@ -1,0 +1,69 @@
+##############################################################################
+# Copyright (c) 2015 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# Sample config file about the POD information, including the
+# name/IP/user/ssh key of Bare Metal and Controllers/Computes
+#
+# The options of this config file include:
+# name: the name of this node
+# role: node's role, support role: Master/Controller/Comupte/BareMetal
+# ip: the node's IP address
+# user: the username for login
+# key_filename:the path of the private key file for login
+
+nodes:
+-
+    name: trafficgen_1
+    role: TrafficGen
+    ip: 10.10.10.10
+    auth_type: ssh_key
+    user: root
+    ssh_port: 22
+    key_filename: /root/.ssh/id_rsa
+    interfaces:
+        xe0:  # logical name from topology.yaml and vnfd.yaml
+            vpci:      "0000:03:00.0"
+            driver:    ixgbe
+            dpdk_port_num: 0
+            local_ip: "152.16.100.20"
+            netmask:   "255.255.255.0"
+            local_mac:   "90:e2:ba:77:ce:68"
+        xe1:  # logical name from topology.yaml and vnfd.yaml
+            vpci:      "0000:03:00.1"
+            driver:    ixgbe
+            dpdk_port_num: 1
+            local_ip: "152.16.100.21"
+            netmask:   "255.255.255.0"
+            local_mac:   "90:e2:ba:77:ce:69"
+-
+    name: ovs
+    role: Ovsdpdk
+    ip: 10.223.197.222
+    auth_type: ssh_key
+    user: root
+    ssh_port: 22
+    key_filename: /root/.ssh/id_rsa
+    vpath: "/usr/local/"
+    vports:
+     - dpdkvhostuser0
+     - dpdkvhostuser1
+    vports_mac:
+     - "00:00:00:00:00:03"
+     - "00:00:00:00:00:04"
+    phy_ports: # Physical ports to configure ovs
+     - "0000:06:00.0"
+     - "0000:06:00.1"
+    flow:
+     - ovs-ofctl add-flow br0 in_port=1,action=output:3
+     - ovs-ofctl add-flow br0 in_port=3,action=output:1
+     - ovs-ofctl add-flow br0 in_port=4,action=output:2
+     - ovs-ofctl add-flow br0 in_port=2,action=output:4
+    phy_driver:    i40e # kernel driver
+    images: "/var/lib/libvirt/images/ubuntu1.img"
+ 

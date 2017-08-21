@@ -1,0 +1,14 @@
+---
+- file:
+    path: "{{ NSB_INSTALL_DIR }}"
+    state: directory
+
+- get_url:
+    url: "{{ L4REPLAY_DOWNLOAD }}"
+    dest: "{{ NSB_INSTALL_DIR }}"
+    checksum: "sha256:4dd17209715af68a95058648ab9314e2737418c836acc45492e987886f38bbe8"
+
+- unarchive:
+    src: "{{ NSB_INSTALL_DIR }}/{{ L4REPLAY_DOWNLOAD|basename }}"
+    dest: "{{ NSB_INSTALL_DIR }}"
+    copy: no

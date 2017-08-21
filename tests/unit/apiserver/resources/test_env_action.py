@@ -17,17 +17,21 @@ from tests.unit.apiserver import APITestCase
 class EnvTestCase(APITestCase):
 
     def test_create_grafana(self):
+        if self.app is None:
+            unittest.skip('host config error')
+            return
+
         url = 'yardstick/env/action'
-        data = {'action': 'createGrafanaContainer'}
+        data = {'action': 'create_grafana'}
         resp = self._post(url, data)
 
-        time.sleep(1)
+        time.sleep(0)
 
         task_id = resp['result']['task_id']
         url = '/yardstick/asynctask?task_id={}'.format(task_id)
         resp = self._get(url)
 
-        time.sleep(2)
+        time.sleep(0)
 
         self.assertTrue(u'status' in resp)
 

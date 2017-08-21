@@ -1,0 +1,55 @@
+# Copyright (c) 2017 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: parse openrc into openstack auth dict
+  parse_shell_file: path="{{ openrc_file }}" fact_name="openrc"
+
+- debug: var=openrc
+
+- set_fact:
+    yardstick_url_ip: "{{ openrc.OS_AUTH_URL|urlsplit|attr('hostname') }}"
+
+- debug: var=yardstick_url_ip
+
+# This doesn't work, due to OS_IDENTITY_API_VERSION, use environment
+
+- set_fact:
+    os_auth:
+      auth_url: "{{ openrc.OS_AUTH_URL }}"
+      password: "{{ openrc.OS_PASSWORD }}"
+      username: "{{ openrc.OS_USERNAME }}"
+      project_name: "{{ openrc.OS_PROJECT_NAME }}"
+#      tenant_name: "{{ openrc.OS_TENANT_NAME }}"
+      project_domain_name: "{{ openrc.OS_PROJECT_DOMAIN_NAME }}"
+#      user_domain_name: "{{ openrc.OS_USER_DOMAIN_NAME }}"
+      # BUGS: We need to specify identity_api_version == 3, but we can't do it here
+      # because it is not the write place
+      # we need to set it via OS_IDENTITY_API_VERSION or clouds.yaml
+#      identity_api_version: "{{ openrc.OS_IDENTITY_API_VERSION }}"
+
+- debug: var=os_auth
+
+- set_fact:
+    clouds:
+        demo:
+            # must specify API version here
+            identity_api_version: "{{ openrc.OS_IDENTITY_API_VERSION }}"
+            auth: "{{ os_auth }}"
+
+- template:
+    src: clouds.yaml.j2
+    # this is autodetected and used
+    dest: "{{ cloud_yaml_path }}"
+  when:  write_cloud_yaml|default(False)
+

@@ -1,0 +1,9 @@
+---
+# there is no clean for L4Replay
+#- my_make: chdir="{{ vnf_build_dir }}/L4Replay" target=clean extra_args="-j {{ ansible_processor_vcpus }}"
+
+- name: Building L4Replay VNF
+  my_make: chdir="{{ NSB_INSTALL_DIR }}/L4Replay" params="RTE_SDK={{ dpdk_path }}"  extra_args="-j {{ ansible_processor_vcpus }}"
+
+- command: cp "{{ NSB_INSTALL_DIR }}/L4Replay/build/L4replay" "{{ INSTALL_BIN_PATH }}/"
+

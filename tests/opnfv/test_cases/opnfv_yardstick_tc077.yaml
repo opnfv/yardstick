@@ -1,0 +1,63 @@
+##############################################################################
+# Copyright (c) 2017 Nokia and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+
+schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC077 config file;
+    Extend TC008 to run pktgen-dpdk (sender) and testpmd (receiver) inside VM.
+
+scenarios:
+{% for pkt_size in [64, 128, 256, 512, 1024, 1280, 1518] %}
+  {% for num_ports in [1, 10, 50, 100, 500, 1000] %}
+-
+  type: PktgenDPDK
+  options:
+    packetsize: {{pkt_size}}
+    number_of_ports: {{num_ports}}
+    duration: 20
+
+  host: demeter.yardstick-TC077
+  target: poseidon.yardstick-TC077
+
+  runner:
+    type: Iteration
+    iterations: 3
+    interval: 1
+
+  sla:
+    max_ppm: 1
+    action: rate-control
+  {% endfor %}
+{% endfor %}
+
+context:
+  name: yardstick-TC077
+  image: yardstick-dpdk-image
+  flavor: yardstick-dpdk-flavor
+  user: ubuntu
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    demeter:
+      floating_ip: true
+      placement: "pgrp1"
+    poseidon:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+    test2:
+      cidr: '10.0.2.0/24'
+      provider: "sriov"

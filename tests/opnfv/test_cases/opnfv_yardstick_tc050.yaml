@@ -13,7 +13,11 @@ description: >
     Test case for TC050 :OpenStack Controller Node Network High Availability;
     This test case is written by new scenario-based HA testing framework.
 
-{% set file = file or 'etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
+{% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set external_net = external_net or 'br-ex' %}
+{% set management_net = management_net or 'br-mgmt' %}
+{% set storage_net = storage_net or 'br-storage' %}
+{% set internal_net = internal_net or 'br-mesh' %}
 
 scenarios:
   -
@@ -26,9 +30,9 @@ scenarios:
           key: "close-br-public"
           attack_key: "close-interface"
           action_parameter:
-            interface: "br-ex"
+            interface: {{external_net}}
           rollback_parameter:
-            interface: "br-ex"
+            interface: {{external_net}}
 
         -
           fault_type: "general-attacker"
@@ -36,9 +40,9 @@ scenarios:
           key: "close-br-mgmt"
           attack_key: "close-interface"
           action_parameter:
-            interface: "br-mgmt"
+            interface: {{management_net}}
           rollback_parameter:
-            interface: "br-mgmt"
+            interface: {{management_net}}
 
         -
           fault_type: "general-attacker"
@@ -46,9 +50,9 @@ scenarios:
           key: "close-br-storage"
           attack_key: "close-interface"
           action_parameter:
-            interface: "br-storage"
+            interface: {{storage_net}}
           rollback_parameter:
-            interface: "br-storage"
+            interface: {{storage_net}}
 
         -
           fault_type: "general-attacker"
@@ -56,9 +60,9 @@ scenarios:
           key: "close-br-private"
           attack_key: "close-interface"
           action_parameter:
-            interface: "br-mesh"
+            interface: {{internal_net}}
           rollback_parameter:
-            interface: "br-mesh"
+            interface: {{internal_net}}
 
       monitors:
         -
@@ -66,6 +70,7 @@ scenarios:
           key: "nova-image-list"
           command_name: "openstack image list"
           monitor_time: 10
+          monitor_number: 3
           sla:
             max_outage_time: 5
 
@@ -74,6 +79,7 @@ scenarios:
           key: "neutron-router-list"
           command_name: "openstack router list"
           monitor_time: 10
+          monitor_number: 3
           sla:
             max_outage_time: 5
 
@@ -82,6 +88,7 @@ scenarios:
           key: "heat-stack-list"
           command_name: "openstack stack list"
           monitor_time: 10
+          monitor_number: 3
           sla:
             max_outage_time: 5
 
@@ -90,6 +97,7 @@ scenarios:
           key: "cinder-list"
           command_name: "openstack volume list"
           monitor_time: 10
+          monitor_number: 3
           sla:
             max_outage_time: 5
 

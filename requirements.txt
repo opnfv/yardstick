@@ -7,89 +7,92 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-ansible==2.2.0.0
-Babel==2.3.4
-backport-ipaddress==0.1
-chainmap==1.0.2
-cliff==2.3.0
-cmd2==0.6.8
-coverage==4.1b2
-debtcollector==1.3.0
-django==1.8.17
-ecdsa==0.13
-extras==0.0.3
-fixtures==1.4.0
-flake8==2.5.4
-funcsigs==0.4
-functools32==3.2.3.post2; python_version <= '2.7'
-futures==3.0.5
-iso8601==0.1.11
-Jinja2==2.8
-jsonpatch==1.13
-jsonpointer==1.10
-jsonschema==2.5.1
-keystoneauth1==2.18.0
-linecache2==1.0.0
-lxml==3.5.0
-MarkupSafe==0.23
-mccabe==0.4.0
+Babel==2.3.4		# BSD; OSI Approved  BSD License
+Jinja2==2.8.1		# BSD; OSI Approved  BSD License
+MarkupSafe==0.23		# BSD; OSI Approved  BSD License
+PyYAML==3.12		# MIT; OSI Approved  MIT License
+SQLAlchemy==1.1.4		# MIT License; OSI Approved  MIT License
+ansible==2.2.2.0		# GPLv3; OSI Approved  GNU General Public License v3 or later (GPLv3+)
+appdirs==1.4.3		# MIT; OSI Approved  MIT License
+backport-ipaddress==0.1; python_version <= "2.7"		# OSI Approved  Python Software Foundation License
+chainmap==1.0.2		# Python Software Foundation License; OSI Approved  Python Software Foundation License
+cliff==2.4.0		# OSI Approved  Apache Software License
+cmd2==0.6.9		# MIT; OSI Approved  MIT License
+coverage==4.3.4		# Apache 2.0; OSI Approved  Apache Software License; http://www.apache.org/licenses/LICENSE-2.0; http://www.apache.org/licenses/LICENSE-2.0
+debtcollector==1.11.0		# OSI Approved  Apache Software License
+django==1.8.17		# BSD; OSI Approved  BSD License
+docker-py==1.10.6		# OSI Approved  Apache Software License
+ecdsa==0.13		# MIT
+extras==1.0.0		# OSI Approved  MIT License
+fixtures==3.0.0		# OSI Approved  BSD License; OSI Approved  Apache Software License
+flake8==2.5.4		# MIT; OSI Approved  MIT License
+flasgger==0.5.13		# MIT
+flask-restful-swagger==0.19		# MIT
+flask-restful==0.3.5		# BSD; OSI Approved  BSD License
+flask==0.11.1		# BSD; OSI Approved  BSD License
+funcsigs==1.0.2		# ASL; OSI Approved  Apache Software License
+functools32==3.2.3.post2; python_version <= "2.7"		# PSF license
+futures==3.0.5		# BSD; OSI Approved  BSD License
+influxdb==4.0.0		# MIT License; OSI Approved  MIT License
+iso8601==0.1.11		# MIT; OSI Approved  MIT License
+jsonpatch==1.15		# Modified BSD License; OSI Approved  BSD License
+jsonpointer==1.10		# Modified BSD License; OSI Approved  BSD License
+jsonschema==2.5.1		# MIT; OSI Approved  MIT License
+jinja2schema==0.1.4		# OSI Approved  BSD License
+keystoneauth1==2.18.0		# OSI Approved  Apache Software License
+kubernetes==3.0.0a1		# OSI Approved  Apache Software License
+linecache2==1.0.0		# OSI Approved  Python Software Foundation License
+lxml==3.7.2		# OSI Approved  BSD License
+mccabe==0.4.0		# Expat license; OSI Approved  MIT License
 # upgrade to version 2.0.0 to match python3 unittest.mock features
-mock==2.0.0
-monotonic==1.0
-msgpack-python==0.4.7
-netaddr==0.7.18
-netifaces==0.10.4
-nose==1.3.7
-openstacksdk==0.9.13
-os-client-config==1.22.0
-oslo.config==3.14.0
-oslo.i18n==3.4.0
-oslo.serialization==2.4.0
-oslo.utils==3.18.0
-paramiko==1.18.0
-pbr==1.8.1
-pep8==1.7.0
-positional==1.1.1
-prettytable==0.7.2
-pycrypto==2.6.1
-pyflakes==1.0.0
-pyparsing==2.1.0
-pyrsistent==0.11.12
-osc-lib==1.2.0
-python-cinderclient==1.9.0
-python-glanceclient==2.5.0
-python-heatclient==1.5.0
-python-keystoneclient==3.8.0
-python-mimeparse==1.5.1
-python-neutronclient==6.0.0
-python-novaclient==6.0.0
-python-openstackclient==3.8.0
-python-subunit==1.2.0
-python-swiftclient==3.0.0
-pytz==2015.7
-PyYAML==3.11
-requests==2.10.0
-requestsexceptions==1.1.3
-scp==0.10.2
-shade==1.17.0
-simplejson==3.8.2
-six==1.10.0
-stevedore==1.17.1
-testrepository==0.0.20
-testtools==2.0.0
-traceback2==1.4.0
-unicodecsv==0.14.1
-unittest2==1.1.0
-warlock==1.2.0
-wrapt==1.10.6
-flask==0.11.1
-flask-restful==0.3.5
-influxdb==3.0.0
-pyroute2==0.4.10
-docker-py==1.10.6
-flasgger==0.5.13
-flask-restful-swagger==0.19
-SQLAlchemy==1.1.4
+mock==2.0.0		# OSI Approved  BSD License; `BSD License`_; http://github.com/testing-cabal/mock/blob/master/LICENSE.txt
+monotonic==1.2		# Apache; OSI Approved  Apache Software License
+msgpack-python==0.4.8		# OSI Approved  Apache Software License
+netaddr==0.7.19		# BSD License; OSI Approved  BSD License; OSI Approved  MIT License
+netifaces==0.10.5		# MIT License; OSI Approved  MIT License
+nose==1.3.7		# GNU LGPL; OSI Approved  GNU Library or Lesser General Public License (LGPL)
+openstacksdk==0.9.13		# OSI Approved  Apache Software License
+os-client-config==1.26.0		# OSI Approved  Apache Software License
+osc-lib==1.3.0		# OSI Approved  Apache Software License
+oslo.config==3.22.0		# OSI Approved  Apache Software License
+oslo.i18n==3.12.0		# OSI Approved  Apache Software License
+oslo.serialization==2.16.0		# OSI Approved  Apache Software License
+oslo.utils==3.22.0		# OSI Approved  Apache Software License
+paramiko==2.1.1		# LGPL; OSI Approved  GNU Library or Lesser General Public License (LGPL)
+pbr==1.10.0		# OSI Approved  Apache Software License; Apache License, Version 2.0
+pep8==1.7.0		# Expat license; OSI Approved  MIT License
 # version 14.5.0 for compatibility with trex traffic generator
-pyzmq==14.5.0
-pika==0.10.0
+pika==0.10.0		# BSD; OSI Approved  BSD License
+positional==1.1.1		# OSI Approved  Apache Software License
+prettytable==0.7.2		# BSD (3 clause); OSI Approved  BSD License
+pycrypto==2.6.1		# Public Domain
+pyflakes==1.0.0		# MIT; OSI Approved  MIT License
+pyparsing==2.1.10		# MIT License; OSI Approved  MIT License
+pyroute2==0.4.12		# dual license GPLv2+ and Apache v2; OSI Approved  GNU General Public License v2 or later (GPLv2+); OSI Approved  Apache Software License
+pyrsistent==0.11.12		# LICENSE.mit; OSI Approved  MIT License
+python-cinderclient==1.11.0		# OSI Approved  Apache Software License
+python-glanceclient==2.6.0		# OSI Approved  Apache Software License
+python-heatclient==1.8.1		# OSI Approved  Apache Software License
+python-keystoneclient==3.10.0		# OSI Approved  Apache Software License
+python-mimeparse==1.6.0		# OSI Approved  MIT License
+python-neutronclient==6.1.0		# OSI Approved  Apache Software License
+python-novaclient==7.1.1		# OSI Approved  Apache Software License
+python-openstackclient==3.8.1		# OSI Approved  Apache Software License
+python-subunit==1.2.0		# OSI Approved  Apache Software License; OSI Approved  BSD License
+python-swiftclient==3.3.0		# OSI Approved  Apache Software License
+pytz==2016.10		# MIT; OSI Approved  MIT License
+pyzmq==14.5.0		# LGPL+BSD; OSI Approved  GNU Library or Lesser General Public License (LGPL); OSI Approved  BSD License
+requests==2.13.0		# Apache 2.0; OSI Approved  Apache Software License
+requestsexceptions==1.1.3		# OSI Approved  Apache Software License
+scp==0.10.2		# LGPL
+shade==1.17.0		# OSI Approved  Apache Software License
+simplejson==3.10.0		# MIT License; OSI Approved  MIT License; OSI Approved  Academic Free License (AFL)
+six==1.10.0		# MIT; OSI Approved  MIT License
+stevedore==1.20.0		# OSI Approved  Apache Software License
+testrepository==0.0.20		# OSI Approved  BSD License; OSI Approved  Apache Software License
+testtools==2.2.0		# OSI Approved  MIT License
+traceback2==1.4.0		# OSI Approved  Python Software Foundation License
+unicodecsv==0.14.1		# BSD License; OSI Approved  BSD License
+unittest2==1.1.0		# OSI Approved  BSD License
+warlock==1.2.0		# OSI Approved  Apache Software License
+wrapt==1.10.8		# BSD

@@ -9,6 +9,7 @@
 
 [DEFAULT]
 debug = False
+# setup multiple dipatcher with comma deperted e.g. file,http
 dispatcher = http
 
 [dispatcher_http]

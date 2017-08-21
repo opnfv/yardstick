@@ -1,0 +1,143 @@
+<!--environment detail page-->
+
+<div class="content" style="overflow-x: scroll;">
+    <div style="display:flex;flex-direction:row;">
+        <div>
+
+
+            <h3> {{baseElementInfo.name}} -- Openrc
+                <button class="btn btn-default" style="float:right" ng-click="goNext()">Next</button>
+                <button class="btn btn-default" style="float:right;margin-right:10px;" ng-click="openDeleteEnv(1,'openrc')">Delete</button>
+            </h3>
+            <!--<p>In this process, you can input your define openrc config or upload a openrc file</p>-->
+
+
+
+            <div>
+
+                <button style="display:inline;" class="btn btn-default" ng-click="addEnvironment()" ng-show="uuid==null">Add Name</button>
+            </div>
+
+
+
+            <hr/>
+            <div bs-tabs style="width:600px;">
+                <div data-title="Detail" bs-pane ng-if="openrcInfo.openrc!=null">
+
+                    <h4>
+                        You have already set up the openrc parameters
+                    </h4>
+                    <hr />
+                    <div ng-repeat="(key,value) in openrcInfo.openrc">
+                        <nobr>
+                            <font style="font-weight:600;font-size:14px;">{{key}} : </font>
+                            <font style="font-size:14px;">{{value}}</font>
+                        </nobr>
+                    </div>
+
+                </div>
+                <div data-title="Update" bs-pane>
+
+                    <div style="margin-top:20px;">
+                        <button class="btn btn-default" ng-click="addInfo()" style="margin-bottom:20px;">Add</button>
+                        <div style="height:300px;width:800px;display:flex;flex-direction:column;flex-wrap:wrap;margin-left:5px;">
+                            <div ng-repeat="info in envInfo">
+                                <!--<div> {{info.name}}</div>-->
+
+                                <input class="edit-title" ng-model="info.name" ng-class="{'null-edit-title':info.name==null}" ng-attr-type="{{info.name.indexOf('PASSWORD')>-1 ? password : text}}" />
+
+                                <div class="item-info">
+                                    <input class="form-control" type="text" ng-model="info.value" />
+                                    <!--<button class="delete-button" ng-click="deleteEnvItem($index)">delete</button>-->
+                                    <img src="images/close.png" ng-click="deleteEnvItem($index)" class="delete-img" />
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <button class="btn btn-default" ng-click="submitOpenRcFile()" style="margin-bottom:20px;">
+                                     <div ng-if="!showloading">submit</div>
+                                     <img src="images/loading2.gif" width="25" height="25" ng-if="showloading" />
+                                </button>
+
+                    </div>
+
+                </div>
+                <div data-title="Upload File" bs-pane>
+                    <div style="margin-top:20px;height:405px;">
+                        <button class="btn btn-default" style="margin-bottom:20px;" ngf-select="uploadFiles($file, $invalidFiles)" ngf-max-size="5MB">
+                                    <div ng-show="!loadingOPENrc">Upload</div>
+                                     <img src="images/loading2.gif" width="25" height="25" ng-if="loadingOPENrc" />
+                                    </button>
+
+                        <!--<div ng-show="displayOpenrcFile!=null || displayOpenrcFile!=undefined">
+                            {{displayOpenrcFile.name}} last modified: {{filelastModified}}
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+</div>
+<toaster-container></toaster-container>
+
+<style>
+    .form-control {
+        border-radius: 5px;
+        width: 200px;
+        margin-bottom: 10px;
+    }
+
+    .uploadbutton {
+        background-color: #007ACC;
+        color: #fff;
+        border: 0px;
+        border-radius: 5px;
+        height: 27px;
+    }
+
+    .edit-title {
+        border: 0px;
+        background-color: #ffffff;
+        margin-bottom: 5px;
+        font-size: 12px;
+    }
+
+    .null-edit-title {
+        border: 1px solid #e5e6e7;
+        border-radius: 5px;
+        margin-bottom: 3px;
+    }
+
+    .item-info {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .delete-img {
+        width: 15px;
+        height: 15px;
+        opacity: 0.8;
+        margin-left: -10px;
+        margin-top: -3px;
+        cursor: pointer;
+    }
+
+    .nextButton {
+        margin-top: 30px;
+        border: none;
+        border-radius: 5px;
+        padding: 6px;
+        background-color: #339933;
+        color: #ffffff;
+        text-align: center;
+        /* margin-left: 300px; */
+    }
+</style>

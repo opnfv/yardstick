@@ -1,0 +1,154 @@
+<div class="content">
+    <!--suitelist-->
+    <i class="fa fa-arrow-left fa-1x" aria-hidden="true" style="color: #999;cursor:pointer" ng-click="goBack()">Back</i>
+
+    <div>
+        Test Suites
+        <button class="btn btn-default" style="margin-left:20px;" ng-click="gotoCreateSuite()">
+                                   Create
+
+                                    </button>
+
+
+        <hr/>
+
+
+        <div dw-loading="key" dw-loading-options="{text:'loading'}">
+            <div style="display:flex;flex-direction:row;justify-content:space-between;padding:8px;border-top: 1px solid #e9ecec;background-color: #f9f9f9;">
+                <div style="font-weight:600">Name</div>
+                <div style="font-weight:600;margin-right:20px;">Action</div>
+
+            </div>
+
+
+            <div dir-paginate="suite in testsuitlist | itemsPerPage: 10">
+                <div style="display:flex;flex-direction:row;justify-content:space-between;padding:8px;border-top: 1px solid #e9ecec;">
+                    <div>
+                        <a style="color:#4dc5cf" ng-click="gotoDetail(suite)"> {{suite}}
+                    </a>
+                    </div>
+                    <div>
+                        <!-- <button class="btn btn-default btn-sm" ng-click="openDeleteEnv(suite,'test suite')">Delete</button> -->
+                        <div class="btn-group" uib-dropdown is-open="status.isopen">
+                            <button id="single-button" type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
+                            delete <span class="caret"></span>
+                        </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                <li role="menuitem"><a ng-click="openDeleteEnv(suite,'test suite')">delete</a></li>
+
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <center>
+                <dir-pagination-controls></dir-pagination-controls>
+            </center>
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+</div>
+
+<toaster-container></toaster-container>
+
+<style>
+    .deepColor {
+        background-color: #f9f9f9;
+    }
+
+    .form-control {
+        border-radius: 5px;
+        width: 300px;
+        margin-bottom: 10px;
+    }
+
+    .uploadbutton {
+        background-color: #007ACC;
+        color: #fff;
+        border: 0px;
+        border-radius: 5px;
+        height: 27px;
+    }
+
+    .edit-title {
+        border: 0px;
+        background-color: #ffffff;
+        margin-bottom: 5px;
+    }
+
+    .null-edit-title {
+        border: 1px solid #e5e6e7;
+        border-radius: 5px;
+        margin-bottom: 3px;
+    }
+
+    .item-info {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .delete-img {
+        width: 19px;
+        height: 19px;
+        opacity: 0.8;
+        margin-left: 5px;
+        margin-top: 4px;
+        cursor: pointer;
+    }
+
+    .nextButton {
+        margin-top: 30px;
+        border: none;
+        border-radius: 5px;
+        padding: 6px;
+        background-color: #339933;
+        color: #ffffff;
+        text-align: center;
+        /* margin-left: 300px; */
+    }
+
+    .bs-sidenav {
+        margin-top: 40px;
+        margin-bottom: 20px;
+        width: 124px;
+    }
+
+    .nav {
+        margin-bottom: 0;
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .nav>li {
+        position: relative;
+        display: block;
+    }
+
+    li {
+        display: list-item;
+        text-align: -webkit-match-parent;
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+    a.active {
+        background-color: #EEEEEE;
+        border-radius: 5px;
+    }
+</style>

@@ -14,6 +14,10 @@
 
 set -e
 
-source /root/openrc
+if [ $OS_INSECURE ] && [ "$(echo $OS_INSECURE | tr '[:upper:]' '[:lower:]')" = "true" ]; then
+    SECURE="--insecure"
+else
+    SECURE=""
+fi
 
-openstack flavor create $1 --id $2 --ram $3 --disk $4 --vcpus $5
+openstack ${SECURE} flavor create $1 --id $2 --ram $3 --disk $4 --vcpus $5

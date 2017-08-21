@@ -99,8 +99,8 @@ set -o pipefail
 
 install_storperf()
 {
-    # Install Storper on huawei-pod1
-    if [ "$NODE_NAME" == "huawei-pod1" ]; then
+    # Install Storper on huawei-pod1 and huawei-pod2
+    if [ "$NODE_NAME" == "huawei-pod1" -o "$NODE_NAME" == "huawei-pod2" ]; then
         echo
         echo "========== Installing storperf =========="
 
@@ -114,8 +114,8 @@ install_storperf()
 
 remove_storperf()
 {
-    # remove Storper from huawei-pod1
-    if [ "$NODE_NAME" == "huawei-pod1" ]; then
+    # remove Storper from huawei-pod1 and huawei-pod2
+    if [ "$NODE_NAME" == "huawei-pod1" -o "$NODE_NAME" == "huawei-pod2" ]; then
         echo
         echo "========== Removing storperf =========="
 
@@ -293,8 +293,13 @@ main()
     echo
 
     # check OpenStack services
+    if [[ $OS_INSECURE ]] && [[ "$(echo $OS_INSECURE | tr '[:upper:]' '[:lower:]')" = "true" ]]; then
+        SECURE="--insecure"
+    else
+        SECURE=""
+    fi
     echo "Checking OpenStack services:"
-    for cmd in "openstack image list" "openstack server list" "openstack stack list"; do
+    for cmd in "openstack ${SECURE} image list" "openstack ${SECURE} server list" "openstack ${SECURE} stack list"; do
         echo "  checking ${cmd} ..."
         if ! $cmd >/dev/null; then
             echo "error: command \"$cmd\" failed"

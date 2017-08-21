@@ -13,7 +13,8 @@ import multiprocessing
 import time
 import os
 import yardstick.common.utils as utils
-import yaml
+
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 
@@ -25,8 +26,9 @@ monitor_conf_path = pkg_resources.resource_filename(
 class MonitorMgr(object):
     """docstring for MonitorMgr"""
 
-    def __init__(self):
+    def __init__(self, data):
         self._monitor_list = []
+        self.monitor_mgr_data = data
 
     def init_monitors(self, monitor_cfgs, context):
         LOG.debug("monitorMgr config: %s", monitor_cfgs)
@@ -34,7 +36,13 @@ class MonitorMgr(object):
         for monitor_cfg in monitor_cfgs:
             monitor_type = monitor_cfg["monitor_type"]
             monitor_cls = BaseMonitor.get_monitor_cls(monitor_type)
-            monitor_ins = monitor_cls(monitor_cfg, context)
+
+            monitor_number = monitor_cfg.get("monitor_number", 1)
+            if monitor_number > 1:
+                monitor_cls = BaseMonitor.get_monitor_cls("multi-monitor")
+
+            monitor_ins = monitor_cls(monitor_cfg, context,
+                                      self.monitor_mgr_data)
             if "key" in monitor_cfg:
                 monitor_ins.key = monitor_cfg["key"]
             self._monitor_list.append(monitor_ins)
@@ -64,15 +72,16 @@ class BaseMonitor(multiprocessing.Process):
     """docstring for BaseMonitor"""
     monitor_cfgs = {}
 
-    def __init__(self, config, context):
+    def __init__(self, config, context, data):
         if not BaseMonitor.monitor_cfgs:
             with open(monitor_conf_path) as stream:
-                BaseMonitor.monitor_cfgs = yaml.load(stream)
+                BaseMonitor.monitor_cfgs = yaml_load(stream)
         multiprocessing.Process.__init__(self)
         self._config = config
         self._context = context
         self._queue = multiprocessing.Queue()
         self._event = multiprocessing.Event()
+        self.monitor_data = data
         self.setup_done = False
 
     @staticmethod
@@ -133,6 +142,8 @@ class BaseMonitor(multiprocessing.Process):
 
         self._queue.put({"total_time": total_time,
                          "outage_time": last_outage - first_outage,
+                         "last_outage": last_outage,
+                         "first_outage": first_outage,
                          "total_count": total_count,
                          "outage_count": outage_count})
 
@@ -152,3 +163,6 @@ class BaseMonitor(multiprocessing.Process):
 
     def verify_SLA(self):
         pass
+
+    def result(self):
+        return self._result

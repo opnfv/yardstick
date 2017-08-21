@@ -9,13 +9,13 @@
 from __future__ import absolute_import
 import logging
 
-
 from yardstick.benchmark.scenarios.availability.result_checker \
     .baseresultchecker import \
     BaseResultChecker
 from yardstick.benchmark.scenarios.availability import Condition
 import yardstick.ssh as ssh
-from yardstick.benchmark.scenarios.availability.util import buildshellparams
+from yardstick.benchmark.scenarios.availability.util \
+    import buildshellparams, execute_shell_command
 
 LOG = logging.getLogger(__name__)
 
@@ -25,11 +25,14 @@ class GeneralResultChecker(BaseResultChecker):
 
     def setup(self):
         LOG.debug("config:%s context:%s", self._config, self._context)
-        host = self._context.get(self._config['host'], None)
+        host = self._context.get(self._config.get('host', None), None)
 
-        self.connection = ssh.SSH.from_node(host, defaults={"user": "root"})
-        self.connection.wait(timeout=600)
-        LOG.debug("ssh host success!")
+        self.connection = None
+        if host:
+            self.connection = ssh.SSH.from_node(
+                host, defaults={"user": "root"})
+            self.connection.wait(timeout=600)
+            LOG.debug("ssh host success!")
 
         self.key = self._config['key']
         self.resultchecker_key = self._config['checker_key']
@@ -41,7 +44,8 @@ class GeneralResultChecker(BaseResultChecker):
         self.key = self._config['key']
         if "parameter" in self._config:
             parameter = self._config['parameter']
-            str = buildshellparams(parameter)
+            str = buildshellparams(
+                parameter, True if self.connection else False)
             l = list(item for item in parameter.values())
             self.shell_cmd = str.format(*l)
 
@@ -52,19 +56,32 @@ class GeneralResultChecker(BaseResultChecker):
 
     def verify(self):
         if "parameter" in self._config:
-            with open(self.verify_script, "r") as stdin_file:
-                exit_status, stdout, stderr = self.connection.execute(
-                    self.shell_cmd,
-                    stdin=stdin_file)
+            if self.connection:
+                with open(self.verify_script, "r") as stdin_file:
+                    exit_status, stdout, stderr = self.connection.execute(
+                        "sudo {}".format(self.shell_cmd),
+                        stdin=stdin_file)
+            else:
+                exit_status, stdout = \
+                    execute_shell_command(
+                        "/bin/bash {0} {1}".format(
+                            self.verify_script,
+                            self.rollback_param))
+
             LOG.debug("action script of the operation is: %s",
                       self.verify_script)
             LOG.debug("action parameter the of operation is: %s",
                       self.shell_cmd)
         else:
-            with open(self.verify_script, "r") as stdin_file:
-                exit_status, stdout, stderr = self.connection.execute(
-                    "/bin/bash -s ",
-                    stdin=stdin_file)
+            if self.connection:
+                with open(self.verify_script, "r") as stdin_file:
+                    exit_status, stdout, stderr = self.connection.execute(
+                        "sudo /bin/bash -s ",
+                        stdin=stdin_file)
+            else:
+                exit_status, stdout = execute_shell_command(
+                    "/bin/bash {0}".format(self.verify_script))
+
             LOG.debug("action script of the operation is: %s",
                       self.verify_script)
 

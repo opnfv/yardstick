@@ -64,12 +64,12 @@ class GeneralAttacker(BaseAttacker):
             LOG.debug("the shell command is: %s", self.action_param)
             with open(self.inject_script, "r") as stdin_file:
                 exit_status, stdout, stderr = self.connection.execute(
-                    self.action_param,
+                    "sudo {}".format(self.action_param),
                     stdin=stdin_file)
         else:
             with open(self.inject_script, "r") as stdin_file:
                 exit_status, stdout, stderr = self.connection.execute(
-                    "/bin/bash -s ",
+                    "sudo /bin/bash -s ",
                     stdin=stdin_file)
 
         LOG.debug("the inject_fault's exit status is: %s", exit_status)
@@ -85,10 +85,10 @@ class GeneralAttacker(BaseAttacker):
             LOG.debug("the shell command is: %s", self.rollback_param)
             with open(self.recovery_script, "r") as stdin_file:
                 exit_status, stdout, stderr = self.connection.execute(
-                    self.rollback_param,
+                    "sudo {}".format(self.rollback_param),
                     stdin=stdin_file)
         else:
             with open(self.recovery_script, "r") as stdin_file:
                 exit_status, stdout, stderr = self.connection.execute(
-                    "/bin/bash -s ",
+                    "sudo /bin/bash -s ",
                     stdin=stdin_file)

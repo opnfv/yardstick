@@ -15,4 +15,18 @@ set -e
 
 service_name=$1
 
-service $service_name start
+Distributor=$(lsb_release -a | grep "Distributor ID" | awk '{print $3}')
+
+if [ "$Distributor" != "Ubuntu" -a "$service_name" != "keystone" -a "$service_name" != "neutron-server" -a "$service_name" != "haproxy" ]; then
+    service_name="openstack-"${service_name}
+elif [ "$Distributor" = "Ubuntu" -a "$service_name" = "keystone" ]; then
+    service_name="apache2"
+elif [ "$service_name" = "keystone" ]; then
+    service_name="httpd"
+fi
+
+if which systemctl 2>/dev/null; then
+    systemctl start $service_name
+else
+    service $service_name start
+fi

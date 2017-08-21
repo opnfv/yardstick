@@ -12,7 +12,7 @@ schema: "yardstick:task:0.1"
 description: >
     Test case for TC047 :Control node Openstack service down - glance api.
 
-{% set file = file or 'etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
+{% set file = file or '/etc/yardstick/pod.yaml' %}
 
 scenarios:
 -
@@ -27,12 +27,14 @@ scenarios:
     - monitor_type: "openstack-cmd"
       command_name: "openstack image list"
       monitor_time: 10
+      monitor_number: 3
       sla:
         max_outage_time: 5
     - monitor_type: "process"
       process_name: "glance-api"
       host: node1
       monitor_time: 20
+      monitor_number: 3
       sla:
         max_recover_time: 20
 

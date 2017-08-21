@@ -1,0 +1,90 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: NSPerf
+  traffic_profile: ../../traffic_profiles/prox_binsearch.yaml
+  topology: prox-tg-topology-2.yaml
+
+  nodes:
+    tg__1: trafficgen_1.yardstick
+    vnf__1: vnf.yardstick
+
+  vnf_options:
+    vnf__1:
+      prox_path: /root/dppd-PROX-v037/build/prox
+      prox_config: "configs/handle_acl-2.cfg"
+      prox_args:
+        "-t": ""
+      prox_files: "configs/acl_rules-2.lua"
+
+    tg__1:
+      prox_path: /root/dppd-PROX-v037/build/prox
+      prox_config: "configs/gen_acl-2.cfg"
+      prox_args:
+        "-e": ""
+        "-t": ""
+
+  runner:
+    type: Duration
+    # we kill after duration, independent of test duration, so set this high
+    duration: 100
+
+context:
+  name: yardstick
+  image: yardstick-image-prox-dpdk1702
+  user: ubuntu
+  flavor:
+    name: yardstick-dpdk-flavor
+    vcpus: 3
+    ram: 20480
+    disk: 4
+    extra_specs:
+      hw:cpu_sockets: 1
+      hw:cpu_cores: 3
+      hw:cpu_threads: 1
+#      hw:mem_page_size: large
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    vnf:
+      floating_ip: true
+      placement: "pgrp1"
+    trafficgen_1:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    mgmt:
+      cidr: '10.0.1.0/24'
+      external_network: "yardstick-public"
+    xe0:
+      cidr: '10.0.2.0/24'
+      vld_id: public
+      allowed_address_pairs:
+        - ip_address:
+            '0.0.0.0/0'
+    xe1:
+      cidr: '10.0.3.0/24'
+      vld_id: private
+      allowed_address_pairs:
+        - ip_address:
+            '0.0.0.0/0'
+

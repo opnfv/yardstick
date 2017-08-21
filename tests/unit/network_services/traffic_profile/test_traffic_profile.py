@@ -307,15 +307,15 @@ class TestTrexProfile(unittest.TestCase):
         trex_profile = \
             TrexProfile(TrafficProfile)
         trex_profile.params = self.PROFILE
-        trex_profile.profile_data = self.PROFILE["private"]
-        self.assertIsNotNone(trex_profile.get_streams())
+        profile_data = self.PROFILE["private"]
+        self.assertIsNotNone(trex_profile.get_streams(profile_data))
         trex_profile.pg_id = 1
-        self.assertIsNotNone(trex_profile.get_streams())
+        self.assertIsNotNone(trex_profile.get_streams(profile_data))
         trex_profile.params = self.PROFILE_v6
         trex_profile.profile_data = self.PROFILE_v6["private"]
-        self.assertIsNotNone(trex_profile.get_streams())
+        self.assertIsNotNone(trex_profile.get_streams(profile_data))
         trex_profile.pg_id = 1
-        self.assertIsNotNone(trex_profile.get_streams())
+        self.assertIsNotNone(trex_profile.get_streams(profile_data))
 
     def test_generate_packets(self):
         trex_profile = \

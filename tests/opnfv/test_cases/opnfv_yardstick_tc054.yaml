@@ -13,7 +13,15 @@ description: >
     Test case for TC054 :OpenStack VIP Master Node abnormally shutdown High Availability;
     This test case is written by new scenario-based HA testing framework.
 
-{% set file = file or 'etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
+{% set attack_host = attack_host or 'node1' %}
+{% set check_host = check_host or 'node2' %}
+{% set jump_host = jump_host or 'node0' %}
+{% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set vip_management = vip_management or '192.168.0.2' %}
+{% set vip_public = vip_public or '172.16.0.3' %}
+{% set vip_router_management = vip_router_management or '192.168.0.1' %}
+{% set vip_router_public = vip_router_public or '172.16.0.2' %}
+{% set monitor_time = monitor_time or 180 %}
 
 scenarios:
   -
@@ -22,15 +30,17 @@ scenarios:
       attackers:
         -
           fault_type: "bare-metal-down"
-          host: node1
+          host: {{attack_host}}
           key: "bare-metal-down"
+          jump_host: {{jump_host}}
 
       monitors:
         -
           monitor_type: "openstack-cmd"
           key: "list-images"
           command_name: "openstack image list"
-          monitor_time: 10
+          monitor_time: {{monitor_time}}
+          monitor_number: 3
           sla:
             max_outage_time: 5
 
@@ -38,45 +48,49 @@ scenarios:
           monitor_type: "general-monitor"
           monitor_key: "ip-status"
           key: "vip-mgmt-status"
-          host: node2
-          monitor_time: 10
+          host: {{check_host}}
+          monitor_time: {{monitor_time}}
+          monitor_number: 3
           sla:
             max_outage_time: 5
           parameter:
-            ip_address: "192.168.0.2"
+            ip_address: {{vip_management}}
 
         -
           monitor_type: "general-monitor"
           monitor_key: "ip-status"
           key: "vip-routerp-status"
-          host: node2
-          monitor_time: 10
+          host: {{check_host}}
+          monitor_time: {{monitor_time}}
+          monitor_number: 3
           sla:
             max_outage_time: 5
           parameter:
-            ip_address: "172.16.0.2"
+            ip_address: {{vip_router_public}}
 
         -
           monitor_type: "general-monitor"
           monitor_key: "ip-status"
           key: "vip-router-status"
-          host: node2
-          monitor_time: 10
+          host: {{check_host}}
+          monitor_time: {{monitor_time}}
+          monitor_number: 3
           sla:
             max_outage_time: 5
           parameter:
-            ip_address: "192.168.0.1"
+            ip_address: {{vip_router_management}}
 
         -
           monitor_type: "general-monitor"
           monitor_key: "ip-status"
           key: "vip-pub"
-          host: node2
-          monitor_time: 10
+          host: {{check_host}}
+          monitor_time: {{monitor_time}}
+          monitor_number: 3
           sla:
             max_outage_time: 5
           parameter:
-            ip_address: "172.16.0.3"
+            ip_address: {{vip_public}}
 
 
       steps:
@@ -110,8 +124,9 @@ scenarios:
           index: 6
 
     nodes:
-      node1: node1.LF
-      node2: node2.LF
+      {{jump_host}}: {{jump_host}}.LF
+      {{attack_host}}: {{attack_host}}.LF
+      {{check_host}}: {{check_host}}.LF
     runner:
       type: Duration
       duration: 1

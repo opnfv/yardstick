@@ -1,0 +1,4 @@
+---
+cachestat_repo: "https://github.com/beefyamoeba5/cachestat.git"
+cachestat_version: master
+cachestat_dest: "{{ clone_dest }}/Cachestat"

@@ -20,6 +20,10 @@ description: >
     packet size, and so on. The test sequence continues with the next
     packet size, with same ports/flows sequence as before.
 
+{% set provider = provider or none %}
+{% set physical_network = physical_network or 'physnet1' %}
+{% set segmentation_id = segmentation_id or none %}
+
 scenarios:
 {% for pkt_size in [64, 128, 256, 512, 1024, 1280, 1518] %}
   {% for num_ports in [1, 10, 50, 100, 500, 1000] %}
@@ -29,12 +33,21 @@ scenarios:
     packetsize: {{pkt_size}}
     number_of_ports: {{num_ports}}
     duration: 20
+    # choose vnic name: default to eth0
+    # vnic_name: 'ens3'
+    # turn on multiqueue inside VM
+    # multiqueue: True
+    # choose starting pps: default 1M;
+    # works with binary search runner Dynamictp to find max throughput per sla
+    # pps: 3000000
 
   host: demeter.yardstick-TC008
   target: poseidon.yardstick-TC008
 
   runner:
     type: Iteration
+    # binary search runner
+    # type: Dynamictp
     iterations: 10
     interval: 1
 
@@ -65,6 +78,13 @@ context:
   networks:
     test:
       cidr: '10.0.1.0/24'
+      {% if provider == "vlan" %}
+      provider: {{provider}}
+      physical_network: {{physical_network}}
+        {% if segmentation_id %}
+      segmentation_id: {{segmentation_id}}
+        {% endif %}
+      {% endif %}
     #test-sriov:
       #cidr: '10.0.1.0/24'
       #provider: "sriov"

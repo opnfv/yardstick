@@ -1,0 +1,62 @@
+<div class="content">
+    <i class="fa fa-arrow-left fa-1x" aria-hidden="true" style="color: #999;cursor:pointer" ng-click="goBack()">Back</i>
+    <h3>Detail</h3>
+    <hr/>
+    <div style="display:flex;flex-direction:row">
+        <div>
+            <h4>{{taskDetailData.name}}</h4>
+            <div style="margin-top:5px;">{{taskDetailData.time}}</div>
+        </div>
+        <div class="progree-parent" ng-show="taskDetailData.status!=2" style="margin-top:34px;margin-left:30px;">
+            <div class="progree-child" ng-style="{'width':taskDetailData.stausWidth}">
+            </div>
+
+        </div>
+        <div class="progree-parent" ng-show="taskDetailData.status==2" style="background-color:red;margin-top:34px;margin-left:30px;">
+            <div class="progree-child" style="width:0">
+            </div>
+        </div>
+        <i class="fa fa-check" aria-hidden="true" style="margin-top:34px;margin-left:5px;color: #2ecc71;" ng-show="taskDetailData.status==1">finish</i>
+        <i class="fa fa-spinner" aria-hidden="true" style="margin-top:34px;margin-left:5px;color: #2ecc71;" ng-show="taskDetailData.status==0">runing</i>
+        <i class="fa fa-exclamation-triangle" aria-hidden="true" style="margin-top:34px;margin-left:5px;color: red;" ng-show="taskDetailData.status==2">failed</i>
+    </div>
+
+    <div style="margin-top:5px;">Environment : {{displayEnv.name}} </div>
+    <div ng-show="taskDetailData.case_name!=false" style="margin-top:5px;margin-bottom:5px;"> Name : {{taskDetailData.case_name}}</div>
+    <textarea ng-model="taskDetailData.content" spellcheck="false">
+
+    </textarea>
+
+    <div style="text-align:center;margin-top:20px;">
+        <button class="btn btn-default" ng-click="createTask(name)" ng-show="">Run</button>
+    </div>
+</div>
+
+
+<style>
+    input {
+        border-radius: 10px;
+        border: 1px solid #eeeeee;
+        width: 100%;
+    }
+
+    select {
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #e8e8e8;
+        width: 135px;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    textarea {
+        width: 100%;
+        height: 350px;
+        border-radius: 5px;
+        border: 1px solid #e8e8e8;
+    }
+
+    .content {
+        height: 90%;
+    }
+</style>

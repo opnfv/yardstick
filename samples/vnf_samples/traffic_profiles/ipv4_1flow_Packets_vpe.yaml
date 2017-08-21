@@ -13,6 +13,8 @@
 # limitations under the License.
 
 flow:
-    srcip4_range: '152.16.0.20'
-    dstip4_range: '152.40.0.20'
+    srcip4_range_1: '152.16.0.20'
+    dstip4_range_1: '152.40.0.20'
+    srcip4_range_2: '172.16.0.20'
+    dstip4_range_2: '172.40.0.20'
     count: 1

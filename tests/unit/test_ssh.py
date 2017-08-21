@@ -26,6 +26,9 @@ import mock
 from oslo_utils import encodeutils
 
 from yardstick import ssh
+from yardstick.ssh import SSHError
+from yardstick.ssh import SSH
+from yardstick.ssh import AutoConnectSSH
 
 
 class FakeParamikoException(Exception):
@@ -90,7 +93,7 @@ class SSHTestCase(unittest.TestCase):
         test_ssh = ssh.SSH.from_node(node)
         self.assertEqual("root", test_ssh.user)
         self.assertEqual("example.net", test_ssh.host)
-        self.assertEqual(ssh.SSH_PORT, test_ssh.port)
+        self.assertEqual(ssh.SSH.SSH_PORT, test_ssh.port)
         self.assertEqual("kf", test_ssh.key_filename)
         self.assertEqual("secret", test_ssh.password)
 
@@ -174,6 +177,45 @@ class SSHTestCase(unittest.TestCase):
                               timeout=1),
         ]
         self.assertEqual(client_calls, client.mock_calls)
+
+    @mock.patch("yardstick.ssh.SSH._get_pkey")
+    @mock.patch("yardstick.ssh.paramiko")
+    def test__get_client_with_exception(self, mock_paramiko, mock_ssh__get_pkey):
+        class MyError(Exception):
+            pass
+
+        mock_ssh__get_pkey.return_value = "pkey"
+        fake_client = mock.Mock()
+        fake_client.connect.side_effect = MyError
+        fake_client.set_missing_host_key_policy.return_value = None
+        mock_paramiko.SSHClient.return_value = fake_client
+        mock_paramiko.AutoAddPolicy.return_value = "autoadd"
+
+        test_ssh = ssh.SSH("admin", "example.net", pkey="key")
+
+        with self.assertRaises(SSHError) as raised:
+            test_ssh._get_client()
+
+        self.assertEqual(mock_paramiko.SSHClient.call_count, 1)
+        self.assertEqual(mock_paramiko.AutoAddPolicy.call_count, 1)
+        self.assertEqual(fake_client.set_missing_host_key_policy.call_count, 1)
+        self.assertEqual(fake_client.connect.call_count, 1)
+        exc_str = str(raised.exception)
+        self.assertIn('raised during connect', exc_str)
+        self.assertIn('MyError', exc_str)
+
+    @mock.patch("yardstick.ssh.SSH._get_pkey")
+    @mock.patch("yardstick.ssh.paramiko")
+    def test_copy(self, mock_paramiko, mock_ssh__get_pkey):
+        mock_ssh__get_pkey.return_value = "pkey"
+        fake_client = mock.Mock()
+        fake_client.connect.side_effect = IOError
+        mock_paramiko.SSHClient.return_value = fake_client
+        mock_paramiko.AutoAddPolicy.return_value = "autoadd"
+
+        test_ssh = ssh.SSH("admin", "example.net", pkey="key")
+        result = test_ssh.copy()
+        self.assertIsNot(test_ssh, result)
 
     def test_close(self):
         with mock.patch.object(self.test_client, "_client") as m_client:
@@ -448,6 +490,69 @@ class SSHRunTestCase(unittest.TestCase):
                                                                 mode=42)
         self.test_client._put_file_shell.assert_called_once_with("foo", "bar",
                                                                  mode=42)
+
+    @mock.patch("yardstick.ssh.os.stat")
+    def test_put_file_obj_with_mode(self, mock_stat):
+        sftp = self.fake_client.open_sftp.return_value = mock.MagicMock()
+        sftp.__enter__.return_value = sftp
+
+        mock_stat.return_value = os.stat_result([0o753] + [0] * 9)
+
+        self.test_client.put_file_obj("localfile", "remotefile", 'my_mode')
+
+        sftp.__enter__.assert_called_once()
+        sftp.putfo.assert_called_once_with("localfile", "remotefile")
+        sftp.chmod.assert_called_once_with("remotefile", 'my_mode')
+        sftp.__exit__.assert_called_once_with(None, None, None)
+
+
+class TestAutoConnectSSH(unittest.TestCase):
+
+    def test__connect_with_wait(self):
+        auto_connect_ssh = AutoConnectSSH('user1', 'host1', wait=True)
+        auto_connect_ssh._get_client = mock.Mock()
+        auto_connect_ssh.wait = mock_wait = mock.Mock()
+
+        auto_connect_ssh._connect()
+        self.assertEqual(mock_wait.call_count, 1)
+
+    def test__make_dict(self):
+        auto_connect_ssh = AutoConnectSSH('user1', 'host1')
+
+        expected = {
+            'user': 'user1',
+            'host': 'host1',
+            'port': SSH.SSH_PORT,
+            'pkey': None,
+            'key_filename': None,
+            'password': None,
+            'name': None,
+            'wait': False,
+        }
+        result = auto_connect_ssh._make_dict()
+        self.assertDictEqual(result, expected)
+
+    def test_get_class(self):
+        auto_connect_ssh = AutoConnectSSH('user1', 'host1')
+
+        self.assertEqual(auto_connect_ssh.get_class(), AutoConnectSSH)
+
+    @mock.patch('yardstick.ssh.SCPClient')
+    def test_put(self, mock_scp_client_type):
+        auto_connect_ssh = AutoConnectSSH('user1', 'host1')
+        auto_connect_ssh._client = mock.Mock()
+
+        auto_connect_ssh.put('a', 'z')
+        with mock_scp_client_type() as mock_scp_client:
+            self.assertEqual(mock_scp_client.put.call_count, 1)
+
+    def test_put_file(self):
+        auto_connect_ssh = AutoConnectSSH('user1', 'host1')
+        auto_connect_ssh._client = mock.Mock()
+        auto_connect_ssh._put_file_sftp = mock_put_sftp = mock.Mock()
+
+        auto_connect_ssh.put_file('a', 'b')
+        self.assertEqual(mock_put_sftp.call_count, 1)
 
 
 def main():

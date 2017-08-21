@@ -1,0 +1,45 @@
+# Copyright (c) 2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: yardstick:task:0.1
+scenarios:
+- type: NSPerf
+  traffic_profile: "../../../../traffic_profiles/ipv4_throughput.yaml"
+  topology: ../../acl-tg-topology.yaml
+  nodes:
+    tg__1: trafficgen_1.yardstick
+    vnf__1: vnf.yardstick
+    tg__2: trafficgen_2.yardstick
+  tc_options:
+    rfc2544:
+      allowed_drop_rate: 0.8 - 1
+  vnf_options:
+    acl:
+      rules: ../../acl_worstcaserules.yaml
+      cfg: "../../acl_config"
+      script: "../../acl_script"
+  runner:
+    type: Duration
+    duration: 400
+    interval: 35
+  traffic_options:
+    flow: "../../../../traffic_profiles/ipv4_1flow_Packets.yaml"
+    imix: "../../../../traffic_profiles/imix_video.yaml"
+context:
+  type: Node-ovs
+  name: yardstick
+  nfvi_type: ovs
+  vm_deploy: True
+  file: /etc/yardstick/nodes/pod_ovs.yaml

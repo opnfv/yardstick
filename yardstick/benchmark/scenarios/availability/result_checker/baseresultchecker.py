@@ -8,11 +8,11 @@
 ##############################################################################
 from __future__ import absolute_import
 import pkg_resources
-import yaml
 import logging
 import os
 
 import yardstick.common.utils as utils
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 
@@ -58,7 +58,7 @@ class BaseResultChecker(object):
     def __init__(self, config, context):
         if not BaseResultChecker.resultchecker_cfgs:
             with open(resultchecker_conf_path) as stream:
-                BaseResultChecker.resultchecker_cfgs = yaml.load(stream)
+                BaseResultChecker.resultchecker_cfgs = yaml_load(stream)
         self.actualResult = object()
         self.expectedResult = object()
         self.success = False

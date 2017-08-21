@@ -28,6 +28,7 @@ class ServiceHA(base.Scenario):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
         self.setup_done = False
+        self.data = {}
 
     def setup(self):
         """scenario setup"""
@@ -44,10 +45,11 @@ class ServiceHA(base.Scenario):
             attacker_ins = attacker_cls(attacker_cfg, nodes)
             attacker_ins.setup()
             self.attackers.append(attacker_ins)
+            self.data = dict(self.data.items() + attacker_ins.data.items())
 
         monitor_cfgs = self.scenario_cfg["options"]["monitors"]
 
-        self.monitorMgr = basemonitor.MonitorMgr()
+        self.monitorMgr = basemonitor.MonitorMgr(self.data)
         self.monitorMgr.init_monitors(monitor_cfgs, nodes)
 
         self.setup_done = True
@@ -59,20 +61,27 @@ class ServiceHA(base.Scenario):
             return
 
         self.monitorMgr.start_monitors()
-        LOG.info("monitor start!")
+        LOG.info("HA monitor start!")
 
         for attacker in self.attackers:
             attacker.inject_fault()
 
         self.monitorMgr.wait_monitors()
-        LOG.info("monitor stop!")
+        LOG.info("HA monitor stop!")
 
         sla_pass = self.monitorMgr.verify_SLA()
+        for k, v in self.data.items():
+            if v == 0:
+                result['sla_pass'] = 0
+                LOG.info("The service process not found in the host envrioment, \
+the HA test case NOT pass")
+                return
         if sla_pass:
             result['sla_pass'] = 1
+            LOG.info("The HA test case PASS the SLA")
         else:
             result['sla_pass'] = 0
-        assert sla_pass is True, "the test cases is not pass the SLA"
+        assert sla_pass is True, "The HA test case NOT pass the SLA"
 
         return
 

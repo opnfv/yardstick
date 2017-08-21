@@ -1,0 +1,6 @@
+---
+huge_pagesize_kb:
+  1024: 1048576kB
+  2: 2048kB
+
+hugetable_mount: /mnt/huge

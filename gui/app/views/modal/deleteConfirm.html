@@ -1,0 +1,19 @@
+<div>Confirm delete {{deleteName}} ?</div>
+
+<div style="display:flex;flex-direction:row; margin-left: 150px;margin-top: 30px;">
+    <button class="btn btn-default" ng-click="deleteEnv()" ng-show="deleteName=='environment'">Confirm</button>
+    <button class="btn btn-default" ng-click="deleteProject()" ng-show="deleteName=='project'">Confirm</button>
+    <button class="btn btn-default" ng-click="deleteTask()" ng-show="deleteName=='task'">Confirm</button>
+    <button class="btn btn-default" ng-click="deleteTestCase()" ng-show="deleteName=='test case'">Confirm</button>
+    <button class="btn btn-default" ng-click="deleteSuite()" ng-show="deleteName=='test suite'">Confirm</button>
+    <button class="btn btn-default" ng-click="deleteContainer()" ng-show="deleteName=='container'">Confirm</button>
+    <button class="btn btn-default" ng-click="deletePod()" ng-show="deleteName=='pod'">Confirm</button>
+    <button class="btn btn-default" ng-click="deleteOpenRc()" ng-show="deleteName=='openrc'">Confirm</button>
+
+
+
+
+
+    <button class="btn btn-default" style="margin-left:10px;" ng-click="closeThisDialog()">Cancel</button>
+
+</div>

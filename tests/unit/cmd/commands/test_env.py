@@ -42,7 +42,7 @@ class EnvCommandTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.cmd.commands.env.HttpClient.post')
     def test_start_async_task(self, post_mock):
-        data = {'action': 'createGrafanaContainer'}
+        data = {'action': 'create_grafana'}
         EnvCommand()._start_async_task(data)
         self.assertTrue(post_mock.called)
 

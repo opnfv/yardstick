@@ -68,8 +68,7 @@ class LmbenchTestCase(unittest.TestCase):
         sample_output = '[{"latency": 4.944, "size": 0.00049}]'
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         l.run(self.result)
-        expected_result = jsonutils.loads(
-            '{"latencies": ' + sample_output + "}")
+        expected_result = {"latencies0.latency": 4.944, "latencies0.size": 0.00049}
         self.assertEqual(self.result, expected_result)
 
     def test_successful_bandwidth_run_no_sla(self, mock_ssh):
@@ -105,8 +104,7 @@ class LmbenchTestCase(unittest.TestCase):
         sample_output = '[{"latency": 4.944, "size": 0.00049}]'
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         l.run(self.result)
-        expected_result = jsonutils.loads(
-            '{"latencies": ' + sample_output + "}")
+        expected_result = {"latencies0.latency": 4.944, "latencies0.size": 0.00049}
         self.assertEqual(self.result, expected_result)
 
     def test_successful_bandwidth_run_sla(self, mock_ssh):
@@ -191,3 +189,10 @@ class LmbenchTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, l.run, self.result)
+
+
+def main():
+    unittest.main()
+
+if __name__ == '__main__':
+    main()

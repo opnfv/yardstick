@@ -7,9 +7,8 @@ are licensed under a Creative Commons Attribution 4.0 International License.
 You should have received a copy of the license along with this.
 If not, see <http://creativecommons.org/licenses/by/4.0/>.
 
-The *Yardstick framework*, the *Yardstick test cases* and the *ApexLake*
-experimental framework are opensource software, licensed under the terms of the
-Apache License, Version 2.0.
+The *Yardstick framework*, the *Yardstick test cases* are opensource software,
+ licensed under the terms of the Apache License, Version 2.0.
 
 =========================================
 OPNFV Danube Release Note for Yardstick
@@ -38,10 +37,14 @@ Version History
 | *Date*         | *Version*          | *Comment*                       |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
-|                |  3.0               | Yardstick for Danube release    |
+|                |  3.2               | Yardstick for Danube release    |
+|                |                    |                                 |
+|                |                    | Note: The 3.2 tag is due to a   |
+|                |                    | code issue during Danube 3.1    |
+|                |                    | release                         |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
-|                |  2.0               | Yardstick for Danube release    |
+| May 4th, 2017  |  2.0               | Yardstick for Danube release    |
 |                |                    |                                 |
 +----------------+--------------------+---------------------------------+
 | Mar 31st, 2017 |  1.0               | Yardstick for Danube release    |
@@ -139,19 +142,19 @@ Release Data
 | **Project**                          | Yardstick                            |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/Danube.1.0                 |
+| **Repo/tag**                         | yardstick/Danube.3.2                 |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | Danube.1.0                           |
+| **Yardstick Docker image tag**       | Danube.3.2                           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Danube                               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | March 31st, 2017                     |
+| **Release date**                     | August 15th, 2017                    |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFV Danube release 1.0             |
+| **Purpose of the delivery**          | OPNFV Danube release 3.0             |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 
@@ -170,27 +173,8 @@ Documents
 Software Deliverables
 ---------------------
 
-**Yardstick framework source code <Danube.1.0>**
 
-+--------------------------------------+--------------------------------------+
-| **Project**                          | Yardstick                            |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | yardstick/Danube.1.0                 |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-| **Yardstick Docker image tag**       | Danube.1.0                           |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-| **Release designation**              | Danube                               |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-| **Release date**                     | March 31st, 2017                     |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFV Danube release                 |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
+ - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: danube.3.2)
 
 
 **Contexts**
@@ -317,20 +301,6 @@ Software Deliverables
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 | *NSB*               | vPE thoughput test case                               |
-|                     |                                                       |
-+---------------------+-------------------------------------------------------+
-
-
-**API to Other Frameworks**
-
-+---------------------+-------------------------------------------------------+
-| **Framework**       | **Description**                                       |
-|                     |                                                       |
-+---------------------+-------------------------------------------------------+
-| *ApexLake*          | Experimental framework that enables the user to       |
-|                     | validate NFVI from the perspective of a VNF.          |
-|                     | A virtual Traffic Classifier is utilized as VNF.      |
-|                     | Enables experiments with SR-IOV on Compute Node.      |
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 
@@ -534,7 +504,7 @@ Feature additions
 Scenario Matrix
 ===============
 
-For Danube 1.0, Yardstick was tested on the following scenarios:
+For Danube 3.0, Yardstick was tested on the following scenarios:
 
 +-------------------------+---------+---------+---------+---------+
 |         Scenario        |  Apex   | Compass |  Fuel   |   Joid  |
@@ -598,7 +568,9 @@ For Danube 1.0, Yardstick was tested on the following scenarios:
 | os-nosdn-kvm_ovs_dpdk   |         |         |    X    |         |
 | _bar-noha               |         |         |         |         |
 +-------------------------+---------+---------+---------+---------+
-
+| opnfv_os-ovn-nofeature- |    X    |         |         |         |
+| noha_daily              |         |         |         |         |
++-------------------------+---------+---------+---------+---------+
 
 Test results
 ============
@@ -630,10 +602,107 @@ Known Issues/Faults
 Corrected Faults
 ----------------
 
+Danube.3.2:
+
++----------------------------+------------------------------------------------+
+| **JIRA REFERENCE**         | **DESCRIPTION**                                |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-776        | Bugfix: cannot run task if without             |
+|                            | yardstick.conf in danube                       |
++----------------------------+------------------------------------------------+
+
+
+Danube.3.1:
+
++----------------------------+------------------------------------------------+
+| **JIRA REFERENCE**         | **DESCRIPTION**                                |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-714        | Add yardstick env influxdb/grafana command for |
+|                            | CentOS                                         |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-655        | Monitor command in tc019 may not show the      |
+|                            | real nova-api service status                   |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-397        | HA testing framework improvement               |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-660        | Improve monitor_process pass criteria          |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-657        | HA monitor_multi bug,                          |
+|                            | KeyError: 'max_outage_time'                    |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-647        | TC025 fault_type value is wrong when using     |
+|                            | baremetal pod scripts                          |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-659        | Terminate openstack service process using kill |
+|                            | command in HA test cases                       |
++----------------------------+------------------------------------------------+
+| JIRA: ARMBAND-275          | Yardstick TC005 fails with                     |
+|                            | "Cannot map zero-fill pages" error             |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-561        | Bugfix: AttributeError: 'dict' object has no   |
+|                            | attribute 'split' if run sample/ping-hot.yaml  |
++----------------------------+------------------------------------------------+
+| JIRA: ARMBAND-268          | ERROR No JSON object could be decoded from     |
+|                            | LMBENCH in TC010                               |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-680        | storperf test case tc074 do not get results    |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+
+Danube.2.0:
+
++----------------------------+------------------------------------------------+
+| **JIRA REFERENCE**         | **DESCRIPTION**                                |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-608        | Set work directory in Yardstick container      |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-616        | Bugfix: https support should adapt insecure    |
+|                            | situation                                      |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-620        | Yardstick virtualenv support                   |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-621        | Bugfix: fix query job status in TC074          |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-622        | Bugfix: take test case modification into       |
+|                            | effect in load_images.sh                       |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-623        | change openrc file path to                     |
+|                            | /etc/yardstick/openstack.creds                 |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-624        | Add opnfv_os-ovn-nofeature-noha_daily test     |
+|                            | suite                                          |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-628        | Bugfix: Make tc019 and tc025 accept            |
+|                            | --task-args options                            |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-629        | Bugfix: yardstick env prepare cmd do not       |
+|                            | support other installer                        |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-632        | Bugfix: KeyError when using http dispatcher    |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-633        | Bugfix: Environment Compatibility Issues in HA |
+|                            | Test Cases                                     |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-634        | fix ha issue when run tc050~tc054 in ci        |
+|                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-635        | Bugfix: Local Openstack Operation in HA test   |
+|                            | frameworks                                     |
++----------------------------+------------------------------------------------+
+
 Danube.1.0:
 
 +----------------------------+------------------------------------------------+
-| **JIRA REFERENCE**         | **SLOGAN**                                     |
+| **JIRA REFERENCE**         | **DESCRIPTION**                                |
 |                            |                                                |
 +----------------------------+------------------------------------------------+
 | JIRA: YARDSTICK-599        | Could not load EntryPoint.parse when using     |
@@ -644,7 +713,7 @@ Danube.1.0:
 +----------------------------+------------------------------------------------+
 
 
-Danube 1.0 known restrictions/issues
+Danube 3.2 known restrictions/issues
 ====================================
 +-----------+-----------+----------------------------------------------+
 | Installer | Scenario  |  Issue                                       |
@@ -662,13 +731,15 @@ Danube 1.0 known restrictions/issues
 +-----------+-----------+----------------------------------------------+
 
 
-
 Open JIRA tickets
 =================
 
 +----------------------------+------------------------------------------------+
-| **JIRA REFERENCE**         | **SLOGAN**                                     |
+| **JIRA REFERENCE**         | **DESCRIPTION**                                |
 |                            |                                                |
++----------------------------+------------------------------------------------+
+| JIRA: YARDSTICK-626        | Fio and Lmbench don't work in Ubuntu-arm64     |
+|                            | image                                          |
 +----------------------------+------------------------------------------------+
 | JIRA: YARDSTICK-603        | Timeout waiting for floating ip                |
 |                            | (which actually pingable)                      |

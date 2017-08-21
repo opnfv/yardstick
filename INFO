@@ -2,8 +2,8 @@ Project: Test framework for verifying infrastructure compliance (yardstick)
 Project Creation Date: April 28th, 2015
 Project Category: Integration & Testing
 Lifecycle State: Incubation
-Primary Contact: jean.gaoliang@huawei.com
-Project Lead: jean.gaoliang@huawei.com
+Primary Contact: ross.b.brattain@intel.com
+Project Lead: ross.b.brattain@intel.com
 Jira Project Name: Infrastructure Verification
 Jira Project Prefix: Yardstick
 Mailing list tag: [Yardstick]

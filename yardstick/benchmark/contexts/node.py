@@ -13,15 +13,20 @@ import subprocess
 import os
 import collections
 import logging
+import tempfile
 
-import yaml
+import six
 import pkg_resources
 
 from yardstick import ssh
 from yardstick.benchmark.contexts.base import Context
-from yardstick.common import constants as consts
+from yardstick.common.constants import ANSIBLE_DIR, YARDSTICK_ROOT_PATH
+from yardstick.common.ansible_common import AnsibleCommon
+from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
+
+DEFAULT_DISPATCH = 'script'
 
 
 class NodeContext(Context):
@@ -33,10 +38,16 @@ class NodeContext(Context):
         self.name = None
         self.file_path = None
         self.nodes = []
+        self.networks = {}
         self.controllers = []
         self.computes = []
         self.baremetals = []
         self.env = {}
+        self.attrs = {}
+        self.DISPATCH_TYPES = {
+            "ansible": self._dispatch_ansible,
+            "script": self._dispatch_script,
+        }
         super(NodeContext, self).__init__()
 
     def read_config_file(self):
@@ -44,23 +55,22 @@ class NodeContext(Context):
 
         with open(self.file_path) as stream:
             LOG.info("Parsing pod file: %s", self.file_path)
-            cfg = yaml.load(stream)
+            cfg = yaml_load(stream)
         return cfg
 
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
         self.name = attrs["name"]
-        self.file_path = attrs.get("file", "pod.yaml")
+        self.file_path = file_path = attrs.get("file", "pod.yaml")
 
         try:
             cfg = self.read_config_file()
-        except IOError as ioerror:
-            if ioerror.errno == errno.ENOENT:
-                self.file_path = \
-                    os.path.join(consts.YARDSTICK_ROOT_PATH, self.file_path)
-                cfg = self.read_config_file()
-            else:
+        except IOError as io_error:
+            if io_error.errno != errno.ENOENT:
                 raise
+
+            self.file_path = os.path.join(YARDSTICK_ROOT_PATH, file_path)
+            cfg = self.read_config_file()
 
         self.nodes.extend(cfg["nodes"])
         self.controllers.extend([node for node in cfg["nodes"]
@@ -75,21 +85,19 @@ class NodeContext(Context):
         LOG.debug("BareMetals: %r", self.baremetals)
 
         self.env = attrs.get('env', {})
+        self.attrs = attrs
         LOG.debug("Env: %r", self.env)
 
+        # add optional static network definition
+        self.networks.update(cfg.get("networks", {}))
+
     def deploy(self):
-        config_type = self.env.get('type', '')
-        if config_type == 'ansible':
-            self._dispatch_ansible('setup')
-        elif config_type == 'script':
-            self._dispatch_script('setup')
+        config_type = self.env.get('type', DEFAULT_DISPATCH)
+        self.DISPATCH_TYPES[config_type]("setup")
 
     def undeploy(self):
-        config_type = self.env.get('type', '')
-        if config_type == 'ansible':
-            self._dispatch_ansible('teardown')
-        elif config_type == 'script':
-            self._dispatch_script('teardown')
+        config_type = self.env.get('type', DEFAULT_DISPATCH)
+        self.DISPATCH_TYPES[config_type]("teardown")
         super(NodeContext, self).undeploy()
 
     def _dispatch_script(self, key):
@@ -100,27 +108,41 @@ class NodeContext(Context):
 
     def _dispatch_ansible(self, key):
         try:
-            step = self.env[key]
+            playbooks = self.env[key]
         except KeyError:
             pass
         else:
-            self._do_ansible_job(step)
+            self._do_ansible_job(playbooks)
 
-    def _do_ansible_job(self, path):
-        cmd = 'ansible-playbook -i inventory.ini %s' % path
-        p = subprocess.Popen(cmd, shell=True, cwd=consts.ANSIBLE_DIR)
-        p.communicate()
+    def _do_ansible_job(self, playbooks):
+        self.ansible_exec = AnsibleCommon(nodes=self.nodes,
+                                          test_vars=self.env)
+        # playbooks relative to ansible dir
+        # playbooks can also be a list of playbooks
+        self.ansible_exec.gen_inventory_ini_dict()
+        if isinstance(playbooks, six.string_types):
+            playbooks = [playbooks]
+        playbooks = [self.fix_ansible_path(playbook) for playbook in playbooks]
+
+        tmpdir = tempfile.mkdtemp(prefix='ansible-')
+        self.ansible_exec.execute_ansible(playbooks, tmpdir,
+                                          verbose=self.env.get("verbose",
+                                                               False))
+
+    def fix_ansible_path(self, playbook):
+        if not os.path.isabs(playbook):
+            #  make relative paths absolute in ANSIBLE_DIR
+            playbook = os.path.join(ANSIBLE_DIR, playbook)
+        return playbook
 
     def _get_server(self, attr_name):
         """lookup server info by name from context
         attr_name: a name for a server listed in nodes config file
         """
-        if isinstance(attr_name, collections.Mapping):
+        node_name, name = self.split_name(attr_name)
+        if name is None or self.name != name:
             return None
 
-        if self.name != attr_name.split(".")[1]:
-            return None
-        node_name = attr_name.split(".")[0]
         matching_nodes = (n for n in self.nodes if n["name"] == node_name)
 
         try:
@@ -136,10 +158,35 @@ class NodeContext(Context):
             pass
         else:
             raise ValueError("Duplicate nodes!!! Nodes: %s %s",
-                             (matching_nodes, duplicate))
+                             (node, duplicate))
 
         node["name"] = attr_name
+        node.setdefault("interfaces", {})
         return node
+
+    def _get_network(self, attr_name):
+        if not isinstance(attr_name, collections.Mapping):
+            network = self.networks.get(attr_name)
+
+        else:
+            # Don't generalize too much  Just support vld_id
+            vld_id = attr_name.get('vld_id', {})
+            # for node context networks are dicts
+            iter1 = (n for n in self.networks.values() if n.get('vld_id') == vld_id)
+            network = next(iter1, None)
+
+        if network is None:
+            return None
+
+        result = {
+            # name is required
+            "name": network["name"],
+            "vld_id": network.get("vld_id"),
+            "segmentation_id": network.get("segmentation_id"),
+            "network_type": network.get("network_type"),
+            "physical_network": network.get("physical_network"),
+        }
+        return result
 
     def _execute_script(self, node_name, info):
         if node_name == 'local':
@@ -163,7 +210,7 @@ class NodeContext(Context):
 
     def _execute_local_script(self, info):
         script, options = self._get_script(info)
-        script = os.path.join(consts.YARDSTICK_ROOT_PATH, script)
+        script = os.path.join(YARDSTICK_ROOT_PATH, script)
         cmd = ['bash', script, options]
 
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE)

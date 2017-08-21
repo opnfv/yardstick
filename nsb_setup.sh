@@ -28,7 +28,7 @@ if [ "$(whoami)" != "root" ]; then
 fi
 
 INSTALL_BIN_PATH="/opt/nsb_bin"
-TREX_VERSION="v2.20"
+TREX_VERSION="v2.28"
 TREX_DOWNLOAD="https://trex-tgn.cisco.com/trex/release/$TREX_VERSION.tar.gz"
 DPDK_DOWNLOAD="http://dpdk.org/browse/dpdk/snapshot/dpdk-16.07.zip"
 VIRTUAL_VENV="$INSTALL_BIN_PATH/yardstick_venv"
@@ -40,7 +40,7 @@ install_libs()
 {
     echo "Install libs needed to build and run NSB Testing..."
     apt-get update > /dev/null 2>&1
-    pkg=(git build-essential python-dev virtualenv python-virtualenv virtualenv linux-headers-$(uname -r) unzip  python-pip libpcap-dev)
+    pkg=(git build-essential python-dev virtualenv python-virtualenv virtualenv linux-headers-$(uname -r) unzip  python-pip libpcap-dev cmake)
     for i in "${pkg[@]}"; do
     dpkg-query -W --showformat='${Status}\n' "${i}"|grep "install ok installed"
     if [  "$?" -eq "1" ]; then
@@ -202,6 +202,12 @@ push_nsb_binary()
     cp "$REPO_DIR/yardstick/network_services/nfvi/collectd.sh" "$INSTALL_BIN_PATH"
     cp "$REPO_DIR/yardstick/network_services/nfvi/collectd.conf" "$INSTALL_BIN_PATH"
     cp "$REPO_DIR/nsb_setup.sh" "$INSTALL_BIN_PATH"
+
+    # Get "dpdk-devbind.py" to find the ports for VNF to run
+    wget http://dpdk.org/browse/dpdk/plain/usertools/dpdk-devbind.py?h=v17.05 -O dpdk-devbind.py
+    chmod 777 dpdk-devbind.py
+    mv dpdk-devbind.py "$INSTALL_BIN_PATH"
+    ln "$INSTALL_BIN_PATH"/dpdk-devbind.py "$INSTALL_BIN_PATH"/dpdk_nic_bind.py
     echo "Done"
 }
 
@@ -241,5 +247,5 @@ else
 clear
 echo "Installation completed..."
 echo "Virtual Environment : $INSTALL_BIN_PATH/yardstick_venv"
-echo "Please Refer README.NSB.rst document on how to get started on VNF testing."
+echo "Please refer to Chapter 13 of the Yardstick User Guide for how to get started with VNF testing."
 fi

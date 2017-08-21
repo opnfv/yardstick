@@ -15,6 +15,7 @@ import logging
 
 from keystoneauth1 import loading
 from keystoneauth1 import session
+from cinderclient import client as cinderclient
 from novaclient import client as novaclient
 from glanceclient import client as glanceclient
 from neutronclient.neutron import client as neutronclient
@@ -79,15 +80,20 @@ def get_session():
     except KeyError:
         return session.Session(auth=auth)
     else:
-        cacert = False if cacert.lower() == "false" else cacert
+        insecure = os.getenv('OS_INSECURE', '').lower() == 'true'
+        cacert = False if insecure else cacert
         return session.Session(auth=auth, verify=cacert)
 
 
 def get_endpoint(service_type, endpoint_type='publicURL'):
     auth = get_session_auth()
+    # for multi-region, we need to specify region
+    # when finding the endpoint
     return get_session().get_endpoint(auth=auth,
                                       service_type=service_type,
-                                      endpoint_type=endpoint_type)
+                                      endpoint_type=endpoint_type,
+                                      region_name=os.environ.get(
+                                          "OS_REGION_NAME"))
 
 
 # *********************************************
@@ -101,6 +107,21 @@ def get_heat_api_version():     # pragma: no cover
     else:
         log.info("HEAT_API_VERSION is set in env as '%s'", api_version)
         return api_version
+
+
+def get_cinder_client_version():      # pragma: no cover
+    try:
+        api_version = os.environ['OS_VOLUME_API_VERSION']
+    except KeyError:
+        return DEFAULT_API_VERSION
+    else:
+        log.info("OS_VOLUME_API_VERSION is set in env as '%s'", api_version)
+        return api_version
+
+
+def get_cinder_client():      # pragma: no cover
+    sess = get_session()
+    return cinderclient.Client(get_cinder_client_version(), session=sess)
 
 
 def get_nova_client_version():      # pragma: no cover
@@ -243,81 +264,29 @@ def create_aggregate_with_host(nova_client, aggregate_name, av_zone,
         return True
 
 
-def create_instance(flavor_name,
-                    image_id,
-                    network_id,
-                    instance_name="instance-vm",
-                    confdrive=True,
-                    userdata=None,
-                    av_zone='',
-                    fixed_ip=None,
-                    files=None):    # pragma: no cover
-    nova_client = get_nova_client()
+def create_instance(json_body):    # pragma: no cover
     try:
-        flavor = nova_client.flavors.find(name=flavor_name)
-    except:
-        flavors = nova_client.flavors.list()
-        log.exception("Error: Flavor '%s' not found. Available flavors are: "
-                      "\n%s", flavor_name, flavors)
+        return get_nova_client().servers.create(**json_body)
+    except Exception:
+        log.exception("Error create instance failed")
         return None
-    if fixed_ip is not None:
-        nics = {"net-id": network_id, "v4-fixed-ip": fixed_ip}
-    else:
-        nics = {"net-id": network_id}
-    if userdata is None:
-        instance = nova_client.servers.create(
-            name=instance_name,
-            flavor=flavor,
-            image=image_id,
-            nics=[nics],
-            availability_zone=av_zone,
-            files=files
-        )
-    else:
-        instance = nova_client.servers.create(
-            name=instance_name,
-            flavor=flavor,
-            image=image_id,
-            nics=[nics],
-            config_drive=confdrive,
-            userdata=userdata,
-            availability_zone=av_zone,
-            files=files
-        )
-    return instance
 
 
-def create_instance_and_wait_for_active(flavor_name,
-                                        image_id,
-                                        network_id,
-                                        instance_name="instance-vm",
-                                        config_drive=False,
-                                        userdata="",
-                                        av_zone='',
-                                        fixed_ip=None,
-                                        files=None):    # pragma: no cover
+def create_instance_and_wait_for_active(json_body):    # pragma: no cover
     SLEEP = 3
     VM_BOOT_TIMEOUT = 180
     nova_client = get_nova_client()
-    instance = create_instance(flavor_name,
-                               image_id,
-                               network_id,
-                               instance_name,
-                               config_drive,
-                               userdata,
-                               av_zone=av_zone,
-                               fixed_ip=fixed_ip,
-                               files=files)
+    instance = create_instance(json_body)
     count = VM_BOOT_TIMEOUT / SLEEP
     for n in range(count, -1, -1):
         status = get_instance_status(nova_client, instance)
         if status.lower() == "active":
             return instance
         elif status.lower() == "error":
-            log.error("The instance %s went to ERROR status.", instance_name)
+            log.error("The instance went to ERROR status.")
             return None
         time.sleep(SLEEP)
-    log.error("Timeout booting the instance %s.", instance_name)
+    log.error("Timeout booting the instance.")
     return None
 
 
@@ -374,12 +343,31 @@ def get_server_by_name(name):   # pragma: no cover
         raise
 
 
+def create_flavor(name, ram, vcpus, disk, **kwargs):   # pragma: no cover
+    try:
+        return get_nova_client().flavors.create(name, ram, vcpus, disk, **kwargs)
+    except Exception:
+        log.exception("Error [create_flavor(nova_client, %s, %s, %s, %s, %s)]",
+                      name, ram, disk, vcpus, kwargs['is_public'])
+        return None
+
+
 def get_image_by_name(name):    # pragma: no cover
     images = get_nova_client().images.list()
     try:
         return next((a for a in images if a.name == name))
     except StopIteration:
         log.exception('No image matched')
+
+
+def get_flavor_id(nova_client, flavor_name):    # pragma: no cover
+    flavors = nova_client.flavors.list(detailed=True)
+    flavor_id = ''
+    for f in flavors:
+        if f.name == flavor_name:
+            flavor_id = f.id
+            break
+    return flavor_id
 
 
 def get_flavor_by_name(name):   # pragma: no cover
@@ -405,6 +393,16 @@ def check_status(status, name, iterations, interval):   # pragma: no cover
     return False
 
 
+def delete_flavor(flavor_id):    # pragma: no cover
+    try:
+        get_nova_client().flavors.delete(flavor_id)
+    except Exception:
+        log.exception("Error [delete_flavor(nova_client, %s)]", flavor_id)
+        return False
+    else:
+        return True
+
+
 # *********************************************
 #   NEUTRON
 # *********************************************
@@ -425,3 +423,71 @@ def get_port_id_by_ip(neutron_client, ip_address):      # pragma: no cover
 def get_image_id(glance_client, image_name):    # pragma: no cover
     images = glance_client.images.list()
     return next((i.id for i in images if i.name == image_name), None)
+
+
+def create_image(glance_client, image_name, file_path, disk_format,
+                 container_format, min_disk, min_ram, protected, tag,
+                 public, **kwargs):    # pragma: no cover
+    if not os.path.isfile(file_path):
+        log.error("Error: file %s does not exist." % file_path)
+        return None
+    try:
+        image_id = get_image_id(glance_client, image_name)
+        if image_id is not None:
+            log.info("Image %s already exists." % image_name)
+        else:
+            log.info("Creating image '%s' from '%s'...", image_name, file_path)
+
+            image = glance_client.images.create(name=image_name,
+                                                visibility=public,
+                                                disk_format=disk_format,
+                                                container_format=container_format,
+                                                min_disk=min_disk,
+                                                min_ram=min_ram,
+                                                tags=tag,
+                                                protected=protected,
+                                                **kwargs)
+            image_id = image.id
+            with open(file_path) as image_data:
+                glance_client.images.upload(image_id, image_data)
+        return image_id
+    except Exception:
+        log.error("Error [create_glance_image(glance_client, '%s', '%s', '%s')]",
+                  image_name, file_path, public)
+        return None
+
+
+def delete_image(glance_client, image_id):    # pragma: no cover
+    try:
+        glance_client.images.delete(image_id)
+
+    except Exception:
+        log.exception("Error [delete_flavor(glance_client, %s)]", image_id)
+        return False
+    else:
+        return True
+
+
+# *********************************************
+#   CINDER
+# *********************************************
+def get_volume_id(volume_name):    # pragma: no cover
+    volumes = get_cinder_client().volumes.list()
+    return next((v.id for v in volumes if v.name == volume_name), None)
+
+
+def create_volume(cinder_client, volume_name, volume_size,
+                  volume_image=False):    # pragma: no cover
+    try:
+        if volume_image:
+            volume = cinder_client.volumes.create(name=volume_name,
+                                                  size=volume_size,
+                                                  imageRef=volume_image)
+        else:
+            volume = cinder_client.volumes.create(name=volume_name,
+                                                  size=volume_size)
+        return volume
+    except Exception:
+        log.exception("Error [create_volume(cinder_client, %s)]",
+                      (volume_name, volume_size))
+        return None

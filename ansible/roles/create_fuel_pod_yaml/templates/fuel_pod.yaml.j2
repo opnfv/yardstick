@@ -1,0 +1,33 @@
+##############################################################################
+# Copyright (c) 2017 Ericsson AB and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# sample config file about the POD information, including the
+# name/IP/user/ssh key of Bare Metal and Controllers/Computes
+#
+# The options of this config file include:
+# name: the name of this node
+# role: node's role, support role: Master/Controller/Comupte/BareMetal
+# ip: the node's IP address
+# user: the username for login
+# key_filename:the path of the private key file for login
+# ipX: the ips of the nodes will be fetched by prepare_env.sh and replaced here
+
+nodes:
+{% for fuel_node in fuel_nodes %}
+-
+    name: {{ fuel_node.name }}
+    {% if "contoller" in fuel_node.roles %}
+    role: Controller
+    {% elif "compute" in fuel_node.roles %}
+    role: Compute
+    {% endif %}
+    ip: {{ fuel_node.ip }}
+    user: root
+    key_filename: /root/.ssh/id_rsa
+{% endfor %}

@@ -21,6 +21,7 @@ scenarios:
   options:
     agent_count: 1
     agent_image: "Ubuntu-16.04"
+    agent_flavor: "storperf"
     public_network: {{public_network}}
     volume_size: 4
     block_sizes: "4096"

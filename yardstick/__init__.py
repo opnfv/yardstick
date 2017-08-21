@@ -10,15 +10,9 @@
 from __future__ import absolute_import
 import logging
 import os
-import sys
 
-import yardstick.vTC.apexlake as apexlake
 from yardstick.common import constants
 from yardstick.common import utils as yardstick_utils
-
-# Hack to be able to run apexlake unit tests
-# without having to install apexlake.
-sys.path.append(os.path.dirname(apexlake.__file__))
 
 yardstick_utils.makedirs(constants.LOG_DIR)
 LOG_FILE = os.path.join(constants.LOG_DIR, 'yardstick.log')

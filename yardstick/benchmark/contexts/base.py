@@ -18,12 +18,21 @@ class Context(object):
     """Class that represents a context in the logical model"""
     list = []
 
+    @staticmethod
+    def split_name(name, sep='.'):
+        try:
+            name_iter = iter(name.split(sep))
+        except AttributeError:
+            # name is not a string
+            return None, None
+        return next(name_iter), next(name_iter, None)
+
     def __init__(self):
         Context.list.append(self)
 
     @abc.abstractmethod
     def init(self, attrs):
-        "Initiate context."
+        """Initiate context."""
 
     @staticmethod
     def get_cls(context_type):
@@ -56,20 +65,50 @@ class Context(object):
         """get server info by name from context
         """
 
+    @abc.abstractmethod
+    def _get_network(self, attr_name):
+        """get network info by name from context
+        """
+
     @staticmethod
     def get_server(attr_name):
         """lookup server info by name from context
         attr_name: either a name for a server created by yardstick or a dict
         with attribute name mapping when using external heat templates
         """
-        server = None
-        for context in Context.list:
-            server = context._get_server(attr_name)
-            if server is not None:
-                break
-
-        if server is None:
-            raise ValueError("context not found for server '%r'" %
+        servers = (context._get_server(attr_name) for context in Context.list)
+        try:
+            return next(s for s in servers if s)
+        except StopIteration:
+            raise ValueError("context not found for server %r" %
                              attr_name)
 
-        return server
+    @staticmethod
+    def get_context_from_server(attr_name):
+        """lookup context info by name from node config
+        attr_name: either a name of the node created by yardstick or a dict
+        with attribute name mapping when using external templates
+
+        :returns Context instance
+        """
+        servers = ((context._get_server(attr_name), context)
+                   for context in Context.list)
+        try:
+            return next(con for s, con in servers if s)
+        except StopIteration:
+            raise ValueError("context not found for name %r" %
+                             attr_name)
+
+    @staticmethod
+    def get_network(attr_name):
+        """lookup server info by name from context
+        attr_name: either a name for a server created by yardstick or a dict
+        with attribute name mapping when using external heat templates
+        """
+
+        networks = (context._get_network(attr_name) for context in Context.list)
+        try:
+            return next(n for n in networks if n)
+        except StopIteration:
+            raise ValueError("context not found for server %r" %
+                             attr_name)

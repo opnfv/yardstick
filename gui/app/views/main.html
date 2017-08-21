@@ -1,0 +1,174 @@
+<div>
+    <div ng-include="'views/layout/header.html'"></div>
+</div>
+<div ng-include="'views/layout/sideNav.html'"></div>
+
+
+<div style="margin-top:80px;margin-left:100px;display:flex;flex-direction:row">
+    <!--<div ncy-breadcrumb></div>-->
+    <div>
+        <ol class="progressDefine">
+            <li data-step="1" ng-click="gotoProject();" style="cursor:pointer" ng-class="{'is-complete':projectShow}">
+                Project
+            </li>
+            <li data-step="2" ng-class="{'is-complete':taskShow}">
+                Task
+            </li>
+
+            <li data-step="3" ng-class="{'progressDefine__last':reportShow}">
+                Reporting
+            </li>
+
+        </ol>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div ui-view></div>
+
+
+
+<style>
+    .stepsContent {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin-left: 120px;
+        margin-top: 100px;
+    }
+
+    .stepItem {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nextButton {
+        margin-left: 500px;
+    }
+
+    .progressDefine {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        color: #849397;
+    }
+
+    .progressDefine>li {
+        position: relative;
+        display: table-cell;
+        text-align: center;
+        font-size: 0.8em;
+    }
+
+    .progressDefine>li:before {
+        content: attr(data-step);
+        display: block;
+        margin: 0 auto;
+        background: #DFE3E4;
+        width: 3em;
+        height: 3em;
+        text-align: center;
+        margin-bottom: 0.25em;
+        line-height: 3em;
+        border-radius: 100%;
+        position: relative;
+        z-index: 5;
+    }
+
+    .progressDefine>li:after {
+        content: '';
+        position: absolute;
+        display: block;
+        background: #DFE3E4;
+        width: 100%;
+        height: 0.5em;
+        top: 1.25em;
+        left: 50%;
+        margin-left: 1.5em\9;
+        z-index: -1;
+    }
+
+    .progressDefine>li:last-child:after {
+        display: none;
+    }
+
+    .progressDefine>li.is-complete {
+        color: #4dc5cf;
+    }
+
+    .progressDefine>li.is-complete:before,
+    .progressDefine>li.is-complete:after {
+        color: #FFF;
+        background: #4dc5cf;
+    }
+
+    .progressDefine>li.is-active {
+        color: #3498DB;
+    }
+
+    .progressDefine>li.is-active:before {
+        color: #FFF;
+        background: #3498DB;
+    }
+    /**
+ * Needed for IE8
+ */
+
+    .progressDefine__last:after {
+        display: none !important;
+    }
+    /**
+ * Size Extensions
+ */
+
+    .progressDefine--medium {
+        font-size: 1.5em;
+    }
+
+    .progressDefine--large {
+        font-size: 2em;
+    }
+    /**
+ * Some Generic Stylings
+ */
+
+    *,
+    *:after,
+    *:before {
+        box-sizing: border-box;
+    }
+
+    h1 {
+        margin-bottom: 1.5em;
+    }
+
+    .progressDefine {
+        margin-bottom: 3em;
+    }
+
+    a {
+        color: #3498DB;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+    /*
+    body {
+        text-align: center;
+        color: #444;
+    }*/
+</style>

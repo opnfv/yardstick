@@ -18,9 +18,11 @@
 from __future__ import absolute_import
 import unittest
 import mock
-import multiprocessing
-from multiprocessing import Queue
 
+from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+
+
+NAME = 'vnf_1'
 
 STL_MOCKS = {
     'stl': mock.MagicMock(),
@@ -88,7 +90,7 @@ stl_patch.start()
 
 if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.tg_trex import \
-        TrexTrafficGen
+    TrexTrafficGen, TrexResourceHelper
     from yardstick.network_services.traffic_profile.base import TrafficProfile
 
 
@@ -170,199 +172,144 @@ class TestTrexTrafficGen(unittest.TestCase):
             "flow_number": 10,
             "frame_size": 64}}
 
-    def test___init__(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            trex_traffic_gen = TrexTrafficGen(vnfd)
-            self.assertIsNotNone(trex_traffic_gen._terminated)
+    @mock.patch("yardstick.ssh.SSH")
+    def test___init__(self, ssh):
+        mock_ssh(ssh)
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        self.assertIsInstance(trex_traffic_gen.resource_helper, TrexResourceHelper)
 
-    def test_collect_kpi(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            trex_traffic_gen = TrexTrafficGen(vnfd)
-            trex_traffic_gen._queue.put({})
-            restult = trex_traffic_gen.collect_kpi()
-            self.assertEqual({}, restult)
+    @mock.patch("yardstick.ssh.SSH")
+    def test_collect_kpi(self, ssh):
+        mock_ssh(ssh)
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen.resource_helper._queue.put({})
+        result = trex_traffic_gen.collect_kpi()
+        self.assertEqual({}, result)
 
-    def test_listen_traffic(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            trex_traffic_gen = TrexTrafficGen(vnfd)
-            self.assertEqual(None, trex_traffic_gen.listen_traffic({}))
+    @mock.patch("yardstick.ssh.SSH")
+    def test_listen_traffic(self, ssh):
+        mock_ssh(ssh)
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        self.assertIsNone(trex_traffic_gen.listen_traffic({}))
 
-    def test_instantiate(self):
-        mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
-        mock_traffic_profile.get_traffic_definition.return_value = "64"
-        mock_traffic_profile.params = self.TRAFFIC_PROFILE
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh_mock.run = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            trex_traffic_gen = TrexTrafficGen(vnfd)
-            self.assertEqual(0, trex_traffic_gen.instantiate({}, {}))
+    @mock.patch("yardstick.ssh.SSH")
+    def test_instantiate(self, ssh):
+        mock_ssh(ssh)
 
-    def test_instantiate_error(self):
-        mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
-        mock_traffic_profile.get_traffic_definition.return_value = "64"
-        mock_traffic_profile.params = self.TRAFFIC_PROFILE
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(1, "", ""))
-            ssh_mock.run = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            trex_traffic_gen = TrexTrafficGen(vnfd)
-            self.assertRaises(RuntimeError,
-                              trex_traffic_gen.instantiate, {}, {})
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen._start_server = mock.Mock(return_value=0)
+        trex_traffic_gen._tg_process = mock.MagicMock()
+        trex_traffic_gen._tg_process.start = mock.Mock()
+        trex_traffic_gen._tg_process.exitcode = 0
+        trex_traffic_gen._tg_process._is_alive = mock.Mock(return_value=1)
+        trex_traffic_gen.ssh_helper = mock.MagicMock()
+        trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
+        self.assertIsNone(trex_traffic_gen.instantiate({}, {}))
 
-    def test__start_server(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh_mock.run = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            trex_traffic_gen = TrexTrafficGen(vnfd)
-            self.assertEqual(None, trex_traffic_gen._start_server())
+    @mock.patch("yardstick.ssh.SSH")
+    def test_instantiate_error(self, ssh):
+        mock_ssh(ssh, exec_result=(1, "", ""))
 
-    def test__traffic_runner(self):
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen._start_server = mock.Mock(return_value=0)
+        trex_traffic_gen._tg_process = mock.MagicMock()
+        trex_traffic_gen._tg_process.start = mock.Mock()
+        trex_traffic_gen._tg_process._is_alive = mock.Mock(return_value=0)
+        trex_traffic_gen.ssh_helper = mock.MagicMock()
+        trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
+        self.assertIsNone(trex_traffic_gen.instantiate({}, {}))
+
+    @mock.patch("yardstick.ssh.SSH")
+    def test__start_server(self, ssh):
+        mock_ssh(ssh)
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen.ssh_helper = mock.MagicMock()
+        trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
+        self.assertIsNone(trex_traffic_gen._start_server())
+
+    @mock.patch("yardstick.ssh.SSH")
+    def test__traffic_runner(self, ssh):
+        mock_ssh(ssh)
+
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.execute.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh_mock.run = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            self.sut = TrexTrafficGen(vnfd)
-            self.sut.connection = mock.Mock()
-            self.sut.connection.run = mock.Mock()
-            q = Queue()
-            client_started = multiprocessing.Value('i', 1)
-            self.sut._vpci_ascending = ["0000:05:00.0", "0000:05:00.1"]
-            self.sut._connect_client = mock.Mock(autospec=STLClient)
-            self.sut._connect_client.get_stats = mock.Mock(return_value="0")
-            self.sut._traffic_runner(mock_traffic_profile, q, client_started,
-                                     self.sut._terminated)
 
-    def test__generate_trex_cfg(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh_mock.run = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            trex_traffic_gen = TrexTrafficGen(vnfd)
-            self.assertEqual(None, trex_traffic_gen._generate_trex_cfg(vnfd))
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        self.sut = TrexTrafficGen(NAME, vnfd)
+        self.sut.ssh_helper = mock.Mock()
+        self.sut.ssh_helper.run = mock.Mock()
+        self.sut._vpci_ascending = ["0000:05:00.0", "0000:05:00.1"]
+        self.sut._connect_client = mock.Mock(autospec=STLClient)
+        self.sut._connect_client.get_stats = mock.Mock(return_value="0")
+        self.sut.resource_helper.RUN_DURATION = 0
+        self.sut.resource_helper.QUEUE_WAIT_TIME = 0
+        self.sut._traffic_runner(mock_traffic_profile)
 
-    def test__split_mac_address_into_list(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh_mock.run = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            trex_traffic_gen = TrexTrafficGen(vnfd)
-            result = ['0x00', '0x00', '0x00', '0x00', '0x00', '0x01']
-            self.assertEqual(
-                result, trex_traffic_gen._split_mac_address_into_list(
-                    "00:00:00:00:00:01"))
+    @mock.patch("yardstick.ssh.SSH")
+    def test__generate_trex_cfg(self, ssh):
+        mock_ssh(ssh)
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
+        self.assertIsNone(trex_traffic_gen.resource_helper.generate_cfg())
 
-    def test_run_traffic(self):
+    @mock.patch("yardstick.ssh.SSH")
+    def test_run_traffic(self, ssh):
+        mock_ssh(ssh)
+
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh_mock.run = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            self.sut = TrexTrafficGen(vnfd)
-            self.sut.connection = mock.Mock()
-            self.sut.connection.run = mock.Mock()
-            self.sut._traffic_runner = mock.Mock(return_value=0)
-            self.sut.client_started.value = 1
-            result = self.sut.run_traffic(mock_traffic_profile)
-            self.sut._traffic_process.terminate()
-            self.assertIsNotNone(result)
 
-    def test_scale(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(1, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            flavor = ""
-            trex_traffic_gen = TrexTrafficGen(vnfd)
-            self.assertRaises(NotImplementedError,
-                              trex_traffic_gen.scale, flavor)
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        self.sut = TrexTrafficGen(NAME, vnfd)
+        self.sut.ssh_helper = mock.Mock()
+        self.sut.ssh_helper.run = mock.Mock()
+        self.sut._traffic_runner = mock.Mock(return_value=0)
+        self.sut.resource_helper.client_started.value = 1
+        result = self.sut.run_traffic(mock_traffic_profile)
+        self.sut._traffic_process.terminate()
+        self.assertIsNotNone(result)
 
-    def test_setup_vnf_environment(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(1, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            trex_traffic_gen = TrexTrafficGen(vnfd)
-            self.assertEqual(
-                None, trex_traffic_gen.setup_vnf_environment(ssh_mock))
+    @mock.patch("yardstick.ssh.SSH")
+    def test_scale(self, ssh):
+        mock_ssh(ssh, exec_result=(1, "", ""))
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen.scale('')
 
-    def test_terminate(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            trex_traffic_gen = TrexTrafficGen(vnfd)
-            self.assertEqual(None, trex_traffic_gen.terminate())
+    @mock.patch("yardstick.ssh.SSH")
+    def test_setup_vnf_environment(self, ssh):
+        mock_ssh(ssh, exec_result=(1, "", ""))
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        self.assertIsNone(trex_traffic_gen.setup_helper.setup_vnf_environment())
 
-    def test__connect_client(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            trex_traffic_gen = TrexTrafficGen(vnfd)
-            client = mock.Mock(autospec=STLClient)
-            client.connect = mock.Mock(return_value=0)
-            self.assertIsNotNone(trex_traffic_gen._connect_client(client))
+    @mock.patch("yardstick.ssh.SSH")
+    def test_terminate(self, ssh):
+        mock_ssh(ssh)
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen.ssh_helper = mock.MagicMock()
+        trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
+        self.assertIsNone(trex_traffic_gen.terminate())
+
+    @mock.patch("yardstick.ssh.SSH")
+    def test__connect_client(self, ssh):
+        mock_ssh(ssh)
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        client = mock.Mock(autospec=STLClient)
+        client.connect = mock.Mock(return_value=0)
+        self.assertIsNotNone(trex_traffic_gen.resource_helper._connect(client))
+
+if __name__ == '__main__':
+    unittest.main()

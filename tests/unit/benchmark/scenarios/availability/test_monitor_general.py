@@ -50,7 +50,7 @@ class GeneralMonitorServiceTestCase(unittest.TestCase):
         }
 
     def test__monitor_general_all_successful(self, mock_open, mock_ssh):
-        ins = monitor_general.GeneralMonitor(self.monitor_cfg, self.context)
+        ins = monitor_general.GeneralMonitor(self.monitor_cfg, self.context, {"nova-api": 10})
 
         ins.setup()
         mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
@@ -61,7 +61,7 @@ class GeneralMonitorServiceTestCase(unittest.TestCase):
     def test__monitor_general_all_successful_noparam(self, mock_open,
                                                      mock_ssh):
         ins = monitor_general.GeneralMonitor(
-            self.monitor_cfg_noparam, self.context)
+            self.monitor_cfg_noparam, self.context, {"nova-api": 10})
 
         ins.setup()
         mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
@@ -71,7 +71,7 @@ class GeneralMonitorServiceTestCase(unittest.TestCase):
 
     def test__monitor_general_failure(self, mock_open, mock_ssh):
         ins = monitor_general.GeneralMonitor(
-            self.monitor_cfg_noparam, self.context)
+            self.monitor_cfg_noparam, self.context, {"nova-api": 10})
 
         ins.setup()
         mock_ssh.SSH.from_node().execute.return_value = (1, "error", 'error')

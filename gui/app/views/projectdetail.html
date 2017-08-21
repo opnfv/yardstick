@@ -1,0 +1,98 @@
+<div class="content">
+    <i class="fa fa-arrow-left fa-1x" aria-hidden="true" style="color: #999;cursor:pointer" ng-click="goBack()">Back</i>
+
+    <h3>Project -- Task
+
+    </h3>
+
+    <hr/>
+
+    <div>
+
+        <h4>{{projectData.name}}</h4>
+        <h5>{{projectData.time}}</h5>
+        <hr/>
+        <h4>Tasks
+            <button class="btn btn-default btn-sm" style="margin-left:30px;" ng-click="openCreate()">Create</button>
+        </h4>
+        <div ng-show="projectData.tasks.length==0">No task in this project</div>
+        <table class="table " width="100%" dw-loading="key" dw-loading-options="{text:'loading'}">
+            <tr style="background-color:#f9f9f9">
+                <td style="font-weight:700">Name</td>
+                <td style="font-weight:700"> Status</td>
+                <td style="font-weight:700">Action</td>
+            </tr>
+            <tr dir-paginate="task in finalTaskListDisplay | orderBy:'-id' | itemsPerPage: 6 " pagination-id="table">
+
+                <td width="20%"> <a ng-click="gotoDetail(task.uuid)" style="color:#4dc5cf"> {{task.name}} </a></td>
+                <td width="70%">
+                    <div class="progree-parent" ng-show="task.status!=2">
+                        <div class="progree-child" ng-style="{'width':task.stausWidth}">
+                        </div>
+                    </div>
+                    <div class="progree-parent" ng-show="task.status==2" style="background-color:red">
+                        <div class="progree-child" style="width:0">
+                        </div>
+                    </div>
+                </td>
+
+
+                <td width="10%">
+
+                    <div class="btn-group" uib-dropdown is-open="status.isopen">
+                        <button id="single-button" type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
+                            modify <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li role="menuitem" ng-show="task.status!=0"><a ng-click="runAtaskForTable(task.uuid)">run</a></li>
+
+                            <li role="menuitem" ng-show="task.status!=0"><a ng-click="gotoModify(task.uuid)">modify</a></li>
+                            <li role="menuitem" ng-show="task.status!=-1"><a ng-click="gotoLog(task.uuid)">log</a></li>
+                            <li role="menuitem" ng-show="task.status!=-1 && task.status!=0"><a ng-click="gotoReport(task.uuid)" style="color:#2ecc71">reporting</a></li>
+                            <li role="menuitem"><a ng-click="openDeleteEnv(task.uuid,'task')">delete</a></li>
+
+
+                        </ul>
+                    </div>
+                    <!-- <button class="btn btn-default btn-sm" ng-click="runAtask(task.uuid)" ng-disabled="task.status!=-1">run</button>
+                    <button class="btn btn-default btn-sm" ng-click="gotoDetail(task.uuid)">detail</button>
+                    <button class="btn btn-default btn-sm" ng-click="gotoModify(task.uuid)" ng-disabled="task.status==0">modify</button>
+                    <button class="btn btn-default btn-sm" ng-click="gotoReport(task.uuid)" style="color:#2ecc71" ng-disabled="task.status==-1 || task.status==0">reporting</button>
+                    <button class="btn btn-default btn-sm" ng-click="openDeleteEnv(task.uuid,'task')">delete</button>   -->
+
+                </td>
+
+            </tr>
+        </table>
+
+
+
+    </div>
+    <center>
+        <dir-pagination-controls pagination-id="table"></dir-pagination-controls>
+    </center>
+
+</div>
+
+
+
+</div>
+
+<toaster-container></toaster-container>
+
+<style>
+    .progree-parent {
+        width: 50%;
+        background-color: #dfe3e4;
+        height: 10px;
+        border-radius: 10px;
+    }
+
+    .progree-child {
+        width: 50%;
+        background-color: #2ecc71;
+        /* background-color: white; */
+        height: 10px;
+        border-radius: 5px;
+    }
+</style>

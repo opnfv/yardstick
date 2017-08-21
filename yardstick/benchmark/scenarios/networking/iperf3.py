@@ -19,6 +19,7 @@ import pkg_resources
 from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
+from yardstick.common import utils
 from yardstick.benchmark.scenarios import base
 
 LOG = logging.getLogger(__name__)
@@ -48,6 +49,17 @@ For more info see http://software.es.net/iperf
       only valid with a non duration runner, mutually exclusive with bytes
         type:    int
         unit:    bytes
+        default: -
+    length - length of buffer to read or write,
+      (default 128 KB for TCP, 8 KB for UDP)
+        type:    int
+        unit:    k
+        default: -
+    window - set window size / socket buffer size
+      set TCP windows size. for UDP way to test, this will set to accept UDP
+      packet buffer size, limit the max size of acceptable data packet.
+        type:    int
+        unit:    k
         default: -
     """
     __scenario_type__ = "Iperf3"
@@ -121,6 +133,12 @@ For more info see http://software.es.net/iperf
         elif "blockcount" in options:
             cmd += " --blockcount %d" % options["blockcount"]
 
+        if "length" in options:
+            cmd += " --length %s" % options["length"]
+
+        if "window" in options:
+            cmd += " --window %s" % options["window"]
+
         LOG.debug("Executing command: %s", cmd)
 
         status, stdout, stderr = self.host.execute(cmd)
@@ -131,8 +149,8 @@ For more info see http://software.es.net/iperf
         # Note: convert all ints to floats in order to avoid
         # schema conflicts in influxdb. We probably should add
         # a format func in the future.
-        result.update(
-            jsonutils.loads(stdout, parse_int=float))
+        iperf_result = jsonutils.loads(stdout, parse_int=float)
+        result.update(utils.flatten_dict_key(iperf_result))
 
         if "sla" in self.scenario_cfg:
             sla_iperf = self.scenario_cfg["sla"]
@@ -141,7 +159,7 @@ For more info see http://software.es.net/iperf
 
                 # convert bits per second to bytes per second
                 bit_per_second = \
-                    int(result["end"]["sum_received"]["bits_per_second"])
+                    int(iperf_result["end"]["sum_received"]["bits_per_second"])
                 bytes_per_second = bit_per_second / 8
                 assert bytes_per_second >= sla_bytes_per_second, \
                     "bytes_per_second %d < sla:bytes_per_second (%d); " % \
@@ -149,7 +167,7 @@ For more info see http://software.es.net/iperf
             else:
                 sla_jitter = float(sla_iperf["jitter"])
 
-                jitter_ms = float(result["end"]["sum"]["jitter_ms"])
+                jitter_ms = float(iperf_result["end"]["sum"]["jitter_ms"])
                 assert jitter_ms <= sla_jitter, \
                     "jitter_ms  %f > sla:jitter %f; " % \
                     (jitter_ms, sla_jitter)

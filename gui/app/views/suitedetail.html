@@ -1,0 +1,110 @@
+<div class="content">
+    <!--testcaselist-->
+    <div>
+        <i class="fa fa-arrow-left fa-1x" aria-hidden="true" style="color: #999;cursor:pointer" ng-click="goBack()">Back</i>
+
+        <h3>Detail</h3>
+        <hr/>
+
+        <textarea ng-model="suiteinfo" spellcheck="false">
+
+        </textarea>
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+</div>
+
+<toaster-container></toaster-container>
+
+<style>
+    .form-control {
+        border-radius: 5px;
+        width: 300px;
+        margin-bottom: 10px;
+    }
+
+    .uploadbutton {
+        background-color: #007ACC;
+        color: #fff;
+        border: 0px;
+        border-radius: 5px;
+        height: 27px;
+    }
+
+    .edit-title {
+        border: 0px;
+        background-color: #ffffff;
+        margin-bottom: 5px;
+    }
+
+    .null-edit-title {
+        border: 1px solid #e5e6e7;
+        border-radius: 5px;
+        margin-bottom: 3px;
+    }
+
+    .item-info {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .delete-img {
+        width: 19px;
+        height: 19px;
+        opacity: 0.8;
+        margin-left: 5px;
+        margin-top: 4px;
+        cursor: pointer;
+    }
+
+    .nextButton {
+        margin-top: 30px;
+        border: none;
+        border-radius: 5px;
+        padding: 6px;
+        background-color: #339933;
+        color: #ffffff;
+        text-align: center;
+        /* margin-left: 300px; */
+    }
+
+    .bs-sidenav {
+        margin-top: 40px;
+        margin-bottom: 20px;
+        width: 124px;
+    }
+
+    .nav {
+        margin-bottom: 0;
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .nav>li {
+        position: relative;
+        display: block;
+    }
+
+    li {
+        display: list-item;
+        text-align: -webkit-match-parent;
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+    a.active {
+        background-color: #EEEEEE;
+        border-radius: 5px;
+    }
+</style>

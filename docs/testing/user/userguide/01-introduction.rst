@@ -21,8 +21,6 @@ of a Virtual Network Function (:term:`VNF`).
 The Project's scope is the development of a test framework, *Yardstick*, test
 cases and test stimuli to enable Network Function Virtualization Infrastructure
 (:term:`NFVI`) verification.
-The Project also includes a sample :term:`VNF`, the Virtual Traffic Classifier
-(:term:`VTC`)  and its experimental framework, *ApexLake* !
 
 *Yardstick* is used in OPNFV for verifying the OPNFV infrastructure and some of
 the OPNFV features. The *Yardstick* framework is deployed in several OPNFV
@@ -66,12 +64,6 @@ This document consists of the following chapters:
   pinned on to a graph
 
 * Chapter :doc:`10-vtc-overview` provides information on the :term:`VTC`.
-
-* Chapter :doc:`11-apexlake_installation` provides instructions to install the
-  experimental framework *ApexLake*
-
-* Chapter :doc:`12-apexlake_api` explains how this framework is integrated in
-  *Yardstick*.
 
 * Chapter :doc:`13-nsb-overview` describes the methodology implemented by the
   Yardstick - Network service benchmarking to test real world usecase for a

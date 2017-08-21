@@ -10,14 +10,11 @@
 from __future__ import absolute_import
 
 import logging
-import os
 import time
 
-import collections
 import requests
-import six
-from oslo_serialization import jsonutils
 
+from yardstick.common import utils
 from third_party.influxdb.influxdb_line_protocol import make_lines
 from yardstick.dispatcher.base import Base as DispatchBase
 
@@ -30,113 +27,41 @@ class InfluxdbDispatcher(DispatchBase):
 
     __dispatcher_type__ = "Influxdb"
 
-    def __init__(self, conf, config):
+    def __init__(self, conf):
         super(InfluxdbDispatcher, self).__init__(conf)
-        db_conf = config['yardstick'].get('dispatcher_influxdb', {})
+        db_conf = conf['dispatcher_influxdb']
         self.timeout = int(db_conf.get('timeout', 5))
         self.target = db_conf.get('target', 'http://127.0.0.1:8086')
         self.db_name = db_conf.get('db_name', 'yardstick')
         self.username = db_conf.get('username', 'root')
         self.password = db_conf.get('password', 'root')
+
         self.influxdb_url = "%s/write?db=%s" % (self.target, self.db_name)
-        self.raw_result = []
-        self.case_name = ""
-        self.tc = ""
+
         self.task_id = -1
-        self.runners_info = {}
-        self.static_tags = {
-            "pod_name": os.environ.get('NODE_NAME', 'unknown'),
-            "installer": os.environ.get('INSTALLER_TYPE', 'unknown'),
-            "deploy_scenario": os.environ.get('DEPLOY_SCENARIO', 'unknown'),
-            "version": os.path.basename(os.environ.get('YARDSTICK_BRANCH',
-                                                       'unknown'))
 
-        }
-
-    def _dict_key_flatten(self, data):
-        next_data = {}
-
-        # use list, because iterable is too generic
-        if not [v for v in data.values() if
-                isinstance(v, (collections.Mapping, list))]:
-            return data
-
-        for k, v in six.iteritems(data):
-            if isinstance(v, collections.Mapping):
-                for n_k, n_v in six.iteritems(v):
-                    next_data["%s.%s" % (k, n_k)] = n_v
-            # use list because iterable is too generic
-            elif isinstance(v, list):
-                for index, item in enumerate(v):
-                    next_data["%s%d" % (k, index)] = item
-            else:
-                next_data[k] = v
-
-        return self._dict_key_flatten(next_data)
-
-    def _get_nano_timestamp(self, results):
-        try:
-            timestamp = results["benchmark"]["timestamp"]
-        except Exception:
-            timestamp = time.time()
-
-        return str(int(float(timestamp) * 1000000000))
-
-    def _get_extended_tags(self, data):
-        runner_info = self.runners_info[data["runner_id"]]
-        tags = {
-            "runner_id": data["runner_id"],
-            "task_id": self.task_id,
-            "scenarios": runner_info["scenarios"]
-        }
-        if "host" in runner_info:
-            tags["host"] = runner_info["host"]
-        if "target" in runner_info:
-            tags["target"] = runner_info["target"]
-
-        return tags
-
-    def _data_to_line_protocol(self, data):
-        msg = {}
-        point = {
-            "measurement": self.tc,
-            "fields": self._dict_key_flatten(data["benchmark"]["data"]),
-            "time": self._get_nano_timestamp(data),
-            "tags": self._get_extended_tags(data),
-        }
-        msg["points"] = [point]
-        msg["tags"] = self.static_tags
-
-        return make_lines(msg).encode('utf-8')
-
-    def record_result_data(self, data):
-        LOG.debug('Test result : %s', jsonutils.dump_as_bytes(data))
-        self.raw_result.append(data)
+    def flush_result_data(self, data):
+        LOG.debug('Test result all : %s', data)
         if self.target == '':
             # if the target was not set, do not do anything
-            LOG.error('Dispatcher target was not set, no data will'
-                      'be posted.')
-            return -1
+            LOG.error('Dispatcher target was not set, no data will be posted.')
 
-        if isinstance(data, dict) and "scenario_cfg" in data:
-            self.tc = data["scenario_cfg"]["tc"]
-            self.task_id = data["scenario_cfg"]["task_id"]
-            scenario_cfg = data["scenario_cfg"]
-            runner_id = data["runner_id"]
-            self.runners_info[runner_id] = {"scenarios": scenario_cfg["type"]}
-            if "host" in scenario_cfg:
-                self.runners_info[runner_id]["host"] = scenario_cfg["host"]
-            if "target" in scenario_cfg:
-                self.runners_info[runner_id]["target"] = scenario_cfg["target"]
-            return 0
+        result = data['result']
+        self.tags = result['info']
+        self.task_id = result['task_id']
+        self.criteria = result['criteria']
+        testcases = result['testcases']
 
-        if self.tc == "":
-            LOG.error('Test result : %s', jsonutils.dump_as_bytes(data))
-            LOG.error('The case_name cannot be found, no data will be posted.')
-            return -1
+        for case, data in testcases.items():
+            tc_criteria = data['criteria']
+            for record in data['tc_data']:
+                self._upload_one_record(record, case, tc_criteria)
 
+        return 0
+
+    def _upload_one_record(self, data, case, tc_criteria):
         try:
-            line = self._data_to_line_protocol(data)
+            line = self._data_to_line_protocol(data, case, tc_criteria)
             LOG.debug('Test result line format : %s', line)
             res = requests.post(self.influxdb_url,
                                 data=line,
@@ -148,12 +73,33 @@ class InfluxdbDispatcher(DispatchBase):
                 LOG.error(res.text)
 
         except Exception as err:
-            LOG.exception('Failed to record result data: %s',
-                          err)
-            return -1
-        return 0
+            LOG.exception('Failed to record result data: %s', err)
 
-    def flush_result_data(self):
-        LOG.debug('Test result all : %s',
-                  jsonutils.dump_as_bytes(self.raw_result))
-        return 0
+    def _data_to_line_protocol(self, data, case, criteria):
+        msg = {}
+        point = {
+            "measurement": case,
+            "fields": utils.flatten_dict_key(data["data"]),
+            "time": self._get_nano_timestamp(data),
+            "tags": self._get_extended_tags(criteria),
+        }
+        msg["points"] = [point]
+        msg["tags"] = self.tags
+
+        return make_lines(msg).encode('utf-8')
+
+    def _get_nano_timestamp(self, results):
+        try:
+            timestamp = results["timestamp"]
+        except Exception:
+            timestamp = time.time()
+
+        return str(int(float(timestamp) * 1000000000))
+
+    def _get_extended_tags(self, criteria):
+        tags = {
+            "task_id": self.task_id,
+            "criteria": criteria
+        }
+
+        return tags

@@ -1,0 +1,55 @@
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# Sample benchmark task config file
+# measure storage and file system performance using bonnie++
+
+schema: "yardstick:task:0.1"
+
+{% set provider = provider or none %}
+{% set physical_network = physical_network or 'physnet1' %}
+{% set segmentation_id = segmentation_id or none %}
+
+scenarios:
+-
+  type: Bonnie++
+  options:
+    file_size: 1024
+    ram_size: 512
+    test_dir: /tmp
+    #test_user: root
+    concurrency: 1
+
+  host: bonnie.demo
+
+  runner:
+    type: Iteration
+    iterations: 1
+
+context:
+  name: demo
+  image: yardstick-image
+  flavor: yardstick-flavor
+  user: ubuntu
+
+  servers:
+    bonnie:
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+      {% if provider == "vlan" %}
+      provider: {{provider}}
+      physical_network: {{physical_network}}
+        {% if segmentation_id %}
+      segmentation_id: {{segmentation_id}}
+        {% endif %}
+      {% endif %}
+

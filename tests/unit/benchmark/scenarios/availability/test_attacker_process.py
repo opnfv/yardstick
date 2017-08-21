@@ -41,7 +41,7 @@ class AttackerServiceTestCase(unittest.TestCase):
         cls = baseattacker.BaseAttacker.get_attacker_cls(self.attacker_cfg)
         ins = cls(self.attacker_cfg, self.context)
 
-        mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, "10", '')
         ins.setup()
         ins.inject_fault()
         ins.recover()
@@ -51,5 +51,5 @@ class AttackerServiceTestCase(unittest.TestCase):
         cls = baseattacker.BaseAttacker.get_attacker_cls(self.attacker_cfg)
         ins = cls(self.attacker_cfg, self.context)
 
-        mock_ssh.SSH.from_node().execute.return_value = (0, "error check", '')
+        mock_ssh.SSH.from_node().execute.return_value = (0, None, '')
         ins.setup()

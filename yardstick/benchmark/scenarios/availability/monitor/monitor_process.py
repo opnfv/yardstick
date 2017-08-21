@@ -33,12 +33,15 @@ class MonitorProcess(basemonitor.BaseMonitor):
     def monitor_func(self):
         with open(self.check_script, "r") as stdin_file:
             exit_status, stdout, stderr = self.connection.execute(
-                "/bin/sh -s {0}".format(self.process_name),
+                "sudo /bin/sh -s {0}".format(self.process_name),
                 stdin=stdin_file)
-        if not stdout or int(stdout) <= 0:
-            LOG.info("the process (%s) is not running!", self.process_name)
+
+        if not stdout or int(stdout) < self.monitor_data[self.process_name]:
+            LOG.info("the (%s) processes are in recovery!", self.process_name)
             return False
 
+        LOG.info("the (%s) processes have been fully recovered!",
+                 self.process_name)
         return True
 
     def verify_SLA(self):
@@ -49,6 +52,7 @@ class MonitorProcess(basemonitor.BaseMonitor):
             LOG.error("SLA failure: %f > %f", outage_time, max_outage_time)
             return False
         else:
+            LOG.info("the sla is passed")
             return True
 
 

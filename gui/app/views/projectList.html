@@ -1,0 +1,57 @@
+<div class="content">
+
+    <h3>Projects
+        <button class="btn btn-default btn-sm" style="margin-left:30px;" ng-click="openCreateProject()">Create</button>
+    </h3>
+
+    <hr/>
+
+
+
+    <div dw-loading="key" dw-loading-options="{text:'loading'}">
+        <div style="display:flex;flex-direction:row;justify-content:space-between;padding:8px;border-top: 1px solid #e9ecec;background-color:#f9f9f9;">
+            <div style="font-weight:600">Name</div>
+            <div style="font-weight:600;margin-right:20px;">Action</div>
+
+        </div>
+
+        <div dir-paginate="project in projectListData | orderBy:'-id' | itemsPerPage: 10 ">
+            <div style="display:flex;flex-direction:row;justify-content:space-between;padding:8px;border-top: 1px solid #e9ecec;">
+                <div>
+                    <a ng-click="gotoDetail(project.uuid)" style="color:#4dc5cf"> {{project.name}}</a>
+                </div>
+                <div>
+                    <!-- <button class="btn btn-default btn-sm" ng-click="gotoDetail(project.uuid)">Detail</button> -->
+                    <!--<button class="btn btn-default btn-sm" ng-click="openDeleteEnv(project.uuid,'project')">Delete</button>-->
+                    <div class="btn-group" uib-dropdown is-open="status.isopen" >
+                        <button id="single-button" type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
+                            delete <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li role="menuitem" ng-show="task.status!=0"><a ng-click="openDeleteEnv(project.uuid,'project')">delete</a></li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <!--<hr style="margin-top:5px;margin-bottom:5px;" />-->
+        </div>
+        <center>
+            <dir-pagination-controls></dir-pagination-controls>
+        </center>
+
+    </div>
+
+
+</div>
+
+<toaster-container></toaster-container>
+
+
+<style>
+    .deepColor {
+        background-color: #f9f9f9;
+    }
+</style>

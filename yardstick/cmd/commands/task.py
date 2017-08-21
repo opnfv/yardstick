@@ -11,16 +11,20 @@
 from __future__ import print_function
 from __future__ import absolute_import
 
+import logging
+
 from yardstick.benchmark.core.task import Task
 from yardstick.common.utils import cliargs
 from yardstick.common.utils import write_json_to_file
-from yardstick.common.utils import read_json_from_file
 from yardstick.cmd.commands import change_osloobj_to_paras
 
 output_file_default = "/tmp/yardstick.out"
 
 
-class TaskCommands(object):
+LOG = logging.getLogger(__name__)
+
+
+class TaskCommands(object):     # pragma: no cover
     """Task commands.
 
        Set of commands to manage benchmark tasks.
@@ -46,22 +50,19 @@ class TaskCommands(object):
         param = change_osloobj_to_paras(args)
         self.output_file = param.output_file
 
-        self._init_result_file()
+        result = {}
 
         try:
-            Task().start(param, **kwargs)
-            self._finish()
+            result = Task().start(param, **kwargs)
         except Exception as e:
             self._write_error_data(e)
+            LOG.exception("")
 
-    def _init_result_file(self):
-        data = {'status': 0, 'result': []}
-        write_json_to_file(self.output_file, data)
-
-    def _finish(self):
-        result = read_json_from_file(self.output_file).get('result')
-        data = {'status': 1, 'result': result}
-        write_json_to_file(self.output_file, data)
+        if result.get('result', {}).get('criteria') == 'PASS':
+            LOG.info('Task Success')
+        else:
+            LOG.info('Task Failed')
+            raise RuntimeError('Task Failed')
 
     def _write_error_data(self, error):
         data = {'status': 2, 'result': str(error)}

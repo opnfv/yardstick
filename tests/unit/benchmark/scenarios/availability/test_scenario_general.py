@@ -48,7 +48,7 @@ class ScenarioGeneralTestCase(unittest.TestCase):
     def test_scenario_general_all_successful(self, mock_director):
         ins = ScenarioGeneral(self.scenario_cfg, None)
         ins.setup()
-        ins.run(None)
+        ins.run({})
         ins.teardown()
 
     def test_scenario_general_exception(self, mock_director):
@@ -56,7 +56,8 @@ class ScenarioGeneralTestCase(unittest.TestCase):
         mock_obj = mock.Mock()
         mock_obj.createActionPlayer.side_effect = KeyError('Wrong')
         ins.director = mock_obj
-        ins.run(None)
+        ins.director.data = {}
+        ins.run({})
         ins.teardown()
 
     def test_scenario_general_case_fail(self, mock_director):
@@ -64,5 +65,6 @@ class ScenarioGeneralTestCase(unittest.TestCase):
         mock_obj = mock.Mock()
         mock_obj.verify.return_value = False
         ins.director = mock_obj
-        ins.run(None)
+        ins.director.data = {}
+        ins.run({})
         ins.teardown()

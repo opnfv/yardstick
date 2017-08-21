@@ -15,6 +15,7 @@ import pkg_resources
 import logging
 
 import yardstick.ssh as ssh
+from yardstick.common import utils
 from yardstick.benchmark.scenarios import base
 
 LOG = logging.getLogger(__name__)
@@ -57,8 +58,8 @@ class Ping(base.Scenario):
         destination = self.context_cfg['target'].get('ipaddr', '127.0.0.1')
         dest_list = [s.strip() for s in destination.split(',')]
 
-        result["rtt"] = {}
-        rtt_result = result["rtt"]
+        rtt_result = {}
+        ping_result = {"rtt": rtt_result}
 
         for pos, dest in enumerate(dest_list):
             if 'targets' in self.scenario_cfg:
@@ -76,7 +77,10 @@ class Ping(base.Scenario):
                 raise RuntimeError(stderr)
 
             if stdout:
-                target_vm_name = target_vm.split('.')[0]
+                if isinstance(target_vm, dict):
+                    target_vm_name = target_vm.get("name")
+                else:
+                    target_vm_name = target_vm.split('.')[0]
                 rtt_result[target_vm_name] = float(stdout)
                 if "sla" in self.scenario_cfg:
                     sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
@@ -85,6 +89,7 @@ class Ping(base.Scenario):
                         (rtt_result[target_vm_name], sla_max_rtt)
             else:
                 LOG.error("ping '%s' '%s' timeout", options, target_vm)
+        result.update(utils.flatten_dict_key(ping_result))
 
 
 def _test():    # pragma: no cover

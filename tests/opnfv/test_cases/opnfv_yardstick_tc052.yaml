@@ -13,7 +13,7 @@ description: >
     Test case for TC052 :OpenStack Controller Node Disk I/O Block High Availability;
     This test case is written by new scenario-based HA testing framework.
 
-{% set file = file or 'etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
+{% set file = file or '/etc/yardstick/pod.yaml' %}
 
 scenarios:
   -
@@ -32,6 +32,7 @@ scenarios:
           key: "nova-flavor-list"
           command_name: "openstack flavor list"
           monitor_time: 10
+          monitor_number: 3
           sla:
             max_outage_time: 5
 
@@ -40,7 +41,6 @@ scenarios:
           operation_type: "general-operation"
           key: "create-flavor"
           operation_key: "nova-create-flavor"
-          host: node1
           action_parameter:
             flavorconfig: "test-001 test-001 100 1 1"
           rollback_parameter:
@@ -50,7 +50,6 @@ scenarios:
         -
           checker_type: "general-result-checker"
           key: "check-flavor"
-          host: node1
           checker_key: "nova-flavor-checker"
           expectedValue: "test-001"
           condition: "in"

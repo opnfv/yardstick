@@ -9,7 +9,6 @@
 from __future__ import absolute_import
 import logging
 import subprocess
-import traceback
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios.availability.attacker.baseattacker import \
@@ -26,9 +25,7 @@ def _execute_shell_command(command, stdin=None):
         output = subprocess.check_output(command, stdin=stdin, shell=True)
     except Exception:
         exitcode = -1
-        output = traceback.format_exc()
-        LOG.error("exec command '%s' error:\n ", command)
-        LOG.error(traceback.format_exc())
+        LOG.error("exec command '%s' error:\n ", command, exc_info=True)
 
     return exitcode, output
 
@@ -61,7 +58,7 @@ class BaremetalAttacker(BaseAttacker):
     def check(self):
         with open(self.check_script, "r") as stdin_file:
             exit_status, stdout, stderr = self.connection.execute(
-                "/bin/sh -s {0} -W 10".format(self.host_ip),
+                "sudo /bin/sh -s {0} -W 10".format(self.host_ip),
                 stdin=stdin_file)
 
         LOG.debug("check ret: %s out:%s err:%s",
@@ -74,7 +71,7 @@ class BaremetalAttacker(BaseAttacker):
 
     def inject_fault(self):
         exit_status, stdout, stderr = self.connection.execute(
-            "shutdown -h now")
+            "sudo shutdown -h now")
         LOG.debug("inject fault ret: %s out:%s err:%s",
                   exit_status, stdout, stderr)
         if not exit_status:
@@ -98,12 +95,12 @@ class BaremetalAttacker(BaseAttacker):
         if self.jump_connection is not None:
             with open(self.recovery_script, "r") as stdin_file:
                 self.jump_connection.execute(
-                    "/bin/bash -s {0} {1} {2} {3}".format(
+                    "sudo /bin/bash -s {0} {1} {2} {3}".format(
                         self.ipmi_ip, self.ipmi_user, self.ipmi_pwd, "on"),
                     stdin=stdin_file)
         else:
             _execute_shell_command(
-                "/bin/bash -s {0} {1} {2} {3}".format(
+                "sudo /bin/bash -s {0} {1} {2} {3}".format(
                     self.ipmi_ip, self.ipmi_user, self.ipmi_pwd, "on"),
                 stdin=open(self.recovery_script, "r"))
 

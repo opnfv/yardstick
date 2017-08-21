@@ -32,7 +32,7 @@ LOG = logging.getLogger(__name__)
 
 
 def _worker_process(queue, cls, method_name, scenario_cfg,
-                    context_cfg, aborted):
+                    context_cfg, aborted, output_queue):
 
     sequence = 1
 
@@ -41,10 +41,8 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
     interval = runner_cfg.get("interval", 1)
     iterations = runner_cfg.get("iterations", 1)
     run_step = runner_cfg.get("run_step", "setup,run,teardown")
+
     delta = runner_cfg.get("delta", 2)
-    options_cfg = scenario_cfg['options']
-    initial_rate = options_cfg.get("rate", 100)
-    scenario_cfg['options']['rate'] = initial_rate
     LOG.info("worker START, iterations %d times, class %s", iterations, cls)
 
     runner_cfg['runner_id'] = os.getpid()
@@ -54,10 +52,6 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         benchmark.setup()
 
     method = getattr(benchmark, method_name)
-
-    queue.put({'runner_id': runner_cfg['runner_id'],
-               'scenario_cfg': scenario_cfg,
-               'context_cfg': context_cfg})
 
     sla_action = None
     if "sla" in scenario_cfg:
@@ -73,7 +67,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
             errors = ""
 
             try:
-                method(data)
+                result = method(data)
             except AssertionError as assertion:
                 # SLA validation failed in scenario, determine what to do now
                 if sla_action == "assert":
@@ -82,12 +76,21 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                     LOG.warning("SLA validation failed: %s", assertion.args)
                     errors = assertion.args
                 elif sla_action == "rate-control":
+                    try:
+                        scenario_cfg['options']['rate']
+                    except KeyError:
+                        scenario_cfg.setdefault('options', {})
+                        scenario_cfg['options']['rate'] = 100
+
                     scenario_cfg['options']['rate'] -= delta
                     sequence = 1
                     continue
             except Exception as e:
                 errors = traceback.format_exc()
                 LOG.exception(e)
+            else:
+                if result:
+                    output_queue.put(result)
 
             time.sleep(interval)
 
@@ -98,10 +101,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                 'errors': errors
             }
 
-            record = {'runner_id': runner_cfg['runner_id'],
-                      'benchmark': benchmark_output}
-
-            queue.put(record)
+            queue.put(benchmark_output)
 
             LOG.debug("runner=%(runner)s seq=%(sequence)s END",
                       {"runner": runner_cfg["runner_id"],
@@ -138,5 +138,5 @@ If the scenario ends before the time has elapsed, it will be started again.
         self.process = multiprocessing.Process(
             target=_worker_process,
             args=(self.result_queue, cls, method, scenario_cfg,
-                  context_cfg, self.aborted))
+                  context_cfg, self.aborted, self.output_queue))
         self.process.start()

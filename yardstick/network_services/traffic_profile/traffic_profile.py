@@ -399,16 +399,19 @@ class TrexProfile(TrafficProfile):
             logging.debug("Imax: %s rate: %s", imix_count, self.rate)
         return imix_count
 
-    def get_streams(self):
-        """ generate trex stream """
+    def get_streams(self, profile_data):
+        """ generate trex stream
+        :param profile_data:
+        :type profile_data:
+        """
         self.streams = []
         self.pps = self.params['traffic_profile'].get('frame_rate', 100)
-        for packet_name in self.profile_data:
-            outer_l2 = self.profile_data[packet_name].get('outer_l2')
+        for packet_name in profile_data:
+            outer_l2 = profile_data[packet_name].get('outer_l2')
             imix_data = self.generate_imix_data(outer_l2)
             if not imix_data:
                 imix_data = {64: self.pps}
-            self.generate_vm(self.profile_data[packet_name])
+            self.generate_vm(profile_data[packet_name])
             for size in imix_data:
                 self._generate_streams(size, imix_data[size])
         self._generate_profile()

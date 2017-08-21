@@ -1,0 +1,154 @@
+<div class="naviSide">
+
+
+
+
+    <ul class="nav bs-sidenav">
+
+        <div class="panel-group " role="tablist " aria-multiselectable="true " bs-collapse style="margin-bottom:0px; ">
+            <div class="panel panel-default ">
+                <div class="panel-heading " role="tab ">
+                    <h4 class="panel-title ">
+                        <a bs-collapse-toggle style=" text-decoration: none;" ng-click="gotoProject();">
+        Project
+        </a>
+                    </h4>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="panel-group" role="tablist" aria-multiselectable="true" bs-collapse style="margin-bottom:0px;" ng-model="activeStatus" ng-if="ifshowEnvChild">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab">
+                    <h4 class="panel-title">
+                        <a bs-collapse-toggle style=" text-decoration: none;">
+                            <div style="display:inline;" ng-click="gotoEnviron()">Environment </div>
+                            <i class="fa fa-sort-asc" aria-hidden="true" style="margin-left: 71px;display:inline" ng-show="activeStatus==0"></i>
+                            <i class="fa fa-sort-desc" aria-hidden="true" style="margin-left: 71px;display:inline" ng-show="activeStatus==-1"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div class="panel-collapse" role="tabpanel" bs-collapse-target>
+                    <div class="panel-body" style="border-top: 2px solid grey;text-align: right;cursor:pointer" ng-click="gotoOpenrcPage()" ng-class="{active:$state.includes('app.environmentDetail')}">
+                        Openrc
+                    </div>
+                    <div class="panel-body " style="border:none;text-align: right;cursor:pointer" ng-click="gotoUploadPage()" ng-class="{active:$state.includes('app.uploadImage')}">
+                        Image
+                    </div>
+                    <div class="panel-body " style="border:none;text-align: right;cursor:pointer" ng-click="gotoPodPage()" ng-class="{active:$state.includes('app.podUpload')}">
+                        Pod File
+                    </div>
+                    <div class="panel-body " style="border:none;text-align: right;cursor:pointer" ng-click="gotoContainerPage()" ng-class="{active:$state.includes('app.container')}">
+                        Container
+                    </div>
+                    <div class="panel-body " style="border:none;text-align: right;">
+                        Others
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-group" role="tablist" aria-multiselectable="false" bs-collapse style="margin-bottom:0px;" ng-if="!ifshowEnvChild">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab">
+                    <h4 class="panel-title">
+                        <a bs-collapse-toggle style=" text-decoration: none;">
+                            <div style="display:inline;" ng-click="gotoEnviron()">Environment </div>
+                            <!--<i class="fa fa-sort-asc" aria-hidden="true" style="margin-left: 71px;display:inline"></i>-->
+                        </a>
+                    </h4>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel-group " role="tablist " aria-multiselectable="true " bs-collapse style="margin-bottom:0px; ">
+            <div class="panel panel-default ">
+                <div class="panel-heading " role="tab ">
+                    <h4 class="panel-title ">
+                        <a bs-collapse-toggle style=" text-decoration: none;" ng-click="gotoTestcase()">
+         Test Case
+        </a>
+                    </h4>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel-group " role="tablist " aria-multiselectable="true " bs-collapse style="margin-bottom:0px; ">
+            <div class="panel panel-default ">
+                <div class="panel-heading " role="tab ">
+                    <h4 class="panel-title ">
+                        <a bs-collapse-toggle style=" text-decoration: none;" ng-click="gotoSuite()">
+        Test Suite
+        </a>
+                    </h4>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </ul>
+
+
+
+
+
+</div>
+
+
+<style>
+    .bs-sidenav {
+        margin-top: 21px;
+        margin-bottom: 20px;
+        width: 124px;
+    }
+
+    .naviSide {
+        height: 150%;
+    }
+
+    .nav {
+        margin-bottom: 0;
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .nav>li {
+        position: relative;
+        display: block;
+    }
+
+    li {
+        display: list-item;
+        text-align: -webkit-match-parent;
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+    a.active {
+        background-color: #EEEEEE;
+        border-radius: 5px;
+        width: 165px;
+    }
+    /*
+    a:hover {
+        width: 165px;
+    }*/
+
+    .nav>li>a:hover,
+    .nav>li>a:focus {
+        text-decoration: underline;
+        background-color: transparent;
+    }
+
+    .active.panel-body {
+        background-color: #dfe3e4;
+    }
+</style>

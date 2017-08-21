@@ -1,0 +1,49 @@
+# Copyright (c) 2017 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Install core packages
+  action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
+  with_items:
+    - python-minimal
+    - wget
+    - curl
+    - screen
+    - procps
+    - git
+    - socat
+    - sshpass
+    - libxslt1-dev
+    - libffi-dev
+    - libfuse-dev
+    - qemu-kvm
+    - qemu-user-static
+    - qemu-utils
+    - libvirt0
+    - python-libvirt
+    - bridge-utils
+    - ebtables
+    - openssl
+    - libssl-dev
+    - python-dev
+    - python-virtualenv
+    - ccze
+    - libxml2-dev
+    - libxslt-dev
+    - libzmq-dev
+    - nginx-full
+    - uwsgi
+    - uwsgi-plugin-python
+    - supervisor
+    - python-setuptools
+

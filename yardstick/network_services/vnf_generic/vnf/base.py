@@ -15,10 +15,6 @@
 
 from __future__ import absolute_import
 import logging
-import ipaddress
-import six
-
-from yardstick.network_services.utils import get_nsb_option
 
 LOG = logging.getLogger(__name__)
 
@@ -61,193 +57,69 @@ class QueueFileWrapper(object):
             self.q_out.get()
 
 
-class GenericVNF(object):
+class VnfdHelper(dict):
+
+    @property
+    def mgmt_interface(self):
+        return self["mgmt-interface"]
+
+    @property
+    def vdu(self):
+        return self['vdu']
+
+    @property
+    def vdu0(self):
+        return self.vdu[0]
+
+    @property
+    def interfaces(self):
+        return self.vdu0['external-interface']
+
+    @property
+    def kpi(self):
+        return self['benchmark']['kpi']
+
+    def find_virtual_interface(self, **kwargs):
+        key, value = next(iter(kwargs.items()))
+        for interface in self.interfaces:
+            virtual_intf = interface["virtual-interface"]
+            if virtual_intf[key] == value:
+                return interface
+
+    def find_interface(self, **kwargs):
+        key, value = next(iter(kwargs.items()))
+        for interface in self.interfaces:
+            if interface[key] == value:
+                return interface
+
+
+class VNFObject(object):
+
+    def __init__(self, name, vnfd):
+        super(VNFObject, self).__init__()
+        self.name = name
+        self.vnfd_helper = VnfdHelper(vnfd)  # fixme: parse this into a structure
+
+
+class GenericVNF(VNFObject):
+
     """ Class providing file-like API for generic VNF implementation """
-    def __init__(self, vnfd):
-        super(GenericVNF, self).__init__()
-        self.vnfd = vnfd  # fixme: parse this into a structure
+    def __init__(self, name, vnfd):
+        super(GenericVNF, self).__init__(name, vnfd)
         # List of statistics we can obtain from this VNF
         # - ETSI MANO 6.3.1.1 monitoring_parameter
-        self.kpi = self._get_kpi_definition(vnfd)
+        self.kpi = self._get_kpi_definition()
         # Standard dictionary containing params like thread no, buffer size etc
         self.config = {}
         self.runs_traffic = False
-        self.name = "vnf__1"  # name in topology file
-        self.bin_path = get_nsb_option("bin_path", "")
 
-    @classmethod
-    def _get_kpi_definition(cls, vnfd):
+    def _get_kpi_definition(self):
         """ Get list of KPIs defined in VNFD
 
         :param vnfd:
         :return: list of KPIs, e.g. ['throughput', 'latency']
         """
-        return vnfd['benchmark']['kpi']
-
-    @classmethod
-    def get_ip_version(cls, ip_addr):
-        """ get ip address version v6 or v4 """
-        try:
-            address = ipaddress.ip_address(six.text_type(ip_addr))
-        except ValueError:
-            LOG.error(ip_addr, " is not valid")
-            return
-        else:
-            return address.version
-
-    def _ip_to_hex(self, ip_addr):
-        ip_to_convert = ip_addr.split(".")
-        ip_x = ip_addr
-        if self.get_ip_version(ip_addr) == 4:
-            ip_to_convert = ip_addr.split(".")
-            ip_octect = [int(octect) for octect in ip_to_convert]
-            ip_x = "{0[0]:02X}{0[1]:02X}{0[2]:02X}{0[3]:02X}".format(ip_octect)
-        return ip_x
-
-    def _get_dpdk_port_num(self, name):
-        for intf in self.vnfd['vdu'][0]['external-interface']:
-            if name == intf['name']:
-                return intf['virtual-interface']['dpdk_port_num']
-
-    def _append_routes(self, ip_pipeline_cfg):
-        if 'routing_table' in self.vnfd['vdu'][0]:
-            routing_table = self.vnfd['vdu'][0]['routing_table']
-
-            where = ip_pipeline_cfg.find("arp_route_tbl")
-            link = ip_pipeline_cfg[:where]
-            route_add = ip_pipeline_cfg[where:]
-
-            tmp = route_add.find('\n')
-            route_add = route_add[tmp:]
-
-            cmds = "arp_route_tbl ="
-
-            for route in routing_table:
-                net = self._ip_to_hex(route['network'])
-                net_nm = self._ip_to_hex(route['netmask'])
-                net_gw = self._ip_to_hex(route['gateway'])
-                port = self._get_dpdk_port_num(route['if'])
-                cmd = \
-                    " ({port0_local_ip_hex},{port0_netmask_hex},{dpdk_port},"\
-                    "{port1_local_ip_hex})".format(port0_local_ip_hex=net,
-                                                   port0_netmask_hex=net_nm,
-                                                   dpdk_port=port,
-                                                   port1_local_ip_hex=net_gw)
-                cmds += cmd
-
-            cmds += '\n'
-            ip_pipeline_cfg = link + cmds + route_add
-
-        return ip_pipeline_cfg
-
-    def _append_nd_routes(self, ip_pipeline_cfg):
-        if 'nd_route_tbl' in self.vnfd['vdu'][0]:
-            routing_table = self.vnfd['vdu'][0]['nd_route_tbl']
-
-            where = ip_pipeline_cfg.find("nd_route_tbl")
-            link = ip_pipeline_cfg[:where]
-            route_nd = ip_pipeline_cfg[where:]
-
-            tmp = route_nd.find('\n')
-            route_nd = route_nd[tmp:]
-
-            cmds = "nd_route_tbl ="
-
-            for route in routing_table:
-                net = route['network']
-                net_nm = route['netmask']
-                net_gw = route['gateway']
-                port = self._get_dpdk_port_num(route['if'])
-                cmd = \
-                    " ({port0_local_ip_hex},{port0_netmask_hex},{dpdk_port},"\
-                    "{port1_local_ip_hex})".format(port0_local_ip_hex=net,
-                                                   port0_netmask_hex=net_nm,
-                                                   dpdk_port=port,
-                                                   port1_local_ip_hex=net_gw)
-                cmds += cmd
-
-            cmds += '\n'
-            ip_pipeline_cfg = link + cmds + route_nd
-
-        return ip_pipeline_cfg
-
-    def _get_port0localip6(self):
-        return_value = ""
-        if 'nd_route_tbl' in self.vnfd['vdu'][0]:
-            routing_table = self.vnfd['vdu'][0]['nd_route_tbl']
-
-            inc = 0
-            for route in routing_table:
-                inc += 1
-                if inc == 1:
-                    return_value = route['network']
-        LOG.info("_get_port0localip6 : %s", return_value)
-        return return_value
-
-    def _get_port1localip6(self):
-        return_value = ""
-        if 'nd_route_tbl' in self.vnfd['vdu'][0]:
-            routing_table = self.vnfd['vdu'][0]['nd_route_tbl']
-
-            inc = 0
-            for route in routing_table:
-                inc += 1
-                if inc == 2:
-                    return_value = route['network']
-        LOG.info("_get_port1localip6 : %s", return_value)
-        return return_value
-
-    def _get_port0prefixlen6(self):
-        return_value = ""
-        if 'nd_route_tbl' in self.vnfd['vdu'][0]:
-            routing_table = self.vnfd['vdu'][0]['nd_route_tbl']
-
-            inc = 0
-            for route in routing_table:
-                inc += 1
-                if inc == 1:
-                    return_value = route['netmask']
-        LOG.info("_get_port0prefixlen6 : %s", return_value)
-        return return_value
-
-    def _get_port1prefixlen6(self):
-        return_value = ""
-        if 'nd_route_tbl' in self.vnfd['vdu'][0]:
-            routing_table = self.vnfd['vdu'][0]['nd_route_tbl']
-
-            inc = 0
-            for route in routing_table:
-                inc += 1
-                if inc == 2:
-                    return_value = route['netmask']
-        LOG.info("_get_port1prefixlen6 : %s", return_value)
-        return return_value
-
-    def _get_port0gateway6(self):
-        return_value = ""
-        if 'nd_route_tbl' in self.vnfd['vdu'][0]:
-            routing_table = self.vnfd['vdu'][0]['nd_route_tbl']
-
-            inc = 0
-            for route in routing_table:
-                inc += 1
-                if inc == 1:
-                    return_value = route['network']
-        LOG.info("_get_port0gateway6 : %s", return_value)
-        return return_value
-
-    def _get_port1gateway6(self):
-        return_value = ""
-        if 'nd_route_tbl' in self.vnfd['vdu'][0]:
-            routing_table = self.vnfd['vdu'][0]['nd_route_tbl']
-
-            inc = 0
-            for route in routing_table:
-                inc += 1
-                if inc == 2:
-                    return_value = route['network']
-        LOG.info("_get_port1gateway6 : %s", return_value)
-        return return_value
+        return self.vnfd_helper.kpi
 
     def instantiate(self, scenario_cfg, context_cfg):
         """ Prepare VNF for operation and start the VNF process/VM
@@ -285,11 +157,10 @@ class GenericVNF(object):
 class GenericTrafficGen(GenericVNF):
     """ Class providing file-like API for generic traffic generator """
 
-    def __init__(self, vnfd):
-        super(GenericTrafficGen, self).__init__(vnfd)
+    def __init__(self, name, vnfd):
+        super(GenericTrafficGen, self).__init__(name, vnfd)
         self.runs_traffic = True
         self.traffic_finished = False
-        self.name = "tgen__1"  # name in topology file
 
     def run_traffic(self, traffic_profile):
         """ Generate traffic on the wire according to the given params.

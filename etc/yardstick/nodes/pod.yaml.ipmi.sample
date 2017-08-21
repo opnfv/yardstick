@@ -1,0 +1,50 @@
+##############################################################################
+# Copyright (c) 2017 14_ykl@tongji.edu.cn and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# sample config file about the POD information, including the
+# name/IP/user/ssh key of Bare Metal Controllers/Computes/Jumperserver
+# and the ipmi information of Controllers/Computes
+#
+# The options of this config file include:
+# name: the name of this node
+# role: node's role, support role: Master/Controller/Comupte/BareMetal
+# ip: the node's IP address
+# user: the username for login
+# password: the password for login
+# ipmi_ip: the node's IPMI IP address
+# ipmi_user: the username for ipmi control
+# ipmi_password: the password for ipmi control
+
+nodes:
+-
+    name: node0
+    role: Jumpserver
+    ip: 10.1.0.2
+    user: root
+    password: root
+
+-
+    name: node1
+    role: Controller
+    ip: 10.1.0.50
+    user: root
+    password: root
+    ipmi_ip: 192.168.10.10
+    ipmi_user: root
+    ipmi_password: root
+
+-
+    name: node2
+    role: Compute
+    ip: 10.1.0.51
+    user: root
+    password: root
+    ipmi_ip: 192.168.10.11
+    ipmi_user: root
+    ipmi_password: root

@@ -13,6 +13,10 @@
 
 set -e
 
-source /root/openrc
+if [ $OS_INSECURE ] && [ "$(echo $OS_INSECURE | tr '[:upper:]' '[:lower:]')" = "true" ]; then
+    SECURE="--insecure"
+else
+    SECURE=""
+fi
 
-nova flavor-list
+openstack ${SECURE} flavor list

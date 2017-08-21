@@ -15,7 +15,7 @@ from yardstick.benchmark.runners.base import Runner
 from yardstick.benchmark.core import print_hbar
 
 
-class Runners(object):
+class Runners(object):  # pragma: no cover
     """Runner commands.
 
        Set of commands to discover and display runner types.

@@ -47,6 +47,88 @@ class TaskTestCase(unittest.TestCase):
         self.assertEqual(context_cfg["host"], server_info)
         self.assertEqual(context_cfg["target"], server_info)
 
+    def test_set_dispatchers(self):
+        t = task.Task()
+        output_config = {"DEFAULT": {"dispatcher": "file, http"}}
+        t._set_dispatchers(output_config)
+        self.assertEqual(output_config, output_config)
+
+    @mock.patch('yardstick.benchmark.core.task.DispatcherBase')
+    def test__do_output(self, mock_dispatcher):
+        t = task.Task()
+        output_config = {"DEFAULT": {"dispatcher": "file, http"}}
+        mock_dispatcher.get = mock.MagicMock(return_value=[mock.MagicMock(),
+                                                           mock.MagicMock()])
+        self.assertEqual(None, t._do_output(output_config, {}))
+
+    @mock.patch('yardstick.benchmark.core.task.Context')
+    def test_parse_networks_from_nodes(self, mock_context):
+        nodes = {
+            'node1': {
+                'interfaces': {
+                    'eth0': {
+                        'name': 'mgmt',
+                    },
+                    'eth1': {
+                        'name': 'external',
+                        'vld_id': '23',
+                    },
+                    'eth10': {
+                        'name': 'internal',
+                        'vld_id': '55',
+                    },
+                },
+            },
+            'node2': {
+                'interfaces': {
+                    'eth4': {
+                        'name': 'mgmt',
+                    },
+                    'eth2': {
+                        'name': 'external',
+                        'vld_id': '32',
+                    },
+                    'eth11': {
+                        'name': 'internal',
+                        'vld_id': '55',
+                    },
+                },
+            },
+        }
+
+        mock_context.get_network.side_effect = iter([
+            None,
+            {
+                'name': 'a',
+                'network_type': 'private',
+            },
+            {},
+            {
+                'name': 'b',
+                'vld_id': 'y',
+                'subnet_cidr': '10.20.0.0/16',
+            },
+            {
+                'name': 'c',
+                'vld_id': 'x',
+            },
+            {
+                'name': 'd',
+                'vld_id': 'w',
+            },
+        ])
+
+        # once for each vld_id in the nodes dict
+        expected_get_network_calls = 4
+        expected = {
+            'a': {'name': 'a', 'network_type': 'private'},
+            'b': {'name': 'b', 'vld_id': 'y', 'subnet_cidr': '10.20.0.0/16'},
+        }
+
+        networks = task.get_networks_from_nodes(nodes)
+        self.assertEqual(mock_context.get_network.call_count, expected_get_network_calls)
+        self.assertDictEqual(networks, expected)
+
     @mock.patch('yardstick.benchmark.core.task.Context')
     @mock.patch('yardstick.benchmark.core.task.base_runner')
     def test_run(self, mock_base_runner, mock_ctx):
@@ -64,6 +146,8 @@ class TaskTestCase(unittest.TestCase):
         t = task.Task()
         runner = mock.Mock()
         runner.join.return_value = 0
+        runner.get_output.return_value = {}
+        runner.get_result.return_value = []
         mock_base_runner.Runner.get.return_value = runner
         t._run([scenario], False, "yardstick.out")
         self.assertTrue(runner.run.called)
@@ -155,6 +239,33 @@ class TaskTestCase(unittest.TestCase):
         self.assertEqual(task_args_fnames[0], None)
         self.assertEqual(task_args_fnames[1], None)
 
+    def test_parse_options(self):
+        options = {
+            'openstack': {
+                'EXTERNAL_NETWORK': '$network'
+            },
+            'ndoes': ['node1', '$node'],
+            'host': '$host'
+        }
+
+        t = task.Task()
+        t.outputs = {
+            'network': 'ext-net',
+            'node': 'node2',
+            'host': 'server.yardstick'
+        }
+
+        idle_result = {
+            'openstack': {
+                'EXTERNAL_NETWORK': 'ext-net'
+            },
+            'ndoes': ['node1', 'node2'],
+            'host': 'server.yardstick'
+        }
+
+        actual_result = t._parse_options(options)
+        self.assertEqual(idle_result, actual_result)
+
     def test_change_server_name_host_str(self):
         scenario = {'host': 'demo'}
         suffix = '-8'
@@ -178,6 +289,14 @@ class TaskTestCase(unittest.TestCase):
         suffix = '-8'
         task.change_server_name(scenario, suffix)
         self.assertTrue(scenario['target']['name'], 'demo-8')
+
+    @mock.patch('yardstick.benchmark.core.task.utils')
+    @mock.patch('yardstick.benchmark.core.task.logging')
+    def test_set_log(self, mock_logging, mock_utils):
+        task_obj = task.Task()
+        task_obj.task_id = 'task_id'
+        task_obj._set_log()
+        self.assertTrue(mock_logging.root.addHandler.called)
 
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))

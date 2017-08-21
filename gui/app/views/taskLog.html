@@ -1,0 +1,39 @@
+<div class="content">
+    <i class="fa fa-arrow-left fa-1x" aria-hidden="true" style="color: #999;cursor:pointer" ng-click="goBack()">Back</i>
+    <h3>Log</h3>
+    <hr/>
+    <div style="display:flex;flex-direction:row">
+        <div>
+            <div style="margin-top:5px;">Task: {{ taskId }}</div>
+        </div>
+        <div class="progree-parent"  style="margin-top:10px;margin-left:20px">
+            <div class="progree-child" ng-show="taskStatus==0" style="width:50%"></div>
+            <div class="progree-child" ng-show="taskStatus==1" style="width:100%"></div>
+        </div>
+        <i class="fa fa-check" aria-hidden="true" style="margin-top:10px;margin-left:5px;color: #2ecc71;" ng-show="taskStatus==1">finish</i>
+        <i class="fa fa-spinner" aria-hidden="true" style="margin-top:10px;margin-left:5px;color: #2ecc71;" ng-show="taskStatus==0">runing</i>
+    </div>
+    <div class="box">
+        <div class="line-block" ng-repeat="line in logLines track by $index">
+            <span>{{ line }}</span>
+        </div>
+    </div>
+</div>
+
+<style>
+    .box {
+        width: 90%%;
+        border-radius: 5px;
+        border: 1px solid #e8e8e8;
+        line-height: 180%;
+        margin-top: 20px;
+    }
+
+    .line-block {
+        margin-left: 10px;
+    }
+
+    .content {
+        height: 90%;
+    }
+</style>

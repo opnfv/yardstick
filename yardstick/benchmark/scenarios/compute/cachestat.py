@@ -97,7 +97,7 @@ class CACHEstat(base.Scenario):
     def _filtrate_result(self, result):
         fields = []
         cachestat = {}
-        data_marker = re.compile("\d+")
+        data_marker = re.compile(r"\d+")
         ite = 0
         average = {'HITS': 0, 'MISSES': 0, 'DIRTIES': 0, 'RATIO': 0,
                    'BUFFERS_MB': 0, 'CACHE_MB': 0}

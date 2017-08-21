@@ -38,32 +38,33 @@ class ProcessAttacker(BaseAttacker):
         self.recovery_script = self.get_script_fullpath(
             self.fault_cfg['recovery_script'])
 
-        if self.check():
-            self.setup_done = True
+        self.data[self.service_name] = self.check()
 
     def check(self):
         with open(self.check_script, "r") as stdin_file:
             exit_status, stdout, stderr = self.connection.execute(
-                "/bin/sh -s {0}".format(self.service_name),
+                "sudo /bin/sh -s {0}".format(self.service_name),
                 stdin=stdin_file)
 
-        if stdout and "running" in stdout:
-            LOG.info("check the envrioment success!")
-            return True
+        if stdout:
+            LOG.info("check the environment success!")
+            return int(stdout.strip('\n'))
         else:
             LOG.error(
-                "the host envrioment is error, stdout:%s, stderr:%s",
+                "the host environment is error, stdout:%s, stderr:%s",
                 stdout, stderr)
         return False
 
     def inject_fault(self):
         with open(self.inject_script, "r") as stdin_file:
             exit_status, stdout, stderr = self.connection.execute(
-                "/bin/sh -s {0}".format(self.service_name),
+                "sudo /bin/sh -s {0}".format(self.service_name),
                 stdin=stdin_file)
 
     def recover(self):
         with open(self.recovery_script, "r") as stdin_file:
             exit_status, stdout, stderr = self.connection.execute(
-                "/bin/sh -s {0} ".format(self.service_name),
+                "sudo /bin/bash -s {0} ".format(self.service_name),
                 stdin=stdin_file)
+        if exit_status:
+            LOG.info("Fail to restart service!")

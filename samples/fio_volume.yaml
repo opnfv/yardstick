@@ -1,0 +1,74 @@
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# Sample benchmark task config file
+# measure storage performance using fio
+#
+# For this sample just like running the command below on the test vm and
+# getting benchmark info back to the yardstick.
+#
+# sudo fio -filename=/home/ubuntu/data.raw -bs=4k -ipdepth=1 -rw=rw \
+#          -ramp_time=10 -runtime=60 -name=yardstick-fio -ioengine=libaio \
+#          -direct=1 -group_reporting -numjobs=1 -time_based \
+#          --output-format=json
+
+schema: "yardstick:task:0.1"
+
+{% set rw = rw or "randrw" %}
+{% set bs = bs or "8k" %}
+{% set size = size or "100g" %}
+{% set rwmixwrite = rwmixwrite or "50" %}
+{% set numjobs = numjobs or "1" %}
+{% set direct = direct or "1" %}
+
+scenarios:
+-
+  type: Fio
+  options:
+    filename: /dev/vdb
+    bs: {{bs}}
+    rw: {{rw}}
+    size: {{size}}
+    rwmixwrite: {{rwmixwrite}}
+    numjobs: {{numjobs}}
+    direct: {{direct}}
+    ramp_time: 10
+
+  host: fio.fio_volume
+
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+
+  sla:
+    read_bw: 6000
+    read_iops: 1500
+    read_lat: 500.1
+    write_bw: 6000
+    write_iops: 1500
+    write_lat: 500.1
+    action: monitor
+
+context:
+  name: fio_volume
+  image: yardstick-image
+  flavor: yardstick-flavor
+  user: ubuntu
+  servers:
+    fio:
+      volume:
+        name: fio-volume
+        size: 200
+      volume_mountpoint: "/dev/vdb"
+      floating_ip: true
+  networks:
+    test:
+      cidr: "10.0.1.0/24"
+      port_security_enabled: true

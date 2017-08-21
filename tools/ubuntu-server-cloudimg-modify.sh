@@ -48,6 +48,7 @@ EOF
 apt-get update
 apt-get install -y \
     bc \
+    bonnie++ \
     fio \
     git \
     gcc \

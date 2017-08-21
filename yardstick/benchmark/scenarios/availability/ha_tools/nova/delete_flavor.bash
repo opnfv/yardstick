@@ -14,6 +14,10 @@
 
 set -e
 
-source /root/openrc
+if [ $OS_INSECURE ] && [ "$(echo $OS_INSECURE | tr '[:upper:]' '[:lower:]')" = "true" ]; then
+    SECURE="--insecure"
+else
+    SECURE=""
+fi
 
-openstack flavor delete $1
+openstack ${SECURE} flavor delete $1

@@ -1,0 +1,49 @@
+---
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+- hosts: localhost
+  roles:
+    - create_flavor
+    - role: set_flavor_property
+      key: "hw:cpu_policy"
+      value: "dedicated"
+    - role: set_flavor_property
+      key: "hw:numa_nodes"
+      value: "1"
+
+- hosts: nodes
+  roles:
+    - backup_nova_conf
+    - role: set_nova_conf
+      section: "DEFAULT"
+      key: "live_migration_flag"
+      value: "VIR_MIGRATE_UNDEFINE_SOURCE,VIR_MIGRATE_PEER2PEER,VIR_MIGRATE_LIVE,VIR_MIGRATE_TUNNELLED"
+    - role: set_nova_conf
+      section: "DEFAULT"
+      key: "vncserver_listen"
+      value: "0.0.0.0"
+
+- hosts: controller
+  roles:
+    - role: set_nova_conf
+      section: "DEFAULT"
+      key: "scheduler_default_filters"
+      value: "NUMATopologyFilter"
+    - role: restart_nova_service
+      service: "nova-scheduler"
+
+- hosts: compute
+  roles:
+    - role: set_nova_conf
+      section: "DEFAULT"
+      key: "vcpu_pin_set"
+      value: "{{ cpu_set }}"
+    - role: restart_nova_service
+      service: "nova-compute"

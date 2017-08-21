@@ -7,9 +7,10 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 from __future__ import absolute_import
+
+import os
 import logging
 import subprocess
-import traceback
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios.availability.monitor import basemonitor
@@ -25,9 +26,7 @@ def _execute_shell_command(command):
         output = subprocess.check_output(command, shell=True)
     except Exception:
         exitcode = -1
-        output = traceback.format_exc()
-        LOG.error("exec command '%s' error:\n ", command)
-        LOG.error(traceback.format_exc())
+        LOG.error("exec command '%s' error:\n ", command, exc_info=True)
 
     return exitcode, output
 
@@ -53,18 +52,18 @@ class MonitorOpenstackCmd(basemonitor.BaseMonitor):
 
         self.cmd = self._config["command_name"]
 
+        try:
+            insecure = os.environ['OS_INSECURE']
+        except KeyError:
+            pass
+        else:
+            if insecure.lower() == "true":
+                self.cmd = self.cmd + " --insecure"
+
     def monitor_func(self):
         exit_status = 0
-        if self.connection:
-            with open(self.check_script, "r") as stdin_file:
-                exit_status, stdout, stderr = self.connection.execute(
-                    "/bin/bash -s '{0}'".format(self.cmd),
-                    stdin=stdin_file)
-
-            LOG.debug("the ret stats: %s stdout: %s stderr: %s",
-                      exit_status, stdout, stderr)
-        else:
-            exit_status, stdout = _execute_shell_command(self.cmd)
+        exit_status, stdout = _execute_shell_command(self.cmd)
+        LOG.debug("Execute command '%s' and the stdout is:\n%s", self.cmd, stdout)
         if exit_status:
             return False
         return True

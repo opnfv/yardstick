@@ -14,10 +14,29 @@
 """ Generic file to map and build vnf discriptor """
 
 from __future__ import absolute_import
-import collections
-import yaml
 
-from yardstick.common.task_template import TaskTemplate
+from functools import reduce
+
+import jinja2
+import logging
+
+from yardstick.common.task_template import finalize_for_yaml
+from yardstick.common.utils import try_int
+from yardstick.common.yaml_loader import yaml_load
+
+LOG = logging.getLogger(__name__)
+
+
+def render(vnf_model, **kwargs):
+    """Render jinja2 VNF template
+    Do not check for missing arguments
+
+    :param vnf_model: string that contains template
+    :param kwargs: Dict with template arguments
+    :returns:rendered template str
+    """
+
+    return jinja2.Template(vnf_model, finalize=finalize_for_yaml).render(**kwargs)
 
 
 def generate_vnfd(vnf_model, node):
@@ -29,45 +48,52 @@ def generate_vnfd(vnf_model, node):
              as input for GenericVNF.__init__
     """
     # get is unused as global method inside template
-    node["get"] = get
+    # node["get"] = key_flatten_get
+    node["get"] = deepgetitem
     # Set Node details to default if not defined in pod file
-    rendered_vnfd = TaskTemplate.render(vnf_model, **node)
+    # we CANNOT use TaskTemplate.render because it does not allow
+    # for missing variables, we need to allow password for key_filename
+    # to be undefined
+    rendered_vnfd = render(vnf_model, **node)
     # This is done to get rid of issues with serializing node
     del node["get"]
-    filled_vnfd = yaml.load(rendered_vnfd)
+    filled_vnfd = yaml_load(rendered_vnfd)
     return filled_vnfd
 
 
-def dict_key_flatten(data):
-    """ Convert nested dict structure to dotted key
-        (e.g. {"a":{"b":1}} -> {"a.b":1}
+# dict_flatten was causing recursion errors with Jinja2 so we removed and replaced
+# which this function from stackoverflow that doesn't require generating entire dictionaries
+# each time we query a key
+def deepgetitem(obj, item, default=None):
+    """Steps through an item chain to get the ultimate value.
 
-    :param data: nested dictionary
-    :return: flat dicrionary
+    If ultimate value or path to value does not exist, does not raise
+    an exception and instead returns `fallback`.
+
+    Based on
+    https://stackoverflow.com/a/38623359
+    https://stackoverflow.com/users/1820042/donny-winston
+
+    add try_int to work with sequences
+
+    >>> d = {'snl_final': {'about': {'_icsd': {'icsd_id': 1, 'fr': [2, 3], '0': 24, 0: 4}}}}
+    >>> deepgetitem(d, 'snl_final.about._icsd.icsd_id')
+    1
+    >>> deepgetitem(d, 'snl_final.about._sandbox.sbx_id')
+    >>>
+    >>> deepgetitem(d, 'snl_final.about._icsd.fr.1')
+    3
+    >>> deepgetitem(d, 'snl_final.about._icsd.0')
+    24
     """
-    next_data = {}
-
-    # check for non-string iterables
-    if not any((isinstance(v, collections.Iterable) and not isinstance(v, str))
-               for v in data.values()):
-        return data
-
-    for key, val in data.items():
-        if isinstance(val, collections.Mapping):
-            for n_k, n_v in val.items():
-                next_data["%s.%s" % (key, n_k)] = n_v
-        elif isinstance(val, collections.Iterable) and not isinstance(val,
-                                                                      str):
-            for index, item in enumerate(val):
-                next_data["%s%d" % (key, index)] = item
-        else:
-            next_data[key] = val
-
-    return dict_key_flatten(next_data)
-
-
-def get(obj, key, *args):
-    """ Get template key from dictionary, get default value or raise an exception
-    """
-    data = dict_key_flatten(obj)
-    return data.get(key, *args)
+    def getitem(obj, name):
+        # try string then convert to int
+        try:
+            return obj[name]
+        except (KeyError, TypeError, IndexError):
+            name = try_int(name)
+            try:
+                return obj[name]
+            except (KeyError, TypeError, IndexError):
+                return default
+    return reduce(getitem, item.split('.'), obj)

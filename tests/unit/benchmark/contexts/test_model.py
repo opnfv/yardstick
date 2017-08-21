@@ -161,6 +161,23 @@ class NetworkTestCase(unittest.TestCase):
 
         self.assertEqual(model.Network.find_external_network(), 'ext_net')
 
+    def test_construct_gateway_ip_is_null(self):
+
+        attrs = {'gateway_ip': 'null'}
+        test_network = model.Network('foo', self.mock_context, attrs)
+        self.assertEqual(test_network.gateway_ip, 'null')
+
+    def test_construct_gateway_ip_is_none(self):
+
+        attrs = {'gateway_ip': None}
+        test_network = model.Network('foo', self.mock_context, attrs)
+        self.assertEqual(test_network.gateway_ip, 'null')
+
+    def test_construct_gateway_ip_is_absent(self):
+
+        attrs = {}
+        test_network = model.Network('foo', self.mock_context, attrs)
+        self.assertIsNone(test_network.gateway_ip)
 
 class ServerTestCase(unittest.TestCase):
 
@@ -214,9 +231,13 @@ class ServerTestCase(unittest.TestCase):
         attrs = {'image': 'some-image', 'flavor': 'some-flavor', 'floating_ip': '192.168.1.10', 'floating_ip_assoc': 'some-vm'}
         test_server = model.Server('foo', self.mock_context, attrs)
 
+        self.mock_context.flavors = ['flavor1', 'flavor2', 'some-flavor']
+
         mock_network = mock.Mock()
         mock_network.name = 'some-network'
         mock_network.stack_name = 'some-network-stack'
+        mock_network.allowed_address_pairs = ["1", "2"]
+        mock_network.vnic_type = 'normal'
         mock_network.subnet_stack_name = 'some-network-stack-subnet'
         mock_network.provider = 'sriov'
         mock_network.external_network = 'ext_net'
@@ -229,8 +250,10 @@ class ServerTestCase(unittest.TestCase):
             'some-server-some-network-port',
             mock_network.stack_name,
             mock_network.subnet_stack_name,
+            mock_network.vnic_type,
             sec_group_id=self.mock_context.secgroup_name,
-            provider=mock_network.provider)
+            provider=mock_network.provider,
+            allowed_address_pairs=mock_network.allowed_address_pairs)
 
         mock_template.add_floating_ip.assert_called_with(
             'some-server-fip',
@@ -247,8 +270,122 @@ class ServerTestCase(unittest.TestCase):
         )
 
         mock_template.add_server.assert_called_with(
-            'some-server', 'some-image', 'some-flavor',
+            'some-server', 'some-image',
+            flavor='some-flavor',
+            flavors=['flavor1', 'flavor2', 'some-flavor'],
             ports=['some-server-some-network-port'],
             user=self.mock_context.user,
             key_name=self.mock_context.keypair_name,
+            user_data='',
             scheduler_hints='hints')
+
+    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
+    def test__add_instance_with_user_data(self, mock_template):
+        user_data = "USER_DATA"
+        attrs = {
+            'image': 'some-image', 'flavor': 'some-flavor',
+            'user_data': user_data,
+        }
+        test_server = model.Server('foo', self.mock_context, attrs)
+
+        test_server._add_instance(mock_template, 'some-server',
+                                  [], 'hints')
+
+        mock_template.add_server.assert_called_with(
+            'some-server', 'some-image',
+            flavor='some-flavor',
+            flavors=self.mock_context.flavors,
+            ports=[],
+            user=self.mock_context.user,
+            key_name=self.mock_context.keypair_name,
+            user_data=user_data,
+            scheduler_hints='hints')
+
+    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
+    def test__add_instance_plus_flavor(self, mock_template):
+
+        user_data = ''
+        attrs = {
+            'image': 'some-image', 'flavor': 'flavor1',
+            'flavors': ['flavor2'], 'user_data': user_data
+        }
+        test_server = model.Server('ServerFlavor-2', self.mock_context, attrs)
+
+        self.mock_context.flavors = ['flavor2']
+        mock_network = mock.Mock()
+        mock_network.allowed_address_pairs = ["1", "2"]
+        mock_network.vnic_type = 'normal'
+        mock_network.configure_mock(name='some-network', stack_name='some-network-stack',
+                                    subnet_stack_name='some-network-stack-subnet',
+                                    provider='some-provider')
+
+        test_server._add_instance(mock_template, 'ServerFlavor-2',
+                                  [mock_network], 'hints')
+
+        mock_template.add_port.assert_called_with(
+            'ServerFlavor-2-some-network-port',
+            mock_network.stack_name,
+            mock_network.subnet_stack_name,
+            mock_network.vnic_type,
+            provider=mock_network.provider,
+            sec_group_id=self.mock_context.secgroup_name,
+            allowed_address_pairs=mock_network.allowed_address_pairs)
+
+        mock_template.add_server.assert_called_with(
+            'ServerFlavor-2', 'some-image',
+            flavor='flavor1',
+            flavors=['flavor2'],
+            ports=['ServerFlavor-2-some-network-port'],
+            user=self.mock_context.user,
+            key_name=self.mock_context.keypair_name,
+            user_data=user_data,
+            scheduler_hints='hints')
+
+    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
+    def test__add_instance_misc(self, mock_template):
+
+        user_data = ''
+        attrs = {
+            'image': 'some-image', 'flavor': 'flavor1',
+            'flavors': ['flavor2'], 'user_data': user_data
+        }
+        test_server = model.Server('ServerFlavor-3', self.mock_context, attrs)
+
+        self.mock_context.flavors =  ['flavor2']
+        self.mock_context.flavor = {'vcpus': 4}
+        mock_network = mock.Mock()
+        mock_network.name = 'some-network'
+        mock_network.stack_name = 'some-network-stack'
+        mock_network.subnet_stack_name = 'some-network-stack-subnet'
+
+        test_server._add_instance(mock_template, 'ServerFlavor-3',
+                                  [mock_network], 'hints')
+
+
+        mock_template.add_port(
+            'ServerFlavor-3-some-network-port',
+            mock_network.stack_name,
+            mock_network.subnet_stack_name,
+            sec_group_id=self.mock_context.secgroup_name)
+
+        mock_template.add_flavor(
+            vcpus=4,
+            ram=2048,
+            disk=1)
+
+        mock_template.add_flavor(
+            vcpus=4,
+            ram=2048,
+            disk=1,
+            extra_specs={'cat': 1, 'dog': 2, 'dragon': 1000})
+
+        mock_template.add_server.assert_called_with(
+            'ServerFlavor-3', 'some-image',
+            flavor='flavor1',
+            flavors=['flavor2'],
+            ports=['ServerFlavor-3-some-network-port'],
+            user=self.mock_context.user,
+            key_name=self.mock_context.keypair_name,
+            user_data=user_data,
+            scheduler_hints='hints')
+
