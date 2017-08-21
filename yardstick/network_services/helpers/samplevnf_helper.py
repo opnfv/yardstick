@@ -87,9 +87,18 @@ class MultiPortConfig(object):
         return default
 
     @staticmethod
-    def make_ip_addr(ip, mask_len):
+    def make_ip_addr(ip, mask):
+        """
+        :param ip: ip adddress
+        :type ip: str
+        :param mask: /24 prefix of 255.255.255.0 netmask
+        :type mask: str
+        :return: interface
+        :rtype: IPv4Interface
+        """
+
         try:
-            return ipaddress.ip_interface(six.text_type('/'.join([ip, mask_len])))
+            return ipaddress.ip_interface(six.text_type('/'.join([ip, mask])))
         except (TypeError, ValueError):
             # None so we can skip later
             return None
@@ -279,18 +288,19 @@ class MultiPortConfig(object):
             for port in port_pair:
                 port_num = int(port[-1])
                 interface = self.interfaces[port_num]
-                # port0_ip = ipaddress.ip_interface(six.text_type(
-                #     "%s/%s" % (interface["virtual-interface"]["local_ip"],
-                #                interface["virtual-interface"]["netmask"])))
+                # We must use the dst because we are on the VNF and we need to
+                # reach the TG.
                 dst_port0_ip = \
                     ipaddress.ip_interface(six.text_type(
                         "%s/%s" % (interface["virtual-interface"]["dst_ip"],
                                    interface["virtual-interface"]["netmask"])))
                 arp_vars = {
-                    "port0_dst_ip_hex": ip_to_hex(dst_port0_ip.ip.exploded),
+                    "port0_dst_ip_hex": ip_to_hex(dst_port0_ip.network.network_address.exploded),
                     "port0_netmask_hex": ip_to_hex(dst_port0_ip.network.netmask.exploded),
+                    # this is the port num that contains port0 subnet and next_hop_ip_hex
                     "port_num": port_num,
                     # next hop is dst in this case
+                    # must be within subnet
                     "next_hop_ip_hex": ip_to_hex(dst_port0_ip.ip.exploded),
                 }
                 arp_config.append(arp_route_tbl_tmpl.format(**arp_vars))
@@ -302,20 +312,25 @@ class MultiPortConfig(object):
         self.swq += self.lb_count
         swq_out_str = self.make_range_str('SWQ{}', self.swq, offset=self.lb_count)
         self.swq += self.lb_count
-        mac_iter = (self.interfaces[int(x[-1])]['virtual-interface']['local_mac']
-                    for port_pair in self.port_pair_list for x in port_pair)
+        # ports_mac_list is disabled for some reason
+        # mac_iter = (self.interfaces[int(x[-1])]['virtual-interface']['local_mac']
+        #             for port_pair in self.port_pair_list for x in port_pair)
         pktq_in_iter = ('RXQ{}'.format(float(x[0][-1])) for x in self.port_pair_list)
 
         arpicmp_data = {
             'core': self.gen_core(self.start_core),
             'pktq_in': swq_in_str,
             'pktq_out': swq_out_str,
-            'ports_mac_list': ' '.join(mac_iter),
+            # we need to disable ports_mac_list?
+            # it looks like ports_mac_list is no longer required
+            # 'ports_mac_list': ' '.join(mac_iter),
             'pktq_in_prv': ' '.join(pktq_in_iter),
             'prv_to_pub_map': self.set_priv_to_pub_mapping(),
             'arp_route_tbl': self.generate_arp_route_tbl(),
-            # can't use empty string, defaul to ()
-            'nd_route_tbl': "()",
+            # nd_route_tbl must be set or we get segault on random OpenStack IPv6 traffic
+            # 'nd_route_tbl': "(0064:ff9b:0:0:0:0:9810:6414,120,0,0064:ff9b:0:0:0:0:9810:6414)"
+            # safe default?  route discard prefix to localhost
+            'nd_route_tbl': "(0100::,64,0,::1)"
         }
         self.pktq_out_os = swq_out_str.split(' ')
         # why?
@@ -520,12 +535,13 @@ class MultiPortConfig(object):
         arp_config = []
         for port_pair in self.port_pair_list:
             for port in port_pair:
-                gateway = self.get_ports_gateway(port)
-                # omit entries with no gateway
-                if not gateway:
-                    continue
+                # ignore gateway, always use TG IP
+                # gateway = self.get_ports_gateway(port)
                 dst_mac = self.interfaces[int(port[-1])]["virtual-interface"]["dst_mac"]
-                arp_config.append((port[-1], gateway, dst_mac, self.txrx_pipeline))
+                dst_ip = self.interfaces[int(port[-1])]["virtual-interface"]["dst_ip"]
+                # arp_config.append((port[-1], gateway, dst_mac, self.txrx_pipeline))
+                # so dst_mac is the TG dest mac, so we need TG dest IP.
+                arp_config.append((port[-1], dst_ip, dst_mac, self.txrx_pipeline))
 
         return '\n'.join(('p {3} arpadd {0} {1} {2}'.format(*values) for values in arp_config))
 
@@ -533,12 +549,12 @@ class MultiPortConfig(object):
         arp_config6 = []
         for port_pair in self.port_pair_list:
             for port in port_pair:
-                gateway6 = self.get_ports_gateway6(port)
-                # omit entries with no gateway
-                if not gateway6:
-                    continue
+                # ignore gateway, always use TG IP
+                # gateway6 = self.get_ports_gateway6(port)
                 dst_mac6 = self.interfaces[int(port[-1])]["virtual-interface"]["dst_mac"]
-                arp_config6.append((port[-1], gateway6, dst_mac6, self.txrx_pipeline))
+                dst_ip6 = self.interfaces[int(port[-1])]["virtual-interface"]["dst_ip"]
+                # arp_config6.append((port[-1], gateway6, dst_mac6, self.txrx_pipeline))
+                arp_config6.append((port[-1], dst_ip6, dst_mac6, self.txrx_pipeline))
 
         return '\n'.join(('p {3} arpadd {0} {1} {2}'.format(*values) for values in arp_config6))
 
@@ -556,13 +572,17 @@ class MultiPortConfig(object):
         return ''.join((template.format(port) for port in port_list))
 
     def get_ip_from_port(self, port):
-        return self.make_ip_addr(self.get_ports_gateway(port), self.get_netmask_gateway(port))
+        # we can't use gateway because in OpenStack gateways interfer with floating ip routing
+        # return self.make_ip_addr(self.get_ports_gateway(port), self.get_netmask_gateway(port))
+        ip = self.interfaces[port]["virtual-interface"]["local_ip"]
+        netmask = self.interfaces[port]["virtual-interface"]["netmask"]
+        return self.make_ip_addr(ip, netmask)
 
-    def get_ip_and_prefixlen_from_ip_of_port(self, port):
+    def get_network_and_prefixlen_from_ip_of_port(self, port):
         ip_addr = self.get_ip_from_port(port)
         # handle cases with no gateway
         if ip_addr:
-            return ip_addr.ip.exploded, ip_addr.network.prefixlen
+            return ip_addr.network.network_address.exploded, ip_addr.network.prefixlen
         else:
             return None, None
 
@@ -576,25 +596,25 @@ class MultiPortConfig(object):
             src_port = int(port_pair[0][-1])
             dst_port = int(port_pair[1][-1])
 
-            src_ip, src_prefix_len = self.get_ip_and_prefixlen_from_ip_of_port(port_pair[0])
-            dst_ip, dst_prefix_len = self.get_ip_and_prefixlen_from_ip_of_port(port_pair[1])
+            src_net, src_prefix_len = self.get_network_and_prefixlen_from_ip_of_port(src_port)
+            dst_net, dst_prefix_len = self.get_network_and_prefixlen_from_ip_of_port(dst_port)
             # ignore entires with empty values
-            if all((src_ip, src_prefix_len, dst_ip, dst_prefix_len)):
-                new_rules.append((cmd, self.txrx_pipeline, src_ip, src_prefix_len,
-                                  dst_ip, dst_prefix_len, dst_port))
-                new_rules.append((cmd, self.txrx_pipeline, dst_ip, dst_prefix_len,
-                                  src_ip, src_prefix_len, src_port))
+            if all((src_net, src_prefix_len, dst_net, dst_prefix_len)):
+                new_rules.append((cmd, self.txrx_pipeline, src_net, src_prefix_len,
+                                  dst_net, dst_prefix_len, dst_port))
+                new_rules.append((cmd, self.txrx_pipeline, dst_net, dst_prefix_len,
+                                  src_net, src_prefix_len, src_port))
 
-            src_ip = self.get_ports_gateway6(port_pair[0])
-            src_prefix_len = self.get_netmask_gateway6(port_pair[0])
-            dst_ip = self.get_ports_gateway6(port_pair[1])
-            dst_prefix_len = self.get_netmask_gateway6(port_pair[0])
-            # ignore entires with empty values
-            if all((src_ip, src_prefix_len, dst_ip, dst_prefix_len)):
-                new_ipv6_rules.append((cmd, self.txrx_pipeline, src_ip, src_prefix_len,
-                                       dst_ip, dst_prefix_len, dst_port))
-                new_ipv6_rules.append((cmd, self.txrx_pipeline, dst_ip, dst_prefix_len,
-                                       src_ip, src_prefix_len, src_port))
+            # src_net = self.get_ports_gateway6(port_pair[0])
+            # src_prefix_len = self.get_netmask_gateway6(port_pair[0])
+            # dst_net = self.get_ports_gateway6(port_pair[1])
+            # dst_prefix_len = self.get_netmask_gateway6(port_pair[0])
+            # # ignore entires with empty values
+            # if all((src_net, src_prefix_len, dst_net, dst_prefix_len)):
+            #     new_ipv6_rules.append((cmd, self.txrx_pipeline, src_net, src_prefix_len,
+            #                            dst_net, dst_prefix_len, dst_port))
+            #     new_ipv6_rules.append((cmd, self.txrx_pipeline, dst_net, dst_prefix_len,
+            #                            src_net, src_prefix_len, src_port))
 
         acl_apply = "\np %s applyruleset" % cmd
         new_rules_config = '\n'.join(pattern.format(*values) for values
@@ -607,7 +627,9 @@ class MultiPortConfig(object):
         script_data = {
             'link_config': self.generate_link_config(),
             'arp_config': self.generate_arp_config(),
-            'arp_config6': self.generate_arp_config6(),
+            # disable IPv6 for now
+            # 'arp_config6': self.generate_arp_config6(),
+            'arp_config6': "",
             'actions': '',
             'rules': '',
         }
