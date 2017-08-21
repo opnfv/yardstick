@@ -59,8 +59,10 @@ class CreateServer(base.Scenario):
         vm = op_utils.create_instance_and_wait_for_active(self.openstack)
 
         if vm:
+            result.update({"instance_create": 1})
             LOG.info("Create server successful!")
         else:
+            result.update({"instance_create": 0})
             LOG.error("Create server failed!")
 
         try:

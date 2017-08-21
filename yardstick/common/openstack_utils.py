@@ -437,6 +437,38 @@ def get_port_id_by_ip(neutron_client, ip_address):      # pragma: no cover
         'fixed_ips') if j['ip_address'] == ip_address), None)
 
 
+def create_neutron_net(neutron_client, json_body):      # pragma: no cover
+    try:
+        network = neutron_client.create_network(body=json_body)
+        return network['network']['id']
+    except Exception, e:
+        log.error("Error [create_neutron_net(neutron_client)]: %s"
+                  % (e))
+        raise Exception("operation error")
+        return None
+
+
+def create_neutron_subnet(neutron_client, json_body):      # pragma: no cover
+    try:
+        subnet = neutron_client.create_subnet(body=json_body)
+        return subnet['subnets'][0]['id']
+    except Exception, e:
+        log.error("Error [create_neutron_subnet , %s" % (e))
+        raise Exception("operation error")
+        return None
+
+
+def create_neutron_router(neutron_client, json_body):      # pragma: no cover
+    try:
+        router = neutron_client.create_router(json_body)
+        return router['router']['id']
+    except Exception, e:
+        log.error("Error [create_neutron_router(neutron_client)]: %s"
+                  % (e))
+        raise Exception("operation error")
+        return None
+
+
 def create_floating_ip(neutron_client, extnet_id):      # pragma: no cover
     props = {'floating_network_id': extnet_id}
     try:
