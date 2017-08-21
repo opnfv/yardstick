@@ -423,6 +423,12 @@ class SSH(object):
             if mode is not None:
                 sftp.chmod(remotepath, mode)
 
+    def get_file_obj(self, remotepath, file_obj):
+        client = self._get_client()
+
+        with client.open_sftp() as sftp:
+            sftp.getfo(remotepath, file_obj)
+
 
 class AutoConnectSSH(SSH):
 
@@ -470,6 +476,10 @@ class AutoConnectSSH(SSH):
     def put_file_obj(self, file_obj, remote_path, mode=None):
         self._connect()
         return super(AutoConnectSSH, self).put_file_obj(file_obj, remote_path, mode)
+
+    def get_file_obj(self, remote_path, file_obj):
+        self._connect()
+        return super(AutoConnectSSH, self).get_file_obj(remote_path, file_obj)
 
     def provision_tool(self, tool_path, tool_file=None):
         self._connect()
