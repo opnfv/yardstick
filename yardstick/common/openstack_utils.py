@@ -437,6 +437,36 @@ def get_port_id_by_ip(neutron_client, ip_address):      # pragma: no cover
         'fixed_ips') if j['ip_address'] == ip_address), None)
 
 
+def create_neutron_net(neutron_client, json_body):      # pragma: no cover
+    try:
+        network = neutron_client.create_network(body=json_body)
+        return network['network']['id']
+    except Exception:
+        log.error("Error [create_neutron_net(neutron_client)]")
+        raise Exception("operation error")
+        return None
+
+
+def create_neutron_subnet(neutron_client, json_body):      # pragma: no cover
+    try:
+        subnet = neutron_client.create_subnet(body=json_body)
+        return subnet['subnets'][0]['id']
+    except Exception:
+        log.error("Error [create_neutron_subnet")
+        raise Exception("operation error")
+        return None
+
+
+def create_neutron_router(neutron_client, json_body):      # pragma: no cover
+    try:
+        router = neutron_client.create_router(json_body)
+        return router['router']['id']
+    except Exception:
+        log.error("Error [create_neutron_router(neutron_client)]")
+        raise Exception("operation error")
+        return None
+
+
 def create_floating_ip(neutron_client, extnet_id):      # pragma: no cover
     props = {'floating_network_id': extnet_id}
     try:
@@ -447,6 +477,120 @@ def create_floating_ip(neutron_client, extnet_id):      # pragma: no cover
         log.error("Error [create_floating_ip(neutron_client)]")
         return None
     return {'fip_addr': fip_addr, 'fip_id': fip_id}
+
+
+def get_security_groups(neutron_client):      # pragma: no cover
+    try:
+        security_groups = neutron_client.list_security_groups()[
+            'security_groups']
+        return security_groups
+    except Exception:
+        log.error("Error [get_security_groups(neutron_client)]")
+        return None
+
+
+def get_security_group_id(neutron_client, sg_name):      # pragma: no cover
+    security_groups = get_security_groups(neutron_client)
+    id = ''
+    for sg in security_groups:
+        if sg['name'] == sg_name:
+            id = sg['id']
+            break
+    return id
+
+
+def create_security_group(neutron_client, sg_name, sg_description):      # pragma: no cover
+    json_body = {'security_group': {'name': sg_name,
+                                    'description': sg_description}}
+    try:
+        secgroup = neutron_client.create_security_group(json_body)
+        return secgroup['security_group']
+    except Exception:
+        log.error("Error [create_security_group(neutron_client, '%s', "
+                  "'%s')]" % (sg_name, sg_description))
+        return None
+
+
+def create_secgroup_rule(neutron_client, sg_id, direction, protocol,
+                         port_range_min=None, port_range_max=None,
+                         **json_body):      # pragma: no cover
+    # We create a security group in 2 steps
+    # 1 - we check the format and set the json body accordingly
+    # 2 - we call neturon client to create the security group
+
+    # Format check
+    json_body.update({'security_group_rule': {'direction': direction,
+                     'security_group_id': sg_id, 'protocol': protocol}})
+    # parameters may be
+    # - both None => we do nothing
+    # - both Not None => we add them to the json description
+    # but one cannot be None is the other is not None
+    if (port_range_min is not None and port_range_max is not None):
+        # add port_range in json description
+        json_body['security_group_rule']['port_range_min'] = port_range_min
+        json_body['security_group_rule']['port_range_max'] = port_range_max
+        log.debug("Security_group format set (port range included)")
+    else:
+        # either both port range are set to None => do nothing
+        # or one is set but not the other => log it and return False
+        if port_range_min is None and port_range_max is None:
+            log.debug("Security_group format set (no port range mentioned)")
+        else:
+            log.error("Bad security group format."
+                      "One of the port range is not properly set:"
+                      "range min: {},"
+                      "range max: {}".format(port_range_min,
+                                             port_range_max))
+            return False
+
+    # Create security group using neutron client
+    try:
+        neutron_client.create_security_group_rule(json_body)
+        return True
+    except Exception:
+        log.exception("Impossible to create_security_group_rule,"
+                      "security group rule probably already exists")
+        return False
+
+
+def create_security_group_full(neutron_client,
+                               sg_name, sg_description):      # pragma: no cover
+    sg_id = get_security_group_id(neutron_client, sg_name)
+    if sg_id != '':
+        log.info("Using existing security group '%s'..." % sg_name)
+    else:
+        log.info("Creating security group  '%s'..." % sg_name)
+        SECGROUP = create_security_group(neutron_client,
+                                         sg_name,
+                                         sg_description)
+        if not SECGROUP:
+            log.error("Failed to create the security group...")
+            return None
+
+        sg_id = SECGROUP['id']
+
+        log.debug("Security group '%s' with ID=%s created successfully."
+                  % (SECGROUP['name'], sg_id))
+
+        log.debug("Adding ICMP rules in security group '%s'..."
+                  % sg_name)
+        if not create_secgroup_rule(neutron_client, sg_id,
+                                    'ingress', 'icmp'):
+            log.error("Failed to create the security group rule...")
+            return None
+
+        log.debug("Adding SSH rules in security group '%s'..."
+                  % sg_name)
+        if not create_secgroup_rule(
+                neutron_client, sg_id, 'ingress', 'tcp', '22', '22'):
+            log.error("Failed to create the security group rule...")
+            return None
+
+        if not create_secgroup_rule(
+                neutron_client, sg_id, 'egress', 'tcp', '22', '22'):
+            log.error("Failed to create the security group rule...")
+            return None
+    return sg_id
 
 
 # *********************************************
