@@ -198,6 +198,8 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.get_ports_gateway6 = mock.Mock(return_value=u'1.1.1.1')
         opnfv_vnf.get_netmask_gateway6 = mock.Mock(return_value=u'255.255.255.0')
         opnfv_vnf.txrx_pipeline = ''
+        opnfv_vnf.vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        opnfv_vnf.interfaces = opnfv_vnf.vnfd['vdu'][0]['external-interface']
         opnfv_vnf.rules = ''
         self.assertIsNotNone(opnfv_vnf.generate_rule_config())
         opnfv_vnf.rules = 'new'
