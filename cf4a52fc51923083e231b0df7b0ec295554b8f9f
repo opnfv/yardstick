@@ -19,6 +19,40 @@
     },
     {
       "key": {
+        "uuid": "da33351e_1fa231ae",
+        "filename": "yardstick/network_services/nfvi/collectd.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-21T21:40:42Z",
+      "side": 1,
+      "message": "we use grep -q and don\u0027t need [[ ]].  \u0027if\u0027 naturally handles exit status\n\n\n if ldconfig -p | grep -q libpqos ; then",
+      "revId": "cf4a52fc51923083e231b0df7b0ec295554b8f9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ffa66dc0",
+        "filename": "yardstick/network_services/nfvi/collectd.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-21T21:40:42Z",
+      "side": 1,
+      "message": "for single line command, safer to use subshell\n\n   (cd intel-cmt-cat ; make install PREFIX\u003d/usr)",
+      "revId": "cf4a52fc51923083e231b0df7b0ec295554b8f9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_7fcb7d72",
         "filename": "yardstick/network_services/nfvi/collectd.sh",
         "patchSetId": 1
