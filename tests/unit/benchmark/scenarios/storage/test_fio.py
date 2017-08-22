@@ -55,6 +55,20 @@ class FioTestCase(unittest.TestCase):
         self.assertIsNotNone(p.client)
         self.assertEqual(p.setup_done, True)
 
+    def test_fio_job_file_successful_setup(self, mock_ssh):
+
+        options = {
+            'job_file': 'job_file.ini',
+            'directory': '/FIO_Test'
+        }
+        args = {'options': options}
+        p = fio.Fio(args, self.ctx)
+        p.setup()
+
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+        self.assertIsNotNone(p.client)
+        self.assertEqual(p.setup_done, True)
+
     def test_fio_successful_no_sla(self, mock_ssh):
 
         options = {
