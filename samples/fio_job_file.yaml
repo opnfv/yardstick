@@ -1,0 +1,55 @@
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# Sample benchmark task config file
+# measure storage performance using fio
+
+{% set directory = directory or "/FIO_Test" %}
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+-
+  type: Fio
+  options:
+    job_file: "job_file.ini"
+    directory: {{ directory }}
+
+  host: fio.demo
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+
+  sla:
+    read_bw: 6000
+    read_iops: 1500
+    read_lat: 500.1
+    write_bw: 6000
+    write_iops: 1500
+    write_lat: 500.1
+    action: monitor
+
+context:
+  name: demo
+  image: yardstick-image
+  flavor: yardstick-flavor
+  user: ubuntu
+  servers:
+    fio:
+      floating_ip: true
+      volume:
+        name: test-volume
+        size: 200 
+      volume_mountpoint: /dev/vdb
+  networks:
+    test:
+      cidr: "10.0.1.0/24"
+
