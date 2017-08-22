@@ -19,9 +19,11 @@ import os
 import logging
 import re
 import posixpath
+from itertools import chain
 
 from six.moves import configparser, zip
 
+from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
 from yardstick.network_services.pipeline import PipelineRules
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF, DpdkVnfSetupEnvHelper
 
@@ -31,8 +33,7 @@ VPE_PIPELINE_COMMAND = """sudo {tool_path} -p {ports_len_hex} -f {cfg_file} -s {
 
 VPE_COLLECT_KPI = """\
 Pkts in:\s(\d+)\r\n\
-\tPkts dropped by Pkts in:\s(\d+)\r\n\
-\tPkts dropped by AH:\s(\d+)\r\n\\
+\tPkts dropped by AH:\s(\d+)\r\n\
 \tPkts dropped by other:\s(\d+)\
 """
 
@@ -92,24 +93,23 @@ class ConfigCreate(object):
         pktq = "SWQ{0}{1}".format(self.sw_q, sink)
         return pktq
 
-    def vpe_upstream(self, vnf_cfg, intf):
+    def vpe_upstream(self, vnf_cfg, index=0):
         parser = configparser.ConfigParser()
         parser.read(os.path.join(vnf_cfg, 'vpe_upstream'))
+
         for pipeline in parser.sections():
             for k, v in parser.items(pipeline):
                 if k == "pktq_in":
-                    index = intf['index']
                     if "RXQ" in v:
-                        value = "RXQ{0}.0".format(index)
+                        value = "RXQ{0}.0".format(self.priv_ports[index])
                     else:
                         value = self.get_sink_swq(parser, pipeline, k, index)
 
                     parser.set(pipeline, k, value)
 
                 elif k == "pktq_out":
-                    index = intf['peer_intf']['index']
                     if "TXQ" in v:
-                        value = "TXQ{0}.0".format(index)
+                        value = "TXQ{0}.0".format(self.pub_ports[index])
                     else:
                         self.sw_q += 1
                         value = self.get_sink_swq(parser, pipeline, k, index)
@@ -123,21 +123,19 @@ class ConfigCreate(object):
             self.n_pipeline += 1
         return parser
 
-    def vpe_downstream(self, vnf_cfg, intf):
+    def vpe_downstream(self, vnf_cfg, index):
         parser = configparser.ConfigParser()
         parser.read(os.path.join(vnf_cfg, 'vpe_downstream'))
         for pipeline in parser.sections():
             for k, v in parser.items(pipeline):
-                index = intf['dpdk_port_num']
-                peer_index = intf['peer_intf']['dpdk_port_num']
 
                 if k == "pktq_in":
                     if "RXQ" not in v:
                         value = self.get_sink_swq(parser, pipeline, k, index)
                     elif "TM" in v:
-                        value = "RXQ{0}.0 TM{1}".format(peer_index, index)
+                        value = "RXQ{0}.0 TM{1}".format(self.pub_ports[index], index)
                     else:
-                        value = "RXQ{0}.0".format(peer_index)
+                        value = "RXQ{0}.0".format(self.pub_ports[index])
 
                     parser.set(pipeline, k, value)
 
@@ -146,9 +144,9 @@ class ConfigCreate(object):
                         self.sw_q += 1
                         value = self.get_sink_swq(parser, pipeline, k, index)
                     elif "TM" in v:
-                        value = "TXQ{0}.0 TM{1}".format(peer_index, index)
+                        value = "TXQ{0}.0 TM{1}".format(self.priv_ports[index], index)
                     else:
-                        value = "TXQ{0}.0".format(peer_index)
+                        value = "TXQ{0}.0".format(self.priv_ports[index])
 
                     parser.set(pipeline, k, value)
 
@@ -166,10 +164,10 @@ class ConfigCreate(object):
             config = self.vpe_initialize(config)
             config = self.vpe_rxq(config)
             config.write(cfg_file)
-            for index, priv_port in enumerate(self.priv_ports):
-                config = self.vpe_upstream(vnf_cfg, priv_port)
+            for index in range(0, len(self.priv_ports)):
+                config = self.vpe_upstream(vnf_cfg, index)
                 config.write(cfg_file)
-                config = self.vpe_downstream(vnf_cfg, priv_port)
+                config = self.vpe_downstream(vnf_cfg, index)
                 config = self.vpe_tmq(config, index)
                 config.write(cfg_file)
 
@@ -199,13 +197,27 @@ class ConfigCreate(object):
 
         return rules.get_string()
 
+    def generate_tm_cfg(self, vnf_cfg, index=0):
+        vnf_cfg = os.path.join(vnf_cfg, "full_tm_profile_10G.cfg")
+        if os.path.exists(vnf_cfg):
+            return open(vnf_cfg).read()
+
 
 class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
 
+    APP_NAME = 'vPE_vnf'
     CFG_CONFIG = "/tmp/vpe_config"
     CFG_SCRIPT = "/tmp/vpe_script"
+    TM_CONFIG = "/tmp/full_tm_profile_10G.cfg"
     CORES = ['0', '1', '2', '3', '4', '5']
     PIPELINE_COMMAND = VPE_PIPELINE_COMMAND
+
+    def _build_vnf_ports(self):
+        self.tg_port_pairs, self.networks = MultiPortConfig.get_port_pairs(
+            self.vnfd_helper.interfaces)
+        self.priv_ports = [int(x[0][2:]) for x in self.tg_port_pairs]
+        self.pub_ports = [int(x[1][2:]) for x in self.tg_port_pairs]
+        self.all_ports = list(set(chain(self.priv_ports, self.pub_ports)))
 
     def build_config(self):
         vpe_vars = {
@@ -216,6 +228,7 @@ class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
         all_ports = []
         priv_ports = []
         pub_ports = []
+        self._build_vnf_ports()
         for interface in self.vnfd_helper.interfaces:
             all_ports.append(interface['name'])
             vld_id = interface['virtual-interface']['vld_id']
@@ -224,11 +237,12 @@ class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
             elif vld_id.startswith('public'):
                 pub_ports.append(interface)
 
-        vpe_conf = ConfigCreate(priv_ports, pub_ports, self.socket)
+        vpe_conf = ConfigCreate(self.priv_ports, self.pub_ports, self.socket)
         vpe_conf.create_vpe_config(self.scenario_helper.vnf_cfg)
 
         config_basename = posixpath.basename(self.CFG_CONFIG)
         script_basename = posixpath.basename(self.CFG_SCRIPT)
+        tm_basename = posixpath.basename(self.TM_CONFIG)
         with open(self.CFG_CONFIG) as handle:
             vpe_config = handle.read()
 
@@ -236,6 +250,15 @@ class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
 
         vpe_script = vpe_conf.generate_vpe_script(self.vnfd_helper.interfaces)
         self.ssh_helper.upload_config_file(script_basename, vpe_script.format(**vpe_vars))
+
+        tm_config = vpe_conf.generate_tm_cfg(self.scenario_helper.vnf_cfg)
+        self.ssh_helper.upload_config_file(tm_basename, tm_config)
+
+        LOG.info("Provision and start the %s", self.APP_NAME)
+        LOG.info(self.CFG_CONFIG)
+        LOG.info(self.CFG_SCRIPT)
+        self._build_pipeline_kwargs()
+        return self.PIPELINE_COMMAND.format(**self.pipeline_kwargs)
 
 
 class VpeApproxVnf(SampleVNF):
