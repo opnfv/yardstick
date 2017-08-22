@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_57581d32",
+        "filename": "ansible/roles/install_PROX/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2017-08-22T20:26:13Z",
+      "side": 1,
+      "message": "add \u0027crc: soft\u0027 environment when building VM to disable HW offloads that are not present in virtualization.",
+      "revId": "131f595c50de526681aa527ea608cc4562cd5cb0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
