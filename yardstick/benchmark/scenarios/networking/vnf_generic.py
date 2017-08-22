@@ -451,7 +451,6 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
             for vnf in chain(traffic_runners, non_traffic_runners):
                 LOG.info("Instantiating %s", vnf.name)
                 vnf.instantiate(self.scenario_cfg, self.context_cfg)
-            for vnf in chain(traffic_runners, non_traffic_runners):
                 LOG.info("Waiting for %s to instantiate", vnf.name)
                 vnf.wait_for_instantiate()
         except RuntimeError:
