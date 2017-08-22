@@ -96,7 +96,10 @@ if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.vpe_vnf import ConfigCreate
     from yardstick.network_services.nfvi.resource import ResourceProfile
     from yardstick.network_services.vnf_generic.vnf import vpe_vnf
-    from yardstick.network_services.vnf_generic.vnf.vpe_vnf import VpeApproxVnf
+    from yardstick.network_services.vnf_generic.vnf.vpe_vnf import \
+        VpeApproxVnf, VpeApproxSetupEnvHelper
+    from yardstick.network_services.vnf_generic.vnf.sample_vnf import \
+        DpdkVnfSetupEnvHelper
 
 from tests.unit.network_services.vnf_generic.vnf.test_base import FileAbsPath
 from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
@@ -572,6 +575,44 @@ class TestVpeApproxVnf(unittest.TestCase):
                 NAME: {
                     'traffic_type': '4',
                     'topology': 'nsb_test_case.yaml',
+                    'vnf_config': 'vpe_config',
+                }
+            }
+        }
+        vpe_approx_vnf.topology = "nsb_test_case.yaml"
+        vpe_approx_vnf.nfvi_type = "baremetal"
+        vpe_approx_vnf._provide_config_file = mock.Mock()
+        vpe_approx_vnf._build_config = mock.MagicMock()
+
+        self.assertIsInstance(vpe_approx_vnf.ssh_helper, mock.Mock)
+        self.assertIsInstance(vpe_approx_vnf.ssh_helper, mock.Mock)
+        self.assertIsNone(vpe_approx_vnf._run())
+
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.vpe_vnf.ConfigCreate")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.vpe_vnf.open")
+    @mock.patch(SSH_HELPER)
+    def test_build_config(self, mock_mul, mock_context, mock_config, mock_open, ssh, _):
+        mock_ssh(ssh)
+        vpe_approx_vnf = VpeApproxSetupEnvHelper(mock.MagicMock(),
+                mock.MagicMock, mock.MagicMock)
+        vpe_approx_vnf.tc_file_name = get_file_abspath(TEST_FILE_YAML)
+        vpe_approx_vnf.generate_port_pairs = mock.Mock()
+        vpe_approx_vnf.tg_port_pairs = [[[0], [1]]]
+        vpe_approx_vnf.vnf_port_pairs = [[[0], [1]]]
+        vpe_approx_vnf.vnf_cfg = {
+            'lb_config': 'SW',
+            'lb_count': 1,
+            'worker_config': '1C/1T',
+            'worker_threads': 1,
+        }
+        vpe_approx_vnf.scenario_helper.scenario_cfg = {
+            'options': {
+                NAME: {
+                    'traffic_type': '4',
+                    'topology': 'nsb_test_case.yaml',
+                    'vnf_config': 'vpe_config',
                 }
             }
         }
@@ -579,8 +620,12 @@ class TestVpeApproxVnf(unittest.TestCase):
         vpe_approx_vnf.nfvi_type = "baremetal"
         vpe_approx_vnf._provide_config_file = mock.Mock()
 
-        self.assertIsInstance(vpe_approx_vnf.ssh_helper, mock.Mock)
-        self.assertIsNone(vpe_approx_vnf._run())
+        vpe_approx_vnf.ssh_helper = mock.MagicMock()
+        vpe_approx_vnf.scenario_helper = mock.MagicMock()
+        vpe_approx_vnf.ssh_helper.bin_path = mock.Mock()
+        vpe_approx_vnf.ssh_helper.upload_config_file = mock.MagicMock()
+        self.assertIsNone(vpe_approx_vnf._build_vnf_ports())
+        self.assertIsNotNone(vpe_approx_vnf.build_config())
 
     @mock.patch(SSH_HELPER)
     def test_wait_for_instantiate(self, ssh, _):
