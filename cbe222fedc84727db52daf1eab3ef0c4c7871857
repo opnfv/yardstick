@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_37abd9d9",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-22T20:50:50Z",
+      "side": 1,
+      "message": "add to get_nsb_option in utils.py\n\nthen add to \n\nvnf_generic.py\n\nload_vnf_models()\n\nuse conf option first, then fall back to os.environ.",
+      "revId": "cbe222fedc84727db52daf1eab3ef0c4c7871857",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
