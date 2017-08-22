@@ -240,7 +240,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
 
     def _build_pipeline_kwargs(self):
         tool_path = self.ssh_helper.provision_tool(tool_file=self.APP_NAME)
-        ports_len_hex = hex(2 ** (len(self.all_ports) + 1) - 1)
+        ports_len_hex = hex(2 ** (len(self.all_ports)) - 1)
         self.pipeline_kwargs = {
             'cfg_file': self.CFG_CONFIG,
             'script': self.CFG_SCRIPT,
