@@ -664,7 +664,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         expected = {
             'cfg_file': 'config',
             'script': 'script',
-            'ports_len_hex': '0xf',
+            'ports_len_hex': '0x7',
             'tool_path': 'tool_path',
         }
         dpdk_setup_helper._build_pipeline_kwargs()

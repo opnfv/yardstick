@@ -572,6 +572,7 @@ class TestVpeApproxVnf(unittest.TestCase):
                 NAME: {
                     'traffic_type': '4',
                     'topology': 'nsb_test_case.yaml',
+                    'vnf_config': 'vpe_config',
                 }
             }
         }
