@@ -572,13 +572,16 @@ class TestVpeApproxVnf(unittest.TestCase):
                 NAME: {
                     'traffic_type': '4',
                     'topology': 'nsb_test_case.yaml',
+                    'vnf_config': 'vpe_config',
                 }
             }
         }
         vpe_approx_vnf.topology = "nsb_test_case.yaml"
         vpe_approx_vnf.nfvi_type = "baremetal"
         vpe_approx_vnf._provide_config_file = mock.Mock()
+        vpe_approx_vnf._build_config = mock.MagicMock()
 
+        self.assertIsInstance(vpe_approx_vnf.ssh_helper, mock.Mock)
         self.assertIsInstance(vpe_approx_vnf.ssh_helper, mock.Mock)
         self.assertIsNone(vpe_approx_vnf._run())
 

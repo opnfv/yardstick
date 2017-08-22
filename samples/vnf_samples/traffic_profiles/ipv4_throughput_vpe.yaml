@@ -73,12 +73,14 @@ private_1:
             proto: "tcp"
             srcip4: "{{get(flow, 'flow.src_ip0', '192.168.0.0-192.168.255.255') }}"
             dstip4: "{{get(flow, 'flow.dst_ip0', '192.16.0.0-192.16.0.31') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
             ttl: 32
             dscp: 32
 
         outer_l4:
             srcport: "{{get(flow, 'flow.src_port0', '0') }}"
             dstport: "{{get(flow, 'flow.dst_port0', '0') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
 public_1:
       ipv4:
         outer_l2:
@@ -95,12 +97,14 @@ public_1:
             proto: "tcp"
             srcip4: "{{get(flow, 'flow.dst_ip0', '192.16.0.0-192.16.0.31') }}"
             dstip4: "{{get(flow, 'flow.src_ip0', '192.168.0.0-192.168.255.255') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
             ttl: 32
             dscp: 32
 
         outer_l4:
             srcport: "{{get(flow, 'flow.dst_port0', '0') }}"
             dstport: "{{get(flow, 'flow.src_port0', '0') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
 private_2:
       ipv4:
         outer_l2:
@@ -129,12 +133,14 @@ private_2:
             proto: "tcp"
             srcip4: "{{get(flow, 'flow.src_ip1', '192.168.0.0-192.168.255.255') }}"
             dstip4: "{{get(flow, 'flow.dst_ip1', '192.16.0.0-192.16.0.31') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
             ttl: 32
             dscp: 32
 
         outer_l4:
             srcport: "{{get(flow, 'flow.src_port1', '0') }}"
             dstport: "{{get(flow, 'flow.dst_port1', '0') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
 public_2:
       ipv4:
         outer_l2:
@@ -151,9 +157,11 @@ public_2:
             proto: "tcp"
             srcip4: "{{get(flow, 'flow.dst_ip1', '192.16.0.0-192.16.0.31') }}"
             dstip4: "{{get(flow, 'flow.src_ip1', '192.168.0.0-192.168.255.255') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
             ttl: 32
             dscp: 32
 
         outer_l4:
             srcport: "{{get(flow, 'flow.dst_port1', '0') }}"
             dstport: "{{get(flow, 'flow.src_port1', '0') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
