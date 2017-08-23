@@ -26,3 +26,7 @@ swift-download-file:
 nova-create-flavor:
   action_script: ha_tools/nova/create_flavor.bash
   rollback_script: ha_tools/nova/delete_flavor.bash
+
+get-floatingip:
+  action_script: ha_tools/nova/get_server_floatingip.bash
+  rollback_script: ha_tools/nova/list_servers.bash
