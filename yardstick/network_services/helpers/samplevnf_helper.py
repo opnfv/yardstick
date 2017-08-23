@@ -222,7 +222,7 @@ class MultiPortConfig(object):
             return
 
         try:
-            self.start_core = 'h{}'.format(int(self.start_core))
+            self.start_core = '{}h'.format(int(self.start_core))
         except ValueError:
             self.start_core = int(self.start_core[:-1]) + 1
 
