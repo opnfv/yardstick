@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_c320ebf9",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_vpe_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-23T16:54:02Z",
+      "side": 1,
+      "message": "six.moves should stay after import unittest.",
+      "revId": "1c3a2d3c402b791c7b8e07c179a9b612ab211ff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_8326e314",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-23T16:54:02Z",
+      "side": 1,
+      "message": "should be after import re, with a newline after.  according to PEP8 sorting rules.",
+      "revId": "1c3a2d3c402b791c7b8e07c179a9b612ab211ff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_0313f3b8",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-23T16:54:02Z",
+      "side": 1,
+      "message": "check for empty string\n\n  if trex_lib_path:\n      sys.path ....\n\notherwise we can prepend \u0027\u0027 to sys.path? (which might not do anything but still probably not good)",
+      "revId": "1c3a2d3c402b791c7b8e07c179a9b612ab211ff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

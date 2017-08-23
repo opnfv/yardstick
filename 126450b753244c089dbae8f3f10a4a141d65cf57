@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_c3490bd2",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-23T16:54:02Z",
+      "side": 0,
+      "message": "do we still need to touch __init__.py?",
+      "revId": "126450b753244c089dbae8f3f10a4a141d65cf57",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
