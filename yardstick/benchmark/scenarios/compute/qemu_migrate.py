@@ -41,10 +41,18 @@ class QemuMigrate(base.Scenario):
 
     def _put_files(self, client):
         setup_options = self.scenario_cfg["setup_options"]
+        rpm_dir = setup_options["rpm_dir"]
         script_dir = setup_options["script_dir"]
+        image_dir = setup_options["image_dir"]
+        LOG.debug("Send RPMs from %s to workspace %s",
+                  rpm_dir, self.WORKSPACE)
+        client.put(rpm_dir, self.WORKSPACE, recursive=True)
         LOG.debug("Send scripts from %s to workspace %s",
                   script_dir, self.WORKSPACE)
         client.put(script_dir, self.WORKSPACE, recursive=True)
+        LOG.debug("Send guest image from %s to workspace %s",
+                  image_dir, self.WORKSPACE)
+        client.put(image_dir, self.WORKSPACE, recursive=True)
 
     def _run_setup_cmd(self, client, cmd):
         LOG.debug("Run cmd: %s", cmd)
@@ -143,10 +151,17 @@ def _test():    # pragma: no cover
         "qmp_sock_dst": "/tmp/qmp-sock-dst",
         "max_down_time": 0.10
     }
+    sla = {
+        "max_totaltime": 10,
+        "max_downtime": 0.10,
+        "max_setuptime": 0.50,
+    }
     args = {
-        "options": options
+        "options": options,
+        "sla": sla
     }
     result = {}
+
     migrate = QemuMigrate(args, ctx)
     migrate.run(result)
     print(result)
