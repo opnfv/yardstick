@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_8389c3cc",
+        "filename": "ansible/post_build_yardstick_image.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2017-08-23T18:05:53Z",
+      "side": 1,
+      "message": "missing definition of mountdir in this playbook, the one from build_yardstick_image is not passed here.",
+      "range": {
+        "startLine": 23,
+        "startChar": 18,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "e708bdcf95477bce1ce76a4643d486702262f093",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_63863fbb",
+        "filename": "ansible/post_build_yardstick_image.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2017-08-23T18:05:53Z",
+      "side": 1,
+      "message": "same here, this value is not defined",
+      "range": {
+        "startLine": 41,
+        "startChar": 30,
+        "endLine": 41,
+        "endChar": 41
+      },
+      "revId": "e708bdcf95477bce1ce76a4643d486702262f093",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
