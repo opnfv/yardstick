@@ -362,7 +362,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
     def test__get_ip_flow_range(self):
         self.scenario_cfg["traffic_options"]["flow"] = \
             self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
-        result = '152.16.100.1-152.16.100.254'
+        result = '152.16.100.2-152.16.100.254'
         self.assertEqual(result, self.s._get_ip_flow_range({"tg__1": 'xe0'}))
 
     def test___get_traffic_flow(self):
@@ -384,8 +384,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
               'public_ip': ['1.1.1.1'],
             },
         }
-        result = {'flow': {'dst_ip0': '152.16.40.1-152.16.40.254',
-                           'src_ip0': '152.16.100.1-152.16.100.254'}}
+        result = {'flow': {'dst_ip0': '152.16.40.2-152.16.40.254',
+                           'src_ip0': '152.16.100.2-152.16.100.254'}}
 
         self.assertEqual(result, self.s._get_traffic_flow())
 
