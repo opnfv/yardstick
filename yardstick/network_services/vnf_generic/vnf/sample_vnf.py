@@ -21,6 +21,7 @@ import logging
 import os
 import re
 import subprocess
+from itertools import chain
 from collections import Mapping
 
 from multiprocessing import Queue, Value, Process
@@ -192,6 +193,13 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         interface = self.vnfd_helper.find_interface(name=name)
         return interface['virtual-interface']['dpdk_port_num']
 
+    def _build_ports(self):
+        self.tg_port_pairs, self.networks = MultiPortConfig.get_port_pairs(
+            self.vnfd_helper.interfaces)
+        self.priv_ports = [int(x[0][2:]) for x in self.tg_port_pairs]
+        self.pub_ports = [int(x[1][2:]) for x in self.tg_port_pairs]
+        self.all_ports = list(set(chain(self.priv_ports, self.pub_ports)))
+
     def build_config(self):
         vnf_cfg = self.scenario_helper.vnf_cfg
         task_path = self.scenario_helper.task_path
@@ -232,7 +240,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         self.ssh_helper.upload_config_file(config_basename, new_config)
         self.ssh_helper.upload_config_file(script_basename,
                                            multiport.generate_script(self.vnfd_helper))
-        self.all_ports = multiport.port_pair_list
+        self._build_ports()
 
         LOG.info("Provision and start the %s", self.APP_NAME)
         self._build_pipeline_kwargs()
