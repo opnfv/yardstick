@@ -49,13 +49,15 @@ private_1:
       ipv4:
         outer_l2:
             framesize:
-                64B: "{{ get(imix, 'imix.private.imix_small', '0') }}"
-                128B: "{{ get(imix, 'imix.private.imix_128B', '0') }}"
-                256B: "{{ get(imix, 'imix.private.imix_256B', '0') }}"
-                373b: "{{ get(imix, 'imix.private.imix_373B', '0') }}"
-                570B: "{{get(imix, 'imix.private.imix_570B', '0') }}"
-                1400B: "{{get(imix, 'imix.private.imix_1400B', '0') }}"
-                1518B: "{{get(imix, 'imix.private.imix_1500B', '0') }}"
+                64B: "{{ get(imix, 'imix.private.64B', '0') }}"
+                128B: "{{ get(imix, 'imix.private.128B', '0') }}"
+                256B: "{{ get(imix, 'imix.private.256B', '0') }}"
+                373b: "{{ get(imix, 'imix.private.373B', '0') }}"
+                512B: "{{ get(imix, 'imix.private.512B', '0') }}"
+                570B: "{{get(imix, 'imix.private.570B', '0') }}"
+                1400B: "{{get(imix, 'imix.private.1400B', '0') }}"
+                1500B: "{{get(imix, 'imix.private.1500B', '0') }}"
+                1518B: "{{get(imix, 'imix.private.1518B', '0') }}"
 
             QinQ:
                 S-VLAN:
@@ -69,14 +71,14 @@ private_1:
 
         outer_l3v4:
             proto: "tcp"
-            srcip4: "{{get(flow, 'flow.srcip4_range_1', '192.168.0.0-192.168.255.255') }}"
-            dstip4: "{{get(flow, 'flow.dstip4_range_1', '192.16.0.0-192.16.0.31') }}"
+            srcip4: "{{get(flow, 'flow.src_ip0', '192.168.0.0-192.168.255.255') }}"
+            dstip4: "{{get(flow, 'flow.dst_ip0', '192.16.0.0-192.16.0.31') }}"
             ttl: 32
             dscp: 32
 
         outer_l4:
-            srcport: "{{get(flow, 'flow.srcport_range', '0') }}"
-            dstport: "{{get(flow, 'flow.dstport_range', '0') }}"
+            srcport: "{{get(flow, 'flow.src_port0', '0') }}"
+            dstport: "{{get(flow, 'flow.dst_port0', '0') }}"
 public_1:
       ipv4:
         outer_l2:
@@ -91,25 +93,27 @@ public_1:
 
         outer_l3v4:
             proto: "tcp"
-            srcip4: "{{get(flow, 'flow.dstip4_range_1', '192.16.0.0-192.16.0.31') }}"
-            dstip4: "{{get(flow, 'flow.srcip4_range_1', '192.168.0.0-192.168.255.255') }}"
+            srcip4: "{{get(flow, 'flow.dst_ip0', '192.16.0.0-192.16.0.31') }}"
+            dstip4: "{{get(flow, 'flow.src_ip0', '192.168.0.0-192.168.255.255') }}"
             ttl: 32
             dscp: 32
 
         outer_l4:
-            srcport: "{{get(flow, 'flow.dstport_range', '0') }}"
-            dstport: "{{get(flow, 'flow.srcport_range', '0') }}"
+            srcport: "{{get(flow, 'flow.dst_port0', '0') }}"
+            dstport: "{{get(flow, 'flow.src_port0', '0') }}"
 private_2:
       ipv4:
         outer_l2:
             framesize:
-                64B: "{{ get(imix, 'imix.private.imix_small', '0') }}"
-                128B: "{{ get(imix, 'imix.private.imix_128B', '0') }}"
-                256B: "{{ get(imix, 'imix.private.imix_256B', '0') }}"
-                373b: "{{ get(imix, 'imix.private.imix_373B', '0') }}"
-                570B: "{{get(imix, 'imix.private.imix_570B', '0') }}"
-                1400B: "{{get(imix, 'imix.private.imix_1400B', '0') }}"
-                1518B: "{{get(imix, 'imix.private.imix_1500B', '0') }}"
+                64B: "{{ get(imix, 'imix.public.64B', '0') }}"
+                128B: "{{ get(imix, 'imix.public.128B', '0') }}"
+                256B: "{{ get(imix, 'imix.public.256B', '0') }}"
+                373b: "{{ get(imix, 'imix.public.373B', '0') }}"
+                512B: "{{ get(imix, 'imix.public.512B', '0') }}"
+                570B: "{{get(imix, 'imix.public.570B', '0') }}"
+                1400B: "{{get(imix, 'imix.public.1400B', '0') }}"
+                1500B: "{{get(imix, 'imix.public.1500B', '0') }}"
+                1518B: "{{get(imix, 'imix.public.1518B', '0') }}"
 
             QinQ:
                 S-VLAN:
@@ -123,14 +127,14 @@ private_2:
 
         outer_l3v4:
             proto: "tcp"
-            srcip4: "{{get(flow, 'flow.srcip4_range_2', '192.168.0.0-192.168.255.255') }}"
-            dstip4: "{{get(flow, 'flow.dstip4_range_2', '192.16.0.0-192.16.0.31') }}"
+            srcip4: "{{get(flow, 'flow.src_ip1', '192.168.0.0-192.168.255.255') }}"
+            dstip4: "{{get(flow, 'flow.dst_ip1', '192.16.0.0-192.16.0.31') }}"
             ttl: 32
             dscp: 32
 
         outer_l4:
-            srcport: "{{get(flow, 'flow.srcport_range', '0') }}"
-            dstport: "{{get(flow, 'flow.dstport_range', '0') }}"
+            srcport: "{{get(flow, 'flow.src_port1', '0') }}"
+            dstport: "{{get(flow, 'flow.dst_port1', '0') }}"
 public_2:
       ipv4:
         outer_l2:
@@ -145,11 +149,11 @@ public_2:
 
         outer_l3v4:
             proto: "tcp"
-            srcip4: "{{get(flow, 'flow.dstip4_range_2', '192.16.0.0-192.16.0.31') }}"
-            dstip4: "{{get(flow, 'flow.srcip4_range_2', '192.168.0.0-192.168.255.255') }}"
+            srcip4: "{{get(flow, 'flow.dst_ip1', '192.16.0.0-192.16.0.31') }}"
+            dstip4: "{{get(flow, 'flow.src_ip1', '192.168.0.0-192.168.255.255') }}"
             ttl: 32
             dscp: 32
 
         outer_l4:
-            srcport: "{{get(flow, 'flow.dstport_range', '0') }}"
-            dstport: "{{get(flow, 'flow.srcport_range', '0') }}"
+            srcport: "{{get(flow, 'flow.dst_port1', '0') }}"
+            dstport: "{{get(flow, 'flow.src_port1', '0') }}"
