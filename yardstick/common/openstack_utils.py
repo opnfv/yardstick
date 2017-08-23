@@ -11,6 +11,7 @@ from __future__ import absolute_import
 
 import os
 import time
+import sys
 import logging
 
 from keystoneauth1 import loading
@@ -479,6 +480,15 @@ def create_floating_ip(neutron_client, extnet_id):      # pragma: no cover
     return {'fip_addr': fip_addr, 'fip_id': fip_id}
 
 
+def delete_floating_ip(nova_client, floatingip_id):      # pragma: no cover
+    try:
+        nova_client.floating_ips.delete(floatingip_id)
+        return True
+    except Exception:
+        log.error("Error [delete_floating_ip(nova_client, '%s')]" % floatingip_id)
+        return False
+
+
 def get_security_groups(neutron_client):      # pragma: no cover
     try:
         security_groups = neutron_client.list_security_groups()[
@@ -667,3 +677,33 @@ def create_volume(cinder_client, volume_name, volume_size,
         log.exception("Error [create_volume(cinder_client, %s)]",
                       (volume_name, volume_size))
         return None
+
+
+def delete_volume(cinder_client, volume_id, forced=False):      # pragma: no cover
+    try:
+        if forced:
+            try:
+                cinder_client.volumes.detach(volume_id)
+            except:
+                log.error(sys.exc_info()[0])
+            cinder_client.volumes.force_delete(volume_id)
+        else:
+            while True:
+                volume = get_cinder_client().volumes.get(volume_id)
+                if volume.status.lower() == 'available':
+                    break
+            cinder_client.volumes.delete(volume_id)
+        return True
+    except Exception:
+        log.exception("Error [delete_volume(cinder_client, '%s')]" % volume_id)
+        return False
+
+
+def detach_volume(server_id, volume_id):
+    try:
+        get_nova_client().volumes.delete_server_volume(server_id, volume_id)
+        return True
+    except Exception:
+        log.exception("Error [detach_server_volume(nova_client, '%s', '%s')]",
+                      server_id, volume_id)
+        return False
