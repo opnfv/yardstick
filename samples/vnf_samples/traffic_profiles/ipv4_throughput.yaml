@@ -95,3 +95,53 @@ public_1:
             srcport: "{{get(flow, 'flow.dst_port0', '1234-4321') }}"
             dstport: "{{get(flow, 'flow.src_port0', '2001-4001') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
+private_2:
+      ipv4:
+        outer_l2:
+            framesize:
+                64B: "{{ get(imix, 'imix.private.64B', '0') }}"
+                128B: "{{ get(imix, 'imix.private.128B', '0') }}"
+                256B: "{{ get(imix, 'imix.private.256B', '0') }}"
+                373b: "{{ get(imix, 'imix.private.373B', '0') }}"
+                512B: "{{ get(imix, 'imix.private.512B', '0') }}"
+                570B: "{{get(imix, 'imix.private.570B', '0') }}"
+                1400B: "{{get(imix, 'imix.private.1400B', '0') }}"
+                1500B: "{{get(imix, 'imix.private.1500B', '0') }}"
+                1518B: "{{get(imix, 'imix.private.1518B', '0') }}"
+
+        outer_l3v4:
+            proto: "udp"
+            srcip4: "{{get(flow, 'flow.src_ip1', '1.1.1.1-1.1.255.255') }}"
+            dstip4: "{{get(flow, 'flow.dst_ip1', '90.90.1.1-90.90.255.255') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
+            ttl: 32
+            dscp: 0
+        outer_l4:
+            srcport: "{{get(flow, 'flow.src_port1', '1234-4321') }}"
+            dstport: "{{get(flow, 'flow.dst_port1', '2001-4001') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
+public_2:
+      ipv4:
+        outer_l2:
+            framesize:
+                64B: "{{ get(imix, 'imix.public.64B', '0') }}"
+                128B: "{{ get(imix, 'imix.public.128B', '0') }}"
+                256B: "{{ get(imix, 'imix.public.256B', '0') }}"
+                373b: "{{ get(imix, 'imix.public.373B', '0') }}"
+                512B: "{{ get(imix, 'imix.public.512B', '0') }}"
+                570B: "{{get(imix, 'imix.public.570B', '0') }}"
+                1400B: "{{get(imix, 'imix.public.1400B', '0') }}"
+                1500B: "{{get(imix, 'imix.public.1500B', '0') }}"
+                1518B: "{{get(imix, 'imix.public.1518B', '0') }}"
+
+        outer_l3v4:
+            proto: "udp"
+            srcip4: "{{get(flow, 'flow.dst_ip1', '90.90.1.1-90.90.255.255') }}"
+            dstip4: "{{get(flow, 'flow.src_ip1', '1.1.1.1-1.1.255.255') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
+            ttl: 32
+            dscp: 0
+        outer_l4:
+            srcport: "{{get(flow, 'flow.dst_port1', '1234-4321') }}"
+            dstport: "{{get(flow, 'flow.src_port1', '2001-4001') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"

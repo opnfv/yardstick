@@ -192,6 +192,10 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         interface = self.vnfd_helper.find_interface(name=name)
         return interface['virtual-interface']['dpdk_port_num']
 
+    def _get_vnf_ports(self):
+        ports = [i for i, _ in enumerate(self.vnfd_helper.interfaces)]
+        return ports
+
     def build_config(self):
         vnf_cfg = self.scenario_helper.vnf_cfg
         task_path = self.scenario_helper.task_path
@@ -232,7 +236,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         self.ssh_helper.upload_config_file(config_basename, new_config)
         self.ssh_helper.upload_config_file(script_basename,
                                            multiport.generate_script(self.vnfd_helper))
-        self.all_ports = multiport.port_pair_list
+        self.all_ports = self._get_vnf_ports()
 
         LOG.info("Provision and start the %s", self.APP_NAME)
         self._build_pipeline_kwargs()
