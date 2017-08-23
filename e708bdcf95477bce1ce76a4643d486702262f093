@@ -79,6 +79,23 @@
       "revId": "e708bdcf95477bce1ce76a4643d486702262f093",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_1e2cea46",
+        "filename": "samples/vnf_samples/nsut/acl/tc_heat_rfc2544_ipv4_1rule_1flow_64B_packetsize.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2017-08-23T22:00:11Z",
+      "side": 1,
+      "message": "this change should go to separate review",
+      "revId": "e708bdcf95477bce1ce76a4643d486702262f093",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
