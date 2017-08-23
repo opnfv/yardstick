@@ -13,6 +13,9 @@
 # limitations under the License.
 
 
+import io
+
+
 class CpuSysCores(object):
 
     def __init__(self, connection=""):
@@ -20,8 +23,9 @@ class CpuSysCores(object):
         self.connection = connection
 
     def _open_cpuinfo(self):
-        lines = []
-        lines = self.connection.execute("cat /proc/cpuinfo")[1].split(u'\n')
+        cpuinfo = io.BytesIO()
+        self.connection.get_file_obj("/proc/cpuinfo", cpuinfo)
+        lines = cpuinfo.getvalue().decode('utf-8').splitlines()
         return lines
 
     def _get_core_details(self, lines):
