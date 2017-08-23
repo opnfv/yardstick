@@ -150,7 +150,12 @@ class NetworkServiceTestCase(base.Scenario):
 
             ipaddr = ipaddress.ip_network(six.text_type('{}/{}'.format(ip, mask)), strict=False)
             hosts = list(ipaddr.hosts())
-            ip_addr_range = "{}-{}".format(hosts[0], hosts[-1])
+            if len(hosts) > 2:
+                ip_addr_range = "{}-{}".format(hosts[1], hosts[-1])
+            else:
+                LOG.warning("Only single IP in range %s", ipaddr)
+                # fall back to single IP range
+                ip_addr_range = ip
         else:
             # we are manually specifying the range
             ip_addr_range = range_or_interface
