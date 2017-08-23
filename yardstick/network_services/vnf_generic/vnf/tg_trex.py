@@ -66,6 +66,12 @@ class TrexResourceHelper(ClientResourceHelper):
                 "src_mac": mac_address_to_hex_list(local_mac),
                 "dest_mac": mac_address_to_hex_list(dst_mac),
             })
+            network = virtual_interface["peer_intf"].get("network", {})
+            if network:
+                segmentation_id = network.get("segmentation_id")
+                network_type = network.get("network_type")
+                if network_type == "vlan" and segmentation_id:
+                    port_list.append({"vlan":  segmentation_id})
 
         cfg_str = yaml.safe_dump(cfg_file, default_flow_style=False, explicit_start=True)
         self.ssh_helper.upload_config_file(os.path.basename(self.CONF_FILE), cfg_str)
