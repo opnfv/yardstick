@@ -231,6 +231,7 @@ class Server(Object):     # pragma: no cover
             self._flavor = attrs["flavor"]
 
         self.user_data = attrs.get('user_data', '')
+        self.availability_zone = attrs.get('availability_zone')
 
         Server.list.append(self)
 
@@ -306,12 +307,10 @@ class Server(Object):     # pragma: no cover
                                                mountpoint=self.volume_mountpoint)
 
         template.add_server(server_name, self.image, flavor=self.flavor_name,
-                            flavors=self.context.flavors,
-                            ports=port_name_list,
-                            user=self.user,
-                            key_name=self.keypair_name,
-                            user_data=self.user_data,
-                            scheduler_hints=scheduler_hints)
+                            flavors=self.context.flavors, ports=port_name_list,
+                            scheduler_hints=scheduler_hints, user=self.user,
+                            key_name=self.keypair_name, user_data=self.user_data,
+                            availability_zone=self.availability_zone)
 
     def add_to_template(self, template, networks, scheduler_hints=None):
         """adds to the template one or more servers (instances)"""

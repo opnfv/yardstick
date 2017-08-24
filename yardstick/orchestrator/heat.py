@@ -516,11 +516,10 @@ name (i.e. %s).\
             'value': {'get_resource': name}
         }
 
-    def add_server(self, name, image, flavor, flavors, ports=None,
-                   networks=None, scheduler_hints=None, user=None,
-                   key_name=None, user_data=None, metadata=None,
-                   additional_properties=None):
-        """add to the template a Nova Server"""
+    def add_server(self, name, image, flavor, flavors, ports=None, networks=None,
+                   scheduler_hints=None, user=None, key_name=None, user_data=None, metadata=None,
+                   additional_properties=None, availability_zone=None):
+        """add to the template a Nova Server """
         log.debug("adding Nova::Server '%s', image '%s', flavor '%s', "
                   "ports %s", name, image, flavor, ports)
 
@@ -535,6 +534,9 @@ name (i.e. %s).\
             'flavor': {},
             'networks': []  # list of dictionaries
         }
+        if availability_zone:
+            server_properties["availability_zone"] = availability_zone
+
 
         if flavor in flavors:
             self.resources[name]['depends_on'].append(flavor)
