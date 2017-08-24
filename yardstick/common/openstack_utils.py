@@ -457,6 +457,15 @@ def create_neutron_net(neutron_client, json_body):      # pragma: no cover
         return None
 
 
+def delete_neutron_net(neutron_client, network_id):      # pragma: no cover
+    try:
+        neutron_client.delete_network(network_id)
+        return True
+    except Exception:
+        log.error("Error [delete_neutron_net(neutron_client, '%s')]" % network_id)
+        return False
+
+
 def create_neutron_subnet(neutron_client, json_body):      # pragma: no cover
     try:
         subnet = neutron_client.create_subnet(body=json_body)
@@ -475,6 +484,37 @@ def create_neutron_router(neutron_client, json_body):      # pragma: no cover
         log.error("Error [create_neutron_router(neutron_client)]")
         raise Exception("operation error")
         return None
+
+
+def delete_neutron_router(neutron_client, router_id):      # pragma: no cover
+    try:
+        neutron_client.delete_router(router=router_id)
+        return True
+    except Exception:
+        log.error("Error [delete_neutron_router(neutron_client, '%s')]" % router_id)
+        return False
+
+
+def remove_gateway_router(neutron_client, router_id):      # pragma: no cover
+    try:
+        neutron_client.remove_gateway_router(router_id)
+        return True
+    except Exception:
+        log.error("Error [remove_gateway_router(neutron_client, '%s')]" % router_id)
+        return False
+
+
+def remove_interface_router(neutron_client, router_id, subnet_id,
+                            **json_body):      # pragma: no cover
+    json_body.update({"subnet_id": subnet_id})
+    try:
+        neutron_client.remove_interface_router(router=router_id,
+                                               body=json_body)
+        return True
+    except Exception:
+        log.error("Error [remove_interface_router(neutron_client, '%s', "
+                  "'%s')]" % (router_id, subnet_id))
+        return False
 
 
 def create_floating_ip(neutron_client, extnet_id):      # pragma: no cover
