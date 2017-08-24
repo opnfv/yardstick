@@ -44,7 +44,6 @@ context:
   name: yardstick
   image: yardstick-samplevnfs
   flavor:
-    name: yardstick-dpdk-flavor
     vcpus: 10
     ram: 20480
     disk: 4
