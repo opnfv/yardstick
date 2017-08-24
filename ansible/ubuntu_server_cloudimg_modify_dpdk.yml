@@ -25,6 +25,8 @@
     - add_custom_repos
     - enable_hugepages_on_boot
     - modify_cloud_config
+    - role: set_package_installer_proxy
+      when: proxy_env is defined and proxy_env
     - install_image_dependencies
     - download_unixbench
     - install_unixbench
