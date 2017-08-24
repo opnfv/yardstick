@@ -280,7 +280,7 @@ name (i.e. %s).\
                 'type': 'OS::Neutron::ProviderNet',
                 'properties': {
                     'name': name,
-                    'network_type': 'vlan',
+                    'network_type': 'vlan' if segmentation_id else 'flat',
                     'physical_network': physical_network,
                 },
             }
