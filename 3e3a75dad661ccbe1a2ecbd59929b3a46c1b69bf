@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_5f64ab48",
+        "filename": "yardstick/benchmark/contexts/standalone/__init__.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-24T18:41:40Z",
+      "side": 1,
+      "message": "needs to be __context_type__ for base.get_cls() importing to match the YAML values in testcases.",
+      "revId": "3e3a75dad661ccbe1a2ecbd59929b3a46c1b69bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_bf5b3786",
+        "filename": "yardstick/benchmark/contexts/standalone/__init__.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-24T18:41:40Z",
+      "side": 1,
+      "message": "standardized on \u0027dpdk-devbind.py\u0027",
+      "revId": "3e3a75dad661ccbe1a2ecbd59929b3a46c1b69bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ff549f55",
+        "filename": "yardstick/benchmark/contexts/standalone/__init__.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-24T18:41:40Z",
+      "side": 1,
+      "message": "bah, need to check if lshw is installed by default everywhere.\n\nmight have to use lspci.",
+      "revId": "3e3a75dad661ccbe1a2ecbd59929b3a46c1b69bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_df4f1bbd",
+        "filename": "yardstick/benchmark/contexts/standalone/__init__.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-24T18:41:40Z",
+      "side": 1,
+      "message": "explicit zero?  I suppose",
+      "revId": "3e3a75dad661ccbe1a2ecbd59929b3a46c1b69bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3f4f27bf",
+        "filename": "yardstick/benchmark/contexts/standalone/__init__.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-24T18:41:40Z",
+      "side": 1,
+      "message": "can we %s these?",
+      "revId": "3e3a75dad661ccbe1a2ecbd59929b3a46c1b69bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9fd593bb",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-24T18:41:40Z",
+      "side": 1,
+      "message": "this should be some kind of pkill -f or -x",
+      "revId": "3e3a75dad661ccbe1a2ecbd59929b3a46c1b69bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7fefef87",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-24T18:41:40Z",
+      "side": 1,
+      "message": "okay, we already have pkill -9, so not sure which processes we are missing",
+      "revId": "3e3a75dad661ccbe1a2ecbd59929b3a46c1b69bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5ff2eb6f",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-24T18:41:40Z",
+      "side": 1,
+      "message": "and this should do kill everything if xargs doesn\u0027t do it.",
+      "revId": "3e3a75dad661ccbe1a2ecbd59929b3a46c1b69bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_dffd5b3d",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-24T18:41:40Z",
+      "side": 1,
+      "message": "dpdk-devbind.py",
+      "revId": "3e3a75dad661ccbe1a2ecbd59929b3a46c1b69bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
