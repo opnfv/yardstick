@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "da33351e_3c59f55a",
+        "filename": "samples/vnf_samples/nsut/cgnapt/tc_heat_rfc2544_ipv4_1flow_64B_trex.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2017-08-24T15:20:52Z",
+      "side": 1,
+      "message": "do we need the name?",
+      "revId": "c05094d3ca177639a468ff98a159a604c18e08de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_b9a07744",
         "filename": "samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex.yaml",
         "patchSetId": 1
