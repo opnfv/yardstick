@@ -163,7 +163,8 @@ class HeatContext(Context):
                                  network.physical_network,
                                  network.provider,
                                  network.segmentation_id,
-                                 network.port_security_enabled)
+                                 network.port_security_enabled,
+                                 network.network_type)
             template.add_subnet(network.subnet_stack_name, network.stack_name,
                                 network.subnet_cidr,
                                 network.enable_dhcp,

@@ -265,7 +265,7 @@ name (i.e. %s).\
             self.resources[name]['properties']['mountpoint'] = mountpoint
 
     def add_network(self, name, physical_network='physnet1', provider=None,
-                    segmentation_id=None, port_security_enabled=None):
+                    segmentation_id=None, port_security_enabled=None, network_type=None):
         """add to the template a Neutron Net"""
         log.debug("adding Neutron::Net '%s'", name)
         if provider is None:
@@ -280,12 +280,14 @@ name (i.e. %s).\
                 'type': 'OS::Neutron::ProviderNet',
                 'properties': {
                     'name': name,
-                    'network_type': 'vlan',
+                    'network_type': 'flat' if network_type is None else network_type,
                     'physical_network': physical_network,
                 },
             }
             if segmentation_id:
                 self.resources[name]['properties']['segmentation_id'] = segmentation_id
+                if network_type is None:
+                    self.resources[name]['properties']['network_type'] = 'vlan'
         # if port security is not defined then don't add to template:
         # some deployments don't have port security plugin installed
         if port_security_enabled is not None:

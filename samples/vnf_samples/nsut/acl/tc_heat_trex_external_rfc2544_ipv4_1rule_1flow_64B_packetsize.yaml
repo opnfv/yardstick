@@ -45,18 +45,15 @@ contexts:
     type: Node
     file: trex-baremetal.yml
   - name: yardstick
-    image: yardstick-acl
-    flavor: yardstick-flavor
-#    flavor:
-#  #    name: yardstick-dpdk-flavor
-#      vcpus: 6
-#      ram: 20480
-#      disk: 4
-#      extra_specs:
-#        hw:cpu_sockets: 1
-#        hw:cpu_cores: 6
-#        hw:cpu_threads: 1
-#  #      hw:mem_page_size: large
+    image: yardstick-samplevnfs
+    flavor:
+      vcpus: 10
+      ram: 20480
+      disk: 4
+      extra_specs:
+        hw:cpu_sockets: 1
+        hw:cpu_cores: 10
+        hw:cpu_threads: 1
     user: ubuntu
     placement_groups:
       pgrp1:
@@ -68,11 +65,17 @@ contexts:
     networks:
       mgmt:
         cidr: '10.0.1.0/24'
-        external_network: "yardstick-public"
       xe0:
         cidr: '10.0.2.0/24'
-        vld_id: public
+        vld_id: public_1
+        gateway_ip: 'null'
+        provider: true
+        physical_network: phystenant1
+        port_security_enabled: False
       xe1:
         cidr: '10.0.3.0/24'
-        vld_id: private
-
+        vld_id: private_1
+        gateway_ip: 'null'
+        provider: true
+        physical_network: phystenant2
+        port_security_enabled: False
