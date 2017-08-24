@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "da33351e_7fea4f10",
+        "filename": "samples/vnf_samples/nsut/acl/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2017-08-24T16:30:28Z",
+      "side": 1,
+      "message": "public_1?",
+      "range": {
+        "startLine": 73,
+        "startChar": 14,
+        "endLine": 73,
+        "endChar": 20
+      },
+      "revId": "c05094d3ca177639a468ff98a159a604c18e08de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5fedcb24",
+        "filename": "samples/vnf_samples/nsut/acl/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2017-08-24T16:30:28Z",
+      "side": 1,
+      "message": "private_1?",
+      "range": {
+        "startLine": 81,
+        "startChar": 14,
+        "endLine": 81,
+        "endChar": 21
+      },
+      "revId": "c05094d3ca177639a468ff98a159a604c18e08de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_3c59f55a",
         "filename": "samples/vnf_samples/nsut/cgnapt/tc_heat_rfc2544_ipv4_1flow_64B_trex.yaml",
         "patchSetId": 1
