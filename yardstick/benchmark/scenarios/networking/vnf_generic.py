@@ -523,7 +523,7 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
         for vnf in self.vnfs:
             # Result example:
             # {"VNF1: { "tput" : [1000, 999] }, "VNF2": { "latency": 100 }}
-            LOG.debug("vnf")
+            LOG.debug("collect KPI for %s", vnf.name)
             result.update(self.collector.get_kpi(vnf))
 
     def teardown(self):
