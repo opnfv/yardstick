@@ -12,13 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: Install PROX build dependencies
-  action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
-  with_items:
-    - pkg-config
-    - liblua5.2-dev
-    - libncurses5
-    - libncurses5-dev
-    - libncursesw5
-    - libncursesw5-dev
-    - libedit-dev
+- name: install yardstick dependencies
+  hosts: all
+
+  roles:
+    - install_dependencies
+
