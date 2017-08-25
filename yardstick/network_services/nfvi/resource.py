@@ -27,7 +27,7 @@ from oslo_config import cfg
 
 from yardstick import ssh
 from yardstick.network_services.nfvi.collectd import AmqpConsumer
-from yardstick.network_services.utils import provision_tool
+from yardstick.network_services.utils import get_nsb_option
 
 LOG = logging.getLogger(__name__)
 
@@ -196,10 +196,21 @@ class ResourceProfile(object):
         self._provide_config_file(bin_path, 'collectd.conf', kwargs)
 
     def _start_collectd(self, connection, bin_path):
-        LOG.debug("Starting collectd to collect NFVi stats")
         connection.execute('sudo pkill -9 collectd')
-        collectd = os.path.join(bin_path, "collectd.sh")
-        provision_tool(connection, collectd)
+        bin_path = get_nsb_option("bin_path")
+        collectd_path = os.path.join(bin_path, "collectd", "collectd")
+        exit_status = connection.execute("which %s > /dev/null 2>&1" % collectd_path)[0]
+        if exit_status != 0:
+            LOG.warning("%s is not present disabling", collectd_path)
+            # disable auto-provisioning because it requires Internet access
+            # collectd_installer = os.path.join(bin_path, "collectd.sh")
+            # provision_tool(connection, collectd)
+            # http_proxy = os.environ.get('http_proxy', '')
+            # https_proxy = os.environ.get('https_proxy', '')
+            # connection.execute("sudo %s '%s' '%s'" % (
+            #     collectd_installer, http_proxy, https_proxy))
+            return
+        LOG.debug("Starting collectd to collect NFVi stats")
         self._prepare_collectd_conf(bin_path)
 
         # Reset amqp queue
@@ -211,15 +222,8 @@ class ResourceProfile(object):
         connection.execute("sudo rabbitmqctl start_app")
         connection.execute("sudo service rabbitmq-server restart")
 
-        # Run collectd
-
-        http_proxy = os.environ.get('http_proxy', '')
-        https_proxy = os.environ.get('https_proxy', '')
-        connection.execute("sudo %s '%s' '%s'" %
-                           (collectd, http_proxy, https_proxy))
         LOG.debug("Start collectd service.....")
-        connection.execute(
-            "sudo %s" % os.path.join(bin_path, "collectd", "collectd"))
+        connection.execute("sudo %s" % collectd_path)
         LOG.debug("Done")
 
     def initiate_systemagent(self, bin_path):
