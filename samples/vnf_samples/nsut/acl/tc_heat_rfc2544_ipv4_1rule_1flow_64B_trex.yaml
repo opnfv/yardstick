@@ -44,7 +44,6 @@ context:
   name: yardstick
   image: yardstick-samplevnfs
   flavor:
-    name: yardstick-dpdk-flavor
     vcpus: 10
     ram: 20480
     disk: 4
@@ -60,11 +59,9 @@ context:
     vnf:
       floating_ip: true
       placement: "pgrp1"
-      image: yardstick-vnfs
     trafficgen_1:
       floating_ip: true
       placement: "pgrp1"
-      image: yardstick-trex
   networks:
     mgmt:
       cidr: '10.0.1.0/24'
