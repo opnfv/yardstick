@@ -36,13 +36,13 @@ link {0} up
 
 ACTION_TEMPLATE = """\
 p action add {0} accept
-p action add {0} fwd
+p action add {0} fwd {0}
 p action add {0} count
 """
 
 FW_ACTION_TEMPLATE = """\
 p action add {0} accept
-p action add {0} fwd
+p action add {0} fwd {0}
 p action add {0} count
 p action add {0} conntrack
 """
