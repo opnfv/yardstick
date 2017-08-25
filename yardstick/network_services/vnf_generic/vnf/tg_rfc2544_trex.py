@@ -98,7 +98,7 @@ class TrexRfcResourceHelper(TrexResourceHelper):
 
     def collect_kpi(self):
         self.rfc2544_helper.iteration.value += 1
-        super(TrexRfcResourceHelper, self).collect_kpi()
+        return super(TrexRfcResourceHelper, self).collect_kpi()
 
 
 class TrexTrafficGenRFC(TrexTrafficGen):

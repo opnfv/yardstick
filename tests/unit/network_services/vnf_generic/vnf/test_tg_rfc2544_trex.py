@@ -233,7 +233,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
     def test_collect_kpi(self, ssh):
         mock_ssh(ssh)
         trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
-        self.assertIsNone(trex_traffic_gen.collect_kpi())
+        self.assertEqual(trex_traffic_gen.collect_kpi(), {})
 
     @mock.patch(SSH_HELPER)
     def test_listen_traffic(self, ssh):
