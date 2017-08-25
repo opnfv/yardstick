@@ -90,7 +90,7 @@ def import_modules_from_package(package):
         for module_name in missing_modules:
             try:
                 sys.modules[module_name] = importutils.import_module(module_name)
-            except ImportError:
+            except (ImportError, SyntaxError):
                 logger.exception("unable to import %s", module_name)
 
 
