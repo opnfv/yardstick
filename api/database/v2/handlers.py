@@ -87,6 +87,11 @@ class V2ImageHandler(object):
             raise ValueError
         return image
 
+    def delete_by_uuid(self, uuid):
+        image = self.get_by_uuid(uuid)
+        db_session.delete(image)
+        db_session.commit()
+
 
 class V2PodHandler(object):
 

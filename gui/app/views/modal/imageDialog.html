@@ -1,0 +1,19 @@
+<div>
+
+    <h4>Enter Remote Image Url</h4>
+    <input type="text" ng-model="url" />
+
+    <div style="text-align:center;margin-top:20px;">
+        <button class="btn btn-default" ng-disabled=" url==null || url==''" ng-click="uploadCustomImageByUrl(url)">Upload</button>
+    </div>
+
+</div>
+
+
+<style>
+    input {
+        border-radius: 10px;
+        border: 1px solid #eeeeee;
+        width: 100%;
+    }
+</style>
