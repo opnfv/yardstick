@@ -9,7 +9,7 @@
 
 ---
 # Sample benchmark task config file
-# measure network latency using ping in container
+# measure network latency using ping betwwen container and VM
 
 schema: "yardstick:task:0.1"
 
