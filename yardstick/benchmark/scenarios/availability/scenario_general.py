@@ -59,6 +59,8 @@ class ScenarioGeneral(base.Scenario):
 
         verify_result = self.director.verify()
 
+        self.director.storeResult(result)
+
         for k, v in self.director.data.items():
             if v == 0:
                 result['sla_pass'] = 0

@@ -10,6 +10,7 @@ from __future__ import absolute_import
 import pkg_resources
 import logging
 import os
+import time
 
 import yardstick.common.utils as utils
 from yardstick.common.yaml_loader import yaml_load
@@ -50,6 +51,12 @@ class ResultCheckerMgr(object):
             result &= obj.success
         return result
 
+    def storeResult(self, result_store):
+        for checker in self._result_checker_list:
+            checker_result = checker.result()
+            for (k, v) in checker_result.items():
+                result_store[checker.key + "_" + k] = v
+
 
 class BaseResultChecker(object):
 
@@ -66,6 +73,7 @@ class BaseResultChecker(object):
         self._config = config
         self._context = context
         self.setup_done = False
+        self._result = {}
 
     @staticmethod
     def get_resultchecker_cls(type):
@@ -87,3 +95,38 @@ class BaseResultChecker(object):
         if(self.actualResult == self.expectedResult):
             self.success = True
         return self.success
+
+    def check(self):
+        check_time = self._config.get("max_check_time", 0)
+
+        begin_time = time.time()
+
+        while True:
+            try:
+                exit_status = self.verify()
+            except Exception:
+                LOG.exception("Exception occured when run the resultchecker.")
+                exit_status = False
+
+            one_check_end_time = time.time()
+
+            if exit_status is True:
+                LOG.debug("the check result is as expected.")
+                break
+            LOG.debug("the check_time is %s, and have checked %s", check_time, one_check_end_time - begin_time)
+            if one_check_end_time - begin_time > check_time:
+                LOG.debug("the resultchecker max_time finished and exit!")
+                break
+            else:
+                time.sleep(1)
+
+        end_time = time.time()
+        total_time = end_time - begin_time
+
+        LOG.debug("the resultchecker has completed in %s seconds and the result is %s",
+                  total_time, self.success)
+
+        self._result = {"check_time": total_time, "check_result": self.success}
+
+    def result(self):
+        return self._result

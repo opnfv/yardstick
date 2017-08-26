@@ -53,4 +53,4 @@ class ResultCheckerPlayer(ActionPlayer):
         self.underlyingresultChecker = resultChecker
 
     def action(self):
-        self.underlyingresultChecker.verify()
+        self.underlyingresultChecker.check()
