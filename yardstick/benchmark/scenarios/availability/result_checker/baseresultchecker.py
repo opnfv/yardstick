@@ -10,6 +10,7 @@ from __future__ import absolute_import
 import pkg_resources
 import logging
 import os
+import time
 
 import yardstick.common.utils as utils
 from yardstick.common.yaml_loader import yaml_load

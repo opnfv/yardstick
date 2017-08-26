@@ -111,3 +111,8 @@ class Director(object):
         while self.executionSteps:
             singleStep = self.executionSteps.pop()
             singleStep.rollback()
+
+    def store_result(self, result):
+        LOG.debug("store result ....")
+        if hasattr(self, 'monitorMgr'):
+            self.monitorMgr.store_result(result)

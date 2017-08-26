@@ -78,6 +78,7 @@ class ServiceHA(base.Scenario):
                 LOG.info("The service process not found in the host envrioment, \
 the HA test case NOT pass")
                 return
+        self.monitorMgr.store_result(result)
         if sla_pass:
             result['sla_pass'] = 1
             LOG.info("The HA test case PASS the SLA")
