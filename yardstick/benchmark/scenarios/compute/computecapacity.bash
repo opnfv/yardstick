@@ -27,12 +27,11 @@ run_capacity()
     # Number of logical cores
     THREAD=$(grep 'processor' /proc/cpuinfo | sort -u | wc -l)
     # Total memory size
-    MEMORY=$(grep 'MemTotal' /proc/meminfo | sort -u)
-    ME=$(echo $MEMORY | awk '/ /{printf "%s %s", $2, $3}')
+    MEMORY=$(grep 'MemTotal' /proc/meminfo | sort -u | awk '{print $2}')
+
     # Cache size per CPU
-    CACHE=$(grep 'cache size' /proc/cpuinfo | sort -u)
-    CA=$(echo $CACHE | awk '/ /{printf "%s", $4}')
-    CACHES=$[$CA * $CPU]
+    CACHE=$(grep 'cache size' /proc/cpuinfo | sort -u | awk '{print $4}')
+    CACHES=$[$CACHE * $CPU]
     HT_Value=$[$HT_Para * $CORES]
     if [ $HT_Value -eq $THREAD ]; then
         HT_OPEN=1
@@ -48,8 +47,8 @@ output_json()
         \"Cpu_number\":\"$CPU\", \
         \"Core_number\":\"$CORES\", \
         \"Thread_number\":\"$THREAD\", \
-        \"Memory_size\": \"$ME\", \
-        \"Cache_size\": \"$CACHES KB\", \
+        \"Memory_size\": \"$MEMORY\", \
+        \"Cache_size\": \"$CACHES\", \
         \"HT_Open\": \"$HT_OPEN\" \
     }"
 }
