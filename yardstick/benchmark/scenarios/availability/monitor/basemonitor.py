@@ -44,7 +44,11 @@ class MonitorMgr(object):
             monitor_ins = monitor_cls(monitor_cfg, context,
                                       self.monitor_mgr_data)
             if "key" in monitor_cfg:
-                monitor_ins.key = monitor_cfg["key"]
+                monitor_ins.tag = monitor_ins.key = monitor_cfg["key"]
+            elif monitor_type == "openstack-cmd":
+                monitor_ins.tag = monitor_cfg["command_name"].replace(" ", "-")
+            elif monitor_type == "process":
+                monitor_ins.tag = monitor_type + "_" + monitor_cfg["process_name"]
             self._monitor_list.append(monitor_ins)
 
     def __getitem__(self, item):
@@ -67,6 +71,12 @@ class MonitorMgr(object):
             sla_pass = sla_pass & monitor.verify_SLA()
         return sla_pass
 
+    def store_result(self, result):
+        for monitor in self._monitor_list:
+            monitor_result = monitor.get_result()
+            for k, v in monitor_result.items():
+                result[monitor.tag + "_" + k] = v
+
 
 class BaseMonitor(multiprocessing.Process):
     """docstring for BaseMonitor"""
@@ -83,6 +93,7 @@ class BaseMonitor(multiprocessing.Process):
         self._event = multiprocessing.Event()
         self.monitor_data = data
         self.setup_done = False
+        self.tag = ""
 
     @staticmethod
     def get_monitor_cls(monitor_type):
@@ -164,5 +175,5 @@ class BaseMonitor(multiprocessing.Process):
     def verify_SLA(self):
         pass
 
-    def result(self):
+    def get_result(self):
         return self._result
