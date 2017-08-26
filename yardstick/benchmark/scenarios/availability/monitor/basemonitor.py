@@ -67,6 +67,12 @@ class MonitorMgr(object):
             sla_pass = sla_pass & monitor.verify_SLA()
         return sla_pass
 
+    def storeResult(self, result_store):
+        for monitor in self._monitor_list:
+            monitor_result = monitor.result()
+            for (k, v) in monitor_result.items():
+                result_store[monitor.key + "_" + k] = v
+
 
 class BaseMonitor(multiprocessing.Process):
     """docstring for BaseMonitor"""
