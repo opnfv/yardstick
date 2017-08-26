@@ -17,7 +17,7 @@ OUTPUT_FILE=/tmp/storagecapacity-out.log
 # run disk_size test
 run_disk_size()
 {
-    fdisk -l | grep '^Disk.*bytes$' | awk -F [:,\ ] '{print $2,$7}' > $OUTPUT_FILE
+    fdisk -l | grep '^Disk.*bytes' | awk -F [:,\ ] '{print $2,$7}' > $OUTPUT_FILE
 }
 
 # write the disk size to stdout in json format
@@ -35,7 +35,7 @@ output_disk_size()
 run_block_size()
 {
     echo -n "" > $OUTPUT_FILE
-    blkdevices=`fdisk -l | grep '^Disk.*bytes$' | awk -F [:,\ ] '{print $2}'`
+    blkdevices=`fdisk -l | grep '^Disk.*bytes' | awk -F [:,\ ] '{print $2}'`
     blkdevices=($blkdevices)
     for bd in "${blkdevices[@]}";do
         blk_size=`blockdev --getbsz $bd`
