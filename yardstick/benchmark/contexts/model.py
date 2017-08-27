@@ -127,7 +127,6 @@ class Network(Object):
         if "external_network" in attrs:
             self.router = Router("router", self.name,
                                  context, attrs["external_network"])
-        self.vld_id = attrs.get("vld_id")
 
         Network.list.append(self)
 
