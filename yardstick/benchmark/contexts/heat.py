@@ -359,7 +359,6 @@ class HeatContext(Context):
             # to match vnf_generic
             "local_mac": mac_address,
             "local_ip": private_ip,
-            "vld_id": self.networks[network_name].vld_id,
         }
 
     def undeploy(self):
