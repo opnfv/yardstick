@@ -50,11 +50,9 @@ contexts:
         external_network: "yardstick-public"
       xe0:
         cidr: '10.0.2.0/24'
-        vld_id: public
 
       xe1:
         cidr: '10.0.3.0/24'
-        vld_id: private
 
   - name: baremetal
     type: Node

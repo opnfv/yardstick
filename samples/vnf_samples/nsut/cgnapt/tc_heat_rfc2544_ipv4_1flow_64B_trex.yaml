@@ -66,7 +66,6 @@ context:
       cidr: '10.0.1.0/24'
     xe0:
       cidr: '10.0.2.0/24'
-      vld_id: public_1
       gateway_ip: 'null'
 #      port_security_enabled: False
       allowed_address_pairs:
@@ -74,7 +73,6 @@ context:
             '0.0.0.0/0'
     xe1:
       cidr: '10.0.3.0/24'
-      vld_id: private_1
       gateway_ip: 'null'
 #      port_security_enabled: False
       allowed_address_pairs:
