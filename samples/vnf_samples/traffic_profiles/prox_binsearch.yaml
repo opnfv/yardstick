@@ -19,11 +19,11 @@ description:     Binary search for max no-drop throughput over given packet size
 
 traffic_profile:
   traffic_type: ProxBinSearchProfile
-  tolerated_loss: 0.0
-  test_precision: 1.0
+  tolerated_loss: 0.001
+  test_precision: 0.1
 #  packet_sizes: [64, 128, 256, 512, 1024, 1280, 1518]
   packet_sizes: [64, 65]
-  duration: 5
+  duration: 10
   lower_bound: 0.0
   upper_bound: 100.0
 

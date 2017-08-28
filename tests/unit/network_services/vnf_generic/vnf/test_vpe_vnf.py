@@ -638,14 +638,14 @@ class TestVpeApproxVnf(unittest.TestCase):
         with self.assertRaises(NotImplementedError):
             vpe_approx_vnf.scale('')
 
-    def test_terminate(self, _):
+    @mock.patch(SSH_HELPER)
+    def test_terminate(self, ssh, _):
+        mock_ssh(ssh)
+
         vpe_approx_vnf = VpeApproxVnf(NAME, self.VNFD_0)
-        vpe_approx_vnf.vnf_execute = mock.Mock()
         vpe_approx_vnf._vnf_process = mock.MagicMock()
-        vpe_approx_vnf._vnf_process.terminate = mock.Mock()
         vpe_approx_vnf._resource_collect_stop = mock.Mock()
         vpe_approx_vnf.resource_helper = mock.MagicMock()
-        vpe_approx_vnf.ssh_helper = mock.MagicMock()
 
         self.assertIsNone(vpe_approx_vnf.terminate())
 
