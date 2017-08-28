@@ -96,8 +96,10 @@ fi
 cd ${YARDSTICK_REPO_DIR}
 git_checkout ${YARDSTICK_BRANCH}
 
-# setup the environment
-source ${YARDSTICK_REPO_DIR}/tests/ci/prepare_env.sh
+if [[ "${DEPLOY_SCENARIO:0:2}" == "os" ]];then
+    # setup the environment
+    source ${YARDSTICK_REPO_DIR}/tests/ci/prepare_env.sh
+fi
 
 # execute tests
 ${YARDSTICK_REPO_DIR}/tests/ci/yardstick-verify $@

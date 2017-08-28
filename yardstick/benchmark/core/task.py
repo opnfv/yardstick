@@ -21,7 +21,6 @@ import ipaddress
 import time
 import logging
 import uuid
-import errno
 import collections
 
 from six.moves import filter
@@ -32,7 +31,6 @@ from yardstick.benchmark.runners import base as base_runner
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.dispatcher.base import Base as DispatcherBase
 from yardstick.common.task_template import TaskTemplate
-from yardstick.common.utils import source_env
 from yardstick.common import utils
 from yardstick.common import constants
 from yardstick.common.html_template import report_template
@@ -69,8 +67,6 @@ class Task(object):     # pragma: no cover
         self.task_id = task_id if task_id else str(uuid.uuid4())
 
         self._set_log()
-
-        check_environment()
 
         try:
             output_config = utils.parse_ini_file(config_file)
@@ -673,17 +669,6 @@ def parse_task_args(src_name, args):
               % {"src": src_name, "src_type": type(kw)})
         raise TypeError()
     return kw
-
-
-def check_environment():
-    auth_url = os.environ.get('OS_AUTH_URL', None)
-    if not auth_url:
-        try:
-            source_env(constants.OPENRC)
-        except IOError as e:
-            if e.errno != errno.EEXIST:
-                raise
-            LOG.debug('OPENRC file not found')
 
 
 def change_server_name(scenario, suffix):
