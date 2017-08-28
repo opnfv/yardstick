@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_8709bddf",
+        "filename": "yardstick/benchmark/scenarios/availability/director.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-28T23:31:51Z",
+      "side": 1,
+      "message": "this name is not PEP8 naming scheme\n\nshould be store_result()\n\nIt looks like we have a bunch of non-standard names.  That\u0027s okay for now, but we should not keep adding more bad names.\n\nplease rename to store_result()",
+      "revId": "ff166cf7336fdf99ecec51c1abbf7d9eb6e1a1c3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c7458518",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/basemonitor.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-28T23:31:51Z",
+      "side": 1,
+      "message": "redundant parens?",
+      "revId": "ff166cf7336fdf99ecec51c1abbf7d9eb6e1a1c3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_27739181",
+        "filename": "yardstick/benchmark/scenarios/availability/result_checker/baseresultchecker.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-28T23:31:51Z",
+      "side": 1,
+      "message": "redundant parens\n\nthis is also the same function as MonitorMgr.\n\nideally we would refactor this out and make a utility function somewhere.",
+      "revId": "ff166cf7336fdf99ecec51c1abbf7d9eb6e1a1c3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_274c3142",
+        "filename": "yardstick/benchmark/scenarios/availability/result_checker/baseresultchecker.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-28T23:31:51Z",
+      "side": 1,
+      "message": "if already checks boolean.  \u0027is\u0027 is only used to check object identity, which is not the same as boolean truth.\n\n  if exit_status:",
+      "revId": "ff166cf7336fdf99ecec51c1abbf7d9eb6e1a1c3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
