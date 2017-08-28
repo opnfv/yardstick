@@ -32,8 +32,12 @@ from yardstick.common.utils import SocketTopology, ip_to_hex, join_non_strings
 from yardstick.network_services.vnf_generic.vnf.iniparser import ConfigParser
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
+from yardstick.network_services.helpers.cpu import CpuSysCores
 
 PROX_PORT = 8474
+
+SECTION_NAME = 0
+SECTION_CONTENTS = 1
 
 LOG = logging.getLogger(__name__)
 
@@ -478,11 +482,16 @@ class ProxSocketHelper(object):
 
     def get_all_tot_stats(self):
         self.put_command("tot stats\n")
-        all_stats = TotStatsTuple(int(v) for v in self.get_data().split(","))
+        all_stats_str = self.get_data().split(",")
+        if len(all_stats_str) != 4:
+            all_stats = [0] * 4
+            return all_stats
+        all_stats = TotStatsTuple(int(v) for v in all_stats_str)
+        self.master_stats = all_stats
         return all_stats
 
     def hz(self):
-        return self.get_all_tot_stats().hz
+        return self.master_stats[3]
 
     # Deprecated
     # TODO: remove
@@ -503,11 +512,18 @@ class ProxSocketHelper(object):
 
     def port_stats(self, ports):
         """get counter values from a specific port"""
-        tot_result = list(repeat(0, 12))
+        tot_result = [0] * 12
+        ret_int = [0] * 12
         for port in ports:
             self.put_command("port_stats {}\n".format(port))
-            for index, n in enumerate(self.get_data().split(',')):
-                tot_result[index] += int(n)
+            ret_str = [ s for s in self.get_data().split(",")]
+            for i,v in enumerate(ret_str):
+                try:
+                    ret_int[i] = int(v)
+                except:
+                    ret_int[i] = 0
+
+            tot_result = [sum(x) for x in zip(tot_result, ret_int)]
         return tot_result
 
     @contextmanager
@@ -616,6 +632,7 @@ class ProxResourceHelper(ClientResourceHelper):
         "gen": "sut",
         "sut": "gen",
     }
+    prox_config_list = None
 
     WAIT_TIME = 3
 
@@ -644,6 +661,63 @@ class ProxResourceHelper(ClientResourceHelper):
         # we have to substring match PCI bus address from the end
         return any(b.endswith(pci) for b in bound_pci)
 
+    def generate_prox_config_file(self, config_path):
+        sections = []
+        tx_port_no = -1
+        prox_config = ConfigParser(config_path, sections)
+        prox_config.parse()
+
+        # Ensure MAC is set "hardware"
+        ext_intf = self.vnfd_helper.vdu[0]["external-interface"]
+        for port_num, intf in enumerate(ext_intf):
+            port_section_name = "port {}".format(port_num)
+            for i, (section_name, section) in enumerate(sections):
+                if port_section_name == section_name:
+                    for index, (section_key, section_val) in enumerate(section):
+                        if section_key == "mac":
+                            sections[i][SECTION_CONTENTS][index][1] = "hardware"
+
+        # search for dst mac
+        for i, (_, section) in enumerate(sections):
+            for index, (item_key, item_val) in enumerate(section):
+                if item_val.startswith("@@dst_mac"):
+                    tx_port_list = re.findall('\d+', item_val)
+                    tx_port_no = int(tx_port_list[0])
+                    mac = self.vnfd_helper.vdu[0]["external-interface"][tx_port_no]["virtual-interface"]["dst_mac"]
+                    mac = mac.replace(":", " ", 6)
+                    sections[i][SECTION_CONTENTS][index][1] = mac
+
+                if item_key == "dst mac" and item_val.startswith("@@"):
+                    tx_port_list = re.findall('\d+', item_val)
+                    tx_port_no = int(tx_port_list[0])
+                    sections[i][SECTION_CONTENTS][index][1] = \
+                        self.vnfd_helper.vdu[0]["external-interface"][tx_port_no]["virtual-interface"]["dst_mac"]
+
+        try:
+            self.additional_files
+        except:
+            return sections
+
+        # if addition file specified in prox config
+        if self.additional_files is not None:
+            for i, (section_name, section) in enumerate(sections):
+                for index, (item_key, item_val) in enumerate(section):
+                    try:
+                        if item_key.startswith("dofile"):
+                            file_str = item_key.split('"')
+                            base_proxfile = os.path.basename(file_str[1])
+                            new_string = file_str[0] + '"' + self.additional_files[base_proxfile] + '"' + file_str[2]
+                            sections[i][SECTION_CONTENTS][index][0] = new_string
+                        if item_val.startswith("dofile"):
+                            file_str = item_val.split('"')
+                            base_proxfile = os.path.basename(file_str[1])
+                            new_string = file_str[0] + '"' + self.additional_files[base_proxfile] + '"' + file_str[2]
+                            sections[i][SECTION_CONTENTS][index][1] = new_string
+                    except:
+                        pass
+
+        return sections
+
     @staticmethod
     def write_prox_config(prox_config):
         """
@@ -652,14 +726,18 @@ class ProxResourceHelper(ClientResourceHelper):
         a custom method
         """
         out = []
-        for section_name, section_value in prox_config.items():
+        for i, (section_name, section) in enumerate(prox_config):
             out.append("[{}]".format(section_name))
-            for key, value in section_value:
+            for index, item in enumerate(section):
+                key, value  = item
                 if key == "__name__":
                     continue
-                if value is not None:
+                if value is not None and value != '@':
                     key = "=".join((key, str(value).replace('\n', '\n\t')))
-                out.append(key)
+                    out.append(key)
+                else:
+                    key = str(key).replace('\n', '\n\t')
+                    out.append(key)
         return os.linesep.join(out)
 
     def __init__(self, setup_helper):
@@ -671,13 +749,16 @@ class ProxResourceHelper(ClientResourceHelper):
         self.done = False
         self._cpu_topology = None
         self._vpci_to_if_name_map = None
-        self.additional_file = False
+        self.additional_file = {}
         self.remote_prox_file_name = None
-        self.prox_config_dict = None
+        self.prox_config_list = None
         self.lower = None
         self.upper = None
         self._test_cores = None
         self._latency_cores = None
+        self.setup_helper = setup_helper
+        self.sys_object = CpuSysCores(self.ssh_helper)
+        self.cpu_map = self.sys_object.get_core_socket()
 
     @property
     def sut(self):
@@ -752,13 +833,14 @@ class ProxResourceHelper(ClientResourceHelper):
         config_path = find_relative_file(config_path, task_path)
 
         try:
-            prox_file_config_path = options['prox_files']
-            prox_file_file = os.path.basename(prox_file_config_path)
-            prox_file_config_path = find_relative_file(prox_file_config_path, task_path)
-            self.remote_prox_file_name = self.copy_to_target(prox_file_config_path, prox_file_file)
-            self.additional_file = True
+            proxfile_config_path = options['prox_files']
+            for key_prox_file in proxfile_config_path:
+                base_proxfile = os.path.basename(key_prox_file)
+                proxfile_file = find_relative_file(key_prox_file, task_path)
+                remote_proxfile_name = self.copy_to_target(key_prox_file, base_proxfile)
+                self.additional_files[base_proxfile] = remote_proxfile_name
         except:
-            self.additional_file = False
+            self.additional_files = []
 
         self.prox_config_dict = self.generate_prox_config_file(config_path)
 
@@ -830,13 +912,28 @@ class ProxResourceHelper(ClientResourceHelper):
 
     def get_cores(self, mode):
         cores = []
-        for section_name, section_data in self.prox_config_dict.items():
+
+        for i, (section_name, section) in enumerate(self.prox_config_list):
             if section_name.startswith("core"):
-                for index, item in enumerate(section_data):
-                    if item[0] == "mode" and item[1] == mode:
-                        core = CoreSocketTuple(section_name).find_in_topology(self.cpu_topology)
+                for index, (key, value) in enumerate(section):
+                    if key == "mode" and value == mode:
+                        core = self.get_cpu_id_from_list(*self.get_core_socket(section_name))
                         cores.append(core)
         return cores
+
+    CORE_RE = re.compile(r"core\s+(\d+)(?:s(\d+))?(h)?")
+
+    def get_core_socket(self, core_line):
+        core, socket, hyperthread = self.CORE_RE.search(core_line).groups()
+        return int(
+            core), int(socket) if socket is not None else 0, hyperthread == "h"
+
+    def get_cpu_id_from_list(self, core_id, socket_id, is_hyperthread):
+        if not is_hyperthread:
+            return self.cpu_map[str(socket_id)][core_id]
+        else:
+            hyperthread_core_id = core_id + self.cpu_map["cores_per_socket"]
+            return self.cpu_map[str(socket_id)][hyperthread_core_id]
 
     def upload_prox_lua(self, config_dir, prox_config_dict):
         # we could have multiple lua directives
@@ -874,47 +971,6 @@ class ProxResourceHelper(ClientResourceHelper):
         lua = os.linesep.join(('{}:"{}"'.format(k, v) for k, v in p.items()))
         return lua
 
-    def generate_prox_config_file(self, config_path):
-        sections = {}
-        prox_config = ConfigParser(config_path, sections)
-        prox_config.parse()
-
-        # Ensure MAC is set "hardware"
-        ext_intf = self.vnfd_helper.interfaces
-        for intf in ext_intf:
-            port_num = intf["virtual-interface"]["dpdk_port_num"]
-            section_name = "port {}".format(port_num)
-            for index, section_data in enumerate(sections.get(section_name, [])):
-                if section_data[0] == "mac":
-                    sections[section_name][index][1] = "hardware"
-
-        # search for dest mac
-        for section_name, section_data in sections.items():
-            for index, section_attr in enumerate(section_data):
-                if section_attr[0] != "dst mac":
-                    continue
-
-                tx_port_no = self._get_tx_port(section_name, sections)
-                if tx_port_no == -1:
-                    raise Exception("Failed ..destination MAC undefined")
-
-                dst_mac = ext_intf[tx_port_no]["virtual-interface"]["dst_mac"]
-                section_attr[1] = dst_mac
-
-        # if addition file specified in prox config
-        if self.additional_file:
-            remote_name = self.remote_prox_file_name
-            for section_data in sections.values():
-                for index, section_attr in enumerate(section_data):
-                    try:
-                        if section_attr[1].startswith("dofile"):
-                            new_string = self._replace_quoted_with_value(section_attr[1],
-                                                                         remote_name)
-                            section_attr[1] = new_string
-                    except:
-                        pass
-
-        return sections
 
     def get_latency(self):
         """

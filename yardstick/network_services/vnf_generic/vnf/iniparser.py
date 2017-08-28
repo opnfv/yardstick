@@ -14,22 +14,18 @@
 
 
 class ParseError(Exception):
-    def __init__(self, message, line_no, line):
+    def __init__(self, message, lineno, line):
         self.msg = message
         self.line = line
-        self.line_no = line_no
+        self.lineno = lineno
 
     def __str__(self):
-        return 'at line %d, %s: %r' % (self.line_no, self.msg, self.line)
+        return 'at line %d, %s: %r' % (self.lineno, self.msg, self.line)
 
 
 class BaseParser(object):
-
-    PARSE_EXC = ParseError
-
-    def __init__(self):
-        super(BaseParser, self).__init__()
-        self.line_no = 0
+    lineno = 0
+    parse_exc = ParseError
 
     def _assignment(self, key, value):
         self.assignment(key, value)
@@ -47,9 +43,9 @@ class BaseParser(object):
         colon = line.find(':')
         equal = line.find('=')
         if colon < 0 and equal < 0:
-            return self.error_invalid_assignment(line)
+            return line.strip(), '@'
 
-        if colon < 0 or (0 <= equal < colon):
+        if colon < 0 or (equal >= 0 and equal < colon):
             key, value = line[:equal], line[equal + 1:]
         else:
             key, value = line[:colon], line[colon + 1:]
@@ -59,56 +55,44 @@ class BaseParser(object):
             value = value[1:-1]
         return key.strip(), [value]
 
-    def _single_line_parse(self, line, key, value):
-        self.line_no += 1
-
-        if line.startswith(('#', ';')):
-            self.comment(line[1:].strip())
-            return key, value
-
-        active, _, comment = line.partition(';')
-        self.comment(comment.strip())
-
-        if not active:
-            # Blank line, ends multi-line values
-            if key:
-                key, value = self._assignment(key, value)
-            return key, value
-
-        if active.startswith((' ', '\t')):
-            # Continuation of previous assignment
-            if key is None:
-                return self.error_unexpected_continuation(line)
-
-            value.append(active.lstrip())
-            return key, value
-
-        if key:
-            # Flush previous assignment, if any
-            key, value = self._assignment(key, value)
-
-        if active.startswith('['):
-            # Section start
-            section = self._get_section(active)
-            if section:
-                self.new_section(section)
-
-        else:
-            key, value = self._split_key_value(active)
-            if not key:
-                return self.error_empty_key(line)
-
-        return key, value
-
-    def parse(self, line_iter=None):
-        if line_iter is None:
-            return
-
+    def parse(self, lineiter):
         key = None
         value = []
 
-        for line in line_iter:
-            key, value = self._single_line_parse(line, key, value)
+        for line in lineiter:
+            self.lineno += 1
+
+            line = line.rstrip()
+            lines = line.split(';')
+            line = lines[0]
+            if not line:
+                # Blank line, ends multi-line values
+                if key:
+                    key, value = self._assignment(key, value)
+                continue
+            elif line.startswith((' ', '\t')):
+                # Continuation of previous assignment
+                if key is None:
+                    self.error_unexpected_continuation(line)
+                else:
+                    value.append(line.lstrip())
+                continue
+
+            if key:
+                # Flush previous assignment, if any
+                key, value = self._assignment(key, value)
+
+            if line.startswith('['):
+                # Section start
+                section = self._get_section(line)
+                if section:
+                    self.new_section(section)
+            elif line.startswith(('#', ';')):
+                self.comment(line[1:].lstrip())
+            else:
+                key, value = self._split_key_value(line)
+                if not key:
+                    return self.error_empty_key(line)
 
         if key:
             # Flush previous assignment, if any
@@ -126,23 +110,23 @@ class BaseParser(object):
         """Called when a comment is parsed."""
         pass
 
-    def make_parser_error(self, template, line):
-        raise self.PARSE_EXC(template, self.line_no, line)
-
     def error_invalid_assignment(self, line):
-        self.make_parser_error("No ':' or '=' found in assignment", line)
+        raise self.parse_exc("No ':' or '=' found in assignment",
+                             self.lineno, line)
 
     def error_empty_key(self, line):
-        self.make_parser_error('Key cannot be empty', line)
+        raise self.parse_exc('Key cannot be empty', self.lineno, line)
 
     def error_unexpected_continuation(self, line):
-        self.make_parser_error('Unexpected continuation line', line)
+        raise self.parse_exc('Unexpected continuation line',
+                             self.lineno, line)
 
     def error_no_section_end_bracket(self, line):
-        self.make_parser_error('Invalid section (must end with ])', line)
+        raise self.parse_exc('Invalid section (must end with ])',
+                             self.lineno, line)
 
     def error_no_section_name(self, line):
-        self.make_parser_error('Empty section name', line)
+        raise self.parse_exc('Empty section name', self.lineno, line)
 
 
 class ConfigParser(BaseParser):
@@ -158,20 +142,35 @@ class ConfigParser(BaseParser):
         self.sections = sections
         self.section = None
 
-    def parse(self, line_iter=None):
+    def parse(self):
         with open(self.filename) as f:
             return super(ConfigParser, self).parse(f)
 
+    def find_section(self, sections, section):
+        return next((i for i, sect in enumerate(sections) if sect == section), -1)
+
     def new_section(self, section):
         self.section = section
-        self.sections.setdefault(self.section, [])
+        index = self.find_section(self.sections, section)
+        if index == -1:
+            self.sections.append([section, []])
 
     def assignment(self, key, value):
         if not self.section:
             raise self.error_no_section()
 
         value = '\n'.join(value)
-        self.sections[self.section].append([key, value])
+
+        def append(sections, section):
+            entry = [key, value]
+            index = self.find_section(sections, section)
+            sections[index][1].append(entry)
+
+        append(self.sections, self.section)
+
+    def parse_exc(self, msg, lineno, line=None):
+        return ParseError(msg, lineno, line, self.filename)
 
     def error_no_section(self):
-        self.make_parser_error('Section must be started before assignment', '')
+        return self.parse_exc('Section must be started before assignment',
+                              self.lineno)
