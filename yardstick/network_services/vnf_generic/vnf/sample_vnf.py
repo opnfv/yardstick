@@ -115,7 +115,9 @@ class SetupEnvHelper(object):
 
     def setup_vnf_environment(self):
         pass
-        # raise NotImplementedError
+
+    def kill_vnf(self):
+        pass
 
     def tear_down(self):
         raise NotImplementedError
@@ -297,12 +299,13 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
     def setup_vnf_environment(self):
         self._setup_dpdk()
         resource = self._setup_resources()
-        self._kill_vnf()
-        self._detect_drivers()
+        self.kill_vnf()
+        self._detect_and_bind_drivers()
         return resource
 
-    def _kill_vnf(self):
-        self.ssh_helper.execute("sudo pkill %s" % self.APP_NAME)
+    def kill_vnf(self):
+        # have to use exact match
+        self.ssh_helper.execute("sudo pkill -x %s" % self.APP_NAME)
 
     def _setup_dpdk(self):
         """ setup dpdk environment needed for vnf to run """
@@ -335,7 +338,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         return ResourceProfile(self.vnfd_helper.mgmt_interface,
                                interfaces=self.vnfd_helper.interfaces, cores=cores)
 
-    def _detect_drivers(self):
+    def _detect_and_bind_drivers(self):
         interfaces = self.vnfd_helper.interfaces
 
         self._find_used_drivers()
@@ -350,6 +353,15 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         for vpci in self.bound_pci:
             self._bind_dpdk('igb_uio', vpci)
             time.sleep(2)
+
+        # debug dump after binding
+        self.ssh_helper.execute("sudo {} -s".format(self.dpdk_nic_bind))
+
+    def rebind_drivers(self, force=True):
+        if not self.used_drivers:
+            self._find_used_drivers()
+        for vpci, (_, driver) in self.used_drivers.items():
+            self._bind_dpdk(driver, vpci, force)
 
     def _bind_dpdk(self, driver, vpci, force=True):
         if force:
@@ -376,6 +388,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         return stdout
 
     def _bind_kernel_devices(self):
+        # only used by PingSetupEnvHelper?
         for intf in self.vnfd_helper.interfaces:
             vi = intf["virtual-interface"]
             stdout = self._detect_and_bind_dpdk(vi["vpci"], vi["driver"])
@@ -829,7 +842,7 @@ class SampleVNF(GenericVNF):
         self.ssh_helper.drop_connection()
         cmd = self._build_config()
         # kill before starting
-        self.ssh_helper.execute("pkill {}".format(self.APP_NAME))
+        self.setup_helper.kill_vnf()
 
         LOG.debug(cmd)
         self._build_run_kwargs()
@@ -853,7 +866,7 @@ class SampleVNF(GenericVNF):
         self.vnf_execute("quit")
         if self._vnf_process:
             self._vnf_process.terminate()
-        self.ssh_helper.execute("sudo pkill %s" % self.APP_NAME)
+        self.setup_helper.kill_vnf()
         self._tear_down()
         self.resource_helper.stop_collect()
 
