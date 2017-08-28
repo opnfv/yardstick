@@ -33,13 +33,13 @@ scenarios:
     traffic_type: 4
     rfc2544:
       allowed_drop_rate: 0.0001 - 0.0001
-      corelated_traffic: true
+      correlated_traffic: true
     vnf__1:
       vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
       napt: 'dynamic'
   runner:
     type: Iteration
-    iterations: 10
+    iterations: 14
     interval: 35
 context:
   type: Node
