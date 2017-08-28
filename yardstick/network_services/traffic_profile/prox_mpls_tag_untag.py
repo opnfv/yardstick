@@ -22,13 +22,13 @@ from yardstick.network_services.traffic_profile.prox_profile import ProxProfile
 LOG = logging.getLogger(__name__)
 
 
-class ProxBinSearchProfile(ProxProfile):
+class ProxMplsTagUntagProfile(ProxProfile):
     """
     This profile adds a single stream at the beginning of the traffic session
     """
 
     def __init__(self, tp_config):
-        super(ProxBinSearchProfile, self).__init__(tp_config)
+        super(ProxMplsTagUntagProfile, self).__init__(tp_config)
         self.current_lower = self.lower_bound
         self.current_upper = self.upper_bound
 
@@ -98,5 +98,4 @@ class ProxBinSearchProfile(ProxProfile):
                 self.current_upper = test_value
 
             samples = result.get_samples(pkt_size, successful_pkt_loss)
-            #TODO:Fill in port stats here.
             self.queue.put(samples)
