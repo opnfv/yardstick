@@ -25,7 +25,7 @@ scenarios:
     tg__1: trafficgen_1.yardstick
     vnf__1: vnf.yardstick
 
-  vnf_options:
+  options:
     vnf__1:
       prox_path: /root/dppd-PROX-v035/build/prox
       prox_config: "configs/handle_none-2.cfg"
@@ -41,7 +41,6 @@ scenarios:
 
   runner:
     type: Search
-    # we kill after timeout, independent of test duration, so set this high
     interval: 5
     timeout: 1200
 
