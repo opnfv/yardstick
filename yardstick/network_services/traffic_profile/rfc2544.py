@@ -172,10 +172,9 @@ class RFC2544Profile(TrexProfile):
                                          ports=priv_port)
 
             profile_data = self.params.get('public_{}'.format(index), '')
-            if not profile_data or generator.correlated_traffic:
+            if not profile_data or generator.rfc2544_helper.correlated_traffic:
                 continue
 
-            pub_port = generator.pub_ports[index]
             self.ports.append(pub_port)
             generator.client.add_streams(self.get_streams(profile_data),
                                          ports=pub_port)

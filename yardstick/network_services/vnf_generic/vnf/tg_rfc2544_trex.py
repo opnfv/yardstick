@@ -90,8 +90,10 @@ class TrexRfcResourceHelper(TrexResourceHelper):
                               ports=self.my_ports,
                               duration=120, force=True)
 
-    def start_client(self, mult, duration, force=True):
-        self.client.start(ports=self.my_ports, mult=mult, duration=duration, force=force)
+    def start_client(self, ports=None, mult=None, duration=None, force=True):
+        if ports is None:
+            ports = self.my_ports
+        self.client.start(ports=ports, mult=mult, duration=duration, force=force)
 
     def clear_client_stats(self):
         self.client.clear_stats(ports=self.my_ports)
