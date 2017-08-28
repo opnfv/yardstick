@@ -232,7 +232,10 @@ class MultiPortConfig(object):
         networks = defaultdict(list)
         for private_intf in interfaces:
             vintf = private_intf['virtual-interface']
-            networks[vintf['vld_id']].append(vintf)
+            try:
+                networks[vintf['vld_id']].append(vintf)
+            except KeyError:
+                pass
 
         for name, net in networks.items():
             # partition returns a tuple
@@ -246,13 +249,16 @@ class MultiPortConfig(object):
                 try:
                     public_peer_intfs = networks[public_id]
                 except KeyError:
-                    LOG.warning("private network without peer %s, %s not found", name, public_id)
+                    LOG.info("private network without peer %s, %s not found", name, public_id)
                     continue
 
                 for public_intf in public_peer_intfs:
                     port_pair = private_intf["ifname"], public_intf["ifname"]
                     port_pair_list.append(port_pair)
 
+                if not public_peer_intfs:
+                    port_pair = private_intf["ifname"], private_intf["ifname"]
+                    port_pair_list.append(port_pair)
         return port_pair_list, networks
 
     def get_lb_count(self):
