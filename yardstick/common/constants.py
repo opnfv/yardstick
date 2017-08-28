@@ -110,7 +110,7 @@ GRAFANA_PORT = get_param('grafana.port', 3000)
 GRAFANA_USER = get_param('grafana.username', 'admin')
 GRAFANA_PASS = get_param('grafana.password', 'admin')
 GRAFANA_IMAGE = get_param('grafana.image', 'grafana/grafana')
-GRAFANA_TAG = get_param('grafana.tag', '3.1.1')
+GRAFANA_TAG = get_param('grafana.tag', '4.4.3')
 GRAFANA_MAPPING_PORT = 1948
 
 # api
