@@ -14,6 +14,7 @@ import collections
 import logging
 import os
 import uuid
+import errno
 from collections import OrderedDict
 
 import ipaddress
@@ -26,7 +27,8 @@ from yardstick.benchmark.contexts.model import Server
 from yardstick.benchmark.contexts.model import update_scheduler_hints
 from yardstick.common.openstack_utils import get_neutron_client
 from yardstick.orchestrator.heat import HeatTemplate, get_short_key_uuid
-from yardstick.common.constants import YARDSTICK_ROOT_PATH
+from yardstick.common import constants as consts
+from yardstick.common.utils import source_env
 from yardstick.ssh import SSH
 
 LOG = logging.getLogger(__name__)
@@ -71,7 +73,7 @@ class HeatContext(Context):
         self.key_uuid = uuid.uuid4()
         self.heat_timeout = None
         self.key_filename = ''.join(
-            [YARDSTICK_ROOT_PATH, 'yardstick/resources/files/yardstick_key-',
+            [consts.YARDSTICK_ROOT_PATH, 'yardstick/resources/files/yardstick_key-',
              get_short_key_uuid(self.key_uuid)])
         super(HeatContext, self).__init__()
 
@@ -88,6 +90,7 @@ class HeatContext(Context):
         return sorted_networks
 
     def init(self, attrs):
+        self.check_environment()
         """initializes itself from the supplied arguments"""
         self.name = attrs["name"]
 
@@ -130,6 +133,19 @@ class HeatContext(Context):
 
         self.attrs = attrs
         SSH.gen_keys(self.key_filename)
+
+    def check_environment(self):
+        try:
+            os.environ['OS_AUTH_URL']
+        except KeyError:
+            try:
+                source_env(consts.OPENRC)
+            except IOError as e:
+                if e.errno != errno.EEXIST:
+                    LOG.error('OPENRC file not found')
+                    raise
+                else:
+                    LOG.error('OS_AUTH_URL not found')
 
     @property
     def image(self):
