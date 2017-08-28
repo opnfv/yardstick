@@ -22,13 +22,13 @@ from yardstick.network_services.traffic_profile.prox_profile import ProxProfile
 LOG = logging.getLogger(__name__)
 
 
-class ProxBinSearchProfile(ProxProfile):
+class ProxMplsTagUntagProfile(ProxProfile):
     """
     This profile adds a single stream at the beginning of the traffic session
     """
 
     def __init__(self, tp_config):
-        super(ProxBinSearchProfile, self).__init__(tp_config)
+        super(ProxMplsTagUntagProfile, self).__init__(tp_config)
         self.current_lower = self.lower_bound
         self.current_upper = self.upper_bound
 
@@ -86,7 +86,7 @@ class ProxBinSearchProfile(ProxProfile):
         # throughput and packet loss from the most recent successful test
         successful_pkt_loss = 0.0
         for test_value in self.bounds_iterator(LOG):
-            result, port_samples  = traffic_gen.run_test(pkt_size, duration,
+            result = traffic_gen.run_test(pkt_size, duration,
                                                           test_value, self.tolerated_loss)
 
             if result.success:
@@ -97,5 +97,5 @@ class ProxBinSearchProfile(ProxProfile):
                 LOG.debug("Failure... Decreasing upper bound")
                 self.current_upper = test_value
 
-            samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
+            samples = result.get_samples(pkt_size, successful_pkt_loss)
             self.queue.put(samples)
