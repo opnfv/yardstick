@@ -151,34 +151,29 @@ class RFC2544Profile(TrexProfile):
         return samples
 
     def execute_latency(self, generator=None, samples=None):
-        if generator is None:
-            generator = self.generator
+        if generator is not None and self.generator is None:
+            self.generator = generator
 
         if samples is None:
-            samples = generator.generate_samples()
+            samples = self.generator.generate_samples()
 
         self.pps, multiplier = self.calculate_pps(samples)
         self.ports = []
         self.pg_id = self.params['traffic_profile'].get('pg_id', 1)
-        priv_ports = generator.priv_ports
-        pub_ports = generator.pub_ports
-        for index, (priv_port, pub_port) in enumerate(zip(priv_ports, pub_ports), 1):
-            profile_data = self.params.get('private_{}'.format(index), '')
-            self.ports.append(priv_port)
-            generator.client.add_streams(self.get_streams(profile_data),
-                                         ports=priv_port)
-
-            profile_data = self.params.get('public_{}'.format(index), '')
-            if not profile_data or generator.correlated_traffic:
+        for vld_id, intfs in sorted(self.generator.networks.items()):
+            profile_data = self.params.get(vld_id)
+            if not profile_data:
                 continue
+            # correlated traffic doesn't use public traffic?
+            if vld_id.startswith(self.PUBLIC) and self.generator.rfc2544_helper.correlated_traffic:
+                continue
+            for intf in intfs:
+                port = self.generator.vnfd_helper.port_num(intf)
+                self.ports.append(port)
+                self.generator.client.add_streams(self.get_streams(profile_data), ports=port)
 
-            pub_port = generator.pub_ports[index]
-            self.ports.append(pub_port)
-            generator.client.add_streams(self.get_streams(profile_data),
-                                         ports=pub_port)
-
-        generator.start_client(ports=self.ports, mult=str(multiplier),
-                               duration=120, force=True)
+        self.generator.start_client(ports=self.ports, mult=str(multiplier),
+                                    duration=120, force=True)
         self.first_run = False
 
     def calculate_pps(self, samples):
