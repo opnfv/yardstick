@@ -22,6 +22,7 @@ import mock
 import os
 
 from tests.unit import STL_MOCKS
+from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 
 
 STLClient = mock.MagicMock()
@@ -34,6 +35,7 @@ if stl_patch:
 
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
+SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
 
 
 name = 'vnf__1'
@@ -245,52 +247,45 @@ class TestAclApproxVnf(unittest.TestCase):
         self.assertIsNone(acl_approx_vnf._vnf_process)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
-    def test_collect_kpi(self, mock_time, mock_process):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            acl_approx_vnf = AclApproxVnf(name, vnfd)
-            acl_approx_vnf.q_in = mock.MagicMock()
-            acl_approx_vnf.q_out = mock.MagicMock()
-            acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
-            acl_approx_vnf.resource = mock.Mock(autospec=ResourceProfile)
-            acl_approx_vnf.vnf_execute = mock.Mock(return_value="")
-            result = {'packets_dropped': 0, 'packets_fwd': 0,
-                      'packets_in': 0}
-            self.assertEqual(result, acl_approx_vnf.collect_kpi())
+    @mock.patch(SSH_HELPER)
+    def test_collect_kpi(self, ssh, mock_time, mock_process):
+        mock_ssh(ssh)
+
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        acl_approx_vnf = AclApproxVnf(name, vnfd)
+        acl_approx_vnf.q_in = mock.MagicMock()
+        acl_approx_vnf.q_out = mock.MagicMock()
+        acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
+        acl_approx_vnf.resource = mock.Mock(autospec=ResourceProfile)
+        acl_approx_vnf.vnf_execute = mock.Mock(return_value="")
+        result = {'packets_dropped': 0, 'packets_fwd': 0, 'packets_in': 0}
+        self.assertEqual(result, acl_approx_vnf.collect_kpi())
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
-    def test_vnf_execute_command(self, mock_time, mock_process):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            acl_approx_vnf = AclApproxVnf(name, vnfd)
-            acl_approx_vnf.q_in = mock.MagicMock()
-            acl_approx_vnf.q_out = mock.MagicMock()
-            acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
-            cmd = "quit"
-            self.assertEqual("", acl_approx_vnf.vnf_execute(cmd))
+    @mock.patch(SSH_HELPER)
+    def test_vnf_execute_command(self, ssh, mock_time, mock_process):
+        mock_ssh(ssh)
 
-    def test_get_stats(self, mock_process):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            acl_approx_vnf = AclApproxVnf(name, vnfd)
-            acl_approx_vnf.q_in = mock.MagicMock()
-            acl_approx_vnf.q_out = mock.MagicMock()
-            acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
-            mock_result = \
-                "ACL TOTAL: pkts_processed: 100, pkts_drop: 0, spkts_received: 100"
-            acl_approx_vnf.vnf_execute = mock.Mock(return_value=mock_result)
-            self.assertEqual(mock_result, acl_approx_vnf.get_stats())
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        acl_approx_vnf = AclApproxVnf(name, vnfd)
+        acl_approx_vnf.q_in = mock.MagicMock()
+        acl_approx_vnf.q_out = mock.MagicMock()
+        acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
+        cmd = "quit"
+        self.assertEqual("", acl_approx_vnf.vnf_execute(cmd))
+
+    @mock.patch(SSH_HELPER)
+    def test_get_stats(self, ssh, mock_process):
+        mock_ssh(ssh)
+
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        acl_approx_vnf = AclApproxVnf(name, vnfd)
+        acl_approx_vnf.q_in = mock.MagicMock()
+        acl_approx_vnf.q_out = mock.MagicMock()
+        acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
+        result = "ACL TOTAL: pkts_processed: 100, pkts_drop: 0, spkts_received: 100"
+        acl_approx_vnf.vnf_execute = mock.Mock(return_value=result)
+        self.assertEqual(result, acl_approx_vnf.get_stats())
 
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
@@ -300,76 +295,66 @@ class TestAclApproxVnf(unittest.TestCase):
     @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.hex")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.eval")
     @mock.patch('yardstick.network_services.vnf_generic.vnf.acl_vnf.open')
-    def test_run_acl(self, mock_open, eval, hex, mock_process):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh_mock.run = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            acl_approx_vnf = AclApproxVnf(name, vnfd)
-            acl_approx_vnf._build_config = mock.MagicMock()
-            acl_approx_vnf.queue_wrapper = mock.MagicMock()
-            acl_approx_vnf.ssh_helper = mock.MagicMock()
-            acl_approx_vnf.ssh_helper.run = mock.MagicMock()
-            acl_approx_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
-            acl_approx_vnf.vnf_cfg = {'lb_config': 'SW',
-                                      'lb_count': 1,
-                                      'worker_config': '1C/1T',
-                                      'worker_threads': 1}
-            acl_approx_vnf.all_options = {'traffic_type': '4',
-                                          'topology': 'nsb_test_case.yaml'}
-            acl_approx_vnf._run()
-            acl_approx_vnf.ssh_helper.run.assert_called_once()
+    @mock.patch(SSH_HELPER)
+    def test_run_acl(self, ssh, mock_open, mock_eval, mock_hex, mock_process):
+        mock_ssh(ssh)
+
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        acl_approx_vnf = AclApproxVnf(name, vnfd)
+        acl_approx_vnf._build_config = mock.MagicMock()
+        acl_approx_vnf.queue_wrapper = mock.MagicMock()
+        acl_approx_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
+        acl_approx_vnf.vnf_cfg = {'lb_config': 'SW',
+                                  'lb_count': 1,
+                                  'worker_config': '1C/1T',
+                                  'worker_threads': 1}
+        acl_approx_vnf.all_options = {'traffic_type': '4',
+                                      'topology': 'nsb_test_case.yaml'}
+        acl_approx_vnf._run()
+        acl_approx_vnf.ssh_helper.run.assert_called_once()
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.YangModel")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.find_relative_file")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
-    def test_instantiate(self, mock_context, mock_yang, mock_find, mock_process):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            acl_approx_vnf = AclApproxVnf(name, vnfd)
-            acl_approx_vnf.ssh_helper = ssh
-            acl_approx_vnf.deploy_helper = mock.MagicMock()
-            acl_approx_vnf.resource_helper = mock.MagicMock()
-            acl_approx_vnf._build_config = mock.MagicMock()
-            self.scenario_cfg['vnf_options'] = {'acl': {'cfg': "",
+    @mock.patch(SSH_HELPER)
+    def test_instantiate(self, ssh, mock_context, mock_yang, mock_find, mock_process):
+        mock_ssh(ssh)
+
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        acl_approx_vnf = AclApproxVnf(name, vnfd)
+        acl_approx_vnf.deploy_helper = mock.MagicMock()
+        acl_approx_vnf.resource_helper = mock.MagicMock()
+        acl_approx_vnf._build_config = mock.MagicMock()
+        self.scenario_cfg['vnf_options'] = {'acl': {'cfg': "",
                                                         'rules': ""}}
-            acl_approx_vnf.q_out.put("pipeline>")
-            acl_approx_vnf.WAIT_TIME = 0
-            self.scenario_cfg.update({"nodes": {"vnf__1": ""}})
-            self.assertIsNone(acl_approx_vnf.instantiate(self.scenario_cfg,
-                                                         self.context_cfg))
+        acl_approx_vnf.q_out.put("pipeline>")
+        acl_approx_vnf.WAIT_TIME = 0
+        self.scenario_cfg.update({"nodes": {"vnf__1": ""}})
+        self.assertIsNone(acl_approx_vnf.instantiate(self.scenario_cfg,
+                                                     self.context_cfg))
 
     def test_scale(self, mock_process):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         acl_approx_vnf = AclApproxVnf(name, vnfd)
         flavor = ""
-        self.assertRaises(NotImplementedError, acl_approx_vnf.scale, flavor)
+        with self.assertRaises(NotImplementedError):
+            acl_approx_vnf.scale(flavor)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
-    def test_terminate(self, mock_time, mock_process):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            acl_approx_vnf = AclApproxVnf(name, vnfd)
-            acl_approx_vnf._vnf_process = mock.MagicMock()
-            acl_approx_vnf._vnf_process.terminate = mock.Mock()
-            acl_approx_vnf.used_drivers = {"01:01.0": "i40e",
-                                           "01:01.1": "i40e"}
-            acl_approx_vnf.vnf_execute = mock.MagicMock()
-            acl_approx_vnf.ssh_helper = ssh_mock
-            acl_approx_vnf.dpdk_nic_bind = "dpdk_nic_bind.py"
-            acl_approx_vnf._resource_collect_stop = mock.Mock()
-            self.assertEqual(None, acl_approx_vnf.terminate())
+    @mock.patch(SSH_HELPER)
+    def test_terminate(self, ssh, mock_time, mock_process):
+        mock_ssh(ssh)
+
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        acl_approx_vnf = AclApproxVnf(name, vnfd)
+        acl_approx_vnf._vnf_process = mock.MagicMock()
+        acl_approx_vnf._vnf_process.terminate = mock.Mock()
+        acl_approx_vnf.used_drivers = {"01:01.0": "i40e",
+                                       "01:01.1": "i40e"}
+        acl_approx_vnf.vnf_execute = mock.MagicMock()
+        acl_approx_vnf.dpdk_nic_bind = "dpdk_nic_bind.py"
+        acl_approx_vnf._resource_collect_stop = mock.Mock()
+        self.assertEqual(None, acl_approx_vnf.terminate())
 
 if __name__ == '__main__':
     unittest.main()
