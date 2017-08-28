@@ -37,8 +37,8 @@ class TestProxBinSearchProfile(unittest.TestCase):
             if args[2] < 0 or args[2] > 100:
                 raise RuntimeError(' '.join([str(args), str(runs)]))
             if args[2] > 75.0:
-                return fail_tuple
-            return success_tuple
+                return fail_tuple, {}
+            return success_tuple, {}
 
         tp_config = {
             'traffic_profile': {
@@ -51,7 +51,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
         fail_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.6, 5.7, 5.8], 850, 1000, 123.4)
 
         traffic_generator = mock.MagicMock()
-        traffic_generator.resource_helper.run_test = target
+        traffic_generator.run_test = target
 
         profile = ProxBinSearchProfile(tp_config)
         profile.init(mock.MagicMock())
@@ -67,8 +67,8 @@ class TestProxBinSearchProfile(unittest.TestCase):
             if args[2] < 0 or args[2] > 100:
                 raise RuntimeError(' '.join([str(args), str(runs)]))
             if args[2] > 25.0:
-                return fail_tuple
-            return success_tuple
+                return fail_tuple, {}
+            return success_tuple, {}
 
         tp_config = {
             'traffic_profile': {
@@ -82,7 +82,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
         fail_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.6, 5.7, 5.8], 850, 1000, 123.4)
 
         traffic_generator = mock.MagicMock()
-        traffic_generator.resource_helper.run_test = target
+        traffic_generator.run_test = target
 
         profile = ProxBinSearchProfile(tp_config)
         profile.init(mock.MagicMock())

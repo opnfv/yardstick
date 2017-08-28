@@ -18,8 +18,8 @@ schema: "yardstick:task:0.1"
 scenarios:
 -
   type: NSPerf
-  traffic_profile: ../../traffic_profiles/prox_binsearch.yaml
-  topology: prox-tg-topology-2.yaml
+  traffic_profile: ../../traffic_profiles/prox_mpls_tag_untag.yaml
+  topology: prox-tg-topology-4.yaml
 
   nodes:
     tg__1: trafficgen_1.yardstick
@@ -28,14 +28,13 @@ scenarios:
   options:
     vnf__1:
       prox_path: /root/dppd-PROX-v037/build/prox
-      prox_config: "configs/handle_acl-2.cfg"
+      prox_config: "configs/handle_mpls_tag_untag-4.cfg"
       prox_args:
         "-t": ""
-      prox_files: "configs/acl_rules-2.lua"
 
     tg__1:
       prox_path: /root/dppd-PROX-v037/build/prox
-      prox_config: "configs/gen_acl-2.cfg"
+      prox_config: "configs/gen_mpls_tag_untag-4.cfg"
       prox_args:
         "-e": ""
         "-t": ""
@@ -43,20 +42,19 @@ scenarios:
   runner:
     type: Duration
     # we kill after duration, independent of test duration, so set this high
-    duration: 100
+    duration: 300
 
 context:
   name: yardstick
-  image: yardstick-image-prox-dpdk1702
+  image: yardstick-samplevnfs
   user: ubuntu
   flavor:
-    name: yardstick-dpdk-flavor
-    vcpus: 3
+    vcpus: 10
     ram: 20480
     disk: 4
     extra_specs:
       hw:cpu_sockets: 1
-      hw:cpu_cores: 3
+      hw:cpu_cores: 10
       hw:cpu_threads: 1
 #      hw:mem_page_size: large
   placement_groups:
@@ -83,6 +81,18 @@ context:
             '0.0.0.0/0'
     xe1:
       cidr: '10.0.3.0/24'
+      vld_id: private
+      allowed_address_pairs:
+        - ip_address:
+            '0.0.0.0/0'
+    xe2:
+      cidr: '10.0.4.0/24'
+      vld_id: public
+      allowed_address_pairs:
+        - ip_address:
+            '0.0.0.0/0'
+    xe3:
+      cidr: '10.0.5.0/24'
       vld_id: private
       allowed_address_pairs:
         - ip_address:

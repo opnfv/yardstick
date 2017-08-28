@@ -27,14 +27,14 @@ scenarios:
 
   options:
     vnf__1:
-      prox_path: /root/dppd-PROX-v035/build/prox
-      prox_config: "configs/handle_none-2.cfg"
+      prox_path: /root/dppd-PROX-v037/build/prox
+      prox_config: "configs/handle_l2fwd-2.cfg"
       prox_args:
         "-t": ""
 
     tg__1:
-      prox_path: /root/dppd-PROX-v035/build/prox
-      prox_config: "configs/gen_all-2.cfg"
+      prox_path: /root/dppd-PROX-v037/build/prox
+      prox_config: "configs/gen_l2fwd-2.cfg"
       prox_args:
         "-e": ""
         "-t": ""
@@ -48,4 +48,4 @@ context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: prox-baremetal.yml
+  file: /etc/yardstick/nodes/prox-baremetal-2.yml

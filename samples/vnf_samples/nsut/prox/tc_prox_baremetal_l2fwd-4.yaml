@@ -19,7 +19,7 @@ scenarios:
 -
   type: NSPerf
   traffic_profile: ../../traffic_profiles/prox_binsearch.yaml
-  topology: prox-tg-topology-2.yaml
+  topology: prox-tg-topology-4.yaml
 
   nodes:
     tg__1: trafficgen_1.yardstick
@@ -27,25 +27,25 @@ scenarios:
 
   options:
     vnf__1:
-      prox_path: /root/dppd-PROX-v035/build/prox
-      prox_config: "configs/handle_none-2.cfg"
+      prox_path: /root/dppd-PROX-v037/build/prox
+      prox_config: "configs/handle_l2fwd-4.cfg"
       prox_args:
         "-t": ""
 
     tg__1:
-      prox_path: /root/dppd-PROX-v035/build/prox
-      prox_config: "configs/gen_all-2.cfg"
+      prox_path: /root/dppd-PROX-v037/build/prox
+      prox_config: "configs/gen_l2fwd-4.cfg"
       prox_args:
         "-e": ""
         "-t": ""
 
   runner:
-    type: Search
-    interval: 5
-    timeout: 1200
+    type: Duration
+    # we kill after duration, independent of test duration, so set this high
+    duration: 100
 
 context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: prox-baremetal.yml
+  file: /etc/yardstick/nodes/prox-baremetal-4.yml
