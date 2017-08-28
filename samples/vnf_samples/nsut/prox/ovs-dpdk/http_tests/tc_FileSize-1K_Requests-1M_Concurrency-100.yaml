@@ -26,7 +26,7 @@ scenarios:
     tg__1: trafficgen_1.yardstick
     tg__2: trafficgen_2.yardstick
 
-  vnf_options:
+  options:
     acl:
       rules: ../../acl_rules.yaml
       cfg: "../../acl_config"
