@@ -86,8 +86,8 @@ class ProxBinSearchProfile(ProxProfile):
         # throughput and packet loss from the most recent successful test
         successful_pkt_loss = 0.0
         for test_value in self.bounds_iterator(LOG):
-            result = traffic_gen.resource_helper.run_test(pkt_size, duration,
-                                                          test_value, self.tolerated_loss)
+            result, port_samples = traffic_gen.run_test(pkt_size, duration,
+                                                        test_value, self.tolerated_loss)
 
             if result.success:
                 LOG.debug("Success! Increasing lower bound")
@@ -97,5 +97,5 @@ class ProxBinSearchProfile(ProxProfile):
                 LOG.debug("Failure... Decreasing upper bound")
                 self.current_upper = test_value
 
-            samples = result.get_samples(pkt_size, successful_pkt_loss)
+            samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
             self.queue.put(samples)

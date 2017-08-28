@@ -25,6 +25,7 @@ from multiprocessing import Queue
 
 from yardstick.network_services.vnf_generic.vnf.base import \
     QueueFileWrapper, GenericVNF, GenericTrafficGen
+from yardstick.ssh import SSH
 
 IP_PIPELINE_CFG_FILE_TPL = """
 arp_route_tbl = ({port0_local_ip_hex},{port0_netmask_hex},1,"""
@@ -48,9 +49,9 @@ class FileAbsPath(object):
         return file_path
 
 
-def mock_ssh(ssh, spec=None, exec_result=_LOCAL_OBJECT, run_result=_LOCAL_OBJECT):
+def mock_ssh(mock_ssh_type, spec=None, exec_result=_LOCAL_OBJECT, run_result=_LOCAL_OBJECT):
     if spec is None:
-        spec = ssh.SSH
+        spec = SSH
 
     if exec_result is _LOCAL_OBJECT:
         exec_result = 0, "", ""
@@ -58,11 +59,12 @@ def mock_ssh(ssh, spec=None, exec_result=_LOCAL_OBJECT, run_result=_LOCAL_OBJECT
     if run_result is _LOCAL_OBJECT:
         run_result = 0, "", ""
 
-    ssh_mock = mock.Mock(autospec=spec)
-    ssh_mock._get_client.return_value = mock.Mock()
-    ssh_mock.execute.return_value = exec_result
-    ssh_mock.run.return_value = run_result
-    ssh.from_node.return_value = ssh_mock
+    mock_ssh_instance = mock.Mock(autospec=spec)
+    mock_ssh_instance._get_client.return_value = mock.Mock()
+    mock_ssh_instance.execute.return_value = exec_result
+    mock_ssh_instance.run.return_value = run_result
+    mock_ssh_type.from_node.return_value = mock_ssh_instance
+    return mock_ssh_instance
 
 
 class TestQueueFileWrapper(unittest.TestCase):

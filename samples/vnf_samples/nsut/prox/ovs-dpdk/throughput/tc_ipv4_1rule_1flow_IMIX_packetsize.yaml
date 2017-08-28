@@ -25,7 +25,7 @@ scenarios:
   tc_options:
     rfc2544:
       allowed_drop_rate: 0.8 - 1
-  vnf_options:
+  options:
     acl:
       rules: ../../acl_1rule.yaml
       cfg: "../../acl_config"
