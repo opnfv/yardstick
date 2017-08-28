@@ -16,6 +16,63 @@
       "revId": "fe7a5eaf1d5299a728d7113ff219bfba94ae1232",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_4747b54b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-28T22:41:57Z",
+      "side": 1,
+      "message": "all this should be removed, we can use default superclass DpdkVnfSetupEnvHelper methods",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 620,
+        "endChar": 86
+      },
+      "revId": "fe7a5eaf1d5299a728d7113ff219bfba94ae1232",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a775e199",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-28T22:41:57Z",
+      "side": 1,
+      "message": "we need APP_NAME here\n\n APP_NAME \u003d \"prox\"",
+      "revId": "fe7a5eaf1d5299a728d7113ff219bfba94ae1232",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_87789d90",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-28T22:41:57Z",
+      "side": 1,
+      "message": "we need to lazy create and  connect here.  self._connect() will create ProxSocketHelper() and connect it automatically.\n\n    self.client \u003d self._connect()",
+      "revId": "fe7a5eaf1d5299a728d7113ff219bfba94ae1232",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
