@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_56ee4db5",
+        "filename": "yardstick/network_services/helpers/samplevnf_helper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-28T09:35:10Z",
+      "side": 1,
+      "message": "never use .keys()\n\ndiscard the KeyError\n  \n  try:\n     networks[vintf[\u0027vld_id\u0027]].append(vintf)\n  excepy KeyError:\n     pass\n\n\nbut in what cases will vintf not have vld_id?\nshouldn\u0027t it fail in _resolve_topology()?",
+      "revId": "1cbfef339a0804c2336d2092a3610a77d72f4b05",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
