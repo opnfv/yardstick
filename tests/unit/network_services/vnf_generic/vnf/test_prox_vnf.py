@@ -17,6 +17,7 @@
 
 from __future__ import absolute_import
 
+import errno
 import os
 import unittest
 import mock
@@ -376,50 +377,25 @@ class TestProxApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf.scenario_helper.scenario_cfg = self.SCENARIO_CFG
+        prox_approx_vnf.ssh_helper.provision_tool.return_value = '/tool_path12/tool_file34'
+        prox_approx_vnf.setup_helper.remote_path = 'configs/file56.cfg'
 
-        filewrapper = mock.MagicMock()
-        config_path = self.SCENARIO_CFG['options']["vnf__1"]["prox_config"]
-        prox_path = self.SCENARIO_CFG['options']["vnf__1"]["prox_path"]
-        prox_args = self.SCENARIO_CFG['options']["vnf__1"]["prox_args"]
-        prox_approx_vnf.WAIT_TIME = 0
-        prox_approx_vnf._run_prox(filewrapper, config_path, prox_path, prox_args)
+        expected = "sudo bash -c 'cd /tool_path12; " \
+                   "/tool_path12/tool_file34 -o cli -t  -f configs/file56.cfg '"
 
-        self.assertEqual(prox_approx_vnf.ssh_helper.run.call_args[0][0],
-                         "sudo bash -c 'cd /root/dppd-PROX-v035/build; "
-                         "/root/dppd-PROX-v035/build/prox -o cli -t  -f configs/l3-swap-2.cfg '")
+        prox_approx_vnf._run()
+        result = prox_approx_vnf.ssh_helper.run.call_args[0][0]
+        self.assertEqual(result, expected)
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.CpuSysCores')
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
     @mock.patch(SSH_HELPER)
-    def test_instantiate(self, ssh, mock_find, mock_cpu_sys_cores, mock_time):
-        mock_ssh(ssh)
-
-        mock_cpu_sys_cores.get_core_socket.return_value = {'0': '01234'}
-
+    def bad_test_instantiate(self, ssh, mock_time):
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
-        prox_approx_vnf.ssh_helper = mock.MagicMock(
-            **{"execute.return_value": (0, "", ""), "bin_path": ""})
-        prox_approx_vnf.setup_helper._setup_resources = mock.MagicMock()
-        prox_approx_vnf.setup_helper._find_used_drivers = mock.MagicMock()
-        prox_approx_vnf.setup_helper.used_drivers = {}
-        prox_approx_vnf.setup_helper.bound_pci = []
-        prox_approx_vnf._run_prox = mock.MagicMock(return_value=0)
-        prox_approx_vnf.resource_helper = mock.MagicMock()
-        prox_approx_vnf.resource_helper.get_process_args.return_value = {
-                    '-e': '',
-                    '-t': '',
-                }, 'configs/l3-gen-2.cfg', '/root/dppd-PROX-v035/build/prox'
-
-        prox_approx_vnf.copy_to_target = mock.MagicMock()
-        prox_approx_vnf.upload_prox_config = mock.MagicMock()
-        prox_approx_vnf.generate_prox_config_file = mock.MagicMock()
-        prox_approx_vnf.q_out.put("PROX started")
-        prox_approx_vnf.WAIT_TIME = 0
-
-        # if process it still running exitcode will be None
-        expected = 0, None
-        result = prox_approx_vnf.instantiate(self.SCENARIO_CFG, self.CONTEXT_CFG)
-        self.assertIn(result, expected)
+        prox_approx_vnf.scenario_helper = mock.MagicMock()
+        prox_approx_vnf.setup_helper = mock.MagicMock()
+        # we can't mock super
+        prox_approx_vnf.instantiate(self.SCENARIO_CFG, self.CONTEXT_CFG)
+        prox_approx_vnf.setup_helper.build_config.assert_called_once
 
     @mock.patch(SSH_HELPER)
     def test_wait_for_instantiate_panic(self, ssh, mock_time):
@@ -437,7 +413,7 @@ class TestProxApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
         with self.assertRaises(NotImplementedError):
-            prox_approx_vnf.scale('')
+            prox_approx_vnf.scale()
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.socket')
     @mock.patch(SSH_HELPER)
@@ -461,6 +437,21 @@ class TestProxApproxVnf(unittest.TestCase):
         prox_approx_vnf._vnf_up_post()
         self.assertEqual(resource_helper.up_post.call_count, 1)
 
+    @mock.patch(SSH_HELPER)
+    def test_vnf_execute_oserror(self, ssh, mock_time):
+        mock_ssh(ssh)
+        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf.resource_helper = resource_helper = mock.Mock()
+
+        resource_helper.execute.side_effect = OSError(errno.EPIPE, "")
+        prox_approx_vnf.vnf_execute("", _ignore_errors=True)
+
+        resource_helper.execute.side_effect = OSError(errno.ESHUTDOWN, "")
+        prox_approx_vnf.vnf_execute("", _ignore_errors=True)
+
+        resource_helper.execute.side_effect = OSError(errno.EADDRINUSE, "")
+        with self.assertRaises(OSError):
+            prox_approx_vnf.vnf_execute("", _ignore_errors=True)
 
 if __name__ == '__main__':
     unittest.main()

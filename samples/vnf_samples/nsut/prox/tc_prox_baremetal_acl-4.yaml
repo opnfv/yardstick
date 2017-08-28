@@ -25,7 +25,7 @@ scenarios:
     tg__1: trafficgen_1.yardstick
     vnf__1: vnf.yardstick
 
-  vnf_options:
+  options:
     vnf__1:
       prox_path: /root/dppd-PROX-v037/build/prox
       prox_config: "configs/handle_acl-4.cfg"
