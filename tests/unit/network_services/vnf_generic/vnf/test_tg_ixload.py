@@ -161,7 +161,8 @@ class TestIxLoadTrafficGen(unittest.TestCase):
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ixload_traffic_gen = IxLoadTrafficGen(NAME, vnfd)
             scenario_cfg = {'tc': "nsb_test_case",
-                            'ixia_profile': "ixload.cfg"}
+                            'ixia_profile': "ixload.cfg",
+                            'task_path': "/path/to/task"}
             ixload_traffic_gen.RESULTS_MOUNT = "/tmp/result"
             shutil.copy = mock.Mock()
             scenario_cfg.update({'options': {'packetsize': 64, 'traffic_type': 4,
@@ -173,8 +174,9 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                                                                        '1C/1T',
                                                                        'worker_threads': 1}}
                                              }})
-            self.assertRaises(IOError,
-                              ixload_traffic_gen.instantiate(scenario_cfg, {}))
+            with mock.patch('os.path.isfile', return_value=True):
+                self.assertRaises(IOError,
+                                  ixload_traffic_gen.instantiate(scenario_cfg, {}))
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.shutil")
