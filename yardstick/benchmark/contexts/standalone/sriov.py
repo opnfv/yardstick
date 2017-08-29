@@ -34,8 +34,8 @@ VM_TEMPLATE = """
 <domain type="kvm">
  <name>vm1</name>
   <uuid>{random_uuid}</uuid>
-  <memory unit="KiB">102400</memory>
-  <currentMemory unit="KiB">102400</currentMemory>
+  <memory unit="KiB">10240000</memory>
+  <currentMemory unit="KiB">10240000</currentMemory>
   <memoryBacking>
     <hugepages />
   </memoryBacking>
@@ -111,7 +111,7 @@ function="0x0" slot="0x06" type="pci" />
     </memballoon>
     <interface type="bridge">
       <mac address="{mac_addr}" />
-      <source bridge="virbr0" />
+      <source bridge="br-int" />
     </interface>
    </devices>
 </domain>
@@ -277,7 +277,7 @@ class Sriov(StandaloneContext):
             self.add_sriov_interface(
                 index,
                 vf[index]['vf_pci'],
-                mac_address,
+                vf[index]['mac'],
                 "/tmp/vm_sriov.xml")
             self.connection.execute(
                 "ifconfig {interface} up".format(
@@ -312,8 +312,11 @@ class Sriov(StandaloneContext):
 
     def add_sriov_interface(self, index, vf_pci, vfmac, xml):
         root = ET.parse(xml)
-        pattern = "0000:(\d+):(\d+).(\d+)"
-        m = re.search(pattern, vf_pci, re.MULTILINE)
+        pattern = "0000:[0-9a-f]+:[0-9a-f]+.[0-9a-f]+"
+        print(pattern)
+        m = self.spilt_pci_addr(vf_pci)
+        log.info("=================================")
+        log.info(m)
         device = root.find('devices')
 
         interface = ET.SubElement(device, 'interface')
@@ -326,9 +329,9 @@ class Sriov(StandaloneContext):
 
         addr = ET.SubElement(source, "address")
         addr.set('domain', "0x0")
-        addr.set('bus', "{0}".format(m.group(1)))
-        addr.set('function', "{0}".format(m.group(3)))
-        addr.set('slot', "{0}".format(m.group(2)))
+        addr.set('bus', "{0}".format(m[1]))
+        addr.set('function', "{0}".format(m[3]))
+        addr.set('slot', "0x{0}".format(m[2]))
         addr.set('type', "pci")
 
         vf_pci = ET.SubElement(interface, 'address')
@@ -351,7 +354,7 @@ class Sriov(StandaloneContext):
         pf_vfs = {}
         err, extra_info = self.check_output(
             "cat /sys/bus/pci/devices/{0}/virtfn0/uevent".format(pci))
-        pattern = "PCI_SLOT_NAME=(?P<name>[0-9:.\s.]+)"
+        pattern = "PCI_SLOT_NAME=(?P<name>[0-9]+:[0-9a-f]+:[0-9a-f]+.[0-9]+)"
         m = re.search(pattern, extra_info, re.MULTILINE)
 
         if m:
@@ -359,17 +362,24 @@ class Sriov(StandaloneContext):
         log.info("pf_vfs : {0}".format(pf_vfs))
         return pf_vfs
 
+    def spilt_pci_addr(self, pci):
+        m = pci.split(":")
+        print("(((((((((((((((((((((((((((((((((((((((((((((((")
+        print(pci)
+        slot = m[2].split(".")
+        return [m[0], m[1], slot[0], slot[1]]
+
     def get_vf_datas(self, key, value, vfmac):
         vfret = {}
-        pattern = "0000:(\d+):(\d+).(\d+)"
-
+        pattern = "0000:[0-9a-f]+:[0-9a-f]+.[0-9a-f]+"
+        print(pattern)
         vfret["mac"] = vfmac
         vfs = self.get_virtual_devices(value)
         log.info("vfs: {0}".format(vfs))
         for k, v in vfs.items():
-            m = re.search(pattern, k, re.MULTILINE)
-            m1 = re.search(pattern, value, re.MULTILINE)
-            if m.group(1) == m1.group(1):
+            m = self.spilt_pci_addr(str(k))
+            m1 = self.spilt_pci_addr(str(value))
+            if m[1] == m1[1]:
                 vfret["vf_pci"] = str(v)
                 break
 
