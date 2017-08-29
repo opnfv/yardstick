@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_8d10bb02",
+        "filename": "yardstick/benchmark/contexts/standalone/__init__.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-29T22:09:18Z",
+      "side": 1,
+      "message": "I uploaded patch set 5 with more structural changes after testing on baremetal.\n\ntool_file string was moved to class attribute.",
+      "parentUuid": "da33351e_ed2fc786",
+      "revId": "3e3a75dad661ccbe1a2ecbd59929b3a46c1b69bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_ff549f55",
         "filename": "yardstick/benchmark/contexts/standalone/__init__.py",
         "patchSetId": 4
