@@ -102,7 +102,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         self._connect()
 
         # we don't know client_file_name until runtime as instantiate
-        client_file_name = self.scenario_helper.scenario_cfg['ixia_profile']
+        client_file_name = self.get_relative_path(self.scenario_helper.scenario_cfg['ixia_profile'])
         self.client.ix_load_config(client_file_name)
         time.sleep(WAIT_AFTER_CFG_LOAD)
 
@@ -117,7 +117,8 @@ class IxiaResourceHelper(ClientResourceHelper):
             })
 
         samples = {}
-        ixia_file = os.path.join(os.getcwd(), "ixia_traffic.cfg")
+
+        ixia_file = self.get_relative_path("ixia_traffic.cfg")
         # Generate ixia traffic config...
         while not self._terminated.value:
             traffic_profile.execute(self, self.client, mac, ixia_file)
@@ -139,6 +140,8 @@ class IxiaResourceHelper(ClientResourceHelper):
 
 
 class IxiaTrafficGen(SampleVNFTrafficGen):
+
+    APP_NAME = 'Ixia'
 
     def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
         if resource_helper_type is None:
