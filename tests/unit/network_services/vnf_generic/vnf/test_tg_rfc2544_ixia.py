@@ -343,7 +343,7 @@ class TestIXIATrafficGen(unittest.TestCase):
                     },
                 },
             },
-            'ixia_profile': {}
+            'ixia_profile': '/path/to/profile'
         }
 
         result = sut._traffic_runner(mock_traffic_profile)
