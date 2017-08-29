@@ -20,6 +20,7 @@ import errno
 import collections
 import time
 
+from yardstick import ssh
 from yardstick.benchmark.contexts.base import Context
 from yardstick.common.constants import YARDSTICK_ROOT_PATH
 from yardstick.common.utils import import_modules_from_package, itersubclasses
@@ -118,6 +119,9 @@ class StandaloneContext(Context):
                 self.nfvi_obj.sriov[0]['phy_ports'],
                 nic_details,
                 self.nfvi_obj.sriov[0]['phy_driver'])
+            LOG.debug("Waiting for VM to come up...")
+            client = ssh.SSH.from_node(self.nfvi_node[0], defaults={'user': 'root'})
+            client.wait(timeout=500)
         if self.nfvi_node[0]["role"] == "Ovsdpdk":
             self.nfvi_obj.setup_ovs(self.nfvi_obj.ovs[0]["phy_ports"])
             self.nfvi_obj.start_ovs_serverswitch()
@@ -128,6 +132,9 @@ class StandaloneContext(Context):
                 self.nfvi_obj.ovs[0]['phy_ports'],
                 nic_details,
                 self.nfvi_obj.ovs[0]['phy_driver'])
+            LOG.debug("Waiting for VM to come up...")
+            client = ssh.SSH.from_node(self.nodes[1], defaults={'user': 'root'})
+            client.wait(timeout=500)
             pass
 
     def undeploy(self):

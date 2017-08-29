@@ -297,8 +297,7 @@ class StandaloneContextTestCase(unittest.TestCase):
     def test__deploy_unsuccessful(self, mock_sriov_time, mock_standlalone_time, mock_ovsdpdk_time):
         self.test_context.vm_deploy = False
 
-    def test__deploy_sriov_firsttime(self, mock_sriov_time, mock_standlalone_time,
-                                     mock_ovsdpdk_time):
+    def test__deploy_sriov_firsttime(self, mock_sriov_time, mock_standlalone_time, mock_ovsdpdk_time):
         attrs = {
             'name': 'foo',
             'file': self._get_file_abspath(self.NODES_SAMPLE)
@@ -341,12 +340,18 @@ class StandaloneContextTestCase(unittest.TestCase):
             'pci': ['0000:06:00.0', '0000:06:00.1'],
             'phy_driver': 'i40e'}
         DRIVER = 'i40e'
-        result = self.test_context.nfvi_obj.setup_sriov_context(
-            PORTS,
-            NIC_DETAILS,
-            DRIVER)
-        print("{0}".format(result))
-        self.assertIsNone(self.test_context.deploy())
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.from_node = \
+                mock.Mock(return_value=(1, "a", ""))
+            ssh.return_value = ssh_mock
+            ssh_mock.wait = mock.Mock()
+            result = self.test_context.nfvi_obj.setup_sriov_context(
+                PORTS,
+                NIC_DETAILS,
+                DRIVER)
+            print("{0}".format(result))
+            self.assertIsNone(self.test_context.deploy())
 
     def test__deploy_sriov_notfirsttime(self, mock_sriov_time, mock_standlalone_time,
                                         mock_ovsdpdk_time):
@@ -390,12 +395,18 @@ class StandaloneContextTestCase(unittest.TestCase):
             'pci': ['0000:06:00.0', '0000:06:00.1'],
             'phy_driver': 'i40e'}
         DRIVER = 'i40e'
-        result = self.test_context.nfvi_obj.setup_sriov_context(
-            PORTS,
-            NIC_DETAILS,
-            DRIVER)
-        print("{0}".format(result))
-        self.assertIsNone(self.test_context.deploy())
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.from_node = \
+                mock.Mock(return_value=(1, "a", ""))
+            ssh.return_value = ssh_mock
+            ssh_mock.wait = mock.Mock()
+            result = self.test_context.nfvi_obj.setup_sriov_context(
+                PORTS,
+                NIC_DETAILS,
+                DRIVER)
+            print("{0}".format(result))
+            self.assertIsNone(self.test_context.deploy())
 
     def test__deploy_ovs_firsttime(self, mock_sriov_time, mock_standlalone_time,
                                    mock_ovsdpdk_time):
@@ -453,12 +464,18 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_obj.setup_ovs_bridge = mock.Mock()
         self.test_context.nfvi_obj.add_oflows = mock.Mock()
 
-        result = self.test_context.nfvi_obj.setup_ovs_context(
-            PORTS,
-            NIC_DETAILS,
-            DRIVER)
-        print("{0}".format(result))
-        self.assertIsNone(self.test_context.deploy())
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.from_node = \
+                mock.Mock(return_value=(1, "a", ""))
+            ssh.return_value = ssh_mock
+            ssh_mock.wait = mock.Mock()
+            result = self.test_context.nfvi_obj.setup_ovs_context(
+                PORTS,
+                NIC_DETAILS,
+                DRIVER)
+            print("{0}".format(result))
+            self.assertIsNone(self.test_context.deploy())
 
     def test__deploy_ovs_notfirsttime(self, mock_sriov_time, mock_standlalone_time,
                                       mock_ovsdpdk_time):
@@ -514,12 +531,18 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_obj.setup_ovs_bridge()
         self.test_context.nfvi_obj.add_oflows()
 
-        result = self.test_context.nfvi_obj.setup_ovs_context(
-            PORTS,
-            NIC_DETAILS,
-            DRIVER)
-        print("{0}".format(result))
-        self.assertIsNone(self.test_context.deploy())
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.from_node = \
+                mock.Mock(return_value=(1, "a", ""))
+            ssh.return_value = ssh_mock
+            ssh_mock.wait = mock.Mock()
+            result = self.test_context.nfvi_obj.setup_ovs_context(
+                PORTS,
+                NIC_DETAILS,
+                DRIVER)
+            print("{0}".format(result))
+            self.assertIsNone(self.test_context.deploy())
 
     def test_undeploy_sriov(self, mock_sriov_time, mock_standlalone_time, mock_ovsdpdk_time):
         attrs = {
