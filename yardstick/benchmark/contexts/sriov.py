@@ -313,7 +313,8 @@ class Sriov(StandaloneContext):
     def add_sriov_interface(self, index, vf_pci, vfmac, xml):
         root = ET.parse(xml)
         pattern = "0000:[0-9a-f]+:[0-9a-f]+.[0-9a-f]+"
-        print(pattern)
+ #       m = re.search(pattern, vf_pci, re.MULTILINE)
+        
         m = self.spilt_pci_addr(vf_pci)
         log.info("=================================")
         log.info(m)
@@ -354,7 +355,10 @@ class Sriov(StandaloneContext):
         pf_vfs = {}
         err, extra_info = self.check_output(
             "cat /sys/bus/pci/devices/{0}/virtfn0/uevent".format(pci))
-        pattern = "PCI_SLOT_NAME=(?P<name>[0-9]+:[0-9a-f]+:[0-9a-f]+.[0-9]+)"
+        #pattern = "PCI_SLOT_NAME=(?P<name>[0-9:.\w.]+)"
+        #pattern = "PCI_SLOT_NAME=(?P<name>[0-9]+:[0-9]+:[0a-f]+.[0-9]+)"
+        #pattern = "PCI_SLOT_NAME=(?P<name>[0-9:0-9:0-9a-f.0-9]+)"
+	pattern = "PCI_SLOT_NAME=(?P<name>[0-9]+:[0-9a-f]+:[0-9a-f]+.[0-9]+)"
         m = re.search(pattern, extra_info, re.MULTILINE)
 
         if m:
@@ -364,21 +368,19 @@ class Sriov(StandaloneContext):
 
     def spilt_pci_addr(self, pci):
         m = pci.split(":")
-        print("(((((((((((((((((((((((((((((((((((((((((((((((")
-        print(pci)
         slot = m[2].split(".")
         return [m[0], m[1], slot[0], slot[1]]
 
     def get_vf_datas(self, key, value, vfmac):
         vfret = {}
         pattern = "0000:[0-9a-f]+:[0-9a-f]+.[0-9a-f]+"
-        print(pattern)
+
         vfret["mac"] = vfmac
         vfs = self.get_virtual_devices(value)
         log.info("vfs: {0}".format(vfs))
         for k, v in vfs.items():
-            m = self.spilt_pci_addr(str(k))
-            m1 = self.spilt_pci_addr(str(value))
+            m = self.spilt_pci_addr(k)
+            m1 = self.spilt_pci_addr(value)
             if m[1] == m1[1]:
                 vfret["vf_pci"] = str(v)
                 break
