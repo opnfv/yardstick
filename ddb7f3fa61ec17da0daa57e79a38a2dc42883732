@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_87d7fd22",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-29T00:12:55Z",
+      "side": 1,
+      "message": "we want the stack trace for debugging\n\n LOG.error(..., exc_info\u003dTrue)",
+      "revId": "ddb7f3fa61ec17da0daa57e79a38a2dc42883732",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
