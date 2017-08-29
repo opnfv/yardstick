@@ -92,7 +92,8 @@ class IxLoadResourceHelper(ClientResourceHelper):
 
     def setup(self):
         # TODO: fixupt scenario_helper to hanlde ixia
-        self.resource_file_name = str(self.scenario_helper.scenario_cfg['ixia_profile'])
+        self.resource_file_name = \
+            self.get_relative_path(self.scenario_helper.scenario_cfg['ixia_profile'])
         makedirs(self.RESULTS_MOUNT)
         cmd = MOUNT_CMD.format(self.vnfd_helper.mgmt_interface, self)
         LOG.debug(cmd)
