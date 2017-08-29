@@ -21,7 +21,7 @@ LOG = logging.getLogger(__name__)
 class CreateServer(base.Scenario):
     """Create an OpenStack server"""
 
-    __scenario_type__ = "CreateSever"
+    __scenario_type__ = "CreateServer"
 
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
