@@ -461,6 +461,18 @@ class ClientResourceHelper(ResourceHelper):
             LOG.exception("TRex client not connected")
             return {}
 
+    def get_relative_path(self, path, raise_exc=True):
+        local_path = os.path.join(os.getcwd(), path)
+        rel_path = os.path.join(self.scenario_helper.scenario_cfg["task_path"], path)
+        for lookup_path in [local_path, rel_path]:
+            try:
+                with open(lookup_path):
+                    return lookup_path
+            except OSError:
+                pass
+        if raise_exc:
+            raise Exception('Unable to find {} file'.format(path))
+
     def generate_samples(self, key=None, default=None):
         last_result = self.get_stats(self.my_ports)
         key_value = last_result.get(key, default)
