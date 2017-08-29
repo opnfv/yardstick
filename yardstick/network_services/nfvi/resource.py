@@ -222,6 +222,12 @@ class ResourceProfile(object):
         connection.execute("sudo rabbitmqctl start_app")
         connection.execute("sudo service rabbitmq-server restart")
 
+        LOG.debug("Creating amdin user for rabbitmq in order to collect data from collectd")
+        connection.execute("sudo rabbitmqctl delete_user guest")
+        connection.execute("sudo rabbitmqctl add_user admin admin")
+        connection.execute("sudo rabbitmqctl authenticate_user admin admin")
+        connection.execute("sudo rabbitmqctl set_permissions -p / admin \".*\" \".*\" \".*\"")
+
         LOG.debug("Start collectd service.....")
         connection.execute("sudo %s" % collectd_path)
         LOG.debug("Done")
