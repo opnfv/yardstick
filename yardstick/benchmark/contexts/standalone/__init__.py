@@ -118,6 +118,7 @@ class StandaloneContext(Context):
                 self.nfvi_obj.sriov[0]['phy_ports'],
                 nic_details,
                 self.nfvi_obj.sriov[0]['phy_driver'])
+            time.sleep(500)
         if self.nfvi_node[0]["role"] == "Ovsdpdk":
             self.nfvi_obj.setup_ovs(self.nfvi_obj.ovs[0]["phy_ports"])
             self.nfvi_obj.start_ovs_serverswitch()
@@ -128,6 +129,7 @@ class StandaloneContext(Context):
                 self.nfvi_obj.ovs[0]['phy_ports'],
                 nic_details,
                 self.nfvi_obj.ovs[0]['phy_driver'])
+            time.sleep(500)
             pass
 
     def undeploy(self):
