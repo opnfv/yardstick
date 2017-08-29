@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_8d36fb50",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-29T22:34:20Z",
+      "side": 1,
+      "message": "I prefer checking with open(), because os.stat() doesn\u0027t really check access.\n\n  try:\n    with open(lookup_path):\n        return lookup_path\n  except OSError:\n     pass\n\nor something.\n\n\nsee find_relative_file in vnf_generic.py\n\n\n\ndef find_relative_file(path, task_path):\n    # fixme: create schema to validate all fields have been provided\n    try:\n        with open(path):\n            pass\n        return path\n    except IOError as e:\n        if e.errno !\u003d errno.ENOENT:\n            raise\n        else:\n            rel_path \u003d os.path.join(task_path, path)\n            with open(rel_path):\n                pass\n            return rel_path",
+      "revId": "d556dbd4f9f4b7379c533cea6f8cd5876b10986f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
