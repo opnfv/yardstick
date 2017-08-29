@@ -87,19 +87,22 @@ class SshManager(object):
 
 
 def find_relative_file(path, task_path):
+    """
+    Find file in one of places: in abs of path or
+    relative to TC scenario file. In this order.
+
+    :param path:
+    :param task_path:
+    :return str: full path to file
+    """
     # fixme: create schema to validate all fields have been provided
-    try:
-        with open(path):
+    for lookup in [os.path.abspath(path), os.path.join(task_path, path)]:
+        try:
+            with open(lookup):
+                return lookup
+        except IOError:
             pass
-        return path
-    except IOError as e:
-        if e.errno != errno.ENOENT:
-            raise
-        else:
-            rel_path = os.path.join(task_path, path)
-            with open(rel_path):
-                pass
-            return rel_path
+    raise IOError('Unable to find {} file'.format(path))
 
 
 def open_relative_file(path, task_path):
