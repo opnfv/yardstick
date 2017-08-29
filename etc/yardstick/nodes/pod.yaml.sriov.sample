@@ -1,0 +1,100 @@
+##############################################################################
+# Copyright (c) 2015 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# Sample config file about the POD information, including the
+# name/IP/user/ssh key of Bare Metal and Controllers/Computes
+#
+# The options of this config file include:
+# name: the name of this node
+# role: node's role, support role: Master/Controller/Comupte/BareMetal
+# ip: the node's IP address
+# user: the username for login
+# key_filename:the path of the private key file for login
+
+nodes:
+-
+    name: trafficgen_1
+    role: TrafficGen
+    ip: <ip_address>
+    auth_type: password
+    user: root
+    password: <password>
+    interfaces:
+        xe0:  # logical name from topology.yaml and vnfd.yaml
+            vpci:      "0000:03:00.0"
+            driver:    ixgbe
+            dpdk_port_num: 0
+            local_ip: "152.16.100.20"
+            netmask:   "255.255.255.0"
+            local_mac:   "90:e2:ba:77:ce:68"
+        xe1:  # logical name from topology.yaml and vnfd.yaml
+            vpci:      "0000:03:00.1"
+            driver:    ixgbe
+            dpdk_port_num: 1
+            local_ip: "152.16.100.21"
+            netmask:   "255.255.255.0"
+            local_mac:   "90:e2:ba:77:ce:69"
+-
+    name: sriov
+    role: Sriov
+    ip: <ip_address>
+    auth_type: password
+    user: root
+    password: <password>
+    vf_macs:
+     - "00:00:00:71:7d:25"
+     - "00:00:00:71:7d:26"
+    phy_ports: # Physical ports to configure sriov
+     - "0000:06:00.0"
+     - "0000:06:00.1"
+    phy_driver:    i40e # kernel driver
+    images: "/var/lib/libvirt/images/yardstick-image1.img"
+
+-
+    name: vnf
+    role: vnf 
+    ip: <ip_address>
+    auth_type: password
+    user: root
+    password: <password>
+    host: <host_ip_address> #BM host == ip, SRIOV & ovs-dpdk host == compute node.
+    interfaces:
+        xe0:  # logical name from topology.yaml and vnfd.yaml
+            vpci:      "0000:06:00.0"
+            driver:    i40e
+            dpdk_port_num: 0
+            local_ip: "152.16.100.19"
+            netmask:   "255.255.255.0"
+            local_mac:   "3c:fd:fe:9c:89:90"
+
+        xe1:  # logical name from topology.yaml and vnfd.yaml
+            vpci:      "0000:06:00.1"
+            driver:    i40e
+            dpdk_port_num: 1
+            local_ip: "152.16.40.19"
+            netmask:   "255.255.255.0"
+            local_mac:   "3c:fd:fe:9c:89:91"
+    routing_table:
+    - network: "152.16.100.20"
+      netmask: "255.255.255.0"
+      gateway: "152.16.100.20"
+      if: "xe0"
+    - network: "152.16.40.20"
+      netmask: "255.255.255.0"
+      gateway: "152.16.40.20"
+      if: "xe1"
+    nd_route_tbl:
+    - network: "0064:ff9b:0:0:0:0:9810:6414"
+      netmask: "112"
+      gateway: "0064:ff9b:0:0:0:0:9810:6414"
+      if: "xe0"
+    - network: "0064:ff9b:0:0:0:0:9810:2814"
+      netmask: "112"
+      gateway: "0064:ff9b:0:0:0:0:9810:2814"
+      if: "xe1"
