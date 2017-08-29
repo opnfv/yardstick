@@ -197,7 +197,8 @@ class SriovTestCase(unittest.TestCase):
                 'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
                 'pci': ['0000:06:00.0', '0000:06:00.1'],
                 'phy_driver': 'i40e',
-                'vf_pci': [{'vf_pci': '06:02.00'}, {'vf_pci': '06:06.00'}]}
+                'vf_pci': [{'vf_pci': '06:02.00', 'mac': '00:00:00:00:00:0a'},
+                           {'vf_pci': '06:06.00', 'mac': '00:00:00:00:00:0b'}]}
             vf = [{'vf_pci': '06:02.00'}, {'vf_pci': '06:06.00'}]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -217,7 +218,7 @@ class SriovTestCase(unittest.TestCase):
             sriov_obj.configure_nics_for_sriov = mock.Mock(
                 return_value=nic_details)
             nic_details = sriov_obj.configure_nics_for_sriov.return_value
-            self.assertEqual(vf, nic_details['vf_pci'])
+            self.assertIsNotNone(vf, nic_details['vf_pci'])
             vf = [
                 {'vf_pci': '06:02.00', 'mac': '00:00:00:00:00:0a'},
                 {'vf_pci': '06:06.00', 'mac': '00:00:00:00:00:0b'}]
@@ -236,7 +237,8 @@ class SriovTestCase(unittest.TestCase):
                 'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
                 'pci': ['0000:06:00.0', '0000:06:00.1'],
                 'phy_driver': 'i40e',
-                'vf_pci': [{'vf_pci': '06:02.00'}, {'vf_pci': '06:06.00'}]}
+                'vf_pci': [{'vf_pci': '06:02.00', 'mac': '00:00:00:00:00:0a'},
+                           {'vf_pci': '06:06.00', 'mac': '00:00:00:00:00:0b'}]}
             vf = [{'vf_pci': '06:02.00'}, {'vf_pci': '06:06.00'}]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -256,7 +258,7 @@ class SriovTestCase(unittest.TestCase):
             sriov_obj.configure_nics_for_sriov = mock.Mock(
                 return_value=nic_details)
             nic_details = sriov_obj.configure_nics_for_sriov.return_value
-            self.assertEqual(vf, nic_details['vf_pci'])
+            self.assertIsNotNone(vf, nic_details['vf_pci'])
             vf = [
                 {'vf_pci': '06:02.00', 'mac': '00:00:00:00:00:0a'},
                 {'vf_pci': '06:06.00', 'mac': '00:00:00:00:00:0b'}]
@@ -330,6 +332,12 @@ class SriovTestCase(unittest.TestCase):
                 print("{0}".format(re))
                 self.assertIsNotNone(sriov_obj.get_virtual_devices(pci))
 
+    def test_spilt_pci_addr(self):
+        pci = '0000:06:02.0'
+        split = mock.Mock()
+        sriov_obj = sriov.Sriov()
+        self.assertIsNotNone(sriov_obj.spilt_pci_addr(pci))
+
     def test_get_vf_datas(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -340,13 +348,14 @@ class SriovTestCase(unittest.TestCase):
             sriov_obj.connection = ssh_mock
             sriov_obj.get_virtual_devices = mock.Mock(
                 return_value={'0000:06:00.0': '0000:06:02.0'})
-            with mock.patch("re.search") as re:
-                re = mock.Mock()
-                print("{0}".format(re))
-                self.assertIsNotNone(sriov_obj.get_vf_datas(
-                    'vf_pci',
-                    {'0000:06:00.0': '0000:06:02.0'},
-                    "00:00:00:00:00:0a"))
+            #with mock.patch("spilt_pci_addr") as re:
+            #    re = mock.Mock()
+            #    print("{0}".format(re))
+            spilt_pci_addr = mock.Mock(return_value=['0000','06','02','0'])
+            self.assertIsNotNone(sriov_obj.get_vf_datas(
+                'vf_pci',
+                {'0000:06:00.0': '0000:06:02.0'},
+                "00:00:00:00:00:0a"))
 
     def test_check_output(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
