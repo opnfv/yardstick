@@ -185,9 +185,7 @@ class HeatContextTestCase(unittest.TestCase):
 
     def test_add_server_port(self):
         network1 = mock.MagicMock()
-        network1.vld_id = 'vld111'
         network2 = mock.MagicMock()
-        network2.vld_id = 'vld777'
         self.test_context.name = 'foo'
         self.test_context.stack = mock.MagicMock()
         self.test_context.networks = {
@@ -229,7 +227,6 @@ class HeatContextTestCase(unittest.TestCase):
             "network_name": 'a',
             "local_mac": '00:01',
             "local_ip": '10.20.30.45',
-            "vld_id": 'vld111',
         }
         self.test_context.add_server_port(server)
         self.assertEqual(server.private_ip, '10.20.30.45')
