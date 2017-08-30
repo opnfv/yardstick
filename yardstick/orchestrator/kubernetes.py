@@ -37,7 +37,7 @@ class KubernetesObject(object):
                 "template": {
                     "metadata": {
                         "labels": {
-                            "app": ""
+                            "app": name
                         }
                     },
                     "spec": {
@@ -106,6 +106,35 @@ class KubernetesObject(object):
         self._add_volume(key_volume)
 
 
+class ServiceObject(object):
+
+    def __init__(self, name):
+        self.name = '{}-service'.format(name)
+        self.template = {
+            'metadata': {
+                'name': '{}-service'.format(name)
+            },
+            'spec': {
+                'type': 'NodePort',
+                'ports': [
+                    {
+                        'port': 22,
+                        'protocol': 'TCP'
+                    }
+                ],
+                'selector': {
+                    'app': name
+                }
+            }
+        }
+
+    def create(self):
+        k8s_utils.create_service(self.template)
+
+    def delete(self):
+        k8s_utils.delete_service(self.name)
+
+
 class KubernetesTemplate(object):
 
     def __init__(self, name, template_cfg):
@@ -117,6 +146,8 @@ class KubernetesTemplate(object):
                                           ssh_key=self.ssh_key,
                                           **cfg)
                          for rc, cfg in template_cfg.items()]
+        self.service_objs = [ServiceObject(s) for s in self.rcs]
+
         self.pods = []
 
     def _get_rc_name(self, rc_name):

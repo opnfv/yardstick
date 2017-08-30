@@ -47,13 +47,15 @@ class KubernetesTestCase(unittest.TestCase):
         # clear kubernetes contexts from global list so we don't break other tests
         Context.list = []
 
+    @mock.patch('{}.KubernetesContext._delete_services'.format(prefix))
     @mock.patch('{}.KubernetesContext._delete_ssh_key'.format(prefix))
     @mock.patch('{}.KubernetesContext._delete_rcs'.format(prefix))
     @mock.patch('{}.KubernetesContext._delete_pods'.format(prefix))
     def test_undeploy(self,
                       mock_delete_pods,
                       mock_delete_rcs,
-                      mock_delete_ssh):
+                      mock_delete_ssh,
+                      mock_delete_services):
 
         k8s_context = KubernetesContext()
         k8s_context.init(context_cfg)
@@ -61,7 +63,9 @@ class KubernetesTestCase(unittest.TestCase):
         self.assertTrue(mock_delete_ssh.called)
         self.assertTrue(mock_delete_rcs.called)
         self.assertTrue(mock_delete_pods.called)
+        self.assertTrue(mock_delete_services.called)
 
+    @mock.patch('{}.KubernetesContext._create_services'.format(prefix))
     @mock.patch('{}.KubernetesContext._wait_until_running'.format(prefix))
     @mock.patch('{}.KubernetesTemplate.get_rc_pods'.format(prefix))
     @mock.patch('{}.KubernetesContext._create_rcs'.format(prefix))
@@ -70,7 +74,8 @@ class KubernetesTestCase(unittest.TestCase):
                     mock_set_ssh_key,
                     mock_create_rcs,
                     mock_get_rc_pods,
-                    mock_wait_until_running):
+                    mock_wait_until_running,
+                    mock_create_services):
 
         k8s_context = KubernetesContext()
         k8s_context.init(context_cfg)
@@ -78,6 +83,7 @@ class KubernetesTestCase(unittest.TestCase):
             k8s_context.deploy()
         self.assertTrue(mock_set_ssh_key.called)
         self.assertTrue(mock_create_rcs.called)
+        self.assertTrue(mock_create_services.called)
         self.assertTrue(mock_get_rc_pods.called)
         self.assertTrue(mock_wait_until_running.called)
 
@@ -101,14 +107,39 @@ class KubernetesTestCase(unittest.TestCase):
         mock_read_pod_status.return_value = 'Running'
         k8s_context._wait_until_running()
 
-    @mock.patch('{}.k8s_utils.get_pod_list'.format(prefix))
-    def test_get_server(self, mock_get_pod_list):
+    @mock.patch('{}.k8s_utils.get_pod_by_name'.format(prefix))
+    @mock.patch('{}.KubernetesContext._get_ip'.format(prefix))
+    @mock.patch('{}.k8s_utils.get_service_by_name'.format(prefix))
+    def test_get_server(self,
+                        mock_get_service_by_name,
+                        mock_get_ip,
+                        mock_get_pod_by_name):
+        class Service(object):
+            def __init__(self):
+                self.name = 'yardstick'
+                self.node_port = 30000
+
+        class Services(object):
+            def __init__(self):
+                self.ports = [Service()]
+
+        class Status(object):
+            def __init__(self):
+                self.pod_ip = '172.16.10.131'
+
+        class Pod(object):
+            def __init__(self):
+                self.status = Status()
+
         k8s_context = KubernetesContext()
         k8s_context.init(context_cfg)
 
-        mock_get_pod_list.return_value.items = []
+        mock_get_service_by_name.return_value = Services()
+        mock_get_pod_by_name.return_value = Pod()
+        mock_get_ip.return_value = '172.16.10.131'
+
         server = k8s_context._get_server('server')
-        self.assertIsNone(server)
+        self.assertIsNotNone(server)
 
     @mock.patch('{}.KubernetesContext._create_rc'.format(prefix))
     def test_create_rcs(self, mock_create_rc):
