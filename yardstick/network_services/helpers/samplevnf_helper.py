@@ -333,10 +333,20 @@ class MultiPortConfig(object):
             'nd_route_tbl': "(0100::,64,0,::1)"
         }
         self.pktq_out_os = swq_out_str.split(' ')
-        # why?
+        # HWLB is a run to complition. So override the pktq_in/pktq_out
         if self.lb_config == self.HW_LB:
-            arpicmp_data['pktq_in'] = swq_in_str
             self.swq = 0
+            swq_in_str = \
+                self.make_range_str('SWQ{}', self.swq,
+                                    offset=(self.lb_count * self.worker_threads))
+            arpicmp_data['pktq_in'] = swq_in_str
+            # WA: Since port_pairs will not be populated during arp pipeline
+            self.port_pairs = self.port_pair_list
+            port_iter = \
+                self.make_port_pairs_iter(self.float_x_plus_one_tenth_of_y, [self.mul])
+            pktq_out = self.make_str('TXQ{}', port_iter)
+            arpicmp_data['pktq_out'] = pktq_out
+
         return arpicmp_data
 
     def generate_final_txrx_data(self):
