@@ -49,4 +49,12 @@
       vnf_name: FW
     - role: install_samplevnf
       vnf_name: CGNATP
-
+    # build shared DPDK for collectd only, required DPDK downloaded already
+    - install_dpdk_shared
+    - install_rabbitmq
+    - download_intel_cmt_cat
+    - install_intel_cmt_cat
+    - download_yajl
+    - install_yajl
+    - download_collectd
+    - install_collectd
