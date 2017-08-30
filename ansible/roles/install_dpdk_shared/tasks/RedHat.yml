@@ -11,14 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# openstack role assignment list --names
 ---
-- os_user_role:
-    state: present
-    user: "{{ openrc.OS_USERNAME }}"
-    role: heat_stack_owner
-    project: "{{ item }}"
+- name: Install DPDK build dependencies
+  action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
   with_items:
-#    - demo
-    - admin
-  environment: "{{ openrc }}"
+    - libpcap-devel
+
+- name: Install kernel headers
+  action: "{{ ansible_pkg_mgr }} name=kernel-headers-{{ dpdk_kernel }} state=present"
