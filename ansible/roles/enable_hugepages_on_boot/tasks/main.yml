@@ -17,6 +17,11 @@
   register: is_mine_huge
   ignore_errors: True
 
+# won't work in chroot
+#- name: Detect EFI
+#  stat: path="/sys/firmware/efi"
+#  register: efi
+
 - name: check if hugepages are set by someone else
   command: "grep -o 'default_hugepagesz=' /etc/default/grub"
   register: is_huge
@@ -53,3 +58,8 @@
 - service:
     name: procps
     enabled: yes
+
+# still won't work in chroot, grub-probe fails
+# /usr/sbin/grub-probe: error: failed to get canonical path of `/dev/mapper/loop0p1
+#- name: Update grub
+#  command: "{{ update_grub[ansible_os_family] }}"
