@@ -1136,11 +1136,6 @@ class TestClientResourceHelper(unittest.TestCase):
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
         client_resource_helper.client = mock.MagicMock()
-        client_resource_helper._vpci_ascending = [
-            '0000:05:00.0',
-            '0000:05:00.1',
-            '0000:05:00.2',
-        ]
         client_resource_helper.client.get_stats.return_value = {
             0: {
                 'rx_pps': 5.5,
@@ -1186,10 +1181,6 @@ class TestClientResourceHelper(unittest.TestCase):
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
         client_resource_helper.client = mock.MagicMock()
-        client_resource_helper._vpci_ascending = [
-            '0000:05:00.0',
-            '0000:05:00.1',
-        ]
         client_resource_helper.client.get_stats.return_value = {
             'key_name': 'key_value',
             0: {
@@ -1238,10 +1229,6 @@ class TestClientResourceHelper(unittest.TestCase):
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
         client_resource_helper.client = mock.MagicMock()
-        client_resource_helper._vpci_ascending = [
-            '0000:05:00.0',
-            '0000:05:00.1',
-        ]
         client_resource_helper.client.get_stats.return_value = {
             0: {
                 'rx_pps': 5.5,

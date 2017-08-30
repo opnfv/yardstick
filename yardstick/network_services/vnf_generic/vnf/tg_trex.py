@@ -21,7 +21,7 @@ import os
 
 import yaml
 
-from yardstick.common.utils import mac_address_to_hex_list
+from yardstick.common.utils import mac_address_to_hex_list, try_int
 from yardstick.network_services.utils import get_nsb_option
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
@@ -76,7 +76,6 @@ class TrexResourceHelper(ClientResourceHelper):
 
         cfg_str = yaml.safe_dump(cfg_file, default_flow_style=False, explicit_start=True)
         self.ssh_helper.upload_config_file(os.path.basename(self.CONF_FILE), cfg_str)
-        self._vpci_ascending = sorted(vpci_list)
 
     def check_status(self):
         status, _, _ = self.ssh_helper.execute("sudo lsof -i:%s" % self.SYNC_PORT)
@@ -109,15 +108,28 @@ class TrexResourceHelper(ClientResourceHelper):
 
         self.ssh_helper.execute("sudo pkill -9 rex > /dev/null 2>&1")
 
+        # We MUST default to 1 because TRex won't work on single-queue devices with
+        # more than one core per port
+        # We really should be trying to find the number of queues in the driver,
+        # but there doesn't seem to be a way to do this
+        # TRex Error: the number of cores should be 1 when the driver
+        # support only one tx queue and one rx queue. Please use -c 1
+        threads_per_port = try_int(self.scenario_helper.options.get("queues_per_port"), 1)
+
         trex_path = self.ssh_helper.join_bin_path("trex", "scripts")
         path = get_nsb_option("trex_path", trex_path)
 
-        # cmd = "sudo ./t-rex-64 -i --cfg %s > /dev/null 2>&1" % self.CONF_FILE
-        cmd = "./t-rex-64 -i --cfg '{}'".format(self.CONF_FILE)
+        cmd = "./t-rex-64 --no-scapy-server -i -c {} --cfg '{}'".format(threads_per_port,
+                                                                        self.CONF_FILE)
 
-        # if there are errors we want to see them
+        if self.scenario_helper.options.get("trex_server_debug"):
+            # if there are errors we want to see them
+            redir = ""
+        else:
+            redir = ">/dev/null"
         # we have to sudo cd because the path might be owned by root
-        trex_cmd = """sudo bash -c "cd '{}' ; {}" >/dev/null""".format(path, cmd)
+        trex_cmd = """sudo bash -c "cd '{}' ; {}" {}""".format(path, cmd, redir)
+        LOG.debug(trex_cmd)
         self.ssh_helper.execute(trex_cmd)
 
     def terminate(self):

@@ -356,6 +356,17 @@ class TestTrexTrafficGen(unittest.TestCase):
         trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen.ssh_helper = mock.MagicMock()
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
+        trex_traffic_gen.scenario_helper.scenario_cfg = {}
+        self.assertIsNone(trex_traffic_gen._start_server())
+
+    @mock.patch(SSH_HELPER)
+    def test__start_server_multiple_queues(self, ssh):
+        mock_ssh(ssh)
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen.ssh_helper = mock.MagicMock()
+        trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
+        trex_traffic_gen.scenario_helper.scenario_cfg = {"options": {NAME: {"queues_per_port": 2}}}
         self.assertIsNone(trex_traffic_gen._start_server())
 
     @mock.patch(SSH_HELPER)
@@ -371,7 +382,6 @@ class TestTrexTrafficGen(unittest.TestCase):
         self.sut = TrexTrafficGen(NAME, vnfd)
         self.sut.ssh_helper = mock.Mock()
         self.sut.ssh_helper.run = mock.Mock()
-        self.sut._vpci_ascending = ["0000:05:00.0", "0000:05:00.1"]
         self.sut._connect_client = mock.Mock(autospec=STLClient)
         self.sut._connect_client.get_stats = mock.Mock(return_value="0")
         self.sut.resource_helper.RUN_DURATION = 0

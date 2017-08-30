@@ -423,7 +423,6 @@ class ClientResourceHelper(ResourceHelper):
         self._queue = Queue()
         self._result = {}
         self._terminated = Value('i', 0)
-        self._vpci_ascending = None
 
     def _build_ports(self):
         self.networks = self.vnfd_helper.port_pairs.networks
