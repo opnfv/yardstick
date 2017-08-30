@@ -28,6 +28,60 @@ def get_core_api():     # pragma: no cover
     return client.CoreV1Api()
 
 
+def get_node_list(**kwargs):        # pragma: no cover
+    core_v1_api = get_core_api()
+    try:
+        return core_v1_api.list_node(**kwargs)
+    except ApiException:
+        LOG.exception('Get node list failed')
+        raise
+
+
+def create_service(template,
+                   namespace='default',
+                   wait=False,
+                   **kwargs):       # pragma: no cover
+    core_v1_api = get_core_api()
+    metadata = client.V1ObjectMeta(**template.get('metadata', {}))
+
+    ports = [client.V1ServicePort(**port) for port in
+             template.get('spec', {}).get('ports', [])]
+    template['spec']['ports'] = ports
+    spec = client.V1ServiceSpec(**template.get('spec', {}))
+
+    service = client.V1Service(metadata=metadata, spec=spec)
+
+    try:
+        core_v1_api.create_namespaced_service('default', service)
+    except ApiException:
+        LOG.exception('Create Service failed')
+        raise
+
+
+def delete_service(name,
+                   namespace='default',
+                   **kwargs):       # pragma: no cover
+    core_v1_api = get_core_api()
+    try:
+        core_v1_api.delete_namespaced_service(name, namespace, **kwargs)
+    except ApiException:
+        LOG.exception('Delete Service failed')
+
+
+def get_service_list(namespace='default', **kwargs):
+    core_v1_api = get_core_api()
+    try:
+        return core_v1_api.list_namespaced_service(namespace, **kwargs)
+    except ApiException:
+        LOG.exception('Get Service list failed')
+        raise
+
+
+def get_service_by_name(name):      # pragma: no cover
+    service_list = get_service_list()
+    return next((s.spec for s in service_list.items if s.metadata.name == name), None)
+
+
 def create_replication_controller(template,
                                   namespace='default',
                                   wait=False,
@@ -135,3 +189,8 @@ def get_pod_list(namespace='default'):      # pragma: no cover
     except ApiException:
         LOG.exception('Get pod list failed')
         raise
+
+
+def get_pod_by_name(name):  # pragma: no cover
+    pod_list = get_pod_list()
+    return next((n for n in pod_list.items if n.metadata.name.startswith(name)), None)
