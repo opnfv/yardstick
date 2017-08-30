@@ -36,6 +36,12 @@
     - role: download_dpdk
 #      dpdk_version: "17.02"
     - install_dpdk
+    - download_intel_cmt_cat
+    - install_intel_cmt_cat
+    - download_yajl
+    - install_yajl
+    - download_collectd
+    - install_collectd
     - download_trex
     - install_trex
     - download_samplevnfs
@@ -49,4 +55,3 @@
       vnf_name: FW
     - role: install_samplevnf
       vnf_name: CGNATP
-

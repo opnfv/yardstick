@@ -70,11 +70,36 @@
     regexp: '^CONFIG_RTE_PIPELINE_STATS_COLLECT=n'
     line: 'CONFIG_RTE_PIPELINE_STATS_COLLECT=y'
 
+# This is requied for collectd? but it breaks PROX?
+#- name: enable CONFIG_RTE_BUILD_SHARED_LIB
+#  lineinfile:
+#    dest: "{{ dpdk_path }}/{{ dpdk_make_arch }}/.config"
+#    regexp: '^CONFIG_RTE_BUILD_SHARED_LIB=n'
+#    line: 'CONFIG_RTE_BUILD_SHARED_LIB=y'
+#
+#- name: enable DPDK CONFIG_RTE_EAL_PMD_PATH
+#  lineinfile:
+#    dest: "{{ dpdk_path }}/{{ dpdk_make_arch }}/.config"
+#    regexp: '^CONFIG_RTE_EAL_PMD_PATH=""'
+#    line: 'CONFIG_RTE_EAL_PMD_PATH="{{ dpdk_pmd_path }}"'
+
+# TODO: disable ASLR
+
 - my_make:
     chdir: "{{ dpdk_path }}/{{ dpdk_make_arch}}"
     extra_args: "-j {{ ansible_processor_vcpus }}"
   environment:
     RTE_KERNELDIR: "{{ RTE_KERNELDIR }}"
+
+- name: make install DPDK into /usr for collectd and other programs
+  my_make:
+    chdir: "{{ dpdk_path }}/{{ dpdk_make_arch}}"
+    target: install
+    params: "T={{ RTE_TARGET }}"
+#    params: "prefix={{ usr_prefix }}"
+  environment:
+    RTE_KERNELDIR: "{{ RTE_KERNELDIR }}"
+  become: yes
 
 - file:
     path: "{{ dpdk_module_dir}}"
