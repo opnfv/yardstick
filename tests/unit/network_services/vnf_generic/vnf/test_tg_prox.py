@@ -395,7 +395,6 @@ class TestProxTrafficGen(unittest.TestCase):
         sut.ssh_helper = mock.Mock()
         sut.ssh_helper.run = mock.Mock()
         sut.setup_helper.prox_config_dict = {}
-        sut._vpci_ascending = ["0000:05:00.0", "0000:05:00.1"]
         sut._connect_client = mock.Mock(autospec=STLClient)
         sut._connect_client.get_stats = mock.Mock(return_value="0")
         sut._traffic_runner(mock_traffic_profile)
