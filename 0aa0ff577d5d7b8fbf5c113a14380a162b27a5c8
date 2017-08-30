@@ -16,6 +16,23 @@
       "revId": "0aa0ff577d5d7b8fbf5c113a14380a162b27a5c8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d6f7f457",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-30T18:07:37Z",
+      "side": 1,
+      "message": "so, looking at the UDP replay source, it looks like\nthis is a mask of enabled ports based on DPDK port num.\n\n\tnb_ports \u003d rte_eth_dev_count();\n\tcheck_all_ports_link_status((uint8_t)nb_ports, enabled_port_mask);\n\nhttps://git.opnfv.org/samplevnf/tree/VNFs/UDP_Replay/main.c#n2846\n\n\t\tfor (portid \u003d 0; portid \u003c port_num; portid++) {\n\t\t\tif ((port_mask \u0026 (1 \u003c\u003c portid)) \u003d\u003d 0)\n\t\t\t\tcontinue;\n\t\t\tmemset(\u0026link, 0, sizeof(link));\n\t\t\trte_eth_link_get_nowait(portid, \u0026link);\n\n\nassuming rte_eth_link_get_nowait(portid) is DPDK port ID, aka PMD ID.\n\nIf this is the case then this mask must be assembled from the DPDK port numbers of all the ports we are using.\n\nWe CANNOT assume that vnfd_helper.interface index is equivalent to DPDK port number.\n\nThis erroneous assumption seems to be built into everything.  \n\nDPDK_PORT_NUM !\u003d interface index.",
+      "revId": "0aa0ff577d5d7b8fbf5c113a14380a162b27a5c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
