@@ -336,8 +336,8 @@ class Task(object):     # pragma: no cover
             else:
                 context_cfg['target'] = Context.get_server(
                     scenario_cfg["target"])
-                if self._is_same_heat_context(scenario_cfg["host"],
-                                              scenario_cfg["target"]):
+                if self._is_same_context(scenario_cfg["host"],
+                                         scenario_cfg["target"]):
                     context_cfg["target"]["ipaddr"] = \
                         context_cfg["target"]["private_ip"]
                 else:
@@ -352,8 +352,8 @@ class Task(object):     # pragma: no cover
                     context_cfg['target'] = {}
                 else:
                     context_cfg['target'] = Context.get_server(target)
-                    if self._is_same_heat_context(scenario_cfg["host"],
-                                                  target):
+                    if self._is_same_context(scenario_cfg["host"],
+                                             target):
                         ip_list.append(context_cfg["target"]["private_ip"])
                     else:
                         ip_list.append(context_cfg["target"]["ip"])
@@ -370,7 +370,7 @@ class Task(object):     # pragma: no cover
 
         return runner
 
-    def _is_same_heat_context(self, host_attr, target_attr):
+    def _is_same_context(self, host_attr, target_attr):
         """check if two servers are in the same heat context
         host_attr: either a name for a server created by yardstick or a dict
         with attribute name mapping when using external heat templates
@@ -380,7 +380,7 @@ class Task(object):     # pragma: no cover
         host = None
         target = None
         for context in self.contexts:
-            if context.__context_type__ != "Heat":
+            if context.__context_type__ not in {"Heat", "Kubernetes"}:
                 continue
 
             host = context._get_server(host_attr)
