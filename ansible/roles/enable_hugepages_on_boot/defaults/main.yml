@@ -1,3 +1,10 @@
 ---
 num_hugepages: auto
 huge_pagesize_mb: 1024
+# disable EFI for chroot
+efi:
+  stat:
+    exists: False
+update_grub:
+  Debian: "grub-mkconfig -o {% if efi.stat.exists %}/boot/efi/EFI/{{ ansible_distribution|lower }}/grub.cfg{% else %}/boot/grub/grub.cfg{% endif %}"
+  RedHat: "grub2-mkconfig -o {% if efi.stat.exists %}/boot/efi/EFI/{{ ansible_distribution|lower }}/grub.cfg{% else %}/boot/grub2/grub.cfg{% endif %}"

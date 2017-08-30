@@ -11,14 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# openstack role assignment list --names
 ---
-- os_user_role:
-    state: present
-    user: "{{ openrc.OS_USERNAME }}"
-    role: heat_stack_owner
-    project: "{{ item }}"
-  with_items:
-#    - demo
-    - admin
-  environment: "{{ openrc }}"
+#- debug:
+#    var: yajl_version
+#    verbosity: 2
+
+- name: fetch yajl
+  git:
+    repo: "{{ yajl_url }}"
+    dest: "{{ yajl_dest }}"
+    version: "{{ yajl_version }}"
+    accept_hostkey: yes
+    recursive: no
+    force: yes
+
+- set_fact:
+    yajl_path: "{{ yajl_dest }}"

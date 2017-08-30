@@ -15,6 +15,23 @@
 vnf_build_dependencies:
   PROX:
     Debian:
+      - build-essential
+      - git
+      - unzip
+      - libpcap0.8-dev
+      - gcc
+      - make
+      - libc6
+      - libc6-dev
+      - g++-multilib
+      - libzmq3-dev
+      - libcurl4-openssl-dev
+      - net-tools
+      - wget
+      - libpcap-dev
+      - libncurses-dev
+      - libedit-dev
+      - pciutils
       - pkg-config
       - liblua5.2-dev
       - libncurses5
