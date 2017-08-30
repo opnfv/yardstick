@@ -1,0 +1,21 @@
+[rabbitmq_rabbitmq-server]
+name=rabbitmq_rabbitmq-server
+baseurl=https://packagecloud.io/rabbitmq/rabbitmq-server/el/{{ ansible_distribution_major_version }}/$basearch
+repo_gpgcheck=0
+gpgcheck=0
+enabled=1
+gpgkey=https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
+sslverify=0
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+metadata_expire=300
+
+[rabbitmq_rabbitmq-server-source]
+name=rabbitmq_rabbitmq-server-source
+baseurl=https://packagecloud.io/rabbitmq/rabbitmq-server/el/{{ ansible_distribution_major_version }}/SRPMS
+repo_gpgcheck=0
+gpgcheck=0
+enabled=1
+gpgkey=https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
+sslverify=0
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+metadata_expire=300

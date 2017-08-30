@@ -13,7 +13,10 @@
 # limitations under the License.
 
 
-from urlparse import urlsplit
+try:
+    from urlparse import urlsplit
+except ImportError:
+    from urllib.parse import urlsplit
 
 
 def do_prefix_to_netmask(arg):
