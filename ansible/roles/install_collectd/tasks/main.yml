@@ -1,0 +1,46 @@
+# Copyright (c) 2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: bootstrap docker project repos
+  template: "src={{ ansible_os_family }}-repos.j2 dest=/etc/yum.repos.d/rabbitmq_rabbitmq-server.repo"
+  when: ansible_os_family == 'RedHat'
+
+- name: yum clean all
+  command:  yum clean all
+  when: ansible_os_family == 'RedHat'
+
+- name: Install extra build dependencies
+  action: "{{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes"
+  with_items: "{{ collectd_build_dependencies[ansible_os_family] }}"
+
+- name: prepare autotools
+  command: ./build.sh
+  args:
+    chdir: "{{ collectd_path }}"
+
+- name: build collectd
+  shell: "./configure --with-libpqos=/usr/ --with-libdpdk={{ dpdk_shared_path }} --with-libyajl=/usr/local --enable-debug --enable-dpdkstat --enable-virt --enable-ovs_stats --prefix={{ INSTALL_BIN_PATH }}/collectd |& tee collectd-configure.txt"
+  args:
+    executable: /bin/bash
+    chdir: "{{ collectd_path }}"
+
+- fetch:
+    src: "{{ collectd_path }}/collectd-configure.txt"
+    dest: /tmp
+
+- name: "make collectd install"
+  my_make:
+    chdir: "{{ collectd_path }}"
+    target: install
+
