@@ -54,6 +54,7 @@ class KubernetesContext(Context):
 
         LOG.info('Launch containers')
         self._create_rcs()
+        self._create_services()
         time.sleep(1)
         self.template.get_rc_pods()
 
@@ -63,6 +64,7 @@ class KubernetesContext(Context):
         self._delete_ssh_key()
         self._delete_rcs()
         self._delete_pods()
+        self._delete_services()
 
         super(KubernetesContext, self).undeploy()
 
@@ -79,6 +81,14 @@ class KubernetesContext(Context):
         if status != 'Running':
             return False
         return True
+
+    def _create_services(self):
+        for obj in self.template.service_objs:
+            obj.create()
+
+    def _delete_services(self):
+        for obj in self.template.service_objs:
+            obj.delete()
 
     def _create_rcs(self):
         for obj in self.template.k8s_objs:
@@ -126,15 +136,22 @@ class KubernetesContext(Context):
         utils.remove_file(self.public_key_path)
 
     def _get_server(self, name):
-        resp = k8s_utils.get_pod_list()
-        hosts = ({'name': n.metadata.name,
-                  'ip': n.status.pod_ip,
-                  'user': 'root',
-                  'key_filename': self.key_path,
-                  'private_ip': n.status.pod_ip}
-                 for n in resp.items if n.metadata.name.startswith(name))
+        service_name = '{}-service'.format(name)
+        service = k8s_utils.get_service_by_name(service_name).ports[0]
 
-        return next(hosts, None)
+        host = {
+            'name': service.name,
+            'ip': self._get_node_ip(),
+            'private_ip': k8s_utils.get_pod_by_name(name).status.pod_ip,
+            'ssh_port': service.node_port,
+            'user': 'root',
+            'key_filename': self.key_path,
+        }
+
+        return host
+
+    def _get_node_ip(self):
+        return k8s_utils.get_node_list().items[0].status.addresses[0].address
 
     def _get_network(self, attr_name):
         return None
