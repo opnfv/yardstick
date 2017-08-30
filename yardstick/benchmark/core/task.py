@@ -380,7 +380,7 @@ class Task(object):     # pragma: no cover
         host = None
         target = None
         for context in self.contexts:
-            if context.__context_type__ != "Heat":
+            if context.__context_type__ != "Heat" and context.__context_type__ != "Kubernetes":
                 continue
 
             host = context._get_server(host_attr)
