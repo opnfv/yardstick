@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation.
+# Copyright (c) 2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,14 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# openstack role assignment list --names
 ---
-- os_user_role:
-    state: present
-    user: "{{ openrc.OS_USERNAME }}"
-    role: heat_stack_owner
-    project: "{{ item }}"
-  with_items:
-#    - demo
-    - admin
-  environment: "{{ openrc }}"
+rabbitmq_packages:
+  Debian:
+    - librabbitmq-dev
+    - rabbitmq-server
+  RedHat:
+    - rabbitmq-server
+    - librabbitmq-devel
+

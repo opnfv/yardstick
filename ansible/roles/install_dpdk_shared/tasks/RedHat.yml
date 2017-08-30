@@ -11,14 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# openstack role assignment list --names
 ---
-- os_user_role:
-    state: present
-    user: "{{ openrc.OS_USERNAME }}"
-    role: heat_stack_owner
-    project: "{{ item }}"
+- name: Install DPDK build dependencies
+  action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
   with_items:
-#    - demo
-    - admin
-  environment: "{{ openrc }}"
+    - libpcap-devel
+
+# Do this before installing kernel headers
+# example:
+# kernel-headers-3.10.0-514.2.2.el7.x86_64 for kernel 3.10.0-514.el7.x86_64
+- name: Adjust dpdk_kernel to be match an RPM, remove el7.x86_64
+  set_fact:
+    rpm_kernel: "{{ dpdk_kernel|regex_replace('[.]el\\d+\\.x86_64', '') }}"
+
+- name: Install kernel headers
+# use rpm wildcard
+  action: "{{ ansible_pkg_mgr }} name=kernel-headers-{{ rpm_kernel }}* state=present"

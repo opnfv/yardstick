@@ -16,31 +16,9 @@
   vars:
     clone_dir: /tmp/yardstick-clone
 
-
   roles:
-    - add_custom_repos
-    - role: set_package_installer_proxy
-      when: proxy_env is defined and proxy_env
-#     can't update grub in chroot/docker
-    - enable_hugepages_on_boot
-    - install_image_dependencies
-    - role: download_dpdk
-#      dpdk_version: "17.02"
-    - install_dpdk
-    - download_trex
-    - install_trex
-    - download_samplevnfs
-    - role: install_samplevnf
-      vnf_name: PROX
-    - role: install_samplevnf
-      vnf_name: UDP_Replay
-    - role: install_samplevnf
-      vnf_name: ACL
-    - role: install_samplevnf
-      vnf_name: FW
-    - role: install_samplevnf
-      vnf_name: CGNATP
     # build shared DPDK for collectd only, required DPDK downloaded already
+    - role: download_dpdk
     - install_dpdk_shared
     - install_rabbitmq
     - download_intel_cmt_cat
@@ -49,3 +27,4 @@
     - install_yajl
     - download_collectd
     - install_collectd
+
