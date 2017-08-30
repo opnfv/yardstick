@@ -1,0 +1,4 @@
+---
+intel_cmt_cat_url: "https://github.com/01org/intel-cmt-cat.git"
+intel_cmt_cat_dest: "{{ clone_dest }}/intel-cmt-cat"
+intel_cmt_cat_version: "master"

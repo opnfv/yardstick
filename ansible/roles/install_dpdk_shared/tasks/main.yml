@@ -20,6 +20,12 @@
 #  with_fileglob:
 #    - "{{ local_nsb_path }}/patches/dpdk_custom_patch/0*.patch"
 
+- name: set DPDK shared dir
+  set_fact:
+    dpdk_shared_path: "{{ dpdk_path }}-shared"
+
+- command: "cp -a {{ dpdk_path }} {{ dpdk_shared_path }}"
+
 - name: find kernel for image, (including chroot)
   find_kernel:
     kernel: "{{ ansible_kernel }}"
@@ -37,7 +43,7 @@
     RTE_KERNELDIR: "/lib/modules/{{ dpdk_kernel }}/build"
 
 - my_make:
-    chdir: "{{ dpdk_path }}"
+    chdir: "{{ dpdk_shared_path }}"
     target: config
     params:
       T: "{{ dpdk_make_arch }}"
@@ -48,52 +54,62 @@
 
 - name: enable RTE_PORT_STATS_COLLECT
   lineinfile:
-    dest: "{{ dpdk_path }}/{{ dpdk_make_arch }}/.config"
+    dest: "{{ dpdk_shared_path }}/{{ dpdk_make_arch }}/.config"
     regexp: '^CONFIG_RTE_PORT_STATS_COLLECT=n'
     line: 'CONFIG_RTE_PORT_STATS_COLLECT=y'
 
 - name: enable DPDK RTE_PORT_PCAP
   lineinfile:
-    dest: "{{ dpdk_path }}/{{ dpdk_make_arch }}/.config"
+    dest: "{{ dpdk_shared_path }}/{{ dpdk_make_arch }}/.config"
     regexp: '^CONFIG_RTE_PORT_PCAP=n'
     line: 'CONFIG_RTE_PORT_PCAP=y'
 
 - name: enable DPDK RTE_TABLE_STATS_COLLECT
   lineinfile:
-    dest: "{{ dpdk_path }}/{{ dpdk_make_arch }}/.config"
+    dest: "{{ dpdk_shared_path }}/{{ dpdk_make_arch }}/.config"
     regexp: '^CONFIG_RTE_TABLE_STATS_COLLECT=n'
     line: 'CONFIG_RTE_TABLE_STATS_COLLECT=y'
 
 - name: enable DPDK RTE_PIPELINE_STATS_COLLECT
   lineinfile:
-    dest: "{{ dpdk_path }}/{{ dpdk_make_arch }}/.config"
+    dest: "{{ dpdk_shared_path }}/{{ dpdk_make_arch }}/.config"
     regexp: '^CONFIG_RTE_PIPELINE_STATS_COLLECT=n'
     line: 'CONFIG_RTE_PIPELINE_STATS_COLLECT=y'
 
-# This is requied for collectd? but it breaks PROX?
-#- name: enable CONFIG_RTE_BUILD_SHARED_LIB
-#  lineinfile:
-#    dest: "{{ dpdk_path }}/{{ dpdk_make_arch }}/.config"
-#    regexp: '^CONFIG_RTE_BUILD_SHARED_LIB=n'
-#    line: 'CONFIG_RTE_BUILD_SHARED_LIB=y'
-#
-#- name: enable DPDK CONFIG_RTE_EAL_PMD_PATH
-#  lineinfile:
-#    dest: "{{ dpdk_path }}/{{ dpdk_make_arch }}/.config"
-#    regexp: '^CONFIG_RTE_EAL_PMD_PATH=""'
-#    line: 'CONFIG_RTE_EAL_PMD_PATH="{{ dpdk_pmd_path }}"'
+# This is requied for collectd but VNFs can't use shared DPDK
+- name: enable CONFIG_RTE_BUILD_SHARED_LIB
+  lineinfile:
+    dest: "{{ dpdk_shared_path }}/{{ dpdk_make_arch }}/.config"
+    regexp: '^CONFIG_RTE_BUILD_SHARED_LIB=n'
+    line: 'CONFIG_RTE_BUILD_SHARED_LIB=y'
+
+- name: enable DPDK CONFIG_RTE_EAL_PMD_PATH
+  lineinfile:
+    dest: "{{ dpdk_shared_path }}/{{ dpdk_make_arch }}/.config"
+    regexp: '^CONFIG_RTE_EAL_PMD_PATH=""'
+    line: 'CONFIG_RTE_EAL_PMD_PATH="{{ dpdk_pmd_path }}"'
+
+- my_make:
+    chdir: "{{ dpdk_shared_path }}"
+    target: clean
+    params:
+    # no T= target for clean
+      O: "{{ dpdk_make_arch }}"
+    extra_args: "-j {{ ansible_processor_vcpus }}"
+  environment:
+    RTE_KERNELDIR: "{{ RTE_KERNELDIR }}"
 
 # TODO: disable ASLR
 
 - my_make:
-    chdir: "{{ dpdk_path }}/{{ dpdk_make_arch}}"
+    chdir: "{{ dpdk_shared_path }}/{{ dpdk_make_arch}}"
     extra_args: "-j {{ ansible_processor_vcpus }}"
   environment:
     RTE_KERNELDIR: "{{ RTE_KERNELDIR }}"
 
 #- name: make install DPDK into /usr for collectd and other programs
 #  my_make:
-#    chdir: "{{ dpdk_path }}/{{ dpdk_make_arch}}"
+#    chdir: "{{ dpdk_shared_path }}/{{ dpdk_make_arch}}"
 #    target: install
 #    params: "T={{ RTE_TARGET }}"
 ##    params: "prefix={{ usr_prefix }}"
@@ -101,34 +117,5 @@
 #    RTE_KERNELDIR: "{{ RTE_KERNELDIR }}"
 #  become: yes
 
-- file:
-    path: "{{ dpdk_module_dir}}"
-    state: directory
+# don't install module or copy dpdk-devbind
 
-- copy:
-    src: "{{ dpdk_path }}/{{ dpdk_make_arch }}/kmod/igb_uio.ko"
-    dest: "{{ dpdk_module_dir }}/igb_uio.ko"
-    remote_src: yes
-
-- name: run depmod for dpdk_kernel
-  command: depmod "{{ dpdk_kernel }}"
-
-- file:
-    path: "{{ INSTALL_BIN_PATH }}"
-    state:  directory
-
-- name: copy dpdk-devbind.py to correct location
-  copy:
-    src: "{{ dpdk_devbind[dpdk_version] }}"
-    dest: "{{ INSTALL_BIN_PATH }}/dpdk-devbind.py"
-    remote_src: yes
-    force: yes
-    mode: 0755
-
-- name: make dpdk_nic_bind.py for backwards compatibility
-  copy:
-    src: "{{ dpdk_devbind[dpdk_version] }}"
-    dest: "{{ INSTALL_BIN_PATH }}/dpdk_nic_bind.py"
-    remote_src: yes
-    force: yes
-    mode: 0755

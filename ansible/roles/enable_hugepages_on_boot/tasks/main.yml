@@ -17,6 +17,11 @@
   register: is_mine_huge
   ignore_errors: True
 
+# won't work in chroot
+#- name: Detect EFI
+#  stat: path="/sys/firmware/efi"
+#  register: efi
+
 - name: check if hugepages are set by someone else
   command: "grep -o 'default_hugepagesz=' /etc/default/grub"
   register: is_huge
