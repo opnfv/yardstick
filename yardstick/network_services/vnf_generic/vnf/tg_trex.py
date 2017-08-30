@@ -113,7 +113,11 @@ class TrexResourceHelper(ClientResourceHelper):
         path = get_nsb_option("trex_path", trex_path)
 
         # cmd = "sudo ./t-rex-64 -i --cfg %s > /dev/null 2>&1" % self.CONF_FILE
-        cmd = "./t-rex-64 -i --cfg '{}'".format(self.CONF_FILE)
+        all_ports = [i for i, _ in enumerate(self.vnfd_helper.interfaces)]
+        ports_mask_hex = hex(2 ** (len(all_ports) + 1) - 1)[2:]
+
+        cmd = "./t-rex-64 --no-scapy-server -i -c {} --cfg '{}'".format(ports_mask_hex,
+                                                                        self.CONF_FILE)
 
         # if there are errors we want to see them
         # we have to sudo cd because the path might be owned by root
