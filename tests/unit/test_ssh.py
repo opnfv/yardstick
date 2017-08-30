@@ -455,8 +455,8 @@ class SSHRunTestCase(unittest.TestCase):
         self.test_client._put_file_sftp("localfile", "remotefile")
 
         sftp.put.assert_called_once_with("localfile", "remotefile")
-        mock_stat.assert_called_once_with("localfile")
-        sftp.chmod.assert_called_once_with("remotefile", 0o753)
+        mock_stat.assert_any_call("localfile")
+        sftp.chmod.assert_any_call("remotefile", 0o753)
         sftp.__exit__.assert_called_once_with(None, None, None)
 
     def test__put_file_sftp_mode(self):
