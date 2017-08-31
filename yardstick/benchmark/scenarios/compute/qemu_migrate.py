@@ -106,7 +106,7 @@ class QemuMigrate(base.Scenario):
         cmd_args = " %s %s %s %s %s %s" %\
                    (smp, qmp_sock_src, qmp_sock_dst, incoming_ip,
                     migrate_to_port, max_down_time)
-        cmd = "bash migrate_benchmark.sh %s" % (cmd_args)
+        cmd = "bash qemu_migrate_benchmark.sh %s" % (cmd_args)
         LOG.debug("Executing command: %s", cmd)
         status, stdout, stderr = self.host.execute(cmd)
         if status:

@@ -14,6 +14,7 @@ set -e
 # Commandline arguments
 
 src=$2
+dst=$3
 dst_ip=$4
 migrate_to_port=$5
 max_down_time=$6
@@ -22,7 +23,6 @@ OUTPUT_FILE=/tmp/output-qemu.log
 
 do_migrate()
 {
-#       local src=`echo $OPTIONS | cut -d ':' -f 2 | cut -d ',' -f 1`
         echo "info status" | nc -U $src
         # with no speed limit
         echo "migrate_set_speed 0" |nc -U $src
@@ -45,7 +45,9 @@ output_qemu()
         # print detail information
         echo "info migrate" | nc -U $src
         echo "quit" | nc -U $src
+        echo "quit" | nc -u $dst
         sleep 5
+        echo "Migration executed successfully"
 
 } > $OUTPUT_FILE
 
@@ -64,5 +66,7 @@ echo -e "{ \
 main()
 {
     do_migrate
+    output_qemu
+    output_json
 }
 main
