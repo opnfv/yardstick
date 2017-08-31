@@ -61,6 +61,7 @@ class IXIARFC2544Profile(TrexProfile):
                     traffic['outer_l3']['dstip4'] = dstip4.split("-")[0]
 
                 traffic['outer_l3']['type'] = key
+                traffic['outer_l3']['count'] = value['outer_l3v4']['count']
                 # outer_l4
                 traffic['outer_l4'] = value['outer_l4']
                 index = index + 1

@@ -177,6 +177,8 @@ class NetworkServiceTestCase(base.Scenario):
 
             for index, publicip in enumerate(fflow.get("publicip", [])):
                 flow["public_ip{}".format(index)] = publicip
+
+            flow["count"] = fflow["count"]
         except KeyError:
             flow = {}
         return {"flow": flow}
