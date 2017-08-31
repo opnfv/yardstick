@@ -24,9 +24,4 @@ ansible-playbook \
          -e img_modify_playbook='ubuntu_server_cloudimg_modify.yml' \
          -e target_os='Ubuntu' \
          -e YARD_IMG_ARCH='amd64' \
-         -e target_os_version='16.04' \
-         -e target_os_family='Debian' \
-         -e clone_dest='/usr/local/src' \
-         -e ubuntu_image='yardstick-trusty-server.raw' \
-         -e ubuntu_image_file='/tmp/workspace/yardstick/yardstick-trusty-server.raw' \
          -vvv -i inventory.ini load_images.yml

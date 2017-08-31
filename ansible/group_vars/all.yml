@@ -1,0 +1,5 @@
+---
+clone_dest: /opt/tempT
+release: xenial
+target_os: Ubuntu
+ubuntu_image_file: /tmp/workspace/yardstick/yardstick-trusty-server.raw
