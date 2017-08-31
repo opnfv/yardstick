@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_862a552a",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-31T23:46:16Z",
+      "side": 1,
+      "message": "would prefer to raise IOError with ENOENT errno.\n\n\ndon\u0027t raise bare Exceptions.",
+      "revId": "e7fcd45f6d09638dd291e3ca62b41c7f5655702f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
