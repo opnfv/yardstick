@@ -268,7 +268,7 @@ class TestIxNextgen(unittest.TestCase):
 
     def test_add_ip_header_v4(self):
         static_traffic_params = {
-            "private": {
+            "private_1": {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -308,7 +308,7 @@ class TestIxNextgen(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public": {
+            "public_1": {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
@@ -366,7 +366,7 @@ class TestIxNextgen(unittest.TestCase):
 
     def test_add_ip_header_v4_nothing_to_do(self):
         static_traffic_params = {
-            "private": {
+            "private_1": {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -406,7 +406,7 @@ class TestIxNextgen(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public": {
+            "public_1": {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
@@ -464,7 +464,7 @@ class TestIxNextgen(unittest.TestCase):
 
     def test_add_ip_header_v6(self):
         static_traffic_profile = {
-            "private": {
+            "private_1": {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -497,7 +497,7 @@ class TestIxNextgen(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public": {
+            "public_1": {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
@@ -547,7 +547,7 @@ class TestIxNextgen(unittest.TestCase):
 
     def test_add_ip_header_v6_nothing_to_do(self):
         static_traffic_params = {
-            "private": {
+            "private_1": {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -579,7 +579,7 @@ class TestIxNextgen(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public": {
+            "public_1": {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
@@ -684,7 +684,7 @@ class TestIxNextgen(unittest.TestCase):
 
     def test_ix_update_ether(self):
         static_traffic_params = {
-            "private": {
+            "private_1": {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -723,7 +723,7 @@ class TestIxNextgen(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public": {
+            "public_1": {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
@@ -787,7 +787,7 @@ class TestIxNextgen(unittest.TestCase):
 
     def test_ix_update_ether_nothing_to_do(self):
         static_traffic_params = {
-            "private": {
+            "private_1": {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -820,7 +820,7 @@ class TestIxNextgen(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public": {
+            "public_1": {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
