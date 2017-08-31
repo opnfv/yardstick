@@ -558,6 +558,7 @@ class Rfc2544ResourceHelper(object):
     DEFAULT_CORRELATED_TRAFFIC = False
     DEFAULT_LATENCY = False
     DEFAULT_TOLERANCE = '0.0001 - 0.0001'
+    FEC_PORT_MODE = '10G'
 
     def __init__(self, scenario_helper):
         super(Rfc2544ResourceHelper, self).__init__()
@@ -568,6 +569,7 @@ class Rfc2544ResourceHelper(object):
         self._rfc2544 = None
         self._tolerance_low = None
         self._tolerance_high = None
+        self._fec_port_mode = None
 
     @property
     def rfc2544(self):
@@ -594,6 +596,14 @@ class Rfc2544ResourceHelper(object):
                 self.get_rfc2544('correlated_traffic', self.DEFAULT_CORRELATED_TRAFFIC)
 
         return self._correlated_traffic
+
+    @property
+    def fec_port_mode(self):
+        if self._fec_port_mode is None:
+            self._fec_port_mode = \
+                self.get_rfc2544('fec_port_mode', self.FEC_PORT_MODE)
+
+        return self._fec_port_mode
 
     @property
     def latency(self):
