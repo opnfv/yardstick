@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_c6461d21",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_ixload.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-31T23:09:39Z",
+      "side": 1,
+      "message": "can we make this a context?\n\n  with self.assertRaises(IOError):\n    ixload_traffic_gen.instantiate(scenario_cfg, {})",
+      "revId": "39852dec40ccf1a78eddef956b8536e1e43fbfba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_665f51e6",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-31T23:09:39Z",
+      "side": 1,
+      "message": "can we use vnf_generic.find_relative_file?\n\nand it seems this has more to do with the scenario_helper than the sample vnf.  can we move it to there?",
+      "revId": "39852dec40ccf1a78eddef956b8536e1e43fbfba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a6595900",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ixload.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-08-31T23:09:39Z",
+      "side": 1,
+      "message": "why not:\n\n self.resource_file_name \u003d self.scenario_helper.get_relative_path(\u0027ixia_profile\u0027)\n\nsince \u0027task_path\u0027 is in scenario_helper also.\n\nand scenario helper should use the module function in vnf_generic.",
+      "revId": "39852dec40ccf1a78eddef956b8536e1e43fbfba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
