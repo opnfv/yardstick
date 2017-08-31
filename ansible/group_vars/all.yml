@@ -1,0 +1,4 @@
+---
+target_os: Ubuntu
+clone_dest: /opt/tempT
+ubuntu_image_file: /tmp/workspace/yardstick/yardstick-trusty-server.raw
