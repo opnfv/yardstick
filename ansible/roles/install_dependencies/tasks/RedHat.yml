@@ -17,8 +17,6 @@
   when: ansible_distribution in ['RedHat', 'CentOS', 'ScientificLinux']
 
 - name: Install core packages
-  # we need to recompile the kernel, but we don't need libvirtd it will
-  # run in a container
   action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
   with_items:
     - deltarpm
@@ -30,7 +28,6 @@
     - screen
     - git
     - socat
-    #
     - sshpass
     - qemu-kvm
     - qemu-img
@@ -38,7 +35,6 @@
     - libxslt-devel
     - libffi-devel
     - openssl-devel
-    - zeromq2-devel
     - nginx
     - uwsgi
     - uwsgi-plugin-python
@@ -47,25 +43,4 @@
     - libffi-devel
     - python-devel
     - kpartx
-    # don't install kernel-devel here it will trigger unwanted kernel upgrade
-    # Mandatory Packages:
-    # Don't use yum groups, they don't work, expand them manually
-    # CentOS 'Development Tools' group
-#    - autoconf
-#    - automake
-#    - binutils
-#    - bison
-#    - flex
-#    - gcc
-#    - gcc-c++
-#    - gettext
-#    - libtool
-#    - make
-#    - patch
-#    - pkgconfig
-#    - redhat-rpm-config
-#    - rpm-build
-#    - rpm-sign
-    # Fedora 'C Development Tools' group
-    #  don't use ccache, it can get weird for kernel compiles
-#      - ccache
+
