@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_dcb9d316",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-08-31T07:32:13Z",
+      "side": 1,
+      "message": "yes, you are right. I will change the method name.",
+      "parentUuid": "da33351e_61e100fe",
+      "range": {
+        "startLine": 373,
+        "startChar": 16,
+        "endLine": 373,
+        "endChar": 21
+      },
+      "revId": "2b3e9a115450c2acc46777c32fc0ac09602d0555",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_81dec43d",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 4
@@ -60,6 +84,24 @@
       "writtenOn": "2017-08-31T01:13:14Z",
       "side": 1,
       "message": "can we use set membership?\n\n  if context.__context_type__ not in {\"Heat\", \"Kubernetes\"}",
+      "revId": "2b3e9a115450c2acc46777c32fc0ac09602d0555",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3c38bf9f",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-08-31T07:32:13Z",
+      "side": 1,
+      "message": "sure, it is better.",
+      "parentUuid": "da33351e_81dec43d",
       "revId": "2b3e9a115450c2acc46777c32fc0ac09602d0555",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
