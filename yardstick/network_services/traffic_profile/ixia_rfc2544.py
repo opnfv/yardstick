@@ -74,7 +74,7 @@ class IXIARFC2544Profile(TrexProfile):
                 traffic[key]["iload"] = str(self.rate)
         ixia_obj.ix_update_frame(traffic)
         ixia_obj.ix_update_ether(traffic)
-        # ixia_obj.ix_update_ipv4(traffic)
+        ixia_obj.add_ip_header(traffic, 4)
         ixia_obj.ix_start_traffic()
         self.tmp_drop = 0
         self.tmp_throughput = 0
