@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_137de9b1",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-31T19:52:46Z",
+      "side": 1,
+      "message": "We need to default to {} for .update(), otherwise we should get TypeError\n\n\n  if port_samples is None:\n     port_samples \u003d {}",
+      "revId": "c57842cca2d4f29fc3c19dd2b4888c293c5c444c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
