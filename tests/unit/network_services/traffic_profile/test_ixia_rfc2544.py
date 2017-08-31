@@ -56,7 +56,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                                          '256B': '0', '373b': '0',
                                          '570B': '0'}},
                            'outer_l3v4': {'dstip4': '1.1.1.1-1.15.255.255',
-                                          'proto': 'udp',
+                                          'proto': 'udp', 'count': '1',
                                           'srcip4': '90.90.1.1-90.105.255.255',
                                           'dscp': 0, 'ttl': 32},
                            'outer_l4': {'srcport': '2001',
@@ -68,7 +68,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                                           '256B': '0', '373b': '0',
                                           '570B': '0'}},
                             'outer_l3v4': {'dstip4': '9.9.1.1-90.105.255.255',
-                                           'proto': 'udp',
+                                           'proto': 'udp', 'count': '1',
                                            'srcip4': '1.1.1.1-1.15.255.255',
                                            'dscp': 0, 'ttl': 32},
                             'outer_l4': {'dstport': '2001',
@@ -211,7 +211,8 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                     "dstip4": "152.16.40.20",
                     "proto": "udp",
                     "srcip4": "152.16.100.20",
-                    "ttl": 32
+                    "ttl": 32,
+                    "count": "1"
                 },
                 "outer_l3v6": {
                     "count": 1024,
@@ -219,11 +220,13 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                     "dstip4": "152.16.100.20",
                     "proto": "udp",
                     "srcip4": "152.16.40.20",
-                    "ttl": 32
+                    "ttl": 32,
+                    "count": "1"
                 },
                 "outer_l4": {
                     "dstport": "2001",
-                    "srcport": "1234"
+                    "srcport": "1234",
+                    "count": "1"
                 },
                 "traffic_type": "continuous"
             },
@@ -252,7 +255,8 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                     "dstip4": "152.16.100.20",
                     "proto": "udp",
                     "srcip4": "152.16.40.20",
-                    "ttl": 32
+                    "ttl": 32,
+                    "count": "1"
                 },
                 "outer_l3v6": {
                     "count": 1024,
@@ -260,11 +264,13 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                     "dstip4": "152.16.100.20",
                     "proto": "udp",
                     "srcip4": "152.16.40.20",
-                    "ttl": 32
+                    "ttl": 32,
+                    "count": "1"
                 },
                 "outer_l4": {
                     "dstport": "1234",
-                    "srcport": "2001"
+                    "srcport": "2001",
+                    "count": "1"
                 },
                 "traffic_type": "continuous"
             }
@@ -395,8 +401,12 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                                         '128B': '0', '1400B': '0',
                                         '256B': '0', '373b': '0',
                                         '570B': '0'}},
+                          'outer_l3v4': {'dstip4': '1.1.1.1-1.15.255.255',
+                                         'proto': 'udp', 'count': '1',
+                                         'srcip4': '90.90.1.1-90.105.255.255',
+                                         'dscp': 0, 'ttl': 32},
                           'outer_l3v6': {'dstip6': '1.1.1.1-1.15.255.255',
-                                         'proto': 'udp',
+                                         'proto': 'udp', 'count': '1',
                                          'srcip6': '90.90.1.1-90.105.255.255',
                                          'dscp': 0, 'ttl': 32},
                           'outer_l4': {'srcport': '2001',
@@ -407,11 +417,17 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                                                    '128B': '0', '1400B': '0',
                                                    '256B': '0', '373b': '0',
                                                    '570B': '0'}},
+                                     'outer_l3v4':
+                                     {'dstip4': '9.9.1.1-90.105.255.255',
+                                      'proto': 'udp', 'count': '1',
+                                      'srcip4': '1.1.1.1-1.15.255.255',
+                                      'dscp': 0, 'ttl': 32},
                                      'outer_l3v6':
                                      {'dstip6': '9.9.1.1-90.105.255.255',
-                                      'proto': 'udp',
+                                      'proto': 'udp', 'count': '1',
                                       'srcip6': '1.1.1.1-1.15.255.255',
                                       'dscp': 0, 'ttl': 32},
+
                                      'outer_l4': {'dstport': '2001',
                                                   'srcport': '1234'}}},
                         'schema': 'isb:traffic_profile:0.1'}

@@ -387,7 +387,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         result = {'flow': {'dst_ip0': '152.16.40.2-152.16.40.254',
                            'src_ip0': '152.16.100.2-152.16.100.254'}}
 
-        self.assertEqual(result, self.s._get_traffic_flow())
+        self.assertEqual({'flow': {}}, self.s._get_traffic_flow())
 
     def test___get_traffic_flow_error(self):
         self.scenario_cfg["traffic_options"]["flow"] = \
