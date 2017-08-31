@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_9c9e2b53",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-08-31T11:09:25Z",
+      "side": 1,
+      "message": "I think that DPDK_PORT_NUM \u003d\u003d interface index because we create the dpdk ports from the vnfd config, don\u0027t we?\nIn the setup_vnf_env method. And DPDK port id starts from 0 and is numbered in order of creation, AFAIK.",
+      "parentUuid": "da33351e_d6f7f457",
+      "revId": "0aa0ff577d5d7b8fbf5c113a14380a162b27a5c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_16c03cdf",
         "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
         "patchSetId": 14
@@ -47,6 +65,24 @@
       "writtenOn": "2017-08-31T04:56:01Z",
       "side": 1,
       "message": "this is also incorrect. \n\nhttps://git.opnfv.org/samplevnf/tree/VNFs/UDP_Replay/main.c#n2405\n\nconfig is tuple of (DPDK_PORT_NUM, QUEUE, LCORE)\n\nI\u0027m guessing that LCORE starts with 1 because we reserve 0 for master\n\ncan you please verify my interpretation of the C-code in UDP_Replay.\n\nSince we need to use DPDK_PORT_NUM everywhere and we can\u0027t assume that xe0 will be DPDK_PORT 0, we need to convert all the port lists into tuples of (\"xe0\", \"xe1\"), etc.\n\nThis is what generate_port_pairs() will return.\n\nThis process is incomplete.  If we can get it working then the following code should be correct.\n\n    def dpdk_port_mask(self, interfaces):\n        # for example if we have 2 ports, with DPDK_PORT_NUMs of 10 and 5, we need bits 10 and 5\n        # set to 1, the rest 0.\n        dpdk_port_nums \u003d [int(self.vnfd_helper.find_virtual_interface(intf)[\u0027dpdk_port_num\u0027]) for\n                          intf in interfaces]\n        bits \u003d [\u00270\u0027] * max(dpdk_port_nums)\n        for dpdk_port_num in dpdk_port_nums:\n            bits[dpdk_port_num] \u003d \u00271\u0027\n        return hex(int(\u0027\u0027.join(bits), 2))\n\n    def _build_pipeline_kwargs(self):\n\n        ports \u003d set(chain.from_iterable(self.all_ports))\n        number_of_ports \u003d len(ports)\n\n        tool_path \u003d self.ssh_helper.provision_tool(tool_file\u003dself.APP_NAME)\n        ports_mask_hex \u003d self.dpdk_port_mask(ports)\n        # need a CPU for each port and one for master, this will overallocate if\n        # we have unused ports (non-contiguous ports)\n        cpu_mask_hex \u003d hex(2 ** (number_of_ports + 1) - 1)\n        hw_csum \u003d \"\"\n        if (not self.scenario_helper.options.get(\u0027hw_csum\u0027, False) or\n                self.nfvi_context.attrs.get(\u0027nfvi_type\u0027) not in self.HW_OFFLOADING_NFVI_TYPES):\n            hw_csum \u003d \u0027--no-hw-csum\u0027\n\n        # tuples of (FLD_PORT, FLD_QUEUE, FLD_LCORE)\n        config_values \u003d []\n        # start with lcore \u003d 1 since we use lcore\u003d0 for master?\n        for lcore, intf in enumerate(ports, 1):\n            config_values.append(\n                str((self.vnfd_helper.find_virtual_interface(intf)[\u0027dpdk_port_num\u0027], 0, lcore)))\n        config_value \u003d \"\".join(config_values)",
+      "revId": "0aa0ff577d5d7b8fbf5c113a14380a162b27a5c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_704eeb70",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-08-31T11:09:25Z",
+      "side": 1,
+      "message": "I don\u0027t know. There is no interfaces section anywhere in the samples/.../udp_replay, the dpdk_port_num remains undefined. That\u0027s how it was for baremetal. I kept it so for the heat context as well. Actually the interfaces section in nodes is not defined anywhere in samples dir except for prox-baremetal.\nI dont know what the use case for this is. Like we could have a server with pre-bound dpdk ports and we\u0027d run multiple dpdk applications there? Or how it can happen that the dpdk port numbers and vnfd interfaces wouldn\u0027t match?",
+      "parentUuid": "da33351e_16c03cdf",
       "revId": "0aa0ff577d5d7b8fbf5c113a14380a162b27a5c8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
