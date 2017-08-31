@@ -32,6 +32,12 @@ IXIA_LIB = os.path.dirname(os.path.realpath(__file__))
 IXNET_LIB = os.path.join(IXIA_LIB, "../../libs/ixia_libs/IxNet")
 sys.path.append(IXNET_LIB)
 
+FEC_MODE = {
+            '1G': 'oneGigLen',
+            '10G': 'tenGigLen',
+            '25G': 'twentyfiveGigLan'
+          }
+
 try:
     from IxNet import IxNextgen
 except ImportError:
@@ -109,7 +115,8 @@ class IxiaResourceHelper(ClientResourceHelper):
         self.client.ix_load_config(client_file_name)
         time.sleep(WAIT_AFTER_CFG_LOAD)
 
-        self.client.ix_assign_ports()
+        self.client.ix_assign_ports(FEC_MODE.get(self.rfc_helper.fec_port_mode,
+                                                 'tenGenLen'))
 
         mac = {}
         for index, interface in enumerate(self.vnfd_helper.interfaces, 1):
