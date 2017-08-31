@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_d02097b2",
+        "filename": "ansible/roles/add_custom_repos/templates/sources.list.j2",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2017-08-31T15:59:46Z",
+      "side": 1,
+      "message": "release is set as extra var. The bash scripts have:\n\n  release\u003d${RELEASE:-\"wily\"}\n\nShould I use \u0027wily\u0027 as default here as well?",
+      "parentUuid": "da33351e_c1f8cc7e",
+      "revId": "a407c018f46d7462db84244c12ef1a02e54d5ccd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_6102a070",
         "filename": "ansible/roles/install_image_dependencies/tasks/main.yml",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2017-08-31T02:06:20Z",
       "side": 1,
       "message": "I think was because fact gathering wasn\u0027t working the chroot.\n\nbut now ansible_os_family is detected properly in the chroot?",
+      "revId": "a407c018f46d7462db84244c12ef1a02e54d5ccd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3030e300",
+        "filename": "ansible/roles/install_image_dependencies/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2017-08-31T15:59:46Z",
+      "side": 1,
+      "message": "it is in Ubuntu. Centos still crashes.",
+      "parentUuid": "da33351e_6102a070",
       "revId": "a407c018f46d7462db84244c12ef1a02e54d5ccd",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
