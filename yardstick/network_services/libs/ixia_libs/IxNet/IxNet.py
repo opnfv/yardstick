@@ -220,7 +220,7 @@ class IxNextgen(object):
         self.clear_ixia_config()
         self.load_ixia_profile(profile)
 
-    def ix_assign_ports(self):
+    def ix_assign_ports(self, fec_port_mode):
         vports = self.ixnet.getList(self.ixnet.getRoot(), 'vport')
         ports = [
             (self._cfg['chassis'], self._cfg['card1'], self._cfg['port1']),
@@ -231,9 +231,12 @@ class IxNextgen(object):
         self.ixnet.execute('assignPorts', ports, [], vport_list, True)
         self.ixnet.commit()
 
+        # update FEC
         for vport in vports:
-            if self.ixnet.getAttribute(vport, '-state') != 'up':
-                log.error("Both thr ports are down...")
+            self.ixnet.setMultiAttribute(vport,
+                                         '-type', '{0}'.format(fec_port_mode))
+
+        self.ixnet.commit()
 
     def ix_update_frame(self, params):
         streams = ["configElement"]
