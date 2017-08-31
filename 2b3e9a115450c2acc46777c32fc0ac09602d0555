@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_c1728c7b",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2017-08-31T00:56:52Z",
+      "side": 1,
+      "message": "if we add Kubernetes in this function, we may need to modify the function name. maybe we can remove the \"heat\" from the function name.",
+      "range": {
+        "startLine": 373,
+        "startChar": 16,
+        "endLine": 373,
+        "endChar": 21
+      },
+      "revId": "2b3e9a115450c2acc46777c32fc0ac09602d0555",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
