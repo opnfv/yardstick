@@ -20,6 +20,7 @@ urlpatterns = [
     Url('/yardstick/testsuites/action', 'v1_test_suite'),
     Url('/yardstick/results', 'v1_result'),
     Url('/yardstick/env/action', 'v1_env'),
+    Url('/yardstick/tasks/<task_id>/log', 'v1_task_log'),
 
     # api v2
     Url('/api/v2/yardstick/environments', 'v2_environments'),
