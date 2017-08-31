@@ -88,12 +88,12 @@ class TestIxNextgen(unittest.TestCase):
         ixnet_gen = IxNextgen(ixnet)
         ixnet_gen._cfg = config
 
-        result = ixnet_gen.ix_assign_ports()
+        result = ixnet_gen.ix_assign_ports("tenGenLen")
         self.assertIsNone(result)
         self.assertEqual(ixnet.execute.call_count, 1)
-        self.assertEqual(ixnet.commit.call_count, 1)
-        self.assertEqual(ixnet.getAttribute.call_count, 2)
-        self.assertEqual(mock_logger.error.call_count, 1)
+        self.assertEqual(ixnet.commit.call_count, 2)
+        self.assertEqual(ixnet.getAttribute.call_count, 0)
+        self.assertEqual(mock_logger.error.call_count, 0)
 
     def test_ix_update_frame(self):
         static_traffic_params = {
