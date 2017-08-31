@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_2167f826",
+        "filename": "ansible/ubuntu_server_cloudimg_modify_samplevnfs.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-08-31T05:29:38Z",
+      "side": 1,
+      "message": "this won\u0027t work, we run out of space in the default cloudimage.   We need to resize the image first, which is difficult without qemu-kvm and virt-resize.",
+      "revId": "f0d9a162f9171b70a8270623b9d00160d1dea139",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
