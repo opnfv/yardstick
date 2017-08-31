@@ -966,6 +966,9 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         # Wait for traffic process to start
         while self.resource_helper.client_started.value == 0:
             time.sleep(self.RUN_WAIT)
+            # what if traffic process takes a few seconds to start?
+            if not self._traffic_process.is_alive():
+                break
 
         return self._traffic_process.is_alive()
 
