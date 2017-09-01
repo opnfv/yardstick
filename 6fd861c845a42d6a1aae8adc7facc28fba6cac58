@@ -33,6 +33,24 @@
       "revId": "6fd861c845a42d6a1aae8adc7facc28fba6cac58",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5f2c9002",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-01T21:30:14Z",
+      "side": 0,
+      "message": "nevermind, it is redundant.\n\nself.resource_helper.setup() just calls self.setup_helper.setup_vnf_enviroment()",
+      "parentUuid": "da33351e_1ff3289f",
+      "revId": "6fd861c845a42d6a1aae8adc7facc28fba6cac58",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
