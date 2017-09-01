@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_8686d511",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-01T00:26:01Z",
+      "side": 1,
+      "message": "to be fancy we could do\n\n  raise IOError(errno.ENOENT, \u0027Unable to find {} file\u0027.format(path))",
+      "revId": "45ef8e6c84697591217599ce618d0fb335c05c5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
