@@ -182,7 +182,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         self.ssh_helper.execute("awk -F: '{ print $1 }' < %s" % memory_path)
 
         if hugepages == "2048kB":
-            pages = 16384
+            pages = 8192
         else:
             pages = 16
 
