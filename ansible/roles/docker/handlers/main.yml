@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: install yardstick dependencies
-  hosts: all
+ - name: systemd daemon reload
+   command: systemctl daemon-reload
 
-  roles:
-    - install_dependencies
+ - name: restart docker
+   service: name=docker state=restarted
+

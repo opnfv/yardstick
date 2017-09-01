@@ -18,5 +18,6 @@
     - yardstick_config.yml
 
   roles:
+    - convert_openrc
     - clean_images
     - clean_flavors

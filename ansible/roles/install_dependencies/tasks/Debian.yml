@@ -47,4 +47,3 @@
     - uwsgi-plugin-python
     - supervisor
     - python-setuptools
-

@@ -73,7 +73,6 @@
         state: absent
 
     # download-common
-
     - name: remove {{ workspace }}
       file:
         path: "{{ workspace }}"
@@ -85,61 +84,8 @@
         sha256url: "{{ sha256sums_url }}"
         dest: "{{ image_dest }}"
 
-#    - get_url:
-#        url: "{{ sha256sums_url }}"
-#        force: yes
-#        dest: "{{ workspace }}/{{ sha256sums_filename }}"
-
-    # must use wget to workaround ubuntu cloud SSL certs checking failures
-#    - command: "curl -sS -o {{ workspace }}/{{ sha256sums_filename }} {{ sha256sums_url }}"
-
-
-#    - command: cat "{{ workspace }}/{{ sha256sums_filename }}"
-#      register: sha256sum_file
-#
-#    - set_fact:
-#        image_sha256: "{{ sha256sum_file.stdout|regex_search('^([a-f0-9]+).*' ~ img ~ '$', '\\1', multiline=True) }}"
-
-#    - get_url:
-#        url: "{{ image_url }}"
-#        force: yes
-#        dest: "{{ workspace }}/{{ image_filename }}"
-#        checksum: "sha256:{{ image_sha256 }}"
-#        register: fetch_image_status
-#        timeout: 300
-#        retries: 2
-#        until: fetch_image_status|succeeded
-
-#    - name: "Fetch {{ image_url }}"
-#    - command: "curl -sS -o {{ workspace }}/{{ image_filename }} {{ image_url }}"
-#      register: fetch_image_status
-#      timeout: 300
-#      retries: 2
-#      until: fetch_image_status|succeeded
-
-#    - name: Verify sha256sum of downloaded image
-#    - command: "sha256sum -c --ignore-missing {{ workspace }}/{{ sha256sums_filename }}"
-
-#    - name: create loop devices
-#      command: "mknod -m 660 /dev/loop{{ item }} b 7 {{ item }}"
-#      args:
-#        creates: "/dev/loop{{ item }}"
-#      with_seq:
-#        -
-
-    # download non-lxd
-
     - name: convert image to raw
       command: "qemu-img convert {{ image_dest }} {{ raw_imgfile }}"
-
-
-    # setup non-lxd
-
-#     - shell: echo -e "d\\nn\\np\\n1\\n\\n\\nw" | parted -l "{{ raw_imgfile }}"
-#    - parted:
-#        device: "{{ raw_imgfile }}"
-#        number: 1
-#        state: present
 
     - name: create mknod devices in chroot
       command: "mknod -m 0660 /dev/loop{{ item }} b 7 {{ item }}"
@@ -147,23 +93,6 @@
         creates: "/dev/loop{{ item }}"
       with_sequence: start=0 end=9
       tags: mknod_devices
-
-#    - command: losetup --show --partscan --find "{{ raw_imgfile }}"
-#      register: loop_device_res
-#
-#    - debug:
-#        var: loop_device_res
-#        verbosity: 2
-#
-#    - set_fact:
-#        loop_device: "{{ loop_device_res.stdout.strip() }}"
-#
-#    - wait_for:
-#        path: "{{ loop_device }}"
-#        state: present
-#
-#    - command: losetup
-#    - command: dmsetup ls
 
     - name: find first partition device
 #      command: kpartx -l "{{ loop_device }}"
@@ -179,11 +108,9 @@
 
     - name: use kpartx to create device nodes for the raw image loop device
       # operate on the loop device to avoid /dev namespace missing devices
-#      command: kpartx -avs "{{ loop_device }}"
       command: kpartx -avs "{{ raw_imgfile }}"
 
     - name: parted dump raw image
-#      command: parted "{{ loop_device }}" print
       command: parted "{{ raw_imgfile }}" print
       register: parted_res
 
@@ -211,7 +138,6 @@
         name: "{{ mountdir }}"
         # fstype is required
         fstype: "{{ image_fs_type }}"
-        #fstab: "{{ fake_fstab }}"
         state: mounted
 
     - name: mount chroot /proc
@@ -219,7 +145,6 @@
         src: none
         name: "{{ mountdir }}/proc"
         fstype: proc
-        #fstab: "{{ fake_fstab }}"
         state: mounted
 
     - name: if arm copy qemu-aarch64-static into chroot
@@ -227,19 +152,6 @@
         src: /usr/bin/qemu-aarch64-static
         dest: "{{ mountdir }}/usr/bin"
       when: 'YARD_IMG_ARCH == "arm64"'
-
-
-    # setup lxd
-#    - file: "path={{ mountdir }} state=directory"
-#
-#    - unarchive:
-#        src: "{{ image_filename }}"
-#        dest: "{{ mountdir }}"
-#        remote_src: yes
-
-    # end setup lxd
-
-    # modify
 
     - name: create ubuntu policy-rc.d workaround
       copy:
