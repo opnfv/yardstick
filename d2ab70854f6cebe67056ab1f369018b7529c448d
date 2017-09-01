@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_9f361851",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-01T21:32:49Z",
+      "side": 1,
+      "message": "this style break pycharm autoimport handling I think.\n\nwould prefer\n\nfrom yardstick.network_services.vnf_generic.vnf.sample_vnf SampleVnfTrafficGen\nfrom yardstick.network_services.vnf_generic.vnf.sample_vnf ClientResourceHelper\n\neasier to add/remove and manage with text editor.",
+      "revId": "d2ab70854f6cebe67056ab1f369018b7529c448d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7f399440",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-01T21:32:49Z",
+      "side": 1,
+      "message": "okay, use this, but this is still just \n\n   range(len(self.vnfd_helper_interfaces))",
+      "revId": "d2ab70854f6cebe67056ab1f369018b7529c448d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
