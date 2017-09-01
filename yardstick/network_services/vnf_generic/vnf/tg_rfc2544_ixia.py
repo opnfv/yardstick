@@ -58,6 +58,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         self.tg_port_pairs = []
         self.priv_ports = None
         self.pub_ports = None
+        self._connect()
 
     def _connect(self, client=None):
         self.client._connect(self.vnfd_helper)
@@ -72,8 +73,8 @@ class IxiaResourceHelper(ClientResourceHelper):
         return self.client.ix_get_statistics()[1]
 
     def stop_collect(self):
-        self._terminated.value = 0
-        if self.client and self.client.ixnet:
+        self._terminated.value = 1
+        if self.client:
             self.client.ix_stop_traffic()
 
     def generate_samples(self, key=None, default=None):
@@ -100,7 +101,6 @@ class IxiaResourceHelper(ClientResourceHelper):
         max_tol = self.rfc_helper.tolerance_high
 
         self._build_ports()
-        self._connect()
 
         # we don't know client_file_name until runtime as instantiate
         client_file_name = \
@@ -124,23 +124,27 @@ class IxiaResourceHelper(ClientResourceHelper):
         ixia_file = find_relative_file("ixia_traffic.cfg",
                                        self.scenario_helper.scenario_cfg["task_path"])
         # Generate ixia traffic config...
-        while not self._terminated.value:
-            traffic_profile.execute(self, self.client, mac, ixia_file)
-            self.client_started.value = 1
-            time.sleep(WAIT_FOR_TRAFFIC)
+        try:
+            while not self._terminated.value:
+                traffic_profile.execute(self, self.client, mac, ixia_file)
+                self.client_started.value = 1
+                time.sleep(WAIT_FOR_TRAFFIC)
+                self.client.ix_stop_traffic()
+                samples = self.generate_samples()
+                self._queue.put(samples)
+                status, samples = traffic_profile.get_drop_percentage(self, samples, min_tol,
+                                                                      max_tol, self.client, mac,
+                                                                      ixia_file)
+
+                current = samples['CurrentDropPercentage']
+                if min_tol <= current <= max_tol or status == 'Completed':
+                    self._terminated.value = 1
+
             self.client.ix_stop_traffic()
-            samples = self.generate_samples()
             self._queue.put(samples)
-            status, samples = traffic_profile.get_drop_percentage(self, samples, min_tol,
-                                                                  max_tol, self.client, mac,
-                                                                  ixia_file)
-
-            current = samples['CurrentDropPercentage']
-            if min_tol <= current <= max_tol or status == 'Completed':
-                self._terminated.value = 1
-
-        self.client.ix_stop_traffic()
-        self._queue.put(samples)
+        except Exception:
+            LOG.info("Run Traffic terminated")
+            pass
 
 
 class IxiaTrafficGen(SampleVNFTrafficGen):
