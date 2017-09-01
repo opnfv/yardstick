@@ -49,11 +49,11 @@ private_1:
       ipv4:
         outer_l2:
             framesize:
-                64B: "{{ get(imix, 'imix.private.64B', '0') }}"
-                128B: "{{ get(imix, 'imix.private.128B', '0') }}"
-                256B: "{{ get(imix, 'imix.private.256B', '0') }}"
-                373b: "{{ get(imix, 'imix.private.373B', '0') }}"
-                512B: "{{ get(imix, 'imix.private.512B', '0') }}"
+                64B: "{{get(imix, 'imix.private.64B', '0') }}"
+                128B: "{{get(imix, 'imix.private.128B', '0') }}"
+                256B: "{{get(imix, 'imix.private.256B', '0') }}"
+                373B: "{{get(imix, 'imix.private.373B', '0') }}"
+                512B: "{{get(imix, 'imix.private.512B', '0') }}"
                 570B: "{{get(imix, 'imix.private.570B', '0') }}"
                 1400B: "{{get(imix, 'imix.private.1400B', '0') }}"
                 1500B: "{{get(imix, 'imix.private.1500B', '0') }}"
