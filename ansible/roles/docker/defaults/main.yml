@@ -12,8 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: install yardstick dependencies
-  hosts: all
-
-  roles:
-    - install_dependencies
+ubuntu_docker_url: https://apt.dockerproject.org/repo
