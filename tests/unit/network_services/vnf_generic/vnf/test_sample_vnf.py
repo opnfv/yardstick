@@ -554,7 +554,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
 
         result = dpdk_setup_helper._setup_hugepages()
         expect_start_list = ['awk', 'awk', 'echo']
-        expect_in_list = ['meminfo', 'nr_hugepages', '16384']
+        expect_in_list = ['meminfo', 'nr_hugepages', '8192']
         call_args_iter = (args[0][0] for args in ssh_helper.execute.call_args_list)
         self.assertIsNone(result)
         self.assertEqual(ssh_helper.execute.call_count, 3)
