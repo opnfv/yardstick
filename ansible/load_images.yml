@@ -59,8 +59,7 @@
 
 - include: build_yardstick_image.yml
 
-# TEMP
-#- include: image_uploaders/upload_yardstick_image.yml
+- include: image_uploaders/upload_yardstick_image.yml
 
 # upload cirros
 # upload vanilla ubuntu cloud_image

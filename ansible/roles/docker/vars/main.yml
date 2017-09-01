@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: install yardstick dependencies
-  hosts: all
-
-  roles:
-    - install_dependencies
+docker_project_url: https://yum.dockerproject.org
+docker_packages:
+  "RedHat":
+    - docker-engine-1.13.1
+  "Debian":
+    - docker-engine=1.13.1*

@@ -40,4 +40,3 @@
       vnf_name: FW
     - role: install_samplevnf
       vnf_name: CGNATP
-
