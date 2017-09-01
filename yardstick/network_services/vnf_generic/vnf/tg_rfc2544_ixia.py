@@ -40,10 +40,13 @@ except ImportError:
 
 class IxiaRfc2544Helper(Rfc2544ResourceHelper):
 
-    pass
+    def is_done(self):
+        return self.latency and self.iteration.value > 10
 
 
 class IxiaResourceHelper(ClientResourceHelper):
+
+    LATENCY_TIME_SLEEP = 120
 
     def __init__(self, setup_helper, rfc_helper_type=None):
         super(IxiaResourceHelper, self).__init__(setup_helper)
@@ -69,7 +72,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         self.my_ports = list(set(self.priv_ports).union(set(self.pub_ports)))
 
     def get_stats(self, *args, **kwargs):
-        return self.client.ix_get_statistics()[1]
+        return self.client.ix_get_statistics()
 
     def stop_collect(self):
         self._terminated.value = 0
@@ -77,27 +80,40 @@ class IxiaResourceHelper(ClientResourceHelper):
             self.client.ix_stop_traffic()
 
     def generate_samples(self, key=None, default=None):
-        last_result = self.get_stats()
+        stats = self.get_stats()
+        last_result = stats[1]
+        latency = stats[0]
 
         samples = {}
         for vpci_idx, interface in enumerate(self.vnfd_helper.interfaces):
-            name = "xe{0}".format(vpci_idx)
-            samples[name] = {
-                "rx_throughput_kps": float(last_result["Rx_Rate_Kbps"][vpci_idx]),
-                "tx_throughput_kps": float(last_result["Tx_Rate_Kbps"][vpci_idx]),
-                "rx_throughput_mbps": float(last_result["Rx_Rate_Mbps"][vpci_idx]),
-                "tx_throughput_mbps": float(last_result["Tx_Rate_Mbps"][vpci_idx]),
-                "in_packets": int(last_result["Valid_Frames_Rx"][vpci_idx]),
-                "out_packets": int(last_result["Frames_Tx"][vpci_idx]),
-                "RxThroughput": int(last_result["Valid_Frames_Rx"][vpci_idx]) / 30,
-                "TxThroughput": int(last_result["Frames_Tx"][vpci_idx]) / 30,
-            }
+            try:
+                name = "xe{0}".format(vpci_idx)
+                samples[name] = {
+                    "rx_throughput_kps": float(last_result["Rx_Rate_Kbps"][vpci_idx]),
+                    "tx_throughput_kps": float(last_result["Tx_Rate_Kbps"][vpci_idx]),
+                    "rx_throughput_mbps": float(last_result["Rx_Rate_Mbps"][vpci_idx]),
+                    "tx_throughput_mbps": float(last_result["Tx_Rate_Mbps"][vpci_idx]),
+                    "in_packets": int(last_result["Valid_Frames_Rx"][vpci_idx]),
+                    "out_packets": int(last_result["Frames_Tx"][vpci_idx]),
+                    "RxThroughput": int(last_result["Valid_Frames_Rx"][vpci_idx]) / 30,
+                    "TxThroughput": int(last_result["Frames_Tx"][vpci_idx]) / 30,
+                }
+                if key:
+                    samples[name][key] = {"Store-Forward_Avg_latency_ns" : latency["Store-Forward_Avg_latency_ns"][vpci_idx],
+                                          "Store-Forward_Min_latency_ns" : latency["Store-Forward_Min_latency_ns"][vpci_idx],
+                                          "Store-Forward_Max_latency_ns" : latency["Store-Forward_Max_latency_ns"][vpci_idx]}
+            except IndexError:
+                pass
 
         return samples
 
     def run_traffic(self, traffic_profile):
+        if self._terminated.value:
+            return
+
         min_tol = self.rfc_helper.tolerance_low
         max_tol = self.rfc_helper.tolerance_high
+        default = "00:00:00:00:00:00"
 
         self._build_ports()
         self._connect()
@@ -115,8 +131,8 @@ class IxiaResourceHelper(ClientResourceHelper):
         for index, interface in enumerate(self.vnfd_helper.interfaces, 1):
             virt_intf = interface["virtual-interface"]
             mac.update({
-                "src_mac_{}".format(index): virt_intf["local_mac"],
-                "dst_mac_{}".format(index): virt_intf["dst_mac"],
+                "src_mac_{}".format(index): virt_intf.get("local_mac") or default,
+                "dst_mac_{}".format(index): virt_intf.get("dst_mac") or default,
             })
 
         samples = {}
@@ -136,12 +152,38 @@ class IxiaResourceHelper(ClientResourceHelper):
                                                                   ixia_file)
 
             current = samples['CurrentDropPercentage']
-            if min_tol <= current <= max_tol or status == 'Completed':
-                self._terminated.value = 1
+            if min_tol <= current <= max_tol or status == 'Completed' or \
+                self.rfc_helper.is_done():
+                break
 
         self.client.ix_stop_traffic()
         self._queue.put(samples)
 
+        if not self.rfc_helper.is_done():
+            self._terminated.value = 1
+            return
+
+        traffic_profile.execute(self, self.client, mac, ixia_file)
+        for _ in range(5):
+            time.sleep(self.LATENCY_TIME_SLEEP)
+            self.client.ix_stop_traffic()
+            samples = self.generate_samples('latency', {})
+            self._queue.put(samples)
+            traffic_profile.start_ixia_latency(self, self.client, mac, ixia_file)
+            if self._terminated.value:
+                break
+
+        self.client.ix_stop_traffic()
+        self._terminated.value = 1
+
+    def collect_kpi(self):
+        self.rfc_helper.iteration.value += 1
+        return super(IxiaResourceHelper, self).collect_kpi()
+
+    def terminate(self):
+        self._terminated.value = 1
+        super(IxiaResourceHelper, self).terminate()
+        self.client.ix_stop_traffic()
 
 class IxiaTrafficGen(SampleVNFTrafficGen):
 
