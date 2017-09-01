@@ -21,7 +21,7 @@
       when: fdio
 
     - os_image:
-        name: "{{ ubuntu_image }}"
+        name: "{{ ubuntu_image_file | basename }}"
         is_public: yes
         disk_format: qcow2
         container_format: bare

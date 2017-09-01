@@ -13,11 +13,11 @@
 # limitations under the License.
 ---
   - name: OS pre-workarounds
-    include: "{{ target_os_family }}.yml"
+    include: "{{ ansible_os_family }}.yml"
 
   - name: Install core packages
     action: "{{ ansible_pkg_mgr }} name={{ item }} state=latest"
     register: pkg_mgr_results
     retries: "{{ pkg_mgr_retries }}"
     until: pkg_mgr_results|success
-    with_items: "{{ install_dependencies[target_os_family] }}"
+    with_items: "{{ install_dependencies[ansible_os_family] }}"
