@@ -418,7 +418,8 @@ class ResourceHelper(object):
         result = {"core": result}
         return result
 
-    def start_collect(self):
+    def start_collect(self, enable=False):
+        self.resource.enable = enable
         self.resource.initiate_systemagent(self.ssh_helper.bin_path)
         self.resource.start()
         self.resource.amqp_process_for_nfvi_kpi()
@@ -685,6 +686,10 @@ class ScenarioHelper(object):
         return self.options.get('vnf_config', self.DEFAULT_VNF_CFG)
 
     @property
+    def nfvi_enable(self):
+        return self.options.get('nfvi_enable', False)
+
+    @property
     def topology(self):
         return self.scenario_cfg['topology']
 
@@ -803,7 +808,7 @@ class SampleVNF(GenericVNF):
                     LOG.info("%s VNF is up and running.", self.APP_NAME)
                     self._vnf_up_post()
                     self.queue_wrapper.clear()
-                    self.resource_helper.start_collect()
+                    self.resource_helper.start_collect(self.scenario_helper.nfvi_enable)
                     return self._vnf_process.exitcode
 
                 if "PANIC" in message:

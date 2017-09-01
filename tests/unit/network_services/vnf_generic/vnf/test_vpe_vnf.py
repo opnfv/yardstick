@@ -544,6 +544,7 @@ class TestVpeApproxVnf(unittest.TestCase):
         vpe_approx_vnf.resource_helper.resource = mock_resource
 
         vpe_approx_vnf.q_out.put("pipeline>")
+        vpe_approx_vnf.scenario_helper = mock_resource
         self.assertEqual(vpe_approx_vnf.wait_for_instantiate(), 432)
 
     @mock.patch(SSH_HELPER)
@@ -566,6 +567,7 @@ class TestVpeApproxVnf(unittest.TestCase):
         vpe_approx_vnf.q_out = mock_q_out
         vpe_approx_vnf.queue_wrapper = mock.Mock(autospec=QueueFileWrapper)
         vpe_approx_vnf.resource_helper.resource = mock_resource
+        vpe_approx_vnf.scenario_helper = mock_resource
 
         self.assertEqual(vpe_approx_vnf.wait_for_instantiate(), 432)
 

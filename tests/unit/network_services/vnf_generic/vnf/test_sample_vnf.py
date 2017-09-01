@@ -1605,6 +1605,16 @@ class TestScenarioHelper(unittest.TestCase):
 
         self.assertDictEqual(scenario_helper.vnf_cfg, ScenarioHelper.DEFAULT_VNF_CFG)
 
+    def test_property_nfvi_enable_default(self):
+        scenario_helper = ScenarioHelper('name1')
+        scenario_helper.scenario_cfg = {
+            'options': {
+                'name1': {'nfvi_enable': False},
+            },
+        }
+
+        self.assertEqual(scenario_helper.nfvi_enable, False)
+
     def test_property_topology(self):
         scenario_helper = ScenarioHelper('name1')
         scenario_helper.scenario_cfg = {
@@ -1885,6 +1895,7 @@ class TestSampleVnf(unittest.TestCase):
         sample_vnf.resource_helper.ssh_helper = mock.MagicMock()
         sample_vnf.resource_helper.start_collect = mock.MagicMock()
 
+        sample_vnf.scenario_helper = mock.MagicMock()
         self.assertEqual(sample_vnf.wait_for_instantiate(), 0)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
