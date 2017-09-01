@@ -325,13 +325,15 @@ class TestIXIATrafficGen(unittest.TestCase):
         sut.resource_helper.client = mock.MagicMock()
         sut.resource_helper.client_started = mock.MagicMock()
         sut.resource_helper.client_started.value = 1
+        sut.resource_helper.rfc_helper.iteration.value = 11
 
         sut.scenario_helper.scenario_cfg = {
             'options': {
                 'packetsize': 64,
                 'traffic_type': 4,
                 'rfc2544': {
-                    'allowed_drop_rate': '0.8 - 1'
+                    'allowed_drop_rate': '0.8 - 1',
+                    'latency': True
                 },
                 'vnf__1': {
                     'rules': 'acl_1rule.yaml',
