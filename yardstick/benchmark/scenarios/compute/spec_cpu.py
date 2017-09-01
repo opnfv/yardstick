@@ -103,6 +103,9 @@ class SpecCPU(base.Scenario):
         cmd = "cd /usr/cpu2006/ && . ./shrc && runspec --config %s" % self.runspec_config
         cmd_args = ""
 
+        if "rate" in self.options:
+            cmd_args += " --rate %s" % self.options["runspec_rate"]
+
         if "output_format" in self.options:
             cmd_args += " --output_format %s" % self.options["output_format"]
 
