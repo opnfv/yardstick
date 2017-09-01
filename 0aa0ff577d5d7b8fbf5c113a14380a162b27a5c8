@@ -86,6 +86,23 @@
       "revId": "0aa0ff577d5d7b8fbf5c113a14380a162b27a5c8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_89af0694",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-01T09:16:42Z",
+      "side": 1,
+      "message": "need to generate self.all_ports\n\n    self.all_ports, self.networks \u003d MultiPortConfig.get_port_pairs(self.vnfd_helper.interfaces)",
+      "revId": "0aa0ff577d5d7b8fbf5c113a14380a162b27a5c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
