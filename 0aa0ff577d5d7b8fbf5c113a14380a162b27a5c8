@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_1f1e8863",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-01T17:24:10Z",
+      "side": 1,
+      "message": "we set dpdk_port_num in sample_vnf _detect_and_bind_drivers()\n\nor we try to.",
+      "parentUuid": "da33351e_704eeb70",
+      "revId": "0aa0ff577d5d7b8fbf5c113a14380a162b27a5c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_89af0694",
         "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
         "patchSetId": 14
