@@ -13,9 +13,7 @@ install_dependencies:
     - iproute2
     - linux-tools-common
     - linux-tools-generic
-    - lmbench
     - make
-    - netperf
     - patch
     - perl
     - rt-tests

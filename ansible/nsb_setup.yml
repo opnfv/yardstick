@@ -1,0 +1,57 @@
+# Copyright (c) 2017 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- include: ubuntu_server_baremetal_deploy_samplevnfs.yml
+  vars:
+    YARD_IMG_ARCH: amd64
+
+- hosts: localhost
+  roles:
+    - install_dependencies
+    - docker
+
+- include: build_yardstick_image.yml
+  vars:
+    YARD_IMG_ARCH: amd64
+    release: xenial
+  when: openrc_file is defined
+
+- include: clean_images.yml
+  when: openrc_file is defined
+
+- hosts: localhost
+  post_tasks:
+    - os_image:
+        name: yardstick-samplevnfs
+        is_public: yes
+        disk_format: qcow2
+        container_format: bare
+        filename: "{{ raw_imgfile }}"
+      environment: "{{ openrc }}"
+      when: openrc_file is defined
+
+    - name: Start yardstick container
+      docker_container:
+        name: yardstick
+        image: opnfv/yardstick:latest
+        recreate: yes
+        state: started
+        restart_policy: always
+        network_mode: host
+        privileged: True
+        interactive: True
+        volumes:
+          - "{{ openrc_file|default('/dev/null') }}:/etc/yardstick/openstack.creds:ro"
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /opt/:/opt
