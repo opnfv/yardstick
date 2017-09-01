@@ -22,6 +22,7 @@ from yardstick.common.utils import ErrorClass
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import Rfc2544ResourceHelper
+from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
 
 LOG = logging.getLogger(__name__)
 
@@ -102,7 +103,9 @@ class IxiaResourceHelper(ClientResourceHelper):
         self._connect()
 
         # we don't know client_file_name until runtime as instantiate
-        client_file_name = self.scenario_helper.scenario_cfg['ixia_profile']
+        client_file_name = \
+            find_relative_file(self.scenario_helper.scenario_cfg['ixia_profile'],
+                               self.scenario_helper.scenario_cfg["task_path"])
         self.client.ix_load_config(client_file_name)
         time.sleep(WAIT_AFTER_CFG_LOAD)
 
@@ -117,7 +120,9 @@ class IxiaResourceHelper(ClientResourceHelper):
             })
 
         samples = {}
-        ixia_file = os.path.join(os.getcwd(), "ixia_traffic.cfg")
+
+        ixia_file = find_relative_file("ixia_traffic.cfg",
+                                       self.scenario_helper.scenario_cfg["task_path"])
         # Generate ixia traffic config...
         while not self._terminated.value:
             traffic_profile.execute(self, self.client, mac, ixia_file)
@@ -139,6 +144,8 @@ class IxiaResourceHelper(ClientResourceHelper):
 
 
 class IxiaTrafficGen(SampleVNFTrafficGen):
+
+    APP_NAME = 'Ixia'
 
     def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
         if resource_helper_type is None:
