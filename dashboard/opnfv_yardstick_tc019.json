@@ -86,7 +86,7 @@
               "alias": "",
               "dsType": "influxdb",
               "groupBy": [],
-              "measurement": "opnfv_yardstick_tc045",
+              "measurement": "opnfv_yardstick_tc019",
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT \"packets_received\"  * 100, \"packets_sent\", \"packetsize\" FROM \"opnfv_yardstick_tc001\" WHERE $timeFilter GROUP BY fill(null)",
@@ -97,7 +97,7 @@
                 [
                   {
                     "params": [
-                      "openstack-router-list_outage_time"
+                      "openstack-server-list_outage_time"
                     ],
                     "type": "field"
                   }
@@ -193,7 +193,7 @@
               "alias": "",
               "dsType": "influxdb",
               "groupBy": [],
-              "measurement": "opnfv_yardstick_tc045",
+              "measurement": "opnfv_yardstick_tc019",
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT \"packets_received\"  * 100, \"packets_sent\", \"packetsize\" FROM \"opnfv_yardstick_tc001\" WHERE $timeFilter GROUP BY fill(null)",
@@ -204,7 +204,7 @@
                 [
                   {
                     "params": [
-                      "process_neutron-server_outage_time"
+                      "process_nova-api_outage_time"
                     ],
                     "type": "field"
                   }
@@ -323,7 +323,7 @@
               "alias": "",
               "dsType": "influxdb",
               "groupBy": [],
-              "measurement": "opnfv_yardstick_tc045",
+              "measurement": "opnfv_yardstick_tc019",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -401,6 +401,6 @@
     ]
   },
   "timezone": "",
-  "title": "opnfv_yardstick_tc045",
-  "version": 5
+  "title": "opnfv_yardstick_tc019",
+  "version": 3
 }

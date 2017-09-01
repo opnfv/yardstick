@@ -89,8 +89,8 @@
               "measurement": "opnfv_yardstick_tc045",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"packets_received\"  * 100, \"packets_sent\", \"packetsize\" FROM \"opnfv_yardstick_tc001\" WHERE $timeFilter GROUP BY fill(null)",
-              "rawQuery": false,
+              "query": "SELECT \"openstack-user-list_outage_time\" FROM \"opnfv_yardstick_tc046\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -196,8 +196,8 @@
               "measurement": "opnfv_yardstick_tc045",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"packets_received\"  * 100, \"packets_sent\", \"packetsize\" FROM \"opnfv_yardstick_tc001\" WHERE $timeFilter GROUP BY fill(null)",
-              "rawQuery": false,
+              "query": "SELECT \"process_keystone_outage_time\" FROM \"opnfv_yardstick_tc046\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -326,6 +326,8 @@
               "measurement": "opnfv_yardstick_tc045",
               "orderByTime": "ASC",
               "policy": "default",
+              "query": "SELECT \"sla_pass\" FROM \"opnfv_yardstick_tc046\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -401,6 +403,6 @@
     ]
   },
   "timezone": "",
-  "title": "opnfv_yardstick_tc045",
-  "version": 5
+  "title": "opnfv_yardstick_tc046",
+  "version": 3
 }
