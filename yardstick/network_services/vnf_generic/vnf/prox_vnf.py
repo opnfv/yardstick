@@ -71,8 +71,12 @@ class ProxApproxVnf(SampleVNF):
                                "1, 2 or 4 ports only supported at this time")
 
         port_stats = self.vnf_execute('port_stats', range(len(self.vnfd_helper.interfaces)))
-        rx_total = port_stats[6]
-        tx_total = port_stats[7]
+        try:
+            rx_total = port_stats[6]
+            tx_total = port_stats[7]
+        except IndexError:
+            LOG.debug("port_stats parse fail %s", port_stats)
+
         result = {
             "packets_in": tx_total,
             "packets_dropped": (tx_total - rx_total),
