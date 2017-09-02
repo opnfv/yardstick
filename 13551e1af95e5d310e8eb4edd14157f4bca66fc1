@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_5fef7087",
+        "filename": "ansible/inventory.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-02T02:44:40Z",
+      "side": 1,
+      "message": "This is used for some of the HA tests. So we need to make multiple inventories or something",
+      "revId": "13551e1af95e5d310e8eb4edd14157f4bca66fc1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
