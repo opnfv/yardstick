@@ -1,0 +1,8 @@
+Code-Review+2: Ross Brattain <ross.b.brattain@intel.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Verified+1: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-by: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-at: Sat, 02 Sep 2017 01:40:24 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/40895
+Project: yardstick
+Branch: refs/heads/master
