@@ -15,7 +15,7 @@ from yardstick.benchmark.scenarios.availability.result_checker \
 from yardstick.benchmark.scenarios.availability import Condition
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios.availability.util \
-    import buildshellparams, execute_shell_command
+    import execute_shell_command, build_shell_command
 
 LOG = logging.getLogger(__name__)
 
@@ -40,22 +40,20 @@ class GeneralResultChecker(BaseResultChecker):
         self.condition = self._config['condition']
         self.expectedResult = self._config['expectedValue']
         self.actualResult = object()
-
         self.key = self._config['key']
         if "parameter" in self._config:
-            parameter = self._config['parameter']
-            str = buildshellparams(
-                parameter, True if self.connection else False)
-            l = list(item for item in parameter.values())
-            self.shell_cmd = str.format(*l)
-
-        self.resultchecker_cfgs = BaseResultChecker.resultchecker_cfgs.get(
-            self.resultchecker_key)
+            self.parameter_config = self._config['parameter']
+        self.resultchecker_cfgs = BaseResultChecker.resultchecker_cfgs.get(self.resultchecker_key)
         self.verify_script = self.get_script_fullpath(
             self.resultchecker_cfgs['verify_script'])
 
     def verify(self):
         if "parameter" in self._config:
+            self.shell_cmd = \
+                build_shell_command(
+                    self.parameter_config,
+                    bool(self.connection),
+                    self.intermediate_variables)
             if self.connection:
                 with open(self.verify_script, "r") as stdin_file:
                     exit_status, stdout, stderr = self.connection.execute(
