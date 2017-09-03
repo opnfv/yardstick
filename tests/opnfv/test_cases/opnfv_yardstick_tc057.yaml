@@ -81,7 +81,7 @@ scenarios:
           action_parameter:
             vip_name: {{vip_mgmt}}
           return_parameter:
-            all: "$vip_mgmt_host"
+            all: "@vip_mgmt_host"
 
         -
           operation_type: "general-operation"
@@ -91,7 +91,7 @@ scenarios:
           action_parameter:
             vip_name: {{vip_vrouter}}
           return_parameter:
-            all: "$vip_router_host"
+            all: "@vip_router_host"
 
       resultCheckers:
         -
@@ -101,7 +101,7 @@ scenarios:
           host: {{check_host}}
           parameter:
             resource_name: "p_rabbitmq-server"
-            resource_host: "$vip_mgmt_host"
+            resource_host: "@vip_mgmt_host"
           expectedValue: "Masters"
           condition: "in"
 
@@ -112,7 +112,7 @@ scenarios:
           host: {{check_host}}
           parameter:
             resource_name: "p_conntrackd"
-            resource_host: "$vip_router_host"
+            resource_host: "@vip_router_host"
           expectedValue: "Masters"
           condition: "in"
 

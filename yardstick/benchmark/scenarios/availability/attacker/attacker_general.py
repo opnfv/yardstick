@@ -13,6 +13,8 @@ import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios.availability import util
 from yardstick.benchmark.scenarios.availability.attacker.baseattacker import \
     BaseAttacker
+from yardstick.benchmark.scenarios.availability.util \
+    import read_stdout_item, build_shell_command
 
 LOG = logging.getLogger(__name__)
 
@@ -33,13 +35,7 @@ class GeneralAttacker(BaseAttacker):
         self.attack_key = self._config['attack_key']
 
         if "action_parameter" in self._config:
-            actionParameter = self._config['action_parameter']
-            str = util.buildshellparams(actionParameter)
-            LOG.debug("inject parameter is: %s", actionParameter)
-            LOG.debug("inject parameter values are: %s",
-                      list(actionParameter.values()))
-            l = list(actionParameter.values())
-            self.action_param = str.format(*l)
+            self.actionParameter_config = self._config['action_parameter']
 
         if "rollback_parameter" in self._config:
             rollbackParameter = self._config['rollback_parameter']
@@ -59,8 +55,12 @@ class GeneralAttacker(BaseAttacker):
     def inject_fault(self):
         LOG.debug("%s starting inject!", self.key)
         LOG.debug("the inject_script path:%s", self.inject_script)
-
         if "action_parameter" in self._config:
+            self.action_param = \
+                build_shell_command(
+                    self.actionParameter_config,
+                    bool(self.connection),
+                    self.intermediate_variables)
             LOG.debug("the shell command is: %s", self.action_param)
             with open(self.inject_script, "r") as stdin_file:
                 exit_status, stdout, stderr = self.connection.execute(
@@ -75,6 +75,12 @@ class GeneralAttacker(BaseAttacker):
         LOG.debug("the inject_fault's exit status is: %s", exit_status)
         if exit_status == 0:
             LOG.debug("success,the inject_fault's output is: %s", stdout)
+            if "return_parameter" in self._config:
+                returnParameter = self._config['return_parameter']
+                for key, item in returnParameter.items():
+                    value = read_stdout_item(stdout, key)
+                    LOG.debug("intermediate variables %s: %s", item, value)
+                    self.intermediate_variables[item] = value
         else:
             LOG.error(
                 "the inject_fault's error, stdout:%s, stderr:%s",
