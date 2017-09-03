@@ -55,19 +55,6 @@ class TestYardstickNSCli(unittest.TestCase):
         nfvi = {"collect_stats": {"cpu": {"ipc": 0, "Hz": 2.6}}}
         self.assertIsNone(yardstick_ns_cli.generate_nfvi_results(nfvi))
 
-    def test_handle_list_options(self):
-        yardstick_ns_cli = YardstickNSCli()
-        CLI_PATH = os.path.dirname(os.path.realpath(__file__))
-        repo_dir = CLI_PATH + "/../../"
-        test_path = os.path.join(repo_dir, "../samples/vnf_samples/nsut/")
-        args = {"list_vnfs": True, "list": False}
-        self.assertRaises(SystemExit, yardstick_ns_cli.handle_list_options,
-                          args, test_path)
-        args = {"list_vnfs": False, "list": True}
-        self.assertRaises(SystemExit,
-                          yardstick_ns_cli.handle_list_options,
-                          args, test_path)
-
     def test_main(self):
         yardstick_ns_cli = YardstickNSCli()
         yardstick_ns_cli.parse_arguments = mock.Mock(return_value=0)
