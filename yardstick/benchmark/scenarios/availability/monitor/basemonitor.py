@@ -83,6 +83,7 @@ class BaseMonitor(multiprocessing.Process):
         self._event = multiprocessing.Event()
         self.monitor_data = data
         self.setup_done = False
+        self.intermediate_variables = {}
 
     @staticmethod
     def get_monitor_cls(monitor_type):

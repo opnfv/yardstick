@@ -66,6 +66,7 @@ class BaseResultChecker(object):
         self._config = config
         self._context = context
         self.setup_done = False
+        self.intermediate_variables = {}
 
     @staticmethod
     def get_resultchecker_cls(type):

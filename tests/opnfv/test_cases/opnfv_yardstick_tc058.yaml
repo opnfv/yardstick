@@ -48,7 +48,7 @@ scenarios:
           sla:
             max_outage_time: 5
           parameter:
-            ip_address: "$floating_ip"
+            ip_address: "@floating_ip"
 
       operations:
         -
@@ -58,7 +58,7 @@ scenarios:
           action_parameter:
             server_name: "tc058"
           return_parameter:
-            all: "$floating_ip"
+            all: "@floating_ip"
 
 
       steps:

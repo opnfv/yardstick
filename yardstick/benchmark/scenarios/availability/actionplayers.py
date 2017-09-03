@@ -20,8 +20,10 @@ class ActionPlayer(object):
 
 class AttackerPlayer(ActionPlayer):
 
-    def __init__(self, attacker):
+    def __init__(self, attacker, intermediate_variables):
         self.underlyingAttacker = attacker
+        self.underlyingAttacker.intermediate_variables \
+            = intermediate_variables
 
     def action(self):
         self.underlyingAttacker.inject_fault()
@@ -40,8 +42,10 @@ class OperationPlayer(ActionPlayer):
 
 class MonitorPlayer(ActionPlayer):
 
-    def __init__(self, monitor):
+    def __init__(self, monitor, intermediate_variables):
         self.underlyingmonitor = monitor
+        self.underlyingmonitor.intermediate_variables \
+            = intermediate_variables
 
     def action(self):
         self.underlyingmonitor.start_monitor()
@@ -49,8 +53,10 @@ class MonitorPlayer(ActionPlayer):
 
 class ResultCheckerPlayer(ActionPlayer):
 
-    def __init__(self, resultChecker):
+    def __init__(self, resultChecker, intermediate_variables):
         self.underlyingresultChecker = resultChecker
+        self.underlyingresultChecker.intermediate_variables \
+            = intermediate_variables
 
     def action(self):
         self.underlyingresultChecker.verify()
