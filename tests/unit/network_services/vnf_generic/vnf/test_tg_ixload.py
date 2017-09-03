@@ -123,7 +123,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ixload_traffic_gen = IxLoadTrafficGen(NAME, vnfd)
-            self.assertIsNone(ixload_traffic_gen.data)
+            self.assertIsNone(ixload_traffic_gen.resource_helper.data)
 
     def test_collect_kpi(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
