@@ -79,6 +79,7 @@ class IxLoadResourceHelper(ClientResourceHelper):
         super(IxLoadResourceHelper, self).__init__(setup_helper)
         self.result = OrderedDict((key, ResourceDataHelper()) for key in self.KPI_LIST)
         self.resource_file_name = ''
+        self.data = None
 
     def parse_csv_read(self, reader):
         for row in reader:
@@ -111,6 +112,13 @@ class IxLoadResourceHelper(ClientResourceHelper):
         return {key_right: self.result[key_left].get_aggregates()
                 for key_left, key_right in self.KPI_LIST.items()}
 
+    def collect_kpi(self):
+        if self.data:
+            kpi = self.data
+            self._result.update(kpi)
+        LOG.info("Collect {0} KPIs {1}".format(self.RESOURCE_WORD, self._result))
+        return self._result
+
     def log(self):
         for key in self.KPI_LIST:
             LOG.debug(self.result[key])
@@ -125,7 +133,6 @@ class IxLoadTrafficGen(SampleVNFTrafficGen):
         super(IxLoadTrafficGen, self).__init__(name, vnfd, setup_env_helper_type,
                                                resource_helper_type)
         self._result = {}
-        self.data = None
 
     def run_traffic(self, traffic_profile):
         ports = []
@@ -156,16 +163,15 @@ class IxLoadTrafficGen(SampleVNFTrafficGen):
 
         with open(self.ssh_helper.join_bin_path("ixLoad_HTTP_Client.csv")) as csv_file:
             lines = csv_file.readlines()[10:]
-
         with open(self.ssh_helper.join_bin_path("http_result.csv"), 'wb+') as result_file:
-            result_file.writelines(six.text_type(lines[:-1]))
+            result_file.writelines(lines[:-1])
             result_file.flush()
             result_file.seek(0)
             reader = csv.DictReader(result_file)
             self.resource_helper.parse_csv_read(reader)
 
         self.resource_helper.log()
-        self.data = self.resource_helper.make_aggregates()
+        self.resource_helper.data = self.resource_helper.make_aggregates()
 
     def listen_traffic(self, traffic_profile):
         pass
