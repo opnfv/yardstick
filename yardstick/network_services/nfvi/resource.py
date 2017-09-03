@@ -35,7 +35,7 @@ CONF = cfg.CONF
 ZMQ_OVS_PORT = 5567
 ZMQ_POLLING_TIME = 12000
 LIST_PLUGINS_ENABLED = ["amqp", "cpu", "cpufreq", "intel_rdt", "memory",
-                        "hugepages", "dpdkstat", "virt", "ovs_stats"]
+                        "hugepages", "dpdkstat", "virt", "ovs_stats", "intel_pmu"]
 
 
 class ResourceProfile(object):
@@ -109,6 +109,10 @@ class ResourceProfile(object):
     def parse_ovs_stats(cls, key, value):
         return cls.parse_simple_resource(key, value)
 
+    @classmethod
+    def parse_intel_pmu_stats(cls, key, value):
+        return {''.join(key): value.split(":")[1]}
+
     def parse_collectd_result(self, metrics, core_list):
         """ convert collectd data into json"""
         result = {
@@ -118,6 +122,7 @@ class ResourceProfile(object):
             "dpdkstat": {},
             "virt": {},
             "ovs_stats": {},
+            "intel_pmu": {},
         }
         testcase = ""
 
@@ -147,6 +152,9 @@ class ResourceProfile(object):
 
             elif "ovs_stats" in res_key0:
                 result["ovs_stats"].update(self.parse_ovs_stats(key_split, value))
+
+            elif "intel_pmu-all" in res_key0:
+                result["intel_pmu"].update(self.parse_intel_pmu_stats(res_key1, value))
 
         result["timestamp"] = testcase
 
@@ -192,7 +200,6 @@ class ResourceProfile(object):
             "loadplugin": loadplugin,
             "dpdk_interface": interfaces,
         }
-
         self._provide_config_file(bin_path, 'collectd.conf', kwargs)
 
     def _start_collectd(self, connection, bin_path):

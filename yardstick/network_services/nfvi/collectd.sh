@@ -104,6 +104,24 @@ else
     popd
 fi
 
+ls $INSTALL_NSB_BIN/pmu-tools >/dev/null
+if [ $? -eq 0 ]
+then
+    echo "DPDK already installed. Done"
+else
+	  cd $INSTALL_NSB_BIN
+
+	  git clone https://github.com/andikleen/pmu-tools.git
+	  cd pmu-tools
+	  cd jevents
+	  sed -i -e 's/CFLAGS := -g -Wall -O2 -Wno-unused-result/CFLAGS := -g -Wall -O2 -Wno-unused-result -fPIC/g'  Makefile
+	  make
+	  sudo make install
+	  cd $INSTALL_NSB_BIN/pmu-tools
+	  python event_download.py
+fi
+
+cd $INSTALL_NSB_BIN
 which $INSTALL_NSB_BIN/collectd/collectd >/dev/null
 if [ $? -eq 0 ]
 then
@@ -115,9 +133,8 @@ else
     git clone https://github.com/collectd/collectd.git
     pushd collectd
     git stash
-    git checkout -b nfvi 47c86ace348a1d7a5352a83d10935209f89aa4f5
     ./build.sh
-    ./configure --with-libpqos=/usr/ --with-libdpdk=/usr --with-libyajl=/usr/local --enable-debug --enable-dpdkstat --enable-virt --enable-ovs_stats
+    ./configure --with-libpqos=/usr/ --with-libdpdk=/usr --with-libyajl=/usr/local --with-libjevents=/usr/local --enable-debug --enable-dpdkstat --enable-virt --enable-ovs_stats --enable-intel_pmu --prefix=$INSTALL_NSB_BIN/collectd
     make install > /dev/null
     popd
     echo "Done."
@@ -126,7 +143,7 @@ fi
 
 modprobe msr
 cp $INSTALL_NSB_BIN/collectd.conf /opt/collectd/etc/
-
+sudo service rabbitmq-server restart
 echo "Check if admin user already created"
 rabbitmqctl list_users | grep '^admin$' > /dev/null
 if [ $? -eq 0 ];

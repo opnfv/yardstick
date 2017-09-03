@@ -274,6 +274,7 @@ class TestResourceProfile(unittest.TestCase):
         res = self.resource_profile.parse_collectd_result({}, [0, 1, 2])
         expected_result = {'cpu': {}, 'dpdkstat': {}, 'hugepages': {},
                            'memory': {}, 'ovs_stats': {}, 'timestamp': '',
+                           'intel_pmu': {},
                            'virt': {}}
         self.assertDictEqual(res, expected_result)
 
@@ -286,6 +287,7 @@ class TestResourceProfile(unittest.TestCase):
         res = self.resource_profile.parse_collectd_result(metric, [0, 1, 2])
         expected_result = {'cpu': {1: {'ipc': '1234'}}, 'dpdkstat': {}, 'hugepages': {},
                            'memory': {}, 'ovs_stats': {}, 'timestamp': '',
+                           'intel_pmu': {},
                            'virt': {}}
         self.assertDictEqual(res, expected_result)
 
@@ -294,6 +296,7 @@ class TestResourceProfile(unittest.TestCase):
         res = self.resource_profile.parse_collectd_result(metric, [0, 1, 2])
         expected_result = {'cpu': {}, 'dpdkstat': {}, 'hugepages': {},
                            'memory': {'bw': '101'}, 'ovs_stats': {}, 'timestamp': '',
+                           'intel_pmu': {},
                            'virt': {}}
         self.assertDictEqual(res, expected_result)
 
@@ -305,6 +308,7 @@ class TestResourceProfile(unittest.TestCase):
         expected_result = {'cpu': {}, 'dpdkstat': {}, 'hugepages': {'free':
                                                                      '101'},
                            'memory': {}, 'ovs_stats': {}, 'timestamp': '',
+                           'intel_pmu': {},
                            'virt': {}}
         self.assertDictEqual(res, expected_result)
 
@@ -321,6 +325,7 @@ class TestResourceProfile(unittest.TestCase):
         res = self.resource_profile.parse_collectd_result(metric, [0, 1, 2])
         expected_result = {'cpu': {}, 'dpdkstat': {'tx': '101'}, 'hugepages': {},
                            'memory': {}, 'ovs_stats': {'tx': '101'}, 'timestamp': '',
+                           'intel_pmu': {},
                            'virt': {'memory': '101'}}
         self.assertDictEqual(res, expected_result)
 
