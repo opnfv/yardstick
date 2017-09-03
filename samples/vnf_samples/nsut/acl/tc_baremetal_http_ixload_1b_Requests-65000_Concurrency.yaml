@@ -33,6 +33,7 @@ scenarios:
     vnf__1:
       rules: acl_1rule.yaml
       vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      nfvi_enable: True
   runner:
     type: Duration
     duration: 10
