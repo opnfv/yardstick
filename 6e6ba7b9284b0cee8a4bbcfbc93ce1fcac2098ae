@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_3ad71a25",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-03T07:50:39Z",
+      "side": 1,
+      "message": "remove prints",
+      "revId": "6e6ba7b9284b0cee8a4bbcfbc93ce1fcac2098ae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5ad49e1f",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-03T07:50:39Z",
+      "side": 1,
+      "message": "remove prints",
+      "revId": "6e6ba7b9284b0cee8a4bbcfbc93ce1fcac2098ae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
