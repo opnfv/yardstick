@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_ba204ab1",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ixload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-04T03:01:11Z",
+      "side": 1,
+      "message": "do we need kpi temp var?\n\n  self._result.update(self.data)",
+      "revId": "4b005609972713c221bdb54b1c37669f6018986d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
