@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "da33351e_fa2ad28e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ixload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-04T03:02:48Z",
+      "side": 1,
+      "message": "yardstick/network_services/vnf_generic/vnf/tg_ixload.py:25:1: F401 \u0027six\u0027 imported but unused",
+      "revId": "4b005609972713c221bdb54b1c37669f6018986d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_ba204ab1",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_ixload.py",
         "patchSetId": 1
