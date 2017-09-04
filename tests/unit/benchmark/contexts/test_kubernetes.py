@@ -81,9 +81,14 @@ class KubernetesTestCase(unittest.TestCase):
         self.assertTrue(mock_get_rc_pods.called)
         self.assertTrue(mock_wait_until_running.called)
 
+    @mock.patch('{}.paramiko'.format(prefix), **{"resource_filename.return_value": ""})
+    @mock.patch('{}.pkg_resources'.format(prefix), **{"resource_filename.return_value": ""})
+    @mock.patch('{}.utils'.format(prefix))
+    @mock.patch('{}.open'.format(prefix), create=True)
     @mock.patch('{}.k8s_utils.delete_config_map'.format(prefix))
     @mock.patch('{}.k8s_utils.create_config_map'.format(prefix))
-    def test_ssh_key(self, mock_create, mock_delete):
+    def test_ssh_key(self, mock_create, mock_delete, mock_open, mock_utils, mock_resources,
+                     mock_paramiko):
 
         k8s_context = KubernetesContext()
         k8s_context.init(context_cfg)
