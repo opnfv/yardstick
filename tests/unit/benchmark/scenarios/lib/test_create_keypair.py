@@ -8,15 +8,16 @@
 ##############################################################################
 import unittest
 import mock
-import paramiko
 
 from yardstick.benchmark.scenarios.lib.create_keypair import CreateKeypair
 
+PREFIX = "yardstick.benchmark.scenarios.lib.create_keypair"
+
 
 class CreateKeypairTestCase(unittest.TestCase):
-
-    @mock.patch('yardstick.common.openstack_utils.create_keypair')
-    def test_create_keypair(self, mock_create_keypair):
+    @mock.patch('{}.paramiko'.format(PREFIX))
+    @mock.patch('{}.op_utils'.format(PREFIX))
+    def test_create_keypair(self, mock_op_utils, mock_paramiko):
         options = {
             'key_name': 'yardstick_key',
             'key_path': '/tmp/yardstick_key'
@@ -24,7 +25,7 @@ class CreateKeypairTestCase(unittest.TestCase):
         args = {"options": options}
         obj = CreateKeypair(args, {})
         obj.run({})
-        self.assertTrue(mock_create_keypair.called)
+        self.assertTrue(mock_op_utils.create_keypair.called)
 
 
 def main():
