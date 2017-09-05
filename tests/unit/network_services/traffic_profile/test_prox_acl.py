@@ -29,19 +29,38 @@ if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxTestDataTuple
 
 
-class TestProxRampProfile(unittest.TestCase):
+class TestProxACLProfile(unittest.TestCase):
 
     def test_run_test_with_pkt_size(self):
+        def target(*args, **kwargs):
+            runs.append(args[2])
+            if args[2] < 0 or args[2] > 100:
+                raise RuntimeError(' '.join([str(args), str(runs)]))
+            if args[2] > 75.0:
+                return fail_tuple, {}
+            return success_tuple, {}
+
+        def get_mock_samples(*args, **kwargs):
+            if args[2] < 0:
+                raise RuntimeError(' '.join([str(args), str(runs)]))
+            return success_tuple
+
         tp_config = {
-            'traffic_profile': {
+           'traffic_profile': {
                 'upper_bound': 100.0,
+                'lower_bound': 0.0,
+                'tolerated_loss': 50.0,
+                'attempts': 20
             },
         }
 
+        runs = []
         success_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.1, 5.2, 5.3], 995, 1000, 123.4)
         fail_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.6, 5.7, 5.8], 850, 1000, 123.4)
 
         traffic_gen = mock.MagicMock()
+        traffic_gen.run_test = target
+
         traffic_gen.resource_helper.run_test.side_effect = [
             success_tuple,
             success_tuple,
@@ -53,14 +72,16 @@ class TestProxRampProfile(unittest.TestCase):
             fail_tuple,
         ]
 
-        fill_values = [1, 2, 3, 4, RuntimeError]
-
         profile = ProxACLProfile(tp_config)
-        profile.fill_samples = fill_samples = mock.MagicMock(side_effect=fill_values)
+        profile.init(mock.MagicMock())
+        profile.prox_config = None
+        profile.prox_config.attempts = 20
+
         profile.queue = mock.MagicMock()
+        profile.tolerated_loss = 50.0
+        profile.pkt_size = 128
+        profile.duration = 30
+        profile.test_value = 100.0
+        profile.tolerated_loss = 100.0
 
-        with self.assertRaises(RuntimeError):
-            profile.run_test_with_pkt_size(traffic_gen, 128, 30)
-
-        self.assertEqual(traffic_gen.resource_helper.run_test.call_count, 5)
-        self.assertEqual(fill_samples.call_count, 5)
+        profile.run_test_with_pkt_size(traffic_gen, profile.pkt_size, profile.duration)
