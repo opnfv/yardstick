@@ -138,6 +138,9 @@
         name: "{{ mountdir }}"
         # fstype is required
         fstype: "{{ image_fs_type }}"
+        # !!!!!!! this is required otherwise we add entries to /etc/fstab
+        # and prevent the system from booting
+        fstab: "{{ fake_fstab }}"
         state: mounted
 
     - name: mount chroot /proc
@@ -145,6 +148,9 @@
         src: none
         name: "{{ mountdir }}/proc"
         fstype: proc
+        # !!!!!!! this is required otherwise we add entries to /etc/fstab
+        # and prevent the system from booting
+        fstab: "{{ fake_fstab }}"
         state: mounted
 
     - name: if arm copy qemu-aarch64-static into chroot
