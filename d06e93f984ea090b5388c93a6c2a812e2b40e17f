@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_d878b5f4",
+        "filename": "samples/vnf_samples/nsut/cgnapt/tc_baremetal_rfc2544_ipv4_1flow_64B_trex_corelated_traffic.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-05T03:44:49Z",
+      "side": 1,
+      "message": "missing closing ]",
+      "revId": "d06e93f984ea090b5388c93a6c2a812e2b40e17f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
