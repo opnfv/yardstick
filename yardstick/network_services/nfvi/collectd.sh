@@ -142,7 +142,8 @@ else
 fi
 
 modprobe msr
-cp $INSTALL_NSB_BIN/collectd.conf /opt/collectd/etc/
+# we overwrite the config file during _start_collectd so don't copy it
+#cp $INSTALL_NSB_BIN/collectd.conf /opt/nsb_bin/collectd/etc/
 sudo service rabbitmq-server restart
 echo "Check if admin user already created"
 rabbitmqctl list_users | grep '^admin$' > /dev/null
