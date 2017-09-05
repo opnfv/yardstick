@@ -12,7 +12,7 @@ Jinja2==2.8.1		# BSD; OSI Approved  BSD License
 MarkupSafe==0.23		# BSD; OSI Approved  BSD License
 PyYAML==3.12		# MIT; OSI Approved  MIT License
 SQLAlchemy==1.1.4		# MIT License; OSI Approved  MIT License
-ansible==2.2.2.0		# GPLv3; OSI Approved  GNU General Public License v3 or later (GPLv3+)
+ansible==2.3.2		# GPLv3; OSI Approved  GNU General Public License v3 or later (GPLv3+)
 appdirs==1.4.3		# MIT; OSI Approved  MIT License
 backport-ipaddress==0.1; python_version <= "2.7"		# OSI Approved  Python Software Foundation License
 chainmap==1.0.2		# Python Software Foundation License; OSI Approved  Python Software Foundation License
