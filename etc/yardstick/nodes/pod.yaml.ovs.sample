@@ -16,42 +16,42 @@ nodes:
 -
     name: trafficgen_1
     role: TrafficGen
-    ip: 10.123.123.182
+    ip: 10.123.123.144
     user: root
     auth_type: password
     password: intel123
     interfaces:
         xe0:  # logical name from topology.yaml and vnfd.yaml
-            vpci:      "0000:03:00.0"
-            driver:    ixgbe
+            vpci:      "0000:04:00.0"
+            driver:    i40e
             dpdk_port_num: 0
             local_ip: "152.16.100.20"
             netmask:   "255.255.255.0"
-            local_mac:   "00:00:00:00:00:68"
+            local_mac:   "00:00:00:00:00:70"
         xe1:  # logical name from topology.yaml and vnfd.yaml
-            vpci:      "0000:03:00.1"
-            driver:    ixgbe
+            vpci:      "0000:04:00.1"
+            driver:    i40e
             dpdk_port_num: 1
-            local_ip: "152.16.100.21"
+            local_ip: "152.40.100.20"
             netmask:   "255.255.255.0"
-            local_mac:   "00:00:00:00:00:69"
+            local_mac:   "00:00:00:00:00:71"
 -
     name: ovs
-    role: Ovsdpdk1
-    ip: 10.123.123.222
+    role: Ovsdpdk
+    ip: 10.123.123.134
     user: root
     auth_type: password
     password: intel123
-    vpath: "/usr/local/"
+    vpath: "/usr/local"
     vports:
      - dpdkvhostuser0
      - dpdkvhostuser1
     vports_mac:
-     - "00:00:00:00:00:03"
-     - "00:00:00:00:00:04"
+     - "00:00:00:00:00:01"
+     - "00:00:00:00:00:02"
     phy_ports: # Physical ports to configure ovs
-     - "0000:06:00.0"
-     - "0000:06:00.1"
+     - "0000:05:00.0"
+     - "0000:05:00.1"
     flow:
      - ovs-ofctl add-flow br0 in_port=1,action=output:3
      - ovs-ofctl add-flow br0 in_port=3,action=output:1
@@ -63,35 +63,35 @@ nodes:
 -
     name: vnf
     role: vnf
-    ip: 10.123.123.155
+    ip: 10.123.123.162
     user: root
     auth_type: password
     password: intel123
-    host: 10.123.123.140
+    host: 10.123.123.134
     interfaces:
         xe0:  # logical name from topology.yaml and vnfd.yaml
-            vpci:      "0000:00:04.0"
-            driver:    virtio-pci
-            dpdk_port_num: 0
-            local_ip: "152.16.100.19"
-            netmask:   "255.255.255.0"
-            local_mac:   "00:00:00:00:00:03"
-
-        xe1:  # logical name from topology.yaml and vnfd.yaml
             vpci:      "0000:00:05.0"
             driver:    virtio-pci
-            dpdk_port_num: 1
-            local_ip: "152.16.40.19"
+            dpdk_port_num: 0
+            local_ip: "152.16.100.21"
             netmask:   "255.255.255.0"
-            local_mac:   "00:00:00:00:00:04"
+            local_mac:   "00:00:00:00:00:01"
+
+        xe1:  # logical name from topology.yaml and vnfd.yaml
+            vpci:      "0000:00:06.0"
+            driver:    virtio-pci
+            dpdk_port_num: 1
+            local_ip: "152.40.40.21"
+            netmask:   "255.255.255.0"
+            local_mac:   "00:00:00:00:00:02"
     routing_table:
-    - network: "152.16.100.20"
+    - network: "152.16.100.21"
       netmask: "255.255.255.0"
       gateway: "152.16.100.20"
       if: "xe0"
-    - network: "152.16.40.20"
+    - network: "152.40.40.21"
       netmask: "255.255.255.0"
-      gateway: "152.16.40.20"
+      gateway: "152.40.40.20"
       if: "xe1"
     nd_route_tbl:
     - network: "0064:ff9b:0:0:0:0:9810:6414"

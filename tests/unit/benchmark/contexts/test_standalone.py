@@ -72,7 +72,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'sriov',
             'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Sriov',
             'user': 'root',
             'images': '/var/lib/libvirt/images/ubuntu1.img',
@@ -94,7 +94,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'ovs',
             'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Ovsdpdk',
             'user': 'root',
             'vpath': '/usr/local/',
@@ -118,7 +118,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'sriov',
             'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Sriov',
             'user': 'root',
             'images': '/var/lib/libvirt/images/ubuntu1.img',
@@ -139,7 +139,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'ovs',
             'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Ovsdpdk',
             'user': 'root',
             'vpath': '/usr/local/',
@@ -161,7 +161,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'sriov',
             'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Sriov',
             'user': 'root',
             'images': '/var/lib/libvirt/images/ubuntu1.img',
@@ -182,7 +182,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'ovs',
             'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Ovsdpdk',
             'user': 'root',
             'vpath': '/usr/local/',
@@ -204,7 +204,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'sriov',
             'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Sriov',
             'user': 'root',
             'images': '/var/lib/libvirt/images/ubuntu1.img',
@@ -226,7 +226,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'ovs',
             'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Ovsdpdk',
             'user': 'root',
             'vpath': '/usr/local/',
@@ -253,7 +253,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'sriov',
             'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Sriov',
             'user': 'root',
             'images': '/var/lib/libvirt/images/ubuntu1.img',
@@ -278,7 +278,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'ovs',
             'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Ovsdpdk',
             'user': 'root',
             'vpath': '/usr/local/',
@@ -290,7 +290,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.init(attrs)
         attr_name = 'ovs.foo'
         result = self.test_context._get_server(attr_name)
-        self.assertEqual(result['ip'], '10.223.197.222')
+        self.assertEqual(result['ip'], '10.123.123.222')
         self.assertEqual(result['name'], 'ovs.foo')
         self.assertEqual(result['user'], 'root')
 
@@ -306,7 +306,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'sriov',
             'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Sriov',
             'user': 'root',
             'images': '/var/lib/libvirt/images/ubuntu1.img',
@@ -317,7 +317,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         MYSRIOV = [{
             'name': 'sriov',
             'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Sriov',
             'user': 'root',
             'images': '/var/lib/libvirt/images/ubuntu1.img',
@@ -358,7 +358,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'sriov',
             'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Sriov',
             'user': 'root',
             'images': '/var/lib/libvirt/images/ubuntu1.img',
@@ -368,7 +368,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         MYSRIOV = [{
             'name': 'sriov',
             'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Sriov',
             'user': 'root',
             'images': '/var/lib/libvirt/images/ubuntu1.img',
@@ -407,7 +407,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'ovs',
             'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Ovsdpdk',
             'user': 'root',
             'vpath': '/usr/local/',
@@ -419,7 +419,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         MYOVS = [{
             'name': 'ovs',
             'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Ovsdpdk',
             'user': 'root',
             'vpath': '/usr/local/',
@@ -469,7 +469,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'ovs',
             'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Ovsdpdk',
             'user': 'root',
             'vpath': '/usr/local/',
@@ -481,7 +481,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         MYOVS = [{
             'name': 'ovs',
             'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Ovsdpdk',
             'user': 'root',
             'vpath': '/usr/local/',
@@ -529,7 +529,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'sriov',
             'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Sriov',
             'user': 'root',
             'images': '/var/lib/libvirt/images/ubuntu1.img',
@@ -550,7 +550,7 @@ class StandaloneContextTestCase(unittest.TestCase):
         self.test_context.nfvi_node = [{
             'name': 'ovs',
             'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-            'ip': '10.223.197.140',
+            'ip': '10.123.123.140',
             'role': 'Ovsdpdk',
             'user': 'root',
             'vpath': '/usr/local/',
@@ -576,7 +576,7 @@ class StandaloneContextTestCase(unittest.TestCase):
             self.test_context.nfvi_node = [{
                 'name': 'sriov',
                 'vf_macs': ['00:00:00:71:7d:25', '00:00:00:71:7d:26'],
-                'ip': '10.223.197.140',
+                'ip': '10.123.123.140',
                 'role': 'Sriov',
                 'user': 'root',
                 'images': '/var/lib/libvirt/images/ubuntu1.img',
@@ -601,7 +601,7 @@ class StandaloneContextTestCase(unittest.TestCase):
             self.test_context.nfvi_node = [{
                 'name': 'ovs',
                 'vports_mac': ['00:00:00:00:00:03', '00:00:00:00:00:04'],
-                'ip': '10.223.197.140',
+                'ip': '10.123.123.140',
                 'role': 'Ovsdpdk',
                 'user': 'root',
                 'vpath': '/usr/local/',
