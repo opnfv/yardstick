@@ -28,14 +28,14 @@ nodes:
             dpdk_port_num: 0
             local_ip: "152.16.100.20"
             netmask:   "255.255.255.0"
-            local_mac:   "90:e2:ba:77:ce:68"
+            local_mac:   "00:00:00:00:00:68"
         xe1:  # logical name from topology.yaml and vnfd.yaml
             vpci:      "0000:03:00.1"
             driver:    ixgbe
             dpdk_port_num: 1
             local_ip: "152.16.100.21"
             netmask:   "255.255.255.0"
-            local_mac:   "90:e2:ba:77:ce:69"
+            local_mac:   "00:00:00:00:00:69"
 -
     name: sriov
     role: Sriov

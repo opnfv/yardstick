@@ -15,10 +15,10 @@ nodes:
 -
     name: ovs
     role: test 
-    ip: 10.223.197.222
+    ip: 10.123.123.222
     user: root
     auth_type: password
-    password: intel123
+    password: password
     vpath: "/usr/local/"
     vports:
      - dpdkvhostuser0
@@ -39,10 +39,10 @@ nodes:
 -
     name: ovs
     role: test
-    ip: 10.223.197.112
+    ip: 10.123.123.112
     user: root
     auth_type: password
-    password: intel123
+    password: password
     vpath: "/usr/local/"
     vports:
      - dpdkvhostuser0
