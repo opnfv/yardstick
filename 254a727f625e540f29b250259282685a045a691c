@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_fe080193",
+        "filename": "yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-05T15:02:20Z",
+      "side": 1,
+      "message": "Yes its per-port and assumption, both uplink/downlink will have same speed",
+      "parentUuid": "da33351e_98f90d83",
+      "revId": "254a727f625e540f29b250259282685a045a691c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_58002567",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2017-09-05T03:15:11Z",
       "side": 1,
       "message": "Len or Lan?\n\nwhat is Len?",
+      "revId": "254a727f625e540f29b250259282685a045a691c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5e000d67",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-05T15:02:20Z",
+      "side": 1,
+      "message": "It is Len. That is what ixia as defined :(",
+      "parentUuid": "da33351e_58002567",
       "revId": "254a727f625e540f29b250259282685a045a691c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
