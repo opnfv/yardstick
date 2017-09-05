@@ -29,12 +29,14 @@ if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxTestDataTuple
 
 
-class TestProxRampProfile(unittest.TestCase):
+class TestProxACLProfile(unittest.TestCase):
 
     def test_run_test_with_pkt_size(self):
         tp_config = {
             'traffic_profile': {
                 'upper_bound': 100.0,
+                'lower_bound': 0.0,
+                'tolerated_loss': 50.0
             },
         }
 
@@ -58,6 +60,7 @@ class TestProxRampProfile(unittest.TestCase):
         profile = ProxACLProfile(tp_config)
         profile.fill_samples = fill_samples = mock.MagicMock(side_effect=fill_values)
         profile.queue = mock.MagicMock()
+        profile.tolerated_loss = 50.0
 
         with self.assertRaises(RuntimeError):
             profile.run_test_with_pkt_size(traffic_gen, 128, 30)
