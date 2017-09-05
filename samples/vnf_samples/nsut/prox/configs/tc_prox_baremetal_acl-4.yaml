@@ -44,10 +44,10 @@ scenarios:
   runner:
     type: Duration
     # we kill after duration, independent of test duration, so set this high
-    duration: 300
+    duration: 100
 
 context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: prox-baremetal-4.yml
+  file: /etc/prox-baremetal-4.yml
