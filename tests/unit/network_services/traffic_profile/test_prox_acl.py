@@ -60,7 +60,9 @@ class TestProxRampProfile(unittest.TestCase):
         profile.queue = mock.MagicMock()
 
         with self.assertRaises(RuntimeError):
-            profile.run_test_with_pkt_size(traffic_gen, 128, 30)
+            results = {}
+            samples = {} 
+            results, samples = profile.run_test_with_pkt_size(traffic_gen, 128, 30)
 
         self.assertEqual(traffic_gen.resource_helper.run_test.call_count, 5)
         self.assertEqual(fill_samples.call_count, 5)
