@@ -15,16 +15,22 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
-import tempfile
+
 import logging
+from itertools import chain
+
+import jinja2
 import os
 import os.path
 import re
 import multiprocessing
+import pkg_resources
 
 from oslo_config import cfg
+from oslo_utils.encodeutils import safe_decode
 
 from yardstick import ssh
+from yardstick.common.task_template import finalize_for_yaml
 from yardstick.common.utils import validate_non_string_sequence
 from yardstick.network_services.nfvi.collectd import AmqpConsumer
 from yardstick.network_services.utils import get_nsb_option
@@ -34,26 +40,36 @@ LOG = logging.getLogger(__name__)
 CONF = cfg.CONF
 ZMQ_OVS_PORT = 5567
 ZMQ_POLLING_TIME = 12000
-LIST_PLUGINS_ENABLED = ["amqp", "cpu", "cpufreq", "intel_rdt", "memory",
-                        "hugepages", "dpdkstat", "virt", "ovs_stats", "intel_pmu"]
+LIST_PLUGINS_ENABLED = ["amqp", "cpu", "cpufreq", "memory",
+                        "hugepages"]
 
 
 class ResourceProfile(object):
     """
     This profile adds a resource at the beginning of the test session
     """
+    COLLECTD_CONF = "collectd.conf"
+    AMPQ_PORT = 5672
+    DEFAULT_INTERVAL = 25
 
-    def __init__(self, mgmt, interfaces=None, cores=None):
+    def __init__(self, mgmt, port_names=None, cores=None, plugins=None, interval=None):
+        if plugins is None:
+            self.plugins = {}
+        else:
+            self.plugins = plugins
+        if interval is None:
+            self.interval = self.DEFAULT_INTERVAL
+        else:
+            self.interval = interval
         self.enable = True
         self.cores = validate_non_string_sequence(cores, default=[])
         self._queue = multiprocessing.Queue()
         self.amqp_client = None
-        self.interfaces = validate_non_string_sequence(interfaces, default=[])
+        self.port_names = validate_non_string_sequence(port_names, default=[])
 
-        # why the host or ip?
-        self.vnfip = mgmt.get("host", mgmt["ip"])
-        self.connection = ssh.SSH.from_node(mgmt, overrides={"ip": self.vnfip})
-        self.connection.wait()
+        # we need to save mgmt so we can connect to port 5672
+        self.mgmt = mgmt
+        self.connection = ssh.AutoConnectSSH.from_node(mgmt)
 
     def check_if_sa_running(self, process):
         """ verify if system agent is running """
@@ -62,7 +78,7 @@ class ResourceProfile(object):
 
     def run_collectd_amqp(self):
         """ run amqp consumer to collect the NFVi data """
-        amqp_url = 'amqp://admin:admin@{}:5672/%2F'.format(self.vnfip)
+        amqp_url = 'amqp://admin:admin@{}:{}/%2F'.format(self.mgmt['ip'], self.AMPQ_PORT)
         amqp = AmqpConsumer(amqp_url, self._queue)
         try:
             amqp.run()
@@ -124,7 +140,9 @@ class ResourceProfile(object):
         }
         testcase = ""
 
-        for key, value in metrics.items():
+        # unicode decode
+        decoded = ((safe_decode(k, 'utf-8'), safe_decode(v, 'utf-8')) for k, v in metrics.items())
+        for key, value in decoded:
             key_split = key.split("/")
             res_key_iter = (key for key in key_split if "nsb_stats" not in key)
             res_key0 = next(res_key_iter)
@@ -176,35 +194,36 @@ class ResourceProfile(object):
         msg = self.parse_collectd_result(metric, self.cores)
         return msg
 
-    def _provide_config_file(self, bin_path, nfvi_cfg, kwargs):
-        with open(os.path.join(bin_path, nfvi_cfg), 'r') as cfg:
-            template = cfg.read()
-        cfg, cfg_content = tempfile.mkstemp()
-        with os.fdopen(cfg, "w+") as cfg:
-            cfg.write(template.format(**kwargs))
-        cfg_file = os.path.join(bin_path, nfvi_cfg)
-        self.connection.put(cfg_content, cfg_file)
+    def _provide_config_file(self, config_file_path, nfvi_cfg, template_kwargs):
+        template = pkg_resources.resource_string("yardstick.network_services.nfvi",
+                                                 nfvi_cfg).decode('utf-8')
+        cfg_content = jinja2.Template(template, trim_blocks=True, lstrip_blocks=True,
+                                      finalize=finalize_for_yaml).render(
+            **template_kwargs)
+        # cfg_content = io.StringIO(template.format(**template_kwargs))
+        cfg_file = os.path.join(config_file_path, nfvi_cfg)
+        # must write as root, so use sudo
+        self.connection.execute("cat | sudo tee {}".format(cfg_file), stdin=cfg_content)
 
-    def _prepare_collectd_conf(self, bin_path):
+    def _prepare_collectd_conf(self, config_file_path):
         """ Prepare collectd conf """
-        loadplugin = "\n".join("LoadPlugin {0}".format(plugin)
-                               for plugin in LIST_PLUGINS_ENABLED)
-
-        interfaces = "\n".join("PortName '{0[name]}'".format(interface)
-                               for interface in self.interfaces)
 
         kwargs = {
-            "interval": '25',
-            "loadplugin": loadplugin,
-            "dpdk_interface": interfaces,
+            "interval": self.interval,
+            "loadplugins": set(chain(LIST_PLUGINS_ENABLED, self.plugins.keys())),
+            # Optional fields PortName is descriptive only, use whatever is present
+            "port_names": self.port_names,
+            # "ovs_bridge_interfaces": ["br-int"],
+            "plugins": self.plugins,
         }
-        self._provide_config_file(bin_path, 'collectd.conf', kwargs)
+        self._provide_config_file(config_file_path, self.COLLECTD_CONF, kwargs)
 
     def _start_collectd(self, connection, bin_path):
         LOG.debug("Starting collectd to collect NFVi stats")
-        connection.execute('sudo pkill -9 collectd')
+        connection.execute('sudo pkill -x -9 collectd')
         bin_path = get_nsb_option("bin_path")
-        collectd_path = os.path.join(bin_path, "collectd", "collectd")
+        collectd_path = os.path.join(bin_path, "collectd", "sbin", "collectd")
+        config_file_path = os.path.join(bin_path, "collectd", "etc")
         exit_status = connection.execute("which %s > /dev/null 2>&1" % collectd_path)[0]
         if exit_status != 0:
             LOG.warning("%s is not present disabling", collectd_path)
@@ -217,7 +236,9 @@ class ResourceProfile(object):
             #     collectd_installer, http_proxy, https_proxy))
             return
         LOG.debug("Starting collectd to collect NFVi stats")
-        self._prepare_collectd_conf(bin_path)
+        # ensure collectd.conf.d exists to avoid error/warning
+        connection.execute("sudo mkdir -p /etc/collectd/collectd.conf.d")
+        self._prepare_collectd_conf(config_file_path)
 
         # Reset amqp queue
         LOG.debug("reset and setup amqp to collect data from collectd")
@@ -228,7 +249,7 @@ class ResourceProfile(object):
         connection.execute("sudo rabbitmqctl start_app")
         connection.execute("sudo service rabbitmq-server restart")
 
-        LOG.debug("Creating amdin user for rabbitmq in order to collect data from collectd")
+        LOG.debug("Creating admin user for rabbitmq in order to collect data from collectd")
         connection.execute("sudo rabbitmqctl delete_user guest")
         connection.execute("sudo rabbitmqctl add_user admin admin")
         connection.execute("sudo rabbitmqctl authenticate_user admin admin")
@@ -241,7 +262,11 @@ class ResourceProfile(object):
     def initiate_systemagent(self, bin_path):
         """ Start system agent for NFVi collection on host """
         if self.enable:
-            self._start_collectd(self.connection, bin_path)
+            try:
+                self._start_collectd(self.connection, bin_path)
+            except Exception:
+                LOG.exception("Exception during collectd start")
+                raise
 
     def start(self):
         """ start nfvi collection """
