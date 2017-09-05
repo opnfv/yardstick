@@ -28,15 +28,15 @@ scenarios:
   options:
     vnf__1:
       prox_path: /root/dppd-PROX-v037.1/build/prox
-      prox_config: "configs/handle_acl-2.cfg"
+      prox_config: "configs/handle_acl-1.cfg"
       prox_args:
         "-t": ""
       prox_files:
-        "configs/acl_rules-2.lua" : ""
+        "configs/acl_rules-5tuple.lua" : ""
 
     tg__1:
       prox_path: /root/dppd-PROX-v037.1/build/prox
-      prox_config: "configs/gen_acl-2.cfg"
+      prox_config: "configs/gen_acl-1.cfg"
       prox_args:
         "-e": ""
         "-t": ""
@@ -48,16 +48,15 @@ scenarios:
 
 context:
   name: yardstick
-  image: yardstick-image-prox-dpdk1702
+  image: yardstick-samplevnfs
   user: ubuntu
   flavor:
-    name: yardstick-dpdk-flavor
-    vcpus: 3
+    vcpus: 10
     ram: 20480
     disk: 4
     extra_specs:
       hw:cpu_sockets: 1
-      hw:cpu_cores: 3
+      hw:cpu_cores: 10
       hw:cpu_threads: 1
 #      hw:mem_page_size: large
   placement_groups:
@@ -77,13 +76,13 @@ context:
       cidr: '10.0.1.0/24'
       external_network: "yardstick-public"
     xe0:
-      cidr: '10.0.2.0/24'
+      cidr: '10.1.1.0/24'
       vld_id: public
       allowed_address_pairs:
         - ip_address:
             '0.0.0.0/0'
     xe1:
-      cidr: '10.0.3.0/24'
+      cidr: '10.1.1.0/24'
       vld_id: private
       allowed_address_pairs:
         - ip_address:

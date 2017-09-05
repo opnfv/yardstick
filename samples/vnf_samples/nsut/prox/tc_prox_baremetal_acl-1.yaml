@@ -19,7 +19,7 @@ scenarios:
 -
   type: NSPerf
   traffic_profile: ../../traffic_profiles/prox_acl.yaml
-  topology: prox-tg-topology-4.yaml
+  topology: prox-tg-topology-2.yaml
 
   nodes:
     tg__1: trafficgen_1.yardstick
@@ -28,15 +28,15 @@ scenarios:
   options:
     vnf__1:
       prox_path: /root/dppd-PROX-v037/build/prox
-      prox_config: "configs/handle_acl-4.cfg"
+      prox_config: "configs/handle_acl-2.cfg"
       prox_args:
         "-t": ""
       prox_files:
-        "configs/acl_rules-2.lua": ""
+        "configs/acl_rules-5tuple.lua": ""
 
     tg__1:
       prox_path: /root/dppd-PROX-v037/build/prox
-      prox_config: "configs/gen_acl-4.cfg"
+      prox_config: "configs/gen_acl-2.cfg"
       prox_args:
         "-e": ""
         "-t": ""
@@ -44,10 +44,10 @@ scenarios:
   runner:
     type: Duration
     # we kill after duration, independent of test duration, so set this high
-    duration: 300
+    duration: 500
 
 context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: prox-baremetal-4.yml
+  file: /etc/prox-baremetal-2.yml
