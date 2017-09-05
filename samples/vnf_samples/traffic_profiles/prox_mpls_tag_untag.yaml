@@ -1,0 +1,30 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+schema: "nsb:traffic_profile:0.1"
+
+name:            prox_mpls_tag_untag
+description:     MPLS tag/untag for max no-drop throughput over given packet sizes
+
+traffic_profile:
+  traffic_type: ProxMplsTagUntagProfile
+  tolerated_loss: 0.001
+  test_precision: 0.1
+#  packet_sizes: [64, 128, 256, 512, 1024, 1280, 1518]
+# The minimum size of the Ethernet frame with 802.1Q tagging is 68 bytes.
+  packet_sizes: [68]
+  duration: 10
+  lower_bound: 0.0
+  upper_bound: 100.0
+

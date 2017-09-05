@@ -45,6 +45,7 @@ key4=
 [section2]
 # here is a comment line
 list2: value5
+key with no value
 ; another comment line
 key5=
 """
@@ -69,15 +70,10 @@ PARSE_TEXT_BAD_3 = """\
 
 PARSE_TEXT_BAD_4 = """\
 [section1]
-no list or key
-"""
-
-PARSE_TEXT_BAD_5 = """\
-[section1]
     bad continuation
 """
 
-PARSE_TEXT_BAD_6 = """\
+PARSE_TEXT_BAD_5 = """\
 [section1]
 =value with no key
 """
@@ -106,7 +102,7 @@ class TestBaseParser(unittest.TestCase):
 
         parser = BaseParser()
 
-        self.assertIsNone(parser.parse())
+        parser.parse([])
 
     def test_not_implemented_methods(self):
         parser = BaseParser()
@@ -132,39 +128,49 @@ class TestConfigParser(unittest.TestCase):
     def test_parse(self, mock_open):
         mock_open.side_effect = self.make_open(PARSE_TEXT_1)
 
-        config_parser = ConfigParser('my_file', {})
+        config_parser = ConfigParser('my_file', [])
         config_parser.parse()
 
-        expected = {
-            'section1': [
-                ['key1', 'value1'],
-                ['list1', 'value2\nvalue3\nvalue4'],
-                ['key2', 'double quote value'],
-                ['key3', 'single quote value'],
-                ['key4', ''],
+        expected = [
+            [
+                'section1',
+                [
+                    ['key1', 'value1'],
+                    ['list1', 'value2\nvalue3\nvalue4'],
+                    ['key2', 'double quote value'],
+                    ['key3', 'single quote value'],
+                    ['key4', ''],
+                ],
             ],
-            'section2': [
-                ['list2', 'value5'],
-                ['key5', ''],
+            [
+                'section2',
+                [
+                    ['list2', 'value5'],
+                    ['key with no value', '@'],
+                    ['key5', ''],
+                ],
             ],
-        }
+        ]
 
-        self.assertDictEqual(config_parser.sections, expected)
+        self.assertEqual(config_parser.sections, expected)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.iniparser.open')
     def test_parse_2(self, mock_open):
         mock_open.side_effect = self.make_open(PARSE_TEXT_2)
 
-        config_parser = ConfigParser('my_file', {})
+        config_parser = ConfigParser('my_file', [])
         config_parser.parse()
 
-        expected = {
-            'section1': [
-                ['list1', 'item1\nitem2\nended by eof'],
+        expected = [
+            [
+                'section1',
+                [
+                    ['list1', 'item1\nitem2\nended by eof'],
+                ],
             ],
-        }
+        ]
 
-        self.assertDictEqual(config_parser.sections, expected)
+        self.assertEqual(config_parser.sections, expected)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.iniparser.open')
     def test_parse_negative(self, mock_open):
@@ -172,15 +178,14 @@ class TestConfigParser(unittest.TestCase):
             'no section': PARSE_TEXT_BAD_1,
             'incomplete section': PARSE_TEXT_BAD_2,
             'empty section name': PARSE_TEXT_BAD_3,
-            'no list or key': PARSE_TEXT_BAD_4,
-            'bad_continuation': PARSE_TEXT_BAD_5,
-            'value with no key': PARSE_TEXT_BAD_6,
+            'bad_continuation': PARSE_TEXT_BAD_4,
+            'value with no key': PARSE_TEXT_BAD_5,
         }
 
         for bad_reason, bad_text in bad_text_dict.items():
             mock_open.side_effect = self.make_open(bad_text)
 
-            config_parser = ConfigParser('my_file', {})
+            config_parser = ConfigParser('my_file', [])
 
             try:
                 # TODO: replace with assertRaises, when the UT framework supports
