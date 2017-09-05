@@ -14,7 +14,7 @@
 
 schema: "nsb:traffic_profile:0.1"
 
-name:            prox_acl
+name:            prox_heat_acl
 description:     ACL max no-drop throughput over given packet sizes
 
 traffic_profile:
@@ -24,5 +24,5 @@ traffic_profile:
   packet_sizes: [64]
   duration: 5
   lower_bound: 0.0
-  upper_bound: 100.0
+  upper_bound: 0.5
 
