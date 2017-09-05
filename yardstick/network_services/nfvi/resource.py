@@ -15,12 +15,14 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
-import tempfile
+
+import io
 import logging
 import os
 import os.path
 import re
 import multiprocessing
+import pkg_resources
 from collections import Sequence
 
 from oslo_config import cfg
@@ -42,6 +44,7 @@ class ResourceProfile(object):
     """
     This profile adds a resource at the beginning of the test session
     """
+    COLLECTD_CONF = "collectd.conf"
 
     def __init__(self, mgmt, interfaces=None, cores=None):
         self.enable = True
@@ -178,16 +181,14 @@ class ResourceProfile(object):
         msg = self.parse_collectd_result(metric, self.cores)
         return msg
 
-    def _provide_config_file(self, bin_path, nfvi_cfg, kwargs):
-        with open(os.path.join(bin_path, nfvi_cfg), 'r') as cfg:
-            template = cfg.read()
-        cfg, cfg_content = tempfile.mkstemp()
-        with os.fdopen(cfg, "w+") as cfg:
-            cfg.write(template.format(**kwargs))
-        cfg_file = os.path.join(bin_path, nfvi_cfg)
-        self.connection.put(cfg_content, cfg_file)
+    def _provide_config_file(self, config_file_path, nfvi_cfg, template_kwargs):
+        template = pkg_resources.resource_string("yardstick.network_services.nfvi",
+                                                 nfvi_cfg)
+        cfg_content = io.StringIO(template.format(**template_kwargs))
+        cfg_file = os.path.join(config_file_path, nfvi_cfg)
+        self.connection.put_file_obj(cfg_content, cfg_file)
 
-    def _prepare_collectd_conf(self, bin_path):
+    def _prepare_collectd_conf(self, config_file_path):
         """ Prepare collectd conf """
         loadplugin = "\n".join("LoadPlugin {0}".format(plugin)
                                for plugin in LIST_PLUGINS_ENABLED)
@@ -200,12 +201,13 @@ class ResourceProfile(object):
             "loadplugin": loadplugin,
             "dpdk_interface": interfaces,
         }
-        self._provide_config_file(bin_path, 'collectd.conf', kwargs)
+        self._provide_config_file(config_file_path, self.COLLECTD_CONF, kwargs)
 
     def _start_collectd(self, connection, bin_path):
         connection.execute('sudo pkill -9 collectd')
         bin_path = get_nsb_option("bin_path")
-        collectd_path = os.path.join(bin_path, "collectd", "collectd")
+        collectd_path = os.path.join(bin_path, "collectd", "sbin", "collectd")
+        config_file_path = os.path.join(bin_path, "collectd", "etc")
         exit_status = connection.execute("which %s > /dev/null 2>&1" % collectd_path)[0]
         if exit_status != 0:
             LOG.warning("%s is not present disabling", collectd_path)
@@ -218,7 +220,7 @@ class ResourceProfile(object):
             #     collectd_installer, http_proxy, https_proxy))
             return
         LOG.debug("Starting collectd to collect NFVi stats")
-        self._prepare_collectd_conf(bin_path)
+        self._prepare_collectd_conf(config_file_path)
 
         # Reset amqp queue
         LOG.debug("reset and setup amqp to collect data from collectd")
