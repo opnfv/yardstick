@@ -28,6 +28,7 @@ stl_patch.start()
 
 if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.iniparser import ParseError
+    from yardstick.network_services.vnf_generic.vnf.iniparser import LineParser
     from yardstick.network_services.vnf_generic.vnf.iniparser import BaseParser
     from yardstick.network_services.vnf_generic.vnf.iniparser import ConfigParser
 
@@ -38,16 +39,18 @@ key1=value1
 list1: value2
        value3
        value4
-key2="double quote value"
 key3='single quote value'  ; comment here
 key4=
 
-[section2]
+[section2]  ; comment with #2 other symbol
 # here is a comment line
 list2: value5
-key with no value
+key with no value  # mixed comment ; symbols
 ; another comment line
 key5=
+
+[section1]  ; reopen a section!
+key2="double quote value"
 """
 
 PARSE_TEXT_2 = """\
@@ -86,6 +89,17 @@ class TestParseError(unittest.TestCase):
         self.assertEqual(str(error), "at line 2, a: 'c'")
 
 
+class TestLineParser(unittest.TestCase):
+
+    def test___repr__(self):
+        line_parser = LineParser('', 101)
+        self.assertIsNotNone(repr(line_parser))
+
+    def test_error_invalid_assignment(self):
+        line_parser = LineParser('', 101)
+        self.assertIsNotNone(line_parser.error_invalid_assignment())
+
+
 class TestBaseParser(unittest.TestCase):
 
     @staticmethod
@@ -96,22 +110,25 @@ class TestBaseParser(unittest.TestCase):
 
         return internal_open
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.iniparser.open')
-    def test_parse_none(self, mock_open):
-        mock_open.side_effect = self.make_open('')
-
+    def test_parse(self):
         parser = BaseParser()
+        parser.parse()
 
-        parser.parse([])
+    def test_parse_empty_string(self):
+        parser = BaseParser()
+        self.assertIsNone(parser.parse(''))
 
     def test_not_implemented_methods(self):
         parser = BaseParser()
 
         with self.assertRaises(NotImplementedError):
-            parser.assignment('key', 'value')
+            parser.assignment('key', 'value', LineParser('', 100))
 
         with self.assertRaises(NotImplementedError):
             parser.new_section('section')
+
+        with self.assertRaises(NotImplementedError):
+            parser.comment('comment')
 
 
 class TestConfigParser(unittest.TestCase):
@@ -128,18 +145,25 @@ class TestConfigParser(unittest.TestCase):
     def test_parse(self, mock_open):
         mock_open.side_effect = self.make_open(PARSE_TEXT_1)
 
-        config_parser = ConfigParser('my_file', [])
+        existing_data = [['section0', [['key0', 'value0']]]]
+        config_parser = ConfigParser('my_file', existing_data)
         config_parser.parse()
 
         expected = [
+            [
+                'section0',
+                [
+                    ['key0', 'value0'],
+                ],
+            ],
             [
                 'section1',
                 [
                     ['key1', 'value1'],
                     ['list1', 'value2\nvalue3\nvalue4'],
-                    ['key2', 'double quote value'],
                     ['key3', 'single quote value'],
                     ['key4', ''],
+                    ['key2', 'double quote value'],
                 ],
             ],
             [
@@ -153,12 +177,16 @@ class TestConfigParser(unittest.TestCase):
         ]
 
         self.assertEqual(config_parser.sections, expected)
+        self.assertIsNotNone(config_parser.find_section('section1'))
+        self.assertIsNone(config_parser.find_section('section3'))
+        self.assertEqual(config_parser.find_section_index('section1'), 1)
+        self.assertEqual(config_parser.find_section_index('section3'), -1)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.iniparser.open')
     def test_parse_2(self, mock_open):
         mock_open.side_effect = self.make_open(PARSE_TEXT_2)
 
-        config_parser = ConfigParser('my_file', [])
+        config_parser = ConfigParser('my_file')
         config_parser.parse()
 
         expected = [
