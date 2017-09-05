@@ -26,6 +26,15 @@ class ProxACLProfile(ProxProfile):
     """
     This profile adds a single stream at the beginning of the traffic session
     """
+
+    def __init__(self, tp_config):
+        super(ProxACLProfile, self).__init__(tp_config)
+        try:
+            if self.attempts <= 0:
+               self.attempts = 20
+        except:
+            self.attempts = 20
+
     def run_test_with_pkt_size(self, traffic_gen, pkt_size, duration):
         """Run the test for a single packet size.
 
@@ -39,17 +48,10 @@ class ProxACLProfile(ProxProfile):
         """
 
         test_value = self.upper_bound
-
         # throughput and packet loss from the last successful test
-        while test_value == self.upper_bound:
-            result = traffic_gen.resource_helper.run_test(pkt_size, duration,
-                                                          test_value, self.tolerated_loss)
-
-            if result.success:
-                LOG.debug("Success! ")
-            else:
-                LOG.debug("Failure...")
-
-            samples = result.get_samples(pkt_size)
-            self.fill_samples(samples, traffic_gen)
+        for _ in range(self.attempts):
+            result, port_samples = traffic_gen.run_test(pkt_size, duration,
+                                                        test_value, self.tolerated_loss)
+            samples = result.get_samples(pkt_size, result.pkt_loss, port_samples)
             self.queue.put(samples)
+
