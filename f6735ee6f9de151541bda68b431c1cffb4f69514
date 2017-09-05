@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "da33351e_583dc5dd",
+        "filename": "docs/testing/user/userguide/14-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 6731
+      },
+      "writtenOn": "2017-09-05T04:30:30Z",
+      "side": 1,
+      "message": "Also you may need to install several additional packages",
+      "range": {
+        "startLine": 314,
+        "startChar": 4,
+        "endLine": 314,
+        "endChar": 57
+      },
+      "revId": "f6735ee6f9de151541bda68b431c1cffb4f69514",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_58e945b7",
         "filename": "docs/testing/user/userguide/14-nsb_installation.rst",
         "patchSetId": 1
@@ -13,6 +36,213 @@
       "writtenOn": "2017-09-05T03:08:24Z",
       "side": 1,
       "message": "replace tab with space",
+      "revId": "f6735ee6f9de151541bda68b431c1cffb4f69514",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_38172153",
+        "filename": "docs/testing/user/userguide/14-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 6731
+      },
+      "writtenOn": "2017-09-05T04:30:30Z",
+      "side": 1,
+      "message": "i40evf",
+      "range": {
+        "startLine": 446,
+        "startChar": 27,
+        "endLine": 446,
+        "endChar": 31
+      },
+      "revId": "f6735ee6f9de151541bda68b431c1cffb4f69514",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7808892d",
+        "filename": "docs/testing/user/userguide/14-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 6731
+      },
+      "writtenOn": "2017-09-05T04:30:30Z",
+      "side": 1,
+      "message": "i40evf",
+      "range": {
+        "startLine": 454,
+        "startChar": 27,
+        "endLine": 454,
+        "endChar": 31
+      },
+      "revId": "f6735ee6f9de151541bda68b431c1cffb4f69514",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_1b017705",
+        "filename": "docs/testing/user/userguide/14-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 6731
+      },
+      "writtenOn": "2017-09-05T04:30:30Z",
+      "side": 1,
+      "message": "cp /etc/yardstick/nodes/pod.yaml.nsb.ovsdpdk.sample /etc/yardstick/nodes/pod.yaml",
+      "range": {
+        "startLine": 612,
+        "startChar": 4,
+        "endLine": 612,
+        "endChar": 83
+      },
+      "revId": "f6735ee6f9de151541bda68b431c1cffb4f69514",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3b0efb34",
+        "filename": "docs/testing/user/userguide/14-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 6731
+      },
+      "writtenOn": "2017-09-05T04:30:30Z",
+      "side": 1,
+      "message": "ovs",
+      "range": {
+        "startLine": 640,
+        "startChar": 10,
+        "endLine": 640,
+        "endChar": 15
+      },
+      "revId": "f6735ee6f9de151541bda68b431c1cffb4f69514",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5b0bff24",
+        "filename": "docs/testing/user/userguide/14-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 6731
+      },
+      "writtenOn": "2017-09-05T04:30:30Z",
+      "side": 1,
+      "message": "Ovsdpdk",
+      "range": {
+        "startLine": 641,
+        "startChar": 10,
+        "endLine": 641,
+        "endChar": 15
+      },
+      "revId": "f6735ee6f9de151541bda68b431c1cffb4f69514",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9b146745",
+        "filename": "docs/testing/user/userguide/14-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 6731
+      },
+      "writtenOn": "2017-09-05T04:30:30Z",
+      "side": 1,
+      "message": "\u003cpassword\u003e",
+      "range": {
+        "startLine": 645,
+        "startChar": 14,
+        "endLine": 645,
+        "endChar": 22
+      },
+      "revId": "f6735ee6f9de151541bda68b431c1cffb4f69514",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_db1eef62",
+        "filename": "docs/testing/user/userguide/14-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 6731
+      },
+      "writtenOn": "2017-09-05T04:30:30Z",
+      "side": 1,
+      "message": "virtio-pci",
+      "range": {
+        "startLine": 674,
+        "startChar": 27,
+        "endLine": 674,
+        "endChar": 31
+      },
+      "revId": "f6735ee6f9de151541bda68b431c1cffb4f69514",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_bb196b7b",
+        "filename": "docs/testing/user/userguide/14-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 6731
+      },
+      "writtenOn": "2017-09-05T04:30:30Z",
+      "side": 1,
+      "message": "virtio-pci",
+      "range": {
+        "startLine": 682,
+        "startChar": 27,
+        "endLine": 682,
+        "endChar": 31
+      },
+      "revId": "f6735ee6f9de151541bda68b431c1cffb4f69514",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7b0fe32e",
+        "filename": "docs/testing/user/userguide/14-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 6731
+      },
+      "writtenOn": "2017-09-05T04:30:30Z",
+      "side": 1,
+      "message": "tc_ovs_rfc2544_ipv4_1flow_64B.yaml",
+      "range": {
+        "startLine": 728,
+        "startChar": 40,
+        "endLine": 728,
+        "endChar": 76
+      },
       "revId": "f6735ee6f9de151541bda68b431c1cffb4f69514",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
