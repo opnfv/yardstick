@@ -192,3 +192,14 @@ VNFs provided.
 
               Figure 1: Network Service - 2 server configuration
 
+VNFs supported for chracterization:
+----------------------------------
+
+1. CGNAPT - Carrier Grade Network Address and port Translation
+2. vFW - Virtual Firewall
+3. vACL - Access Control List
+4. vPE - Provider Edge Router
+5. Prox - Packet pROcessing eXecution engine:
+          VNF can act as Drop, Basic Forwarding (no touch), L2 Forwarding (change MAC), GRE encap/decap, Load balance based on packet fields, Symmetric load balancing,
+          QinQ encap/decap IPv4/IPv6, ARP, QoS, Routing, Unmpls, Policing, ACL
+6. UDP_Replay
