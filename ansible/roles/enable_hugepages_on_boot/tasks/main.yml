@@ -28,7 +28,7 @@
 
 - name: use 16 for auto num_hugepages and 1G size
   set_fact:
-    num_hugepages: 16
+    num_hugepages: 8
   when: num_hugepages|default("auto") == "auto"
 
 - name: set hugepages in grub
