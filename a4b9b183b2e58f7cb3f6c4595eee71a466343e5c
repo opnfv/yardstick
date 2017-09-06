@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_2a621f3e",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-4.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "latency position can be added for each latency cores\neg: lat pos\u003d42",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 10
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6ad387d6",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_acl-2.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "Do we need to set promiscuous mode on ?\nThere is l2fwd sending packets to the \"dst mac\" below.\n\neg: dst mac\u003d@@tester_p0",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 15
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_aa558f51",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_acl-2.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "If we are not using this variable, it can be removed",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 17
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_4ad683c6",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_acl-4.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "if it\u0027s not used, can be removed",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 17
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6aea6776",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_l2fwd_multiflow-2.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "promiscuous mode not needed if we use dst mac. Can be removed",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 15
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_0af3db73",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_l2fwd_multiflow-2.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "promiscuous mode not needed if we use dst mac. Can be removed",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 15
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_cae1f39b",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_l2fwd_multiflow-2.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "can we name it \"L2FWD Multi-flow (2x)\"?",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 14
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_4aede38a",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_l2fwd_multiflow-4.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "name can be changed!",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 15
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_aa03cf40",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_l2fwd_multiflow-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "missed a number",
+      "range": {
+        "startLine": 45,
+        "startChar": 3,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6aa1c746",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_acl-2.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 4
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_0a9abb13",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_acl-2.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 28,
+        "endChar": 4
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_4abb2372",
+        "filename": "samples/vnf_samples/traffic_profiles/prox_acl.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "the comment needs to be changed, 100% tolerated loss is set",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 67
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_8aac0b37",
+        "filename": "samples/vnf_samples/traffic_profiles/prox_heat_acl.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "fix comment",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 67
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
