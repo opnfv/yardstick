@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_aa274f11",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-4.cfg",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "Remove semi-colon",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "53d959644f234bc3e50f09bee56e489995027619",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_8a224bff",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-4.cfg",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "lat pos can be added after the latency cores",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 10
+      },
+      "revId": "53d959644f234bc3e50f09bee56e489995027619",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ea2157fc",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "Latency position can be added as per the packet size\neg: In this case its\nlat pos\u003d42",
+      "revId": "53d959644f234bc3e50f09bee56e489995027619",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_2a7b3ff6",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-06T15:11:29Z",
+      "side": 1,
+      "message": "same as above",
+      "revId": "53d959644f234bc3e50f09bee56e489995027619",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
