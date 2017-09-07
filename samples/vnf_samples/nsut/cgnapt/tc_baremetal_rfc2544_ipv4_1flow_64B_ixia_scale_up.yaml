@@ -17,7 +17,7 @@ schema: yardstick:task:0.1
 scenarios:
 {% for worker_thread in [1, 2 ,3] %}
 - type: NSPerf
-  traffic_profile: "../../traffic_profiles/ixia_ipv4_latency.yaml"
+  traffic_profile: "../../traffic_profiles/ixia_ipv4_latency_cgnapt.yaml"
   topology: cgnapt_vnf_topology_ixia.yaml
   nodes:
     tg__1: trafficgen_1.yardstick
@@ -36,6 +36,7 @@ scenarios:
       allowed_drop_rate: 0.0001 - 0.0001
     vnf__1:
       vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: {{worker_thread}}}
+      nfvi_enable: True
   runner:
     type: Iteration
     iterations: 10
