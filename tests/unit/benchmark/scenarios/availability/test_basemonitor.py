@@ -25,13 +25,32 @@ from yardstick.benchmark.scenarios.availability.monitor import basemonitor
 class MonitorMgrTestCase(unittest.TestCase):
 
     def setUp(self):
-        config = {
-            'monitor_type': 'openstack-api',
-            'key': 'service-status'
-        }
-
-        self.monitor_configs = []
-        self.monitor_configs.append(config)
+        self.monitor_configs = [
+            {
+                "monitor_type": "openstack-cmd",
+                "command_name": "openstack router list",
+                "monitor_time": 10,
+                "monitor_number": 3,
+                "sla": {
+                    "max_outage_time": 5
+                }
+            },
+            {
+                "monitor_type": "process",
+                "process_name": "neutron-server",
+                "host": "node1",
+                "monitor_time": 20,
+                "monitor_number": 3,
+                "sla": {
+                    "max_recover_time": 20
+                }
+            }
+        ]
+        self.MonitorMgr = basemonitor.MonitorMgr([])
+        self.MonitorMgr.init_monitors(self.monitor_configs, None)
+        self.monitor_list = self.MonitorMgr._monitor_list
+        for mo in self.monitor_list:
+            mo._result = {"outage_time": 10}
 
     def test__MonitorMgr_setup_successful(self, mock_monitor):
         instance = basemonitor.MonitorMgr({"nova-api": 10})
@@ -44,7 +63,13 @@ class MonitorMgrTestCase(unittest.TestCase):
     def test_MonitorMgr_getitem(self, mock_monitor):
         monitorMgr = basemonitor.MonitorMgr({"nova-api": 10})
         monitorMgr.init_monitors(self.monitor_configs, None)
-        monitorIns = monitorMgr['service-status']
+
+    def test_store_result(self, mock_monitor):
+        expect = {'process_neutron-server_outage_time': 10,
+                  'openstack-router-list_outage_time': 10}
+        result = {}
+        self.MonitorMgr.store_result(result)
+        self.assertDictEqual(result, expect)
 
 
 class BaseMonitorTestCase(unittest.TestCase):
@@ -94,3 +119,7 @@ class BaseMonitorTestCase(unittest.TestCase):
         except Exception:
             pass
         self.assertIsNone(cls)
+
+
+if __name__ == "__main__":
+    unittest.main()
