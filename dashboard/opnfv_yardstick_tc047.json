@@ -86,10 +86,10 @@
               "alias": "",
               "dsType": "influxdb",
               "groupBy": [],
-              "measurement": "opnfv_yardstick_tc045",
+              "measurement": "opnfv_yardstick_tc047",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"packets_received\"  * 100, \"packets_sent\", \"packetsize\" FROM \"opnfv_yardstick_tc001\" WHERE $timeFilter GROUP BY fill(null)",
+              "query": "SELECT \"openstack-user-list_outage_time\" FROM \"opnfv_yardstick_tc046\" WHERE $timeFilter",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -97,7 +97,7 @@
                 [
                   {
                     "params": [
-                      "openstack-router-list_outage_time"
+                      "openstack-image-list_outage_time"
                     ],
                     "type": "field"
                   }
@@ -193,10 +193,10 @@
               "alias": "",
               "dsType": "influxdb",
               "groupBy": [],
-              "measurement": "opnfv_yardstick_tc045",
+              "measurement": "opnfv_yardstick_tc047",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"packets_received\"  * 100, \"packets_sent\", \"packetsize\" FROM \"opnfv_yardstick_tc001\" WHERE $timeFilter GROUP BY fill(null)",
+              "query": "SELECT \"process_keystone_outage_time\" FROM \"opnfv_yardstick_tc046\" WHERE $timeFilter",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -204,7 +204,7 @@
                 [
                   {
                     "params": [
-                      "process_neutron-server_outage_time"
+                      "process_glance-api_outage_time"
                     ],
                     "type": "field"
                   }
@@ -326,6 +326,8 @@
               "measurement": "opnfv_yardstick_tc045",
               "orderByTime": "ASC",
               "policy": "default",
+              "query": "SELECT \"sla_pass\" FROM \"opnfv_yardstick_tc047\" WHERE $timeFilter",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -401,6 +403,6 @@
     ]
   },
   "timezone": "",
-  "title": "opnfv_yardstick_tc045",
-  "version": 5
+  "title": "opnfv_yardstick_tc047",
+  "version": 2
 }

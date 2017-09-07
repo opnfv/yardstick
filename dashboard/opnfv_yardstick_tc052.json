@@ -78,7 +78,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 5,
+          "span": 10,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -86,10 +86,10 @@
               "alias": "",
               "dsType": "influxdb",
               "groupBy": [],
-              "measurement": "opnfv_yardstick_tc045",
+              "measurement": "opnfv_yardstick_tc052",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"packets_received\"  * 100, \"packets_sent\", \"packetsize\" FROM \"opnfv_yardstick_tc001\" WHERE $timeFilter GROUP BY fill(null)",
+              "query": "SELECT \"openstack-user-list_outage_time\" FROM \"opnfv_yardstick_tc046\" WHERE $timeFilter",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -97,7 +97,7 @@
                 [
                   {
                     "params": [
-                      "openstack-router-list_outage_time"
+                      "nova-flavor-list_outage_time"
                     ],
                     "type": "field"
                   }
@@ -125,113 +125,6 @@
           "timeFrom": null,
           "timeShift": null,
           "title": "command monitor (outage time)",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "s",
-              "label": "",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "${DS_YARDSTICK}",
-          "description": "",
-          "fill": 1,
-          "id": 3,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": true,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 5,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "",
-              "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "opnfv_yardstick_tc045",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"packets_received\"  * 100, \"packets_sent\", \"packetsize\" FROM \"opnfv_yardstick_tc001\" WHERE $timeFilter GROUP BY fill(null)",
-              "rawQuery": false,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "process_neutron-server_outage_time"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "thresholds": [
-            {
-              "colorMode": "critical",
-              "fill": true,
-              "line": true,
-              "op": "gt",
-              "value": 20
-            },
-            {
-              "colorMode": "ok",
-              "fill": true,
-              "line": true,
-              "op": "lt",
-              "value": 20
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "process monitor (outage time)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -323,9 +216,11 @@
               "alias": "",
               "dsType": "influxdb",
               "groupBy": [],
-              "measurement": "opnfv_yardstick_tc045",
+              "measurement": "opnfv_yardstick_tc052",
               "orderByTime": "ASC",
               "policy": "default",
+              "query": "SELECT \"sla_pass\" FROM \"opnfv_yardstick_tc047\" WHERE $timeFilter",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -401,6 +296,6 @@
     ]
   },
   "timezone": "",
-  "title": "opnfv_yardstick_tc045",
-  "version": 5
+  "title": "opnfv_yardstick_tc052",
+  "version": 2
 }
