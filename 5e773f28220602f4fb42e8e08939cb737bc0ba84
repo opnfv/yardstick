@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_92b0c144",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/attacker_general.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:24:36Z",
+      "side": 1,
+      "message": "please:\n\n bool(self.connection)",
+      "range": {
+        "startLine": 63,
+        "startChar": 20,
+        "endLine": 63,
+        "endChar": 54
+      },
+      "revId": "5e773f28220602f4fb42e8e08939cb737bc0ba84",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f2866d64",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_general.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:24:36Z",
+      "side": 1,
+      "message": "please initialize these attributes in a __init__\n\n self.connection\n self.key\n self.monitor_key\n self.monitor_type\n self.monitor_cfg\n self.monitor_script\n self.parameter_config\n\nif no value for them is known at that time, then None is a common default value.  if None is a bad value then define a local object and use that to know if the attribute has been changed.",
+      "revId": "5e773f28220602f4fb42e8e08939cb737bc0ba84",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d24c0973",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_general.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:24:36Z",
+      "side": 1,
+      "message": "why are we only defining this attribute when a key-value pair is in the config?\n\nand defining it outside of the __init__.\n\ni\u0027d prefer to see:\n\n  self.parameter_config \u003d self._config.get(\u0027parameter\u0027)",
+      "revId": "5e773f28220602f4fb42e8e08939cb737bc0ba84",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d26369da",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_general.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:24:36Z",
+      "side": 1,
+      "message": "this seems to be much the same code as in the else clause, can we make it so the two branches here populate a local value which then can be used in a common code segment, as in:\n\n if \u0027parameter\u0027 in self._config:\n   self.cmd_param \u003d ...\n   local_template \u003d \u0027/bin/bash {0} {1}\u0027\n else:\n   self.cmd_param \u003d \u0027/bin/sh -s\u0027\n   local_template \u003d \u0027/bin/bash {0}\u0027\n\n if self.connection:\n   with open(...) as stdin_file:\n     exit_status \u003d self.connection.execute(\u0027sudo {}\u0027.format(self.cmd_param), stdin\u003dstdin_file)[0]\n else:\n   exit_status \u003d execute_shell_command(local_template.format(self.monitor_script, self.cmd_param))\n\n return exit_status \u003d\u003d 0",
+      "range": {
+        "startLine": 51,
+        "startChar": 12,
+        "endLine": 60,
+        "endChar": 65
+      },
+      "revId": "5e773f28220602f4fb42e8e08939cb737bc0ba84",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_325c5525",
+        "filename": "yardstick/benchmark/scenarios/availability/result_checker/result_checker_general.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:24:36Z",
+      "side": 1,
+      "message": "why not\n\n bool(self.connection)",
+      "range": {
+        "startLine": 58,
+        "startChar": 20,
+        "endLine": 58,
+        "endChar": 54
+      },
+      "revId": "5e773f28220602f4fb42e8e08939cb737bc0ba84",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
