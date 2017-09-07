@@ -31,7 +31,7 @@ scenarios:
 
 context:
   name: yardstick
-  image: yardstick-image
+  image: yardstick-samplevnfs
   flavor: yardstick-flavor
   user: ubuntu
 
