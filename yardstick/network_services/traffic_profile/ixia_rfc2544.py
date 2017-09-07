@@ -46,6 +46,7 @@ class IXIARFC2544Profile(TrexProfile):
                     mac["src_mac_{}".format(traffic['id'])]
                 traffic['outer_l2']['dstmac'] = \
                     mac["dst_mac_{}".format(traffic['id'])]
+
                 # outer_l3
                 if "outer_l3v6" in list(value.keys()):
                     traffic['outer_l3'] = value['outer_l3v6']
@@ -80,16 +81,19 @@ class IXIARFC2544Profile(TrexProfile):
         self.tmp_drop = 0
         self.tmp_throughput = 0
 
+    def update_traffic_profile(self):
+        self.profile = 'private_1'
+        for key, value in self.params.items():
+            if "private" in key or "public" in key:
+                self.profile_data = self.params[key]
+                self.get_streams(self.profile_data)
+                self.full_profile.update({key: self.profile_data})
+
     def execute(self, traffic_generator, ixia_obj, mac={}, xfile=None):
         if self.first_run:
             self.full_profile = {}
             self.pg_id = 0
-            self.profile = 'private_1'
-            for key, value in self.params.items():
-                if "private" in key or "public" in key:
-                    self.profile_data = self.params[key]
-                    self.get_streams(self.profile_data)
-                    self.full_profile.update({key: self.profile_data})
+            self.update_traffic_profile()
             traffic = \
                 self._get_ixia_traffic_profile(self.full_profile, mac, xfile)
             self.max_rate = self.rate
@@ -104,7 +108,9 @@ class IXIARFC2544Profile(TrexProfile):
 
     def start_ixia_latency(self, traffic_generator, ixia_obj,
                            mac={}, xfile=None):
-        traffic = self._get_ixia_traffic_profile(self.full_profile, mac)
+        self.update_traffic_profile()
+        traffic = \
+            self._get_ixia_traffic_profile(self.full_profile, mac, xfile)
         self._ixia_traffic_generate(traffic_generator, traffic,
                                     ixia_obj, xfile)
 

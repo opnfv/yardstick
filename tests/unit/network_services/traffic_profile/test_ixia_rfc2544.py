@@ -451,6 +451,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                                                           traffic, ixia_obj)
         self.assertIsNone(result)
 
+
     def test_execute(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.my_ports = [0, 1]
