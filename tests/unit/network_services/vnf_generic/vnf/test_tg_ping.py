@@ -20,6 +20,7 @@ from __future__ import absolute_import
 import unittest
 import mock
 from multiprocessing import Queue
+import multiprocessing
 
 from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from tests.unit import STL_MOCKS
@@ -31,10 +32,39 @@ stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
 
 if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.tg_ping import PingParser, PingTrafficGen
+    from yardstick.network_services.vnf_generic.vnf.tg_ping import PingParser
+    from yardstick.network_services.vnf_generic.vnf.tg_ping import PingTrafficGen
+    from yardstick.network_services.vnf_generic.vnf.tg_ping import PingResourceHelper
+    from yardstick.network_services.vnf_generic.vnf.tg_ping import PingSetupEnvHelper
     from yardstick.network_services.traffic_profile.base import TrafficProfile
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import VnfSshHelper
 
+
+class TestPingResourceHelper(unittest.TestCase):
+    def test___init__(self):
+        setup_helper = mock.Mock()
+        helper = PingResourceHelper(setup_helper)
+
+        self.assertIs(type(helper._queue), multiprocessing.queues.Queue)
+        self.assertIs(type(helper._parser), PingParser)
+
+    def test_run_traffic(self):
+        setup_helper = mock.Mock()
+        traffic_profile = mock.Mock()
+        traffic_profile.params={
+            'traffic_profile': {
+                'frame_size': 64,
+            },
+        }
+
+        helper = PingResourceHelper(setup_helper)
+        helper.cmd_kwargs = {'target_ip': '10.0.0.2',
+                             'local_ip': '10.0.0.1',
+                             'local_if_name': 'eth0',
+                             }
+        helper.ssh_helper = mock.Mock()
+        helper.run_traffic(traffic_profile)
+        helper.ssh_helper.run.called_with('ping-s 64 10.0.0.2')
 
 class TestPingParser(unittest.TestCase):
     def test___init__(self):
@@ -77,7 +107,6 @@ class TestPingTrafficGen(unittest.TestCase):
             'local_ip': u'152.16.100.19',
             'type': 'PCI-PASSTHROUGH',
             'netmask': '255.255.255.0',
-            'dpdk_port_num': '0',
             'bandwidth': '10 Gbps',
             'driver': "i40e",
             'dst_ip': u'152.16.100.20',
@@ -96,7 +125,6 @@ class TestPingTrafficGen(unittest.TestCase):
             'type': 'PCI-PASSTHROUGH',
             'driver': "i40e",
             'netmask': '255.255.255.0',
-            'dpdk_port_num': '1',
             'bandwidth': '10 Gbps',
             'dst_ip': u'152.16.40.20',
             'local_iface_name': 'xe1',
@@ -198,11 +226,20 @@ class TestPingTrafficGen(unittest.TestCase):
         },
     }
 
+    CMD_KWARGS = {
+        'target_ip': u'152.16.100.20',
+        'local_ip': u'152.16.100.19',
+        'local_if_name': u'xe0',
+    }
+
     @mock.patch("yardstick.ssh.SSH")
     def test___init__(self, ssh):
         ssh.from_node.return_value.execute.return_value = 0, "success", ""
         ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0)
-        self.assertIsNotNone(ping_traffic_gen._queue)
+
+        self.assertIs(type(ping_traffic_gen.setup_helper), PingSetupEnvHelper)
+        self.assertIs(type(ping_traffic_gen.resource_helper), PingResourceHelper)
+        self.assertEquals(ping_traffic_gen._result, {})
 
     @mock.patch("yardstick.ssh.SSH")
     def test__bind_device_kernel_with_failure(self, ssh):
@@ -234,34 +271,20 @@ class TestPingTrafficGen(unittest.TestCase):
         mock_ssh(ssh, spec=VnfSshHelper, exec_result=(0, "success", ""))
         ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0)
         ping_traffic_gen.setup_helper.ssh_helper = mock.MagicMock(
-            **{"execute.return_value": (0, "", "")})
+            **{"execute.return_value": (0, "success", "")})
         self.assertIsInstance(ping_traffic_gen.ssh_helper, mock.Mock)
         self.assertEqual(ping_traffic_gen._result, {})
+
         self.assertIsNone(ping_traffic_gen.instantiate({}, {}))
+
+        self.assertEqual(ping_traffic_gen.vnfd_helper.interfaces[0]['virtual-interface']['local_iface_name'], 'success')
+        self.assertEqual(self.CMD_KWARGS, ping_traffic_gen.resource_helper.cmd_kwargs)
         self.assertIsNotNone(ping_traffic_gen._result)
 
     @mock.patch("yardstick.ssh.SSH")
     def test_listen_traffic(self, ssh):
-        ssh.from_node.return_value.execute.return_value = 0, "success", ""
         ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0)
         self.assertIsNone(ping_traffic_gen.listen_traffic({}))
-
-    @mock.patch(SSH_HELPER)
-    def test_run_traffic_process(self, ssh):
-        mock_ssh(ssh)
-
-        mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
-        mock_traffic_profile.get_traffic_definition.return_value = "64"
-        mock_traffic_profile.params = self.TRAFFIC_PROFILE
-
-        ssh.from_node.return_value.execute.return_value = 0, "success", ""
-        ssh.from_node.return_value.run.return_value = 0, "success", ""
-
-        sut = PingTrafficGen('vnf1', self.VNFD_0)
-        sut._traffic_runner(mock_traffic_profile)
-        sut.ssh_helper.run.assert_called_with(
-            "ping -s 64 152.16.100.20",
-            stdout=sut._parser, keep_stdin_open=True, pty=True)
 
     @mock.patch("yardstick.ssh.SSH")
     def test_scale_negative(self, ssh):
