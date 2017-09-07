@@ -23,6 +23,7 @@ from ipaddress import IPv4Interface
 
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 
 LOG = logging.getLogger(__name__)
 
@@ -59,7 +60,38 @@ class PingParser(object):
 class PingSetupEnvHelper(DpdkVnfSetupEnvHelper):
 
     def setup_vnf_environment(self):
-        self._bind_kernel_devices()
+        for intf in self.vnfd_helper.interfaces:
+            vi = intf['virtual-interface']
+            vi['local_iface_name'] = self.get_local_iface_name_by_vpci(vi['vpci'])
+
+
+class PingResourceHelper(ClientResourceHelper):
+
+    def __init__(self, setup_helper):
+        super(PingResourceHelper, self).__init__(setup_helper)
+        self._queue = Queue()
+        self._parser = PingParser(self._queue)
+
+    def run_traffic(self, traffic_profile):
+        # drop the connection in order to force a new one
+        self.ssh_helper.drop_connection()
+
+        self.client_started.value = 1
+        cmd_list = [
+            "sudo ip addr flush {local_if_name}",
+            "sudo ip addr add {local_ip}/24 dev {local_if_name}",
+            "sudo ip link set {local_if_name} up",
+        ]
+
+        self.cmd_kwargs['packet_size'] = traffic_profile.params['traffic_profile']['frame_size']
+
+        for cmd in cmd_list:
+            self.ssh_helper.execute(cmd.format(**self.cmd_kwargs))
+
+        ping_cmd = "nohup ping -s {packet_size} {target_ip}&"
+        self.ssh_helper.run(ping_cmd.format(**self.cmd_kwargs),
+                            stdout=self._parser,
+                            keep_stdin_open=True, pty=True)
 
 
 class PingTrafficGen(SampleVNFTrafficGen):
@@ -69,16 +101,17 @@ class PingTrafficGen(SampleVNFTrafficGen):
     """
 
     TG_NAME = 'Ping'
+    APP_NAME = 'Ping'
     RUN_WAIT = 4
 
     def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
         if setup_env_helper_type is None:
             setup_env_helper_type = PingSetupEnvHelper
+        if resource_helper_type is None:
+            resource_helper_type = PingResourceHelper
 
         super(PingTrafficGen, self).__init__(name, vnfd, setup_env_helper_type,
                                              resource_helper_type)
-        self._queue = Queue()
-        self._parser = PingParser(self._queue)
         self._result = {}
 
     def scale(self, flavor=""):
@@ -89,11 +122,22 @@ class PingTrafficGen(SampleVNFTrafficGen):
         return self._tg_process.is_alive()
 
     def instantiate(self, scenario_cfg, context_cfg):
+        self._start_server()
         self._result = {
             "packets_received": 0,
             "rtt": 0,
         }
+        intf = self.vnfd_helper.interfaces[0]["virtual-interface"]
+        self.resource_helper.cmd_kwargs = {
+            'target_ip': IPv4Interface(intf["dst_ip"]).ip.exploded,
+            'local_ip': IPv4Interface(intf["local_ip"]).ip.exploded,
+            'local_if_name': intf["local_iface_name"].split('/')[0],
+        }
+
         self.setup_helper.setup_vnf_environment()
+
+    def wait_for_instantiate(self):
+        pass
 
     def listen_traffic(self, traffic_profile):
         """ Not needed for ping
@@ -102,27 +146,3 @@ class PingTrafficGen(SampleVNFTrafficGen):
         :return:
         """
         pass
-
-    def _traffic_runner(self, traffic_profile):
-        intf = self.vnfd_helper.interfaces[0]["virtual-interface"]
-        profile = traffic_profile.params["traffic_profile"]
-        cmd_kwargs = {
-            'target_ip': IPv4Interface(intf["dst_ip"]).ip.exploded,
-            'local_ip': IPv4Interface(intf["local_ip"]).ip.exploded,
-            'local_if_name': intf["local_iface_name"].split('/')[0],
-            'packet_size': profile["frame_size"],
-        }
-
-        cmd_list = [
-            "sudo ip addr flush {local_if_name}",
-            "sudo ip addr add {local_ip}/24 dev {local_if_name}",
-            "sudo ip link set {local_if_name} up",
-        ]
-
-        for cmd in cmd_list:
-            self.ssh_helper.execute(cmd.format(**cmd_kwargs))
-
-        ping_cmd = "ping -s {packet_size} {target_ip}"
-        self.ssh_helper.run(ping_cmd.format(**cmd_kwargs),
-                            stdout=self._parser,
-                            keep_stdin_open=True, pty=True)
