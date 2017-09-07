@@ -51,9 +51,7 @@ class ProxApproxVnf(SampleVNF):
         try:
             return self.resource_helper.execute(cmd, *args, **kwargs)
         except OSError as e:
-            if ignore_errors and e.errno in {errno.EPIPE, errno.ESHUTDOWN}:
-                pass
-            else:
+            if not ignore_errors or e.errno not in {errno.EPIPE, errno.ESHUTDOWN}:
                 raise
 
     def collect_kpi(self):
@@ -66,11 +64,12 @@ class ProxApproxVnf(SampleVNF):
             }
             return result
 
-        if len(self.vnfd_helper.interfaces) not in {1, 2, 4}:
+        intf_count = len(self.vnfd_helper.interfaces)
+        if intf_count not in {1, 2, 4}:
             raise RuntimeError("Failed ..Invalid no of ports .. "
                                "1, 2 or 4 ports only supported at this time")
 
-        port_stats = self.vnf_execute('port_stats', range(len(self.vnfd_helper.interfaces)))
+        port_stats = self.vnf_execute('port_stats', range(intf_count))
         try:
             rx_total = port_stats[6]
             tx_total = port_stats[7]
@@ -90,7 +89,7 @@ class ProxApproxVnf(SampleVNF):
 
     def _tear_down(self):
         # this should be standardized for all VNFs or removed
-        self.setup_helper.rebind_drivers()
+        self.setup_helper.tear_down()
 
     def terminate(self):
         # try to quit with socket commands
