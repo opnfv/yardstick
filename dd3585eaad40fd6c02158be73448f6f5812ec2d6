@@ -1,0 +1,324 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_525ab9f3",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "please try-except\n\n try:\n   return self.node_netdevs[node]\n except KeyError:\n   pass\n\nand why define cmd before this?  it should be defined after",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 320,
+        "endChar": 42
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_126031a4",
+        "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "why not create a global for this too?",
+      "range": {
+        "startLine": 32,
+        "startChar": 13,
+        "endLine": 32,
+        "endChar": 18
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5243d913",
+        "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "we still should define self.dpdk_status within __init__",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_924c4144",
+        "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "please:\n\n if res is None:\n   return\n\n names \u003d [\u0027vpci\u0027, \u0027dev_type\u0027, \u0027iface\u0027, \u0027driver\u0027, \u0027unused\u0027, \u0027active\u0027]\n new_data \u003d {k: v for k, v in zip(names, res.groups())}\n new_data[\u0027active\u0027] \u003d bool(new_data[\u0027active\u0027])\n self.dpdk_status[active_list].append(new_data)",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7247fd1d",
+        "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "unless multiple of these strings can appear on the same line, this could be:\n\n if \u0027Other network devices\u0027 in a_row:\n   active_dict \u003d \u0027other\u0027\n\n elif \u0027devices using\u0027 not in a a_row:\n   self._addline(active_dict, a_row)\n\n elif \u0027kernel\u0027 in a_row:\n   active_dict \u003d KERNEL\n\n elif \u0027DPDK\u0027 in a_row:\n   active_dict \u003d DPDK\n\ni also wonder if there shouldn\u0027t be an else\n\n else:\n   active_dict \u003d None",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 49
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d256c9d1",
+        "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "where are we using this?",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 10
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b25185da",
+        "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "use items",
+      "range": {
+        "startLine": 128,
+        "startChar": 46,
+        "endLine": 128,
+        "endChar": 55
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f23b0d9a",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "when is key anything other than a string?\n\nif it is always a string, then why \"join\" it, better to send it to str()",
+      "range": {
+        "startLine": 114,
+        "startChar": 24,
+        "endLine": 114,
+        "endChar": 27
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_123951a4",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "if you use single quotes (\u0027) or triple quotes (\"\"\"), then you wouldn\u0027t need to escape the interior double quotes:\n\n connection.execute(\u0027sudo rabbitmqctl set_permissions -p / admin \".*\" \".*\" \".*\"\u0027)",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d2bfe9f9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "please invert this logic to avoid the pass and else:\n\n if not ignore_errors or e.errno not in {errno.EPIPE, errno.ESHUTDOWN}:\n   raise",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b2ba2508",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "please give this a name, since it is used again in the method\n\n intf_count \u003d len(...)\n if intf_count not in {1, 2, 4}:\n    raise ...\n\n port_stats \u003d self.vnf_execute(\u0027port_stats\u0027, range(intf_count))",
+      "range": {
+        "startLine": 69,
+        "startChar": 11,
+        "endLine": 69,
+        "endChar": 43
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_72c09d7c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "be careful, \\d is decimal but PCI addresses can be hexadecimal.\n\nin my Standalone refactor, i have a PciAddress class in utils that has a pattern string that could be used here.",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b2e34532",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ping.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "this would be best done as the first action in the method",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b28ce580",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "why are we building lists and strings to do math?\n\ncan we do:\n\n dpdk_port_num_iter \u003d (...)  # \u003c- make an iterator if the list is not useful outside the method\n return hex(sum(2 ** (num - 1) for num in dpdk_port_num_iter))\n\nyou could also merge the two statements, if you want.",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d2e88912",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "please use a StringIO() buffer to build strings",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_72d9bd82",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-07T18:22:55Z",
+      "side": 1,
+      "message": "isn\u0027t this the basis of the mask?\n\nmaybe we should build the list of dpdk_port_nums and pass it into the mask func",
+      "range": {
+        "startLine": 91,
+        "startChar": 28,
+        "endLine": 91,
+        "endChar": 74
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
