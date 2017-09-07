@@ -134,6 +134,7 @@ class NetworkServiceTestCase(base.Scenario):
         self.vnfs = []
         self.collector = None
         self.traffic_profile = None
+        self.node_netdevs = {}
 
     def _get_ip_flow_range(self, ip_start_range):
 
@@ -315,6 +316,9 @@ class NetworkServiceTestCase(base.Scenario):
 
     def _probe_netdevs(self, node, node_dict):
         cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
+        if node in self.node_netdevs:
+            return self.node_netdevs[node]
+
         netdevs = {}
         with SshManager(node_dict) as conn:
             if conn:
@@ -327,6 +331,8 @@ class NetworkServiceTestCase(base.Scenario):
                     raise IncorrectSetup(
                         "Cannot find netdev info in sysfs" % node)
                 netdevs = node_dict['netdevs'] = self.parse_netdev_info(stdout)
+
+        self.node_netdevs[node] = netdevs
         return netdevs
 
     @classmethod

@@ -90,7 +90,7 @@ class ProxApproxVnf(SampleVNF):
 
     def _tear_down(self):
         # this should be standardized for all VNFs or removed
-        self.setup_helper.rebind_drivers()
+        self.setup_helper.tear_down()
 
     def terminate(self):
         # try to quit with socket commands
