@@ -416,7 +416,6 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
                             'local_ip': '152.16.100.19',
                             'type': 'PCI-PASSTHROUGH',
                             'netmask': '255.255.255.0',
-                            'dpdk_port_num': '0',
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.100.20',
                             'local_mac': '00:00:00:00:00:01'
@@ -432,7 +431,6 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
                             'local_ip': '152.16.40.19',
                             'type': 'PCI-PASSTHROUGH',
                             'netmask': '255.255.255.0',
-                            'dpdk_port_num': '1',
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.40.20',
                             'local_mac': '00:00:00:00:00:02'
@@ -541,7 +539,9 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         call_args_iter = (args[0][0] for args in ssh_helper.execute.call_args_list)
         self.assertIsNone(result)
         self.assertEqual(ssh_helper.execute.call_count, 3)
-        for expect_start, expect_in, arg0 in zip(expect_start_list, expect_in_list, call_args_iter):
+        for expect_start, expect_in, arg0 in zip(expect_start_list,
+                                                 expect_in_list,
+                                                 call_args_iter):
             self.assertTrue(arg0.startswith(expect_start))
             self.assertIn(expect_in, arg0)
 
@@ -558,17 +558,20 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         call_args_iter = (args[0][0] for args in ssh_helper.execute.call_args_list)
         self.assertIsNone(result)
         self.assertEqual(ssh_helper.execute.call_count, 3)
-        for expect_start, expect_in, arg0 in zip(expect_start_list, expect_in_list, call_args_iter):
+        for expect_start, expect_in, arg0 in zip(expect_start_list,
+                                                 expect_in_list,
+                                                 call_args_iter):
             self.assertTrue(arg0.startswith(expect_start))
             self.assertIn(expect_in, arg0)
 
-    def test__get_dpdk_port_num(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
+    def test_get_dpdk_port_num(self):
+        vnfd_helper = VnfdHelper(deepcopy(self.VNFD_0))
+        vnfd_helper.vdu[0]['external-interface'][0]['virtual-interface']['dpdk_port_num'] = '0'
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        expected = '0'
-        result = dpdk_setup_helper._get_dpdk_port_num('xe0')
+        expected = 0
+        result = dpdk_setup_helper.get_dpdk_port_num('xe0')
         self.assertEqual(result, expected)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
@@ -717,74 +720,6 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = dpdk_setup_helper._validate_cpu_cfg()
         self.assertEqual(result, expected)
 
-    def test__find_used_drivers(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        stdout = '''
-00:01.2 foo drv=name1
-00:01.4 drv foo=name2
-00:02.2 drv=name3
-00:02.3 drv=name4
-'''
-        ssh_helper.execute.return_value = 0, stdout, ''
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper.used_drivers = None
-        dpdk_setup_helper._dpdk_nic_bind = ''
-        dpdk_setup_helper.bound_pci = [
-            'pci 00:01.2',
-            'pci 00:02.3',
-        ]
-
-        expected = {
-            '00:01.2': (0, 'name1'),
-            '00:02.3': (2, 'name4'),
-        }
-        dpdk_setup_helper._find_used_drivers()
-        self.assertEqual(dpdk_setup_helper.used_drivers, expected)
-
-    def test_dpdk_nic_bind(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        ssh_helper.provision_tool.return_value = nic_bind = object()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-
-        self.assertIsNone(dpdk_setup_helper._dpdk_nic_bind)
-        self.assertIs(dpdk_setup_helper.dpdk_nic_bind, nic_bind)
-        self.assertIs(dpdk_setup_helper.dpdk_nic_bind, nic_bind)
-        self.assertEqual(ssh_helper.provision_tool.call_count, 1)
-
-        # ensure provision tool is not called a second time
-        self.assertIs(dpdk_setup_helper.dpdk_nic_bind, nic_bind)
-        self.assertEqual(ssh_helper.provision_tool.call_count, 1)
-
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
-    @mock.patch('yardstick.ssh.SSH')
-    def test_setup_vnf_environment(self, _, mock_time):
-        cores = ['3', '4']
-
-        vnfd_helper = VnfdHelper(deepcopy(self.VNFD_0))
-        ssh_helper = mock.Mock()
-        ssh_helper.execute.return_value = 1, 'bad output', 'error output'
-        ssh_helper.join_bin_path.return_value = 'joined_path'
-        ssh_helper.provision_tool.return_value = 'provision string'
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper._setup_hugepages = mock.Mock()
-        dpdk_setup_helper._validate_cpu_cfg = mock.Mock(return_value=cores)
-        dpdk_setup_helper._find_used_drivers = mock.Mock()
-        dpdk_setup_helper.used_drivers = {
-            '0000:05:00.0': (1, ''),
-            '0000:05:01.0': (3, ''),
-        }
-
-        result = dpdk_setup_helper.setup_vnf_environment()
-        self.assertIsInstance(result, ResourceProfile)
-        self.assertEqual(result.cores, cores)
-        self.assertEqual(vnfd_helper.interfaces[0]['dpdk_port_num'], 1)
-        self.assertNotIn('dpdk_port_num', vnfd_helper.interfaces[1])
-
     def test__setup_dpdk_early_success(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
@@ -843,76 +778,40 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         self.assertIsInstance(result, ResourceProfile)
         self.assertEqual(dpdk_setup_helper.socket, 1)
 
-    def test__bind_dpdk_unforced(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
+    def test__detect_and_bind_drivers(self):
+        vnfd_helper = VnfdHelper(deepcopy(self.VNFD_0))
         ssh_helper = mock.Mock()
+        # ssh_helper.execute = mock.Mock(return_value = (0, 'text', ''))
+        # ssh_helper.execute.return_value = 0, 'output', ''
         scenario_helper = mock.Mock()
+        rv = ['0000:05:00.1', '0000:05:00.0']
+
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        dpdk_setup_helper.dpdk_bind_helper._get_bound_pci_addresses = mock.Mock(return_value=rv)
+        dpdk_setup_helper.dpdk_bind_helper.bind = mock.Mock()
+        dpdk_setup_helper.dpdk_bind_helper.read_status = mock.Mock()
 
-        dpdk_setup_helper._bind_dpdk('x', 'y', force=False)
-        self.assertNotIn('--force', ssh_helper.execute.call_args_list[0][0][0])
+        self.assertIsNone(dpdk_setup_helper._detect_and_bind_drivers())
 
-    def test__detect_and_bind_dpdk_short(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        ssh_helper.execute.return_value = 0, 'output', ''
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-
-        self.assertIsNone(dpdk_setup_helper._detect_and_bind_dpdk('a', 'b'))
-        self.assertEqual(ssh_helper.execute.call_count, 1)
-
-    def test__detect_and_bind_dpdk_fail_to_bind(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        ssh_helper.execute.return_value = 1, 'bad output', 'error output'
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper._bind_dpdk = mock.Mock()
-
-        self.assertIsNone(dpdk_setup_helper._detect_and_bind_dpdk('a', 'b'))
-        self.assertEqual(ssh_helper.execute.call_count, 2)
-
-    def test__detect_and_bind_dpdk(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        ssh_helper.execute.side_effect = iter([
-            (1, 'bad output', 'error output'),
-            (0, 'output', ''),
-        ])
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper._bind_dpdk = mock.Mock()
-
-        self.assertEqual(dpdk_setup_helper._detect_and_bind_dpdk('a', 'b'), 'output')
-        self.assertEqual(ssh_helper.execute.call_count, 2)
-
-    def test__bind_kernel_devices(self):
-        bind_iter = iter([
-            None,
-            'output',
-        ])
-
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper._detect_and_bind_dpdk = mock.Mock(side_effect=bind_iter)
-
-        self.assertIsNone(dpdk_setup_helper._bind_kernel_devices())
+        intf_0 = vnfd_helper.vdu[0]['external-interface'][0]['virtual-interface']
+        intf_1 = vnfd_helper.vdu[0]['external-interface'][1]['virtual-interface']
+        self.assertEquals(0, intf_0['dpdk_port_num'])
+        self.assertEquals(1, intf_1['dpdk_port_num'])
 
     def test_tear_down(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper._dpdk_nic_bind = 'a'
-        dpdk_setup_helper.used_drivers = {
-            '0000:05:00.0': (1, 'd1'),
-            '0000:05:01.0': (3, 'd3'),
+        dpdk_setup_helper.dpdk_bind_helper.bind = mock.Mock()
+        dpdk_setup_helper.dpdk_bind_helper.used_drivers = {
+            '0000:05:00.0': 'd1',
+            '0000:05:01.0': 'd3',
         }
 
         self.assertIsNone(dpdk_setup_helper.tear_down())
+        dpdk_setup_helper.dpdk_bind_helper.bind.assert_any_call('0000:05:00.0', 'd1', True)
+        dpdk_setup_helper.dpdk_bind_helper.bind.assert_any_call('0000:05:01.0', 'd3', True)
 
 
 class TestResourceHelper(unittest.TestCase):
@@ -957,6 +856,7 @@ class TestResourceHelper(unittest.TestCase):
         resource_helper.resource = None
 
         self.assertIsNone(resource_helper.stop_collect())
+
 
 class TestClientResourceHelper(unittest.TestCase):
 
@@ -1748,7 +1648,6 @@ class TestSampleVnf(unittest.TestCase):
     def test___init___alt_types(self):
         class MySetupEnvHelper(SetupEnvHelper):
             pass
-
 
         class MyResourceHelper(ResourceHelper):
             pass

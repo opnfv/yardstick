@@ -234,7 +234,7 @@ class ResourceProfile(object):
         connection.execute("sudo rabbitmqctl delete_user guest")
         connection.execute("sudo rabbitmqctl add_user admin admin")
         connection.execute("sudo rabbitmqctl authenticate_user admin admin")
-        connection.execute("sudo rabbitmqctl set_permissions -p / admin \".*\" \".*\" \".*\"")
+        connection.execute("sudo rabbitmqctl set_permissions -p / admin '.*' '.*' '.*'")
 
         LOG.debug("Start collectd service.....")
         connection.execute("sudo %s" % collectd_path)

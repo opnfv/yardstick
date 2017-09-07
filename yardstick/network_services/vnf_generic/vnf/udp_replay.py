@@ -15,9 +15,12 @@
 from __future__ import absolute_import
 import logging
 
+from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
+from itertools import chain
+
 
 LOG = logging.getLogger(__name__)
 
@@ -60,32 +63,25 @@ class UdpReplayApproxVnf(SampleVNF):
         super(UdpReplayApproxVnf, self).__init__(name, vnfd, setup_env_helper_type,
                                                  resource_helper_type)
 
-    def _start_server(self):
-        super(UdpReplayApproxVnf, self)._start_server()
-        self.resource_helper.start()
-
-    def scale(self, flavor=""):
-        """ scale vnfbased on flavor input """
-        raise NotImplementedError
-
-    def _deploy(self):
-        self.generate_port_pairs()
-        super(UdpReplayApproxVnf, self)._deploy()
-
     def _build_pipeline_kwargs(self):
-        all_ports = [i for i, _ in enumerate(self.vnfd_helper.interfaces)]
-        number_of_ports = len(all_ports)
+        ports = list(chain.from_iterable(self.all_ports))
+        number_of_ports = len(ports)
+        dpdk_port_num_list = [self.setup_helper.get_dpdk_port_num(intf) for intf in ports]
 
         tool_path = self.ssh_helper.provision_tool(tool_file=self.APP_NAME)
-        ports_mask = 2 ** number_of_ports - 1
-        ports_mask_hex = hex(ports_mask)
+        ports_mask_hex = hex(sum(2 ** num for num in dpdk_port_num_list))
+        # one core extra for master
         cpu_mask_hex = hex(2 ** (number_of_ports + 1) - 1)
         hw_csum = ""
         if (not self.scenario_helper.options.get('hw_csum', False) or
                 self.nfvi_context.attrs.get('nfvi_type') not in self.HW_OFFLOADING_NFVI_TYPES):
             hw_csum = '--no-hw-csum'
-
-        config_value = "".join(str((port, 0, port + 1)) for port in all_ports)
+        # tuples of (FLD_PORT, FLD_QUEUE, FLD_LCORE)
+        config_values = []
+        # start with lcore = 1 since we use lcore=0 for master
+        for lcore, dpdk_port_num in enumerate(dpdk_port_num_list, 1):
+            config_values.append(str((dpdk_port_num, 0, lcore)))
+        config_value = ''.join(config_values)
 
         whitelist = " -w ".join(self.setup_helper.bound_pci)
         self.pipeline_kwargs = {
@@ -98,6 +94,7 @@ class UdpReplayApproxVnf(SampleVNF):
         }
 
     def _build_config(self):
+        self.all_ports, self.networks = MultiPortConfig.get_port_pairs(self.vnfd_helper.interfaces)
         self._build_pipeline_kwargs()
         return self.PIPELINE_COMMAND.format(**self.pipeline_kwargs)
 
