@@ -504,6 +504,10 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
         ext_intfs = vnfd["vdu"][0]["external-interface"] = []
         # have to sort so xe0 goes first
         for intf_name, intf in sorted(node['interfaces'].items()):
+            # only interfaces with vld_id are added.
+            # Thus there are two layers of filters, only intefaces with vld_id
+            # show up in interfaces, and only interfaces with traffic profiles
+            # are used by the generators
             if intf.get('vld_id'):
                 # force dpkd_port_num to int so we can do reverse lookup
                 try:
@@ -545,6 +549,13 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
             vnfd = vnfdgen.generate_vnfd(vnf_model, node)
             # TODO: here add extra context_cfg["nodes"] regardless of template
             vnfd = vnfd["vnfd:vnfd-catalog"]["vnfd"][0]
+            # force inject pkey if it exists
+            # we want to standardize Heat using pkey as a string so we don't rely
+            # on the filesystem
+            try:
+                vnfd['mgmt-interface']['pkey'] = node['pkey']
+            except KeyError:
+                pass
             self.create_interfaces_from_node(vnfd, node)
             vnf_impl = self.get_vnf_impl(vnfd['id'])
             vnf_instance = vnf_impl(node_name, vnfd)
