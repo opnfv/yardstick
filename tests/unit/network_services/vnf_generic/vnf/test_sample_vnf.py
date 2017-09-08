@@ -412,6 +412,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
                         'virtual-interface': {
                             'dst_mac': '00:00:00:00:00:03',
                             'vpci': '0000:05:00.0',
+                            'dpdk_port_num': '0',
                             'driver': 'i40e',
                             'local_ip': '152.16.100.19',
                             'type': 'PCI-PASSTHROUGH',
@@ -419,7 +420,9 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
                             'dpdk_port_num': '0',
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.100.20',
-                            'local_mac': '00:00:00:00:00:01'
+                            'local_mac': '00:00:00:00:00:01',
+                            'vld_id': 'private_0',
+                            'ifname': 'xe0',
                         },
                         'vnfd-connection-point-ref': 'xe0',
                         'name': 'xe0'
@@ -428,6 +431,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
                         'virtual-interface': {
                             'dst_mac': '00:00:00:00:00:04',
                             'vpci': '0000:05:00.1',
+                            'dpdk_port_num': '1',
                             'driver': 'ixgbe',
                             'local_ip': '152.16.40.19',
                             'type': 'PCI-PASSTHROUGH',
@@ -435,7 +439,9 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
                             'dpdk_port_num': '1',
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.40.20',
-                            'local_mac': '00:00:00:00:00:02'
+                            'local_mac': '00:00:00:00:00:02',
+                            'vld_id': 'public_0',
+                            'ifname': 'xe1',
                         },
                         'vnfd-connection-point-ref': 'xe1',
                         'name': 'xe1'
@@ -600,7 +606,6 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         dpdk_setup_helper.CFG_CONFIG = 'config'
         dpdk_setup_helper.CFG_SCRIPT = 'script'
-        dpdk_setup_helper.all_ports = [3, 4, 5]
         dpdk_setup_helper.pipeline_kwargs = {}
 
         expected = {

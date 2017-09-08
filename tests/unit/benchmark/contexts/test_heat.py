@@ -13,7 +13,6 @@
 
 from __future__ import absolute_import
 
-import ipaddress
 import logging
 import os
 import unittest
@@ -147,30 +146,6 @@ class HeatContextTestCase(unittest.TestCase):
             self.test_context.user = 'foo'
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
-    @mock.patch('yardstick.benchmark.contexts.heat.get_neutron_client')
-    def test_attrs_get(self, mock_neutron, mock_template):
-        image, flavor, user = expected_tuple = 'foo1', 'foo2', 'foo3'
-        self.assertNotEqual(self.test_context.image, image)
-        self.assertNotEqual(self.test_context.flavor, flavor)
-        self.assertNotEqual(self.test_context.user, user)
-        self.test_context._image = image
-        self.test_context._flavor = flavor
-        self.test_context._user = user
-        attr_tuple = self.test_context.image, self.test_context.flavor, self.test_context.user
-        self.assertEqual(attr_tuple, expected_tuple)
-
-    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
-    def test_attrs_set_negative(self, mock_template):
-        with self.assertRaises(AttributeError):
-            self.test_context.image = 'foo'
-
-        with self.assertRaises(AttributeError):
-            self.test_context.flavor = 'foo'
-
-        with self.assertRaises(AttributeError):
-            self.test_context.user = 'foo'
-
-    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_deploy(self, mock_template):
         self.test_context.name = 'foo'
         self.test_context.template_file = '/bar/baz/some-heat-file'
@@ -210,8 +185,8 @@ class HeatContextTestCase(unittest.TestCase):
         }
         server = mock.MagicMock()
         server.ports = OrderedDict([
-            ('a', {'stack_name': 'b'}),
-            ('c', {'stack_name': 'd'}),
+            ('a', {'stack_name': 'b', 'port': 'port_a'}),
+            ('c', {'stack_name': 'd', 'port': 'port_c'}),
         ])
 
         expected = {
@@ -231,7 +206,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context.add_server_port(server)
         self.assertEqual(server.private_ip, '10.20.30.45')
         self.assertEqual(len(server.interfaces), 2)
-        self.assertDictEqual(server.interfaces['a'], expected)
+        self.assertDictEqual(server.interfaces['port_a'], expected)
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_undeploy(self, mock_template):
@@ -472,7 +447,6 @@ class HeatContextTestCase(unittest.TestCase):
 
         network2 = mock.MagicMock()
         network2.name = 'net_2'
-        network2.vld_id = 'vld999'
         network2.segmentation_id = 'seg45'
         network2.network_type = 'type_b'
         network2.physical_network = 'virt'
@@ -488,16 +462,15 @@ class HeatContextTestCase(unittest.TestCase):
         attr_name = {}
         self.assertIsNone(self.test_context._get_network(attr_name))
 
-        attr_name = {'vld_id': 'vld777'}
+        attr_name = {'network_type': 'nosuch'}
         self.assertIsNone(self.test_context._get_network(attr_name))
 
         attr_name = 'vld777'
         self.assertIsNone(self.test_context._get_network(attr_name))
 
-        attr_name = {'vld_id': 'vld999'}
+        attr_name = {'segmentation_id': 'seg45'}
         expected = {
             "name": 'net_2',
-            "vld_id": 'vld999',
             "segmentation_id": 'seg45',
             "network_type": 'type_b',
             "physical_network": 'virt',
@@ -508,7 +481,6 @@ class HeatContextTestCase(unittest.TestCase):
         attr_name = 'a'
         expected = {
             "name": 'net_1',
-            "vld_id": 'vld111',
             "segmentation_id": 'seg54',
             "network_type": 'type_a',
             "physical_network": 'phys',

@@ -208,6 +208,7 @@ class Server(Object):     # pragma: no cover
             self.instances = attrs["instances"]
 
         # dict with key network name, each item is a dict with port name and ip
+        self.network_ports = attrs.get("network_ports", {})
         self.ports = {}
 
         self.floating_ip = None
@@ -253,8 +254,18 @@ class Server(Object):     # pragma: no cover
         """adds to the template one server and corresponding resources"""
         port_name_list = []
         for network in networks:
-            port_name = server_name + "-" + network.name + "-port"
-            self.ports[network.name] = {"stack_name": port_name}
+            # if explicit mapping skip unused networks
+            if self.network_ports:
+                try:
+                    port = self.network_ports[network.name]
+                except KeyError:
+                    # no port for this network
+                    continue
+            # otherwise add a port for every network with port name as network name
+            else:
+                port = network.name
+            port_name = "{0}-{1}-port".format(server_name, port)
+            self.ports[network.name] = {"stack_name": port_name, "port": port}
             # we can't use secgroups if port_security_enabled is False
             if network.port_security_enabled is False:
                 sec_group_id = None
