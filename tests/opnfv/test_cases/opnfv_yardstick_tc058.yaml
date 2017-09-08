@@ -36,9 +36,9 @@ scenarios:
           process_name: "neutron-l3-agent"
           host: {{attack_host}}
           key: "monitor-recovery"
-          monitor_time: 20
+          monitor_time: 30
           sla:
-            max_recover_time: 20
+            max_recover_time: 30
 
         -
           monitor_type: "general-monitor"
