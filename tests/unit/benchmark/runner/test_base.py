@@ -23,19 +23,13 @@ from yardstick.benchmark.runners.iteration import IterationRunner
 
 class ActionTestCase(unittest.TestCase):
 
-    @mock.patch("yardstick.benchmark.runners.base.subprocess")
-    def test__execute_shell_command(self, mock_subprocess):
-        mock_subprocess.check_output.side_effect = Exception()
-
-        self.assertEqual(base._execute_shell_command("")[0], -1)
-
-    @mock.patch("yardstick.benchmark.runners.base.subprocess")
+    @mock.patch("yardstick.common.utils.subprocess")
     def test__single_action(self, mock_subprocess):
         mock_subprocess.check_output.side_effect = Exception()
 
         base._single_action(0, "echo", mock.MagicMock())
 
-    @mock.patch("yardstick.benchmark.runners.base.subprocess")
+    @mock.patch("yardstick.common.utils.subprocess")
     def test__periodic_action(self, mock_subprocess):
         mock_subprocess.check_output.side_effect = Exception()
 

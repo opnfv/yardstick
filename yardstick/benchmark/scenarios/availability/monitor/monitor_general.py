@@ -11,8 +11,8 @@ import logging
 import yardstick.ssh as ssh
 
 from yardstick.benchmark.scenarios.availability.monitor import basemonitor
-from yardstick.benchmark.scenarios.availability.util \
-    import build_shell_command, execute_shell_command
+from yardstick.common.utils import execute_shell_command
+from yardstick.benchmark.scenarios.availability.util import build_shell_command
 
 LOG = logging.getLogger(__name__)
 
