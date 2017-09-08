@@ -1,0 +1,90 @@
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# Sample benchmark task config file
+# measure network latency and throughput using netperf
+# There are two sample scenarios: bulk test and request/response test
+# In bulk test, UDP_STREAM and TCP_STREAM can be used
+# send_msg_size and recv_msg_size are options of bulk test
+# In req/rsp test, TCP_RR TCP_CRR UDP_RR can be used
+# req_rsp_size is option of req/rsp test
+
+schema: "yardstick:task:0.1"
+
+description: >
+    Yardstick TC083 config file;
+    Measure network latency and throughput using netperf.
+
+{% set provider = provider or none %}
+{% set physical_network = physical_network or 'physnet1' %}
+{% set segmentation_id = segmentation_id or none %}
+
+scenarios:
+-
+  type: Netperf
+  options:
+    testname: 'UDP_STREAM'
+    send_msg_size: 1024
+    duration: 20
+
+  host: Chang'e.demo
+  target: Houyi.demo
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+  sla:
+    mean_latency: 100
+    action: monitor
+-
+  type: Netperf
+  options:
+    testname: 'TCP_RR'
+    req_rsp_size: '32,1024'
+
+  host: Chang'e.demo
+  target: Houyi.demo
+
+  runner:
+    type: Duration
+    duration: 20
+    interval: 1
+  sla:
+    mean_latency: 300
+    action: monitor
+
+context:
+  name: demo
+  image: yardstick-image
+  flavor: yardstick-flavor
+  user: ubuntu
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    Chang'e:
+      floating_ip: true
+      placement: "pgrp1"
+    Houyi:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+      {% if provider == "vlan" %}
+      provider: {{provider}}
+      physical_network: {{physical_network}}
+        {% if segmentation_id %}
+      segmentation_id: {{segmentation_id}}
+        {% endif %}
+      {% endif %}
