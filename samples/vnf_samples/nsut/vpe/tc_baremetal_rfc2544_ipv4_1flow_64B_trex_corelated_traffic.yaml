@@ -36,6 +36,7 @@ scenarios:
       corelated_traffic: true
     vnf__1:
       cfg: vpe_config
+      nfvi_enable: True
   runner:
     type: Iteration
     iterations: 10

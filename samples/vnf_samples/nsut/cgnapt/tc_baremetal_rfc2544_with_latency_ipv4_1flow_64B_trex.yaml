@@ -36,6 +36,7 @@ scenarios:
       latency: true
     vnf__1:
       vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      nfvi_enable: True
   runner:
     type: Iteration
     iterations: 28
