@@ -66,31 +66,27 @@ class TaskTestCase(unittest.TestCase):
         nodes = {
             'node1': {
                 'interfaces': {
-                    'eth0': {
-                        'name': 'mgmt',
+                    'mgmt': {
+                        'network_name': 'mgmt',
                     },
-                    'eth1': {
-                        'name': 'external',
-                        'vld_id': '23',
+                    'xe0': {
+                        'network_name': 'private_0',
                     },
-                    'eth10': {
-                        'name': 'internal',
-                        'vld_id': '55',
+                    'xe1': {
+                        'network_name': 'public_0',
                     },
                 },
             },
             'node2': {
                 'interfaces': {
-                    'eth4': {
-                        'name': 'mgmt',
+                    'mgmt': {
+                        'network_name': 'mgmt',
                     },
-                    'eth2': {
-                        'name': 'external',
-                        'vld_id': '32',
+                    'private_0': {
+                        'network_name': 'private_0',
                     },
-                    'eth11': {
-                        'name': 'internal',
-                        'vld_id': '55',
+                    'public_0': {
+                        'network_name': 'public_0',
                     },
                 },
             },
@@ -99,30 +95,28 @@ class TaskTestCase(unittest.TestCase):
         mock_context.get_network.side_effect = iter([
             None,
             {
-                'name': 'a',
-                'network_type': 'private',
+                'name': 'mgmt',
+                'network_type': 'flat',
             },
             {},
             {
-                'name': 'b',
-                'vld_id': 'y',
+                'name': 'private_0',
                 'subnet_cidr': '10.20.0.0/16',
             },
             {
-                'name': 'c',
-                'vld_id': 'x',
+                'name': 'public_0',
+                'segmentation_id': '1001',
             },
             {
-                'name': 'd',
-                'vld_id': 'w',
+                'name': 'private_1',
             },
         ])
 
-        # once for each vld_id in the nodes dict
-        expected_get_network_calls = 4
+        # one for each interface
+        expected_get_network_calls = 6
         expected = {
-            'a': {'name': 'a', 'network_type': 'private'},
-            'b': {'name': 'b', 'vld_id': 'y', 'subnet_cidr': '10.20.0.0/16'},
+            'mgmt': {'name': 'mgmt', 'network_type': 'flat'},
+            'private_0': {'name': 'private_0', 'subnet_cidr': '10.20.0.0/16'},
         }
 
         networks = task.get_networks_from_nodes(nodes)
