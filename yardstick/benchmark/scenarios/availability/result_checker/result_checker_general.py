@@ -13,9 +13,10 @@ from yardstick.benchmark.scenarios.availability.result_checker \
     .baseresultchecker import \
     BaseResultChecker
 from yardstick.benchmark.scenarios.availability import Condition
-import yardstick.ssh as ssh
+from yardstick import ssh
+from yardstick.common.utils import execute_shell_command
 from yardstick.benchmark.scenarios.availability.util \
-    import buildshellparams, execute_shell_command
+    import buildshellparams
 
 LOG = logging.getLogger(__name__)
 
@@ -58,42 +59,32 @@ class GeneralResultChecker(BaseResultChecker):
         if "parameter" in self._config:
             if self.connection:
                 with open(self.verify_script, "r") as stdin_file:
-                    exit_status, stdout, stderr = self.connection.execute(
-                        "sudo {}".format(self.shell_cmd),
-                        stdin=stdin_file)
+                    exec_result = self.connection.execute(
+                        "sudo {}".format(self.shell_cmd), stdin=stdin_file)
             else:
-                exit_status, stdout = \
-                    execute_shell_command(
-                        "/bin/bash {0} {1}".format(
-                            self.verify_script,
-                            self.rollback_param))
+                exec_result = execute_shell_command(
+                    "/bin/bash {0.verify_script} {0.rollback_param}".format(self))
 
-            LOG.debug("action script of the operation is: %s",
-                      self.verify_script)
-            LOG.debug("action parameter the of operation is: %s",
-                      self.shell_cmd)
+            LOG.debug("action script of the operation is: %s", self.verify_script)
+            LOG.debug("action parameter the of operation is: %s", self.shell_cmd)
         else:
             if self.connection:
                 with open(self.verify_script, "r") as stdin_file:
-                    exit_status, stdout, stderr = self.connection.execute(
-                        "sudo /bin/bash -s ",
-                        stdin=stdin_file)
+                    exec_result = self.connection.execute("sudo /bin/bash -s ", stdin=stdin_file)
             else:
-                exit_status, stdout = execute_shell_command(
-                    "/bin/bash {0}".format(self.verify_script))
+                exec_result = execute_shell_command("/bin/bash {0}".format(self.verify_script))
 
             LOG.debug("action script of the operation is: %s",
                       self.verify_script)
 
-        LOG.debug("exit_status ,stdout : %s ,%s", exit_status, stdout)
-        if exit_status == 0 and stdout:
-            self.actualResult = stdout
+        LOG.debug("exit_status, stdout : %s ,%s", exec_result.status, exec_result.stdout)
+        if exec_result.status == 0 and exec_result.stdout:
+            self.actualResult = exec_result.stdout
             LOG.debug("verifying resultchecker: %s", self.key)
-            LOG.debug("verifying resultchecker,expected: %s",
-                      self.expectedResult)
+            LOG.debug("verifying resultchecker,expected: %s", self.expectedResult)
             LOG.debug("verifying resultchecker,actual: %s", self.actualResult)
             LOG.debug("verifying resultchecker,condition: %s", self.condition)
-            if (type(self.expectedResult) is int):
+            if isinstance(self.expectedResult, int):
                 self.actualResult = int(self.actualResult)
             if self.condition == Condition.EQUAL:
                 self.success = self.actualResult == self.expectedResult
@@ -117,7 +108,7 @@ class GeneralResultChecker(BaseResultChecker):
             LOG.debug(
                 "error happened when resultchecker: %s verifying the result",
                 self.key)
-            LOG.error(stderr)
+            LOG.error(exec_result.stderr)
 
         LOG.debug(
             "verifying resultchecker: %s,the result is : %s", self.key,

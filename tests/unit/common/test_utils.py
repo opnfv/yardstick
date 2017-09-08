@@ -797,6 +797,37 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(result, 7777)
         self.assertEqual(s.connect_ex.call_count, 2)
 
+    @mock.patch('yardstick.common.utils.subprocess.check_output')
+    def test_execute_shell_command(self, mock_check_output):
+        cmd = "env"
+        mock_check_output.return_value = (0, 'unittest')
+        exec_result = utils.execute_shell_command(cmd)
+        self.assertEqual(mock_check_output.call_count, 1)
+        self.assertEqual(exec_result.status, 0)
+
+    @mock.patch('yardstick.common.utils.subprocess.check_output')
+    def test_execute_shell_command_fail_cmd_exception(self, mock_check_output):
+        cmd = "env"
+        mock_check_output.side_effect = RuntimeError
+        exec_result = utils.execute_shell_command(cmd)
+        self.assertEqual(mock_check_output.call_count, 1)
+        self.assertEqual(exec_result.status, -1)
+
+    def test_exec_result_tuple(self):
+        exec_result = utils.ExecResultTuple(0, 'good output', 'err output')
+        self.assertIsNone(exec_result.assert_status_in())
+        self.assertIsNone(exec_result.assert_not_in_stderr(['bad']))
+
+        with self.assertRaises(RuntimeError):
+            exec_result.assert_status_in([1, 3])
+
+        template = 'message1: {0.stderr}'
+        with self.assertRaises(utils.ExecuteError) as raised:
+            exec_result.assert_not_in_stderr(['err'], utils.ExecuteError, template)
+
+        self.assertIn('message1', str(raised.exception))
+        self.assertIn('err output', str(raised.exception))
+
     @mock.patch('subprocess.check_output')
     def test_execute_command(self, mock_check_output):
         expected = ['hello world', '1234']

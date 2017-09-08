@@ -15,8 +15,10 @@
 from __future__ import absolute_import
 import mock
 import unittest
+
 from yardstick.benchmark.scenarios.availability.operation import \
     operation_general
+from yardstick.common.utils import ExecResultTuple
 
 
 @mock.patch('yardstick.benchmark.scenarios.availability.operation.'
@@ -48,25 +50,25 @@ class GeneralOperaionTestCase(unittest.TestCase):
         }
 
     def test__operation_successful(self, mock_open, mock_ssh):
-        ins = operation_general.GeneralOperaion(self.operation_cfg,
-                                                self.context)
-        mock_ssh.SSH.from_node().execute.return_value = (0, "success", '')
+        ins = operation_general.GeneralOperation(self.operation_cfg,
+                                                 self.context)
+        mock_ssh.SSH.from_node().execute.return_value = ExecResultTuple(0, "success", '')
         ins.setup()
         ins.run()
         ins.rollback()
 
     def test__operation_successful_noparam(self, mock_open, mock_ssh):
-        ins = operation_general.GeneralOperaion(self.operation_cfg_noparam,
-                                                self.context)
-        mock_ssh.SSH.from_node().execute.return_value = (0, "success", '')
+        ins = operation_general.GeneralOperation(self.operation_cfg_noparam,
+                                                 self.context)
+        mock_ssh.SSH.from_node().execute.return_value = ExecResultTuple(0, "success", '')
         ins.setup()
         ins.run()
         ins.rollback()
 
     def test__operation_fail(self, mock_open, mock_ssh):
-        ins = operation_general.GeneralOperaion(self.operation_cfg,
-                                                self.context)
-        mock_ssh.SSH.from_node().execute.return_value = (1, "failed", '')
+        ins = operation_general.GeneralOperation(self.operation_cfg,
+                                                 self.context)
+        mock_ssh.SSH.from_node().execute.return_value = ExecResultTuple(1, "failed", '')
         ins.setup()
         ins.run()
         ins.rollback()

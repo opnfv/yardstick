@@ -28,6 +28,7 @@ import collections
 import socket
 import random
 import ipaddress
+import traceback
 from contextlib import closing
 
 import six
@@ -319,6 +320,64 @@ def try_int(s, *args):
         return int(s)
     except (TypeError, ValueError):
         return args[0] if args else s
+
+
+def execute_shell_command(command, log=None, *args, **kwargs):
+    """execute shell script with error handling"""
+    kwargs.setdefault('shell', True)
+    try:
+        output = subprocess.check_output(command, *args, **kwargs)
+    except Exception:
+        exitcode = -1
+        output = ''
+        error = traceback.format_exc()
+        if log:
+            log.error("exec command '%s' error:\n", command, exc_info=True)
+    else:
+        exitcode = 0
+        error = ''
+
+    return ExecResultTuple(exitcode, output, error)
+
+
+class ExecuteError(Exception):
+
+    def __init__(self, exec_tuple, *args, **kwargs):
+        self.exec_tuple = exec_tuple
+        args_iter = iter(args)
+        try:
+            message = kwargs.pop('message')
+        except KeyError:
+            message = next(args_iter, '')
+
+        if message:
+            message = message.format(exec_tuple, *tuple(args_iter), **kwargs)
+
+        super(ExecuteError, self).__init__(message)
+
+
+class ExecResultTuple(collections.namedtuple('ExecResultTuple', ['status', 'stdout', 'stderr'])):
+
+    def _make_exc(self, exc_type, *args, **kwargs):
+        try:
+            return exc_type(self, *args, **kwargs)
+        except (TypeError, ValueError):
+            return RuntimeError(self.stderr)
+
+    def assert_status_in(self, expected_status_list=None, exception_type=None, *args, **kwargs):
+        if expected_status_list is None:
+            expected_status_list = [0]
+
+        if self.status in expected_status_list:
+            return
+
+        raise self._make_exc(exception_type, *args, **kwargs)
+
+    def assert_not_in_stderr(self, bad_string_list, exception_type=None, *args, **kwargs):
+        if not any(bad_string in self.stderr for bad_string in bad_string_list):
+            return
+
+        raise self._make_exc(exception_type, *args, **kwargs)
 
 
 class SocketTopology(dict):
