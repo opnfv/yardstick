@@ -472,6 +472,13 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
             vnfd = vnfdgen.generate_vnfd(vnf_model, node)
             # TODO: here add extra context_cfg["nodes"] regardless of template
             vnfd = vnfd["vnfd:vnfd-catalog"]["vnfd"][0]
+            # force inject pkey if it exists
+            # we want to standardize Heat using pkey as a string so we don't rely
+            # on the filesystem
+            try:
+                vnfd['mgmt-interface']['pkey'] = node['pkey']
+            except KeyError:
+                pass
             self.update_interfaces_from_node(vnfd, node)
             vnf_impl = self.get_vnf_impl(vnfd['id'])
             vnf_instance = vnf_impl(node_name, vnfd)

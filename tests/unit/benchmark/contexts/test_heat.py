@@ -246,19 +246,20 @@ class HeatContextTestCase(unittest.TestCase):
         mock_os.path.exists.return_value = True
         self.assertIsNone(self.test_context.undeploy())
 
-    def test__get_server_found_dict(self):
+    @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
+    def test__get_server_found_dict(self, mock_pkg_resources):
         """
         Use HeatContext._get_server to get a server that matches
         based on a dictionary input.
         """
         foo2_server = mock.Mock()
-        foo2_server.key_filename = 'key_file'
+        foo2_server.key_filename = None
         foo2_server.private_ip = '10.0.0.2'
         foo2_server.public_ip = '127.0.0.2'
         foo2_server.context.user = 'oof'
 
         baz3_server = mock.Mock()
-        baz3_server.key_filename = 'key_filename'
+        baz3_server.key_filename = None
         baz3_server.private_ip = '10.0.0.3'
         baz3_server.public_ip = '127.0.0.3'
         baz3_server.context.user = 'zab'
@@ -283,11 +284,11 @@ class HeatContextTestCase(unittest.TestCase):
         }
         result = self.test_context._get_server(attr_name)
         self.assertEqual(result['user'], 'bot')
-        self.assertIsNotNone(result['key_filename'])
         self.assertEqual(result['ip'], '127.0.0.1')
         self.assertEqual(result['private_ip'], '10.0.0.1')
 
-    def test__get_server_found_dict_no_attrs(self):
+    @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
+    def test__get_server_found_dict_no_attrs(self, mock_pkg_resources):
         """
         Use HeatContext._get_server to get a server that matches
         based on a dictionary input.
@@ -320,13 +321,13 @@ class HeatContextTestCase(unittest.TestCase):
         }
         result = self.test_context._get_server(attr_name)
         self.assertEqual(result['user'], 'bot')
-        self.assertIsNotNone(result['key_filename'])
         # no private ip attr mapping in the map results in None value in the result
         self.assertIsNone(result['private_ip'])
         # no public ip attr mapping in the map results in no value in the result
         self.assertNotIn('ip', result)
 
-    def test__get_server_found_not_dict(self):
+    @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
+    def test__get_server_found_not_dict(self, mock_pkg_resources):
         """
         Use HeatContext._get_server to get a server that matches
         based on a non-dictionary input
@@ -358,12 +359,12 @@ class HeatContextTestCase(unittest.TestCase):
         attr_name = 'baz3'
         result = self.test_context._get_server(attr_name)
         self.assertEqual(result['user'], 'zab')
-        self.assertIsNotNone(result['key_filename'])
         self.assertEqual(result['private_ip'], '10.0.0.3')
         # no public_ip on the server results in no value in the result
         self.assertNotIn('public_ip', result)
 
-    def test__get_server_none_found_not_dict(self):
+    @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
+    def test__get_server_none_found_not_dict(self, mock_pkg_resources):
         """
         Use HeatContext._get_server to not get a server due to
         None value associated with the match to a non-dictionary
@@ -396,7 +397,8 @@ class HeatContextTestCase(unittest.TestCase):
         result = self.test_context._get_server(attr_name)
         self.assertIsNone(result)
 
-    def test__get_server_not_found_dict(self):
+    @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
+    def test__get_server_not_found_dict(self, mock_pkg_resources):
         """
         Use HeatContext._get_server to not get a server for lack
         of a match to a dictionary input
@@ -431,7 +433,8 @@ class HeatContextTestCase(unittest.TestCase):
         result = self.test_context._get_server(attr_name)
         self.assertIsNone(result)
 
-    def test__get_server_not_found_not_dict(self):
+    @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
+    def test__get_server_not_found_not_dict(self, mock_pkg_resources):
         """
         Use HeatContext._get_server to not get a server for lack
         of a match to a non-dictionary input
