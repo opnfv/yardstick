@@ -20,29 +20,12 @@ from __future__ import absolute_import
 import importlib
 import logging
 import multiprocessing
-import subprocess
 import time
-import traceback
 
-import yardstick.common.utils as utils
+from yardstick.common import utils
 from yardstick.benchmark.scenarios import base as base_scenario
 
 log = logging.getLogger(__name__)
-
-
-def _execute_shell_command(command):
-    """execute shell script with error handling"""
-    exitcode = 0
-    output = []
-    try:
-        output = subprocess.check_output(command, shell=True)
-    except Exception:
-        exitcode = -1
-        output = traceback.format_exc()
-        log.error("exec command '%s' error:\n ", command)
-        log.error(traceback.format_exc())
-
-    return exitcode, output
 
 
 def _single_action(seconds, command, queue):
@@ -50,13 +33,13 @@ def _single_action(seconds, command, queue):
     log.debug("single action, fires after %d seconds (from now)", seconds)
     time.sleep(seconds)
     log.debug("single action: executing command: '%s'", command)
-    ret_code, data = _execute_shell_command(command)
-    if ret_code < 0:
+    exec_result = utils.execute_shell_command(command, log=log)
+    if exec_result.status < 0:
         log.error("single action error! command:%s", command)
-        queue.put({'single-action-data': data})
+        queue.put({'single-action-data': exec_result.stderr})
         return
-    log.debug("single action data: \n%s", data)
-    queue.put({'single-action-data': data})
+    log.debug("single action data: \n%s", exec_result.stdout)
+    queue.put({'single-action-data': exec_result.stdout})
 
 
 def _periodic_action(interval, command, queue):
@@ -67,13 +50,13 @@ def _periodic_action(interval, command, queue):
         time.sleep(interval)
         time_spent += interval
         log.debug("periodic action, executing command: '%s'", command)
-        ret_code, data = _execute_shell_command(command)
-        if ret_code < 0:
+        exec_result = utils.execute_shell_command(command, log=log)
+        if exec_result.status < 0:
             log.error("periodic action error! command:%s", command)
-            queue.put({'periodic-action-data': data})
+            queue.put({'periodic-action-data': exec_result.stderr})
             break
-        log.debug("periodic action data: \n%s", data)
-        queue.put({'periodic-action-data': data})
+        log.debug("periodic action data: \n%s", exec_result.stdout)
+        queue.put({'periodic-action-data': exec_result.stdout})
 
 
 class Runner(object):
@@ -147,13 +130,13 @@ class Runner(object):
         if "post-stop-action" in self.config:
             command = self.config["post-stop-action"]["command"]
             log.debug("post stop action: command: '%s'", command)
-            ret_code, data = _execute_shell_command(command)
-            if ret_code < 0:
+            exec_result = utils.execute_shell_command(command, log=log)
+            if exec_result.status < 0:
                 log.error("post action error! command:%s", command)
-                self.result_queue.put({'post-stop-action-data': data})
+                self.result_queue.put({'post-stop-action-data': exec_result.stderr})
                 return
-            log.debug("post-stop data: \n%s", data)
-            self.result_queue.put({'post-stop-action-data': data})
+            log.debug("post-stop data: \n%s", exec_result.stdout)
+            self.result_queue.put({'post-stop-action-data': exec_result.stdout})
 
     def _run_benchmark(self, cls, method_name, scenario_cfg, context_cfg):
         raise NotImplementedError
@@ -173,13 +156,13 @@ class Runner(object):
         if "pre-start-action" in self.config:
             command = self.config["pre-start-action"]["command"]
             log.debug("pre start action: command: '%s'", command)
-            ret_code, data = _execute_shell_command(command)
-            if ret_code < 0:
+            exec_result = utils.execute_shell_command(command, log=log)
+            if exec_result.status < 0:
                 log.error("pre-start action error! command:%s", command)
-                self.result_queue.put({'pre-start-action-data': data})
+                self.result_queue.put({'pre-start-action-data': exec_result.stderr})
                 return
-            log.debug("pre-start data: \n%s", data)
-            self.result_queue.put({'pre-start-action-data': data})
+            log.debug("pre-start data: \n%s", exec_result.stdout)
+            self.result_queue.put({'pre-start-action-data': exec_result.stdout})
 
         if "single-shot-action" in self.config:
             single_action_process = multiprocessing.Process(
