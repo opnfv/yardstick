@@ -28,7 +28,6 @@ from itertools import repeat, chain
 from multiprocessing import Queue
 
 import six
-from six.moves import cStringIO
 from six.moves import zip, StringIO
 
 from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
@@ -773,7 +772,7 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         return os.linesep.join(out)
 
     def put_string_to_file(self, s, remote_path):
-        file_obj = cStringIO(s)
+        file_obj = StringIO(s)
         self.ssh_helper.put_file_obj(file_obj, remote_path)
         return remote_path
 

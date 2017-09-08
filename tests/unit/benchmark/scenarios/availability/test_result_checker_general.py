@@ -19,6 +19,7 @@ import copy
 
 from yardstick.benchmark.scenarios.availability.result_checker import \
     result_checker_general
+from yardstick.common.utils import ExecResultTuple
 
 
 @mock.patch('yardstick.benchmark.scenarios.availability.result_checker.'
@@ -47,7 +48,7 @@ class GeneralResultCheckerTestCase(unittest.TestCase):
     def test__result_checker_eq(self, mock_open, mock_ssh):
         ins = result_checker_general.GeneralResultChecker(self.checker_cfg,
                                                           self.context)
-        mock_ssh.SSH.from_node().execute.return_value = (0, "1", '')
+        mock_ssh.SSH.from_node().execute.return_value = ExecResultTuple(0, "1", '')
         ins.setup()
         self.assertTrue(ins.verify())
 
@@ -56,7 +57,7 @@ class GeneralResultCheckerTestCase(unittest.TestCase):
         config['condition'] = 'gt'
         ins = result_checker_general.GeneralResultChecker(config,
                                                           self.context)
-        mock_ssh.SSH.from_node().execute.return_value = (0, "2", '')
+        mock_ssh.SSH.from_node().execute.return_value = ExecResultTuple(0, "2", '')
         ins.setup()
         self.assertTrue(ins.verify())
 
@@ -65,7 +66,7 @@ class GeneralResultCheckerTestCase(unittest.TestCase):
         config['condition'] = 'gt_eq'
         ins = result_checker_general.GeneralResultChecker(config,
                                                           self.context)
-        mock_ssh.SSH.from_node().execute.return_value = (0, "1", '')
+        mock_ssh.SSH.from_node().execute.return_value = ExecResultTuple(0, "1", '')
         ins.setup()
         self.assertTrue(ins.verify())
 
@@ -74,7 +75,7 @@ class GeneralResultCheckerTestCase(unittest.TestCase):
         config['condition'] = 'lt'
         ins = result_checker_general.GeneralResultChecker(config,
                                                           self.context)
-        mock_ssh.SSH.from_node().execute.return_value = (0, "0", '')
+        mock_ssh.SSH.from_node().execute.return_value = ExecResultTuple(0, "0", '')
         ins.setup()
         self.assertTrue(ins.verify())
 
@@ -83,7 +84,7 @@ class GeneralResultCheckerTestCase(unittest.TestCase):
         config['condition'] = 'lt_eq'
         ins = result_checker_general.GeneralResultChecker(config,
                                                           self.context)
-        mock_ssh.SSH.from_node().execute.return_value = (0, "1", '')
+        mock_ssh.SSH.from_node().execute.return_value = ExecResultTuple(0, "1", '')
         ins.setup()
         self.assertTrue(ins.verify())
 
@@ -93,7 +94,7 @@ class GeneralResultCheckerTestCase(unittest.TestCase):
         config['expectedValue'] = "value"
         ins = result_checker_general.GeneralResultChecker(config,
                                                           self.context)
-        mock_ssh.SSH.from_node().execute.return_value = (0, "value return", '')
+        mock_ssh.SSH.from_node().execute.return_value = ExecResultTuple(0, "value return", '')
         ins.setup()
         self.assertTrue(ins.verify())
 
@@ -102,7 +103,7 @@ class GeneralResultCheckerTestCase(unittest.TestCase):
         config['condition'] = 'wrong'
         ins = result_checker_general.GeneralResultChecker(config,
                                                           self.context)
-        mock_ssh.SSH.from_node().execute.return_value = (0, "1", '')
+        mock_ssh.SSH.from_node().execute.return_value = ExecResultTuple(0, "1", '')
         ins.setup()
         self.assertFalse(ins.verify())
 
@@ -111,6 +112,6 @@ class GeneralResultCheckerTestCase(unittest.TestCase):
         config.pop('parameter')
         ins = result_checker_general.GeneralResultChecker(config,
                                                           self.context)
-        mock_ssh.SSH.from_node().execute.return_value = (1, "fail", '')
+        mock_ssh.SSH.from_node().execute.return_value = ExecResultTuple(1, "fail", '')
         ins.setup()
         ins.verify()
