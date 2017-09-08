@@ -20,7 +20,11 @@ scenarios:
   type: SpecCPU2006
 
   options:
-      benchmark_subset: int
+      SPECint_benchmark: int^429
+      runspec_iterations: 1
+      runspec_tune: base
+      runspec_size: ref
+      runspec_rate: 1
 
   host: node1.yardstick-TC078
 
