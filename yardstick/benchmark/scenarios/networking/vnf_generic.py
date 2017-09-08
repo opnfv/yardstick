@@ -216,7 +216,24 @@ class NetworkServiceTestCase(base.Scenario):
 
     @staticmethod
     def get_vld_networks(networks):
-        return {n['vld_id']: n for n in networks.values()}
+        # network name is vld_id
+        vld_map = {}
+        for name, n in networks.items():
+            try:
+                vld_map[n['vld_id']] = n
+            except KeyError:
+                vld_map[name] = n
+        return vld_map
+
+    @staticmethod
+    def find_node_if(nodes, name, if_name, vld_id):
+        try:
+            # check for xe0, xe1
+            intf = nodes[name]["interfaces"][if_name]
+        except KeyError:
+            # if not xe0, then maybe vld_id,  private_1, public_1
+            intf = nodes[name]["interfaces"][vld_id]
+        return intf
 
     def _resolve_topology(self):
         for vld in self.topology["vld"]:
@@ -234,8 +251,8 @@ class NetworkServiceTestCase(base.Scenario):
 
             try:
                 nodes = self.context_cfg["nodes"]
-                node0_if = nodes[node0_name]["interfaces"][node0_if_name]
-                node1_if = nodes[node1_name]["interfaces"][node1_if_name]
+                node0_if = self.find_node_if(nodes, node0_name, node0_if_name, vld["id"])
+                node1_if = self.find_node_if(nodes, node1_name, node1_if_name, vld["id"])
 
                 # names so we can do reverse lookups
                 node0_if["ifname"] = node0_if_name
@@ -285,8 +302,8 @@ class NetworkServiceTestCase(base.Scenario):
             node1_if_name = node1_data["vnfd-connection-point-ref"]
 
             nodes = self.context_cfg["nodes"]
-            node0_if = nodes[node0_name]["interfaces"][node0_if_name]
-            node1_if = nodes[node1_name]["interfaces"][node1_if_name]
+            node0_if = self.find_node_if(nodes, node0_name, node0_if_name, vld["id"])
+            node1_if = self.find_node_if(nodes, node1_name, node1_if_name, vld["id"])
 
             # add peer interface dict, but remove circular link
             # TODO: don't waste memory
