@@ -16,8 +16,8 @@
 schema: yardstick:task:0.1
 scenarios:
 - type: NSPerf
-  traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
-  topology: vfw-tg-topology.yaml
+  traffic_profile: "../../traffic_profiles/ixia_ipv4_latency.yaml"
+  topology: vfw_vnf_topology_ixia.yaml
   nodes:
     tg__1: trafficgen_1.yardstick
     vnf__1: vnf.yardstick
@@ -41,8 +41,9 @@ scenarios:
     type: Iteration
     iterations: 28
     interval: 35
+  ixia_profile: ../../traffic_profiles/vfw/vfw_ipv4_profile_1flows.ixncfg
 context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: /etc/yardstick/nodes/pod.yaml
+  file: /etc/yardstick/nodes/pod_ixia.yaml
