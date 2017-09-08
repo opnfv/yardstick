@@ -10,25 +10,12 @@ from __future__ import absolute_import
 
 import os
 import logging
-import subprocess
 
-import yardstick.ssh as ssh
+from yardstick import ssh
+from yardstick.common import utils
 from yardstick.benchmark.scenarios.availability.monitor import basemonitor
 
 LOG = logging.getLogger(__name__)
-
-
-def _execute_shell_command(command):
-    """execute shell script with error handling"""
-    exitcode = 0
-    output = []
-    try:
-        output = subprocess.check_output(command, shell=True)
-    except Exception:
-        exitcode = -1
-        LOG.error("exec command '%s' error:\n ", command, exc_info=True)
-
-    return exitcode, output
 
 
 class MonitorOpenstackCmd(basemonitor.BaseMonitor):
@@ -61,12 +48,9 @@ class MonitorOpenstackCmd(basemonitor.BaseMonitor):
                 self.cmd = self.cmd + " --insecure"
 
     def monitor_func(self):
-        exit_status = 0
-        exit_status, stdout = _execute_shell_command(self.cmd)
-        LOG.debug("Execute command '%s' and the stdout is:\n%s", self.cmd, stdout)
-        if exit_status:
-            return False
-        return True
+        exec_result = utils.execute_shell_command(self.cmd, log=LOG)
+        LOG.debug("Execute command '%s' and the stdout is:\n%s", self.cmd, exec_result.stdout)
+        return exec_result.status == 0
 
     def verify_SLA(self):
         outage_time = self._result.get('outage_time', None)

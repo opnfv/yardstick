@@ -13,15 +13,15 @@ from yardstick.benchmark.scenarios.availability.operation.baseoperation \
     import \
     BaseOperation
 
-import yardstick.ssh as ssh
+from yardstick import ssh
+from yardstick.common.utils import execute_shell_command
 from yardstick.benchmark.scenarios.availability.util \
-    import buildshellparams, execute_shell_command, \
-    read_stdout_item, build_shell_command
+    import buildshellparams, read_stdout_item, build_shell_command
 
 LOG = logging.getLogger(__name__)
 
 
-class GeneralOperaion(BaseOperation):
+class GeneralOperation(BaseOperation):
 
     __operation__type__ = "general-operation"
 
@@ -65,55 +65,45 @@ class GeneralOperaion(BaseOperation):
                     self.intermediate_variables)
             if self.connection:
                 with open(self.action_script, "r") as stdin_file:
-                    exit_status, stdout, stderr = self.connection.execute(
-                        "sudo {}".format(self.action_param),
-                        stdin=stdin_file)
+                    exec_result = self.connection.execute(
+                        "sudo {}".format(self.action_param), stdin=stdin_file)
             else:
-                exit_status, stdout = \
-                    execute_shell_command(
-                        "/bin/bash {0} {1}".format(
-                            self.action_script, self.action_param))
+                exec_result = execute_shell_command(
+                    "/bin/bash {0.action_script} {0.action_param}".format(self))
         else:
             if self.connection:
                 with open(self.action_script, "r") as stdin_file:
-                    exit_status, stdout, stderr = self.connection.execute(
-                        "sudo /bin/sh -s ",
-                        stdin=stdin_file)
+                    exec_result = self.connection.execute("sudo /bin/sh -s ", stdin=stdin_file)
             else:
-                exit_status, stdout = execute_shell_command(
+                exec_result = execute_shell_command(
                     "/bin/bash {0}".format(self.action_script))
 
-        if exit_status == 0:
-            LOG.debug("success,the operation's output is: %s", stdout)
+        if exec_result.status == 0:
+            LOG.debug("success, the operation's output is: %s", exec_result.stdout)
             if "return_parameter" in self._config:
                 returnParameter = self._config['return_parameter']
                 for key, item in returnParameter.items():
-                    value = read_stdout_item(stdout, key)
+                    value = read_stdout_item(exec_result.stdout, key)
                     LOG.debug("intermediate variables %s: %s", item, value)
                     self.intermediate_variables[item] = value
         else:
             LOG.error(
                 "the operation's error, stdout:%s, stderr:%s",
-                stdout, stderr)
+                exec_result.stdout, exec_result.stderr)
 
     def rollback(self):
         if "rollback_parameter" in self._config:
             if self.connection:
                 with open(self.rollback_script, "r") as stdin_file:
-                    exit_status, stdout, stderr = self.connection.execute(
-                        "sudo {}".format(self.rollback_param),
-                        stdin=stdin_file)
+                    self.connection.execute(
+                        "sudo {}".format(self.rollback_param), stdin=stdin_file)
             else:
-                exit_status, stdout = \
-                    execute_shell_command(
-                        "/bin/bash {0} {1}".format(
-                            self.rollback_script, self.rollback_param))
+                execute_shell_command(
+                    "/bin/bash {0} {1}".format(
+                        self.rollback_script, self.rollback_param))
         else:
             if self.connection:
                 with open(self.rollback_script, "r") as stdin_file:
-                    exit_status, stdout, stderr = self.connection.execute(
-                        "sudo /bin/sh -s ",
-                        stdin=stdin_file)
+                    self.connection.execute("sudo /bin/sh -s ", stdin=stdin_file)
             else:
-                exit_status, stdout = execute_shell_command(
-                    "/bin/bash {0}".format(self.rollback_script))
+                execute_shell_command("/bin/bash {0}".format(self.rollback_script))

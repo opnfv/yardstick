@@ -8,26 +8,12 @@
 ##############################################################################
 from __future__ import absolute_import
 import logging
-import subprocess
 
-import yardstick.ssh as ssh
-from yardstick.benchmark.scenarios.availability.attacker.baseattacker import \
-    BaseAttacker
+from yardstick.common import utils
+from yardstick import ssh
+from yardstick.benchmark.scenarios.availability.attacker.baseattacker import BaseAttacker
 
 LOG = logging.getLogger(__name__)
-
-
-def _execute_shell_command(command, stdin=None):
-    """execute shell script with error handling"""
-    exitcode = 0
-    output = []
-    try:
-        output = subprocess.check_output(command, stdin=stdin, shell=True)
-    except Exception:
-        exitcode = -1
-        LOG.error("exec command '%s' error:\n ", command, exc_info=True)
-
-    return exitcode, output
 
 
 class BaremetalAttacker(BaseAttacker):
@@ -99,13 +85,11 @@ class BaremetalAttacker(BaseAttacker):
 
     def recover(self):
         LOG.info("Recover fault START")
-        cmd = "sudo /bin/bash -s {0} {1} {2} {3}".format(
-            self.ipmi_ip, self.ipmi_user, self.ipmi_pwd, "on")
-        with open(self.recovery_script, "r") as stdin_file:
-            if self.jump_connection is not None:
-                self.jump_connection.execute(cmd, stdin=stdin_file)
+        cmd = "sudo /bin/bash -s {0.ipmi_ip} {0.ipmi_user} {0.ipmi_pwd} on".format(self)
+        with open(self.recovery_script, "r") as handle:
+                self.jump_connection.execute(cmd, stdin=handle)
             else:
-                _execute_shell_command(cmd, stdin=stdin_file)
+                utils.execute_shell_command(cmd, stdin=handle)
         LOG.info("Recover fault END")
 
 

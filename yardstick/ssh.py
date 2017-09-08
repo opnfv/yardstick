@@ -78,7 +78,10 @@ from oslo_utils import encodeutils
 from scp import SCPClient
 import six
 
+from six.moves import StringIO
+
 from yardstick.common.utils import try_int
+from yardstick.common.utils import ExecResultTuple
 from yardstick.network_services.utils import provision_tool
 
 
@@ -179,7 +182,7 @@ class SSH(object):
 
     def _get_pkey(self, key):
         if isinstance(key, six.string_types):
-            key = six.moves.StringIO(key)
+            key = StringIO(key)
         errors = []
         for key_class in (paramiko.rsakey.RSAKey, paramiko.dsskey.DSSKey):
             try:
@@ -256,7 +259,7 @@ class SSH(object):
         client = self._get_client()
 
         if isinstance(stdin, six.string_types):
-            stdin = six.moves.StringIO(stdin)
+            stdin = StringIO(stdin)
 
         return self._run(client, cmd, stdin=stdin, stdout=stdout,
                          stderr=stderr, raise_on_error=raise_on_error,
@@ -349,17 +352,17 @@ class SSH(object):
         :param stdin:   Open file to be sent on process stdin.
         :param timeout: Timeout for execution of the command.
 
-        :returns: tuple (exit_status, stdout, stderr)
+        :returns: ExecResultTuple (exit_status, stdout, stderr)
         """
-        stdout = six.moves.StringIO()
-        stderr = six.moves.StringIO()
+        stdout = StringIO()
+        stderr = StringIO()
 
         exit_status = self.run(cmd, stderr=stderr,
                                stdout=stdout, stdin=stdin,
                                timeout=timeout, raise_on_error=False)
         stdout.seek(0)
         stderr.seek(0)
-        return exit_status, stdout.read(), stderr.read()
+        return ExecResultTuple(exit_status, stdout.read(), stderr.read())
 
     def wait(self, timeout=120, interval=1):
         """Wait for the host will be available via ssh."""
