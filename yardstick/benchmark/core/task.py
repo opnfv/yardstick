@@ -377,8 +377,6 @@ class Task(object):     # pragma: no cover
         target_attr: either a name for a server created by yardstick or a dict
         with attribute name mapping when using external heat templates
         """
-        host = None
-        target = None
         for context in self.contexts:
             if context.__context_type__ != "Heat":
                 continue
@@ -628,11 +626,11 @@ def get_networks_from_nodes(nodes):
             continue
         interfaces = node.get('interfaces', {})
         for interface in interfaces.values():
-            vld_id = interface.get('vld_id')
-            # mgmt network doesn't have vld_id
-            if not vld_id:
+            # vld_id is network_name
+            network_name = interface.get('network_name')
+            if not network_name:
                 continue
-            network = Context.get_network({"vld_id": vld_id})
+            network = Context.get_network(network_name)
             if network:
                 networks[network['name']] = network
     return networks
