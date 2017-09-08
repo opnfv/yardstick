@@ -19,6 +19,10 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+
+import errno
+import logging
+
 import os
 import argparse
 import json
@@ -30,6 +34,9 @@ from six.moves import input
 
 CLI_PATH = os.path.dirname(os.path.realpath(__file__))
 REPO_PATH = os.path.abspath(os.path.join(CLI_PATH, os.pardir))
+
+
+LOG = logging.getLogger(__name__)
 
 
 def sigint_handler(*args, **kwargs):
@@ -114,10 +121,13 @@ class YardstickNSCli(object):
             'Performance report for', tc_name.upper(),
             '================================================================')
         print(report_caption)
-        if os.path.isfile("/tmp/yardstick.out"):
-            lines = []
+        try:
             with open("/tmp/yardstick.out") as infile:
                 lines = jsonutils.load(infile)
+        except IOError as e:
+            if e.errno != errno.ENOENT:
+                raise
+            lines = []
 
             if lines:
                 lines = \
@@ -150,7 +160,7 @@ class YardstickNSCli(object):
                 testcases = os.listdir(test_path + vnf)
                 print(("VNF :(%s)" % vnf))
                 print("================")
-                for testcase in [tc for tc in testcases if "tc_" in tc]:
+                for testcase in (tc for tc in testcases if "tc_" in tc):
                     print('%s' % testcase)
                 print(os.linesep)
             raise SystemExit(0)
@@ -173,7 +183,7 @@ class YardstickNSCli(object):
             if not os.path.exists(vnf_dir):
                 raise ValueError("'%s', vnf not supported." % vnf)
 
-            testcases = [tc for tc in os.listdir(vnf_dir) if "tc" in tc]
+            testcases = (tc for tc in os.listdir(vnf_dir) if "tc" in tc)
             subtest = set([test]).issubset(testcases)
             if not subtest:
                 raise ValueError("'%s', testcase not supported." % test)
@@ -184,10 +194,11 @@ class YardstickNSCli(object):
                                      "task", "start", test])
             self.generate_final_report(test)
         except (IOError, ValueError):
-            print("Value/I/O error...")
-        except BaseException:
-            print("Test failed. Please verify test inputs & re-run the test..")
-            print("eg: NSBperf.py --vnf <vnf untertest> --test <test yaml>")
+            LOG.exception("")
+            raise
+        except Exception:
+            LOG.exception("Test failed. Please verify test inputs & re-run the test..\n",
+                          "eg: NSBperf.py --vnf <vnf untertest> --test <test yaml>")
 
     def main(self):
         """Main function.
