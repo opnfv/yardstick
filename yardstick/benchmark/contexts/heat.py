@@ -329,19 +329,24 @@ class HeatContext(Context):
 
     def add_server_port(self, server):
         # TODO(hafe) can only handle one internal network for now
-        port = next(iter(server.ports.values()))
-        server.private_ip = self.stack.outputs[port["stack_name"]]
+        # use private ip from first port
+        private_port = next(iter(server.ports.values()))
+        server.private_ip = self.stack.outputs[private_port["stack_name"]]
         server.interfaces = {}
         for network_name, port in server.ports.items():
-            server.interfaces[network_name] = self.make_interface_dict(
-                network_name, port['stack_name'], self.stack.outputs)
+            # port['port'] is either port name from mapping or default network_name
+            server.interfaces[port['port']] = self.make_interface_dict(network_name, port['port'],
+                                                                       port['stack_name'],
+                                                                       self.stack.outputs)
 
-    def make_interface_dict(self, network_name, stack_name, outputs):
+    def make_interface_dict(self, network_name, port, stack_name, outputs):
         private_ip = outputs[stack_name]
         mac_address = outputs[h_join(stack_name, "mac_address")]
+        # these are attributes of the network, not the port
         output_subnet_cidr = outputs[h_join(self.name, network_name,
                                             'subnet', 'cidr')]
 
+        # these are attributes of the network, not the port
         output_subnet_gateway = outputs[h_join(self.name, network_name,
                                                'subnet', 'gateway_ip')]
 
@@ -355,6 +360,7 @@ class HeatContext(Context):
             "mac_address": mac_address,
             "device_id": outputs[h_join(stack_name, "device_id")],
             "network_id": outputs[h_join(stack_name, "network_id")],
+            # this should be == vld_id for NSB tests
             "network_name": network_name,
             # to match vnf_generic
             "local_mac": mac_address,
@@ -438,9 +444,11 @@ class HeatContext(Context):
             network = self.networks.get(attr_name, None)
 
         else:
-            # Don't generalize too much  Just support vld_id
-            vld_id = attr_name.get('vld_id', {})
-            network_iter = (n for n in self.networks.values() if n.vld_id == vld_id)
+            # Only take the first key, value
+            key, value = next(iter(attr_name.items()), (None, None))
+            if key is None:
+                return None
+            network_iter = (n for n in self.networks.values() if getattr(n, key) == value)
             network = next(network_iter, None)
 
         if network is None:
@@ -448,7 +456,6 @@ class HeatContext(Context):
 
         result = {
             "name": network.name,
-            "vld_id": network.vld_id,
             "segmentation_id": network.segmentation_id,
             "network_type": network.network_type,
             "physical_network": network.physical_network,
