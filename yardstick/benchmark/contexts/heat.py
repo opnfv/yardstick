@@ -413,10 +413,6 @@ class HeatContext(Context):
         attr_name: either a name for a server created by yardstick or a dict
         with attribute name mapping when using external heat templates
         """
-        key_filename = pkg_resources.resource_filename(
-            'yardstick.resources',
-            h_join('files/yardstick_key', get_short_key_uuid(self.key_uuid)))
-
         if isinstance(attr_name, collections.Mapping):
             node_name, cname = self.split_name(attr_name['name'])
             if cname is None or cname != self.name:
@@ -434,9 +430,13 @@ class HeatContext(Context):
             if server is None:
                 return None
 
+        pkey = pkg_resources.resource_string(
+            'yardstick.resources',
+            h_join('files/yardstick_key', get_short_key_uuid(self.key_uuid))).decode('utf-8')
+
         result = {
             "user": server.context.user,
-            "key_filename": key_filename,
+            "pkey": pkey,
             "private_ip": server.private_ip,
             "interfaces": server.interfaces,
             "routing_table": self.generate_routing_table(server),
