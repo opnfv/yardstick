@@ -12,21 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- hosts: all
-  vars:
-    clone_dir: /tmp/yardstick-clone
+#- debug:
+#    var: pmu_tools_version
+#    verbosity: 2
 
-  roles:
-    # build shared DPDK for collectd only, required DPDK downloaded already
-    - role: download_dpdk
-    - install_dpdk_shared
-    - install_rabbitmq
-    - download_intel_cmt_cat
-    - install_intel_cmt_cat
-    - download_yajl
-    - install_yajl
-    - download_pmu_tools
-    - install_pmu_tools
-    - download_collectd
-    - install_collectd
+- name: fetch pmu_tools
+  git:
+    repo: "{{ pmu_tools_url }}"
+    dest: "{{ pmu_tools_dest }}"
+    version: "{{ pmu_tools_version }}"
+    accept_hostkey: yes
+    recursive: no
+    force: yes
 
+- set_fact:
+    pmu_tools_path: "{{ pmu_tools_dest }}"
+
+- name: Create perfmon local mirror
+  command: "wget -mkEpnp {{ perfmon_url }} -P {{ pmu_tools_dest }}"
+  ignore_errors: yes
+
+- name: Copy local event download file
+  copy:
+    src: event_download_local.py
+    dest: "{{ pmu_tools_dest }}"
+    owner: root
+    group: root
+    mode: 0755

@@ -253,6 +253,9 @@ class ResourceProfile(object):
             # connection.execute("sudo %s '%s' '%s'" % (
             #     collectd_installer, http_proxy, https_proxy))
             return
+        if "intel_pmu" in self.plugins:
+            LOG.debug("Downloading event list for pmu_stats plugin")
+            connection.execute("pushd /opt/tempT/pmu-tools/; sudo python event_download_local.py; popd")
         LOG.debug("Starting collectd to collect NFVi stats")
         # ensure collectd.conf.d exists to avoid error/warning
         connection.execute("sudo mkdir -p /etc/collectd/collectd.conf.d")

@@ -20,7 +20,6 @@
   git:
     repo: "{{ collectd_url }}"
     dest: "{{ collectd_dest }}"
-    version: "{{ collectd_version }}"
     accept_hostkey: yes
     recursive: no
     force: yes
