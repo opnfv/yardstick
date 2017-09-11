@@ -34,6 +34,24 @@
       "revId": "3c1a9886475454940aa832c76814018eeb1b1a95",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6c739980",
+        "filename": "yardstick/benchmark/contexts/standalone/__init__.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-11T15:45:18Z",
+      "side": 1,
+      "message": "so it looks like this is partially waiting for VM instantiation.\n\nNormally we wait for VM to start with ssh timeout loop.\n\nssh.wait()\n\nor something.  So maybe we just need a bigger timeout for ssh?\n\nUnless we are waiting for something else DPDK or SR-IOV related.",
+      "parentUuid": "da33351e_4cc0557c",
+      "revId": "3c1a9886475454940aa832c76814018eeb1b1a95",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
