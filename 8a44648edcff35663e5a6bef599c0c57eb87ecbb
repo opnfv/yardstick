@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_57d2a200",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-11T21:03:05Z",
+      "side": 1,
+      "message": "why not more like:\n\n for node_name, node in nodes.items():\n   k \u003d io.StringIO()\n   try:\n      pkey \u003d node[\u0027pkey\u0027].write_private_key(k)\n   except KeyError:\n      pass\n   else:\n     # copy node and override pkey\n     nodes[node_name] \u003d deepcopy(node)\n     nodes[node_name][\u0027pkey\u0027] \u003d  k.getvalue()",
+      "revId": "8a44648edcff35663e5a6bef599c0c57eb87ecbb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
