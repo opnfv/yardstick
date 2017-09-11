@@ -34,6 +34,24 @@
       "revId": "8a44648edcff35663e5a6bef599c0c57eb87ecbb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_57274212",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-11T21:17:54Z",
+      "side": 1,
+      "message": "but I don\u0027t really want to deepcopy either, I only need to convert the pkey.\n\nProperly I should implement whatever YAML serializer method for OrderedDict and for RSAKey objects.",
+      "parentUuid": "da33351e_b72faef5",
+      "revId": "8a44648edcff35663e5a6bef599c0c57eb87ecbb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
