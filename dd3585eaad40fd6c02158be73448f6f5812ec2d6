@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_4de978b7",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_525ab9f3",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 320,
+        "endChar": 42
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_126031a4",
         "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
         "patchSetId": 18
@@ -82,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_4d005867",
+        "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_924c4144",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_7247fd1d",
         "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
         "patchSetId": 18
@@ -105,6 +147,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_ade1249c",
+        "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 1,
+      "message": "I have extended it a bit -- There are more sections than just kernel bound devs and dpdk bound devs, there are also crypto devices. I have omitted it before since we don\u0027t need it. But should they be there any devices like that, it would confuse the logic.",
+      "parentUuid": "da33351e_7247fd1d",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 49
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_d256c9d1",
         "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
         "patchSetId": 18
@@ -116,6 +182,30 @@
       "writtenOn": "2017-09-07T18:22:55Z",
       "side": 1,
       "message": "where are we using this?",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 10
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_0d9770ed",
+        "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 1,
+      "message": "nowhere.\nin general, we ignore return codes of all ssh_helper.execute, with some exceptions. That\u0027s a potential for an improvement.",
+      "parentUuid": "da33351e_d256c9d1",
       "range": {
         "startLine": 111,
         "startChar": 8,
@@ -174,6 +264,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_c891f69a",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 1,
+      "message": "no idea. I\u0027d suggest to let it be as I don\u0027t know how to test that now.",
+      "parentUuid": "da33351e_f23b0d9a",
+      "range": {
+        "startLine": 114,
+        "startChar": 24,
+        "endLine": 114,
+        "endChar": 27
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_123951a4",
         "filename": "yardstick/network_services/nfvi/resource.py",
         "patchSetId": 18
@@ -191,6 +305,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_a88c7280",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_123951a4",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_d2bfe9f9",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
         "patchSetId": 18
@@ -202,6 +334,24 @@
       "writtenOn": "2017-09-07T18:22:55Z",
       "side": 1,
       "message": "please invert this logic to avoid the pass and else:\n\n if not ignore_errors or e.errno not in {errno.EPIPE, errno.ESHUTDOWN}:\n   raise",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_88cb6e52",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_d2bfe9f9",
       "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -231,6 +381,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_68c6ea4a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_b2ba2508",
+      "range": {
+        "startLine": 69,
+        "startChar": 11,
+        "endLine": 69,
+        "endChar": 43
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_72c09d7c",
         "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
         "patchSetId": 18
@@ -248,6 +422,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_c8bf36fa",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 1,
+      "message": "This regex is no longer used, should be deleted.",
+      "parentUuid": "da33351e_72c09d7c",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_b2e34532",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_ping.py",
         "patchSetId": 18
@@ -259,6 +451,24 @@
       "writtenOn": "2017-09-07T18:22:55Z",
       "side": 1,
       "message": "this would be best done as the first action in the method",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_08391ea4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ping.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_b2e34532",
       "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -299,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_08d59e1b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 1,
+      "message": "What\u0027s wrong with join? Or how do you mean to use the StringIO?",
+      "parentUuid": "da33351e_d2e88912",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_72d9bd82",
         "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
         "patchSetId": 18
@@ -310,6 +538,30 @@
       "writtenOn": "2017-09-07T18:22:55Z",
       "side": 1,
       "message": "isn\u0027t this the basis of the mask?\n\nmaybe we should build the list of dpdk_port_nums and pass it into the mask func",
+      "range": {
+        "startLine": 91,
+        "startChar": 28,
+        "endLine": 91,
+        "endChar": 74
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6891ca51",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_72d9bd82",
       "range": {
         "startLine": 91,
         "startChar": 28,
