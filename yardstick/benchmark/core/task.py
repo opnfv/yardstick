@@ -326,23 +326,30 @@ class Task(object):     # pragma: no cover
 
         # TODO support get multi hosts/vms info
         context_cfg = {}
-        if "host" in scenario_cfg:
-            context_cfg['host'] = Context.get_server(scenario_cfg["host"])
+        server_name = scenario_cfg.get('options', {}).get('server_name', {})
 
-        if "target" in scenario_cfg:
-            if is_ip_addr(scenario_cfg["target"]):
-                context_cfg['target'] = {}
-                context_cfg['target']["ipaddr"] = scenario_cfg["target"]
+        def config_context_target(cfg):
+            target = cfg['target']
+            if is_ip_addr(target):
+                context_cfg['target'] = {"ipaddr": target}
             else:
-                context_cfg['target'] = Context.get_server(
-                    scenario_cfg["target"])
-                if self._is_same_heat_context(scenario_cfg["host"],
-                                              scenario_cfg["target"]):
-                    context_cfg["target"]["ipaddr"] = \
-                        context_cfg["target"]["private_ip"]
+                context_cfg['target'] = Context.get_server(target)
+                if self._is_same_heat_context(cfg["host"], target):
+                    context_cfg['target']["ipaddr"] = context_cfg['target']["private_ip"]
                 else:
-                    context_cfg["target"]["ipaddr"] = \
-                        context_cfg["target"]["ip"]
+                    context_cfg['target']["ipaddr"] = context_cfg['target']["ip"]
+
+        host_name = server_name.get('host', scenario_cfg.get('host'))
+        if host_name:
+            context_cfg['host'] = Context.get_server(host_name)
+
+        for item in [server_name, scenario_cfg]:
+            try:
+                config_context_target(item)
+            except KeyError:
+                pass
+            else:
+                break
 
         if "targets" in scenario_cfg:
             ip_list = []
@@ -672,25 +679,24 @@ def parse_task_args(src_name, args):
 
 
 def change_server_name(scenario, suffix):
-    try:
-        host = scenario['host']
-    except KeyError:
-        pass
-    else:
-        try:
-            host['name'] += suffix
-        except TypeError:
-            scenario['host'] += suffix
 
-    try:
-        target = scenario['target']
-    except KeyError:
-        pass
-    else:
+    def add_suffix(cfg, key):
         try:
-            target['name'] += suffix
-        except TypeError:
-            scenario['target'] += suffix
+            value = cfg[key]
+        except KeyError:
+            pass
+        else:
+            try:
+                value['name'] += suffix
+            except TypeError:
+                cfg[key] += suffix
+
+    server_name = scenario.get('options', {}).get('server_name', {})
+
+    add_suffix(scenario, 'host')
+    add_suffix(scenario, 'target')
+    add_suffix(server_name, 'host')
+    add_suffix(server_name, 'target')
 
     try:
         key = 'targets'
