@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_774526b2",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_ping.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-11T22:02:48Z",
+      "side": 1,
+      "message": "hold?  it seems to work for me:\n\n \u003e\u003e\u003e import unittest\n \u003e\u003e\u003e import multiprocessing\n \u003e\u003e\u003e tc1 \u003d unittest.TestCase()\n \u003e\u003e\u003e queue1 \u003d multiprocessing.Queue()\n \u003e\u003e\u003e tc1.assertIsInstance(queue1, multiprocessing.queues.Queue)\n \u003e\u003e\u003e tc1.assertNotIsInstance(queue1, multiprocessing.queues.Queue)\n Traceback (most recent call last):\n   File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e\n   File \"/usr/lib/python3.4/unittest/case.py\", line 1219, in assertNotIsInstance\n     self.fail(self._formatMessage(msg, standardMsg))\n   File \"/usr/lib/python3.4/unittest/case.py\", line 642, in fail\n     raise self.failureException(msg)\n AssertionError: \u003cmultiprocessing.queues.Queue object at 0x7fe6101fb2b0\u003e is an instance of \u003cclass \u0027multiprocessing.queues.Queue\u0027\u003e\n\nthe difference that i see is whether subclasses are acceptable, with assertIs not allowing subclasses and assertIsInstance allowing subclasses.  but i don\u0027t see any subclassing of Queue, so i don\u0027t see this as the reason to not use assertIsInstance.  also subclasses are acceptable in most cases, in my experience.",
+      "parentUuid": "da33351e_a64ae2c2",
+      "revId": "5d9e107ee68f4f72745639b5572ef761a62d7c93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_8314f144",
         "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
         "patchSetId": 21
@@ -83,6 +101,24 @@
       "side": 1,
       "message": "I think it could be done but it would likely require a lot of changes in the code base and perhaps should be done in a separate commit. What do you think?",
       "parentUuid": "da33351e_232525ab",
+      "revId": "5d9e107ee68f4f72745639b5572ef761a62d7c93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b7cb2e1d",
+        "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-11T22:02:48Z",
+      "side": 1,
+      "message": "okay, you removed the subscript that was useless.  that was the main thing i wanted to see changed to this line of this review.\n\nthe rest of my comments may not even apply to this method, and yes, would belong in its own review.  i thought that i had posted my ExecResultTuple code on Friday, but it turns out there was some network error and i posted it earlier today (Monday).  check it out if you have the time and hopefully we can start moving in that direction.",
+      "parentUuid": "da33351e_0973dfb1",
       "revId": "5d9e107ee68f4f72745639b5572ef761a62d7c93",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
