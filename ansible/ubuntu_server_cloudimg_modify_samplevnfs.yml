@@ -56,5 +56,7 @@
     - install_rabbitmq
     - download_intel_cmt_cat
     - install_intel_cmt_cat
+    - download_pmu_tools
+    - install_pmu_tools
     - download_collectd
     - install_collectd
