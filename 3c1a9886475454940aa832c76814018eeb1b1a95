@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_4cd97582",
+        "filename": "yardstick/benchmark/contexts/standalone/__init__.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-11T15:17:22Z",
+      "side": 1,
+      "message": "????  500 seconds?\n\nwhat are we waiting for and why can\u0027t we poll?",
+      "revId": "3c1a9886475454940aa832c76814018eeb1b1a95",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
