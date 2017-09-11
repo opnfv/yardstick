@@ -288,6 +288,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_5755824e",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-11T22:02:48Z",
+      "side": 1,
+      "message": "but why are we joining \"key\" in the first place?\n\nafaict, key is always a string so we don\u0027t need to do anything to it.\n\nif we are worried that it isn\u0027t a string, then the best way to handle that would be to send the value to the string constructor: str(key).  this will handle lists and instances of random classes.\n\n \u0027\u0027.join(key)\n\nseems like the last option, and if we are truly concerned then we should be doing:\n\n \u0027\u0027.join(str(v) for v in key)\n\nto ensure each value in the iterable is a string, since join doesn\u0027t handle non-strings.\n\ntesting is easy, since this is a classmethod, just call the method with whatever inputs we think should be allowed.\n\n with self.assertRaises(TypeError):\n    ResourceProfile.parse_intel_pmu_stats([\u0027hello\u0027, \u0027world\u0027, 1234, 56.7], \u0027my value\u0027)\n\n with self.assertRaises(TypeError):\n    ResourceProfile.parse_intel_pmu_stats(234, \u0027my value\u0027)\n\nnot that these inputs are what we expect the function to receive, but the assertions reflect what will happen should such inputs be given.",
+      "parentUuid": "da33351e_c891f69a",
+      "range": {
+        "startLine": 114,
+        "startChar": 24,
+        "endLine": 114,
+        "endChar": 27
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_123951a4",
         "filename": "yardstick/network_services/nfvi/resource.py",
         "patchSetId": 18
@@ -521,6 +545,24 @@
       "side": 1,
       "message": "What\u0027s wrong with join? Or how do you mean to use the StringIO?",
       "parentUuid": "da33351e_d2e88912",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d7c87224",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-11T22:02:48Z",
+      "side": 1,
+      "message": "join is great if the list is created by other code or the list will be useful in other ways.  but to build a list for the sole purpose of joining it means a string buffer is better:\n\n1) the intermediate strings are discarded immediately\n2) the list is never started and never grows",
+      "parentUuid": "da33351e_08d59e1b",
       "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
