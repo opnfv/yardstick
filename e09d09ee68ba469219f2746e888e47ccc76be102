@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_17b81a75",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-11T22:28:48Z",
+      "side": 1,
+      "message": "cfg[\u0027target\u0027] is used a few times in this method, i\u0027d usually give it a local name.",
+      "range": {
+        "startLine": 332,
+        "startChar": 26,
+        "endLine": 332,
+        "endChar": 39
+      },
+      "revId": "e09d09ee68ba469219f2746e888e47ccc76be102",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_77f88649",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-11T22:28:48Z",
+      "side": 1,
+      "message": "these two lines can be merged:\n\n context_cfg[\u0027target\u0027] \u003d {\u0027ipaddr\u0027: cfg[\u0027target\u0027]}",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 334,
+        "endChar": 63
+      },
+      "revId": "e09d09ee68ba469219f2746e888e47ccc76be102",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_97942ae3",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-11T22:28:48Z",
+      "side": 1,
+      "message": "it is strange that the code gets a less desirable value before getting a more desirable value: server_name[\u0027host\u0027] is more desirable than scenario_cfg[\u0027host\u0027], but the latter is handled first.  why check the latter, when the former be present?\n\ni\u0027d prefer to see here:\n\n host_name \u003d server_name.get(\u0027host\u0027, scenario_cfg.get(\u0027host\u0027))\n if host_name:\n   context_cfg[\u0027host\u0027] \u003d Context.get_server(host_name)\n\n for data in [server_name, scenario_cfg]:\n   try:\n     config_context_target(data)\n   except KeyError:\n     pass\n   else:\n     break",
+      "range": {
+        "startLine": 346,
+        "startChar": 0,
+        "endLine": 356,
+        "endChar": 46
+      },
+      "revId": "e09d09ee68ba469219f2746e888e47ccc76be102",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_77a6c654",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-11T22:28:48Z",
+      "side": 1,
+      "message": "this looks like a duplication of code, could we give config_scenario_host_target a second argument to specify the key?\n\nas in:\n\n def config_scenario_host_target(cfg, key):\n   try:\n     cfg[key][\u0027name\u0027] +\u003d suffix\n   except KeyError:\n     pass\n   except TypeError:\n     cfg[key] +\u003d suffix\n\n ...\n config_scenario_host_target(scenario, \u0027host\u0027)\n config_scenario_host_target(scenario, \u0027target\u0027)\n config_scenario_host_target(server_name, \u0027host\u0027)\n config_scenario_host_target(server_name, \u0027target\u0027)",
+      "range": {
+        "startLine": 688,
+        "startChar": 0,
+        "endLine": 706,
+        "endChar": 39
+      },
+      "revId": "e09d09ee68ba469219f2746e888e47ccc76be102",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
