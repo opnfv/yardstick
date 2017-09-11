@@ -12,6 +12,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
 import sys
+import io
 import os
 from collections import OrderedDict
 
@@ -28,6 +29,7 @@ from jinja2 import Environment
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
+from yardstick.common.constants import LOG_DIR
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.dispatcher.base import Base as DispatcherBase
 from yardstick.common.task_template import TaskTemplate
@@ -363,12 +365,38 @@ class Task(object):     # pragma: no cover
             context_cfg["nodes"] = parse_nodes_with_context(scenario_cfg)
             context_cfg["networks"] = get_networks_from_nodes(
                 context_cfg["nodes"])
+            self.generate_pod_yaml(context_cfg)
+
         runner = base_runner.Runner.get(runner_cfg)
 
         print("Starting runner of type '%s'" % runner_cfg["type"])
         runner.run(scenario_cfg, context_cfg)
 
         return runner
+
+    def generate_pod_yaml(self, context_cfg):
+        context_yaml = os.path.join(LOG_DIR, "pod-{}.yaml".format(self.task_id))
+        nodes = dict(context_cfg["nodes"])
+        self.convert_pkeys_to_string(nodes)
+        pod_dict = {
+            # convert OrderedDict to dict
+            "nodes": nodes,
+            "networks": context_cfg["networks"]
+        }
+        with open(context_yaml, "w") as context_out:
+            yaml.safe_dump(pod_dict, context_out, default_flow_style=False,
+                           explicit_start=True)
+
+    @staticmethod
+    def convert_pkeys_to_string(nodes):
+        for node_name in nodes:
+            try:
+                k = io.StringIO()
+                nodes[node_name]['pkey'].write_private_key(k)
+                # copy node and override pkey
+                nodes[node_name] = dict(nodes[node_name], pkey=k.getvalue())
+            except KeyError:
+                pass
 
     def _is_same_heat_context(self, host_attr, target_attr):
         """check if two servers are in the same heat context
