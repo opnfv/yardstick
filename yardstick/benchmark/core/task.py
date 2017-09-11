@@ -326,23 +326,34 @@ class Task(object):     # pragma: no cover
 
         # TODO support get multi hosts/vms info
         context_cfg = {}
-        if "host" in scenario_cfg:
-            context_cfg['host'] = Context.get_server(scenario_cfg["host"])
+        server_name = scenario_cfg.get('options', {}).get('server_name', {})
 
-        if "target" in scenario_cfg:
-            if is_ip_addr(scenario_cfg["target"]):
+        def config_context_target(cfg):
+            if is_ip_addr(cfg["target"]):
                 context_cfg['target'] = {}
-                context_cfg['target']["ipaddr"] = scenario_cfg["target"]
+                context_cfg['target']["ipaddr"] = cfg["target"]
             else:
                 context_cfg['target'] = Context.get_server(
-                    scenario_cfg["target"])
-                if self._is_same_heat_context(scenario_cfg["host"],
-                                              scenario_cfg["target"]):
+                    cfg["target"])
+                if self._is_same_heat_context(cfg["host"],
+                                              cfg["target"]):
                     context_cfg["target"]["ipaddr"] = \
                         context_cfg["target"]["private_ip"]
                 else:
                     context_cfg["target"]["ipaddr"] = \
                         context_cfg["target"]["ip"]
+
+        if "host" in scenario_cfg:
+            context_cfg['host'] = Context.get_server(scenario_cfg["host"])
+
+        if "host" in server_name:
+            context_cfg['host'] = Context.get_server(server_name["host"])
+
+        if "target" in scenario_cfg:
+            config_context_target(scenario_cfg)
+
+        if "target" in server_name:
+            config_context_target(server_name)
 
         if "targets" in scenario_cfg:
             ip_list = []
@@ -672,28 +683,35 @@ def parse_task_args(src_name, args):
 
 
 def change_server_name(scenario, suffix):
-    try:
-        host = scenario['host']
-    except KeyError:
-        pass
-    else:
-        try:
-            host['name'] += suffix
-        except TypeError:
-            scenario['host'] += suffix
 
-    try:
-        target = scenario['target']
-    except KeyError:
-        pass
-    else:
+    def config_senario_host_target(cfg):
         try:
-            target['name'] += suffix
-        except TypeError:
-            scenario['target'] += suffix
+            host = cfg['host']
+        except KeyError:
+            pass
+        else:
+            try:
+                host['name'] += suffix
+            except TypeError:
+                cfg['host'] += suffix
 
-    try:
-        key = 'targets'
-        scenario[key] = ['{}{}'.format(a, suffix) for a in scenario[key]]
-    except KeyError:
-        pass
+        try:
+            target = cfg['target']
+        except KeyError:
+            pass
+        else:
+            try:
+                target['name'] += suffix
+            except TypeError:
+                cfg['target'] += suffix
+
+        try:
+            key = 'targets'
+            scenario[key] = ['{}{}'.format(a, suffix) for a in scenario[key]]
+        except KeyError:
+            pass
+
+    server_name = scenario.get('options', {}).get('server_name', {})
+
+    config_senario_host_target(scenario)
+    config_senario_host_target(server_name)
