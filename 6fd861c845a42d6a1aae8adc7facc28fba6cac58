@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_7836c9e8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 0,
+      "message": "Because scenario_cfg lives in scenario_helper, I believe this is a leftover from the refactoring.",
+      "parentUuid": "da33351e_bff31c9e",
+      "revId": "6fd861c845a42d6a1aae8adc7facc28fba6cac58",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_1ff3289f",
         "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
         "patchSetId": 15
@@ -48,6 +66,24 @@
       "side": 0,
       "message": "nevermind, it is redundant.\n\nself.resource_helper.setup() just calls self.setup_helper.setup_vnf_enviroment()",
       "parentUuid": "da33351e_1ff3289f",
+      "revId": "6fd861c845a42d6a1aae8adc7facc28fba6cac58",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_983bcdd0",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 0,
+      "message": "Yes.",
+      "parentUuid": "da33351e_5f2c9002",
       "revId": "6fd861c845a42d6a1aae8adc7facc28fba6cac58",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
