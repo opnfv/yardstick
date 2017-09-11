@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation.
+# Copyright (c) 2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,17 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- hosts: all
-  vars:
-    clone_dir: /tmp/yardstick-clone
-
-  roles:
-    - download_intel_cmt_cat
-    - install_intel_cmt_cat
-    - download_yajl
-    - install_yajl
-    - download_pmu_tools
-    - install_pmu_tools
-    - download_collectd
-    - install_collectd
+pmu_tools_build_dependencies:
+  Debian:
+    - flex
+    - bison
+    - build-essential
+    - pkg-config
+    - automake
+    - autotools-dev
+    - libltdl-dev
+    - librabbitmq-dev
+    - rabbitmq-server
+    - cmake
+    - libvirt-dev
+  RedHat:
+    - flex
+    - bison
+    - pkgconfig
+    - automake
+    - cmake
+    - rabbitmq-server
+    - librabbitmq-devel
+    - libtool-ltdl-devel
+    - libvirt-devel
 

@@ -1,0 +1,4 @@
+---
+pmu_tools_url: "https://github.com/andikleen/pmu-tools.git"
+pmu_tools_dest: "{{ clone_dest }}/pmu-tools"
+pmu_tools_version: "master"
