@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_a64ae2c2",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_ping.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 1,
+      "message": "Because the assertion doesn\u0027t hold without the type().",
+      "parentUuid": "da33351e_e3517d0f",
+      "revId": "5d9e107ee68f4f72745639b5572ef761a62d7c93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_8314f144",
         "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
         "patchSetId": 21
@@ -47,6 +65,24 @@
       "writtenOn": "2017-09-08T17:10:41Z",
       "side": 1,
       "message": "you don\u0027t need to subscript the result, it isn\u0027t being stored here\n\nin a version of a method similar to _dpdk_execute that i wrote, i had it check the exit status and raise an exception that included the stderr on failure, on success the method returns stdout and not status or stderr.\n\ni feel the best solution would be to do a namedtuple, but i hadn\u0027t gotten around to doing that.",
+      "revId": "5d9e107ee68f4f72745639b5572ef761a62d7c93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_0973dfb1",
+        "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-11T10:16:32Z",
+      "side": 1,
+      "message": "I think it could be done but it would likely require a lot of changes in the code base and perhaps should be done in a separate commit. What do you think?",
+      "parentUuid": "da33351e_232525ab",
       "revId": "5d9e107ee68f4f72745639b5572ef761a62d7c93",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
