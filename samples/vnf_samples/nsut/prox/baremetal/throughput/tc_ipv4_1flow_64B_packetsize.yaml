@@ -19,8 +19,8 @@ scenarios:
   traffic_profile: "../../../../traffic_profiles/ipv4_throughput.yaml"
   topology: "../../prox-tg-topology.yaml"
   nodes:
-    tg__1: trafficgen_1.yardstick
-    vnf__1: vnf.yardstick
+    tg__0: trafficgen_1.yardstick
+    vnf__0: vnf.yardstick
   tc_options:
     rfc2544:
       allowed_drop_rate: 0.8 - 1

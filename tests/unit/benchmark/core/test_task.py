@@ -70,10 +70,10 @@ class TaskTestCase(unittest.TestCase):
                         'network_name': 'mgmt',
                     },
                     'xe0': {
-                        'network_name': 'private_0',
+                        'network_name': 'uplink_0',
                     },
                     'xe1': {
-                        'network_name': 'public_0',
+                        'network_name': 'downlink_0',
                     },
                 },
             },
@@ -82,11 +82,11 @@ class TaskTestCase(unittest.TestCase):
                     'mgmt': {
                         'network_name': 'mgmt',
                     },
-                    'private_0': {
-                        'network_name': 'private_0',
+                    'uplink_0': {
+                        'network_name': 'uplink_0',
                     },
-                    'public_0': {
-                        'network_name': 'public_0',
+                    'downlink_0': {
+                        'network_name': 'downlink_0',
                     },
                 },
             },
@@ -100,15 +100,15 @@ class TaskTestCase(unittest.TestCase):
             },
             {},
             {
-                'name': 'private_0',
+                'name': 'uplink_0',
                 'subnet_cidr': '10.20.0.0/16',
             },
             {
-                'name': 'public_0',
+                'name': 'downlink_0',
                 'segmentation_id': '1001',
             },
             {
-                'name': 'private_1',
+                'name': 'uplink_1',
             },
         ])
 
@@ -116,9 +116,9 @@ class TaskTestCase(unittest.TestCase):
         expected_get_network_calls = 6
         expected = {
             'mgmt': {'name': 'mgmt', 'network_type': 'flat'},
-            'private_0': {'name': 'private_0', 'subnet_cidr': '10.20.0.0/16'},
-            'private_1': {'name': 'private_1'},
-            'public_0': {'name': 'public_0', 'segmentation_id': '1001'},
+            'uplink_0': {'name': 'uplink_0', 'subnet_cidr': '10.20.0.0/16'},
+            'uplink_1': {'name': 'uplink_1'},
+            'downlink_0': {'name': 'downlink_0', 'segmentation_id': '1001'},
         }
 
         networks = task.get_networks_from_nodes(nodes)

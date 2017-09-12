@@ -22,17 +22,17 @@ scenarios:
   topology: prox-tg-topology-2.yaml
 
   nodes:
-    tg__1: trafficgen_1.yardstick
-    vnf__1: vnf.yardstick
+    tg__0: trafficgen_1.yardstick
+    vnf__0: vnf.yardstick
 
   options:
-    vnf__1:
+    vnf__0:
       prox_path: /root/dppd-PROX-v035/build/prox
       prox_config: "configs/l3-swap-2.cfg"
       prox_args:
         "-t": ""
 
-    tg__1:
+    tg__0:
       prox_path: /root/dppd-PROX-v035/build/prox
       prox_config: "configs/l3-gen-2.cfg"
       prox_args:
@@ -76,7 +76,7 @@ context:
       external_network: "yardstick-public"
     xe0:
       cidr: '10.0.2.0/24'
-      vld_id: public
+      vld_id: downlink
     xe1:
       cidr: '10.0.3.0/24'
-      vld_id: private
+      vld_id: uplink

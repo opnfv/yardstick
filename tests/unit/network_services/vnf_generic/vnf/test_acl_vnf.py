@@ -144,7 +144,7 @@ class TestAclApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens513f0',
-                                       'vld_id': 'public',
+                                       'vld_id': AclApproxVnf.DOWNLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.40.20',
                                        'dst_mac': '00:00:00:00:00:01',
@@ -172,7 +172,7 @@ class TestAclApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens785f0',
-                                       'vld_id': 'private',
+                                       'vld_id': AclApproxVnf.UPLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.100.20',
                                        'dst_mac': '00:00:00:00:00:02',
@@ -197,7 +197,7 @@ class TestAclApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens786f0',
-                                       'vld_id': 'private',
+                                       'vld_id': AclApproxVnf.UPLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.100.19',
                                        'dst_mac': '00:00:00:00:00:04',
@@ -207,7 +207,7 @@ class TestAclApproxVnf(unittest.TestCase):
                                        'vpci': '0000:05:00.0',
                                        'dpdk_port_num': 0},
                                'xe1': {'local_iface_name': 'ens786f1',
-                                       'vld_id': 'public',
+                                       'vld_id': AclApproxVnf.DOWNLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.40.19',
                                        'dst_mac': '00:00:00:00:00:03',

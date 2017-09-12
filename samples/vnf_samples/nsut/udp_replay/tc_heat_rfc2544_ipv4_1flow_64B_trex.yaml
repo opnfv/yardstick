@@ -19,14 +19,14 @@ scenarios:
   traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
   topology: udp_replay-vnf-topology.yaml
   nodes:
-    tg__1: trafficgen_1.yardstick
-    vnf__1: vnf.yardstick
+    tg__0: trafficgen_1.yardstick
+    vnf__0: vnf.yardstick
   options:
     packetsize: 64
     traffic_type: 4
-    vnf__1:
+    vnf__0:
        hw_csum: false
-    tg__1:
+    tg__0:
        hw_csum: false
     rfc2544:
       allowed_drop_rate: 0.0001 - 0.0001
@@ -67,13 +67,13 @@ context:
       cidr: '10.0.1.0/24'
     xe0:
       cidr: '10.0.2.0/24'
-      vld_id: public
+      vld_id: downlink
       enable_dhcp: False
       gateway_ip: null
       port_security_enabled: False
     xe1:
       cidr: '10.0.3.0/24'
-      vld_id: private
+      vld_id: uplink
       enable_dhcp: False
       gateway_ip: null
       port_security_enabled: False

@@ -24,6 +24,10 @@ from six.moves import range
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.vnf_generic import vnfdgen
 
+
+UPLINK = "uplink"
+DOWNLINK = "downlink"
+
 TREX_VNFD_TEMPLATE = """
 vnfd:vnfd-catalog:
     vnfd:
@@ -183,22 +187,23 @@ NODE_CFG = {'ip': '1.1.1.1',
             }
 
 
+# need to template, but can't use {} so use %s
 TRAFFIC_PROFILE_TPL = """
-private:
+%(0)s:
     - ipv4:
         outer_l2:
             framesize:
-                64B: "{{ get(imix, 'private.imix_small', 10) }}"
-                128B: "{{ get(imix, 'private.imix_128B', 10) }}"
-                256B: "{{ get(imix, 'private.imix_256B', 10) }}"
-                373B: "{{ get(imix, 'private.imix_373B', 10) }}"
-                570B: "{{get(imix, 'private.imix_570B', 10) }}"
-                1400B: "{{get(imix, 'private.imix_1400B', 10) }}"
-                1518B: "{{get(imix, 'private.imix_1500B', 40) }}"
-"""
+                64B: "{{ get(imix, '%(0)s.imix_small', 10) }}"
+                128B: "{{ get(imix, '%(0)s.imix_128B', 10) }}"
+                256B: "{{ get(imix, '%(0)s.imix_256B', 10) }}"
+                373B: "{{ get(imix, '%(0)s.imix_373B', 10) }}"
+                570B: "{{get(imix, '%(0)s.imix_570B', 10) }}"
+                1400B: "{{get(imix, '%(0)s.imix_1400B', 10) }}"
+                1518B: "{{get(imix, '%(0)s.imix_1500B', 40) }}"
+""" % {"0": UPLINK}
 
 TRAFFIC_PROFILE = {
-    "private": [{"ipv4": {"outer_l2":
+    UPLINK: [{"ipv4": {"outer_l2":
                           {"framesize": {"64B": '10', "128B": '10',
                                          "256B": '10', "373B": '10',
                                          "570B": '10', "1400B": '10',
@@ -269,8 +274,8 @@ class TestVnfdGen(unittest.TestCase):
 
         generated_tp = \
             vnfdgen.generate_vnfd(TRAFFIC_PROFILE_TPL,
-                                  {"imix": {"private": {"imix_small": '20'}}})
+                                  {"imix": {UPLINK: {"imix_small": '20'}}})
         self.maxDiff = None
         tp2 = dict(TRAFFIC_PROFILE)
-        tp2["private"][0]["ipv4"]["outer_l2"]["framesize"]["64B"] = '20'
+        tp2[UPLINK][0]["ipv4"]["outer_l2"]["framesize"]["64B"] = '20'
         self.assertDictEqual(tp2, generated_tp)

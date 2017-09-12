@@ -242,11 +242,11 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 'vnf__1': self.vnf__1,
             },
             'networks': {
-                'private': {
-                    'vld_id': 'private',
+                GenericVNF.UPLINK: {
+                    'vld_id': GenericVNF.UPLINK,
                 },
-                'public': {
-                    'vld_id': 'public',
+                GenericVNF.DOWNLINK: {
+                    'vld_id': GenericVNF.DOWNLINK,
                 },
             },
         }
@@ -265,7 +265,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 }
             ],
             'type': 'ELAN',
-            'id': 'private',
+            'id': GenericVNF.UPLINK,
             'name': 'tg__1 to vnf__1 link 1'
         }
 
@@ -283,7 +283,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 }
             ],
             'type': 'ELAN',
-            'id': 'public',
+            'id': GenericVNF.DOWNLINK,
             'name': 'vnf__1 to tg__1 link 2'
         }
 

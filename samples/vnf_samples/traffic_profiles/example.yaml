@@ -150,8 +150,8 @@ public:
                 570B: {{get(imix_570B, 12) }}
                 1400B: {{get(imix_1400B, 12) }}
                 1518b: {{get(imix_1500B, 12) }}
-            srcmac: {{get(private.ipv4_1.dst_mac}} # xe0.local_mac
-            dstmac: {{get)private.ipv4_1.src_mac}} # xe0.dst_mac
+            srcmac: {{get(uplink.ipv4_1.dst_mac}} # xe0.local_mac
+            dstmac: {{get)uplink.ipv4_1.src_mac}} # xe0.dst_mac
             QinQ:
                 S-VLAN:
                     id: {{ get(flow.s_vlan_range, "0") }}
@@ -166,33 +166,33 @@ public:
 
         outer_l3v4:
             proto: {{ get(flow.outer_proto, "udp") }},
-            srcip4: {{ get(private.ipv4_1.outer_l3v4.dstip4) }}
-            dstip4: {{ get(private.ipv4_1.outer_l3v4.srcip4) }}
+            srcip4: {{ get(uplink.ipv4_1.outer_l3v4.dstip4) }}
+            dstip4: {{ get(uplink.ipv4_1.outer_l3v4.srcip4) }}
             ttl: 32
             dscp:  {{ get(flow.tos, 0) }}
 
         outer_l4:
-            srcport: {{ get(private.ipv4_1.outer_l4.dstport) }}
-            dstport: {{ get(private.ipv4_1.outer_l4.srcport) }}
+            srcport: {{ get(uplink.ipv4_1.outer_l4.dstport) }}
+            dstport: {{ get(uplink.ipv4_1.outer_l4.srcport) }}
             vni: {{ get(flow.vxlan_vni, "2345") }} #optional
             inner_l2: #optional
-                srcmac: {{ get(private.ipv4_1.outer_l4.inner_l2.dstmac) }}
-                dstmac: {{ get(private.ipv4_1.outer_l4.inner_l2.srcmac) }}
+                srcmac: {{ get(uplink.ipv4_1.outer_l4.inner_l2.dstmac) }}
+                dstmac: {{ get(uplink.ipv4_1.outer_l4.inner_l2.srcmac) }}
 
         inner_l3v4: #optional
             proto: {{ get(flow.inner_proto, "udp") }},
-            srcip4: {{ get(private.ipv4_1.inner_l3v4.dstip4) }}
-            dstip4: {{ get(private.ipv4_1.inner_l3v4.srcip4) }}
+            srcip4: {{ get(uplink.ipv4_1.inner_l3v4.dstip4) }}
+            dstip4: {{ get(uplink.ipv4_1.inner_l3v4.srcip4) }}
             ttl: 32
             dscp:  {{ get(flow.inner_tos, 0) }}
 
         inner_l3v6:
             proto: {{ get(flow.inner_proto, "udp") }},
-            srcip6: {{ get(private.ipv4_1.inner_l3v6.dstip6) }}
-            dstip6: {{ get(private.ipv4_1.inner_l3v6.srcip6) }}
+            srcip6: {{ get(uplink.ipv4_1.inner_l3v6.dstip6) }}
+            dstip6: {{ get(uplink.ipv4_1.inner_l3v6.srcip6) }}
             ttl: 32
             tc: {{ get(flow.inner_tos, 0) }}
 
         inner_l4:
-            srcport: {{ get(private.ipv4_1.inner_l4.dstport) }}
-            dstport: {{ get(private.ipv4_1.inner_l4.srcport) }}
+            srcport: {{ get(uplink.ipv4_1.inner_l4.dstport) }}
+            dstport: {{ get(uplink.ipv4_1.inner_l4.srcport) }}
