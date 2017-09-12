@@ -57,8 +57,6 @@ class ProxMplsTagUntagProfile(ProxProfile):
     def run_test_with_pkt_size(self, traffic_gen, pkt_size, duration):
         """Run the test for a single packet size.
 
-        :param queue: queue object we put samples into
-        :type queue: Queue
         :param traffic_gen: traffic generator instance
         :type traffic_gen: TrafficGen
         :param  pkt_size: The packet size to test with.
@@ -86,8 +84,8 @@ class ProxMplsTagUntagProfile(ProxProfile):
         # throughput and packet loss from the most recent successful test
         successful_pkt_loss = 0.0
         for test_value in self.bounds_iterator(LOG):
-            result, port_samples = traffic_gen.run_test(pkt_size, duration,
-                                                        test_value, self.tolerated_loss)
+            result, port_samples = self._profile_helper.run_test(pkt_size, duration,
+                                                                 test_value, self.tolerated_loss)
 
             if result.success:
                 LOG.debug("Success! Increasing lower bound")
