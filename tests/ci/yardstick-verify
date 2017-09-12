@@ -87,7 +87,9 @@ error_exit()
         exitcode=$rc
     fi
 
-    cleanup
+    if [[ "${DEPLOY_SCENARIO:0:2}" == 'os' ]];then
+        source "${YARDSTICK_REPO_DIR}/tests/ci/clean_images.sh"
+    fi
 
     echo "Exiting with RC=$exitcode"
 
