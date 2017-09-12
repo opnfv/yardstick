@@ -416,8 +416,8 @@ class ClientResourceHelper(ResourceHelper):
 
     def _build_ports(self):
         self.networks = self.vnfd_helper.port_pairs.networks
-        self.priv_ports = self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.priv_ports)
-        self.pub_ports = self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.pub_ports)
+        self.priv_ports = self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.uplink_ports)
+        self.pub_ports = self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.downlink_ports)
         self.all_ports = self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.all_ports)
 
     def get_stats(self, *args, **kwargs):
@@ -704,8 +704,8 @@ class SampleVNF(GenericVNF):
     def _build_ports(self):
         self._port_pairs = PortPairs(self.vnfd_helper.interfaces)
         self.networks = self._port_pairs.networks
-        self.priv_ports = self.vnfd_helper.port_nums(self._port_pairs.priv_ports)
-        self.pub_ports = self.vnfd_helper.port_nums(self._port_pairs.pub_ports)
+        self.priv_ports = self.vnfd_helper.port_nums(self._port_pairs.uplink_ports)
+        self.pub_ports = self.vnfd_helper.port_nums(self._port_pairs.downlink_ports)
         self.my_ports = self.vnfd_helper.port_nums(self._port_pairs.all_ports)
 
     def _get_route_data(self, route_index, route_type):

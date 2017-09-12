@@ -22,17 +22,17 @@ scenarios:
   topology: prox-tg-topology-4.yaml
 
   nodes:
-    tg__1: trafficgen_1.yardstick
-    vnf__1: vnf.yardstick
+    tg__0: trafficgen_1.yardstick
+    vnf__0: vnf.yardstick
 
   options:
-    vnf__1:
+    vnf__0:
       prox_path: /root/dppd-PROX-v037/build/prox
       prox_config: "configs/handle_l2fwd-4.cfg"
       prox_args:
         "-t": ""
 
-    tg__1:
+    tg__0:
       prox_path: /root/dppd-PROX-v037/build/prox
       prox_config: "configs/gen_l2fwd-4.cfg"
       prox_args:
@@ -73,25 +73,25 @@ context:
       cidr: '10.0.1.0/24'
     xe0:
       cidr: '10.0.2.0/24'
-      vld_id: public
+      vld_id: downlink
       allowed_address_pairs:
         - ip_address:
             '0.0.0.0/0'
     xe1:
       cidr: '10.0.3.0/24'
-      vld_id: private
+      vld_id: uplink
       allowed_address_pairs:
         - ip_address:
             '0.0.0.0/0'
     xe2:
       cidr: '10.0.4.0/24'
-      vld_id: public
+      vld_id: downlink
       allowed_address_pairs:
         - ip_address:
             '0.0.0.0/0'
     xe3:
       cidr: '10.0.5.0/24'
-      vld_id: private
+      vld_id: uplink
       allowed_address_pairs:
         - ip_address:
             '0.0.0.0/0'

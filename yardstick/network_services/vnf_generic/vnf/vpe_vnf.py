@@ -215,8 +215,8 @@ class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
 
     def _build_vnf_ports(self):
         self._port_pairs = PortPairs(self.vnfd_helper.interfaces)
-        self.priv_ports = self._port_pairs.priv_ports
-        self.pub_ports = self._port_pairs.pub_ports
+        self.priv_ports = self._port_pairs.uplink_ports
+        self.pub_ports = self._port_pairs.downlink_ports
         self.all_ports = self._port_pairs.all_ports
 
     def build_config(self):
@@ -226,8 +226,8 @@ class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
         }
 
         self._build_vnf_ports()
-        vpe_conf = ConfigCreate(self.vnfd_helper.port_pairs.priv_ports,
-                                self.vnfd_helper.port_pairs.pub_ports, self.socket)
+        vpe_conf = ConfigCreate(self.vnfd_helper.port_pairs.uplink_ports,
+                                self.vnfd_helper.port_pairs.downlink_ports, self.socket)
         vpe_conf.create_vpe_config(self.scenario_helper.vnf_cfg)
 
         config_basename = posixpath.basename(self.CFG_CONFIG)

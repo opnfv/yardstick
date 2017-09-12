@@ -170,7 +170,7 @@ class NetworkServiceTestCase(base.Scenario):
         flow = {}
         try:
             # TODO: should be .0  or .1 so we can use list
-            # but this also roughly matches private_0, public_0
+            # but this also roughly matches uplink_0, downlink_0
             fflow = self.scenario_cfg["options"]["flow"]
             for index, src in enumerate(fflow.get("src_ip", [])):
                 flow["src_ip_{}".format(index)] = self._get_ip_flow_range(src)
@@ -204,8 +204,8 @@ class NetworkServiceTestCase(base.Scenario):
         traffic_map_data = {
             'flow': self._get_traffic_flow(),
             'imix': self._get_traffic_imix(),
-            'private': {},
-            'public': {},
+            TrafficProfile.UPLINK: {},
+            TrafficProfile.DOWNLINK: {},
         }
 
         traffic_vnfd = vnfdgen.generate_vnfd(traffic_mapping, traffic_map_data)
@@ -234,7 +234,7 @@ class NetworkServiceTestCase(base.Scenario):
             # check for xe0, xe1
             intf = nodes[name]["interfaces"][if_name]
         except KeyError:
-            # if not xe0, then maybe vld_id,  private_0, public_0
+            # if not xe0, then maybe vld_id,  uplink_0, downlink_0
             # pop it and re-insert with the correct name from topology
             intf = nodes[name]["interfaces"].pop(vld_id)
             nodes[name]["interfaces"][if_name] = intf

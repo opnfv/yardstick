@@ -44,17 +44,17 @@ traffic_profile:
   frame_rate : 100  # pc of linerate
   # that specifies a range (e.g. ipv4 address, port)
 
-private_1:
+uplink_0:
       ipv4:
         outer_l2:
             framesize:
-                64B: "{{ get(imix, 'imix.private.imix_small', '0') }}"
-                128B: "{{ get(imix, 'imix.private.imix_128B', '0') }}"
-                256B: "{{ get(imix, 'imix.private.imix_256B', '0') }}"
-                373b: "{{ get(imix, 'imix.private.imix_373B', '0') }}"
-                570B: "{{get(imix, 'imix.private.imix_570B', '0') }}"
-                1400B: "{{get(imix, 'imix.private.imix_1400B', '0') }}"
-                1518B: "{{get(imix, 'imix.private.imix_1500B', '0') }}"
+                64B: "{{ get(imix, 'imix.uplink.imix_small', '0') }}"
+                128B: "{{ get(imix, 'imix.uplink.imix_128B', '0') }}"
+                256B: "{{ get(imix, 'imix.uplink.imix_256B', '0') }}"
+                373b: "{{ get(imix, 'imix.uplink.imix_373B', '0') }}"
+                570B: "{{get(imix, 'imix.uplink.imix_570B', '0') }}"
+                1400B: "{{get(imix, 'imix.uplink.imix_1400B', '0') }}"
+                1518B: "{{get(imix, 'imix.uplink.imix_1500B', '0') }}"
 
             QinQ:
                 S-VLAN:
@@ -78,17 +78,17 @@ private_1:
             srcport: "{{get(flow, 'flow.src_port_0', '0') }}"
             dstport: "{{get(flow, 'flow.dst_port_0', '0') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
-public_1:
+downlink_0:
       ipv4:
         outer_l2:
             framesize:
-                64B: "{{ get(imix, 'imix.private.imix_small', '0') }}"
-                128B: "{{ get(imix, 'imix.private.imix_128B', '0') }}"
-                256B: "{{ get(imix, 'imix.private.imix_256B', '0') }}"
-                373b: "{{ get(imix, 'imix.private.imix_373B', '0') }}"
-                570B: "{{get(imix, 'imix.private.imix_570B', '0') }}"
-                1400B: "{{get(imix, 'imix.private.imix_1400B', '0') }}"
-                1518B: "{{get(imix, 'imix.private.imix_1500B', '0') }}"
+                64B: "{{ get(imix, 'imix.uplink.imix_small', '0') }}"
+                128B: "{{ get(imix, 'imix.uplink.imix_128B', '0') }}"
+                256B: "{{ get(imix, 'imix.uplink.imix_256B', '0') }}"
+                373b: "{{ get(imix, 'imix.uplink.imix_373B', '0') }}"
+                570B: "{{get(imix, 'imix.uplink.imix_570B', '0') }}"
+                1400B: "{{get(imix, 'imix.uplink.imix_1400B', '0') }}"
+                1518B: "{{get(imix, 'imix.uplink.imix_1500B', '0') }}"
 
         outer_l3v4:
             proto: "tcp"
@@ -102,17 +102,17 @@ public_1:
             srcport: "{{get(flow, 'flow.dst_port_0', '0') }}"
             dstport: "{{get(flow, 'flow.src_port_0', '0') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
-private_2:
+uplink_1:
       ipv4:
         outer_l2:
             framesize:
-                64B: "{{ get(imix, 'imix.private.imix_small', '0') }}"
-                128B: "{{ get(imix, 'imix.private.imix_128B', '0') }}"
-                256B: "{{ get(imix, 'imix.private.imix_256B', '0') }}"
-                373b: "{{ get(imix, 'imix.private.imix_373B', '0') }}"
-                570B: "{{get(imix, 'imix.private.imix_570B', '0') }}"
-                1400B: "{{get(imix, 'imix.private.imix_1400B', '0') }}"
-                1518B: "{{get(imix, 'imix.private.imix_1500B', '0') }}"
+                64B: "{{ get(imix, 'imix.uplink.imix_small', '0') }}"
+                128B: "{{ get(imix, 'imix.uplink.imix_128B', '0') }}"
+                256B: "{{ get(imix, 'imix.uplink.imix_256B', '0') }}"
+                373b: "{{ get(imix, 'imix.uplink.imix_373B', '0') }}"
+                570B: "{{get(imix, 'imix.uplink.imix_570B', '0') }}"
+                1400B: "{{get(imix, 'imix.uplink.imix_1400B', '0') }}"
+                1518B: "{{get(imix, 'imix.uplink.imix_1500B', '0') }}"
 
             QinQ:
                 S-VLAN:
@@ -135,17 +135,17 @@ private_2:
             srcport: "{{get(flow, 'flow.src_port1', '0') }}"
             dstport: "{{get(flow, 'flow.dst_port1', '0') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
-public_2:
+downlink_1:
       ipv4:
         outer_l2:
             framesize:
-                64B: "{{ get(imix, 'imix.private.imix_small', '0') }}"
-                128B: "{{ get(imix, 'imix.private.imix_128B', '0') }}"
-                256B: "{{ get(imix, 'imix.private.imix_256B', '0') }}"
-                373b: "{{ get(imix, 'imix.private.imix_373B', '0') }}"
-                570B: "{{get(imix, 'imix.private.imix_570B', '0') }}"
-                1400B: "{{get(imix, 'imix.private.imix_1400B', '0') }}"
-                1518B: "{{get(imix, 'imix.private.imix_1500B', '0') }}"
+                64B: "{{ get(imix, 'imix.uplink.imix_small', '0') }}"
+                128B: "{{ get(imix, 'imix.uplink.imix_128B', '0') }}"
+                256B: "{{ get(imix, 'imix.uplink.imix_256B', '0') }}"
+                373b: "{{ get(imix, 'imix.uplink.imix_373B', '0') }}"
+                570B: "{{get(imix, 'imix.uplink.imix_570B', '0') }}"
+                1400B: "{{get(imix, 'imix.uplink.imix_1400B', '0') }}"
+                1518B: "{{get(imix, 'imix.uplink.imix_1500B', '0') }}"
 
         outer_l3v4:
             proto: "tcp"

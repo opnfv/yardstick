@@ -70,7 +70,7 @@ class CgnaptApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
             interfaces = self.vnfd_helper.interfaces
 
         # fixme: Get private port and gateway from port list
-        priv_ports = self.vnfd_helper.port_pairs.priv_ports
+        priv_ports = self.vnfd_helper.port_pairs.uplink_ports
         return [self._get_ports_gateway(intf["name"]) for intf in priv_ports]
 
 

@@ -192,7 +192,7 @@ class TestVpeApproxVnf(unittest.TestCase):
                             'dst_ip': '152.16.100.20',
                             'local_iface_name': 'xe0',
                             'local_mac': '00:00:00:00:00:02',
-                            'vld_id': 'private_0',
+                            'vld_id': 'uplink_0',
                             'ifname': 'xe0',
                         },
                         'vnfd-connection-point-ref': 'xe0',
@@ -211,7 +211,7 @@ class TestVpeApproxVnf(unittest.TestCase):
                             'dst_ip': '152.16.40.20',
                             'local_iface_name': 'xe1',
                             'local_mac': '00:00:00:00:00:01',
-                            'vld_id': 'public_0',
+                            'vld_id': 'downlink_0',
                             'ifname': 'xe1',
                         },
                         'vnfd-connection-point-ref': 'xe1',
@@ -310,7 +310,7 @@ class TestVpeApproxVnf(unittest.TestCase):
                 'interfaces': {
                     'xe0': {
                         'local_iface_name': 'ens513f0',
-                        'vld_id': 'public',
+                        'vld_id': VpeApproxVnf.DOWNLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.40.20',
                         'dst_mac': '00:00:00:00:00:01',
@@ -344,7 +344,7 @@ class TestVpeApproxVnf(unittest.TestCase):
                 'interfaces': {
                     'xe0': {
                         'local_iface_name': 'ens785f0',
-                        'vld_id': 'private',
+                        'vld_id': VpeApproxVnf.UPLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.100.20',
                         'dst_mac': '00:00:00:00:00:02',
@@ -375,7 +375,7 @@ class TestVpeApproxVnf(unittest.TestCase):
                 'interfaces': {
                     'xe0': {
                         'local_iface_name': 'ens786f0',
-                        'vld_id': 'private',
+                        'vld_id': VpeApproxVnf.UPLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.100.19',
                         'dst_mac': '00:00:00:00:00:04',
@@ -387,7 +387,7 @@ class TestVpeApproxVnf(unittest.TestCase):
                     },
                     'xe1': {
                         'local_iface_name': 'ens786f1',
-                        'vld_id': 'public',
+                        'vld_id': VpeApproxVnf.DOWNLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.40.19',
                         'dst_mac': '00:00:00:00:00:03',

@@ -22,17 +22,17 @@ scenarios:
   topology: prox-tg-topology-2.yaml
 
   nodes:
-    tg__1: trafficgen_1.yardstick
-    vnf__1: vnf.yardstick
+    tg__0: trafficgen_1.yardstick
+    vnf__0: vnf.yardstick
 
   options:
-    vnf__1:
+    vnf__0:
       prox_path: /root/dppd-PROX-v037/build/prox
       prox_config: "configs/handle_l2fwd_pktTouch-2.cfg"
       prox_args:
         "-t": ""
 
-    tg__1:
+    tg__0:
       prox_path: /root/dppd-PROX-v037/build/prox
       prox_config: "configs/gen_l2fwd_pktTouch-2.cfg"
       prox_args:

@@ -78,7 +78,7 @@ class IXIARFC2544Profile(TrexProfile):
 
     def _ixia_traffic_generate(self, traffic_generator, traffic, ixia_obj):
         for key, value in traffic.items():
-            if "public" in key or "private" in key:
+            if key.startswith((self.UPLINK, self.DOWNLINK)):
                 value["iload"] = str(self.rate)
         ixia_obj.ix_update_frame(traffic)
         ixia_obj.ix_update_ether(traffic)
@@ -90,7 +90,7 @@ class IXIARFC2544Profile(TrexProfile):
     def update_traffic_profile(self, traffic_generator):
         def port_generator():
             for vld_id, intfs in sorted(traffic_generator.networks.items()):
-                if not vld_id.startswith(("private", "public")):
+                if not vld_id.startswith((self.UPLINK, self.DOWNLINK)):
                     continue
                 profile_data = self.params.get(vld_id)
                 if not profile_data:

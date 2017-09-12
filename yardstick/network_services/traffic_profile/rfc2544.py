@@ -58,7 +58,7 @@ class RFC2544Profile(TrexProfile):
             if not profile_data:
                 continue
             # correlated traffic doesn't use public traffic?
-            if vld_id.startswith("public") and self.generator.rfc2544_helper.correlated_traffic:
+            if vld_id.startswith(self.DOWNLINK) and self.generator.rfc2544_helper.correlated_traffic:
                 continue
             for intf in intfs:
                 port = self.generator.vnfd_helper.port_num(intf)
@@ -165,7 +165,7 @@ class RFC2544Profile(TrexProfile):
             if not profile_data:
                 continue
             # correlated traffic doesn't use public traffic?
-            if vld_id.startswith("public") and self.generator.rfc2544_helper.correlated_traffic:
+            if vld_id.startswith(self.DOWNLINK) and self.generator.rfc2544_helper.correlated_traffic:
                 continue
             for intf in intfs:
                 port = self.generator.vnfd_helper.port_num(intf)

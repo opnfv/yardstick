@@ -64,8 +64,8 @@ SCRIPT_TPL = """
 
 class PortPairs(object):
 
-    PUBLIC = "public"
-    PRIVATE = "private"
+    DOWNLINK = "downlink"
+    UPLINK = "uplink"
 
     def __init__(self, interfaces):
         super(PortPairs, self).__init__()
@@ -95,11 +95,11 @@ class PortPairs(object):
     @classmethod
     def get_public_id(cls, vld_id):
         # partition returns a tuple
-        parts = list(vld_id.partition(cls.PRIVATE))
+        parts = list(vld_id.partition(cls.UPLINK))
         if parts[0]:
             # 'private' was not in or not leftmost in the string
             return
-        parts[1] = cls.PUBLIC
+        parts[1] = cls.DOWNLINK
         public_id = ''.join(parts)
         return public_id
 
@@ -117,23 +117,23 @@ class PortPairs(object):
     @property
     def all_ports(self):
         if self._all_ports is None:
-            self._all_ports = sorted(set(self.priv_ports + self.pub_ports))
+            self._all_ports = sorted(set(self.uplink_ports + self.downlink_ports))
         return self._all_ports
 
     @property
-    def priv_ports(self):
+    def uplink_ports(self):
         if self._priv_ports is None:
             intfs = chain.from_iterable(
                 intfs for vld_id, intfs in self.networks.items() if
-                vld_id.startswith(self.PRIVATE))
+                vld_id.startswith(self.UPLINK))
             self._priv_ports = sorted(set(intfs))
         return self._priv_ports
 
     @property
-    def pub_ports(self):
+    def downlink_ports(self):
         if self._pub_ports is None:
             intfs = chain.from_iterable(
-                intfs for vld_id, intfs in self.networks.items() if vld_id.startswith(self.PUBLIC))
+                intfs for vld_id, intfs in self.networks.items() if vld_id.startswith(self.DOWNLINK))
             self._pub_ports = sorted(set(intfs))
         return self._pub_ports
 

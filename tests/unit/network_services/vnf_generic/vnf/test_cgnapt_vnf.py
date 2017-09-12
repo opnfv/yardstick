@@ -73,7 +73,7 @@ link 1 up
 
     def test__get_cgnapt_config(self):
         vnfd_helper = mock.Mock()
-        vnfd_helper.port_pairs.priv_ports = [{"name": 'a'}, {"name": "b"}, {"name": "c"}]
+        vnfd_helper.port_pairs.uplink_ports = [{"name": 'a'}, {"name": "b"}, {"name": "c"}]
 
         helper = CgnaptApproxSetupEnvHelper(vnfd_helper, mock.Mock(), mock.Mock())
         helper._get_ports_gateway = mock.Mock(side_effect=[3, 5, 2])
@@ -206,7 +206,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens513f0',
-                                       'vld_id': 'public',
+                                       'vld_id': CgnaptApproxVnf.DOWNLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.40.20',
                                        'dst_mac': '00:00:00:00:00:01',
@@ -234,7 +234,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens785f0',
-                                       'vld_id': 'private',
+                                       'vld_id': CgnaptApproxVnf.UPLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.100.20',
                                        'dst_mac': '00:00:00:00:00:02',
@@ -259,7 +259,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens786f0',
-                                       'vld_id': 'private',
+                                       'vld_id': CgnaptApproxVnf.UPLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.100.19',
                                        'dst_mac': '00:00:00:00:00:04',
@@ -269,7 +269,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                                        'vpci': '0000:05:00.0',
                                        'dpdk_port_num': 0},
                                'xe1': {'local_iface_name': 'ens786f1',
-                                       'vld_id': 'public',
+                                       'vld_id': CgnaptApproxVnf.DOWNLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.40.19',
                                        'dst_mac': '00:00:00:00:00:03',
