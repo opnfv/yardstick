@@ -33,11 +33,11 @@ from six.moves import zip, StringIO
 from six.moves import cStringIO
 
 from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
+from yardstick.common import utils
 from yardstick.common.utils import SocketTopology, ip_to_hex, join_non_strings, try_int
 from yardstick.network_services.vnf_generic.vnf.iniparser import ConfigParser
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
-
 
 PROX_PORT = 8474
 
@@ -82,7 +82,6 @@ CONFIGURATION_OPTIONS = (
 
 
 class CoreSocketTuple(namedtuple('CoreTuple', 'core_id, socket_id, hyperthread')):
-
     CORE_RE = re.compile(r"core\s+(\d+)(?:s(\d+))?(h)?$")
 
     def __new__(cls, *args):
@@ -115,7 +114,6 @@ class CoreSocketTuple(namedtuple('CoreTuple', 'core_id, socket_id, hyperthread')
 
 
 class TotStatsTuple(namedtuple('TotStats', 'rx,tx,tsc,hz')):
-
     def __new__(cls, *args):
         try:
             assert args[0] is not str(args[0])
@@ -129,7 +127,6 @@ class TotStatsTuple(namedtuple('TotStats', 'rx,tx,tsc,hz')):
 class ProxTestDataTuple(namedtuple('ProxTestDataTuple', 'tolerated,tsc_hz,delta_rx,'
                                                         'delta_tx,delta_tsc,'
                                                         'latency,rx_total,tx_total,pps')):
-
     @property
     def pkt_loss(self):
         try:
@@ -191,7 +188,6 @@ class ProxTestDataTuple(namedtuple('ProxTestDataTuple', 'tolerated,tsc_hz,delta_
 
 
 class PacketDump(object):
-
     @staticmethod
     def assert_func(func, value1, value2, template=None):
         assert func(value1, value2), template.format(value1, value2)
@@ -269,6 +265,16 @@ class ProxSocketHelper(object):
         self._sock = sock
         self._pkt_dumps = []
 
+    def basic_execution(self):
+        self.stop_all()
+        self.reset_stats()
+        try:
+            yield
+            self.start_all()
+            yield
+        finally:
+            self.stop_all()
+
     def connect(self, ip, port):
         """Connect to the prox instance on the remote system"""
         self._sock.connect((ip, port))
@@ -323,6 +329,7 @@ class ProxSocketHelper(object):
 
     def get_data(self, pkt_dump_only=False, timeout=1):
         """ read data from the socket """
+
         # This method behaves slightly differently depending on whether it is
         # called to read the response to a command (pkt_dump_only = 0) or if
         # it is called specifically to read a packet dump (pkt_dump_only = 1).
@@ -434,10 +441,15 @@ class ProxSocketHelper(object):
         LOG.debug("Set value for core(s) %s", cores)
         self._run_template_over_cores("reset values {} 0\n", cores)
 
-    def set_speed(self, cores, speed):
+    def set_speed(self, cores, speed, tasks=None):
         """ set speed on the remote instance """
-        LOG.debug("Set speed for core(s) %s to %g", cores, speed)
-        self._run_template_over_cores("speed {} 0 {}\n", cores, speed)
+        if tasks is None:
+            tasks = [0] * len(cores)
+        elif len(tasks) != len(cores):
+            LOG.error("set_speed: cores and tasks must have the same len")
+        LOG.debug("Set speed for core(s)/tasks(s) %s to %g", list(zip(cores, tasks)), speed)
+        for (core, task) in list(zip(cores, tasks)):
+            self.put_command("speed {} {} {}\n".format(core, task, speed))
 
     def slope_speed(self, cores_speed, duration, n_steps=0):
         """will start to increase speed from 0 to N where N is taken from
@@ -564,7 +576,7 @@ class ProxSocketHelper(object):
         """Activate dump on rx on the specified core"""
         LOG.debug("Activating dump on RX for core %d, task %d, count %d", core_id, task_id, count)
         self.put_command("dump_rx {} {} {}\n".format(core_id, task_id, count))
-        time.sleep(1.5)     # Give PROX time to set up packet dumping
+        time.sleep(1.5)  # Give PROX time to set up packet dumping
 
     def quit(self):
         self.stop_all()
@@ -584,6 +596,9 @@ class ProxSocketHelper(object):
         time.sleep(3)
 
 
+_LOCAL_OBJECT = object()
+
+
 class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
     # the actual app is lowercase
     APP_NAME = 'prox'
@@ -601,6 +616,27 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         self._prox_config_data = None
         self.additional_files = {}
         self.config_queue = Queue()
+        self._global_section = None
+
+    @property
+    def global_section(self):
+        if self._global_section is None and self.prox_config_dict:
+            self._global_section = self.find_section("global")
+        return self._global_section
+
+    def find_section(self, name, default=_LOCAL_OBJECT):
+        result = next((value for key, value in self.prox_config_dict if key == name), default)
+        if result is _LOCAL_OBJECT:
+            raise KeyError('{} not found in Prox config'.format(name))
+        return result
+
+    def find_in_section(self, section_name, section_key, default=_LOCAL_OBJECT):
+        section = self.find_section(section_name, [])
+        result = next((value for key, value in section if key == section_key), default)
+        if result is _LOCAL_OBJECT:
+            template = '{} not found in {} section of Prox config'
+            raise KeyError(template.format(section_key, section_name))
+        return result
 
     def _build_pipeline_kwargs(self):
         tool_path = self.ssh_helper.provision_tool(tool_file=self.APP_NAME)
@@ -814,16 +850,10 @@ class ProxResourceHelper(ClientResourceHelper):
     RESOURCE_WORD = 'prox'
     PROX_CORE_GEN_MODE = "gen"
     PROX_CORE_LAT_MODE = "lat"
-    PROX_CORE_MPLS_TEST = "MPLS tag/untag"
 
     PROX_MODE = ""
 
     WAIT_TIME = 3
-
-    @staticmethod
-    def line_rate_to_pps(pkt_size, n_ports):
-        # FIXME Don't hardcode 10Gb/s
-        return n_ports * TEN_GIGABIT / BITS_PER_BYTE / (pkt_size + 20)
 
     @staticmethod
     def find_pci(pci, bound_pci):
@@ -845,8 +875,9 @@ class ProxResourceHelper(ClientResourceHelper):
         self.upper = None
         self._test_cores = None
         self._latency_cores = None
-        self._tagged_cores = None
-        self._plain_cores = None
+        self.step_delta = 1
+        self.step_time = 0.5
+        self._test_type = None
 
     @property
     def sut(self):
@@ -869,24 +900,23 @@ class ProxResourceHelper(ClientResourceHelper):
         return self._test_cores
 
     @property
-    def mpls_cores(self):
-        if not self._tagged_cores:
-            self._tagged_cores, self._plain_cores = self.get_cores_mpls(self.PROX_CORE_GEN_MODE)
-        return self._tagged_cores, self._plain_cores
-
-    @property
-    def tagged_cores(self):
-        return self.mpls_cores[0]
-
-    @property
-    def plain_cores(self):
-        return self.mpls_cores[1]
-
-    @property
     def latency_cores(self):
         if not self._latency_cores:
             self._latency_cores = self.get_cores(self.PROX_CORE_LAT_MODE)
         return self._latency_cores
+
+    @property
+    def all_rx_cores(self):
+        return self.latency_cores
+
+    @property
+    def test_type(self):
+        if self._test_type is None:
+            self._test_type = self.setup_helper.find_in_section('global', 'name', None)
+        return self._test_type
+
+    def run_test(self, pkt_size, duration, value, tolerated_loss=0.0):
+        raise NotImplementedError()
 
     def run_traffic(self, traffic_profile):
         self.lower = 0.0
@@ -931,76 +961,6 @@ class ProxResourceHelper(ClientResourceHelper):
         if func:
             return func(*args, **kwargs)
 
-    @contextmanager
-    def traffic_context(self, pkt_size, value):
-        self.sut.stop_all()
-        self.sut.reset_stats()
-        if self.get_test_type() == self.PROX_CORE_MPLS_TEST:
-            self.sut.set_pkt_size(self.tagged_cores, pkt_size)
-            self.sut.set_pkt_size(self.plain_cores, pkt_size - 4)
-            self.sut.set_speed(self.tagged_cores, value)
-            ratio = 1.0 * (pkt_size - 4 + 20) / (pkt_size + 20)
-            self.sut.set_speed(self.plain_cores, value * ratio)
-        else:
-            self.sut.set_pkt_size(self.test_cores, pkt_size)
-            self.sut.set_speed(self.test_cores, value)
-
-        self.sut.start_all()
-        try:
-            yield
-        finally:
-            self.sut.stop_all()
-
-    def run_test(self, pkt_size, duration, value, tolerated_loss=0.0):
-        # do this assert in init?  unless we expect interface count to
-        # change from one run to another run...
-        ports = self.vnfd_helper.port_pairs.all_ports
-        port_count = len(ports)
-        assert port_count in {1, 2, 4}, \
-            "Invalid number of ports: 1, 2 or 4 ports only supported at this time"
-
-        with self.traffic_context(pkt_size, value):
-            # Getting statistics to calculate PPS at right speed....
-            tsc_hz = float(self.sut.hz())
-            time.sleep(2)
-            with self.sut.measure_tot_stats() as data:
-                time.sleep(duration)
-
-            # Get stats before stopping the cores. Stopping cores takes some time
-            # and might skew results otherwise.
-            latency = self.get_latency()
-
-        deltas = data['delta']
-        rx_total, tx_total = self.sut.port_stats(range(port_count))[6:8]
-        pps = value / 100.0 * self.line_rate_to_pps(pkt_size, port_count)
-
-        samples = {}
-        # we are currently using enumeration to map logical port num to interface
-        for port_name in ports:
-            port = self.vnfd_helper.port_num(port_name)
-            port_rx_total, port_tx_total = self.sut.port_stats([port])[6:8]
-            samples[port_name] = {
-                "in_packets": port_rx_total,
-                "out_packets": port_tx_total,
-            }
-
-        result = ProxTestDataTuple(tolerated_loss, tsc_hz, deltas.rx, deltas.tx,
-                                   deltas.tsc, latency, rx_total, tx_total, pps)
-        result.log_data()
-        return result, samples
-
-    def get_test_type(self):
-        test_type = None
-        for section_name, section in self.setup_helper.prox_config_data:
-            if section_name != "global":
-                continue
-
-            for key, value in section:
-                if key == "name" and value == self.PROX_CORE_MPLS_TEST:
-                    test_type = self.PROX_CORE_MPLS_TEST
-
-        return test_type
-
     def get_cores(self, mode):
         cores = []
 
@@ -1015,29 +975,6 @@ class ProxResourceHelper(ClientResourceHelper):
                     cores.append(core)
 
         return cores
-
-    def get_cores_mpls(self, mode=PROX_CORE_GEN_MODE):
-        cores_tagged = []
-        cores_plain = []
-        for section_name, section in self.setup_helper.prox_config_data:
-            if not section_name.startswith("core"):
-                continue
-
-            if all(key != "mode" or value != mode for key, value in section):
-                continue
-
-            for item_key, item_value in section:
-                if item_key == "name" and item_value.startswith("tag"):
-                    core_tuple = CoreSocketTuple(section_name)
-                    core_tag = core_tuple.find_in_topology(self.cpu_topology)
-                    cores_tagged.append(core_tag)
-
-                elif item_key == "name" and item_value.startswith("udp"):
-                    core_tuple = CoreSocketTuple(section_name)
-                    core_udp = core_tuple.find_in_topology(self.cpu_topology)
-                    cores_plain.append(core_udp)
-
-        return cores_tagged, cores_plain
 
     def get_latency(self):
         """
@@ -1081,3 +1018,392 @@ class ProxResourceHelper(ClientResourceHelper):
 
         msg = "Failed to connect to prox, please check if system {} accepts connections on port {}"
         raise Exception(msg.format(self._ip, PROX_PORT))
+
+
+class ProxDataHelper(object):
+
+    def __init__(self, vnfd_helper, sut, pkt_size, value, tolerated_loss):
+        super(ProxDataHelper, self).__init__()
+        self.vnfd_helper = vnfd_helper
+        self.sut = sut
+        self.pkt_size = pkt_size
+        self.value = value
+        self.tolerated_loss = tolerated_loss
+        self.port_count = len(self.vnfd_helper.port_pairs.all_ports)
+        self.tsc_hz = None
+        self.deltas = None
+        self.latency = None
+        self._totals_and_pps = None
+        self.result_tuple = None
+
+    @property
+    def totals_and_pps(self):
+        if self._totals_and_pps is None:
+            rx_total, tx_total = self.sut.port_stats(range(self.port_count))[6:8]
+            pps = self.value / 100.0 * self.line_rate_to_pps()
+            self._totals_and_pps = rx_total, tx_total, pps
+        return self._totals_and_pps
+
+    @property
+    def rx_total(self):
+        return self.totals_and_pps[0]
+
+    @property
+    def tx_total(self):
+        return self.totals_and_pps[1]
+
+    @property
+    def pps(self):
+        return self.totals_and_pps[2]
+
+    @property
+    def samples(self):
+        samples = {}
+        for port_name, port_num in self.vnfd_helper.ports_iter():
+            port_rx_total, port_tx_total = self.sut.port_stats([port_num])[6:8]
+            samples[port_name] = {
+                "in_packets": port_rx_total,
+                "out_packets": port_tx_total,
+            }
+        return samples
+
+    def __enter__(self):
+        self.check_interface_count()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.make_tuple()
+
+    def make_tuple(self):
+        if self.result_tuple:
+            return
+
+        self.result_tuple = ProxTestDataTuple(
+            self.tolerated_loss,
+            self.tsc_hz,
+            self.deltas.rx,
+            self.deltas.tx,
+            self.deltas.tsc,
+            self.latency,
+            self.rx_total,
+            self.tx_total,
+            self.pps,
+        )
+        self.result_tuple.log_data()
+
+    @contextmanager
+    def measure_tot_stats(self):
+        with self.sut.measure_tot_stats() as self.deltas:
+            yield
+
+    def check_interface_count(self):
+        # do this assert in init?  unless we expect interface count to
+        # change from one run to another run...
+        assert self.port_count in {1, 2, 4}, \
+            "Invalid number of ports: 1, 2 or 4 ports only supported at this time"
+
+    def capture_tsc_hz(self):
+        self.tsc_hz = float(self.sut.hz())
+
+    def line_rate_to_pps(self):
+        # FIXME Don't hardcode 10Gb/s
+        return self.port_count * TEN_GIGABIT / BITS_PER_BYTE / (self.pkt_size + 20)
+
+
+class ProxProfileHelper(object):
+
+    PROX_PROFILE_TYPE = "Generic"
+
+    @classmethod
+    def get_cls(cls, helper_type):
+        """Return class of specified type."""
+        if not helper_type:
+            return ProxProfileHelper
+
+        for profile_helper_class in utils.itersubclasses(cls):
+            if None != helper_type == profile_helper_class.PROX_PROFILE_TYPE:
+                return profile_helper_class
+
+        raise RuntimeError("No such context_type %s" % helper_type)
+
+    @classmethod
+    def make_helper(cls, resource_helper):
+        return cls.get_cls(resource_helper.test_type)(resource_helper)
+
+    def __init__(self, resource_helper):
+        super(ProxProfileHelper, self).__init__()
+        self.resource_helper = resource_helper
+
+    @contextmanager
+    def traffic_context(self, pkt_size, value):
+        basic_exec = self.sut.basic_execution(self)
+        next(basic_exec)  # stop and reset stats
+        self.sut.set_pkt_size(self.test_cores, pkt_size)
+        self.sut.set_speed(self.test_cores, value)
+        next(basic_exec)  # start traffic
+        yield
+        list(basic_exec)  # drain the exec: stop traffic
+
+    def _first_stage(self, data_helper):
+        # Getting statistics to calculate PPS at right speed....
+        data_helper.capture_tsc_hz()
+        time.sleep(2)
+
+    def _second_stage(self, data_helper):
+        pass
+
+    def _third_stage(self, data_helper):
+        pass
+
+    def _fourth_stage(self, data_helper):
+        # Get stats before stopping the cores. Stopping cores takes some time
+        # and might skew results otherwise.
+        data_helper.latency = self.get_latency()
+
+    def run_test(self, pkt_size, duration, value, tolerated_loss=0.0):
+        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
+                                      value, tolerated_loss)
+
+        with data_helper, self.traffic_context(pkt_size, value):
+            self._first_stage(data_helper)
+            with data_helper.measure_tot_stats():
+                self._second_stage(data_helper)
+                time.sleep(duration)
+                self._third_stage(data_helper)
+            self._fourth_stage(data_helper)
+
+        return data_helper.result_tuple, data_helper.samples
+
+    def terminate(self):
+        pass
+
+    def __getattr__(self, item):
+        return getattr(self.resource_helper, item)
+
+
+class ProxMplsProfileHelper(ProxProfileHelper):
+
+    PROX_PROFILE_TYPE = "MPLS tag/untag"
+
+    def __init__(self, resource_helper):
+        super(ProxMplsProfileHelper, self).__init__(resource_helper)
+        self._cores_tuple = None
+
+    @property
+    def mpls_cores(self):
+        if not self._cores_tuple:
+            self._cores_tuple = self.get_cores_mpls()
+        return self._cores_tuple
+
+    @property
+    def tagged_cores(self):
+        return self.mpls_cores[0]
+
+    @property
+    def plain_cores(self):
+        return self.mpls_cores[1]
+
+    def get_cores_mpls(self):
+        cores_tagged = []
+        cores_plain = []
+        for section_name, section in self.setup_helper.prox_config_dict:
+            if not section_name.startswith("core"):
+                continue
+
+            if all(key != "mode" or value != self.PROX_CORE_GEN_MODE for key, value in section):
+                continue
+
+            for item_key, item_value in section:
+                if item_key != 'name':
+                    continue
+
+                if item_value.startswith("tag"):
+                    core_tuple = CoreSocketTuple(section_name)
+                    core_tag = core_tuple.find_in_topology(self.cpu_topology)
+                    cores_tagged.append(core_tag)
+
+                elif item_value.startswith("udp"):
+                    core_tuple = CoreSocketTuple(section_name)
+                    core_udp = core_tuple.find_in_topology(self.cpu_topology)
+                    cores_plain.append(core_udp)
+
+        return cores_tagged, cores_plain
+
+    @contextmanager
+    def traffic_context(self, pkt_size, value):
+        basic_exec = self.sut.basic_execution()
+        next(basic_exec)  # stop and reset stats
+        self.sut.set_pkt_size(self.tagged_cores, pkt_size)
+        self.sut.set_pkt_size(self.plain_cores, pkt_size - 4)
+        self.sut.set_speed(self.tagged_cores, value)
+        ratio = 1.0 * (pkt_size - 4 + 20) / (pkt_size + 20)
+        self.sut.set_speed(self.plain_cores, value * ratio)
+        next(basic_exec)  # start traffic
+        yield
+        list(basic_exec)  # drain the exec: stop traffic
+
+
+class ProxBngProfileHelper(ProxProfileHelper):
+
+    HELPER_TYPE = "BNG gen"
+
+    def __init__(self, resource_helper):
+        super(ProxBngProfileHelper, self).__init__(resource_helper)
+        self._cores_tuple = None
+
+    @property
+    def bng_cores(self):
+        if not self._cores_tuple:
+            self._cores_tuple = self.get_cores_gen_bng_qos()
+        return self._cores_tuple
+
+    @property
+    def cpe_cores(self):
+        return self.bng_cores[0]
+
+    @property
+    def inet_cores(self):
+        return self.bng_cores[1]
+
+    @property
+    def arp_cores(self):
+        return self.bng_cores[2]
+
+    @property
+    def arp_task_cores(self):
+        return self.bng_cores[3]
+
+    def get_cores_gen_bng_qos(self):
+        cpe_cores = []
+        inet_cores = []
+        arp_cores = []
+        arp_tasks_core = [0]
+        for section_name, section in self.setup_helper.prox_config_dict:
+            if not section_name.startswith("core"):
+                continue
+
+            if all(key != "mode" or value != self.PROX_CORE_GEN_MODE for key, value in section):
+                continue
+
+            for item_key, item_value in section:
+                if item_key == "name" and item_value.startswith("cpe"):
+                    core_tuple = CoreSocketTuple(section_name)
+                    core_tag = core_tuple.find_in_topology(self.cpu_topology)
+                    cpe_cores.append(core_tag)
+
+                elif item_key == "name" and item_value.startswith("inet"):
+                    core_tuple = CoreSocketTuple(section_name)
+                    inet_core = core_tuple.find_in_topology(self.cpu_topology)
+                    inet_cores.append(inet_core)
+
+                elif item_key == "name" and item_value.startswith("arp"):
+                    core_tuple = CoreSocketTuple(section_name)
+                    arp_core = core_tuple.find_in_topology(self.cpu_topology)
+                    arp_cores.append(arp_core)
+
+                # We check the tasks/core separately
+                if item_key == "name" and item_value.startswith("arp_task"):
+                    core_tuple = CoreSocketTuple(section_name)
+                    arp_task_core = core_tuple.find_in_topology(self.cpu_topology)
+                    arp_tasks_core.append(arp_task_core)
+
+        return cpe_cores, inet_cores, arp_cores, arp_tasks_core
+
+    @contextmanager
+    def traffic_context(self, pkt_size, value):
+        # Tester is sending packets at the required speed already after
+        # setup_test(). Just get the current statistics, sleep the required
+        # amount of time and calculate packet loss.
+        inet_pkt_size = pkt_size
+        cpe_pkt_size = pkt_size - 24
+        ratio = 1.0 * (cpe_pkt_size + 20) / (inet_pkt_size + 20)
+
+        curr_up_speed = curr_down_speed = 0
+        max_up_speed = max_down_speed = value
+        if ratio < 1:
+            max_down_speed = value * ratio
+        else:
+            max_up_speed = value / ratio
+
+        # Initialize cores
+        self.sut.stop_all()
+        time.sleep(0.5)
+
+        # Flush any packets in the NIC RX buffers, otherwise the stats will be
+        # wrong.
+        self.sut.start(self.all_rx_cores)
+        time.sleep(0.5)
+        self.sut.stop(self.all_rx_cores)
+        time.sleep(0.5)
+        self.sut.reset_stats()
+
+        self.sut.set_pkt_size(self.inet_cores, inet_pkt_size)
+        self.sut.set_pkt_size(self.cpe_cores, cpe_pkt_size)
+
+        self.sut.reset_values(self.cpe_cores)
+        self.sut.reset_values(self.inet_cores)
+
+        # Set correct IP and UDP lengths in packet headers
+        # CPE
+        # IP length (byte 24): 26 for MAC(12), EthType(2), QinQ(8), CRC(4)
+        self.sut.set_value(self.cpe_cores, 24, cpe_pkt_size - 26, 2)
+        # UDP length (byte 46): 46 for MAC(12), EthType(2), QinQ(8), IP(20), CRC(4)
+        self.sut.set_value(self.cpe_cores, 46, cpe_pkt_size - 46, 2)
+
+        # INET
+        # IP length (byte 20): 22 for MAC(12), EthType(2), MPLS(4), CRC(4)
+        self.sut.set_value(self.inet_cores, 20, inet_pkt_size - 22, 2)
+        # IP length (byte 48): 50 for MAC(12), EthType(2), MPLS(4), IP(20), GRE(8), CRC(4)
+        self.sut.set_value(self.inet_cores, 48, inet_pkt_size - 50, 2)
+        # UDP length (byte 70): 70 for MAC(12), EthType(2), MPLS(4), IP(20), GRE(8), IP(20), CRC(4)
+        self.sut.set_value(self.inet_cores, 70, inet_pkt_size - 70, 2)
+
+        # Sending ARP to initialize tables - need a few seconds of generation
+        # to make sure all CPEs are initialized
+        LOG.info("Initializing SUT: sending ARP packets")
+        self.sut.set_speed(self.arp_cores, 1, self.arp_task_cores)
+        self.sut.set_speed(self.inet_cores, curr_up_speed)
+        self.sut.set_speed(self.cpe_cores, curr_down_speed)
+        self.sut.start(self.arp_cores)
+        time.sleep(4)
+
+        # Ramp up the transmission speed. First go to the common speed, then
+        # increase steps for the faster one.
+        self.sut.start(self.cpe_cores + self.inet_cores + self.latency_cores)
+
+        LOG.info("Ramping up speed to %s up, %s down", str(max_up_speed), str(max_down_speed))
+
+        while (curr_up_speed < max_up_speed) or (curr_down_speed < max_down_speed):
+            # The min(..., ...) takes care of 1) floating point rounding errors
+            # that could make curr_*_speed to be slightly greater than
+            # max_*_speed and 2) max_*_speed not being an exact multiple of
+            # self._step_delta.
+            if curr_up_speed < max_up_speed:
+                curr_up_speed = min(curr_up_speed + self.step_delta, max_up_speed)
+            if curr_down_speed < max_down_speed:
+                curr_down_speed = min(curr_down_speed + self.step_delta, max_down_speed)
+
+            self.sut.set_speed(self.inet_cores, curr_up_speed)
+            self.sut.set_speed(self.cpe_cores, curr_down_speed)
+            time.sleep(self.step_time)
+
+        LOG.info("Target speeds reached. Starting real test.")
+
+        yield
+
+        self.sut.stop(self.arp_cores + self.cpe_cores + self.inet_cores)
+        LOG.info("Test ended. Flushing NIC buffers")
+        self.sut.start(self.all_rx_cores)
+        time.sleep(3)
+        self.sut.stop(self.all_rx_cores)
+
+    def _first_stage(self, data_helper):
+        pass
+
+    def _third_stage(self, data_helper):
+        # Getting statistics to calculate PPS at right speed....
+        data_helper.capture_tsc_hz()
+        data_helper.latency = self.get_latency()
+
+    def _fourth_stage(self, data_helper):
+        pass
