@@ -102,7 +102,7 @@ class TestVnfSshHelper(unittest.TestCase):
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.100.20',
                             'local_mac': '00:00:00:00:00:01',
-                            'vld_id': 'private_0',
+                            'vld_id': 'uplink_0',
                             'ifname': 'xe0',
                         },
                         'vnfd-connection-point-ref': 'xe0',
@@ -119,7 +119,7 @@ class TestVnfSshHelper(unittest.TestCase):
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.40.20',
                             'local_mac': '00:00:00:00:00:02',
-                            'vld_id': 'public_0',
+                            'vld_id': 'downlink_0',
                             'ifname': 'xe1',
                         },
                         'vnfd-connection-point-ref': 'xe1',
@@ -300,7 +300,7 @@ class TestSetupEnvHelper(unittest.TestCase):
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.100.20',
                             'local_mac': '00:00:00:00:00:01',
-                            'vld_id': 'private_0',
+                            'vld_id': 'uplink_0',
                             'ifname': 'xe0',
                         },
                         'vnfd-connection-point-ref': 'xe0',
@@ -317,7 +317,7 @@ class TestSetupEnvHelper(unittest.TestCase):
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.40.20',
                             'local_mac': '00:00:00:00:00:02',
-                            'vld_id': 'public_0',
+                            'vld_id': 'downlink_0',
                             'ifname': 'xe1',
                         },
                         'vnfd-connection-point-ref': 'xe1',
@@ -430,7 +430,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.100.20',
                             'local_mac': '00:00:00:00:00:01',
-                            'vld_id': 'private_0',
+                            'vld_id': 'uplink_0',
                             'ifname': 'xe0',
                         },
                         'vnfd-connection-point-ref': 'xe0',
@@ -448,7 +448,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.40.20',
                             'local_mac': '00:00:00:00:00:02',
-                            'vld_id': 'public_0',
+                            'vld_id': 'downlink_0',
                             'ifname': 'xe1',
                         },
                         'vnfd-connection-point-ref': 'xe1',
@@ -1029,7 +1029,7 @@ class TestClientResourceHelper(unittest.TestCase):
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.100.20',
                             'local_mac': '00:00:00:00:00:01',
-                            'vld_id': 'private_0',
+                            'vld_id': 'uplink_0',
                             'ifname': 'xe0',
                         },
                         'vnfd-connection-point-ref': 'xe0',
@@ -1047,7 +1047,7 @@ class TestClientResourceHelper(unittest.TestCase):
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.40.20',
                             'local_mac': '00:00:00:00:00:02',
-                            'vld_id': 'public_0',
+                            'vld_id': 'downlink_0',
                             'ifname': 'xe1',
                         },
                         'vnfd-connection-point-ref': 'xe1',
@@ -1912,8 +1912,8 @@ class TestSampleVnf(unittest.TestCase):
 
         self.assertIsNone(sample_vnf._build_ports())
         self.assertIsNotNone(sample_vnf.networks)
-        self.assertIsNotNone(sample_vnf.priv_ports)
-        self.assertIsNotNone(sample_vnf.pub_ports)
+        self.assertIsNotNone(sample_vnf.uplink_ports)
+        self.assertIsNotNone(sample_vnf.downlink_ports)
         self.assertIsNotNone(sample_vnf.my_ports)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")

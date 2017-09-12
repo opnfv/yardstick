@@ -64,15 +64,15 @@ SCRIPT_TPL = """
 
 class PortPairs(object):
 
-    PUBLIC = "public"
-    PRIVATE = "private"
+    DOWNLINK = "downlink"
+    UPLINK = "uplink"
 
     def __init__(self, interfaces):
         super(PortPairs, self).__init__()
         self.interfaces = interfaces
         self._all_ports = None
-        self._priv_ports = None
-        self._pub_ports = None
+        self._uplink_ports = None
+        self._downlink_ports = None
         self._networks = None
         self._port_pair_list = None
         self._valid_networks = None
@@ -93,62 +93,63 @@ class PortPairs(object):
         return self._networks
 
     @classmethod
-    def get_public_id(cls, vld_id):
+    def get_downlink_id(cls, vld_id):
         # partition returns a tuple
-        parts = list(vld_id.partition(cls.PRIVATE))
+        parts = list(vld_id.partition(cls.UPLINK))
         if parts[0]:
-            # 'private' was not in or not leftmost in the string
+            # 'uplink' was not in or not leftmost in the string
             return
-        parts[1] = cls.PUBLIC
+        parts[1] = cls.DOWNLINK
         public_id = ''.join(parts)
         return public_id
 
     @property
-    # this only works for vnfs that have both private and public visible
+    # this only works for vnfs that have both uplink and public visible
     def valid_networks(self):
         if self._valid_networks is None:
             self._valid_networks = []
             for vld_id in self.networks:
-                public_id = self.get_public_id(vld_id)
-                if public_id in self.networks:
-                    self._valid_networks.append((vld_id, public_id))
+                downlink_id = self.get_downlink_id(vld_id)
+                if downlink_id in self.networks:
+                    self._valid_networks.append((vld_id, downlink_id))
         return self._valid_networks
 
     @property
     def all_ports(self):
         if self._all_ports is None:
-            self._all_ports = sorted(set(self.priv_ports + self.pub_ports))
+            self._all_ports = sorted(set(self.uplink_ports + self.downlink_ports))
         return self._all_ports
 
     @property
-    def priv_ports(self):
-        if self._priv_ports is None:
+    def uplink_ports(self):
+        if self._uplink_ports is None:
             intfs = chain.from_iterable(
                 intfs for vld_id, intfs in self.networks.items() if
-                vld_id.startswith(self.PRIVATE))
-            self._priv_ports = sorted(set(intfs))
-        return self._priv_ports
+                vld_id.startswith(self.UPLINK))
+            self._uplink_ports = sorted(set(intfs))
+        return self._uplink_ports
 
     @property
-    def pub_ports(self):
-        if self._pub_ports is None:
+    def downlink_ports(self):
+        if self._downlink_ports is None:
             intfs = chain.from_iterable(
-                intfs for vld_id, intfs in self.networks.items() if vld_id.startswith(self.PUBLIC))
-            self._pub_ports = sorted(set(intfs))
-        return self._pub_ports
+                intfs for vld_id, intfs in self.networks.items() if
+                vld_id.startswith(self.DOWNLINK))
+            self._downlink_ports = sorted(set(intfs))
+        return self._downlink_ports
 
     @property
     def port_pair_list(self):
         if self._port_pair_list is None:
             self._port_pair_list = []
 
-            for priv, pub in self.valid_networks:
-                for private_intf in self.networks[priv]:
-                    # only VNFs have private, public peers
-                    peer_intfs = self.networks.get(pub, [])
+            for uplink, downlink in self.valid_networks:
+                for uplink_intf in self.networks[uplink]:
+                    # only VNFs have uplink, public peers
+                    peer_intfs = self.networks.get(downlink, [])
                     if peer_intfs:
-                        for public_intf in peer_intfs:
-                            port_pair = private_intf, public_intf
+                        for downlink_intf in peer_intfs:
+                            port_pair = uplink_intf, downlink_intf
                             self._port_pair_list.append(port_pair)
         return self._port_pair_list
 
@@ -341,9 +342,9 @@ class MultiPortConfig(object):
         priv_to_pub_map = [tuple(self.vnfd_helper.port_nums(x)) for x in self.port_pairs]
         # must be list to use .index()
         port_list = list(chain.from_iterable(priv_to_pub_map))
-        priv_ports = (x[0] for x in priv_to_pub_map)
+        uplink_ports = (x[0] for x in priv_to_pub_map)
         self.prv_que_handler = '({})'.format(
-            "".join(("{},".format(port_list.index(x)) for x in priv_ports)))
+            "".join(("{},".format(port_list.index(x)) for x in uplink_ports)))
 
     def generate_arp_route_tbl(self):
         arp_route_tbl_tmpl = "({port0_dst_ip_hex},{port0_netmask_hex},{port_num}," \

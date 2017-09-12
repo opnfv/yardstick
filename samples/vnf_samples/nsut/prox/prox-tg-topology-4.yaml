@@ -20,50 +20,50 @@ nsd:nsd-catalog:
         description: prox-tg-topology
         constituent-vnfd:
         -   member-vnf-index: '1'
-            vnfd-id-ref: tg__1
+            vnfd-id-ref: tg__0
             VNF model: ../../vnf_descriptors/tg_prox_tpl-4.yaml
         -   member-vnf-index: '2'
-            vnfd-id-ref: vnf__1
+            vnfd-id-ref: vnf__0
             VNF model: ../../vnf_descriptors/prox_vnf-4.yaml
         vld:
-        -   id: private
-            name: tg__1 to vnf__1 link 1
+        -   id: uplink_0
+            name: tg__0 to vnf__0 link 1
             type: ELAN
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: '1'
                 vnfd-connection-point-ref: xe0
-                vnfd-id-ref: tg__1
+                vnfd-id-ref: tg__0
             -   member-vnf-index-ref: '2'
                 vnfd-connection-point-ref: xe0
-                vnfd-id-ref: vnf__1
+                vnfd-id-ref: vnf__0
 
-        -   id: public
-            name: vnf__1 to tg__1 link 2
+        -   id: downlink_0
+            name: vnf__0 to tg__0 link 1
             type: ELAN
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: '1'
                 vnfd-connection-point-ref: xe1
-                vnfd-id-ref: vnf__1
+                vnfd-id-ref: vnf__0
             -   member-vnf-index-ref: '2'
                 vnfd-connection-point-ref: xe1
-                vnfd-id-ref: tg__1
-        -   id: public2
-            name: vnf__1 to tg__1 link 3
+                vnfd-id-ref: tg__0
+        -   id: downlink_1
+            name: vnf__0 to tg__0 link 2
             type: ELAN
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: '1'
                 vnfd-connection-point-ref: xe2
-                vnfd-id-ref: vnf__1
+                vnfd-id-ref: vnf__0
             -   member-vnf-index-ref: '2'
                 vnfd-connection-point-ref: xe2
-                vnfd-id-ref: tg__1
-        -   id: public3
-            name: vnf__1 to tg__1 link 4
+                vnfd-id-ref: tg__0
+        -   id: downlink_2
+            name: vnf__0 to tg__0 link 3
             type: ELAN
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: '1'
                 vnfd-connection-point-ref: xe3
-                vnfd-id-ref: vnf__1
+                vnfd-id-ref: vnf__0
             -   member-vnf-index-ref: '2'
                 vnfd-connection-point-ref: xe3
-                vnfd-id-ref: tg__1
+                vnfd-id-ref: tg__0

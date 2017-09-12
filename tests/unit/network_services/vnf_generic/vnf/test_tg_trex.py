@@ -165,7 +165,7 @@ class TestTrexTrafficGen(unittest.TestCase):
                 "interfaces": {
                     "xe0": {
                         "local_iface_name": "ens786f0",
-                        "vld_id": "private",
+                        "vld_id": TrafficProfile.UPLINK,
                         "netmask": "255.255.255.0",
                         "vpci": "0000:05:00.0",
                         "local_ip": "152.16.100.19",
@@ -177,7 +177,7 @@ class TestTrexTrafficGen(unittest.TestCase):
                     },
                     "xe1": {
                         "local_iface_name": "ens786f1",
-                        "vld_id": "public",
+                        "vld_id": TrafficProfile.DOWNLINK,
                         "netmask": "255.255.255.0",
                         "vpci": "0000:05:00.1",
                         "local_ip": "152.16.40.19",
@@ -233,7 +233,7 @@ class TestTrexTrafficGen(unittest.TestCase):
                 "interfaces": {
                     "xe0": {
                         "local_iface_name": "ens513f0",
-                        "vld_id": "public",
+                        "vld_id": TrafficProfile.DOWNLINK,
                         "netmask": "255.255.255.0",
                         "vpci": "0000:02:00.0",
                         "local_ip": "152.16.40.20",
@@ -267,7 +267,7 @@ class TestTrexTrafficGen(unittest.TestCase):
                 "interfaces": {
                     "xe0": {
                         "local_iface_name": "ens785f0",
-                        "vld_id": "private",
+                        "vld_id": TrafficProfile.UPLINK,
                         "netmask": "255.255.255.0",
                         "vpci": "0000:05:00.0",
                         "local_ip": "152.16.100.20",

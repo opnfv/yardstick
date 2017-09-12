@@ -6,7 +6,7 @@ traffic_profile:
   traffic_type: TrafficProfileGenericHTTP
 
 #http client specific values
-private_1:
+uplink_0:
     http_no_requests: "1000"                # number of http iterations
     http_concurency: "65000"                  # number of threads to be run
     http_locator:  "/1B.bin"              # http locator to be read
@@ -17,7 +17,7 @@ private_1:
     attacker_tests: "False"                 # True : If attacker Test, False : Otherwise
 
 #http server side
-public_1:
+downlink_0:
     http_locator_image_size: "1B"      # image size requested by http client
     http_bind_address: "152.40.40.20"   # where address is bound
     http_bind_port: "9004"              # when port is bound

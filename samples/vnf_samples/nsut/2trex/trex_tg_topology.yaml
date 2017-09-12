@@ -20,15 +20,15 @@ nsd:nsd-catalog:
         description: trex-tg-topology
         constituent-vnfd:
         -   member-vnf-index: '1'
-            vnfd-id-ref: trexgen__1
+            vnfd-id-ref: trexgen__0
             VNF model: ../../vnf_descriptors/tg_trex_tpl.yaml      #VNF type
         -   member-vnf-index: '2'
-            vnfd-id-ref: trexvnf__1
+            vnfd-id-ref: trexvnf__0
             VNF model: ../../vnf_descriptors/tg_trex_tpl.yaml      #VNF type
 
         vld:
-        -   id: private
-            name: trexgen__1 to trexvnf__1 link 1
+        -   id: uplink
+            name: trexgen__0 to trexvnf__0 link 1
             type: ELAN
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: '1'
@@ -38,8 +38,8 @@ nsd:nsd-catalog:
                 vnfd-connection-point-ref: xe0
                 vnfd-id-ref: trexgen
 
-        -   id: public
-            name: trexvnf__1 to trexgen__1 link 2
+        -   id: downlink
+            name: trexvnf__0 to trexgen__0 link 2
             type: ELAN
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: '1'

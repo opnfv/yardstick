@@ -45,19 +45,19 @@ traffic_profile:
   # that specifies a range (e.g. ipv4 address, port)
 
 
-private_1:
+uplink_0:
       ipv4:
         outer_l2:
             framesize:
-                64B: "{{get(imix, 'imix.private.64B', '0') }}"
-                128B: "{{get(imix, 'imix.private.128B', '0') }}"
-                256B: "{{get(imix, 'imix.private.256B', '0') }}"
-                373B: "{{get(imix, 'imix.private.373B', '0') }}"
-                512B: "{{get(imix, 'imix.private.512B', '0') }}"
-                570B: "{{get(imix, 'imix.private.570B', '0') }}"
-                1400B: "{{get(imix, 'imix.private.1400B', '0') }}"
-                1500B: "{{get(imix, 'imix.private.1500B', '0') }}"
-                1518B: "{{get(imix, 'imix.private.1518B', '0') }}"
+                64B: "{{get(imix, 'imix.uplink.64B', '0') }}"
+                128B: "{{get(imix, 'imix.uplink.128B', '0') }}"
+                256B: "{{get(imix, 'imix.uplink.256B', '0') }}"
+                373B: "{{get(imix, 'imix.uplink.373B', '0') }}"
+                512B: "{{get(imix, 'imix.uplink.512B', '0') }}"
+                570B: "{{get(imix, 'imix.uplink.570B', '0') }}"
+                1400B: "{{get(imix, 'imix.uplink.1400B', '0') }}"
+                1500B: "{{get(imix, 'imix.uplink.1500B', '0') }}"
+                1518B: "{{get(imix, 'imix.uplink.1518B', '0') }}"
 
         outer_l3v4:
             proto: "udp"
@@ -70,19 +70,19 @@ private_1:
             srcport: "{{get(flow, 'flow.src_port_0', '1234-4321') }}"
             dstport: "{{get(flow, 'flow.dst_port_0', '2001-4001') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
-public_1:
+downlink_0:
       ipv4:
         outer_l2:
             framesize:
-                64B: "{{ get(imix, 'imix.public.64B', '0') }}"
-                128B: "{{ get(imix, 'imix.public.128B', '0') }}"
-                256B: "{{ get(imix, 'imix.public.256B', '0') }}"
-                373b: "{{ get(imix, 'imix.public.373B', '0') }}"
-                512B: "{{ get(imix, 'imix.public.512B', '0') }}"
-                570B: "{{get(imix, 'imix.public.570B', '0') }}"
-                1400B: "{{get(imix, 'imix.public.1400B', '0') }}"
-                1500B: "{{get(imix, 'imix.public.1500B', '0') }}"
-                1518B: "{{get(imix, 'imix.public.1518B', '0') }}"
+                64B: "{{ get(imix, 'imix.downlink.64B', '0') }}"
+                128B: "{{ get(imix, 'imix.downlink.128B', '0') }}"
+                256B: "{{ get(imix, 'imix.downlink.256B', '0') }}"
+                373b: "{{ get(imix, 'imix.downlink.373B', '0') }}"
+                512B: "{{ get(imix, 'imix.downlink.512B', '0') }}"
+                570B: "{{get(imix, 'imix.downlink.570B', '0') }}"
+                1400B: "{{get(imix, 'imix.downlink.1400B', '0') }}"
+                1500B: "{{get(imix, 'imix.downlink.1500B', '0') }}"
+                1518B: "{{get(imix, 'imix.downlink.1518B', '0') }}"
 
         outer_l3v4:
             proto: "udp"

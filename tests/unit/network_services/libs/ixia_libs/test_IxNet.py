@@ -26,6 +26,9 @@ from yardstick.network_services.libs.ixia_libs.IxNet.IxNet import IP_VERSION_4
 from yardstick.network_services.libs.ixia_libs.IxNet.IxNet import IP_VERSION_6
 
 
+UPLINK = "uplink"
+DOWNLINK = "downlink"
+
 class TestIxNextgen(unittest.TestCase):
 
     def test___init__(self):
@@ -97,7 +100,7 @@ class TestIxNextgen(unittest.TestCase):
 
     def test_ix_update_frame(self):
         static_traffic_params = {
-            "private": {
+            UPLINK: {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -139,7 +142,7 @@ class TestIxNextgen(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public": {
+            DOWNLINK: {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
@@ -268,7 +271,7 @@ class TestIxNextgen(unittest.TestCase):
 
     def test_add_ip_header_v4(self):
         static_traffic_params = {
-            "private_0": {
+            "uplink_0": {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -308,7 +311,7 @@ class TestIxNextgen(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public_0": {
+            "downlink_0": {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
@@ -366,7 +369,7 @@ class TestIxNextgen(unittest.TestCase):
 
     def test_add_ip_header_v4_nothing_to_do(self):
         static_traffic_params = {
-            "private_0": {
+            "uplink_0": {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -406,7 +409,7 @@ class TestIxNextgen(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public_0": {
+            "downlink_0": {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
@@ -464,7 +467,7 @@ class TestIxNextgen(unittest.TestCase):
 
     def test_add_ip_header_v6(self):
         static_traffic_profile = {
-            "private_0": {
+            "uplink_0": {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -497,7 +500,7 @@ class TestIxNextgen(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public_0": {
+            "downlink_0": {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
@@ -547,7 +550,7 @@ class TestIxNextgen(unittest.TestCase):
 
     def test_add_ip_header_v6_nothing_to_do(self):
         static_traffic_params = {
-            "private_0": {
+            "uplink_0": {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -579,7 +582,7 @@ class TestIxNextgen(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public_0": {
+            "downlink_0": {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
@@ -684,7 +687,7 @@ class TestIxNextgen(unittest.TestCase):
 
     def test_ix_update_ether(self):
         static_traffic_params = {
-            "private_0": {
+            "uplink_0": {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -723,7 +726,7 @@ class TestIxNextgen(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public_0": {
+            "downlink_0": {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
@@ -787,7 +790,7 @@ class TestIxNextgen(unittest.TestCase):
 
     def test_ix_update_ether_nothing_to_do(self):
         static_traffic_params = {
-            "private_0": {
+            "uplink_0": {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -820,7 +823,7 @@ class TestIxNextgen(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public_0": {
+            "downlink_0": {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,

@@ -37,7 +37,7 @@ class TestPortPairs(unittest.TestCase):
         vnfd = TestMultiPortConfig.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         interfaces = vnfd['vdu'][0]['external-interface']
         port_pairs = PortPairs(interfaces)
-        self.assertEqual(port_pairs.valid_networks, [("private_0", "public_0")])
+        self.assertEqual(port_pairs.valid_networks, [("uplink_0", "downlink_0")])
 
     def test_all_ports(self):
         vnfd = TestMultiPortConfig.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -45,17 +45,17 @@ class TestPortPairs(unittest.TestCase):
         port_pairs = PortPairs(interfaces)
         self.assertEqual(set(port_pairs.all_ports), {"xe0", "xe1"})
 
-    def test_priv_ports(self):
+    def test_uplink_ports(self):
         vnfd = TestMultiPortConfig.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         interfaces = vnfd['vdu'][0]['external-interface']
         port_pairs = PortPairs(interfaces)
-        self.assertEqual(port_pairs.priv_ports, ["xe0"])
+        self.assertEqual(port_pairs.uplink_ports, ["xe0"])
 
-    def test_pub_ports(self):
+    def test_downlink_ports(self):
         vnfd = TestMultiPortConfig.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         interfaces = vnfd['vdu'][0]['external-interface']
         port_pairs = PortPairs(interfaces)
-        self.assertEqual(port_pairs.pub_ports, ["xe1"])
+        self.assertEqual(port_pairs.downlink_ports, ["xe1"])
 
 
 class TestMultiPortConfig(unittest.TestCase):
@@ -99,7 +99,7 @@ class TestMultiPortConfig(unittest.TestCase):
                                     'ifname': 'xe0',
                                     'local_iface_name': 'eth0',
                                     'local_mac': '00:00:00:00:00:02',
-                                    'vld_id': 'private_0',
+                                    'vld_id': 'uplink_0',
                                 },
                                 'vnfd-connection-point-ref': 'xe0',
                                 'name': 'xe0'},
@@ -117,7 +117,7 @@ class TestMultiPortConfig(unittest.TestCase):
                                     'ifname': 'xe1',
                                     'local_iface_name': 'eth1',
                                     'local_mac': '00:00:00:00:00:01',
-                                    'vld_id': 'public_0',
+                                    'vld_id': 'downlink_0',
                                 },
                                 'vnfd-connection-point-ref': 'xe1',
                                 'name': 'xe1'}

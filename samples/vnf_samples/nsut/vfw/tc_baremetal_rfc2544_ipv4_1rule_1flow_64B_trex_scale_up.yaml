@@ -20,20 +20,20 @@ scenarios:
   traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
   topology: vfw-tg-topology.yaml
   nodes:
-    tg__1: trafficgen_1.yardstick
-    vnf__1: vnf.yardstick
+    tg__0: trafficgen_1.yardstick
+    vnf__0: vnf.yardstick
   options:
     framesize:
       private: {64B: 100}
       public: {64B: 100}
     flow:
-      src_ip: [{'tg__1': 'xe0'}]
-      dst_ip: [{'tg__1': 'xe1'}]
+      src_ip: [{'tg__0': 'xe0'}]
+      dst_ip: [{'tg__0': 'xe1'}]
       count: 1
     traffic_type: 4
     rfc2544:
       allowed_drop_rate: 0.0001 - 0.0001
-    vnf__1:
+    vnf__0:
       rules: acl_1rule.yaml
       vnf_config: {lb_config: 'HW', lb_count: 1, worker_config: '1C/1T', worker_threads: {{worker_thread}}}
       nfvi_enable: True

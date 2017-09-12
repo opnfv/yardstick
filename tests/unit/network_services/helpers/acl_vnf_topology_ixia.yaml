@@ -27,7 +27,7 @@ nsd:nsd-catalog:
             VNF model: ../../vnf_descriptors/acl_vnf.yaml
 
         vld:
-        -   id: private_1
+        -   id: uplink_1
             name: tg__1 to vnf__1 link 1
             type: ELAN
             vnfd-connection-point-ref:
@@ -38,7 +38,7 @@ nsd:nsd-catalog:
                 vnfd-connection-point-ref: xe0
                 vnfd-id-ref: vnf__1                  #VNF
 
-        -   id: public_1
+        -   id: downlink_1
             name: vnf__1 to tg__1 link 2
             type: ELAN
             vnfd-connection-point-ref:
