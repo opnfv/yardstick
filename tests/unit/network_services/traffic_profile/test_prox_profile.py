@@ -26,6 +26,7 @@ stl_patch.start()
 
 if stl_patch:
     from yardstick.network_services.traffic_profile.prox_profile import ProxProfile
+    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxResourceHelper
 
 
 class TestProxProfile(unittest.TestCase):
@@ -78,6 +79,13 @@ class TestProxProfile(unittest.TestCase):
         }
 
         traffic_generator = mock.MagicMock()
+
+        setup_helper = traffic_generator.setup_helper
+        setup_helper.find_in_section.return_value = None
+
+        prox_resource_helper = ProxResourceHelper(setup_helper)
+        traffic_generator.resource_helper = prox_resource_helper
+
         profile = ProxProfile(tp_config)
 
         self.assertFalse(profile.done)
@@ -86,6 +94,7 @@ class TestProxProfile(unittest.TestCase):
                 profile.execute_traffic(traffic_generator)
 
         self.assertIsNone(profile.execute_traffic(traffic_generator))
+        self.assertTrue(profile.done)
 
     def test_bounds_iterator(self):
         tp_config = {

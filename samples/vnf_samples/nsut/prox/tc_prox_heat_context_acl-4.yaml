@@ -65,7 +65,7 @@ context:
       hw:cpu_sockets: 1
       hw:cpu_cores: 10
       hw:cpu_threads: 1
-#      hw:mem_page_size: large
+
   placement_groups:
     pgrp1:
       policy: "availability"
