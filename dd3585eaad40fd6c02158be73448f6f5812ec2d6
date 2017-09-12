@@ -312,6 +312,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_9863b7db",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-12T14:13:33Z",
+      "side": 1,
+      "message": "I have no idea what are expected inputs for this method. The code seems to work, so I didn\u0027t want to touch it without a proper end to end test, not just unittest which might not cover all cases.\n\nMaybe the expected value is a list of strings. Then just passing it to str constructor would not do the same thing as \u0027\u0027.join(). So maybe your variant with join and str would be the best thing.",
+      "parentUuid": "da33351e_5755824e",
+      "range": {
+        "startLine": 114,
+        "startChar": 24,
+        "endLine": 114,
+        "endChar": 27
+      },
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_123951a4",
         "filename": "yardstick/network_services/nfvi/resource.py",
         "patchSetId": 18
@@ -563,6 +587,24 @@
       "side": 1,
       "message": "join is great if the list is created by other code or the list will be useful in other ways.  but to build a list for the sole purpose of joining it means a string buffer is better:\n\n1) the intermediate strings are discarded immediately\n2) the list is never started and never grows",
       "parentUuid": "da33351e_08d59e1b",
+      "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_38f54bcb",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-12T14:13:33Z",
+      "side": 1,
+      "message": "Fixed, even though it seems that StringIO is not more efficient than joining lists, at least in terms of cpu cycles.\nhttps://gist.github.com/djfroofy/3258823",
+      "parentUuid": "da33351e_d7c87224",
       "revId": "dd3585eaad40fd6c02158be73448f6f5812ec2d6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
