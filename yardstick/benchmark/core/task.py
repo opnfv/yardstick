@@ -363,6 +363,7 @@ class Task(object):     # pragma: no cover
             context_cfg["nodes"] = parse_nodes_with_context(scenario_cfg)
             context_cfg["networks"] = get_networks_from_nodes(
                 context_cfg["nodes"])
+
         runner = base_runner.Runner.get(runner_cfg)
 
         print("Starting runner of type '%s'" % runner_cfg["type"])

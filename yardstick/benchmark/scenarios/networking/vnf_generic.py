@@ -25,10 +25,12 @@ import re
 from itertools import chain
 
 import six
+import yaml
 from operator import itemgetter
 from collections import defaultdict
 
 from yardstick.benchmark.scenarios import base
+from yardstick.common.constants import LOG_DIR
 from yardstick.common.utils import import_modules_from_package, itersubclasses
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.collector.subscriber import Collector
@@ -342,6 +344,36 @@ class NetworkServiceTestCase(base.Scenario):
                 'ifindex': netdev['ifindex'],
             })
 
+    def _generate_pod_yaml(self):
+        context_yaml = os.path.join(LOG_DIR, "pod-{}.yaml".format(self.scenario_cfg['task_id']))
+        # convert OrderedDict to a list
+        # pod.yaml nodes is a list
+        nodes = []
+        for node in self.context_cfg["nodes"].values():
+            # name field is required
+            # remove context suffix
+            node['name'] = node['name'].split('.')[0]
+            nodes.append(node)
+        nodes = self._convert_pkeys_to_string(nodes)
+        pod_dict = {
+            "nodes": nodes,
+            "networks": self.context_cfg["networks"]
+        }
+        with open(context_yaml, "w") as context_out:
+            yaml.safe_dump(pod_dict, context_out, default_flow_style=False,
+                           explicit_start=True)
+
+    @staticmethod
+    def _convert_pkeys_to_string(nodes):
+        # make copy because we are mutating
+        nodes = nodes[:]
+        for i, node in enumerate(nodes):
+            try:
+                nodes[i] = dict(node, pkey=ssh.convert_key_to_str(node["pkey"]))
+            except KeyError:
+                pass
+        return nodes
+
     TOPOLOGY_REQUIRED_KEYS = frozenset({
         "vpci", "local_ip", "netmask", "local_mac", "driver"})
 
@@ -378,6 +410,8 @@ class NetworkServiceTestCase(base.Scenario):
                         "Require interface fields '%s' not found, topology file "
                         "corrupted" % ', '.join(missing))
 
+        # we have to generate pod.yaml here so we have vpci and driver
+        self._generate_pod_yaml()
         # 3. Use topology file to find connections & resolve dest address
         self._resolve_topology()
         self._update_context_with_topology()

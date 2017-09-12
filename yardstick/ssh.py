@@ -64,6 +64,7 @@ Eventlet:
 """
 from __future__ import absolute_import
 import os
+import io
 import select
 import socket
 import time
@@ -79,6 +80,14 @@ import six
 
 from yardstick.common.utils import try_int
 from yardstick.network_services.utils import provision_tool
+
+
+def convert_key_to_str(key):
+    if not isinstance(key, (paramiko.RSAKey, paramiko.DSSKey)):
+        return key
+    k = io.StringIO()
+    key.write_private_key(k)
+    return k.getvalue()
 
 
 class SSHError(Exception):
