@@ -45,7 +45,8 @@ class ProxACLProfile(ProxProfile):
         test_value = self.upper_bound
         # throughput and packet loss from the last successful test
         for _ in range(self.prox_config["attempts"]):
-            result, port_samples = traffic_gen.run_test(pkt_size, duration,
-                                                        test_value, self.tolerated_loss)
+            result, port_samples = self._profile_helper.run_test(pkt_size, duration,
+                                                                 test_value, self.tolerated_loss)
+
             samples = result.get_samples(pkt_size, result.pkt_loss, port_samples)
             self.queue.put(samples)
