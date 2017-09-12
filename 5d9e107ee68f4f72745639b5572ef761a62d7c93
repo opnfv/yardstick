@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_3dd9bd83",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_ping.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-12T14:13:33Z",
+      "side": 1,
+      "message": "Right. Subclasses is what I meant. Fixed.",
+      "parentUuid": "da33351e_774526b2",
+      "revId": "5d9e107ee68f4f72745639b5572ef761a62d7c93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_8314f144",
         "filename": "yardstick/network_services/helpers/dpdknicbind_helper.py",
         "patchSetId": 21
