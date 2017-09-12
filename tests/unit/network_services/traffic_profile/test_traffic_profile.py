@@ -60,24 +60,24 @@ class TestTrexProfile(unittest.TestCase):
                'name': 'rfc2544',
                'traffic_profile': {'traffic_type': 'RFC2544Profile',
                                    'frame_rate': 100},
-               'public': {'ipv4': {'outer_l2': {'framesize': {'64B': '100',
+               TrafficProfile.DOWNLINK: {'ipv4': {'outer_l2': {'framesize': {'64B': '100',
                                                               '1518B': '0',
                                                               '128B': '0',
                                                               '1400B': '0',
                                                               '256B': '0',
                                                               '373b': '0',
                                                               '570B': '0'},
-                                                "srcmac": "00:00:00:00:00:02",
-                                                "dstmac": "00:00:00:00:00:01"},
-                                   'outer_l3v4': {'dstip4': '1.1.1.1-1.1.2.2',
+                                                               "srcmac": "00:00:00:00:00:02",
+                                                               "dstmac": "00:00:00:00:00:01"},
+                                                  'outer_l3v4': {'dstip4': '1.1.1.1-1.1.2.2',
                                                   'proto': 'udp',
                                                   'srcip4': '9.9.1.1-90.1.2.2',
                                                   'dscp': 0, 'ttl': 32,
                                                   'count': 1},
-                                   'outer_l4': {'srcport': '2001',
+                                                  'outer_l4': {'srcport': '2001',
                                                 'dsrport': '1234',
                                                 'count': 1}}},
-               'private': {'ipv4':
+               TrafficProfile.UPLINK: {'ipv4':
                            {'outer_l2': {'framesize':
                                          {'64B': '100', '1518B': '0',
                                           '128B': '0', '1400B': '0',
@@ -97,22 +97,22 @@ class TestTrexProfile(unittest.TestCase):
                   'name': 'rfc2544',
                   'traffic_profile': {'traffic_type': 'RFC2544Profile',
                                       'frame_rate': 100},
-                  'public': {'ipv6': {'outer_l2': {'framesize':
+                  TrafficProfile.DOWNLINK: {'ipv6': {'outer_l2': {'framesize':
                                                    {'64B': '100', '1518B': '0',
                                                     '128B': '0', '1400B': '0',
                                                     '256B': '0', '373b': '0',
                                                     '570B': '0'},
                                                    "srcmac": "00:00:00:00:00:02",
                                                    "dstmac": "00:00:00:00:00:01"},
-                                      'outer_l3v4': {'dstip6': '0064:ff9b:0:0:0:0:9810:6414-0064:ff9b:0:0:0:0:9810:6420',
+                                                     'outer_l3v4': {'dstip6': '0064:ff9b:0:0:0:0:9810:6414-0064:ff9b:0:0:0:0:9810:6420',
                                                      'proto': 'udp',
                                                      'srcip6': '0064:ff9b:0:0:0:0:9810:2814-0064:ff9b:0:0:0:0:9810:2820',
                                                      'dscp': 0, 'ttl': 32,
                                                      'count': 1},
-                                      'outer_l4': {'srcport': '2001',
+                                                     'outer_l4': {'srcport': '2001',
                                                    'dsrport': '1234',
                                                    'count': 1}}},
-                  'private':
+                  TrafficProfile.UPLINK:
                   {'ipv6': {'outer_l2': {'framesize':
                                          {'64B': '100', '1518B': '0',
                                           '128B': '0', '1400B': '0',
@@ -153,21 +153,21 @@ class TestTrexProfile(unittest.TestCase):
             TrexProfile(TrafficProfile)
         qinq = {"S-VLAN": {"id": 128, "priority": 0, "cfi": 0},
                 "C-VLAN": {"id": 512, "priority": 0, "cfi": 0}}
-        outer_l2 = self.PROFILE['private']['ipv4']['outer_l2']
+        outer_l2 = self.PROFILE[TrafficProfile.UPLINK]['ipv4']['outer_l2']
         outer_l2['QinQ'] = qinq
         self.assertEqual(None, trex_profile._set_outer_l2_fields(outer_l2))
 
     def test__set_outer_l3v4_fields(self):
         trex_profile = \
             TrexProfile(TrafficProfile)
-        outer_l3v4 = self.PROFILE['private']['ipv4']['outer_l3v4']
+        outer_l3v4 = self.PROFILE[TrafficProfile.UPLINK]['ipv4']['outer_l3v4']
         outer_l3v4['proto'] = 'tcp'
         self.assertEqual(None, trex_profile._set_outer_l3v4_fields(outer_l3v4))
 
     def test__set_outer_l3v6_fields(self):
         trex_profile = \
             TrexProfile(TrafficProfile)
-        outer_l3v6 = self.PROFILE_v6['private']['ipv6']['outer_l3v4']
+        outer_l3v6 = self.PROFILE_v6[TrafficProfile.UPLINK]['ipv6']['outer_l3v4']
         outer_l3v6['proto'] = 'tcp'
         outer_l3v6['tc'] = 1
         outer_l3v6['hlim'] = 10
@@ -176,19 +176,19 @@ class TestTrexProfile(unittest.TestCase):
     def test__set_outer_l4_fields(self):
         trex_profile = \
             TrexProfile(TrafficProfile)
-        outer_l4 = self.PROFILE['private']['ipv4']['outer_l4']
+        outer_l4 = self.PROFILE[TrafficProfile.UPLINK]['ipv4']['outer_l4']
         self.assertEqual(None, trex_profile._set_outer_l4_fields(outer_l4))
 
     def test_get_streams(self):
         trex_profile = \
             TrexProfile(TrafficProfile)
         trex_profile.params = self.PROFILE
-        profile_data = self.PROFILE["private"]
+        profile_data = self.PROFILE[TrafficProfile.UPLINK]
         self.assertIsNotNone(trex_profile.get_streams(profile_data))
         trex_profile.pg_id = 1
         self.assertIsNotNone(trex_profile.get_streams(profile_data))
         trex_profile.params = self.PROFILE_v6
-        trex_profile.profile_data = self.PROFILE_v6["private"]
+        trex_profile.profile_data = self.PROFILE_v6[TrafficProfile.UPLINK]
         self.assertIsNotNone(trex_profile.get_streams(profile_data))
         trex_profile.pg_id = 1
         self.assertIsNotNone(trex_profile.get_streams(profile_data))

@@ -54,7 +54,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                'name': 'rfc2544',
                'traffic_profile': {'traffic_type': 'IXIARFC2544Profile',
                                    'frame_rate': 100},
-               'public': {'ipv4':
+               IXIARFC2544Profile.DOWNLINK: {'ipv4':
                           {'outer_l2': {'framesize':
                                         {'64B': '100', '1518B': '0',
                                          '128B': '0', '1400B': '0',
@@ -66,7 +66,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                                           'dscp': 0, 'ttl': 32},
                            'outer_l4': {'srcport': '2001',
                                         'dsrport': '1234'}}},
-               'private': {'ipv4':
+               IXIARFC2544Profile.UPLINK: {'ipv4':
                            {'outer_l2': {'framesize':
                                          {'64B': '100', '1518B': '0',
                                           '128B': '0', '1400B': '0',
@@ -83,12 +83,12 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test_get_ixia_traffic_profile_error(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.my_ports = [0, 1]
-        traffic_generator.priv_ports = [-1]
-        traffic_generator.pub_ports = [1]
+        traffic_generator.uplink_ports = [-1]
+        traffic_generator.downlink_ports = [1]
         traffic_generator.client = \
             mock.Mock(return_value=True)
         STATIC_TRAFFIC = {
-            "private": {
+            IXIARFC2544Profile.UPLINK: {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -127,7 +127,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public": {
+            IXIARFC2544Profile.DOWNLINK: {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
@@ -187,12 +187,12 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test_get_ixia_traffic_profile(self, mock_open):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.my_ports = [0, 1]
-        traffic_generator.priv_ports = [-1]
-        traffic_generator.pub_ports = [1]
+        traffic_generator.uplink_ports = [-1]
+        traffic_generator.downlink_ports = [1]
         traffic_generator.client = \
             mock.Mock(return_value=True)
         STATIC_TRAFFIC = {
-            "private": {
+            IXIARFC2544Profile.UPLINK: {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -234,7 +234,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public": {
+            IXIARFC2544Profile.DOWNLINK: {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
@@ -297,12 +297,12 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test_get_ixia_traffic_profile_v6(self, mock_open):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.my_ports = [0, 1]
-        traffic_generator.priv_ports = [-1]
-        traffic_generator.pub_ports = [1]
+        traffic_generator.uplink_ports = [-1]
+        traffic_generator.downlink_ports = [1]
         traffic_generator.client = \
             mock.Mock(return_value=True)
         STATIC_TRAFFIC = {
-            "private": {
+            IXIARFC2544Profile.UPLINK: {
                 "id": 1,
                 "bidir": "False",
                 "duration": 60,
@@ -341,7 +341,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                 },
                 "traffic_type": "continuous"
             },
-            "public": {
+            IXIARFC2544Profile.DOWNLINK: {
                 "id": 2,
                 "bidir": "False",
                 "duration": 60,
@@ -398,7 +398,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                         'traffic_profile':
                         {'traffic_type': 'IXIARFC2544Profile',
                          'frame_rate': 100},
-                        'public':
+                        IXIARFC2544Profile.DOWNLINK:
                         {'ipv4':
                          {'outer_l2': {'framesize':
                                        {'64B': '100', '1518B': '0',
@@ -415,7 +415,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                                          'dscp': 0, 'ttl': 32},
                           'outer_l4': {'srcport': '2001',
                                        'dsrport': '1234'}}},
-                        'private': {'ipv4':
+                        IXIARFC2544Profile.UPLINK: {'ipv4':
                                     {'outer_l2': {'framesize':
                                                   {'64B': '100', '1518B': '0',
                                                    '128B': '0', '1400B': '0',
@@ -449,13 +449,13 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test__ixia_traffic_generate(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.networks = {
-            "private_0": ["xe0"],
-            "public_0": ["xe1"],
+            "uplink_0": ["xe0"],
+            "downlink_0": ["xe1"],
         }
         traffic_generator.client = \
             mock.Mock(return_value=True)
-        traffic = {"public": {'iload': 10},
-                   "private": {'iload': 10}}
+        traffic = {IXIARFC2544Profile.DOWNLINK: {'iload': 10},
+                   IXIARFC2544Profile.UPLINK: {'iload': 10}}
         ixia_obj = mock.MagicMock()
         r_f_c2544_profile = IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         r_f_c2544_profile.rate = 100
@@ -466,15 +466,15 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test_execute(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.networks = {
-            "private_0": ["xe0"],
-            "public_0": ["xe1"],
+            "uplink_0": ["xe0"],
+            "downlink_0": ["xe1"],
         }
         traffic_generator.client = \
             mock.Mock(return_value=True)
         r_f_c2544_profile = IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         r_f_c2544_profile.first_run = True
-        r_f_c2544_profile.params = {"public": {'iload': 10},
-                                    "private": {'iload': 10}}
+        r_f_c2544_profile.params = {IXIARFC2544Profile.DOWNLINK: {'iload': 10},
+                                    IXIARFC2544Profile.UPLINK: {'iload': 10}}
 
         r_f_c2544_profile.get_streams = mock.Mock()
         r_f_c2544_profile.full_profile = {}
@@ -487,9 +487,9 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test_update_traffic_profile(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.networks = {
-            "private_0": ["xe0"],  # private, one value for intfs
-            "public_0": ["xe1", "xe2"],  # public, two values for intfs
-            "public_1": ["xe3"],  # not in TRAFFIC PROFILE
+            "uplink_0": ["xe0"],  # private, one value for intfs
+            "downlink_0": ["xe1", "xe2"],  # public, two values for intfs
+            "downlink_1": ["xe3"],  # not in TRAFFIC PROFILE
             "tenant_0": ["xe4"],  # not public or private
         }
 
@@ -499,8 +499,8 @@ class TestIXIARFC2544Profile(unittest.TestCase):
 
         traffic_profile = deepcopy(self.TRAFFIC_PROFILE)
         traffic_profile.update({
-            "private_0": ["xe0"],
-            "public_0": ["xe1", "xe2"],
+            "uplink_0": ["xe0"],
+            "downlink_0": ["xe1", "xe2"],
         })
 
         r_f_c2544_profile = IXIARFC2544Profile(traffic_profile)
@@ -513,8 +513,8 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test_get_drop_percentage(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.networks = {
-            "private_0": ["xe0"],
-            "public_0": ["xe1"],
+            "uplink_0": ["xe0"],
+            "downlink_0": ["xe1"],
         }
         traffic_generator.client = \
             mock.Mock(return_value=True)
@@ -548,8 +548,8 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test_get_drop_percentage_update(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.my_ports = [0, 1]
-        traffic_generator.priv_ports = [0]
-        traffic_generator.pub_ports = [1]
+        traffic_generator.uplink_ports = [0]
+        traffic_generator.downlink_ports = [1]
         traffic_generator.client = \
             mock.Mock(return_value=True)
         r_f_c2544_profile = IXIARFC2544Profile(self.TRAFFIC_PROFILE)
@@ -582,8 +582,8 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test_get_drop_percentage_div_zero(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.my_ports = [0, 1]
-        traffic_generator.priv_ports = [0]
-        traffic_generator.pub_ports = [1]
+        traffic_generator.uplink_ports = [0]
+        traffic_generator.downlink_ports = [1]
         traffic_generator.client = \
             mock.Mock(return_value=True)
         r_f_c2544_profile = IXIARFC2544Profile(self.TRAFFIC_PROFILE)
@@ -623,8 +623,8 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test_start_ixia_latency(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.networks = {
-            "private_0": ["xe0"],
-            "public_0": ["xe1"],
+            "uplink_0": ["xe0"],
+            "downlink_0": ["xe1"],
         }
         traffic_generator.client = \
             mock.Mock(return_value=True)

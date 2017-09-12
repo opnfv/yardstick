@@ -78,7 +78,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
                             'netmask': '255.255.255.0',
                             'dst_ip': '152.16.100.20',
                             'type': 'PCI-PASSTHROUGH',
-                            'vld_id': 'private_0',
+                            'vld_id': 'uplink_0',
                             'ifname': 'xe0',
                         },
                         'vnfd-connection-point-ref': 'xe0',
@@ -97,7 +97,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
                             'netmask': '255.255.255.0',
                             'dst_ip': '152.16.40.20',
                             'type': 'PCI-PASSTHROUGH',
-                            'vld_id': 'public_0',
+                            'vld_id': 'downlink_0',
                             'ifname': 'xe1',
                         },
                         'vnfd-connection-point-ref': 'xe1',
@@ -200,7 +200,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
                 "interfaces": {
                     "xe0": {
                         "local_iface_name": "ens786f0",
-                        "vld_id": "private",
+                        "vld_id": UdpReplayApproxVnf.UPLINK,
                         "netmask": "255.255.255.0",
                         "vpci": "0000:05:00.0",
                         "local_ip": "152.16.100.19",
@@ -212,7 +212,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
                     },
                     "xe1": {
                         "local_iface_name": "ens786f1",
-                        "vld_id": "public",
+                        "vld_id": UdpReplayApproxVnf.DOWNLINK,
                         "netmask": "255.255.255.0",
                         "vpci": "0000:05:00.1",
                         "local_ip": "152.16.40.19",
@@ -268,7 +268,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
                 "interfaces": {
                     "xe0": {
                         "local_iface_name": "ens513f0",
-                        "vld_id": "public",
+                        "vld_id": UdpReplayApproxVnf.DOWNLINK,
                         "netmask": "255.255.255.0",
                         "vpci": "0000:02:00.0",
                         "local_ip": "152.16.40.20",
@@ -302,7 +302,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
                 "interfaces": {
                     "xe0": {
                         "local_iface_name": "ens785f0",
-                        "vld_id": "private",
+                        "vld_id": UdpReplayApproxVnf.UPLINK,
                         "netmask": "255.255.255.0",
                         "vpci": "0000:05:00.0",
                         "local_ip": "152.16.100.20",

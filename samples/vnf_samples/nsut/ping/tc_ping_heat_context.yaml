@@ -22,8 +22,8 @@ scenarios:
   topology: ping_tg_topology.yaml
 
   nodes:
-    tg__1: trafficgen_1.yardstick
-    vnf__1: vnf.yardstick
+    tg__0: trafficgen_1.yardstick
+    vnf__0: vnf.yardstick
 
   runner:
     type: Duration

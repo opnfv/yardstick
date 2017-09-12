@@ -58,8 +58,8 @@ class IxiaResourceHelper(ClientResourceHelper):
             rfc_helper_type = IxiaRfc2544Helper
 
         self.rfc_helper = rfc_helper_type(self.scenario_helper)
-        self.priv_ports = None
-        self.pub_ports = None
+        self.uplink_ports = None
+        self.downlink_ports = None
         self._connect()
 
     def _connect(self, client=None):
