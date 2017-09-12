@@ -40,9 +40,9 @@ scenarios:
         "-t": ""
 
   runner:
-    type: Search
-    interval: 5
-    timeout: 1200
+    type: Duration
+    # we kill after duration, independent of test duration, so set this high
+    duration: 300
 
 context:
   name: yardstick

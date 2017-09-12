@@ -39,8 +39,8 @@ class ProxRampProfile(ProxProfile):
         LOG.info("Testing with packet size %d", pkt_size)
 
         for test_value in self.bounds_iterator(LOG):
-            test_result = traffic_gen.resource_helper.run_test(pkt_size, duration,
-                                                               test_value, self.tolerated_loss)
+            test_result = self._profile_helper.run_test(pkt_size, duration,
+                                                        test_value, self.tolerated_loss)
 
             if not test_result.success:
                 LOG.debug("Failure... stopping")
