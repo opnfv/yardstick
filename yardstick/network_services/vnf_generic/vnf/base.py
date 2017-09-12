@@ -123,6 +123,10 @@ class VnfdHelper(dict):
 
 class VNFObject(object):
 
+    # centralize network naming convention
+    UPLINK = PortPairs.UPLINK
+    DOWNLINK = PortPairs.DOWNLINK
+
     def __init__(self, name, vnfd):
         super(VNFObject, self).__init__()
         self.name = name

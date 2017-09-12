@@ -22,6 +22,8 @@ class TrafficProfile(object):
     This class defines the behavior
 
     """
+    UPLINK = "uplink"
+    DOWNLINK = "downlink"
 
     @staticmethod
     def get(tp_config):

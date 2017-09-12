@@ -187,7 +187,7 @@ class TestProxApproxVnf(unittest.TestCase):
                 'interfaces': {
                     'xe0': {
                         'local_iface_name': 'ens513f0',
-                        'vld_id': 'public',
+                        'vld_id': ProxApproxVnf.DOWNLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.40.20',
                         'dst_mac': '00:00:00:00:00:01',
@@ -221,7 +221,7 @@ class TestProxApproxVnf(unittest.TestCase):
                 'interfaces': {
                     'xe0': {
                         'local_iface_name': 'ens785f0',
-                        'vld_id': 'private',
+                        'vld_id': ProxApproxVnf.UPLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.100.20',
                         'dst_mac': '00:00:00:00:00:02',
@@ -252,7 +252,7 @@ class TestProxApproxVnf(unittest.TestCase):
                 'interfaces': {
                     'xe0': {
                         'local_iface_name': 'ens786f0',
-                        'vld_id': 'private',
+                        'vld_id': ProxApproxVnf.UPLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.100.19',
                         'dst_mac': '00:00:00:00:00:04',
@@ -264,7 +264,7 @@ class TestProxApproxVnf(unittest.TestCase):
                     },
                     'xe1': {
                         'local_iface_name': 'ens786f1',
-                        'vld_id': 'public',
+                        'vld_id': ProxApproxVnf.DOWNLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.40.19',
                         'dst_mac': '00:00:00:00:00:03',

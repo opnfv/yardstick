@@ -416,8 +416,8 @@ class ClientResourceHelper(ResourceHelper):
 
     def _build_ports(self):
         self.networks = self.vnfd_helper.port_pairs.networks
-        self.priv_ports = self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.priv_ports)
-        self.pub_ports = self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.pub_ports)
+        self.uplink_ports = self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.uplink_ports)
+        self.downlink_ports = self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.downlink_ports)
         self.all_ports = self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.all_ports)
 
     def get_stats(self, *args, **kwargs):
@@ -689,8 +689,8 @@ class SampleVNF(GenericVNF):
         self.context_cfg = None
         self.nfvi_context = None
         self.pipeline_kwargs = {}
-        self.priv_ports = None
-        self.pub_ports = None
+        self.uplink_ports = None
+        self.downlink_ports = None
         # TODO(esm): make QueueFileWrapper invert-able so that we
         #            never have to manage the queues
         self.q_in = Queue()
@@ -704,8 +704,8 @@ class SampleVNF(GenericVNF):
     def _build_ports(self):
         self._port_pairs = PortPairs(self.vnfd_helper.interfaces)
         self.networks = self._port_pairs.networks
-        self.priv_ports = self.vnfd_helper.port_nums(self._port_pairs.priv_ports)
-        self.pub_ports = self.vnfd_helper.port_nums(self._port_pairs.pub_ports)
+        self.uplink_ports = self.vnfd_helper.port_nums(self._port_pairs.uplink_ports)
+        self.downlink_ports = self.vnfd_helper.port_nums(self._port_pairs.downlink_ports)
         self.my_ports = self.vnfd_helper.port_nums(self._port_pairs.all_ports)
 
     def _get_route_data(self, route_index, route_type):

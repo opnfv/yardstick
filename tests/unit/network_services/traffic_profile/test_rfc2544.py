@@ -50,7 +50,7 @@ class TestRFC2544Profile(unittest.TestCase):
                'name': 'rfc2544',
                'traffic_profile': {'traffic_type': 'RFC2544Profile',
                                    'frame_rate': 100},
-               'public_0': {'ipv4':
+               'downlink_0': {'ipv4':
                           {'outer_l2': {'framesize':
                                         {'64B': '100', '1518B': '0',
                                          '128B': '0', '1400B': '0',
@@ -62,7 +62,7 @@ class TestRFC2544Profile(unittest.TestCase):
                                           'dscp': 0, 'ttl': 32, 'count': 1},
                            'outer_l4': {'srcport': '2001',
                                'dsrport': '1234', 'count': 1}}},
-               'private_0': {'ipv4':
+               'uplink_0': {'ipv4':
                            {'outer_l2': {'framesize':
                                          {'64B': '100', '1518B': '0',
                                           '128B': '0', '1400B': '0',
@@ -83,8 +83,8 @@ class TestRFC2544Profile(unittest.TestCase):
     def test_execute(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.networks = {
-            "private_0": ["xe0"],
-            "public_0": ["xe1"],
+            "uplink_0": ["xe0"],
+            "downlink_0": ["xe1"],
         }
         traffic_generator.client = \
             mock.Mock(return_value=True)
@@ -96,8 +96,8 @@ class TestRFC2544Profile(unittest.TestCase):
     def test_get_drop_percentage(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.networks = {
-            "private_0": ["xe0"],
-            "public_0": ["xe1"],
+            "uplink_0": ["xe0"],
+            "downlink_0": ["xe1"],
         }
         traffic_generator.client = mock.Mock(return_value=True)
 
@@ -143,8 +143,8 @@ class TestRFC2544Profile(unittest.TestCase):
     def test_get_drop_percentage_update(self):
         traffic_generator = mock.Mock(autospec=RFC2544Profile)
         traffic_generator.networks = {
-            "private_0": ["xe0"],
-            "public_0": ["xe1"],
+            "uplink_0": ["xe0"],
+            "downlink_0": ["xe1"],
         }
         traffic_generator.client = mock.Mock(return_value=True)
 
@@ -191,8 +191,8 @@ class TestRFC2544Profile(unittest.TestCase):
     def test_get_drop_percentage_div_zero(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.networks = {
-            "private_0": ["xe0"],
-            "public_0": ["xe1"],
+            "uplink_0": ["xe0"],
+            "downlink_0": ["xe1"],
         }
         traffic_generator.client = \
             mock.Mock(return_value=True)

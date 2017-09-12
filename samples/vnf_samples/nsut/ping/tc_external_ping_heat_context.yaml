@@ -22,8 +22,8 @@ scenarios:
   topology: ping_tg_topology.yaml
 
   nodes:
-    tg__1: trafficgen_1.baremetal
-    vnf__1: vnf.yardstick
+    tg__0: trafficgen_1.baremetal
+    vnf__0: vnf.yardstick
 
   runner:
     type: Duration
@@ -50,7 +50,6 @@ contexts:
         external_network: "yardstick-public"
       xe0:
         cidr: '10.0.2.0/24'
-
       xe1:
         cidr: '10.0.3.0/24'
 

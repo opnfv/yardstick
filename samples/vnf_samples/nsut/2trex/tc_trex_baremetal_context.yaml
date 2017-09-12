@@ -23,12 +23,12 @@ scenarios:
 
   nodes:  # This section is copied from pod.xml or resolved via Heat
     trexgen__1: trafficgen_1.yardstick
-    trexvnf__1: vnf.yardstick
+    trexvnf__0: vnf.yardstick
 
   vnf_options:
     trexgen__1:
-      target_ip: trexvnf__1.xe0.local_ip  # TODO: resolve to config vars
-    trexvnf__1:
+      target_ip: trexvnf__0.xe0.local_ip  # TODO: resolve to config vars
+    trexvnf__0:
       target_ip: trexgen__1.xe1.local_ip  # TODO: resolve to config vars
   runner:
     type: Duration

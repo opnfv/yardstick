@@ -50,13 +50,13 @@ class ConfigCreate(object):
         config.set(tm_q, 'cfg', '/tmp/full_tm_profile_10G.cfg')
         return config
 
-    def __init__(self, priv_ports, pub_ports, socket):
+    def __init__(self, uplink_ports, downlink_ports, socket):
         super(ConfigCreate, self).__init__()
         self.sw_q = -1
         self.sink_q = -1
         self.n_pipeline = 1
-        self.priv_ports = priv_ports
-        self.pub_ports = pub_ports
+        self.uplink_ports = uplink_ports
+        self.downlink_ports = downlink_ports
         self.pipeline_per_port = 9
         self.socket = socket
 
@@ -76,7 +76,7 @@ class ConfigCreate(object):
         return config
 
     def vpe_rxq(self, config):
-        for port in self.pub_ports:
+        for port in self.downlink_ports:
             new_section = 'RXQ{0}.0'.format(port)
             config.add_section(new_section)
             config.set(new_section, 'mempool', 'MEMPOOL1')
@@ -102,7 +102,7 @@ class ConfigCreate(object):
             for k, v in parser.items(pipeline):
                 if k == "pktq_in":
                     if "RXQ" in v:
-                        value = "RXQ{0}.0".format(self.priv_ports[index])
+                        value = "RXQ{0}.0".format(self.uplink_ports[index])
                     else:
                         value = self.get_sink_swq(parser, pipeline, k, index)
 
@@ -110,7 +110,7 @@ class ConfigCreate(object):
 
                 elif k == "pktq_out":
                     if "TXQ" in v:
-                        value = "TXQ{0}.0".format(self.pub_ports[index])
+                        value = "TXQ{0}.0".format(self.downlink_ports[index])
                     else:
                         self.sw_q += 1
                         value = self.get_sink_swq(parser, pipeline, k, index)
@@ -134,9 +134,9 @@ class ConfigCreate(object):
                     if "RXQ" not in v:
                         value = self.get_sink_swq(parser, pipeline, k, index)
                     elif "TM" in v:
-                        value = "RXQ{0}.0 TM{1}".format(self.pub_ports[index], index)
+                        value = "RXQ{0}.0 TM{1}".format(self.downlink_ports[index], index)
                     else:
-                        value = "RXQ{0}.0".format(self.pub_ports[index])
+                        value = "RXQ{0}.0".format(self.downlink_ports[index])
 
                     parser.set(pipeline, k, value)
 
@@ -145,9 +145,9 @@ class ConfigCreate(object):
                         self.sw_q += 1
                         value = self.get_sink_swq(parser, pipeline, k, index)
                     elif "TM" in v:
-                        value = "TXQ{0}.0 TM{1}".format(self.priv_ports[index], index)
+                        value = "TXQ{0}.0 TM{1}".format(self.uplink_ports[index], index)
                     else:
-                        value = "TXQ{0}.0".format(self.priv_ports[index])
+                        value = "TXQ{0}.0".format(self.uplink_ports[index])
 
                     parser.set(pipeline, k, value)
 
@@ -165,7 +165,7 @@ class ConfigCreate(object):
             config = self.vpe_initialize(config)
             config = self.vpe_rxq(config)
             config.write(cfg_file)
-            for index in range(0, len(self.priv_ports)):
+            for index in range(0, len(self.uplink_ports)):
                 config = self.vpe_upstream(vnf_cfg, index)
                 config.write(cfg_file)
                 config = self.vpe_downstream(vnf_cfg, index)
@@ -174,7 +174,7 @@ class ConfigCreate(object):
 
     def generate_vpe_script(self, interfaces):
         rules = PipelineRules(pipeline_id=1)
-        for priv_port, pub_port in zip(self.priv_ports, self.pub_ports):
+        for priv_port, pub_port in zip(self.uplink_ports, self.downlink_ports):
             priv_intf = interfaces[priv_port]["virtual-interface"]
             pub_intf = interfaces[pub_port]["virtual-interface"]
 
@@ -215,8 +215,8 @@ class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
 
     def _build_vnf_ports(self):
         self._port_pairs = PortPairs(self.vnfd_helper.interfaces)
-        self.priv_ports = self._port_pairs.priv_ports
-        self.pub_ports = self._port_pairs.pub_ports
+        self.uplink_ports = self._port_pairs.uplink_ports
+        self.downlink_ports = self._port_pairs.downlink_ports
         self.all_ports = self._port_pairs.all_ports
 
     def build_config(self):
@@ -226,8 +226,8 @@ class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
         }
 
         self._build_vnf_ports()
-        vpe_conf = ConfigCreate(self.vnfd_helper.port_pairs.priv_ports,
-                                self.vnfd_helper.port_pairs.pub_ports, self.socket)
+        vpe_conf = ConfigCreate(self.vnfd_helper.port_pairs.uplink_ports,
+                                self.vnfd_helper.port_pairs.downlink_ports, self.socket)
         vpe_conf.create_vpe_config(self.scenario_helper.vnf_cfg)
 
         config_basename = posixpath.basename(self.CFG_CONFIG)
