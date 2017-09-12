@@ -442,6 +442,8 @@ class HeatContext(Context):
             "routing_table": self.generate_routing_table(server),
             # empty IPv6 routing table
             "nd_route_tbl": [],
+            # we want to save the contex name so we can generate pod.yaml
+            "name": server.name,
         }
         # Target server may only have private_ip
         if server.public_ip:
