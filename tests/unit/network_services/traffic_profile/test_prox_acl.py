@@ -82,5 +82,6 @@ class TestProxACLProfile(unittest.TestCase):
         profile.duration = 30
         profile.test_value = 100.0
         profile.tolerated_loss = 100.0
+        profile._profile_helper = mock.MagicMock()
 
         profile.run_test_with_pkt_size(traffic_gen, profile.pkt_size, profile.duration)

@@ -48,6 +48,7 @@ class TestProxRampProfile(unittest.TestCase):
         profile = ProxRampProfile(tp_config)
         profile.fill_samples = fill_samples = mock.MagicMock()
         profile.queue = mock.MagicMock()
+        profile._profile_helper = mock.MagicMock()
 
         profile.run_test_with_pkt_size(traffic_gen, 128, 30)
         self.assertEqual(traffic_gen.resource_helper.run_test.call_count, 10)
@@ -80,6 +81,7 @@ class TestProxRampProfile(unittest.TestCase):
         profile = ProxRampProfile(tp_config)
         profile.fill_samples = fill_samples = mock.MagicMock()
         profile.queue = mock.MagicMock()
+        profile._profile_helper = mock.MagicMock()
 
         profile.run_test_with_pkt_size(traffic_gen, 128, 30)
         self.assertEqual(traffic_gen.resource_helper.run_test.call_count, 4)
