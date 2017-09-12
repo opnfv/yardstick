@@ -34,7 +34,8 @@ stl_patch.start()
 
 if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import ScenarioHelper
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxSocketHelper
+    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxSocketHelper, \
+    ProxMplsProfileHelper
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import PacketDump
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import CoreSocketTuple
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxTestDataTuple
@@ -1701,7 +1702,7 @@ class TestProxResourceHelper(unittest.TestCase):
 
         setup_helper.prox_config_data = [
             ('global', [
-                ('name', helper.PROX_CORE_MPLS_TEST)
+                ('name', ProxMplsProfileHelper.PROX_PROFILE_TYPE)
             ]),
             ('section1', []),
             ('section2', [

@@ -78,6 +78,7 @@ class TestProxProfile(unittest.TestCase):
         }
 
         traffic_generator = mock.MagicMock()
+        traffic_generate.__prox_profile_type__ = "Generic"
         profile = ProxProfile(tp_config)
 
         self.assertFalse(profile.done)

@@ -52,6 +52,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
         traffic_generator = mock.MagicMock()
         traffic_generator.run_test = target
+        traffic_generator.__prox_profile_type__ == "Generic"
 
         profile = ProxBinSearchProfile(tp_config)
         profile.init(mock.MagicMock())
@@ -83,6 +84,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
         traffic_generator = mock.MagicMock()
         traffic_generator.run_test = target
+        traffic_generator.__prox_profile_type__ == "Generic"
 
         profile = ProxBinSearchProfile(tp_config)
         profile.init(mock.MagicMock())

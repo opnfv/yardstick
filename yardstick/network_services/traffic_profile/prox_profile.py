@@ -18,6 +18,7 @@ from __future__ import absolute_import
 import logging
 
 from yardstick.network_services.traffic_profile.base import TrafficProfile
+from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxProfileHelper
 
 LOG = logging.getLogger(__name__)
 
@@ -56,6 +57,12 @@ class ProxProfile(TrafficProfile):
         self.lower_bound = float(self.prox_config.get('lower_bound', 10.0))
         self.upper_bound = float(self.prox_config.get('upper_bound', 100.0))
         self.step_value = float(self.prox_config.get('step_value', 10.0))
+        self._profile_helper = None
+
+    def make_profile_helper(self, traffic_gen):
+        if self._profile_helper is None:
+            self._profile_helper = ProxProfileHelper.make_profile_helper(traffic_gen)
+        return self._profile_helper
 
     def init(self, queue):
         self.pkt_size_iterator = iter(self.pkt_sizes)
@@ -89,6 +96,8 @@ class ProxProfile(TrafficProfile):
         raise NotImplementedError
 
     def execute_traffic(self, traffic_generator):
+        self.make_profile_helper(traffic_generator)
+
         try:
             pkt_size = next(self.pkt_size_iterator)
         except StopIteration:
