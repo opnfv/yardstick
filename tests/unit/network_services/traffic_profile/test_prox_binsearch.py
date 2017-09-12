@@ -51,10 +51,13 @@ class TestProxBinSearchProfile(unittest.TestCase):
         fail_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.6, 5.7, 5.8], 850, 1000, 123.4)
 
         traffic_generator = mock.MagicMock()
-        traffic_generator.run_test = target
+
+        profile_helper = mock.MagicMock()
+        profile_helper.run_test = target
 
         profile = ProxBinSearchProfile(tp_config)
         profile.init(mock.MagicMock())
+        profile._profile_helper = profile_helper
 
         profile.execute_traffic(traffic_generator)
         self.assertEqual(round(profile.current_lower, 2), 74.69)
@@ -82,10 +85,13 @@ class TestProxBinSearchProfile(unittest.TestCase):
         fail_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.6, 5.7, 5.8], 850, 1000, 123.4)
 
         traffic_generator = mock.MagicMock()
-        traffic_generator.run_test = target
+
+        profile_helper = mock.MagicMock()
+        profile_helper.run_test = target
 
         profile = ProxBinSearchProfile(tp_config)
         profile.init(mock.MagicMock())
+        profile._profile_helper = profile_helper
 
         profile.execute_traffic(traffic_generator)
         self.assertEqual(round(profile.current_lower, 2), 24.06)

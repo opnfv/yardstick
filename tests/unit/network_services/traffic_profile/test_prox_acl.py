@@ -59,18 +59,9 @@ class TestProxACLProfile(unittest.TestCase):
         fail_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.6, 5.7, 5.8], 850, 1000, 123.4)
 
         traffic_gen = mock.MagicMock()
-        traffic_gen.run_test = target
 
-        traffic_gen.resource_helper.run_test.side_effect = [
-            success_tuple,
-            success_tuple,
-            success_tuple,
-            fail_tuple,
-            success_tuple,
-            fail_tuple,
-            fail_tuple,
-            fail_tuple,
-        ]
+        profile_helper = mock.MagicMock()
+        profile_helper.run_test = target
 
         profile = ProxACLProfile(tp_config)
         profile.init(mock.MagicMock())
@@ -82,5 +73,6 @@ class TestProxACLProfile(unittest.TestCase):
         profile.duration = 30
         profile.test_value = 100.0
         profile.tolerated_loss = 100.0
+        profile._profile_helper = profile_helper
 
         profile.run_test_with_pkt_size(traffic_gen, profile.pkt_size, profile.duration)

@@ -120,6 +120,11 @@ class VnfdHelper(dict):
     def port_nums(self, intfs):
         return [self.port_num(i) for i in intfs]
 
+    def ports_iter(self):
+        for port_name in self.port_pairs.all_ports:
+            port_num = self.port_num(port_name)
+            yield port_name, port_num
+
 
 class VNFObject(object):
 
