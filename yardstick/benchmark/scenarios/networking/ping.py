@@ -67,7 +67,7 @@ class Ping(base.Scenario):
             else:
                 target_vm = self.scenario_cfg['target']
 
-            LOG.debug("ping '%s' '%s'", options, dest)
+            LOG.debug("ping %s %s", options, dest)
             with open(self.target_script, "r") as stdin_file:
                 exit_status, stdout, stderr = self.connection.execute(
                     "/bin/sh -s {0} {1}".format(dest, options),
