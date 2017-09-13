@@ -48,7 +48,6 @@
         recreate: yes
         state: started
         restart_policy: always
-        network_mode: host
         privileged: True
         interactive: True
         volumes:
