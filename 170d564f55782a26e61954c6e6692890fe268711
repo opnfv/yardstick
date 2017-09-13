@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_a52acf7b",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-13T09:17:47Z",
+      "side": 1,
+      "message": "no need for %\n\n\n   LOG.exception(\"Failed to render template:\\n%(task)s\\n%(err)s\\n\", {\"task\": input_task, \"err\": e})\n\nshould work",
+      "range": {
+        "startLine": 498,
+        "startChar": 34,
+        "endLine": 498,
+        "endChar": 35
+      },
+      "revId": "170d564f55782a26e61954c6e6692890fe268711",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
