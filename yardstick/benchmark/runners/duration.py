@@ -40,7 +40,8 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
     interval = runner_cfg.get("interval", 1)
     duration = runner_cfg.get("duration", 60)
-    LOG.info("worker START, duration %d sec, class %s", duration, cls)
+    LOG.info("Worker START, duration is %ds", duration)
+    LOG.debug("class is %s", cls)
 
     runner_cfg['runner_id'] = os.getpid()
 
@@ -95,7 +96,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
         if (errors and sla_action is None) or \
                 (time.time() - start > duration or aborted.is_set()):
-            LOG.info("worker END")
+            LOG.info("Worker END")
             break
 
     benchmark.teardown()

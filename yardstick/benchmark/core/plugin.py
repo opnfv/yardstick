@@ -38,19 +38,19 @@ class Plugin(object):
 
         plugins, deployment = parser.parse_plugin()
         plugin_name = plugins.get("name")
-        print("Installing plugin: %s" % plugin_name)
+        LOG.info("Installing plugin: %s", plugin_name)
 
-        LOG.info("Executing _install_setup()")
+        LOG.debug("Executing _install_setup()")
         self._install_setup(plugin_name, deployment)
 
-        LOG.info("Executing _run()")
+        LOG.debug("Executing _run()")
         self._run(plugin_name)
 
         total_end_time = time.time()
-        LOG.info("total finished in %d secs",
+        LOG.info("Total finished in %d secs",
                  total_end_time - total_start_time)
 
-        print("Done, exiting")
+        LOG.info("Plugin %s Done, exiting", plugin_name)
 
     def remove(self, args):
         """Remove a plugin."""

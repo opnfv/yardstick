@@ -16,9 +16,7 @@ from yardstick.common import utils as yardstick_utils
 
 yardstick_utils.makedirs(constants.LOG_DIR)
 LOG_FILE = os.path.join(constants.LOG_DIR, 'yardstick.log')
-LOG_FORMATTER = ('%(asctime)s '
-                 '%(name)s %(filename)s:%(lineno)d '
-                 '%(levelname)s %(message)s')
+LOG_FORMATTER = ('%(asctime)s [%(levelname)s] %(name)s %(filename)s:%(lineno)d %(message)s')
 
 _LOG_FORMATTER = logging.Formatter(LOG_FORMATTER)
 _LOG_STREAM_HDLR = logging.StreamHandler()
