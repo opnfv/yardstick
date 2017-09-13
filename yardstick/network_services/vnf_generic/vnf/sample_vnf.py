@@ -825,6 +825,9 @@ class SampleVNF(GenericVNF):
 
             LOG.info("Waiting for %s VNF to start.. ", self.APP_NAME)
             time.sleep(1)
+            # Send ENTER to display a new prompt in case the prompt text was corrupted
+            # by other VNF output
+            self.q_in.put('\r\n')
 
     def _build_run_kwargs(self):
         self.run_kwargs = {
