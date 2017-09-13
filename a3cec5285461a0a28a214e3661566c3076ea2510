@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_db2414b1",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-13T23:37:52Z",
+      "side": 1,
+      "message": "my apologies for being less than fully explicit, i was thinking:\n\n target \u003d cfg[\u0027target\u0027]\n if is_ip_addr(target):\n   context_cfg[\u0027target\u0027] \u003d {\u0027ipaddr\u0027: target}\n else:\n   context_cfg[\u0027target\u0027] \u003d Context.get_server(target)\n   if self._is_same_heat_context(cfg[\u0027host\u0027], target):\n     context_cfg[\u0027target\u0027][\u0027ipaddr\u0027] \u003d target[\u0027private_ip\u0027]\n   else:\n     context_cfg[\u0027target\u0027][\u0027ipaddr\u0027] \u003d target[\u0027ip\u0027]\n\nor we could dispense with passing the entire dictionary into this method and just pass \u0027target\u0027 and \u0027host\u0027:\n\n def config_context_target(target, host):\n   if is_ip_addr(target):\n     context_cfg[\u0027target\u0027] \u003d {\u0027ipaddr\u0027: target}\n   else:\n     context_cfg[\u0027target\u0027] \u003d Context.get_server(target)\n     if self._is_same_heat_context(host, target):\n       context_cfg[\u0027target\u0027][\u0027ipaddr\u0027] \u003d target[\u0027private_ip\u0027]\n     else:\n       context_cfg[\u0027target\u0027][\u0027ipaddr\u0027] \u003d target[\u0027ip\u0027]\n ...\n for item in [server_name, scenario_cfg]:\n   try:\n     config_context_target(item[\u0027target\u0027], item[\u0027host\u0027])\n   except KeyError:\n     pass\n   else:\n     break",
+      "revId": "a3cec5285461a0a28a214e3661566c3076ea2510",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
