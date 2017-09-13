@@ -134,7 +134,7 @@ class TrexProfile(TrafficProfile):
                                                            seed=0x1235)
             self.vm_flow_vars.append(stl_vm_flow_var)
             stl_vm_wr_flow_var = STLVmWrFlowVar(fv_name='port_{}'.format(field),
-                                                pkt_offset=self.udp_sport)
+                                                pkt_offset=self.udp[field])
             self.vm_flow_vars.append(stl_vm_wr_flow_var)
         return partial
 
@@ -156,8 +156,10 @@ class TrexProfile(TrafficProfile):
         self.ip_packet = None
         self.ip6_packet = None
         self.udp_packet = None
-        self.udp_dport = ''
-        self.udp_sport = ''
+        self.udp = {
+            SRC_PORT: '',
+            DST_PORT: '',
+        }
         self.qinq_packet = None
         self.qinq = False
         self.vm_flow_vars = []
@@ -266,8 +268,8 @@ class TrexProfile(TrafficProfile):
             ip_params['proto'] = socket.getprotobyname(outer_l3v4['proto'])
             if outer_l3v4['proto'] == 'tcp':
                 self.udp_packet = Pkt.TCP()
-                self.udp_dport = 'TCP.dport'
-                self.udp_sport = 'TCP.sport'
+                self.udp[DST_PORT] = 'TCP.dport'
+                self.udp[SRC_PORT] = 'TCP.sport'
                 tcp_params = {'flags': '', 'window': 0}
                 self._set_proto_fields(UDP, **tcp_params)
         if 'ttl' in outer_l3v4:
@@ -289,8 +291,8 @@ class TrexProfile(TrafficProfile):
             ip6_params['proto'] = outer_l3v6['proto']
             if outer_l3v6['proto'] == 'tcp':
                 self.udp_packet = Pkt.TCP()
-                self.udp_dport = 'TCP.dport'
-                self.udp_sport = 'TCP.sport'
+                self.udp[DST_PORT] = 'TCP.dport'
+                self.udp[SRC_PORT] = 'TCP.sport'
                 tcp_params = {'flags': '', 'window': 0}
                 self._set_proto_fields(UDP, **tcp_params)
         if 'ttl' in outer_l3v6:
@@ -364,8 +366,8 @@ class TrexProfile(TrafficProfile):
         self.ip_packet = Pkt.IP()
         self.ip6_packet = None
         self.udp_packet = Pkt.UDP()
-        self.udp_dport = 'UDP.dport'
-        self.udp_sport = 'UDP.sport'
+        self.udp[DST_PORT] = 'UDP.dport'
+        self.udp[SRC_PORT] = 'UDP.sport'
         self.qinq = False
         self.vm_flow_vars = []
         outer_l2 = packet_definition.get('outer_l2', None)
