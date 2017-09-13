@@ -432,8 +432,9 @@ class SSH(object):
 
 class AutoConnectSSH(SSH):
 
+    # always wait or we will get OpenStack SSH errors
     def __init__(self, user, host, port=None, pkey=None,
-                 key_filename=None, password=None, name=None, wait=False):
+                 key_filename=None, password=None, name=None, wait=True):
         super(AutoConnectSSH, self).__init__(user, host, port, pkey, key_filename, password, name)
         self._wait = wait
 
