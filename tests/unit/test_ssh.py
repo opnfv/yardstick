@@ -527,7 +527,7 @@ class TestAutoConnectSSH(unittest.TestCase):
             'key_filename': None,
             'password': None,
             'name': None,
-            'wait': False,
+            'wait': True,
         }
         result = auto_connect_ssh._make_dict()
         self.assertDictEqual(result, expected)
