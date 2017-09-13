@@ -1,4 +1,6 @@
 {
+  "__inputs": [
+{
   "id": 50,
   "title": "KVMFORNFV-Packet-Forwarding",
   "originalTitle": "KVMFORNFV-Packet-Forwarding",
@@ -44,7 +46,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -129,8 +131,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "phy2phy_tput 64",
+          "title": "phy2phy_tput 64(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -170,7 +173,118 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 28,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "phy2phy_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"phy2phy_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "throughput_rx_mbps"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "64"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "phy2phy_tput 64(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -255,8 +369,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "phy2phy_tput 128",
+          "title": "phy2phy_tput 128(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -296,7 +411,118 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 29,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "phy2phy_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"phy2phy_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "throughput_rx_mbps"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "128"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "phy2phy_tput 128(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -381,8 +607,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "phy2phy_tput 512",
+          "title": "phy2phy_tput 512(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -422,7 +649,118 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 30,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "phy2phy_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"phy2phy_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "throughput_rx_mbps"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "512"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "phy2phy_tput 512(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -507,8 +845,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "phy2phy_tput 1024",
+          "title": "phy2phy_tput 1024(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -548,7 +887,118 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 32,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "phy2phy_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"phy2phy_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "throughput_rx_mbps"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "1024"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "phy2phy_tput 1024(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -633,8 +1083,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "phy2phy_tput 1518",
+          "title": "phy2phy_tput 1518(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -670,6 +1121,117 @@
               "show": false
             }
           ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 31,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "phy2phy_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"phy2phy_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "throughput_rx_mbps"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "128"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "phy2phy_tput 1518(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
         }
       ],
       "repeat": null,
@@ -687,7 +1249,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -771,8 +1333,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvp_tput 64",
+          "title": "pvp_tput 64(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -807,12 +1370,124 @@
               "min": null,
               "show": false
             }
-          ]
+          ],
+          "links": []
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 33,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvp_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "64"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvp_tput 64(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "links": []
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -896,8 +1571,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvp_tput 128",
+          "title": "pvp_tput 128(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -932,12 +1608,124 @@
               "min": null,
               "show": false
             }
-          ]
+          ],
+          "links": []
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 35,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvp_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "1024"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvp_tput 128(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "links": []
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -1021,8 +1809,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvp_tput 512",
+          "title": "pvp_tput 512(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -1057,12 +1846,124 @@
               "min": null,
               "show": false
             }
-          ]
+          ],
+          "links": []
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 34,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvp_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "1024"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvp_tput 512(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "links": []
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -1146,8 +2047,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvp_tput 1024",
+          "title": "pvp_tput 1024(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -1182,12 +2084,124 @@
               "min": null,
               "show": false
             }
-          ]
+          ],
+          "links": []
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 37,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvp_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "1024"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvp_tput 1024(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "links": []
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -1271,8 +2285,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvp_tput 1518",
+          "title": "pvp_tput 1518(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -1307,7 +2322,119 @@
               "min": null,
               "show": false
             }
-          ]
+          ],
+          "links": []
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 36,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvp_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "1518"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvp_tput 1518(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "links": []
         }
       ],
       "repeat": null,
@@ -1325,7 +2452,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -1409,8 +2536,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvp_tput_SRIOV 64",
+          "title": "pvp_tput_SRIOV 64(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -1445,12 +2573,124 @@
               "min": null,
               "show": false
             }
-          ]
+          ],
+          "links": []
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 38,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvp_tput_SRIOV",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_SRIOV\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "64"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvp_tput_SRIOV 64(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "links": []
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -1534,8 +2774,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvp_tput_SRIOV 128",
+          "title": "pvp_tput_SRIOV 128(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -1570,12 +2811,124 @@
               "min": null,
               "show": false
             }
-          ]
+          ],
+          "links": []
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 40,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvp_tput_SRIOV",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_SRIOV\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "128"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvp_tput_SRIOV 128(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "links": []
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -1659,8 +3012,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvp_tput_SRIOV 512",
+          "title": "pvp_tput_SRIOV 512(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -1695,12 +3049,124 @@
               "min": null,
               "show": false
             }
-          ]
+          ],
+          "links": []
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 39,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvp_tput_SRIOV",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_SRIOV\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "512"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvp_tput_SRIOV 512(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "links": []
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -1784,8 +3250,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvp_tput_SRIOV 1024",
+          "title": "pvp_tput_SRIOV 1024(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -1820,12 +3287,124 @@
               "min": null,
               "show": false
             }
-          ]
+          ],
+          "links": []
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 42,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvp_tput_SRIOV",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_SRIOV\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "1024"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvp_tput_SRIOV 1024(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "links": []
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -1909,8 +3488,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvp_tput_SRIOV 1518",
+          "title": "pvp_tput_SRIOV 1518(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -1945,7 +3525,119 @@
               "min": null,
               "show": false
             }
-          ]
+          ],
+          "links": []
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 41,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvp_tput_SRIOV",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_SRIOV\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "1518"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvp_tput_SRIOV 1518(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "links": []
         }
       ],
       "repeat": null,
@@ -1963,7 +3655,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -2007,7 +3699,7 @@
               "groupBy": [],
               "measurement": "pvvp_tput_OVS_with_DPDK_and_vHost_User",
               "policy": "default",
-              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"phy2phy_tput_mod_vlan_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2048,8 +3740,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvvp_tput 64",
+          "title": "pvvp_tput 64(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -2089,7 +3782,118 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 43,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvvp_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "64"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvvp_tput 64(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -2133,7 +3937,7 @@
               "groupBy": [],
               "measurement": "pvvp_tput_OVS_with_DPDK_and_vHost_User",
               "policy": "default",
-              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"phy2phy_tput_mod_vlan_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '128' AND $timeFilter",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '128' AND $timeFilter",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2174,8 +3978,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvvp_tput 128",
+          "title": "pvvp_tput 128(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -2215,7 +4020,118 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 45,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvvp_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "128"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvvp_tput 128(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -2259,7 +4175,7 @@
               "groupBy": [],
               "measurement": "pvvp_tput_OVS_with_DPDK_and_vHost_User",
               "policy": "default",
-              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"phy2phy_tput_mod_vlan_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '512' AND $timeFilter",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '512' AND $timeFilter",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2300,8 +4216,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvvp_tput 512",
+          "title": "pvvp_tput 512(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -2341,7 +4258,118 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 47,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvvp_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "512"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvvp_tput 512(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -2385,7 +4413,7 @@
               "groupBy": [],
               "measurement": "pvvp_tput_OVS_with_DPDK_and_vHost_User",
               "policy": "default",
-              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"phy2phy_tput_mod_vlan_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '1024' AND $timeFilter",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '1024' AND $timeFilter",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2426,8 +4454,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvvp_tput 1024",
+          "title": "pvvp_tput 1024(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -2467,7 +4496,118 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 44,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvvp_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "1024"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvvp_tput 1024(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -2511,7 +4651,7 @@
               "groupBy": [],
               "measurement": "pvvp_tput_OVS_with_DPDK_and_vHost_User",
               "policy": "default",
-              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"phy2phy_tput_mod_vlan_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '1518' AND $timeFilter",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '1518' AND $timeFilter",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2552,8 +4692,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvvp_tput 1518",
+          "title": "pvvp_tput 1518(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -2589,6 +4730,117 @@
               "show": false
             }
           ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 46,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvvp_tput_OVS_with_DPDK_and_vHost_User",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_OVS_with_DPDK_and_vHost_User\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "1518"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvvp_tput 1518(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
         }
       ],
       "repeat": null,
@@ -2606,7 +4858,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -2650,7 +4902,7 @@
               "groupBy": [],
               "measurement": "pvvp_tput_SRIOV",
               "policy": "default",
-              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_SRIOV\" WHERE \"packet_size\" = '1518' AND $timeFilter",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_SRIOV\" WHERE \"packet_size\" = '64' AND $timeFilter",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2691,8 +4943,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvvp_tput_SRIOV 64",
+          "title": "pvpv_cont 64(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -2732,7 +4985,118 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 48,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvvp_tput_SRIOV",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_SRIOV\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "64"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvpv_cont 64(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -2776,7 +5140,7 @@
               "groupBy": [],
               "measurement": "pvvp_tput_SRIOV",
               "policy": "default",
-              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_SRIOV\" WHERE \"packet_size\" = '1518' AND $timeFilter",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_SRIOV\" WHERE \"packet_size\" = '128' AND $timeFilter",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2817,8 +5181,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvvp_tput_SRIOV 128",
+          "title": "pvpv_cont 128(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -2858,7 +5223,118 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 49,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvvp_tput_SRIOV",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_SRIOV\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "128"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvpv_cont 128(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -2902,7 +5378,7 @@
               "groupBy": [],
               "measurement": "pvvp_tput_SRIOV",
               "policy": "default",
-              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_SRIOV\" WHERE \"packet_size\" = '1518' AND $timeFilter",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_SRIOV\" WHERE \"packet_size\" = '512' AND $timeFilter",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2943,8 +5419,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvvp_tput_SRIOV 512",
+          "title": "pvpv_cont 512(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -2984,7 +5461,118 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 50,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvvp_tput_SRIOV",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_SRIOV\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "512"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvpv_cont 512(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -3028,7 +5616,7 @@
               "groupBy": [],
               "measurement": "pvvp_tput_SRIOV",
               "policy": "default",
-              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_SRIOV\" WHERE \"packet_size\" = '1518' AND $timeFilter",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_SRIOV\" WHERE \"packet_size\" = '1024' AND $timeFilter",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3069,8 +5657,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvvp_tput_SRIOV 1024",
+          "title": "pvpv_cont 1024(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -3110,7 +5699,118 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "yardstick-vtc",
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 52,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvvp_tput_SRIOV",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_SRIOV\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "1024"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvpv_cont 1024(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
           "fill": 0,
           "grid": {
             "leftLogBase": 1,
@@ -3154,7 +5854,7 @@
               "groupBy": [],
               "measurement": "pvvp_tput_SRIOV",
               "policy": "default",
-              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvp_tput_SRIOV\" WHERE \"packet_size\" = '1518' AND $timeFilter",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_SRIOV\" WHERE \"packet_size\" = '1518' AND $timeFilter",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3195,8 +5895,9 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "pvvp_tput_SRIOV 1518",
+          "title": "pvpv_cont 1518(latency)",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "individual"
@@ -3232,10 +5933,121 @@
               "show": false
             }
           ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_YARDSTICK-VTC}",
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 51,
+          "leftYAxisLabel": "latency",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "pvvp_tput_SRIOV",
+              "policy": "default",
+              "query": "SELECT \"min_value\", \"avg_value\", \"max_value\" FROM \"pvvp_tput_SRIOV\" WHERE \"packet_size\" = '64' AND $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "throughput_rx_mbps"
+                    ]
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "packet_size",
+                  "operator": "=",
+                  "value": "1518"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "pvpv_cont 1518(throughput)",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "MBs",
+              "label": "throughput",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
         }
       ],
       "showTitle": true,
-      "title": "KVM4NFV-pvvp-tput-SRIOV"
+      "title": "KVM4NFV-pvpv-cont-OVS_WITH_DPDK_AND_VHOST_USER"
     }
   ],
   "time": {
