@@ -186,6 +186,7 @@ class TestVnfSshHelper(unittest.TestCase):
     @mock.patch('yardstick.ssh.paramiko')
     def test_upload_config_file(self, mock_paramiko):
         ssh_helper = VnfSshHelper(self.VNFD_0['mgmt-interface'], 'my/bin/path')
+        ssh_helper._run = mock.MagicMock()
 
         self.assertFalse(ssh_helper.is_connected)
         cfg_file = ssh_helper.upload_config_file('my/prefix', 'my content')
@@ -227,6 +228,7 @@ class TestVnfSshHelper(unittest.TestCase):
     @mock.patch('yardstick.ssh.provision_tool')
     def test_provision_tool(self, mock_provision_tool, mock_paramiko):
         ssh_helper = VnfSshHelper(self.VNFD_0['mgmt-interface'], 'my/bin/path')
+        ssh_helper._run = mock.MagicMock()
 
         self.assertFalse(ssh_helper.is_connected)
         ssh_helper.provision_tool()
