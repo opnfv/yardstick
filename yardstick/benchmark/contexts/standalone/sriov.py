@@ -34,8 +34,8 @@ VM_TEMPLATE = """
 <domain type="kvm">
  <name>vm1</name>
   <uuid>{random_uuid}</uuid>
-  <memory unit="KiB">10240000</memory>
-  <currentMemory unit="KiB">10240000</currentMemory>
+  <memory unit="MB">10240</memory>
+  <currentMemory unit="MB">10240</currentMemory>
   <memoryBacking>
     <hugepages />
   </memoryBacking>
@@ -49,8 +49,7 @@ VM_TEMPLATE = """
     <apic />
     <pae />
   </features>
-  <cpu match="exact" mode="custom">
-    <model fallback="allow">SandyBridge</model>
+  <cpu mode='host-passthrough'>
     <topology cores="10" sockets="1" threads="2" />
   </cpu>
   <clock offset="utc">
@@ -67,51 +66,12 @@ VM_TEMPLATE = """
       <driver name="qemu" type="qcow2" />
       <source file="{vm_image}"/>
       <target bus="virtio" dev="vda" />
-      <address bus="0x00" domain="0x0000"
-function="0x0" slot="0x04" type="pci" />
     </disk>
-    <controller index="0" model="ich9-ehci1" type="usb">
-      <address bus="0x00" domain="0x0000"
-function="0x7" slot="0x05" type="pci" />
-    </controller>
-    <controller index="0" model="ich9-uhci1" type="usb">
-      <master startport="0" />
-      <address bus="0x00" domain="0x0000" function="0x0"
-multifunction="on" slot="0x05" type="pci" />
-    </controller>
-    <controller index="0" model="ich9-uhci2" type="usb">
-      <master startport="2" />
-      <address bus="0x00" domain="0x0000"
-function="0x1" slot="0x05" type="pci" />
-    </controller>
-    <controller index="0" model="ich9-uhci3" type="usb">
-      <master startport="4" />
-      <address bus="0x00" domain="0x0000"
-function="0x2" slot="0x05" type="pci" />
-    </controller>
-    <controller index="0" model="pci-root" type="pci" />
-      <serial type="pty">
-      <target port="0" />
-    </serial>
-    <console type="pty">
-      <target port="0" type="serial" />
-    </console>
-    <input bus="usb" type="tablet" />
-    <input bus="ps2" type="mouse" />
-    <input bus="ps2" type="keyboard" />
     <graphics autoport="yes" listen="0.0.0.0" port="-1" type="vnc" />
-    <video>
-      <model heads="1" type="cirrus" vram="16384" />
-      <address bus="0x00" domain="0x0000"
-function="0x0" slot="0x02" type="pci" />
-    </video>
-    <memballoon model="virtio">
-      <address bus="0x00" domain="0x0000"
-function="0x0" slot="0x06" type="pci" />
-    </memballoon>
     <interface type="bridge">
       <mac address="{mac_addr}" />
       <source bridge="br-int" />
+      <model type='virtio'/>
     </interface>
    </devices>
 </domain>
@@ -120,10 +80,7 @@ function="0x0" slot="0x06" type="pci" />
 
 class Sriov(StandaloneContext):
     def __init__(self):
-        self.name = None
         self.file_path = None
-        self.nodes = []
-        self.vm_deploy = False
         self.sriov = []
         self.first_run = True
         self.dpdk_nic_bind = ""

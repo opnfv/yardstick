@@ -75,11 +75,8 @@ class SriovTestCase(unittest.TestCase):
         self.test_context = sriov.Sriov()
 
     def test_construct(self):
-        self.assertIsNone(self.test_context.name)
         self.assertIsNone(self.test_context.file_path)
-        self.assertEqual(self.test_context.nodes, [])
         self.assertEqual(self.test_context.sriov, [])
-        self.assertFalse(self.test_context.vm_deploy)
         self.assertTrue(self.test_context.first_run)
         self.assertEqual(self.test_context.user, "")
         self.assertEqual(self.test_context.ssh_ip, "")

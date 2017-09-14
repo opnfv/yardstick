@@ -17,9 +17,13 @@ import os
 import yaml
 import time
 import glob
+import uuid
+import random
 import itertools
 import logging
 from yardstick import ssh
+from yardstick.network_services.utils import get_nsb_option
+from yardstick.network_services.utils import provision_tool
 from yardstick.benchmark.contexts.standalone import StandaloneContext
 
 BIN_PATH = "/opt/isb_bin/"
@@ -30,9 +34,9 @@ log = logging.getLogger(__name__)
 VM_TEMPLATE = """
 <domain type='kvm'>
   <name>vm1</name>
-  <uuid>18230c0c-635d-4c50-b2dc-a213d30acb34</uuid>
-  <memory unit='KiB'>20971520</memory>
-  <currentMemory unit="KiB">20971520</currentMemory>
+  <uuid>{random_uuid}</uuid>
+  <memory unit="MB">10240</memory>
+  <currentMemory unit="MB">10240</currentMemory>
   <memoryBacking>
     <hugepages/>
   </memoryBacking>
@@ -58,18 +62,11 @@ VM_TEMPLATE = """
       <driver name='qemu' type='qcow2' cache='none'/>
       <source file="{vm_image}"/>
       <target dev='vda' bus='virtio'/>
-      <address bus="0x00" domain="0x0000"
-      function="0x0" slot="0x04" type="pci" />
     </disk>
-    <!--disk type='dir' device='disk'>
-      <driver name='qemu' type='fat'/>
-      <source dir='/opt/isb_bin/dpdk'/>
-      <target dev='vdb' bus='virtio'/>
-      <readonly/>
-    </disk-->
     <interface type="bridge">
-      <mac address="00:00:00:ab:cd:ef" />
+      <mac address="{mac_addr}" />
       <source bridge="br-int" />
+      <model type='virtio'/>
     </interface>
     <interface type='vhostuser'>
       <mac address='00:00:00:00:00:01'/>
@@ -103,8 +100,6 @@ class Ovsdpdk(StandaloneContext):
     def __init__(self):
         self.name = None
         self.file_path = None
-        self.nodes = []
-        self.vm_deploy = False
         self.ovs = []
         self.first_run = True
         self.dpdk_nic_bind = BIN_PATH + DPDK_NIC_BIND
@@ -157,6 +152,9 @@ class Ovsdpdk(StandaloneContext):
                 port=ssh_port,
                 key_filename=self.key_filename)
             self.connection.wait()
+        self.dpdk_nic_bind = provision_tool(
+            self.connection,
+            os.path.join(get_nsb_option("bin_path"), "dpdk_nic_bind.py"))
 
     def get_nic_details(self):
         nic_details = {}
@@ -276,7 +274,16 @@ class Ovsdpdk(StandaloneContext):
 
         ''' 1: Setup vm_ovs.xml to launch VM.'''
         cfg_ovs = '/tmp/vm_ovs.xml'
-        vm_ovs_xml = VM_TEMPLATE.format(vm_image=self.ovs[0]["images"])
+        mac = [0x00, 0x24, 0x81,
+               random.randint(0x00, 0x7f),
+               random.randint(0x00, 0xff),
+               random.randint(0x00, 0xff)]
+        mac_address = ':'.join(map(lambda x: "%02x" % x, mac))
+        vm_ovs_xml = VM_TEMPLATE.format(
+            random_uuid=uuid.uuid4(),
+            mac_addr=mac_address,
+            vm_image=self.ovs[0]["images"])
+
         with open(cfg_ovs, 'w') as f:
             f.write(vm_ovs_xml)
 
