@@ -21,26 +21,24 @@ import uuid
 import random
 import itertools
 import logging
+
 from yardstick import ssh
 from yardstick.network_services.utils import get_nsb_option
 from yardstick.network_services.utils import provision_tool
 from yardstick.benchmark.contexts.standalone import StandaloneContext
 
-BIN_PATH = "/opt/isb_bin/"
-DPDK_NIC_BIND = "dpdk_nic_bind.py"
-
 log = logging.getLogger(__name__)
 
 VM_TEMPLATE = """
 <domain type='kvm'>
-  <name>vm1</name>
+ <name>{vm_name}</name>
   <uuid>{random_uuid}</uuid>
-  <memory unit="MB">10240</memory>
-  <currentMemory unit="MB">10240</currentMemory>
+  <memory unit="MB">{memory}</memory>
+  <currentMemory unit="MB">{memory}</currentMemory>
   <memoryBacking>
     <hugepages/>
   </memoryBacking>
-  <vcpu placement='static'>20</vcpu>
+  <vcpu placement='static'>{vcpu}</vcpu>
   <os>
     <type arch='x86_64' machine='pc'>hvm</type>
     <boot dev='hd'/>
@@ -49,9 +47,8 @@ VM_TEMPLATE = """
     <acpi/>
     <apic/>
   </features>
-  <cpu match="exact" mode='host-model'>
-    <model fallback='allow'/>
-    <topology sockets='1' cores='10' threads='2'/>
+  <cpu mode='host-passthrough'>
+    <topology cores="{cpu}" sockets="{socket}" threads="{threads}" />
   </cpu>
   <on_poweroff>destroy</on_poweroff>
   <on_reboot>restart</on_reboot>
@@ -64,7 +61,6 @@ VM_TEMPLATE = """
       <target dev='vda' bus='virtio'/>
     </disk>
     <interface type="bridge">
-      <mac address="{mac_addr}" />
       <source bridge="br-int" />
       <model type='virtio'/>
     </interface>
@@ -97,17 +93,20 @@ VM_TEMPLATE = """
 
 
 class Ovsdpdk(StandaloneContext):
-    def __init__(self):
+    def __init__(self, attrs):
         self.name = None
         self.file_path = None
         self.ovs = []
         self.first_run = True
-        self.dpdk_nic_bind = BIN_PATH + DPDK_NIC_BIND
+        self.dpdk_nic_bind = ""
         self.user = ""
         self.ssh_ip = ""
         self.passwd = ""
         self.ssh_port = ""
         self.auth_type = ""
+        self.vm_names = []
+        self.vm_flavor = attrs.get('flavor', {})
+        self.attrs = attrs
 
     def init(self):
         '''initializes itself'''
@@ -157,21 +156,23 @@ class Ovsdpdk(StandaloneContext):
             os.path.join(get_nsb_option("bin_path"), "dpdk_nic_bind.py"))
 
     def get_nic_details(self):
-        nic_details = {}
-        nic_details['interface'] = {}
-        nic_details['pci'] = self.ovs[0]['phy_ports']
-        nic_details['phy_driver'] = self.ovs[0]['phy_driver']
-        nic_details['vports_mac'] = self.ovs[0]['vports_mac']
+        nic_details = {
+            'interface': {},
+            'pci': self.attrs['phy_ports'],
+            'phy_driver': self.attrs['phy_driver'],
+            'vports_mac': self.attrs['vports_mac']
+        }
+
         #    Make sure that ports are bound to kernel drivers e.g. i40e/ixgbe
         for i, _ in enumerate(nic_details['pci']):
             err, out, _ = self.connection.execute(
                 "{dpdk_nic_bind} --force -b {driver} {port}".format(
                     dpdk_nic_bind=self.dpdk_nic_bind,
-                    driver=self.ovs[0]['phy_driver'],
-                    port=self.ovs[0]['phy_ports'][i]))
+                    driver=nic_details['phy_driver'],
+                    port=nic_details['pci'][i]))
             err, out, _ = self.connection.execute(
                 "lshw -c network -businfo | grep '{port}'".format(
-                    port=self.ovs[0]['phy_ports'][i]))
+                    port=nic_details['pci'][i]))
             a = out.split()[1]
             err, out, _ = self.connection.execute(
                 "ip -s link show {interface}".format(
@@ -188,15 +189,15 @@ class Ovsdpdk(StandaloneContext):
                                 "awk '{print $2}' | xargs -r kill -9")
         self.connection.execute("killall -r 'ovs*'")
         self.connection.execute(
-            "mkdir -p {0}/etc/openvswitch".format(self.ovs[0]["vpath"]))
+            "mkdir -p {0}/etc/openvswitch".format(self.attrs["vpath"]))
         self.connection.execute(
-            "mkdir -p {0}/var/run/openvswitch".format(self.ovs[0]["vpath"]))
+            "mkdir -p {0}/var/run/openvswitch".format(self.attrs["vpath"]))
         self.connection.execute(
-            "rm {0}/etc/openvswitch/conf.db".format(self.ovs[0]["vpath"]))
+            "rm {0}/etc/openvswitch/conf.db".format(self.attrs["vpath"]))
         self.connection.execute(
             "ovsdb-tool create {0}/etc/openvswitch/conf.db "
             "{0}/share/openvswitch/"
-            "vswitch.ovsschema".format(self.ovs[0]["vpath"]))
+            "vswitch.ovsschema".format(self.attrs["vpath"]))
         self.connection.execute("modprobe vfio-pci")
         self.connection.execute("chmod a+x /dev/vfio")
         self.connection.execute("chmod 0666 /dev/vfio/*")
@@ -224,7 +225,7 @@ class Ovsdpdk(StandaloneContext):
                 "var/run/openvswitch/db.sock --pidfile --detach "
                 "--log-file=/var/log/openvswitch/"
                 "ovs-vswitchd.log".format(
-                    self.ovs[0]["vpath"]))
+                    self.attrs["vpath"]))
             self.connection.execute(
                 "ovs-vsctl set Open_vSwitch . other_config:pmd-cpu-mask=2C")
 
@@ -246,11 +247,11 @@ class Ovsdpdk(StandaloneContext):
                                 "type=dpdkvhostuser")
         self.connection.execute(
             "chmod 0777 {0}/var/run/"
-            "openvswitch/dpdkvhostuser*".format(self.ovs[0]["vpath"]))
+            "openvswitch/dpdkvhostuser*".format(self.attrs["vpath"]))
 
     def add_oflows(self):
         self.connection.execute("ovs-ofctl del-flows br0")
-        for flow in self.ovs[0]["flow"]:
+        for flow in self.attrs["flow"]:
             self.connection.execute(flow)
             self.connection.execute("ovs-ofctl dump-flows br0")
             self.connection.execute(
@@ -267,10 +268,21 @@ class Ovsdpdk(StandaloneContext):
                random.randint(0x00, 0xff),
                random.randint(0x00, 0xff)]
         mac_address = ':'.join(map(lambda x: "%02x" % x, mac))
+        memory = self.vm_flavor.get('ram', '4096')
+        extra_spec = self.vm_flavor.get('extra_spec', {})
+        cpu = extra_spec.get('hw:cpu_cores', '2')
+        socket = extra_spec.get('hw:cpu_sockets', '1')
+        threads = extra_spec.get('hw:cpu_threads', '2')
+        vcpu = int(cpu) * int(threads)
+        vm_name = "vm_0"
+
         vm_ovs_xml = VM_TEMPLATE.format(
+            vm_name=vm_name,
             random_uuid=uuid.uuid4(),
             mac_addr=mac_address,
-            vm_image=self.ovs[0]["images"])
+            memory=memory, vcpu=vcpu, cpu=cpu,
+            socket=socket, threads=threads,
+            vm_image=self.vm_flavor["images"])
 
         with open(cfg_ovs, 'w') as f:
             f.write(vm_ovs_xml)
@@ -278,21 +290,25 @@ class Ovsdpdk(StandaloneContext):
         ''' 2: Create and start the VM'''
         self.connection.put(cfg_ovs, cfg_ovs)
         time.sleep(10)
-        err, out = self.check_output("virsh list --name | grep -i vm1")
-        if out == "vm1":
-            print("VM is already present")
-        else:
-            ''' FIXME: launch through libvirt'''
-            print("virsh create ...")
-            err, out, _ = self.connection.execute(
-                "virsh create /tmp/vm_ovs.xml")
-            time.sleep(10)
-            print("err : {0}".format(err))
-            print("{0}".format(_))
-            print("out : {0}".format(out))
+        err, out = self.check_output("virsh list --name | grep -i %s" % vm_name)
+        try:
+            if out == vm_name:
+                log.info("VM '%s' is already present" % vm_name)
+            else:
+                ''' FIXME: launch through libvirt'''
+                print("virsh create ...")
+                err, out, _ = self.connection.execute(
+                    "virsh create /tmp/vm_ovs.xml")
+                time.sleep(10)
+                print("err : {0}".format(err))
+                print("{0}".format(_))
+                print("out : {0}".format(out))
+        except ValueError:
+            raise
 
         ''' 3: Tuning for better performace.'''
-        self.pin_vcpu(pcis)
+        self.pin_vcpu(pcis, vm_name, vcpu)
+        self.vm_names.append(vm_name)
         self.connection.execute(
             "echo 1 > /sys/module/kvm/parameters/"
             "allow_unsafe_assigned_interrupts")
@@ -317,14 +333,14 @@ class Ovsdpdk(StandaloneContext):
         with open(filename, 'w') as the_file:
             the_file.write(content)
 
-    def pin_vcpu(self, pcis):
+    def pin_vcpu(self, pcis, vm_name, cpu):
         nodes = self.get_numa_nodes()
         print("{0}".format(nodes))
         num_nodes = len(nodes)
         for i in range(0, 10):
             self.connection.execute(
-                "virsh vcpupin vm1 {0} {1}".format(
-                    i, nodes[str(num_nodes - 1)][i % len(nodes[str(num_nodes - 1)])]))
+                "virsh vcpupin {0} {1} {2}".format(
+                    vm_name, i, nodes[str(num_nodes - 1)][i % len(nodes[str(num_nodes - 1)])]))
 
     def get_numa_nodes(self):
         nodes_sysfs = glob.iglob("/sys/devices/system/node/node*")
@@ -351,14 +367,15 @@ class Ovsdpdk(StandaloneContext):
             return []
 
     def destroy_vm(self):
-        host_driver = self.ovs[0]['phy_driver']
-        err, out = self.check_output("virsh list --name | grep -i vm1")
-        print("{0}".format(out))
-        if err == 0:
-            self.connection.execute("virsh shutdown vm1")
-            self.connection.execute("virsh destroy vm1")
-            self.check_output("rmmod {0}".format(host_driver))[1].splitlines()
-            self.check_output("modprobe {0}".format(host_driver))[
-                1].splitlines()
-        else:
-            print("error : ", err)
+        host_driver = self.attrs["phy_driver"]
+        for vm in self.vm_names:
+            err, out = self.check_output("virsh list --name | grep -i %s" % vm)
+            log.info("{0}".format(out))
+            if err == 0:
+                self.connection.execute("virsh shutdown %s" % vm)
+                self.connection.execute("virsh destroy %s" % vm)
+                self.check_output("rmmod {0}".format(host_driver))[1].splitlines()
+                self.check_output("modprobe {0}".format(host_driver))[
+                    1].splitlines()
+            else:
+                log.error("error : {0}".format(err))

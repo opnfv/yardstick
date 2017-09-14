@@ -143,9 +143,9 @@ class StandaloneContext(Context):
             self.nfvi_obj.setup_ovs_bridge()
             self.nfvi_obj.add_oflows()
             self.nfvi_obj.setup_ovs_context(
-                self.nfvi_obj.ovs[0]['phy_ports'],
+                self.nfvi_obj.attrs['phy_ports'],
                 nic_details,
-                self.nfvi_obj.ovs[0]['phy_driver'])
+                self.nfvi_obj.attrs['phy_driver'])
             LOG.debug("Waiting for VM to come up...")
             client = ssh.SSH.from_node(self.nodes[1], defaults={'user': 'root'})
             client.wait(timeout=500)

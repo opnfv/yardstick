@@ -53,7 +53,9 @@ OVS = [{
              'ovs-ofctl add-flow br0 in_port=4,action=output:2',
              'ovs-ofctl add-flow br0 in_port=2,action=output:4'],
     'phy_driver': 'i40e',
-    'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
+    'phy_ports': ['0000:06:00.0', '0000:06:00.1'],
+    'flavor': {"images": "/var/lib/libvirt/images/ubuntu.qcow2", "ram": "4096", "nic":  2,
+        "extra_specs": {"hw:cpu_sockets": 1, "hw:cpu_cores": 2, " hw:cpu_threads": 2}}}]
 
 OVS_PASSWORD = [{
     'auth_type': 'password',
@@ -70,7 +72,11 @@ OVS_PASSWORD = [{
              'ovs-ofctl add-flow br0 in_port=2,action=output:4'],
     'phy_driver': 'i40e',
     'password': 'password',
-    'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
+    'phy_ports': ['0000:06:00.0', '0000:06:00.1'],
+    'flavor': {"images": "/var/lib/libvirt/images/ubuntu.qcow2", "ram": "4096", "nic":  2,
+        "extra_specs": {"hw:cpu_sockets": 1, "hw:cpu_cores": 2, " hw:cpu_threads": 2}}}]
+
+ATTRS = OVS[0]
 
 #vfnic = "i40evf"
 PCIS = ['0000:06:00.0', '0000:06:00.1']
@@ -82,7 +88,7 @@ class OvsdpdkTestCase(unittest.TestCase):
     NODES_SAMPLE_PASSWORD = "ovs_sample_password.yaml"
 
     def setUp(self):
-        self.test_context = ovsdpdk.Ovsdpdk()
+        self.test_context = ovsdpdk.Ovsdpdk(ATTRS)
 
     def test_construct(self):
         self.assertIsNone(self.test_context.name)
@@ -129,7 +135,7 @@ class OvsdpdkTestCase(unittest.TestCase):
                 mock.Mock(return_value=(1, "b", ""))
             ssh.return_value = ssh_mock
             mock_prov.provision_tool = mock.Mock()
-            ovs_obj = ovsdpdk.Ovsdpdk()
+            ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
             ovs_obj.connection = ssh_mock
             ovs_obj.ovs = OVS_PASSWORD
             self.assertIsNone(ovs_obj.ssh_remote_machine())
@@ -142,7 +148,7 @@ class OvsdpdkTestCase(unittest.TestCase):
                 mock.Mock(return_value=(1, "b", ""))
             ssh.return_value = ssh_mock
             mock_prov.provision_tool = mock.Mock()
-            ovs_obj = ovsdpdk.Ovsdpdk()
+            ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
             ovs_obj.connection = ssh_mock
             ovs_obj.ovs = OVS
             ovs_obj.key_filename = '/root/.ssh/id_rsa'
@@ -154,7 +160,7 @@ class OvsdpdkTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "eth0 eth1", ""))
             ssh.return_value = ssh_mock
-            ovs_obj = ovsdpdk.Ovsdpdk()
+            ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
             ovs_obj.ovs = OVS
             ovs_obj.connection = ssh_mock
             self.assertIsNotNone(ovs_obj.get_nic_details())
@@ -165,7 +171,7 @@ class OvsdpdkTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             ssh.return_value = ssh_mock
-            ovs_obj = ovsdpdk.Ovsdpdk()
+            ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
             ovs_obj.first_run = True
             ovs_obj.connection = ssh_mock
             self.assertIsNone(ovs_obj.install_req_libs(ssh_mock))
@@ -176,7 +182,7 @@ class OvsdpdkTestCase(unittest.TestCase):
                 ssh_mock.execute = \
                     mock.Mock(return_value=(0, {}, ""))
                 ssh.return_value = ssh_mock
-                ovs_obj = ovsdpdk.Ovsdpdk()
+                ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
                 ovs_obj.connection = ssh_mock
                 ovs_obj.ovs = OVS
                 self.assertIsNone(ovs_obj.setup_ovs({"eth0 eth1"}))
@@ -187,7 +193,7 @@ class OvsdpdkTestCase(unittest.TestCase):
              ssh_mock.execute = \
                   mock.Mock(return_value=(0, {}, ""))
              ssh.return_value = ssh_mock
-             ovs_obj = ovsdpdk.Ovsdpdk()
+             ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
              ovs_obj.connection = ssh_mock
              ovs_obj.ovs = OVS
              self.assertIsNone(ovs_obj.start_ovs_serverswitch())
@@ -198,7 +204,7 @@ class OvsdpdkTestCase(unittest.TestCase):
               ssh_mock.execute = \
                    mock.Mock(return_value=(0, {}, ""))
               ssh.return_value = ssh_mock
-              ovs_obj = ovsdpdk.Ovsdpdk()
+              ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
               ovs_obj.connection = ssh_mock
               ovs_obj.ovs = OVS
               self.assertIsNone(ovs_obj.setup_ovs_bridge())
@@ -209,7 +215,7 @@ class OvsdpdkTestCase(unittest.TestCase):
               ssh_mock.execute = \
                    mock.Mock(return_value=(0, {}, ""))
               ssh.return_value = ssh_mock
-              ovs_obj = ovsdpdk.Ovsdpdk()
+              ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
               ovs_obj.connection = ssh_mock
               ovs_obj.ovs = OVS
               self.assertIsNone(ovs_obj.add_oflows())
@@ -220,7 +226,7 @@ class OvsdpdkTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             ssh.return_value = ssh_mock
-            ovs_obj = ovsdpdk.Ovsdpdk()
+            ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
             ovs_obj.connection = ssh_mock
             ovs_obj.ovs = OVS
             mock_ovs = mock.Mock()
@@ -257,7 +263,7 @@ class OvsdpdkTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             ssh.return_value = ssh_mock
-            ovs_obj = ovsdpdk.Ovsdpdk()
+            ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
             ovs_obj.connection = ssh_mock
             self.assertIsNotNone(ovs_obj.check_output(cmd, None))
 
@@ -265,14 +271,14 @@ class OvsdpdkTestCase(unittest.TestCase):
         with mock.patch("itertools.chain") as iter1:
             iter1 = mock.Mock()
             print("{0}".format(iter1))
-            ovs_obj = ovsdpdk.Ovsdpdk()
+            ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
             self.assertIsNotNone(ovs_obj.split_cpu_list('0,5'))
 
     def test_split_cpu_list_null(self):
         with mock.patch("itertools.chain") as iter1:
             iter1 = mock.Mock()
             print("{0}".format(iter1))
-            ovs_obj = ovsdpdk.Ovsdpdk()
+            ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
             self.assertEqual(ovs_obj.split_cpu_list([]), [])
 
     def test_destroy_vm_successful(self):
@@ -281,7 +287,7 @@ class OvsdpdkTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             ssh.return_value = ssh_mock
-            ovs_obj = ovsdpdk.Ovsdpdk()
+            ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
             ovs_obj.connection = ssh_mock
             ovs_obj.ovs = OVS
             ovs_obj.check_output = mock.Mock(return_value=(0, "vm1"))
@@ -301,7 +307,7 @@ class OvsdpdkTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             ssh.return_value = ssh_mock
-            ovs_obj = ovsdpdk.Ovsdpdk()
+            ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
             ovs_obj.connection = ssh_mock
             ovs_obj.ovs = OVS
             ovs_obj.check_output = mock.Mock(return_value=(1, {}))
@@ -309,11 +315,11 @@ class OvsdpdkTestCase(unittest.TestCase):
 
     def test_read_from_file(self):
         CORRECT_FILE_PATH = self._get_file_abspath(self.NODES_SAMPLE_PASSWORD)
-        ovs_obj = ovsdpdk.Ovsdpdk()
+        ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
         self.assertIsNotNone(ovs_obj.read_from_file(CORRECT_FILE_PATH))
 
     def test_write_to_file(self):
-        ovs_obj = ovsdpdk.Ovsdpdk()
+        ovs_obj = ovsdpdk.Ovsdpdk(ATTRS)
         self.assertIsNone(ovs_obj.write_to_file(SAMPLE_FILE, "some content"))
 
     def _get_file_abspath(self, filename):

@@ -71,7 +71,6 @@ VM_TEMPLATE = """
     </disk>
     <graphics autoport="yes" listen="0.0.0.0" port="-1" type="vnc" />
     <interface type="bridge">
-      <mac address="{mac_addr}" />
       <source bridge="br-int" />
       <model type='virtio'/>
     </interface>
