@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_3b69c0be",
+        "filename": "yardstick/__init__.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-14T00:00:02Z",
+      "side": 1,
+      "message": "with the string on one line, the parenthesis are unnecessary",
+      "range": {
+        "startLine": 19,
+        "startChar": 16,
+        "endLine": 19,
+        "endChar": 17
+      },
+      "revId": "a1a5856f238c1f4e8c5b9d24d37fcb19b69d1b5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_1b64bce3",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-14T00:00:02Z",
+      "side": 1,
+      "message": "this is a much more natural place to use kwargs:\n\n LOG.info(\"To generate report, execute command \u0027yardstick report generate %(task_id)s %(tc)s\u0027\", scenario)",
+      "revId": "a1a5856f238c1f4e8c5b9d24d37fcb19b69d1b5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
