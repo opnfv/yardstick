@@ -22,6 +22,30 @@
       "revId": "170d564f55782a26e61954c6e6692890fe268711",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_fb58f833",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-14T00:00:02Z",
+      "side": 1,
+      "message": "and while i usually enjoy seeing kwargs used, here it seems forced/overuse.\n\n LOG.exception(\u0027Failed to render template:\\n%s\\n%s\\n\u0027, input_task, e)\n\nseems perfectly normal and good to me.\n\nalso, log.exception includes the stack trace and the exception message, so including it in our message would result in duplicate.  i would think either:\n\n LOG.exception(\u0027Failed to render template:\\n%s\\n\u0027, input_task)\n\nor\n\n LOG.error(\u0027Failed to render template:\\n%s\\n%s\\n\u0027, input_task, e)\n\nshould be good.",
+      "parentUuid": "da33351e_a52acf7b",
+      "range": {
+        "startLine": 498,
+        "startChar": 34,
+        "endLine": 498,
+        "endChar": 35
+      },
+      "revId": "170d564f55782a26e61954c6e6692890fe268711",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
