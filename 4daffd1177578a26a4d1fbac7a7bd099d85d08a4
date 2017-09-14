@@ -39,6 +39,24 @@
       "revId": "4daffd1177578a26a4d1fbac7a7bd099d85d08a4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_56029b0b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-09-14T10:00:26Z",
+      "side": 1,
+      "message": "Yes, we need to redefine the \"run_test\"\n\nThe test cases are taken from DATS. The previous implementation had a separate class for each test and each test had a separate file.\nEg:\nl2fwd: class ForwardPacketsNoTouch(dats.test.binsearch.BinarySearch):\nMPLS : class MplsTagUntag(dats.test.binsearch.BinarySearch):\n\nHowever, most of the test cases uses the same approach to run tests with different configs.\nFor eg: l2fwd, l2fwd_pkt_touch, acl can use the run_test (generic)\n\nBut there are some tests which run a bit different, like MPLS, bng, etc. They need extra parameter from the config before starting a test. For Eg: \nMpls need to know which cores are tagged and which are plain and set the speed and pkt_size based on that.\n\nThings get a bit more complicated when we move forward to complex tests like BNG, BNG-QoS, vPE.\nFor Eg: BNG does the follwing-\nclass BNG(dats.test.binsearch.BinarySearch): \n\tsetup_class() : gets info from cfg regarding cores/tasks: CPE, INET, ARP, ARP_TASK\n\tsetup_test()  : Sets the packet size and speed \n\trun_test()    : Gets the stats and calculate packet loss.\n\nThis makes it difficult to use the existing run_test.",
+      "parentUuid": "da33351e_7b56a8d3",
+      "revId": "4daffd1177578a26a4d1fbac7a7bd099d85d08a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
