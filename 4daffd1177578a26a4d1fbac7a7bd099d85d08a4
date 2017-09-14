@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_1bab1cd7",
+        "filename": "yardstick/network_services/traffic_profile/prox_bng.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-14T00:34:56Z",
+      "side": 1,
+      "message": "traffic generators usually have \"run_test\", that\u0027s how the unit test is written",
+      "range": {
+        "startLine": 89,
+        "startChar": 47,
+        "endLine": 89,
+        "endChar": 59
+      },
+      "revId": "4daffd1177578a26a4d1fbac7a7bd099d85d08a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7b56a8d3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-14T00:34:56Z",
+      "side": 1,
+      "message": "i think we want to subclass ProxResourceHelper and redefine \"run_test\".\n\nthis probably should have been done for MPLS also.  what was the original version of run_test useful for?  perhaps that should also be its own subclass and leave this root/parent class with a \"NotImplementedError\" version of run_test.",
+      "revId": "4daffd1177578a26a4d1fbac7a7bd099d85d08a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
