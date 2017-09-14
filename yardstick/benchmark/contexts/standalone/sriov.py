@@ -219,7 +219,7 @@ class Sriov(StandaloneContext):
             self.first_run = False
 
     def configure_nics_for_sriov(self, host_driver, nic_details):
-        vf_pci = [[], []]
+        vf_pci = []
         self.connection.execute(
             "rmmod {0}".format(host_driver))[1].splitlines()
         self.connection.execute(
@@ -234,10 +234,10 @@ class Sriov(StandaloneContext):
                     interface=nic_details['interface'][i],
                     mac=nic_details['vf_macs'][i]))
             time.sleep(3)
-            vf_pci[i] = self.get_vf_datas(
+            vf_pci.append(self.get_vf_datas(
                 'vf_pci',
                 nic_details['pci'][i],
-                nic_details['vf_macs'][i])
+                nic_details['vf_macs'][i]))
             nic_details['vf_pci'][i] = vf_pci[i]
         log.debug("NIC DETAILS : {0}".format(nic_details))
         return nic_details
