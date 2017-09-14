@@ -99,6 +99,21 @@ class StandaloneContext(Context):
         LOG.debug("NFVi Node: %r", self.nfvi_node)
         LOG.debug("Networks: %r", self.networks)
 
+    def install_req_libs(self, connection):
+        pkg_req = False
+        pkgs = ["qemu-kvm", "libvirt-bin", "bridge-utils", "numactl"]
+        for pkg in pkgs:
+            cmd = \
+                "dpkg-query -W --showformat='${Status}\\n' \"%s\"|grep 'ok installed'" % pkg
+            if connection.execute(cmd)[0]:
+                pkg_req = True
+
+        if pkg_req:
+            LOG.info("Installing required libraries...")
+            connection.execute("apt-get update")
+            connection.execute("apt-get -y install qemu-kvm libvirt-bin")
+            connection.execute("apt-get -y install bridge-utils numactl")
+
     def deploy(self):
         """don't need to deploy"""
 
@@ -109,7 +124,8 @@ class StandaloneContext(Context):
         #    Todo: NFVi deploy (sriov, vswitch, ovs etc) based on the config.
         self.nfvi_obj.ssh_remote_machine()
         if self.nfvi_obj.first_run is True:
-            self.nfvi_obj.install_req_libs()
+            self.install_req_libs(self.nfvi_obj.connection)
+            self.nfvi_obj.first_run = False
 
         nic_details = self.nfvi_obj.get_nic_details()
         print("{0}".format(nic_details))

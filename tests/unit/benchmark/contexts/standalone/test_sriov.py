@@ -150,7 +150,7 @@ class SriovTestCase(unittest.TestCase):
             sriov_obj = sriov.Sriov()
             sriov_obj.first_run = True
             sriov_obj.connection = ssh_mock
-            self.assertIsNone(sriov_obj.install_req_libs())
+            self.assertIsNone(sriov_obj.install_req_libs(ssh_mock))
 
     def test_configure_nics_for_sriov(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:

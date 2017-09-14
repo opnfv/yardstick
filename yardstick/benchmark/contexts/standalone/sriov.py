@@ -162,19 +162,6 @@ class Sriov(StandaloneContext):
         log.info("{0}".format(nic_details))
         return nic_details
 
-    def install_req_libs(self):
-        if self.first_run:
-            log.info("Installing required libraries...")
-            err, out, _ = self.connection.execute("apt-get update")
-            log.debug("{0}".format(out))
-            err, out, _ = self.connection.execute(
-                "apt-get -y install qemu-kvm libvirt-bin")
-            log.debug("{0}".format(out))
-            err, out, _ = self.connection.execute(
-                "apt-get -y install libvirt-dev  bridge-utils numactl")
-            log.debug("{0}".format(out))
-            self.first_run = False
-
     def configure_nics_for_sriov(self, host_driver, nic_details):
         vf_pci = []
         self.connection.execute(

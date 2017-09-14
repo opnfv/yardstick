@@ -180,18 +180,6 @@ class Ovsdpdk(StandaloneContext):
         print("{0}".format(nic_details))
         return nic_details
 
-    def install_req_libs(self):
-        if self.first_run:
-            err, out, _ = self.connection.execute("apt-get update")
-            print("{0}".format(out))
-            err, out, _ = self.connection.execute(
-                "apt-get -y install qemu-kvm libvirt-bin")
-            print("{0}".format(out))
-            err, out, _ = self.connection.execute(
-                "apt-get -y install libvirt-dev  bridge-utils numactl")
-            print("{0}".format(out))
-            self.first_run = False
-
     def setup_ovs(self, vpcis):
         self.connection.execute("/usr/bin/chmod 0666 /dev/vfio/*")
         self.connection.execute("/usr/bin/chmod a+x /dev/vfio")

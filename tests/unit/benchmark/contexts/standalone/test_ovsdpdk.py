@@ -168,7 +168,7 @@ class OvsdpdkTestCase(unittest.TestCase):
             ovs_obj = ovsdpdk.Ovsdpdk()
             ovs_obj.first_run = True
             ovs_obj.connection = ssh_mock
-            self.assertIsNone(ovs_obj.install_req_libs())
+            self.assertIsNone(ovs_obj.install_req_libs(ssh_mock))
 
     def test_setup_ovs(self):
             with mock.patch("yardstick.ssh.SSH") as ssh:
