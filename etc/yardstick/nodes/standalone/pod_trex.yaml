@@ -1,0 +1,56 @@
+##############################################################################
+# Copyright (c) 2015 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# Sample config file about the POD information, including the
+# name/IP/user/ssh key of Bare Metal and Controllers/Computes
+#
+# The options of this config file include:
+# name: the name of this node
+# role: node's role, support role: Master/Controller/Comupte/BareMetal
+# ip: the node's IP address
+# user: the username for login
+# key_filename:the path of the private key file for login
+
+nodes:
+-
+    name: trafficgen_1
+    role: tg__1 
+    ip: 1.2.1.6
+    user: root
+    password: r00t
+    key_filename: /root/.ssh/id_rsa
+    interfaces:
+       xe0:  # logical name from topology.yaml and vnfd.yaml
+           vpci:      "0000:05:00.0"
+           driver:    i40e
+           dpdk_port_num: 0
+           local_ip: "152.16.100.20"
+           netmask:   "255.255.255.0"
+           local_mac:   "00:00:00:9e:63:f8"
+       xe1:  # logical name from topology.yaml and vnfd.yaml
+           vpci:      "0000:05:00.1"
+           driver:    i40e
+           dpdk_port_num: 1
+           local_ip: "152.16.40.20"
+           netmask:   "255.255.255.0"
+           local_mac:   "00:00:00:9e:63:f9"
+       xe2:  # logical name from topology.yaml and vnfd.yaml
+           vpci:      "0000:05:00.2"
+           driver:    i40e
+           dpdk_port_num: 0
+           local_ip: "172.16.100.20"
+           netmask:   "255.255.255.0"
+           local_mac:   "00:00:00:9e:63:fa"
+       xe3:  # logical name from topology.yaml and vnfd.yaml
+           vpci:      "0000:05:00.3"
+           driver:    i40e
+           dpdk_port_num: 1
+           local_ip: "172.16.40.20"
+           netmask:   "255.255.255.0"
+           local_mac:   "00:00:00:9e:63:fb"

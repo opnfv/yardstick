@@ -39,9 +39,27 @@ scenarios:
     type: Iteration
     iterations: 10
     interval: 35
-context:
-  type: Standalone
-  name: yardstick
-  nfvi_type: Sriov
-  vm_deploy: True
-  file: /etc/yardstick/nodes/pod_sriov.yaml
+contexts:
+   - name: yardstick
+     type: Node
+     file: /etc/yardstick/nodes/standalone/pod_trex.yaml
+   - type: Standalone
+     name: yardstick
+     nfvi_type: Sriov
+     vm_deploy: True
+     vf_macs:
+         - "02:68:b3:29:da:98"
+         - "02:68:b3:29:da:99"
+     phy_ports: # Physical ports to configure sriov
+       - "0000:05:00.0"
+       - "0000:05:00.1"
+     phy_driver:    i40e # kernel driver
+     flavor:
+       images: "/var/lib/libvirt/images/ubuntu.qcow2"
+       ram: 4096
+       extra_specs:
+         hw:cpu_sockets: 1
+         hw:cpu_cores: 2
+         hw:cpu_threads: 2
+       nic: 2
+     file: /etc/yardstick/nodes/standalone/host_sriov.yaml

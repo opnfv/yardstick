@@ -48,7 +48,9 @@ SRIOV = [{
     'user': 'root',
     'images': '/var/lib/libvirt/images/ubuntu1.img',
     'phy_driver': 'i40e',
-    'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
+    'phy_ports': ['0000:06:00.0', '0000:06:00.1'],
+    'flavor': {"images": "/var/lib/libvirt/images/ubuntu.qcow2", "ram": "4096", "nic":  2,
+        "extra_specs": {"hw:cpu_sockets": 1, "hw:cpu_cores": 2, " hw:cpu_threads": 2}}}]
 
 SRIOV_PASSWORD = [{
     'auth_type': 'password',
@@ -60,7 +62,11 @@ SRIOV_PASSWORD = [{
     'images': '/var/lib/libvirt/images/ubuntu1.img',
     'phy_driver': 'i40e',
     'password': 'password',
-    'phy_ports': ['0000:06:00.0', '0000:06:00.1']}]
+    'phy_ports': ['0000:06:00.0', '0000:06:00.1'],
+    'flavor': {"images": "/var/lib/libvirt/images/ubuntu.qcow2", "ram": "4096", "nic":  2,
+        "extra_specs": {"hw:cpu_sockets": 1, "hw:cpu_cores": 2, " hw:cpu_threads": 2}}}]
+
+ATTRS = SRIOV[0]
 
 vfnic = "i40evf"
 PCIS = ['0000:06:00.0', '0000:06:00.1']
@@ -72,7 +78,7 @@ class SriovTestCase(unittest.TestCase):
     NODES_SAMPLE_PASSWORD = "sriov_sample_password.yaml"
 
     def setUp(self):
-        self.test_context = sriov.Sriov()
+        self.test_context = sriov.Sriov(ATTRS)
 
     def test_construct(self):
         self.assertIsNone(self.test_context.file_path)
@@ -111,7 +117,7 @@ class SriovTestCase(unittest.TestCase):
                 mock.Mock(return_value=(1, "a", ""))
             ssh.return_value = ssh_mock
             mock_prov.provision_tool = mock.Mock()
-            sriov_obj = sriov.Sriov()
+            sriov_obj = sriov.Sriov(ATTRS)
             sriov_obj.connection = ssh_mock
             sriov_obj.sriov = SRIOV_PASSWORD
             self.assertIsNone(sriov_obj.ssh_remote_machine())
@@ -124,7 +130,7 @@ class SriovTestCase(unittest.TestCase):
                 mock.Mock(return_value=(1, "a", ""))
             ssh.return_value = ssh_mock
             mock_prov.provision_tool = mock.Mock()
-            sriov_obj = sriov.Sriov()
+            sriov_obj = sriov.Sriov(ATTRS)
             sriov_obj.connection = ssh_mock
             sriov_obj.sriov = SRIOV
             sriov_obj.key_filename = '/root/.ssh/id_rsa'
@@ -136,7 +142,7 @@ class SriovTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "eth0 eth1", ""))
             ssh.return_value = ssh_mock
-            sriov_obj = sriov.Sriov()
+            sriov_obj = sriov.Sriov(ATTRS)
             sriov_obj.sriov = SRIOV
             sriov_obj.connection = ssh_mock
             self.assertIsNotNone(sriov_obj.get_nic_details())
@@ -147,7 +153,7 @@ class SriovTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             ssh.return_value = ssh_mock
-            sriov_obj = sriov.Sriov()
+            sriov_obj = sriov.Sriov(ATTRS)
             sriov_obj.first_run = True
             sriov_obj.connection = ssh_mock
             self.assertIsNone(sriov_obj.install_req_libs(ssh_mock))
@@ -172,7 +178,7 @@ class SriovTestCase(unittest.TestCase):
                     mock.Mock(return_value=(0, {}, ""))
                 ssh_mock.execute = \
                     mock.Mock(return_value=(0, {}, ""))
-                sriov_obj = sriov.Sriov()
+                sriov_obj = sriov.Sriov(ATTRS)
                 sriov_obj.connection = ssh_mock
                 ssh_mock.execute = \
                     mock.Mock(return_value=(
@@ -201,7 +207,7 @@ class SriovTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             ssh.return_value = ssh_mock
-            sriov_obj = sriov.Sriov()
+            sriov_obj = sriov.Sriov(ATTRS)
             sriov_obj.connection = ssh_mock
             sriov_obj.sriov = SRIOV
             blacklist = "/etc/modprobe.d/blacklist.conf"
@@ -213,8 +219,8 @@ class SriovTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             sriov_obj.configure_nics_for_sriov = mock.Mock(
-                return_value=nic_details)
-            nic_details = sriov_obj.configure_nics_for_sriov.return_value
+                return_value=[nic_details, {}])
+            nic_details, vf_list = sriov_obj.configure_nics_for_sriov.return_value
             self.assertIsNotNone(vf, nic_details['vf_pci'])
             vf = [
                 {'vf_pci': '06:02.00', 'mac': '00:00:00:00:00:0a'},
@@ -241,7 +247,7 @@ class SriovTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             ssh.return_value = ssh_mock
-            sriov_obj = sriov.Sriov()
+            sriov_obj = sriov.Sriov(ATTRS)
             sriov_obj.connection = ssh_mock
             sriov_obj.sriov = SRIOV
             blacklist = "/etc/modprobe.d/blacklist.conf"
@@ -253,8 +259,8 @@ class SriovTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             sriov_obj.configure_nics_for_sriov = mock.Mock(
-                return_value=nic_details)
-            nic_details = sriov_obj.configure_nics_for_sriov.return_value
+                return_value=[nic_details, {}])
+            nic_details, vf_list = sriov_obj.configure_nics_for_sriov.return_value
             self.assertIsNotNone(vf, nic_details['vf_pci'])
             vf = [
                 {'vf_pci': '06:02.00', 'mac': '00:00:00:00:00:0a'},
@@ -291,7 +297,7 @@ class SriovTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             ssh.return_value = ssh_mock
-            sriov_obj = sriov.Sriov()
+            sriov_obj = sriov.Sriov(ATTRS)
             sriov_obj.connection = ssh_mock
             with mock.patch("xml.etree.ElementTree.parse") as parse:
                 with mock.patch("re.search") as re:
@@ -313,7 +319,7 @@ class SriovTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             ssh.return_value = ssh_mock
-            sriov_obj = sriov.Sriov()
+            sriov_obj = sriov.Sriov(ATTRS)
             sriov_obj.connection = ssh_mock
             pci_out = " \
             PCI_CLASS=20000 \
@@ -332,7 +338,7 @@ class SriovTestCase(unittest.TestCase):
     def test_spilt_pci_addr(self):
         pci = '0000:06:02.0'
         split = mock.Mock()
-        sriov_obj = sriov.Sriov()
+        sriov_obj = sriov.Sriov(ATTRS)
         self.assertIsNotNone(sriov_obj.spilt_pci_addr(pci))
 
     def test_get_vf_datas(self):
@@ -341,7 +347,7 @@ class SriovTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             ssh.return_value = ssh_mock
-            sriov_obj = sriov.Sriov()
+            sriov_obj = sriov.Sriov(ATTRS)
             sriov_obj.connection = ssh_mock
             sriov_obj.get_virtual_devices = mock.Mock(
                 return_value={'0000:06:00.0': '0000:06:02.0'})
@@ -352,7 +358,7 @@ class SriovTestCase(unittest.TestCase):
             self.assertIsNotNone(sriov_obj.get_vf_datas(
                 'vf_pci',
                 {'0000:06:00.0': '0000:06:02.0'},
-                "00:00:00:00:00:0a"))
+                "00:00:00:00:00:0a", "f1"))
 
     def test_check_output(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -361,7 +367,7 @@ class SriovTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             ssh.return_value = ssh_mock
-            sriov_obj = sriov.Sriov()
+            sriov_obj = sriov.Sriov(ATTRS)
             sriov_obj.connection = ssh_mock
             self.assertIsNotNone(sriov_obj.check_output(cmd, None))
 
@@ -369,14 +375,14 @@ class SriovTestCase(unittest.TestCase):
         with mock.patch("itertools.chain") as iter1:
             iter1 = mock.Mock()
             print("{0}".format(iter1))
-            sriov_obj = sriov.Sriov()
+            sriov_obj = sriov.Sriov(ATTRS)
             self.assertIsNotNone(sriov_obj.split_cpu_list('0,5'))
 
     def test_split_cpu_list_null(self):
         with mock.patch("itertools.chain") as iter1:
             iter1 = mock.Mock()
             print("{0}".format(iter1))
-            sriov_obj = sriov.Sriov()
+            sriov_obj = sriov.Sriov(ATTRS)
             self.assertEqual(sriov_obj.split_cpu_list([]), [])
 
     def test_destroy_vm_successful(self):
@@ -385,7 +391,7 @@ class SriovTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             ssh.return_value = ssh_mock
-            sriov_obj = sriov.Sriov()
+            sriov_obj = sriov.Sriov(ATTRS)
             sriov_obj.connection = ssh_mock
             sriov_obj.sriov = SRIOV
             sriov_obj.check_output = mock.Mock(return_value=(0, "vm1"))
@@ -405,7 +411,7 @@ class SriovTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, {}, ""))
             ssh.return_value = ssh_mock
-            sriov_obj = sriov.Sriov()
+            sriov_obj = sriov.Sriov(ATTRS)
             sriov_obj.connection = ssh_mock
             sriov_obj.sriov = SRIOV
             sriov_obj.check_output = mock.Mock(return_value=(1, {}))
@@ -413,11 +419,11 @@ class SriovTestCase(unittest.TestCase):
 
     def test_read_from_file(self):
         CORRECT_FILE_PATH = self._get_file_abspath(self.NODES_SAMPLE_PASSWORD)
-        sriov_obj = sriov.Sriov()
+        sriov_obj = sriov.Sriov(ATTRS)
         self.assertIsNotNone(sriov_obj.read_from_file(CORRECT_FILE_PATH))
 
     def test_write_to_file(self):
-        sriov_obj = sriov.Sriov()
+        sriov_obj = sriov.Sriov(ATTRS)
         self.assertIsNone(sriov_obj.write_to_file(SAMPLE_FILE, "some content"))
 
     def _get_file_abspath(self, filename):

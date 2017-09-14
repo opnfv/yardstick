@@ -23,6 +23,8 @@ import random
 import logging
 import itertools
 import xml.etree.ElementTree as ET
+from itertools import izip, chain, repeat
+
 from yardstick import ssh
 from yardstick.network_services.utils import get_nsb_option
 from yardstick.network_services.utils import provision_tool
@@ -32,14 +34,14 @@ log = logging.getLogger(__name__)
 
 VM_TEMPLATE = """
 <domain type="kvm">
- <name>vm1</name>
+ <name>{vm_name}</name>
   <uuid>{random_uuid}</uuid>
-  <memory unit="MB">10240</memory>
-  <currentMemory unit="MB">10240</currentMemory>
+  <memory unit="MB">{memory}</memory>
+  <currentMemory unit="MB">{memory}</currentMemory>
   <memoryBacking>
     <hugepages />
   </memoryBacking>
-  <vcpu placement="static">20</vcpu>
+  <vcpu placement="static">{vcpu}</vcpu>
   <os>
     <type arch="x86_64" machine="pc-i440fx-utopic">hvm</type>
     <boot dev="hd" />
@@ -50,7 +52,7 @@ VM_TEMPLATE = """
     <pae />
   </features>
   <cpu mode='host-passthrough'>
-    <topology cores="10" sockets="1" threads="2" />
+    <topology cores="{cpu}" sockets="{socket}" threads="{threads}" />
   </cpu>
   <clock offset="utc">
     <timer name="rtc" tickpolicy="catchup" />
@@ -79,7 +81,7 @@ VM_TEMPLATE = """
 
 
 class Sriov(StandaloneContext):
-    def __init__(self):
+    def __init__(self, attrs):
         self.file_path = None
         self.sriov = []
         self.first_run = True
@@ -89,6 +91,9 @@ class Sriov(StandaloneContext):
         self.passwd = ""
         self.ssh_port = ""
         self.auth_type = ""
+        self.vm_names = []
+        self.vm_flavor = attrs.get('flavor', {})
+        self.attrs = attrs
 
     def init(self):
         log.debug("In init")
@@ -140,20 +145,20 @@ class Sriov(StandaloneContext):
         nic_details = {}
         nic_details = {
             'interface': {},
-            'pci': self.sriov[0]['phy_ports'],
-            'phy_driver': self.sriov[0]['phy_driver'],
-            'vf_macs': self.sriov[0]['vf_macs']
+            'pci': self.attrs['phy_ports'],
+            'phy_driver': self.attrs['phy_driver'],
+            'vf_macs': self.attrs['vf_macs']
         }
         #   Make sure that ports are bound to kernel drivers e.g. i40e/ixgbe
         for i, _ in enumerate(nic_details['pci']):
             err, out, _ = self.connection.execute(
                 "{dpdk_nic_bind} --force -b {driver} {port}".format(
                     dpdk_nic_bind=self.dpdk_nic_bind,
-                    driver=self.sriov[0]['phy_driver'],
-                    port=self.sriov[0]['phy_ports'][i]))
+                    driver=nic_details['phy_driver'],
+                    port=nic_details['pci'][i]))
             err, out, _ = self.connection.execute(
                 "lshw -c network -businfo | grep '{port}'".format(
-                    port=self.sriov[0]['phy_ports'][i]))
+                    port=nic_details['pci'][i]))
             a = out.split()[1]
             err, out, _ = self.connection.execute(
                 "ip -s link show {interface}".format(
@@ -181,10 +186,11 @@ class Sriov(StandaloneContext):
             vf_pci.append(self.get_vf_datas(
                 'vf_pci',
                 nic_details['pci'][i],
-                nic_details['vf_macs'][i]))
+                nic_details['vf_macs'][i],
+                nic_details['interface'][i]))
             nic_details['vf_pci'][i] = vf_pci[i]
         log.debug("NIC DETAILS : {0}".format(nic_details))
-        return nic_details
+        return nic_details, vf_pci
 
     def setup_sriov_context(self, pcis, nic_details, host_driver):
         blacklist = "/etc/modprobe.d/blacklist.conf"
@@ -200,54 +206,72 @@ class Sriov(StandaloneContext):
                     blacklist=blacklist))
 
         #   2 : modprobe host_driver with num_vfs
-        nic_details = self.configure_nics_for_sriov(host_driver, nic_details)
+        nic_details, vf_list = self.configure_nics_for_sriov(host_driver, nic_details)
 
-        #   3: Setup vm_sriov.xml to launch VM
-        cfg_sriov = '/tmp/vm_sriov.xml'
-        mac = [0x00, 0x24, 0x81,
-               random.randint(0x00, 0x7f),
-               random.randint(0x00, 0xff),
-               random.randint(0x00, 0xff)]
-        mac_address = ':'.join(map(lambda x: "%02x" % x, mac))
-        vm_sriov_xml = VM_TEMPLATE.format(
-            random_uuid=uuid.uuid4(),
-            mac_addr=mac_address,
-            vm_image=self.sriov[0]["images"])
-        with open(cfg_sriov, 'w') as f:
-            f.write(vm_sriov_xml)
+        nic = int(self.vm_flavor["nic"])
+        for index, vfs in enumerate(list(izip(*[chain(vf_list, repeat(None, nic - 1))] * nic))):
+            #   3: Setup vm_sriov.xml to launch VM
+            cfg_sriov = '/tmp/vm_sriov_%s.xml' % str(index)
+            mac = [0x00, 0x24, 0x81,
+                   random.randint(0x00, 0x7f),
+                   random.randint(0x00, 0xff),
+                   random.randint(0x00, 0xff)]
+            mac_address = ':'.join(map(lambda x: "%02x" % x, mac))
+            vm_name = "vm_%s" % str(index)
 
-        vf = nic_details['vf_pci']
-        for index in range(len(nic_details['vf_pci'])):
-            self.add_sriov_interface(
-                index,
-                vf[index]['vf_pci'],
-                vf[index]['mac'],
-                "/tmp/vm_sriov.xml")
-            self.connection.execute(
-                "ifconfig {interface} up".format(
-                    interface=nic_details['interface'][index]))
+            # vnf_desc
+            log.info(self.attrs)
+            log.info(self.vm_flavor)
+            memory = self.vm_flavor.get('ram', '4096')
+            extra_spec = self.vm_flavor.get('extra_spec', {})
+            cpu = extra_spec.get('hw:cpu_cores', '2')
+            socket = extra_spec.get('hw:cpu_sockets', '1')
+            threads = extra_spec.get('hw:cpu_threads', '2')
+            vcpu = int(cpu) * int(threads)
 
-        #   4: Create and start the VM
-        self.connection.put(cfg_sriov, cfg_sriov)
-        time.sleep(10)
-        err, out = self.check_output("virsh list --name | grep -i vm1")
-        try:
-            if out == "vm1":
-                log.info("VM is already present")
-            else:
-                #    FIXME: launch through libvirt
-                log.info("virsh create ...")
-                err, out, _ = self.connection.execute(
-                    "virsh create /tmp/vm_sriov.xml")
-                time.sleep(10)
-                log.error("err : {0}".format(err))
-                log.error("{0}".format(_))
-                log.debug("out : {0}".format(out))
-        except ValueError:
-                raise
+            vm_sriov_xml = VM_TEMPLATE.format(
+                vm_name=vm_name,
+                random_uuid=uuid.uuid4(),
+                mac_addr=mac_address,
+                memory=memory, vcpu=vcpu, cpu=cpu,
+                socket=socket, threads=threads,
+                vm_image=self.vm_flavor["images"])
+            with open(cfg_sriov, 'w') as f:
+                f.write(vm_sriov_xml)
 
-        #    5: Tunning for better performace
-        self.pin_vcpu(pcis)
+            for i, vf in enumerate(vfs):
+                self.add_sriov_interface(
+                    index + i,
+                    vf['vf_pci'],
+                    vf['mac'],
+                    "%s" % cfg_sriov)
+                self.connection.execute(
+                    "ifconfig {interface} up".format(
+                        interface=vf['pf_if']))
+
+            #   4: Create and start the VM
+            self.connection.put(cfg_sriov, cfg_sriov)
+            time.sleep(10)
+            err, out = self.check_output("virsh list --name | grep -i %s" % vm_name)
+            try:
+                if out == vm_name:
+                    log.info("VM '%s' is already present" % vm_name)
+                else:
+                    #    FIXME: launch through libvirt
+                    log.info("virsh create ...")
+                    err, out, _ = self.connection.execute(
+                        "virsh create %s" % cfg_sriov)
+                    time.sleep(10)
+                    log.error("err : {0}".format(err))
+                    log.error("{0}".format(_))
+                    log.debug("out : {0}".format(out))
+            except ValueError:
+                    raise
+
+            #    5: Tunning for better performace
+            self.pin_vcpu(pcis, vm_name, vcpu)
+            self.vm_names.append(vm_name)
+
         self.connection.execute(
             "echo 1 > /sys/module/kvm/parameters/"
             "allow_unsafe_assigned_interrupts")
@@ -256,8 +280,6 @@ class Sriov(StandaloneContext):
 
     def add_sriov_interface(self, index, vf_pci, vfmac, xml):
         root = ET.parse(xml)
-        pattern = "0000:[0-9a-f]+:[0-9a-f]+.[0-9a-f]+"
-        print(pattern)
         m = self.spilt_pci_addr(vf_pci)
         log.info(m)
         device = root.find('devices')
@@ -310,11 +332,10 @@ class Sriov(StandaloneContext):
         slot = m[2].split(".")
         return [m[0], m[1], slot[0], slot[1]]
 
-    def get_vf_datas(self, key, value, vfmac):
+    def get_vf_datas(self, key, value, vfmac, pfif):
         vfret = {}
-        pattern = "0000:[0-9a-f]+:[0-9a-f]+.[0-9a-f]+"
-        print(pattern)
         vfret["mac"] = vfmac
+        vfret["pf_if"] = pfif
         vfs = self.get_virtual_devices(value)
         log.info("vfs: {0}".format(vfs))
         for k, v in vfs.items():
@@ -336,14 +357,14 @@ class Sriov(StandaloneContext):
         with open(filename, 'w') as the_file:
             the_file.write(content)
 
-    def pin_vcpu(self, pcis):
+    def pin_vcpu(self, pcis, vm_name, cpu):
         nodes = self.get_numa_nodes()
         log.info("{0}".format(nodes))
         num_nodes = len(nodes)
-        for i in range(0, 10):
+        for i in range(0, int(cpu)):
             self.connection.execute(
-                "virsh vcpupin vm1 {0} {1}".format(
-                    i, nodes[str(num_nodes - 1)][i % len(nodes[str(num_nodes - 1)])]))
+                "virsh vcpupin {0} {1} {2}".format(
+                    vm_name, i, nodes[str(num_nodes - 1)][i % len(nodes[str(num_nodes - 1)])]))
 
     def get_numa_nodes(self):
         nodes_sysfs = glob.iglob("/sys/devices/system/node/node*")
@@ -369,14 +390,15 @@ class Sriov(StandaloneContext):
             return []
 
     def destroy_vm(self):
-        host_driver = self.sriov[0]["phy_driver"]
-        err, out = self.check_output("virsh list --name | grep -i vm1")
-        log.info("{0}".format(out))
-        if err == 0:
-            self.connection.execute("virsh shutdown vm1")
-            self.connection.execute("virsh destroy vm1")
-            self.check_output("rmmod {0}".format(host_driver))[1].splitlines()
-            self.check_output("modprobe {0}".format(host_driver))[
-                1].splitlines()
-        else:
-            log.error("error : {0}".format(err))
+        host_driver = self.attrs["phy_driver"]
+        for vm in self.vm_names:
+            err, out = self.check_output("virsh list --name | grep -i %s" % vm)
+            log.info("{0}".format(out))
+            if err == 0:
+                self.connection.execute("virsh shutdown %s" % vm)
+                self.connection.execute("virsh destroy %s" % vm)
+                self.check_output("rmmod {0}".format(host_driver))[1].splitlines()
+                self.check_output("modprobe {0}".format(host_driver))[
+                    1].splitlines()
+            else:
+                log.error("error : {0}".format(err))

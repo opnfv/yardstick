@@ -54,11 +54,10 @@ class StandaloneContext(Context):
             cfg = yaml_load(stream)
         return cfg
 
-    def get_nfvi_obj(self):
+    def get_nfvi_obj(self, attrs):
         print("{0}".format(self.nfvi_node[0]['role']))
         context_type = self.get_context_impl(self.nfvi_node[0]['role'])
-        nfvi_obj = context_type()
-        nfvi_obj.__init__()
+        nfvi_obj = context_type(attrs)
         nfvi_obj.parse_pod_and_get_data(self.file_path)
         return nfvi_obj
 
@@ -90,11 +89,10 @@ class StandaloneContext(Context):
                 LOG.info("{0}".format(node["role"]))
             else:
                 LOG.debug("Node role is other than SRIOV and OVS")
-        self.nfvi_obj = self.get_nfvi_obj()
         self.attrs = attrs
         # add optional static network definition
         self.networks.update(cfg.get("networks", {}))
-        self.nfvi_obj = self.get_nfvi_obj()
+        self.nfvi_obj = self.get_nfvi_obj(attrs)
         LOG.debug("Nodes: %r", self.nodes)
         LOG.debug("NFVi Node: %r", self.nfvi_node)
         LOG.debug("Networks: %r", self.networks)
@@ -132,9 +130,9 @@ class StandaloneContext(Context):
 
         if self.nfvi_node[0]["role"] == "Sriov":
             self.nfvi_obj.setup_sriov_context(
-                self.nfvi_obj.sriov[0]['phy_ports'],
+                self.nfvi_obj.attrs['phy_ports'],
                 nic_details,
-                self.nfvi_obj.sriov[0]['phy_driver'])
+                self.nfvi_obj.attrs['phy_driver'])
             LOG.debug("Waiting for VM to come up...")
             client = ssh.SSH.from_node(self.nfvi_node[0], defaults={'user': 'root'})
             client.wait(timeout=500)
