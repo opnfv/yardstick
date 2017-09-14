@@ -39,6 +39,7 @@ from oslo_serialization import jsonutils
 import yardstick
 from yardstick.common.yaml_loader import yaml_load
 
+logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
