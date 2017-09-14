@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_bb9cb0c1",
+        "filename": "tests/unit/network_services/traffic_profile/test_prox_acl.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-14T00:10:48Z",
+      "side": 1,
+      "message": "each of these needs a second value for \"run_test\" to return.  it may be enough to do:\n\n (success_tuple, {}),\n (success_tuple, {}),\n (success_tuple, {}),\n (fail_tuple, {}),\n (success_tuple, {}),\n\nand on down.\n\nor you could update lines 43 and 44 to\n\n success_tuple \u003d ProxTestDataTuple(...), {}\n fail_tuple \u003d ProxTestDataTuple(...), {}\n\nand leave these lines unchanged.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 23
+      },
+      "revId": "a89ca71e16343573caab4ae98f1850acee05c261",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
