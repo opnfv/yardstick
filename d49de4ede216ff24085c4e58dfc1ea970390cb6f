@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_771b5873",
+        "filename": "api/resources/v2/containers.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-09-15T03:19:12Z",
+      "side": 1,
+      "message": "For now code in v1 and v2 is a little redundancy, will refactor later.",
+      "range": {
+        "startLine": 275,
+        "startChar": 8,
+        "endLine": 289,
+        "endChar": 9
+      },
+      "revId": "d49de4ede216ff24085c4e58dfc1ea970390cb6f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
