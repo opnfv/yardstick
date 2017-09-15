@@ -51,7 +51,7 @@ class TaskCommands(object):     # pragma: no cover
         self.output_file = param.output_file
 
         result = {}
-
+        LOG.info('Task START')
         try:
             result = Task().start(param, **kwargs)
         except Exception as e:
@@ -59,9 +59,9 @@ class TaskCommands(object):     # pragma: no cover
             LOG.exception("")
 
         if result.get('result', {}).get('criteria') == 'PASS':
-            LOG.info('Task Success')
+            LOG.info('Task SUCCESS')
         else:
-            LOG.info('Task Failed')
+            LOG.info('Task FAILED')
             raise RuntimeError('Task Failed')
 
     def _write_error_data(self, error):

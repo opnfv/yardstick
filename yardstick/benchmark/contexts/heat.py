@@ -295,7 +295,7 @@ class HeatContext(Context):
 
     def deploy(self):
         """deploys template into a stack using cloud"""
-        print("Deploying context '%s'" % self.name)
+        LOG.info("Deploying context '%s' START", self.name)
 
         heat_template = HeatTemplate(self.name, self.template_file,
                                      self.heat_parameters)
@@ -325,7 +325,7 @@ class HeatContext(Context):
                 server.public_ip = \
                     self.stack.outputs[server.floating_ip["stack_name"]]
 
-        print("Context '%s' deployed" % self.name)
+        LOG.info("Deploying context '%s' DONE", self.name)
 
     def add_server_port(self, server):
         # TODO(hafe) can only handle one internal network for now
@@ -370,10 +370,10 @@ class HeatContext(Context):
     def undeploy(self):
         """undeploys stack from cloud"""
         if self.stack:
-            print("Undeploying context '%s'" % self.name)
+            LOG.info("Undeploying context '%s' START", self.name)
             self.stack.delete()
             self.stack = None
-            print("Context '%s' undeployed" % self.name)
+            LOG.info("Undeploying context '%s' DONE", self.name)
 
         if os.path.exists(self.key_filename):
             try:

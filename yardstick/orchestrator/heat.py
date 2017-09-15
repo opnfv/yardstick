@@ -89,14 +89,14 @@ class HeatStack(HeatObject):
         if self.uuid is None:
             return
 
-        log.info("Deleting stack '%s', uuid:%s", self.name, self.uuid)
+        log.info("Deleting stack '%s' START, uuid:%s", self.name, self.uuid)
         heat = self.heat_client
         template = heat.stacks.get(self.uuid)
         start_time = time.time()
         template.delete()
 
         for status in iter(self.status, u'DELETE_COMPLETE'):
-            log.debug("stack state %s", status)
+            log.debug("Deleting stack state: %s", status)
             if status == u'DELETE_FAILED':
                 raise RuntimeError(
                     heat.stacks.get(self.uuid).stack_status_reason)
@@ -104,7 +104,7 @@ class HeatStack(HeatObject):
             time.sleep(2)
 
         end_time = time.time()
-        log.info("Deleted stack '%s' in %d secs", self.name,
+        log.info("Deleting stack '%s' DONE in %d secs", self.name,
                  end_time - start_time)
         self.uuid = None
 
@@ -599,7 +599,7 @@ name (i.e. %s).\
         :param: timeout: timeout in seconds for Heat create, default 3600s
         :type timeout: int
         """
-        log.info("Creating stack '%s'", self.name)
+        log.info("Creating stack '%s' START", self.name)
 
         # create stack early to support cleanup, e.g. ctrl-c while waiting
         stack = HeatStack(self.name)
@@ -613,13 +613,13 @@ name (i.e. %s).\
         if not block:
             self.outputs = stack.outputs = {}
             end_time = time.time()
-            log.info("Created stack '%s' in %.3e secs",
+            log.info("Creating stack '%s' DONE in %d secs",
                      self.name, end_time - start_time)
             return stack
 
         time_limit = start_time + timeout
         for status in iter(self.status, self.HEAT_CREATE_COMPLETE_STATUS):
-            log.debug("stack state %s", status)
+            log.debug("Creating stack state: %s", status)
             if status == u'CREATE_FAILED':
                 stack_status_reason = heat_client.stacks.get(self.uuid).stack_status_reason
                 heat_client.stacks.delete(self.uuid)
@@ -631,7 +631,7 @@ name (i.e. %s).\
 
         end_time = time.time()
         outputs = heat_client.stacks.get(self.uuid).outputs
-        log.info("Created stack '%s' in %.3e secs",
+        log.info("Creating stack '%s' DONE in %d secs",
                  self.name, end_time - start_time)
 
         # keep outputs as unicode

@@ -47,7 +47,7 @@ class CreateKeypair(base.Scenario):
 
         rsa_key = paramiko.RSAKey.generate(bits=2048, progress_func=None)
         rsa_key.write_private_key_file(self.key_filename)
-        print("Writing %s ..." % self.key_filename)
+        LOG.info("Writing key_file %s ...", self.key_filename)
         with open(self.key_filename + ".pub", "w") as pubkey_file:
             pubkey_file.write(
                 "%s %s\n" % (rsa_key.get_name(), rsa_key.get_base64()))

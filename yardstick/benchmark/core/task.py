@@ -97,8 +97,8 @@ class Task(object):     # pragma: no cover
             task_args = [args.task_args]
             task_args_fnames = [args.task_args_file]
 
-        LOG.info("\ntask_files:%s, \ntask_args:%s, \ntask_args_fnames:%s",
-                 task_files, task_args, task_args_fnames)
+        LOG.debug("task_files:%s, task_args:%s, task_args_fnames:%s",
+                  task_files, task_args, task_args_fnames)
 
         if args.parse_only:
             sys.exit(0)
@@ -139,7 +139,7 @@ class Task(object):     # pragma: no cover
                     context.undeploy()
                 self.contexts = []
             one_task_end_time = time.time()
-            LOG.info("task %s finished in %d secs", task_files[i],
+            LOG.info("Task %s finished in %d secs", task_files[i],
                      one_task_end_time - one_task_start_time)
 
         result = self._get_format_result(testcases)
@@ -148,14 +148,13 @@ class Task(object):     # pragma: no cover
         self._generate_reporting(result)
 
         total_end_time = time.time()
-        LOG.info("total finished in %d secs",
+        LOG.info("Total finished in %d secs",
                  total_end_time - total_start_time)
 
         scenario = scenarios[0]
-        print("To generate report execute => yardstick report generate ",
-              scenario['task_id'], scenario['tc'])
-
-        print("Done, exiting")
+        LOG.info("To generate report, execute command "
+                 "'yardstick report generate %(task_id)s %(tc)s'", scenario)
+        LOG.info("Task ALL DONE, exiting")
         return result
 
     def _generate_reporting(self, result):
@@ -163,7 +162,7 @@ class Task(object):     # pragma: no cover
         with open(constants.REPORTING_FILE, 'w') as f:
             f.write(env.from_string(report_template).render(result))
 
-        LOG.info('yardstick reporting generate in %s', constants.REPORTING_FILE)
+        LOG.info("Report can be found in '%s'", constants.REPORTING_FILE)
 
     def _set_log(self):
         log_format = '%(asctime)s %(name)s %(filename)s:%(lineno)d %(levelname)s %(message)s'
@@ -265,7 +264,7 @@ class Task(object):     # pragma: no cover
                     raise RuntimeError
                 self.outputs.update(runner.get_output())
                 result.extend(runner.get_result())
-                print("Runner ended, output in", output_file)
+                LOG.info("Runner ended, output in %s", output_file)
         else:
             # run serially
             for scenario in scenarios:
@@ -277,7 +276,7 @@ class Task(object):     # pragma: no cover
                         raise RuntimeError
                     self.outputs.update(runner.get_output())
                     result.extend(runner.get_result())
-                    print("Runner ended, output in", output_file)
+                    LOG.info("Runner ended, output in %s", output_file)
 
         # Abort background runners
         for runner in background_runners:
@@ -302,7 +301,7 @@ class Task(object):     # pragma: no cover
         base_runner.Runner.terminate_all()
 
         if self.contexts:
-            print("Undeploying all contexts")
+            LOG.info("Undeploying all contexts")
             for context in self.contexts[::-1]:
                 context.undeploy()
 
@@ -365,7 +364,7 @@ class Task(object):     # pragma: no cover
                 context_cfg["nodes"])
         runner = base_runner.Runner.get(runner_cfg)
 
-        print("Starting runner of type '%s'" % runner_cfg["type"])
+        LOG.info("Starting runner of type '%s'", runner_cfg["type"])
         runner.run(scenario_cfg, context_cfg)
 
         return runner
@@ -475,7 +474,7 @@ class TaskParser(object):       # pragma: no cover
 
     def parse_task(self, task_id, task_args=None, task_args_file=None):
         """parses the task file and return an context and scenario instances"""
-        print("Parsing task config:", self.path)
+        LOG.info("Parsing task config: %s", self.path)
 
         try:
             kw = {}
@@ -492,10 +491,9 @@ class TaskParser(object):       # pragma: no cover
                     input_task = f.read()
                     rendered_task = TaskTemplate.render(input_task, **kw)
                 except Exception as e:
-                    print("Failed to render template:\n%(task)s\n%(err)s\n"
-                          % {"task": input_task, "err": e})
+                    LOG.exception('Failed to render template:\n%s\n', input_task)
                     raise e
-                print("Input task is:\n%s\n" % rendered_task)
+                LOG.debug("Input task is:\n%s\n", rendered_task)
 
                 cfg = yaml_load(rendered_task)
         except IOError as ioerror:
