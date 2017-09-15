@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_801b3072",
+        "filename": "yardstick/network_services/traffic_profile/prox_ACL.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-15T17:39:53Z",
+      "side": 0,
+      "message": "by removing this line, the RuntimeError never gets raised",
+      "revId": "2430ee2bbede7c26f50883ed3bf8d2ab92f9c66b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
