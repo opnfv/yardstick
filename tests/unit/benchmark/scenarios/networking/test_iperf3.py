@@ -123,7 +123,7 @@ class IperfTestCase(unittest.TestCase):
         self.assertRaises(AssertionError, p.run, result)
 
     def test_iperf_successful_sla_jitter(self, mock_ssh):
-        options = {"udp": "udp", "bandwidth": "20m"}
+        options = {"protocol": "udp", "bandwidth": "20m"}
         args = {
             'options': options,
             'sla': {'jitter': 10}
@@ -141,7 +141,7 @@ class IperfTestCase(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     def test_iperf_unsuccessful_sla_jitter(self, mock_ssh):
-        options = {"udp": "udp", "bandwidth": "20m"}
+        options = {"protocol": "udp", "bandwidth": "20m"}
         args = {
             'options': options,
             'sla': {'jitter': 0.0001}
