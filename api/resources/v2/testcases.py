@@ -60,7 +60,13 @@ class V2Testcase(ApiResource):
 
         options = {k: {'description': '', 'type': v.__class__.__name__}
                    for k, v in jinja2schema.infer(data).items()}
-
+        # [('segmentation_id', < scalar >), ('image', < string >), ('provider', < scalar >),
+        # ('physical_network', < string >), ('packetsize', < number >)]
+        for k, v in options.items():
+            if k == 'segmentation_id':
+                options[k]['type'] = 'Number'
+            if k == 'provider':
+                options[k]['type'] = 'String'
         return result_handler(consts.API_SUCCESS, {'testcase': data, 'args': options})
 
     def delete(self, case_name):
