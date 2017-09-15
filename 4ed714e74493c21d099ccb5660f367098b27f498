@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_a59c8610",
+        "filename": "yardstick/benchmark/scenarios/networking/iperf3.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-15T16:53:13Z",
+      "side": 1,
+      "message": "why do we have two code paths that handle the same thing: TCP?\n\nhow about:\n\n use_UDP \u003d options.get(\u0027protocol\u0027, \u0027\u0027) \u003d\u003d \u0027udp\u0027\n if use_UDP:\n   cmd +\u003d \u0027 --udp\u0027\n   try:\n     cmd +\u003d \u0027 --bandwidth %s\u0027 % options[\u0027bandwidth\u0027]\n   except KeyError:\n     pass\n else:\n   # tcp obviously\n   if \u0027nodelay\u0027 in options:\n     cmd +\u003d \u0027 --nodelay\u0027",
+      "revId": "4ed714e74493c21d099ccb5660f367098b27f498",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
