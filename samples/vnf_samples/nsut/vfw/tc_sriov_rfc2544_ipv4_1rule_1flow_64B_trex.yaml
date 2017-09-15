@@ -44,22 +44,36 @@ contexts:
      type: Node
      file: /etc/yardstick/nodes/standalone/pod_trex.yaml
    - type: Standalone
+     file: /etc/yardstick/nodes/standalone/host_sriov.yaml
      name: yardstick
      nfvi_type: Sriov
      vm_deploy: True
-     vf_macs:
-         - "02:68:b3:29:da:98"
-         - "02:68:b3:29:da:99"
-     phy_ports: # Physical ports to configure sriov
-       - "0000:05:00.0"
-       - "0000:05:00.1"
-     phy_driver:    i40e # kernel driver
      flavor:
        images: "/var/lib/libvirt/images/ubuntu.qcow2"
        ram: 4096
        extra_specs:
          hw:cpu_sockets: 1
-         hw:cpu_cores: 2
+         hw:cpu_cores: 6
          hw:cpu_threads: 2
-       nic: 2
-     file: /etc/yardstick/nodes/standalone/host_sriov.yaml
+       user: root
+       password: intel123!
+     servers:
+       vnf:
+         network_ports:
+           mgmt:
+             cidr: '10.223.166.7/24'
+           xe0:
+             - private_0
+           xe1:
+             - public_0
+     networks:
+       private_0:
+         phy_port: "0000:05:00.0"
+         vpci: "0000:00:07.0"
+         cidr: '152.16.100.10/24'
+         gateway_ip: '152.16.100.20'
+       public_0:
+         phy_port: "0000:05:00.1"
+         vpci: "0000:00:08.0"
+         cidr: '152.16.40.10/24'
+         gateway_ip: '152.16.100.20'
