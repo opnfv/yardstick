@@ -101,21 +101,15 @@ class V1Env(ApiResource):
 
     def _create_data_source(self, ip):
         url = 'http://admin:admin@{}:{}/api/datasources'.format(ip, consts.GRAFANA_PORT)
-        influx_conf = utils.parse_ini_file(consts.CONF_FILE)
-
-        try:
-            influx_url = influx_conf['dispatcher_influxdb']['target']
-        except KeyError:
-            LOG.exception('influxdb url not set in yardstick.conf')
-            raise
+        influx_conf = utils.parse_ini_file(consts.CONF_FILE).get('dispatcher_influxdb', {})
 
         data = {
             "name": "yardstick",
             "type": "influxdb",
             "access": "proxy",
-            "url": influx_url,
-            "password": "root",
-            "user": "root",
+            "url": influx_conf.get('target', ''),
+            "password": influx_conf.get('password', ''),
+            "user": influx_conf.get('username', ''),
             "database": "yardstick",
             "basicAuth": True,
             "basicAuthUser": "admin",
