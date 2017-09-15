@@ -17,6 +17,7 @@ import unittest
 from copy import deepcopy
 from itertools import product, chain
 
+import errno
 import mock
 from six.moves import configparser
 
@@ -779,6 +780,21 @@ class RemoveFileTestCase(unittest.TestCase):
 
 
 class TestUtils(unittest.TestCase):
+
+    @mock.patch('yardstick.common.utils.os.makedirs')
+    def test_makedirs(self, *_):
+        self.assertIsNone(utils.makedirs('a/b/c/d'))
+
+    @mock.patch('yardstick.common.utils.os.makedirs')
+    def test_makedirs_exists(self, mock_os_makedirs):
+        mock_os_makedirs.side_effect = OSError(errno.EEXIST, 'exists')
+        self.assertIsNone(utils.makedirs('a/b/c/d'))
+
+    @mock.patch('yardstick.common.utils.os.makedirs')
+    def test_makedirs_busy(self, mock_os_makedirs):
+        mock_os_makedirs.side_effect = OSError(errno.EBUSY, 'busy')
+        with self.assertRaises(OSError):
+            utils.makedirs('a/b/c/d')
 
     @mock.patch('yardstick.common.utils.jsonify')
     def test_result_handler(self, mock_jsonify):
