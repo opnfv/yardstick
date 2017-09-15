@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_f73928f3",
+        "filename": "tests/unit/network_services/traffic_profile/test_base.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-15T10:48:05Z",
+      "side": 1,
+      "message": "should be test_execute_traffic(self):",
+      "revId": "be6e7ed6f053a4a697af939fa0ddcd5dce54c0c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_fae58ddc",
+        "filename": "yardstick/network_services/vnf_generic/vnf/udp_replay.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-15T10:48:05Z",
+      "side": 1,
+      "message": "I tried to work around this issue with sending ENTER to get a new prompt when waiting for a VNF to start. (it\u0027s in the other review (https://gerrit.opnfv.org/gerrit/#/c/41867/))",
+      "revId": "be6e7ed6f053a4a697af939fa0ddcd5dce54c0c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
