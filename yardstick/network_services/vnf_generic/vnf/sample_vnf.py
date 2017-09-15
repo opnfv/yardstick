@@ -319,8 +319,13 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
             self.socket = 1
 
         cores = self._validate_cpu_cfg()
+        all_port_names = (intf["name"] for intf in self.vnfd_helper.interfaces)
+        # implicit ordering, presumably by DPDK port num, so pre-sort by port_num
+        # this won't work because we don't have DPDK port numbers yet
+        # port_names = sorted(all_port_names, key=self.vnfd_helper.port_num)
+        port_names = all_port_names
         return ResourceProfile(self.vnfd_helper.mgmt_interface,
-                               interfaces=self.vnfd_helper.interfaces, cores=cores)
+                               port_names=port_names, cores=cores)
 
     def _detect_and_bind_drivers(self):
         interfaces = self.vnfd_helper.interfaces
