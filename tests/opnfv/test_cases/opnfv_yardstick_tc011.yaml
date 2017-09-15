@@ -13,7 +13,7 @@ description: >
     Yardstick TC011 config file;
     Measure packet delay variation (jitter) using iperf3.
 
-{% set udp = udp or "udp" %}
+{% set protocol = protocol or "udp" %}
 {% set bandwidth = bandwidth or "20m" %}
 {% set length = length or "8K" %}
 {% set window = window or 29200 %}
@@ -25,7 +25,7 @@ scenarios:
 -
   type: Iperf3
   options:
-    udp: {{udp}}
+    protocol: {{protocol}}
     bandwidth: {{bandwidth}}
     length: {{length}}
     window: {{window}}
