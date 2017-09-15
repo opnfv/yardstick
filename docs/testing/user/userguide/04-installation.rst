@@ -443,6 +443,141 @@ Deploy InfluxDB and Grafana directly in Ubuntu (**Todo**)
 -----------------------------------------------------------
 
 
+Yardstick common CLI
+--------------------
+
+list test cases
+>>>>>>>>>>>>>>>
+**yardstick testcase list**
+
+This command line would list all test cases in yardstick.
+It would show like below::
+
+  +---------------------------------------------------------------------------------------
+  | Testcase Name         | Description
+  +---------------------------------------------------------------------------------------
+  | opnfv_yardstick_tc001 | Measure network throughput using pktgen
+  | opnfv_yardstick_tc002 | measure network latency using ping
+  | opnfv_yardstick_tc005 | Measure Storage IOPS, throughput and latency using fio.
+  | opnfv_yardstick_tc006 | Measure volume storage IOPS, throughput and latency using fio.
+  | opnfv_yardstick_tc008 | Measure network throughput and packet loss using Pktgen
+  | opnfv_yardstick_tc009 | Measure network throughput and packet loss using pktgen
+  | opnfv_yardstick_tc010 | measure memory read latency using lmbench.
+  | opnfv_yardstick_tc011 | Measure packet delay variation (jitter) using iperf3.
+  | opnfv_yardstick_tc012 | Measure memory read and write bandwidth using lmbench.
+  | opnfv_yardstick_tc014 | Measure Processing speed using unixbench.
+  | opnfv_yardstick_tc019 | Sample test case for the HA of controller node service.
+  ...
+  +---------------------------------------------------------------------------------------
+show a test case config file
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Take opnfv_yardstick_tc002 for an example. This test case measure network latency.
+You just need to type in **yardstick testcase show opnfv_yardstick_tc002**, and the console
+would show the config yaml of this test case::
+  ##############################################################################
+  # Copyright (c) 2017 kristian.hunt@gmail.com and others.
+  #
+  # All rights reserved. This program and the accompanying materials
+  # are made available under the terms of the Apache License, Version 2.0
+  # which accompanies this distribution, and is available at
+  # http://www.apache.org/licenses/LICENSE-2.0
+  ##############################################################################
+  ---
+
+  schema: "yardstick:task:0.1"
+  description: >
+      Yardstick TC002 config file;
+      measure network latency using ping;
+
+  {% set image = image or "cirros-0.3.5" %}
+
+  {% set provider = provider or none %}
+  {% set physical_network = physical_network or 'physnet1' %}
+  {% set segmentation_id = segmentation_id or none %}
+  {% set packetsize = packetsize or 100 %}
+
+  scenarios:
+  {% for i in range(2) %}
+  -
+    type: Ping
+    options:
+      packetsize: {{packetsize}}
+    host: athena.demo
+    target: ares.demo
+
+    runner:
+      type: Duration
+      duration: 60
+      interval: 10
+
+    sla:
+      max_rtt: 10
+      action: monitor
+  {% endfor %}
+
+  context:
+    name: demo
+    image: {{image}}
+    flavor: yardstick-flavor
+    user: cirros
+
+    placement_groups:
+      pgrp1:
+        policy: "availability"
+
+    servers:
+      athena:
+        floating_ip: true
+        placement: "pgrp1"
+      ares:
+        placement: "pgrp1"
+
+    networks:
+      test:
+        cidr: '10.0.1.0/24'
+        {% if provider == "vlan" %}
+        provider: {{provider}}
+        physical_network: {{physical_network}}å
+          {% if segmentation_id %}
+        segmentation_id: {{segmentation_id}}
+          {% endif %}
+        {% endif %}
+
+start a task to run yardstick test case
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+If you want run a test case, then you need to use **yardstick task start <test_case_path>**
+this command support some parameters as below:
+
++---------------------+--------------------------------------------------+
+| Parameters          | Detail                                           |
++=====================+==================================================+
+| -d                  | show debug log of yardstick running              |
+|                     |                                                  |
++---------------------+--------------------------------------------------+
+| --task-args         | If you want to customize test case parameters,   |
+|                     | use "--task-args" to pass the value. The format  |
+|                     | is a json string with parameter key-value pair.  |
+|                     |                                                  |
++---------------------+--------------------------------------------------+
+| --task-args-file    | If you want to use yardstick                     |
+|                     | env prepare command(or                           |
+|                     | related API) to load the                         |
++---------------------+--------------------------------------------------+
+| --parse-only        |                                                  |
+|                     |                                                  |
+|                     |                                                  |
++---------------------+--------------------------------------------------+
+| --output-file \     | Specify where to output the log. if not pass,    |
+| OUTPUT_FILE_PATH    | the default value is                             |
+|                     | "/tmp/yardstick/yardstick.log"                   |
+|                     |                                                  |
++---------------------+--------------------------------------------------+
+| --suite \           | run a test suite, TEST_SUITE_PATH speciy where   |
+| TEST_SUITE_PATH     | the test suite locates                           |
+|                     |                                                  |
++---------------------+--------------------------------------------------+
+
+
 Run Yardstick in a local environment
 ------------------------------------
 
@@ -513,4 +648,3 @@ yaml file and add test cases, constraint or task arguments if necessary.
 
 Proxy Support (**Todo**)
 ---------------------------
-
