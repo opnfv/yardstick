@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_14248ac3",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc011.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2017-09-15T02:30:06Z",
+      "side": 1,
+      "message": "well, a history problem, I think we should change this parameter name to \"protocol\" , because it also support stcp,tcp. we can fix at another patch.",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 7
+      },
+      "revId": "a0beb235aaf0108b486d7df551d5281cb2a0f138",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
