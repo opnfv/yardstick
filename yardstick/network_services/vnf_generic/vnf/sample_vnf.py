@@ -282,9 +282,11 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
 
     def setup_vnf_environment(self):
         self._setup_dpdk()
-        resource = self._setup_resources()
+        self.bound_pci = [v['virtual-interface']["vpci"] for v in self.vnfd_helper.interfaces]
         self.kill_vnf()
+        # bind before _setup_resources so we can use dpdk_port_num
         self._detect_and_bind_drivers()
+        resource = self._setup_resources()
         return resource
 
     def kill_vnf(self):
@@ -308,9 +310,6 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
             self.ssh_helper.execute("bash %s dpdk >/dev/null 2>&1" % dpdk_setup)
 
     def _setup_resources(self):
-        interfaces = self.vnfd_helper.interfaces
-        self.bound_pci = [v['virtual-interface']["vpci"] for v in interfaces]
-
         # what is this magic?  how do we know which socket is for which port?
         # what about quad-socket?
         if any(v[5] == "0" for v in self.bound_pci):
@@ -319,8 +318,12 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
             self.socket = 1
 
         cores = self._validate_cpu_cfg()
+        all_port_names = (intf["name"] for intf in self.vnfd_helper.interfaces)
+        # implicit ordering, presumably by DPDK port num, so pre-sort by port_num
+        # this won't work because we don't have DPDK port numbers yet
+        port_names = sorted(all_port_names, key=self.vnfd_helper.port_num)
         return ResourceProfile(self.vnfd_helper.mgmt_interface,
-                               interfaces=self.vnfd_helper.interfaces, cores=cores)
+                               port_names=port_names, cores=cores)
 
     def _detect_and_bind_drivers(self):
         interfaces = self.vnfd_helper.interfaces
