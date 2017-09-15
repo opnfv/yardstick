@@ -24,7 +24,7 @@ LOG = logging.getLogger(__name__)
 
 # ACL should work the same on all systems, we can provide the binary
 ACL_PIPELINE_COMMAND = \
-    'sudo {tool_path} -p {ports_len_hex} -f {cfg_file} -s {script}'
+    'sudo {tool_path} -p {port_mask_hex} -f {cfg_file} -s {script}'
 
 ACL_COLLECT_KPI = r"""\
 ACL TOTAL:[^p]+pkts_processed"?:\s(\d+),[^p]+pkts_drop"?:\s(\d+),[^p]+pkts_received"?:\s(\d+),"""

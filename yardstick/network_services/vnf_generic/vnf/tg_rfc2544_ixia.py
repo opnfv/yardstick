@@ -58,18 +58,11 @@ class IxiaResourceHelper(ClientResourceHelper):
             rfc_helper_type = IxiaRfc2544Helper
 
         self.rfc_helper = rfc_helper_type(self.scenario_helper)
-        self.tg_port_pairs = []
         self.priv_ports = None
         self.pub_ports = None
 
     def _connect(self, client=None):
         self.client._connect(self.vnfd_helper)
-
-    def _build_ports(self):
-        # self.generate_port_pairs(self.topology)
-        self.priv_ports = [int(x[0][2:]) for x in self.tg_port_pairs]
-        self.pub_ports = [int(x[1][2:]) for x in self.tg_port_pairs]
-        self.my_ports = list(set(self.priv_ports).union(set(self.pub_ports)))
 
     def get_stats(self, *args, **kwargs):
         return self.client.ix_get_statistics()
@@ -79,33 +72,37 @@ class IxiaResourceHelper(ClientResourceHelper):
         if self.client and self.client.ixnet:
             self.client.ix_stop_traffic()
 
-    def generate_samples(self, key=None, default=None):
+    def generate_samples(self, ports, key=None, default=None):
         stats = self.get_stats()
         last_result = stats[1]
         latency = stats[0]
 
         samples = {}
-        for vpci_idx, interface in enumerate(self.vnfd_helper.interfaces):
+        for interface in self.vnfd_helper.interfaces:
             try:
-                name = "xe{0}".format(vpci_idx)
-                samples[name] = {
-                    "rx_throughput_kps": float(last_result["Rx_Rate_Kbps"][vpci_idx]),
-                    "tx_throughput_kps": float(last_result["Tx_Rate_Kbps"][vpci_idx]),
-                    "rx_throughput_mbps": float(last_result["Rx_Rate_Mbps"][vpci_idx]),
-                    "tx_throughput_mbps": float(last_result["Tx_Rate_Mbps"][vpci_idx]),
-                    "in_packets": int(last_result["Valid_Frames_Rx"][vpci_idx]),
-                    "out_packets": int(last_result["Frames_Tx"][vpci_idx]),
-                    "RxThroughput": int(last_result["Valid_Frames_Rx"][vpci_idx]) / 30,
-                    "TxThroughput": int(last_result["Frames_Tx"][vpci_idx]) / 30,
-                }
-                if key:
-                    avg_latency = latency["Store-Forward_Avg_latency_ns"][vpci_idx]
-                    min_latency = latency["Store-Forward_Min_latency_ns"][vpci_idx]
-                    max_latency = latency["Store-Forward_Max_latency_ns"][vpci_idx]
-                    samples[name][key] = \
-                        {"Store-Forward_Avg_latency_ns": avg_latency,
-                         "Store-Forward_Min_latency_ns": min_latency,
-                         "Store-Forward_Max_latency_ns": max_latency}
+                name = interface["name"]
+                # this is not DPDK port num, but this is whatever number we gave
+                # when we selected ports and programmed the profile
+                port = self.vnfd_helper.port_num(name)
+                if port in ports:
+                    samples[name] = {
+                        "rx_throughput_kps": float(last_result["Rx_Rate_Kbps"][port]),
+                        "tx_throughput_kps": float(last_result["Tx_Rate_Kbps"][port]),
+                        "rx_throughput_mbps": float(last_result["Rx_Rate_Mbps"][port]),
+                        "tx_throughput_mbps": float(last_result["Tx_Rate_Mbps"][port]),
+                        "in_packets": int(last_result["Valid_Frames_Rx"][port]),
+                        "out_packets": int(last_result["Frames_Tx"][port]),
+                        "RxThroughput": int(last_result["Valid_Frames_Rx"][port]) / 30,
+                        "TxThroughput": int(last_result["Frames_Tx"][port]) / 30,
+                    }
+                    if key:
+                        avg_latency = latency["Store-Forward_Avg_latency_ns"][port]
+                        min_latency = latency["Store-Forward_Min_latency_ns"][port]
+                        max_latency = latency["Store-Forward_Max_latency_ns"][port]
+                        samples[name][key] = \
+                            {"Store-Forward_Avg_latency_ns": avg_latency,
+                             "Store-Forward_Min_latency_ns": min_latency,
+                             "Store-Forward_Max_latency_ns": max_latency}
             except IndexError:
                 pass
 
@@ -132,6 +129,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         self.client.ix_assign_ports()
 
         mac = {}
+        # TODO: shouldn't this index map to port number we used to generate the profile
         for index, interface in enumerate(self.vnfd_helper.interfaces, 1):
             virt_intf = interface["virtual-interface"]
             mac.update({
@@ -145,11 +143,11 @@ class IxiaResourceHelper(ClientResourceHelper):
                                        self.scenario_helper.scenario_cfg["task_path"])
         # Generate ixia traffic config...
         while not self._terminated.value:
-            traffic_profile.execute(self, self.client, mac, ixia_file)
+            traffic_profile.execute_traffic(self, self.client, mac, ixia_file)
             self.client_started.value = 1
             time.sleep(WAIT_FOR_TRAFFIC)
             self.client.ix_stop_traffic()
-            samples = self.generate_samples()
+            samples = self.generate_samples(traffic_profile.ports)
             self._queue.put(samples)
             status, samples = traffic_profile.get_drop_percentage(self, samples, min_tol,
                                                                   max_tol, self.client, mac,
@@ -167,11 +165,11 @@ class IxiaResourceHelper(ClientResourceHelper):
             self._terminated.value = 1
             return
 
-        traffic_profile.execute(self, self.client, mac, ixia_file)
+        traffic_profile.execute_traffic(self, self.client, mac, ixia_file)
         for _ in range(5):
             time.sleep(self.LATENCY_TIME_SLEEP)
             self.client.ix_stop_traffic()
-            samples = self.generate_samples('latency', {})
+            samples = self.generate_samples(traffic_profile.ports, 'latency', {})
             self._queue.put(samples)
             traffic_profile.start_ixia_latency(self, self.client, mac, ixia_file)
             if self._terminated.value:
@@ -197,7 +195,6 @@ class IxiaTrafficGen(SampleVNFTrafficGen):
                                              resource_helper_type)
         self._ixia_traffic_gen = None
         self.ixia_file_name = ''
-        self.tg_port_pairs = []
         self.vnf_port_pairs = []
 
     def _check_status(self):

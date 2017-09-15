@@ -83,9 +83,14 @@ class HeatContext(Context):
         external_network = os.environ.get("EXTERNAL_NETWORK", "net04_ext")
 
         have_external_network = any(net.get("external_network") for net in networks.values())
-        if sorted_networks and not have_external_network:
-            # no external net defined, assign it to first network using os.environ
-            sorted_networks[0][1]["external_network"] = external_network
+        if not have_external_network:
+            # try looking for mgmt network first
+            try:
+                networks['mgmt']["external_network"] = external_network
+            except KeyError:
+                if sorted_networks:
+                    # otherwise assign it to first network using os.environ
+                    sorted_networks[0][1]["external_network"] = external_network
 
         return sorted_networks
 
@@ -328,16 +333,21 @@ class HeatContext(Context):
         LOG.info("Deploying context '%s' DONE", self.name)
 
     def add_server_port(self, server):
-        # TODO(hafe) can only handle one internal network for now
-        # use private ip from first port
-        private_port = next(iter(server.ports.values()))
+        # use private ip from first port in first network
+        try:
+            private_port = next(iter(server.ports.values()))[0]
+        except IndexError:
+            LOG.exception("Unable to find first private port in %s", server.ports)
+            raise
         server.private_ip = self.stack.outputs[private_port["stack_name"]]
         server.interfaces = {}
-        for network_name, port in server.ports.items():
-            # port['port'] is either port name from mapping or default network_name
-            server.interfaces[port['port']] = self.make_interface_dict(network_name, port['port'],
-                                                                       port['stack_name'],
-                                                                       self.stack.outputs)
+        for network_name, ports in server.ports.items():
+            for port in ports:
+                # port['port'] is either port name from mapping or default network_name
+                server.interfaces[port['port']] = self.make_interface_dict(network_name,
+                                                                           port['port'],
+                                                                           port['stack_name'],
+                                                                           self.stack.outputs)
 
     def make_interface_dict(self, network_name, port, stack_name, outputs):
         private_ip = outputs[stack_name]

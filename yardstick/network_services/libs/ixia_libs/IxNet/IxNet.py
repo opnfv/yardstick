@@ -113,10 +113,10 @@ class IxNextgen(object):
     }
 
     MODE_SEEDS_MAP = {
-        0: ('private_1', ['256', '2048']),
+        0: ('private_0', ['256', '2048']),
     }
 
-    MODE_SEEDS_DEFAULT = 'public_1', ['2048', '256']
+    MODE_SEEDS_DEFAULT = 'public_0', ['2048', '256']
 
     @staticmethod
     def find_view_obj(view_name, views):

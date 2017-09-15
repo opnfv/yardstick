@@ -80,7 +80,7 @@ class TestProxTrafficGen(unittest.TestCase):
                             'type': 'PCI-PASSTHROUGH',
                             'vld_id': '',
                             'netmask': '255.255.255.0',
-                            'dpdk_port_num': '0',
+                            'dpdk_port_num': 0,
                             'bandwidth': '10 Gbps',
                             'driver': "i40e",
                             'dst_ip': '152.16.100.20',
@@ -99,7 +99,7 @@ class TestProxTrafficGen(unittest.TestCase):
                             'vld_id': '',
                             'driver': "i40e",
                             'netmask': '255.255.255.0',
-                            'dpdk_port_num': '1',
+                            'dpdk_port_num': 1,
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.40.20',
                             'local_iface_name': 'xe1',
@@ -349,8 +349,10 @@ class TestProxTrafficGen(unittest.TestCase):
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         prox_traffic_gen = ProxTrafficGen(NAME, vnfd)
-        prox_traffic_gen.ssh_helper = mock.MagicMock(
+        ssh_helper = mock.MagicMock(
             **{"execute.return_value": (0, "", ""), "bin_path": ""})
+        prox_traffic_gen.ssh_helper = ssh_helper
+        prox_traffic_gen.setup_helper.dpdk_bind_helper.ssh_helper = ssh_helper
         prox_traffic_gen.setup_helper._setup_resources = mock.MagicMock()
         prox_traffic_gen.setup_hugepages = mock.MagicMock()
         prox_traffic_gen.generate_prox_config_file = mock.MagicMock()
@@ -384,7 +386,7 @@ class TestProxTrafficGen(unittest.TestCase):
 
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
-        mock_traffic_profile.execute.return_value = "64"
+        mock_traffic_profile.execute_traffic.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]

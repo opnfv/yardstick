@@ -24,6 +24,8 @@ import errno
 import unittest
 import mock
 
+from copy import deepcopy
+
 from tests.unit import STL_MOCKS
 from yardstick.benchmark.scenarios.networking.vnf_generic import \
     SshManager, NetworkServiceTestCase, IncorrectConfig, \
@@ -365,6 +367,24 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         result = '152.16.100.2-152.16.100.254'
         self.assertEqual(result, self.s._get_ip_flow_range({"tg__1": 'xe0'}))
 
+    @mock.patch('yardstick.benchmark.scenarios.networking.vnf_generic.ipaddress')
+    def test__get_ip_flow_range_no_node_data(self, mock_ipaddress):
+        scenario_cfg = deepcopy(self.scenario_cfg)
+        scenario_cfg["traffic_options"]["flow"] = \
+            self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
+
+        mock_ipaddress.ip_network.return_value = ipaddr = mock.Mock()
+        ipaddr.hosts.return_value = []
+
+        expected = '0.0.0.0'
+        result = self.s._get_ip_flow_range({"tg__2": 'xe0'})
+        self.assertEqual(result, expected)
+
+    def test__get_ip_flow_range_no_nodes(self):
+        expected = '0.0.0.0'
+        result = self.s._get_ip_flow_range({})
+        self.assertEqual(result, expected)
+
     def test___get_traffic_flow(self):
         self.scenario_cfg["traffic_options"]["flow"] = \
             self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
@@ -652,12 +672,6 @@ class TestNetworkServiceTestCase(unittest.TestCase):
 """
         res = NetworkServiceTestCase.parse_netdev_info(output)
         assert res == self.SAMPLE_VM_NETDEVS
-
-    def test_sort_dpdk_port_num(self):
-        netdevs = self.SAMPLE_NETDEVS.copy()
-        NetworkServiceTestCase._sort_dpdk_port_num(netdevs)
-        assert netdevs['lan']['dpdk_port_num'] == 0
-        assert netdevs['enp11s0']['dpdk_port_num'] == 1
 
     def test_probe_missing_values(self):
         netdevs = self.SAMPLE_NETDEVS.copy()

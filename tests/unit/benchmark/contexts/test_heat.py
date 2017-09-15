@@ -182,11 +182,17 @@ class HeatContextTestCase(unittest.TestCase):
             u'd-mac_address': u'00:10',
             u'd-device_id': u'dev43',
             u'd-network_id': u'net987',
+            u'e': u'40.30.20.15',
+            u'e-subnet_id': 2,
+            u'e-mac_address': u'00:10',
+            u'e-device_id': u'dev43',
+            u'e-network_id': u'net987',
         }
         server = mock.MagicMock()
         server.ports = OrderedDict([
-            ('a', {'stack_name': 'b', 'port': 'port_a'}),
-            ('c', {'stack_name': 'd', 'port': 'port_c'}),
+            ('a', [{'stack_name': 'b', 'port': 'port_a'}]),
+            ('c', [{'stack_name': 'd', 'port': 'port_c'},
+                   {'stack_name': 'e', 'port': 'port_f'}]),
         ])
 
         expected = {
@@ -205,7 +211,7 @@ class HeatContextTestCase(unittest.TestCase):
         }
         self.test_context.add_server_port(server)
         self.assertEqual(server.private_ip, '10.20.30.45')
-        self.assertEqual(len(server.interfaces), 2)
+        self.assertEqual(len(server.interfaces), 3)
         self.assertDictEqual(server.interfaces['port_a'], expected)
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')

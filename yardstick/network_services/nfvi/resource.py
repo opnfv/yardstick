@@ -21,11 +21,11 @@ import os
 import os.path
 import re
 import multiprocessing
-from collections import Sequence
 
 from oslo_config import cfg
 
 from yardstick import ssh
+from yardstick.common.utils import validate_non_string_sequence
 from yardstick.network_services.nfvi.collectd import AmqpConsumer
 from yardstick.network_services.utils import get_nsb_option
 
@@ -45,16 +45,14 @@ class ResourceProfile(object):
 
     def __init__(self, mgmt, interfaces=None, cores=None):
         self.enable = True
-        self.connection = None
-        self.cores = cores if isinstance(cores, Sequence) else []
+        self.cores = validate_non_string_sequence(cores, default=[])
         self._queue = multiprocessing.Queue()
         self.amqp_client = None
-        self.interfaces = interfaces if isinstance(interfaces, Sequence) else []
+        self.interfaces = validate_non_string_sequence(interfaces, default=[])
 
         # why the host or ip?
         self.vnfip = mgmt.get("host", mgmt["ip"])
         self.connection = ssh.SSH.from_node(mgmt, overrides={"ip": self.vnfip})
-
         self.connection.wait()
 
     def check_if_sa_running(self, process):
@@ -111,7 +109,7 @@ class ResourceProfile(object):
 
     @classmethod
     def parse_intel_pmu_stats(cls, key, value):
-        return {''.join(key): value.split(":")[1]}
+        return {''.join(str(v) for v in key): value.split(":")[1]}
 
     def parse_collectd_result(self, metrics, core_list):
         """ convert collectd data into json"""
@@ -234,7 +232,7 @@ class ResourceProfile(object):
         connection.execute("sudo rabbitmqctl delete_user guest")
         connection.execute("sudo rabbitmqctl add_user admin admin")
         connection.execute("sudo rabbitmqctl authenticate_user admin admin")
-        connection.execute("sudo rabbitmqctl set_permissions -p / admin \".*\" \".*\" \".*\"")
+        connection.execute("sudo rabbitmqctl set_permissions -p / admin '.*' '.*' '.*'")
 
         LOG.debug("Start collectd service.....")
         connection.execute("sudo %s" % collectd_path)

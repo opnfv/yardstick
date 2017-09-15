@@ -17,6 +17,7 @@
 
 from __future__ import absolute_import
 
+import copy
 import os
 import socket
 import unittest
@@ -25,6 +26,7 @@ from contextlib import contextmanager
 import mock
 
 from tests.unit import STL_MOCKS
+from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
@@ -634,6 +636,111 @@ class TestProxSocketHelper(unittest.TestCase):
 
 
 class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
+
+    VNFD0 = {
+        'short-name': 'ProxVnf',
+        'vdu': [
+            {
+                'routing_table': [
+                    {
+                        'network': '152.16.100.20',
+                        'netmask': '255.255.255.0',
+                        'gateway': '152.16.100.20',
+                        'if': 'xe0',
+                    },
+                    {
+                        'network': '152.16.40.20',
+                        'netmask': '255.255.255.0',
+                        'gateway': '152.16.40.20',
+                        'if': 'xe1',
+                    },
+                ],
+                'description': 'PROX approximation using DPDK',
+                'name': 'proxvnf-baremetal',
+                'nd_route_tbl': [
+                    {
+                        'network': '0064:ff9b:0:0:0:0:9810:6414',
+                        'netmask': '112',
+                        'gateway': '0064:ff9b:0:0:0:0:9810:6414',
+                        'if': 'xe0',
+                    },
+                    {
+                        'network': '0064:ff9b:0:0:0:0:9810:2814',
+                        'netmask': '112',
+                        'gateway': '0064:ff9b:0:0:0:0:9810:2814',
+                        'if': 'xe1',
+                    },
+                ],
+                'id': 'proxvnf-baremetal',
+                'external-interface': [
+                    {
+                        'virtual-interface': {
+                            'dst_mac': '00:00:00:00:00:04',
+                            'vpci': '0000:05:00.0',
+                            'local_ip': '152.16.100.19',
+                            'type': 'PCI-PASSTHROUGH',
+                            'vld_id': 'private_0',
+                            'netmask': '255.255.255.0',
+                            'dpdk_port_num': 0,
+                            'bandwidth': '10 Gbps',
+                            'driver': "i40e",
+                            'dst_ip': '152.16.100.19',
+                            'local_iface_name': 'xe0',
+                            'local_mac': '00:00:00:00:00:02',
+                            'ifname': 'xe0',
+                        },
+                        'vnfd-connection-point-ref': 'xe0',
+                        'name': 'xe0',
+                    },
+                    {
+                        'virtual-interface': {
+                            'dst_mac': '00:00:00:00:00:03',
+                            'vpci': '0000:05:00.1',
+                            'local_ip': '152.16.40.19',
+                            'type': 'PCI-PASSTHROUGH',
+                            'vld_id': 'public_0',
+                            'driver': "i40e",
+                            'netmask': '255.255.255.0',
+                            'dpdk_port_num': 1,
+                            'bandwidth': '10 Gbps',
+                            'dst_ip': '152.16.40.20',
+                            'local_iface_name': 'xe1',
+                            'local_mac': '00:00:00:00:00:01',
+                            'ifname': 'xe1',
+                        },
+                        'vnfd-connection-point-ref': 'xe1',
+                        'name': 'xe1',
+                    },
+                ],
+            },
+        ],
+        'description': 'PROX approximation using DPDK',
+        'mgmt-interface': {
+            'vdu-id': 'proxvnf-baremetal',
+            'host': '1.2.1.1',
+            'password': 'r00t',
+            'user': 'root',
+            'ip': '1.2.1.1',
+        },
+        'benchmark': {
+            'kpi': [
+                'packets_in',
+                'packets_fwd',
+                'packets_dropped',
+            ],
+        },
+        'id': 'ProxApproxVnf',
+        'name': 'ProxVnf',
+    }
+
+    VNFD = {
+        'vnfd:vnfd-catalog': {
+            'vnfd': [
+                VNFD0,
+            ],
+        },
+    }
+
     def test__replace_quoted_with_value(self):
         # empty string
         input_str = ''
@@ -750,33 +857,6 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         ])
         result = ProxDpdkVnfSetupEnvHelper.write_prox_config(input_data)
         self.assertEqual(result, expected)
-
-    def test_rebind_drivers(self):
-        def find_drivers(*args, **kwargs):
-            setup_helper.used_drivers = used_drivers
-
-        used_drivers = {
-            'a': (1, 'b'),
-            'c': (2, 'd'),
-        }
-
-        vnfd_helper = mock.MagicMock()
-        ssh_helper = mock.MagicMock()
-        scenario_helper = mock.MagicMock()
-        setup_helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        setup_helper._find_used_drivers = mock_find = mock.MagicMock(side_effect=find_drivers)
-
-        setup_helper.rebind_drivers()
-        self.assertEqual(mock_find.call_count, 1)
-        self.assertEqual(ssh_helper.execute.call_count, 2)
-        self.assertIn('--force', ssh_helper.execute.call_args[0][0])
-
-        mock_find.reset_mock()
-        ssh_helper.execute.reset_mock()
-        setup_helper.rebind_drivers(False)
-        self.assertEqual(mock_find.call_count, 0)
-        self.assertEqual(ssh_helper.execute.call_count, 2)
-        self.assertNotIn('--force', ssh_helper.execute.call_args[0][0])
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
     def test_build_config_file_no_additional_file(self, mock_find_path):
@@ -931,8 +1011,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
 
         mock_parser_type.side_effect = init
 
-        vnfd_helper = mock.MagicMock()
-        vnfd_helper.interfaces = []
+        vnfd_helper = VnfdHelper(self.VNFD0)
         ssh_helper = mock.MagicMock()
         scenario_helper = mock.MagicMock()
 
@@ -946,23 +1025,6 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         helper.additional_files = {"ipv4.lua": "/tmp/ipv4.lua"}
 
         helper.remote_prox_file_name = 'remote'
-        vnfd_helper.interfaces = [
-            {
-                'virtual-interface': {
-                    'dst_mac': '00:00:00:de:ad:88',
-                },
-            },
-            {
-                'virtual-interface': {
-                    'dst_mac': '00:00:00:de:ad:ee',
-                },
-            },
-            {
-                'virtual-interface': {
-                    'dst_mac': '00:00:00:de:ad:ff',
-                },
-            },
-        ]
         sections_data = [
             [
                 'lua',
@@ -975,7 +1037,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
                 [
                     ['ip', ''],
                     ['mac', 'foo'],
-                    ['dst mac', '@@2'],
+                    ['dst mac', '@@1'],
                     ['tx port', '1'],
                 ],
             ],
@@ -1004,7 +1066,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
                 [
                     ['ip', ''],
                     ['mac', 'hardware'],
-                    ['dst mac', '00:00:00:de:ad:ff'],
+                    ['dst mac', '00:00:00:00:00:03'],
                     ['tx port', '1'],
                 ],
             ],
@@ -1012,7 +1074,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
                 'port 2',
                 [
                     ['ip', ''],
-                    ['$sut_mac0', '00 00 00 de ad 88'],
+                    ['$sut_mac0', '00 00 00 00 00 04'],
                     ['tx port', '0'],
                     ['single', '@'],
                     ['user_table', 'dofile("/tmp/ipv4.lua")'],
@@ -1079,48 +1141,26 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             helper.generate_prox_config_file('a/b')
 
     def test_generate_prox_lua_file(self):
-        vnfd_helper = mock.MagicMock()
-        vnfd_helper.interfaces = []
+        vnfd_helper = VnfdHelper(self.VNFD0)
         ssh_helper = mock.MagicMock()
         scenario_helper = mock.MagicMock()
 
         helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         helper.LUA_PARAMETER_NAME = 'sut'
 
-        expected = ''
-        result = helper.generate_prox_lua_file()
-        self.assertEqual(result, expected)
+        expected = [
+            'sut_hex_ip_port_0:"98 10 64 13"',
+            'sut_ip_port_0:"152.16.100.19"',
+            'gen_hex_ip_port_0:"98 10 64 13"',
+            'gen_ip_port_0:"152.16.100.19"',
 
-        vnfd_helper.interfaces = [
-            {
-                'local_ip': '10.20.30.40',
-                'dst_ip': '10.11.12.13',
-                'virtual-interface': {
-                    'dpdk_port_num': 3,
-                },
-            },
-            {
-                'local_ip': '10.20.30.45',
-                'dst_ip': '10.11.12.19',
-                'virtual-interface': {
-                    'dpdk_port_num': 7,
-                },
-            },
+            'sut_hex_ip_port_1:"98 10 28 13"',
+            'sut_ip_port_1:"152.16.40.19"',
+            'gen_hex_ip_port_1:"98 10 28 14"',
+            'gen_ip_port_1:"152.16.40.20"',
         ]
-
-        expected = os.linesep.join([
-            'sut_hex_ip_port_3:"0a 14 1e 28"',
-            'sut_ip_port_3:"10.20.30.40"',
-            'gen_hex_ip_port_3:"0a 0b 0c 0d"',
-            'gen_ip_port_3:"10.11.12.13"',
-
-            'sut_hex_ip_port_7:"0a 14 1e 2d"',
-            'sut_ip_port_7:"10.20.30.45"',
-            'gen_hex_ip_port_7:"0a 0b 0c 13"',
-            'gen_ip_port_7:"10.11.12.19"',
-        ])
         result = helper.generate_prox_lua_file()
-        self.assertEqual(result, expected)
+        self.assertListEqual(result.splitlines(), expected)
 
     def test_upload_prox_lua(self):
         def identity(*args):
@@ -1198,6 +1238,111 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
 
 
 class TestProxResourceHelper(unittest.TestCase):
+
+    VNFD0 = {
+        'short-name': 'ProxVnf',
+        'vdu': [
+            {
+                'routing_table': [
+                    {
+                        'network': '152.16.100.20',
+                        'netmask': '255.255.255.0',
+                        'gateway': '152.16.100.20',
+                        'if': 'xe0',
+                    },
+                    {
+                        'network': '152.16.40.20',
+                        'netmask': '255.255.255.0',
+                        'gateway': '152.16.40.20',
+                        'if': 'xe1',
+                    },
+                ],
+                'description': 'PROX approximation using DPDK',
+                'name': 'proxvnf-baremetal',
+                'nd_route_tbl': [
+                    {
+                        'network': '0064:ff9b:0:0:0:0:9810:6414',
+                        'netmask': '112',
+                        'gateway': '0064:ff9b:0:0:0:0:9810:6414',
+                        'if': 'xe0',
+                    },
+                    {
+                        'network': '0064:ff9b:0:0:0:0:9810:2814',
+                        'netmask': '112',
+                        'gateway': '0064:ff9b:0:0:0:0:9810:2814',
+                        'if': 'xe1',
+                    },
+                ],
+                'id': 'proxvnf-baremetal',
+                'external-interface': [
+                    {
+                        'virtual-interface': {
+                            'dst_mac': '00:00:00:00:00:04',
+                            'vpci': '0000:05:00.0',
+                            'local_ip': '152.16.100.19',
+                            'type': 'PCI-PASSTHROUGH',
+                            'vld_id': 'private_0',
+                            'netmask': '255.255.255.0',
+                            'dpdk_port_num': 0,
+                            'bandwidth': '10 Gbps',
+                            'driver': "i40e",
+                            'dst_ip': '152.16.100.19',
+                            'local_iface_name': 'xe0',
+                            'local_mac': '00:00:00:00:00:02',
+                            'ifname': 'xe0',
+                        },
+                        'vnfd-connection-point-ref': 'xe0',
+                        'name': 'xe0',
+                    },
+                    {
+                        'virtual-interface': {
+                            'dst_mac': '00:00:00:00:00:03',
+                            'vpci': '0000:05:00.1',
+                            'local_ip': '152.16.40.19',
+                            'type': 'PCI-PASSTHROUGH',
+                            'vld_id': 'public_0',
+                            'driver': "i40e",
+                            'netmask': '255.255.255.0',
+                            'dpdk_port_num': 1,
+                            'bandwidth': '10 Gbps',
+                            'dst_ip': '152.16.40.20',
+                            'local_iface_name': 'xe1',
+                            'local_mac': '00:00:00:00:00:01',
+                            'ifname': 'xe1',
+                        },
+                        'vnfd-connection-point-ref': 'xe1',
+                        'name': 'xe1',
+                    },
+                ],
+            },
+        ],
+        'description': 'PROX approximation using DPDK',
+        'mgmt-interface': {
+            'vdu-id': 'proxvnf-baremetal',
+            'host': '1.2.1.1',
+            'password': 'r00t',
+            'user': 'root',
+            'ip': '1.2.1.1',
+        },
+        'benchmark': {
+            'kpi': [
+                'packets_in',
+                'packets_fwd',
+                'packets_dropped',
+            ],
+        },
+        'id': 'ProxApproxVnf',
+        'name': 'ProxVnf',
+    }
+
+    VNFD = {
+        'vnfd:vnfd-catalog': {
+            'vnfd': [
+                VNFD0,
+            ],
+        },
+    }
+
     def test_line_rate_to_pps(self):
         expected = 0.25 * 1e8
         result = ProxResourceHelper.line_rate_to_pps(180, 4)
@@ -1603,8 +1748,30 @@ class TestProxResourceHelper(unittest.TestCase):
         def measure(*args, **kwargs):
             yield stats
 
+        bad_vnfd = copy.deepcopy(self.VNFD0)
+        bad_vnfd['vdu'][0]['external-interface'].append({
+            'virtual-interface': {
+                'dst_mac': '00:00:00:00:00:05',
+                'vpci': '0000:06:00.0',
+                'local_ip': '152.16.100.20',
+                'type': 'PCI-PASSTHROUGH',
+                'vld_id': 'private_1',
+                'netmask': '255.255.255.0',
+                'dpdk_port_num': 0,
+                'bandwidth': '10 Gbps',
+                'driver': "i40e",
+                'dst_ip': '152.16.100.20',
+                'local_iface_name': 'xe2',
+                'local_mac': '00:00:00:00:00:07',
+                'ifname': 'xe2',
+            },
+            'vnfd-connection-point-ref': 'xe2',
+            'name': 'xe2',
+        })
+
+        bad_vnfd_helper = VnfdHelper(bad_vnfd)
         setup_helper = mock.MagicMock()
-        setup_helper.vnfd_helper.interfaces = []
+        setup_helper.vnfd_helper = bad_vnfd_helper
 
         stats = {
             'delta': TotStatsTuple(6, 7, 8, 9),
@@ -1622,25 +1789,21 @@ class TestProxResourceHelper(unittest.TestCase):
         with self.assertRaises(AssertionError):
             helper.run_test(980, 15, 45)
 
-        setup_helper.vnfd_helper.interfaces = [
-            {'name': 'a', 'virtual-interface': {'vpci': 'z'}},
-            {'name': 'b', 'virtual-interface': {'vpci': 'y'}},
-            {'name': 'c', 'virtual-interface': {'vpci': 'x'}},
-            {'name': 'd', 'virtual-interface': {'vpci': 'w'}},
-        ]
+        vnfd_helper = VnfdHelper(self.VNFD0)
+        setup_helper.vnfd_helper = vnfd_helper
+        helper = ProxResourceHelper(setup_helper)
+        helper.client = client
+        helper.get_latency = mock.MagicMock(return_value=[3.3, 3.6, 3.8])
         helper._test_cores = [3, 4]
 
-        expected_test_data = ProxTestDataTuple(0.0, 2.0, 6, 7, 8, [3.3, 3.6, 3.8], 6, 7, 1.3e7)
+        expected_test_data = ProxTestDataTuple(0.0, 2.0, 6, 7, 8, [3.3, 3.6, 3.8], 6, 7, 6.5e6)
         expected_port_samples = {
-            'a': {'in_packets': 6, 'out_packets': 7},
-            'b': {'in_packets': 6, 'out_packets': 7},
-            'c': {'in_packets': 6, 'out_packets': 7},
-            'd': {'in_packets': 6, 'out_packets': 7},
+            'xe0': {'in_packets': 6, 'out_packets': 7},
+            'xe1': {'in_packets': 6, 'out_packets': 7},
         }
         test_data, port_samples = helper.run_test(230, 60, 65)
-        self.assertEqual(test_data, expected_test_data, '\n'.join(str(x) for x in test_data))
-        self.assertEqual(port_samples, expected_port_samples,
-                         '\n'.join(str(x) for x in port_samples))
+        self.assertTupleEqual(test_data, expected_test_data)
+        self.assertDictEqual(port_samples, expected_port_samples)
 
     def test_get_latency(self):
         setup_helper = mock.MagicMock()

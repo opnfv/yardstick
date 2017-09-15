@@ -61,14 +61,14 @@ private_1:
 
         outer_l3v4:
             proto: "udp"
-            srcip4: "{{get(flow, 'flow.src_ip0', '10.0.2.1-10.0.2.255') }}"
-            dstip4: "{{get(flow, 'flow.dst_ip0', '10.0.3.1-10.0.3.255') }}"
+            srcip4: "{{get(flow, 'flow.src_ip_0', '10.0.2.1-10.0.2.255') }}"
+            dstip4: "{{get(flow, 'flow.dst_ip_0', '10.0.3.1-10.0.3.255') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
             ttl: 32
             dscp: 0
         outer_l4:
-            srcport: "{{get(flow, 'flow.src_port0', '1234-4321') }}"
-            dstport: "{{get(flow, 'flow.dst_port0', '2001-4001') }}"
+            srcport: "{{get(flow, 'flow.src_port_0', '1234-4321') }}"
+            dstport: "{{get(flow, 'flow.dst_port_0', '2001-4001') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
 public_1:
       ipv4:
@@ -86,12 +86,12 @@ public_1:
 
         outer_l3v4:
             proto: "udp"
-            srcip4: "{{get(flow, 'flow.dst_ip0', '10.0.3.1-10.0.3.255') }}"
-            dstip4: "{{get(flow, 'flow.public_ip0', '10.0.2.1-10.0.2.255') }}"
+            srcip4: "{{get(flow, 'flow.dst_ip_0', '10.0.3.1-10.0.3.255') }}"
+            dstip4: "{{get(flow, 'flow.public_ip_0', '10.0.2.1-10.0.2.255') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
             ttl: 32
             dscp: 0
         outer_l4:
-            srcport: "{{get(flow, 'flow.dst_port0', '1234-4321') }}"
-            dstport: "{{get(flow, 'flow.src_port0', '2001-4001') }}"
+            srcport: "{{get(flow, 'flow.dst_port_0', '1234-4321') }}"
+            dstport: "{{get(flow, 'flow.src_port_0', '2001-4001') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
