@@ -8,11 +8,16 @@
 ##############################################################################
 from __future__ import absolute_import
 import os
+import errno
+
 from functools import reduce
 
 import pkg_resources
 
-from yardstick.common.utils import parse_yaml
+# this module must only import other modules that do
+# not require loggers to be created, so this cannot
+# include yardstick.common.utils
+from yardstick.common.yaml_loader import yaml_load
 
 dirname = os.path.dirname
 abspath = os.path.abspath
@@ -29,7 +34,19 @@ def get_param(key, default=''):
 
     # don't re-parse yaml for each lookup
     if not CONF:
-        CONF.update(parse_yaml(conf_file))
+        # do not use yardstick.common.utils.parse_yaml
+        # since yardstick.common.utils creates a logger
+        # and so it cannot be imported before this code
+        try:
+            with open(conf_file) as f:
+                value = yaml_load(f)
+        except IOError:
+            pass
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise
+        else:
+            CONF.update(value)
     try:
         return reduce(lambda a, b: a[b], key.split('.'), CONF)
     except KeyError:
