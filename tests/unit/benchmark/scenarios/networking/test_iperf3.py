@@ -123,7 +123,7 @@ class IperfTestCase(unittest.TestCase):
         self.assertRaises(AssertionError, p.run, result)
 
     def test_iperf_successful_sla_jitter(self, mock_ssh):
-        options = {"udp": "udp", "bandwidth": "20m"}
+        options = {"protocol": "udp", "bandwidth": "20m"}
         args = {
             'options': options,
             'sla': {'jitter': 10}
@@ -141,7 +141,7 @@ class IperfTestCase(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     def test_iperf_unsuccessful_sla_jitter(self, mock_ssh):
-        options = {"udp": "udp", "bandwidth": "20m"}
+        options = {"protocol": "udp", "bandwidth": "20m"}
         args = {
             'options': options,
             'sla': {'jitter': 0.0001}
@@ -155,6 +155,24 @@ class IperfTestCase(unittest.TestCase):
         sample_output = self._read_sample_output(self.output_name_udp)
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, p.run, result)
+
+    def test_iperf_unsuccessful_AttributeError(self, mock_ssh):
+        options = ""
+        args = {
+            'options': options,
+            'sla': {'jitter': 10}
+        }
+        result = {}
+
+        p = iperf3.Iperf(args, self.ctx)
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+        p.host = mock_ssh.SSH.from_node()
+
+        sample_output = self._read_sample_output(self.output_name_udp)
+        mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
+        expected_result = utils.flatten_dict_key(jsonutils.loads(sample_output))
+        p.run(result)
+        self.assertEqual(result, expected_result)
 
     def test_iperf_unsuccessful_script_error(self, mock_ssh):
 
