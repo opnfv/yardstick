@@ -111,18 +111,22 @@ For more info see http://software.es.net/iperf
 
         # If there are no options specified
         if not options:
-            options = ""
+            options = {}
 
         use_UDP = False
-        if "udp" in options:
-            cmd += " --udp"
-            use_UDP = True
-            if "bandwidth" in options:
-                cmd += " --bandwidth %s" % options["bandwidth"]
-        else:
-            # tcp obviously
+        try:
+            protocol = options.get("protocol")
+            bandwidth = options.get('bandwidth')
+            use_UDP = protocol == 'udp'
+            if protocol:
+                cmd += " --" + protocol
+            if use_UDP and bandwidth:
+                cmd += " --bandwidth " + bandwidth
+            # if nodelay in the option, protocal maybe null or 'tcp'
             if "nodelay" in options:
                 cmd += " --nodelay"
+        except AttributeError:
+            LOG.warning("Can't parser the options in your config file!!!")
 
         # these options are mutually exclusive in iperf3
         if time:
