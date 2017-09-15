@@ -99,7 +99,7 @@ class StandaloneContext(Context):
 
     def install_req_libs(self, connection):
         pkg_req = False
-        pkgs = ["qemu-kvm", "libvirt-bin", "bridge-utils", "numactl"]
+        pkgs = ["qemu-kvm", "libvirt-bin", "bridge-utils", "numactl", "fping"]
         for pkg in pkgs:
             cmd = \
                 "dpkg-query -W --showformat='${Status}\\n' \"%s\"|grep 'ok installed'" % pkg
@@ -129,13 +129,10 @@ class StandaloneContext(Context):
         print("{0}".format(nic_details))
 
         if self.nfvi_node[0]["role"] == "Sriov":
-            self.nfvi_obj.setup_sriov_context(
-                self.nfvi_obj.attrs['phy_ports'],
-                nic_details,
-                self.nfvi_obj.attrs['phy_driver'])
+            self.nodes = self.nfvi_obj.setup_sriov_context()
             LOG.debug("Waiting for VM to come up...")
-            client = ssh.SSH.from_node(self.nfvi_node[0], defaults={'user': 'root'})
-            client.wait(timeout=500)
+            self.nodes = self.nfvi_obj.wait_for_vnfs_to_start(self.nodes)
+            LOG.info("SRIOV nodes: %s" % self.nodes)
         if self.nfvi_node[0]["role"] == "Ovsdpdk":
             self.nfvi_obj.setup_ovs(self.nfvi_obj.ovs[0]["phy_ports"])
             self.nfvi_obj.start_ovs_serverswitch()
