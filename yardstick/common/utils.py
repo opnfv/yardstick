@@ -37,7 +37,6 @@ from oslo_utils import importutils
 from oslo_serialization import jsonutils
 
 import yardstick
-from yardstick.common.yaml_loader import yaml_load
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -92,19 +91,6 @@ def import_modules_from_package(package):
                 sys.modules[module_name] = importutils.import_module(module_name)
             except (ImportError, SyntaxError):
                 logger.exception("unable to import %s", module_name)
-
-
-def parse_yaml(file_path):
-    try:
-        with open(file_path) as f:
-            value = yaml_load(f)
-    except IOError:
-        return {}
-    except OSError as e:
-        if e.errno != errno.EEXIST:
-            raise
-    else:
-        return value
 
 
 def makedirs(d):
