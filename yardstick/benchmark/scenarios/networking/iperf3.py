@@ -114,11 +114,15 @@ For more info see http://software.es.net/iperf
             options = ""
 
         use_UDP = False
-        if "udp" in options:
-            cmd += " --udp"
-            use_UDP = True
-            if "bandwidth" in options:
-                cmd += " --bandwidth %s" % options["bandwidth"]
+        if "protocol" in options:
+            cmd += " --%s" % options['protocol']
+            if options['protocol'] == 'tcp':
+                if "nodelay" in options:
+                    cmd += " --nodelay"
+            if options['protocol'] == 'udp':
+                use_UDP = True
+                if "bandwidth" in options:
+                    cmd += " --bandwidth %s" % options["bandwidth"]
         else:
             # tcp obviously
             if "nodelay" in options:
