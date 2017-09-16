@@ -17,7 +17,7 @@ schema: yardstick:task:0.1
 scenarios:
 - type: NSPerf
   traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
-  topology: vfw-tg-topology.yaml
+  topology: vfw-tg-topology-4port.yaml
   nodes:
     tg__1: trafficgen_1.yardstick
     vnf__1: vnf.yardstick
@@ -26,15 +26,15 @@ scenarios:
       private: {64B: 100}
       public: {64B: 100}
     flow:
-      src_ip: [{'tg__1': 'xe0'}]
-      dst_ip: [{'tg__1': 'xe1'}]
+      src_ip: [{'tg__1': 'xe0'}, {'tg__1': 'xe2'}]
+      dst_ip: [{'tg__1': 'xe1'}, {'tg__1': 'xe3'}]
       count: 1
     traffic_type: 4
     rfc2544:
       allowed_drop_rate: 0.0001 - 0.0001
     vnf__1:
       rules: acl_1rule.yaml
-      vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      vnf_config: {lb_config: 'SW', lb_count: 2, worker_config: '1C/1T', worker_threads: 1}
   runner:
     type: Iteration
     iterations: 10
@@ -60,7 +60,7 @@ contexts:
        ram: 4096
        extra_specs:
          hw:cpu_sockets: 1
-         hw:cpu_cores: 6
+         hw:cpu_cores: 12
          hw:cpu_threads: 2
        user: root
        password: intel123!
@@ -73,6 +73,10 @@ contexts:
              - private_0
            xe1:
              - public_0
+           xe2:
+             - private_1
+           xe3:
+             - public_1
      networks:
        private_0:
          port_num: 0
@@ -86,3 +90,15 @@ contexts:
          vpci: "0000:00:08.0"
          cidr: '152.16.40.10/24'
          gateway_ip: '152.16.100.20'
+       private_1:
+         port_num: 2
+         phy_port: "0000:05:00.2"
+         vpci: "0000:00:09.0"
+         cidr: '172.16.100.10/24'
+         gateway_ip: '172.16.100.20'
+       public_1:
+         port_num: 3
+         phy_port: "0000:05:00.3"
+         vpci: "0000:00:0a.0"
+         cidr: '172.16.40.10/24'
+         gateway_ip: '172.16.100.20'
