@@ -1,0 +1,132 @@
+# Copyright (c) 2017 Intel Corporation. #
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- hosts: localhost
+  connection: local
+  vars:
+    scale_out:
+      - num_vnfs: 1
+      - num_vnfs: 2
+    flavor:
+      user: root
+      password: r00t
+      ram: 4096
+      image: "/var/lib/libvirt/images/ubuntu.qcow2"
+      extra_specs:
+        cpu_sockets: 1
+        cpu_cores: 6
+        cpu_threads: 2
+    flow:
+      traffic_type: 4
+      pkt_size:
+         private: {64B: 100}
+         public: {64B: 100}
+      count: 10
+      rfc2544:
+        allowed_drop_rate: 0.0001 - 0.0001
+      vnf_config:
+        lb_config: 'SW'
+        lb_count: 1
+        worker_config: '1C/1T'
+        worker_threads: 1
+
+    # Environment variables
+    gen:
+      user: root
+      password: r00t
+      key_filename: /root/.ssh/id_rsa
+      pcis:
+        private:
+          - "0000:05:00.0"
+          - "0000:05:00.2"
+        public:
+          - "0000:05:00.1"
+          - "0000:05:00.3"
+      ip:
+        mgmt:
+          - '10.223.166.60/24'
+        private:
+          - '152.16.100.20/24'
+          - '172.16.100.20/24'
+        public:
+          - '152.16.40.20/24'
+          - '172.16.40.20/24'
+      mac:
+        private:
+          - '00:0d:fe:90:63:f8'
+          - '00:0d:0e:00:63:fa'
+        public:
+          - '00:00:fe:00:63:f9'
+          - '00:f0:fe:00:63:fb'
+
+    host:
+      ip: "192.168.100.101/24"
+      user: root
+      password: r00t
+      key_filename: /root/.ssh/id_rsa
+      auth_type: password
+
+    vnf:
+      pcis:
+        private:
+          - "0000:05:00.0"
+          - "0000:05:00.2"
+        public:
+          - "0000:05:00.1"
+          - "0000:05:00.3"
+      ip:
+        mgmt:
+          - '10.223.166.60/24'
+          - '10.223.166.61/24'
+        private:
+          - '152.16.100.10/24'
+          - '172.16.100.10/24'
+        public:
+          - '152.16.40.10/24'
+          - '172.16.40.10/24'
+
+  tasks:
+
+  - template:
+      src: ../etc/yardstick/nodes/standalone/baremetal_trex.yaml
+      dest: /etc/yardstick/nodes/baremetal_trex_{{ item.num_vnfs }}.yaml
+    with_items:
+      - "{{scale_out}}"
+
+  - template:
+      src: ../etc/yardstick/nodes/standalone/pod_sriov.yaml
+      dest: /etc/yardstick/nodes/sriov_host.yaml
+
+  - template:
+      src: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-scale-out.yaml
+      dest: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-{{ item.num_vnfs }}.yaml
+    with_items:
+      - "{{scale_out}}"
+
+  - template:
+      src: ../samples/vnf_samples/nsut/vfw/tc_sriov_vfw_udp_scale_out.yaml
+      dest: ../samples/vnf_samples/nsut/vfw/tc_sriov_vfw_udp_scale_out_{{item.num_vnfs}}.yaml
+    with_items:
+      - "{{scale_out}}"
+
+  - template:
+       src: ../samples/vnf_samples/nsut/vfw/vfw-tg-topology-scale-out.yaml
+       dest: ../samples/vnf_samples/nsut/vfw/vfw-tg-topology-scale-out-{{ item.num_vnfs }}.yaml
+    with_items:
+      - "{{scale_out}}"
+
+# - template:
+#      src: ../samples/vnf_samples/nsut/vfw/opnfv_sriov_vfw_scale_out_template.yaml
+#      dest: ../samples/vnf_samples/nsut/vfw/opnfv_sriov_vfw_scale_out_testsuite.yaml
+#   with_items:
+#     - "{{scale_out}}"
