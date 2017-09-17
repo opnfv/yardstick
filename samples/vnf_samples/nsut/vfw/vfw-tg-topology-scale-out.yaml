@@ -21,7 +21,7 @@ nsd:nsd-catalog:
         constituent-vnfd:
         - member-vnf-index: '1'
           vnfd-id-ref: tg__1
-          VNF model: ../../vnf_descriptors/tg_rfc2544_tpl_4port.yaml      #VNF type
+          VNF model: ../../vnf_descriptors/tg_rfc2544_tpl.yaml      #VNF type
 {% for vnf_num in range(item.num_vnfs|int) %}
         - member-vnf-index: '{{ vnf_num + 2 }}'
           vnfd-id-ref: vnf__{{ vnf_num + 1}}
