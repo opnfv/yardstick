@@ -361,6 +361,8 @@ class HeatContext(Context):
                                                'subnet', 'gateway_ip')]
 
         return {
+            # add default port name
+            "name": port,
             "private_ip": private_ip,
             "subnet_id": outputs[h_join(stack_name, "subnet_id")],
             "subnet_cidr": output_subnet_cidr,
