@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_737c03b6",
+        "filename": "yardstick/benchmark/contexts/standalone/__init__.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:18:59Z",
+      "side": 1,
+      "message": "it seems that if any are missing, then all will be installed, so why do we not break here too?\n\nif that makes sense, then we could dispense with the pkg_req flag, as in:\n\n pkgs \u003d [...]\n cmd_template \u003d \u0027...\u0027\n for pkg in pkgs:\n   if connection.execute(cmd_template % pkg)[0] !\u003d 0:\n     break\n else:\n   # all installed\n   return\n\n LOG.info(\u0027Installing...\u0027)\n connection.execute(...)\n ...\n\nor it could be done with any/all.",
+      "revId": "c46fa70f6f410945917a8ff07eaace4d02a2681b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
