@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_731523e4",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-18T20:29:47Z",
+      "side": 1,
+      "message": "I thought I did this.  Or I was confused about AutoSSH.from_node()?",
+      "parentUuid": "da33351e_135777cb",
+      "revId": "8254abfb19bec6f83b43e6776ecdce960bf1e22e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_7367e3b7",
         "filename": "yardstick/network_services/nfvi/resource.py",
         "patchSetId": 1
@@ -53,6 +71,41 @@
     },
     {
       "key": {
+        "uuid": "da33351e_d3d50f1d",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-18T20:29:47Z",
+      "side": 1,
+      "message": "Yeah I thought we did something elsewhere as well.  So there are at least two instances we need this.",
+      "parentUuid": "da33351e_b30ccbee",
+      "revId": "8254abfb19bec6f83b43e6776ecdce960bf1e22e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_53e9ffe4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-18T20:29:47Z",
+      "side": 1,
+      "message": "we need dpdk_port num so we can sort port names.\n\ncan we move this line below self._detect_and_bind_drivers()\n\nsee comment below.",
+      "revId": "8254abfb19bec6f83b43e6776ecdce960bf1e22e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_936a677f",
         "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
         "patchSetId": 1
@@ -64,6 +117,24 @@
       "writtenOn": "2017-09-18T19:58:44Z",
       "side": 1,
       "message": "doesn\u0027t ResourceProfile want a Sequence and not an Iterator?",
+      "revId": "8254abfb19bec6f83b43e6776ecdce960bf1e22e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f3e013fc",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-18T20:29:47Z",
+      "side": 1,
+      "message": "it is supposed to be sorted(), but we don\u0027t have dpdk_port_num yet.\n\nSo, the solution is to move this code until after we dpdk-devbind.  But that requires tweaking all the superclass code.\n\nI didn\u0027t have time to look into that.\n\nIs it possible to adjust _setup_resources() execution order, see comment above in setup_vnf_enviroment()",
+      "parentUuid": "da33351e_936a677f",
       "revId": "8254abfb19bec6f83b43e6776ecdce960bf1e22e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
