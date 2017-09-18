@@ -365,6 +365,16 @@ class NetworkServiceTestCase(base.Scenario):
                 'ifindex': netdev['ifindex'],
             })
 
+    # if NIC is bind to dpdk, use lspci to get the kernel modeuls
+    def get_kernel_module(self, node_dict, pci):
+        driver = None
+        if not driver:
+            with SshManager(node_dict) as conn:
+                if conn:
+                    out = conn.execute("lspci -k -s %s" % pci)[1]
+                    driver = out.split("Kernel modules:").pop().strip()
+        return driver
+
     TOPOLOGY_REQUIRED_KEYS = frozenset({
         "vpci", "local_ip", "netmask", "local_mac", "driver"})
 
@@ -398,8 +408,18 @@ class NetworkServiceTestCase(base.Scenario):
                 except KeyError:
                     pass
                 else:
-                    missing = self.TOPOLOGY_REQUIRED_KEYS.difference(
-                        network)
+                    missing = self.TOPOLOGY_REQUIRED_KEYS.difference(network)
+                    # If nic is bind to dpdk/vfio-pci,
+                    # probe netdevs does not return kernel driver details.
+                    if 'driver' in missing:
+                        driver = None
+                        try:
+                            driver = self.get_kernel_module(node_dict, network['vpci'])
+                        except (SSHError, SSHTimeout):
+                            pass
+                        network.update({'driver': driver})
+
+                    missing = self.TOPOLOGY_REQUIRED_KEYS.difference(network)
                 if missing:
                     raise IncorrectConfig(
                         "Require interface fields '%s' not found, topology file "
