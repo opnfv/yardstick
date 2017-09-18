@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_5360df00",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:36:19Z",
+      "side": 1,
+      "message": "provision_tool is also a method on SSH instances, so this seems better as:\n\n self.dpdk_nic_bind \u003d self.connection.provision_tool(get_nsb_option(\u0027bin_path\u0027), \u0027dpdk_nic_bind.py\u0027)\n\nand were connection to be a VnfSshHelper, this could be:\n\n self.dpdk_nic_bind \u003d self.connection.provision_tool(tool_file\u003d\u0027dpdk_nic_bind.py\u0027)",
+      "revId": "04793685f6007a55f39a12f627a6a5c6f2ac849e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b3516b38",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:36:19Z",
+      "side": 1,
+      "message": "there is almost no reason to use map, please:\n\n mac_address \u003d \u0027:\u0027.join(\u0027%02x\u0027 % octet for octet in mac)",
+      "revId": "04793685f6007a55f39a12f627a6a5c6f2ac849e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
