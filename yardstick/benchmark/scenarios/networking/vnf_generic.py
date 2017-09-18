@@ -62,10 +62,11 @@ class IncorrectSetup(Exception):
 
 
 class SshManager(object):
-    def __init__(self, node):
+    def __init__(self, node, timeout=120):
         super(SshManager, self).__init__()
         self.node = node
         self.conn = None
+        self.timeout = timeout
 
     def __enter__(self):
         """
@@ -74,7 +75,7 @@ class SshManager(object):
         """
         try:
             self.conn = ssh.SSH.from_node(self.node)
-            self.conn.wait()
+            self.conn.wait(timeout=self.timeout)
         except SSHError as error:
             LOG.info("connect failed to %s, due to %s", self.node["ip"], error)
         # self.conn defaults to None
@@ -336,7 +337,7 @@ class NetworkServiceTestCase(base.Scenario):
         netdevs = {}
         cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
 
-        with SshManager(node_dict) as conn:
+        with SshManager(node_dict, timeout=timeout) as conn:
             if conn:
                 exit_status = conn.execute(cmd)[0]
                 if exit_status != 0:
@@ -373,6 +374,10 @@ class NetworkServiceTestCase(base.Scenario):
 
         :return: None. Side effect: context_cfg is updated
         """
+        num_nodes = len(self.context_cfg["nodes"])
+        # OpenStack instance creation time is probably proportional to the number
+        # of instances
+        timeout = 120 * num_nodes
         for node, node_dict in self.context_cfg["nodes"].items():
 
             for network in node_dict["interfaces"].values():
@@ -383,7 +388,7 @@ class NetworkServiceTestCase(base.Scenario):
                 # only ssh probe if there are missing values
                 # ssh probe won't work on Ixia, so we had better define all our values
                 try:
-                    netdevs = self._probe_netdevs(node, node_dict)
+                    netdevs = self._probe_netdevs(node, node_dict, timeout=timeout)
                 except (SSHError, SSHTimeout):
                     raise IncorrectConfig(
                         "Unable to probe missing interface fields '%s', on node %s "
