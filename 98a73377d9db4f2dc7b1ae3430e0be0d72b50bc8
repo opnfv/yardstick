@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_b31fab6b",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T23:47:26Z",
+      "side": 1,
+      "message": "what is the purpose of this?",
+      "range": {
+        "startLine": 315,
+        "startChar": 0,
+        "endLine": 316,
+        "endChar": 22
+      },
+      "revId": "98a73377d9db4f2dc7b1ae3430e0be0d72b50bc8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_330b9b2b",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T23:47:26Z",
+      "side": 1,
+      "message": "how many ways can we do this?",
+      "revId": "98a73377d9db4f2dc7b1ae3430e0be0d72b50bc8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_93042719",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T23:47:26Z",
+      "side": 1,
+      "message": "it is nice that this works some of the time, but regular expressions seem yet more useful.\n\nbut i commend this method for trying to consolidate the parsing of pci addresses, regrettably string splitting doesn\u0027t always work and a helper class would be even better.  see the PciAddress class in:\n\nhttps://gerrit.opnfv.org/gerrit/#/c/39649/9/yardstick/network_services/utils.py\n\nwhich has a compiled RE and a string pattern that could be incorporated into the pattern above on line 356.",
+      "revId": "98a73377d9db4f2dc7b1ae3430e0be0d72b50bc8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_530e1f3c",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T23:47:26Z",
+      "side": 1,
+      "message": "and again, why?",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 22
+      },
+      "revId": "98a73377d9db4f2dc7b1ae3430e0be0d72b50bc8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
