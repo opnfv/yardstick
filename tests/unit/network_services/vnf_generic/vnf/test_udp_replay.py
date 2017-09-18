@@ -439,10 +439,13 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         resource = mock.Mock(autospec=ResourceProfile)
 
         udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
+        udp_replay_approx_vnf.DISABLE_DEPLOY = True
         udp_replay_approx_vnf.q_out.put("Replay>")
         udp_replay_approx_vnf.WAIT_TIME = 0
         udp_replay_approx_vnf.setup_helper.setup_vnf_environment = mock.Mock()
 
+        udp_replay_approx_vnf.deploy_helper = mock.MagicMock()
+        udp_replay_approx_vnf.deploy_vnfs = mock.MagicMock()
         self.assertIsNone(udp_replay_approx_vnf.instantiate(self.SCENARIO_CFG, self.CONTEXT_CFG))
 
         udp_replay_approx_vnf._vnf_process.is_alive = mock.Mock(return_value=1)
@@ -455,10 +458,12 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
     @mock.patch(SSH_HELPER)
     def test_instantiate_panic(self, ssh, resource_ssh, *_):
         udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
+        udp_replay_approx_vnf.DISABLE_DEPLOY = True
         udp_replay_approx_vnf.WAIT_TIME = 0
         udp_replay_approx_vnf.q_out.put("some text PANIC some text")
         udp_replay_approx_vnf.setup_helper.setup_vnf_environment = mock.Mock()
 
+        udp_replay_approx_vnf.deploy_helper = mock.MagicMock()
         self.assertIsNone(udp_replay_approx_vnf.instantiate(self.SCENARIO_CFG, self.CONTEXT_CFG))
         with self.assertRaises(RuntimeError):
             udp_replay_approx_vnf.wait_for_instantiate()
