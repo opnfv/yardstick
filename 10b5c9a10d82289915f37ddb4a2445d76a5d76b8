@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_53fa9f75",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:30:18Z",
+      "side": 1,
+      "message": "why do we have to test something that we just assigned?",
+      "range": {
+        "startLine": 370,
+        "startChar": 0,
+        "endLine": 371,
+        "endChar": 22
+      },
+      "revId": "10b5c9a10d82289915f37ddb4a2445d76a5d76b8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5341ffa7",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:30:18Z",
+      "side": 1,
+      "message": "i don\u0027t see much utility in SshManager, it seems to suppress exceptions and i can\u0027t see why that is good.",
+      "revId": "10b5c9a10d82289915f37ddb4a2445d76a5d76b8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_333efb28",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:30:18Z",
+      "side": 1,
+      "message": "this function seems better as:\n\n def get_kernel_module(self, node_dict, pci):\n   with SshManager(node_dict) as conn:\n     if not conn:\n         return None\n     out \u003d conn.execute(\u0027lspci -k -s %s\u0027 % pci)[1]\n     return out.split(\u0027Kernel modules:\u0027).pop().strip()",
+      "revId": "10b5c9a10d82289915f37ddb4a2445d76a5d76b8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b3196bd9",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:30:18Z",
+      "side": 1,
+      "message": "i appreciate the usage of set math, but this isn\u0027t the final version of missing.  please remove this statement and change the test on 413 to:\n\n if \u0027driver\u0027 not in network:\n   ...\n\nor even better?\n\n if network.get(\u0027driver\u0027) is None:\n   ...",
+      "revId": "10b5c9a10d82289915f37ddb4a2445d76a5d76b8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_934707bc",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:30:18Z",
+      "side": 1,
+      "message": "SshManager saves us from some of these, but not all of them, so why use it at all?",
+      "revId": "10b5c9a10d82289915f37ddb4a2445d76a5d76b8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_734403b7",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:30:18Z",
+      "side": 1,
+      "message": "do we really want to set \u0027driver\u0027 to None and allow that to satisfy our required keys?",
+      "revId": "10b5c9a10d82289915f37ddb4a2445d76a5d76b8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
