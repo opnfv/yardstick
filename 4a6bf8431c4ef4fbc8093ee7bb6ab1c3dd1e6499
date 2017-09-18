@@ -1,0 +1,410 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_d37b4ff3",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "please combine into a single statement",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 54
+      },
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b3804bc1",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "please use modulo:\n\n log.info(\u0027%s\u0027, self.ports)",
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f38653da",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "give this a local name and we won\u0027t need so many multi-line statements:\n\n vpath \u003d self.ovs_properties[\u0027vpath\u0027]\n ...\n self.connection.execute(\u0027mkdir -p {}/etc/openvswitch\u0027.format(vpath))\n\nif you put it first and there is a key error, then the initial commands will not be executed too.",
+      "range": {
+        "startLine": 166,
+        "startChar": 50,
+        "endLine": 166,
+        "endChar": 78
+      },
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_934c27ca",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "i like giving templates like this a name and any other names, so here we could have:\n\n cmd_template \u003d \u0027{0} --bind\u003dvfio-pci {1[phy_port]}\u0027\n dpdk_nic_bind \u003d self.dpdk_nic_bind\n for port in self.ports.values():\n   self.connection.execute(cmd_template(dpdk_nic_bind, port)",
+      "range": {
+        "startLine": 180,
+        "startChar": 16,
+        "endLine": 180,
+        "endChar": 41
+      },
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_13d017c8",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "please use enumerate, data.keys().index(key) is not good.\n\n for index, vnf in enumerate(self.ports.values()):\n   ...",
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b3ce8b2c",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "please:\n\n if tuple(int(v) for v in self.ovs_properties.get(\u0027ovs\u0027, \u00272.6.0\u0027).split(\u0027.\u0027)) \u003e\u003d (2, 7, 0):\n   ...\n ...",
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f3d493be",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "again, please use enumerate",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 48
+      },
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f3a2d349",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "this looks like another enumerate, but on closer inspection, this seems even better:\n\n cmd_template \u003d \u0027...\u0027\n port_count \u003d len(self.ports)\n out_start \u003d port_count + 1\n for in_port, out_port in zip(range(1, out_start), range(out_start, out_start + port_count)):\n   self.connection.execute(cmd_template % (in_port, out_port))\n   self.connection.execute(cmd_template % (out_port, in_port))",
+      "range": {
+        "startLine": 229,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 109
+      },
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3388bbc4",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "what is index needed for?\n\naren\u0027t the values of self.ports single ports?\n\n for port in self.ports.values():\n   port[\u0027mac\u0027] \u003d self.get_mac_address()\n\ndoes get_mac_address give different values for each call?  if not then:\n\n mac \u003d self.get_mac_address()\n for port in self.ports.values():\n   port[\u0027mac\u0027] \u003d mac",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 287,
+        "endChar": 46
+      },
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9391c7f3",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "for a single value, we can assign directly:\n\n port[\u0027mac\u0027] \u003d mac",
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_53b29f94",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "at least we\u0027re storing the ordered dict.  why not do this earlier?\n\nindex is still unneeded, at least for this method.",
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_33af1b2c",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "please enumerate",
+      "range": {
+        "startLine": 299,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 49
+      },
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f37013de",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "i am doubting whether most of these values change on successive iterations over self.servers, please define all that don\u0027t change before entering the loop.",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 320,
+        "endChar": 44
+      },
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b36a0bec",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "tab characters need to be replaced with spaces",
+      "range": {
+        "startLine": 328,
+        "startChar": 0,
+        "endLine": 339,
+        "endChar": 21
+      },
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_73a52346",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "what is this ordered dict getting us?",
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_93a8a721",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "another inversion of the logic please",
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d3650f1f",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "please:\n\n vpci[2] \u003d \u0027{:2x}\u0027.format(index + 10 + int(vf[\u0027port_num\u0027]))",
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_136c9707",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "tab characters need to be replaced with spaces\n\nthis looks amazingly similar to what i saw in sriov, i\u0027d be inclined to make a vm_helper class for this kind of code and stop the copy-paste.",
+      "range": {
+        "startLine": 356,
+        "startChar": 0,
+        "endLine": 369,
+        "endChar": 33
+      },
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3376fbd7",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "please invert, a short branch should come before a long branch.",
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5379ffc6",
+        "filename": "yardstick/benchmark/contexts/standalone/ovsdpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T22:11:47Z",
+      "side": 1,
+      "message": "please make this a single statement",
+      "range": {
+        "startLine": 415,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 68
+      },
+      "revId": "4a6bf8431c4ef4fbc8093ee7bb6ab1c3dd1e6499",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
