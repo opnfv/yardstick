@@ -36,7 +36,6 @@ vnfd:vnfd-catalog:
         -   id: trexgen-baremetal
             name: trexgen-baremetal
             description: TRex stateless traffic verifier
-
         benchmark:
             kpi:
                 - rx_throughput_fps
