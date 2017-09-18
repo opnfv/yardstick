@@ -444,6 +444,8 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         udp_replay_approx_vnf.WAIT_TIME = 0
         udp_replay_approx_vnf.setup_helper.setup_vnf_environment = mock.Mock()
 
+        udp_replay_approx_vnf.deploy_helper = mock.MagicMock()
+        udp_replay_approx_vnf.deploy_vnfs = mock.MagicMock()
         self.assertIsNone(udp_replay_approx_vnf.instantiate(self.SCENARIO_CFG, self.CONTEXT_CFG))
 
         udp_replay_approx_vnf._vnf_process.is_alive = mock.Mock(return_value=1)
@@ -460,6 +462,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         udp_replay_approx_vnf.q_out.put("some text PANIC some text")
         udp_replay_approx_vnf.setup_helper.setup_vnf_environment = mock.Mock()
 
+        udp_replay_approx_vnf.deploy_helper = mock.MagicMock()
         self.assertIsNone(udp_replay_approx_vnf.instantiate(self.SCENARIO_CFG, self.CONTEXT_CFG))
         with self.assertRaises(RuntimeError):
             udp_replay_approx_vnf.wait_for_instantiate()
