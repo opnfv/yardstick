@@ -615,13 +615,7 @@ class SampleVNFDeployHelper(object):
         self.ssh_helper = ssh_helper
         self.vnfd_helper = vnfd_helper
 
-    DISABLE_DEPLOY = True
-
     def deploy_vnfs(self, app_name):
-        # temp disable for now
-        if self.DISABLE_DEPLOY:
-            return
-
         vnf_bin = self.ssh_helper.join_bin_path(app_name)
         exit_status = self.ssh_helper.execute("which %s" % vnf_bin)[0]
         if not exit_status:
@@ -788,7 +782,9 @@ class SampleVNF(GenericVNF):
         self.nfvi_context = Context.get_context_from_server(self.scenario_helper.nodes[self.name])
         # self.nfvi_context = None
 
-        self.deploy_helper.deploy_vnfs(self.APP_NAME)
+        # vnf deploy is unsupported, use ansible playbooks
+        if self.scenario_helper.options.get("vnf_deploy", False):
+            self.deploy_helper.deploy_vnfs(self.APP_NAME)
         self.resource_helper.setup()
         self._start_vnf()
 
