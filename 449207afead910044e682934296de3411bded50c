@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_30da71e8",
+        "filename": "tests/unit/network_services/traffic_profile/test_prox_acl.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T17:14:53Z",
+      "side": 1,
+      "message": "we can remove this, since fill_values is no longer used",
+      "revId": "449207afead910044e682934296de3411bded50c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_90e37da3",
+        "filename": "tests/unit/network_services/traffic_profile/test_prox_acl.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T17:14:53Z",
+      "side": 1,
+      "message": "this also is no longer needed",
+      "revId": "449207afead910044e682934296de3411bded50c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d0f06569",
+        "filename": "yardstick/network_services/traffic_profile/prox_ACL.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T17:14:53Z",
+      "side": 1,
+      "message": "why do we need these?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 45
+      },
+      "revId": "449207afead910044e682934296de3411bded50c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_70e07996",
+        "filename": "yardstick/network_services/traffic_profile/prox_ACL.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T17:14:53Z",
+      "side": 1,
+      "message": "this is something that the user should be able to control",
+      "revId": "449207afead910044e682934296de3411bded50c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f0d489be",
+        "filename": "yardstick/network_services/traffic_profile/prox_ACL.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T17:14:53Z",
+      "side": 1,
+      "message": "i still have no reason to think that this will ever be untrue.\n\nif it is never true, then i\u0027d convert this to:\n\n for _ in range(50):\n   ...",
+      "range": {
+        "startLine": 51,
+        "startChar": 14,
+        "endLine": 51,
+        "endChar": 44
+      },
+      "revId": "449207afead910044e682934296de3411bded50c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_50dd75df",
+        "filename": "yardstick/network_services/traffic_profile/prox_ACL.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T17:14:53Z",
+      "side": 1,
+      "message": "without a conditional to check for success, is this really \"successful packet loss\"?\n\nand if every run is a success, then do we really need a local name for it?  the whole tuple already has access to its pkt_loss attribute.  get_samples is written such that the following would be sufficient:\n\n samples \u003d result.get_samples(pkt_size, port_samples\u003dport_samples)\n\nand we can dispense entirely with the local name \"successful_pkt_loss\".",
+      "revId": "449207afead910044e682934296de3411bded50c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
