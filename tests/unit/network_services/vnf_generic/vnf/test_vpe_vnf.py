@@ -536,8 +536,6 @@ class TestVpeApproxVnf(unittest.TestCase):
                                                  mock.MagicMock, mock.MagicMock)
         vpe_approx_vnf.tc_file_name = get_file_abspath(TEST_FILE_YAML)
         vpe_approx_vnf.generate_port_pairs = mock.Mock()
-        vpe_approx_vnf.tg_port_pairs = [[[0], [1]]]
-        vpe_approx_vnf.vnf_port_pairs = [[[0], [1]]]
         vpe_approx_vnf.vnf_cfg = {
             'lb_config': 'SW',
             'lb_count': 1,
