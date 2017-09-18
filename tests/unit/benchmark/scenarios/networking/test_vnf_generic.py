@@ -439,6 +439,13 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         self.assertIsNotNone(
             self.s.load_vnf_models(self.scenario_cfg, self.context_cfg))
 
+
+    def test_get_kernel_module(self):
+        with mock.patch("yardstick.benchmark.scenarios.networking.vnf_generic.SshManager") as conn:
+            node_dict = self.context_cfg["nodes"]["vnf__1"]
+            result = self.s.get_kernel_module(node_dict, "0000:05:00.0")
+            self.assertIsNotNone(result)
+
     def test_map_topology_to_infrastructure(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
