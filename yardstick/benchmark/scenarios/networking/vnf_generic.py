@@ -389,13 +389,20 @@ class NetworkServiceTestCase(base.Scenario):
     @staticmethod
     def _convert_pkeys_to_string(nodes):
         # make copy because we are mutating
-        nodes = nodes[:]
-        for i, node in enumerate(nodes):
+        for node in nodes:
             try:
-                nodes[i] = dict(node, pkey=ssh.convert_key_to_str(node["pkey"]))
+                node['pkey'] = ssh.convert_key_to_str(node['pkey'])
             except KeyError:
                 pass
         return nodes
+
+    # if NIC is bind to dpdk, use lspci to get the kernel modeuls
+    def get_kernel_module(self, node_dict, pci):
+        with SshManager(node_dict) as conn:
+            if not conn:
+                return None
+            out = conn.execute('lspci -k -s %s' % pci)[1]
+            return out.split('Kernel modules:').pop().strip()
 
     TOPOLOGY_REQUIRED_KEYS = frozenset({
         "vpci", "local_ip", "netmask", "local_mac", "driver"})
@@ -430,8 +437,17 @@ class NetworkServiceTestCase(base.Scenario):
                 except KeyError:
                     pass
                 else:
-                    missing = self.TOPOLOGY_REQUIRED_KEYS.difference(
-                        network)
+                    # If nic is bind to dpdk/vfio-pci,
+                    # probe netdevs does not return kernel driver details.
+                    if network.get('driver') is None:
+                        driver = None
+                        try:
+                            driver = self.get_kernel_module(node_dict, network['vpci'])
+                        except (SSHError, SSHTimeout):
+                            pass
+                        network.update({'driver': driver})
+
+                    missing = self.TOPOLOGY_REQUIRED_KEYS.difference(network)
                 if missing:
                     raise IncorrectConfig(
                         "Require interface fields '%s' not found, topology file "
