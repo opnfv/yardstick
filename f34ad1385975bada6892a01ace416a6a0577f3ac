@@ -1,0 +1,398 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_9301c7b1",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "please invert the logic:\n\n if key \u003d\u003d \u0027mgmt\u0027:\n   continue\n\n vf_pci \u003d []\n ...",
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_73fec3af",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "i\u0027d like to see:\n\n host_driver \u003d ports.get(\u0027driver\u0027)\n if host_driver not in drivers:\n   ...\n   drivers.append(host_driver)\n ...",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 49
+      },
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d32eaf42",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "err is actually status and neither are used, so don\u0027t bother naming the results:\n\n self.connection.execute(...)",
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b3332baa",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "names in this template are overkill and cumbersome.  also, why do we want \"None\" in the middle of this command if \u0027interface\u0027 is not in ports?\n\ni think this should be and given later statements in the method:\n\n interface \u003d ports.get(\u0027interface\u0027)\n if interface is not None:\n   self.connection.execute(\u0027ip link set {0} vf 0 mac {1}\u0027.format(interface, mac))\n time.sleep(3)\n vf_pci \u003d self.get_vf_datas(\u0027vf_pci\u0027, ports.get(\u0027phy_port\u0027), mac, interface)\n self.ports[key].update({\n    \u0027vf_pci\u0027: vf_pci,\n    \u0027mac\u0027: mac,\n })",
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b3da0b4a",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "this is status, not err",
+      "range": {
+        "startLine": 204,
+        "startChar": 12,
+        "endLine": 204,
+        "endChar": 15
+      },
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_13dc9745",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "please:\n\n if status !\u003d 0:\n   ...",
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d306af85",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "this and client on 209 are marked in red by gerrit, this seems bad but i can\u0027t figure out why.",
+      "range": {
+        "startLine": 207,
+        "startChar": 15,
+        "endLine": 207,
+        "endChar": 18
+      },
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_93ef07e9",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "why is this better than enumerate?\n\nboth this and enumerate have the same problems.\n\nthe only way that i see to avoid these problems is if the ordered dict is stored somewhere and the unordered dict is discarded.\n\nand doing this still keeps enumerate better than serverslist.keys().index(key)\n\n for index, _ in enumerate(serverslist):\n   cfg_sriov \u003d \u0027/tmp/vm_sriov_%s.xml\u0027 % str(index)\n\nyou don\u0027t need key or vnf",
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b3968b3d",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "please:\n\n if status !\u003d 0:\n   ...",
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f3b773f3",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "again, this ordered dict merely enables the inferior version of enumerate, enumerate is superior.",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 46
+      },
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_33cd5b86",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "again, invert:\n\n if vkey \u003d\u003d \u0027mgmt\u0027:\n   continue\n vf \u003d self.ports[vfs[0]]\n ...\n\ni\u0027m also curious why vkey doesn\u0027t appear to be used below, so if we have 2 or more vkeys that aren\u0027t \u0027mgmt\u0027, then we\u0027ll do the same work that many times.  should there be a break after the \u0027ifconfig \u003cinterface\u003e up\u0027 command?",
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_73ec03f4",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "please use something that doesn\u0027t require chopping off the \u00270x\u0027, like:\n\n vpci[2] \u003d \u0027{:2x}\u0027.format(index + 10 + idx)",
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b3a84b8e",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "please:\n\n \u0027{0[0]}:{0[1]}:{0[2]}.{0[3]}\u0027.format(vpci)",
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7371a343",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "why are we re-splitting the value that we just assembled?\n\nvpci should be exactly the value that should be passed.",
+      "range": {
+        "startLine": 282,
+        "startChar": 28,
+        "endLine": 282,
+        "endChar": 59
+      },
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_33943b42",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "why not pass cfg_sriov to the str constructor?\n\n str(cfg_sriov)",
+      "range": {
+        "startLine": 285,
+        "startChar": 28,
+        "endLine": 285,
+        "endChar": 44
+      },
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d3918f48",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "please:\n\n \u0027ifconfig {0[interface]} up\u0027.format(vf)",
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_33c9db59",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "if we want to use it, then we should give it a name\n\n status, out, err \u003d self.connection.execute(...)",
+      "range": {
+        "startLine": 296,
+        "startChar": 26,
+        "endLine": 296,
+        "endChar": 27
+      },
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_93c26732",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "please:\n\n log.debug(\u0027out:\\n%s\u0027, out)\n log.error(\u0027err:\\n%s\u0027, err)\n log.error(\u0027status: %s\u0027, status)\n\nout and err could be long, status is always short, putting status last means less scrolling if status is enough to know",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 50
+      },
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_93d9c724",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "this should be a single statement:\n\n interfaces.update({\n   key: {\n     \u0027vpci\u0027: vf[\u0027vpci\u0027],\n     \u0027driver\u0027: \u0027%svf\u0027 % vf[\u0027driver\u0027],\n     ...\n   },\n })\n\nalso, is it intended that this data be duplicated/identical for each key that is not \u0027mgmt\u0027?",
+      "range": {
+        "startLine": 324,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 68
+      },
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f3ead3aa",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-18T21:06:29Z",
+      "side": 1,
+      "message": "please swap these branch paths:\n\n if key \u003d\u003d \u0027mgmt\u0027:\n   \u003csingle statement/few statements\u003e\n else:\n   \u003cmany statements\u003e",
+      "revId": "f34ad1385975bada6892a01ace416a6a0577f3ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
