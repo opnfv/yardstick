@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Kubi <jean.gaoliang@huawei.com>
+Code-Review+1: Maryam Tahhan <maryam.tahhan@intel.com>
+Code-Review+2: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-by: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-at: Tue, 19 Sep 2017 14:16:37 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/42339
+Project: yardstick
+Branch: refs/heads/master
