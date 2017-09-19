@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_695f0b42",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-2.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_6a37074f",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "7de7ee21529e025f07a3fd0d3a0356090a876f6f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_6a0ee78e",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-2.cfg",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2017-09-06T15:11:29Z",
       "side": 1,
       "message": "\"lat pos\" can be removed from here and can be added after the latency core as we have them.\n\neg:\n[core 4]\nname\u003drec 1\ntask\u003d0\nmode\u003dlat\nrx port\u003dp1\nlat pos \u003d50",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 10
+      },
+      "revId": "7de7ee21529e025f07a3fd0d3a0356090a876f6f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_497327e7",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-2.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "No ... This is as per dppd-DATS-v037 gen-acl-4.cfg",
+      "parentUuid": "da33351e_6a0ee78e",
       "range": {
         "startLine": 104,
         "startChar": 0,
