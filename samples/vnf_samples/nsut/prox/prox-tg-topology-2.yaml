@@ -26,7 +26,7 @@ nsd:nsd-catalog:
             vnfd-id-ref: vnf__0
             VNF model: ../../vnf_descriptors/prox_vnf-2.yaml
         vld:
-        -   id: uplink
+        -   id: uplink_0
             name: tg__0 to vnf__0 link 1
             type: ELAN
             vnfd-connection-point-ref:
@@ -37,7 +37,7 @@ nsd:nsd-catalog:
                 vnfd-connection-point-ref: xe0
                 vnfd-id-ref: vnf__0
 
-        -   id: downlink
+        -   id: downlink_0
             name: vnf__0 to tg__0 link 2
             type: ELAN
             vnfd-connection-point-ref:
