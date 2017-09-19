@@ -117,7 +117,7 @@ class UdpReplayApproxVnf(SampleVNF):
             "packets_in": get_sum(1),
             "packets_fwd": get_sum(2),
             "packets_dropped": get_sum(3) + get_sum(4),
-            "collect_stats": {},
+            'collect_stats': self.resource_helper.collect_kpi(),
         }
 
         LOG.debug("UDP Replay collect KPIs %s", result)
