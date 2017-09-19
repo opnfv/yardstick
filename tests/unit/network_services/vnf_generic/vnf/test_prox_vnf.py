@@ -86,6 +86,7 @@ class TestProxApproxVnf(unittest.TestCase):
                             'local_ip': '152.16.100.19',
                             'type': 'PCI-PASSTHROUGH',
                             'vld_id': '',
+                            'ifname': 'xe1',
                             'netmask': '255.255.255.0',
                             'dpdk_port_num': 0,
                             'bandwidth': '10 Gbps',
@@ -104,6 +105,7 @@ class TestProxApproxVnf(unittest.TestCase):
                             'local_ip': '152.16.40.19',
                             'type': 'PCI-PASSTHROUGH',
                             'vld_id': '',
+                            'ifname': 'xe3',
                             'driver': "i40e",
                             'netmask': '255.255.255.0',
                             'dpdk_port_num': 1,
@@ -372,8 +374,10 @@ class TestProxApproxVnf(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
+    @mock.patch('yardstick.benchmark.scenarios.networking.vnf_generic.open', create=True)
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.iniparser.open', create=True)
     @mock.patch(SSH_HELPER)
-    def test_run_prox(self, ssh, mock_time):
+    def test_run_prox(self, ssh, *_):
         mock_ssh(ssh)
 
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
@@ -382,7 +386,7 @@ class TestProxApproxVnf(unittest.TestCase):
         prox_approx_vnf.setup_helper.remote_path = 'configs/file56.cfg'
 
         expected = "sudo bash -c 'cd /tool_path12; " \
-                   "/tool_path12/tool_file34 -o cli -t  -f configs/file56.cfg '"
+                   "/tool_path12/tool_file34 -o cli -t  -f /tmp/l3-swap-2.cfg '"
 
         prox_approx_vnf._run()
         result = prox_approx_vnf.ssh_helper.run.call_args[0][0]
@@ -395,7 +399,7 @@ class TestProxApproxVnf(unittest.TestCase):
         prox_approx_vnf.setup_helper = mock.MagicMock()
         # we can't mock super
         prox_approx_vnf.instantiate(self.SCENARIO_CFG, self.CONTEXT_CFG)
-        prox_approx_vnf.setup_helper.build_config.assert_called_once
+        prox_approx_vnf.setup_helper.build_config.assert_called_once()
 
     @mock.patch(SSH_HELPER)
     def test_wait_for_instantiate_panic(self, ssh, mock_time):
