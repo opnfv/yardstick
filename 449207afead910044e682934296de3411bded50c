@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_49530c6b",
+        "filename": "tests/unit/network_services/traffic_profile/test_prox_acl.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_30da71e8",
+      "revId": "449207afead910044e682934296de3411bded50c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_90e37da3",
         "filename": "tests/unit/network_services/traffic_profile/test_prox_acl.py",
         "patchSetId": 26
@@ -30,6 +48,24 @@
       "writtenOn": "2017-09-18T17:14:53Z",
       "side": 1,
       "message": "this also is no longer needed",
+      "revId": "449207afead910044e682934296de3411bded50c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a94c58c9",
+        "filename": "tests/unit/network_services/traffic_profile/test_prox_acl.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_90e37da3",
       "revId": "449207afead910044e682934296de3411bded50c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_894994b9",
+        "filename": "yardstick/network_services/traffic_profile/prox_ACL.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "No",
+      "parentUuid": "da33351e_d0f06569",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 45
+      },
+      "revId": "449207afead910044e682934296de3411bded50c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_70e07996",
         "filename": "yardstick/network_services/traffic_profile/prox_ACL.py",
         "patchSetId": 26
@@ -70,6 +130,24 @@
       "writtenOn": "2017-09-18T17:14:53Z",
       "side": 1,
       "message": "this is something that the user should be able to control",
+      "revId": "449207afead910044e682934296de3411bded50c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e9c94027",
+        "filename": "yardstick/network_services/traffic_profile/prox_ACL.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_70e07996",
       "revId": "449207afead910044e682934296de3411bded50c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_c9cefc2d",
+        "filename": "yardstick/network_services/traffic_profile/prox_ACL.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_f0d489be",
+      "range": {
+        "startLine": 51,
+        "startChar": 14,
+        "endLine": 51,
+        "endChar": 44
+      },
+      "revId": "449207afead910044e682934296de3411bded50c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_50dd75df",
         "filename": "yardstick/network_services/traffic_profile/prox_ACL.py",
         "patchSetId": 26
@@ -110,6 +212,24 @@
       "writtenOn": "2017-09-18T17:14:53Z",
       "side": 1,
       "message": "without a conditional to check for success, is this really \"successful packet loss\"?\n\nand if every run is a success, then do we really need a local name for it?  the whole tuple already has access to its pkt_loss attribute.  get_samples is written such that the following would be sufficient:\n\n samples \u003d result.get_samples(pkt_size, port_samples\u003dport_samples)\n\nand we can dispense entirely with the local name \"successful_pkt_loss\".",
+      "revId": "449207afead910044e682934296de3411bded50c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_29d048c8",
+        "filename": "yardstick/network_services/traffic_profile/prox_ACL.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_50dd75df",
       "revId": "449207afead910044e682934296de3411bded50c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
