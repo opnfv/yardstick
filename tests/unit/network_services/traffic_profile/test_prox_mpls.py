@@ -56,7 +56,7 @@ class TestProxMplsTagUntagProfile(unittest.TestCase):
         profile = ProxMplsTagUntagProfile(tp_config)
         profile.init(mock.MagicMock())
 
-        profile.execute(traffic_generator)
+        profile.execute_traffic(traffic_generator)
         self.assertEqual(round(profile.current_lower, 2), 74.69)
         self.assertEqual(round(profile.current_upper, 2), 75.39)
         self.assertEqual(len(runs), 8)
@@ -87,7 +87,7 @@ class TestProxMplsTagUntagProfile(unittest.TestCase):
         profile = ProxMplsTagUntagProfile(tp_config)
         profile.init(mock.MagicMock())
 
-        profile.execute(traffic_generator)
+        profile.execute_traffic(traffic_generator)
         self.assertEqual(round(profile.current_lower, 2), 24.06)
         self.assertEqual(round(profile.current_upper, 2), 25.47)
         self.assertEqual(len(runs), 7)

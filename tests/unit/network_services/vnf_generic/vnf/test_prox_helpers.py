@@ -884,11 +884,11 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         helper.upload_prox_config = mock.MagicMock(return_value='5')
 
         self.assertEqual(helper.additional_files, {})
-        self.assertNotEqual(helper.prox_config_dict, '4')
+        self.assertNotEqual(helper._prox_config_data, '4')
         self.assertNotEqual(helper.remote_path, '5')
         helper.build_config_file()
         self.assertEqual(helper.additional_files, {})
-        self.assertEqual(helper.prox_config_dict, '4')
+        self.assertEqual(helper._prox_config_data, '4')
         self.assertEqual(helper.remote_path, '5')
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
@@ -951,12 +951,12 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         helper.upload_prox_config = mock.MagicMock(return_value='55')
 
         self.assertEqual(helper.additional_files, {})
-        self.assertNotEqual(helper.prox_config_dict, '44')
+        self.assertNotEqual(helper._prox_config_data, '44')
         self.assertNotEqual(helper.remote_path, '55')
         expected = {'h.i': '33', 'l': '34', 'm_n': '35'}
         helper.build_config_file()
         self.assertDictEqual(helper.additional_files, expected)
-        self.assertEqual(helper.prox_config_dict, '44')
+        self.assertEqual(helper._prox_config_data, '44')
         self.assertEqual(helper.remote_path, '55')
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
@@ -986,9 +986,10 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
 
         helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         helper.remote_path = "/tmp/prox.cfg"
-        prox_cmd = helper.build_config()
         expected = "sudo bash -c 'cd /opt/nsb_bin; /opt/nsb_bin/prox -o cli -f  -f /tmp/prox.cfg '"
-        self.assertEqual(prox_cmd, expected)
+        with mock.patch.object(helper, "build_config_file") as mock_build_config:
+            prox_cmd = helper.build_config()
+            self.assertEqual(prox_cmd, expected)
 
     def test__insert_additional_file(self):
         vnfd_helper = mock.MagicMock()
@@ -1392,7 +1393,7 @@ class TestProxResourceHelper(unittest.TestCase):
 
     def test_test_cores(self):
         setup_helper = mock.MagicMock()
-        setup_helper.prox_config_dict = {}
+        setup_helper.prox_config_data = []
 
         helper = ProxResourceHelper(setup_helper)
         helper._cpu_topology = []
@@ -1401,7 +1402,7 @@ class TestProxResourceHelper(unittest.TestCase):
         result = helper.test_cores
         self.assertEqual(result, expected)
 
-        setup_helper.prox_config_dict = [
+        setup_helper.prox_config_data = [
             ('section1', []),
             ('section2', [
                 ('a', 'b'),
@@ -1449,10 +1450,9 @@ class TestProxResourceHelper(unittest.TestCase):
 
     def test_get_test_type(self):
         setup_helper = mock.MagicMock()
-        setup_helper.prox_config_dict = {}
-
         helper = ProxResourceHelper(setup_helper)
-        setup_helper.prox_config_dict = [
+
+        setup_helper.prox_config_data = [
             ('global', [
                 ('name', helper.PROX_CORE_MPLS_TEST)
             ]),
@@ -1479,27 +1479,7 @@ class TestProxResourceHelper(unittest.TestCase):
 
     def test_get_cores(self):
         setup_helper = mock.MagicMock()
-        setup_helper.prox_config_dict = {}
-
-        helper = ProxResourceHelper(setup_helper)
-        helper._cpu_topology = {
-            0: {
-                1: {
-                    5: (5, 1, 0)
-                },
-                2: {
-                    6: (6, 2, 0)
-                },
-                3: {
-                    7: (7, 3, 0)
-                },
-                4: {
-                    8: (8, 3, 0)
-                },
-            }
-        }
-
-        setup_helper.prox_config_dict = [
+        setup_helper.prox_config_data = [
             ('section1', []),
             ('section2', [
                 ('a', 'b'),
@@ -1520,14 +1500,6 @@ class TestProxResourceHelper(unittest.TestCase):
             ]),
         ]
 
-        expected = [7, 8]
-        result = helper.get_cores(helper.PROX_CORE_GEN_MODE)
-        self.assertEqual(result, expected)
-
-    def test_get_cores_mpls(self):
-        setup_helper = mock.MagicMock()
-        setup_helper.prox_config_dict = {}
-
         helper = ProxResourceHelper(setup_helper)
         helper._cpu_topology = {
             0: {
@@ -1546,7 +1518,13 @@ class TestProxResourceHelper(unittest.TestCase):
             }
         }
 
-        setup_helper.prox_config_dict = [
+        expected = [7, 8]
+        result = helper.get_cores(helper.PROX_CORE_GEN_MODE)
+        self.assertEqual(result, expected)
+
+    def test_get_cores_mpls(self):
+        setup_helper = mock.MagicMock()
+        setup_helper.prox_config_data = [
             ('section1', []),
             ('section2', [
                 ('a', 'b'),
@@ -1569,6 +1547,24 @@ class TestProxResourceHelper(unittest.TestCase):
             ]),
         ]
 
+        helper = ProxResourceHelper(setup_helper)
+        helper._cpu_topology = {
+            0: {
+                1: {
+                    5: (5, 1, 0)
+                },
+                2: {
+                    6: (6, 2, 0)
+                },
+                3: {
+                    7: (7, 3, 0)
+                },
+                4: {
+                    8: (8, 3, 0)
+                },
+            }
+        }
+
         expected_tagged = [7]
         expected_plain = [8]
         result_tagged, result_plain = helper.get_cores_mpls(helper.PROX_CORE_GEN_MODE)
@@ -1577,7 +1573,7 @@ class TestProxResourceHelper(unittest.TestCase):
 
     def test_latency_cores(self):
         setup_helper = mock.MagicMock()
-        setup_helper.prox_config_dict = {}
+        setup_helper.prox_config_data= []
 
         helper = ProxResourceHelper(setup_helper)
         helper._cpu_topology = []
@@ -1586,7 +1582,7 @@ class TestProxResourceHelper(unittest.TestCase):
         result = helper.latency_cores
         self.assertEqual(result, expected)
 
-        setup_helper.prox_config_dict = [
+        setup_helper.prox_config_data = [
             ('section1', []),
             ('section2', [
                 ('a', 'b'),
@@ -1649,7 +1645,9 @@ class TestProxResourceHelper(unittest.TestCase):
     def test_start_collect(self):
         setup_helper = mock.MagicMock()
         helper = ProxResourceHelper(setup_helper)
+        helper.resource = resource = mock.MagicMock()
         self.assertIsNone(helper.start_collect())
+        resource.start.assert_called_once()
 
     def test_terminate(self):
         setup_helper = mock.MagicMock()
@@ -1681,7 +1679,7 @@ class TestProxResourceHelper(unittest.TestCase):
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.time')
     def test_traffic_context(self, mock_time):
         setup_helper = mock.MagicMock()
-        setup_helper.prox_config_dict = {}
+        setup_helper.vnfd_helper.interfaces = []
 
         helper = ProxResourceHelper(setup_helper)
         helper._cpu_topology = {
@@ -1701,7 +1699,7 @@ class TestProxResourceHelper(unittest.TestCase):
             }
         }
 
-        setup_helper.prox_config_dict = [
+        setup_helper.prox_config_data = [
             ('global', [
                 ('name', helper.PROX_CORE_MPLS_TEST)
             ]),
@@ -1727,8 +1725,6 @@ class TestProxResourceHelper(unittest.TestCase):
             ]),
         ]
 
-        setup_helper = mock.MagicMock()
-        setup_helper.vnfd_helper.interfaces = []
 
         client = mock.MagicMock()
         client.hz.return_value = 2
@@ -1822,20 +1818,6 @@ class TestProxResourceHelper(unittest.TestCase):
         expected = helper.sut.lat_stats()
         result = helper.get_latency()
         self.assertIs(result, expected)
-
-    def test__get_logical_if_name(self):
-        setup_helper = mock.MagicMock()
-        setup_helper.vnfd_helper.interfaces = []
-
-        helper = ProxResourceHelper(setup_helper)
-        helper._vpci_to_if_name_map = {
-            'key1': 234,
-            'key2': 432,
-        }
-
-        expected = 234
-        result = helper._get_logical_if_name('key1')
-        self.assertEqual(result, expected)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.time')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.ProxSocketHelper')
