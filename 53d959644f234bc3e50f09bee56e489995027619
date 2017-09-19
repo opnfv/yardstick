@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_a959135c",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-4.cfg",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_aa274f11",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "53d959644f234bc3e50f09bee56e489995027619",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_8a224bff",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-4.cfg",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2017-09-06T15:11:29Z",
       "side": 1,
       "message": "lat pos can be added after the latency cores",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 10
+      },
+      "revId": "53d959644f234bc3e50f09bee56e489995027619",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e932fb0e",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-4.cfg",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "No. This is as per DAT-v037",
+      "parentUuid": "da33351e_8a224bff",
       "range": {
         "startLine": 115,
         "startChar": 0,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_a930f301",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_ea2157fc",
+      "revId": "53d959644f234bc3e50f09bee56e489995027619",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_2a7b3ff6",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
         "patchSetId": 7
@@ -76,6 +142,24 @@
       "writtenOn": "2017-09-06T15:11:29Z",
       "side": 1,
       "message": "same as above",
+      "revId": "53d959644f234bc3e50f09bee56e489995027619",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_892b6f93",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_2a7b3ff6",
       "revId": "53d959644f234bc3e50f09bee56e489995027619",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
