@@ -1,0 +1,91 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: yardstick:task:0.1
+scenarios:
+- type: NSPerf
+  traffic_profile: ../../traffic_profiles/ipv4_throughput_vpe.yaml
+  topology: vpe_vnf_topology.yaml
+  nodes:
+    tg__0: trafficgen_1.yardstick
+    vnf__0: vnf__0.yardstick
+  options:
+    framesize:
+      private: {64B: 100}
+      public: {64B: 100}
+    flow:
+      src_ip: [{'tg__0': 'xe0'}]
+      dst_ip: [{'tg__0': 'xe1'}]
+      count: 1
+    traffic_type: 4
+    rfc2544:
+      allowed_drop_rate: 0.0001 - 0.0001
+    vnf__0:
+      nfvi_enable: True
+      vnf_config: vpe_config
+  runner:
+    type: Iteration
+    iterations: 10
+    interval: 35
+contexts:
+   - name: yardstick
+     type: Node
+     file: /etc/yardstick/nodes/standalone/pod_trex.yaml
+   - type: StandaloneOvsDpdk
+     name: yardstick
+     file: /etc/yardstick/nodes/standalone/pod_ovs.yaml
+     vm_deploy: True
+     ovs_properties:
+       version:
+         ovs: 2.7.0
+         dpdk: 16.11.1
+       pmd_threads: 2
+       ram:
+         socket_0: 2048
+         socket_1: 2048
+       queues: 4
+       vpath: "/usr/local"
+
+     flavor:
+       images: "/var/lib/libvirt/images/ubuntu.qcow2"
+       ram: 16364
+       extra_specs:
+         hw:cpu_sockets: 1
+         hw:cpu_cores: 7
+         hw:cpu_threads: 2
+       user: root
+       password: r00t!
+     servers:
+       vnf__0:
+         network_ports:
+           mgmt:
+             cidr: '1.1.1.7/24'
+           xe0:
+             - uplink_0
+           xe1:
+             - downlink_0
+     networks:
+       uplink_0:
+         port_num: 0
+         phy_port: "0000:05:00.0"
+         vpci: "0000:00:07.0"
+         cidr: '152.16.100.10/24'
+         gateway_ip: '152.16.100.20'
+       downlink_0:
+         port_num: 1
+         phy_port: "0000:05:00.1"
+         vpci: "0000:00:08.0"
+         cidr: '152.16.40.10/24'
+         gateway_ip: '152.16.100.20'
