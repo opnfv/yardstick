@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_8c689d88",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-4.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "No. This is as per DATs v037",
+      "parentUuid": "da33351e_2a621f3e",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 10
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_6ad387d6",
         "filename": "samples/vnf_samples/nsut/prox/configs/handle_acl-2.cfg",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2017-09-06T15:11:29Z",
       "side": 1,
       "message": "Do we need to set promiscuous mode on ?\nThere is l2fwd sending packets to the \"dst mac\" below.\n\neg: dst mac\u003d@@tester_p0",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 15
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ec0689cd",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_acl-2.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "Tested and works with this configuation",
+      "parentUuid": "da33351e_6ad387d6",
       "range": {
         "startLine": 29,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_4c9215a0",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_acl-2.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "No .. This is as per PROX-v037",
+      "parentUuid": "da33351e_aa558f51",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 17
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_4ad683c6",
         "filename": "samples/vnf_samples/nsut/prox/configs/handle_acl-4.cfg",
         "patchSetId": 8
@@ -82,6 +154,30 @@
       "writtenOn": "2017-09-06T15:11:29Z",
       "side": 1,
       "message": "if it\u0027s not used, can be removed",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 17
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ac0481c0",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_acl-4.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "No as per PROX v037",
+      "parentUuid": "da33351e_4ad683c6",
       "range": {
         "startLine": 46,
         "startChar": 0,
@@ -186,6 +282,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_4cab35d6",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_l2fwd_multiflow-4.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "\u003e name can be changed!\nDone",
+      "parentUuid": "da33351e_4aede38a",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 15
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_aa03cf40",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_l2fwd_multiflow-4.yaml",
         "patchSetId": 8
@@ -197,6 +317,30 @@
       "writtenOn": "2017-09-06T15:11:29Z",
       "side": 1,
       "message": "missed a number",
+      "range": {
+        "startLine": 45,
+        "startChar": 3,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6c21d94c",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_l2fwd_multiflow-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_aa03cf40",
       "range": {
         "startLine": 45,
         "startChar": 3,
@@ -232,6 +376,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_2c287133",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_acl-2.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "\u003e space",
+      "parentUuid": "da33351e_6aa1c746",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 4
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_0a9abb13",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_acl-2.yaml",
         "patchSetId": 8
@@ -243,6 +411,30 @@
       "writtenOn": "2017-09-06T15:11:29Z",
       "side": 1,
       "message": "space",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 28,
+        "endChar": 4
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_0c2bed30",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_acl-2.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_0a9abb13",
       "range": {
         "startLine": 28,
         "startChar": 1,
@@ -278,6 +470,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_2cf511ee",
+        "filename": "samples/vnf_samples/traffic_profiles/prox_acl.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_4abb2372",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 67
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_8aac0b37",
         "filename": "samples/vnf_samples/traffic_profiles/prox_heat_acl.yaml",
         "patchSetId": 8
@@ -289,6 +505,30 @@
       "writtenOn": "2017-09-06T15:11:29Z",
       "side": 1,
       "message": "fix comment",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 67
+      },
+      "revId": "a4b9b183b2e58f7cb3f6c4595eee71a466343e5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_cced8527",
+        "filename": "samples/vnf_samples/traffic_profiles/prox_heat_acl.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-09-19T12:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_8aac0b37",
       "range": {
         "startLine": 18,
         "startChar": 17,
