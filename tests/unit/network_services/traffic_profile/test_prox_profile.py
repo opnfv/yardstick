@@ -65,7 +65,7 @@ class TestProxProfile(unittest.TestCase):
         profile.init(234)
         self.assertEqual(profile.queue, 234)
 
-    def test_execute(self):
+    def test_execute_traffic(self):
         packet_sizes = [
             10,
             100,
@@ -83,9 +83,9 @@ class TestProxProfile(unittest.TestCase):
         self.assertFalse(profile.done)
         for _ in packet_sizes:
             with self.assertRaises(NotImplementedError):
-                profile.execute(traffic_generator)
+                profile.execute_traffic(traffic_generator)
 
-        self.assertIsNone(profile.execute(traffic_generator))
+        self.assertIsNone(profile.execute_traffic(traffic_generator))
 
     def test_bounds_iterator(self):
         tp_config = {
