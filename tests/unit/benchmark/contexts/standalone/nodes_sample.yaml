@@ -1,0 +1,33 @@
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+nodes:
+-
+    name: node1
+    role: Controller
+    ip: 10.229.47.137
+    user: root
+    key_filename: /root/.yardstick_key
+-
+    name: node2
+    role: Controller
+    ip: 10.229.47.138
+    user: root
+    key_filename: /root/.yardstick_key
+-
+    name: node3
+    role: Compute
+    ip: 10.229.47.139
+    user: root
+    key_filename: /root/.yardstick_key
+-
+    name: node4
+    role: Baremetal
+    ip: 10.229.47.140
+    user: root
+    key_filename: /root/.yardstick_key
