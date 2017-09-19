@@ -16,7 +16,7 @@
     include: "{{ ansible_os_family }}.yml"
 
   - name: Install core packages
-    action: "{{ ansible_pkg_mgr }} name={{ item }} state=latest"
+    action: "{{ ansible_pkg_mgr }} name={{ item }} state=latest update_cache=yes"
     register: pkg_mgr_results
     retries: "{{ pkg_mgr_retries }}"
     until: pkg_mgr_results|success
