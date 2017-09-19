@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_3f407a33",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-19T18:14:19Z",
+      "side": 1,
+      "message": "the unit test \n\n test_run_test (network_services.vnf_generic.vnf.test_prox_helpers.TestProxResourceHelper)\n\nneeds to now assert the raising of the NotImplementedError",
+      "revId": "c3b5fe547c53528149d384b729fe2a7837d423bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
