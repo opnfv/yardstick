@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_bf548aff",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-19T18:06:23Z",
+      "side": 1,
+      "message": "if you call ssh.SSH.from_node, then success gets you an SSH instance.\n\nif you call ssh.AutoConnectSsh.from_node, then success gets you an AutoConnectSsh instance.\n\nthis is true even though the code is only present on SSH.\n\nthis code is the former.  i\u0027m not certain what you mean by \"you did this\".",
+      "parentUuid": "da33351e_731523e4",
+      "revId": "8254abfb19bec6f83b43e6776ecdce960bf1e22e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_7367e3b7",
         "filename": "yardstick/network_services/nfvi/resource.py",
         "patchSetId": 1
@@ -135,6 +153,24 @@
       "side": 1,
       "message": "it is supposed to be sorted(), but we don\u0027t have dpdk_port_num yet.\n\nSo, the solution is to move this code until after we dpdk-devbind.  But that requires tweaking all the superclass code.\n\nI didn\u0027t have time to look into that.\n\nIs it possible to adjust _setup_resources() execution order, see comment above in setup_vnf_enviroment()",
       "parentUuid": "da33351e_936a677f",
+      "revId": "8254abfb19bec6f83b43e6776ecdce960bf1e22e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ff5a9228",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-19T18:06:23Z",
+      "side": 1,
+      "message": "i don\u0027t a reason to keep the current order, but that\u0027s not to say there isn\u0027t a reason.",
+      "parentUuid": "da33351e_f3e013fc",
       "revId": "8254abfb19bec6f83b43e6776ecdce960bf1e22e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
