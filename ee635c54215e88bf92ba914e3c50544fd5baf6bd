@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_bf192ad9",
+        "filename": "yardstick/common/httpClient.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-19T21:59:06Z",
+      "side": 1,
+      "message": "of course, it occurs to me that doing retries is a common task and so it would better to have a wrapper function in utils\n\n def retry_on_timeout(func, timeout\u003d0, *args, **kwargs):\n   t_end \u003d time.time() + timeout\n   while True:\n     try:\n       return func(*args, **kwargs)\n     except Exception:\n       if time.time() \u003e t_end:\n         raise\n     time.sleep(1)\n\nthen in env.py:\n\n retry_on_timeout(HttpRequest().post, url, data, timeout\u003d10)\n\nand there\u0027s no reason to change this method.",
+      "revId": "ee635c54215e88bf92ba914e3c50544fd5baf6bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7f44c2b6",
+        "filename": "yardstick/common/httpClient.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-19T21:59:06Z",
+      "side": 1,
+      "message": "this should be:\n\n t_end \u003d time.time() + timeout",
+      "revId": "ee635c54215e88bf92ba914e3c50544fd5baf6bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9f4706bc",
+        "filename": "yardstick/common/httpClient.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-19T21:59:06Z",
+      "side": 1,
+      "message": "why are we recalculating this each time?",
+      "range": {
+        "startLine": 34,
+        "startChar": 33,
+        "endLine": 34,
+        "endChar": 45
+      },
+      "revId": "ee635c54215e88bf92ba914e3c50544fd5baf6bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
