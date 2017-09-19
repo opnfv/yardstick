@@ -19,8 +19,10 @@ import glob
 import yaml
 import collections
 
+from functools import partial
 from six.moves import configparser
 from oslo_serialization import jsonutils
+from oslo_service.loopingcall import RetryDectorator
 from docker import Client
 
 from api.database.v1.handlers import AsyncTaskHandler
@@ -109,6 +111,9 @@ class V1Env(ApiResource):
             LOG.exception('influxdb url not set in yardstick.conf')
             raise
 
+        retry = RetryDectorator(max_retry_count=10, inc_sleep_time=1,
+                                max_sleep_time=1, exceptions=Exception)
+
         data = {
             "name": "yardstick",
             "type": "influxdb",
@@ -123,7 +128,7 @@ class V1Env(ApiResource):
             "isDefault": True,
         }
         try:
-            HttpClient().post(url, data)
+            retry(partial(HttpClient().post, url, data))
         except Exception:
             LOG.exception('Create datasources failed')
             raise
