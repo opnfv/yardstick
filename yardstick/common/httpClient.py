@@ -9,6 +9,7 @@
 from __future__ import absolute_import
 
 import logging
+import time
 
 from oslo_serialization import jsonutils
 import requests
@@ -18,18 +19,21 @@ logger = logging.getLogger(__name__)
 
 class HttpClient(object):
 
-    def post(self, url, data):
+    def post(self, url, data, timeout=0):
         data = jsonutils.dump_as_bytes(data)
         headers = {'Content-Type': 'application/json'}
-        try:
-            response = requests.post(url, data=data, headers=headers)
-            result = response.json()
-            logger.debug('The result is: %s', result)
-
-            return result
-        except Exception as e:
-            logger.debug('Failed: %s', e)
-            raise
+        t0 = time.time()
+        while True:
+            try:
+                response = requests.post(url, data=data, headers=headers)
+                result = response.json()
+                logger.debug('The result is: %s', result)
+                return result
+            except Exception as e:
+                logger.debug('Failed: %s', e)
+                if time.time() > t0 + timeout:
+                    raise
+            time.sleep(1)
 
     def get(self, url):
         response = requests.get(url)
