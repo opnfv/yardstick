@@ -32,11 +32,6 @@ vnfd:vnfd-catalog:
             {% if key_filename is defined %}
             key_filename: '{{key_filename}}'  # Value filled by vnfdgen
             {% endif %}
-        connection-point:
-        -   name: xe0
-            type: VPORT
-        -   name: xe1
-            type: VPORT
         vdu:
         -   id: proxvnf-baremetal
             name: proxvnf-baremetal
