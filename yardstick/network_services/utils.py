@@ -16,6 +16,7 @@
 from __future__ import absolute_import
 import logging
 import os
+import re
 
 from oslo_config import cfg
 from oslo_config.cfg import NoSuchOptError
@@ -38,6 +39,59 @@ OPTS = [
 CONF.register_opts(OPTS, group="nsb")
 
 
+HEXADECIMAL = "[0-9a-zA-Z]"
+
+
+class PciAddress(object):
+
+    PCI_PATTERN_STR = HEXADECIMAL.join([
+        "(",
+        "{4}):(",  # domain (4 bytes)
+        "{2}):(",  # bus (2 bytes)
+        "{2}).(",  # function (2 bytes)
+        ")",       # slot (1 byte)
+    ])
+
+    PCI_PATTERN = re.compile(PCI_PATTERN_STR)
+
+    @classmethod
+    def parse_address(cls, text, multi_line=False):
+        if multi_line:
+            text = text.replace(os.linesep, '')
+            match = cls.PCI_PATTERN.search(text)
+        return cls(match.group(0))
+
+    def __init__(self, address):
+        super(PciAddress, self).__init__()
+        match = self.PCI_PATTERN.match(address)
+        if not match:
+            raise ValueError('Invalid PCI address: {}'.format(address))
+        self.address = address
+        self.match = match
+
+    def __repr__(self):
+        return self.address
+
+    @property
+    def domain(self):
+        return self.match.group(1)
+
+    @property
+    def bus(self):
+        return self.match.group(2)
+
+    @property
+    def slot(self):
+        return self.match.group(3)
+
+    @property
+    def function(self):
+        return self.match.group(4)
+
+    def values(self):
+        return [self.match.group(n) for n in range(1, 5)]
+
+
 def get_nsb_option(option, default=None):
     """return requested option for yardstick.conf"""
 
@@ -55,6 +109,8 @@ def provision_tool(connection, tool_path, tool_file=None):
 
     :return - Tool path
     """
+    if not tool_path:
+        tool_path = get_nsb_option('tool_path')
     if tool_file:
         tool_path = os.path.join(tool_path, tool_file)
     bin_path = get_nsb_option("bin_path")
@@ -64,6 +120,7 @@ def provision_tool(connection, tool_path, tool_file=None):
 
     logging.warning("%s not found on %s, will try to copy from localhost",
                     tool_path, connection.host)
+    bin_path = get_nsb_option("bin_path")
     connection.execute('mkdir -p "%s"' % bin_path)
     connection.put(tool_path, tool_path)
     return tool_path
