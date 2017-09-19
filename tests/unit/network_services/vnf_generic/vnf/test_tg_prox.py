@@ -391,10 +391,10 @@ class TestProxTrafficGen(unittest.TestCase):
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         sut = ProxTrafficGen(NAME, vnfd)
-        sut.prox_config_dict = {}
         sut._get_socket = mock.MagicMock()
         sut.ssh_helper = mock.Mock()
         sut.ssh_helper.run = mock.Mock()
+        sut.setup_helper.prox_config_dict = {}
         sut._vpci_ascending = ["0000:05:00.0", "0000:05:00.1"]
         sut._connect_client = mock.Mock(autospec=STLClient)
         sut._connect_client.get_stats = mock.Mock(return_value="0")

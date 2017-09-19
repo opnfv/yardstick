@@ -102,10 +102,3 @@ class ProxApproxVnf(SampleVNF):
         self.setup_helper.kill_vnf()
         self._tear_down()
         self.resource_helper.stop_collect()
-
-    def instantiate(self, scenario_cfg, context_cfg):
-        # build config in parent process so we can access
-        # config from TG subprocesses
-        self.scenario_helper.scenario_cfg = scenario_cfg
-        self.setup_helper.build_config_file()
-        super(ProxApproxVnf, self).instantiate(scenario_cfg, context_cfg)
