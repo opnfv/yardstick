@@ -4,6 +4,8 @@ import mock
 import os
 import socket
 import unittest
+import sys
+
 import tempfile
 
 from oslo_serialization import jsonutils
@@ -18,9 +20,13 @@ class APITestCase(unittest.TestCase):
         consts.SQLITE = 'sqlite:///{}'.format(self.db_path)
 
         # server calls gethostbyname which takes 4 seconds, and we should mock it anyway
-        self.socket_mock = mock.patch.dict("sys.modules", {"socket": mock.MagicMock(
-            **{"gethostbyname.return_value": "127.0.0.1", "gethostname.return_value": "localhost"})})
-        self.socket_mock.start()
+        # we can't mock socket because of greenlet so just by the gethost methods
+        self.mock_hostbyname = mock.patch.object(sys.modules['socket'], "gethostbyname",
+                                                 return_value="127.0.0.1")
+        self.mock_hostname = mock.patch.object(sys.modules['socket'], "gethostname",
+                                                 return_value="localhost")
+        self.mock_hostbyname.start()
+        self.mock_hostname.start()
         try:
             from api import server
         except socket.gaierror:
@@ -35,7 +41,8 @@ class APITestCase(unittest.TestCase):
     def tearDown(self):
         os.close(self.db_fd)
         os.unlink(self.db_path)
-        self.socket_mock.stop()
+        self.mock_hostbyname.stop()
+        self.mock_hostname.stop()
 
     def _post(self, url, data):
         headers = {'Content-Type': 'application/json'}
