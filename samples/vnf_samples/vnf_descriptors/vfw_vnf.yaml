@@ -29,6 +29,9 @@ vnfd:vnfd-catalog:
             {% if ip is defined %}
             ip: '{{ip}}'  # Value filled by vnfdgen
             {% endif %}
+            {% if host is defined %}
+            host: '{{host}}'  # Value filled by vnfdgen
+            {% endif %}
             {% if key_filename is defined %}
             key_filename: '{{key_filename}}'  # Value filled by vnfdgen
             {% endif %}
