@@ -39,21 +39,31 @@ from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts.standalone.model import Libvirt
 from yardstick.benchmark.contexts.standalone.model import HelperClass
 from yardstick.benchmark.contexts.standalone.model import Server
+from yardstick.benchmark.contexts.standalone.model import OvsDeploy
 from yardstick.common.constants import YARDSTICK_ROOT_PATH
 from yardstick.common.utils import import_modules_from_package, itersubclasses
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.utils import PciAddress
 
 LOG = logging.getLogger(__name__)
+WAIT_FOR_VSWITCHD = 10
 
 
-class SriovContext(Context):
-    """ This class handles SRIOV standalone nodes - VM running on Non-Managed NFVi
-    Configuration: sr-iov
+class OvsDpdkContext(Context):
+    """ This class handles OVS standalone nodes - VM running on Non-Managed NFVi
+    Configuration: ovs_dpdk
     """
 
-    __context_type__ = "StandaloneSriov"
+    __context_type__ = "StandaloneOvsDpdk"
 
+    SUPPORTED_OVS_DPDK_VERSION = {
+        '2.6.0': '16.07.2',
+        '2.6.1': '16.07.2',
+        '2.7.0': '16.11.2',
+        '2.7.1': '16.11.2',
+        '2.7.2': '16.11.2',
+        '2.8.0': '17.05.1'
+    }
 
     def __init__(self):
         self.file_path = None
@@ -70,8 +80,8 @@ class SriovContext(Context):
         self.servers = None
         self.libvirt = Libvirt()
         self.helper = HelperClass()
-        self.drivers = []
-        super(SriovContext, self).__init__()
+        self.ovs_properties = {}
+        super(OvsDpdkContext, self).__init__()
 
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
@@ -80,18 +90,141 @@ class SriovContext(Context):
         self.file_path = file_path = attrs.get("file", "pod.yaml")
 
         self.nodes, self.nfvi_host, self.host_mgmt = \
-            self.helper.parse_pod_file(self.file_path, 'Sriov')
+            self.helper.parse_pod_file(self.file_path, 'OvsDpdk')
 
         self.attrs = attrs
         self.vm_flavor = attrs.get('flavor', {})
         self.servers = attrs.get('servers', {})
         self.vm_deploy = attrs.get("vm_deploy", True)
+        self.ovs_properties = attrs.get('ovs_properties', {})
         # add optional static network definition
         self.networks= attrs.get("networks", {})
 
         LOG.debug("Nodes: %r", self.nodes)
         LOG.debug("NFVi Node: %r", self.nfvi_host)
         LOG.debug("Networks: %r", self.networks)
+
+    def setup_ovs(self):
+        vpath = self.ovs_properties.get("vpath", "/usr/local")
+        xargs_kill = "ps -ef | grep ovs | grep -v grep | awk '{print $2}' | xargs -r kill -9"
+        
+        create_from = os.path.join(vpath, 'etc/openvswitch/conf.db')
+        create_to = os.path.join(vpath, 'share/openvswitch/vswitch.ovsschema')
+
+
+        cmd_list = [
+            "chmod 0666 /dev/vfio/*",
+            "chmod a+x /dev/vfio",
+            "pkill -9 ovs",
+            xargs_kill,
+            "killall -r 'ovs*'",
+            "mkdir -p {0}/etc/openvswitch".format(vpath),
+            "mkdir -p {0}/var/run/openvswitch".format(vpath),
+            "rm {0}/etc/openvswitch/conf.db".format(vpath),
+            "ovsdb-tool create {0} {1}".format(create_from, create_to),
+            "modprobe vfio-pci",
+            "chmod a+x /dev/vfio",
+            "chmod 0666 /dev/vfio/*",
+        ]
+        for cmd in cmd_list:
+            self.connection.execute(cmd)
+        bind_cmd = "{dpdk_nic_bind} --force -b {driver} {port}"
+        phy_driver = "vfio-pci"
+        for key, port in self.networks.items():
+            vpci = port["phy_port"]
+            self.connection.execute(bind_cmd.format(dpdk_nic_bind=self.dpdk_nic_bind,
+                                                    driver=phy_driver, port=vpci))
+
+    def start_ovs_serverswitch(self):
+        vpath = self.ovs_properties.get("vpath")
+        pmd_nums = int(self.ovs_properties.get("pmd_threads", 2))
+        ovs_sock_path = '/var/run/openvswitch/db.sock'
+        log_path = '/var/log/openvswitch/ovs-vswitchd.log'
+        
+        pmd_mask = hex(sum(2 ** num for num in range(pmd_nums)) << 1)
+        socket0 = self.ovs_properties.get("ram", {}).get("socket_0", "2048")
+        socket1 = self.ovs_properties.get("ram", {}).get("socket_1", "2048")
+
+        ovs_other_config = "ovs-vsctl {0}set Open_vSwitch . other_config:{1}"
+        detach_cmd = "ovs-vswitchd unix:{0}{1} --pidfile --detach --log-file={2}"
+        
+        cmd_list = [
+            "mkdir -p /usr/local/var/run/openvswitch",
+            "ovsdb-server --remote=punix:/{0}/{1}  --pidfile --detach".format(vpath, ovs_sock_path),
+            ovs_other_config.format("--no-wait ", "dpdk-init=true"),
+            ovs_other_config.format("--no-wait ", "dpdk-socket-mem='%s,%s'" % (socket0, socket1)),
+            detach_cmd.format(self.ovs_properties["vpath"], ovs_sock_path, log_path),
+            ovs_other_config.format("", "pmd-cpu-mask=%s" % pmd_mask),
+        ]
+        
+        for cmd in cmd_list:
+            LOG.info(cmd)
+            time.sleep(1)
+            self.connection.execute(cmd)
+        time.sleep(WAIT_FOR_VSWITCHD)
+
+    def setup_ovs_bridge_add_flows(self):
+        dpdk_args = ""
+        dpdk_list = []
+        vpath = self.ovs_properties.get("vpath", "/usr/local")
+        ovs_add_port = "ovs-vsctl add-port {br} {port} -- set Interface {port} type={type_}{dpdk_args}"
+        ovs_add_queue = "ovs-vsctl set Interface {port} options:n_rxq={queue}"
+        chmod_vpath = "chmod 0777 {0}/var/run/openvswitch/dpdkvhostuser*"
+
+        cmd_dpdk_list = [
+            "ovs-vsctl del-br br0",
+            "rm -rf /usr/local/var/run/openvswitch/dpdkvhostuser*",
+            "ovs-vsctl add-br br0 -- set bridge br0 datapath_type=netdev",
+        ]
+
+        orderd_network = OrderedDict(self.networks)
+        for index, key in enumerate(orderd_network):
+            vnf = orderd_network[key]
+            ovs_ver = int(self.ovs_properties["version"].get("ovs", "2.6.0").replace(".", ""))
+            if ovs_ver >= 270:
+                dpdk_args = " options:dpdk-devargs=%s" % vnf["phy_port"]
+            dpdk_list.append(ovs_add_port.format(br='br0', port='dpdk%s' % vnf["port_num"], type_='dpdk', dpdk_args=dpdk_args))
+            dpdk_list.append(ovs_add_queue.format(port='dpdk%s' % vnf["port_num"], queue=self.ovs_properties.get("queues", 4)))
+
+        # Sorting the array to make sure we execute dpdk0... in the order
+        list.sort(dpdk_list)
+        cmd_dpdk_list.extend(dpdk_list)
+
+        # Need to do two for loop to maintain the dpdk/vhost ports.
+        for index, key in enumerate(orderd_network):
+            cmd_dpdk_list.append(ovs_add_port.format(br='br0', port='dpdkvhostuser%s' % index, type_='dpdkvhostuser', dpdk_args=""))
+
+        for cmd in cmd_dpdk_list:
+            LOG.info(cmd)
+            time.sleep(1)
+            self.connection.execute(cmd)
+
+        # Fixme: add flows code
+        for index, key in enumerate(orderd_network):
+            vnf = orderd_network[key]
+            in_port = (index + 1)
+            output = in_port + len(orderd_network)
+            self.connection.execute("ovs-ofctl add-flow br0 in_port=%s,action=output:%s" % (in_port, output))
+            self.connection.execute("ovs-ofctl add-flow br0 in_port=%s,action=output:%s" % (output, in_port))
+
+        self.connection.execute(chmod_vpath.format(self.ovs_properties.get("vpath", "/usr/local/")))
+
+    def cleanup_ovs_dpdk_env(self):
+         self.connection.execute("ovs-vsctl del-br br0")
+         self.connection.execute("pkill -9 ovs")
+
+    def check_ovs_dpdk_env(self):
+        self.cleanup_ovs_dpdk_env()
+        ovs_ver = self.ovs_properties["version"].get("ovs", "2.6.0")
+        if self.SUPPORTED_OVS_DPDK_VERSION.get(ovs_ver, None) is None:
+            raise Exception("Unsupported ovs version '{}'. Please check the configuration...".format(ovs_ver))
+
+        status = self.connection.execute("ovs-vsctl -V | grep -i '%s'" % ovs_ver)[0]
+        if status:
+            deploy = OvsDeploy(self.connection,
+                               get_nsb_option("bin_path"),
+                               self.ovs_properties)
+            deploy.ovs_deploy()
 
     def deploy(self):
         """don't need to deploy"""
@@ -105,13 +238,19 @@ class SriovContext(Context):
             self.connection,
             os.path.join(get_nsb_option("bin_path"), "dpdk_nic_bind.py"))
 
+        # Check dpdk/ovs version, if not present install
+        self.check_ovs_dpdk_env()
         #    Todo: NFVi deploy (sriov, vswitch, ovs etc) based on the config.
         self.helper.install_req_libs(self.connection)
         self.networks = self.helper.get_nic_details(self.connection, self.networks, self.dpdk_nic_bind)
-        self.nodes = self.setup_sriov_context()
 
+        self.setup_ovs()
+        self.start_ovs_serverswitch()
+        self.setup_ovs_bridge_add_flows()
+        self.nodes = self.setup_ovs_context()
         LOG.debug("Waiting for VM to come up...")
         self.nodes = self.helper.wait_for_vnfs_to_start(self.connection, self.servers, self.nodes)
+ 
 
     def undeploy(self):
         """don't need to undeploy"""
@@ -119,14 +258,20 @@ class SriovContext(Context):
         if not self.vm_deploy:
             return
 
+        # Cleanup the ovs installation... 
+        self.cleanup_ovs_dpdk_env()
+
+        # Bind nics back to kernel
+        bind_cmd = "{dpdk_nic_bind} --force -b {driver} {port}"
+        for key, port in self.networks.items():
+            vpci = port["phy_port"]
+            phy_driver = port["driver"]
+            self.connection.execute(bind_cmd.format(dpdk_nic_bind=self.dpdk_nic_bind,
+                                                    driver=phy_driver, port=vpci))
+
         # Todo: NFVi undeploy (sriov, vswitch, ovs etc) based on the config.
         for vm in self.vm_names:
             self.libvirt.check_if_vm_exists_and_delete(vm, self.connection)
-
-        # Bind nics back to kernel
-        for driver in self.drivers:
-            self.connection.execute("rmmod %s" % driver)
-            self.connection.execute("modprobe %s" % driver)
 
     def _get_server(self, attr_name):
         """lookup server info by name from context
@@ -197,55 +342,33 @@ class SriovContext(Context):
         except StopIteration:
             raise ValueError("No implementation for %s", expected_name)
 
-    def configure_nics_for_sriov(self):
-        for key, ports in self.networks.items():
-            vf_pci = []
-            host_driver = ports.get('driver')
-            if host_driver not in self.drivers:
-                self.connection.execute("rmmod %s" % host_driver)
-                self.connection.execute("modprobe %s num_vfs=1" % host_driver)
-                self.connection.execute("rmmod %svf" % host_driver)
-                self.drivers.append(host_driver)
-
-            # enable VFs for given...
-            build_vfs = "echo 1 > /sys/bus/pci/devices/{0}/sriov_numvfs" 
-            self.connection.execute(build_vfs.format(ports.get('phy_port')))
-
-            # configure VFs...
+    def configure_nics_for_ovs(self):
+        portlist = OrderedDict(self.networks)
+        for key, ports in portlist.items():
             mac = self.helper.get_mac_address()
-            interface = ports.get('interface')
-            if interface is not None:
-                vf_cmd = "ip link set {0} vf 0 mac {1}"
-                self.connection.execute(vf_cmd.format(interface, mac))
-
-            vf_pci = self.get_vf_datas('vf_pci', ports.get('phy_port'), mac, interface)
-            self.networks[key].update({
-                'vf_pci': vf_pci,
-                'mac': mac
-            })
-
+            portlist[key].update({'mac': mac})
+        self.networks = portlist
         LOG.info("Ports %s" % self.networks)
 
-    def _enable_interfaces(self, index, idx, vfs, cfg):
+    def _enable_interfaces(self, index, vfs, cfg):
+        vpath = self.ovs_properties.get("vpath", "/usr/local")
         vf = self.networks[vfs[0]]
+        port_num = vf['port_num']
         vpci = PciAddress.parse_address(vf['vpci'].strip(), multi_line=True)
         # Generate the vpci for the interfaces
-        slot = format((index + 10) + (idx), '#04x')[2:]
+        slot = format((index + 10) + (port_num), '#04x')[2:]
         vf['vpci'] = \
             "0000:{}:{}.{}".format(vpci.bus, slot, vpci.function)
-        self.libvirt.add_sriov_interfaces(
-            vf['vpci'], vf['vf_pci']['vf_pci'], vf['mac'], str(cfg))
-        self.connection.execute("ifconfig %s up" % vf['interface'])
+        self.libvirt.add_ovs_interface(vpath, port_num, vf['vpci'], vf['mac'], str(cfg))
 
-    def setup_sriov_context(self):
+    def setup_ovs_context(self):
         nodes = []
 
-        #   1 : modprobe host_driver with num_vfs
-        self.configure_nics_for_sriov()
+        self.configure_nics_for_ovs()
 
         serverslist = OrderedDict(self.servers)
         for index, key in enumerate(serverslist):
-            cfg = '/tmp/vm_sriov_%s.xml' % str(index)
+            cfg = '/tmp/vm_ovs_%s.xml' % str(index)
             vm_name = "vm_%s" % str(index)
 
             # 1. Check and delete VM if already exists
@@ -259,7 +382,7 @@ class SriovContext(Context):
                 vfs = ordervnf[vkey]
                 if vkey == "mgmt":
                     continue
-                self._enable_interfaces(index, idx, vfs, cfg)
+                self._enable_interfaces(index, vfs, cfg)
 
             # copy xml to target... 
             self.connection.put(cfg, cfg)
