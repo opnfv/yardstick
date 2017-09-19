@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "da33351e_9f49c662",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-19T18:14:19Z",
+      "side": 1,
+      "message": "the unit test for this method needs to be moved from\n\n network_services.vnf_generic.vnf.test_prox_helpers.TestProxResourceHelper\n\nto\n\n network_services.vnf_generic.vnf.test_prox_helpers.TestProxGenericRunTest",
+      "revId": "4daffd1177578a26a4d1fbac7a7bd099d85d08a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_7b56a8d3",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 5
