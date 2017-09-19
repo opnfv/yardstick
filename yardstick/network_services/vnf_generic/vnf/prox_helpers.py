@@ -28,6 +28,7 @@ from contextlib import contextmanager
 from itertools import repeat, chain
 
 import six
+from multiprocessing import Queue
 from six.moves import zip, StringIO
 from six.moves import cStringIO
 
@@ -599,6 +600,7 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         self.remote_prox_file_name = None
         self.prox_config_dict = None
         self.additional_files = {}
+        self.config_queue = Queue()
 
     def _build_pipeline_kwargs(self):
         tool_path = self.ssh_helper.provision_tool(tool_file=self.APP_NAME)
@@ -758,6 +760,13 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
 
         return remote_path
 
+    CONFIG_QUEUE_TIMEOUT = 120
+
+    def get_prox_config_dict(self):
+        if self.prox_config_dict is None:
+            # this will block, but it needs too
+            self.prox_config_dict = self.config_queue.get(True, self.CONFIG_QUEUE_TIMEOUT)
+
     def build_config_file(self):
         task_path = self.scenario_helper.task_path
         options = self.scenario_helper.options
@@ -775,9 +784,12 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
             self.additional_files[base_prox_file] = remote_prox_file
 
         self.prox_config_dict = self.generate_prox_config_file(config_path)
+        # copy config to queue so we can read it from traffic_runner process
+        self.config_queue.put(self.prox_config_dict)
         self.remote_path = self.upload_prox_config(config_file, self.prox_config_dict)
 
     def build_config(self):
+        self.build_config_file()
 
         options = self.scenario_helper.options
 
@@ -793,6 +805,7 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         return prox_cmd
 
 
+# this might be bad, sometimes we want regular ResourceHelper methods, like collect_kpi
 class ProxResourceHelper(ClientResourceHelper):
 
     RESOURCE_WORD = 'prox'
@@ -891,8 +904,9 @@ class ProxResourceHelper(ClientResourceHelper):
             LOG.debug("tg_prox done")
             self._terminated.value = 1
 
-    def start_collect(self):
-        pass
+    # use ResourceHelper method to collect KPIs directly.
+    def collect_kpi(self):
+        return self._collect_resource_kpi()
 
     def terminate(self):
         # should not be called, use VNF terminate
@@ -1022,9 +1036,6 @@ class ProxResourceHelper(ClientResourceHelper):
         if self._latency_cores:
             return self.sut.lat_stats(self._latency_cores)
         return []
-
-    def _get_logical_if_name(self, vpci):
-        return self._vpci_to_if_name_map[vpci]
 
     def _connect(self, client=None):
         """Run and connect to prox on the remote system """

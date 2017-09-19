@@ -76,3 +76,9 @@ class ProxTrafficGen(SampleVNFTrafficGen):
 
     def wait_for_instantiate(self):
         self._vnf_wrapper.wait_for_instantiate()
+
+    def _traffic_runner(self, traffic_profile):
+        # we have to copy the prox config from the _run process to the _traffic_runner process
+        # use a queue
+        self.setup_helper.get_prox_config_dict()
+        super(ProxTrafficGen, self)._traffic_runner(traffic_profile)

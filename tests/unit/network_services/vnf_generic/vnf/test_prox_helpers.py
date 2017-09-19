@@ -986,9 +986,10 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
 
         helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         helper.remote_path = "/tmp/prox.cfg"
-        prox_cmd = helper.build_config()
         expected = "sudo bash -c 'cd /opt/nsb_bin; /opt/nsb_bin/prox -o cli -f  -f /tmp/prox.cfg '"
-        self.assertEqual(prox_cmd, expected)
+        with mock.patch.object(helper, "build_config_file") as mock_build_config:
+            prox_cmd = helper.build_config()
+            self.assertEqual(prox_cmd, expected)
 
     def test__insert_additional_file(self):
         vnfd_helper = mock.MagicMock()
@@ -1649,7 +1650,9 @@ class TestProxResourceHelper(unittest.TestCase):
     def test_start_collect(self):
         setup_helper = mock.MagicMock()
         helper = ProxResourceHelper(setup_helper)
+        helper.resource = resource = mock.MagicMock()
         self.assertIsNone(helper.start_collect())
+        resource.start.assert_called_once()
 
     def test_terminate(self):
         setup_helper = mock.MagicMock()
@@ -1822,20 +1825,6 @@ class TestProxResourceHelper(unittest.TestCase):
         expected = helper.sut.lat_stats()
         result = helper.get_latency()
         self.assertIs(result, expected)
-
-    def test__get_logical_if_name(self):
-        setup_helper = mock.MagicMock()
-        setup_helper.vnfd_helper.interfaces = []
-
-        helper = ProxResourceHelper(setup_helper)
-        helper._vpci_to_if_name_map = {
-            'key1': 234,
-            'key2': 432,
-        }
-
-        expected = 234
-        result = helper._get_logical_if_name('key1')
-        self.assertEqual(result, expected)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.time')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.ProxSocketHelper')
