@@ -165,12 +165,12 @@ class TaskTestCase(unittest.TestCase):
         result = t._check_precondition(cfg)
         self.assertTrue(result)
 
-    @mock.patch('yardstick.benchmark.core.task.os.environ')
-    def test_parse_suite_no_constraint_no_args(self, mock_environ):
+    def test_parse_suite_no_constraint_no_args(self):
         SAMPLE_SCENARIO_PATH = "no_constraint_no_args_scenario_sample.yaml"
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
-        mock_environ.get.side_effect = ['huawei-pod1', 'compass']
-        task_files, task_args, task_args_fnames = t.parse_suite()
+        with mock.patch('yardstick.benchmark.core.task.os.environ',
+                        new={'NODE_NAME': 'huawei-pod1', 'INSTALLER_TYPE': 'compass'}):
+            task_files, task_args, task_args_fnames = t.parse_suite()
         print("files=%s, args=%s, fnames=%s" % (task_files, task_args,
                                                 task_args_fnames))
         self.assertEqual(task_files[0], self.change_to_abspath(
@@ -186,8 +186,9 @@ class TaskTestCase(unittest.TestCase):
     def test_parse_suite_no_constraint_with_args(self, mock_environ):
         SAMPLE_SCENARIO_PATH = "no_constraint_with_args_scenario_sample.yaml"
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
-        mock_environ.get.side_effect = ['huawei-pod1', 'compass']
-        task_files, task_args, task_args_fnames = t.parse_suite()
+        with mock.patch('yardstick.benchmark.core.task.os.environ',
+                        new={'NODE_NAME': 'huawei-pod1', 'INSTALLER_TYPE': 'compass'}):
+            task_files, task_args, task_args_fnames = t.parse_suite()
         print("files=%s, args=%s, fnames=%s" % (task_files, task_args,
                                                 task_args_fnames))
         self.assertEqual(task_files[0], self.change_to_abspath(
@@ -204,8 +205,9 @@ class TaskTestCase(unittest.TestCase):
     def test_parse_suite_with_constraint_no_args(self, mock_environ):
         SAMPLE_SCENARIO_PATH = "with_constraint_no_args_scenario_sample.yaml"
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
-        mock_environ.get.side_effect = ['huawei-pod1', 'compass']
-        task_files, task_args, task_args_fnames = t.parse_suite()
+        with mock.patch('yardstick.benchmark.core.task.os.environ',
+                        new={'NODE_NAME': 'huawei-pod1', 'INSTALLER_TYPE': 'compass'}):
+            task_files, task_args, task_args_fnames = t.parse_suite()
         print("files=%s, args=%s, fnames=%s" % (task_files, task_args,
                                                 task_args_fnames))
         self.assertEqual(task_files[0], self.change_to_abspath(
@@ -221,8 +223,9 @@ class TaskTestCase(unittest.TestCase):
     def test_parse_suite_with_constraint_with_args(self, mock_environ):
         SAMPLE_SCENARIO_PATH = "with_constraint_with_args_scenario_sample.yaml"
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
-        mock_environ.get.side_effect = ['huawei-pod1', 'compass']
-        task_files, task_args, task_args_fnames = t.parse_suite()
+        with mock.patch('yardstick.benchmark.core.task.os.environ',
+                        new={'NODE_NAME': 'huawei-pod1', 'INSTALLER_TYPE': 'compass'}):
+            task_files, task_args, task_args_fnames = t.parse_suite()
         print("files=%s, args=%s, fnames=%s" % (task_files, task_args,
                                                 task_args_fnames))
         self.assertEqual(task_files[0], self.change_to_abspath(
