@@ -311,8 +311,9 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
         self.assertIsNone(cgnapt_approx_vnf._vnf_process)
 
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh, mock_process):
+    def test_collect_kpi(self, ssh, mock_time, mock_process):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -324,8 +325,9 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         result = {'packets_dropped': 0, 'packets_fwd': 0, 'packets_in': 0}
         self.assertEqual(result, cgnapt_approx_vnf.collect_kpi())
 
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
     @mock.patch(SSH_HELPER)
-    def test_vnf_execute_command(self, ssh, mock_process):
+    def test_vnf_execute_command(self, ssh, mock_time, mock_process):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
