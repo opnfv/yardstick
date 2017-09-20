@@ -22,7 +22,7 @@ for i in "${pkg[@]}"; do
     fi
 done
 
-pip install ansible==2.2.2.0 shade==1.17.0 docker-py==1.10.6
+pip install ansible==2.3.2 shade==1.17.0 docker-py==1.10.6
 
 if [ $# -eq 1 ]; then
     extra_args="-e openrc_file=$1"
