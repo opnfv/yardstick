@@ -20,7 +20,6 @@ import mock
 
 from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from tests.unit import STL_MOCKS
-from yardstick.network_services.nfvi.resource import ResourceProfile
 
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
 NAME = 'vnf__1'
@@ -334,7 +333,7 @@ class TestProxTrafficGen(unittest.TestCase):
         prox_traffic_gen._vnf_wrapper.resource_helper.resource = mock.MagicMock(
             **{"check_if_sa_running.return_value": [False]})
         prox_traffic_gen._vnf_wrapper.vnf_execute = mock.Mock(return_value="")
-        self.assertEqual({"core": {}}, prox_traffic_gen.collect_kpi())
+        self.assertEqual({}, prox_traffic_gen.collect_kpi())
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.CpuSysCores')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
@@ -372,12 +371,12 @@ class TestProxTrafficGen(unittest.TestCase):
             'task_path': '',
             'options': {'tg__1': {'prox_args': {'-e': '',
                                                 '-t': ''},
-                                      'prox_config': 'configs/l3-gen-2.cfg',
-                                      'prox_path': '/root/dppd-PROX-v035/build/prox'},
-                            'vnf__1': {'prox_args': {'-t': ''},
-                                       'prox_config': 'configs/l3-swap-2.cfg',
-                                       'prox_path': '/root/dppd-PROX-v035/build/prox'}
-                            }
+                                  'prox_config': 'configs/l3-gen-2.cfg',
+                                  'prox_path': '/root/dppd-PROX-v035/build/prox'},
+                        'vnf__1': {'prox_args': {'-t': ''},
+                                   'prox_config': 'configs/l3-swap-2.cfg',
+                                   'prox_path': '/root/dppd-PROX-v035/build/prox'}
+                        }
         }
         prox_traffic_gen.instantiate(scenario_cfg, {})
 
