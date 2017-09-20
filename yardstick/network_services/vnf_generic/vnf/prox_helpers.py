@@ -782,7 +782,8 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
             prox_files = [prox_files]
         for key_prox_file in prox_files:
             base_prox_file = os.path.basename(key_prox_file)
-            remote_prox_file = self.copy_to_target(key_prox_file, base_prox_file)
+            key_prox_path = find_relative_file(key_prox_file, task_path)
+            remote_prox_file = self.copy_to_target(key_prox_path, base_prox_file)
             self.additional_files[base_prox_file] = remote_prox_file
 
         self._prox_config_data = self.generate_prox_config_file(config_path)
