@@ -1,0 +1,966 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_a85d6d17",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "as best as i can tell, all the methods here are (or could be) static or class methods.  in my perspective, that make these methods part of a module instead of part of a class.  should we prefer to maintain them as part of a class, we should still mark them as static or class methods.\n\ni see a couple of these methods that would better be associated with another class, see those comments.",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_089e19b9",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "this is unnecessary, omitting it is the same effect as the code present",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e8a2d5fb",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "we need a class attribute for the None value, why?",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_28a95ddf",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "these are wildly repeated methods, the \"write_to_file\" method is already in utils as \"write_file\"",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 33
+      },
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_88b18949",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "all of these methods that take a connection argument would be better off as methods of SSH or some subclass thereof.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 56
+      },
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_68aec5e7",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "this would be better associated with the PciAddress class.",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 21
+      },
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c8b71139",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "it may still be best as a class method, but again this seems better associated with the PciAddress class than this.\n\nif we do want to keep these XML-building methods together, then we should make remove the xml argument from the call args and make the instance maintain the xml value.\n\n def __init__(self, xml):\n   super(...).__init__()\n   self.xml \u003d xml\n   self._root \u003d None\n\n @property\n def root(self):\n   if self._root is None:\n     self._root \u003d ET.parse(self.xml)\n   return self._root\n\n def add_ovs_interface(self, vpath, port_num, vpci, vports_mac):\n   devices \u003d self.root.find(\u0027devices\u0027)\n   ...\n\n def __enter__(self):\n   return self\n\n def __exit__(self, exc_type, exc_val, exc_tb):\n   self.write()\n\n def write(self):\n   self.root.write(self.xml)",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c88ef178",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "please invert the logic and not indent the new else path:\n\n if not cpu_list:\n   return []\n ranges \u003d cpu_list.split(\u0027,\u0027)\n ...",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_68dc0574",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "can we make this:\n\n (cycle((int(b) for b in r.split(\u0027-\u0027))) for r in ranges)",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c8e55139",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "by using cycle in bounds, we don\u0027t need the conditional operator here:\n\n range_objects \u003d (range(next(bound), next(bound) + 1) for bound in bounds)\n\nif bound only had 1 value, then that 1 value will be given for both calls of next.  if bound has 2 (or more) values, then the first value will be given with the first next call and the second value will be given with the second next call.",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a8e28d2c",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "why not use \"read_from_file\" here?",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c85391e0",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "please add to this class name, this name is far too generic.  perhaps:\n\n StandaloneContextHelper(object)\n\nincluding \"Class\" would help, but given the camel case nature of the name (and most class names), seems unnecessary.",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_08d3b960",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "but this version of code installs packages one at a time, so we need to go through all of them, or each of them depended on later ones such that the first missing package will cause all successive packages to be installed?\n\nstill, i don\u0027t think we should rely on this holding true indefinitely.",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e865b5b5",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "this is port",
+      "range": {
+        "startLine": 338,
+        "startChar": 12,
+        "endLine": 338,
+        "endChar": 25
+      },
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c8bc3109",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "extend works with iterators the same it works with lists, there\u0027s no need to build a list before extending another list\n\n nodes.extend(node for node in cfg[\u0027nodes\u0027] if str(node[\u0027role\u0027] !\u003d nfvi_role)",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a8b9ed16",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "same comment as line 382",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_083a9998",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "map is almost never needed:\n\n mac_address \u003d \u0027:\u0027.join(\u0027%02x\u0027 % x for x in mac)",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_285cbdec",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "again i see static or class methods that are better done as module methods instead of putting on a class.",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e83e558b",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "if we want order to our interfaces, then this might be a good place for that to start.\n\n interfaces \u003d OrderedDict()",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_684a4527",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "please invert the logic and de-indent:\n\n if not os.path.isfile(ovs_deploy):\n   return\n self.prerequisite()\n ...",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_88150942",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "can we name this:\n\n SUPPORTED_OVS_TO_DPDK_MAP\n\n* \"version\" applies to both OVS and DPDK but using it twice is a lot of characters\n* using \"to\" gives emphasis to the (forward) direction of the map\n* adding \"map\" gives emphasis to the fact that there are keys and values\n\nwhen i first read this name, i wondered why it was a dict instead of a set, since the place where i saw it used was only interested in the keys.",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a553d837",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "this is such a frequently used pipeline expression that i would like to see it as a global constant in a commonly used library, like utils or constants.\n\nof course the \"grep ovs\" part would want to be \"grep %s\" and the \"kill -9\" become \"kill%s\" so that it would be more generally useful.  here being\n\n xargs_kill_cmd \u003d XARGS_KILL_TEMPLATE % (\u0027ovs\u0027, \u0027 -9\u0027)",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a52ab88d",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "typo: ordered",
+      "range": {
+        "startLine": 180,
+        "startChar": 8,
+        "endLine": 180,
+        "endChar": 14
+      },
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_652430c5",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "this is wrong and will not survive 2.8.10 \u003c 2.9.0.\n\nthere is no reason not to use tuples or lists:\n\n ovs_ver \u003d [int(x) for x in self.ovs_properties[\u0027version\u0027].get(\u0027ovs\u0027, \u00272.6.0\u0027).split(\u0027.\u0027)]\n if ovs_ver \u003e\u003d [2, 7, 0]:\n   ...\n ...\n\nalso, is this expected to change as we enumerate over self.networks?\n\nif not, then this conditional is better done before entering the loop.",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e51fa06a",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "this value is needed in both this statement and the next one, i\u0027d like to see it given a local name.",
+      "range": {
+        "startLine": 186,
+        "startChar": 64,
+        "endLine": 186,
+        "endChar": 90
+      },
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_051ba481",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "is this expected to change as we enumerate self.networks?  if not, then let\u0027s give the value a local name before entering the loop.",
+      "range": {
+        "startLine": 187,
+        "startChar": 89,
+        "endLine": 187,
+        "endChar": 125
+      },
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c52d3caa",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "please:\n\n dpdk_list.sort()",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_45112c5c",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "i don\u0027t see where we use this name in the loop, can we make this \"_\"?",
+      "range": {
+        "startLine": 194,
+        "startChar": 19,
+        "endLine": 194,
+        "endChar": 22
+      },
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a5011808",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "given that this loop is about in and out ports, i would rather see ranges than enumeration here, as in:\n\n network_count \u003d len(ordered_network) + 1\n for in_port, out_port in zip(range(1, network_count), range(network_count, network_count * 2):\n   self.connection.execute(\u0027...\u0027 % (in_port, out_port))\n   self.connection.execute(\u0027...\u0027 % (out_port, in_port))\n\nyes, the second range is 1 value extra, but due to the zipping, that last value will never be used.",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_2516a855",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "please use .items() if you want both the key and value from a dictionary\n\nbut i don\u0027t see where key or vnf are used in this loop, so why do we name them?",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_850e9439",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "enumerate can start at an offset and here we don\u0027t need the 0-based \"index\" of enumeration for any purpose, so we should have enumerate give us the 1-based \"index\":\n\n for index, _ in enumerate(ordered_network, 1):\n   ...",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_68124558",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "please, AutoConnectSsh if we can",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a818cd75",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "this seems like a bad doc string for a method",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_88434941",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "please use generator instead of list: change the outer [] to ()",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_2872fdac",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "i want to understand what utility this gets us. sure we lock in an order, but if that order disappears at the end of the method, then why did we need it?",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_486dc1cb",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "please use .items() to get key and value, when used with enumerate we must do:\n\n for index, (key, vnf) in enumerate(serverslist.items()):\n   ...",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_68408534",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "is there something wrong with %d?\n\n cfg \u003d \u0027/tmp/vm_ovs_%d.xml\u0027 % index",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e87bf589",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "another %d",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_886a29b1",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "please use .items():\n\n for idx, (vkey, vfs) in enumerate(ordervnf.items()):\n   ...",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c860b1d1",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "combine into a single statement:\n\n vf_data \u003d {\n   \u0027mac\u0027: vf_mac,\n   \u0027pf_if\u0027: pf_if,\n }",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 412,
+        "endChar": 29
+      },
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6867e5e9",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "i\u0027m not sure how white space will prevent the regular expression from finding the substring, so long as it is there",
+      "range": {
+        "startLine": 415,
+        "startChar": 41,
+        "endLine": 415,
+        "endChar": 50
+      },
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6576f0d8",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "usually we have been converting to use AutoConnectSsh instead of SSH, can we do this here too?",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a57c78b6",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "please use a generator expression instead of a list interpolation here:\n\n iter1 \u003d (c for c in itersubclasses(StandaloneContext) if c.__name__ \u003d\u003d expected_name)",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e5516037",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "this should be moved to outside of the loop, perhaps even a global constant",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_25486886",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "isn\u0027t this the same value as is assigned to \"ports\"?\n\n ports.update({...})",
+      "range": {
+        "startLine": 222,
+        "startChar": 12,
+        "endLine": 222,
+        "endChar": 30
+      },
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_65af102b",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "i don\u0027t see where we need this \"slot\" value again, i would like to have it be an integer and let the format when it is used do the conversion to string.\n\n slot \u003d index + idx + 10\n vf[\u0027vpci\u0027] \u003d \u0027{}:{}:{:x}.{}\u0027.format(vpci.domain, vpci.bus, slot, vpci.function)",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_257188e0",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "what are we gaining by making a temporary, local value that is ordered.  i don\u0027t see it being passed to other methods.\n\nif order is needed, then the order should be locked in from the outset and not be local to a single function.",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_857974ca",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "please use .items() if you want both the key and value of a dictionary",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_456c8c08",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "what are we gaining by making a temporary, local value that is ordered.  i don\u0027t see it being passed to other methods.\n\nif order is needed, then the order should be locked in from the outset and not be local to a single function.",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c5a89c22",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "please use .items() if you want both the key and value of a dictionary",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c556dc29",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "data is already plural, of datum, can we drop the \"s\"?",
+      "range": {
+        "startLine": 286,
+        "startChar": 8,
+        "endLine": 286,
+        "endChar": 20
+      },
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_655d5047",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T20:03:35Z",
+      "side": 1,
+      "message": "please combine into a single statement:\n\n vf_data \u003d {\n   \u0027mac\u0027: vf_mac,\n   \u0027pf_if\u0027: pf_if,\n }",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 29
+      },
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
