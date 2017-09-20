@@ -934,7 +934,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             ],
         }
 
-        mock_find_path.side_effect = ['1', '2']
+        mock_find_path.side_effect = ['1', '2'] + [str(i) for i in range(len(vnf1['prox_files']))]
         vnfd_helper = mock.MagicMock()
         ssh_helper = mock.MagicMock()
         scenario_helper = ScenarioHelper('vnf1')
