@@ -342,7 +342,7 @@ class TestProxApproxVnf(unittest.TestCase):
 
         resource_helper = mock.MagicMock()
         resource_helper.execute.return_value = list(range(12))
-        resource_helper.collect_kpi.return_value = {'core': {'result': 234}}
+        resource_helper.collect_collectd_kpi.return_value = {'core': {'result': 234}}
 
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
         prox_approx_vnf.resource_helper = resource_helper
