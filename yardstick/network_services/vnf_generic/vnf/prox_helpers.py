@@ -907,9 +907,17 @@ class ProxResourceHelper(ClientResourceHelper):
             LOG.debug("tg_prox done")
             self._terminated.value = 1
 
-    # use ResourceHelper method to collect KPIs directly.
-    def collect_kpi(self):
+    # For VNF use ResourceHelper method to collect KPIs directly.
+    # for TG leave the superclass ClientResourceHelper collect_kpi_method intact
+    def collect_collectd_kpi(self):
         return self._collect_resource_kpi()
+
+    def collect_kpi(self):
+        result = super(ProxResourceHelper, self).collect_kpi()
+        # add in collectd kpis manually
+        if result:
+            result['collect_stats'] = self._collect_resource_kpi()
+        return result
 
     def terminate(self):
         # should not be called, use VNF terminate

@@ -82,7 +82,9 @@ class ProxApproxVnf(SampleVNF):
             "packets_in": tx_total,
             "packets_dropped": (tx_total - rx_total),
             "packets_fwd": rx_total,
-            "collect_stats": self.resource_helper.collect_kpi(),
+            # we share ProxResourceHelper with TG, but we want to collect
+            # collectd KPIs here and not TG KPIs, so use a different method name
+            "collect_stats": self.resource_helper.collect_collectd_kpi(),
         }
         LOG.debug("%s collect KPIs %s", self.APP_NAME, result)
         return result
