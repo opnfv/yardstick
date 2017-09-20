@@ -50,6 +50,24 @@
       "revId": "53b95b8903ebe4709b3a756836d19b8da176e9bd",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_052e04fb",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T15:57:51Z",
+      "side": 1,
+      "message": "ok, i see that port_num is a method and will look up an sibling value to \u0027name\u0027, though this seems more work than it should be.  why shouldn\u0027t this be:\n\n port_iter \u003d ((int(intf[\"virtual-interface\"][\"dpdk_port_num\"]), intf[\u0027name\u0027]) for intf in self.vnfd_helper.interfaces)\n port_names \u003d [name for _, name in sorted(port_iter)]",
+      "parentUuid": "da33351e_85fa1473",
+      "revId": "53b95b8903ebe4709b3a756836d19b8da176e9bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
