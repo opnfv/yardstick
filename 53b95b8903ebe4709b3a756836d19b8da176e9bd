@@ -68,6 +68,24 @@
       "revId": "53b95b8903ebe4709b3a756836d19b8da176e9bd",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_48a4a107",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-20T21:50:34Z",
+      "side": 1,
+      "message": "I abstracted away the specifics of dpdk_port_num to hide it from everyone.  (Maciej wanted to rename it further)\n\nIdeally we should convert vnfd_helper.interfaces to OrderedDict and change default iteration to values().\n\nBarring that I added magic to port_num to detect if dict do the lookup directly.\n\n\nfor key func vs. DSU (aka Schwartzian transform) I blindly follow the wiki and/or some Hettinger video I saw and default to key func now.\n\nhttps://wiki.python.org/moin/HowTo/Sorting\n\nAnother name for this idiom is Schwartzian transform, after Randal L. Schwartz, who popularized it among Perl programmers.\n\nFor large lists and lists where the comparison information is expensive to calculate, and Python versions before 2.4, DSU is likely to be the fastest way to sort the list. For 2.4 and later, key functions provide the same functionality.",
+      "parentUuid": "da33351e_052e04fb",
+      "revId": "53b95b8903ebe4709b3a756836d19b8da176e9bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
