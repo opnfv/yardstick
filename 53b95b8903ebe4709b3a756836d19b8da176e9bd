@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_2502286f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T15:44:47Z",
+      "side": 1,
+      "message": "i could see this being made a property of vnfd_helper, or at least have a generator method on vnfd_helper and this could convert it to a list",
+      "revId": "53b95b8903ebe4709b3a756836d19b8da176e9bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e50b208c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T15:44:47Z",
+      "side": 1,
+      "message": "this seems more appropriate to be added to scenario_helper, the key could even be passed as an arg",
+      "revId": "53b95b8903ebe4709b3a756836d19b8da176e9bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_85fa1473",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-20T15:44:47Z",
+      "side": 1,
+      "message": "doesn\u0027t a key need to be internal to the values of the iterable that is being sorted?",
+      "revId": "53b95b8903ebe4709b3a756836d19b8da176e9bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
