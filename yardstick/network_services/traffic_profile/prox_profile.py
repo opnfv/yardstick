@@ -88,7 +88,7 @@ class ProxProfile(TrafficProfile):
     def run_test_with_pkt_size(self, traffic_generator, pkt_size, duration):
         raise NotImplementedError
 
-    def execute(self, traffic_generator):
+    def execute_traffic(self, traffic_generator):
         try:
             pkt_size = next(self.pkt_size_iterator)
         except StopIteration:

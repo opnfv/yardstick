@@ -331,9 +331,10 @@ class TestProxTrafficGen(unittest.TestCase):
         mock_ssh(ssh)
 
         prox_traffic_gen = ProxTrafficGen(NAME, self.VNFD0)
-        prox_traffic_gen._vnf_wrapper.resource = mock.Mock(autospec=ResourceProfile)
+        prox_traffic_gen._vnf_wrapper.resource_helper.resource = mock.MagicMock(
+            **{"check_if_sa_running.return_value": [False]})
         prox_traffic_gen._vnf_wrapper.vnf_execute = mock.Mock(return_value="")
-        self.assertEqual({}, prox_traffic_gen.collect_kpi())
+        self.assertEqual({"core": {}}, prox_traffic_gen.collect_kpi())
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.CpuSysCores')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
@@ -391,10 +392,10 @@ class TestProxTrafficGen(unittest.TestCase):
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         sut = ProxTrafficGen(NAME, vnfd)
-        sut.prox_config_dict = {}
         sut._get_socket = mock.MagicMock()
         sut.ssh_helper = mock.Mock()
         sut.ssh_helper.run = mock.Mock()
+        sut.setup_helper.prox_config_dict = {}
         sut._vpci_ascending = ["0000:05:00.0", "0000:05:00.1"]
         sut._connect_client = mock.Mock(autospec=STLClient)
         sut._connect_client.get_stats = mock.Mock(return_value="0")

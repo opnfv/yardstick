@@ -28,6 +28,7 @@ from contextlib import contextmanager
 from itertools import repeat, chain
 
 import six
+from multiprocessing import Queue
 from six.moves import zip, StringIO
 from six.moves import cStringIO
 
@@ -597,8 +598,9 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         self.remote_path = None
         super(ProxDpdkVnfSetupEnvHelper, self).__init__(vnfd_helper, ssh_helper, scenario_helper)
         self.remote_prox_file_name = None
-        self.prox_config_dict = None
+        self._prox_config_data = None
         self.additional_files = {}
+        self.config_queue = Queue()
 
     def _build_pipeline_kwargs(self):
         tool_path = self.ssh_helper.provision_tool(tool_file=self.APP_NAME)
@@ -758,6 +760,15 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
 
         return remote_path
 
+    CONFIG_QUEUE_TIMEOUT = 120
+
+    @property
+    def prox_config_data(self):
+        if self._prox_config_data is None:
+            # this will block, but it needs too
+            self._prox_config_data = self.config_queue.get(True, self.CONFIG_QUEUE_TIMEOUT)
+        return self._prox_config_data
+
     def build_config_file(self):
         task_path = self.scenario_helper.task_path
         options = self.scenario_helper.options
@@ -774,10 +785,13 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
             remote_prox_file = self.copy_to_target(key_prox_file, base_prox_file)
             self.additional_files[base_prox_file] = remote_prox_file
 
-        self.prox_config_dict = self.generate_prox_config_file(config_path)
-        self.remote_path = self.upload_prox_config(config_file, self.prox_config_dict)
+        self._prox_config_data = self.generate_prox_config_file(config_path)
+        # copy config to queue so we can read it from traffic_runner process
+        self.config_queue.put(self._prox_config_data)
+        self.remote_path = self.upload_prox_config(config_file, self._prox_config_data)
 
     def build_config(self):
+        self.build_config_file()
 
         options = self.scenario_helper.options
 
@@ -793,6 +807,7 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         return prox_cmd
 
 
+# this might be bad, sometimes we want regular ResourceHelper methods, like collect_kpi
 class ProxResourceHelper(ClientResourceHelper):
 
     RESOURCE_WORD = 'prox'
@@ -891,8 +906,9 @@ class ProxResourceHelper(ClientResourceHelper):
             LOG.debug("tg_prox done")
             self._terminated.value = 1
 
-    def start_collect(self):
-        pass
+    # use ResourceHelper method to collect KPIs directly.
+    def collect_kpi(self):
+        return self._collect_resource_kpi()
 
     def terminate(self):
         # should not be called, use VNF terminate
@@ -966,7 +982,7 @@ class ProxResourceHelper(ClientResourceHelper):
 
     def get_test_type(self):
         test_type = None
-        for section_name, section in self.setup_helper.prox_config_dict:
+        for section_name, section in self.setup_helper.prox_config_data:
             if section_name != "global":
                 continue
 
@@ -979,7 +995,7 @@ class ProxResourceHelper(ClientResourceHelper):
     def get_cores(self, mode):
         cores = []
 
-        for section_name, section in self.setup_helper.prox_config_dict:
+        for section_name, section in self.setup_helper.prox_config_data:
             if not section_name.startswith("core"):
                 continue
 
@@ -994,7 +1010,7 @@ class ProxResourceHelper(ClientResourceHelper):
     def get_cores_mpls(self, mode=PROX_CORE_GEN_MODE):
         cores_tagged = []
         cores_plain = []
-        for section_name, section in self.setup_helper.prox_config_dict:
+        for section_name, section in self.setup_helper.prox_config_data:
             if not section_name.startswith("core"):
                 continue
 
@@ -1022,9 +1038,6 @@ class ProxResourceHelper(ClientResourceHelper):
         if self._latency_cores:
             return self.sut.lat_stats(self._latency_cores)
         return []
-
-    def _get_logical_if_name(self, vpci):
-        return self._vpci_to_if_name_map[vpci]
 
     def _connect(self, client=None):
         """Run and connect to prox on the remote system """
