@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_0563a442",
+        "filename": "ansible/roles/enable_hugepages_on_boot/tasks/manual_modify_grub.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2017-09-20T16:54:26Z",
+      "side": 1,
+      "message": "change installed ansible to 2.3.1 version for \u0027path\u0027 to work.",
+      "revId": "c9e0915739055722bb1c4c0446a60c9cb74d1176",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
