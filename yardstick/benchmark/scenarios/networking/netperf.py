@@ -114,6 +114,10 @@ class Netperf(base.Scenario):
                 cmd_args += " %s %s" % (option_pair[1],
                                         options[option_pair[0]])
 
+        # Enable IP routing for UDP_STREAM test
+        if testname == "UDP_STREAM":
+            cmd_args += " -R 1"
+
         cmd = "sudo bash netperf.sh %s" % (cmd_args)
         LOG.debug("Executing command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
