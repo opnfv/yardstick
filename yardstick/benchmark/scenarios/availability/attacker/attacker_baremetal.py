@@ -40,6 +40,21 @@ class BaremetalAttacker(BaseAttacker):
         self.connection = ssh.SSH.from_node(host, defaults={"user": "root"})
         self.connection.wait(timeout=600)
         LOG.debug("ssh host success!")
+
+        jump_host_name = self._config.get("jump_host", None)
+        self.jump_connection = None
+        if jump_host_name is not None:
+            jump_host = self._context.get(jump_host_name, None)
+
+            LOG.debug("jump_host ip:%s user:%s", jump_host['ip'], jump_host['user'])
+            self.jump_connection = ssh.SSH.from_node(
+                jump_host,
+                # why do we allow pwd for password?
+                defaults={"user": "root", "password": jump_host.get("pwd")}
+            )
+            self.jump_connection.wait(timeout=600)
+            LOG.debug("ssh jump host success!")
+
         self.host_ip = host['ip']
 
         self.ipmi_ip = host.get("ipmi_ip", None)
@@ -49,6 +64,7 @@ class BaremetalAttacker(BaseAttacker):
         self.fault_cfg = BaseAttacker.attacker_cfgs.get('bare-metal-down')
         self.check_script = self.get_script_fullpath(
             self.fault_cfg['check_script'])
+        self.inject_script = self.get_script_fullpath(self.fault_cfg['inject_script'])
         self.recovery_script = self.get_script_fullpath(
             self.fault_cfg['recovery_script'])
 
@@ -70,39 +86,27 @@ class BaremetalAttacker(BaseAttacker):
         return True
 
     def inject_fault(self):
-        exit_status, stdout, stderr = self.connection.execute(
-            "sudo shutdown -h now")
-        LOG.debug("inject fault ret: %s out:%s err:%s",
-                  exit_status, stdout, stderr)
-        if not exit_status:
-            LOG.info("inject fault success")
+        LOG.info("Inject fault START")
+        cmd = "sudo /bin/bash -s {0} {1} {2} {3}".format(
+            self.ipmi_ip, self.ipmi_user, self.ipmi_pwd, "off")
+        with open(self.inject_script, "r") as stdin_file:
+            if self.jump_connection is not None:
+                LOG.info("Power off node via IPMI")
+                self.jump_connection.execute(cmd, stdin=stdin_file)
+            else:
+                _execute_shell_command(cmd, stdin=stdin_file)
+        LOG.info("Inject fault END")
 
     def recover(self):
-        jump_host_name = self._config.get("jump_host", None)
-        self.jump_connection = None
-        if jump_host_name is not None:
-            host = self._context.get(jump_host_name, None)
-
-            LOG.debug("jump_host ip:%s user:%s", host['ip'], host['user'])
-            self.jump_connection = ssh.SSH.from_node(
-                host,
-                # why do we allow pwd for password?
-                defaults={"user": "root", "password": host.get("pwd")}
-            )
-            self.jump_connection.wait(timeout=600)
-            LOG.debug("ssh jump host success!")
-
-        if self.jump_connection is not None:
-            with open(self.recovery_script, "r") as stdin_file:
-                self.jump_connection.execute(
-                    "sudo /bin/bash -s {0} {1} {2} {3}".format(
-                        self.ipmi_ip, self.ipmi_user, self.ipmi_pwd, "on"),
-                    stdin=stdin_file)
-        else:
-            _execute_shell_command(
-                "sudo /bin/bash -s {0} {1} {2} {3}".format(
-                    self.ipmi_ip, self.ipmi_user, self.ipmi_pwd, "on"),
-                stdin=open(self.recovery_script, "r"))
+        LOG.info("Recover fault START")
+        cmd = "sudo /bin/bash -s {0} {1} {2} {3}".format(
+            self.ipmi_ip, self.ipmi_user, self.ipmi_pwd, "on")
+        with open(self.recovery_script, "r") as stdin_file:
+            if self.jump_connection is not None:
+                self.jump_connection.execute(cmd, stdin=stdin_file)
+            else:
+                _execute_shell_command(cmd, stdin=stdin_file)
+        LOG.info("Recover fault END")
 
 
 def _test():  # pragma: no cover

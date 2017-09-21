@@ -23,6 +23,7 @@ kill-lxc-process:
 
 bare-metal-down:
   check_script: ha_tools/check_host_ping.bash
+  inject_script: ha_tools/ipmi_power.bash
   recovery_script: ha_tools/ipmi_power.bash
 
 stop-service:
