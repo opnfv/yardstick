@@ -24,8 +24,11 @@ import subprocess
 import time
 import traceback
 
+import os
+
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base as base_scenario
+from yardstick.common.process import make_exitable_queue, TerminatingProcess
 
 log = logging.getLogger(__name__)
 
@@ -136,8 +139,8 @@ class Runner(object):
     def __init__(self, config):
         self.config = config
         self.periodic_action_process = None
-        self.output_queue = multiprocessing.Queue()
-        self.result_queue = multiprocessing.Queue()
+        self.output_queue = make_exitable_queue()
+        self.result_queue = make_exitable_queue()
         self.process = None
         self.aborted = multiprocessing.Event()
         Runner.runners.append(self)
@@ -182,7 +185,7 @@ class Runner(object):
             self.result_queue.put({'pre-start-action-data': data})
 
         if "single-shot-action" in self.config:
-            single_action_process = multiprocessing.Process(
+            single_action_process = TerminatingProcess(
                 target=_single_action,
                 name="single-shot-action",
                 args=(self.config["single-shot-action"]["after"],
@@ -191,7 +194,7 @@ class Runner(object):
             single_action_process.start()
 
         if "periodic-action" in self.config:
-            self.periodic_action_process = multiprocessing.Process(
+            self.periodic_action_process = TerminatingProcess(
                 target=_periodic_action,
                 name="periodic-action",
                 args=(self.config["periodic-action"]["interval"],

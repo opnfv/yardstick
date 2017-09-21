@@ -23,16 +23,18 @@ import re
 import subprocess
 from collections import Mapping
 
-from multiprocessing import Queue, Value, Process
+from multiprocessing import Value
 
 from six.moves import cStringIO
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
+from yardstick.common.process import check_if_process_exited
+from yardstick.common.process import make_exitable_queue, TerminatingProcess, terminate_children
 from yardstick.network_services.helpers.cpu import CpuSysCores
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
-from yardstick.network_services.helpers.dpdknicbind_helper import DpdkBindHelper
+from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
@@ -51,6 +53,8 @@ LOG = logging.getLogger(__name__)
 
 
 REMOTE_TMP = "/tmp"
+DEFAULT_VNF_TIMEOUT = 3600
+PROCESS_JOIN_TIMEOUT = 3
 
 
 class VnfSshHelper(AutoConnectSSH):
@@ -119,7 +123,7 @@ class SetupEnvHelper(object):
         pass
 
     def kill_vnf(self):
-        pass
+        raise NotImplementedError
 
     def tear_down(self):
         raise NotImplementedError
@@ -290,8 +294,12 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         return resource
 
     def kill_vnf(self):
+        # pkill is not matching, debug with pgrep
+        self.ssh_helper.execute("sudo pgrep -lax  %s" % self.APP_NAME)
+        self.ssh_helper.execute("sudo ps aux | grep -i %s" % self.APP_NAME)
         # have to use exact match
-        self.ssh_helper.execute("sudo pkill -x %s" % self.APP_NAME)
+        # try using killall to match
+        self.ssh_helper.execute("sudo killall %s" % self.APP_NAME)
 
     def _setup_dpdk(self):
         """ setup dpdk environment needed for vnf to run """
@@ -330,8 +338,10 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         port_names = (intf["name"] for intf in ports)
         collectd_options = self.get_collectd_options()
         plugins = collectd_options.get("plugins", {})
+        # we must set timeout to be the same as the VNF otherwise KPIs will die before VNF
         return ResourceProfile(self.vnfd_helper.mgmt_interface, port_names=port_names, cores=cores,
-                               plugins=plugins, interval=collectd_options.get("interval"))
+                               plugins=plugins, interval=collectd_options.get("interval"),
+                               timeout=self.scenario_helper.timeout)
 
     def _detect_and_bind_drivers(self):
         interfaces = self.vnfd_helper.interfaces
@@ -386,7 +396,7 @@ class ResourceHelper(object):
     def _collect_resource_kpi(self):
         result = {}
         status = self.resource.check_if_sa_running("collectd")[0]
-        if status:
+        if status == 0:
             result = self.resource.amqp_collect_nfvi_kpi()
 
         result = {"core": result}
@@ -420,7 +430,7 @@ class ClientResourceHelper(ResourceHelper):
         self.client = None
         self.client_started = Value('i', 0)
         self.all_ports = None
-        self._queue = Queue()
+        self._queue = make_exitable_queue()
         self._result = {}
         self._terminated = Value('i', 0)
         self._vpci_ascending = None
@@ -670,12 +680,17 @@ class ScenarioHelper(object):
     def topology(self):
         return self.scenario_cfg['topology']
 
+    @property
+    def timeout(self):
+        return self.options.get('timeout', DEFAULT_VNF_TIMEOUT)
+
 
 class SampleVNF(GenericVNF):
     """ Class providing file-like API for generic VNF implementation """
 
     VNF_PROMPT = "pipeline>"
     WAIT_TIME = 1
+    # we run the VNF interactively, so the ssh command will timeout after this long
 
     def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
         super(SampleVNF, self).__init__(name, vnfd)
@@ -705,8 +720,8 @@ class SampleVNF(GenericVNF):
         self.downlink_ports = None
         # TODO(esm): make QueueFileWrapper invert-able so that we
         #            never have to manage the queues
-        self.q_in = Queue()
-        self.q_out = Queue()
+        self.q_in = make_exitable_queue()
+        self.q_out = make_exitable_queue()
         self.queue_wrapper = None
         self.run_kwargs = {}
         self.used_drivers = {}
@@ -758,7 +773,8 @@ class SampleVNF(GenericVNF):
 
     def _start_vnf(self):
         self.queue_wrapper = QueueFileWrapper(self.q_in, self.q_out, self.VNF_PROMPT)
-        self._vnf_process = Process(target=self._run)
+        name = "{}-{}-{}".format(self.name, self.APP_NAME, os.getpid())
+        self._vnf_process = TerminatingProcess(name=name, target=self._run)
         self._vnf_process.start()
 
     def _vnf_up_post(self):
@@ -808,12 +824,14 @@ class SampleVNF(GenericVNF):
             'stdout': self.queue_wrapper,
             'keep_stdin_open': True,
             'pty': True,
+            'timeout': self.scenario_helper.timeout,
         }
 
     def _build_config(self):
         return self.setup_helper.build_config()
 
     def _run(self):
+        LOG.debug("%s PID %s", self.name, os.getpid())
         # we can't share ssh paramiko objects to force new connection
         self.ssh_helper.drop_connection()
         cmd = self._build_config()
@@ -840,11 +858,15 @@ class SampleVNF(GenericVNF):
 
     def terminate(self):
         self.vnf_execute("quit")
-        if self._vnf_process:
-            self._vnf_process.terminate()
         self.setup_helper.kill_vnf()
         self._tear_down()
         self.resource_helper.stop_collect()
+        if self._vnf_process is not None:
+            # be proper and join first before we kill
+            LOG.debug("joining before terminate %s", self._vnf_process.name)
+            self._vnf_process.join(PROCESS_JOIN_TIMEOUT)
+            self._vnf_process.terminate()
+        # no terminate children here because we share processes with tg
 
     def get_stats(self, *args, **kwargs):
         """
@@ -858,6 +880,8 @@ class SampleVNF(GenericVNF):
         return out
 
     def collect_kpi(self):
+        # we can't get KPIs if the VNF is down
+        check_if_process_exited(self._vnf_process)
         stats = self.get_stats()
         m = re.search(self.COLLECT_KPI, stats, re.MULTILINE)
         if m:
@@ -914,7 +938,9 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         self.resource_helper.setup()
 
         LOG.info("Starting %s server...", self.APP_NAME)
-        self._tg_process = Process(target=self._start_server)
+        name = "{}-{}-{}".format(self.name, self.APP_NAME, os.getpid())
+        self._tg_process = TerminatingProcess(name=name,
+                                              target=self._start_server)
         self._tg_process.start()
 
     def wait_for_instantiate(self):
@@ -950,8 +976,10 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         :param traffic_profile:
         :return: True/False
         """
-        self._traffic_process = Process(target=self._traffic_runner,
-                                        args=(traffic_profile,))
+        name = "{}-{}-{}-{}".format(self.name, self.APP_NAME, traffic_profile.__class__.__name__,
+                                    os.getpid())
+        self._traffic_process = TerminatingProcess(name=name, target=self._traffic_runner,
+                                                   args=(traffic_profile,))
         self._traffic_process.start()
         # Wait for traffic process to start
         while self.resource_helper.client_started.value == 0:
@@ -981,6 +1009,9 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         pass
 
     def collect_kpi(self):
+        # check if the tg processes have exited
+        for proc in (self._tg_process, self._traffic_process):
+            check_if_process_exited(proc)
         result = self.resource_helper.collect_kpi()
         LOG.debug("%s collect KPIs %s", self.APP_NAME, result)
         return result
@@ -991,5 +1022,14 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         :return: True/False
         """
         self.traffic_finished = True
+        if self._tg_process is not None:
+            # be proper and try to join before terminating
+            LOG.debug("joining before terminate %s", self._tg_process.name)
+            self._tg_process.join(PROCESS_JOIN_TIMEOUT)
+            self._tg_process.terminate()
         if self._traffic_process is not None:
+            # be proper and try to join before terminating
+            LOG.debug("joining before terminate %s", self._traffic_process.name)
+            self._traffic_process.join(PROCESS_JOIN_TIMEOUT)
             self._traffic_process.terminate()
+        # no terminate children here because we share processes with vnf

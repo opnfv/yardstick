@@ -37,6 +37,7 @@ import six
 from six.moves import range
 
 from yardstick.benchmark.runners import base
+from yardstick.common.process import TerminatingProcess
 
 LOG = logging.getLogger(__name__)
 
@@ -181,7 +182,9 @@ class ArithmeticRunner(base.Runner):
     __execution_type__ = 'Arithmetic'
 
     def _run_benchmark(self, cls, method, scenario_cfg, context_cfg):
-        self.process = multiprocessing.Process(
+        name = "{}-{}-{}".format(self.__execution_type__, scenario_cfg.get("type"), os.getpid())
+        self.process = TerminatingProcess(
+            name=name,
             target=_worker_process,
             args=(self.result_queue, cls, method, scenario_cfg,
                   context_cfg, self.aborted, self.output_queue))

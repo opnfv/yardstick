@@ -20,18 +20,19 @@
 """
 
 from __future__ import absolute_import
-import os
-import multiprocessing
-import logging
-import traceback
-import time
 
-from collections import Mapping
+import logging
+import time
+import traceback
 from contextlib import contextmanager
 from itertools import takewhile
+
+import os
+from collections import Mapping
 from six.moves import zip
 
 from yardstick.benchmark.runners import base
+from yardstick.common.process import TerminatingProcess
 
 LOG = logging.getLogger(__name__)
 
@@ -173,7 +174,9 @@ If the scenario ends before the time has elapsed, it will be started again.
                     break
 
     def _run_benchmark(self, cls, method, scenario_cfg, context_cfg):
-        self.process = multiprocessing.Process(
+        name = "{}-{}-{}".format(self.__execution_type__, scenario_cfg.get("type"), os.getpid())
+        self.process = TerminatingProcess(
+            name=name,
             target=self._worker_run,
             args=(cls, method, scenario_cfg, context_cfg))
         self.process.start()

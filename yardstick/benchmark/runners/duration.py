@@ -21,12 +21,13 @@
 
 from __future__ import absolute_import
 import os
-import multiprocessing
 import logging
 import traceback
 import time
 
+
 from yardstick.benchmark.runners import base
+from yardstick.common.process import TerminatingProcess, terminate_children
 
 LOG = logging.getLogger(__name__)
 
@@ -34,6 +35,7 @@ LOG = logging.getLogger(__name__)
 def _worker_process(queue, cls, method_name, scenario_cfg,
                     context_cfg, aborted, output_queue):
 
+    LOG.debug("duration runner PID %s", os.getpid())
     sequence = 1
 
     runner_cfg = scenario_cfg['runner']
@@ -54,52 +56,66 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         sla_action = scenario_cfg["sla"].get("action", "assert")
 
     start = time.time()
-    while True:
+    timeout = start + duration
+    try:
+        while True:
 
-        LOG.debug("runner=%(runner)s seq=%(sequence)s START",
-                  {"runner": runner_cfg["runner_id"], "sequence": sequence})
+            LOG.debug("runner=%(runner)s seq=%(sequence)s START",
+                      {"runner": runner_cfg["runner_id"], "sequence": sequence})
 
-        data = {}
-        errors = ""
+            data = {}
+            errors = ""
 
-        try:
-            result = method(data)
-        except AssertionError as assertion:
-            # SLA validation failed in scenario, determine what to do now
-            if sla_action == "assert":
-                raise
-            elif sla_action == "monitor":
-                LOG.warning("SLA validation failed: %s", assertion.args)
-                errors = assertion.args
-        except Exception as e:
-            errors = traceback.format_exc()
-            LOG.exception(e)
-        else:
-            if result:
-                output_queue.put(result)
+            try:
+                result = method(data)
+            except AssertionError as assertion:
+                # SLA validation failed in scenario, determine what to do now
+                if sla_action == "assert":
+                    raise
+                elif sla_action == "monitor":
+                    LOG.warning("SLA validation failed: %s", assertion.args)
+                    errors = assertion.args
+            # catch all exceptions because with multiprocessing we can have un-picklable exception
+            # problems  https://bugs.python.org/issue9400
+            except Exception:
+                errors = traceback.format_exc()
+                LOG.exception("")
+            else:
+                if result:
+                    output_queue.put(result)
 
-        time.sleep(interval)
+            time.sleep(interval)
 
-        benchmark_output = {
-            'timestamp': time.time(),
-            'sequence': sequence,
-            'data': data,
-            'errors': errors
-        }
+            benchmark_output = {
+                'timestamp': time.time(),
+                'sequence': sequence,
+                'data': data,
+                'errors': errors
+            }
 
-        queue.put(benchmark_output)
+            queue.put(benchmark_output)
 
-        LOG.debug("runner=%(runner)s seq=%(sequence)s END",
-                  {"runner": runner_cfg["runner_id"], "sequence": sequence})
+            LOG.debug("runner=%(runner)s seq=%(sequence)s END",
+                      {"runner": runner_cfg["runner_id"], "sequence": sequence})
 
-        sequence += 1
+            sequence += 1
 
-        if (errors and sla_action is None) or \
-                (time.time() - start > duration or aborted.is_set()):
-            LOG.info("Worker END")
-            break
+            if (errors and sla_action is None) or time.time() > timeout or aborted.is_set():
+                LOG.info("Worker END")
+                break
 
-    benchmark.teardown()
+        benchmark.teardown()
+
+    finally:
+
+        LOG.debug("queue size %s", queue.qsize())
+        LOG.debug("output_queue size %s", output_queue.qsize())
+        LOG.debug("closing queues")
+        queue.close()
+        output_queue.close()
+        # queue.cancel_join_thread()
+        # output_queue.cancel_join_thread()
+        # terminate_children()
 
 
 class DurationRunner(base.Runner):
@@ -120,7 +136,10 @@ If the scenario ends before the time has elapsed, it will be started again.
     __execution_type__ = 'Duration'
 
     def _run_benchmark(self, cls, method, scenario_cfg, context_cfg):
-        self.process = multiprocessing.Process(
+        self.duration = scenario_cfg['runner'].get("duration", 60)
+        name = "{}-{}-{}".format(self.__execution_type__, scenario_cfg.get("type"), os.getpid())
+        self.process = TerminatingProcess(
+            name=name,
             target=_worker_process,
             args=(self.result_queue, cls, method, scenario_cfg,
                   context_cfg, self.aborted, self.output_queue))

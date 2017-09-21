@@ -16,14 +16,14 @@
 
 import mock
 import unittest
-from yardstick.network_services.helpers.dpdknicbind_helper import DpdkBindHelper
-from yardstick.network_services.helpers.dpdknicbind_helper import DpdkBindHelperException
-from yardstick.network_services.helpers.dpdknicbind_helper import NETWORK_KERNEL
-from yardstick.network_services.helpers.dpdknicbind_helper import NETWORK_DPDK
-from yardstick.network_services.helpers.dpdknicbind_helper import CRYPTO_KERNEL
-from yardstick.network_services.helpers.dpdknicbind_helper import CRYPTO_DPDK
-from yardstick.network_services.helpers.dpdknicbind_helper import NETWORK_OTHER
-from yardstick.network_services.helpers.dpdknicbind_helper import CRYPTO_OTHER
+from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
+from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelperException
+from yardstick.network_services.helpers.dpdkbindnic_helper import NETWORK_KERNEL
+from yardstick.network_services.helpers.dpdkbindnic_helper import NETWORK_DPDK
+from yardstick.network_services.helpers.dpdkbindnic_helper import CRYPTO_KERNEL
+from yardstick.network_services.helpers.dpdkbindnic_helper import CRYPTO_DPDK
+from yardstick.network_services.helpers.dpdkbindnic_helper import NETWORK_OTHER
+from yardstick.network_services.helpers.dpdkbindnic_helper import CRYPTO_OTHER
 
 pass
 
@@ -204,15 +204,29 @@ Other crypto devices
     def test_bind(self):
         conn = mock.Mock()
         conn.execute = mock.Mock(return_value=(0, '', ''))
-        conn.provision_tool = mock.Mock(return_value='/opt/nsb_bin/dpdk_nic_bind.py')
+        conn.provision_tool = mock.Mock(return_value='/opt/nsb_bin/dpdk-devbind.py')
 
         dpdk_bind_helper = DpdkBindHelper(conn)
         dpdk_bind_helper.read_status = mock.Mock()
 
         dpdk_bind_helper.bind(['0000:00:03.0', '0000:00:04.0'], 'my_driver')
 
-        conn.execute.assert_called_with('sudo /opt/nsb_bin/dpdk_nic_bind.py --force '
+        conn.execute.assert_called_with('sudo /opt/nsb_bin/dpdk-devbind.py --force '
                                         '-b my_driver 0000:00:03.0 0000:00:04.0')
+        dpdk_bind_helper.read_status.assert_called_once()
+
+    def test_bind_single_pci(self):
+        conn = mock.Mock()
+        conn.execute = mock.Mock(return_value=(0, '', ''))
+        conn.provision_tool = mock.Mock(return_value='/opt/nsb_bin/dpdk-devbind.py')
+
+        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper.read_status = mock.Mock()
+
+        dpdk_bind_helper.bind('0000:00:03.0', 'my_driver')
+
+        conn.execute.assert_called_with('sudo /opt/nsb_bin/dpdk-devbind.py --force '
+                                        '-b my_driver 0000:00:03.0')
         dpdk_bind_helper.read_status.assert_called_once()
 
     def test_rebind_drivers(self):
@@ -222,14 +236,14 @@ Other crypto devices
 
         dpdk_bind_helper.bind = mock.Mock()
         dpdk_bind_helper.used_drivers = {
-            '0000:05:00.0': 'd1',
-            '0000:05:01.0': 'd3',
+            'd1': ['0000:05:00.0'],
+            'd3': ['0000:05:01.0', '0000:05:02.0'],
         }
 
         dpdk_bind_helper.rebind_drivers()
 
-        dpdk_bind_helper.bind.assert_any_call('0000:05:00.0', 'd1', True)
-        dpdk_bind_helper.bind.assert_any_call('0000:05:01.0', 'd3', True)
+        dpdk_bind_helper.bind.assert_any_call(['0000:05:00.0'], 'd1', True)
+        dpdk_bind_helper.bind.assert_any_call(['0000:05:01.0', '0000:05:02.0'], 'd3', True)
 
     def test_save_used_drivers(self):
         conn = mock.Mock()
@@ -239,9 +253,8 @@ Other crypto devices
         dpdk_bind_helper.save_used_drivers()
 
         expected = {
-            '0000:00:04.0': 'igb_uio',
-            '0000:00:05.0': 'igb_uio',
-            '0000:00:03.0': 'virtio-pci',
+            'igb_uio': ['0000:00:04.0', '0000:00:05.0'],
+            'virtio-pci': ['0000:00:03.0'],
         }
 
         self.assertEqual(expected, dpdk_bind_helper.used_drivers)
