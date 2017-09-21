@@ -78,15 +78,14 @@ context:
   name: yardstick
   image: yardstick-samplevnfs
   user: ubuntu
-  flavor: yardstick-dpdk-flavor
-#  flavor:
-#    vcpus: 10
-#    ram: 20480
-#    disk: 4
-#    extra_specs:
-#      hw:cpu_sockets: 1
-#      hw:cpu_cores: 10
-#      hw:cpu_threads: 1
+  flavor:
+    vcpus: 10
+    ram: 20480
+    disk: 6
+    extra_specs:
+      hw:cpu_sockets: 1
+      hw:cpu_cores: 10
+      hw:cpu_threads: 1
   placement_groups:
     pgrp1:
       policy: "availability"

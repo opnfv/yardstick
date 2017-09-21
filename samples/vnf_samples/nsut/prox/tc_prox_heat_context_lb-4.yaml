@@ -53,12 +53,12 @@ context:
   flavor:
     vcpus: 12
     ram: 40960
-    disk: 4
+    disk: 6
     extra_specs:
       hw:cpu_sockets: 1
       hw:cpu_cores: 12
       hw:cpu_threads: 1
-  
+
   placement_groups:
     pgrp1:
       policy: "availability"
