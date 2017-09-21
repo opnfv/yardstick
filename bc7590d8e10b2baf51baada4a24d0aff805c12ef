@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_4e1f8908",
+        "filename": "tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-21T12:14:44Z",
+      "side": 1,
+      "message": "Here we are mocking again what is already mocked by the setUp method.",
+      "revId": "bc7590d8e10b2baf51baada4a24d0aff805c12ef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6e224d53",
+        "filename": "tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-21T12:14:44Z",
+      "side": 1,
+      "message": "All those test__prepare_collectd_conf_* are identical.",
+      "revId": "bc7590d8e10b2baf51baada4a24d0aff805c12ef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_8e1511e7",
+        "filename": "yardstick/network_services/nfvi/collectd.conf",
+        "patchSetId": 9
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-21T12:14:44Z",
+      "side": 1,
+      "message": "Don\u0027t we want to include the collectd.conf.d directory?",
+      "revId": "bc7590d8e10b2baf51baada4a24d0aff805c12ef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_4ecdc984",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-21T12:14:44Z",
+      "side": 1,
+      "message": "why don\u0027t we use the self.connection?",
+      "revId": "bc7590d8e10b2baf51baada4a24d0aff805c12ef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
