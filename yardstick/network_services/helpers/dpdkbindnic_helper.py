@@ -11,8 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import logging
+
 import re
 import itertools
+
+import six
 
 NETWORK_KERNEL = 'network_kernel'
 NETWORK_DPDK = 'network_dpdk'
@@ -20,6 +24,9 @@ NETWORK_OTHER = 'network_other'
 CRYPTO_KERNEL = 'crypto_kernel'
 CRYPTO_DPDK = 'crypto_dpdk'
 CRYPTO_OTHER = 'crypto_other'
+
+
+LOG = logging.getLogger(__name__)
 
 
 class DpdkBindHelperException(Exception):
@@ -123,23 +130,31 @@ class DpdkBindHelper(object):
     @property
     def interface_driver_map(self):
         return {interface['vpci']: interface['driver']
-                for interface in itertools.chain(*self.dpdk_status.values())}
+                for interface in itertools.chain.from_iterable(self.dpdk_status.values())}
 
     def read_status(self):
         return self.parse_dpdk_status_output(self._dpdk_execute(self._status_cmd)[1])
 
-    def bind(self, pci, driver, force=True):
+    def bind(self, pci_addresses, driver, force=True):
+        # accept single PCI or list of PCI
+        if isinstance(pci_addresses, six.string_types):
+            pci_addresses = [pci_addresses]
         cmd = self.DPDK_BIND_CMD.format(dpdk_nic_bind=self._dpdk_nic_bind,
                                         driver=driver,
-                                        vpci=' '.join(list(pci)),
+                                        vpci=' '.join(list(pci_addresses)),
                                         force='--force' if force else '')
+        LOG.debug(cmd)
         self._dpdk_execute(cmd)
         # update the inner status dict
         self.read_status()
 
     def save_used_drivers(self):
-        self.used_drivers = self.interface_driver_map
+        # invert the map, so we can bind by driver type
+        self.used_drivers = {}
+        # sort for stabililty
+        for vpci, driver in sorted(self.interface_driver_map.items()):
+            self.used_drivers.setdefault(driver, []).append(vpci)
 
     def rebind_drivers(self, force=True):
-        for vpci, driver in self.used_drivers.items():
-            self.bind(vpci, driver, force)
+        for driver, vpcis in self.used_drivers.items():
+            self.bind(vpcis, driver, force)

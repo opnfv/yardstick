@@ -30,6 +30,7 @@ from collections import defaultdict
 
 from yardstick.benchmark.scenarios import base
 from yardstick.common.constants import LOG_DIR
+from yardstick.common.process import terminate_children
 from yardstick.common.utils import import_modules_from_package, itersubclasses
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.collector.subscriber import Collector
@@ -596,7 +597,8 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
                 vnf.instantiate(self.scenario_cfg, self.context_cfg)
                 LOG.info("Waiting for %s to instantiate", vnf.name)
                 vnf.wait_for_instantiate()
-        except RuntimeError:
+        except:
+            LOG.exception("")
             for vnf in self.vnfs:
                 vnf.terminate()
             raise
@@ -623,6 +625,10 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
         :return: None
         """
 
+        # this is the only method that is check from the runner
+        # so if we have any fatal error it must be raised via these methods
+        # otherwise we will not terminate
+
         for vnf in self.vnfs:
             # Result example:
             # {"VNF1: { "tput" : [1000, 999] }, "VNF2": { "latency": 100 }}
@@ -635,7 +641,19 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
         :return
         """
 
-        self.collector.stop()
-        for vnf in self.vnfs:
-            LOG.info("Stopping %s", vnf.name)
-            vnf.terminate()
+        try:
+            try:
+                self.collector.stop()
+                for vnf in self.vnfs:
+                    LOG.info("Stopping %s", vnf.name)
+                    vnf.terminate()
+                LOG.debug("all VNFs terminated: %s", ", ".join(vnf.name for vnf in self.vnfs))
+            finally:
+                terminate_children()
+        except Exception:
+            # catch any exception in teardown and convert to simple exception
+            # never pass exceptions back to multiprocessing, because some exceptions can
+            # be unpicklable
+            # https://bugs.python.org/issue9400
+            LOG.exception("")
+            raise RuntimeError("Error in teardown")

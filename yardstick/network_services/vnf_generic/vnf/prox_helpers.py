@@ -364,6 +364,7 @@ class ProxSocketHelper(object):
         """ send data to the remote instance """
         LOG.debug("Sending data to socket: [%s]", to_send.rstrip('\n'))
         try:
+            # TODO: sendall will block, we need a timeout
             self._sock.sendall(to_send.encode('utf-8'))
         except:
             pass
@@ -593,6 +594,8 @@ _LOCAL_OBJECT = object()
 class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
     # the actual app is lowercase
     APP_NAME = 'prox'
+    # not used for Prox but added for consistency
+    VNF_TYPE = "PROX"
 
     LUA_PARAMETER_NAME = ""
     LUA_PARAMETER_PEER = {
@@ -609,6 +612,8 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         self._prox_config_data = None
         self.additional_files = {}
         self.config_queue = Queue()
+        # allow_exit_without_flush
+        self.config_queue.cancel_join_thread()
         self._global_section = None
 
     @property

@@ -594,8 +594,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
 
     def test_teardown(self):
         vnf = mock.Mock(autospec=GenericVNF)
-        vnf.terminate = \
-            mock.Mock(return_value=True)
+        vnf.terminate = mock.Mock(return_value=True)
+        vnf.name = str(vnf)
         self.s.vnfs = [vnf]
         self.s.traffic_profile = mock.Mock()
         self.s.collector = mock.Mock(autospec=Collector)
