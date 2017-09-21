@@ -13,6 +13,8 @@
 # limitations under the License.
 
 from __future__ import absolute_import
+
+import json
 import time
 import os
 import logging
@@ -79,31 +81,29 @@ class IxiaResourceHelper(ClientResourceHelper):
         latency = stats[0]
 
         samples = {}
-        for interface in self.vnfd_helper.interfaces:
+        for port_name in ports:
             try:
-                name = interface["name"]
                 # this is not DPDK port num, but this is whatever number we gave
                 # when we selected ports and programmed the profile
-                port = self.vnfd_helper.port_num(name)
-                if port in ports:
-                    samples[name] = {
-                        "rx_throughput_kps": float(last_result["Rx_Rate_Kbps"][port]),
-                        "tx_throughput_kps": float(last_result["Tx_Rate_Kbps"][port]),
-                        "rx_throughput_mbps": float(last_result["Rx_Rate_Mbps"][port]),
-                        "tx_throughput_mbps": float(last_result["Tx_Rate_Mbps"][port]),
-                        "in_packets": int(last_result["Valid_Frames_Rx"][port]),
-                        "out_packets": int(last_result["Frames_Tx"][port]),
-                        "RxThroughput": int(last_result["Valid_Frames_Rx"][port]) / 30,
-                        "TxThroughput": int(last_result["Frames_Tx"][port]) / 30,
-                    }
-                    if key:
-                        avg_latency = latency["Store-Forward_Avg_latency_ns"][port]
-                        min_latency = latency["Store-Forward_Min_latency_ns"][port]
-                        max_latency = latency["Store-Forward_Max_latency_ns"][port]
-                        samples[name][key] = \
-                            {"Store-Forward_Avg_latency_ns": avg_latency,
-                             "Store-Forward_Min_latency_ns": min_latency,
-                             "Store-Forward_Max_latency_ns": max_latency}
+                port_num = self.vnfd_helper.port_num(port_name)
+                samples[port_name] = {
+                    "rx_throughput_kps": float(last_result["Rx_Rate_Kbps"][port_num]),
+                    "tx_throughput_kps": float(last_result["Tx_Rate_Kbps"][port_num]),
+                    "rx_throughput_mbps": float(last_result["Rx_Rate_Mbps"][port_num]),
+                    "tx_throughput_mbps": float(last_result["Tx_Rate_Mbps"][port_num]),
+                    "in_packets": int(last_result["Valid_Frames_Rx"][port_num]),
+                    "out_packets": int(last_result["Frames_Tx"][port_num]),
+                    "RxThroughput": int(last_result["Valid_Frames_Rx"][port_num]) / 30,
+                    "TxThroughput": int(last_result["Frames_Tx"][port_num]) / 30,
+                }
+                if key:
+                    avg_latency = latency["Store-Forward_Avg_latency_ns"][port_num]
+                    min_latency = latency["Store-Forward_Min_latency_ns"][port_num]
+                    max_latency = latency["Store-Forward_Max_latency_ns"][port_num]
+                    samples[port_name][key] = \
+                        {"Store-Forward_Avg_latency_ns": avg_latency,
+                         "Store-Forward_Min_latency_ns": min_latency,
+                         "Store-Forward_Max_latency_ns": max_latency}
             except IndexError:
                 pass
 
@@ -128,19 +128,27 @@ class IxiaResourceHelper(ClientResourceHelper):
 
         self.client.ix_assign_ports()
 
-        mac = {}
-        # TODO: shouldn't this index map to port number we used to generate the profile
-        for index, interface in enumerate(self.vnfd_helper.interfaces, 1):
-            virt_intf = interface["virtual-interface"]
-            mac.update({
-                "src_mac_{}".format(index): virt_intf.get("local_mac", default),
-                "dst_mac_{}".format(index): virt_intf.get("dst_mac", default),
-            })
-
-        samples = {}
-
         ixia_file = find_relative_file("ixia_traffic.cfg",
                                        self.scenario_helper.scenario_cfg["task_path"])
+
+        static_traffic = {}
+        with open(ixia_file) as stream:
+            try:
+                static_traffic = json.load(stream)
+            except Exception:
+                LOG.exception("")
+        mac = {}
+        for vld_id, traffic in static_traffic.items():
+            intfs = self.vnfd_helper.port_pairs.networks.get(vld_id, [])
+            interface = next(intfs, None)
+            if interface:
+                virt_intf = interface["virtual-interface"]
+                # we only know static traffic id by reading the json
+                # this is used by _get_ixia_traffic_profile
+                mac["src_mac_{}".format(traffic["id"])] = virt_intf.get("local_mac", default)
+                mac["dst_mac_{}".format(traffic["id"])] = virt_intf.get("dst_mac", default)
+
+        samples = {}
         # Generate ixia traffic config...
         try:
             while not self._terminated.value:
@@ -162,7 +170,6 @@ class IxiaResourceHelper(ClientResourceHelper):
             self._queue.put(samples)
         except Exception:
             LOG.info("Run Traffic terminated")
-            pass
 
         if not self.rfc_helper.is_done():
             self._terminated.value = 1
