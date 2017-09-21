@@ -144,11 +144,11 @@ class IxiaResourceHelper(ClientResourceHelper):
         # Generate ixia traffic config...
         try:
             while not self._terminated.value:
-                traffic_profile.execute(self, self.client, mac, ixia_file)
+                traffic_profile.execute_traffic(self, self.client, mac, ixia_file)
                 self.client_started.value = 1
                 time.sleep(WAIT_FOR_TRAFFIC)
                 self.client.ix_stop_traffic()
-                samples = self.generate_samples()
+                samples = self.generate_samples(traffic_profile.ports)
                 self._queue.put(samples)
                 status, samples = traffic_profile.get_drop_percentage(self, samples, min_tol,
                                                                       max_tol, self.client, mac,
