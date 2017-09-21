@@ -26,7 +26,7 @@ stl_patch.start()
 
 if stl_patch:
     from yardstick.network_services.traffic_profile.prox_ACL import ProxACLProfile
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxTestDataTuple
+    from yardstick.network_services.traffic_profile.prox_profile import ProxTestDataTuple
 
 
 class TestProxACLProfile(unittest.TestCase):

@@ -17,13 +17,12 @@
 
 from __future__ import absolute_import
 
-import copy
-import os
 import socket
 import unittest
 from itertools import repeat, chain
-from contextlib import contextmanager
+
 import mock
+import os
 
 from tests.unit import STL_MOCKS
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
@@ -37,7 +36,6 @@ if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxSocketHelper
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import PacketDump
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import CoreSocketTuple
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxTestDataTuple
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxDpdkVnfSetupEnvHelper
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import TotStatsTuple
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxResourceHelper
@@ -135,80 +133,6 @@ class TestTotStatsTuple(unittest.TestCase):
         with self.assertRaises(TypeError):
             # too many values
             TotStatsTuple(3, 4, 5, 6, 7)
-
-
-class TestProxTestDataTuple(unittest.TestCase):
-    def test___init__(self):
-        prox_test_data = ProxTestDataTuple(1, 2, 3, 4, 5, 6, 7, 8, 9)
-        self.assertEqual(prox_test_data.tolerated, 1)
-        self.assertEqual(prox_test_data.tsc_hz, 2)
-        self.assertEqual(prox_test_data.delta_rx, 3)
-        self.assertEqual(prox_test_data.delta_tx, 4)
-        self.assertEqual(prox_test_data.delta_tsc, 5)
-        self.assertEqual(prox_test_data.latency, 6)
-        self.assertEqual(prox_test_data.rx_total, 7)
-        self.assertEqual(prox_test_data.tx_total, 8)
-        self.assertEqual(prox_test_data.pps, 9)
-
-    def test_properties(self):
-        prox_test_data = ProxTestDataTuple(1, 2, 3, 4, 5, 6, 7, 8, 9)
-        self.assertEqual(prox_test_data.pkt_loss, 12.5)
-        self.assertEqual(prox_test_data.mpps, 1.6 / 1e6)
-        self.assertEqual(prox_test_data.can_be_lost, 0)
-        self.assertEqual(prox_test_data.drop_total, 1)
-        self.assertFalse(prox_test_data.success)
-
-        prox_test_data = ProxTestDataTuple(10, 2, 3, 4, 5, 6, 997, 998, 9)
-        self.assertTrue(prox_test_data.success)
-
-    def test_pkt_loss_zero_division(self):
-        prox_test_data = ProxTestDataTuple(1, 2, 3, 4, 5, 6, 7, 0, 9)
-        self.assertEqual(prox_test_data.pkt_loss, 100.0)
-
-    def test_get_samples(self):
-        prox_test_data = ProxTestDataTuple(1, 2, 3, 4, 5, [6.1, 6.9, 6.4], 7, 8, 9)
-
-        expected = {
-            "Throughput": 1.6 / 1e6,
-            "DropPackets": 12.5,
-            "CurrentDropPackets": 12.5,
-            "TxThroughput": 9 / 1e6,
-            "RxThroughput": 1.6 / 1e6,
-            "PktSize": 64,
-            "PortSample": 1,
-            "LatencyMin": 6.1,
-            "LatencyMax": 6.9,
-            "LatencyAvg": 6.4,
-        }
-        result = prox_test_data.get_samples(64, port_samples={"PortSample": 1})
-        self.assertDictEqual(result, expected)
-
-        expected = {
-            "Throughput": 1.6 / 1e6,
-            "DropPackets": 0.123,
-            "CurrentDropPackets": 0.123,
-            "TxThroughput": 9 / 1e6,
-            "RxThroughput": 1.6 / 1e6,
-            "PktSize": 64,
-            "LatencyMin": 6.1,
-            "LatencyMax": 6.9,
-            "LatencyAvg": 6.4,
-        }
-        result = prox_test_data.get_samples(64, 0.123)
-        self.assertDictEqual(result, expected)
-
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.LOG')
-    def test_log_data(self, mock_logger):
-        my_mock_logger = mock.MagicMock()
-        prox_test_data = ProxTestDataTuple(1, 2, 3, 4, 5, [6.1, 6.9, 6.4], 7, 8, 9)
-        prox_test_data.log_data()
-        self.assertEqual(my_mock_logger.debug.call_count, 0)
-        self.assertEqual(mock_logger.debug.call_count, 2)
-
-        mock_logger.debug.reset_mock()
-        prox_test_data.log_data(my_mock_logger)
-        self.assertEqual(my_mock_logger.debug.call_count, 2)
-        self.assertEqual(mock_logger.debug.call_count, 0)
 
 
 class TestPacketDump(unittest.TestCase):
@@ -1737,69 +1661,6 @@ class TestProxResourceHelper(unittest.TestCase):
 
         with helper.traffic_context(64, 1):
             pass
-
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.time')
-    def test_run_test(self, mock_time):
-        @contextmanager
-        def measure(*args, **kwargs):
-            yield stats
-
-        bad_vnfd = copy.deepcopy(self.VNFD0)
-        bad_vnfd['vdu'][0]['external-interface'].append({
-            'virtual-interface': {
-                'dst_mac': '00:00:00:00:00:05',
-                'vpci': '0000:06:00.0',
-                'local_ip': '152.16.100.20',
-                'type': 'PCI-PASSTHROUGH',
-                'vld_id': 'uplink_1',
-                'netmask': '255.255.255.0',
-                'dpdk_port_num': 0,
-                'bandwidth': '10 Gbps',
-                'driver': "i40e",
-                'dst_ip': '152.16.100.20',
-                'local_iface_name': 'xe2',
-                'local_mac': '00:00:00:00:00:07',
-                'ifname': 'xe2',
-            },
-            'vnfd-connection-point-ref': 'xe2',
-            'name': 'xe2',
-        })
-
-        bad_vnfd_helper = VnfdHelper(bad_vnfd)
-        setup_helper = mock.MagicMock()
-        setup_helper.vnfd_helper = bad_vnfd_helper
-
-        stats = {
-            'delta': TotStatsTuple(6, 7, 8, 9),
-        }
-
-        client = mock.MagicMock()
-        client.hz.return_value = 2
-        client.measure_tot_stats = measure
-        client.port_stats.return_value = tuple(range(12))
-
-        helper = ProxResourceHelper(setup_helper)
-        helper.client = client
-        helper.get_latency = mock.MagicMock(return_value=[3.3, 3.6, 3.8])
-
-        with self.assertRaises(AssertionError):
-            helper.run_test(980, 15, 45)
-
-        vnfd_helper = VnfdHelper(self.VNFD0)
-        setup_helper.vnfd_helper = vnfd_helper
-        helper = ProxResourceHelper(setup_helper)
-        helper.client = client
-        helper.get_latency = mock.MagicMock(return_value=[3.3, 3.6, 3.8])
-        helper._test_cores = [3, 4]
-
-        expected_test_data = ProxTestDataTuple(0.0, 2.0, 6, 7, 8, [3.3, 3.6, 3.8], 6, 7, 6.5e6)
-        expected_port_samples = {
-            'xe0': {'in_packets': 6, 'out_packets': 7},
-            'xe1': {'in_packets': 6, 'out_packets': 7},
-        }
-        test_data, port_samples = helper.run_test(230, 60, 65)
-        self.assertTupleEqual(test_data, expected_test_data)
-        self.assertDictEqual(port_samples, expected_port_samples)
 
     def test_get_latency(self):
         setup_helper = mock.MagicMock()

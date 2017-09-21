@@ -25,7 +25,7 @@ stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
 
 if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxTestDataTuple
+    from yardstick.network_services.traffic_profile.prox_profile import ProxTestDataTuple
     from yardstick.network_services.traffic_profile.prox_mpls_tag_untag import ProxMplsTagUntagProfile
 
 
