@@ -16,9 +16,10 @@ import errno
 import logging
 
 
+from yardstick.common.process import check_if_process_exited
 from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxDpdkVnfSetupEnvHelper
 from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxResourceHelper
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF, DEFAULT_JOIN_TIMEOUT
 
 LOG = logging.getLogger(__name__)
 
@@ -51,10 +52,18 @@ class ProxApproxVnf(SampleVNF):
         try:
             return self.resource_helper.execute(cmd, *args, **kwargs)
         except OSError as e:
-            if not ignore_errors or e.errno not in {errno.EPIPE, errno.ESHUTDOWN}:
+            if e.errno in {errno.EPIPE, errno.ESHUTDOWN, errno.ECONNRESET}:
+                if ignore_errors:
+                    LOG.debug("ignoring vnf_execute exception %s for command %s", e, cmd)
+                else:
+                    raise
+            else:
                 raise
 
     def collect_kpi(self):
+        # we can't get KPIs if the VNF is down
+        check_if_process_exited(self._vnf_process)
+
         if self.resource_helper is None:
             result = {
                 "packets_in": 0,
@@ -64,12 +73,13 @@ class ProxApproxVnf(SampleVNF):
             }
             return result
 
-        intf_count = len(self.vnfd_helper.interfaces)
-        if intf_count not in {1, 2, 4}:
+        # use all_ports so we only use ports matched in topology
+        port_count = len(self.vnfd_helper.port_pairs.all_ports)
+        if port_count not in {1, 2, 4}:
             raise RuntimeError("Failed ..Invalid no of ports .. "
                                "1, 2 or 4 ports only supported at this time")
 
-        port_stats = self.vnf_execute('port_stats', range(intf_count))
+        port_stats = self.vnf_execute('port_stats', range(port_count))
         try:
             rx_total = port_stats[6]
             tx_total = port_stats[7]
@@ -94,13 +104,21 @@ class ProxApproxVnf(SampleVNF):
         self.setup_helper.tear_down()
 
     def terminate(self):
+        # stop collectd first or we get pika errors?
+        self.resource_helper.stop_collect()
         # try to quit with socket commands
-        self.vnf_execute("stop_all")
-        self.vnf_execute("quit")
-        # hopefully quit succeeds and socket closes, so ignore force_quit socket errors
-        self.vnf_execute("force_quit", _ignore_errors=True)
-        if self._vnf_process:
-            self._vnf_process.terminate()
+        # pkill is not matching, debug with pgrep
+        self.ssh_helper.execute("sudo pgrep -lax  %s" % self.setup_helper.APP_NAME)
+        self.ssh_helper.execute("sudo ps aux | grep -i %s" % self.setup_helper.APP_NAME)
+        if self._vnf_process.is_alive():
+            self.vnf_execute("stop_all")
+            self.vnf_execute("quit")
+            # hopefully quit succeeds and socket closes, so ignore force_quit socket errors
+            self.vnf_execute("force_quit", _ignore_errors=True)
         self.setup_helper.kill_vnf()
         self._tear_down()
-        self.resource_helper.stop_collect()
+        if self._vnf_process is not None:
+            LOG.debug("joining before terminate %s", self._vnf_process.name)
+            self._vnf_process.join(DEFAULT_JOIN_TIMEOUT)
+            self._vnf_process.terminate()
+

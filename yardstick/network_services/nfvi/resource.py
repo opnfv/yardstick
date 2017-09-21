@@ -19,6 +19,7 @@ from __future__ import print_function
 import logging
 from itertools import chain
 
+import errno
 import jinja2
 import os
 import os.path
@@ -30,6 +31,7 @@ from oslo_config import cfg
 from oslo_utils.encodeutils import safe_decode
 
 from yardstick import ssh
+from yardstick.common.process import TerminatingProcess, terminate_children
 from yardstick.common.task_template import finalize_for_yaml
 from yardstick.common.utils import validate_non_string_sequence
 from yardstick.network_services.nfvi.collectd import AmqpConsumer
@@ -52,7 +54,8 @@ class ResourceProfile(object):
     AMPQ_PORT = 5672
     DEFAULT_INTERVAL = 25
 
-    def __init__(self, mgmt, port_names=None, cores=None, plugins=None, interval=None):
+    def __init__(self, mgmt, port_names=None, cores=None, plugins=None, interval=None,
+                 timeout=3600):
         if plugins is None:
             self.plugins = {}
         else:
@@ -61,6 +64,7 @@ class ResourceProfile(object):
             self.interval = self.DEFAULT_INTERVAL
         else:
             self.interval = interval
+        self.timeout = timeout
         self.enable = True
         self.cores = validate_non_string_sequence(cores, default=[])
         self._queue = multiprocessing.Queue()
@@ -73,8 +77,15 @@ class ResourceProfile(object):
 
     def check_if_sa_running(self, process):
         """ verify if system agent is running """
-        err, pid, _ = self.connection.execute("pgrep -f %s" % process)
-        return [err == 0, pid]
+        try:
+            err, pid, _ = self.connection.execute("pgrep -f %s" % process)
+            return err, pid
+        except OSError as e:
+            if e.errno in {errno.ECONNRESET}:
+                # if we can't connect to check, then we won't be able to connect to stop it
+                LOG.exception("can't connect to host to check collectd status")
+                return 1, None
+            raise
 
     def run_collectd_amqp(self):
         """ run amqp consumer to collect the NFVi data """
@@ -179,8 +190,9 @@ class ResourceProfile(object):
     def amqp_process_for_nfvi_kpi(self):
         """ amqp collect and return nfvi kpis """
         if self.amqp_client is None and self.enable:
-            self.amqp_client = \
-                multiprocessing.Process(target=self.run_collectd_amqp)
+            self.amqp_client = TerminatingProcess(
+                name="AmqpClient-{}-{}".format(self.mgmt['ip'], os.getpid()),
+                target=self.run_collectd_amqp)
             self.amqp_client.start()
 
     def amqp_collect_nfvi_kpi(self):
@@ -255,8 +267,8 @@ class ResourceProfile(object):
         connection.execute("sudo rabbitmqctl authenticate_user admin admin")
         connection.execute("sudo rabbitmqctl set_permissions -p / admin '.*' '.*' '.*'")
 
-        LOG.debug("Start collectd service.....")
-        connection.execute("sudo %s" % collectd_path)
+        LOG.debug("Start collectd service..... %s second timeout", self.timeout)
+        connection.execute("sudo %s" % collectd_path, timeout=self.timeout)
         LOG.debug("Done")
 
     def initiate_systemagent(self, bin_path):
@@ -282,13 +294,18 @@ class ResourceProfile(object):
         LOG.debug("Stop resource monitor...")
 
         if self.amqp_client is not None:
+            # we proper and try to join first
+            self.amqp_client.join(3)
             self.amqp_client.terminate()
 
+        LOG.debug("Check if %s is running", agent)
         status, pid = self.check_if_sa_running(agent)
-        if status == 0:
+        LOG.debug("status %s  pid %s", status, pid)
+        if status != 0:
             return
 
-        self.connection.execute('sudo kill -9 %s' % pid)
-        self.connection.execute('sudo pkill -9 %s' % agent)
+        if pid:
+            self.connection.execute('sudo kill -9 "%s"' % pid)
+        self.connection.execute('sudo pkill -9 "%s"' % agent)
         self.connection.execute('sudo service rabbitmq-server stop')
         self.connection.execute("sudo rabbitmqctl stop_app")

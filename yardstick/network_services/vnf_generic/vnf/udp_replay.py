@@ -15,6 +15,7 @@
 from __future__ import absolute_import
 import logging
 
+from yardstick.common.process import check_if_process_exited
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
@@ -107,6 +108,8 @@ class UdpReplayApproxVnf(SampleVNF):
     def collect_kpi(self):
         def get_sum(offset):
             return sum(int(i) for i in split_stats[offset::5])
+        # we can't get KPIs if the VNF is down
+        check_if_process_exited(self._vnf_process)
 
         number_of_ports = len(self.vnfd_helper.port_pairs.all_ports)
 
