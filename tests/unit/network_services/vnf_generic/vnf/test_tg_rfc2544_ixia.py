@@ -252,7 +252,8 @@ class TestIXIATrafficGen(unittest.TestCase):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
-        mock_traffic_profile.ports = ["xe0", "xe1"]
+        # traffic_profile.ports is standardized on port_num
+        mock_traffic_profile.ports = [0, 1]
 
         mock_ssh_instance = mock.Mock(autospec=mock_ssh.SSH)
         mock_ssh_instance.execute.return_value = 0, "", ""
@@ -346,9 +347,12 @@ class TestIXIATrafficGen(unittest.TestCase):
             'task_path': '/path/to/task'
         }
 
-        with mock.patch('yardstick.benchmark.scenarios.networking.vnf_generic.open',
-                        create=True) as mock_open:
-            with mock.patch('yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.open',
-                            create=True) as mock_ixia_open:
-                result = sut._traffic_runner(mock_traffic_profile)
-                self.assertIsNone(result)
+        @mock.patch('yardstick.benchmark.scenarios.networking.vnf_generic.open', create=True)
+        @mock.patch('yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.open',
+                    mock.mock_open(), create=True)
+        @mock.patch('yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.LOG.exception')
+        def _traffic_runner(*args):
+            result = sut._traffic_runner(mock_traffic_profile)
+            self.assertIsNone(result)
+
+        _traffic_runner()
