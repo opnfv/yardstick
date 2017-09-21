@@ -103,7 +103,9 @@ class IXIARFC2544Profile(TrexProfile):
 
         self.ports = [port for port in port_generator()]
 
-    def execute_traffic(self, traffic_generator, ixia_obj, mac={}, xfile=None):
+    def execute_traffic(self, traffic_generator, ixia_obj, mac=None, xfile=None):
+        if mac is None:
+            mac = {}
         if self.first_run:
             self.full_profile = {}
             self.pg_id = 0
@@ -121,15 +123,18 @@ class IXIARFC2544Profile(TrexProfile):
         return str(multiplier)
 
     def start_ixia_latency(self, traffic_generator, ixia_obj,
-                           mac={}, xfile=None):
+                           mac=None, xfile=None):
+        if mac is None:
+            mac = {}
         self.update_traffic_profile(traffic_generator)
         traffic = \
             self._get_ixia_traffic_profile(self.full_profile, mac, xfile)
-        self._ixia_traffic_generate(traffic_generator, traffic,
-                                    ixia_obj, xfile)
+        self._ixia_traffic_generate(traffic_generator, traffic, ixia_obj)
 
     def get_drop_percentage(self, traffic_generator, samples, tol_min,
-                            tolerance, ixia_obj, mac={}, xfile=None):
+                            tolerance, ixia_obj, mac=None, xfile=None):
+        if mac is None:
+            mac = {}
         status = 'Running'
         drop_percent = 100
         in_packets = sum([samples[iface]['in_packets'] for iface in samples])
