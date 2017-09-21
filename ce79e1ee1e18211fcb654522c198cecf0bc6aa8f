@@ -776,6 +776,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_33b5527e",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-21T09:06:22Z",
+      "side": 1,
+      "message": "Lets fix it as a new patch. I do not see AutoConnectSsh in context as of now",
+      "parentUuid": "da33351e_6576f0d8",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_a57c78b6",
         "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
         "patchSetId": 1
@@ -787,6 +805,24 @@
       "writtenOn": "2017-09-20T20:03:35Z",
       "side": 1,
       "message": "please use a generator expression instead of a list interpolation here:\n\n iter1 \u003d (c for c in itersubclasses(StandaloneContext) if c.__name__ \u003d\u003d expected_name)",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_13bace6d",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-21T09:06:22Z",
+      "side": 1,
+      "message": "This is a unused function removed",
+      "parentUuid": "da33351e_a57c78b6",
       "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -878,6 +914,24 @@
       "writtenOn": "2017-09-20T20:03:35Z",
       "side": 1,
       "message": "please use .items() if you want both the key and value of a dictionary",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_73b23a95",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-21T09:06:22Z",
+      "side": 1,
+      "message": "I cannot use this. if i use items, I have to parse the keys to get the index again :(",
+      "parentUuid": "da33351e_857974ca",
       "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
