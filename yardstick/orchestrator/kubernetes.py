@@ -23,6 +23,7 @@ class KubernetesObject(object):
         self.command = [kwargs.get('command', '/bin/bash')]
         self.args = kwargs.get('args', [])
         self.ssh_key = kwargs.get('ssh_key', 'yardstick_key')
+        self.node_selector = kwargs.get('nodeSelector', {})
 
         self.volumes = []
 
@@ -42,7 +43,8 @@ class KubernetesObject(object):
                     },
                     "spec": {
                         "containers": [],
-                        "volumes": []
+                        "volumes": [],
+                        "nodeSelector": {}
                     }
                 }
             }
@@ -50,6 +52,7 @@ class KubernetesObject(object):
 
         self._change_value_according_name(name)
         self._add_containers()
+        self._add_node_selector()
         self._add_ssh_key_volume()
         self._add_volumes()
 
@@ -87,6 +90,11 @@ class KubernetesObject(object):
         }
 
         return container
+
+    def _add_node_selector(self):
+        utils.set_dict_value(self.template,
+                             'spec.template.spec.nodeSelector',
+                             self.node_selector)
 
     def _add_volumes(self):
         utils.set_dict_value(self.template,
