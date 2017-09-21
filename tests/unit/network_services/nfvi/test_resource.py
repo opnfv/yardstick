@@ -14,6 +14,8 @@
 
 from __future__ import absolute_import
 import unittest
+
+import errno
 import mock
 
 from yardstick.network_services.nfvi.resource import ResourceProfile
@@ -105,7 +107,12 @@ class TestResourceProfile(unittest.TestCase):
 
     def test_check_if_sa_running(self):
         self.assertEqual(self.resource_profile.check_if_sa_running("collectd"),
-                         [True, {}])
+                         (0, {}))
+
+    def test_check_if_sa_running_excetion(self):
+        with mock.patch.object(self.resource_profile.connection, "execute") as mock_execute:
+            mock_execute.side_effect = OSError(errno.ECONNRESET, "error")
+            self.assertEqual(self.resource_profile.check_if_sa_running("collectd"), (1, None))
 
     def test_get_cpu_data(self):
         reskey = ["", "cpufreq", "cpufreq-0"]
@@ -127,7 +134,6 @@ class TestResourceProfile(unittest.TestCase):
             self.assertIsNone(
                 self.resource_profile._prepare_collectd_conf("/opt/nsb_bin"))
 
-
     @mock.patch("yardstick.network_services.nfvi.resource.open")
     @mock.patch("yardstick.network_services.nfvi.resource.os")
     def test__provide_config_file(self, mock_open, mock_os):
@@ -140,7 +146,6 @@ class TestResourceProfile(unittest.TestCase):
         }
         self.resource_profile._provide_config_file("/opt/nsb_bin", "collectd.conf", kwargs)
         self.ssh_mock.execute.assert_called_once()
-
 
     @mock.patch("yardstick.network_services.nfvi.resource.open")
     def test_initiate_systemagent(self, mock_open):
@@ -173,7 +178,7 @@ class TestResourceProfile(unittest.TestCase):
         self.assertEqual({'ovs/stats': '45'}, res)
 
     def test_parse_collectd_result(self):
-        res = self.resource_profile.parse_collectd_result({}, [0, 1, 2])
+        res = self.resource_profile.parse_collectd_result({})
         expected_result = {'cpu': {}, 'dpdkstat': {}, 'hugepages': {},
                            'memory': {}, 'ovs_stats': {}, 'timestamp': '',
                            'intel_pmu': {},
@@ -186,7 +191,7 @@ class TestResourceProfile(unittest.TestCase):
                                                                      "ipc",
                                                                      "1234",
                                                                      ""])
-        res = self.resource_profile.parse_collectd_result(metric, [0, 1, 2])
+        res = self.resource_profile.parse_collectd_result(metric)
         expected_result = {'cpu': {1: {'ipc': '1234'}}, 'dpdkstat': {}, 'hugepages': {},
                            'memory': {}, 'ovs_stats': {}, 'timestamp': '',
                            'intel_pmu': {},
@@ -195,7 +200,7 @@ class TestResourceProfile(unittest.TestCase):
 
     def test_parse_collectd_result_memory(self):
         metric = {"nsb_stats/memory/bw": "101"}
-        res = self.resource_profile.parse_collectd_result(metric, [0, 1, 2])
+        res = self.resource_profile.parse_collectd_result(metric)
         expected_result = {'cpu': {}, 'dpdkstat': {}, 'hugepages': {},
                            'memory': {'bw': '101'}, 'ovs_stats': {}, 'timestamp': '',
                            'intel_pmu': {},
@@ -205,9 +210,8 @@ class TestResourceProfile(unittest.TestCase):
     def test_parse_collectd_result_hugepage(self):
         # amqp returns bytes
         metric = {b"nsb_stats/hugepages/free": b"101"}
-        self.resource_profile.parse_hugepages = \
-        mock.Mock(return_value={"free": "101"})
-        res = self.resource_profile.parse_collectd_result(metric, [0, 1, 2])
+        self.resource_profile.parse_hugepages = mock.Mock(return_value={"free": "101"})
+        res = self.resource_profile.parse_collectd_result(metric)
         expected_result = {'cpu': {}, 'dpdkstat': {}, 'hugepages': {'free': '101'},
                            'memory': {}, 'ovs_stats': {}, 'timestamp': '',
                            'intel_pmu': {},
@@ -224,7 +228,7 @@ class TestResourceProfile(unittest.TestCase):
             mock.Mock(return_value={"memory": "101"})
         self.resource_profile.parse_ovs_stats = \
             mock.Mock(return_value={"tx": "101"})
-        res = self.resource_profile.parse_collectd_result(metric, [0, 1, 2])
+        res = self.resource_profile.parse_collectd_result(metric)
         expected_result = {'cpu': {}, 'dpdkstat': {'tx': '101'}, 'hugepages': {},
                            'memory': {}, 'ovs_stats': {'tx': '101'}, 'timestamp': '',
                            'intel_pmu': {},
