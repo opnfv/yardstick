@@ -17,9 +17,78 @@ from __future__ import absolute_import
 
 import logging
 
+import time
+from contextlib import contextmanager
+
+from collections import namedtuple
+
 from yardstick.network_services.traffic_profile.base import TrafficProfile
 
 LOG = logging.getLogger(__name__)
+
+
+class ProxTestDataTuple(namedtuple('ProxTestDataTuple', 'tolerated,tsc_hz,delta_rx,'
+                                                        'delta_tx,delta_tsc,'
+                                                        'latency,rx_total,tx_total,pps')):
+
+    @property
+    def pkt_loss(self):
+        try:
+            return 1e2 * self.drop_total / float(self.tx_total)
+        except ZeroDivisionError:
+            return 100.0
+
+    @property
+    def mpps(self):
+        # calculate the effective throughput in Mpps
+        return float(self.delta_tx) * self.tsc_hz / self.delta_tsc / 1e6
+
+    @property
+    def can_be_lost(self):
+        return int(self.tx_total * self.tolerated / 1e2)
+
+    @property
+    def drop_total(self):
+        return self.tx_total - self.rx_total
+
+    @property
+    def success(self):
+        return self.drop_total <= self.can_be_lost
+
+    def get_samples(self, pkt_size, pkt_loss=None, port_samples=None):
+        if pkt_loss is None:
+            pkt_loss = self.pkt_loss
+
+        if port_samples is None:
+            port_samples = {}
+
+        latency_keys = [
+            "LatencyMin",
+            "LatencyMax",
+            "LatencyAvg",
+        ]
+
+        samples = {
+            "Throughput": self.mpps,
+            "DropPackets": pkt_loss,
+            "CurrentDropPackets": pkt_loss,
+            "TxThroughput": self.pps / 1e6,
+            "RxThroughput": self.mpps,
+            "PktSize": pkt_size,
+        }
+        if port_samples:
+            samples.update(port_samples)
+
+        samples.update((key, value) for key, value in zip(latency_keys, self.latency))
+        return samples
+
+    def log_data(self, logger=None):
+        if logger is None:
+            logger = LOG
+
+        template = "RX: %d; TX: %d; dropped: %d (tolerated: %d)"
+        logger.debug(template, self.rx_total, self.tx_total, self.drop_total, self.can_be_lost)
+        logger.debug("Mpps configured: %f; Mpps effective %f", self.pps / 1e6, self.mpps)
 
 
 class ProxProfile(TrafficProfile):
@@ -102,3 +171,61 @@ class ProxProfile(TrafficProfile):
 
         duration = self.duration
         self.run_test_with_pkt_size(traffic_generator, pkt_size, duration)
+
+    @contextmanager
+    def traffic_context(self, traffic_gen, pkt_size, value):
+        traffic_gen.sut.stop_all()
+        traffic_gen.sut.reset_stats()
+        if traffic_gen.get_test_type() == traffic_gen.PROX_CORE_MPLS_TEST:
+            traffic_gen.sut.set_pkt_size(traffic_gen.tagged_cores, pkt_size)
+            traffic_gen.sut.set_pkt_size(traffic_gen.plain_cores, pkt_size - 4)
+            traffic_gen.sut.set_speed(traffic_gen.tagged_cores, value)
+            ratio = 1.0 * (pkt_size - 4 + 20) / (pkt_size + 20)
+            traffic_gen.sut.set_speed(traffic_gen.plain_cores, value * ratio)
+        else:
+            traffic_gen.sut.set_pkt_size(traffic_gen.test_cores, pkt_size)
+            traffic_gen.sut.set_speed(traffic_gen.test_cores, value)
+
+        traffic_gen.sut.start_all()
+        try:
+            yield
+        finally:
+            traffic_gen.sut.stop_all()
+
+    def run_test(self, traffic_gen, pkt_size, duration, value, tolerated_loss=0.0):
+        # do this assert in init?  unless we expect interface count to
+        # change from one run to another run...
+        ports = traffic_gen.vnfd_helper.port_pairs.all_ports
+        port_count = len(ports)
+        assert port_count in {1, 2, 4}, \
+            "Invalid number of ports: 1, 2 or 4 ports only supported at this time"
+
+        with self.traffic_context(traffic_gen, pkt_size, value):
+            # Getting statistics to calculate PPS at right speed....
+            tsc_hz = float(traffic_gen.sut.hz())
+            time.sleep(2)
+            with traffic_gen.sut.measure_tot_stats() as data:
+                time.sleep(duration)
+
+            # Get stats before stopping the cores. Stopping cores takes some time
+            # and might skew results otherwise.
+            latency = traffic_gen.get_latency()
+
+        deltas = data['delta']
+        rx_total, tx_total = traffic_gen.sut.port_stats(range(port_count))[6:8]
+        pps = value / 100.0 * traffic_gen.line_rate_to_pps(pkt_size, port_count)
+
+        samples = {}
+        # we are currently using enumeration to map logical port num to interface
+        for port_name in ports:
+            port = traffic_gen.vnfd_helper.port_num(port_name)
+            port_rx_total, port_tx_total = traffic_gen.sut.port_stats([port])[6:8]
+            samples[port_name] = {
+                "in_packets": port_rx_total,
+                "out_packets": port_tx_total,
+            }
+
+        result = ProxTestDataTuple(tolerated_loss, tsc_hz, deltas.rx, deltas.tx,
+                                   deltas.tsc, latency, rx_total, tx_total, pps)
+        result.log_data()
+        return result, samples
