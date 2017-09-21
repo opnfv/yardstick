@@ -17,12 +17,14 @@
 # rally/rally/benchmark/runners/base.py
 
 from __future__ import absolute_import
-import importlib
+
 import logging
 import multiprocessing
 import subprocess
 import time
 import traceback
+
+import importlib
 
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base as base_scenario
@@ -33,7 +35,6 @@ log = logging.getLogger(__name__)
 def _execute_shell_command(command):
     """execute shell script with error handling"""
     exitcode = 0
-    output = []
     try:
         output = subprocess.check_output(command, shell=True)
     except Exception:
