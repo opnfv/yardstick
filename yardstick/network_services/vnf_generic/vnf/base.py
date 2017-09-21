@@ -64,6 +64,8 @@ class VnfdHelper(dict):
     def __init__(self, *args, **kwargs):
         super(VnfdHelper, self).__init__(*args, **kwargs)
         self.port_pairs = PortPairs(self['vdu'][0]['external-interface'])
+        # port num is not present until binding so we have to memoize
+        self._port_num_map = {}
 
     @property
     def mgmt_interface(self):
@@ -118,7 +120,7 @@ class VnfdHelper(dict):
             intf = port
         else:
             intf = self.find_interface(name=port)
-        return int(intf["virtual-interface"]["dpdk_port_num"])
+        return self._port_num_map.setdefault(intf["name"], int(intf["virtual-interface"]["dpdk_port_num"]))
 
     def port_nums(self, intfs):
         return [self.port_num(i) for i in intfs]
