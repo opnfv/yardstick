@@ -14,6 +14,7 @@
 
 from __future__ import absolute_import
 import logging
+import time
 
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF, DpdkVnfSetupEnvHelper
 
@@ -64,14 +65,12 @@ class CgnaptApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
     def scale(self, flavor=""):
         raise NotImplementedError
 
-    def _get_cgnapt_config(self, interfaces=None):
-        # TODO: static CGNAPT is broken, don't use it
-        if interfaces is None:
-            interfaces = self.vnfd_helper.interfaces
-
+    def _get_cgnapt_config(self):
         # fixme: Get private port and gateway from port list
         uplink_ports = self.vnfd_helper.port_pairs.uplink_ports
-        return [self._get_ports_gateway(intf["name"]) for intf in uplink_ports]
+        return \
+            [self.vnfd_helper.find_interface(name=intf)["virtual-interface"]['dst_ip']
+             for intf in uplink_ports]
 
 
 class CgnaptApproxVnf(SampleVNF):
@@ -98,23 +97,26 @@ class CgnaptApproxVnf(SampleVNF):
         if self.scenario_helper.options.get('napt', 'static') != 'static':
             return
 
-        # ip_iter = self.setup_helper._generate_ip_from_pool("152.16.40.10")
-        # gw_ips = self.setup_helper._get_cgnapt_config()
-        # if self.scenario_helper.vnf_cfg.get("lb_config", "SW") == 'HW':
-        #     pipeline = self.setup_helper.HW_DEFAULT_CORE
-        #     offset = 3
-        # else:
-        #     pipeline = self.setup_helper.SW_DEFAULT_CORE - 1
-        #     offset = 0
-        #
-        # worker_threads = int(self.scenario_helper.vnf_cfg["worker_threads"])
-        # # p <pipeline id> entry addm <prv_ipv4/6> prvport> <pub_ip> <pub_port> <phy_port> <ttl>
-        # # <no_of_entries> <end_prv_port> <end_pub_port>
-        # cmd_template = "p {0} entry addm {1} 1 {2} 1 0 32 65535 65535 65535"
-        # for gw, ip in zip(gw_ips, ip_iter):
-        #     cmd = cmd_template.format(pipeline, gw, ip)
-        #     pipeline += worker_threads
-        #     pipeline += offset
-        #     self.vnf_execute(cmd)
-        #
-        # time.sleep(WAIT_FOR_STATIC_NAPT)
+        flow = self.scenario_helper.all_options.get('flow', {})
+        public_ip = flow.get('public_ip', ['152.16.40.10']).pop()
+        ip_iter = self.setup_helper._generate_ip_from_pool(public_ip)
+        gw_ips = self.setup_helper._get_cgnapt_config()
+        if self.scenario_helper.vnf_cfg.get("lb_config", "SW") == 'HW':
+            pipeline = self.setup_helper.HW_DEFAULT_CORE
+            offset = 3
+        else:
+            pipeline = self.setup_helper.SW_DEFAULT_CORE - 1
+            offset = 0
+
+        worker_threads = int(self.scenario_helper.vnf_cfg["worker_threads"])
+        # p <pipeline id> entry addm <prv_ipv4/6> prvport> <pub_ip> <pub_port> <phy_port> <ttl>
+        # <no_of_entries> <end_prv_port> <end_pub_port>
+        cmd_template = "p {0} entry addm {1} 1 {2} 1 0 32 65535 65535 65535"
+        for gw, ip in zip(gw_ips, ip_iter):
+            cmd = cmd_template.format(pipeline, gw, ip)
+            pipeline += worker_threads
+            pipeline += offset
+            LOG.info(cmd)
+            self.vnf_execute(cmd)
+
+        time.sleep(WAIT_FOR_STATIC_NAPT)

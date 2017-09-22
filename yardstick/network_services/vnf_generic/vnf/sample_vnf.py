@@ -108,13 +108,6 @@ class SetupEnvHelper(object):
         self.ssh_helper = ssh_helper
         self.scenario_helper = scenario_helper
 
-    def _get_ports_gateway(self, name):
-        routing_table = self.vnfd_helper.vdu0.get('routing_table', [])
-        for route in routing_table:
-            if name == route['if']:
-                return route['gateway']
-        return None
-
     def build_config(self):
         raise NotImplementedError
 
