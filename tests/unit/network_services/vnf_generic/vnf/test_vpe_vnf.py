@@ -74,6 +74,7 @@ class TestConfigCreate(unittest.TestCase):
     def test_vpe_rxq(self):
         config_create = ConfigCreate([0], [1, 2], 3)
         config = configparser.ConfigParser()
+        config_create.downlink_ports = ['xe1', 'xe2']
         config_create.vpe_rxq(config)
         self.assertEqual(config.get('RXQ1.0', 'mempool'), 'MEMPOOL1')
         self.assertEqual(config.get('RXQ2.0', 'mempool'), 'MEMPOOL1')
@@ -99,12 +100,22 @@ class TestConfigCreate(unittest.TestCase):
         vpe_config_vnf = ConfigCreate([0], [0], 0)
         intf = [
             {
+                "name": 'xe1',
+                "virtual-interface": {
+                    "dst_ip": "1.1.1.1",
+                    "dst_mac": "00:00:00:00:00:00:02",
+                },
+            },
+            {
+                "name": 'xe2',
                 "virtual-interface": {
                     "dst_ip": "1.1.1.1",
                     "dst_mac": "00:00:00:00:00:00:02",
                 },
             },
         ]
+        vpe_config_vnf.downlink_ports = ['xe1']
+        vpe_config_vnf.uplink_ports = ['xe2']
         result = vpe_config_vnf.generate_vpe_script(intf)
         self.assertIsInstance(result, str)
         self.assertNotEqual(result, '')
@@ -133,6 +144,8 @@ class TestConfigCreate(unittest.TestCase):
         ]
 
         config_create = ConfigCreate(uplink_ports, downlink_ports, 23)
+        config_create.downlink_ports = ['xe1']
+        config_create.uplink_ports = ['xe1']
         curr_path = os.path.dirname(os.path.abspath(__file__))
         vpe_cfg = "samples/vnf_samples/nsut/vpe/vpe_config"
         vnf_cfg = os.path.join(curr_path, "../../../../..", vpe_cfg)

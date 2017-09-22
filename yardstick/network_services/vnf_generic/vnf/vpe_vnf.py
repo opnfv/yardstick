@@ -77,7 +77,7 @@ class ConfigCreate(object):
 
     def vpe_rxq(self, config):
         for port in self.downlink_ports:
-            new_section = 'RXQ{0}.0'.format(port)
+            new_section = 'RXQ{0}.0'.format(port[-1])
             config.add_section(new_section)
             config.set(new_section, 'mempool', 'MEMPOOL1')
 
@@ -102,7 +102,7 @@ class ConfigCreate(object):
             for k, v in parser.items(pipeline):
                 if k == "pktq_in":
                     if "RXQ" in v:
-                        value = "RXQ{0}.0".format(self.uplink_ports[index])
+                        value = "RXQ{0}.0".format(self.uplink_ports[index][-1])
                     else:
                         value = self.get_sink_swq(parser, pipeline, k, index)
 
@@ -110,7 +110,7 @@ class ConfigCreate(object):
 
                 elif k == "pktq_out":
                     if "TXQ" in v:
-                        value = "TXQ{0}.0".format(self.downlink_ports[index])
+                        value = "TXQ{0}.0".format(self.downlink_ports[index][-1])
                     else:
                         self.sw_q += 1
                         value = self.get_sink_swq(parser, pipeline, k, index)
@@ -131,23 +131,25 @@ class ConfigCreate(object):
             for k, v in parser.items(pipeline):
 
                 if k == "pktq_in":
+                    port = self.downlink_ports[index][-1]
                     if "RXQ" not in v:
                         value = self.get_sink_swq(parser, pipeline, k, index)
                     elif "TM" in v:
-                        value = "RXQ{0}.0 TM{1}".format(self.downlink_ports[index], index)
+                        value = "RXQ{0}.0 TM{1}".format(port, index)
                     else:
-                        value = "RXQ{0}.0".format(self.downlink_ports[index])
+                        value = "RXQ{0}.0".format(port)
 
                     parser.set(pipeline, k, value)
 
                 if k == "pktq_out":
+                    port = self.uplink_ports[index][-1]
                     if "TXQ" not in v:
                         self.sw_q += 1
                         value = self.get_sink_swq(parser, pipeline, k, index)
                     elif "TM" in v:
-                        value = "TXQ{0}.0 TM{1}".format(self.uplink_ports[index], index)
+                        value = "TXQ{0}.0 TM{1}".format(port, index)
                     else:
-                        value = "TXQ{0}.0".format(self.uplink_ports[index])
+                        value = "TXQ{0}.0".format(port)
 
                     parser.set(pipeline, k, value)
 
@@ -175,8 +177,11 @@ class ConfigCreate(object):
     def generate_vpe_script(self, interfaces):
         rules = PipelineRules(pipeline_id=1)
         for priv_port, pub_port in zip(self.uplink_ports, self.downlink_ports):
-            priv_intf = interfaces[priv_port]["virtual-interface"]
-            pub_intf = interfaces[pub_port]["virtual-interface"]
+
+            priv_intf = \
+                next(intf["virtual-interface"] for intf in interfaces if intf["name"] == priv_port)
+            pub_intf = \
+                next(intf["virtual-interface"] for intf in interfaces if intf["name"] == pub_port)
 
             dst_port0_ip = priv_intf["dst_ip"]
             dst_port1_ip = pub_intf["dst_ip"]
