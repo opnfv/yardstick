@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_2b2e72fb",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1105,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-22T16:10:45Z",
+      "side": 1,
+      "message": "oh, this was supposed to be the default it nothing matched in test_type.\n\nthis should match whatever string is present in the config file.",
+      "parentUuid": "da33351e_0b660ec1",
+      "range": {
+        "startLine": 1105,
+        "startChar": 0,
+        "endLine": 1105,
+        "endChar": 37
+      },
+      "revId": "9c4d7aabcf568595b1c16090fe574e0a4743d778",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_6b57daca",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 11
@@ -59,6 +83,30 @@
       "writtenOn": "2017-09-22T15:34:06Z",
       "side": 1,
       "message": "l2fwd doesn\u0027t work with this loop, as it doesn\u0027t get a subclass.\nFor l2fwd or other Prox generic tests to work do we need to set __prox_profile_type__ \u003d \"Basic Gen\"",
+      "range": {
+        "startLine": 1114,
+        "startChar": 8,
+        "endLine": 1116,
+        "endChar": 43
+      },
+      "revId": "9c4d7aabcf568595b1c16090fe574e0a4743d778",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_4b393640",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-22T16:10:45Z",
+      "side": 1,
+      "message": "we probably need a default to ProxProfileHelper.",
+      "parentUuid": "da33351e_6b57daca",
       "range": {
         "startLine": 1114,
         "startChar": 8,
