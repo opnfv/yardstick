@@ -29,7 +29,7 @@ scenarios:
     flow:
       src_ip: [{'tg__0': 'xe0'}]
       dst_ip: [{'tg__0': 'xe1'}]
-      publicip: ["152.16.40.10"]
+      public_ip: ["152.16.40.10"]
       count: 1
     traffic_type: 4
     rfc2544:
