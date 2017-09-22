@@ -360,15 +360,6 @@ class TestSetupEnvHelper(unittest.TestCase):
         with self.assertRaises(NotImplementedError):
             setup_env_helper.build_config()
 
-    def test__get_ports_gateway(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        setup_env_helper = SetupEnvHelper(vnfd_helper, mock.Mock(), mock.Mock())
-        result = setup_env_helper._get_ports_gateway("xe0")
-        self.assertEqual(result, "152.16.100.20")
-
-        result = setup_env_helper._get_ports_gateway("xe123")
-        self.assertIsNone(result)
-
     def test_setup_vnf_environment(self):
         setup_env_helper = SetupEnvHelper(mock.Mock(), mock.Mock(), mock.Mock())
         self.assertIsNone(setup_env_helper.setup_vnf_environment())

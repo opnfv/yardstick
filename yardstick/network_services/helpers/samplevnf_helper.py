@@ -359,7 +359,7 @@ class MultiPortConfig(object):
                 "%s/%s" % (interface["dst_ip"], interface["netmask"])))
 
             arp_vars = {
-                "port0_dst_ip_hex": ip_to_hex(dst_port0_ip.network.network_address.exploded),
+                "port0_dst_ip_hex": ip_to_hex(dst_port0_ip.ip.exploded),
                 "port0_netmask_hex": ip_to_hex(dst_port0_ip.network.netmask.exploded),
                 # this is the port num that contains port0 subnet and next_hop_ip_hex
                 # this is LINKID which should be based on DPDK port number
