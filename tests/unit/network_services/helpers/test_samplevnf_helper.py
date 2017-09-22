@@ -797,7 +797,7 @@ class TestMultiPortConfig(unittest.TestCase):
     def test_generate_arp_route_tbl(self, *_):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
-        tmp_file = mock.Mock()
+        tmp_file = ""
         vnfd_mock = mock.MagicMock()
         vnfd_mock.port_num.side_effect = ['32', '1', '987']
         vnfd_mock.find_interface.side_effect = [
