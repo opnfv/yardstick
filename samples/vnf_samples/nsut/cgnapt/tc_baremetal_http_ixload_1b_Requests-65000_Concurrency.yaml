@@ -25,6 +25,8 @@ scenarios:
     framesize:
       private: {64B: 100}
       public: {64B: 100}
+    flow:
+      public_ip: ["152.16.40.10"]
     traffic_type: 4
     rfc2544:
       allowed_drop_rate: 0.0001 - 0.0001
