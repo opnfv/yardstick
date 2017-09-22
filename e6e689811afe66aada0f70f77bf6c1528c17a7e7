@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_8b3e9e26",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-22T16:17:44Z",
+      "side": 1,
+      "message": "this is cool, but I think it is a little too much for most people.\n\nI\u0027d rather be more explicit in the traffic context.",
+      "revId": "e6e689811afe66aada0f70f77bf6c1528c17a7e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_eb476aba",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-22T16:17:44Z",
+      "side": 1,
+      "message": "I like to match class matching fields look more like metadata.  I think the __prox_profile_type__ makes it more clear that this value should not change.",
+      "revId": "e6e689811afe66aada0f70f77bf6c1528c17a7e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_cb4426b9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1124,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-22T16:17:44Z",
+      "side": 1,
+      "message": "not sure why we checked None hear, shouldn\u0027t the previous if catch this.\n\nwe also need fallback to default ProxProfileHelper is no subclass is found",
+      "revId": "e6e689811afe66aada0f70f77bf6c1528c17a7e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ab6f222a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-22T16:17:44Z",
+      "side": 1,
+      "message": "this is clever, but I think this kind of flow control abstract is too much.",
+      "revId": "e6e689811afe66aada0f70f77bf6c1528c17a7e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_8b6cde36",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-22T16:17:44Z",
+      "side": 1,
+      "message": "also would rather be more explicit here and have all the actions inline.",
+      "revId": "e6e689811afe66aada0f70f77bf6c1528c17a7e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
