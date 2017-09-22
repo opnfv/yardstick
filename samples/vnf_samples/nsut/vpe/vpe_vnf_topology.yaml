@@ -27,7 +27,7 @@ nsd:nsd-catalog:
             VNF model: ../../vnf_descriptors/vpe_vnf.yaml    #tg_l3fwd.yaml #tg_trex_tpl.yaml       #TREX
 
         vld:
-        -   id: uplink
+        -   id: uplink_0
             name: tg__0 to vnf__0 link 1
             type: ELAN
             vnfd-connection-point-ref:
@@ -38,7 +38,7 @@ nsd:nsd-catalog:
                 vnfd-connection-point-ref: xe0
                 vnfd-id-ref: vnf__0                  #VNF
 
-        -   id: downlink
+        -   id: downlink_0
             name: vnf__0 to tg__0 link 2
             type: ELAN
             vnfd-connection-point-ref:
