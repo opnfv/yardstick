@@ -823,8 +823,8 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.all_ports = [3, 2, 5]
 
-        expected = '(0a141000,fffff000,32,0a141e28) (0ac81e00,ffffff00,1,0ac81e28) ' \
-                   '(0a000000,ff000000,987,0a140328)'
+        expected = '(0a141e28,fffff000,32,0a141e28) (0ac81e28,ffffff00,1,0ac81e28) ' \
+                   '(0a140328,ff000000,987,0a140328)'
         result = opnfv_vnf.generate_arp_route_tbl()
         self.assertEqual(result, expected)
 
