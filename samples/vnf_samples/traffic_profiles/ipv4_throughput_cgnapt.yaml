@@ -94,6 +94,6 @@ downlink_0:
             ttl: 32
             dscp: 0
         outer_l4:
-            srcport: "{{get(flow, 'flow.dst_port_0', '1234-4321') }}"
-            dstport: "{{get(flow, 'flow.src_port_0', '2001-4001') }}"
+            srcport: "{{get(flow, 'flow.dst_port_0', '1-65535') }}"
+            dstport: "{{get(flow, 'flow.src_port_0', '1-65535') }}"
             count: "{{get(flow, 'flow.count', '1') }}"

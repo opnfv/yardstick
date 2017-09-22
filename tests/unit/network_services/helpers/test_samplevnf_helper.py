@@ -824,9 +824,14 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.all_ports = [3, 2, 5]
 
+<<<<<<< HEAD
         expected = 'routeadd net 32 10.20.30.40 0xfffff000\n' \
                    'routeadd net 1 10.200.30.40 0xffffff00\n' \
                    'routeadd net 987 10.20.3.40 0xff000000'
+=======
+        expected = '(0a141e28,fffff000,32,0a141e28) (0ac81e28,ffffff00,1,0ac81e28) ' \
+                   '(0a140328,ff000000,987,0a140328)'
+>>>>>>> fc278b1a... Enable static cgnapt functionality.
         result = opnfv_vnf.generate_arp_route_tbl()
         self.assertEqual(result, expected)
 
