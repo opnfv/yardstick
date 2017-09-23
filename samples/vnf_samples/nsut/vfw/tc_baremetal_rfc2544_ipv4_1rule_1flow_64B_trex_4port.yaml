@@ -16,7 +16,7 @@
 schema: yardstick:task:0.1
 scenarios:
 - type: NSPerf
-  traffic_profile: ../../traffic_profiles/ipv4_throughput-4.yaml
+  traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
   topology: vfw-tg-topology-4port.yaml
   nodes:
     tg__0: trafficgen_1.yardstick
@@ -43,3 +43,4 @@ context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
+  file: /etc/yardstick/nodes/pod_4.yaml
