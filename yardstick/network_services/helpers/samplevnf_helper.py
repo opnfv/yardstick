@@ -226,7 +226,7 @@ class MultiPortConfig(object):
         self.tmp_file = os.path.join("/tmp", tmp_file)
         self.pktq_out_os = []
         self.socket = socket
-        self.start_core = ""
+        self.start_core = 0
         self.pipeline_counter = ""
         self.txrx_pipeline = ""
         self._port_pairs = None
@@ -268,9 +268,8 @@ class MultiPortConfig(object):
 
     def update_timer(self):
         timer_tpl = self.get_config_tpl_data('TIMER')
-        timer_tpl['core'] = self.gen_core(self.start_core)
+        timer_tpl['core'] = self.gen_core(0)
         self.update_write_parser(timer_tpl)
-        self.start_core += 1
 
     def get_config_tpl_data(self, type_value):
         for section in self.read_parser.sections():
@@ -289,7 +288,6 @@ class MultiPortConfig(object):
     def init_write_parser_template(self, type_value='ARPICMP'):
         for section in self.read_parser.sections():
             if type_value == self.parser_get(self.read_parser, section, 'type', object()):
-                self.start_core = self.read_parser.getint(section, 'core')
                 self.pipeline_counter = self.read_parser.getint(section, 'core')
                 self.txrx_pipeline = self.read_parser.getint(section, 'core')
                 return
@@ -385,7 +383,7 @@ class MultiPortConfig(object):
                         self.port_pair_list)
 
         arpicmp_data = {
-            'core': self.gen_core(self.start_core),
+            'core': self.gen_core(0),
             'pktq_in': swq_in_str,
             'pktq_out': swq_out_str,
             # we need to disable ports_mac_list?
@@ -416,7 +414,7 @@ class MultiPortConfig(object):
 
         return arpicmp_data
 
-    def generate_final_txrx_data(self):
+    def generate_final_txrx_data(self, core=0):
         swq_start = self.swq - self.ports_len * self.worker_threads
 
         txq_start = 0
@@ -431,7 +429,7 @@ class MultiPortConfig(object):
             'pktq_in': swq_str,
             'pktq_out': txq_str,
             'pipeline_txrx_type': 'TXTX',
-            'core': self.gen_core(self.start_core),
+            'core': self.gen_core(core),
         }
         pktq_in = rxtx_data['pktq_in']
         pktq_in = '{0} {1}'.format(pktq_in, self.pktq_out_os[self.lb_index - 1])
@@ -452,7 +450,7 @@ class MultiPortConfig(object):
             'core': self.gen_core(self.start_core),
         }
         self.pipeline_counter += 1
-        return txrx_data
+        return [self.start_core, txrx_data]
 
     def generate_lb_data(self):
         pktq_in = self.make_range_str('SWQ{}', self.swq, offset=self.ports_len)
@@ -519,7 +517,6 @@ class MultiPortConfig(object):
         self.arpicmp_tpl.update(arpicmp_data)
         self.update_write_parser(self.arpicmp_tpl)
 
-        self.start_core += 1
         if self.vnf_type == 'CGNAPT':
             self.pipeline_counter += 1
             self.update_timer()
@@ -536,7 +533,7 @@ class MultiPortConfig(object):
             self.ports_len = port_pair_count * 2
             self.set_priv_que_handler()
             if self.lb_config == 'SW':
-                txrx_data = self.generate_initial_txrx_data()
+                core, txrx_data = self.generate_initial_txrx_data()
                 self.txrx_tpl.update(txrx_data)
                 self.update_write_parser(self.txrx_tpl)
                 self.start_core += 1
@@ -560,10 +557,9 @@ class MultiPortConfig(object):
                 self.generate_next_core_id()
 
             if self.lb_config == 'SW':
-                txrx_data = self.generate_final_txrx_data()
+                txrx_data = self.generate_final_txrx_data(core)
                 self.txrx_tpl.update(txrx_data)
                 self.update_write_parser(self.txrx_tpl)
-                self.start_core += 1
             self.vnf_tpl = self.get_config_tpl_data(self.vnf_type)
 
     def generate_config(self):
