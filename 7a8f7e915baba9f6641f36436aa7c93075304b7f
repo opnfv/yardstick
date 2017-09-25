@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_0d98de1a",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_cgnapt_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T21:12:24Z",
+      "side": 1,
+      "message": "i realize that this makes it work, but the unit test is more useful when a real dict on vnfd_helper.vnfd as it shows a reader of the unit test what is happening.",
+      "revId": "7a8f7e915baba9f6641f36436aa7c93075304b7f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_8d04ee4a",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_cgnapt_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T21:12:24Z",
+      "side": 1,
+      "message": "it seems this statement is irrelevant, please remove",
+      "revId": "7a8f7e915baba9f6641f36436aa7c93075304b7f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_2decc28e",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_cgnapt_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T21:12:24Z",
+      "side": 1,
+      "message": "can we test that the length of result is 3, or whatever is correct?\n\nor if we put a real dict on vnfd_helper.vnfd, then we can test and show what is expected.",
+      "revId": "7a8f7e915baba9f6641f36436aa7c93075304b7f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
