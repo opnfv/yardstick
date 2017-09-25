@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_4dd5c51a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T21:56:12Z",
+      "side": 1,
+      "message": "i thought we were getting out of the business of using the last character of the friendly name for anything.",
+      "revId": "c1f66ab4d01eda5bc7f7cac7e4ac99b65ad59726",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6d29a936",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T21:56:12Z",
+      "side": 1,
+      "message": "shouldn\u0027t we be using uplink/downlink instead of public/private?",
+      "revId": "c1f66ab4d01eda5bc7f7cac7e4ac99b65ad59726",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
