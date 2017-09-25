@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_fc51f236",
+        "filename": "yardstick/benchmark/scenarios/networking/netperf_install_arm64.patch",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1247
+      },
+      "writtenOn": "2017-09-25T06:41:06Z",
+      "side": 1,
+      "message": "please remove the red trail",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 1
+      },
+      "revId": "680e327f1f35e1028442558f05c2aa3cdc19c1ef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
