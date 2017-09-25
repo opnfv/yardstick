@@ -43,35 +43,39 @@ class IXIARFC2544Profile(TrexProfile):
             traffic = static_traffic[traffickey]
             # outer_l2
             index = 0
-            for key, value in profile_data[traffickey].items():
-                framesize = value['outer_l2']['framesize']
-                traffic['outer_l2']['framesize'] = framesize
-                traffic['framesPerSecond'] = True
-                traffic['bidir'] = False
-                traffic['outer_l2']['srcmac'] = \
-                    mac["src_mac_{}".format(traffic['id'])]
-                traffic['outer_l2']['dstmac'] = \
-                    mac["dst_mac_{}".format(traffic['id'])]
+            try:
+                for key, value in profile_data[traffickey].items():
+                    framesize = value['outer_l2']['framesize']
+                    traffic['outer_l2']['framesize'] = framesize
+                    traffic['framesPerSecond'] = True
+                    traffic['bidir'] = False
+                    traffic['outer_l2']['srcmac'] = \
+                        mac["src_mac_{}".format(traffic['id'])]
+                    traffic['outer_l2']['dstmac'] = \
+                        mac["dst_mac_{}".format(traffic['id'])]
 
-                # outer_l3
-                if "outer_l3v6" in list(value.keys()):
-                    traffic['outer_l3'] = value['outer_l3v6']
-                    srcip4 = value['outer_l3v6']['srcip6']
-                    traffic['outer_l3']['srcip4'] = srcip4.split("-")[0]
-                    dstip4 = value['outer_l3v6']['dstip6']
-                    traffic['outer_l3']['dstip4'] = dstip4.split("-")[0]
-                else:
-                    traffic['outer_l3'] = value['outer_l3v4']
-                    srcip4 = value['outer_l3v4']['srcip4']
-                    traffic['outer_l3']['srcip4'] = srcip4.split("-")[0]
-                    dstip4 = value['outer_l3v4']['dstip4']
-                    traffic['outer_l3']['dstip4'] = dstip4.split("-")[0]
+                    # outer_l3
+                    if "outer_l3v6" in list(value.keys()):
+                        traffic['outer_l3'] = value['outer_l3v6']
+                        srcip4 = value['outer_l3v6']['srcip6']
+                        traffic['outer_l3']['srcip4'] = srcip4.split("-")[0]
+                        dstip4 = value['outer_l3v6']['dstip6']
+                        traffic['outer_l3']['dstip4'] = dstip4.split("-")[0]
+                    else:
+                        traffic['outer_l3'] = value['outer_l3v4']
+                        srcip4 = value['outer_l3v4']['srcip4']
+                        traffic['outer_l3']['srcip4'] = srcip4.split("-")[0]
+                        dstip4 = value['outer_l3v4']['dstip4']
+                        traffic['outer_l3']['dstip4'] = dstip4.split("-")[0]
 
-                traffic['outer_l3']['type'] = key
-                traffic['outer_l3']['count'] = value['outer_l3v4']['count']
-                # outer_l4
-                traffic['outer_l4'] = value['outer_l4']
-                index = index + 1
+                    traffic['outer_l3']['type'] = key
+                    traffic['outer_l3']['count'] = value['outer_l3v4']['count']
+                    # outer_l4
+                    traffic['outer_l4'] = value['outer_l4']
+                    index = index + 1
+            except Exception:
+                continue
+
             result.update({traffickey: traffic})
 
         return result
