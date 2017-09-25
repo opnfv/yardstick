@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_bc012a08",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-25T07:15:53Z",
+      "side": 1,
+      "message": "it looks like we use \"Basic Gen\" and \"Basic Gen x4\" in some config files for the TGs.\n\nwhich raises the spectre of startswith or partial matches.",
+      "parentUuid": "da33351e_6bd07ac9",
+      "range": {
+        "startLine": 1114,
+        "startChar": 8,
+        "endLine": 1116,
+        "endChar": 43
+      },
+      "revId": "9c4d7aabcf568595b1c16090fe574e0a4743d778",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_8bda1ee6",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 11
