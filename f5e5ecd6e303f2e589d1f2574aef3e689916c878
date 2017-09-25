@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_0da45eb8",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T18:31:39Z",
+      "side": 1,
+      "message": "all capital names should not have local scope, either global or class scope.  please move this to global scope and preferably in some util module.",
+      "revId": "f5e5ecd6e303f2e589d1f2574aef3e689916c878",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_2dafa295",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T18:31:39Z",
+      "side": 1,
+      "message": "enumerate + items:\n\n for index, (key, vnf) in enumerate(ordered_networks.items()):\n   ...",
+      "revId": "f5e5ecd6e303f2e589d1f2574aef3e689916c878",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_adc3b255",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T18:31:39Z",
+      "side": 1,
+      "message": "combining these statements only makes the ordering more temporary!\n\nand like many of the other loops, this should use items:\n\n for index, (key, vnf) in enumerate(self.servers.items()):\n   ...",
+      "revId": "f5e5ecd6e303f2e589d1f2574aef3e689916c878",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
