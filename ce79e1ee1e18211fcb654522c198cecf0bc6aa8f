@@ -938,6 +938,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_cdc6f667",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T18:31:39Z",
+      "side": 1,
+      "message": "i didn\u0027t mean that you should drop the enumerate part, just add items\n\n for idx, (vkey, vfs) in enumerate(vnf[\u0027network_ports\u0027].items()):\n   ...",
+      "parentUuid": "da33351e_73b23a95",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_456c8c08",
         "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
         "patchSetId": 1
