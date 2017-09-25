@@ -16,10 +16,11 @@
 vnfd:vnfd-catalog:
     vnfd:
     -   id: IxLoadTrafficGen
-        name: IxLoadTrafficGenVnfSshIntel
+        name: IxLoadTrafficGen
         short-name: IxLoadTrafficGenVnf
         description: IxLoad client/server connection details
         mgmt-interface:
+            vdu-id: ixloadgen-baremetal
             user: '{{user}}'  # Value filled by vnfdgen
             password: '{{password}}'  # Value filled by vnfdgen
             ip: '{{ip}}'  # Value filled by vnfdgen
@@ -32,6 +33,12 @@ vnfd:vnfd-catalog:
                 py_bin_path: '{{tg_config.py_bin_path}}'
                 dut_result_dir: '{{tg_config.dut_result_dir}}'
                 version: '{{tg_config.version}}'
+        connection-point:
+        -   name: xe0
+            type: VPORT
+        -   name: xe1
+            type: VPORT
+
         vdu:
         -   id: abclient-baremetal
             name: abclient-baremetal
