@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_0d01fdae",
+        "filename": "yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T21:47:09Z",
+      "side": 1,
+      "message": "where is the KeyError going to be thrown?  we\u0027re using .get instead of .__getitem__.  IndexError seems more of a concern from the lookup into the value from the map.",
+      "revId": "115cd6e4b5c1726bb9a3a806a8ad6d9f100f7284",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_4d2e6544",
+        "filename": "yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T21:47:09Z",
+      "side": 1,
+      "message": "please zip cards and ports instead of using indexes:\n\n chassis \u003d self._cfg[\u0027chassis\u0027]\n for card, port in zip(self._cfg[\u0027cards\u0027], self._cfg[\u0027ports\u0027]):\n   ports.append((chassis, card, port))\n\nunless you want the IndexError to be thrown should there be more cards than ports.",
+      "revId": "115cd6e4b5c1726bb9a3a806a8ad6d9f100f7284",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
