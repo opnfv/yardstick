@@ -81,11 +81,13 @@ class IxiaResourceHelper(ClientResourceHelper):
         latency = stats[0]
 
         samples = {}
-        for port_name in ports:
+        # this is not DPDK port num, but this is whatever number we gave
+        # when we selected ports and programmed the profile
+        for port_num in ports:
             try:
-                # this is not DPDK port num, but this is whatever number we gave
-                # when we selected ports and programmed the profile
-                port_num = self.vnfd_helper.port_num(port_name)
+                # reverse lookup port name from port_num so the stats dict is descriptive
+                intf = self.vnfd_helper.find_interface_by_port(port_num)
+                port_name = intf["name"]
                 samples[port_name] = {
                     "rx_throughput_kps": float(last_result["Rx_Rate_Kbps"][port_num]),
                     "tx_throughput_kps": float(last_result["Tx_Rate_Kbps"][port_num]),
@@ -140,9 +142,9 @@ class IxiaResourceHelper(ClientResourceHelper):
         mac = {}
         for vld_id, traffic in static_traffic.items():
             intfs = self.vnfd_helper.port_pairs.networks.get(vld_id, [])
-            interface = next(intfs, None)
+            interface = next(iter(intfs), None)
             if interface:
-                virt_intf = interface["virtual-interface"]
+                virt_intf = self.vnfd_helper.find_interface(name=interface)["virtual-interface"]
                 # we only know static traffic id by reading the json
                 # this is used by _get_ixia_traffic_profile
                 mac["src_mac_{}".format(traffic["id"])] = virt_intf.get("local_mac", default)
@@ -169,7 +171,7 @@ class IxiaResourceHelper(ClientResourceHelper):
             self.client.ix_stop_traffic()
             self._queue.put(samples)
         except Exception:
-            LOG.info("Run Traffic terminated")
+            LOG.exception("Run Traffic terminated")
 
         if not self.rfc_helper.is_done():
             self._terminated.value = 1
