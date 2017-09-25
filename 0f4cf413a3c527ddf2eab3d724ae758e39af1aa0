@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_9cfb86c0",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-09-25T01:20:00Z",
+      "side": 1,
+      "message": "If nodeSelector is {}, then it will not create nodeSelector and everything would be still ok, right?",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "0f4cf413a3c527ddf2eab3d724ae758e39af1aa0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
