@@ -82,10 +82,8 @@ class TestIxNextgen(unittest.TestCase):
 
         config = {
             'chassis': '1.1.1.1',
-            'card1': '1',
-            'card2': '2',
-            'port1': '2',
-            'port2': '2',
+            'cards': ['1', '2'],
+            'ports': ['2', '2'],
         }
 
         ixnet_gen = IxNextgen(ixnet)
@@ -673,10 +671,8 @@ class TestIxNextgen(unittest.TestCase):
             'machine': 'test1',
             'port': 'test5',
             'chassis': 'test4',
-            'card1': '0000',
-            'port1': '07',
-            'card2': '0001',
-            'port2': '08',
+            'cards': ['0000', '0001'],
+            'ports': ['07', '08'],
             'output_dir': 'test2',
             'version': 'test3',
             'bidir': True,
