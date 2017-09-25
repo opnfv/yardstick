@@ -113,10 +113,10 @@ class IxNextgen(object):
     }
 
     MODE_SEEDS_MAP = {
-        0: ('uplink_0', ['256', '2048']),
+        0: ('uplink', ['256', '2048']),
     }
 
-    MODE_SEEDS_DEFAULT = 'downlink_0', ['2048', '256']
+    MODE_SEEDS_DEFAULT = 'downlink', ['2048', '256']
 
     @staticmethod
     def find_view_obj(view_name, views):
@@ -125,24 +125,27 @@ class IxNextgen(object):
 
     @staticmethod
     def get_config(tg_cfg):
+        card = []
+        port = []
         external_interface = tg_cfg["vdu"][0]["external-interface"]
-        card_port0 = external_interface[0]["virtual-interface"]["vpci"]
-        card_port1 = external_interface[1]["virtual-interface"]["vpci"]
-        card0, port0 = card_port0.split(':')[:2]
-        card1, port1 = card_port1.split(':')[:2]
+        for intf in external_interface:
+            card_port0 = intf["virtual-interface"]["vpci"]
+            card0, port0 = card_port0.split(':')[:2]
+            card.append(card0)
+            port.append(port0)
+
         cfg = {
             'py_lib_path': tg_cfg["mgmt-interface"]["tg-config"]["py_lib_path"],
             'machine': tg_cfg["mgmt-interface"]["ip"],
             'port': tg_cfg["mgmt-interface"]["tg-config"]["tcl_port"],
             'chassis': tg_cfg["mgmt-interface"]["tg-config"]["ixchassis"],
-            'card1': card0,
-            'port1': port0,
-            'card2': card1,
-            'port2': port1,
+            'cards': card,
+            'ports': port,
             'output_dir': tg_cfg["mgmt-interface"]["tg-config"]["dut_result_dir"],
             'version': tg_cfg["mgmt-interface"]["tg-config"]["version"],
             'bidir': True,
         }
+
         return cfg
 
     def __init__(self, ixnet=None):
@@ -183,9 +186,13 @@ class IxNextgen(object):
             self.set_random_ip_multi_attribute(ip, seeds[1], fixed_bits, random_mask, l3_count)
 
     def add_ip_header(self, params, version):
-        for it, ep, i in self.iter_over_get_lists('/traffic', 'trafficItem', "configElement"):
-            mode, seeds = self.MODE_SEEDS_MAP.get(i, self.MODE_SEEDS_DEFAULT)
-            l3 = params[mode]['outer_l3']
+        for it, ep, i in self.iter_over_get_lists('/traffic', 'trafficItem', "configElement", 1):
+            iter1 = (v['outer_l3'] for v in params.values() if str(v['id']) == str(i))
+            try:
+                l3 = next(iter1, {})
+                seeds = self.MODE_SEEDS_MAP.get(i, self.MODE_SEEDS_DEFAULT)[1]
+            except (KeyError, IndexError):
+                continue
 
             for ip, ip_bits, _ in self.iter_over_get_lists(ep, 'stack', 'field'):
                 self.set_random_ip_multi_attributes(ip_bits, version, seeds, l3)
@@ -222,10 +229,11 @@ class IxNextgen(object):
 
     def ix_assign_ports(self):
         vports = self.ixnet.getList(self.ixnet.getRoot(), 'vport')
-        ports = [
-            (self._cfg['chassis'], self._cfg['card1'], self._cfg['port1']),
-            (self._cfg['chassis'], self._cfg['card2'], self._cfg['port2']),
-        ]
+        ports = []
+
+        chassis = self._cfg['chassis']
+        ports = [(chassis, card, port) for card, port in
+                 zip(self._cfg['cards'], self._cfg['ports'])]
 
         vport_list = self.ixnet.getList("/", "vport")
         self.ixnet.execute('assignPorts', ports, [], vport_list, True)
@@ -276,10 +284,10 @@ class IxNextgen(object):
 
     def update_ether_multi_attributes(self, ether, l2):
         if "ethernet.header.destinationAddress" in ether:
-            self.update_ether_multi_attribute(ether, str(l2['dstmac']))
+            self.update_ether_multi_attribute(ether, str(l2.get('dstmac', "00:00:00:00:00:02")))
 
         if "ethernet.header.sourceAddress" in ether:
-            self.update_ether_multi_attribute(ether, str(l2['srcmac']))
+            self.update_ether_multi_attribute(ether, str(l2.get('srcmac', "00:00:00:00:00:01")))
 
     def ix_update_ether(self, params):
         for ti, ep, index in self.iter_over_get_lists('/traffic', 'trafficItem',
