@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_eddada4a",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T18:14:23Z",
+      "side": 1,
+      "message": "this is a shallow copy, so why bother mutating the list since the dicts within both copies will be the same?\n\n for node in nodes:\n   try:\n     node[\u0027pkey\u0027] \u003d ssh.convert_key_to_str(node[\u0027pkey\u0027])\n   except KeyError:\n     pass",
+      "revId": "5b213d0024bd8ed023089c567f58955d581bd57b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_8de98ee8",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T18:14:23Z",
+      "side": 1,
+      "message": "after more thought, this seems like a good method to put on SSH or some helper subclass.",
+      "revId": "5b213d0024bd8ed023089c567f58955d581bd57b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_adec52f4",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T18:14:23Z",
+      "side": 1,
+      "message": "please remove this calculation, it is always overridden by the calculation at the end of the loop",
+      "revId": "5b213d0024bd8ed023089c567f58955d581bd57b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_0dbd7ed8",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-25T18:14:23Z",
+      "side": 1,
+      "message": "this is the important value of missing and the only time we need to calculate the difference",
+      "revId": "5b213d0024bd8ed023089c567f58955d581bd57b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
