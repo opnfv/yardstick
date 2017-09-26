@@ -1,0 +1,629 @@
+From 6dc0e126aa2e3cba5018943aac184221e9d91a9d Mon Sep 17 00:00:00 2001
+From: Deepak S <deepak.s@linux.intel.com>
+Date: Tue, 26 Sep 2017 02:40:56 -0700
+Subject: [PATCH] Auto create ixia config based on the traffic profile
+
+Change-Id: I031cc7f24f0c0816eb577a4d1606a714f68a5f83
+Signed-off-by: Deepak S <deepak.s@linux.intel.com>
+---
+ samples/vnf_samples/nsut/acl/ixia_traffic.cfg      | 51 --------------
+ samples/vnf_samples/nsut/cgnapt/ixia_traffic.cfg   | 51 --------------
+ .../tc_baremetal_rfc2544_ipv4_1flow_64B_ixia.yaml  |  4 +-
+ samples/vnf_samples/nsut/vfw/ixia_traffic.cfg      | 51 --------------
+ samples/vnf_samples/nsut/vpe/ixia_traffic.cfg      | 64 -----------------
+ .../traffic_profiles/ixia_ipv4_latency.yaml        | 22 ++++--
+ .../traffic_profiles/ixia_ipv4_latency_vpe.yaml    | 20 +++---
+ .../network_services/libs/ixia_libs/IxNet/IxNet.py |  6 +-
+ .../traffic_profile/ixia_rfc2544.py                | 81 ++++++++++++----------
+ .../vnf_generic/vnf/tg_rfc2544_ixia.py             | 35 +++-------
+ 10 files changed, 91 insertions(+), 294 deletions(-)
+ delete mode 100644 samples/vnf_samples/nsut/acl/ixia_traffic.cfg
+ delete mode 100644 samples/vnf_samples/nsut/cgnapt/ixia_traffic.cfg
+ delete mode 100644 samples/vnf_samples/nsut/vfw/ixia_traffic.cfg
+ delete mode 100644 samples/vnf_samples/nsut/vpe/ixia_traffic.cfg
+
+diff --git a/samples/vnf_samples/nsut/acl/ixia_traffic.cfg b/samples/vnf_samples/nsut/acl/ixia_traffic.cfg
+deleted file mode 100644
+index 3f7e334..0000000
+--- a/samples/vnf_samples/nsut/acl/ixia_traffic.cfg
++++ /dev/null
+@@ -1,51 +0,0 @@
+-{
+-    "uplink_0": {
+-        "id": 1,
+-        "bidir": "False",
+-        "duration": 60,
+-        "iload": "100",
+-        "outer_l2": {
+-            "dstmac": "00:00:00:00:00:03",
+-            "framesPerSecond": true,
+-            "framesize": 64,
+-            "srcmac": "00:00:00:00:00:01"
+-        },
+-        "outer_l3": {
+-            "dscp": 0,
+-            "dstip4": "152.16.40.20",
+-            "proto": "udp",
+-            "srcip4": "152.16.100.20",
+-            "ttl": 32
+-        },
+-        "outer_l4": {
+-            "dstport": "2001",
+-            "srcport": "1234"
+-        },
+-        "traffic_type": "continuous"
+-    },
+-    "downlink_0": {
+-        "id": 2,
+-        "bidir": "False",
+-        "duration": 60,
+-        "iload": "100",
+-        "outer_l2": {
+-            "dstmac": "00:00:00:00:00:04",
+-            "framesPerSecond": true,
+-            "framesize": 64,
+-            "srcmac": "00:00:00:00:00:01"
+-        },
+-        "outer_l3": {
+-            "count": 1024,
+-            "dscp": 0,
+-            "dstip4": "152.16.100.20",
+-            "proto": "udp",
+-            "srcip4": "152.16.40.20",
+-            "ttl": 32
+-        },
+-        "outer_l4": {
+-            "dstport": "1234",
+-            "srcport": "2001"
+-        },
+-        "traffic_type": "continuous"
+-    }
+-}
+diff --git a/samples/vnf_samples/nsut/cgnapt/ixia_traffic.cfg b/samples/vnf_samples/nsut/cgnapt/ixia_traffic.cfg
+deleted file mode 100644
+index 3f7e334..0000000
+--- a/samples/vnf_samples/nsut/cgnapt/ixia_traffic.cfg
++++ /dev/null
+@@ -1,51 +0,0 @@
+-{
+-    "uplink_0": {
+-        "id": 1,
+-        "bidir": "False",
+-        "duration": 60,
+-        "iload": "100",
+-        "outer_l2": {
+-            "dstmac": "00:00:00:00:00:03",
+-            "framesPerSecond": true,
+-            "framesize": 64,
+-            "srcmac": "00:00:00:00:00:01"
+-        },
+-        "outer_l3": {
+-            "dscp": 0,
+-            "dstip4": "152.16.40.20",
+-            "proto": "udp",
+-            "srcip4": "152.16.100.20",
+-            "ttl": 32
+-        },
+-        "outer_l4": {
+-            "dstport": "2001",
+-            "srcport": "1234"
+-        },
+-        "traffic_type": "continuous"
+-    },
+-    "downlink_0": {
+-        "id": 2,
+-        "bidir": "False",
+-        "duration": 60,
+-        "iload": "100",
+-        "outer_l2": {
+-            "dstmac": "00:00:00:00:00:04",
+-            "framesPerSecond": true,
+-            "framesize": 64,
+-            "srcmac": "00:00:00:00:00:01"
+-        },
+-        "outer_l3": {
+-            "count": 1024,
+-            "dscp": 0,
+-            "dstip4": "152.16.100.20",
+-            "proto": "udp",
+-            "srcip4": "152.16.40.20",
+-            "ttl": 32
+-        },
+-        "outer_l4": {
+-            "dstport": "1234",
+-            "srcport": "2001"
+-        },
+-        "traffic_type": "continuous"
+-    }
+-}
+diff --git a/samples/vnf_samples/nsut/cgnapt/tc_baremetal_rfc2544_ipv4_1flow_64B_ixia.yaml b/samples/vnf_samples/nsut/cgnapt/tc_baremetal_rfc2544_ipv4_1flow_64B_ixia.yaml
+index 7d6203c..0f1ddd6 100644
+--- a/samples/vnf_samples/nsut/cgnapt/tc_baremetal_rfc2544_ipv4_1flow_64B_ixia.yaml
++++ b/samples/vnf_samples/nsut/cgnapt/tc_baremetal_rfc2544_ipv4_1flow_64B_ixia.yaml
+@@ -28,7 +28,7 @@ scenarios:
+     flow:
+       src_ip: [{'tg__0': 'xe0'}]
+       dst_ip: [{'tg__0': 'xe1'}]
+-      publicip: ["152.16.40.10"]
++      public_ip: ["152.16.40.10"]
+       count: 1
+     traffic_type: 4
+     rfc2544:
+@@ -44,4 +44,4 @@ context:
+   type: Node
+   name: yardstick
+   nfvi_type: baremetal
+-  file: /etc/yardstick/nodes/pod.yaml
++  file: /etc/yardstick/nodes/pod_ixia.yaml
+diff --git a/samples/vnf_samples/nsut/vfw/ixia_traffic.cfg b/samples/vnf_samples/nsut/vfw/ixia_traffic.cfg
+deleted file mode 100644
+index 3f7e334..0000000
+--- a/samples/vnf_samples/nsut/vfw/ixia_traffic.cfg
++++ /dev/null
+@@ -1,51 +0,0 @@
+-{
+-    "uplink_0": {
+-        "id": 1,
+-        "bidir": "False",
+-        "duration": 60,
+-        "iload": "100",
+-        "outer_l2": {
+-            "dstmac": "00:00:00:00:00:03",
+-            "framesPerSecond": true,
+-            "framesize": 64,
+-            "srcmac": "00:00:00:00:00:01"
+-        },
+-        "outer_l3": {
+-            "dscp": 0,
+-            "dstip4": "152.16.40.20",
+-            "proto": "udp",
+-            "srcip4": "152.16.100.20",
+-            "ttl": 32
+-        },
+-        "outer_l4": {
+-            "dstport": "2001",
+-            "srcport": "1234"
+-        },
+-        "traffic_type": "continuous"
+-    },
+-    "downlink_0": {
+-        "id": 2,
+-        "bidir": "False",
+-        "duration": 60,
+-        "iload": "100",
+-        "outer_l2": {
+-            "dstmac": "00:00:00:00:00:04",
+-            "framesPerSecond": true,
+-            "framesize": 64,
+-            "srcmac": "00:00:00:00:00:01"
+-        },
+-        "outer_l3": {
+-            "count": 1024,
+-            "dscp": 0,
+-            "dstip4": "152.16.100.20",
+-            "proto": "udp",
+-            "srcip4": "152.16.40.20",
+-            "ttl": 32
+-        },
+-        "outer_l4": {
+-            "dstport": "1234",
+-            "srcport": "2001"
+-        },
+-        "traffic_type": "continuous"
+-    }
+-}
+diff --git a/samples/vnf_samples/nsut/vpe/ixia_traffic.cfg b/samples/vnf_samples/nsut/vpe/ixia_traffic.cfg
+deleted file mode 100644
+index a0cf372..0000000
+--- a/samples/vnf_samples/nsut/vpe/ixia_traffic.cfg
++++ /dev/null
+@@ -1,64 +0,0 @@
+-# Copyright (c) 2016-2017 Intel Corporation
+-#
+-# Licensed under the Apache License, Version 2.0 (the "License");
+-# you may not use this file except in compliance with the License.
+-# You may obtain a copy of the License at
+-#
+-#      http://www.apache.org/licenses/LICENSE-2.0
+-#
+-# Unless required by applicable law or agreed to in writing, software
+-# distributed under the License is distributed on an "AS IS" BASIS,
+-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-# See the License for the specific language governing permissions and
+-# limitations under the License.
+-{
+-    "uplink_0": {
+-        "id": 1,
+-        "bidir": "False",
+-        "duration": 60,
+-        "iload": "100",
+-        "outer_l2": {
+-            "dstmac": "00:00:00:00:00:03",
+-            "framesPerSecond": true,
+-            "framesize": 64,
+-            "srcmac": "00:00:00:00:00:01"
+-        },
+-        "outer_l3": {
+-            "dscp": 0,
+-            "dstip4": "152.16.40.20",
+-            "proto": "udp",
+-            "srcip4": "152.16.100.20",
+-            "ttl": 32
+-        },
+-        "outer_l4": {
+-            "dstport": "2001",
+-            "srcport": "1234"
+-        },
+-        "traffic_type": "continuous"
+-    },
+-    "downlink_0": {
+-        "id": 2,
+-        "bidir": "False",
+-        "duration": 60,
+-        "iload": "100",
+-        "outer_l2": {
+-            "dstmac": "00:00:00:00:00:04",
+-            "framesPerSecond": true,
+-            "framesize": 64,
+-            "srcmac": "00:00:00:00:00:01"
+-        },
+-        "outer_l3": {
+-            "count": 1024,
+-            "dscp": 0,
+-            "dstip4": "152.16.100.20",
+-            "proto": "udp",
+-            "srcip4": "152.16.40.20",
+-            "ttl": 32
+-        },
+-        "outer_l4": {
+-            "dstport": "1234",
+-            "srcport": "2001"
+-        },
+-        "traffic_type": "continuous"
+-    }
+-}
+diff --git a/samples/vnf_samples/traffic_profiles/ixia_ipv4_latency.yaml b/samples/vnf_samples/traffic_profiles/ixia_ipv4_latency.yaml
+index a475173..6ba1553 100644
+--- a/samples/vnf_samples/traffic_profiles/ixia_ipv4_latency.yaml
++++ b/samples/vnf_samples/traffic_profiles/ixia_ipv4_latency.yaml
+@@ -33,6 +33,7 @@ traffic_profile:
+ 
+ uplink_0:
+       ipv4:
++        id: 1
+         outer_l2:
+             framesize:
+                 64B: "{{get(imix, 'imix.uplink.64B', '0') }}"
+@@ -58,6 +59,7 @@ uplink_0:
+             count: "{{get(flow, 'flow.count', '1') }}"
+ downlink_0:
+       ipv4:
++        id: 2
+         outer_l2:
+             framesize:
+                 64B: "{{get(imix, 'imix.downlink.64B', '0') }}"
+@@ -74,6 +76,9 @@ downlink_0:
+             proto: "udp"
+             srcip4: "{{get(flow, 'flow.dst_ip_0', '1.1.1.1-1.15.255.255') }}"
+             dstip4: "{{get(flow, 'flow.src_ip_0', '90.90.1.1-90.105.255.255') }}"
++            {% if flow.flow.public_ip_0 is defined %}
++            dstip4: "{{get(flow, 'flow.public_ip_0', '90.90.1.1-90.105.255.255') }}"
++            {% endif %}
+             count: "{{get(flow, 'flow.count', '1') }}"
+             ttl: 32
+             dscp: 0
+@@ -83,6 +88,7 @@ downlink_0:
+             count: "{{get(flow, 'flow.count', '1') }}"
+ uplink_1:
+       ipv4:
++        id: 3
+         outer_l2:
+             framesize:
+                 64B: "{{get(imix, 'imix.uplink.64B', '0') }}"
+@@ -97,17 +103,18 @@ uplink_1:
+ 
+         outer_l3v4:
+             proto: "udp"
+-            srcip4: "{{get(flow, 'flow.src_ip1', '1.1.1.1-1.15.255.255') }}"
+-            dstip4: "{{get(flow, 'flow.dst_ip1', '90.90.1.1-90.105.255.255') }}"
++            srcip4: "{{get(flow, 'flow.src_ip_1', '1.1.1.1-1.15.255.255') }}"
++            dstip4: "{{get(flow, 'flow.dst_ip_1', '90.90.1.1-90.105.255.255') }}"
+             count: "{{get(flow, 'flow.count', '1') }}"
+             ttl: 32
+             dscp: 0
+         outer_l4:
+-            srcport: "{{get(flow, 'flow.src_port1', '1234') }}"
+-            dstport: "{{get(flow, 'flow.dst_port1', '2001') }}"
++            srcport: "{{get(flow, 'flow.src_port_1', '1234') }}"
++            dstport: "{{get(flow, 'flow.dst_port_1', '2001') }}"
+             count: "{{get(flow, 'flow.count', '1') }}"
+ downlink_1:
+       ipv4:
++        id: 4
+         outer_l2:
+             framesize:
+                 64B: "{{get(imix, 'imix.downlink.64B', '0') }}"
+@@ -124,10 +131,13 @@ downlink_1:
+             proto: "udp"
+             srcip4: "{{get(flow, 'flow.dst_ip_1', '1.1.1.1-1.15.255.255') }}"
+             dstip4: "{{get(flow, 'flow.src_ip_1', '90.90.1.1-90.105.255.255') }}"
++            {% if flow.public_ip_1 is defined %}
++            dstip4: "{{get(flow, 'flow.public_ip_1', '90.90.1.1-90.105.255.255') }}"
++            {% endif %}
+             count: "{{get(flow, 'flow.count', '1') }}"
+             ttl: 32
+             dscp: 0
+         outer_l4:
+-            srcport: "{{get(flow, 'flow.dst_port1', '1234') }}"
+-            dstport: "{{get(flow, 'flow.src_port1', '2001') }}"
++            srcport: "{{get(flow, 'flow.dst_port_1', '1234') }}"
++            dstport: "{{get(flow, 'flow.src_port_1', '2001') }}"
+             count: "{{get(flow, 'flow.count', '1') }}"
+diff --git a/samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vpe.yaml b/samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vpe.yaml
+index 5cce594..4d73b8f 100644
+--- a/samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vpe.yaml
++++ b/samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vpe.yaml
+@@ -46,6 +46,7 @@ traffic_profile:
+ 
+ uplink_0:
+       ipv4:
++        id: 1
+         outer_l2:
+             framesize:
+                 64B: "{{ get(imix, 'imix.uplink.imix_small', '0') }}"
+@@ -79,6 +80,7 @@ uplink_0:
+             dstport: "{{get(flow, 'flow.dst_port_0', '0') }}"
+             count: "{{get(flow, 'flow.count', '1') }}"
+ downlink_0:
++      id: 2
+       ipv4:
+         outer_l2:
+             framesize:
+@@ -103,6 +105,7 @@ downlink_0:
+             dstport: "{{get(flow, 'flow.src_port_0', '0') }}"
+             count: "{{get(flow, 'flow.count', '1') }}"
+ uplink_1:
++      id: 3
+       ipv4:
+         outer_l2:
+             framesize:
+@@ -126,16 +129,17 @@ uplink_1:
+ 
+         outer_l3v4:
+             proto: "tcp"
+-            srcip4: "{{get(flow, 'flow.srcip1', '192.168.0.0-192.168.255.255') }}"
+-            dstip4: "{{get(flow, 'flow.dstip1', '192.16.0.0-192.16.0.31') }}"
++            srcip4: "{{get(flow, 'flow.srcip_1', '192.168.0.0-192.168.255.255') }}"
++            dstip4: "{{get(flow, 'flow.dstip_1', '192.16.0.0-192.16.0.31') }}"
+             ttl: 32
+             dscp: 32
+ 
+         outer_l4:
+-            srcport: "{{get(flow, 'flow.src_port1', '0') }}"
+-            dstport: "{{get(flow, 'flow.dst_port1', '0') }}"
++            srcport: "{{get(flow, 'flow.src_port_1', '0') }}"
++            dstport: "{{get(flow, 'flow.dst_port_1', '0') }}"
+             count: "{{get(flow, 'flow.count', '1') }}"
+ downlink_1:
++      id: 4
+       ipv4:
+         outer_l2:
+             framesize:
+@@ -149,13 +153,13 @@ downlink_1:
+ 
+         outer_l3v4:
+             proto: "tcp"
+-            srcip4: "{{get(flow, 'flow.dst_ip1', '192.16.0.0-192.16.0.31') }}"
+-            dstip4: "{{get(flow, 'flow.src_ip1', '192.168.0.0-192.168.255.255') }}"
++            srcip4: "{{get(flow, 'flow.dst_ip_1', '192.16.0.0-192.16.0.31') }}"
++            dstip4: "{{get(flow, 'flow.src_ip_1', '192.168.0.0-192.168.255.255') }}"
+             count: "{{get(flow, 'flow.count', '1') }}"
+             ttl: 32
+             dscp: 32
+ 
+         outer_l4:
+-            srcport: "{{get(flow, 'flow.dst_port1', '0') }}"
+-            dstport: "{{get(flow, 'flow.src_port1', '0') }}"
++            srcport: "{{get(flow, 'flow.dst_port_1', '0') }}"
++            dstport: "{{get(flow, 'flow.src_port_1', '0') }}"
+             count: "{{get(flow, 'flow.count', '1') }}"
+diff --git a/yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py b/yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py
+index 358e6e7..70ce4ff 100644
+--- a/yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py
++++ b/yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py
+@@ -254,8 +254,10 @@ class IxNextgen(object):
+                 helper = TrafficStreamHelper(traffic_item, stream, param_id)
+ 
+                 self.ixnet.setMultiAttribute(helper.transmissionControl,
+-                                             '-type', '{0}'.format(param['traffic_type']),
+-                                             '-duration', '{0}'.format(param['duration']))
++                                             '-type', '{0}'.format(param.get('traffic_type',
++                                                                             'continuous')),
++                                             '-duration', '{0}'.format(param.get('duration',
++                                                                                 "30")))
+ 
+                 stream_frame_rate_path = helper.frameRate
+                 self.ixnet.setMultiAttribute(stream_frame_rate_path, '-rate', param['iload'])
+diff --git a/yardstick/network_services/traffic_profile/ixia_rfc2544.py b/yardstick/network_services/traffic_profile/ixia_rfc2544.py
+index 28480b8..afae99c 100644
+--- a/yardstick/network_services/traffic_profile/ixia_rfc2544.py
++++ b/yardstick/network_services/traffic_profile/ixia_rfc2544.py
+@@ -24,6 +24,9 @@ LOG = logging.getLogger(__name__)
+ 
+ class IXIARFC2544Profile(TrexProfile):
+ 
++    UPLINK = 'uplink'
++    DOWNLINK = 'downlink'
++
+     def _get_ixia_traffic_profile(self, profile_data, mac=None, xfile=None, static_traffic=None):
+         if mac is None:
+             mac = {}
+@@ -39,45 +42,53 @@ class IXIARFC2544Profile(TrexProfile):
+                 except Exception as exc:
+                     LOG.debug(exc)
+ 
+-        for traffickey, trafficvalue in static_traffic.items():
+-            traffic = static_traffic[traffickey]
+-            # outer_l2
+-            index = 0
++        for traffickey, values in profile_data.items():
++            if not (traffickey.startswith(self.UPLINK) or traffickey.startswith(self.DOWNLINK)):
++                continue
++
++            traffic = {}
+             try:
+-                for key, value in profile_data[traffickey].items():
+-                    framesize = value['outer_l2']['framesize']
+-                    traffic['outer_l2']['framesize'] = framesize
+-                    traffic['framesPerSecond'] = True
+-                    traffic['bidir'] = False
+-                    traffic['outer_l2']['srcmac'] = \
+-                        mac["src_mac_{}".format(traffic['id'])]
+-                    traffic['outer_l2']['dstmac'] = \
+-                        mac["dst_mac_{}".format(traffic['id'])]
+-
+-                    # outer_l3
+-                    if "outer_l3v6" in list(value.keys()):
+-                        traffic['outer_l3'] = value['outer_l3v6']
+-                        srcip4 = value['outer_l3v6']['srcip6']
+-                        traffic['outer_l3']['srcip4'] = srcip4.split("-")[0]
+-                        dstip4 = value['outer_l3v6']['dstip6']
+-                        traffic['outer_l3']['dstip4'] = dstip4.split("-")[0]
+-                    else:
+-                        traffic['outer_l3'] = value['outer_l3v4']
+-                        srcip4 = value['outer_l3v4']['srcip4']
+-                        traffic['outer_l3']['srcip4'] = srcip4.split("-")[0]
+-                        dstip4 = value['outer_l3v4']['dstip4']
+-                        traffic['outer_l3']['dstip4'] = dstip4.split("-")[0]
+-
+-                    traffic['outer_l3']['type'] = key
+-                    traffic['outer_l3']['count'] = value['outer_l3v4']['count']
+-                    # outer_l4
+-                    traffic['outer_l4'] = value['outer_l4']
+-                    index = index + 1
++                key = value = None
++                for key, value in values.items():
++                    pass
++                if not key:
++                    result[traffickey] = {}
++                    continue
++
++                port_id = value.get('id', 1)
++                port_index = port_id - 1
++                try:
++                    ip = value['outer_l3v6']
++                except KeyError:
++                    ip = value['outer_l3v4']
++                    src_key, dst_key = 'srcip4', 'dstip4'
++                else:
++                    src_key, dst_key = 'srcip6', 'dstip6'
++
++                result[traffickey] = {
++                    'bidir': False,
++                    'iload': '100',
++                    'id': port_id,
++                    'outer_l2': {
++                        'framesize': value['outer_l2']['framesize'],
++                        'framesPerSecond': True,
++                        'srcmac': mac['src_mac_{}'.format(port_index)],
++                        'dstmac': mac['dst_mac_{}'.format(port_index)],
++                    },
++                    'outer_l3': {
++                        'count': ip['count'],
++                        'dscp': ip['dscp'],
++                        'ttl': ip['ttl'],
++                        src_key: ip[src_key],
++                        dst_key: ip[dst_key],
++                        'type': key,
++                        'proto': ip['proto'],
++                    },
++                    'outer_l4': value['outer_l4'],
++                }
+             except Exception:
+                 continue
+ 
+-            result.update({traffickey: traffic})
+-
+         return result
+ 
+     def _ixia_traffic_generate(self, traffic_generator, traffic, ixia_obj):
+diff --git a/yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py b/yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py
+index 22aaf6d..edff761 100644
+--- a/yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py
++++ b/yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py
+@@ -14,7 +14,6 @@
+ 
+ from __future__ import absolute_import
+ 
+-import json
+ import time
+ import os
+ import logging
+@@ -130,39 +129,27 @@ class IxiaResourceHelper(ClientResourceHelper):
+ 
+         self.client.ix_assign_ports()
+ 
+-        ixia_file = find_relative_file("ixia_traffic.cfg",
+-                                       self.scenario_helper.scenario_cfg["task_path"])
+-
+-        static_traffic = {}
+-        with open(ixia_file) as stream:
+-            try:
+-                static_traffic = json.load(stream)
+-            except Exception:
+-                LOG.exception("")
+         mac = {}
+-        for vld_id, traffic in static_traffic.items():
+-            intfs = self.vnfd_helper.port_pairs.networks.get(vld_id, [])
+-            interface = next(iter(intfs), None)
+-            if interface:
+-                virt_intf = self.vnfd_helper.find_interface(name=interface)["virtual-interface"]
+-                # we only know static traffic id by reading the json
+-                # this is used by _get_ixia_traffic_profile
+-                mac["src_mac_{}".format(traffic["id"])] = virt_intf.get("local_mac", default)
+-                mac["dst_mac_{}".format(traffic["id"])] = virt_intf.get("dst_mac", default)
++        for interface in self.vnfd_helper.port_pairs.all_ports:
++            virt_intf = self.vnfd_helper.find_interface(name=interface)["virtual-interface"]
++            # we only know static traffic id by reading the json
++            # this is used by _get_ixia_trafficrofile
++            port_num = self.vnfd_helper.port_num(interface)
++            mac["src_mac_{}".format(port_num)] = virt_intf.get("local_mac", default)
++            mac["dst_mac_{}".format(port_num)] = virt_intf.get("dst_mac", default)
+ 
+         samples = {}
+         # Generate ixia traffic config...
+         try:
+             while not self._terminated.value:
+-                traffic_profile.execute_traffic(self, self.client, mac, ixia_file)
++                traffic_profile.execute_traffic(self, self.client, mac)
+                 self.client_started.value = 1
+                 time.sleep(WAIT_FOR_TRAFFIC)
+                 self.client.ix_stop_traffic()
+                 samples = self.generate_samples(traffic_profile.ports)
+                 self._queue.put(samples)
+                 status, samples = traffic_profile.get_drop_percentage(self, samples, min_tol,
+-                                                                      max_tol, self.client, mac,
+-                                                                      ixia_file)
++                                                                      max_tol, self.client, mac)
+ 
+                 current = samples['CurrentDropPercentage']
+                 if min_tol <= current <= max_tol or status == 'Completed':
+@@ -175,13 +162,13 @@ class IxiaResourceHelper(ClientResourceHelper):
+                 self._terminated.value = 1
+                 return
+ 
+-            traffic_profile.execute_traffic(self, self.client, mac, ixia_file)
++            traffic_profile.execute_traffic(self, self.client, mac)
+             for _ in range(5):
+                 time.sleep(self.LATENCY_TIME_SLEEP)
+                 self.client.ix_stop_traffic()
+                 samples = self.generate_samples(traffic_profile.ports, 'latency', {})
+                 self._queue.put(samples)
+-                traffic_profile.start_ixia_latency(self, self.client, mac, ixia_file)
++                traffic_profile.start_ixia_latency(self, self.client, mac)
+                 if self._terminated.value:
+                     break
+ 
+-- 
+2.7.4
+

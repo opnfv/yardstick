@@ -24,6 +24,9 @@ LOG = logging.getLogger(__name__)
 
 class IXIARFC2544Profile(TrexProfile):
 
+    UPLINK = 'uplink'
+    DOWNLINK = 'downlink'
+
     def _get_ixia_traffic_profile(self, profile_data, mac=None, xfile=None, static_traffic=None):
         if mac is None:
             mac = {}
@@ -39,44 +42,51 @@ class IXIARFC2544Profile(TrexProfile):
                 except Exception as exc:
                     LOG.debug(exc)
 
-        for traffickey, trafficvalue in static_traffic.items():
-            traffic = static_traffic[traffickey]
-            # outer_l2
-            index = 0
-            try:
-                for key, value in profile_data[traffickey].items():
-                    framesize = value['outer_l2']['framesize']
-                    traffic['outer_l2']['framesize'] = framesize
-                    traffic['framesPerSecond'] = True
-                    traffic['bidir'] = False
-                    traffic['outer_l2']['srcmac'] = \
-                        mac["src_mac_{}".format(traffic['id'])]
-                    traffic['outer_l2']['dstmac'] = \
-                        mac["dst_mac_{}".format(traffic['id'])]
-
-                    # outer_l3
-                    if "outer_l3v6" in list(value.keys()):
-                        traffic['outer_l3'] = value['outer_l3v6']
-                        srcip4 = value['outer_l3v6']['srcip6']
-                        traffic['outer_l3']['srcip4'] = srcip4.split("-")[0]
-                        dstip4 = value['outer_l3v6']['dstip6']
-                        traffic['outer_l3']['dstip4'] = dstip4.split("-")[0]
-                    else:
-                        traffic['outer_l3'] = value['outer_l3v4']
-                        srcip4 = value['outer_l3v4']['srcip4']
-                        traffic['outer_l3']['srcip4'] = srcip4.split("-")[0]
-                        dstip4 = value['outer_l3v4']['dstip4']
-                        traffic['outer_l3']['dstip4'] = dstip4.split("-")[0]
-
-                    traffic['outer_l3']['type'] = key
-                    traffic['outer_l3']['count'] = value['outer_l3v4']['count']
-                    # outer_l4
-                    traffic['outer_l4'] = value['outer_l4']
-                    index = index + 1
-            except Exception:
+        for traffickey, values in profile_data.items():
+            if not (traffickey.startswith(self.UPLINK) or traffickey.startswith(self.DOWNLINK)):
                 continue
 
-            result.update({traffickey: traffic})
+            try:
+                key = value = None
+                for key, value in values.items():
+                    pass
+                if not key:
+                    result[traffickey] = {}
+                    continue
+
+                port_id = value.get('id', 1)
+                port_index = port_id - 1
+                try:
+                    ip = value['outer_l3v6']
+                except KeyError:
+                    ip = value['outer_l3v4']
+                    src_key, dst_key = 'srcip4', 'dstip4'
+                else:
+                    src_key, dst_key = 'srcip6', 'dstip6'
+
+                result[traffickey] = {
+                    'bidir': False,
+                    'iload': '100',
+                    'id': port_id,
+                    'outer_l2': {
+                        'framesize': value['outer_l2']['framesize'],
+                        'framesPerSecond': True,
+                        'srcmac': mac['src_mac_{}'.format(port_index)],
+                        'dstmac': mac['dst_mac_{}'.format(port_index)],
+                    },
+                    'outer_l3': {
+                        'count': ip['count'],
+                        'dscp': ip['dscp'],
+                        'ttl': ip['ttl'],
+                        src_key: ip[src_key],
+                        dst_key: ip[dst_key],
+                        'type': key,
+                        'proto': ip['proto'],
+                    },
+                    'outer_l4': value['outer_l4'],
+                }
+            except Exception:
+                continue
 
         return result
 
