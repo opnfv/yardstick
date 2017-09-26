@@ -333,6 +333,23 @@
     },
     {
       "key": {
+        "uuid": "da33351e_b6ae622c",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-26T15:27:36Z",
+      "side": 1,
+      "message": "fping is not installed on my host. Why don\u0027t we use the ping command? ping -c 1 returns 0 on success, 1 when the target is not available. The mgmt ip is the address we ping, so why do we read it from the arp table?\nWhy is this called get_mgmt_ip, it actually waits for the vm to come up, isn\u0027t it so?",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_285cbdec",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 1
@@ -361,6 +378,23 @@
       "writtenOn": "2017-09-20T20:03:35Z",
       "side": 1,
       "message": "if we want order to our interfaces, then this might be a good place for that to start.\n\n interfaces \u003d OrderedDict()",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f652aa33",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-26T15:27:36Z",
+      "side": 1,
+      "message": "If there is no /root/.ssh/id_rsa on the server, the ssh client later fails with \u0027No such file or directory\u0027...\nNot sure if it makes any sense to default to id_rsa. I think it\u0027s better to default to None.",
       "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
