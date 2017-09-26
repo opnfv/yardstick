@@ -1,0 +1,97 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: yardstick:task:0.1
+scenarios:
+  - type: NSPerf
+    traffic_profile: ../../traffic_profiles/ipv4_throughput-cgnapt-ixia-{{ num_vnfs }}.yaml
+    topology: cgnapt-tg-topology-ixia-scale-out-{{ num_vnfs }}.yaml
+    nodes:
+      tg__0: tg__0.yardstick
+{% for vnf_num in range(num_vnfs|int) %}
+      vnf__{{ vnf_num }}: vnf_{{ vnf_num }}.yardstick
+{% endfor %}
+    options:
+      framesize:
+        uplink: {{ flow.pkt_size.uplink }}
+        downlink: {{ flow.pkt_size.downlink }}
+      flow:
+        src_ip:
+{% for vnf_num in range(num_vnfs|int) %}
+          - {'tg__0': 'xe{{ (vnf_num * 2)}}'}
+{% endfor %}
+        dst_ip:
+{% for vnf_num in range(num_vnfs|int) %}
+          - {'tg__0': 'xe{{ (vnf_num * 2) + 1}}'}
+{% endfor %}
+        public_ip: ["152.40.40.10"]
+        count: {{ flow.count }}
+      traffic_type: {{ flow.traffic_type }}
+      rfc2544:
+        allowed_drop_rate: {{ flow.rfc2544.allowed_drop_rate }}
+{% for vnf_num in range(num_vnfs|int) %}
+      vnf__{{ vnf_num }}:
+        rules: acl_1rule.yaml
+        vnf_config: {lb_config: '{{flow.vnf_config.lb_config}}', lb_count: {{flow.vnf_config.lb_count}} , worker_config: '{{flow.vnf_config.worker_config}}', worker_threads: {{flow.vnf_config.worker_threads}}}
+{% endfor %}
+    ixia_profile: ../../traffic_profiles/ixia_ipv4_profile_{{num_vnfs * 2}}_port.ixncfg
+
+    runner:
+      type: Iteration
+      iterations: 10
+      interval: 35
+contexts:
+   - name: yardstick
+     type: Node
+     file: /etc/yardstick/nodes/ixia_{{num_vnfs}}.yaml
+   - type: StandaloneSriov
+     file: /etc/yardstick/nodes/sriov_host.yaml
+     name: yardstick
+     vm_deploy: True
+     flavor:
+       images: {{ flavor.image }}
+       ram: {{ flavor.ram }}
+       extra_specs:
+         hw:cpu_sockets: {{ flavor.extra_specs.cpu_sockets }}
+         hw:cpu_cores: {{ flavor.extra_specs.cpu_cores }}
+         hw:cpu_threads: {{ flavor.extra_specs.cpu_threads }}
+       user: {{ vnf.user }}
+       password: {{ vnf.password }}
+     servers:
+{% for vnf_num in range(num_vnfs|int) %}
+       vnf_{{ vnf_num }}:
+         network_ports:
+           mgmt:
+             cidr: '{{vnf.ip.mgmt[vnf_num]}}'
+           xe0:
+             - uplink_{{ vnf_num }}
+           xe1:
+             - downlink_{{ vnf_num }}
+{% endfor %}
+     networks:
+{% for vnf_num in range(num_vnfs|int) %}
+       uplink_{{ vnf_num }}:
+         port_num: {{ vnf_num * 2 }}
+         phy_port: "{{vnf.pcis.uplink[vnf_num]}}"
+         vpci: "0000:00:{{10 + (89 | random)}}.0"
+         cidr: '{{vnf.ip.uplink[vnf_num]}}'
+         gateway_ip: '{{gen.ip.uplink[vnf_num]}}'
+       downlink_{{ vnf_num }}:
+         port_num: {{ (vnf_num * 2) + 1}}
+         phy_port: "{{vnf.pcis.downlink[vnf_num]}}"
+         vpci: "0000:00:{{10 + (89 | random)}}.0"
+         cidr: '{{vnf.ip.downlink[vnf_num]}}'
+         gateway_ip: '{{gen.ip.downlink[vnf_num]}}'
+{% endfor %}
