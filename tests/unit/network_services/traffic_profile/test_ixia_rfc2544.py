@@ -179,12 +179,12 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                "dst_mac_0": "00:00:00:00:00:03",
                "dst_mac_1": "00:00:00:00:00:04",
                "dst_mac_2": "00:00:00:00:00:04"}
-        self.assertRaises(IOError, r_f_c2544_profile._get_ixia_traffic_profile,
-                          self.PROFILE, mac, xfile="tmp",
-                          static_traffic=STATIC_TRAFFIC)
+        result = r_f_c2544_profile._get_ixia_traffic_profile(
+            self.PROFILE, mac, xfile="tmp",
+            static_traffic=STATIC_TRAFFIC)
+        self.assertIsNotNone(result)
 
-    @mock.patch("yardstick.network_services.traffic_profile.ixia_rfc2544.open")
-    def test_get_ixia_traffic_profile(self, mock_open):
+    def test_get_ixia_traffic_profile(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.my_ports = [0, 1]
         traffic_generator.uplink_ports = [-1]
