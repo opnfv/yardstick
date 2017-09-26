@@ -14,7 +14,6 @@
 
 from __future__ import absolute_import
 
-import json
 import time
 import os
 import logging
@@ -130,39 +129,28 @@ class IxiaResourceHelper(ClientResourceHelper):
 
         self.client.ix_assign_ports()
 
-        ixia_file = find_relative_file("ixia_traffic.cfg",
-                                       self.scenario_helper.scenario_cfg["task_path"])
-
-        static_traffic = {}
-        with open(ixia_file) as stream:
-            try:
-                static_traffic = json.load(stream)
-            except Exception:
-                LOG.exception("")
         mac = {}
-        for vld_id, traffic in static_traffic.items():
-            intfs = self.vnfd_helper.port_pairs.networks.get(vld_id, [])
-            interface = next(iter(intfs), None)
-            if interface:
-                virt_intf = self.vnfd_helper.find_interface(name=interface)["virtual-interface"]
-                # we only know static traffic id by reading the json
-                # this is used by _get_ixia_traffic_profile
-                mac["src_mac_{}".format(traffic["id"])] = virt_intf.get("local_mac", default)
-                mac["dst_mac_{}".format(traffic["id"])] = virt_intf.get("dst_mac", default)
+        for interface in self.vnfd_helper.port_pairs.all_ports:
+            virt_intf = self.vnfd_helper.find_interface(name=interface)["virtual-interface"]
+            # we only know static traffic id by reading the json
+            # this is used by _get_ixia_trafficrofile
+            mac["src_mac_{}".format(self.vnfd_helper.port_num(interface))] = \
+                virt_intf.get("local_mac", default)
+            mac["dst_mac_{}".format(self.vnfd_helper.port_num(interface))] = \
+                virt_intf.get("dst_mac", default)
 
         samples = {}
         # Generate ixia traffic config...
         try:
             while not self._terminated.value:
-                traffic_profile.execute_traffic(self, self.client, mac, ixia_file)
+                traffic_profile.execute_traffic(self, self.client, mac)
                 self.client_started.value = 1
                 time.sleep(WAIT_FOR_TRAFFIC)
                 self.client.ix_stop_traffic()
                 samples = self.generate_samples(traffic_profile.ports)
                 self._queue.put(samples)
                 status, samples = traffic_profile.get_drop_percentage(self, samples, min_tol,
-                                                                      max_tol, self.client, mac,
-                                                                      ixia_file)
+                                                                      max_tol, self.client, mac)
 
                 current = samples['CurrentDropPercentage']
                 if min_tol <= current <= max_tol or status == 'Completed':
