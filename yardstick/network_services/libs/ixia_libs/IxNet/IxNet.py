@@ -254,8 +254,10 @@ class IxNextgen(object):
                 helper = TrafficStreamHelper(traffic_item, stream, param_id)
 
                 self.ixnet.setMultiAttribute(helper.transmissionControl,
-                                             '-type', '{0}'.format(param['traffic_type']),
-                                             '-duration', '{0}'.format(param['duration']))
+                                             '-type', '{0}'.format(param.get('traffic_type',
+                                                                             'continuous')),
+                                             '-duration', '{0}'.format(param.get('duration',
+                                                                                 "30")))
 
                 stream_frame_rate_path = helper.frameRate
                 self.ixnet.setMultiAttribute(stream_frame_rate_path, '-rate', param['iload'])
