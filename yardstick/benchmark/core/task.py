@@ -262,7 +262,8 @@ class Task(object):     # pragma: no cover
             for runner in runners:
                 status = runner_join(runner)
                 if status != 0:
-                    raise RuntimeError
+                    raise RuntimeError(
+                        "{0} runner status {1}".format(runner.__execution_type__, status))
                 self.outputs.update(runner.get_output())
                 result.extend(runner.get_result())
                 LOG.info("Runner ended, output in %s", output_file)
@@ -276,7 +277,8 @@ class Task(object):     # pragma: no cover
                         LOG.error('Scenario NO.%s: "%s" ERROR!',
                                   scenarios.index(scenario) + 1,
                                   scenario.get('type'))
-                        raise RuntimeError
+                        raise RuntimeError(
+                            "{0} runner status {1}".format(runner.__execution_type__, status))
                     self.outputs.update(runner.get_output())
                     result.extend(runner.get_result())
                     LOG.info("Runner ended, output in %s", output_file)
