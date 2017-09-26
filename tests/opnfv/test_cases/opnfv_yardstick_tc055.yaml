@@ -24,7 +24,6 @@ description: >
 scenarios:
 -
   type: ComputeCapacity
-  options:
 
   nodes:
     host: {{host}}
