@@ -16,6 +16,24 @@
       "revId": "e14d518c30ce37dd26fbbd130d7d16f5bb992bc0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7c2319a7",
+        "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T18:06:22Z",
+      "side": 1,
+      "message": "no, resource_helper is ResourceHelper or a subclass.  traffic_gen is GenericTrafficGen or subclass.",
+      "parentUuid": "da33351e_c1ccfe8b",
+      "revId": "e14d518c30ce37dd26fbbd130d7d16f5bb992bc0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
