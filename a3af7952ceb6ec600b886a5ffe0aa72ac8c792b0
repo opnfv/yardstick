@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "da33351e_b66b021d",
+        "filename": "etc/yardstick/nodes/standalone/pod_ovs_template.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-26T12:30:50Z",
+      "side": 1,
+      "message": "I think this should be OvsDpdk (capital D) -- that\u0027s what\u0027s expected in the ovs_dpdk.py",
+      "revId": "a3af7952ceb6ec600b886a5ffe0aa72ac8c792b0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_f6ec6abd",
         "filename": "samples/vnf_samples/nsut/udp_replay/tc_ovs_rfc2544_ipv4_1rule_64B_trex.yaml",
         "patchSetId": 4
