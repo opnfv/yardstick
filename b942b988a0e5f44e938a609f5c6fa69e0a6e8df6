@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_93241061",
+        "filename": "ansible/roles/download_pmu_tools/defaults/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-26T07:28:25Z",
+      "side": 1,
+      "message": "for release we will want a tag or chosen commit id",
+      "revId": "b942b988a0e5f44e938a609f5c6fa69e0a6e8df6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_73298c36",
+        "filename": "ansible/roles/install_pmu_tools/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-26T07:28:25Z",
+      "side": 1,
+      "message": "do we know what this script does?  maybe we can convert it to ansible?",
+      "revId": "b942b988a0e5f44e938a609f5c6fa69e0a6e8df6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
