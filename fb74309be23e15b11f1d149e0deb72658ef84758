@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_8138363e",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:16:03Z",
+      "side": 1,
+      "message": "do we need double tabs?\n\nbetter yet, let\u0027s use spaces.",
+      "revId": "fb74309be23e15b11f1d149e0deb72658ef84758",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c13d1e2d",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:16:03Z",
+      "side": 1,
+      "message": "please indent this since it is within the for loop",
+      "revId": "fb74309be23e15b11f1d149e0deb72658ef84758",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_2147aabd",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:16:03Z",
+      "side": 1,
+      "message": "this seems over-indented: 3 pairs of tabs when 2 pairs should be enough",
+      "revId": "fb74309be23e15b11f1d149e0deb72658ef84758",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_41190ed6",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:16:03Z",
+      "side": 1,
+      "message": "more over indentation, even if tabs are worth 4 space, a single tab is enough.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "fb74309be23e15b11f1d149e0deb72658ef84758",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_617b72f5",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:16:03Z",
+      "side": 1,
+      "message": "this seems nearly identical to download_dpdk_zip, can they be merged and the URL passed into a multi-use function?",
+      "revId": "fb74309be23e15b11f1d149e0deb72658ef84758",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_4180eebf",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:16:03Z",
+      "side": 1,
+      "message": "copy-paste error: this is OVS not DPDK, speaks to the idea that they are the same method.",
+      "range": {
+        "startLine": 68,
+        "startChar": 16,
+        "endLine": 68,
+        "endChar": 20
+      },
+      "revId": "fb74309be23e15b11f1d149e0deb72658ef84758",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c124fe0e",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:16:03Z",
+      "side": 1,
+      "message": "please indent these sub-clauses more than their pattern match lines.",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 4
+      },
+      "revId": "fb74309be23e15b11f1d149e0deb72658ef84758",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
