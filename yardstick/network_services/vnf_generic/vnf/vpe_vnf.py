@@ -60,6 +60,25 @@ class ConfigCreate(object):
         self.downlink_ports = self.vnfd_helper.port_pairs.downlink_ports
         self.pipeline_per_port = 9
         self.socket = socket
+        self._dpdk_port_to_link_id_map = None
+
+    @property
+    def dpdk_port_to_link_id_map(self):
+        # we need interface name -> DPDK port num (PMD ID) -> LINK ID
+        # LINK ID -> PMD ID is governed by the port mask
+        # LINK instances are created implicitly based on the PORT_MASK application startup
+        # argument. LINK0 is the first port enabled in the PORT_MASK, port 1 is the next one,
+        # etc. The LINK ID is different than the DPDK PMD-level NIC port ID, which is the actual
+        #  position in the bitmask mentioned above. For example, if bit 5 is the first bit set
+        # in the bitmask, then LINK0 is having the PMD ID of 5. This mechanism creates a
+        # contiguous LINK ID space and isolates the configuration file against changes in the
+        # board PCIe slots where NICs are plugged in.
+        if self._dpdk_port_to_link_id_map is None:
+            self._dpdk_port_to_link_id_map = {}
+            for link_id, port_name in enumerate(sorted(self.vnfd_helper.port_pairs.all_ports,
+                                                       key=self.vnfd_helper.port_num)):
+                self._dpdk_port_to_link_id_map[port_name] = link_id
+        return self._dpdk_port_to_link_id_map
 
     def vpe_initialize(self, config):
         config.add_section('EAL')
@@ -78,7 +97,7 @@ class ConfigCreate(object):
 
     def vpe_rxq(self, config):
         for port in self.downlink_ports:
-            new_section = 'RXQ{0}.0'.format(self.vnfd_helper.port_num(port))
+            new_section = 'RXQ{0}.0'.format(self.dpdk_port_to_link_id_map[port])
             config.add_section(new_section)
             config.set(new_section, 'mempool', 'MEMPOOL1')
 
@@ -103,7 +122,7 @@ class ConfigCreate(object):
             for k, v in parser.items(pipeline):
                 if k == "pktq_in":
                     if "RXQ" in v:
-                        port = self.vnfd_helper.port_num(self.uplink_ports[index])
+                        port = self.dpdk_port_to_link_id_map[self.uplink_ports[index]]
                         value = "RXQ{0}.0".format(port)
                     else:
                         value = self.get_sink_swq(parser, pipeline, k, index)
@@ -112,7 +131,7 @@ class ConfigCreate(object):
 
                 elif k == "pktq_out":
                     if "TXQ" in v:
-                        port = self.vnfd_helper.port_num(self.downlink_ports[index])
+                        port = self.dpdk_port_to_link_id_map[self.downlink_ports[index]]
                         value = "TXQ{0}.0".format(port)
                     else:
                         self.sw_q += 1
@@ -134,7 +153,7 @@ class ConfigCreate(object):
             for k, v in parser.items(pipeline):
 
                 if k == "pktq_in":
-                    port = self.vnfd_helper.port_num(self.downlink_ports[index])
+                    port = self.dpdk_port_to_link_id_map[self.downlink_ports[index]]
                     if "RXQ" not in v:
                         value = self.get_sink_swq(parser, pipeline, k, index)
                     elif "TM" in v:
@@ -145,7 +164,7 @@ class ConfigCreate(object):
                     parser.set(pipeline, k, value)
 
                 if k == "pktq_out":
-                    port = self.vnfd_helper.port_num(self.uplink_ports[index])
+                    port = self.dpdk_port_to_link_id_map[self.uplink_ports[index]]
                     if "TXQ" not in v:
                         self.sw_q += 1
                         value = self.get_sink_swq(parser, pipeline, k, index)
@@ -170,7 +189,7 @@ class ConfigCreate(object):
             config = self.vpe_initialize(config)
             config = self.vpe_rxq(config)
             config.write(cfg_file)
-            for index in range(0, len(self.uplink_ports)):
+            for index, _ in enumerate(self.uplink_ports):
                 config = self.vpe_upstream(vnf_cfg, index)
                 config.write(cfg_file)
                 config = self.vpe_downstream(vnf_cfg, index)
