@@ -401,6 +401,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_81b796f4",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-26T15:30:47Z",
+      "side": 1,
+      "message": "key_filename should default to None so paramiko can auto search.",
+      "parentUuid": "da33351e_f652aa33",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_684a4527",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 1
