@@ -1,0 +1,61 @@
+# Copyright (c) 2017 Intel Corporation. #
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+
+- set_fact:
+    num_vnfs: "{{ item }}"
+
+- debug:
+    var: num_vnfs
+    verbosity: 2
+
+
+- template:
+    src: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-ixia-scale-out.yaml
+    dest: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-ixia-{{ num_vnfs }}.yaml
+
+- template:
+    src: ../etc/yardstick/nodes/standalone/ixia_template.yaml
+    dest: /etc/yardstick/nodes/ixia_{{ num_vnfs }}.yaml
+
+- template:
+    src: ../etc/yardstick/nodes/standalone/pod_sriov.yaml
+    dest: /etc/yardstick/nodes/sriov_host.yaml
+
+- template:
+    src: ../samples/vnf_samples/nsut/vfw/tc_sriov_vfw_udp_ixia_scale_out_template.yaml
+    dest: ../samples/vnf_samples/nsut/vfw/tc_sriov_vfw_udp_ixia_scale_out_{{ num_vnfs }}.yaml
+
+- template:
+     src: ../samples/vnf_samples/nsut/vfw/vfw-tg-topology-ixia-scale-out.yaml
+     dest: ../samples/vnf_samples/nsut/vfw/vfw-tg-topology-ixia-scale-out-{{ num_vnfs }}.yaml
+
+- template:
+    src: ../samples/vnf_samples/nsut/acl/tc_sriov_acl_udp_ixia_scale_out_template.yaml
+    dest: ../samples/vnf_samples/nsut/acl/tc_sriov_acl_udp_ixia_scale_out_{{num_vnfs}}.yaml
+
+- template:
+     src: ../samples/vnf_samples/nsut/acl/acl-tg-topology-ixia-scale-out.yaml
+     dest: ../samples/vnf_samples/nsut/acl/acl-tg-topology-ixia-scale-out-{{ num_vnfs }}.yaml
+
+- template:
+    src: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-cgnapt-ixia-scale-out.yaml
+    dest: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-cgnapt-{{ num_vnfs }}.yaml
+
+- template:
+    src: ../samples/vnf_samples/nsut/cgnapt/tc_sriov_cgnapt_udp_ixia_scale_out_template.yaml
+    dest: ../samples/vnf_samples/nsut/cgnapt/tc_sriov_cgnapt_udp_ixia_scale_out_{{num_vnfs}}.yaml
+
+- template:
+     src: ../samples/vnf_samples/nsut/cgnapt/cgnapt-tg-topology-ixia-scale-out.yaml
+     dest: ../samples/vnf_samples/nsut/cgnapt/cgnapt-tg-topology-ixia-scale-out-{{ num_vnfs }}.yaml
