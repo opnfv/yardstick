@@ -25,6 +25,7 @@ from multiprocessing import Process, Queue
 
 from tests.unit import STL_MOCKS
 from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
+from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 
 
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
@@ -55,14 +56,117 @@ get_file_abspath = MODULE_PATH.get_path
 
 class TestConfigCreate(unittest.TestCase):
 
+    VNFD_0 = {
+        'short-name': 'VpeVnf',
+        'vdu': [
+            {
+                'routing_table': [
+                    {
+                        'network': '152.16.100.20',
+                        'netmask': '255.255.255.0',
+                        'gateway': '152.16.100.20',
+                        'if': 'xe0'
+                    },
+                    {
+                        'network': '152.16.40.20',
+                        'netmask': '255.255.255.0',
+                        'gateway': '152.16.40.20',
+                        'if': 'xe1'
+                    },
+                ],
+                'description': 'VPE approximation using DPDK',
+                'name': 'vpevnf-baremetal',
+                'nd_route_tbl': [
+                    {
+                        'network': '0064:ff9b:0:0:0:0:9810:6414',
+                        'netmask': '112',
+                        'gateway': '0064:ff9b:0:0:0:0:9810:6414',
+                        'if': 'xe0'
+                    },
+                    {
+                        'network': '0064:ff9b:0:0:0:0:9810:2814',
+                        'netmask': '112',
+                        'gateway': '0064:ff9b:0:0:0:0:9810:2814',
+                        'if': 'xe1'
+                    },
+                ],
+                'id': 'vpevnf-baremetal',
+                'external-interface': [
+                    {
+                        'virtual-interface': {
+                            'dst_mac': '00:00:00:00:00:03',
+                            'vpci': '0000:05:00.0',
+                            'local_ip': '152.16.100.19',
+                            'type': 'PCI-PASSTHROUGH',
+                            'netmask': '255.255.255.0',
+                            'dpdk_port_num': 0,
+                            'bandwidth': '10 Gbps',
+                            'dst_ip': '152.16.100.20',
+                            'local_mac': '00:00:00:00:00:01',
+                            'vld_id': 'uplink_0',
+                            'ifname': 'xe0',
+                        },
+                        'vnfd-connection-point-ref': 'xe0',
+                        'name': 'xe0'
+                    },
+                    {
+                        'virtual-interface': {
+                            'dst_mac': '00:00:00:00:00:04',
+                            'vpci': '0000:05:00.1',
+                            'local_ip': '152.16.40.19',
+                            'type': 'PCI-PASSTHROUGH',
+                            'netmask': '255.255.255.0',
+                            'dpdk_port_num': 1,
+                            'bandwidth': '10 Gbps',
+                            'dst_ip': '152.16.40.20',
+                            'local_mac': '00:00:00:00:00:02',
+                            'vld_id': 'downlink_0',
+                            'ifname': 'xe1',
+                        },
+                        'vnfd-connection-point-ref': 'xe1',
+                        'name': 'xe1'
+                    },
+                ],
+            },
+        ],
+        'description': 'Vpe approximation using DPDK',
+        'mgmt-interface': {
+            'vdu-id': 'vpevnf-baremetal',
+            'host': '1.1.1.1',
+            'password': 'r00t',
+            'user': 'root',
+            'ip': '1.1.1.1'
+        },
+        'benchmark': {
+            'kpi': [
+                'packets_in',
+                'packets_fwd',
+                'packets_dropped',
+            ],
+        },
+        'connection-point': [
+            {
+                'type': 'VPORT',
+                'name': 'xe0',
+            },
+            {
+                'type': 'VPORT',
+                'name': 'xe1',
+            },
+        ],
+        'id': 'VpeApproxVnf', 'name': 'VPEVnfSsh'
+    }
+
     def test___init__(self):
-        config_create = ConfigCreate([0], [1], 2)
-        self.assertEqual(config_create.uplink_ports, [0])
-        self.assertEqual(config_create.downlink_ports, [1])
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        config_create = ConfigCreate(vnfd_helper, 2)
+        self.assertEqual(config_create.uplink_ports, ['xe0'])
+        self.assertEqual(config_create.downlink_ports, ['xe1'])
         self.assertEqual(config_create.socket, 2)
 
     def test_vpe_initialize(self):
-        config_create = ConfigCreate([0], [1], 2)
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        config_create = ConfigCreate(vnfd_helper, 2)
         config = configparser.ConfigParser()
         config_create.vpe_initialize(config)
         self.assertEqual(config.get('EAL', 'log_level'), '0')
@@ -72,14 +176,16 @@ class TestConfigCreate(unittest.TestCase):
         self.assertEqual(config.get('MEMPOOL1', 'pool_size'), '2M')
 
     def test_vpe_rxq(self):
-        config_create = ConfigCreate([0], [1, 2], 3)
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        config_create = ConfigCreate(vnfd_helper, 2)
         config = configparser.ConfigParser()
+        config_create.downlink_ports = ['xe0']
         config_create.vpe_rxq(config)
-        self.assertEqual(config.get('RXQ1.0', 'mempool'), 'MEMPOOL1')
-        self.assertEqual(config.get('RXQ2.0', 'mempool'), 'MEMPOOL1')
+        self.assertEqual(config.get('RXQ0.0', 'mempool'), 'MEMPOOL1')
 
     def test_get_sink_swq(self):
-        config_create = ConfigCreate([0], [1], 2)
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        config_create = ConfigCreate(vnfd_helper, 2)
         config = configparser.ConfigParser()
         config.add_section('PIPELINE0')
         config.set('PIPELINE0', 'key1', 'value1')
@@ -96,15 +202,26 @@ class TestConfigCreate(unittest.TestCase):
         self.assertEqual(config_create.get_sink_swq(config, 'PIPELINE0', 'key5', 5), 'SWQ0 SINK1')
 
     def test_generate_vpe_script(self):
-        vpe_config_vnf = ConfigCreate([0], [0], 0)
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        vpe_config_vnf = ConfigCreate(vnfd_helper, 2)
         intf = [
             {
+                "name": 'xe1',
+                "virtual-interface": {
+                    "dst_ip": "1.1.1.1",
+                    "dst_mac": "00:00:00:00:00:00:02",
+                },
+            },
+            {
+                "name": 'xe2',
                 "virtual-interface": {
                     "dst_ip": "1.1.1.1",
                     "dst_mac": "00:00:00:00:00:00:02",
                 },
             },
         ]
+        vpe_config_vnf.downlink_ports = ['xe1']
+        vpe_config_vnf.uplink_ports = ['xe2']
         result = vpe_config_vnf.generate_vpe_script(intf)
         self.assertIsInstance(result, str)
         self.assertNotEqual(result, '')
@@ -132,7 +249,10 @@ class TestConfigCreate(unittest.TestCase):
             },
         ]
 
-        config_create = ConfigCreate(uplink_ports, downlink_ports, 23)
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        config_create = ConfigCreate(vnfd_helper, 23)
+        config_create.downlink_ports = ['xe1']
+        config_create.uplink_ports = ['xe1']
         curr_path = os.path.dirname(os.path.abspath(__file__))
         vpe_cfg = "samples/vnf_samples/nsut/vpe/vpe_config"
         vnf_cfg = os.path.join(curr_path, "../../../../..", vpe_cfg)
