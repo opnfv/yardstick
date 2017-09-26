@@ -241,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_0e2461ad",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-26T06:25:04Z",
+      "side": 1,
+      "message": "Even if i install all the libs are the same time it fails if any one of the package is missing",
+      "parentUuid": "da33351e_08d3b960",
+      "revId": "ce79e1ee1e18211fcb654522c198cecf0bc6aa8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_e865b5b5",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 1
