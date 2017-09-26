@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_703ea2db",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-26T06:05:36Z",
+      "side": 1,
+      "message": "why would we use these old versions for benchmarking.  The results would be suboptimal based on existing knowledge.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 27
+      },
+      "revId": "14a6958dbaa60a05f97ff4e8bb702e42c4c4a109",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f07bd2bb",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-26T06:05:36Z",
+      "side": 1,
+      "message": "can we use pkill or killall?",
+      "revId": "14a6958dbaa60a05f97ff4e8bb702e42c4c4a109",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_504c3e9e",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-26T06:05:36Z",
+      "side": 1,
+      "message": "why /usr/local?\n\nthis should be a constant",
+      "revId": "14a6958dbaa60a05f97ff4e8bb702e42c4c4a109",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d0268ecd",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-26T06:05:36Z",
+      "side": 1,
+      "message": "make constant",
+      "range": {
+        "startLine": 157,
+        "startChar": 77,
+        "endLine": 157,
+        "endChar": 84
+      },
+      "revId": "14a6958dbaa60a05f97ff4e8bb702e42c4c4a109",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3051ba36",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-26T06:05:36Z",
+      "side": 1,
+      "message": "needs to be constant, or read from config file",
+      "range": {
+        "startLine": 210,
+        "startChar": 37,
+        "endLine": 210,
+        "endChar": 44
+      },
+      "revId": "14a6958dbaa60a05f97ff4e8bb702e42c4c4a109",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b0230abc",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-26T06:05:36Z",
+      "side": 1,
+      "message": "AutoConnectSSH?",
+      "revId": "14a6958dbaa60a05f97ff4e8bb702e42c4c4a109",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_102d96a8",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-26T06:05:36Z",
+      "side": 1,
+      "message": "we standardized on dpdk-devbind.py because it does not have texttables dependency.",
+      "revId": "14a6958dbaa60a05f97ff4e8bb702e42c4c4a109",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f029129c",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-26T06:05:36Z",
+      "side": 1,
+      "message": "use NamedTemporaryFile to avoid collisions.",
+      "revId": "14a6958dbaa60a05f97ff4e8bb702e42c4c4a109",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
