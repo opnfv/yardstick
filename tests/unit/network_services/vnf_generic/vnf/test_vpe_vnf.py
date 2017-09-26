@@ -163,6 +163,11 @@ class TestConfigCreate(unittest.TestCase):
         self.assertEqual(config_create.downlink_ports, ['xe1'])
         self.assertEqual(config_create.socket, 2)
 
+    def test_dpdk_port_to_link_id(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        config_create = ConfigCreate(vnfd_helper, 2)
+        self.assertEqual(config_create.dpdk_port_to_link_id_map, {'xe0': 0, 'xe1': 1})
+
     def test_vpe_initialize(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         config_create = ConfigCreate(vnfd_helper, 2)
