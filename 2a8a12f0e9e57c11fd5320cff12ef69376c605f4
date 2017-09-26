@@ -1,0 +1,526 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_81a2f648",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "staticmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a19d7a0c",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "staticmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_419c6e0f",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "staticmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6197f2ec",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "staticmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_21fa0a43",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "classmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c1007e36",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "classmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e1030240",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "staticmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_81eb1677",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "classmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_41f58e55",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "staticmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_61c9b225",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "can we make this:\n\n bounds \u003d (cycle((int(b) for b in r.split(\u0027-\u0027))) for r in ranges)",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a1cf3a28",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "by using cycle in bounds, we don\u0027t need the conditional operator here:\n\n range_objects \u003d (range(next(bound), next(bound) + 1) for bound in bounds)\n\nif bound only had 1 value, then that 1 value will be given for both calls of next.  if bound has 2 (or more) values, then the first value will be given with the first next call and the second value will be given with the second next call.",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c187deb3",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "classmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_21916af1",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "staticmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_018ee6cf",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "classmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c1aebe2d",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "staticmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_81b9567b",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "this is a no-op, please remove it.",
+      "range": {
+        "startLine": 256,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 18
+      },
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_817036dd",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "staticmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c1751ecc",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "classmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_217faaac",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "staticmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_017c26b4",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "finally, an instance method, but this is already in yardstick.benchmark.context.node, please we consolidate them to a method in yardstick.common.utils.",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_61337214",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "again, an instance method, but oddly, the apparent sole purpose of the instance attribute (self.file_path) is to avoid passing it to one other method, thereby masking this a classmethod and the other a staticmethod.\n\nbut that staticmethod is better put into a utils module and that converts this method to static.",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c15cfe4d",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "this looks rather like vnf_generic.open_relative_file, please consolidate the usage of this common code.",
+      "range": {
+        "startLine": 324,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 41
+      },
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_21568a2a",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "please use a generator expression instead of a list interpolation.",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_01538639",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "please use a generator expression instead of a list interpolation.",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_411f4e6c",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "here\u0027s a staticmethod already marked as such",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c10a3e25",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "staticmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_2104ca16",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "staticmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7c0cb93b",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "+\u003d:\n\n index +\u003d 1",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5c01f503",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "classmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9c07fd17",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-26T17:54:29Z",
+      "side": 1,
+      "message": "finally, a class that doesn\u0027t require the connection to be passed into every method.\n\nhowever, connection is its own class and we can add methods to that class, should they be useful to multiple sections of the code.  this helper class suggests that we think they could be helpful generally.",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
