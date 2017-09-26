@@ -125,7 +125,7 @@ class Task(object):     # pragma: no cover
             except KeyboardInterrupt:
                 raise
             except Exception:
-                LOG.error('Testcase: "%s" FAILED!!!', case_name, exe_info=True)
+                LOG.error('Testcase: "%s" FAILED!!!', case_name, exc_info=True)
                 testcases[case_name] = {'criteria': 'FAIL', 'tc_data': []}
             else:
                 LOG.info('Testcase: "%s" SUCCESS!!!', case_name)
