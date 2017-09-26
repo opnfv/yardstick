@@ -85,18 +85,15 @@ ssh_options="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 if [ "$INSTALLER_TYPE" == "fuel" ]; then
     #ip_fuel="10.20.0.2"
     verify_connectivity $INSTALLER_IP
-    echo "Fetching id_rsa file from jump_server $INSTALLER_IP..."
-    sshpass -p r00tme scp 2>/dev/null $ssh_options \
-    root@${INSTALLER_IP}:~/.ssh/id_rsa /root/.ssh/id_rsa &> /dev/null
 
-    sshpass -p r00tme ssh 2>/dev/null $ssh_options \
-        root@${INSTALLER_IP} fuel node>fuel_node
+    ssh -l ubuntu ${INSTALLER_IP} -i ${SSH_KEY} ${ssh_options} \
+         "sudo salt -C 'ctl* or cmp*' grains.get fqdn_ip4  --out yaml">node_info
 
-    # update fuel node id and ip info according to the CI env
-    controller_IDs=($(cat fuel_node|grep controller|awk '{print $1}'))
-    compute_IDs=($(cat fuel_node|grep compute|awk '{print $1}'))
-    controller_ips=($(cat fuel_node|grep controller|awk '{print $10}'))
-    compute_ips=($(cat fuel_node|grep compute|awk '{print $10}'))
+    # update node id and ip info according to the CI env
+    controller_IDs=($(cat node_info|awk '/^ctl/'|sed 's@^[^0-9]*\([0-9]\+\).*@\1@'))
+    compute_IDs=($(cat node_info|awk '/^cmp/'|sed 's@^[^0-9]*\([0-9]\+\).*@\1@'))
+    controller_ips=($(cat node_info|awk '/ctl/{getline; print $2}'))
+    compute_ips=($(cat node_info|awk '/cmp/{getline; print $2}'))
 
     pod_yaml="./etc/yardstick/nodes/fuel_baremetal/pod.yaml"
     node_line_num=($(grep -n node[1-5] $pod_yaml | awk -F: '{print $1}'))
