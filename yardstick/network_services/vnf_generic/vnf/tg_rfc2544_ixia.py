@@ -170,24 +170,25 @@ class IxiaResourceHelper(ClientResourceHelper):
 
             self.client.ix_stop_traffic()
             self._queue.put(samples)
+
+            if not self.rfc_helper.is_done():
+                self._terminated.value = 1
+                return
+
+            traffic_profile.execute_traffic(self, self.client, mac, ixia_file)
+            for _ in range(5):
+                time.sleep(self.LATENCY_TIME_SLEEP)
+                self.client.ix_stop_traffic()
+                samples = self.generate_samples(traffic_profile.ports, 'latency', {})
+                self._queue.put(samples)
+                traffic_profile.start_ixia_latency(self, self.client, mac, ixia_file)
+                if self._terminated.value:
+                    break
+
+            self.client.ix_stop_traffic()
         except Exception:
             LOG.exception("Run Traffic terminated")
 
-        if not self.rfc_helper.is_done():
-            self._terminated.value = 1
-            return
-
-        traffic_profile.execute_traffic(self, self.client, mac, ixia_file)
-        for _ in range(5):
-            time.sleep(self.LATENCY_TIME_SLEEP)
-            self.client.ix_stop_traffic()
-            samples = self.generate_samples(traffic_profile.ports, 'latency', {})
-            self._queue.put(samples)
-            traffic_profile.start_ixia_latency(self, self.client, mac, ixia_file)
-            if self._terminated.value:
-                break
-
-        self.client.ix_stop_traffic()
         self._terminated.value = 1
 
     def collect_kpi(self):
