@@ -559,6 +559,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_f600e5ac",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-27T16:00:35Z",
+      "side": 1,
+      "message": "I do not think we can have None in key_filename. Yardstick check for path and fails/",
+      "parentUuid": "da33351e_5644311a",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_9c07fd17",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 19
