@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_166589b4",
+        "filename": "samples/vnf_samples/nsut/udp_replay/tc_ovs_rfc2544_ipv4_1rule_64B_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-27T15:55:12Z",
+      "side": 1,
+      "message": "These environment specific information should go to the /etc/yardstick/nodes/*/pod.yml",
+      "revId": "a1221b1095a3cc68429735c1fd4d645614deb673",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d6b84113",
+        "filename": "samples/vnf_samples/nsut/udp_replay/tc_ovs_rfc2544_ipv4_1rule_64B_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-27T15:55:12Z",
+      "side": 1,
+      "message": "this was not enough memory for me, I had to increase to 20000.",
+      "revId": "a1221b1095a3cc68429735c1fd4d645614deb673",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_763fb587",
+        "filename": "samples/vnf_samples/nsut/udp_replay/tc_ovs_rfc2544_ipv4_1rule_64B_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-27T15:55:12Z",
+      "side": 1,
+      "message": "let\u0027s change this example to something more general, like \u0027password\u0027",
+      "revId": "a1221b1095a3cc68429735c1fd4d645614deb673",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
