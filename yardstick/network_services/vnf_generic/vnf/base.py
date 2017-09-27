@@ -106,15 +106,18 @@ class VnfdHelper(dict):
             if int(virtual_intf['dpdk_port_num']) == port:
                 return interface
 
-    def port_num(self, name):
+    def port_num(self, port):
         # we need interface name -> DPDK port num (PMD ID) -> LINK ID
         # LINK ID -> PMD ID is governed by the port mask
         """
 
         :rtype: int
-        :type name: str
+        :type port: str
         """
-        intf = self.find_interface(name=name)
+        if isinstance(port, dict):
+            intf = port
+        else:
+            intf = self.find_interface(name=port)
         return int(intf["virtual-interface"]["dpdk_port_num"])
 
     def port_nums(self, intfs):

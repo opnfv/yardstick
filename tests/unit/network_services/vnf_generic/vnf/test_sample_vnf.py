@@ -723,8 +723,9 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = dpdk_setup_helper._validate_cpu_cfg()
         self.assertEqual(result, expected)
 
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
     @mock.patch('yardstick.ssh.SSH')
-    def test_setup_vnf_environment(self, _):
+    def test_setup_vnf_environment(self, _, mock_time):
         def execute(cmd, *args, **kwargs):
             if cmd.startswith('which '):
                 return exec_failure
@@ -782,6 +783,8 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         dpdk_setup_helper._validate_cpu_cfg = mock.Mock()
 
+        dpdk_setup_helper.bound_pci = [v['virtual-interface']["vpci"] for v in
+                                       vnfd_helper.interfaces]
         result = dpdk_setup_helper._setup_resources()
         self.assertIsInstance(result, ResourceProfile)
         self.assertEqual(dpdk_setup_helper.socket, 0)
@@ -796,11 +799,14 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         dpdk_setup_helper._validate_cpu_cfg = mock.Mock()
 
+        dpdk_setup_helper.bound_pci = [v['virtual-interface']["vpci"] for v in
+                                       vnfd_helper.interfaces]
         result = dpdk_setup_helper._setup_resources()
         self.assertIsInstance(result, ResourceProfile)
         self.assertEqual(dpdk_setup_helper.socket, 1)
 
-    def test__detect_and_bind_drivers(self):
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
+    def test__detect_and_bind_drivers(self, mock_time):
         vnfd_helper = VnfdHelper(deepcopy(self.VNFD_0))
         ssh_helper = mock.Mock()
         # ssh_helper.execute = mock.Mock(return_value = (0, 'text', ''))
