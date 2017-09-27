@@ -609,6 +609,29 @@
       "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_565d5178",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-09-27T17:42:31Z",
+      "side": 1,
+      "message": "This creates a problem when the management and dataplane ports are using the same driver. In our setup, (ixgbe driver), the SUT was inaccessible after this line.\n\nWorkaround is to comment out or skip  rmmod and modprobe lines when management NIC and dataplane NICs are using the same driver. We should also do the same for undeploy function.",
+      "range": {
+        "startLine": 175,
+        "startChar": 41,
+        "endLine": 175,
+        "endChar": 46
+      },
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
