@@ -50,6 +50,63 @@
       "revId": "a1221b1095a3cc68429735c1fd4d645614deb673",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b6cbfd51",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-27T16:39:15Z",
+      "side": 1,
+      "message": "this becomes:\n\n rm -rf $DPDK_DIR\n DPDK_DOWNLOAD\u003d\"http://fast.dpdk.org/rel/dpdk-$DPDK_VERSION.tar.xz\"\n download_zip \"${DPDK_DOWNLOAD}\" \"DPDK\"",
+      "revId": "a1221b1095a3cc68429735c1fd4d645614deb673",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b6a49da6",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-27T16:39:15Z",
+      "side": 1,
+      "message": "copy-paste error, can we merge download_ovs_zip and download_dpdk_zip into a download_zip function? where the url and type are passed in as arguments.\n\n download_zip()\n {\n   url \u003d $1\n   download_type \u003d $2\n\n   if [ -n \"${download_type}\" ]; then\n      echo \"Download ${download_type} zip\"\n   fi\n   # rm goes into calling code\n   echo ${url}\n   if [ ! -e ${url##*/} ]; then\n     wget ${url}\n   fi\n   tar xvf ${url##*/}\n }",
+      "range": {
+        "startLine": 67,
+        "startChar": 17,
+        "endLine": 67,
+        "endChar": 21
+      },
+      "revId": "a1221b1095a3cc68429735c1fd4d645614deb673",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_76ae9582",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-27T16:39:15Z",
+      "side": 1,
+      "message": "this becomes:\n\n rm -rf openswitch-$OVS_VERSION\n OVS_DOWNLOAD\u003d\"http://openvswitch.org/releases/openvswitch-$OVS_VERSION.tar.gz\"\n download_zip \"${OVS_DOWNLOAD}\" \"OVS\"",
+      "revId": "a1221b1095a3cc68429735c1fd4d645614deb673",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
