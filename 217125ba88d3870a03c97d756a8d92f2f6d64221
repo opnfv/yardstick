@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_d6704142",
+        "filename": "yardstick/benchmark/scenarios/networking/iperf3.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-27T16:25:26Z",
+      "side": 1,
+      "message": "i would like us to use .get instead of looking before leaping:\n\n protocol \u003d options.get(\u0027protocol\u0027)\n bandwidth \u003d options.get(\u0027bandwidth\u0027)\n use_UDP \u003d protocol \u003d\u003d \u0027udp\u0027\n if protocol:\n   cmd +\u003d \" --\" + protocol\n if use_UDP and bandwidth:\n   cmd +\u003d \" --bandwidth \" + bandwidth",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 67
+      },
+      "revId": "217125ba88d3870a03c97d756a8d92f2f6d64221",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
