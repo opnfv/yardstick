@@ -456,6 +456,23 @@
     },
     {
       "key": {
+        "uuid": "da33351e_b64c9d43",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-27T15:53:43Z",
+      "side": 1,
+      "message": "Why don\u0027t we use the ping command? ping -c 1 returns 0 on success, 1 when the target is not available. The mgmt ip is the address we ping, so why do we read it from the arp table?\nWhy is this called get_mgmt_ip, it actually waits for the vm to come up, isn\u0027t it so?",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_2104ca16",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 19
@@ -501,6 +518,23 @@
       "writtenOn": "2017-09-26T17:54:29Z",
       "side": 1,
       "message": "classmethod",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5644311a",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-27T15:53:43Z",
+      "side": 1,
+      "message": "This should default to None. Or, actually, we should create the \"key_filename\" and \"password\" dict keys only if they are not None:\n\n     def generate_vnf_instance(self, flavor, ports, ip, key, vnf, mac):\n         mgmtip, interfaces \u003d self.build_vnf_interfaces(vnf, ports)\n         result \u003d {\n             \"ip\": mgmtip,\n             \"mac\": mac,\n             \"host\": ip,\n             \"user\": flavor.get(\u0027user\u0027, \u0027root\u0027),\n             \"interfaces\": interfaces,\n             \"routing_table\": [],\n             # empty IPv6 routing table\n             \"nd_route_tbl\": [],\n             \"name\": key, \"role\": key\n         }\n\n        try:\n            result[\u0027key_filename\u0027] \u003d flavor[\u0027key_filename\u0027]\n        except KeyError:\n            pass\n        try:\n            result[\u0027password\u0027] \u003d flavor[\u0027password\u0027]\n        except KeyError:\n            pass\n         LOG.info(result)\n         return result\n\nOtherwise, the key_filename, when None, will get converted to \u0027~\u0027 by the yaml renderer, which will cause File not found error while connecting with ssh.",
       "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
