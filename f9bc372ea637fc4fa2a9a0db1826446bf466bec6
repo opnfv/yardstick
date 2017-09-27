@@ -39,6 +39,30 @@
       "revId": "f9bc372ea637fc4fa2a9a0db1826446bf466bec6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a210d859",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 6079
+      },
+      "writtenOn": "2017-09-27T14:52:15Z",
+      "side": 1,
+      "message": "Hello Alex,\n\nI looked into this and, as you said, in fuel we had unique IDs, which (more important) are subsequently used in various test cases as \"node\u003cID\u003e\", so to avoid ID conflicts and match these tests, I will simply increment an index for each discovered node.\n\nMany thanks,\nCatalina",
+      "parentUuid": "da33351e_167f4eac",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 81
+      },
+      "revId": "f9bc372ea637fc4fa2a9a0db1826446bf466bec6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
