@@ -491,6 +491,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_362ecd43",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-27T16:02:01Z",
+      "side": 1,
+      "message": "so ip here is actually a range?",
+      "parentUuid": "da33351e_760df5e7",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_2104ca16",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 19
