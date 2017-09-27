@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_39a41107",
+        "filename": "yardstick/network_services/nfvi/collectd.conf",
+        "patchSetId": 9
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-27T20:59:00Z",
+      "side": 1,
+      "message": "it always caused syntax errors, unexpected EOL or something.",
+      "parentUuid": "da33351e_8e1511e7",
+      "revId": "bc7590d8e10b2baf51baada4a24d0aff805c12ef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_4ecdc984",
         "filename": "yardstick/network_services/nfvi/resource.py",
         "patchSetId": 9
