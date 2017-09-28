@@ -19,6 +19,8 @@ from __future__ import print_function
 import logging
 from itertools import chain
 
+
+import collections
 import jinja2
 import os
 import os.path
@@ -44,6 +46,19 @@ LIST_PLUGINS_ENABLED = ["amqp", "cpu", "cpufreq", "memory",
                         "hugepages"]
 
 
+class MatchAllCores(collections.Sequence):
+
+    def __len__(self):
+        return 0
+
+    def __getitem__(self, index):
+        raise index
+
+    def __contains__(self, value):
+        # pretend we have all elements to so we match any CPU core
+        return True
+
+
 class ResourceProfile(object):
     """
     This profile adds a resource at the beginning of the test session
@@ -62,7 +77,8 @@ class ResourceProfile(object):
         else:
             self.interval = interval
         self.enable = True
-        self.cores = validate_non_string_sequence(cores, default=[])
+        # don't mess around, just match all the CPUs and let the analytics figure it out
+        self.cores = validate_non_string_sequence(cores, default=MatchAllCores())
         self._queue = multiprocessing.Queue()
         self.amqp_client = None
         self.port_names = validate_non_string_sequence(port_names, default=[])

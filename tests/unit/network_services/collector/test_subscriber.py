@@ -29,13 +29,12 @@ class CollectorTestCase(unittest.TestCase):
     VNFS = {}
 
     def setUp(self):
-        self.test_subscriber = subscriber.Collector(self.TRAFFIC_PROFILE,
-                                                    self.VNFS)
+        self.test_subscriber = subscriber.Collector(self.TRAFFIC_PROFILE, nodes, self.VNFS)
 
     def test_successful_init(self):
 
         self.assertEqual(self.test_subscriber.traffic_profile, {})
-        self.assertEqual(self.test_subscriber.service, {})
+        self.assertEqual(self.test_subscriber.vnfs, {})
 
     def test_unsuccessful_init(self):
         pass
