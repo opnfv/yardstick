@@ -85,7 +85,7 @@ class TestProxApproxVnf(unittest.TestCase):
                             'vpci': '0000:05:00.0',
                             'local_ip': '152.16.100.19',
                             'type': 'PCI-PASSTHROUGH',
-                            'vld_id': '',
+                            'vld_id': 'downlink_0',
                             'ifname': 'xe1',
                             'netmask': '255.255.255.0',
                             'dpdk_port_num': 0,
@@ -104,8 +104,8 @@ class TestProxApproxVnf(unittest.TestCase):
                             'vpci': '0000:05:00.1',
                             'local_ip': '152.16.40.19',
                             'type': 'PCI-PASSTHROUGH',
-                            'vld_id': '',
-                            'ifname': 'xe3',
+                            'vld_id': 'uplink_0',
+                            'ifname': 'xe1',
                             'driver': "i40e",
                             'netmask': '255.255.255.0',
                             'dpdk_port_num': 1,
@@ -347,6 +347,7 @@ class TestProxApproxVnf(unittest.TestCase):
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
         prox_approx_vnf.resource_helper = resource_helper
 
+
         expected = {
             'packets_in': 7,
             'packets_dropped': 1,
@@ -365,6 +366,7 @@ class TestProxApproxVnf(unittest.TestCase):
         prox_approx_vnf = ProxApproxVnf(NAME, deepcopy(self.VNFD0))
         prox_approx_vnf.resource_helper = resource_helper
         prox_approx_vnf.vnfd_helper['vdu'][0]['external-interface'] = []
+        prox_approx_vnf.vnfd_helper.port_pairs.interfaces = []
 
         with self.assertRaises(RuntimeError):
             prox_approx_vnf.collect_kpi()
