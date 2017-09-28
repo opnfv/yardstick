@@ -39,6 +39,9 @@ vnf_build_dependencies:
       - libncursesw5
       - libncursesw5-dev
       - libedit-dev
+      - libjson0
+      - libjson0-dev
+      - libssl-dev
     RedHat:
       - pkgconfig
       - lua-devel
@@ -56,3 +59,4 @@ vnf_app_names:
   CGNATP: vCGNAPT
   UDP_Replay: UDP_Replay
   PROX: prox
+civetweb_url: https://sourceforge.net/projects/civetweb/files/1.9/CivetWeb_V1.9.zip
