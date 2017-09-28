@@ -428,5 +428,5 @@ class TestProxTrafficGen(unittest.TestCase):
         prox_traffic_gen.ssh_helper = mock.MagicMock()
         prox_traffic_gen.setup_helper = mock.MagicMock()
         prox_traffic_gen._vnf_wrapper.setup_helper = mock.MagicMock()
-        prox_traffic_gen.resource_helper = mock.MagicMock()
+        prox_traffic_gen._vnf_wrapper.resource_helper = mock.MagicMock()
         self.assertEqual(None, prox_traffic_gen.terminate())
