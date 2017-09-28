@@ -38,6 +38,8 @@
         disk_format: qcow2
         container_format: bare
         filename: "{{ raw_imgfile }}"
+        properties:
+          hw_vif_multiqueue_enabled: true
       environment: "{{ openrc }}"
       when: openrc_file is defined
 
@@ -47,7 +49,6 @@
         pull: yes
         recreate: yes
         image: opnfv/yardstick:latest
-        recreate: yes
         state: started
         restart_policy: always
         privileged: yes
