@@ -29,6 +29,8 @@ setup(
             'benchmark/scenarios/networking/*.txt',
             'benchmark/scenarios/parser/*.sh',
             'benchmark/scenarios/storage/*.bash',
+            'network_services/nfvi/collectd.conf',
+            'network_services/nfvi/collectd.sh',
             'resources/files/*',
             'resources/scripts/install/*.bash',
             'resources/scripts/remove/*.bash'
