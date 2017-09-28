@@ -595,6 +595,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_990a6a24",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-28T01:37:23Z",
+      "side": 1,
+      "message": "we use None in all the other cases.  None should render as ~ in the YAML.\n\nas long as the template is rendered with finalize_for_yaml()\n\n\n def finalize_for_yaml(elem):\n    \"\"\"Render Jinja2 output specifically for YAML files\"\"\"\n    # Jinaj2 by default converts None to \u0027None\u0027, we can\u0027t allow this\n    # we could convert to empty string \u0027\u0027, or we can convert to null, aka ~\n    if elem is None:\n        return \u0027~\u0027",
+      "parentUuid": "da33351e_f600e5ac",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_9c07fd17",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 19
