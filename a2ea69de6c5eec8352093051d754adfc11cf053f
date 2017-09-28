@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_a5e57d0a",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-28T17:33:24Z",
+      "side": 1,
+      "message": "this loop really seems to be about finding the last value in values, since the last value will largely overwrite the values that came before it.\n\nas i see this loop, it may as well iterate through all the values and end on the last, as in:\n\n key \u003d value \u003d None\n for key, value in values.items():\n   pass\n if not key:\n   result[traffickey] \u003d {}\n   continue\n port_id \u003d value.get(\u0027id\u0027, 1)\n port_index \u003d port_id - 1\n try:\n   ip \u003d value[\u0027outer_l3v6\u0027]\n except KeyError:\n   ip \u003d value[\u0027outer_l3v4\u0027]\n   src_key, dst_key \u003d \u0027srcip4\u0027, \u0027dstip4\u0027\n else:\n   src_key, dst_key \u003d \u0027srcip6\u0027, \u0027dstip6\u0027\n\n result[traffickey] \u003d {\n   \u0027bidir\u0027: False,\n   \u0027iload\u0027: \u0027100\u0027,\n   \u0027id\u0027: port_id,\n   \u0027outer_l2\u0027: {\n     \u0027framesize\u0027: value[\u0027outer_l2\u0027][\u0027framesize\u0027],\n     \u0027framesPerSecond\u0027: True,\n     \u0027srcmac\u0027: mac[\u0027src_mac_{}\u0027.format(port_index)],\n     \u0027dstmac\u0027: mac[\u0027dst_mac_{}\u0027.format(port_index)],\n   },\n   \u0027outer_l3\u0027: {\n     \u0027count\u0027: ip[\u0027count\u0027],\n     \u0027dscp\u0027: ip[\u0027dscp\u0027],\n     \u0027ttl\u0027: ip[\u0027ttl\u0027],\n     src_key: ip[src_key],\n     dst_key: ip[dst_key],\n     \u0027type\u0027: key,\n     \u0027proto\u0027: ip[\u0027proto\u0027],\n   },\n   \u0027outer_l4\u0027: value[\u0027outer_l4\u0027],\n }",
+      "revId": "a2ea69de6c5eec8352093051d754adfc11cf053f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_65e095fa",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-28T17:33:24Z",
+      "side": 1,
+      "message": "why are we updating traffic with these key-values for each value in profile_data?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 39
+      },
+      "revId": "a2ea69de6c5eec8352093051d754adfc11cf053f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e514a5ea",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-28T17:33:24Z",
+      "side": 1,
+      "message": "please don\u0027t use keys to build a list, this is the same:\n\n if \u0027outer_l3v6\u0027 in value:\n   ...\n else:\n   ...\n ...",
+      "revId": "a2ea69de6c5eec8352093051d754adfc11cf053f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c5cfe17d",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-28T17:33:24Z",
+      "side": 1,
+      "message": "we really set srcip4 when the ip may be ip6?",
+      "range": {
+        "startLine": 84,
+        "startChar": 29,
+        "endLine": 84,
+        "endChar": 35
+      },
+      "revId": "a2ea69de6c5eec8352093051d754adfc11cf053f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_25332dac",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-28T17:33:24Z",
+      "side": 1,
+      "message": "there is a for loop inside of port_num, please store the value instead of calling port_num twice.\n\n port_num \u003d self.vnfd_helper.port_num(interface)\n mac[\u0027src_mac_{}\u0027.format(port_num)] \u003d virt_inf.get(\u0027local_mac\u0027, default)\n mac[\u0027dst_mac_{}\u0027.format(port_num)] \u003d virt_inf.get(\u0027dst_mac\u0027, default)",
+      "range": {
+        "startLine": 137,
+        "startChar": 36,
+        "endLine": 137,
+        "endChar": 73
+      },
+      "revId": "a2ea69de6c5eec8352093051d754adfc11cf053f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
