@@ -14,11 +14,6 @@ set -e
 : ${YARDSTICK_REPO_DIR:='/home/opnfv/repos/yardstick'}
 : ${YARDSTICK_BRANCH:='master'} # branch, tag, sha1 or refspec
 
-: ${RELENG_REPO:='https://gerrit.opnfv.org/gerrit/releng'}
-: ${RELENG_REPO_DIR:='/home/opnfv/repos/releng'}
-# TEMP HACK to freeze releng version to workaround fetch_os_creds.sh problem
-: ${RELENG_BRANCH:='master'} # branch, tag, sha1 or refspec
-
 # git update using reference as a branch.
 # git_update_branch ref
 function git_update_branch {
@@ -74,19 +69,7 @@ git_checkout()
     fi
 }
 
-echo
-echo "INFO: Updating releng -> ${RELENG_BRANCH}"
-if [ ! -d ${RELENG_REPO_DIR} ]; then
-    git clone ${RELENG_REPO} ${RELENG_REPO_DIR}
-fi
-cd ${RELENG_REPO_DIR}
-# reset remote so we know origin is valid
-git remote set-url origin ${RELENG_REPO}
-# fetch the exact ref
-git fetch --tags origin ${RELENG_BRANCH} || true
-# purge pyc files
-find . -name '*.pyc' -delete
-git_checkout ${RELENG_BRANCH}
+# releng is not needed, we bind-mount the credentials
 
 echo
 echo "INFO: Updating yardstick -> ${YARDSTICK_BRANCH}"
