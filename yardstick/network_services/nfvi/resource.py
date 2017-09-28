@@ -51,16 +51,26 @@ class ResourceProfile(object):
     COLLECTD_CONF = "collectd.conf"
     AMPQ_PORT = 5672
     DEFAULT_INTERVAL = 25
+    DEFAULT_TIMEOUT = 3600
 
-    def __init__(self, mgmt, port_names=None, cores=None, plugins=None, interval=None):
+    def __init__(self, mgmt, port_names=None, cores=None, plugins=None,
+                 interval=None, timeout=None):
+
         if plugins is None:
             self.plugins = {}
         else:
             self.plugins = plugins
+
         if interval is None:
             self.interval = self.DEFAULT_INTERVAL
         else:
             self.interval = interval
+
+        if timeout is None:
+            self.timeout = self.DEFAULT_TIMEOUT
+        else:
+            self.timeout = timeout
+
         self.enable = True
         self.cores = validate_non_string_sequence(cores, default=[])
         self._queue = multiprocessing.Queue()
@@ -73,8 +83,8 @@ class ResourceProfile(object):
 
     def check_if_sa_running(self, process):
         """ verify if system agent is running """
-        err, pid, _ = self.connection.execute("pgrep -f %s" % process)
-        return [err == 0, pid]
+        status, pid, _ = self.connection.execute("pgrep -f %s" % process)
+        return status == 0, pid
 
     def run_collectd_amqp(self):
         """ run amqp consumer to collect the NFVi data """
