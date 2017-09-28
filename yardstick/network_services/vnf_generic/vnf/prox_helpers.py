@@ -263,6 +263,8 @@ class ProxSocketHelper(object):
             sock = socket.socket()
 
         self._sock = sock
+        # try setting non-blocking and see what happens, we are using select loops now
+        sock.setblocking(False)
         self._pkt_dumps = []
         self.master_stats = None
 
@@ -318,7 +320,7 @@ class ProxSocketHelper(object):
 
         return ret_str
 
-    def get_data(self, pkt_dump_only=False, timeout=1):
+    def get_data(self, pkt_dump_only=False, timeout=120):
         """ read data from the socket """
 
         # This method behaves slightly differently depending on whether it is
@@ -348,25 +350,39 @@ class ProxSocketHelper(object):
 
         def is_ready():
             # recv() is blocking, so avoid calling it when no data is waiting.
-            ready = select.select([self._sock], [], [], timeout)
+            ready = select.select([self._sock], [], [], 1)
             return bool(ready[0])
 
-        status = False
-        ret_str = ""
-        for status in iter(is_ready, False):
-            decoded_data = self._sock.recv(256).decode('utf-8')
-            ret_str = self._parse_socket_data(decoded_data, pkt_dump_only)
+        end_time = time.time() + timeout
+        decoded_data = []
+        while is_ready():
+            if time.time() > end_time:
+                raise RuntimeError("timeout sending over socket")
+            decoded_data.append(self._sock.recv(256).decode('utf-8'))
+
+        ret_str = self._parse_socket_data(''.join(decoded_data), pkt_dump_only)
 
         LOG.debug("Received data from socket: [%s]", ret_str)
-        return ret_str if status else ''
+        return ret_str
 
-    def put_command(self, to_send):
+    def put_command(self, to_send, timeout=120):
         """ send data to the remote instance """
+        def is_ready():
+            # send() is blocking, so avoid calling it when we can't send data
+            ready = select.select([], [self._sock], [], timeout)
+            return bool(ready[1])
         LOG.debug("Sending data to socket: [%s]", to_send.rstrip('\n'))
-        try:
-            self._sock.sendall(to_send.encode('utf-8'))
-        except:
-            pass
+        end_time = time.time() + timeout
+        msg = to_send.encode('utf-8')
+        msg_len = len(msg)
+        sent = 0
+        while sent < msg_len:
+            if time.time() > end_time:
+                raise RuntimeError("timeout sending over socket")
+            if is_ready():
+                sent = self._sock.send(msg[sent:])
+                if sent == 0:
+                    raise RuntimeError("socket connection down")
 
     def get_packet_dump(self):
         """ get the next packet dump """
