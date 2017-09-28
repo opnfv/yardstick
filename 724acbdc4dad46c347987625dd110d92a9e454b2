@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_a593bd59",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-28T17:38:45Z",
+      "side": 1,
+      "message": "please, spaces instead of tabs",
+      "revId": "724acbdc4dad46c347987625dd110d92a9e454b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_258fad2b",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-28T17:38:45Z",
+      "side": 1,
+      "message": "please indent the for loop",
+      "revId": "724acbdc4dad46c347987625dd110d92a9e454b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_059d4966",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-28T17:38:45Z",
+      "side": 1,
+      "message": "can we indent the innermost clauses one more level?\n\n case $i in\n   -o\u003d*|--ovs\u003d*)\n     OVS_VERSION\u003d\"${i#*\u003d}\"\n     ;;\n   -d\u003d*|--dpdk\u003d*)\n     DPDK_VERSION\u003d\"${i#*\u003d}\"\n     ;;\n   ...",
+      "revId": "724acbdc4dad46c347987625dd110d92a9e454b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
