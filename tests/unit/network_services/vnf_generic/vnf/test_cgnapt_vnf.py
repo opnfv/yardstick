@@ -41,7 +41,7 @@ TEST_FILE_YAML = 'nsb_test_case.yaml'
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
 
 
-name = 'vnf__1'
+name = 'vnf__0'
 
 
 class TestCgnaptApproxSetupEnvHelper(unittest.TestCase):
@@ -162,7 +162,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
             'rfc2544': {
                 'allowed_drop_rate': '0.8 - 1',
             },
-            'vnf__1': {
+            'vnf__0': {
                 'napt': 'dynamic',
                 'vnf_config': {
                     'lb_config': 'SW',
@@ -172,6 +172,10 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                     'worker_threads': 1,
                 },
             },
+            'flow': {'count': 1,
+                     'dst_ip': [{'tg__1': 'xe0'}],
+                     'public_ip': [''],
+                     'src_ip': [{'tg__0': 'xe0'}]},
         },
         'task_id': 'a70bdf4a-8e67-47a3-9dc1-273c14506eb7',
         'task_path': '/tmp',
@@ -185,15 +189,11 @@ class TestCgnaptApproxVnf(unittest.TestCase):
             'type': 'Duration',
         },
         'traffic_profile': 'ipv4_throughput_acl.yaml',
-        'traffic_options': {
-            'flow': 'ipv4_Packets_acl.yaml',
-            'imix': 'imix_voice.yaml',
-        },
-        'type': 'ISB',
+        'type': 'NSPerf',
         'nodes': {
-            'tg__2': 'trafficgen_2.yardstick',
             'tg__1': 'trafficgen_1.yardstick',
-            'vnf__1': 'vnf.yardstick',
+            'tg__0': 'trafficgen_0.yardstick',
+            'vnf__0': 'vnf.yardstick',
         },
         'topology': 'vpe-tg-topology-baremetal.yaml',
     }
@@ -253,9 +253,9 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                               'password': 'r00t',
                               'VNF model': 'tg_rfc2544_tpl.yaml',
                               'user': 'root'},
-                             'vnf__1':
+                             'vnf__0':
                              {'name': 'vnf.yardstick',
-                              'vnfd-id-ref': 'vnf__1',
+                              'vnfd-id-ref': 'vnf__0',
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens786f0',
@@ -318,6 +318,8 @@ class TestCgnaptApproxVnf(unittest.TestCase):
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf._vnf_process = mock.MagicMock(
+            **{"is_alive.return_value": True, "exitcode": None})
         cgnapt_approx_vnf.q_in = mock.MagicMock()
         cgnapt_approx_vnf.q_out = mock.MagicMock()
         cgnapt_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
@@ -388,7 +390,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                                                     'rules': ""}}
         cgnapt_approx_vnf.q_out.put("pipeline>")
         cgnapt_vnf.WAIT_TIME = 3
-        self.scenario_cfg.update({"nodes": {"vnf__1": ""}})
+        self.scenario_cfg.update({"nodes": {"vnf__0": ""}})
         self.assertIsNone(cgnapt_approx_vnf.instantiate(self.scenario_cfg,
                                                         self.context_cfg))
 

@@ -45,6 +45,7 @@ class CollectorTestCase(unittest.TestCase):
     NODES = {
         'node1': {},
         'node2': {
+            'ip': '1.2.3.4',
             'collectd': {
                 'plugins': {'abc': 12, 'def': 34},
                 'interval': 987,

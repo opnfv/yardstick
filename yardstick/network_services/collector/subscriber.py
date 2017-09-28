@@ -74,7 +74,7 @@ class Collector(object):
             # Result example:
             # {"VNF1: { "tput" : [1000, 999] }, "VNF2": { "latency": 100 }}
             LOG.debug("collect KPI for %s", node_name)
-            if not resource.check_if_sa_running("collectd")[0]:
+            if resource.check_if_sa_running("collectd")[0] != 0:
                 continue
 
             try:
