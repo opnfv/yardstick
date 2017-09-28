@@ -316,6 +316,8 @@ class TestProxSocketHelper(unittest.TestCase):
         mock_recv = mock_socket.recv()
         mock_recv.decode.return_value = ""
         prox = ProxSocketHelper(mock_socket)
+        mock_time.time.side_effect = range(1000)
+
         ret = prox.get_data()
         self.assertEqual(ret, "")
         self.assertEqual(len(prox._pkt_dumps), 0)
@@ -368,18 +370,28 @@ class TestProxSocketHelper(unittest.TestCase):
         ret = prox._parse_socket_data(PACKET_DUMP_2, True)
         self.assertTrue(ret)
 
-    def test_put_command(self, mock_time):
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.select')
+    def test_put_command(self, mock_select, mock_time):
+        mock_select.select.side_effect = [[0, 0], [0, 1], [0, 0]]
         mock_socket = mock.MagicMock()
+        mock_socket.send.return_value = len('data')
         prox = ProxSocketHelper(mock_socket)
-        prox.put_command("data")
-        mock_socket.sendall.assert_called_once()
+        mock_time.time.side_effect = range(1000)
 
-    def test_put_command_socket_error(self, mock_time):
-        mock_socket = mock.MagicMock()
-        mock_socket.sendall.side_effect = OSError
-        prox = ProxSocketHelper(mock_socket)
         prox.put_command("data")
-        mock_socket.sendall.assert_called_once()
+        mock_socket.send.assert_called_once()
+
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.select')
+    def test_put_command_error(self, mock_select, mock_time):
+        mock_select.select.side_effect = [[0, 0], [0, 1], [0, 0]]
+        mock_socket = mock.MagicMock()
+        mock_socket.send.side_effect = OSError
+        prox = ProxSocketHelper(mock_socket)
+        mock_time.time.side_effect = range(1000)
+
+        with self.assertRaises(OSError):
+            prox.put_command("data")
+        mock_socket.send.assert_called_once()
 
     def test_get_packet_dump(self, mock_time):
         mock_socket = mock.MagicMock()
@@ -394,62 +406,82 @@ class TestProxSocketHelper(unittest.TestCase):
     def test_stop_all_reset(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.stop_all_reset()
-        mock_socket.sendall.assert_called()
+        mock_put_command.assert_called()
 
     def test_stop_all(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.stop_all()
-        mock_socket.sendall.assert_called()
+        mock_put_command.assert_called()
 
     def test_stop(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.stop([3, 4, 5], 16)
-        mock_socket.sendall.assert_called()
+        mock_put_command.assert_called()
 
     def test_start_all(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.start_all()
-        mock_socket.sendall.assert_called()
+        mock_put_command.assert_called()
 
     def test_start(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.start([3, 4, 5])
-        mock_socket.sendall.assert_called()
+        mock_put_command.assert_called()
 
     def test_reset_stats(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.reset_stats()
-        mock_socket.sendall.assert_called()
+        mock_put_command.assert_called()
 
     def test_set_pkt_size(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.set_pkt_size([3, 4, 5], 1024)
-        self.assertEqual(mock_socket.sendall.call_count, 3)
+        self.assertEqual(mock_put_command.call_count, 3)
 
     def test_set_value(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.set_value([3, 4, 5], 10, 20, 30)
-        self.assertEqual(mock_socket.sendall.call_count, 3)
+        self.assertEqual(mock_put_command.call_count, 3)
 
     def test_reset_values(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.reset_values([3, 4, 5])
-        self.assertEqual(mock_socket.sendall.call_count, 3)
+        self.assertEqual(mock_put_command.call_count, 3)
 
     def test_set_speed(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.set_speed([3, 4, 5], 1000)
-        self.assertEqual(mock_socket.sendall.call_count, 3)
+        self.assertEqual(mock_put_command.call_count, 3)
 
     def test_slope_speed(self, mock_time):
         core_data = [
@@ -476,8 +508,10 @@ class TestProxSocketHelper(unittest.TestCase):
     def test_set_pps(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.set_pps([3, 4, 5], 1000, 512)
-        self.assertEqual(mock_socket.sendall.call_count, 3)
+        self.assertEqual(mock_put_command.call_count, 3)
 
     def test_lat_stats(self, mock_time):
         latency_output = [
@@ -491,6 +525,7 @@ class TestProxSocketHelper(unittest.TestCase):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(side_effect=latency_output)
+        prox.put_command = mock_put_command = mock.Mock()
 
         expected = (
             {
@@ -507,13 +542,15 @@ class TestProxSocketHelper(unittest.TestCase):
             },
         )
         result = prox.lat_stats([3, 4, 5, 6, 7], 16)
-        self.assertEqual(mock_socket.sendall.call_count, 5)
+        self.assertEqual(mock_put_command.call_count, 5)
         self.assertEqual(result, expected)
 
     def test_get_all_tot_stats_error(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(return_value='3,4,5')
+        prox.put_command = mock_put_command = mock.Mock()
+
         expected = [0, 0, 0, 0]
         result = prox.get_all_tot_stats()
         self.assertEqual(result, expected)
@@ -522,6 +559,8 @@ class TestProxSocketHelper(unittest.TestCase):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(return_value='3,4,5,6')
+        prox.put_command = mock_put_command = mock.Mock()
+
         expected = 3, 4, 5, 6
         result = prox.get_all_tot_stats()
         self.assertEqual(result, expected)
@@ -530,6 +569,8 @@ class TestProxSocketHelper(unittest.TestCase):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(return_value='3,4,5,6')
+        prox.put_command = mock_put_command = mock.Mock()
+
         expected = 6
         result = prox.hz()
         self.assertEqual(result, expected)
@@ -544,6 +585,8 @@ class TestProxSocketHelper(unittest.TestCase):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(side_effect=core_stats)
+        prox.put_command = mock_put_command = mock.Mock()
+
         expected = 21, 24, 27, 14
         result = prox.rx_stats([3, 4, 5], 16)
         self.assertEqual(result, expected)
@@ -558,6 +601,8 @@ class TestProxSocketHelper(unittest.TestCase):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(side_effect=core_stats)
+        prox.put_command = mock_put_command = mock.Mock()
+
         expected = 21, 24, 27, 14
         result = prox.core_stats([3, 4, 5], 16)
         self.assertEqual(result, expected)
@@ -572,6 +617,8 @@ class TestProxSocketHelper(unittest.TestCase):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(side_effect=port_stats)
+        prox.put_command = mock_put_command = mock.Mock()
+
         expected = [16, 26, 36, 46, 56, 66, 76, 86, 96, 106, 116, 126]
         result = prox.port_stats([3, 4, 5])
         self.assertEqual(result, expected)
@@ -589,6 +636,8 @@ class TestProxSocketHelper(unittest.TestCase):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(side_effect=get_data_output)
+        prox.put_command = mock_put_command = mock.Mock()
+
         expected = {
             'start_tot': start_tot,
             'end_tot': end_tot,
@@ -602,6 +651,8 @@ class TestProxSocketHelper(unittest.TestCase):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(return_value='3,4,5,6')
+        prox.put_command = mock_put_command = mock.Mock()
+
         expected = 3, 4, 5
         result = prox.tot_stats()
         self.assertEqual(result, expected)
@@ -610,6 +661,8 @@ class TestProxSocketHelper(unittest.TestCase):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(return_value='3,4,5,6')
+        prox.put_command = mock_put_command = mock.Mock()
+
         expected = 3, 3
         result = prox.tot_ierrors()
         self.assertEqual(result, expected)
@@ -617,26 +670,34 @@ class TestProxSocketHelper(unittest.TestCase):
     def test_set_count(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.set_count(432, [3, 4, 5])
-        self.assertEqual(mock_socket.sendall.call_count, 3)
+        self.assertEqual(mock_put_command.call_count, 3)
 
     def test_dump_rx(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.dump_rx(3, 5, 8)
-        self.assertEqual(mock_socket.sendall.call_count, 1)
+        self.assertEqual(mock_put_command.call_count, 1)
 
     def test_quit(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.quit()
-        mock_socket.sendall.assert_called()
+        mock_put_command.assert_called()
 
     def test_force_quit(self, mock_time):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
+        prox.put_command = mock_put_command = mock.Mock()
+
         prox.force_quit()
-        mock_socket.sendall.assert_called()
+        mock_put_command.assert_called()
 
 
 class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
