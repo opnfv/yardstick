@@ -105,7 +105,7 @@ class TestResourceProfile(unittest.TestCase):
 
     def test_check_if_sa_running(self):
         self.assertEqual(self.resource_profile.check_if_sa_running("collectd"),
-                         [True, {}])
+                         (True, {}))
 
     def test_get_cpu_data(self):
         reskey = ["", "cpufreq", "cpufreq-0"]
