@@ -26,28 +26,9 @@ from yardstick.network_services.collector import subscriber
 class CollectorTestCase(unittest.TestCase):
 
     TRAFFIC_PROFILE = {}
-    VNFS = {}
+    NODES = {}
 
     def setUp(self):
-        self.test_subscriber = subscriber.Collector(self.TRAFFIC_PROFILE,
-                                                    self.VNFS)
-
-    def test_successful_init(self):
-
-        self.assertEqual(self.test_subscriber.traffic_profile, {})
-        self.assertEqual(self.test_subscriber.service, {})
-
-    def test_unsuccessful_init(self):
-        pass
-
-    def test_start(self):
-        self.assertIsNone(self.test_subscriber.start())
-
-    def test_stop(self):
-        self.assertIsNone(self.test_subscriber.stop())
-
-    def test_get_kpi(self):
-
         class VnfAprrox(object):
             def __init__(self):
                 self.result = {}
@@ -61,7 +42,25 @@ class CollectorTestCase(unittest.TestCase):
                 return self.result
 
         vnf = VnfAprrox()
-        result = self.test_subscriber.get_kpi(vnf)
+        self.test_subscriber = subscriber.Collector([vnf], self.NODES, self.TRAFFIC_PROFILE)
+
+    def test_successful_init(self):
+
+        self.assertEqual(self.test_subscriber.traffic_profile, {})
+        self.assertGreater(len(self.test_subscriber.vnfs), 0)
+
+    def test_unsuccessful_init(self):
+        pass
+
+    def test_start(self):
+        self.assertIsNone(self.test_subscriber.start())
+
+    def test_stop(self):
+        self.assertIsNone(self.test_subscriber.stop())
+
+    def test_get_kpi(self):
+
+        result = self.test_subscriber.get_kpi()
 
         self.assertEqual(result["vnf__1"]["pkt_in_up_stream"], 100)
         self.assertEqual(result["vnf__1"]["pkt_drop_up_stream"], 5)
