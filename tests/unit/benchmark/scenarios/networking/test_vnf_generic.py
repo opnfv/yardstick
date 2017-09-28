@@ -361,6 +361,12 @@ class TestNetworkServiceTestCase(unittest.TestCase):
     def test___init__(self):
         assert self.topology
 
+    def test__get_ip_flow_range_string(self):
+        self.scenario_cfg["traffic_options"]["flow"] = \
+            self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
+        result = '152.16.100.2-152.16.100.254'
+        self.assertEqual(result, self.s._get_ip_flow_range('152.16.100.2-152.16.100.254'))
+
     def test__get_ip_flow_range(self):
         self.scenario_cfg["traffic_options"]["flow"] = \
             self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")

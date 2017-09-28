@@ -140,8 +140,15 @@ class NetworkServiceTestCase(base.Scenario):
 
     def _get_ip_flow_range(self, ip_start_range):
 
+        # IP range is specified as 'x.x.x.x-y.y.y.y'
+        if isinstance(ip_start_range, six.string_types):
+            return ip_start_range
+
         node_name, range_or_interface = next(iter(ip_start_range.items()), (None, '0.0.0.0'))
-        if node_name is not None:
+        if node_name is None:
+            # we are manually specifying the range
+            ip_addr_range = range_or_interface
+        else:
             node = self.context_cfg["nodes"].get(node_name, {})
             try:
                 # the ip_range is the interface name
@@ -163,9 +170,6 @@ class NetworkServiceTestCase(base.Scenario):
                 LOG.warning("Only single IP in range %s", ipaddr)
                 # fall back to single IP range
                 ip_addr_range = ip
-        else:
-            # we are manually specifying the range
-            ip_addr_range = range_or_interface
         return ip_addr_range
 
     def _get_traffic_flow(self):
