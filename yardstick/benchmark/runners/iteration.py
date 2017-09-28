@@ -20,11 +20,13 @@
 """
 
 from __future__ import absolute_import
-import os
-import multiprocessing
+
 import logging
-import traceback
+import multiprocessing
 import time
+import traceback
+
+import os
 
 from yardstick.benchmark.runners import base
 
@@ -85,9 +87,9 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                     scenario_cfg['options']['rate'] -= delta
                     sequence = 1
                     continue
-            except Exception as e:
+            except Exception:
                 errors = traceback.format_exc()
-                LOG.exception(e)
+                LOG.exception("")
             else:
                 if result:
                     LOG.debug("output_queue.put %s", result)
@@ -148,7 +150,9 @@ If the scenario ends before the time has elapsed, it will be started again.
     __execution_type__ = 'Iteration'
 
     def _run_benchmark(self, cls, method, scenario_cfg, context_cfg):
+        name = "{}-{}-{}".format(self.__execution_type__, scenario_cfg.get("type"), os.getpid())
         self.process = multiprocessing.Process(
+            name=name,
             target=_worker_process,
             args=(self.result_queue, cls, method, scenario_cfg,
                   context_cfg, self.aborted, self.output_queue))

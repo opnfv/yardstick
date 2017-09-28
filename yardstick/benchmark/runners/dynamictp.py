@@ -19,11 +19,12 @@
 """A runner that searches for the max throughput with binary search
 """
 
-import os
-import multiprocessing
 import logging
-import traceback
+import multiprocessing
 import time
+import traceback
+
+import os
 
 from yardstick.benchmark.runners import base
 
@@ -65,8 +66,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
             max_throuput_found = False
             sequence = 0
 
-            last_min_data = {}
-            last_min_data['packets_per_second'] = 0
+            last_min_data = {'packets_per_second': 0}
 
             while True:
                 sequence += 1
@@ -125,7 +125,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                     queue.put(record)
                     max_throuput_found = True
 
-                if (errors) or aborted.is_set() or max_throuput_found:
+                if errors or aborted.is_set() or max_throuput_found:
                     LOG.info("worker END")
                     break
 
@@ -155,7 +155,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
 
 class IterationRunner(base.Runner):
-    '''Run a scenario to find the max throughput
+    """Run a scenario to find the max throughput
 
 If the scenario ends before the time has elapsed, it will be started again.
 
@@ -168,11 +168,13 @@ If the scenario ends before the time has elapsed, it will be started again.
         type:	 int
         unit:	 pps
         default: 1000 pps
-    '''
+    """
     __execution_type__ = 'Dynamictp'
 
     def _run_benchmark(self, cls, method, scenario_cfg, context_cfg):
+        name = "{}-{}-{}".format(self.__execution_type__, scenario_cfg.get("type"), os.getpid())
         self.process = multiprocessing.Process(
+            name=name,
             target=_worker_process,
             args=(self.result_queue, cls, method, scenario_cfg,
                   context_cfg, self.aborted))
