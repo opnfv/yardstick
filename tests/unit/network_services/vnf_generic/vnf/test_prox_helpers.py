@@ -17,12 +17,10 @@
 
 from __future__ import absolute_import
 
-import copy
 import os
 import socket
 import unittest
 from itertools import repeat, chain
-from contextlib import contextmanager
 import mock
 
 from tests.unit import STL_MOCKS
@@ -1501,7 +1499,9 @@ class TestProxResourceHelper(unittest.TestCase):
         helper = ProxResourceHelper(mock.MagicMock())
         helper.resource = resource = mock.MagicMock()
 
+        resource.check_if_sa_running.return_value = 0, '1234'
         resource.amqp_collect_nfvi_kpi.return_value = 543
+        resource.check_if_sa_running.return_value = (0, None)
 
         expected = {'core': 543}
         result = helper.collect_collectd_kpi()
@@ -1513,7 +1513,9 @@ class TestProxResourceHelper(unittest.TestCase):
         helper._result = {'z': 123}
         helper.resource = resource = mock.MagicMock()
 
+        resource.check_if_sa_running.return_value = 0, '1234'
         resource.amqp_collect_nfvi_kpi.return_value = 543
+        resource.check_if_sa_running.return_value = (0, None)
 
         queue.empty.return_value = False
         queue.get.return_value = {'a': 789}
