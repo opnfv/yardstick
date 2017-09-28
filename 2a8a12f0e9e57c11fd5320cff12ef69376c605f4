@@ -673,6 +673,30 @@
       "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_cf4380ad",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-28T10:47:17Z",
+      "side": 1,
+      "message": "I guess we can remove both rmmode and modprobe?",
+      "parentUuid": "da33351e_d9007204",
+      "range": {
+        "startLine": 176,
+        "startChar": 53,
+        "endLine": 176,
+        "endChar": 62
+      },
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
