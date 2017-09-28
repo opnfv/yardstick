@@ -509,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_0fc3a8ed",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-28T11:12:45Z",
+      "side": 1,
+      "message": "yes its a cidr",
+      "parentUuid": "da33351e_362ecd43",
+      "revId": "2a8a12f0e9e57c11fd5320cff12ef69376c605f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_2104ca16",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 19
