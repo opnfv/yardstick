@@ -22,7 +22,6 @@
   action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
   with_items: "{{ vnf_build_dependencies.get(vnf_name, {}).get(ansible_os_family, []) }}"
 
-
 - name: set build env vars
   set_fact:
       build_env_vars:
@@ -34,6 +33,32 @@
   set_fact:
       build_env_vars: "{{ build_env_vars|combine({'crc': 'soft'}) }}"
   when: vnf_name == "PROX" and image_type is defined and image_type == "vm"
+
+- set_fact:
+    civetweb_path: "{{ clone_dest }}/civetweb"
+
+- name: download civetweb
+  shell: wget "{{ civetweb_url }}"
+  args:
+    chdir: /
+    executable: /bin/bash
+
+- name: Unzip civetweb
+  unarchive:
+    src: "/{{ civetweb_url | basename }}"
+    dest: "{{ clone_dest }}"
+    remote_src: yes
+
+- name: "move civetweb to {{ civetweb_path }} path"
+  shell: "mv {{ clone_dest }}/civetweb-master {{ civetweb_path }}"
+  args:
+    chdir: /
+    executable: /bin/bash
+
+- name: Build civetweb lib
+  make:
+   chdir: "{{ civetweb_path }}"
+   target: lib
 
 - name: "make {{ vnf_name }} clean"
   command: make -j {{ ansible_processor_vcpus }} clean
