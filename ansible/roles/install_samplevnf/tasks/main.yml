@@ -22,7 +22,6 @@
   action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
   with_items: "{{ vnf_build_dependencies.get(vnf_name, {}).get(ansible_os_family, []) }}"
 
-
 - name: set build env vars
   set_fact:
       build_env_vars:
