@@ -426,6 +426,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
         udp_replay_approx_vnf._build_config = mock.MagicMock()
         udp_replay_approx_vnf.queue_wrapper = mock.MagicMock()
+        udp_replay_approx_vnf.scenario_helper = mock.MagicMock()
 
         udp_replay_approx_vnf._run()
 

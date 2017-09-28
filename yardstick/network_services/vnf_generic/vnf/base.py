@@ -64,6 +64,8 @@ class VnfdHelper(dict):
     def __init__(self, *args, **kwargs):
         super(VnfdHelper, self).__init__(*args, **kwargs)
         self.port_pairs = PortPairs(self['vdu'][0]['external-interface'])
+        # port num is not present until binding so we have to memoize
+        self._port_num_map = {}
 
     @property
     def mgmt_interface(self):
@@ -91,12 +93,14 @@ class VnfdHelper(dict):
             virtual_intf = interface["virtual-interface"]
             if virtual_intf[key] == value:
                 return interface
+        raise KeyError()
 
     def find_interface(self, **kwargs):
         key, value = next(iter(kwargs.items()))
         for interface in self.interfaces:
             if interface[key] == value:
                 return interface
+        raise KeyError()
 
     # hide dpdk_port_num key so we can abstract
     def find_interface_by_port(self, port):
@@ -105,6 +109,7 @@ class VnfdHelper(dict):
             # we have to convert to int to compare
             if int(virtual_intf['dpdk_port_num']) == port:
                 return interface
+        raise KeyError()
 
     def port_num(self, port):
         # we need interface name -> DPDK port num (PMD ID) -> LINK ID
@@ -118,7 +123,8 @@ class VnfdHelper(dict):
             intf = port
         else:
             intf = self.find_interface(name=port)
-        return int(intf["virtual-interface"]["dpdk_port_num"])
+        return self._port_num_map.setdefault(intf["name"],
+                                             int(intf["virtual-interface"]["dpdk_port_num"]))
 
     def port_nums(self, intfs):
         return [self.port_num(i) for i in intfs]
