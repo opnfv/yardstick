@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Michael Polenchuk <mpolenchuk@mirantis.com>
+Code-Review+1: Cristina Pauna <cristina.pauna@enea.com>
+Code-Review+2: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-by: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-at: Thu, 28 Sep 2017 14:20:23 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/43173
+Project: yardstick
+Branch: refs/heads/master
