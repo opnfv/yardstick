@@ -12,28 +12,71 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """This module implements stub for publishing results in yardstick format."""
+import logging
+
+from yardstick.network_services.nfvi.resource import ResourceProfile
+from yardstick.network_services.utils import get_nsb_option
+
+LOG = logging.getLogger(__name__)
 
 
 class Collector(object):
     """Class that handles dictionary of results in yardstick-plot format."""
 
-    def __init__(self, traffic_profile, vnfs):
+    def __init__(self, vnfs, nodes, traffic_profile, timeout=3600):
         super(Collector, self).__init__()
         self.traffic_profile = traffic_profile
-        self.service = vnfs
+        self.vnfs = vnfs
+        self.nodes = nodes
+        self.timeout = timeout
+        self.bin_path = get_nsb_option('bin_path', '')
+
+        self.collectd_nodes = {node_name: node for node_name, node in self.nodes.items() if
+                               node.get("collectd")}
+        self.resource_profiles = {}
+        for node_name, node in self.collectd_nodes.items():
+            # node dict works as mgmt dict
+            # don't need port names, there is no way we can tell what port is used on the compute
+            # node
+            collectd_options = node.get("collectd", {})
+            plugins = collectd_options.get("plugins", {})
+            # use default cores = None to MatchAllCores
+            self.resource_profiles[node_name] = ResourceProfile(
+                node,
+                plugins=plugins,
+                interval=collectd_options.get("interval"))
 
     def start(self):
         """Nothing to do, yet"""
-        pass
+        for resource in self.resource_profiles.values():
+            resource.initiate_systemagent(self.bin_path)
+            resource.start()
+            resource.amqp_process_for_nfvi_kpi()
 
     def stop(self):
         """Nothing to do, yet"""
-        pass
+        for resource in self.resource_profiles.values():
+            resource.stop()
 
-    @classmethod
-    def get_kpi(cls, vnf):
+    def get_kpi(self):
         """Returns dictionary of results in yardstick-plot format
 
         :return:
         """
-        return {vnf.name: vnf.collect_kpi()}
+        results = {}
+        for vnf in self.vnfs:
+            # Result example:
+            # {"VNF1: { "tput" : [1000, 999] }, "VNF2": { "latency": 100 }}
+            LOG.debug("collect KPI for %s", vnf.name)
+            results[vnf.name] = vnf.collect_kpi()
+        for node_name, resource in self.resource_profiles.items():
+            # Result example:
+            # {"VNF1: { "tput" : [1000, 999] }, "VNF2": { "latency": 100 }}
+            LOG.debug("collect KPI for %s", node_name)
+            status = resource.check_if_sa_running("collectd")[0]
+            if status == 0:
+                try:
+                    results[node_name] = {"core": resource.amqp_collect_nfvi_kpi()}
+                except Exception:
+                    LOG.exception("")
+        return results
