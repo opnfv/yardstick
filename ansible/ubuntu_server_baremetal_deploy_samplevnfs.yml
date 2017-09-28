@@ -29,6 +29,8 @@
     - install_dpdk
     - download_trex
     - install_trex
+    - download_civetweb
+    - install_civetweb
     - download_samplevnfs
     - role: install_samplevnf
       vnf_name: PROX
