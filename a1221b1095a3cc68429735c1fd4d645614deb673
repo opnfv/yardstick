@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_ef9c846c",
+        "filename": "samples/vnf_samples/nsut/udp_replay/tc_ovs_rfc2544_ipv4_1rule_64B_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-28T09:45:08Z",
+      "side": 1,
+      "message": "I do not agree on this. This design is similar to open stack, so we define it in the testcase.\nWe might have 1 testcase supporting 2.7.0 and another 2.6.0",
+      "parentUuid": "da33351e_166589b4",
+      "revId": "a1221b1095a3cc68429735c1fd4d645614deb673",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_d6b84113",
         "filename": "samples/vnf_samples/nsut/udp_replay/tc_ovs_rfc2544_ipv4_1rule_64B_trex.yaml",
         "patchSetId": 7
