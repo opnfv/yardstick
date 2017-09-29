@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_5bea92ac",
+        "filename": "samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-29T09:32:13Z",
+      "side": 1,
+      "message": "What I meant was that I didn\u0027t like that we check-in mgmt cidr, pci addresses.. those are environment dependent. My understanding was that that\u0027s why we have /etc/yardstick/nodes/pod.yaml files -- outside the repository.",
+      "range": {
+        "startLine": 73,
+        "startChar": 1,
+        "endLine": 92,
+        "endChar": 36
+      },
+      "revId": "4b792db5ae61092ff6cc05140ba03e9a6635b087",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_dbece2bd",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 9
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-29T09:32:13Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "4b792db5ae61092ff6cc05140ba03e9a6635b087",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
