@@ -141,7 +141,17 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
             LOG.debug("iterator: %s iterations: %s", iterator, iterations)
 
     if "teardown" in run_step:
-        benchmark.teardown()
+        try:
+            benchmark.teardown()
+        except Exception:
+            # catch any exception in teardown and convert to simple exception
+            # never pass exceptions back to multiprocessing, because some exceptions can
+            # be unpicklable
+            # https://bugs.python.org/issue9400
+            LOG.exception("")
+            raise SystemExit(1)
+
+    LOG.debug("queue.qsize() = %s", queue.qsize())
 
 
 class IterationRunner(base.Runner):

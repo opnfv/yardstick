@@ -54,6 +54,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         sla_action = scenario_cfg["sla"].get("action", "assert")
 
     start = time.time()
+    timeout = start + duration
     while True:
 
         LOG.debug("runner=%(runner)s seq=%(sequence)s START",
@@ -71,9 +72,11 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
             elif sla_action == "monitor":
                 LOG.warning("SLA validation failed: %s", assertion.args)
                 errors = assertion.args
-        except Exception as e:
+        # catch all exceptions because with multiprocessing we can have un-picklable exception
+        # problems  https://bugs.python.org/issue9400
+        except Exception:
             errors = traceback.format_exc()
-            LOG.exception(e)
+            LOG.exception("")
         else:
             if result:
                 output_queue.put(result)
@@ -94,12 +97,22 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
         sequence += 1
 
-        if (errors and sla_action is None) or \
-                (time.time() - start > duration or aborted.is_set()):
+        if (errors and sla_action is None) or time.time() > timeout or aborted.is_set():
             LOG.info("Worker END")
             break
 
-    benchmark.teardown()
+    try:
+        benchmark.teardown()
+    except Exception:
+        # catch any exception in teardown and convert to simple exception
+        # never pass exceptions back to multiprocessing, because some exceptions can
+        # be unpicklable
+        # https://bugs.python.org/issue9400
+        LOG.exception("")
+        raise SystemExit(1)
+
+    LOG.debug("queue.qsize() = %s", queue.qsize())
+    LOG.debug("output_queue.qsize() = %s", output_queue.qsize())
 
 
 class DurationRunner(base.Runner):

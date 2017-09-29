@@ -90,7 +90,8 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                 LOG.exception(e)
             else:
                 if result:
-                    output_queue.put(result)
+                    LOG.debug("output_queue.put %s", result)
+                    output_queue.put(result, True, 1)
 
             time.sleep(interval)
 
@@ -101,7 +102,8 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                 'errors': errors
             }
 
-            queue.put(benchmark_output)
+            LOG.debug("queue.put, %s", benchmark_output)
+            queue.put(benchmark_output, True, 1)
 
             LOG.debug("runner=%(runner)s seq=%(sequence)s END",
                       {"runner": runner_cfg["runner_id"],
@@ -114,7 +116,18 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                 LOG.info("worker END")
                 break
     if "teardown" in run_step:
-        benchmark.teardown()
+        try:
+            benchmark.teardown()
+        except Exception:
+            # catch any exception in teardown and convert to simple exception
+            # never pass exceptions back to multiprocessing, because some exceptions can
+            # be unpicklable
+            # https://bugs.python.org/issue9400
+            LOG.exception("")
+            raise SystemExit(1)
+
+    LOG.debug("queue.qsize() = %s", queue.qsize())
+    LOG.debug("output_queue.qsize() = %s", output_queue.qsize())
 
 
 class IterationRunner(base.Runner):
