@@ -546,7 +546,11 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
         # we assume OrderedDict for consistenct in instantiation
         for node_name, node in context_cfg["nodes"].items():
             LOG.debug(node)
-            file_name = node["VNF model"]
+            try:
+                file_name = node["VNF model"]
+            except KeyError:
+                LOG.debug("no model for %s, skipping", node_name)
+                continue
             file_path = scenario_cfg['task_path']
             with open_relative_file(file_name, file_path) as stream:
                 vnf_model = stream.read()
