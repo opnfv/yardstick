@@ -34,6 +34,42 @@
       "revId": "ec5c31433ae00a7a455fbf2d531c68ef5720d853",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5ec27f34",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-29T18:14:34Z",
+      "side": 1,
+      "message": "-i means interactive.. Nope we have to use \"-c\" to give how many threads needs to be used by the trex.",
+      "parentUuid": "da33351e_7ec14353",
+      "revId": "ec5c31433ae00a7a455fbf2d531c68ef5720d853",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9edfe70c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-29T18:14:34Z",
+      "side": 1,
+      "message": "Yes, -c is used for create more threads to send traffic. we will give +1 to handle latency in separate thread.\n\nI am not seeing any error if i send the mask. So should work :)",
+      "parentUuid": "da33351e_9b1eda0a",
+      "revId": "ec5c31433ae00a7a455fbf2d531c68ef5720d853",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
