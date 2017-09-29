@@ -13,13 +13,19 @@
 # limitations under the License.
 ---
 - name: Check images
-  os_images_facts: {}
+  shade_api:
+    method: search_images
+    fact_name: openstack_images
+    args:
+      - ~
   environment: "{{ openrc }}"
 
 - name: Check servers
   os_server_facts: {}
-  environment: "{{ openrc }}"
+#  environment: "{{ openrc }}"
 
 - name: Check stacks
-  os_stack_facts: {}
+  shade_api:
+    method: list_stacks
+    fact_name: openstack_stacks
   environment: "{{ openrc }}"

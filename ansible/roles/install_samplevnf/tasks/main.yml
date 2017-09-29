@@ -36,16 +36,15 @@
   when: vnf_name == "PROX" and image_type is defined and image_type == "vm"
 
 - name: "make {{ vnf_name }} clean"
-  my_make:
+  command: make -j {{ ansible_processor_vcpus }} clean
+  args:
     chdir: "{{ vnf_build_dir }}"
-    target: clean
-    extra_args: "-j {{ ansible_processor_vcpus }}"
   environment: "{{ build_env_vars }}"
 
 - name: "make {{ vnf_name }}"
-  my_make:
+  command: make -j {{ ansible_processor_vcpus }}
+  args:
     chdir: "{{ vnf_build_dir }}"
-    extra_args: "-j {{ ansible_processor_vcpus }}"
   environment: "{{ build_env_vars }}"
 
 #- command: cp "{{ vnf_build_dir }}/{{ vnf_name }}/build/ip_pipeline" "{{ INSTALL_BIN_PATH }}/vACL_vnf"
