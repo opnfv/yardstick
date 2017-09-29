@@ -13,15 +13,21 @@
 # limitations under the License.
 ---
 - name: Get all images
-  os_images_facts: {}
+  shade_api:
+    method: search_images
+    fact_name: openstack_images
+    args:
+      - ~
   environment: "{{ openrc }}"
 
-- debug: var=openstack_images
+- debug:
+    var: openstack_images
 
 - set_fact:
     images_to_clean: "{{ openstack_images|map(attribute='name')|select('search', 'yardstick|cirros|Ubuntu-14\\.04')|list }}"
 
-- debug: var=images_to_clean
+- debug:
+    var: images_to_clean
 
 - name: Cleanup images
   os_image:
