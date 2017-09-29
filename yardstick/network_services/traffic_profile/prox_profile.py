@@ -67,6 +67,7 @@ class ProxProfile(TrafficProfile):
     def init(self, queue):
         self.pkt_size_iterator = iter(self.pkt_sizes)
         self.queue = queue
+        self.queue.cancel_join_thread()
 
     def bounds_iterator(self, logger=None):
         if logger:

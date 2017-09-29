@@ -63,8 +63,9 @@ class TestProxProfile(unittest.TestCase):
         }
 
         profile = ProxProfile(tp_config)
-        profile.init(234)
-        self.assertEqual(profile.queue, 234)
+        queue = mock.Mock()
+        profile.init(queue)
+        self.assertIs(profile.queue, queue)
 
     def test_execute_traffic(self):
         packet_sizes = [
