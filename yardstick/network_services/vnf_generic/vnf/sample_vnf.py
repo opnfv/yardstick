@@ -476,6 +476,9 @@ class ClientResourceHelper(ResourceHelper):
         self._queue.put(samples)
 
     def run_traffic(self, traffic_profile):
+        # if we don't do this we can hang waiting for the queue to drain
+        # have to do this in the subprocess
+        self._queue.cancel_join_thread()
         # fixme: fix passing correct trex config file,
         # instead of searching the default path
         try:
