@@ -22,6 +22,30 @@
       "revId": "0ef547d6232401e4ab8a13ffde39dca9f6ecf212",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_20f03bfd",
+        "filename": "yardstick/network_services/helpers/samplevnf_helper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-29T02:32:56Z",
+      "side": 1,
+      "message": "Nope, we need to use same as next hop ip as we are only supporting direct attached. Or atlease make sure you maintain same network ip without masking",
+      "parentUuid": "da33351e_6512550a",
+      "range": {
+        "startLine": 369,
+        "startChar": 17,
+        "endLine": 369,
+        "endChar": 71
+      },
+      "revId": "0ef547d6232401e4ab8a13ffde39dca9f6ecf212",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
