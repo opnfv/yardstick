@@ -139,8 +139,8 @@
                             <th>status</th>
                         </tr>
                         <tr ng-repeat="(name, value) in yardstickImage">
-                            <td ng-if="selectImageList.indexOf(name) > -1"><img src="images/checkyes.png" style="height:12px;cursor:pointer" ng-click="unselectImage(name)" /></td>
-                            <td ng-if="selectImageList.indexOf(name) == -1"><img src="images/checkno.png" style="height:12px;cursor:pointer" ng-click="selectImage(name)" /></td>
+                            <td ng-if="selectImageList.indexOf(name) > -1"><span class="glyphicon glyphicon-check" aria-hidden="true" ng-click="unselectImage(name)"></span></td>
+                            <td ng-if="selectImageList.indexOf(name) == -1"><span class="glyphicon glyphicon-unchecked" aria-hidden="true" ng-click="selectImage(name)"></span></td>
                             <td>{{name}}</td>
                             <td>{{value.description}}</td>
                             <td>{{value.status}}</td>
