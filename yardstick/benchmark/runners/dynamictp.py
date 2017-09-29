@@ -33,6 +33,7 @@ LOG = logging.getLogger(__name__)
 def _worker_process(queue, cls, method_name, scenario_cfg,
                     context_cfg, aborted):  # pragma: no cover
 
+    queue.cancel_join_thread()
     runner_cfg = scenario_cfg['runner']
     iterations = runner_cfg.get("iterations", 1)
     interval = runner_cfg.get("interval", 1)
