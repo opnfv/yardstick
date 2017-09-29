@@ -264,7 +264,7 @@ class PktgenTestCase(unittest.TestCase):
         p._get_available_queue_number()
 
         mock_ssh.SSH.from_node().execute.assert_called_with(
-            "sudo ethtool -l eth0 | grep Combined | head -1 |" \
+            "sudo ethtool -l eth0 | grep Combined | head -1 |"
             "awk '{printf $2}'")
 
     def test_pktgen_unsuccessful_get_available_queue_number(self, mock_ssh):
@@ -290,7 +290,7 @@ class PktgenTestCase(unittest.TestCase):
         p._get_usable_queue_number()
 
         mock_ssh.SSH.from_node().execute.assert_called_with(
-            "sudo ethtool -l eth0 | grep Combined | tail -1 |" \
+            "sudo ethtool -l eth0 | grep Combined | tail -1 |"
             "awk '{printf $2}'")
 
     def test_pktgen_unsuccessful_get_usable_queue_number(self, mock_ssh):
@@ -541,7 +541,7 @@ class PktgenTestCase(unittest.TestCase):
         p._is_irqbalance_disabled = mock_result1
 
         mock_result2 = mock.Mock()
-        mock_result2.return_value = "virtio_net" 
+        mock_result2.return_value = "virtio_net"
         p._get_vnic_driver_name = mock_result2
 
         mock_result3 = mock.Mock()
@@ -571,7 +571,7 @@ class PktgenTestCase(unittest.TestCase):
         p._is_irqbalance_disabled = mock_result1
 
         mock_result2 = mock.Mock()
-        mock_result2.return_value = "virtio_net" 
+        mock_result2.return_value = "virtio_net"
         p._get_vnic_driver_name = mock_result2
 
         mock_result3 = mock.Mock()
@@ -601,7 +601,7 @@ class PktgenTestCase(unittest.TestCase):
         p._is_irqbalance_disabled = mock_result1
 
         mock_result2 = mock.Mock()
-        mock_result2.return_value = "ixgbevf" 
+        mock_result2.return_value = "ixgbevf"
         p._get_vnic_driver_name = mock_result2
 
         p.multiqueue_setup()
@@ -623,7 +623,7 @@ class PktgenTestCase(unittest.TestCase):
         p._is_irqbalance_disabled = mock_result1
 
         mock_result2 = mock.Mock()
-        mock_result2.return_value = "ixgbevf" 
+        mock_result2.return_value = "ixgbevf"
         p._get_vnic_driver_name = mock_result2
 
         p.multiqueue_setup()
@@ -670,7 +670,7 @@ class PktgenTestCase(unittest.TestCase):
         p.client = mock_ssh.SSH.from_node()
 
         mock_result = mock.Mock()
-        mock_result.return_value = "virtio_net" 
+        mock_result.return_value = "virtio_net"
         p._get_vnic_driver_name = mock_result
 
         mock_result1 = mock.Mock()
