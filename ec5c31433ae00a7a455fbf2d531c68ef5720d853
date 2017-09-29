@@ -16,6 +16,24 @@
       "revId": "ec5c31433ae00a7a455fbf2d531c68ef5720d853",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7ec14353",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-29T17:34:08Z",
+      "side": 1,
+      "message": "i don\u0027t know about -i, but the flag has been included since Jun-20 and the big NSB update.  it seems it is ignored.\n\ni also don\u0027t see --no-scapy-server in the linked document.\n\nfor -c there\u0027s -lm\n\n --lm \u003chex bit mask\u003e\n   Mask specifying which ports will send traffic. For \n   example, 0x1 - Only port 0 will send. 0x4 - only port \n   2 will send. This can be used to verify port \n   connectivity. You can send packets from one port, and\n   look at counters on the DUT.",
+      "parentUuid": "da33351e_9b1eda0a",
+      "revId": "ec5c31433ae00a7a455fbf2d531c68ef5720d853",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
