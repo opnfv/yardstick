@@ -70,6 +70,30 @@
       "revId": "0ef547d6232401e4ab8a13ffde39dca9f6ecf212",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_beb74bf4",
+        "filename": "yardstick/network_services/helpers/samplevnf_helper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-29T17:39:45Z",
+      "side": 1,
+      "message": "odd, but as you say.\n\ngiven that we need it twice, perhaps we should calculate the value before creating the dict.\n\n dst_port0_ip_hex \u003d ip_to_hex(dst_port0_ip.ip.exploded)\n arp_vars \u003d {\n   \u0027port0_dst_ip_hex\u0027: dst_port0_ip_hex,\n   ...\n   \u0027next_hop_ip_hex\u0027: dst_port0_ip_hex,\n }",
+      "parentUuid": "da33351e_5bae1299",
+      "range": {
+        "startLine": 369,
+        "startChar": 17,
+        "endLine": 369,
+        "endChar": 71
+      },
+      "revId": "0ef547d6232401e4ab8a13ffde39dca9f6ecf212",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
