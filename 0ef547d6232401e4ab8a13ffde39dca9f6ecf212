@@ -46,6 +46,30 @@
       "revId": "0ef547d6232401e4ab8a13ffde39dca9f6ecf212",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5bae1299",
+        "filename": "yardstick/network_services/helpers/samplevnf_helper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-09-29T08:55:42Z",
+      "side": 1,
+      "message": "Also, the property  is \"port0_dst_ip_hex\" so we need to add the ip address not the masked ip address..",
+      "parentUuid": "da33351e_20f03bfd",
+      "range": {
+        "startLine": 369,
+        "startChar": 17,
+        "endLine": 369,
+        "endChar": 71
+      },
+      "revId": "0ef547d6232401e4ab8a13ffde39dca9f6ecf212",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
