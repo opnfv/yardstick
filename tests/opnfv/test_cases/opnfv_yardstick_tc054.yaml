@@ -13,15 +13,12 @@ description: >
     Test case for TC054 :OpenStack VIP Master Node abnormally shutdown High Availability;
     This test case is written by new scenario-based HA testing framework.
 
-{% set attack_host = attack_host or 'node1' %}
-{% set check_host = check_host or 'node2' %}
 {% set jump_host = jump_host or 'node0' %}
+{% set attack_host = attack_host or 'node1' %}
+{% set check_host = check_host or 'node4' %}
 {% set file = file or '/etc/yardstick/pod.yaml' %}
-{% set vip_management = vip_management or '192.168.0.2' %}
-{% set vip_public = vip_public or '172.16.0.3' %}
-{% set vip_router_management = vip_router_management or '192.168.0.1' %}
-{% set vip_router_public = vip_router_public or '172.16.0.2' %}
-{% set monitor_time = monitor_time or 180 %}
+{% set vip_public = vip_public or '10.1.0.222' %}
+{% set monitor_time = monitor_time or 30 %}
 
 scenarios:
   -
@@ -47,42 +44,6 @@ scenarios:
         -
           monitor_type: "general-monitor"
           monitor_key: "ip-status"
-          key: "vip-mgmt-status"
-          host: {{check_host}}
-          monitor_time: {{monitor_time}}
-          monitor_number: 3
-          sla:
-            max_outage_time: 5
-          parameter:
-            ip_address: {{vip_management}}
-
-        -
-          monitor_type: "general-monitor"
-          monitor_key: "ip-status"
-          key: "vip-routerp-status"
-          host: {{check_host}}
-          monitor_time: {{monitor_time}}
-          monitor_number: 3
-          sla:
-            max_outage_time: 5
-          parameter:
-            ip_address: {{vip_router_public}}
-
-        -
-          monitor_type: "general-monitor"
-          monitor_key: "ip-status"
-          key: "vip-router-status"
-          host: {{check_host}}
-          monitor_time: {{monitor_time}}
-          monitor_number: 3
-          sla:
-            max_outage_time: 5
-          parameter:
-            ip_address: {{vip_router_management}}
-
-        -
-          monitor_type: "general-monitor"
-          monitor_key: "ip-status"
           key: "vip-pub"
           host: {{check_host}}
           monitor_time: {{monitor_time}}
@@ -102,26 +63,10 @@ scenarios:
           actionKey: "list-images"
           actionType: "monitor"
           index: 2
-
-        -
-          actionKey: "vip-mgmt-status"
-          actionType: "monitor"
-          index: 3
-
-        -
-          actionKey: "vip-routerp-status"
-          actionType: "monitor"
-          index: 4
-
-        -
-          actionKey: "vip-router-status"
-          actionType: "monitor"
-          index: 5
-
         -
           actionKey: "vip-pub"
           actionType: "monitor"
-          index: 6
+          index: 3
 
     nodes:
       {{jump_host}}: {{jump_host}}.LF
