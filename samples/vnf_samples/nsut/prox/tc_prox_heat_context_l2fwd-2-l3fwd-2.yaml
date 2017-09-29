@@ -105,12 +105,12 @@ context:
     mgmt:
       cidr: '10.0.1.0/24'
     uplink_0:
-      cidr: '10.1.1.0/24'
+      cidr: '10.0.2.0/24'
       gateway_ip: 'null'
       port_security_enabled: False
       enable_dhcp: 'false'
     downlink_0:
-      cidr: '10.1.1.0/24'
+      cidr: '10.0.3.0/24'
       gateway_ip: 'null'
       port_security_enabled: False
       enable_dhcp: 'false'
