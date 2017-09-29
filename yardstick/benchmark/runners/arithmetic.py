@@ -46,6 +46,11 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
     sequence = 1
 
+    # if we don't do this we can hang waiting for the queue to drain
+    # have to do this in the subprocess
+    queue.cancel_join_thread()
+    output_queue.cancel_join_thread()
+
     runner_cfg = scenario_cfg['runner']
 
     interval = runner_cfg.get("interval", 1)
