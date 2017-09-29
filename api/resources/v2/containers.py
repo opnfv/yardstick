@@ -259,13 +259,13 @@ class V2Containers(ApiResource):
 
     def _create_dashboard(self, ip):
         url = 'http://admin:admin@{}:{}/api/dashboards/db'.format(ip, 3000)
-        path = os.path.join(consts.REPOS_DIR, 'dashboard', '*dashboard.json')
+        path = os.path.join(consts.REPOS_DIR, 'dashboard', 'opnfv_yardstick_tc*.json')
 
         for i in sorted(glob.iglob(path)):
             with open(i) as f:
                 data = jsonutils.load(f)
             try:
-                HttpClient().post(url, data)
+                HttpClient().post(url, {'dashboard': data})
             except Exception:
                 LOG.exception('Create dashboard %s failed', i)
                 raise

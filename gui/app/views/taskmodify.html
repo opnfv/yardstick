@@ -22,8 +22,8 @@
                 <div style="display:flex;flex-direction:row;justify-content:space-between;padding:8px;border-top: 1px solid #e9ecec;" ng-class="{deepColor: $index%2==0}">
                     <div> {{env.name}}</div>
                     <!--<button class="btn btn-default btn-sm" ng-click="gotoDetail('false',env.uuid)">detail</button>-->
-                    <img src="images/checkyes.png" style="height:18px;cursor:pointer" ng-click="constructTestSuit(env.uuid,env.name)" ng-show="selectEnv==env.uuid" />
-                    <img src="images/checkno.png" style="height:18px;cursor:pointer" ng-click="constructTestSuit(env.uuid,env.name)" ng-show="selectEnv!=env.uuid" />
+                    <span class="glyphicon glyphicon-check" aria-hidden="true" ng-click="constructTestSuit(env.uuid,env.name)" ng-show="selectEnv==env.uuid"></span>
+                    <span class="glyphicon glyphicon-unchecked" aria-hidden="true" ng-click="constructTestSuit(env.uuid,env.name)" ng-show="selectEnv!=env.uuid"></span>
 
                 </div>
                 <!--<hr style="margin-top:5px;margin-bottom:5px;" />-->
@@ -72,8 +72,8 @@
                             <div style="display:flex;flex-direction:row;justify-content:space-between;padding:8px;border-top: 1px solid #e9ecec;" ng-class="{deepColor: $index%2==0}">
                                 <div> {{test.Name}}</div>
                                 <div style="font-size:10px;">{{test.Description}}</div>
-                                <img src="images/checkyes.png" style="height:18px;cursor:pointer" ng-click="constructTestCase(test.Name)" ng-show="selectCase==test.Name" />
-                                <img src="images/checkno.png" style="height:18px;cursor:pointer" ng-click="constructTestCase(test.Name)" ng-show="selectCase!=test.Name" />
+                                <span class="glyphicon glyphicon-check" aria-hidden="true" ng-click="constructTestCase(test.Name)" ng-show="selectCase==test.Name"></span>
+                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true" ng-click="constructTestCase(test.Name)" ng-show="selectCase!=test.Name"></span>
 
                             </div>
                             <!--<hr style="margin-top:5px;margin-bottom:5px;" />-->
@@ -88,8 +88,8 @@
                             <div style="display:flex;flex-direction:row;justify-content:space-between;padding:8px;border-top: 1px solid #e9ecec;" ng-class="{deepColor: $index%2==0}">
                                 <div> {{suite}}</div>
 
-                                <img src="images/checkyes.png" style="height:18px;cursor:pointer" ng-click="constructTestCase(suite)" ng-show="selectCase==suite" />
-                                <img src="images/checkno.png" style="height:18px;cursor:pointer" ng-click="constructTestCase(suite)" ng-show="selectCase!=suite" />
+                                <span class="glyphicon glyphicon-check" aria-hidden="true" ng-click="constructTestCase(suite)" ng-show="selectCase==suite"></span>
+                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true" ng-click="constructTestCase(suite)" ng-show="selectCase!=suite"></span>
 
                             </div>
                             <!--<hr style="margin-top:5px;margin-bottom:5px;" />-->

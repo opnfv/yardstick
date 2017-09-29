@@ -17,8 +17,8 @@
         </div>-->
         <div dir-paginate="test in testcaselist.testcases | itemsPerPage: 10">
             <div style="display:flex;flex-direction:row;">
-                <img src="images/checkyes.png" style="height:12px;cursor:pointer" ng-click="constructTestSuit(test.Name)" ng-show="testsuiteList.indexOf(test.Name)>-1" />
-                <img src="images/checkno.png" style="height:12px;cursor:pointer" ng-click="constructTestSuit(test.Name)" ng-show="testsuiteList.indexOf(test.Name)==-1" />
+                <span class="glyphicon glyphicon-check" aria-hidden="true" ng-click="constructTestSuit(test.Name)" ng-show="testsuiteList.indexOf(test.Name)>-1"></span>
+                <span class="glyphicon glyphicon-unchecked" aria-hidden="true" ng-click="constructTestSuit(test.Name)" ng-show="testsuiteList.indexOf(test.Name)==-1"></span>
                 <div style="margin-left:50px;"> {{test.Name}}</div>
                 <div style="font-size:10px;margin-left:100px">{{test.Description}}</div>
 
