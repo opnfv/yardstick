@@ -32,7 +32,7 @@
     dest: /tmp
 
 - name: "make collectd install"
-  my_make:
+  make:
     chdir: "{{ collectd_path }}"
     target: install
 
