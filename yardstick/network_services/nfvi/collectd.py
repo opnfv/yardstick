@@ -35,6 +35,7 @@ class AmqpConsumer(object):
         self._consumer_tag = None
         self._url = amqp_url
         self._queue = queue
+        self._queue.cancel_join_thread()
 
     def connect(self):
         """ connect to amqp url """

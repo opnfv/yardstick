@@ -36,6 +36,11 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
     sequence = 1
 
+    # if we don't do this we can hang waiting for the queue to drain
+    # have to do this in the subprocess
+    queue.cancel_join_thread()
+    output_queue.cancel_join_thread()
+
     runner_cfg = scenario_cfg['runner']
 
     interval = runner_cfg.get("interval", 1)
@@ -54,6 +59,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         sla_action = scenario_cfg["sla"].get("action", "assert")
 
     start = time.time()
+    timeout = start + duration
     while True:
 
         LOG.debug("runner=%(runner)s seq=%(sequence)s START",
@@ -71,9 +77,11 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
             elif sla_action == "monitor":
                 LOG.warning("SLA validation failed: %s", assertion.args)
                 errors = assertion.args
-        except Exception as e:
+        # catch all exceptions because with multiprocessing we can have un-picklable exception
+        # problems  https://bugs.python.org/issue9400
+        except Exception:
             errors = traceback.format_exc()
-            LOG.exception(e)
+            LOG.exception("")
         else:
             if result:
                 output_queue.put(result)
@@ -94,12 +102,19 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
         sequence += 1
 
-        if (errors and sla_action is None) or \
-                (time.time() - start > duration or aborted.is_set()):
+        if (errors and sla_action is None) or time.time() > timeout or aborted.is_set():
             LOG.info("Worker END")
             break
 
-    benchmark.teardown()
+    try:
+        benchmark.teardown()
+    except Exception:
+        # catch any exception in teardown and convert to simple exception
+        # never pass exceptions back to multiprocessing, because some exceptions can
+        # be unpicklable
+        # https://bugs.python.org/issue9400
+        LOG.exception("")
+        raise SystemExit(1)
 
 
 class DurationRunner(base.Runner):
