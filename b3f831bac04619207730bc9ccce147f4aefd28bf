@@ -68,6 +68,52 @@
       "revId": "b3f831bac04619207730bc9ccce147f4aefd28bf",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_1b7e4919",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-29T13:48:38Z",
+      "side": 1,
+      "message": "We don\u0027t need sriov in ovs_dpdk context class.\nI think we miss now the common superclass. Some methods are very similar/the same (e.g. the setup context method or deploy method).",
+      "range": {
+        "startLine": 58,
+        "startChar": 13,
+        "endLine": 58,
+        "endChar": 18
+      },
+      "revId": "b3f831bac04619207730bc9ccce147f4aefd28bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_bb859d08",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-29T13:48:38Z",
+      "side": 1,
+      "message": "There is now the DpdkBindNicHelper class, nothing should use the dpdk_nic_bind script directly, rather everything should go to/use the helper class.",
+      "range": {
+        "startLine": 60,
+        "startChar": 13,
+        "endLine": 60,
+        "endChar": 26
+      },
+      "revId": "b3f831bac04619207730bc9ccce147f4aefd28bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
