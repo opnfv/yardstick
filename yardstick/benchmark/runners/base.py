@@ -47,6 +47,7 @@ def _execute_shell_command(command):
 
 def _single_action(seconds, command, queue):
     """entrypoint for the single action process"""
+    queue.cancel_join_thread()
     log.debug("single action, fires after %d seconds (from now)", seconds)
     time.sleep(seconds)
     log.debug("single action: executing command: '%s'", command)
@@ -61,6 +62,7 @@ def _single_action(seconds, command, queue):
 
 def _periodic_action(interval, command, queue):
     """entrypoint for the periodic action process"""
+    queue.cancel_join_thread()
     log.debug("periodic action, fires every: %d seconds", interval)
     time_spent = 0
     while True:
@@ -137,7 +139,9 @@ class Runner(object):
         self.config = config
         self.periodic_action_process = None
         self.output_queue = multiprocessing.Queue()
+        self.output_queue.cancel_join_thread()
         self.result_queue = multiprocessing.Queue()
+        self.result_queue.cancel_join_thread()
         self.process = None
         self.aborted = multiprocessing.Event()
         Runner.runners.append(self)
