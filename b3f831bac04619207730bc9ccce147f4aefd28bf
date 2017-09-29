@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_1b192ad7",
+        "filename": "tests/unit/benchmark/contexts/standalone/nodes_duplicate_sample.yaml",
+        "patchSetId": 21
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-29T10:50:49Z",
+      "side": 1,
+      "message": "Is the copyright correct?",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 27
+      },
+      "revId": "b3f831bac04619207730bc9ccce147f4aefd28bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7b0af679",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-29T10:50:49Z",
+      "side": 1,
+      "message": "This is our Intel code, isn\u0027t it?",
+      "range": {
+        "startLine": 4,
+        "startChar": 26,
+        "endLine": 4,
+        "endChar": 32
+      },
+      "revId": "b3f831bac04619207730bc9ccce147f4aefd28bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9b87fab4",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-09-29T10:50:49Z",
+      "side": 1,
+      "message": "should be \"apt-get -y install %s\"",
+      "range": {
+        "startLine": 255,
+        "startChar": 36,
+        "endLine": 255,
+        "endChar": 49
+      },
+      "revId": "b3f831bac04619207730bc9ccce147f4aefd28bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
