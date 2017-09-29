@@ -36,13 +36,9 @@
   set_fact:
     RTE_KERNELDIR: "/lib/modules/{{ dpdk_kernel }}/build"
 
-- my_make:
+- command: make -j {{ ansible_processor_vcpus }} config T={{ dpdk_make_arch }} O={{ dpdk_make_arch }}
+  args:
     chdir: "{{ dpdk_path }}"
-    target: config
-    params:
-      T: "{{ dpdk_make_arch }}"
-      O: "{{ dpdk_make_arch }}"
-    extra_args: "-j {{ ansible_processor_vcpus }}"
   environment:
     RTE_KERNELDIR: "{{ RTE_KERNELDIR }}"
 
@@ -85,14 +81,15 @@
 
 # TODO: disable ASLR
 
-- my_make:
+- name: make dpdk
+  command: make -j {{ ansible_processor_vcpus }}
+  args:
     chdir: "{{ dpdk_path }}/{{ dpdk_make_arch}}"
-    extra_args: "-j {{ ansible_processor_vcpus }}"
   environment:
     RTE_KERNELDIR: "{{ RTE_KERNELDIR }}"
 
 #- name: make install DPDK into /usr for collectd and other programs
-#  my_make:
+#  make:
 #    chdir: "{{ dpdk_path }}/{{ dpdk_make_arch}}"
 #    target: install
 #    params: "T={{ RTE_TARGET }}"

@@ -18,8 +18,8 @@
   with_items: "{{ intel_cmt_cat_build_dependencies[ansible_os_family] }}"
 
 - name: "make intel-cmt-cat"
-  my_make:
+  make:
     chdir: "{{ intel_cmt_cat_path }}"
     target: install
-    params: "PREFIX=/usr"
-
+    params:
+      PREFIX: "/usr"
