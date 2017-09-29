@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_1ea597a1",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-29T18:26:15Z",
+      "side": 1,
+      "message": "this is duplicate code[1] and belongs in a utility module/class and is not a reason for this to be an instance method.  this should be:\n\n file_path_wrapper \u003d FilePathWrapper(file_path, YARDSTICK_ROOT_PATH, \u0027Parsing pod file: %s\u0027)\n cfg \u003d file_path_wrapper.read_config_file()\n\nwhere FilePathWrapper is in utils.py as:\n\n class FilePathWrapper(object):\n\n   def __init__(self, file_path, alternate_path, message\u003dNone):\n     super(FilePathWrapper, self).__init__()\n     self.file_path \u003d file_path\n     self.alternate_path \u003d alternate_path\n     self.message \u003d message\n\n   def _read_config_file(self):\n    with open(self.file_path) as stream:\n      if self.message:\n        LOG.info(self.message, self.file_path)\n      return yaml_load(stream)\n\n   def read_config_file(self):\n     try:\n       return self._read_config_file()\n     except IOError as e:\n       if e.errno !\u003d errno.ENOENT:\n         raise\n       self.file_path \u003d os.path.join(self.alternate_path, self.file_path)\n       return self._read_config_file()\n\nwe could also make this a context manager such that:\n\n with FilePathWrapper(my_path1, my_path2, my_message) as my_wrapper:\n   cfg \u003d yaml_load(my_wrapper.handle)\n\nand if the first file is missing, the second path is used.  it would also allow for moving the parsing (yaml, json, other) and logging back into the user of the Wrapper.\n\n[1] found in:\n* yardstick.benchmark.contexts.node.NodeContext\n* yardstick.benchmark.contexts.standalone.StandaloneContext\n\nwith slight variance:\n* yardstick.benchmark.scenarios.networking.vnf_generic.find_relative_path\n* yardstick.benchmark.scenarios.networking.vnf_generic.open_relative_path\n\nYangModel may want it too.",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 41
+      },
+      "revId": "88da842a5d5f02fa45c0f6787ac249978a3cb8d1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3e9a1b6e",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-29T18:26:15Z",
+      "side": 1,
+      "message": "please don\u0027t build lists via interpolation in order to extend other lists:\n\n nodes.extend(node for node in cfg[\u0027nodes\u0027] if str(node[\u0027role\u0027]) !\u003d nfvi_role)\n\nworks great",
+      "range": {
+        "startLine": 348,
+        "startChar": 21,
+        "endLine": 348,
+        "endChar": 22
+      },
+      "revId": "88da842a5d5f02fa45c0f6787ac249978a3cb8d1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9e8a4719",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-09-29T18:26:15Z",
+      "side": 1,
+      "message": "same as line 348",
+      "range": {
+        "startLine": 349,
+        "startChar": 25,
+        "endLine": 349,
+        "endChar": 26
+      },
+      "revId": "88da842a5d5f02fa45c0f6787ac249978a3cb8d1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
