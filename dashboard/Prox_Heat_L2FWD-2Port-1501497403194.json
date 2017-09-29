@@ -154,7 +154,7 @@
                 [
                   {
                     "params": [
-                      "vnf__1.packets_fwd"
+                      "vnf__0.packets_fwd"
                     ],
                     "type": "field"
                   },
@@ -191,7 +191,7 @@
                 [
                   {
                     "params": [
-                      "vnf__1.packets_in"
+                      "vnf__0.packets_in"
                     ],
                     "type": "field"
                   },
@@ -228,7 +228,7 @@
                 [
                   {
                     "params": [
-                      "vnf__1.packets_dropped"
+                      "vnf__0.packets_dropped"
                     ],
                     "type": "field"
                   },
@@ -357,7 +357,7 @@
                 [
                   {
                     "params": [
-                      "tg__1.xe0.out_packets"
+                      "tg__0.xe0.out_packets"
                     ],
                     "type": "field"
                   },
@@ -394,7 +394,7 @@
                 [
                   {
                     "params": [
-                      "tg__1.xe1.out_packets"
+                      "tg__0.xe1.out_packets"
                     ],
                     "type": "field"
                   },
@@ -502,7 +502,7 @@
                 [
                   {
                     "params": [
-                      "tg__1.xe0.in_packets"
+                      "tg__0.xe0.in_packets"
                     ],
                     "type": "field"
                   },
@@ -539,7 +539,7 @@
                 [
                   {
                     "params": [
-                      "tg__1.xe1.in_packets"
+                      "tg__0.xe1.in_packets"
                     ],
                     "type": "field"
                   },
@@ -656,7 +656,7 @@
                 [
                   {
                     "params": [
-                      "tg__1.TxThroughput"
+                      "tg__0.TxThroughput"
                     ],
                     "type": "field"
                   },
@@ -693,7 +693,7 @@
                 [
                   {
                     "params": [
-                      "tg__1.RxThroughput"
+                      "tg__0.RxThroughput"
                     ],
                     "type": "field"
                   },
@@ -801,7 +801,7 @@
                 [
                   {
                     "params": [
-                      "tg__1.PktSize"
+                      "tg__0.PktSize"
                     ],
                     "type": "field"
                   },
