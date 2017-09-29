@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_9b1eda0a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-09-29T08:46:05Z",
+      "side": 1,
+      "message": "I can\u0027t find -i in the docs, what does it do?\n\nhttps://trex-tgn.cisco.com/trex/doc/trex_manual.html#cml-line\n\nAre you sure -c is a mask.\n\nThe docs seems to suggest it is just the number of threads\n\n -c \u003cnum\u003e\n\n    Number of hardware threads to use per interface pair. Use at least 4 for TRex 40Gbs.\n    TRex uses 2 threads for inner needs. Rest of the threads can be used. Maximum number here, can be number of free threads divided by number of interface pairs.\n    For virtual NICs on VM, we always use one thread per interface pair.",
+      "revId": "ec5c31433ae00a7a455fbf2d531c68ef5720d853",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
