@@ -85,36 +85,32 @@ ssh_options="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 if [ "$INSTALLER_TYPE" == "fuel" ]; then
     #ip_fuel="10.20.0.2"
     verify_connectivity $INSTALLER_IP
-    echo "Fetching id_rsa file from jump_server $INSTALLER_IP..."
-    sshpass -p r00tme scp 2>/dev/null $ssh_options \
-    root@${INSTALLER_IP}:~/.ssh/id_rsa /root/.ssh/id_rsa &> /dev/null
 
-    sshpass -p r00tme ssh 2>/dev/null $ssh_options \
-        root@${INSTALLER_IP} fuel node>fuel_node
+    ssh -l ubuntu ${INSTALLER_IP} -i ${SSH_KEY} ${ssh_options} \
+         "sudo salt -C 'ctl* or cmp*' grains.get fqdn_ip4  --out yaml">node_info
 
-    # update fuel node id and ip info according to the CI env
-    controller_IDs=($(cat fuel_node|grep controller|awk '{print $1}'))
-    compute_IDs=($(cat fuel_node|grep compute|awk '{print $1}'))
-    controller_ips=($(cat fuel_node|grep controller|awk '{print $10}'))
-    compute_ips=($(cat fuel_node|grep compute|awk '{print $10}'))
+    # update node ip info according to the CI env
+    controller_ips=($(cat node_info|awk '/ctl/{getline; print $2}'))
+    compute_ips=($(cat node_info|awk '/cmp/{getline; print $2}'))
 
     pod_yaml="./etc/yardstick/nodes/fuel_baremetal/pod.yaml"
     node_line_num=($(grep -n node[1-5] $pod_yaml | awk -F: '{print $1}'))
+    node_ID=0;
 
     if [[ ${controller_ips[0]} ]]; then
-        sed -i "${node_line_num[0]}s/node1/node${controller_IDs[0]}/;s/ip1/${controller_ips[0]}/" $pod_yaml;
+        sed -i "${node_line_num[0]}s/node1/node$((++node_ID))/;s/ip1/${controller_ips[0]}/" $pod_yaml;
     fi
     if [[ ${controller_ips[1]} ]]; then
-        sed -i "${node_line_num[1]}s/node2/node${controller_IDs[1]}/;s/ip2/${controller_ips[1]}/" $pod_yaml;
+        sed -i "${node_line_num[1]}s/node2/node$((++node_ID))/;s/ip2/${controller_ips[1]}/" $pod_yaml;
     fi
     if [[ ${controller_ips[2]} ]]; then
-        sed -i "${node_line_num[2]}s/node3/node${controller_IDs[2]}/;s/ip3/${controller_ips[2]}/" $pod_yaml;
+        sed -i "${node_line_num[2]}s/node3/node$((++node_ID))/;s/ip3/${controller_ips[2]}/" $pod_yaml;
     fi
     if [[ ${compute_ips[0]} ]]; then
-        sed -i "${node_line_num[3]}s/node4/node${compute_IDs[0]}/;s/ip4/${compute_ips[0]}/" $pod_yaml;
+        sed -i "${node_line_num[3]}s/node4/node$((++node_ID))/;s/ip4/${compute_ips[0]}/" $pod_yaml;
     fi
     if [[ ${compute_ips[1]} ]]; then
-        sed -i "${node_line_num[4]}s/node5/node${compute_IDs[1]}/;s/ip5/${compute_ips[1]}/" $pod_yaml;
+        sed -i "${node_line_num[4]}s/node5/node$((++node_ID))/;s/ip5/${compute_ips[1]}/" $pod_yaml;
     fi
 
 fi
