@@ -24,27 +24,49 @@ nodes:
     ip: 192.168.10.10
     user: root
     password: root
+    ipmi_ip: 172.16.130.26
+    ipmi_user: root
+    ipmi_pwd: Opnfv@pod1
 -
     name: node2
     role: Controller
     ip: 192.168.10.11
     user: root
     password: root
+    ipmi_ip: 172.16.130.27
+    ipmi_user: root
+    ipmi_pwd: Opnfv@pod1
 -
     name: node3
     role: Controller
     ip: 192.168.10.12
     user: root
     password: root
+    ipmi_ip: 172.16.130.29
+    ipmi_user: root
+    ipmi_pwd: Opnfv@pod1
 -
     name: node4
     role: Compute
     ip: 192.168.10.13
     user: root
     password: root
+    ipmi_ip: 172.16.130.30
+    ipmi_user: root
+    ipmi_pwd: Opnfv@pod1
 -
     name: node5
     role: Compute
     ip: 192.168.10.14
     user: root
     password: root
+    ipmi_ip: 172.16.130.31
+    ipmi_user: root
+    ipmi_pwd: Opnfv@pod1
+-
+    name: node0
+    ip: 192.168.10.6
+    role: Baremetal
+    user: root
+    password: root
+
