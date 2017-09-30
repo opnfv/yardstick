@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Delia Popescu <delia.popescu@enea.com>
+Code-Review+1: Michael Polenchuk <mpolenchuk@mirantis.com>
+Code-Review+2: Kubi <jean.gaoliang@huawei.com>
+Submitted-by: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-at: Sat, 30 Sep 2017 08:06:29 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/43623
+Project: yardstick
+Branch: refs/heads/master
