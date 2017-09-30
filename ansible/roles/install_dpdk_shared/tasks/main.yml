@@ -42,13 +42,9 @@
   set_fact:
     RTE_KERNELDIR: "/lib/modules/{{ dpdk_kernel }}/build"
 
-- my_make:
+- command: make -j {{ ansible_processor_vcpus }} config  T={{ dpdk_make_arch }} O={{ dpdk_make_arch }}
+  args:
     chdir: "{{ dpdk_shared_path }}"
-    target: config
-    params:
-      T: "{{ dpdk_make_arch }}"
-      O: "{{ dpdk_make_arch }}"
-    extra_args: "-j {{ ansible_processor_vcpus }}"
   environment:
     RTE_KERNELDIR: "{{ RTE_KERNELDIR }}"
 
@@ -89,26 +85,23 @@
     regexp: '^CONFIG_RTE_EAL_PMD_PATH=""'
     line: 'CONFIG_RTE_EAL_PMD_PATH="{{ dpdk_pmd_path }}"'
 
-- my_make:
+  # no T= target for clean
+- command: make -j {{ ansible_processor_vcpus }} clean O={{ dpdk_make_arch }}
+  args:
     chdir: "{{ dpdk_shared_path }}"
-    target: clean
-    params:
-    # no T= target for clean
-      O: "{{ dpdk_make_arch }}"
-    extra_args: "-j {{ ansible_processor_vcpus }}"
   environment:
     RTE_KERNELDIR: "{{ RTE_KERNELDIR }}"
 
 # TODO: disable ASLR
 
-- my_make:
+- command: make -j {{ ansible_processor_vcpus }}
+  args:
     chdir: "{{ dpdk_shared_path }}/{{ dpdk_make_arch}}"
-    extra_args: "-j {{ ansible_processor_vcpus }}"
   environment:
     RTE_KERNELDIR: "{{ RTE_KERNELDIR }}"
 
 #- name: make install DPDK into /usr for collectd and other programs
-#  my_make:
+#  make:
 #    chdir: "{{ dpdk_shared_path }}/{{ dpdk_make_arch}}"
 #    target: install
 #    params: "T={{ RTE_TARGET }}"
