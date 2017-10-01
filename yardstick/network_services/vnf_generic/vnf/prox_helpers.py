@@ -878,6 +878,7 @@ class ProxResourceHelper(ClientResourceHelper):
         return self._test_type
 
     def run_traffic(self, traffic_profile):
+        self._queue.cancel_join_thread()
         self.lower = 0.0
         self.upper = 100.0
 
