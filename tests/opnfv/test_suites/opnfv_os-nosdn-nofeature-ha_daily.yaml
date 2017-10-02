@@ -158,4 +158,25 @@ test_cases:
         lf-pod2: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
         ericsson-pod3: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
         ericsson-pod4: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
-
+-
+    file_name: opnfv_yardstick_tc076.yaml
+-
+    file_name: opnfv_yardstick_tc079.yaml
+-
+    file_name: opnfv_yardstick_tc073.yaml
+    constraint:
+        installer: compass
+        pod: huawei-pod1
+    task_args:
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+-
+    file_name: opnfv_yardstick_tc082.yaml
+-
+    file_name: opnfv_yardstick_tc083.yaml
+-
+    file_name: opnfv_yardstick_tc025.yaml
+    constraint:
+        installer: compass
+        pod: huawei-pod1
+    task_args:
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml", "jump_host": "node0", "attack_host": "node1"}'
