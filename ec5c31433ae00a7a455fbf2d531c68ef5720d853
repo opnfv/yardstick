@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "da33351e_447589f8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-02T17:52:14Z",
+      "side": 1,
+      "message": "if all we want is the length, then why are we building a list of indexes?\n\nthis should be:\n\n ports_mask_hex \u003d hex(2 ** (len(self.vnfd_helper.interfaces) + 1) - 1)[2:]\n\ngiven that a hex mask is appropriate.",
+      "range": {
+        "startLine": 117,
+        "startChar": 39,
+        "endLine": 117,
+        "endChar": 48
+      },
+      "revId": "ec5c31433ae00a7a455fbf2d531c68ef5720d853",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_9b1eda0a",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
         "patchSetId": 1
