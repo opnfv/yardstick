@@ -39,6 +39,29 @@
       "revId": "66de11a53d7f15ac868069b7366f2857aebf3f2e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_87015307",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-02T18:47:49Z",
+      "side": 1,
+      "message": "there is no timeout kwarg on ResourceProfile",
+      "range": {
+        "startLine": 48,
+        "startChar": 16,
+        "endLine": 48,
+        "endChar": 36
+      },
+      "revId": "66de11a53d7f15ac868069b7366f2857aebf3f2e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
