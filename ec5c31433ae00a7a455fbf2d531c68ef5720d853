@@ -135,6 +135,24 @@
       "revId": "ec5c31433ae00a7a455fbf2d531c68ef5720d853",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_8762f33b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-02T22:58:20Z",
+      "side": 1,
+      "message": "https://github.com/cisco-system-traffic-generator/trex-core/blob/master/scripts/dpdk_setup_ports.py#L1067\n\n\nhttps://github.com/cisco-system-traffic-generator/trex-core/blob/master/src/main_dpdk.cpp#L1285\n\n-c uses atoi() to convert string to int.\n\natoi does not use hex",
+      "parentUuid": "da33351e_8a84bd5e",
+      "revId": "ec5c31433ae00a7a455fbf2d531c68ef5720d853",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
