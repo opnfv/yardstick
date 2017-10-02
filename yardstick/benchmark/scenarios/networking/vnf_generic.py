@@ -607,7 +607,7 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
             traffic_gen.listen_traffic(self.traffic_profile)
 
         # register collector with yardstick for KPI collection.
-        self.collector = Collector(self.vnfs, self.traffic_profile)
+        self.collector = Collector(self.vnfs, self.context_cfg["nodes"], self.traffic_profile)
         self.collector.start()
 
         # Start the actual traffic
@@ -623,11 +623,11 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
         :return: None
         """
 
-        for vnf in self.vnfs:
-            # Result example:
-            # {"VNF1: { "tput" : [1000, 999] }, "VNF2": { "latency": 100 }}
-            LOG.debug("collect KPI for %s", vnf.name)
-            result.update(self.collector.get_kpi(vnf))
+        # this is the only method that is check from the runner
+        # so if we have any fatal error it must be raised via these methods
+        # otherwise we will not terminate
+
+        result.update(self.collector.get_kpi())
 
     def teardown(self):
         """ Stop the collector and terminate VNF & TG instance
