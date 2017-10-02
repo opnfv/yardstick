@@ -58,3 +58,7 @@
 - service:
     name: procps
     enabled: yes
+
+- include: manual_modify_grub.yml
+  # only tested on Ubuntu, kernel line is probably different on other distros
+  when: ansible_distribution == "Ubuntu"
