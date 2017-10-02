@@ -260,25 +260,23 @@ class Task(object):     # pragma: no cover
 
             # Wait for runners to finish
             for runner in runners:
-                status = runner_join(runner)
+                status = runner_join(runner, self.outputs, result)
                 if status != 0:
-                    raise RuntimeError
-                self.outputs.update(runner.get_output())
-                result.extend(runner.get_result())
+                    raise RuntimeError(
+                        "{0} runner status {1}".format(runner.__execution_type__, status))
                 LOG.info("Runner ended, output in %s", output_file)
         else:
             # run serially
             for scenario in scenarios:
                 if not _is_background_scenario(scenario):
                     runner = self.run_one_scenario(scenario, output_file)
-                    status = runner_join(runner)
+                    status = runner_join(runner, self.outputs, result)
                     if status != 0:
                         LOG.error('Scenario NO.%s: "%s" ERROR!',
                                   scenarios.index(scenario) + 1,
                                   scenario.get('type'))
-                        raise RuntimeError
-                    self.outputs.update(runner.get_output())
-                    result.extend(runner.get_result())
+                        raise RuntimeError(
+                            "{0} runner status {1}".format(runner.__execution_type__, status))
                     LOG.info("Runner ended, output in %s", output_file)
 
         # Abort background runners
@@ -287,15 +285,13 @@ class Task(object):     # pragma: no cover
 
         # Wait for background runners to finish
         for runner in background_runners:
-            status = runner.join(JOIN_TIMEOUT)
+            status = runner.join(self.outputs, result, JOIN_TIMEOUT)
             if status is None:
                 # Nuke if it did not stop nicely
                 base_runner.Runner.terminate(runner)
-                runner.join(JOIN_TIMEOUT)
+                runner.join(self.outputs, result, JOIN_TIMEOUT)
             base_runner.Runner.release(runner)
 
-            self.outputs.update(runner.get_output())
-            result.extend(runner.get_result())
             print("Background task ended")
         return result
 
@@ -645,9 +641,14 @@ def get_networks_from_nodes(nodes):
     return networks
 
 
-def runner_join(runner):
-    """join (wait for) a runner, exit process at runner failure"""
-    status = runner.join()
+def runner_join(runner, outputs, result):
+    """join (wait for) a runner, exit process at runner failure
+    :param outputs:
+    :type outputs: dict
+    :param result:
+    :type result: list
+    """
+    status = runner.join(outputs, result)
     base_runner.Runner.release(runner)
     return status
 
