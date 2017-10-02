@@ -46,11 +46,6 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
     sequence = 1
 
-    # if we don't do this we can hang waiting for the queue to drain
-    # have to do this in the subprocess
-    queue.cancel_join_thread()
-    output_queue.cancel_join_thread()
-
     runner_cfg = scenario_cfg['runner']
 
     interval = runner_cfg.get("interval", 1)
@@ -143,8 +138,18 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         if errors and sla_action is None:
             break
 
-    benchmark.teardown()
+    try:
+        benchmark.teardown()
+    except Exception:
+        # catch any exception in teardown and convert to simple exception
+        # never pass exceptions back to multiprocessing, because some exceptions can
+        # be unpicklable
+        # https://bugs.python.org/issue9400
+        LOG.exception("")
+        raise SystemExit(1)
     LOG.info("worker END")
+    LOG.debug("queue.qsize() = %s", queue.qsize())
+    LOG.debug("output_queue.qsize() = %s", output_queue.qsize())
 
 
 class ArithmeticRunner(base.Runner):
