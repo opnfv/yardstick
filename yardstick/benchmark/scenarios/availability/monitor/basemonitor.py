@@ -90,7 +90,6 @@ class BaseMonitor(multiprocessing.Process):
         self._config = config
         self._context = context
         self._queue = multiprocessing.Queue()
-        self._queue.cancel_join_thread()
         self._event = multiprocessing.Event()
         self.monitor_data = data
         self.setup_done = False
