@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "da33351e_2746874f",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-02T19:25:16Z",
+      "side": 1,
+      "message": "why is this module called subscriber when the class within is Collector?",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 15
+      },
+      "revId": "66de11a53d7f15ac868069b7366f2857aebf3f2e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_841af17a",
         "filename": "yardstick/network_services/collector/subscriber.py",
         "patchSetId": 3
