@@ -90,7 +90,6 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                 LOG.exception(e)
             else:
                 if result:
-                    LOG.debug("output_queue.put %s", result)
                     output_queue.put(result, True, 1)
 
             time.sleep(interval)
@@ -102,7 +101,6 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                 'errors': errors
             }
 
-            LOG.debug("queue.put, %s", benchmark_output)
             queue.put(benchmark_output, True, 1)
 
             LOG.debug("runner=%(runner)s seq=%(sequence)s END",
