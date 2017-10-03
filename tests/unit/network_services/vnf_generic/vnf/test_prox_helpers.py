@@ -970,15 +970,15 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = setup_helper.prox_config_data
         self.assertEqual(result, expected)
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
-    def test_build_config_file_no_additional_file(self, mock_find_path):
+    @mock.patch('yardstick.benchmark.contexts.base.utils.FilePathWrapper.get_path')
+    def test_build_config_file_no_additional_file(self, mock_get_path):
         vnf1 = {
             'prox_args': {'-c': ""},
             'prox_path': 'd',
             'prox_config': 'e/f',
         }
 
-        mock_find_path.side_effect = ['1', '2']
+        mock_get_path.side_effect = ['1', '2']
 
         vnfd_helper = mock.MagicMock()
         ssh_helper = mock.MagicMock()
@@ -1003,8 +1003,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         self.assertEqual(helper._prox_config_data, '4')
         self.assertEqual(helper.remote_path, '5')
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
-    def test_build_config_file_additional_file_string(self, mock_find_path):
+    @mock.patch('yardstick.benchmark.contexts.base.utils.FilePathWrapper.get_path')
+    def test_build_config_file_additional_file_string(self, mock_get_path):
         vnf1 = {
             'prox_args': {'-c': ""},
             'prox_path': 'd',
@@ -1012,7 +1012,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             'prox_files': 'g/h.i',
         }
 
-        mock_find_path.side_effect = ['1', '2']
+        mock_get_path.side_effect = ['1', '2']
         vnfd_helper = mock.MagicMock()
         ssh_helper = mock.MagicMock()
         scenario_helper = ScenarioHelper('vnf1')
@@ -1033,8 +1033,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         helper.build_config_file()
         self.assertDictEqual(helper.additional_files, expected)
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
-    def test_build_config_file_additional_file(self, mock_find_path):
+    @mock.patch('yardstick.benchmark.contexts.base.utils.FilePathWrapper.get_path')
+    def test_build_config_file_additional_file(self, mock_get_path):
         vnf1 = {
             'prox_args': {'-c': ""},
             'prox_path': 'd',
@@ -1046,7 +1046,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             ],
         }
 
-        mock_find_path.side_effect = ['1', '2'] + [str(i) for i in range(len(vnf1['prox_files']))]
+        mock_get_path.side_effect = ['1', '2'] + [str(i) for i in range(len(vnf1['prox_files']))]
         vnfd_helper = mock.MagicMock()
         ssh_helper = mock.MagicMock()
         scenario_helper = ScenarioHelper('vnf1')
@@ -1071,8 +1071,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         self.assertEqual(helper._prox_config_data, '44')
         self.assertEqual(helper.remote_path, '55')
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
-    def test_build_config(self, mock_find_path):
+    @mock.patch('yardstick.benchmark.contexts.base.utils.FilePathWrapper.get_path')
+    def test_build_config(self, mock_get_path):
         vnf1 = {
             'prox_args': {'-f': ""},
             'prox_path': '/opt/nsb_bin/prox',
@@ -1084,7 +1084,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             ],
         }
 
-        mock_find_path.side_effect = ['1', '2']
+        mock_get_path.side_effect = ['1', '2']
         vnfd_helper = mock.MagicMock()
         ssh_helper = mock.MagicMock()
         ssh_helper.provision_tool.return_value = "/opt/nsb_bin/prox"

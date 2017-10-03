@@ -1063,6 +1063,63 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
             self.assertEqual(utils.ip_to_hex(value), value)
 
 
+class TestFilePathWrapper(unittest.TestCase):
+
+    def test_open_relative_path(self):
+        mock_open = mock.mock_open()
+        mock_open_result = mock_open()
+        mock_open_call_count = 1  # initial call to get result
+
+        module_name = 'yardstick.common.utils.open'
+
+        # test
+        with mock.patch(module_name, mock_open, create=True):
+            wrapper1 = utils.FilePathWrapper('foo', 'bar')
+            self.assertEqual(wrapper1.get_path(), os.path.abspath('foo'))
+
+            mock_open_call_count += 1  # one more call expected
+            self.assertEqual(mock_open.call_count, mock_open_call_count)
+            self.assertIn('foo', mock_open.call_args_list[-1][0][0])
+            self.assertNotIn('bar', mock_open.call_args_list[-1][0][0])
+
+            expected = os.path.abspath(os.path.join('bar', 'foo'))
+            def open_effect(*args, **kwargs):
+                if kwargs.get('name', args[0]) == expected:
+                    return mock_open_result
+                raise IOError(errno.ENOENT, 'not found')
+
+            mock_open.side_effect = open_effect
+            wrapper2 = utils.FilePathWrapper('foo', 'bar')
+            self.assertEqual(wrapper2.get_path(), expected)
+            self.assertNotEqual(wrapper1.path, wrapper2.path)
+
+            mock_open_call_count += 2  # two more calls expected
+            self.assertEqual(mock_open.call_count, mock_open_call_count)
+            self.assertIn('foo', mock_open.call_args_list[-1][0][0])
+            self.assertIn('bar', mock_open.call_args_list[-1][0][0])
+
+            # test an IOError of type ENOENT
+            mock_open.side_effect = IOError(errno.ENOENT, 'not found')
+            wrapper3 = utils.FilePathWrapper('foo', 'bar')
+            with self.assertRaises(IOError):
+                # the second call still raises
+                wrapper3.get_path()
+
+            mock_open_call_count += 2  # two more calls expected
+            self.assertEqual(mock_open.call_count, mock_open_call_count)
+            self.assertIn('foo', mock_open.call_args_list[-1][0][0])
+            self.assertIn('bar', mock_open.call_args_list[-1][0][0])
+
+            # test an IOError other than ENOENT
+            mock_open.side_effect = IOError(errno.EBUSY, 'busy')
+            wrapper4 = utils.FilePathWrapper('foo', 'bar')
+            with self.assertRaises(IOError):
+                wrapper4.get_path()
+
+            mock_open_call_count += 1  # one more call expected
+            self.assertEqual(mock_open.call_count, mock_open_call_count)
+
+
 def main():
     unittest.main()
 
