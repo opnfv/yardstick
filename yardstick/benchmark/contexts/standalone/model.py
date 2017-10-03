@@ -371,6 +371,7 @@ class StandaloneContextHelper(object):
     def get_mgmt_ip(connection, mac, cidr, node):
         mgmtip = None
         times = 10
+        time.sleep(100)
         while not mgmtip and times:
             connection.execute("fping -c 1 -g %s > /dev/null 2>&1" % cidr)
             out = connection.execute("ip neighbor | grep '%s'" % mac)[1]
