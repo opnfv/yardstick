@@ -347,7 +347,7 @@ class TestIXIATrafficGen(unittest.TestCase):
             'task_path': '/path/to/task'
         }
 
-        @mock.patch('yardstick.benchmark.scenarios.networking.vnf_generic.open', create=True)
+        @mock.patch('yardstick.common.utils.open', create=True)
         @mock.patch('yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.open',
                     mock.mock_open(), create=True)
         @mock.patch('yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.LOG.exception')
