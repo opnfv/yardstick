@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_ba810ec5",
+        "filename": "etc/yardstick/nodes/standalone/pod_sriov_template.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-10-03T07:44:48Z",
+      "side": 1,
+      "message": "I guess here should be the sriov role",
+      "range": {
+        "startLine": 18,
+        "startChar": 10,
+        "endLine": 18,
+        "endChar": 17
+      },
+      "revId": "8dc40c1d09b92a00069b5631e1935b1849a0e151",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_fa555650",
+        "filename": "samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-10-03T07:44:48Z",
+      "side": 1,
+      "message": "comments here are valid for other tc yaml files as well.",
+      "revId": "8dc40c1d09b92a00069b5631e1935b1849a0e151",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5a67224d",
+        "filename": "samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-10-03T07:44:48Z",
+      "side": 1,
+      "message": "The same comment as line 69",
+      "range": {
+        "startLine": 63,
+        "startChar": 7,
+        "endLine": 63,
+        "endChar": 53
+      },
+      "revId": "8dc40c1d09b92a00069b5631e1935b1849a0e151",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7a62e63e",
+        "filename": "samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-10-03T07:44:48Z",
+      "side": 1,
+      "message": "Are those really flavor attributes? Shouldn\u0027t this go to the servers section? (and to the /etc/yardstick/nodes...?)",
+      "range": {
+        "startLine": 69,
+        "startChar": 7,
+        "endLine": 70,
+        "endChar": 22
+      },
+      "revId": "8dc40c1d09b92a00069b5631e1935b1849a0e151",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9a86cad9",
+        "filename": "samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-10-03T07:44:48Z",
+      "side": 1,
+      "message": "I still think this should be in the \"file\" -- /etc/yardstick/nodes/standalone/pod_ovs.yaml. \n\nWhy do we have part of the configuration in /etc/yardstick and part of it in the git repo. I think it makes sense to keep environment specific configuration (IP addresses etc.) in the /etc/yardstick and testcase configuration (OVS version) in the testcase yaml.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 36
+      },
+      "revId": "8dc40c1d09b92a00069b5631e1935b1849a0e151",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
