@@ -8,7 +8,6 @@
 ##############################################################################
 
 from __future__ import absolute_import
-import errno
 import subprocess
 import os
 import collections
@@ -22,7 +21,6 @@ from yardstick import ssh
 from yardstick.benchmark.contexts.base import Context
 from yardstick.common.constants import ANSIBLE_DIR, YARDSTICK_ROOT_PATH
 from yardstick.common.ansible_common import AnsibleCommon
-from yardstick.common.yaml_loader import yaml_load
 
 LOG = logging.getLogger(__name__)
 
@@ -50,35 +48,16 @@ class NodeContext(Context):
         }
         super(NodeContext, self).__init__()
 
-    def read_config_file(self):
-        """Read from config file"""
-
-        with open(self.file_path) as stream:
-            LOG.info("Parsing pod file: %s", self.file_path)
-            cfg = yaml_load(stream)
-        return cfg
-
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
         self.name = attrs["name"]
-        self.file_path = file_path = attrs.get("file", "pod.yaml")
+        self.file_path, cfg = self.load_pod_yaml(LOG, attrs)
 
-        try:
-            cfg = self.read_config_file()
-        except IOError as io_error:
-            if io_error.errno != errno.ENOENT:
-                raise
-
-            self.file_path = os.path.join(YARDSTICK_ROOT_PATH, file_path)
-            cfg = self.read_config_file()
-
-        self.nodes.extend(cfg["nodes"])
-        self.controllers.extend([node for node in cfg["nodes"]
-                                 if node.get("role") == "Controller"])
-        self.computes.extend([node for node in cfg["nodes"]
-                              if node.get("role") == "Compute"])
-        self.baremetals.extend([node for node in cfg["nodes"]
-                                if node.get("role") == "Baremetal"])
+        nodes = cfg["nodes"]
+        self.nodes.extend(nodes)
+        self.controllers.extend(self.iter_nodes_of_role(nodes, ["Controller"]))
+        self.computes.extend(self.iter_nodes_of_role(nodes, ["Compute"]))
+        self.baremetals.extend(self.iter_nodes_of_role(nodes, ["Baremetal"]))
         LOG.debug("Nodes: %r", self.nodes)
         LOG.debug("Controllers: %r", self.controllers)
         LOG.debug("Computes: %r", self.computes)

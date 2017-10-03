@@ -31,9 +31,11 @@ import six
 from six.moves import cStringIO
 from six.moves import zip, StringIO
 
-from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
 from yardstick.common import utils
-from yardstick.common.utils import SocketTopology, join_non_strings, try_int
+from yardstick.common.utils import SocketTopology
+from yardstick.common.utils import join_non_strings
+from yardstick.common.utils import try_int
+from yardstick.common.utils import FilePathWrapper
 from yardstick.network_services.helpers.iniparser import ConfigParser
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
@@ -812,7 +814,7 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         options = self.scenario_helper.options
         config_path = options['prox_config']
         config_file = os.path.basename(config_path)
-        config_path = find_relative_file(config_path, task_path)
+        config_path = FilePathWrapper(config_path, task_path).get_path()
         self.additional_files = {}
 
         try:
@@ -829,7 +831,7 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
             prox_files = [prox_files]
         for key_prox_file in prox_files:
             base_prox_file = os.path.basename(key_prox_file)
-            key_prox_path = find_relative_file(key_prox_file, task_path)
+            key_prox_path = FilePathWrapper(key_prox_file, task_path).get_path()
             remote_prox_file = self.copy_to_target(key_prox_path, base_prox_file)
             self.additional_files[base_prox_file] = remote_prox_file
 
