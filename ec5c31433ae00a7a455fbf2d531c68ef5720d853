@@ -153,6 +153,24 @@
       "revId": "ec5c31433ae00a7a455fbf2d531c68ef5720d853",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_baa3cefe",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-03T02:04:25Z",
+      "side": 1,
+      "message": "-c fails with virtio\n\n Starting  TRex v2.28 please wait  ...\n  set driver name net_virtio\n  driver capability  : TSO\n zmq publisher at: tcp://*:4500\n  Number of ports found: 2\n Error: the number of cores should be 1 when the driver  support only one tx queue and one rx queue. Please use -c 1",
+      "parentUuid": "da33351e_8762f33b",
+      "revId": "ec5c31433ae00a7a455fbf2d531c68ef5720d853",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
