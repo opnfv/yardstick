@@ -43,6 +43,7 @@ VM_TEMPLATE = """
     <hugepages />
   </memoryBacking>
   <vcpu cpuset='{cpuset}'>{vcpu}</vcpu>
+ {cputune}
   <os>
     <type arch="x86_64" machine="pc-i440fx-utopic">hvm</type>
     <boot dev="hd" />
@@ -242,6 +243,7 @@ class Libvirt(object):
         hw_socket = flavor.get('hw_socket', '0')
         cpuset = Libvirt.pin_vcpu_for_perf(connection, hw_socket)
 
+        cputune = extra_spec.get('cputune', '')
         mac = StandaloneContextHelper.get_mac_address(0x00)
         image = cls.create_snapshot_qemu(connection, index,
                                          flavor.get("images", None))
@@ -252,7 +254,7 @@ class Libvirt(object):
             memory=memory, vcpu=vcpu, cpu=cpu,
             numa_cpus=numa_cpus,
             socket=socket, threads=threads,
-            vm_image=image, cpuset=cpuset)
+            vm_image=image, cpuset=cpuset, cputune=cputune)
 
         write_file(cfg, vm_xml)
 
@@ -269,6 +271,7 @@ class Libvirt(object):
         sys_obj = CpuSysCores(connection)
         soc_cpu = sys_obj.get_core_socket()
         sys_cpu = int(soc_cpu["cores_per_socket"])
+        socket = str(socket)
         cores = "%s-%s" % (soc_cpu[socket][0], soc_cpu[socket][sys_cpu - 1])
         if int(soc_cpu["thread_per_core"]) > 1:
             threads = "%s-%s" % (soc_cpu[socket][sys_cpu], soc_cpu[socket][-1])
