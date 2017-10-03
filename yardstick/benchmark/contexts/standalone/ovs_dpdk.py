@@ -129,12 +129,20 @@ class OvsDpdkContext(Context):
         ovs_sock_path = '/var/run/openvswitch/db.sock'
         log_path = '/var/log/openvswitch/ovs-vswitchd.log'
 
+        pmd_cpu_mask = self.ovs_properties.get("pmd_cpu_mask", '')
         pmd_mask = hex(sum(2 ** num for num in range(pmd_nums)) << 1)
+        if pmd_cpu_mask:
+            pmd_mask = pmd_cpu_mask
+
         socket0 = self.ovs_properties.get("ram", {}).get("socket_0", "2048")
         socket1 = self.ovs_properties.get("ram", {}).get("socket_1", "2048")
 
         ovs_other_config = "ovs-vsctl {0}set Open_vSwitch . other_config:{1}"
         detach_cmd = "ovs-vswitchd unix:{0}{1} --pidfile --detach --log-file={2}"
+
+        lcore_mask = self.ovs_properties.get("lcore_mask", '')
+        if lcore_mask:
+            lcore_mask = ovs_other_config.format("--no-wait ", "dpdk-lcore-mask='%s'" % lcore_mask)
 
         cmd_list = [
             "mkdir -p /usr/local/var/run/openvswitch",
@@ -143,6 +151,7 @@ class OvsDpdkContext(Context):
                                                                               ovs_sock_path),
             ovs_other_config.format("--no-wait ", "dpdk-init=true"),
             ovs_other_config.format("--no-wait ", "dpdk-socket-mem='%s,%s'" % (socket0, socket1)),
+            lcore_mask,
             detach_cmd.format(vpath, ovs_sock_path, log_path),
             ovs_other_config.format("", "pmd-cpu-mask=%s" % pmd_mask),
         ]
