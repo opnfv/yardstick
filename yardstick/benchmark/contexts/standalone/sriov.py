@@ -17,6 +17,7 @@ import os
 import logging
 import collections
 from collections import OrderedDict
+import time
 
 from yardstick import ssh
 from yardstick.network_services.utils import get_nsb_option
@@ -180,6 +181,8 @@ class SriovContext(Context):
             # enable VFs for given...
             build_vfs = "echo 1 > /sys/bus/pci/devices/{0}/sriov_numvfs"
             self.connection.execute(build_vfs.format(ports.get('phy_port')))
+            # Drop percentage is 100% without sleep
+            time.sleep(1)
 
             # configure VFs...
             mac = StandaloneContextHelper.get_mac_address()
