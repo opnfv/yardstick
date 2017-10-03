@@ -49,8 +49,8 @@ contexts:
      vm_deploy: True
      ovs_properties:
        version:
-         ovs: 2.7.0
-         dpdk: 16.11.1
+         ovs: 2.8.0
+         dpdk: 17.05.2
        pmd_threads: 2
        ram:
          socket_0: 2048
@@ -65,13 +65,13 @@ contexts:
          hw:cpu_sockets: 1
          hw:cpu_cores: 6
          hw:cpu_threads: 2
-       user: ""
-       password: ""
+       user: "ubuntu"
+       password: "s"
      servers:
        vnf__0:
          network_ports:
            mgmt:
-             cidr: '1.1.1.7/24'
+             cidr: '11.191.24.0/24'
            xe0:
              - uplink_0
            xe1:

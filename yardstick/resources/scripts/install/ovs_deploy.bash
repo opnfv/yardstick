@@ -56,6 +56,7 @@ dpdk_build()
   pushd .
   if [[ $DPDK_VERSION != "" ]]; then
     export DPDK_DIR=$INSTALL_OVS_BIN/dpdk-stable-$DPDK_VERSION
+    export DESTDIR=$DPDK_DIR
     export RTE_TARGET=x86_64-native-linuxapp-gcc
     export DPDK_BUILD=$DPDK_DIR/$RTE_TARGET
     rm -rf "$DPDK_DIR"
