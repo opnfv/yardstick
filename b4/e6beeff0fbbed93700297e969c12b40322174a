@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-by: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-at: Tue, 03 Oct 2017 22:01:17 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/44149
+Project: yardstick
+Branch: refs/heads/stable/euphrates
