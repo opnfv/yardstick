@@ -49,8 +49,8 @@ contexts:
      vm_deploy: True
      ovs_properties:
        version:
-         ovs: 2.7.0
-         dpdk: 16.11.1
+         ovs: 2.8.0
+         dpdk: 17.05.2
        pmd_threads: 2
        ram:
          socket_0: 2048
