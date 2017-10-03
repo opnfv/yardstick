@@ -24,6 +24,7 @@ import posixpath
 
 from six.moves import configparser, zip
 
+from yardstick.common.process import check_if_process_failed
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 from yardstick.network_services.pipeline import PipelineRules
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF, DpdkVnfSetupEnvHelper
@@ -278,6 +279,8 @@ class VpeApproxVnf(SampleVNF):
         raise NotImplementedError
 
     def collect_kpi(self):
+        # we can't get KPIs if the VNF is down
+        check_if_process_failed(self._vnf_process)
         result = {
             'pkt_in_up_stream': 0,
             'pkt_drop_up_stream': 0,

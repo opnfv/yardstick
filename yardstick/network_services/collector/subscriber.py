@@ -74,11 +74,12 @@ class Collector(object):
             # Result example:
             # {"VNF1: { "tput" : [1000, 999] }, "VNF2": { "latency": 100 }}
             LOG.debug("collect KPI for %s", node_name)
-            if not resource.check_if_sa_running("collectd")[0]:
+            if resource.check_if_sa_running("collectd")[0] != 0:
                 continue
 
             try:
                 results[node_name] = {"core": resource.amqp_collect_nfvi_kpi()}
+                LOG.debug("%s collect KPIs %s", node_name, results[node_name]['core'])
             except Exception:
                 LOG.exception("")
         return results

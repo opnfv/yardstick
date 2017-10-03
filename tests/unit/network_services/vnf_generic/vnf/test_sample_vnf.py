@@ -833,13 +833,13 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         dpdk_setup_helper.dpdk_bind_helper.bind = mock.Mock()
         dpdk_setup_helper.dpdk_bind_helper.used_drivers = {
-            '0000:05:00.0': 'd1',
-            '0000:05:01.0': 'd3',
+            'd1': ['0000:05:00.0'],
+            'd3': ['0000:05:01.0'],
         }
 
         self.assertIsNone(dpdk_setup_helper.tear_down())
-        dpdk_setup_helper.dpdk_bind_helper.bind.assert_any_call('0000:05:00.0', 'd1', True)
-        dpdk_setup_helper.dpdk_bind_helper.bind.assert_any_call('0000:05:01.0', 'd3', True)
+        dpdk_setup_helper.dpdk_bind_helper.bind.assert_any_call(['0000:05:00.0'], 'd1', True)
+        dpdk_setup_helper.dpdk_bind_helper.bind.assert_any_call(['0000:05:01.0'], 'd3', True)
 
 
 class TestResourceHelper(unittest.TestCase):
@@ -2130,6 +2130,7 @@ class TestSampleVNFTrafficGen(unittest.TestCase):
     def test_terminate(self):
         sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0)
         sample_vnf_tg._traffic_process = mock.Mock()
+        sample_vnf_tg._tg_process = mock.Mock()
 
         sample_vnf_tg.terminate()
 
