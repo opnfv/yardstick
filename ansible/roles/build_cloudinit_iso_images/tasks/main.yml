@@ -1,0 +1,37 @@
+---
+- name: install genisoimage tool
+  package:
+    name: genisoimage
+    state: present
+
+- name: define tmpdir for the VM
+  set_fact:
+    vm_paths: "{{ vm_paths|default({}) | combine( {item: '/var/lib/yardstick/vm' ~ item } ) }}"
+  with_sequence: "count={{ vm_count }}"
+
+- debug: msg="vm path dir = {{ vm_paths }}"
+
+- name: create vm path
+  file: "path={{ vm_paths[item] }} state=directory"
+  with_sequence: "count={{ vm_count }}"
+
+- name: prepare metadata files
+  template:
+    src: meta-data.j2
+    dest: "{{ vm_paths[item] }}/meta-data"
+  with_sequence: "count={{ vm_count }}"
+  register: meta_data
+
+- name: prepare userdata files
+  template:
+    src: user-data.j2
+    dest: "{{ vm_paths[item] }}/user-data"
+  with_sequence: "count={{ vm_count }}"
+  register: user_data
+
+- name: create iso files for cloud-init
+  command: "genisoimage -output vm{{ item }}-cidata.iso -volid cidata -joliet -rock user-data meta-data"
+  args:
+    chdir: "{{ vm_paths[item] }}"
+  with_sequence: "count={{ vm_count }}"
+

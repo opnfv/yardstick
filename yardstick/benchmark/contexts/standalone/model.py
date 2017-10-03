@@ -74,6 +74,11 @@ VM_TEMPLATE = """
       <source file="{vm_image}"/>
       <target bus="virtio" dev="vda" />
     </disk>
+    <disk device="cdrom" type="file">
+      <driver name="qemu" type="raw"/>
+      <source file="/var/lib/yardstick/vm{index}/vm{index}-cidata.iso"/>
+      <target bus="virtio" dev ="vdb" />
+    </disk>
     <graphics autoport="yes" listen="0.0.0.0" port="-1" type="vnc" />
     <interface type="bridge">
       <mac address='{mac_addr}'/>
@@ -185,25 +190,20 @@ class Libvirt(object):
 
     @classmethod
     def build_vm_xml(cls, connection, flavor, cfg, vm_name, index):
-        memory = flavor.get('ram', '4096')
-        extra_spec = flavor.get('extra_specs', {})
-        cpu = extra_spec.get('hw:cpu_cores', '2')
-        socket = extra_spec.get('hw:cpu_sockets', '1')
-        threads = extra_spec.get('hw:cpu_threads', '2')
-        vcpu = int(cpu) * int(threads)
-        numa_cpus = '0-%s' % (vcpu - 1)
-
-        mac = StandaloneContextHelper.get_mac_address(0x00)
-        image = cls.create_snapshot_qemu(connection, index,
-                                         flavor.get("images", None))
-        vm_xml = VM_TEMPLATE.format(
-            vm_name=vm_name,
-            random_uuid=uuid.uuid4(),
-            mac_addr=mac,
-            memory=memory, vcpu=vcpu, cpu=cpu,
-            numa_cpus=numa_cpus,
-            socket=socket, threads=threads,
-            vm_image=image)
+        kwargs = {
+            'memory': flavor.get('ram', '4096'),
+            'extra_spec': flavor.get('extra_specs', {}),
+            'cpu': extra_spec.get('hw:cpu_cores', '2'),
+            'socket': extra_spec.get('hw:cpu_sockets', '1'),
+            'threads': extra_spec.get('hw:cpu_threads', '2'),
+            'vcpu': int(cpu) * int(threads),
+            'numa_cpus': '0-%s' % (vcpu - 1),
+            'mac_addr': StandaloneContextHelper.get_mac_address(0x00),
+            'vm_image': cls.create_snapshot_qemu(connection, index, flavor.get("images", None)),
+            'index': index,
+            'random_uuid: uuid.uuid4(),
+        }
+        vm_xml = VM_TEMPLATE.format(**kwargs)
 
         write_file(cfg, vm_xml)
 

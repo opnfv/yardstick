@@ -1,0 +1,63 @@
+<domain type='kvm'>
+  <name>vm{{ item }}</name>
+  <memory unit='GiB'>{{ memory_per_vm }}</memory>
+  <vcpu placement='static'>{{ cpu_num_per_vm }}</vcpu>
+  <os>
+    <type arch='x86_64'>hvm</type>
+  </os>
+  <cpu mode='host-model'>
+    <model fallback='allow'/>
+    <topology sockets='1' cores='{{ cpu_num_per_vm }}' threads='1'/>
+  </cpu>
+{# acpi required to make cpu topology work properly #}
+  <features>
+    <acpi/>
+  </features>
+  <cputune>
+{% for cpu in cpu_affinity['ansible_facts'][item]['cpus'].split(',') %}
+    <vcpupin vcpu="{{ loop.index0 }}" cpuset="{{ cpu }}"/>
+{% endfor %}
+  </cputune>
+  <devices>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2' cache='none'/>
+      <source file='{{ vm_paths[item] }}/vm{{ item }}.img'/>
+      <target dev='vda' bus='virtio'/>
+    </disk>
+{% if vm_console %}
+    <serial type='pty'>
+      <target port='0'/>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
+{% endif %}
+    <interface type='ethernet'>
+      <mac address='fa{{ node_info[inventory_hostname].networks['mgmt'].mac_address[5:] }}:{{ item.zfill(2) }}'/>
+      <target dev='tap0_{{ item }}'/>
+      <script path='/usr/bin/true'/>
+      <model type='virtio'/>
+      <driver name='vhost'>
+        <host csum='off' gso='off' mrg_rxbuf='off'/>
+        <guest tso4='off' tso6='off' ecn='off'/>
+      </driver>
+      <address type='pci' domain='0x0000' bus='0x01' slot='0x01' function='0x0'/>
+    </interface>
+    <interface type='ethernet'>
+      <mac address='fa{{ node_info[inventory_hostname].tenant_networks['virtual-1'].mac_address[5:] }}:{{ item.zfill(2) }}'/>
+      <target dev='tap1_{{ item }}'/>
+      <script path='/usr/bin/true'/>
+      <model type='virtio'/>
+      <driver name='vhost'>
+        <host csum='off' gso='off' mrg_rxbuf='off'/>
+        <guest tso4='off' tso6='off' ecn='off'/>
+      </driver>
+      <address type='pci' domain='0x0000' bus='0x01' slot='0x02' function='0x0'/>
+    </interface>
+    <disk type='file' device='cdrom'>
+      <source file='{{ vm_paths[item] }}/vm{{ item }}-cidata.iso'/>
+      <readonly/>
+      <target dev='hda'/>
+    </disk>
+  </devices>
+</domain>
