@@ -22,6 +22,30 @@
       "revId": "7d35083c6d9e9b46145e416bff987e1791073d66",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5aa282fd",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-03T08:00:20Z",
+      "side": 1,
+      "message": "Yes.  I don\u0027t think this was rejected, we just un-split and rebase.\n\nwe need the .strip().",
+      "parentUuid": "da33351e_3a497e60",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 17
+      },
+      "revId": "7d35083c6d9e9b46145e416bff987e1791073d66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
