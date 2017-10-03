@@ -1,0 +1,125 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: yardstick:task:0.1
+scenarios:
+- type: NSPerf
+  traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
+  topology: router-tg-topology-4port.yaml
+  nodes:
+    tg__0: trafficgen_1.yardstick
+    vnf__0: vnf.yardstick
+# Required for enabling NFVi collection
+    cpt__0: sriov.yardstick
+  options:
+    framesize:
+      uplink: {1280B: 100}
+      downlink: {1280B: 100}
+    flow:
+      src_ip:
+        - '152.16.100.26-152.16.100.105'
+        - '152.16.101.26-152.16.101.105'
+      dst_ip:
+        - '152.16.40.26-152.16.40.105'
+        - '152.16.41.26-152.16.41.105'
+      src_port:
+        - '1234-1238'
+      dst_port:
+        - '2001-2004'
+      count: 128000
+    traffic_type: 4
+    rfc2544:
+      allowed_drop_rate: 0.0001 - 0.1
+    tg__0:
+      queues_per_port: 8
+    vnf__0:
+      nfvi_enable: True
+  runner:
+    type: Iteration
+    iterations: 10
+    interval: 35
+contexts:
+   - name: yardstick
+     type: Node
+     file: /etc/yardstick/nodes/standalone/host_sriov.yaml
+   - name: yardstick
+     type: Node
+     file: /etc/yardstick/nodes/standalone/pod_trex_4ports.yaml
+   - type: StandaloneSriov
+     file: /etc/yardstick/nodes/standalone/host_sriov.yaml
+     name: yardstick
+     vm_deploy: True
+     flavor:
+       images: "/var/lib/libvirt/images/ubuntu_13cores.qcow2"
+       ram: 4096
+       hw_socket: 1
+       extra_specs:
+         hw:cpu_sockets: 1
+         hw:cpu_cores: 13
+         hw:cpu_threads: 1
+         cputune: "<cputune>
+    <vcpupin vcpu='0' cpuset='27'/>
+    <vcpupin vcpu='1' cpuset='28'/>
+    <vcpupin vcpu='2' cpuset='29'/>
+    <vcpupin vcpu='3' cpuset='30'/>
+    <vcpupin vcpu='4' cpuset='31'/>
+    <vcpupin vcpu='5' cpuset='32'/>
+    <vcpupin vcpu='6' cpuset='33'/>
+    <vcpupin vcpu='7' cpuset='34'/>
+    <vcpupin vcpu='8' cpuset='35'/>
+    <vcpupin vcpu='9' cpuset='36'/>
+    <vcpupin vcpu='10' cpuset='37'/>
+    <vcpupin vcpu='11' cpuset='38'/>
+    <vcpupin vcpu='12' cpuset='39'/>
+    <emulatorpin cpuset='27-39'/>
+                   </cputune>"
+       user: root
+       password: password
+     servers:
+       vnf:
+         network_ports:
+           mgmt:
+             ip: '10.166.31.252'
+             cidr: '10.166.31.252/28'
+           xe0:
+             - uplink_0
+           xe1:
+             - downlink_0
+           xe2:
+             - uplink_1
+           xe3:
+             - downlink_1
+     networks:
+       uplink_0:
+         phy_port: "0000:88:00.0"
+         vpci: "0000:00:07.0"
+         cidr: '152.16.100.19/24'
+         gateway_ip: '152.16.100.20'
+       downlink_0:
+         phy_port: "0000:d8:00.0"
+         vpci: "0000:00:08.0"
+         cidr: '152.16.40.19/24'
+         gateway_ip: '152.16.40.20'
+       uplink_1:
+         phy_port: "0000:81:00.0"
+         vpci: "0000:00:09.0"
+         cidr: '152.16.101.19/24'
+         gateway_ip: '152.16.101.20'
+       downlink_1:
+         phy_port: "0000:86:00.0"
+         vpci: "0000:00:0a.0"
+         cidr: '152.16.41.19/24'
+         gateway_ip: '152.16.41.20'
+
