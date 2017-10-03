@@ -314,10 +314,10 @@ class TestAclApproxVnf(unittest.TestCase):
         acl_approx_vnf.ssh_helper.run.assert_called_once()
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.YangModel")
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.find_relative_file")
+    @mock.patch("yardstick.benchmark.contexts.base.utils.FilePathWrapper.get_path")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_instantiate(self, ssh, mock_context, mock_yang, mock_find, mock_process):
+    def test_instantiate(self, ssh, *_):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
