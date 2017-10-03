@@ -1,0 +1,48 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+vnfd:vnfd-catalog:
+    vnfd:
+    -   id: RouterVNF
+        name: RouterVNF
+        short-name: RouterVnf
+        description: RouterVNF
+        mgmt-interface:
+            vdu-id: routervnf-baremetal
+            {% if user is defined %}
+            user: '{{user}}'  # Value filled by vnfdgen
+            {% endif %}
+            {% if password is defined %}
+            password: '{{password}}'  # Value filled by vnfdgen
+            {% endif %}
+            {% if ip is defined %}
+            ip: '{{ip}}'  # Value filled by vnfdgen
+            {% endif %}
+            {% if key_filename is defined %}
+            key_filename: '{{key_filename}}'  # Value filled by vnfdgen
+            {% endif %}
+        vdu:
+        -   id: routervnf-baremetal
+            name: routervnf-baremetal
+            description: RouterVNF
+            vm-flavor:
+                vcpu-count: '4'
+                memory-mb: '4096'
+            routing_table: {{ routing_table }}
+            nd_route_tbl: {{ nd_route_tbl }}
+        benchmark:
+            kpi:
+                - packets_in
+                - packets_fwd
+                - packets_dropped
