@@ -1,0 +1,120 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: yardstick:task:0.1
+scenarios:
+- type: NSPerf
+  traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
+  topology: router-tg-topology-4port.yaml
+  nodes:
+    tg__0: trafficgen_1.baremetal
+    vnf__0: vnf.yardstick
+# Required for enabling NFVi collection
+    cpt__0: compute_0.compute_nodes
+  options:
+    framesize:
+      uplink: {1518B: 100}
+      downlink: {1518B: 100}
+    flow:
+      src_ip:
+        - '10.0.2.26-10.0.2.105'
+        - '10.0.4.26-10.0.4.105'
+      dst_ip:
+        - '10.0.3.26-10.0.3.105'
+        - '10.0.5.26-10.0.5.105'
+      src_port:
+        - '1234-1238'
+      dst_port:
+        - '2001-2004'
+      count: 128000
+    traffic_type: 4
+    rfc2544:
+      allowed_drop_rate: 0.0001 - 0.1
+    tg__0:
+      queues_per_port: 7
+    vnf__0:
+      nfvi_enable: True
+  runner:
+    type: Iteration
+    iterations: 10
+    interval: 35
+contexts:
+   - name: compute_nodes
+     type: Node
+     file: /etc/yardstick/nodes/compute.yaml
+
+   - name: baremetal
+     type: Node
+     file: /etc/yardstick/nodes/pod_4p.yaml
+
+   - name: yardstick
+     image: vrouter_affinity_2c4p
+     flavor:
+      vcpus: 9
+      ram: 8192
+      disk: 10
+      extra_specs:
+        hw:cpu_sockets: 1
+        hw:cpu_cores: 9
+        hw:cpu_threads: 1
+        hw:mem_page_size: large
+        hw:cpu_policy: dedicated
+        hw:cpu_thread_policy: prefer
+        hw:numa_nodes: 2
+        hw:numa_mempolicy: preffered
+        hw:numa_cpus.0: 0,1,2,3,4
+        hw:numa_cpus.1: 5,6,7,8
+        hw:numa_mem.0: 4096
+        hw:numa_mem.1: 4096
+     user: "root"
+     password: "password"
+     placement_groups:
+       pgrp1:
+         policy: "availability"
+     servers:
+        vnf:
+          floating_ip: true
+          placement: "pgrp1"
+     networks:
+       mgmt:
+         cidr: '10.0.1.0/24'
+       xe0:
+         cidr: '10.0.2.0/24'
+         gateway_ip: 'null'
+         provider: true
+         physical_network: phystenant2
+         port_security_enabled: False 
+         enable_dhcp: 'false'
+       xe1:
+         cidr: '10.0.3.0/24'
+         gateway_ip: 'null'
+         provider: true
+         physical_network: phystenant3
+         port_security_enabled: False
+         enable_dhcp: 'false'
+       xe2:
+         cidr: '10.0.4.0/24'
+         gateway_ip: 'null'
+         provider: true
+         physical_network: phystenant4
+         port_security_enabled: False
+         enable_dhcp: 'false'
+       xe3:
+         cidr: '10.0.5.0/24'
+         gateway_ip: 'null'
+         provider: true
+         physical_network: phystenant5
+         port_security_enabled: False
+         enable_dhcp: 'false'
