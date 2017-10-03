@@ -97,6 +97,19 @@ class SSHError(Exception):
 class SSHTimeout(SSHError):
     pass
 
+class SSHCommandError(SSHError):
+    def __init__(self, msg, status):
+        super(SSHError, self).__init__()
+        print("SSH execute returned status {}:".format(status[0]))
+        print(msg)
+        print(80 * "-")
+        if status[1]:
+            print(status[1])
+            print(80 * "-")
+        if status[2]:
+            print(status[2])
+            print(80 * "-")
+
 
 class SSH(object):
     """Represent ssh connection."""

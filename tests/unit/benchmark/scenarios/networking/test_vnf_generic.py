@@ -20,7 +20,6 @@
 from __future__ import absolute_import
 
 import os
-import errno
 import unittest
 import mock
 
@@ -28,8 +27,7 @@ from copy import deepcopy
 
 from tests.unit import STL_MOCKS
 from yardstick.benchmark.scenarios.networking.vnf_generic import \
-    SshManager, NetworkServiceTestCase, IncorrectConfig, \
-    open_relative_file
+    SshManager, NetworkServiceTestCase, IncorrectConfig
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic.vnf.base import \
     GenericTrafficGen, GenericVNF
@@ -736,52 +734,3 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         network = {'local_mac': '0a:de:ad:be:ef:f4'}
         NetworkServiceTestCase._probe_missing_values(netdevs, network)
         assert network['vpci'] == '0000:00:19.0'
-
-    def test_open_relative_path(self):
-        mock_open = mock.mock_open()
-        mock_open_result = mock_open()
-        mock_open_call_count = 1  # initial call to get result
-
-        module_name = \
-            'yardstick.benchmark.scenarios.networking.vnf_generic.open'
-
-        # test
-        with mock.patch(module_name, mock_open, create=True):
-            self.assertEqual(open_relative_file('foo', 'bar'), mock_open_result)
-
-            mock_open_call_count += 1  # one more call expected
-            self.assertEqual(mock_open.call_count, mock_open_call_count)
-            self.assertIn('foo', mock_open.call_args_list[-1][0][0])
-            self.assertNotIn('bar', mock_open.call_args_list[-1][0][0])
-
-            def open_effect(*args, **kwargs):
-                if kwargs.get('name', args[0]) == os.path.join('bar', 'foo'):
-                    return mock_open_result
-                raise IOError(errno.ENOENT, 'not found')
-
-            mock_open.side_effect = open_effect
-            self.assertEqual(open_relative_file('foo', 'bar'), mock_open_result)
-
-            mock_open_call_count += 2  # two more calls expected
-            self.assertEqual(mock_open.call_count, mock_open_call_count)
-            self.assertIn('foo', mock_open.call_args_list[-1][0][0])
-            self.assertIn('bar', mock_open.call_args_list[-1][0][0])
-
-            # test an IOError of type ENOENT
-            mock_open.side_effect = IOError(errno.ENOENT, 'not found')
-            with self.assertRaises(IOError):
-                # the second call still raises
-                open_relative_file('foo', 'bar')
-
-            mock_open_call_count += 2  # two more calls expected
-            self.assertEqual(mock_open.call_count, mock_open_call_count)
-            self.assertIn('foo', mock_open.call_args_list[-1][0][0])
-            self.assertIn('bar', mock_open.call_args_list[-1][0][0])
-
-            # test an IOError other than ENOENT
-            mock_open.side_effect = IOError(errno.EBUSY, 'busy')
-            with self.assertRaises(IOError):
-                open_relative_file('foo', 'bar')
-
-            mock_open_call_count += 1  # one more call expected
-            self.assertEqual(mock_open.call_count, mock_open_call_count)
