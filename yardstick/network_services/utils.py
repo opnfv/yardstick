@@ -16,7 +16,10 @@
 from __future__ import absolute_import
 import logging
 import os
+import random
 import re
+
+from netaddr import EUI
 
 from oslo_config import cfg
 from oslo_config.cfg import NoSuchOptError
@@ -40,6 +43,26 @@ CONF.register_opts(OPTS, group="nsb")
 
 
 HEXADECIMAL = "[0-9a-zA-Z]"
+
+
+class MacAddress(EUI):
+
+    @classmethod
+    def make_random(cls, end=0x7f):
+        mac_addr_words = [
+            0x52,
+            0x54,
+            0x00,
+            random.randint(0x00, end),
+            random.randint(0x00, 0xff),
+            random.randint(0x00, 0xff),
+        ]
+
+        return cls.from_words(mac_addr_words)
+
+    @classmethod
+    def from_words(cls, sequence):
+        return cls(sum(int(v) * 2 ** (i * 8) for i, v in enumerate(reversed(sequence))))
 
 
 class PciAddress(object):

@@ -15,25 +15,27 @@
 from __future__ import absolute_import
 import os
 import logging
-import collections
 import time
 
 from collections import OrderedDict
+from itertools import chain
 
-from yardstick import ssh
 from yardstick.network_services.utils import get_nsb_option
-from yardstick.network_services.utils import provision_tool
-from yardstick.benchmark.contexts.base import Context
-from yardstick.benchmark.contexts.standalone.model import Libvirt
-from yardstick.benchmark.contexts.standalone.model import StandaloneContextHelper
-from yardstick.benchmark.contexts.standalone.model import Server
+from yardstick.network_services.utils import MacAddress
+from yardstick.benchmark.contexts.standalone import model
 from yardstick.benchmark.contexts.standalone.model import OvsDeploy
 from yardstick.network_services.utils import PciAddress
+from yardstick.benchmark.contexts.standalone.base import StandaloneBase
 
 LOG = logging.getLogger(__name__)
 
+OVS_ADD_PORT_TEMPLATE = """\
+ovs-vsctl add-port {br} {port} -- set Interface {port} type={type_}{dpdk_args}"""
 
-class OvsDpdkContext(Context):
+OVS_ADD_QUEUE_TEMPLATE = "ovs-vsctl set Interface {port} options:n_rxq={queue}"
+
+
+class OvsDpdkContext(StandaloneBase):
     """ This class handles OVS standalone nodes - VM running on Non-Managed NFVi
     Configuration: ovs_dpdk
     """
@@ -53,45 +55,18 @@ class OvsDpdkContext(Context):
 
     PKILL_TEMPLATE = "pkill %s %s"
 
+    ROLE = 'OvsDpdk'
+
+    DOMAIN_XML_FILE = '/tmp/vm_ovs_%d.xml'
+
     def __init__(self):
-        self.file_path = None
-        self.sriov = []
-        self.first_run = True
-        self.dpdk_nic_bind = ""
-        self.vm_names = []
-        self.name = None
-        self.nfvi_host = []
-        self.nodes = []
-        self.networks = {}
-        self.attrs = {}
-        self.vm_flavor = None
-        self.servers = None
-        self.helper = StandaloneContextHelper()
-        self.vnf_node = Server()
         self.ovs_properties = {}
         self.wait_for_vswitchd = 10
         super(OvsDpdkContext, self).__init__()
 
     def init(self, attrs):
-        """initializes itself from the supplied arguments"""
-
-        self.name = attrs["name"]
-        self.file_path = attrs.get("file", "pod.yaml")
-
-        self.nodes, self.nfvi_host, self.host_mgmt = \
-            self.helper.parse_pod_file(self.file_path, 'OvsDpdk')
-
-        self.attrs = attrs
-        self.vm_flavor = attrs.get('flavor', {})
-        self.servers = attrs.get('servers', {})
-        self.vm_deploy = attrs.get("vm_deploy", True)
         self.ovs_properties = attrs.get('ovs_properties', {})
-        # add optional static network definition
-        self.networks = attrs.get("networks", {})
-
-        LOG.debug("Nodes: %r", self.nodes)
-        LOG.debug("NFVi Node: %r", self.nfvi_host)
-        LOG.debug("Networks: %r", self.networks)
+        super(OvsDpdkContext, self).init(attrs)
 
     def setup_ovs(self):
         vpath = self.ovs_properties.get("vpath", "/usr/local")
@@ -153,14 +128,9 @@ class OvsDpdkContext(Context):
         time.sleep(self.wait_for_vswitchd)
 
     def setup_ovs_bridge_add_flows(self):
-        dpdk_args = ""
-        dpdk_list = []
         vpath = self.ovs_properties.get("vpath", "/usr/local")
         version = self.ovs_properties.get('version', {})
         ovs_ver = [int(x) for x in version.get('ovs', self.DEFAULT_OVS).split('.')]
-        ovs_add_port = \
-            "ovs-vsctl add-port {br} {port} -- set Interface {port} type={type_}{dpdk_args}"
-        ovs_add_queue = "ovs-vsctl set Interface {port} options:n_rxq={queue}"
         chmod_vpath = "chmod 0777 {0}/var/run/openvswitch/dpdkvhostuser*"
 
         cmd_dpdk_list = [
@@ -168,33 +138,39 @@ class OvsDpdkContext(Context):
             "rm -rf {0}/var/run/openvswitch/dpdkvhostuser*".format(vpath),
             "ovs-vsctl add-br br0 -- set bridge br0 datapath_type=netdev",
         ]
+        dpdk_list = []
+        dpdk_vhost_list = []
 
-        ordered_network = OrderedDict(self.networks)
-        for index, (key, vnf) in enumerate(ordered_network.items()):
-            if ovs_ver >= [2, 7, 0]:
-                dpdk_args = " options:dpdk-devargs=%s" % vnf.get("phy_port")
-            dpdk_list.append(ovs_add_port.format(br='br0', port='dpdk%s' % vnf.get("port_num", 0),
-                                                 type_='dpdk', dpdk_args=dpdk_args))
-            dpdk_list.append(ovs_add_queue.format(port='dpdk%s' % vnf.get("port_num", 0),
-                                                  queue=self.ovs_properties.get("queues", 1)))
+        if ovs_ver >= [2, 7, 0]:
+            dpdk_args = " options:dpdk-devargs={}"
+        else:
+            dpdk_args = ""
+
+        index = -1
+        for index, (key, vnf) in enumerate(self.networks.items()):
+            port = 'dpdk%s' % vnf.get("port_num", 0)
+            phy_port = vnf.get("phy_port")
+            queue = self.ovs_properties.get("queues", 1)
+
+            dpdk_list.append(OVS_ADD_PORT_TEMPLATE.format(br='br0', port=port, type_='dpdk',
+                                                          dpdk_args=dpdk_args.format(phy_port)))
+
+            dpdk_list.append(OVS_ADD_QUEUE_TEMPLATE.format(port=port, queue=queue))
+            dpdk_vhost_list.append(OVS_ADD_PORT_TEMPLATE.format(br='br0', dpdk_args="",
+                                                                port='dpdkvhostuser%s' % index,
+                                                                type_='dpdkvhostuser'))
 
         # Sorting the array to make sure we execute dpdk0... in the order
-        list.sort(dpdk_list)
-        cmd_dpdk_list.extend(dpdk_list)
+        dpdk_list.sort()
 
-        # Need to do two for loop to maintain the dpdk/vhost ports.
-        for index, _ in enumerate(ordered_network):
-            cmd_dpdk_list.append(ovs_add_port.format(br='br0', port='dpdkvhostuser%s' % index,
-                                                     type_='dpdkvhostuser', dpdk_args=""))
-
-        for cmd in cmd_dpdk_list:
+        for cmd in chain(cmd_dpdk_list, dpdk_list, dpdk_vhost_list):
             LOG.info(cmd)
             self.connection.execute(cmd)
 
         # Fixme: add flows code
         ovs_flow = "ovs-ofctl add-flow br0 in_port=%s,action=output:%s"
 
-        network_count = len(ordered_network) + 1
+        network_count = index + 1
         for in_port, out_port in zip(range(1, network_count),
                                      range(network_count, network_count * 2)):
             self.connection.execute(ovs_flow % (in_port, out_port))
@@ -219,45 +195,17 @@ class OvsDpdkContext(Context):
 
         status = self.connection.execute("ovs-vsctl -V | grep -i '%s'" % ovs_ver)[0]
         if status:
-            deploy = OvsDeploy(self.connection,
-                               get_nsb_option("bin_path"),
-                               self.ovs_properties)
+            deploy = OvsDeploy(self.connection, get_nsb_option("bin_path"), self.ovs_properties)
             deploy.ovs_deploy()
 
-    def deploy(self):
-        """don't need to deploy"""
-
-        # Todo: NFVi deploy (sriov, vswitch, ovs etc) based on the config.
-        if not self.vm_deploy:
-            return
-
-        self.connection = ssh.SSH.from_node(self.host_mgmt)
-        self.dpdk_nic_bind = provision_tool(
-            self.connection,
-            os.path.join(get_nsb_option("bin_path"), "dpdk-devbind.py"))
-
+    def specific_deploy(self):
         # Check dpdk/ovs version, if not present install
         self.check_ovs_dpdk_env()
-        #    Todo: NFVi deploy (sriov, vswitch, ovs etc) based on the config.
-        StandaloneContextHelper.install_req_libs(self.connection)
-        self.networks = StandaloneContextHelper.get_nic_details(self.connection,
-                                                                self.networks,
-                                                                self.dpdk_nic_bind)
-
         self.setup_ovs()
         self.start_ovs_serverswitch()
         self.setup_ovs_bridge_add_flows()
-        self.nodes = self.setup_ovs_dpdk_context()
-        LOG.debug("Waiting for VM to come up...")
-        self.nodes = StandaloneContextHelper.wait_for_vnfs_to_start(self.connection,
-                                                                    self.servers,
-                                                                    self.nodes)
 
-    def undeploy(self):
-
-        if not self.vm_deploy:
-            return
-
+    def specific_undeploy(self):
         # Cleanup the ovs installation...
         self.cleanup_ovs_dpdk_env()
 
@@ -269,69 +217,10 @@ class OvsDpdkContext(Context):
             self.connection.execute(bind_cmd.format(dpdk_nic_bind=self.dpdk_nic_bind,
                                                     driver=phy_driver, port=vpci))
 
-        # Todo: NFVi undeploy (sriov, vswitch, ovs etc) based on the config.
-        for vm in self.vm_names:
-            Libvirt.check_if_vm_exists_and_delete(vm, self.connection)
-
-    def _get_server(self, attr_name):
-        """lookup server info by name from context
-
-        Keyword arguments:
-        attr_name -- A name for a server listed in nodes config file
-        """
-        node_name, name = self.split_name(attr_name)
-        if name is None or self.name != name:
-            return None
-
-        matching_nodes = (n for n in self.nodes if n["name"] == node_name)
-        try:
-            # A clone is created in order to avoid affecting the
-            # original one.
-            node = dict(next(matching_nodes))
-        except StopIteration:
-            return None
-
-        try:
-            duplicate = next(matching_nodes)
-        except StopIteration:
-            pass
-        else:
-            raise ValueError("Duplicate nodes!!! Nodes: %s %s",
-                             (node, duplicate))
-
-        node["name"] = attr_name
-        return node
-
-    def _get_network(self, attr_name):
-        if not isinstance(attr_name, collections.Mapping):
-            network = self.networks.get(attr_name)
-
-        else:
-            # Don't generalize too much  Just support vld_id
-            vld_id = attr_name.get('vld_id', {})
-            # for standalone context networks are dicts
-            iter1 = (n for n in self.networks.values() if n.get('vld_id') == vld_id)
-            network = next(iter1, None)
-
-        if network is None:
-            return None
-
-        result = {
-            # name is required
-            "name": network["name"],
-            "vld_id": network.get("vld_id"),
-            "segmentation_id": network.get("segmentation_id"),
-            "network_type": network.get("network_type"),
-            "physical_network": network.get("physical_network"),
-        }
-        return result
-
-    def configure_nics_for_ovs_dpdk(self):
-        portlist = OrderedDict(self.networks)
-        for key, ports in portlist.items():
-            mac = StandaloneContextHelper.get_mac_address()
-            portlist[key].update({'mac': mac})
-        self.networks = portlist
+    def configure_nics(self):
+        self.networks = OrderedDict(self.networks)
+        for key, ports in self.networks.items():
+            ports['mac'] = MacAddress.make_random()
         LOG.info("Ports %s" % self.networks)
 
     def _enable_interfaces(self, index, vfs, cfg):
@@ -343,40 +232,4 @@ class OvsDpdkContext(Context):
         slot = index + port_num + 10
         vf['vpci'] = \
             "{}:{}:{:02x}.{}".format(vpci.domain, vpci.bus, slot, vpci.function)
-        Libvirt.add_ovs_interface(vpath, port_num, vf['vpci'], vf['mac'], str(cfg))
-
-    def setup_ovs_dpdk_context(self):
-        nodes = []
-
-        self.configure_nics_for_ovs_dpdk()
-
-        for index, (key, vnf) in enumerate(OrderedDict(self.servers).items()):
-            cfg = '/tmp/vm_ovs_%d.xml' % index
-            vm_name = "vm_%d" % index
-
-            # 1. Check and delete VM if already exists
-            Libvirt.check_if_vm_exists_and_delete(vm_name, self.connection)
-
-            vcpu, mac = Libvirt.build_vm_xml(self.connection, self.vm_flavor, cfg, vm_name, index)
-            # 2: Cleanup already available VMs
-            for idx, (vkey, vfs) in enumerate(OrderedDict(vnf["network_ports"]).items()):
-                if vkey == "mgmt":
-                    continue
-                self._enable_interfaces(index, vfs, cfg)
-
-            # copy xml to target...
-            self.connection.put(cfg, cfg)
-
-            #    FIXME: launch through libvirt
-            LOG.info("virsh create ...")
-            Libvirt.virsh_create_vm(self.connection, cfg)
-
-            self.vm_names.append(vm_name)
-
-            # build vnf node details
-            nodes.append(self.vnf_node.generate_vnf_instance(self.vm_flavor,
-                                                             self.networks,
-                                                             self.host_mgmt.get('ip'),
-                                                             key, vnf, mac))
-
-        return nodes
+        model.add_ovs_interface(vpath, port_num, vf['vpci'], vf['mac'], str(cfg))
