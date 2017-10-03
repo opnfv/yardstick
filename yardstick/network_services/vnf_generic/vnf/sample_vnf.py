@@ -28,7 +28,7 @@ from multiprocessing import Queue, Value, Process
 from six.moves import cStringIO
 
 from yardstick.benchmark.contexts.base import Context
-from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
+from yardstick.common.utils import FilePathWrapper
 from yardstick.common.process import check_if_process_failed
 from yardstick.network_services.helpers.cpu import CpuSysCores
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
@@ -201,7 +201,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
             'vnf_type': self.VNF_TYPE,
         }
 
-        config_tpl_cfg = find_relative_file(self.DEFAULT_CONFIG_TPL_CFG, task_path)
+        config_tpl_cfg = FilePathWrapper(self.DEFAULT_CONFIG_TPL_CFG, task_path).get_path()
         config_basename = posixpath.basename(self.CFG_CONFIG)
         script_basename = posixpath.basename(self.CFG_SCRIPT)
         multiport = MultiPortConfig(self.scenario_helper.topology,

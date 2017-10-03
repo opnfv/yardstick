@@ -1,0 +1,2 @@
+instance-id: vm_{{ item }}
+local-hostname: vm-{{ groups['standalone'].index(inventory_hostname) + 1 }}-{{ item }}

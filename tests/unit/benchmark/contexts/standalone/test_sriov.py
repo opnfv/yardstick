@@ -62,17 +62,14 @@ class SriovContextTestCase(unittest.TestCase):
     def setUp(self):
         self.sriov = sriov.SriovContext()
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.StandaloneContextHelper')
-    @mock.patch('yardstick.benchmark.contexts.standalone.sriov.Libvirt')
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.Server')
-    def test___init__(self, mock_helper, mock_libvirt, mock_server):
-        self.sriov.helper = mock_helper
-        self.sriov.vnf_node = mock_server
+    def test___init__(self):
         self.assertIsNone(self.sriov.file_path)
         self.assertEqual(self.sriov.first_run, True)
 
-    def test_init(self):
-        self.sriov.helper.parse_pod_file = mock.Mock(return_value=[{}, {}, {}])
+    @mock.patch('yardstick.benchmark.contexts.standalone.sriov.model')
+    def test_init(self, mock_model):
+        # self.sriov.helper.parse_pod_file = mock.Mock(return_value=[{}, {}, {}])
+        mock_model.parse_pod_file.return_value = [{}, {}, {}]
         self.assertIsNone(self.sriov.init(self.ATTRS))
 
     @mock.patch('yardstick.ssh.SSH')
@@ -95,8 +92,7 @@ class SriovContextTestCase(unittest.TestCase):
         self.assertIsNone(self.sriov.deploy())
 
     @mock.patch('yardstick.ssh.SSH')
-    @mock.patch('yardstick.benchmark.contexts.standalone.sriov.Libvirt')
-    def test_undeploy(self, mock_libvirt, mock_ssh):
+    def test_undeploy(self, mock_ssh):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -131,14 +127,16 @@ class SriovContextTestCase(unittest.TestCase):
 
         self.assertEqual(result, None)
 
-    def test__get_server_not_found(self):
+    @mock.patch('yardstick.benchmark.contexts.standalone.model')
+    def test__get_server_not_found(self, mock_model):
 
         attrs = {
             'name': 'foo',
             'file': self._get_file_abspath(self.NODES_SRIOV_SAMPLE)
         }
 
-        self.sriov.helper.parse_pod_file = mock.Mock(return_value=[{}, {}, {}])
+        # self.sriov.helper.parse_pod_file = mock.Mock(return_value=[{}, {}, {}])
+        mock_model.parse_pod_file.return_value = [{}, {}, {}]
         self.sriov.init(attrs)
 
         attr_name = 'bar.foo'
@@ -245,11 +243,11 @@ class SriovContextTestCase(unittest.TestCase):
         self.sriov.vm_names = ['vm_0', 'vm_1']
         self.sriov.drivers = []
         self.sriov.networks = self.NETWORKS
-        self.sriov.helper.get_mac_address = mock.Mock(return_value="")
+        # self.sriov.helper.get_mac_address = mock.Mock(return_value="")
         self.sriov.get_vf_data = mock.Mock(return_value="")
         self.assertIsNone(self.sriov.configure_nics_for_sriov())
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.sriov.Libvirt')
+    @mock.patch('yardstick.benchmark.contexts.standalone.sriov.model')
     def test__enable_interfaces(self, mock_libvirt):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -264,9 +262,8 @@ class SriovContextTestCase(unittest.TestCase):
         self.sriov.get_vf_data = mock.Mock(return_value="")
         self.assertIsNone(self.sriov._enable_interfaces(0, 0, ["private_0"], 'test'))
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.Server')
-    @mock.patch('yardstick.benchmark.contexts.standalone.sriov.Libvirt')
-    def test_setup_sriov_context(self, mock_libvirt, mock_server):
+    @mock.patch('yardstick.benchmark.contexts.standalone.sriov.model')
+    def test_setup_sriov_context(self, mock_libvirt):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -274,6 +271,7 @@ class SriovContextTestCase(unittest.TestCase):
             ssh_mock.put = \
                 mock.Mock(return_value=(0, "a", ""))
             ssh.return_value = ssh_mock
+
         self.sriov.vm_deploy = True
         self.sriov.connection = ssh_mock
         self.sriov.vm_names = ['vm_0', 'vm_1']
@@ -293,7 +291,7 @@ class SriovContextTestCase(unittest.TestCase):
         self.sriov.configure_nics_for_sriov = mock.Mock(return_value="")
         mock_libvirt.build_vm_xml = mock.Mock(return_value=[6, "00:00:00:00:00:01"])
         self.sriov._enable_interfaces = mock.Mock(return_value="")
-        self.sriov.vnf_node.generate_vnf_instance = mock.Mock(return_value={})
+        # self.sriov.vnf_node.generate_vnf_instance = mock.Mock(return_value={})
         self.assertIsNotNone(self.sriov.setup_sriov_context())
 
     def test_get_vf_data(self):
@@ -318,5 +316,5 @@ class SriovContextTestCase(unittest.TestCase):
             }
         }
         self.sriov.networks = self.NETWORKS
-        self.sriov.helper.get_virtual_devices = mock.Mock(return_value={"0000:00:01.0": ""})
+        # self.sriov.helper.get_virtual_devices = mock.Mock(return_value={"0000:00:01.0": ""})
         self.assertIsNotNone(self.sriov.get_vf_data("", "0000:00:01.0", "00:00:00:00:00:01", "if0"))

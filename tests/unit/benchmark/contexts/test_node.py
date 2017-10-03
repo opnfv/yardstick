@@ -48,7 +48,8 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertEqual(self.test_context.attrs, {})
 
     @mock.patch('{}.os.path.join'.format(PREFIX))
-    def test_init_negative(self, mock_path_join):
+    @mock.patch('yardstick.common.utils.open', create=True)
+    def test_init_negative(self, mock_open, mock_path_join):
         special_path = '/foo/bar/error_file'
         error_path = self._get_file_abspath("error_file")
 
@@ -60,48 +61,33 @@ class NodeContextTestCase(unittest.TestCase):
         # we can't count mock_path_join calls because
         # it can catch join calls for .pyc files.
         mock_path_join.side_effect = path_join
-        self.test_context.read_config_file = read_mock = mock.Mock()
         read_calls = 0
 
         with self.assertRaises(KeyError):
             self.test_context.init({})
 
-        self.assertEqual(read_mock.call_count, read_calls)
-
         attrs = {
             'name': 'foo',
             'file': error_path,
         }
-        read_mock.side_effect = IOError(errno.EBUSY, 'busy')
+        mock_open.side_effect = IOError(errno.EBUSY, 'busy')
         with self.assertRaises(IOError) as raised:
             self.test_context.init(attrs)
 
         read_calls += 1
-        self.assertEqual(read_mock.called, read_calls)
-        self.assertIn(attrs['file'], self.test_context.file_path)
+        self.assertEqual(mock_open.call_count, read_calls)
+        self.assertIsNone(self.test_context.file_path)
         self.assertEqual(raised.exception.errno, errno.EBUSY)
-        self.assertEqual(str(raised.exception), str(read_mock.side_effect))
 
-        read_mock.side_effect = IOError(errno.ENOENT, 'not found')
+        mock_open.side_effect = IOError(errno.ENOENT, 'not found')
         with self.assertRaises(IOError) as raised:
             self.test_context.init(attrs)
 
         read_calls += 2
-        self.assertEqual(read_mock.call_count, read_calls)
-        self.assertEqual(self.test_context.file_path, special_path)
+        self.assertEqual(mock_open.call_count, read_calls)
+        self.assertIsNone(self.test_context.file_path)
         self.assertEqual(raised.exception.errno, errno.ENOENT)
-        self.assertEqual(str(raised.exception), str(read_mock.side_effect))
-
-    def test_read_config_file(self):
-
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
-
-        self.assertIsNotNone(self.test_context.read_config_file())
+        self.assertEqual(str(raised.exception), str(mock_open.side_effect))
 
     def test__dispatch_script(self):
 

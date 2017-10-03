@@ -37,6 +37,7 @@ from oslo_utils import importutils
 from oslo_serialization import jsonutils
 
 import yardstick
+from yardstick.common.yaml_loader import yaml_load
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -389,3 +390,73 @@ class Timer(object):
 
     def __getattr__(self, item):
         return getattr(self.delta, item)
+
+
+class FilePathWrapper(object):
+
+    def __init__(self, base_path, alt_path=None):
+        if alt_path is None:
+            alt_path = YARDSTICK_ROOT_PATH
+
+        super(FilePathWrapper, self).__init__()
+        self.base_path = base_path
+        self.path = os.path.abspath(base_path)
+        self.alt_path = alt_path
+        self.handle = None
+        self._open_iter = None
+
+    def _open(self):
+        try:
+            with open(self.path) as self.handle:
+                yield
+        except IOError as e:
+            if e.errno != errno.ENOENT:
+                raise
+            self.path = os.path.abspath(os.path.join(self.alt_path, self.base_path))
+            with open(self.path) as self.handle:
+                yield
+
+    def __enter__(self):
+        assert self._open_iter is None
+        self._open_iter = self._open()
+        next(self._open_iter)
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        list(self._open_iter)
+        self.handle = None
+        self._open_iter = None
+
+    def get_path(self):
+        assert self._open_iter is None
+        self._open_iter = self._open()
+        list(self._open_iter)
+        return self.path
+
+    def get_data(self):
+        return self.read()
+
+    def read(self, *args, **kwargs):
+        if self.handle:
+            return self.handle.read(*args, **kwargs)
+        with self:
+            return self.handle.read(*args, **kwargs)
+
+    def write(self, *args, **kwargs):
+        if self.handle:
+            self.handle.write(*args, **kwargs)
+            return
+        with self:
+            self.handle.write(*args, **kwargs)
+
+
+class YamlFilePathWrapper(FilePathWrapper):
+
+    def get_data(self):
+        return yaml_load(self.read())
+
+
+class JsonFilePathWrapper(FilePathWrapper):
+
+    def get_data(self):
+        return jsonutils.loads(self.read())

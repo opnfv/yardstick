@@ -15,7 +15,7 @@
 from __future__ import absolute_import
 import logging
 
-from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
+from yardstick.common.utils import FilePathWrapper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF, DpdkVnfSetupEnvHelper
 from yardstick.network_services.yang_model import YangModel
 
@@ -60,8 +60,9 @@ class FWApproxVnf(SampleVNF):
         self.vfw_rules = None
 
     def _start_vnf(self):
-        yang_model_path = find_relative_file(self.scenario_helper.options['rules'],
-                                             self.scenario_helper.task_path)
+        rules = self.scenario_helper.options['rules']
+        task_path = self.scenario_helper.task_path
+        yang_model_path = FilePathWrapper(rules, task_path).get_path()
         yang_model = YangModel(yang_model_path)
         self.vfw_rules = yang_model.get_rules()
         super(FWApproxVnf, self)._start_vnf()

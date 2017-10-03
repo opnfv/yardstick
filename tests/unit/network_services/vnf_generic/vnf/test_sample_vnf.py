@@ -579,9 +579,9 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
             self.assertIn(expect_in, arg0)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.find_relative_file')
+    @mock.patch('yardstick.benchmark.contexts.base.utils.FilePathWrapper.get_path')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig')
-    def test_build_config(self, mock_multi_port_config_class, mock_find, _):
+    def test_build_config(self, mock_multi_port_config_class, mock_get_path, _):
         mock_multi_port_config = mock_multi_port_config_class()
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
@@ -594,7 +594,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = dpdk_setup_helper.build_config()
         self.assertEqual(result, expected)
         self.assertGreaterEqual(ssh_helper.upload_config_file.call_count, 2)
-        self.assertGreaterEqual(mock_find.call_count, 1)
+        self.assertGreaterEqual(mock_get_path.call_count, 1)
         self.assertGreaterEqual(mock_multi_port_config.generate_config.call_count, 1)
         self.assertGreaterEqual(mock_multi_port_config.generate_script.call_count, 1)
 
