@@ -1,0 +1,42 @@
+#cloud-config
+
+disable_root: 0
+ssh_pwauth:   1
+chpasswd:
+  list: |
+    root:s
+    ubuntu:s
+  expire: false
+
+
+write_files:
+  - path: /etc/sysconfig/network-scripts/ifcfg-eth0
+    content: |
+      DEVICE=eth0
+      BOOTPROTO=static
+      ONBOOT=yes
+      TYPE=Ethernet
+      PERSISTENT_DHCLIENT=yes
+      NETMASK={{ mgmt_addr.split('/')[1]|prefix_to_netmask }}
+      IPADDR={{ '.'.join(mgmt_addr.split('.')[:3]) }}.{{ item|int + vm_address_offset - 1 }}
+      GATEWAY={{ mgmt_addr.split('/')[0] }}
+{% for dns in resolve_namespaces %}
+      DNS{{ loop.index }}={{ dns }}
+{% endfor %}
+
+
+{% if "http_proxy" in proxy_env or "https_proxy" in proxy_env %}
+  - path: /etc/environment
+    content: |
+{% for proxy, url in proxy_env.iteritems() %}
+      {{ proxy }}={{ url }}
+{% endfor %}
+
+  - path: /etc/profile.d/proxy.sh
+    content: |
+{% for proxy, url in proxy_env.iteritems() %}
+      export {{ proxy }}={{ url }}
+{% endfor %}
+
+{% endif %}
+

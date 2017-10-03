@@ -16,7 +16,6 @@
 from __future__ import absolute_import
 
 import logging
-import errno
 
 import ipaddress
 
@@ -33,7 +32,9 @@ from collections import defaultdict
 from yardstick.benchmark.scenarios import base
 from yardstick.common.constants import LOG_DIR
 from yardstick.common.process import terminate_children
-from yardstick.common.utils import import_modules_from_package, itersubclasses
+from yardstick.common.utils import import_modules_from_package
+from yardstick.common.utils import itersubclasses
+from yardstick.common.utils import FilePathWrapper
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic import vnfdgen
@@ -91,34 +92,6 @@ class SshManager(object):
             self.conn.close()
 
 
-def find_relative_file(path, task_path):
-    """
-    Find file in one of places: in abs of path or
-    relative to TC scenario file. In this order.
-
-    :param path:
-    :param task_path:
-    :return str: full path to file
-    """
-    # fixme: create schema to validate all fields have been provided
-    for lookup in [os.path.abspath(path), os.path.join(task_path, path)]:
-        try:
-            with open(lookup):
-                return lookup
-        except IOError:
-            pass
-    raise IOError(errno.ENOENT, 'Unable to find {} file'.format(path))
-
-
-def open_relative_file(path, task_path):
-    try:
-        return open(path)
-    except IOError as e:
-        if e.errno == errno.ENOENT:
-            return open(os.path.join(task_path, path))
-        raise
-
-
 class NetworkServiceTestCase(base.Scenario):
     """Class handles Generic framework to do pre-deployment VNF &
        Network service testing  """
@@ -131,9 +104,8 @@ class NetworkServiceTestCase(base.Scenario):
         self.context_cfg = context_cfg
 
         # fixme: create schema to validate all fields have been provided
-        with open_relative_file(scenario_cfg["topology"],
-                                scenario_cfg['task_path']) as stream:
-            topology_yaml = yaml_load(stream)
+        with FilePathWrapper(scenario_cfg["topology"], scenario_cfg['task_path']) as wrapper:
+            topology_yaml = yaml_load(wrapper.handle)
 
         self.topology = topology_yaml["nsd:nsd-catalog"]["nsd"][0]
         self.vnfs = []
@@ -205,8 +177,7 @@ class NetworkServiceTestCase(base.Scenario):
     def _get_traffic_profile(self):
         profile = self.scenario_cfg["traffic_profile"]
         path = self.scenario_cfg["task_path"]
-        with open_relative_file(profile, path) as infile:
-            return infile.read()
+        return FilePathWrapper(profile, path).read()
 
     def _fill_traffic_profile(self):
         traffic_mapping = self._get_traffic_profile()
@@ -550,8 +521,7 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
                 LOG.debug("no model for %s, skipping", node_name)
                 continue
             file_path = scenario_cfg['task_path']
-            with open_relative_file(file_name, file_path) as stream:
-                vnf_model = stream.read()
+            vnf_model = FilePathWrapper(file_name, file_path).read()
             vnfd = vnfdgen.generate_vnfd(vnf_model, node)
             # TODO: here add extra context_cfg["nodes"] regardless of template
             vnfd = vnfd["vnfd:vnfd-catalog"]["vnfd"][0]

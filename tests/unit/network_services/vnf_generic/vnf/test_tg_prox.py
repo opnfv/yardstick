@@ -335,10 +335,10 @@ class TestProxTrafficGen(unittest.TestCase):
         prox_traffic_gen._vnf_wrapper.vnf_execute = mock.Mock(return_value="")
         self.assertEqual({}, prox_traffic_gen.collect_kpi())
 
+    @mock.patch('yardstick.benchmark.contexts.base.utils.FilePathWrapper.get_path')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.CpuSysCores')
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
     @mock.patch(SSH_HELPER)
-    def bad_test_instantiate(self, ssh, mock_find, mock_cpu_sys_cores, mock_time):
+    def bad_test_instantiate(self, ssh, mock_cpu_sys_cores, *_):
         mock_ssh(ssh)
 
         mock_cpu_sys_cores.get_core_socket.return_value = {'0': '01234'}

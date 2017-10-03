@@ -17,17 +17,10 @@ from __future__ import absolute_import
 import yaml
 
 
-if hasattr(yaml, 'CSafeLoader'):
-    # make a dynamic subclass so we don't override global yaml Loader
-    yaml_loader = type('CustomLoader', (yaml.CSafeLoader,), {})
-else:
-    yaml_loader = type('CustomLoader', (yaml.SafeLoader,), {})
-
-if hasattr(yaml, 'CSafeDumper'):
-    yaml_dumper = yaml.CSafeDumper
-else:
-    yaml_dumper = yaml.SafeDumper
+# make a dynamic subclass so we don't override global yaml Loader
+YAML_LOADER = type('CustomLoader', (getattr(yaml, 'CSafeLoader', yaml.SafeLoader),), {})
+YAML_DUMPER = getattr(yaml, 'CSafeDumper', yaml.SafeDumper)
 
 
 def yaml_load(tmpl_str):
-    return yaml.load(tmpl_str, Loader=yaml_loader)
+    return yaml.load(tmpl_str, Loader=YAML_LOADER)
