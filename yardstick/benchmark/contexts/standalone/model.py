@@ -39,7 +39,6 @@ VM_TEMPLATE = """
  <name>{vm_name}</name>
   <uuid>{random_uuid}</uuid>
   <memory unit="MB">{memory}</memory>
-  <currentMemory unit="MB">{memory}</currentMemory>
   <memoryBacking>
     <hugepages />
   </memoryBacking>
@@ -69,10 +68,19 @@ VM_TEMPLATE = """
   <on_crash>restart</on_crash>
   <devices>
     <emulator>/usr/bin/kvm-spice</emulator>
+    <serial type="pty">
+       <source path="/dev/pty{index}"/>
+       <target port="0"/>
+    </serial>
     <disk device="disk" type="file">
       <driver name="qemu" type="qcow2" />
       <source file="{vm_image}"/>
       <target bus="virtio" dev="vda" />
+    </disk>
+    <disk device="cdrom" type="file">
+      <driver name="qemu" type="raw"/>
+      <source file="/var/lib/yardstick/vm{index}/vm{index}-cidata.iso"/>
+      <target bus="virtio" dev ="vdb" />
     </disk>
     <graphics autoport="yes" listen="0.0.0.0" port="-1" type="vnc" />
     <interface type="bridge">
@@ -84,6 +92,10 @@ VM_TEMPLATE = """
 </domain>
 """
 WAIT_FOR_BOOT = 30
+
+
+class LibvirtException(Exception):
+    pass
 
 
 class Libvirt(object):
@@ -100,8 +112,11 @@ class Libvirt(object):
 
     @staticmethod
     def virsh_create_vm(connection, cfg):
-        err = connection.execute("virsh create %s" % cfg)[0]
-        LOG.info("VM create status: %s" % (err))
+        rc = connection.execute("virsh create %s" % cfg)[0]
+        LOG.info("VM create status: %s" % (rc))
+        if rc > 0:
+            raise LibvirtException("Could not spin up the virtual instance."
+                                   "virsh return {}".format(rc))
 
     @staticmethod
     def virsh_destroy_vm(vm_name, connection):
@@ -185,29 +200,29 @@ class Libvirt(object):
 
     @classmethod
     def build_vm_xml(cls, connection, flavor, cfg, vm_name, index):
-        memory = flavor.get('ram', '4096')
         extra_spec = flavor.get('extra_specs', {})
-        cpu = extra_spec.get('hw:cpu_cores', '2')
-        socket = extra_spec.get('hw:cpu_sockets', '1')
         threads = extra_spec.get('hw:cpu_threads', '2')
+        cpu = extra_spec.get('hw:cpu_cores', '2')
         vcpu = int(cpu) * int(threads)
-        numa_cpus = '0-%s' % (vcpu - 1)
 
-        mac = StandaloneContextHelper.get_mac_address(0x00)
-        image = cls.create_snapshot_qemu(connection, index,
-                                         flavor.get("images", None))
-        vm_xml = VM_TEMPLATE.format(
-            vm_name=vm_name,
-            random_uuid=uuid.uuid4(),
-            mac_addr=mac,
-            memory=memory, vcpu=vcpu, cpu=cpu,
-            numa_cpus=numa_cpus,
-            socket=socket, threads=threads,
-            vm_image=image)
+        kwargs = {
+            'vm_name': vm_name,
+            'memory': flavor.get('ram', '4096'),
+            'cpu': cpu,
+            'socket': extra_spec.get('hw:cpu_sockets', '1'),
+            'threads': threads,
+            'vcpu': vcpu,
+            'numa_cpus': '0-%s' % (vcpu - 1),
+            'mac_addr': StandaloneContextHelper.get_mac_address(0x00),
+            'vm_image': cls.create_snapshot_qemu(connection, index, flavor.get("images", None)),
+            'index': index,
+            'random_uuid': uuid.uuid4(),
+        }
+        vm_xml = VM_TEMPLATE.format(**kwargs)
 
         write_file(cfg, vm_xml)
 
-        return [vcpu, mac]
+        return [vcpu, kwargs['mac_addr']]
 
     @staticmethod
     def split_cpu_list(cpu_list):
@@ -248,6 +263,10 @@ class Libvirt(object):
             core = nodes[str(num_nodes - 1)][i % len(nodes[str(num_nodes - 1)])]
             connection.execute(vcpi_pin_template.format(vm_name, i, core))
         cls.update_interrupts_hugepages_perf(connection)
+
+
+class StandaloneContextException(Exception):
+    pass
 
 
 class StandaloneContextHelper(object):
@@ -348,7 +367,7 @@ class StandaloneContextHelper(object):
         nodes.extend([node for node in cfg["nodes"] if str(node["role"]) != nfvi_role])
         nfvi_host.extend([node for node in cfg["nodes"] if str(node["role"]) == nfvi_role])
         if not nfvi_host:
-            raise("Node role is other than SRIOV")
+            raise StandaloneContextException("Node role is other than SRIOV")
 
         host_mgmt = {'user': nfvi_host[0]['user'],
                      'ip': str(IPNetwork(nfvi_host[0]['ip']).ip),
@@ -371,8 +390,11 @@ class StandaloneContextHelper(object):
     def get_mgmt_ip(connection, mac, cidr, node):
         mgmtip = None
         times = 10
+        fping_cmd = "fping -c 1 -g %s > /dev/null 2>&1" % cidr
         while not mgmtip and times:
-            connection.execute("fping -c 1 -g %s > /dev/null 2>&1" % cidr)
+            rc = connection.execute(fping_cmd)[0]
+            if rc > 0:
+                raise StandaloneContextException("{} failed with rc={}".format(fping_cmd, rc))
             out = connection.execute("ip neighbor | grep '%s'" % mac)[1]
             LOG.info("fping -c 1 -g %s > /dev/null 2>&1" % cidr)
             if out.strip():
