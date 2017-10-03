@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_da6692ec",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-03T01:06:50Z",
+      "side": 1,
+      "message": "except this is not nfvi collection at this point.  this is VNF collection, unless we use the overloaded host,ip field in ResourceProfile.",
+      "revId": "9dd908714075055f10073c29b0777b480e84c661",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
