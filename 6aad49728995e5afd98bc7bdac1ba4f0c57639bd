@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_9ad40abe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-10-03T10:41:56Z",
+      "side": 1,
+      "message": "if",
+      "range": {
+        "startLine": 14,
+        "startChar": 27,
+        "endLine": 14,
+        "endChar": 29
+      },
+      "revId": "6aad49728995e5afd98bc7bdac1ba4f0c57639bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5af56255",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-10-03T10:41:56Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 644,
+        "startChar": 66,
+        "endLine": 644,
+        "endChar": 71
+      },
+      "revId": "6aad49728995e5afd98bc7bdac1ba4f0c57639bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_dd384cd5",
+        "filename": "yardstick/common/process.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-10-03T10:41:56Z",
+      "side": 1,
+      "message": "shouldn\u0027t we return here?",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 17
+      },
+      "revId": "6aad49728995e5afd98bc7bdac1ba4f0c57639bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9da884dc",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-10-03T10:41:56Z",
+      "side": 1,
+      "message": "shouldn\u0027t we give the process some time to terminate gracefully before killing it?",
+      "range": {
+        "startLine": 118,
+        "startChar": 9,
+        "endLine": 118,
+        "endChar": 36
+      },
+      "revId": "6aad49728995e5afd98bc7bdac1ba4f0c57639bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
