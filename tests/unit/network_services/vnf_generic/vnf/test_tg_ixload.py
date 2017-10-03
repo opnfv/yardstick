@@ -174,7 +174,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                                                                        '1C/1T',
                                                                        'worker_threads': 1}}
                                              }})
-            with mock.patch('yardstick.benchmark.scenarios.networking.vnf_generic.open', create=True) as mock_open:
+            with mock.patch('yardstick.common.utils.open', create=True) as mock_open:
                 mock_open.return_value = mock.MagicMock()
                 ixload_traffic_gen.instantiate(scenario_cfg, {})
 

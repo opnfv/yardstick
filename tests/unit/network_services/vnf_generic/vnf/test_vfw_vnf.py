@@ -253,9 +253,9 @@ VFW TOTAL: pkts_received: 6007180, "pkts_fw_forwarded": 6007180, "pkts_drop_fw":
 "CT TOTAL: ct_packets_forwarded" : 6007180, " ct_packets_dropped" : 0, "ct_sessions" : {"active" : 130050, "open_attempt" : 130050, "re-open_attempt" : 0, "established" : 0, "closed" : 0, "timeout" : 0}, "ct_drops" : {"out_of_window" : 0, "invalid_conn" : 0, "invalid_state_transition" : 0 "RST" : 0}
 Action ID: 00, packetCount: 2954633, byteCount: 177277980
 Action ID: 01, packetCount: 3052547, byteCount: 183152820
-pipeline> 
+pipeline>
 
-pipeline> 
+pipeline>
 """  # noqa
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
@@ -333,11 +333,11 @@ pipeline>
         vfw_approx_vnf._run()
         vfw_approx_vnf.ssh_helper.run.assert_called_once()
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.find_relative_file")
+    @mock.patch('yardstick.benchmark.contexts.base.utils.FilePathWrapper.get_path')
     @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.YangModel")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_instantiate(self, ssh, mock_context, mock_yang, mock_find, mock_process):
+    def test_instantiate(self, ssh, *_):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -369,7 +369,6 @@ pipeline>
         vfw_approx_vnf.used_drivers = {"01:01.0": "i40e",
                                        "01:01.1": "i40e"}
         vfw_approx_vnf.vnf_execute = mock.Mock()
-        vfw_approx_vnf.dpdk_nic_bind = "dpdk_nic_bind.py"
         vfw_approx_vnf._resource_collect_stop = mock.Mock()
         self.assertIsNone(vfw_approx_vnf.terminate())
 
