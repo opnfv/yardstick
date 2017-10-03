@@ -31,6 +31,9 @@ from yardstick.benchmark.runners import base
 LOG = logging.getLogger(__name__)
 
 
+QUEUE_PUT_TIMEOUT = 10
+
+
 def _worker_process(queue, cls, method_name, scenario_cfg,
                     context_cfg, aborted, output_queue):
 
@@ -90,8 +93,9 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                 LOG.exception(e)
             else:
                 if result:
-                    LOG.debug("output_queue.put %s", result)
-                    output_queue.put(result, True, 1)
+                    # add timeout for put so we don't block test
+                    # if we do timeout we don't care about dropping individual KPIs
+                    output_queue.put(result, True, QUEUE_PUT_TIMEOUT)
 
             time.sleep(interval)
 
@@ -102,8 +106,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                 'errors': errors
             }
 
-            LOG.debug("queue.put, %s", benchmark_output)
-            queue.put(benchmark_output, True, 1)
+            queue.put(benchmark_output, True, QUEUE_PUT_TIMEOUT)
 
             LOG.debug("runner=%(runner)s seq=%(sequence)s END",
                       {"runner": runner_cfg["runner_id"],
