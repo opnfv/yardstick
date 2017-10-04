@@ -88,6 +88,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_731a117e",
+        "filename": "samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-10-04T04:06:55Z",
+      "side": 1,
+      "message": "As i said earlier, I want to maintain the definition similar to openstack testcase, so  flavor should be in tc.",
+      "parentUuid": "da33351e_7a62e63e",
+      "range": {
+        "startLine": 69,
+        "startChar": 7,
+        "endLine": 70,
+        "endChar": 22
+      },
+      "revId": "8dc40c1d09b92a00069b5631e1935b1849a0e151",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_9a86cad9",
         "filename": "samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml",
         "patchSetId": 10
@@ -99,6 +123,30 @@
       "writtenOn": "2017-10-03T07:44:48Z",
       "side": 1,
       "message": "I still think this should be in the \"file\" -- /etc/yardstick/nodes/standalone/pod_ovs.yaml. \n\nWhy do we have part of the configuration in /etc/yardstick and part of it in the git repo. I think it makes sense to keep environment specific configuration (IP addresses etc.) in the /etc/yardstick and testcase configuration (OVS version) in the testcase yaml.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 36
+      },
+      "revId": "8dc40c1d09b92a00069b5631e1935b1849a0e151",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_531f0d6c",
+        "filename": "samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-10-04T04:06:55Z",
+      "side": 1,
+      "message": "As i said earlier, I want to maintain the definition similar to openstack testcase, so  flavor should be in tc.",
+      "parentUuid": "da33351e_9a86cad9",
       "range": {
         "startLine": 71,
         "startChar": 0,
