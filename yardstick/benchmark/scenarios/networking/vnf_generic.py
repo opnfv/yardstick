@@ -34,6 +34,7 @@ from yardstick.common.process import terminate_children
 from yardstick.common.utils import import_modules_from_package, itersubclasses
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.collector.subscriber import Collector
+from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
 from yardstick.network_services.vnf_generic import vnfdgen
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.traffic_profile.base import TrafficProfile
@@ -335,7 +336,27 @@ class NetworkServiceTestCase(base.Scenario):
             vnfd = self._find_vnfd_from_vnf_idx(vnf_idx)
             self.context_cfg["nodes"][vnf_name].update(vnfd)
 
-    def _probe_netdevs(self, node, node_dict, timeout=120):
+    def _probe_netdevs(self, conn, netdevs, node, node_dict):
+        exit_status, stdout, _ = conn.execute(
+            self.FIND_NETDEVICE_STRING)
+        if exit_status != 0:
+            raise IncorrectSetup(
+                "Cannot find netdev info in sysfs" % node)
+        netdevs = node_dict['netdevs'] = self.parse_netdev_info(stdout)
+        return netdevs
+
+    def _force_dpdk_rebind(self, conn, node):
+        self.dpdk_bind_helper = DpdkBindHelper(conn)
+        self.dpdk_bind_helper.read_status()
+        real_drivers = {}
+        for pci in self.dpdk_bind_helper.interface_driver_map:
+            out = conn.execute('lspci -k -s %s' % pci)[1]
+            real_driver = out.split('Kernel modules:').pop().strip()
+            real_drivers.setdefault(real_driver, []).append(pci)
+        for driver, pcis in real_drivers.items():
+            self.dpdk_bind_helper.bind(pcis, driver, force=True)
+
+    def _probe_devices(self, node, node_dict, timeout=600):
         try:
             return self.node_netdevs[node]
         except KeyError:
@@ -349,12 +370,12 @@ class NetworkServiceTestCase(base.Scenario):
                 exit_status = conn.execute(cmd)[0]
                 if exit_status != 0:
                     raise IncorrectSetup("Node's %s lacks ip tool." % node)
-                exit_status, stdout, _ = conn.execute(
-                    self.FIND_NETDEVICE_STRING)
-                if exit_status != 0:
-                    raise IncorrectSetup(
-                        "Cannot find netdev info in sysfs" % node)
-                netdevs = node_dict['netdevs'] = self.parse_netdev_info(stdout)
+                try:
+                    netdevs = self._probe_netdevs(conn, netdevs, node, node_dict)
+                except IncorrectSetup:
+                    self._force_dpdk_rebind(conn, node)
+                    # rediscover MAC address, PCI and driver after forced rebind
+                    netdevs = self._probe_netdevs(conn, netdevs, node, node_dict)
 
         self.node_netdevs[node] = netdevs
         return netdevs
@@ -425,7 +446,7 @@ class NetworkServiceTestCase(base.Scenario):
                 # only ssh probe if there are missing values
                 # ssh probe won't work on Ixia, so we had better define all our values
                 try:
-                    netdevs = self._probe_netdevs(node, node_dict, timeout=timeout)
+                    netdevs = self._probe_devices(node, node_dict, timeout=timeout)
                 except (SSHError, SSHTimeout):
                     raise IncorrectConfig(
                         "Unable to probe missing interface fields '%s', on node %s "
