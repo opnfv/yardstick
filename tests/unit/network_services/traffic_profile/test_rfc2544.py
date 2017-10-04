@@ -164,8 +164,6 @@ class TestRFC2544Profile(unittest.TestCase):
                 "in_packets": 1000,
                 "out_packets": 1002,
             }
-        tol_min = 0.0
-        tolerance = 1.0
         expected = {
             'DropPercentage': 0.1996,
             'RxThroughput': 33.333333333333336,
@@ -208,8 +206,6 @@ class TestRFC2544Profile(unittest.TestCase):
                              "tx_throughput_mbps": 10,
                              "in_packets": 1000,
                              "out_packets": 0}
-        tol_min = 0.0
-        tolerance = 0.0
         r_f_c2544_profile.throughput_max = 0
         expected = {
             'DropPercentage': 100.0, 'RxThroughput': 100 / 3.0,

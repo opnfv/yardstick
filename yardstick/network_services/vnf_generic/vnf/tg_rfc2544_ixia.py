@@ -19,11 +19,11 @@ import os
 import logging
 import sys
 
-from yardstick.common.utils import ErrorClass
+from yardstick.error import ErrorClass
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import Rfc2544ResourceHelper
-from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
+from yardstick.common.utils import find_relative_file
 
 LOG = logging.getLogger(__name__)
 
@@ -149,7 +149,7 @@ class IxiaResourceHelper(ClientResourceHelper):
                 self.client.ix_stop_traffic()
                 samples = self.generate_samples(traffic_profile.ports)
                 self._queue.put(samples)
-                status, samples = traffic_profile.get_drop_percentage(self, samples, min_tol,
+                status, samples = traffic_profile.get_drop_percentage(samples, min_tol,
                                                                       max_tol, self.client, mac)
 
                 current = samples['CurrentDropPercentage']
