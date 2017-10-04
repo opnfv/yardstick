@@ -15,7 +15,7 @@
 from __future__ import absolute_import
 import logging
 
-from yardstick.network_services.traffic_profile.traffic_profile import \
+from yardstick.network_services.traffic_profile.trex_traffic_profile import \
     TrexProfile
 
 LOG = logging.getLogger(__name__)
@@ -26,7 +26,7 @@ class IXIARFC2544Profile(TrexProfile):
     UPLINK = 'uplink'
     DOWNLINK = 'downlink'
 
-    def _get_ixia_traffic_profile(self, profile_data, mac=None, xfile=None, static_traffic=None):
+    def _get_ixia_traffic_profile(self, profile_data, mac=None):
         if mac is None:
             mac = {}
 
@@ -74,12 +74,12 @@ class IXIARFC2544Profile(TrexProfile):
                     },
                     'outer_l4': value['outer_l4'],
                 }
-            except Exception:
+            except KeyError:
                 continue
 
         return result
 
-    def _ixia_traffic_generate(self, traffic_generator, traffic, ixia_obj):
+    def _ixia_traffic_generate(self, traffic, ixia_obj):
         for key, value in traffic.items():
             if key.startswith((self.UPLINK, self.DOWNLINK)):
                 value["iload"] = str(self.rate)
@@ -106,7 +106,7 @@ class IXIARFC2544Profile(TrexProfile):
 
         self.ports = [port for port in port_generator()]
 
-    def execute_traffic(self, traffic_generator, ixia_obj, mac=None, xfile=None):
+    def execute_traffic(self, traffic_generator, ixia_obj, mac=None):
         if mac is None:
             mac = {}
         if self.first_run:
@@ -114,28 +114,27 @@ class IXIARFC2544Profile(TrexProfile):
             self.pg_id = 0
             self.update_traffic_profile(traffic_generator)
             traffic = \
-                self._get_ixia_traffic_profile(self.full_profile, mac, xfile)
+                self._get_ixia_traffic_profile(self.full_profile, mac)
             self.max_rate = self.rate
             self.min_rate = 0
             self.get_multiplier()
-            self._ixia_traffic_generate(traffic_generator, traffic, ixia_obj)
+            self._ixia_traffic_generate(traffic, ixia_obj)
 
     def get_multiplier(self):
         self.rate = round((self.max_rate + self.min_rate) / 2.0, 2)
         multiplier = round(self.rate / self.pps, 2)
         return str(multiplier)
 
-    def start_ixia_latency(self, traffic_generator, ixia_obj,
-                           mac=None, xfile=None):
+    def start_ixia_latency(self, traffic_generator, ixia_obj, mac=None):
         if mac is None:
             mac = {}
         self.update_traffic_profile(traffic_generator)
         traffic = \
-            self._get_ixia_traffic_profile(self.full_profile, mac, xfile)
-        self._ixia_traffic_generate(traffic_generator, traffic, ixia_obj)
+            self._get_ixia_traffic_profile(self.full_profile, mac)
+        self._ixia_traffic_generate(traffic, ixia_obj)
 
-    def get_drop_percentage(self, traffic_generator, samples, tol_min,
-                            tolerance, ixia_obj, mac=None, xfile=None):
+    def get_drop_percentage(self, samples, tol_min, tolerance, ixia_obj,
+                            mac=None):
         if mac is None:
             mac = {}
         status = 'Running'
@@ -179,6 +178,6 @@ class IXIARFC2544Profile(TrexProfile):
             samples['DropPercentage'] = drop_percent
             return status, samples
         self.get_multiplier()
-        traffic = self._get_ixia_traffic_profile(self.full_profile, mac, xfile)
-        self._ixia_traffic_generate(traffic_generator, traffic, ixia_obj)
+        traffic = self._get_ixia_traffic_profile(self.full_profile, mac)
+        self._ixia_traffic_generate(traffic, ixia_obj)
         return status, samples
