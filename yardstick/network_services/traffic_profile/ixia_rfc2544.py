@@ -15,7 +15,7 @@
 from __future__ import absolute_import
 import logging
 
-from yardstick.network_services.traffic_profile.traffic_profile import \
+from yardstick.network_services.traffic_profile.trex_traffic_profile import \
     TrexProfile
 
 LOG = logging.getLogger(__name__)
@@ -26,7 +26,7 @@ class IXIARFC2544Profile(TrexProfile):
     UPLINK = 'uplink'
     DOWNLINK = 'downlink'
 
-    def _get_ixia_traffic_profile(self, profile_data, mac=None, xfile=None, static_traffic=None):
+    def _get_ixia_traffic_profile(self, profile_data, mac=None):
         if mac is None:
             mac = {}
 
@@ -114,7 +114,7 @@ class IXIARFC2544Profile(TrexProfile):
             self.pg_id = 0
             self.update_traffic_profile(traffic_generator)
             traffic = \
-                self._get_ixia_traffic_profile(self.full_profile, mac, xfile)
+                self._get_ixia_traffic_profile(self.full_profile, mac)
             self.max_rate = self.rate
             self.min_rate = 0
             self.get_multiplier()
@@ -131,7 +131,7 @@ class IXIARFC2544Profile(TrexProfile):
             mac = {}
         self.update_traffic_profile(traffic_generator)
         traffic = \
-            self._get_ixia_traffic_profile(self.full_profile, mac, xfile)
+            self._get_ixia_traffic_profile(self.full_profile, mac)
         self._ixia_traffic_generate(traffic_generator, traffic, ixia_obj)
 
     def get_drop_percentage(self, traffic_generator, samples, tol_min,
@@ -179,6 +179,6 @@ class IXIARFC2544Profile(TrexProfile):
             samples['DropPercentage'] = drop_percent
             return status, samples
         self.get_multiplier()
-        traffic = self._get_ixia_traffic_profile(self.full_profile, mac, xfile)
+        traffic = self._get_ixia_traffic_profile(self.full_profile, mac)
         self._ixia_traffic_generate(traffic_generator, traffic, ixia_obj)
         return status, samples

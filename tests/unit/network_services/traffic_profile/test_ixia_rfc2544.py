@@ -29,7 +29,7 @@ stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
 
 if stl_patch:
-    from yardstick.network_services.traffic_profile.traffic_profile \
+    from yardstick.network_services.traffic_profile.trex_traffic_profile \
         import TrexProfile
     from yardstick.network_services.traffic_profile.ixia_rfc2544 import \
         IXIARFC2544Profile
@@ -179,9 +179,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                "dst_mac_0": "00:00:00:00:00:03",
                "dst_mac_1": "00:00:00:00:00:04",
                "dst_mac_2": "00:00:00:00:00:04"}
-        result = r_f_c2544_profile._get_ixia_traffic_profile(
-            self.PROFILE, mac, xfile="tmp",
-            static_traffic=STATIC_TRAFFIC)
+        result = r_f_c2544_profile._get_ixia_traffic_profile(self.PROFILE, mac)
         self.assertIsNotNone(result)
 
     def test_get_ixia_traffic_profile(self):
@@ -225,7 +223,6 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                     "proto": "udp",
                     "srcip4": "152.16.40.20",
                     "ttl": 32,
-                    "count": "1"
                 },
                 "outer_l4": {
                     "dstport": "2001",
@@ -260,7 +257,6 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                     "proto": "udp",
                     "srcip4": "152.16.40.20",
                     "ttl": 32,
-                    "count": "1"
                 },
                 "outer_l3v6": {
                     "count": 1024,
@@ -269,7 +265,6 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                     "proto": "udp",
                     "srcip4": "152.16.40.20",
                     "ttl": 32,
-                    "count": "1"
                 },
                 "outer_l4": {
                     "dstport": "1234",
@@ -289,8 +284,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                "dst_mac_0": "00:00:00:00:00:03",
                "dst_mac_1": "00:00:00:00:00:04",
                "dst_mac_2": "00:00:00:00:00:04"}
-        result = r_f_c2544_profile._get_ixia_traffic_profile(
-            self.PROFILE, mac, xfile="tmp", static_traffic=STATIC_TRAFFIC)
+        result = r_f_c2544_profile._get_ixia_traffic_profile(self.PROFILE, mac)
         self.assertIsNotNone(result)
 
     @mock.patch("yardstick.network_services.traffic_profile.ixia_rfc2544.open")
@@ -435,8 +429,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                                      'outer_l4': {'dstport': '2001',
                                                   'srcport': '1234'}}},
                         'schema': 'isb:traffic_profile:0.1'}
-        result = r_f_c2544_profile._get_ixia_traffic_profile(
-            profile_data, mac, static_traffic=STATIC_TRAFFIC)
+        result = r_f_c2544_profile._get_ixia_traffic_profile(profile_data, mac)
         self.assertIsNotNone(result)
 
     def test__get_ixia_traffic_profile_default_args(self):
