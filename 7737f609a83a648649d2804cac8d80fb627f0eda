@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_6cb22b4d",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-04T20:21:26Z",
+      "side": 1,
+      "message": "there was bug fix, we need to change node name as well as pkey.\n\ncurrently proposing:\n\n    @staticmethod\n    def _serialize_node(node):\n        new_node \u003d copy.deepcopy(node)\n        # name field is required\n        # remove context suffix\n        new_node[\"name\"] \u003d node[\u0027name\u0027].split(\u0027.\u0027)[0]\n        try:\n            new_node[\"pkey\"] \u003d ssh.convert_key_to_str(node[\"pkey\"])\n        except KeyError:\n            pass\n        return new_node\n\n\nsee https://gerrit.opnfv.org/gerrit/44277",
+      "parentUuid": "da33351e_2983f5cc",
+      "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_2e32dcf1",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 11
