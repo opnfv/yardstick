@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_0c127f08",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-04T21:11:30Z",
+      "side": 1,
+      "message": "why is this passed in?",
+      "range": {
+        "startLine": 339,
+        "startChar": 35,
+        "endLine": 339,
+        "endChar": 42
+      },
+      "revId": "0c92f465109281b6328215b0c261f02d81f7937d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ac0273b1",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-04T21:11:30Z",
+      "side": 1,
+      "message": "i didn\u0027t realize that we had returned to 79 columns and even combined this and the next line only need 74!",
+      "revId": "0c92f465109281b6328215b0c261f02d81f7937d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_2c0f83e2",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-04T21:11:30Z",
+      "side": 1,
+      "message": "is there supposed to be a %s somewhere in the string?",
+      "revId": "0c92f465109281b6328215b0c261f02d81f7937d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_cc3257a6",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-04T21:11:30Z",
+      "side": 1,
+      "message": "is netdevs meant to be updated instead of replaced?",
+      "revId": "0c92f465109281b6328215b0c261f02d81f7937d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6cfcebb8",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-04T21:11:30Z",
+      "side": 1,
+      "message": "why is this passed in?",
+      "range": {
+        "startLine": 348,
+        "startChar": 39,
+        "endLine": 348,
+        "endChar": 43
+      },
+      "revId": "0c92f465109281b6328215b0c261f02d81f7937d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_8cfdefb3",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-04T21:11:30Z",
+      "side": 1,
+      "message": "this is such as useful helper that we have to create it for a single method?\n\nand bind it to an attribute?\n\nthe one usage below in _probe_devices is a short-lived connection, why prolong the life of the DpdkBindHelper instance?",
+      "range": {
+        "startLine": 349,
+        "startChar": 32,
+        "endLine": 349,
+        "endChar": 46
+      },
+      "revId": "0c92f465109281b6328215b0c261f02d81f7937d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_2c266368",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-04T21:11:30Z",
+      "side": 1,
+      "message": "might we be ready for a node helper class?\n\nor these new methods above could go onto DpdkBindHelper.  maybe also this one.",
+      "range": {
+        "startLine": 359,
+        "startChar": 8,
+        "endLine": 359,
+        "endChar": 22
+      },
+      "revId": "0c92f465109281b6328215b0c261f02d81f7937d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
