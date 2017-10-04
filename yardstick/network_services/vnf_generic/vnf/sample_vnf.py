@@ -304,9 +304,9 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         """ setup dpdk environment needed for vnf to run """
 
         self._setup_hugepages()
-        self.ssh_helper.execute("sudo modprobe uio && sudo modprobe igb_uio")
+        self.dpdk_bind_helper.load_dpdk_driver()
 
-        exit_status = self.ssh_helper.execute("lsmod | grep -i igb_uio")[0]
+        exit_status = self.dpdk_bind_helper.check_dpdk_driver()
         if exit_status == 0:
             return
 
