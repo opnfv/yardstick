@@ -16,7 +16,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 import logging
 
-from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
+from yardstick.common.utils import find_relative_file
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF, DpdkVnfSetupEnvHelper
 from yardstick.network_services.yang_model import YangModel
 

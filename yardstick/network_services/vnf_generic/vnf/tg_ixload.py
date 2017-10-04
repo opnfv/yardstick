@@ -22,10 +22,9 @@ import shutil
 from collections import OrderedDict
 from subprocess import call
 
-from yardstick.common.utils import makedirs
+from yardstick.common.utils import makedirs, find_relative_file
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
-from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
 
 LOG = logging.getLogger(__name__)
 
