@@ -18,6 +18,7 @@ import itertools
 
 import six
 
+
 NETWORK_KERNEL = 'network_kernel'
 NETWORK_DPDK = 'network_dpdk'
 NETWORK_OTHER = 'network_other'
@@ -42,6 +43,8 @@ class DpdkBindHelper(object):
     SKIP_RE = re.compile('(====|<none>|^$)')
     NIC_ROW_FIELDS = ['vpci', 'dev_type', 'iface', 'driver', 'unused', 'active']
 
+    UIO_DRIVER = "uio"
+
     HEADER_DICT_PAIRS = [
         (re.compile('^Network.*DPDK.*$'), NETWORK_DPDK),
         (re.compile('^Network.*kernel.*$'), NETWORK_KERNEL),
@@ -61,11 +64,17 @@ class DpdkBindHelper(object):
             CRYPTO_OTHER: [],
         }
 
-    def __init__(self, ssh_helper):
+    # TODO: add support for driver other than igb_uio
+    def __init__(self, ssh_helper, bin_path, dpdk_driver="igb_uio"):
+        self.real_kernel_interface_driver_map = {}
+        self.bin_path = bin_path
+        self.dpdk_driver = dpdk_driver
         self.dpdk_status = None
         self.status_nic_row_re = None
         self._dpdk_nic_bind_attr = None
         self._status_cmd_attr = None
+        self.used_drivers = {}
+        self.real_kernel_drivers = {}
 
         self.ssh_helper = ssh_helper
         self.clean_status()
@@ -77,10 +86,18 @@ class DpdkBindHelper(object):
                 self._dpdk_nic_bind, res[0]))
         return res
 
+    def load_dpdk_driver(self):
+        self.ssh_helper.execute(
+            "sudo modprobe {} && sudo modprobe {}".format(self.UIO_DRIVER, self.dpdk_driver))
+
+    def check_dpdk_driver(self):
+        return self.ssh_helper.execute("lsmod | grep -i {}".format(self.dpdk_driver))[0]
+
     @property
     def _dpdk_nic_bind(self):
         if self._dpdk_nic_bind_attr is None:
-            self._dpdk_nic_bind_attr = self.ssh_helper.provision_tool(tool_file="dpdk-devbind.py")
+            self._dpdk_nic_bind_attr = self.ssh_helper.provision_tool(tool_path=self.bin_path,
+                                                                      tool_file="dpdk-devbind.py")
         return self._dpdk_nic_bind_attr
 
     @property
@@ -154,6 +171,31 @@ class DpdkBindHelper(object):
         # sort for stabililty
         for vpci, driver in sorted(self.interface_driver_map.items()):
             self.used_drivers.setdefault(driver, []).append(vpci)
+
+    KERNEL_DRIVER_RE = re.compile(r"Kernel modules: (\S+)", re.M)
+    VIRTIO_DRIVER_RE = re.compile(r"Ethernet.*Virtio network device", re.M)
+    VIRTIO_DRIVER = "virtio-pci"
+
+    def save_real_kernel_drivers(self):
+        # invert the map, so we can bind by driver type
+        self.real_kernel_drivers = {}
+        # sort for stabililty
+        for vpci, driver in sorted(self.real_kernel_interface_driver_map.items()):
+            self.used_drivers.setdefault(driver, []).append(vpci)
+
+    def get_real_kernel_drivers(self):
+        self.real_kernel_interface_driver_map = {}
+        for pci in self.interface_driver_map:
+            out = self.ssh_helper.execute('lspci -k -s %s' % pci)[1]
+            match = self.KERNEL_DRIVER_RE.search(out)
+            if match:
+                real_driver = match.group(1)
+                self.real_kernel_interface_driver_map[pci] = real_driver
+            else:
+                match = self.VIRTIO_DRIVER_RE.search(out)
+                if match:
+                    real_driver = self.VIRTIO_DRIVER
+                    self.real_kernel_interface_driver_map[pci] = real_driver
 
     def rebind_drivers(self, force=True):
         for driver, vpcis in self.used_drivers.items():

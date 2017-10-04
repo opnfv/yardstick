@@ -29,6 +29,7 @@ pass
 
 
 class TestDpdkBindHelper(unittest.TestCase):
+    bin_path = "/opt/nsb_bin"
     EXAMPLE_OUTPUT = """
 
 Network devices using DPDK-compatible driver
@@ -114,7 +115,7 @@ Other crypto devices
         conn = mock.Mock()
         conn.provision_tool = mock.Mock(return_value='path_to_tool')
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
 
         self.assertEquals(conn, dpdk_bind_helper.ssh_helper)
         self.assertEquals(self.CLEAN_STATUS, dpdk_bind_helper.dpdk_status)
@@ -126,21 +127,21 @@ Other crypto devices
         conn = mock.Mock()
         conn.execute = mock.Mock(return_value=(0, 'output', 'error'))
         conn.provision_tool = mock.Mock(return_value='tool_path')
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
         self.assertEquals((0, 'output', 'error'), dpdk_bind_helper._dpdk_execute('command'))
 
     def test__dpdk_execute_failure(self):
         conn = mock.Mock()
         conn.execute = mock.Mock(return_value=(1, 'output', 'error'))
         conn.provision_tool = mock.Mock(return_value='tool_path')
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
         with self.assertRaises(DpdkBindHelperException):
             dpdk_bind_helper._dpdk_execute('command')
 
     def test__addline(self):
         conn = mock.Mock()
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
 
         dpdk_bind_helper._addline(NETWORK_KERNEL, self.ONE_INPUT_LINE)
 
@@ -160,7 +161,7 @@ Other crypto devices
     def test_parse_dpdk_status_output(self):
         conn = mock.Mock()
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
 
         dpdk_bind_helper.parse_dpdk_status_output(self.EXAMPLE_OUTPUT)
 
@@ -172,14 +173,14 @@ Other crypto devices
         conn.execute = mock.Mock(return_value=(0, self.EXAMPLE_OUTPUT, ''))
         conn.provision_tool = mock.Mock(return_value='path_to_tool')
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
 
         self.assertEquals(self.PARSED_EXAMPLE, dpdk_bind_helper.read_status())
 
     def test__get_bound_pci_addresses(self):
         conn = mock.Mock()
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
 
         dpdk_bind_helper.parse_dpdk_status_output(self.EXAMPLE_OUTPUT)
 
@@ -191,7 +192,7 @@ Other crypto devices
     def test_interface_driver_map(self):
         conn = mock.Mock()
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
 
         dpdk_bind_helper.parse_dpdk_status_output(self.EXAMPLE_OUTPUT)
 
@@ -206,7 +207,7 @@ Other crypto devices
         conn.execute = mock.Mock(return_value=(0, '', ''))
         conn.provision_tool = mock.Mock(return_value='/opt/nsb_bin/dpdk-devbind.py')
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
         dpdk_bind_helper.read_status = mock.Mock()
 
         dpdk_bind_helper.bind(['0000:00:03.0', '0000:00:04.0'], 'my_driver')
@@ -220,7 +221,7 @@ Other crypto devices
         conn.execute = mock.Mock(return_value=(0, '', ''))
         conn.provision_tool = mock.Mock(return_value='/opt/nsb_bin/dpdk-devbind.py')
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
         dpdk_bind_helper.read_status = mock.Mock()
 
         dpdk_bind_helper.bind('0000:00:03.0', 'my_driver')
@@ -232,7 +233,7 @@ Other crypto devices
     def test_rebind_drivers(self):
         conn = mock.Mock()
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
 
         dpdk_bind_helper.bind = mock.Mock()
         dpdk_bind_helper.used_drivers = {
@@ -247,7 +248,7 @@ Other crypto devices
 
     def test_save_used_drivers(self):
         conn = mock.Mock()
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
         dpdk_bind_helper.dpdk_status = self.PARSED_EXAMPLE
 
         dpdk_bind_helper.save_used_drivers()

@@ -25,10 +25,10 @@ import os
 import sys
 import re
 from itertools import chain
+from collections import defaultdict
 
 import six
 import yaml
-from collections import defaultdict
 
 from yardstick.benchmark.scenarios import base
 from yardstick.common.constants import LOG_DIR
@@ -36,6 +36,7 @@ from yardstick.common.process import terminate_children
 from yardstick.common.utils import import_modules_from_package, itersubclasses
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.collector.subscriber import Collector
+from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
 from yardstick.network_services.vnf_generic import vnfdgen
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.traffic_profile.base import TrafficProfile
@@ -140,6 +141,7 @@ class NetworkServiceTestCase(base.Scenario):
         self.collector = None
         self.traffic_profile = None
         self.node_netdevs = {}
+        self.bin_path = get_nsb_option('bin_path', '')
 
     def _get_ip_flow_range(self, ip_start_range):
 
@@ -337,42 +339,55 @@ class NetworkServiceTestCase(base.Scenario):
             vnfd = self._find_vnfd_from_vnf_idx(vnf_idx)
             self.context_cfg["nodes"][vnf_name].update(vnfd)
 
-    def _probe_netdevs(self, node, node_dict, timeout=120):
-        try:
-            return self.node_netdevs[node]
-        except KeyError:
-            pass
+    def _probe_netdevs(self, conn, node, node_dict):
+        exit_status, stdout, _ = conn.execute(self.FIND_NETDEVICE_STRING)
+        if exit_status != 0:
+            raise IncorrectSetup(
+                "Cannot find netdev info in sysfs" % node)
+        netdevs = node_dict['netdevs'] = self.parse_netdev_info(stdout)
+        return netdevs
 
-        netdevs = {}
+    def _force_dpdk_rebind(self, conn, node):
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
+        dpdk_bind_helper.load_dpdk_driver()
+        dpdk_bind_helper.read_status()
+        dpdk_bind_helper.get_real_kernel_drivers()
+        dpdk_bind_helper.save_used_drivers()
+        for driver, pcis in dpdk_bind_helper.used_drivers.items():
+            # only rebind igb_uio
+            if driver == dpdk_bind_helper.dpdk_driver:
+                for pci in pcis:
+                    # messy
+                    real_driver = dpdk_bind_helper.real_kernel_interface_driver_map[pci]
+                    dpdk_bind_helper.bind([pci], real_driver, force=True)
+
+    def _probe_devices(self, conn, node, node_dict):
         cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
 
-        with SshManager(node_dict, timeout=timeout) as conn:
-            if conn:
-                exit_status = conn.execute(cmd)[0]
-                if exit_status != 0:
-                    raise IncorrectSetup("Node's %s lacks ip tool." % node)
-                exit_status, stdout, _ = conn.execute(
-                    self.FIND_NETDEVICE_STRING)
-                if exit_status != 0:
-                    raise IncorrectSetup(
-                        "Cannot find netdev info in sysfs" % node)
-                netdevs = node_dict['netdevs'] = self.parse_netdev_info(stdout)
+        exit_status = conn.execute(cmd)[0]
+        if exit_status != 0:
+            raise IncorrectSetup("Node's %s lacks ip tool." % node)
+        netdevs = self._probe_netdevs(conn, node, node_dict)
 
-        self.node_netdevs[node] = netdevs
+        # self.node_netdevs[node] = netdevs
         return netdevs
 
     @classmethod
     def _probe_missing_values(cls, netdevs, network):
 
-        mac_lower = network['local_mac'].lower()
-        for netdev in netdevs.values():
-            if netdev['address'].lower() != mac_lower:
-                continue
-            network.update({
-                'driver': netdev['driver'],
-                'vpci': netdev['pci_bus_id'],
-                'ifindex': netdev['ifindex'],
-            })
+        try:
+            mac_lower = network['local_mac'].lower()
+            for netdev in netdevs.values():
+                if netdev['address'].lower() != mac_lower:
+                    continue
+                network.update({
+                    'driver': netdev['driver'],
+                    'vpci': netdev['pci_bus_id'],
+                    'ifindex': netdev['ifindex'],
+                })
+        except KeyError:
+            # if we don't find all the keys then don't update
+            pass
 
     def _generate_pod_yaml(self):
         context_yaml = os.path.join(LOG_DIR, "pod-{}.yaml".format(self.scenario_cfg['task_id']))
@@ -414,30 +429,45 @@ class NetworkServiceTestCase(base.Scenario):
         timeout = 120 * num_nodes
         for node, node_dict in self.context_cfg["nodes"].items():
 
-            for network in node_dict["interfaces"].values():
-                missing = self.TOPOLOGY_REQUIRED_KEYS.difference(network)
-                if not missing:
-                    continue
+            missing_values = ((interface, self.TOPOLOGY_REQUIRED_KEYS.difference(interface)) for
+                              interface in node_dict["interfaces"].values())
+            interfaces_to_probe = [(intf, missing) for intf, missing in missing_values if missing]
 
+            # if any interface is missing a value we must probe
+            if interfaces_to_probe:
                 # only ssh probe if there are missing values
                 # ssh probe won't work on Ixia, so we had better define all our values
-                try:
-                    netdevs = self._probe_netdevs(node, node_dict, timeout=timeout)
-                except (SSHError, SSHTimeout):
-                    raise IncorrectConfig(
-                        "Unable to probe missing interface fields '%s', on node %s "
-                        "SSH Error" % (', '.join(missing), node))
-                try:
-                    self._probe_missing_values(netdevs, network)
-                except KeyError:
-                    pass
-                else:
-                    missing = self.TOPOLOGY_REQUIRED_KEYS.difference(
-                        network)
-                if missing:
-                    raise IncorrectConfig(
-                        "Require interface fields '%s' not found, topology file "
-                        "corrupted" % ', '.join(missing))
+
+                with SshManager(node_dict, timeout=timeout) as conn:
+                    netdevs = self._probe_devices(conn, node, node_dict)
+
+                    for interface, _ in interfaces_to_probe:
+                        self._probe_missing_values(netdevs, interface)
+                    missing_values = (
+                        (interface, self.TOPOLOGY_REQUIRED_KEYS.difference(interface)) for
+                        interface, _ in interfaces_to_probe)
+                    interfaces_to_probe = [(intf, missing) for intf, missing in missing_values if
+                                           missing]
+                    # if any interface is missing a value we must probe
+                    if interfaces_to_probe:
+                        # rebind
+                        self._force_dpdk_rebind(conn, node)
+                        # probe gain
+                        netdevs = self._probe_devices(conn, node, node_dict)
+                        for interface, _ in interfaces_to_probe:
+                            self._probe_missing_values(netdevs, interface)
+
+                        missing_values = (
+                            (interface, self.TOPOLOGY_REQUIRED_KEYS.difference(interface)) for
+                            interface, _ in interfaces_to_probe)
+                        interfaces_to_probe = [(intf, missing) for intf, missing in missing_values
+                                               if missing]
+                        # if any interface is missing a value we must probe
+                        if interfaces_to_probe:
+                            message = '\n'.join(
+                                "{0}: {1}".format(interface['local_mac'], ", ".join(missing)) for
+                                interface, missing in interfaces_to_probe)
+                            raise IncorrectSetup("Require interface fields not found\n" + message)
 
         # we have to generate pod.yaml here so we have vpci and driver
         self._generate_pod_yaml()
