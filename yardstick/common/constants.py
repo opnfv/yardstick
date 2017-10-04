@@ -7,9 +7,9 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 from __future__ import absolute_import
-import os
-import errno
 
+import errno
+import os
 from functools import reduce
 
 import pkg_resources

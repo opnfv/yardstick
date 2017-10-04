@@ -29,7 +29,7 @@ stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
 
 if stl_patch:
-    from yardstick.network_services.traffic_profile.traffic_profile \
+    from yardstick.network_services.traffic_profile.trex_traffic_profile \
         import TrexProfile
     from yardstick.network_services.traffic_profile.rfc2544 import \
         RFC2544Profile

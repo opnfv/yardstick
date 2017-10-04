@@ -41,7 +41,7 @@ stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
 
 if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.sample_vnf import VnfSshHelper
+    from yardstick.network_services.vnf_generic.vnf.vnf_ssh_helper import VnfSshHelper
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFDeployHelper
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import ScenarioHelper
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import ResourceHelper
@@ -1497,8 +1497,9 @@ class TestRfc2544ResourceHelper(unittest.TestCase):
 
 class TestSampleVNFDeployHelper(unittest.TestCase):
 
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
     @mock.patch('subprocess.check_output')
-    def test_deploy_vnfs_disabled(self, mock_check_output):
+    def test_deploy_vnfs_disabled(self, *_):
         vnfd_helper = mock.Mock()
         ssh_helper = mock.Mock()
         ssh_helper.join_bin_path.return_value = 'joined_path'
