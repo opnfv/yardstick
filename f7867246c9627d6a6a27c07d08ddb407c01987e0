@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_0986f1da",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-04T17:23:10Z",
+      "side": 1,
+      "message": "should be\n\n  self.scenario_helper.options.get(\"vnf_deploy\", False)\n\nwe disable by default because we don\u0027t want to support this.\n\nusers should use ansible playbooks to configure baremetal",
+      "revId": "f7867246c9627d6a6a27c07d08ddb407c01987e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
