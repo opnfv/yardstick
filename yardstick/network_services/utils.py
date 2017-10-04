@@ -121,7 +121,6 @@ def provision_tool(connection, tool_path, tool_file=None):
         tool_path = get_nsb_option('tool_path')
     if tool_file:
         tool_path = os.path.join(tool_path, tool_file)
-    bin_path = get_nsb_option("bin_path")
     exit_status = connection.execute("which %s > /dev/null 2>&1" % tool_path)[0]
     if exit_status == 0:
         return encodeutils.safe_decode(tool_path, incoming='utf-8').rstrip()

@@ -93,6 +93,21 @@ def import_modules_from_package(package, raise_exception=False):
                 logger.exception('Unable to import module %s', module_name)
 
 
+NON_NONE_DEFAULT = object()
+
+
+def get_key_with_default(data, key, default=NON_NONE_DEFAULT):
+    value = data.get(key, default)
+    if value is NON_NONE_DEFAULT:
+        raise KeyError(key)
+    return value
+
+
+def make_dict_from_map(data, key_map):
+    return {dest_key: get_key_with_default(data, src_key, default)
+            for dest_key, (src_key, default) in key_map.items()}
+
+
 def makedirs(d):
     try:
         os.makedirs(d)
