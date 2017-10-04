@@ -33,6 +33,7 @@ from six.moves import zip, StringIO
 from yardstick.common import utils
 from yardstick.common.utils import SocketTopology, join_non_strings, try_int
 from yardstick.network_services.helpers.iniparser import ConfigParser
+from yardstick.common.utils import find_relative_file
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
 

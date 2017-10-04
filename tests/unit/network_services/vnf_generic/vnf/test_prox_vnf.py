@@ -379,6 +379,25 @@ class TestProxApproxVnf(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
+    @mock.patch('yardstick.common.utils.open', create=True)
+    @mock.patch('yardstick.benchmark.scenarios.networking.vnf_generic.open', create=True)
+    @mock.patch('yardstick.network_services.helpers.iniparser.open', create=True)
+    @mock.patch(SSH_HELPER)
+    def test_run_prox(self, ssh, *_):
+        mock_ssh(ssh)
+
+        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf.scenario_helper.scenario_cfg = self.SCENARIO_CFG
+        prox_approx_vnf.ssh_helper.join_bin_path.return_value = '/tool_path12/tool_file34'
+        prox_approx_vnf.setup_helper.remote_path = 'configs/file56.cfg'
+
+        expected = "sudo bash -c 'cd /tool_path12; " \
+                   "/tool_path12/tool_file34 -o cli -t  -f /tmp/l3-swap-2.cfg '"
+
+        prox_approx_vnf._run()
+        result = prox_approx_vnf.ssh_helper.run.call_args[0][0]
+        self.assertEqual(result, expected)
+
     @mock.patch(SSH_HELPER)
     def bad_test_instantiate(self, *args):
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)

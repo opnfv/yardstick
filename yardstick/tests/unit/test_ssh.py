@@ -21,12 +21,13 @@ import os
 import socket
 import unittest
 from io import StringIO
+from itertools import count
 
 import mock
 from oslo_utils import encodeutils
 
 from yardstick import ssh
-from yardstick.ssh import SSHError
+from yardstick.ssh import SSHError, SSHTimeout
 from yardstick.ssh import SSH
 from yardstick.ssh import AutoConnectSSH
 
@@ -508,13 +509,45 @@ class SSHRunTestCase(unittest.TestCase):
 
 class TestAutoConnectSSH(unittest.TestCase):
 
-    def test__connect_with_wait(self):
-        auto_connect_ssh = AutoConnectSSH('user1', 'host1', wait=True)
-        auto_connect_ssh._get_client = mock.Mock()
-        auto_connect_ssh.wait = mock_wait = mock.Mock()
+    def test__connect_loop(self):
+        auto_connect_ssh = AutoConnectSSH('user1', 'host1', wait=0)
+        auto_connect_ssh._get_client = mock__get_client = mock.Mock()
 
         auto_connect_ssh._connect()
-        self.assertEqual(mock_wait.call_count, 1)
+        self.assertEqual(mock__get_client.call_count, 1)
+
+    def test___init___negative(self):
+        with self.assertRaises(TypeError):
+            AutoConnectSSH('user1', 'host1', wait=['wait'])
+
+        with self.assertRaises(ValueError):
+            AutoConnectSSH('user1', 'host1', wait='wait')
+
+    @mock.patch('yardstick.ssh.time')
+    def test__connect_loop_ssh_error(self, mock_time):
+        mock_time.time.side_effect = count()
+
+        auto_connect_ssh = AutoConnectSSH('user1', 'host1', wait=10)
+        auto_connect_ssh._get_client = mock__get_client = mock.Mock()
+        mock__get_client.side_effect = SSHError
+
+        with self.assertRaises(SSHTimeout):
+            auto_connect_ssh._connect()
+
+        self.assertEqual(mock_time.time.call_count, 12)
+
+    def test_get_file_obj(self):
+        auto_connect_ssh = AutoConnectSSH('user1', 'host1', wait=10)
+        auto_connect_ssh._get_client = mock__get_client = mock.Mock()
+        mock_client = mock__get_client()
+        mock_open_sftp = mock_client.open_sftp()
+        mock_sftp = mock.Mock()
+        mock_open_sftp.__enter__ = mock.Mock(return_value=mock_sftp)
+        mock_open_sftp.__exit__ = mock.Mock()
+
+        auto_connect_ssh.get_file_obj('remote/path', mock.Mock())
+
+        self.assertEqual(mock_sftp.getfo.call_count, 1)
 
     def test__make_dict(self):
         auto_connect_ssh = AutoConnectSSH('user1', 'host1')
@@ -527,7 +560,7 @@ class TestAutoConnectSSH(unittest.TestCase):
             'key_filename': None,
             'password': None,
             'name': None,
-            'wait': True,
+            'wait': AutoConnectSSH.DEFAULT_WAIT_TIMEOUT,
         }
         result = auto_connect_ssh._make_dict()
         self.assertDictEqual(result, expected)
@@ -536,6 +569,13 @@ class TestAutoConnectSSH(unittest.TestCase):
         auto_connect_ssh = AutoConnectSSH('user1', 'host1')
 
         self.assertEqual(auto_connect_ssh.get_class(), AutoConnectSSH)
+
+    def test_drop_connection(self):
+        auto_connect_ssh = AutoConnectSSH('user1', 'host1')
+        self.assertFalse(auto_connect_ssh._client)
+        auto_connect_ssh._client = True
+        auto_connect_ssh.drop_connection()
+        self.assertFalse(auto_connect_ssh._client)
 
     @mock.patch('yardstick.ssh.SCPClient')
     def test_put(self, mock_scp_client_type):
