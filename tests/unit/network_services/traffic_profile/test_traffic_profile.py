@@ -29,16 +29,16 @@ stl_patch.start()
 
 if stl_patch:
     from yardstick.network_services.traffic_profile.base import TrafficProfile
-    from yardstick.network_services.traffic_profile.traffic_profile import TrexProfile
-    from yardstick.network_services.traffic_profile.traffic_profile import SRC
-    from yardstick.network_services.traffic_profile.traffic_profile import DST
-    from yardstick.network_services.traffic_profile.traffic_profile import ETHERNET
-    from yardstick.network_services.traffic_profile.traffic_profile import IP
-    from yardstick.network_services.traffic_profile.traffic_profile import IPv6
-    from yardstick.network_services.traffic_profile.traffic_profile import UDP
-    from yardstick.network_services.traffic_profile.traffic_profile import SRC_PORT
-    from yardstick.network_services.traffic_profile.traffic_profile import DST_PORT
-    from yardstick.network_services.traffic_profile.traffic_profile import TYPE_OF_SERVICE
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import TrexProfile
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import SRC
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import DST
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import ETHERNET
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import IP
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import IPv6
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import UDP
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import SRC_PORT
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import DST_PORT
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import TYPE_OF_SERVICE
 
 
 class TestTrexProfile(unittest.TestCase):
@@ -210,6 +210,40 @@ class TestTrexProfile(unittest.TestCase):
             TrexProfile(TrafficProfile)
         self.assertRaises(SystemExit, trex_profile._get_start_end_ipv6,
                           "1.1.1.3", "1.1.1.1")
+
+    def test__dscp_range_action_partial_actual_count_zero(self):
+        traffic_profile = TrexProfile(TrafficProfile)
+        dscp_partial = traffic_profile._dscp_range_action_partial()
+
+        flow_vars_initial_length = len(traffic_profile.vm_flow_vars)
+        dscp_partial('1', '1', 'unneeded')
+        self.assertEqual(len(traffic_profile.vm_flow_vars), flow_vars_initial_length + 2)
+
+    def test__dscp_range_action_partial_count_greater_than_actual(self):
+        traffic_profile = TrexProfile(TrafficProfile)
+        dscp_partial = traffic_profile._dscp_range_action_partial()
+
+        flow_vars_initial_length = len(traffic_profile.vm_flow_vars)
+        dscp_partial('1', '10', '100')
+        self.assertEqual(len(traffic_profile.vm_flow_vars), flow_vars_initial_length + 2)
+
+    def test__udp_range_action_partial_actual_count_zero(self):
+        traffic_profile = TrexProfile(TrafficProfile)
+        traffic_profile.udp['field1'] = 'value1'
+        udp_partial = traffic_profile._udp_range_action_partial('field1')
+
+        flow_vars_initial_length = len(traffic_profile.vm_flow_vars)
+        udp_partial('1', '1', 'unneeded')
+        self.assertEqual(len(traffic_profile.vm_flow_vars), flow_vars_initial_length + 2)
+
+    def test__udp_range_action_partial_count_greater_than_actual(self):
+        traffic_profile = TrexProfile(TrafficProfile)
+        traffic_profile.udp['field1'] = 'value1'
+        udp_partial = traffic_profile._udp_range_action_partial('field1', 'not_used_count')
+
+        flow_vars_initial_length = len(traffic_profile.vm_flow_vars)
+        udp_partial('1', '10', '100')
+        self.assertEqual(len(traffic_profile.vm_flow_vars), flow_vars_initial_length + 2)
 
     def test__general_single_action_partial(self):
         trex_profile = TrexProfile(TrafficProfile)

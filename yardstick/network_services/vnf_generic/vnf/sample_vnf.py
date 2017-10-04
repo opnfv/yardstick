@@ -15,82 +15,39 @@
 
 from __future__ import absolute_import
 
-import posixpath
-import time
 import logging
 import os
+import posixpath
 import re
 import subprocess
+import time
 from collections import Mapping
-
 from multiprocessing import Queue, Value, Process
 
-from six.moves import cStringIO
-
-from yardstick.benchmark.contexts.base import Context
-from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
-from yardstick.common.process import check_if_process_failed
-from yardstick.network_services.helpers.cpu import CpuSysCores
-from yardstick.network_services.helpers.samplevnf_helper import PortPairs
-from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
-from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
-from yardstick.network_services.nfvi.resource import ResourceProfile
-from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
-from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
-from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
-from yardstick.network_services.utils import get_nsb_option
-
-from trex_stl_lib.trex_stl_client import STLClient
 from trex_stl_lib.trex_stl_client import LoggerApi
+from trex_stl_lib.trex_stl_client import STLClient
 from trex_stl_lib.trex_stl_exceptions import STLError
 
-from yardstick.ssh import AutoConnectSSH
+from yardstick.benchmark.contexts.base import Context
+from yardstick.common.process import check_if_process_failed
+from yardstick.common.utils import find_relative_file
+from yardstick.network_services.constants import REMOTE_TMP
+from yardstick.network_services.constants import DEFAULT_VNF_TIMEOUT
+from yardstick.network_services.constants import PROCESS_JOIN_TIMEOUT
+from yardstick.network_services.helpers.cpu import CpuSysCores
+from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
+from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
+from yardstick.network_services.helpers.samplevnf_helper import PortPairs
+from yardstick.network_services.nfvi.resource import ResourceProfile
+from yardstick.network_services.utils import get_nsb_option
+from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
+from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
+from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
+from yardstick.network_services.vnf_generic.vnf.vnf_ssh_helper import VnfSshHelper
 
 DPDK_VERSION = "dpdk-16.07"
 
 LOG = logging.getLogger(__name__)
-
-
-REMOTE_TMP = "/tmp"
-DEFAULT_VNF_TIMEOUT = 3600
-PROCESS_JOIN_TIMEOUT = 3
-
-
-class VnfSshHelper(AutoConnectSSH):
-
-    def __init__(self, node, bin_path, wait=None):
-        self.node = node
-        kwargs = self.args_from_node(self.node)
-        if wait:
-            kwargs.setdefault('wait', wait)
-
-        super(VnfSshHelper, self).__init__(**kwargs)
-        self.bin_path = bin_path
-
-    @staticmethod
-    def get_class():
-        # must return static class name, anything else refers to the calling class
-        # i.e. the subclass, not the superclass
-        return VnfSshHelper
-
-    def copy(self):
-        # this copy constructor is different from SSH classes, since it uses node
-        return self.get_class()(self.node, self.bin_path)
-
-    def upload_config_file(self, prefix, content):
-        cfg_file = os.path.join(REMOTE_TMP, prefix)
-        LOG.debug(content)
-        file_obj = cStringIO(content)
-        self.put_file_obj(file_obj, cfg_file)
-        return cfg_file
-
-    def join_bin_path(self, *args):
-        return os.path.join(self.bin_path, *args)
-
-    def provision_tool(self, tool_path=None, tool_file=None):
-        if tool_path is None:
-            tool_path = self.bin_path
-        return super(VnfSshHelper, self).provision_tool(tool_path, tool_file)
 
 
 class SetupEnvHelper(object):
@@ -161,7 +118,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         self.bound_pci = None
         self.socket = None
         self.used_drivers = None
-        self.dpdk_bind_helper = DpdkBindHelper(ssh_helper)
+        self.dpdk_bind_helper = DpdkBindHelper(ssh_helper, ssh_helper.bin_path)
 
     def _setup_hugepages(self):
         cmd = "awk '/Hugepagesize/ { print $2$3 }' < /proc/meminfo"
@@ -297,9 +254,9 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         """ setup dpdk environment needed for vnf to run """
 
         self._setup_hugepages()
-        self.ssh_helper.execute("sudo modprobe uio && sudo modprobe igb_uio")
+        self.dpdk_bind_helper.load_dpdk_driver()
 
-        exit_status = self.ssh_helper.execute("lsmod | grep -i igb_uio")[0]
+        exit_status = self.dpdk_bind_helper.check_dpdk_driver()
         if exit_status == 0:
             return
 

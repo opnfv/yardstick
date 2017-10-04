@@ -134,6 +134,7 @@ class TrexProfile(TrafficProfile):
             stl_vm_wr_flow_var = STLVmWrFlowVar(fv_name='dscp',
                                                 pkt_offset='IP.tos')
             self.vm_flow_vars.append(stl_vm_wr_flow_var)
+        return partial
 
     def _udp_range_action_partial(self, field, count=1):
         def partial(min_value, max_value, count):

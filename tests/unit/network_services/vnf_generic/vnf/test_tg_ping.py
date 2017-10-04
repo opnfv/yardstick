@@ -36,7 +36,7 @@ if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.tg_ping import PingTrafficGen
     from yardstick.network_services.vnf_generic.vnf.tg_ping import PingResourceHelper
     from yardstick.network_services.vnf_generic.vnf.tg_ping import PingSetupEnvHelper
-    from yardstick.network_services.vnf_generic.vnf.sample_vnf import VnfSshHelper
+    from yardstick.network_services.vnf_generic.vnf.vnf_ssh_helper import VnfSshHelper
 
 
 class TestPingResourceHelper(unittest.TestCase):

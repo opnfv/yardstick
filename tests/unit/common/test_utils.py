@@ -22,6 +22,7 @@ import mock
 from six.moves import configparser
 
 import yardstick
+import yardstick.error
 from yardstick.common import utils
 from yardstick.common import constants
 
@@ -127,6 +128,63 @@ class CommonUtilTestCase(unittest.TestCase):
         result = ",".join(
             ("=".join(item) for item in sorted(flattened_data.items())))
         self.assertEqual(result, line)
+
+    def test_get_key_with_default_negative(self):
+        with self.assertRaises(KeyError):
+            utils.get_key_with_default({}, 'key1')
+
+    @mock.patch('yardstick.common.utils.open', create=True)
+    def test_(self, mock_open):
+        mock_open.side_effect = IOError
+
+        with self.assertRaises(IOError):
+            utils.find_relative_file('my/path', 'task/path')
+
+        self.assertEqual(mock_open.call_count, 2)
+
+    @mock.patch('yardstick.common.utils.open', create=True)
+    def test_open_relative_path(self, mock_open):
+        mock_open_result = mock_open()
+        mock_open_call_count = 1  # initial call to get result
+
+        self.assertEqual(utils.open_relative_file('foo', 'bar'), mock_open_result)
+
+        mock_open_call_count += 1  # one more call expected
+        self.assertEqual(mock_open.call_count, mock_open_call_count)
+        self.assertIn('foo', mock_open.call_args_list[-1][0][0])
+        self.assertNotIn('bar', mock_open.call_args_list[-1][0][0])
+
+        def open_effect(*args, **kwargs):
+            if kwargs.get('name', args[0]) == os.path.join('bar', 'foo'):
+                return mock_open_result
+            raise IOError(errno.ENOENT, 'not found')
+
+        mock_open.side_effect = open_effect
+        self.assertEqual(utils.open_relative_file('foo', 'bar'), mock_open_result)
+
+        mock_open_call_count += 2  # two more calls expected
+        self.assertEqual(mock_open.call_count, mock_open_call_count)
+        self.assertIn('foo', mock_open.call_args_list[-1][0][0])
+        self.assertIn('bar', mock_open.call_args_list[-1][0][0])
+
+        # test an IOError of type ENOENT
+        mock_open.side_effect = IOError(errno.ENOENT, 'not found')
+        with self.assertRaises(IOError):
+            # the second call still raises
+            utils.open_relative_file('foo', 'bar')
+
+        mock_open_call_count += 2  # two more calls expected
+        self.assertEqual(mock_open.call_count, mock_open_call_count)
+        self.assertIn('foo', mock_open.call_args_list[-1][0][0])
+        self.assertIn('bar', mock_open.call_args_list[-1][0][0])
+
+        # test an IOError other than ENOENT
+        mock_open.side_effect = IOError(errno.EBUSY, 'busy')
+        with self.assertRaises(IOError):
+            utils.open_relative_file('foo', 'bar')
+
+        mock_open_call_count += 1  # one more call expected
+        self.assertEqual(mock_open.call_count, mock_open_call_count)
 
 
 class TestMacAddressToHex(unittest.TestCase):
@@ -932,9 +990,9 @@ class TestUtils(unittest.TestCase):
 
     def test_error_class(self):
         with self.assertRaises(RuntimeError):
-            utils.ErrorClass()
+            yardstick.error.ErrorClass()
 
-        error_instance = utils.ErrorClass(test='')
+        error_instance = yardstick.error.ErrorClass(test='')
         with self.assertRaises(AttributeError):
             error_instance.get_name()
 
