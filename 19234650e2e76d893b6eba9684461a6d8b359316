@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "da33351e_eeb0f444",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-04T05:26:07Z",
+      "side": 1,
+      "message": "for bash use\n\n  [[ $EUID -ne 0 ]]\n\nthe UID 0 user is not required to be named root.\nand we check effective user id.",
+      "revId": "19234650e2e76d893b6eba9684461a6d8b359316",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_ee42b43c",
         "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
         "patchSetId": 11
