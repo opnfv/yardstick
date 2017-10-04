@@ -7,9 +7,9 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 from __future__ import absolute_import
-import os
-import errno
 
+import errno
+import os
 from functools import reduce
 
 import pkg_resources
@@ -40,10 +40,8 @@ def get_param(key, default=''):
         try:
             with open(conf_file) as f:
                 value = yaml_load(f)
-        except IOError:
-            pass
-        except OSError as e:
-            if e.errno != errno.EEXIST:
+        except (IOError, OSError) as e:
+            if e.errno != errno.ENOENT:
                 raise
         else:
             CONF.update(value)
