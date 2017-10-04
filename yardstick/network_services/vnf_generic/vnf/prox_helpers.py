@@ -32,9 +32,9 @@ import six
 from six.moves import zip, StringIO
 from six.moves import cStringIO
 
-from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
 from yardstick.common import utils
 from yardstick.common.utils import SocketTopology, ip_to_hex, join_non_strings, try_int
+from yardstick.common.utils import find_relative_file
 from yardstick.network_services.vnf_generic.vnf.iniparser import ConfigParser
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper

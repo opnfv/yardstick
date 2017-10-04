@@ -16,107 +16,33 @@
 from __future__ import absolute_import
 
 import logging
-import errno
 
 import ipaddress
 
 import copy
 import os
 import sys
-import re
 from itertools import chain
 
 import six
 import yaml
-from collections import defaultdict
 
+from yardstick import ssh
+from yardstick.common.utils import open_relative_file
+from yardstick.error import IncorrectConfig
 from yardstick.benchmark.scenarios import base
 from yardstick.common.constants import LOG_DIR
 from yardstick.common.process import terminate_children
 from yardstick.common.utils import import_modules_from_package, itersubclasses
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.collector.subscriber import Collector
+from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkNode
 from yardstick.network_services.vnf_generic import vnfdgen
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.traffic_profile.base import TrafficProfile
 from yardstick.network_services.utils import get_nsb_option
-from yardstick import ssh
-
 
 LOG = logging.getLogger(__name__)
-
-
-class SSHError(Exception):
-    """Class handles ssh connection error exception"""
-    pass
-
-
-class SSHTimeout(SSHError):
-    """Class handles ssh connection timeout exception"""
-    pass
-
-
-class IncorrectConfig(Exception):
-    """Class handles incorrect configuration during setup"""
-    pass
-
-
-class IncorrectSetup(Exception):
-    """Class handles incorrect setup during setup"""
-    pass
-
-
-class SshManager(object):
-    def __init__(self, node, timeout=120):
-        super(SshManager, self).__init__()
-        self.node = node
-        self.conn = None
-        self.timeout = timeout
-
-    def __enter__(self):
-        """
-        args -> network device mappings
-        returns -> ssh connection ready to be used
-        """
-        try:
-            self.conn = ssh.SSH.from_node(self.node)
-            self.conn.wait(timeout=self.timeout)
-        except SSHError as error:
-            LOG.info("connect failed to %s, due to %s", self.node["ip"], error)
-        # self.conn defaults to None
-        return self.conn
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if self.conn:
-            self.conn.close()
-
-
-def find_relative_file(path, task_path):
-    """
-    Find file in one of places: in abs of path or
-    relative to TC scenario file. In this order.
-
-    :param path:
-    :param task_path:
-    :return str: full path to file
-    """
-    # fixme: create schema to validate all fields have been provided
-    for lookup in [os.path.abspath(path), os.path.join(task_path, path)]:
-        try:
-            with open(lookup):
-                return lookup
-        except IOError:
-            pass
-    raise IOError(errno.ENOENT, 'Unable to find {} file'.format(path))
-
-
-def open_relative_file(path, task_path):
-    try:
-        return open(path)
-    except IOError as e:
-        if e.errno == errno.ENOENT:
-            return open(os.path.join(task_path, path))
-        raise
 
 
 class NetworkServiceTestCase(base.Scenario):
@@ -140,6 +66,7 @@ class NetworkServiceTestCase(base.Scenario):
         self.collector = None
         self.traffic_profile = None
         self.node_netdevs = {}
+        self.bin_path = get_nsb_option('bin_path', '')
 
     def _get_ip_flow_range(self, ip_start_range):
 
@@ -226,16 +153,10 @@ class NetworkServiceTestCase(base.Scenario):
                      for vnfd in self.topology["constituent-vnfd"]
                      if vnf_id == vnfd["member-vnf-index"]), None)
 
-    @staticmethod
-    def get_vld_networks(networks):
-        # network name is vld_id
-        vld_map = {}
-        for name, n in networks.items():
-            try:
-                vld_map[n['vld_id']] = n
-            except KeyError:
-                vld_map[name] = n
-        return vld_map
+    def _find_vnfd_from_vnf_idx(self, vnf_id):
+        return next((vnfd
+                     for vnfd in self.topology["constituent-vnfd"]
+                     if vnf_id == vnfd["member-vnf-index"]), None)
 
     @staticmethod
     def find_node_if(nodes, name, if_name, vld_id):
@@ -287,7 +208,9 @@ class NetworkServiceTestCase(base.Scenario):
                 node1_if["peer_ifname"] = node0_if_name
 
                 # just load the network
-                vld_networks = self.get_vld_networks(self.context_cfg["networks"])
+                vld_networks = {n.get('vld_id', name): n for name, n in
+                                self.context_cfg["networks"].items()}
+
                 node0_if["network"] = vld_networks.get(vld["id"], {})
                 node1_if["network"] = vld_networks.get(vld["id"], {})
 
@@ -326,53 +249,12 @@ class NetworkServiceTestCase(base.Scenario):
             node0_if["peer_intf"] = node1_copy
             node1_if["peer_intf"] = node0_copy
 
-    def _find_vnfd_from_vnf_idx(self, vnf_idx):
-        return next((vnfd for vnfd in self.topology["constituent-vnfd"]
-                     if vnf_idx == vnfd["member-vnf-index"]), None)
-
     def _update_context_with_topology(self):
         for vnfd in self.topology["constituent-vnfd"]:
             vnf_idx = vnfd["member-vnf-index"]
             vnf_name = self._find_vnf_name_from_id(vnf_idx)
             vnfd = self._find_vnfd_from_vnf_idx(vnf_idx)
             self.context_cfg["nodes"][vnf_name].update(vnfd)
-
-    def _probe_netdevs(self, node, node_dict, timeout=120):
-        try:
-            return self.node_netdevs[node]
-        except KeyError:
-            pass
-
-        netdevs = {}
-        cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
-
-        with SshManager(node_dict, timeout=timeout) as conn:
-            if conn:
-                exit_status = conn.execute(cmd)[0]
-                if exit_status != 0:
-                    raise IncorrectSetup("Node's %s lacks ip tool." % node)
-                exit_status, stdout, _ = conn.execute(
-                    self.FIND_NETDEVICE_STRING)
-                if exit_status != 0:
-                    raise IncorrectSetup(
-                        "Cannot find netdev info in sysfs" % node)
-                netdevs = node_dict['netdevs'] = self.parse_netdev_info(stdout)
-
-        self.node_netdevs[node] = netdevs
-        return netdevs
-
-    @classmethod
-    def _probe_missing_values(cls, netdevs, network):
-
-        mac_lower = network['local_mac'].lower()
-        for netdev in netdevs.values():
-            if netdev['address'].lower() != mac_lower:
-                continue
-            network.update({
-                'driver': netdev['driver'],
-                'vpci': netdev['pci_bus_id'],
-                'ifindex': netdev['ifindex'],
-            })
 
     def _generate_pod_yaml(self):
         context_yaml = os.path.join(LOG_DIR, "pod-{}.yaml".format(self.scenario_cfg['task_id']))
@@ -399,9 +281,6 @@ class NetworkServiceTestCase(base.Scenario):
             pass
         return new_node
 
-    TOPOLOGY_REQUIRED_KEYS = frozenset({
-        "vpci", "local_ip", "netmask", "local_mac", "driver"})
-
     def map_topology_to_infrastructure(self):
         """ This method should verify if the available resources defined in pod.yaml
         match the topology.yaml file.
@@ -413,67 +292,14 @@ class NetworkServiceTestCase(base.Scenario):
         # of instances
         timeout = 120 * num_nodes
         for node, node_dict in self.context_cfg["nodes"].items():
-
-            for network in node_dict["interfaces"].values():
-                missing = self.TOPOLOGY_REQUIRED_KEYS.difference(network)
-                if not missing:
-                    continue
-
-                # only ssh probe if there are missing values
-                # ssh probe won't work on Ixia, so we had better define all our values
-                try:
-                    netdevs = self._probe_netdevs(node, node_dict, timeout=timeout)
-                except (SSHError, SSHTimeout):
-                    raise IncorrectConfig(
-                        "Unable to probe missing interface fields '%s', on node %s "
-                        "SSH Error" % (', '.join(missing), node))
-                try:
-                    self._probe_missing_values(netdevs, network)
-                except KeyError:
-                    pass
-                else:
-                    missing = self.TOPOLOGY_REQUIRED_KEYS.difference(
-                        network)
-                if missing:
-                    raise IncorrectConfig(
-                        "Require interface fields '%s' not found, topology file "
-                        "corrupted" % ', '.join(missing))
+            dpdk_node = DpdkNode(node, node_dict, timeout)
+            dpdk_node.check()
 
         # we have to generate pod.yaml here so we have vpci and driver
         self._generate_pod_yaml()
         # 3. Use topology file to find connections & resolve dest address
         self._resolve_topology()
         self._update_context_with_topology()
-
-    FIND_NETDEVICE_STRING = r"""find /sys/devices/pci* -type d -name net -exec sh -c '{ grep -sH ^ \
-$1/ifindex $1/address $1/operstate $1/device/vendor $1/device/device \
-$1/device/subsystem_vendor $1/device/subsystem_device ; \
-printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
-' sh  \{\}/* \;
-"""
-    BASE_ADAPTER_RE = re.compile(
-        '^/sys/devices/(.*)/net/([^/]*)/([^:]*):(.*)$', re.M)
-
-    @classmethod
-    def parse_netdev_info(cls, stdout):
-        network_devices = defaultdict(dict)
-        matches = cls.BASE_ADAPTER_RE.findall(stdout)
-        for bus_path, interface_name, name, value in matches:
-            dirname, bus_id = os.path.split(bus_path)
-            if 'virtio' in bus_id:
-                # for some stupid reason VMs include virtio1/
-                # in PCI device path
-                bus_id = os.path.basename(dirname)
-            # remove extra 'device/' from 'device/vendor,
-            # device/subsystem_vendor', etc.
-            if 'device/' in name:
-                name = name.split('/')[1]
-            network_devices[interface_name][name] = value
-            network_devices[interface_name][
-                'interface_name'] = interface_name
-            network_devices[interface_name]['pci_bus_id'] = bus_id
-        # convert back to regular dict
-        return dict(network_devices)
 
     @classmethod
     def get_vnf_impl(cls, vnf_model_id):
@@ -541,7 +367,7 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
             context_cfg = self.context_cfg
 
         vnfs = []
-        # we assume OrderedDict for consistenct in instantiation
+        # we assume OrderedDict for consistency in instantiation
         for node_name, node in context_cfg["nodes"].items():
             LOG.debug(node)
             try:
