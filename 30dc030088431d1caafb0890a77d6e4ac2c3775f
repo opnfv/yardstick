@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_2cb4a3f0",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-04T21:46:46Z",
+      "side": 1,
+      "message": "this won\u0027t work, this will nuke the mgmt interface.",
+      "revId": "30dc030088431d1caafb0890a77d6e4ac2c3775f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
