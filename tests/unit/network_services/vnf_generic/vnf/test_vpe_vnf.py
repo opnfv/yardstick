@@ -654,7 +654,7 @@ class TestVpeApproxVnf(unittest.TestCase):
     def test_build_config(self, mock_mul, mock_context, mock_config, mock_open, ssh, _):
         mock_ssh(ssh)
         vpe_approx_vnf = VpeApproxSetupEnvHelper(mock.MagicMock(),
-                                                 mock.MagicMock, mock.MagicMock)
+                                                 mock.MagicMock(), mock.MagicMock())
         vpe_approx_vnf.tc_file_name = get_file_abspath(TEST_FILE_YAML)
         vpe_approx_vnf.generate_port_pairs = mock.Mock()
         vpe_approx_vnf.vnf_cfg = {
