@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "da33351e_4e892074",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-04T05:43:13Z",
+      "side": 1,
+      "message": "run lspci -k here, and then try probe_netdevs?\n\nhow do we get PCI address/",
+      "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6e84e45d",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-04T05:43:13Z",
+      "side": 1,
+      "message": "we get vpci from here.",
+      "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_ce3890d5",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 11
@@ -66,6 +100,24 @@
       "side": 1,
       "message": "probe_netdevs will not work if nic is already bind to dpdk or vifio",
       "parentUuid": "da33351e_2e32dcf1",
+      "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ae7a6c74",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-04T05:43:13Z",
+      "side": 1,
+      "message": "yes, I\u0027m saying move this logic into the function before probe netdevs.\n\nwait, how do we get the PCI address if the device is unbound?\n\nwe get vpci from probe_netdevs.",
+      "parentUuid": "da33351e_6e9d04bc",
       "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
