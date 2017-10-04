@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_2983f5cc",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-04T18:36:37Z",
+      "side": 1,
+      "message": "why are we making an entirely new list of entirely new dictionaries, if they have a \u0027pkey\u0027 key?\n\nthe one place that uses this method passes in its copy of the list and discards that value for the result of this method, so this method may as well update in place without all the duplication.  while i was wrong that this method \"doesn\u0027t mutate\", it doesn\u0027t *need* to mutate, that is something it\u0027s users could need, but the one current user *doesn\u0027t* need it.\n\nif we think this duplicating will be used somewhere else, then i would want its name changed to something that reflects the fact that it is making a \"nearly\" separate data structure for these strings.  Nearly because any node that doesn\u0027t have a \u0027pkey\u0027 value will appear in both lists.\n\n(if this we done as an interpolation, then no mutating would be needed, but the try-except blocks are hard to do within interpolations.)\n\n @staticmethod\n def make_node_with_string_pkey(node):\n   try:\n     return dict(node, pkey\u003dssh.convert_key_to_str(node[\u0027pkey\u0027]))\n   except KeyError:\n     return node\n\n @classmethod\n def make_nodes_with_string_pkeys(cls, nodes):\n  return [cls._make_node_with_string_pkey(node) for node in nodes]\n\n @staticmethod\n def convert_pkeys_to_string(nodes):\n   for node in nodes:\n     try:\n       node[\u0027pkey\u0027] \u003d ssh.convert_key_to_str(node[\u0027pkey\u0027])\n     except KeyError:\n       pass\n   # intentionally return None, as {}.update and [].extend do\n\n* no mutating\n* no enumeration\n* make_nodes_with_string_pkeys is identical behavior, though i fail to see why new copies of the nodes are necessary\n* convert_pkeys_to_string is sufficient for the current user\u0027s need\n* more descriptive method name\n* non-protected method names",
+      "parentUuid": "da33351e_4ea2c0fd",
+      "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_2e32dcf1",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 11
@@ -154,6 +172,24 @@
       "side": 1,
       "message": "I would like to keep it this way because, we execute this only if driver is not populated other wise this function will be ignored.",
       "parentUuid": "da33351e_ae56eccb",
+      "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_496bd91d",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-04T18:36:37Z",
+      "side": 1,
+      "message": "i agree about the SshManager, it is useless and needs to be removed.  i don\u0027t feel strongly about when it happens.",
+      "parentUuid": "da33351e_ae0d4cea",
       "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
