@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_6e4fc46b",
+        "filename": "samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-04T05:06:20Z",
+      "side": 1,
+      "message": "count from 0 always.",
+      "revId": "19234650e2e76d893b6eba9684461a6d8b359316",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ae554cfb",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-04T05:06:20Z",
+      "side": 1,
+      "message": "rename to ovs_deploy.sh\n\nfix shellcheck errors\n\n\n    ovs_deploy.sh:18:1: warning: Use cd ... || exit in case cd fails. [SC2164]\n    ovs_deploy.sh:41:7: error: Don\u0027t put spaces around the \u003d in assignments. [SC1068]\n    ovs_deploy.sh:42:17: error: Don\u0027t put spaces around the \u003d in assignments. [SC1068]\n    ovs_deploy.sh:47:8: note: Double quote to prevent globbing and word splitting. [SC2086]\n    ovs_deploy.sh:48:13: note: Double quote to prevent globbing and word splitting. [SC2086]\n    ovs_deploy.sh:49:10: note: Double quote to prevent globbing and word splitting. [SC2086]\n    ovs_deploy.sh:51:11: note: Double quote to prevent globbing and word splitting. [SC2086]\n    ovs_deploy.sh:61:12: note: Double quote to prevent globbing and word splitting. [SC2086]\n    ovs_deploy.sh:64:5: warning: Use cd ... || exit in case cd fails. [SC2164]\n    ovs_deploy.sh:64:20: note: Double quote to prevent globbing and word splitting. [SC2086]\n    ovs_deploy.sh:74:23: note: Double quote to prevent globbing and word splitting. [SC2086]\n    ovs_deploy.sh:77:5: warning: Use cd ... || exit in case cd fails. [SC2164]\n    ovs_deploy.sh:77:20: note: Double quote to prevent globbing and word splitting. [SC2086]\n    ovs_deploy.sh:81:31: note: Double quote to prevent globbing and word splitting. [SC2086]\n    ovs_deploy.sh:118:7: warning: INTERACTIVE appears unused. Verify it or export it. [SC2034]",
+      "revId": "19234650e2e76d893b6eba9684461a6d8b359316",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ee42b43c",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-04T05:06:20Z",
+      "side": 1,
+      "message": "this is invalid bash syntax, spaces aren\u0027t allowed in assignment.",
+      "revId": "19234650e2e76d893b6eba9684461a6d8b359316",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
