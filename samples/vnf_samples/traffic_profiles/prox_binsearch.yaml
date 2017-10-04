@@ -22,7 +22,7 @@ traffic_profile:
   tolerated_loss: 0.001
   test_precision: 0.1
 #  packet_sizes: [64, 128, 256, 512, 1024, 1280, 1518]
-  packet_sizes: [64, 65]
+  packet_sizes: [64]
   duration: 10
   lower_bound: 0.0
   upper_bound: 100.0

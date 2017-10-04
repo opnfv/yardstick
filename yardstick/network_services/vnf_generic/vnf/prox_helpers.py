@@ -1267,23 +1267,26 @@ class ProxBngProfileHelper(ProxProfileHelper):
                 continue
 
             for item_key, item_value in section:
-                if item_key == "name" and item_value.startswith("cpe"):
-                    core_tuple = CoreSocketTuple(section_name)
-                    core_tag = core_tuple.find_in_topology(self.cpu_topology)
-                    cpe_cores.append(core_tag)
+                if item_key != 'name':
+                    continue
 
-                elif item_key == "name" and item_value.startswith("inet"):
+                if item_value.startswith("cpe"):
+                    core_tuple = CoreSocketTuple(section_name)
+                    cpe_core = core_tuple.find_in_topology(self.cpu_topology)
+                    cpe_cores.append(cpe_core)
+
+                elif item_value.startswith("inet"):
                     core_tuple = CoreSocketTuple(section_name)
                     inet_core = core_tuple.find_in_topology(self.cpu_topology)
                     inet_cores.append(inet_core)
 
-                elif item_key == "name" and item_value.startswith("arp"):
+                elif item_value.startswith("arp"):
                     core_tuple = CoreSocketTuple(section_name)
                     arp_core = core_tuple.find_in_topology(self.cpu_topology)
                     arp_cores.append(arp_core)
 
                 # We check the tasks/core separately
-                if item_key == "name" and item_value.startswith("arp_task"):
+                if item_value.startswith("arp_task"):
                     core_tuple = CoreSocketTuple(section_name)
                     arp_task_core = core_tuple.find_in_topology(self.cpu_topology)
                     arp_tasks_core.append(arp_task_core)
