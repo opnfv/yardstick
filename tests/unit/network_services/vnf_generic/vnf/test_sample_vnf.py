@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright (c) 2017 Intel Corporation
+# Copyright (c) 2017-2018 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ stl_patch.start()
 
 if stl_patch:
     from yardstick.network_services.vnf_generic.vnf import sample_vnf
-    from yardstick.network_services.vnf_generic.vnf.sample_vnf import VnfSshHelper
+    from yardstick.network_services.vnf_generic.vnf.vnf_ssh_helper import VnfSshHelper
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFDeployHelper
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import ScenarioHelper
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import ResourceHelper
@@ -601,7 +601,9 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         ssh_helper = mock.Mock()
         ssh_helper.execute = execute
 
-        dpdk_vnf_setup_env_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, mock.Mock())
+        scenario_helper = mock.Mock()
+        scenario_helper.nodes = [None, None]
+        dpdk_vnf_setup_env_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         dpdk_vnf_setup_env_helper._validate_cpu_cfg = mock.Mock(return_value=[])
 
         with mock.patch.object(dpdk_vnf_setup_env_helper, '_setup_dpdk'):
@@ -617,21 +619,6 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         with mock.patch.object(dpdk_setup_helper, '_setup_hugepages') as \
                 mock_setup_hp:
             dpdk_setup_helper._setup_dpdk()
-        mock_setup_hp.assert_called_once()
-        ssh_helper.execute.assert_has_calls([
-            mock.call('sudo modprobe uio && sudo modprobe igb_uio'),
-            mock.call('lsmod | grep -i igb_uio')
-        ])
-
-    def test__setup_dpdk_igb_uio_not_loaded(self):
-        ssh_helper = mock.Mock()
-        ssh_helper.execute = mock.Mock()
-        ssh_helper.execute.side_effect = [(0, 0, 0), (1, 0, 0)]
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(mock.ANY, ssh_helper, mock.ANY)
-        with mock.patch.object(dpdk_setup_helper, '_setup_hugepages') as \
-                mock_setup_hp:
-            with self.assertRaises(y_exceptions.DPDKSetupDriverError):
-                dpdk_setup_helper._setup_dpdk()
         mock_setup_hp.assert_called_once()
         ssh_helper.execute.assert_has_calls([
             mock.call('sudo modprobe uio && sudo modprobe igb_uio'),
@@ -675,6 +662,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         # ssh_helper.execute = mock.Mock(return_value = (0, 'text', ''))
         # ssh_helper.execute.return_value = 0, 'output', ''
         scenario_helper = mock.Mock()
+        scenario_helper.nodes = [None, None]
         rv = ['0000:05:00.1', '0000:05:00.0']
 
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
@@ -693,6 +681,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
+        scenario_helper.nodes = [None, None]
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         dpdk_setup_helper.dpdk_bind_helper.bind = mock.Mock()
         dpdk_setup_helper.dpdk_bind_helper.used_drivers = {
@@ -1371,7 +1360,7 @@ class TestSampleVNFDeployHelper(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
     @mock.patch('subprocess.check_output')
-    def test_deploy_vnfs_disabled(self, *args):
+    def test_deploy_vnfs_disabled(self, *_):
         vnfd_helper = mock.Mock()
         ssh_helper = mock.Mock()
         ssh_helper.join_bin_path.return_value = 'joined_path'
