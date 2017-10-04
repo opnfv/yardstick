@@ -168,7 +168,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         self.bound_pci = None
         self.socket = None
         self.used_drivers = None
-        self.dpdk_bind_helper = DpdkBindHelper(ssh_helper)
+        self.dpdk_bind_helper = DpdkBindHelper(ssh_helper, ssh_helper.bin_path)
 
     def _setup_hugepages(self):
         cmd = "awk '/Hugepagesize/ { print $2$3 }' < /proc/meminfo"
@@ -304,9 +304,9 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         """ setup dpdk environment needed for vnf to run """
 
         self._setup_hugepages()
-        self.ssh_helper.execute("sudo modprobe uio && sudo modprobe igb_uio")
+        self.dpdk_bind_helper.load_dpdk_driver()
 
-        exit_status = self.ssh_helper.execute("lsmod | grep -i igb_uio")[0]
+        exit_status = self.dpdk_bind_helper.check_dpdk_driver()
         if exit_status == 0:
             return
 
