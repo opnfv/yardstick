@@ -41,7 +41,7 @@ stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
 
 if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.sample_vnf import VnfSshHelper
+    from yardstick.network_services.vnf_generic.vnf.vnf_ssh_helper import VnfSshHelper
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFDeployHelper
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import ScenarioHelper
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import ResourceHelper

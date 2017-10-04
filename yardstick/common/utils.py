@@ -93,6 +93,49 @@ def import_modules_from_package(package):
                 logger.exception("unable to import %s", module_name)
 
 
+NON_NONE_DEFAULT = object()
+
+
+def get_key_with_default(data, key, default):
+    value = data.get(key, default)
+    if value is NON_NONE_DEFAULT:
+        raise KeyError(key)
+    return value
+
+
+def make_dict_from_map(data, key_map):
+    return {dest_key: get_key_with_default(data, src_key, default)
+            for dest_key, (src_key, default) in key_map.items()}
+
+
+def find_relative_file(path, task_path):
+    """
+    Find file in one of places: in abs of path or
+    relative to TC scenario file. In this order.
+
+    :param path:
+    :param task_path:
+    :return str: full path to file
+    """
+    # fixme: create schema to validate all fields have been provided
+    for lookup in [os.path.abspath(path), os.path.join(task_path, path)]:
+        try:
+            with open(lookup):
+                return lookup
+        except IOError:
+            pass
+    raise IOError(errno.ENOENT, 'Unable to find {} file'.format(path))
+
+
+def open_relative_file(path, task_path):
+    try:
+        return open(path)
+    except IOError as e:
+        if e.errno == errno.ENOENT:
+            return open(os.path.join(task_path, path))
+        raise
+
+
 def makedirs(d):
     try:
         os.makedirs(d)
@@ -363,16 +406,6 @@ def join_non_strings(separator, *non_strings):
     except (IndexError, RuntimeError):
         pass
     return str(separator).join(str(non_string) for non_string in non_strings)
-
-
-class ErrorClass(object):
-
-    def __init__(self, *args, **kwargs):
-        if 'test' not in kwargs:
-            raise RuntimeError
-
-    def __getattr__(self, item):
-        raise AttributeError
 
 
 class Timer(object):
