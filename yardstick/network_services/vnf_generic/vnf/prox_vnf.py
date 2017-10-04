@@ -19,7 +19,8 @@ import logging
 from yardstick.common.process import check_if_process_failed
 from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxDpdkVnfSetupEnvHelper
 from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxResourceHelper
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF, PROCESS_JOIN_TIMEOUT
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF
+from yardstick.network_services.constants import PROCESS_JOIN_TIMEOUT
 
 LOG = logging.getLogger(__name__)
 
