@@ -139,6 +139,24 @@
       "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ae0d4cea",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-10-04T06:05:11Z",
+      "side": 1,
+      "message": "I would like to keep it this way because, we execute this only if driver is not populated other wise this function will be ignored.",
+      "parentUuid": "da33351e_ae56eccb",
+      "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
