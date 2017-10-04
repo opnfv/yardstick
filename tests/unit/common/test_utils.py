@@ -22,6 +22,7 @@ import mock
 from six.moves import configparser
 
 import yardstick
+import yardstick.error
 from yardstick.common import utils
 from yardstick.common import constants
 
@@ -932,9 +933,9 @@ class TestUtils(unittest.TestCase):
 
     def test_error_class(self):
         with self.assertRaises(RuntimeError):
-            utils.ErrorClass()
+            yardstick.error.ErrorClass()
 
-        error_instance = utils.ErrorClass(test='')
+        error_instance = yardstick.error.ErrorClass(test='')
         with self.assertRaises(AttributeError):
             error_instance.get_name()
 

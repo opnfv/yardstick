@@ -508,13 +508,12 @@ class SSHRunTestCase(unittest.TestCase):
 
 class TestAutoConnectSSH(unittest.TestCase):
 
-    def test__connect_with_wait(self):
-        auto_connect_ssh = AutoConnectSSH('user1', 'host1', wait=True)
+    def test__connect_loop(self):
+        auto_connect_ssh = AutoConnectSSH('user1', 'host1', wait=0)
         auto_connect_ssh._get_client = mock.Mock()
-        auto_connect_ssh.wait = mock_wait = mock.Mock()
 
         auto_connect_ssh._connect()
-        self.assertEqual(mock_wait.call_count, 1)
+        self.assertEqual(auto_connect_ssh._get_client.call_count, 1)
 
     def test__make_dict(self):
         auto_connect_ssh = AutoConnectSSH('user1', 'host1')
@@ -527,7 +526,7 @@ class TestAutoConnectSSH(unittest.TestCase):
             'key_filename': None,
             'password': None,
             'name': None,
-            'wait': True,
+            'wait': AutoConnectSSH.DEFAULT_WAIT_TIMEOUT,
         }
         result = auto_connect_ssh._make_dict()
         self.assertDictEqual(result, expected)
