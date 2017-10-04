@@ -16,6 +16,12 @@
 
 import mock
 import unittest
+
+from yardstick.error import IncorrectConfig, SSHError
+from yardstick.error import IncorrectNodeSetup
+from yardstick.error import IncorrectSetup
+from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkInterface
+from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkNode
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelperException
 from yardstick.network_services.helpers.dpdkbindnic_helper import NETWORK_KERNEL
@@ -28,7 +34,247 @@ from yardstick.network_services.helpers.dpdkbindnic_helper import CRYPTO_OTHER
 pass
 
 
+class TestDpdkInterface(unittest.TestCase):
+
+    SAMPLE_NETDEVS = {
+        'enp11s0': {
+            'address': '0a:de:ad:be:ef:f5',
+            'device': '0x1533',
+            'driver': 'igb',
+            'ifindex': '2',
+            'interface_name': 'enp11s0',
+            'operstate': 'down',
+            'pci_bus_id': '0000:0b:00.0',
+            'subsystem_device': '0x1533',
+            'subsystem_vendor': '0x15d9',
+            'vendor': '0x8086'
+        },
+        'lan': {
+            'address': '0a:de:ad:be:ef:f4',
+            'device': '0x153a',
+            'driver': 'e1000e',
+            'ifindex': '3',
+            'interface_name': 'lan',
+            'operstate': 'up',
+            'pci_bus_id': '0000:00:19.0',
+            'subsystem_device': '0x153a',
+            'subsystem_vendor': '0x15d9',
+            'vendor': '0x8086'
+        }
+    }
+
+    SAMPLE_VM_NETDEVS = {
+        'eth1': {
+            'address': 'fa:de:ad:be:ef:5b',
+            'device': '0x0001',
+            'driver': 'virtio_net',
+            'ifindex': '3',
+            'interface_name': 'eth1',
+            'operstate': 'down',
+            'pci_bus_id': '0000:00:04.0',
+            'vendor': '0x1af4'
+        }
+    }
+
+    def test_parse_netdev_info(self):
+        output = """\
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/ifindex:2
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/address:0a:de:ad:be:ef:f5
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/operstate:down
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/device/vendor:0x8086
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/device/device:0x1533
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/device/subsystem_vendor:0x15d9
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/device/subsystem_device:0x1533
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/driver:igb
+/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/pci_bus_id:0000:0b:00.0
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/ifindex:3
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/address:0a:de:ad:be:ef:f4
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/operstate:up
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/device/vendor:0x8086
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/device/device:0x153a
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/device/subsystem_vendor:0x15d9
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/device/subsystem_device:0x153a
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/driver:e1000e
+/sys/devices/pci0000:00/0000:00:19.0/net/lan/pci_bus_id:0000:00:19.0
+"""
+        res = DpdkBindHelper.parse_netdev_info(output)
+        self.assertDictEqual(res, self.SAMPLE_NETDEVS)
+
+    def test_parse_netdev_info_virtio(self):
+        output = """\
+/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/ifindex:3
+/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/address:fa:de:ad:be:ef:5b
+/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/operstate:down
+/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/device/vendor:0x1af4
+/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/device/device:0x0001
+/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/driver:virtio_net
+"""
+        res = DpdkBindHelper.parse_netdev_info(output)
+        self.assertDictEqual(res, self.SAMPLE_VM_NETDEVS)
+
+    def test_probe_missing_values(self):
+        mock_dpdk_node = mock.Mock()
+        mock_dpdk_node.netdevs = self.SAMPLE_NETDEVS.copy()
+
+        interface = {'local_mac': '0a:de:ad:be:ef:f5'}
+        dpdk_intf = DpdkInterface(mock_dpdk_node, interface)
+
+        dpdk_intf.probe_missing_values()
+        self.assertEqual(interface['vpci'], '0000:0b:00.0')
+
+        interface['local_mac'] = '0a:de:ad:be:ef:f4'
+        dpdk_intf.probe_missing_values()
+        self.assertEqual(interface['vpci'], '0000:00:19.0')
+
+    def test_probe_missing_values_no_update(self):
+        mock_dpdk_node = mock.Mock()
+        mock_dpdk_node.netdevs = self.SAMPLE_NETDEVS.copy()
+        del mock_dpdk_node.netdevs['enp11s0']['ifindex']
+        del mock_dpdk_node.netdevs['lan']['ifindex']
+
+        interface = {'local_mac': '0a:de:ad:be:ef:f5'}
+        dpdk_intf = DpdkInterface(mock_dpdk_node, interface)
+
+        dpdk_intf.probe_missing_values()
+        self.assertNotIn('vpci', interface)
+        self.assertNotIn('driver', interface)
+        self.assertNotIn('ifindex', interface)
+
+    def test_probe_missing_values_negative(self):
+        mock_dpdk_node = mock.Mock()
+        mock_dpdk_node.netdevs.values.side_effect = IncorrectNodeSetup
+
+        interface = {'local_mac': '0a:de:ad:be:ef:f5'}
+        dpdk_intf = DpdkInterface(mock_dpdk_node, interface)
+
+        with self.assertRaises(IncorrectConfig):
+            dpdk_intf.probe_missing_values()
+
+    def test_check(self):
+        def update():
+            interface.update({'vpci': 34, 'driver': 93, 'ifindex': 55})
+
+        mock_dpdk_node = mock.Mock()
+        mock_dpdk_node.netdevs = self.SAMPLE_NETDEVS.copy()
+        mock_dpdk_node.probe_devices = update
+
+        interface = {
+            'local_mac': '0a:de:ad:be:ef:f5',
+            'netmask': '255.255.0.0',
+            'local_ip': '10.20.30.40',
+        }
+        dpdk_intf = DpdkInterface(mock_dpdk_node, interface)
+
+        dpdk_intf.check()
+
+    def test_check_negative(self):
+        mock_dpdk_node = mock.Mock()
+        mock_dpdk_node.netdevs = self.SAMPLE_NETDEVS.copy()
+
+        interface = {'local_mac': '0a:de:ad:be:ef:f5'}
+        dpdk_intf = DpdkInterface(mock_dpdk_node, interface)
+
+        with self.assertRaises(IncorrectSetup):
+            dpdk_intf.check()
+
+
+class TestDpdkNode(unittest.TestCase):
+
+    @mock.patch('yardstick.network_services.helpers.dpdkbindnic_helper.DpdkInterface')
+    def test_check(self, *_):
+        mock_ssh_helper = mock.Mock()
+        mock_ssh_helper.execute.return_value = 0, '', ''
+
+        dpdk_node = DpdkNode('key', {'interfaces': {'if1': {'local_mac': 404}}})
+        dpdk_node._ssh_helper = mock_ssh_helper
+
+        self.assertIsNone(dpdk_node.check())
+        self.assertEqual(mock_ssh_helper.close.call_count, 1)
+        self.assertIsNone(dpdk_node._ssh_helper)
+
+    @mock.patch('yardstick.network_services.helpers.dpdkbindnic_helper.DpdkInterface')
+    def test_check_negative(self, mock_intf_type):
+        mock_ssh_helper = mock.Mock()
+        mock_ssh_helper.execute.return_value = 0, '', ''
+
+        mock_intf_type().check.side_effect = SSHError
+
+        dpdk_node = DpdkNode('key', {'interfaces': {'if1': {'local_mac': 404}}})
+        dpdk_node._ssh_helper = mock_ssh_helper
+
+        self.assertIsNone(dpdk_node.check())
+        self.assertEqual(mock_ssh_helper.close.call_count, 1)
+        self.assertIsNone(dpdk_node._ssh_helper)
+
+    def test_netdevs(self):
+        def update(*_):
+            dpdk_node._netdevs = 500
+
+        mock_ssh_helper = mock.Mock()
+        mock_ssh_helper.execute.return_value = 0, '', ''
+
+        dpdk_node = DpdkNode('key', {})
+        dpdk_node._ssh_helper = mock_ssh_helper
+        dpdk_node.probe_netdevs = update
+
+        self.assertEqual(dpdk_node.netdevs, 500)
+
+    @mock.patch('yardstick.network_services.helpers.dpdkbindnic_helper.VnfSshHelper')
+    def test_probe_devices(self, mock_ssh):
+        mock_instance = mock_ssh.from_node()
+        mock_instance.execute.return_value = 0, '', ''
+
+        dpdk_node = DpdkNode('key', {})
+
+        self.assertIsNotNone(dpdk_node.probe_devices())
+
+    def test_probe_devices_ssh_negative(self):
+        mock_ssh_helper = mock.Mock()
+        mock_ssh_helper.execute.return_value = 1, '', ''
+
+        dpdk_node = DpdkNode('key', {})
+        dpdk_node._ssh_helper = mock_ssh_helper
+
+        with self.assertRaises(IncorrectNodeSetup):
+            dpdk_node.probe_devices()
+
+    def test_probe_devices_setup_negative(self):
+        mock_ssh_helper = mock.Mock()
+        mock_ssh_helper.execute.return_value = 0, '', ''
+
+        dpdk_node = DpdkNode('key', {})
+        dpdk_node._ssh_helper = mock_ssh_helper
+        dpdk_node.probe_netdevs = mock.Mock(side_effect=[IncorrectSetup, {}])
+
+        self.assertEqual(dpdk_node.probe_devices(), {})
+
+    def test_probe_netdevs_setup_negative(self):
+        mock_ssh_helper = mock.Mock()
+        mock_ssh_helper.execute.return_value = 0, '', ''
+
+        dpdk_node = DpdkNode('key', {})
+        dpdk_node._ssh_helper = mock_ssh_helper
+        dpdk_helper = dpdk_node.dpdk_helper
+        dpdk_helper.find_net_devices = mock.Mock(side_effect=DpdkBindHelperException)
+
+        with self.assertRaises(IncorrectSetup):
+            dpdk_node.probe_netdevs()
+
+    def test_force_rebind(self):
+        mock_ssh_helper = mock.Mock()
+        mock_ssh_helper.execute.return_value = 0, '', ''
+
+        dpdk_node = DpdkNode('key', {})
+        dpdk_node._ssh_helper = mock_ssh_helper
+        dpdk_helper = dpdk_node.dpdk_helper
+        dpdk_helper.force_dpdk_rebind = mock_helper_func = mock.Mock()
+
+        dpdk_node.force_rebind()
+        self.assertEqual(mock_helper_func.call_count, 1)
+
+
 class TestDpdkBindHelper(unittest.TestCase):
+    bin_path = "/opt/nsb_bin"
     EXAMPLE_OUTPUT = """
 
 Network devices using DPDK-compatible driver
@@ -114,7 +360,7 @@ Other crypto devices
         conn = mock.Mock()
         conn.provision_tool = mock.Mock(return_value='path_to_tool')
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
 
         self.assertEquals(conn, dpdk_bind_helper.ssh_helper)
         self.assertEquals(self.CLEAN_STATUS, dpdk_bind_helper.dpdk_status)
@@ -126,23 +372,23 @@ Other crypto devices
         conn = mock.Mock()
         conn.execute = mock.Mock(return_value=(0, 'output', 'error'))
         conn.provision_tool = mock.Mock(return_value='tool_path')
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
         self.assertEquals((0, 'output', 'error'), dpdk_bind_helper._dpdk_execute('command'))
 
     def test__dpdk_execute_failure(self):
         conn = mock.Mock()
         conn.execute = mock.Mock(return_value=(1, 'output', 'error'))
         conn.provision_tool = mock.Mock(return_value='tool_path')
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
         with self.assertRaises(DpdkBindHelperException):
             dpdk_bind_helper._dpdk_execute('command')
 
     def test__addline(self):
         conn = mock.Mock()
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
 
-        dpdk_bind_helper._addline(NETWORK_KERNEL, self.ONE_INPUT_LINE)
+        dpdk_bind_helper._add_line(NETWORK_KERNEL, self.ONE_INPUT_LINE)
 
         self.assertIsNotNone(dpdk_bind_helper.dpdk_status)
         self.assertEquals(self.ONE_INPUT_LINE_PARSED, dpdk_bind_helper.dpdk_status[NETWORK_KERNEL])
@@ -160,26 +406,51 @@ Other crypto devices
     def test_parse_dpdk_status_output(self):
         conn = mock.Mock()
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
 
         dpdk_bind_helper.parse_dpdk_status_output(self.EXAMPLE_OUTPUT)
 
         self.maxDiff = None
         self.assertEquals(self.PARSED_EXAMPLE, dpdk_bind_helper.dpdk_status)
 
+    def test_kernel_bound_pci_addresses(self):
+        mock_ssh_helper = mock.Mock()
+        mock_ssh_helper.execute.return_value = 0, '', ''
+
+        expected = ['a', 'b', 3]
+
+        dpdk_helper = DpdkBindHelper(mock_ssh_helper, self.bin_path)
+        dpdk_helper.dpdk_status = {
+            NETWORK_DPDK: [{'vpci': 4}, {'vpci': 5}, {'vpci': 'g'}],
+            NETWORK_KERNEL: [{'vpci': 'a'}, {'vpci': 'b'}, {'vpci': 3}],
+            CRYPTO_DPDK: [],
+        }
+
+        result = dpdk_helper.kernel_bound_pci_addresses
+        self.assertEqual(result, expected)
+
+    def test_find_net_devices_negative(self):
+        mock_ssh_helper = mock.Mock()
+        mock_ssh_helper.execute.return_value = 1, 'error', 'debug'
+
+        dpdk_helper = DpdkBindHelper(mock_ssh_helper, self.bin_path)
+
+        with self.assertRaises(DpdkBindHelperException):
+            dpdk_helper.find_net_devices()
+
     def test_read_status(self):
         conn = mock.Mock()
         conn.execute = mock.Mock(return_value=(0, self.EXAMPLE_OUTPUT, ''))
         conn.provision_tool = mock.Mock(return_value='path_to_tool')
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
 
         self.assertEquals(self.PARSED_EXAMPLE, dpdk_bind_helper.read_status())
 
     def test__get_bound_pci_addresses(self):
         conn = mock.Mock()
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
 
         dpdk_bind_helper.parse_dpdk_status_output(self.EXAMPLE_OUTPUT)
 
@@ -191,7 +462,7 @@ Other crypto devices
     def test_interface_driver_map(self):
         conn = mock.Mock()
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
 
         dpdk_bind_helper.parse_dpdk_status_output(self.EXAMPLE_OUTPUT)
 
@@ -206,7 +477,7 @@ Other crypto devices
         conn.execute = mock.Mock(return_value=(0, '', ''))
         conn.provision_tool = mock.Mock(return_value='/opt/nsb_bin/dpdk-devbind.py')
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
         dpdk_bind_helper.read_status = mock.Mock()
 
         dpdk_bind_helper.bind(['0000:00:03.0', '0000:00:04.0'], 'my_driver')
@@ -220,7 +491,7 @@ Other crypto devices
         conn.execute = mock.Mock(return_value=(0, '', ''))
         conn.provision_tool = mock.Mock(return_value='/opt/nsb_bin/dpdk-devbind.py')
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
         dpdk_bind_helper.read_status = mock.Mock()
 
         dpdk_bind_helper.bind('0000:00:03.0', 'my_driver')
@@ -232,7 +503,7 @@ Other crypto devices
     def test_rebind_drivers(self):
         conn = mock.Mock()
 
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
 
         dpdk_bind_helper.bind = mock.Mock()
         dpdk_bind_helper.used_drivers = {
@@ -247,7 +518,7 @@ Other crypto devices
 
     def test_save_used_drivers(self):
         conn = mock.Mock()
-        dpdk_bind_helper = DpdkBindHelper(conn)
+        dpdk_bind_helper = DpdkBindHelper(conn, self.bin_path)
         dpdk_bind_helper.dpdk_status = self.PARSED_EXAMPLE
 
         dpdk_bind_helper.save_used_drivers()
@@ -258,3 +529,75 @@ Other crypto devices
         }
 
         self.assertDictEqual(expected, dpdk_bind_helper.used_drivers)
+
+    def test_force_dpdk_rebind(self):
+        mock_ssh_helper = mock.Mock()
+        mock_ssh_helper.execute.return_value = 0, '', ''
+
+        dpdk_helper = DpdkBindHelper(mock_ssh_helper, self.bin_path, 'driver2')
+        dpdk_helper.used_drivers = {
+            'driver1': [1, 2, 3],
+            'driver2': [
+                'pci1',
+                'pci3',
+                'pci6',
+            ],
+            'driver3': []
+        }
+        dpdk_helper.real_kernel_interface_driver_map = {
+            'pci1': 'real_driver1',
+            'pci2': 'real_driver2',
+            'pci3': 'real_driver1',
+            'pci4': 'real_driver4',
+            'pci6': 'real_driver6',
+        }
+        dpdk_helper.save_used_drivers = mock.Mock()
+        dpdk_helper.get_real_kernel_drivers = mock.Mock()
+        dpdk_helper.bind = mock_bind = mock.Mock()
+
+        dpdk_helper.force_dpdk_rebind()
+        self.assertEqual(mock_bind.call_count, 3)
+
+    def test_save_real_kernel_drivers(self):
+        mock_ssh_helper = mock.Mock()
+        mock_ssh_helper.execute.return_value = 0, '', ''
+
+        dpdk_helper = DpdkBindHelper(mock_ssh_helper, self.bin_path)
+        dpdk_helper.real_kernel_drivers = {
+            'abc': '123',
+        }
+        dpdk_helper.real_kernel_interface_driver_map = {
+            'abc': 'AAA',
+            'def': 'DDD',
+            'abs': 'AAA',
+            'ghi': 'GGG',
+        }
+
+        # save_used_drivers must be called before save_real_kernel_drivers can be
+        with self.assertRaises(AttributeError):
+            dpdk_helper.save_real_kernel_drivers()
+
+        dpdk_helper.save_used_drivers()
+
+        expected_used_drivers = {
+            'AAA': ['abc', 'abs'],
+            'DDD': ['def'],
+            'GGG': ['ghi'],
+        }
+        dpdk_helper.save_real_kernel_drivers()
+        self.assertDictEqual(dpdk_helper.used_drivers, expected_used_drivers)
+        self.assertDictEqual(dpdk_helper.real_kernel_drivers, {})
+
+    def test_get_real_kernel_driver(self):
+        mock_ssh_helper = mock.Mock()
+        mock_ssh_helper.execute.side_effect = [
+            (0, 'non-matching text', ''),
+            (0, 'pre Kernel modules: real_driver1', ''),
+            (0, 'before Ethernet middle Virtio network device after', ''),
+        ]
+
+        dpdk_helper = DpdkBindHelper(mock_ssh_helper, self.bin_path)
+
+        self.assertIsNone(dpdk_helper.get_real_kernel_driver('abc'))
+        self.assertEqual(dpdk_helper.get_real_kernel_driver('abc'), 'real_driver1')
+        self.assertEqual(dpdk_helper.get_real_kernel_driver('abc'), DpdkBindHelper.VIRTIO_DRIVER)
