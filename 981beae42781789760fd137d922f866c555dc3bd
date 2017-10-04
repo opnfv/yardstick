@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_6e76a4a5",
+        "filename": "etc/yardstick/nodes/standalone/pod_sriov.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-04T05:09:16Z",
+      "side": 1,
+      "message": "we don\u0027t use auth_type anymore, we use standard paramiko/openssh auth precedence.   \n\nkeys first, then password.",
+      "revId": "981beae42781789760fd137d922f866c555dc3bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
