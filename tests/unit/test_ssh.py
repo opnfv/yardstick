@@ -527,7 +527,7 @@ class TestAutoConnectSSH(unittest.TestCase):
             'key_filename': None,
             'password': None,
             'name': None,
-            'wait': True,
+            'wait': AutoConnectSSH.DEFAULT_WAIT_TIMEOUT,
         }
         result = auto_connect_ssh._make_dict()
         self.assertDictEqual(result, expected)
