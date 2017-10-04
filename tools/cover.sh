@@ -95,23 +95,33 @@ run_coverage_test() {
 
     # Show coverage details
     new_missing=$((current_missing - baseline_missing))
+    report_diff=$(show_diff ${baseline_report} ${current_report})
+    increase_total=$(echo "${report_diff}" | awk '{if ($2" "$3 == "Increase Total") print $1}')
+    decrease_total=$(echo "${report_diff}" | awk '{if ($2" "$3 == "Decrease Total") print $1}')
 
-    echo "Missing lines allowed to introduce : ${ALLOWED_EXTRA_MISSING}"
-    echo "Missing lines introduced           : ${new_missing}"
-    echo "Missing lines in master            : ${baseline_missing}"
-    echo "Missing lines in proposed change   : ${current_missing}"
+    echo "Statements without coverage allowed to introduce : ${ALLOWED_EXTRA_MISSING}"
+    echo "Statements without coverage introduced           : ${new_missing}"
+    echo "Statements without coverage in master            : ${baseline_missing}"
+    echo "Statements without coverage in change (net)      : ${current_missing}"
+    echo "Statements without coverage in change (added)    : ${increase_total}"
+    echo "Statements without coverage in change (removed)  : ${decrease_total}"
 
     if [[ ${new_missing} -gt ${ALLOWED_EXTRA_MISSING} ]];
     then
-        show_diff ${baseline_report} ${current_report}
+        echo "${report_diff}"
         echo "Please write more unit tests, we should keep our test coverage :( "
         rm ${baseline_report} ${current_report}
         exit 1
 
     elif [[ ${new_missing} -gt 0 ]];
     then
-        show_diff ${baseline_report} ${current_report}
+        echo "${report_diff}"
         echo "I believe you can cover all your code with 100% coverage!"
+
+    elif [[ ${increase_total} -gt 0 ]];
+    then
+        echo "${report_diff}"
+        echo "I believe you can cover all your added code with 100% coverage!"
 
     else
         echo "Thank you! You are awesome! Keep writing unit tests! :)"
