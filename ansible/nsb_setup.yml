@@ -56,4 +56,5 @@
         volumes:
           - "{{ openrc_file|default('/dev/null') }}:/etc/yardstick/openstack.creds:ro"
           - /var/run/docker.sock:/var/run/docker.sock
-          - /opt/:/opt
+          - /opt:/opt
+          - /etc/localtime:/etc/localtime:ro
