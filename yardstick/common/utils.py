@@ -29,6 +29,7 @@ import socket
 import random
 import ipaddress
 from contextlib import closing
+from itertools import chain
 
 import six
 from flask import jsonify
@@ -91,6 +92,49 @@ def import_modules_from_package(package):
                 sys.modules[module_name] = importutils.import_module(module_name)
             except (ImportError, SyntaxError):
                 logger.exception("unable to import %s", module_name)
+
+
+NON_NONE_DEFAULT = object()
+
+
+def get_key_with_default(data, key, default):
+    value = data.get(key, default)
+    if value is NON_NONE_DEFAULT:
+        raise KeyError(key)
+    return value
+
+
+def make_dict_from_map(data, key_map):
+    return {dest_key: get_key_with_default(data, src_key, default)
+            for dest_key, (src_key, default) in key_map.items()}
+
+
+def find_relative_file(path, task_path):
+    """
+    Find file in one of places: in abs of path or
+    relative to TC scenario file. In this order.
+
+    :param path:
+    :param task_path:
+    :return str: full path to file
+    """
+    # fixme: create schema to validate all fields have been provided
+    for lookup in [os.path.abspath(path), os.path.join(task_path, path)]:
+        try:
+            with open(lookup):
+                return lookup
+        except IOError:
+            pass
+    raise IOError(errno.ENOENT, 'Unable to find {} file'.format(path))
+
+
+def open_relative_file(path, task_path):
+    try:
+        return open(path)
+    except IOError as e:
+        if e.errno == errno.ENOENT:
+            return open(os.path.join(task_path, path))
+        raise
 
 
 def makedirs(d):
@@ -349,6 +393,14 @@ def config_to_dict(config):
             config.sections()}
 
 
+def value_iter_if_key_in(data, valid_key_set):
+    return (value for key, value in data.items() if key in valid_key_set)
+
+
+def value_iter_from_value_list_iter_if_key_in(data, valid_key_set):
+    return chain.from_iterable(value_iter_if_key_in(data, valid_key_set))
+
+
 def validate_non_string_sequence(value, default=None, raise_exc=None):
     if isinstance(value, collections.Sequence) and not isinstance(value, str):
         return value
@@ -357,22 +409,42 @@ def validate_non_string_sequence(value, default=None, raise_exc=None):
     return default
 
 
+class SeenFilter(object):
+
+    def __init__(self, iterable, watch_index=0):
+        super(SeenFilter, self).__init__()
+        self.watch_index = watch_index
+        self.seen = set()
+        self.iterable = filter(self.predicate, iterable)
+
+    def clear(self):
+        return self.seen.clear()
+
+    def predicate(self, value):
+        try:
+            return self._add(value[self.watch_index])
+        except TypeError:
+            return self._add(value)
+
+    def _add(self, other):
+        try:
+            return other not in self.seen
+        finally:
+            self.seen.add(other)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        return next(self.iterable)
+
+
 def join_non_strings(separator, *non_strings):
     try:
         non_strings = validate_non_string_sequence(non_strings[0], raise_exc=RuntimeError)
     except (IndexError, RuntimeError):
         pass
     return str(separator).join(str(non_string) for non_string in non_strings)
-
-
-class ErrorClass(object):
-
-    def __init__(self, *args, **kwargs):
-        if 'test' not in kwargs:
-            raise RuntimeError
-
-    def __getattr__(self, item):
-        raise AttributeError
 
 
 class Timer(object):

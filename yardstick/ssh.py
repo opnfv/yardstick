@@ -78,7 +78,7 @@ from oslo_utils import encodeutils
 from scp import SCPClient
 import six
 
-from yardstick.common.utils import try_int
+from yardstick.common.utils import try_int, NON_NONE_DEFAULT, make_dict_from_map
 from yardstick.network_services.utils import provision_tool
 
 
@@ -102,6 +102,7 @@ class SSH(object):
     """Represent ssh connection."""
 
     SSH_PORT = paramiko.config.SSH_PORT
+    DEFAULT_WAIT_TIMEOUT = 120
 
     @staticmethod
     def gen_keys(key_filename, bit_count=2048):
@@ -120,6 +121,18 @@ class SSH(object):
         # i.e. the subclass, not the superclass
         return SSH
 
+    @classmethod
+    def get_arg_key_map(cls):
+        return {
+            'user': ('user', NON_NONE_DEFAULT),
+            'host': ('ip', NON_NONE_DEFAULT),
+            'port': ('ssh_port', cls.SSH_PORT),
+            'pkey': ('pkey', None),
+            'key_filename': ('key_filename', None),
+            'password': ('password', None),
+            'name': ('name', None),
+        }
+
     def __init__(self, user, host, port=None, pkey=None,
                  key_filename=None, password=None, name=None):
         """Initialize SSH client.
@@ -137,6 +150,7 @@ class SSH(object):
         else:
             self.log = logging.getLogger(__name__)
 
+        self.wait_timeout = self.DEFAULT_WAIT_TIMEOUT
         self.user = user
         self.host = host
         # everybody wants to debug this in the caller, do it here instead
@@ -162,16 +176,9 @@ class SSH(object):
             overrides = {}
         if defaults is None:
             defaults = {}
+
         params = ChainMap(overrides, node, defaults)
-        return {
-            'user': params['user'],
-            'host': params['ip'],
-            'port': params.get('ssh_port', cls.SSH_PORT),
-            'pkey': params.get('pkey'),
-            'key_filename': params.get('key_filename'),
-            'password': params.get('password'),
-            'name': params.get('name'),
-        }
+        return make_dict_from_map(params, cls.get_arg_key_map())
 
     @classmethod
     def from_node(cls, node, overrides=None, defaults=None):
@@ -186,7 +193,7 @@ class SSH(object):
                 return key_class.from_private_key(key)
             except paramiko.SSHException as e:
                 errors.append(e)
-        raise SSHError("Invalid pkey: %s" % (errors))
+        raise SSHError("Invalid pkey: %s" % errors)
 
     @property
     def is_connected(self):
@@ -361,8 +368,11 @@ class SSH(object):
         stderr.seek(0)
         return exit_status, stdout.read(), stderr.read()
 
-    def wait(self, timeout=120, interval=1):
+    def wait(self, timeout=None, interval=1):
         """Wait for the host will be available via ssh."""
+        if timeout is None:
+            timeout = self.wait_timeout
+
         start_time = time.time()
         while True:
             try:
@@ -441,24 +451,30 @@ class SSH(object):
 
 class AutoConnectSSH(SSH):
 
+    @classmethod
+    def get_arg_key_map(cls):
+        arg_key_map = super(AutoConnectSSH, cls).get_arg_key_map()
+        arg_key_map['wait'] = ('wait', True)
+        return arg_key_map
+
     # always wait or we will get OpenStack SSH errors
     def __init__(self, user, host, port=None, pkey=None,
                  key_filename=None, password=None, name=None, wait=True):
         super(AutoConnectSSH, self).__init__(user, host, port, pkey, key_filename, password, name)
-        self._wait = wait
+        if wait and wait is not True:
+            self.wait_timeout = int(wait)
 
     def _make_dict(self):
         data = super(AutoConnectSSH, self)._make_dict()
         data.update({
-            'wait': self._wait
+            'wait': self.wait_timeout
         })
         return data
 
     def _connect(self):
         if not self.is_connected:
             self._get_client()
-            if self._wait:
-                self.wait()
+            self.wait()
 
     def drop_connection(self):
         """ Don't close anything, just force creation of a new client """
