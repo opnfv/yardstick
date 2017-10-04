@@ -211,6 +211,24 @@
       "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_8c8a0f62",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-04T20:24:40Z",
+      "side": 1,
+      "message": "I know it is already known.  It is NOT KNOWN for Heat.\n\nWe cannot use this if it doesn\u0027t work for Heat.  This is useless without some way to match MAC address to PCI or interface name.",
+      "parentUuid": "da33351e_ae56eccb",
+      "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
