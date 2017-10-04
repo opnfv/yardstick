@@ -42,6 +42,10 @@ class DpdkBindHelper(object):
     SKIP_RE = re.compile('(====|<none>|^$)')
     NIC_ROW_FIELDS = ['vpci', 'dev_type', 'iface', 'driver', 'unused', 'active']
 
+    DPDK_DRIVER = "igb_uio"
+    UIO_DRIVER = "uio"
+
+
     HEADER_DICT_PAIRS = [
         (re.compile('^Network.*DPDK.*$'), NETWORK_DPDK),
         (re.compile('^Network.*kernel.*$'), NETWORK_KERNEL),
@@ -66,6 +70,8 @@ class DpdkBindHelper(object):
         self.status_nic_row_re = None
         self._dpdk_nic_bind_attr = None
         self._status_cmd_attr = None
+        self.used_drivers = {}
+        self.real_kernel_drivers = {}
 
         self.ssh_helper = ssh_helper
         self.clean_status()
@@ -76,6 +82,13 @@ class DpdkBindHelper(object):
             raise DpdkBindHelperException('{} command failed with rc={}'.format(
                 self._dpdk_nic_bind, res[0]))
         return res
+
+    def load_dpdk_driver(self):
+        self.ssh_helper.execute(
+            "sudo modprobe {} && sudo modprobe {}".format(self.UIO_DRIVER, self.DPDK_DRIVER))
+
+    def check_dpdk_driver(self):
+        return self.ssh_helper.execute("lsmod | grep -i {}".format(self.DPDK_DRIVER))[0]
 
     @property
     def _dpdk_nic_bind(self):
@@ -154,6 +167,13 @@ class DpdkBindHelper(object):
         # sort for stabililty
         for vpci, driver in sorted(self.interface_driver_map.items()):
             self.used_drivers.setdefault(driver, []).append(vpci)
+
+    def save_real_kernel_drivers(self):
+        self.real_kernel_drivers = {}
+        for pci in self.interface_driver_map:
+            out = self.ssh_helper.execute('lspci -k -s %s' % pci)[1]
+            real_driver = out.split('Kernel modules:').pop().strip()
+            self.real_kernel_drivers.setdefault(real_driver, []).append(pci)
 
     def rebind_drivers(self, force=True):
         for driver, vpcis in self.used_drivers.items():
