@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2017 Intel Corporation
+# Copyright (c) 2016-2018 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 from collections import Mapping
 import logging
 from multiprocessing import Queue, Value, Process
+
 import os
 import posixpath
 import re
@@ -23,7 +24,6 @@ import subprocess
 import time
 
 import six
-from six.moves import cStringIO
 
 from trex_stl_lib.trex_stl_client import LoggerApi
 from trex_stl_lib.trex_stl_client import STLClient
@@ -32,62 +32,21 @@ from yardstick.benchmark.contexts.base import Context
 from yardstick.common import exceptions as y_exceptions
 from yardstick.common.process import check_if_process_failed
 from yardstick.common import utils
-from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
-from yardstick.network_services.helpers.samplevnf_helper import PortPairs
+from yardstick.network_services.constants import DEFAULT_VNF_TIMEOUT
+from yardstick.network_services.constants import PROCESS_JOIN_TIMEOUT
+from yardstick.network_services.constants import REMOTE_TMP
+from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper, DpdkNode
 from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
+from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.utils import get_nsb_option
-from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
+from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
-from yardstick.ssh import AutoConnectSSH
+from yardstick.network_services.vnf_generic.vnf.vnf_ssh_helper import VnfSshHelper
 
-
-DPDK_VERSION = "dpdk-16.07"
 
 LOG = logging.getLogger(__name__)
-
-
-REMOTE_TMP = "/tmp"
-DEFAULT_VNF_TIMEOUT = 3600
-PROCESS_JOIN_TIMEOUT = 3
-
-
-class VnfSshHelper(AutoConnectSSH):
-
-    def __init__(self, node, bin_path, wait=None):
-        self.node = node
-        kwargs = self.args_from_node(self.node)
-        if wait:
-            kwargs.setdefault('wait', wait)
-
-        super(VnfSshHelper, self).__init__(**kwargs)
-        self.bin_path = bin_path
-
-    @staticmethod
-    def get_class():
-        # must return static class name, anything else refers to the calling class
-        # i.e. the subclass, not the superclass
-        return VnfSshHelper
-
-    def copy(self):
-        # this copy constructor is different from SSH classes, since it uses node
-        return self.get_class()(self.node, self.bin_path)
-
-    def upload_config_file(self, prefix, content):
-        cfg_file = os.path.join(REMOTE_TMP, prefix)
-        LOG.debug(content)
-        file_obj = cStringIO(content)
-        self.put_file_obj(file_obj, cfg_file)
-        return cfg_file
-
-    def join_bin_path(self, *args):
-        return os.path.join(self.bin_path, *args)
-
-    def provision_tool(self, tool_path=None, tool_file=None):
-        if tool_path is None:
-            tool_path = self.bin_path
-        return super(VnfSshHelper, self).provision_tool(tool_path, tool_file)
 
 
 class SetupEnvHelper(object):
@@ -245,7 +204,6 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
 
     def setup_vnf_environment(self):
         self._setup_dpdk()
-        self.bound_pci = [v['virtual-interface']["vpci"] for v in self.vnfd_helper.interfaces]
         self.kill_vnf()
         # bind before _setup_resources so we can use dpdk_port_num
         self._detect_and_bind_drivers()
@@ -263,10 +221,11 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
     def _setup_dpdk(self):
         """Setup DPDK environment needed for VNF to run"""
         self._setup_hugepages()
-        self.ssh_helper.execute('sudo modprobe uio && sudo modprobe igb_uio')
-        exit_status = self.ssh_helper.execute('lsmod | grep -i igb_uio')[0]
-        if exit_status:
-            raise y_exceptions.DPDKSetupDriverError()
+        self.dpdk_bind_helper.load_dpdk_driver()
+
+        exit_status = self.dpdk_bind_helper.check_dpdk_driver()
+        if exit_status == 0:
+            return
 
     def get_collectd_options(self):
         options = self.scenario_helper.all_options.get("collectd", {})
@@ -293,8 +252,21 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
                                plugins=plugins, interval=collectd_options.get("interval"),
                                timeout=self.scenario_helper.timeout)
 
+    def _check_interface_fields(self):
+        num_nodes = len(self.scenario_helper.nodes)
+        # OpenStack instance creation time is probably proportional to the number
+        # of instances
+        timeout = 120 * num_nodes
+        dpdk_node = DpdkNode(self.scenario_helper.name, self.vnfd_helper.interfaces,
+                             self.ssh_helper, timeout)
+        dpdk_node.check()
+
     def _detect_and_bind_drivers(self):
         interfaces = self.vnfd_helper.interfaces
+
+        self._check_interface_fields()
+        # check for bound after probe
+        self.bound_pci = [v['virtual-interface']["vpci"] for v in interfaces]
 
         self.dpdk_bind_helper.read_status()
         self.dpdk_bind_helper.save_used_drivers()

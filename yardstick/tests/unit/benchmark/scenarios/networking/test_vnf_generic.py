@@ -13,12 +13,10 @@
 # limitations under the License.
 
 from copy import deepcopy
-import errno
 import os
 import sys
 
 import mock
-import six
 import unittest
 
 from yardstick import tests
@@ -26,8 +24,9 @@ from yardstick.common import utils
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.traffic_profile import base
 from yardstick.network_services.vnf_generic import vnfdgen
-from yardstick.network_services.vnf_generic.vnf.base import \
-    GenericTrafficGen, GenericVNF
+from yardstick.error import IncorrectConfig
+from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
+from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 
 
 stl_patch = mock.patch.dict(sys.modules, tests.STL_MOCKS)
@@ -355,16 +354,6 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
-    def test_ssh_manager(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
-            ssh.from_node.return_value = ssh_mock
-            for node_dict in self.context_cfg["nodes"].values():
-                with vnf_generic.SshManager(node_dict) as conn:
-                    self.assertIsNotNone(conn)
-
     def test___init__(self):
         assert self.topology
 
@@ -462,12 +451,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self.s.load_vnf_models(self.scenario_cfg, self.context_cfg))
 
     def test_map_topology_to_infrastructure(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
-            ssh.from_node.return_value = ssh_mock
-            self.s.map_topology_to_infrastructure()
+        self.s.map_topology_to_infrastructure()
 
         nodes = self.context_cfg["nodes"]
         self.assertEqual('../../vnf_descriptors/tg_rfc2544_tpl.yaml',
@@ -476,26 +460,29 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                          nodes['vnf__1']['VNF model'])
 
     def test_map_topology_to_infrastructure_insufficient_nodes(self):
-        del self.context_cfg['nodes']['vnf__1']
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(1, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
-            ssh.from_node.return_value = ssh_mock
+        cfg = deepcopy(self.context_cfg)
+        del cfg['nodes']['vnf__1']
 
-            with self.assertRaises(vnf_generic.IncorrectConfig):
+        cfg_patch = mock.patch.object(self.s, 'context_cfg', cfg)
+        with cfg_patch:
+            with self.assertRaises(IncorrectConfig):
                 self.s.map_topology_to_infrastructure()
 
     def test_map_topology_to_infrastructure_config_invalid(self):
-        cfg = dict(self.context_cfg)
-        del cfg['nodes']['vnf__1']['interfaces']['xe0']['local_mac']
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
-            ssh.from_node.return_value = ssh_mock
+        ssh_mock = mock.Mock()
+        ssh_mock.execute.return_value = 0, SYS_CLASS_NET + IP_ADDR_SHOW, ""
 
-            with self.assertRaises(vnf_generic.IncorrectConfig):
+        cfg = deepcopy(self.s.context_cfg)
+
+        # delete all, we don't know which will come first
+        del cfg['nodes']['vnf__1']['interfaces']['xe0']['local_mac']
+        del cfg['nodes']['vnf__1']['interfaces']['xe1']['local_mac']
+        del cfg['nodes']['tg__1']['interfaces']['xe0']['local_mac']
+        del cfg['nodes']['tg__1']['interfaces']['xe1']['local_mac']
+
+        config_patch = mock.patch.object(self.s, 'context_cfg', cfg)
+        with config_patch:
+            with self.assertRaises(IncorrectConfig):
                 self.s.map_topology_to_infrastructure()
 
     def test__resolve_topology_invalid_config(self):
@@ -691,137 +678,3 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             mock.Mock(return_value=True)
         with self.assertRaises(RuntimeError):
             self.s.teardown()
-
-    SAMPLE_NETDEVS = {
-        'enp11s0': {
-            'address': '0a:de:ad:be:ef:f5',
-            'device': '0x1533',
-            'driver': 'igb',
-            'ifindex': '2',
-            'interface_name': 'enp11s0',
-            'operstate': 'down',
-            'pci_bus_id': '0000:0b:00.0',
-            'subsystem_device': '0x1533',
-            'subsystem_vendor': '0x15d9',
-            'vendor': '0x8086'
-        },
-        'lan': {
-            'address': '0a:de:ad:be:ef:f4',
-            'device': '0x153a',
-            'driver': 'e1000e',
-            'ifindex': '3',
-            'interface_name': 'lan',
-            'operstate': 'up',
-            'pci_bus_id': '0000:00:19.0',
-            'subsystem_device': '0x153a',
-            'subsystem_vendor': '0x15d9',
-            'vendor': '0x8086'
-        }
-    }
-
-    SAMPLE_VM_NETDEVS = {
-        'eth1': {
-            'address': 'fa:de:ad:be:ef:5b',
-            'device': '0x0001',
-            'driver': 'virtio_net',
-            'ifindex': '3',
-            'interface_name': 'eth1',
-            'operstate': 'down',
-            'pci_bus_id': '0000:00:04.0',
-            'vendor': '0x1af4'
-        }
-    }
-
-    def test_parse_netdev_info(self):
-        output = """\
-/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/ifindex:2
-/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/address:0a:de:ad:be:ef:f5
-/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/operstate:down
-/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/device/vendor:0x8086
-/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/device/device:0x1533
-/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/device/subsystem_vendor:0x15d9
-/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/device/subsystem_device:0x1533
-/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/driver:igb
-/sys/devices/pci0000:00/0000:00:1c.3/0000:0b:00.0/net/enp11s0/pci_bus_id:0000:0b:00.0
-/sys/devices/pci0000:00/0000:00:19.0/net/lan/ifindex:3
-/sys/devices/pci0000:00/0000:00:19.0/net/lan/address:0a:de:ad:be:ef:f4
-/sys/devices/pci0000:00/0000:00:19.0/net/lan/operstate:up
-/sys/devices/pci0000:00/0000:00:19.0/net/lan/device/vendor:0x8086
-/sys/devices/pci0000:00/0000:00:19.0/net/lan/device/device:0x153a
-/sys/devices/pci0000:00/0000:00:19.0/net/lan/device/subsystem_vendor:0x15d9
-/sys/devices/pci0000:00/0000:00:19.0/net/lan/device/subsystem_device:0x153a
-/sys/devices/pci0000:00/0000:00:19.0/net/lan/driver:e1000e
-/sys/devices/pci0000:00/0000:00:19.0/net/lan/pci_bus_id:0000:00:19.0
-"""
-        res = vnf_generic.NetworkServiceTestCase.parse_netdev_info(output)
-        assert res == self.SAMPLE_NETDEVS
-
-    def test_parse_netdev_info_virtio(self):
-        output = """\
-/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/ifindex:3
-/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/address:fa:de:ad:be:ef:5b
-/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/operstate:down
-/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/device/vendor:0x1af4
-/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/device/device:0x0001
-/sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/driver:virtio_net
-"""
-        res = vnf_generic.NetworkServiceTestCase.parse_netdev_info(output)
-        assert res == self.SAMPLE_VM_NETDEVS
-
-    def test_probe_missing_values(self):
-        netdevs = self.SAMPLE_NETDEVS.copy()
-        network = {'local_mac': '0a:de:ad:be:ef:f5'}
-        vnf_generic.NetworkServiceTestCase._probe_missing_values(netdevs,
-                                                                 network)
-        assert network['vpci'] == '0000:0b:00.0'
-
-        network = {'local_mac': '0a:de:ad:be:ef:f4'}
-        vnf_generic.NetworkServiceTestCase._probe_missing_values(netdevs,
-                                                                 network)
-        assert network['vpci'] == '0000:00:19.0'
-
-    @mock.patch.object(six.moves.builtins, 'open')
-    def test_open_relative_path(self, mock_open):
-        # NOTE(ralonsoh): the mocked function is not properly used and tested.
-        mock_open_result = mock_open()
-        mock_open_call_count = 1  # initial call to get result
-        self.assertEqual(utils.open_relative_file('foo', 'bar'),
-                         mock_open_result)
-
-        mock_open_call_count += 1  # one more call expected
-        self.assertEqual(mock_open.call_count, mock_open_call_count)
-        self.assertIn('foo', mock_open.call_args_list[-1][0][0])
-        self.assertNotIn('bar', mock_open.call_args_list[-1][0][0])
-
-        def open_effect(*args, **kwargs):
-            if kwargs.get('name', args[0]) == os.path.join('bar', 'foo'):
-                return mock_open_result
-            raise IOError(errno.ENOENT, 'not found')
-
-        mock_open.side_effect = open_effect
-        self.assertEqual(utils.open_relative_file('foo', 'bar'),
-                         mock_open_result)
-
-        mock_open_call_count += 2  # two more calls expected
-        self.assertEqual(mock_open.call_count, mock_open_call_count)
-        self.assertIn('foo', mock_open.call_args_list[-1][0][0])
-        self.assertIn('bar', mock_open.call_args_list[-1][0][0])
-
-        # test an IOError of type ENOENT
-        mock_open.side_effect = IOError(errno.ENOENT, 'not found')
-        with self.assertRaises(IOError):
-            # the second call still raises
-            utils.open_relative_file('foo', 'bar')
-
-        mock_open_call_count += 2  # two more calls expected
-        self.assertEqual(mock_open.call_count, mock_open_call_count)
-        self.assertIn('foo', mock_open.call_args_list[-1][0][0])
-        self.assertIn('bar', mock_open.call_args_list[-1][0][0])
-
-        # test an IOError other than ENOENT
-        mock_open.side_effect = IOError(errno.EBUSY, 'busy')
-        with self.assertRaises(IOError):
-            utils.open_relative_file('foo', 'bar')
-
-        mock_open_call_count += 1  # one more call expected
-        self.assertEqual(mock_open.call_count, mock_open_call_count)

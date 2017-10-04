@@ -20,10 +20,10 @@ import logging
 import sys
 
 from yardstick.common import utils
+from yardstick import error
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import Rfc2544ResourceHelper
-
 
 LOG = logging.getLogger(__name__)
 
@@ -36,7 +36,7 @@ sys.path.append(IXNET_LIB)
 try:
     from IxNet import IxNextgen
 except ImportError:
-    IxNextgen = utils.ErrorClass
+    IxNextgen = error.ErrorClass
 
 
 class IxiaRfc2544Helper(Rfc2544ResourceHelper):
