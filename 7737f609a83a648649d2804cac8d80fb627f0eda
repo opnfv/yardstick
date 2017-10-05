@@ -229,6 +229,24 @@
       "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_2f41350b",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-10-05T08:02:37Z",
+      "side": 1,
+      "message": "I have added this for BM and SV, as i know both pci \u0026 mac before we processed. For Heat, it remains same as what we have now.",
+      "parentUuid": "da33351e_8c8a0f62",
+      "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
