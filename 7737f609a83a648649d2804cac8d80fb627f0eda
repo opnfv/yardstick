@@ -247,6 +247,24 @@
       "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_12ae1a98",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-05T15:36:25Z",
+      "side": 1,
+      "message": "why don\u0027t we know the driver for BM and SV?\n\nCan\u0027t you run lspci -k before the test and add that info the YAML?",
+      "parentUuid": "da33351e_2f41350b",
+      "revId": "7737f609a83a648649d2804cac8d80fb627f0eda",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
