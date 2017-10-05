@@ -25,6 +25,7 @@ collectd_build_dependencies:
     - rabbitmq-server
     - cmake
     - libvirt-dev
+    - libyajl-dev
   RedHat:
     - flex
     - bison
@@ -35,4 +36,5 @@ collectd_build_dependencies:
     - librabbitmq-devel
     - libtool-ltdl-devel
     - libvirt-devel
+    - yajl-devel.x86_64
 
