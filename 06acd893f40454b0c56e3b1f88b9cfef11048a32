@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_6c050b45",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_cgnapt_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-10-05T04:27:47Z",
+      "side": 1,
+      "message": "This is not changed in this patch. So i will avoid making changes.",
+      "parentUuid": "da33351e_a9f1c596",
+      "revId": "06acd893f40454b0c56e3b1f88b9cfef11048a32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_c90a4989",
         "filename": "yardstick/network_services/vnf_generic/vnf/cgnapt_vnf.py",
         "patchSetId": 7
