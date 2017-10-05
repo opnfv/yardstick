@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_0c86ffda",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-05T01:01:05Z",
+      "side": 1,
+      "message": "I see we have copied a lot of the other classes.\n\nWe would prefer subclassing and overriding methods.\n\nDo you want a standalone self-contained implementation, or can we update with subclass customization.\n\nThere have been a few changes in ResourceProfile API and .terminate() method that need adding.",
+      "revId": "9d0a4fdcd1c19d2b2deb4dfa4289d4b31f939eef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_2c8303cd",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-05T01:01:05Z",
+      "side": 1,
+      "message": "I assume this is custom Linux and they are not using the iproute2 tools\n\nnormally this would be \n\n ip addr add 152.16.100.19/24 dev dp0s10\n\nand the arp command would be replaced with\n\n ip neigh add",
+      "revId": "9d0a4fdcd1c19d2b2deb4dfa4289d4b31f939eef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
