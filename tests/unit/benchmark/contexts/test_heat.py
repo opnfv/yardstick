@@ -201,6 +201,7 @@ class HeatContextTestCase(unittest.TestCase):
             "subnet_cidr": '10.20.0.0/15',
             "network": '10.20.0.0',
             "netmask": '255.254.0.0',
+            "name": "port_a",
             "gateway_ip": '10.20.30.1',
             "mac_address": '00:01',
             "device_id": 'dev21',
