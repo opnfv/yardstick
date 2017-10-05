@@ -14,6 +14,8 @@
 
 ---
 schema: yardstick:task:0.1
+
+{% set file = file or '/etc/yardstick/pod.yaml' %}
 scenarios:
 - type: NSPerf
   traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
@@ -21,6 +23,7 @@ scenarios:
   nodes:
     tg__0: trafficgen_1.yardstick
     vnf__0: vnf.yardstick
+    cpt__0: compute_0.compute_nodes
   options:
     framesize:
       private: {64B: 100}
@@ -35,43 +38,51 @@ scenarios:
     vnf__0:
       rules: acl_1rule.yaml
       vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+    cpt__0:
+      collectd:
+        interval: 2
   runner:
     type: Iteration
     iterations: 10
     interval: 35
-context:
+
+contexts:
   # put node context first, so we don't HEAT deploy if node has errors
-  name: yardstick
-  image: yardstick-samplevnfs
-  flavor:
-    vcpus: 10
-    ram: 20480
-    disk: 6
-    extra_specs:
-      hw:cpu_sockets: 1
-      hw:cpu_cores: 10
-      hw:cpu_threads: 1
-  user: ubuntu
-  placement_groups:
-    pgrp1:
-      policy: "availability"
-  servers:
-    vnf:
-      floating_ip: true
-      placement: "pgrp1"
-    trafficgen_1:
-      floating_ip: true
-      placement: "pgrp1"
-  networks:
-    mgmt:
-      cidr: '10.0.1.0/24'
-    xe0:
-      cidr: '10.0.2.0/24'
-      gateway_ip: 'null'
-      port_security_enabled: False
-      enable_dhcp: 'false'
-    xe1:
-      cidr: '10.0.3.0/24'
-      gateway_ip: 'null'
-      port_security_enabled: False
-      enable_dhcp: 'false'
+  - name: compute_nodes
+    type: Node
+    file: {{ file }}
+
+  - name: yardstick
+    image: yardstick-samplevnfs
+    flavor:
+      vcpus: 10
+      ram: 20480
+      disk: 6
+      extra_specs:
+        hw:cpu_sockets: 1
+        hw:cpu_cores: 10
+        hw:cpu_threads: 1
+    user: ubuntu
+    placement_groups:
+      pgrp1:
+        policy: "availability"
+    servers:
+      vnf:
+        floating_ip: true
+        placement: "pgrp1"
+      trafficgen_1:
+        floating_ip: true
+        placement: "pgrp1"
+    networks:
+      mgmt:
+        cidr: '10.0.1.0/24'
+      xe0:
+        cidr: '10.0.2.0/24'
+        gateway_ip: 'null'
+        port_security_enabled: False
+        enable_dhcp: 'false'
+      xe1:
+        cidr: '10.0.3.0/24'
+        gateway_ip: 'null'
+        port_security_enabled: False
+        enable_dhcp: 'false'
