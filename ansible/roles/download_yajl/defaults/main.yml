@@ -1,4 +1,0 @@
----
-yajl_url: "https://github.com/yajl/yajl.git"
-yajl_dest: "{{ clone_dest }}/yajl"
-yajl_version: "master"

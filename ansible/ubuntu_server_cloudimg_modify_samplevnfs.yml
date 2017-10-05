@@ -56,7 +56,5 @@
     - install_rabbitmq
     - download_intel_cmt_cat
     - install_intel_cmt_cat
-    - download_yajl
-    - install_yajl
     - download_collectd
     - install_collectd
