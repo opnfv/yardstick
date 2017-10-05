@@ -11,8 +11,8 @@ import logging
 import yardstick.ssh as ssh
 
 from yardstick.benchmark.scenarios.availability.monitor import basemonitor
-from yardstick.benchmark.scenarios.availability.util import buildshellparams
-
+from yardstick.benchmark.scenarios.availability.util \
+    import build_shell_command, execute_shell_command
 
 LOG = logging.getLogger(__name__)
 
@@ -23,37 +23,41 @@ class GeneralMonitor(basemonitor.BaseMonitor):
     __monitor_type__ = "general-monitor"
 
     def setup(self):
-        host = self._context[self._config["host"]]
+        host = self._context.get(self._config.get('host', None), None)
+        self.connection = None
+        if host:
+            self.connection = ssh.SSH.from_node(
+                host, defaults={"user": "root"})
+            self.connection.wait(timeout=600)
+            LOG.debug("ssh host success!")
         self.key = self._config["key"]
         self.monitor_key = self._config["monitor_key"]
         self.monitor_type = self._config["monitor_type"]
-
         if "parameter" in self._config:
-            parameter = self._config['parameter']
-            str = buildshellparams(parameter)
-            l = list(item for item in parameter.values())
-            self.cmd_param = str.format(*l)
-
+            self.parameter_config = self._config['parameter']
         self.monitor_cfg = basemonitor.BaseMonitor.monitor_cfgs.get(
             self.monitor_key)
         self.monitor_script = self.get_script_fullpath(
             self.monitor_cfg['monitor_script'])
-        self.connection = ssh.SSH.from_node(host, defaults={"user": "root"})
-        self.connection.wait(timeout=600)
         LOG.debug("ssh host success!")
 
     def monitor_func(self):
         if "parameter" in self._config:
-            with open(self.monitor_script, "r") as stdin_file:
-                exit_status, stdout, stderr = self.connection.execute(
-                    "sudo {}".format(self.cmd_param),
-                    stdin=stdin_file)
+            self.cmd_param = \
+                build_shell_command(
+                    self.parameter_config,
+                    bool(self.connection),
+                    self.intermediate_variables)
+            cmd_remote = "sudo {}".format(self.cmd_param)
+            cmd_local = "/bin/bash {0} {1}".format(self.monitor_script, self.cmd_param)
         else:
+            cmd_remote = "sudo /bin/sh -s "
+            cmd_local = "/bin/bash {0}".format(self.monitor_script)
+        if self.connection:
             with open(self.monitor_script, "r") as stdin_file:
-                exit_status, stdout, stderr = self.connection.execute(
-                    "sudo /bin/bash -s ",
-                    stdin=stdin_file)
-
+                exit_status, stdout, stderr = self.connection.execute(cmd_remote, stdin=stdin_file)
+        else:
+            exit_status, stdout = execute_shell_command(cmd_local)
         if exit_status:
             return False
         return True

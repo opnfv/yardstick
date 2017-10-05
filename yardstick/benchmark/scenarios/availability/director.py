@@ -71,12 +71,12 @@ class Director(object):
         LOG.debug(
             "the type of current action is %s, the key is %s", type, key)
         if type == ActionType.ATTACKER:
-            return actionplayers.AttackerPlayer(self.attackerMgr[key])
+            return actionplayers.AttackerPlayer(self.attackerMgr[key], intermediate_variables)
         if type == ActionType.MONITOR:
-            return actionplayers.MonitorPlayer(self.monitorMgr[key])
+            return actionplayers.MonitorPlayer(self.monitorMgr[key], intermediate_variables)
         if type == ActionType.RESULTCHECKER:
             return actionplayers.ResultCheckerPlayer(
-                self.resultCheckerMgr[key])
+                self.resultCheckerMgr[key], intermediate_variables)
         if type == ActionType.OPERATION:
             return actionplayers.OperationPlayer(self.operationMgr[key],
                                                  intermediate_variables)

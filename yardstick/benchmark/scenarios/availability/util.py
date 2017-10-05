@@ -33,7 +33,7 @@ def execute_shell_command(command):
         LOG.error(traceback.format_exc())
     return exitcode, output
 
-PREFIX = '$'
+PREFIX = '@'
 
 
 def build_shell_command(param_config, remote=True, intermediate_variables=None):
