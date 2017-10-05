@@ -176,6 +176,13 @@ class GenericVNF(VNFObject):
         """
         raise NotImplementedError()
 
+    def wait_for_instantiate(self):
+        """ Wait for VNF to start
+
+        :return: True/False
+        """
+        raise NotImplementedError()
+
     def terminate(self):
         """ Kill all VNF processes
 
