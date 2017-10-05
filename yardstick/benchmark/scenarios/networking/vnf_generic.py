@@ -19,6 +19,8 @@ import logging
 import errno
 
 import ipaddress
+
+import copy
 import os
 import sys
 import re
@@ -376,13 +378,7 @@ class NetworkServiceTestCase(base.Scenario):
         context_yaml = os.path.join(LOG_DIR, "pod-{}.yaml".format(self.scenario_cfg['task_id']))
         # convert OrderedDict to a list
         # pod.yaml nodes is a list
-        nodes = []
-        for node in self.context_cfg["nodes"].values():
-            # name field is required
-            # remove context suffix
-            node['name'] = node['name'].split('.')[0]
-            nodes.append(node)
-        nodes = self._convert_pkeys_to_string(nodes)
+        nodes = [self._serialize_node(node) for node in self.context_cfg["nodes"].values()]
         pod_dict = {
             "nodes": nodes,
             "networks": self.context_cfg["networks"]
@@ -392,15 +388,16 @@ class NetworkServiceTestCase(base.Scenario):
                            explicit_start=True)
 
     @staticmethod
-    def _convert_pkeys_to_string(nodes):
-        # make copy because we are mutating
-        nodes = nodes[:]
-        for i, node in enumerate(nodes):
-            try:
-                nodes[i] = dict(node, pkey=ssh.convert_key_to_str(node["pkey"]))
-            except KeyError:
-                pass
-        return nodes
+    def _serialize_node(node):
+        new_node = copy.deepcopy(node)
+        # name field is required
+        # remove context suffix
+        new_node["name"] = node['name'].split('.')[0]
+        try:
+            new_node["pkey"] = ssh.convert_key_to_str(node["pkey"])
+        except KeyError:
+            pass
+        return new_node
 
     TOPOLOGY_REQUIRED_KEYS = frozenset({
         "vpci", "local_ip", "netmask", "local_mac", "driver"})
