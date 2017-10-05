@@ -43,6 +43,7 @@ if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxProfileHelper
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxMplsProfileHelper
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxBngProfileHelper
+    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxVpeProfileHelper
 
 
 class TestCoreTuple(unittest.TestCase):
@@ -976,6 +977,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             'prox_args': {'-c': ""},
             'prox_path': 'd',
             'prox_config': 'e/f',
+            'prox_generate_parameter': True,
         }
 
         mock_find_path.side_effect = ['1', '2']
@@ -1252,57 +1254,6 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
 
         with self.assertRaises(Exception):
             helper.generate_prox_config_file('a/b')
-
-    def test_generate_prox_lua_file(self):
-        vnfd_helper = VnfdHelper(self.VNFD0)
-        ssh_helper = mock.MagicMock()
-        scenario_helper = mock.MagicMock()
-
-        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        helper.LUA_PARAMETER_NAME = 'sut'
-
-        expected = [
-            'sut_hex_ip_port_0:"98 10 64 13"',
-            'sut_ip_port_0:"152.16.100.19"',
-            'gen_hex_ip_port_0:"98 10 64 13"',
-            'gen_ip_port_0:"152.16.100.19"',
-
-            'sut_hex_ip_port_1:"98 10 28 13"',
-            'sut_ip_port_1:"152.16.40.19"',
-            'gen_hex_ip_port_1:"98 10 28 14"',
-            'gen_ip_port_1:"152.16.40.20"',
-        ]
-        result = helper.generate_prox_lua_file()
-        self.assertListEqual(result.splitlines(), expected)
-
-    def test_upload_prox_lua(self):
-        def identity(*args):
-            return args
-
-        vnfd_helper = mock.MagicMock()
-        vnfd_helper.interfaces = []
-        ssh_helper = mock.MagicMock()
-        scenario_helper = mock.MagicMock()
-
-        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        helper.generate_prox_lua_file = mock.MagicMock(return_value=234)
-        helper.put_string_to_file = identity
-
-        expected = ''
-        result = helper.upload_prox_lua('my_dir', {})
-        self.assertEqual(result, expected)
-
-        input_data = {
-            'lua': {
-                'key1': 'value1 ("inside") tail',
-                'key2': 'value2',
-                'key3 ("key_side") head': 'value3',
-            },
-        }
-
-        expected = 234, 'my_dir/key_side'
-        result = helper.upload_prox_lua('my_dir', input_data)
-        self.assertEqual(result, expected)
 
     def test_put_string_to_file(self):
         vnfd_helper = mock.MagicMock()
@@ -2145,6 +2096,73 @@ class TestProxBngProfileHelper(unittest.TestCase):
         resource_helper.sut.port_stats.return_value = list(range(10))
 
         helper = ProxBngProfileHelper(resource_helper)
+
+        helper.run_test(120, 5, 6.5)
+        helper.run_test(-1000, 5, 6.5)  # negative pkt_size is the only way to make ratio > 1
+
+
+class TestProxVpeProfileHelper(unittest.TestCase):
+
+    def test_vpe_cores(self):
+        resource_helper = mock.MagicMock()
+        resource_helper.setup_helper.prox_config_data = [
+            ('section1', []),
+            ('section2', [
+                ('a', 'b'),
+                ('c', 'd'),
+            ]),
+            ('core 1', []),
+            ('core 2', [
+                ('index', 8),
+                ('mode', ''),
+            ]),
+            ('core 3', [
+                ('index', 5),
+                ('mode', 'gen'),
+                ('name', 'cpe'),
+            ]),
+            ('core 4', [
+                ('index', 7),
+                ('mode', 'gen'),
+                ('name', 'inet'),
+            ]),
+        ]
+
+        helper = ProxVpeProfileHelper(resource_helper)
+        helper._cpu_topology = {
+            0: {
+                1: {
+                    5: (5, 1, 0)
+                },
+                2: {
+                    6: (6, 2, 0)
+                },
+                3: {
+                    7: (7, 3, 0)
+                },
+                4: {
+                    8: (8, 3, 0)
+                },
+            }
+        }
+
+        expected_cpe = [7]
+        expected_inet = [8]
+        expected_combined = (expected_cpe, expected_inet)
+
+        self.assertIsNone(helper._cores_tuple)
+        self.assertEqual(helper.cpe_cores, expected_cpe)
+        self.assertEqual(helper.inet_cores, expected_inet)
+        self.assertEqual(helper._cores_tuple, expected_combined)
+
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.time')
+    def test_run_test(self, _):
+        resource_helper = mock.MagicMock()
+        resource_helper.step_delta = 0.4
+        resource_helper.vnfd_helper.port_pairs.all_ports = list(range(2))
+        resource_helper.sut.port_stats.return_value = list(range(10))
+
+        helper = ProxVpeProfileHelper(resource_helper)
 
         helper.run_test(120, 5, 6.5)
         helper.run_test(-1000, 5, 6.5)  # negative pkt_size is the only way to make ratio > 1
