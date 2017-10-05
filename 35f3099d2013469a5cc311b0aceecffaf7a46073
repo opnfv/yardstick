@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_3de7afe5",
+        "filename": "ansible/roles/install_collectd/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-05T22:17:27Z",
+      "side": 1,
+      "message": "you shouldn\u0027t need the .x86_64 suffix",
+      "revId": "35f3099d2013469a5cc311b0aceecffaf7a46073",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
