@@ -22,7 +22,7 @@
     chdir: "{{ collectd_path }}"
 
 - name: build collectd
-  shell: "./configure --with-libpqos=/usr/ --with-libdpdk={{ dpdk_shared_path }} --with-libyajl=/usr/local --enable-debug --enable-dpdkstat --enable-virt --enable-ovs_stats --prefix={{ INSTALL_BIN_PATH }}/collectd |& tee collectd-configure.txt"
+  shell: "./configure --with-libpqos=/usr/ --with-libdpdk={{ dpdk_shared_path }} --with-libyajl=/usr/ --enable-debug --enable-dpdkstat --enable-virt --enable-ovs_stats --prefix={{ INSTALL_BIN_PATH }}/collectd |& tee collectd-configure.txt"
   args:
     executable: /bin/bash
     chdir: "{{ collectd_path }}"
