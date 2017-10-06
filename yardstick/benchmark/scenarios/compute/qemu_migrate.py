@@ -26,7 +26,7 @@ class QemuMigrate(base.Scenario):
     __scenario_type__ = "QemuMigrate"
 
     TARGET_SCRIPT = "qemu_migrate_benchmark.bash"
-    WORKSPACE = "/root/workspace"
+    WORKSPACE = "/root/workspace/"
     REBOOT_CMD_PATTERN = r";\s*reboot\b"
 
     def __init__(self, scenario_cfg, context_cfg):
@@ -89,7 +89,8 @@ class QemuMigrate(base.Scenario):
         self.target_script = pkg_resources.resource_filename(
             "yardstick.benchmark.scenarios.compute",
             QemuMigrate.TARGET_SCRIPT)
-        self.host.put_file(self.target_script, "~/qemu_migrate_benchmark.sh")
+        self.host._put_file_shell(
+            self.target_script, "~/qemu_migrate_benchmark.sh")
 
         self.setup_done = True
 
