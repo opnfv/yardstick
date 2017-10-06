@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_c3da2216",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-10-06T16:35:47Z",
+      "side": 1,
+      "message": "The VM name might be misleading on AArch64, since there is no 0.3.5, only a daily build. But let\u0027s go with this for now and we can rename it later, it\u0027s just an aesthetic issue.",
+      "range": {
+        "startLine": 162,
+        "startChar": 12,
+        "endLine": 162,
+        "endChar": 25
+      },
+      "revId": "af71c468fe83a5149e0e18cdb233e059302209e3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
