@@ -82,35 +82,8 @@ load_yardstick_image()
     echo
     echo "========== Loading yardstick cloud image =========="
     EXTRA_PARAMS=""
-    if [[ "${YARD_IMG_ARCH}" == "arm64" && "${YARD_IMG_AKI}" == "true" ]]; then
-        CLOUD_IMAGE="/tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}.tar.gz"
-        CLOUD_KERNEL="/tmp/${release}-server-cloudimg-${YARD_IMG_ARCH}-vmlinuz-generic"
-        cd /tmp
-        if [ ! -f "${CLOUD_IMAGE}" ]; then
-            wget "${CLOUD_IMG_URL}"
-        fi
-        if [ ! -f "${CLOUD_KERNEL}" ]; then
-            tar xf "${CLOUD_IMAGE}" "${CLOUD_KERNEL##**/}"
-        fi
-        create_kernel=$(openstack ${SECURE} image create \
-                --public \
-                --disk-format qcow2 \
-                --container-format bare \
-                --file ${CLOUD_KERNEL} \
-                yardstick-${release}-kernel)
-
-        GLANCE_KERNEL_ID=$(echo "$create_kernel" | awk '/ id / {print $(NF-1)}')
-        if [ -z "$GLANCE_KERNEL_ID" ]; then
-            echo 'Failed uploading kernel to cloud'.
-            exit 1
-        fi
-
-        command_line="root=/dev/vdb1 console=tty0 console=ttyS0 console=ttyAMA0 rw"
-
-        EXTRA_PARAMS="--property kernel_id=$GLANCE_KERNEL_ID --property os_command_line=\"$command_line\""
-
-        rm -f -- "${CLOUD_KERNEL}" "${CLOUD_IMAGE}"
-        cd "${YARDSTICK_REPO_DIR}"
+    if [[ "${YARD_IMG_ARCH}" == "arm64" ]]; then
+        EXTRA_PARAMS="--property hw_video_model=vga"
     fi
 
     # VPP requires guest memory to be backed by large pages
@@ -154,9 +127,11 @@ load_yardstick_image()
 
 load_cirros_image()
 {
+    EXTRA_PARAMS=""
     if [[ "${YARD_IMG_ARCH}" == "arm64" ]]; then
         CIRROS_IMAGE_VERSION="cirros-d161201"
         CIRROS_IMAGE_PATH="/home/opnfv/images/cirros-d161201-aarch64-disk.img"
+        EXTRA_PARAMS="--property hw_video_model=vga --property short_id=ubuntu16.04"
     else
         CIRROS_IMAGE_VERSION="Cirros-0.3.5"
         CIRROS_IMAGE_PATH="/home/opnfv/images/cirros-0.3.5-x86_64-disk.img"
@@ -170,10 +145,13 @@ load_cirros_image()
 
         local image_file="${CIRROS_IMAGE_PATH}"
 
-        EXTRA_PARAMS=""
         # VPP requires guest memory to be backed by large pages
         if [[ "$DEPLOY_SCENARIO" == *"-fdio-"* ]]; then
             EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
+        fi
+
+        if [[ -n "${HW_FW_TYPE}" ]]; then
+            EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_firmware_type=${HW_FW_TYPE}"
         fi
 
         output=$(openstack ${SECURE} image create \
@@ -271,16 +249,14 @@ main()
     build_yardstick_image
     load_yardstick_image
     if [ "${YARD_IMG_ARCH}" == "arm64" ]; then
-        sed -i 's/image: {{image}}/image: TestVM/g' tests/opnfv/test_cases/opnfv_yardstick_tc002.yaml
-        sed -i 's/image: cirros-0.3.5/image: TestVM/g' samples/ping.yaml
         #We have overlapping IP with the real network
         for filename in tests/opnfv/test_cases/*; do
             sed -i "s/cidr: '10.0.1.0\/24'/cidr: '10.3.1.0\/24'/g" "${filename}"
         done
     else
-        load_cirros_image
         load_ubuntu_image
     fi
+    load_cirros_image
     create_nova_flavor
 }
 
