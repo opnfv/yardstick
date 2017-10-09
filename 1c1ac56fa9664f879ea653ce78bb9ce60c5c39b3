@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_fff05fcb",
+        "filename": "yardstick/ssh.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-10-09T09:10:47Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be better if we used LOG facility instead of print?",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 13
+      },
+      "revId": "1c1ac56fa9664f879ea653ce78bb9ce60c5c39b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
