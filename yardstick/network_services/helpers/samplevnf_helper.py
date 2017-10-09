@@ -521,6 +521,9 @@ class MultiPortConfig(object):
             self.pipeline_counter += 1
             self.update_timer()
 
+        if self.lb_config == 'HW':
+            self.start_core = 1
+
         for lb in self.lb_to_port_pair_mapping:
             self.lb_index = lb
             self.mul = 0
