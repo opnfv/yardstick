@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_3f7927fd",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-10-09T09:10:47Z",
+      "side": 1,
+      "message": "This could be a class attribute.",
+      "range": {
+        "startLine": 286,
+        "startChar": 12,
+        "endLine": 286,
+        "endChar": 53
+      },
+      "revId": "3592a3baf6a082eafde7e4532f8b85551d64afa1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7f83afcc",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-10-09T09:10:47Z",
+      "side": 1,
+      "message": "this could be a class attribute.",
+      "range": {
+        "startLine": 291,
+        "startChar": 8,
+        "endLine": 291,
+        "endChar": 61
+      },
+      "revId": "3592a3baf6a082eafde7e4532f8b85551d64afa1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5f886be7",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-10-09T09:10:47Z",
+      "side": 1,
+      "message": "this also could be a class attribute.",
+      "range": {
+        "startLine": 301,
+        "startChar": 80,
+        "endLine": 301,
+        "endChar": 97
+      },
+      "revId": "3592a3baf6a082eafde7e4532f8b85551d64afa1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1f654345",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-10-09T09:10:47Z",
+      "side": 1,
+      "message": "I think method names should not differ in just one letter at the end. At the same time, this doesn\u0027t return anything as the name would suggest. So I suggest to rename this method to something like set_real_kernel_drivers_map() or set_real_kernel_interface_driver_map()",
+      "range": {
+        "startLine": 428,
+        "startChar": 8,
+        "endLine": 428,
+        "endChar": 31
+      },
+      "revId": "3592a3baf6a082eafde7e4532f8b85551d64afa1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
