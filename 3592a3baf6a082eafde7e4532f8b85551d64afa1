@@ -91,6 +91,30 @@
       "revId": "3592a3baf6a082eafde7e4532f8b85551d64afa1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1fc1c3e4",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-09T09:16:00Z",
+      "side": 1,
+      "message": "maybe save_real_kernel_interface_map",
+      "parentUuid": "9a3d3df0_1f654345",
+      "range": {
+        "startLine": 428,
+        "startChar": 8,
+        "endLine": 428,
+        "endChar": 31
+      },
+      "revId": "3592a3baf6a082eafde7e4532f8b85551d64afa1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
