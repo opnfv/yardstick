@@ -19,7 +19,18 @@ LOG = logging.getLogger(__name__)
 
 
 class DeleteImage(base.Scenario):
-    """Delete an OpenStack image"""
+    """Delete an OpenStack image
+    
+    Parameters
+        image_name - name of the image
+            type:    string
+            unit:    N/A
+            default: null
+        image_id - id of the image
+            type:    string
+            unit:    N/A
+            default: null
+    """
 
     __scenario_type__ = "DeleteImage"
 
@@ -28,10 +39,8 @@ class DeleteImage(base.Scenario):
         self.context_cfg = context_cfg
         self.options = self.scenario_cfg['options']
 
-        self.image_name = self.options.get("image_name", "TestImage")
-        self.image_id = None
-
-        self.glance_client = op_utils.get_glance_client()
+        self.image_name = self.options.get("image_name", None)
+        self.image_id = self.options.get("image_id", None)
 
         self.setup_done = False
 
@@ -46,16 +55,13 @@ class DeleteImage(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        self.image_id = op_utils.get_image_id(self.glance_client, self.image_name)
-        LOG.info("Deleting image: %s", self.image_name)
-        status = op_utils.delete_image(self.glance_client, self.image_id)
+        if self.image_name and not self.image_id:
+            self.image_id = op_utils.get_image_id(self.image_name)
+
+        LOG.info("Deleting image: %s", self.image_id)
+        status = op_utils.delete_image(self.image_id)
 
         if status:
             LOG.info("Delete image successful!")
-            values = [status]
         else:
             LOG.info("Delete image failed!")
-            values = []
-
-        keys = self.scenario_cfg.get('output', '').split()
-        return self._push_to_outputs(keys, values)

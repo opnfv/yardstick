@@ -19,7 +19,18 @@ LOG = logging.getLogger(__name__)
 
 
 class DeleteFlavor(base.Scenario):
-    """Delete an OpenStack flavor by name"""
+    """Delete an OpenStack flavor by name or id
+
+    Parameters
+        flavor_name - name of the flavor
+            type:    string
+            unit:    N/A
+            default: null
+        flavor_id - id of the flavor
+            type:    string
+            unit:    N/A
+            default: null
+    """
 
     __scenario_type__ = "DeleteFlavor"
 
@@ -28,10 +39,8 @@ class DeleteFlavor(base.Scenario):
         self.context_cfg = context_cfg
         self.options = self.scenario_cfg['options']
 
-        self.flavor_name = self.options.get("flavor_name", "TestFlavor")
-        self.flavor_id = None
-
-        self.nova_client = op_utils.get_nova_client()
+        self.flavor_name = self.options.get("flavor_name", None)
+        self.flavor_id = self.options.get("flavor_id", None)
 
         self.setup_done = False
 
@@ -46,8 +55,10 @@ class DeleteFlavor(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        self.flavor_id = op_utils.get_flavor_id(self.nova_client, self.flavor_name)
-        LOG.info("Deleting flavor: %s", self.flavor_name)
+        if self.flavor_name and not self.flavor_id:
+            self.flavor_id = op_utils.get_flavor_id(self.flavor_name)
+        
+        LOG.info("Deleting flavor: %s", self.flavor_id)
         status = op_utils.delete_flavor(self.flavor_id)
 
         if status:
