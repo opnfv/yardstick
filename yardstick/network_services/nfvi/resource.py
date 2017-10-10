@@ -34,7 +34,7 @@ from yardstick import ssh
 from yardstick.common.task_template import finalize_for_yaml
 from yardstick.common.utils import validate_non_string_sequence
 from yardstick.network_services.nfvi.collectd import AmqpConsumer
-from yardstick.network_services.utils import get_nsb_option
+
 
 LOG = logging.getLogger(__name__)
 
@@ -53,6 +53,7 @@ class ResourceProfile(object):
     AMPQ_PORT = 5672
     DEFAULT_INTERVAL = 25
     DEFAULT_TIMEOUT = 3600
+    OVS_SOCKET_PATH = "/usr/local/var/run/openvswitch/db.sock"
 
     def __init__(self, mgmt, port_names=None, cores=None, plugins=None,
                  interval=None, timeout=None):
@@ -233,10 +234,32 @@ class ResourceProfile(object):
         }
         self._provide_config_file(config_file_path, self.COLLECTD_CONF, kwargs)
 
+    def _setup_intel_pmu(self, connection, bin_path):
+        pmu_event_path = os.path.join(bin_path, "pmu_event.json")
+        try:
+            self.plugins["intel_pmu"]["pmu_event_path"] = pmu_event_path
+        except KeyError:
+            # if intel_pmu is not a dict, force it into a dict
+            self.plugins["intel_pmu"] = {"pmu_event_path": pmu_event_path}
+        LOG.debug("Downloading event list for pmu_stats plugin")
+        cmd = 'cd {0}; PMU_EVENTS_PATH={1} python event_download_local.py'.format(
+            bin_path, pmu_event_path)
+        cmd = "sudo bash -c '{}'".format(cmd)
+        connection.execute(cmd)
+
+    def _setup_ovs_stats(self, connection):
+        try:
+            socket_path = self.plugins["ovs_stats"].get("ovs_socket_path", self.OVS_SOCKET_PATH)
+        except KeyError:
+            # ovs_stats is not a dict
+            socket_path = self.OVS_SOCKET_PATH
+        status = connection.execute("test -S {}".format(socket_path))[0]
+        if status != 0:
+            LOG.error("cannot find OVS socket %s", socket_path)
+
     def _start_collectd(self, connection, bin_path):
         LOG.debug("Starting collectd to collect NFVi stats")
         connection.execute('sudo pkill -x -9 collectd')
-        bin_path = get_nsb_option("bin_path")
         collectd_path = os.path.join(bin_path, "collectd", "sbin", "collectd")
         config_file_path = os.path.join(bin_path, "collectd", "etc")
         exit_status = connection.execute("which %s > /dev/null 2>&1" % collectd_path)[0]
@@ -251,9 +274,10 @@ class ResourceProfile(object):
             #     collectd_installer, http_proxy, https_proxy))
             return
         if "intel_pmu" in self.plugins:
-            LOG.debug("Downloading event list for pmu_stats plugin")
-            cmd = 'sudo bash -c \'cd /opt/tempT/pmu-tools/; python event_download_local.py\''
-            connection.execute(cmd)
+            self._setup_intel_pmu(connection, bin_path)
+        if "ovs_stats" in self.plugins:
+            self._setup_ovs_stats(connection)
+
         LOG.debug("Starting collectd to collect NFVi stats")
         # ensure collectd.conf.d exists to avoid error/warning
         connection.execute("sudo mkdir -p /etc/collectd/collectd.conf.d")
