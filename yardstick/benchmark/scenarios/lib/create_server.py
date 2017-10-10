@@ -13,62 +13,45 @@ from __future__ import absolute_import
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
 
 LOG = logging.getLogger(__name__)
 
 
-class CreateServer(base.Scenario):
+class CreateServer(base.OpenstackScenario):
     """Create an OpenStack server"""
 
     __scenario_type__ = "CreateServer"
+    LOGGER = LOG
+    DEFAULT_OPTIONS = {
+        "openstack_paras": dict,
+        "flavor_name": None,
+        "image_name": None,
+    }
 
-    def __init__(self, scenario_cfg, context_cfg):
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
+    def _get_image_id(self):
+        return self.glance_get_image_id(self.image_name)
 
-        self.image_name = self.options.get("image_name", None)
-        self.flavor_name = self.options.get("flavor_name", None)
-        self.openstack = self.options.get("openstack_paras", None)
+    def _get_flavor_id(self):
+        return self.nova_get_flavor_id(self.flavor_name)
 
-        self.glance_client = op_utils.get_glance_client()
-        self.neutron_client = op_utils.get_neutron_client()
-        self.nova_client = op_utils.get_nova_client()
-
-        self.setup_done = False
-
-    def setup(self):
-        """scenario setup"""
-
-        self.setup_done = True
-
-    def run(self, result):
+    def _run(self, result):
         """execute the test"""
 
-        if not self.setup_done:
-            self.setup()
-
         if self.image_name is not None:
-            self.openstack['image'] = op_utils.get_image_id(self.glance_client,
-                                                            self.image_name)
+            self.openstack_paras['image'] = self._get_image_id()
+
         if self.flavor_name is not None:
-            self.openstack['flavor'] = op_utils.get_flavor_id(self.nova_client,
-                                                              self.flavor_name)
+            self.openstack_paras['flavor'] = self._get_flavor_id()
 
-        vm = op_utils.create_instance_and_wait_for_active(self.openstack)
-
-        if vm:
-            result.update({"instance_create": 1})
-            LOG.info("Create server successful!")
-        else:
-            result.update({"instance_create": 0})
-            LOG.error("Create server failed!")
+        vm = self.nova_create_instance_and_wait_for_active(self.openstack_paras)
 
         try:
-            keys = self.scenario_cfg.get('output', '').split()
-        except KeyError:
-            pass
-        else:
             values = [vm.id]
-            return self._push_to_outputs(keys, values)
+        except AttributeError:
+            result["instance_create"] = 0
+            LOG.error("Create server failed!")
+            return []
+        else:
+            result["instance_create"] = 1
+            LOG.info("Create server successful!")
+            return values

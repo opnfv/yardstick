@@ -14,10 +14,11 @@ from yardstick.benchmark.scenarios.lib.create_image import CreateImage
 
 class CreateImageTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.create_image')
-    @mock.patch('yardstick.common.openstack_utils.get_glance_client')
-    def test_create_image(self, mock_get_glance_client, mock_create_image):
-        options = {
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_create_image(self, mock_openstack_utils):
+        mock_glance_client = mock_openstack_utils.get_glance_client()
+        args = {
+            "options": {
                 'image_name': 'yardstick_test_image_01',
                 'disk_format': 'qcow2',
                 'container_format': 'bare',
@@ -25,12 +26,13 @@ class CreateImageTestCase(unittest.TestCase):
                 'min_ram': '512',
                 'protected': 'False',
                 'tags': '["yardstick automatic test image"]',
-                'file_path': '/home/opnfv/images/cirros-0.3.5-x86_64-disk.img'
+                'file_path': '/home/opnfv/images/cirros-0.3.5-x86_64-disk.img',
+            },
         }
-        args = {"options": options}
         obj = CreateImage(args, {})
         obj.run({})
-        self.assertTrue(mock_create_image.called)
+        self.assertEqual(mock_openstack_utils.get_glance_client.call_count, 2)
+        self.assertTrue(mock_glance_client.create_image.called)
 
 
 def main():

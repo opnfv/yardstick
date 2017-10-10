@@ -15,18 +15,8 @@ import subprocess
 import threading
 import time
 
-from datetime import datetime
-
-
-from yardstick.common import openstack_utils
-from yardstick.common.utils import change_obj_to_dict
+from yardstick.common.utils import Timer, IterableEvent
 from yardstick.benchmark.scenarios import base
-
-LOG = logging.getLogger(__name__)
-
-TIMEOUT = 0.05
-PACKAGE_SIZE = 64
-
 
 try:
     import ping
@@ -36,129 +26,124 @@ except ImportError:
     import mock
     ping = mock.MagicMock()
 
+LOG = logging.getLogger(__name__)
 
-class Migrate(base.Scenario):       # pragma: no cover
+TIMEOUT = 0.05
+PACKAGE_SIZE = 64
+
+
+class Migrate(base.OpenstackScenario):       # pragma: no cover
     """
     Execute a live migration for two hosts
 
     """
 
     __scenario_type__ = "Migrate"
+    LOGGER = LOG
 
-    def __init__(self, scenario_cfg, context_cfg):
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
-        self.options = self.scenario_cfg.get('options', {})
-
-        self.nova_client = openstack_utils.get_nova_client()
-
-    def run(self, result):
-        default_instance_id = self.options.get('server', {}).get('id', '')
-        instance_id = self.options.get('server_id', default_instance_id)
-        LOG.info('Instance id is %s', instance_id)
-
-        target_host = self.options.get('host')
-        LOG.info('Target host is %s', target_host)
-
-        instance_ip = self.options.get('server_ip')
-        if instance_ip:
-            LOG.info('Instance ip is %s', instance_ip)
-
-            self._ping_until_connected(instance_ip)
-            LOG.info('Instance is connected')
-
-            LOG.debug('Start to ping instance')
-            ping_thread = self._do_ping_task(instance_ip)
-
-        keys = self.scenario_cfg.get('output', '').split()
-        try:
-            LOG.info('Start to migrate')
-            self._do_migrate(instance_id, target_host)
-        except Exception as e:
-            return self._push_to_outputs(keys, [1, str(e).split('.')[0]])
-        else:
-            migrate_time = self._get_migrate_time(instance_id)
-            LOG.info('Migration time is %s s', migrate_time)
-
-            current_host = self._get_current_host_name(instance_id)
-            LOG.info('Current host is %s', current_host)
-            if current_host.strip() != target_host.strip():
-                LOG.error('current_host not equal to target_host')
-                values = [1, 'current_host not equal to target_host']
-                return self._push_to_outputs(keys, values)
-
-        if instance_ip:
-            ping_thread.flag = False
-            ping_thread.join()
-
-            downtime = ping_thread.get_delay()
-            LOG.info('Downtime is %s s', downtime)
-
-            values = [0, migrate_time, downtime]
-            return self._push_to_outputs(keys, values)
-        else:
-            values = [0, migrate_time]
-            return self._push_to_outputs(keys, values)
-
-    def _do_migrate(self, server_id, target_host):
-
+    @staticmethod
+    def _do_migrate(server_id, target_host):
+        LOG.info('Start to migrate')
         cmd = ['nova', 'live-migration', server_id, target_host]
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
         p.communicate()
 
-    def _ping_until_connected(self, instance_ip):
-        for i in range(3000):
-            res = ping.do_one(instance_ip, TIMEOUT, PACKAGE_SIZE)
-            if res:
-                break
+    def __init__(self, scenario_cfg, context_cfg, default_server_id=None):
+        if default_server_id is None:
+            default_server_id = self.options.get('server', {}).get('id', '')
+        super(Migrate, self).__init__(scenario_cfg, context_cfg, default_server_id)
 
-    def _do_ping_task(self, instance_ip):
-        ping_thread = PingThread(instance_ip)
-        ping_thread.start()
-        return ping_thread
+    def _run(self, result):
+        target_host = self.options.get('host')
+        LOG.info('Target host is %s', target_host)
 
-    def _get_current_host_name(self, server_id):
+        with PingThread(self.server_ip, 'Instance') as ping_thread:
+            try:
+                self._do_migrate(self.server_id, target_host)
+            except Exception as e:
+                return [1, str(e).split('.')[0]]
 
-        return change_obj_to_dict(self.nova_client.servers.get(server_id))['OS-EXT-SRV-ATTR:host']
+            migrate_time = self._time_migration()
+            LOG.info('Migration time is %s s', migrate_time)
+            values = [0, migrate_time]
 
-    def _get_migrate_time(self, server_id):
-        while True:
-            status = self.nova_client.servers.get(server_id).status.lower()
-            if status == 'migrating':
-                start_time = datetime.now()
-                break
+            current_host = self.host_name
+            LOG.info('Current host is %s', current_host)
+            if current_host.strip() != target_host.strip():
+                LOG.error('current_host not equal to target_host')
+                return [1, 'current_host not equal to target_host']
+
+        try:
+            downtime = ping_thread.delay
+        except AttributeError:
+            pass
+        else:
+            LOG.info('Downtime is %s s', downtime)
+            values.append(downtime)
+
+        return values
+
+    def _time_migration(self):
+        server = self.nova_client.servers.get(self.server_id)
+
+        for _ in iter(server.status.lower, 'migrating'):
+            pass
+
         LOG.debug('Instance status change to MIGRATING')
+        with Timer() as timer:
+            for status in iter(server.status.lower, 'active'):
+                if status == 'error':
+                    LOG.error('Instance status is ERROR')
+                    raise RuntimeError('The instance status is error')
 
-        while True:
-            status = self.nova_client.servers.get(server_id).status.lower()
-            if status == 'active':
-                end_time = datetime.now()
-                break
-            if status == 'error':
-                LOG.error('Instance status is ERROR')
-                raise RuntimeError('The instance status is error')
         LOG.debug('Instance status change to ACTIVE')
-
-        duration = end_time - start_time
-        return duration.seconds + duration.microseconds * 1.0 / 1e6
+        return timer.get_delta_with_microseconds()
 
 
 class PingThread(threading.Thread):     # pragma: no cover
 
-    def __init__(self, target):
+    def __init__(self, target, name='Target'):
         super(PingThread, self).__init__()
+        self.name = name
         self.target = target
-        self.flag = True
-        self.delay = 0.0
+        self.stop_exec = IterableEvent()
+        self.timer = None
+        LOG.info('%s IP is %s', self.name, self.target)
+
+    @property
+    def delay(self):
+        return self.timer.delta
+
+    @property
+    def delay_with_microseconds(self):
+        return self.timer.get_delta_with_microseconds()
+
+    def __enter__(self):
+        if not self.target:
+            return
+        self.ping_until_connected()
+        self.start()
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.stop_exec.set()
+
+    def __iter__(self):
+        return iter(self.ping_one, None)
+
+    def ping_one(self):
+        if not self.target:
+            return
+        return ping.do_one(self.target, TIMEOUT, PACKAGE_SIZE)
 
     def run(self):
-        count = 0
-        while self.flag:
-            res = ping.do_one(self.target, TIMEOUT, PACKAGE_SIZE)
-            if not res:
-                count += 1
-            time.sleep(0.01)
-        self.delay = (TIMEOUT + 0.01) * count
+        if not self.target:
+            return
+        LOG.debug('Start to ping %s %s', self.name.lower(), self.target)
+        with Timer() as self.timer:
+            for _ in zip(self.stop_exec, self):
+                time.sleep(0.01)
 
-    def get_delay(self):
-        return self.delay
+    def ping_until_connected(self):
+        for _ in self:
+            pass
+        LOG.info('%s %s is connected', self.name, self.target)

@@ -11,6 +11,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 
 import logging
+from itertools import chain
 
 from yardstick.benchmark.scenarios import base
 
@@ -24,38 +25,21 @@ class CheckNumaInfo(base.Scenario):
     """
 
     __scenario_type__ = "CheckNumaInfo"
+    LOGGER = LOG
+    DEFAULT_OPTIONS = {
+        'cpu_set': '1,2,3,4,5,6',
+    }
 
-    def __init__(self, scenario_cfg, context_cfg):
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
+    def _run(self, result):
+        return [self._check_vm2_status()]
 
-        self.options = self.scenario_cfg.get('options', {})
-
-        self.cpu_set = self.options.get('cpu_set', '1,2,3,4,5,6')
-
-    def run(self, result):
-        info1 = self.options.get('info1')
-        info2 = self.options.get('info2')
-        LOG.debug('Origin numa info: %s', info1)
-        LOG.debug('Current numa info: %s', info2)
-        status = self._check_vm2_status(info1, info2)
-
-        keys = self.scenario_cfg.get('output', '').split()
-        values = [status]
-        return self._push_to_outputs(keys, values)
-
-    def _check_vm2_status(self, info1, info2):
-        if len(info1['pinning']) != 1 or len(info2['pinning']) != 1:
+    def _check_vm2_status(self):
+        LOG.debug('Origin numa info: %s', self.info1)
+        LOG.debug('Current numa info: %s', self.info2)
+        if len(self.info1['pinning']) != 1 or len(self.info2['pinning']) != 1:
             return False
 
-        for i in info1['vcpupin']:
-            for j in i['cpuset'].split(','):
-                if j not in self.cpu_set.split(','):
-                    return False
-
-        for i in info2['vcpupin']:
-            for j in i['cpuset'].split(','):
-                if j not in self.cpu_set.split(','):
-                    return False
-
-        return True
+        cpu_set = set(self.cpu_set.split(','))
+        pin_iter = chain(self.info1['vcpupin'], self.info2['vcpupin'])
+        pin_set_iter = (set(pin['cpuset'].split(',')) for pin in pin_iter)
+        return not any(pin_set.difference(cpu_set) for pin_set in pin_set_iter)

@@ -8,15 +8,15 @@
 ##############################################################################
 import unittest
 import mock
-import paramiko
 
 from yardstick.benchmark.scenarios.lib.detach_volume import DetachVolume
 
 
 class DetachVolumeTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.detach_volume')
-    def test_detach_volume(self, mock_detach_volume):
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_detach_volume(self, mock_openstack_utils):
+        mock_cinder_client = mock_openstack_utils.get_cinder_client()
         options = {
             'server_id': '321-321-321',
             'volume_id': '123-123-123'
@@ -24,7 +24,8 @@ class DetachVolumeTestCase(unittest.TestCase):
         args = {"options": options}
         obj = DetachVolume(args, {})
         obj.run({})
-        self.assertTrue(mock_detach_volume.called)
+        self.assertEqual(mock_openstack_utils.get_cinder_client.call_count, 2)
+        self.assertTrue(mock_cinder_client.detach_volume.called)
 
 
 def main():
