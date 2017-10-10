@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ce1fab08",
+        "filename": "yardstick/benchmark/scenarios/lib/check_value.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-10T16:59:31Z",
+      "side": 1,
+      "message": "given how many places we convert value1 to a float, i would ask that it be converted immediately after getting it.  value2 could be handled the same.\n\nalso, comparisons can take more than 2 operands, so this last clause could be:\n\n not value1_bottom \u003c\u003d float(value1) \u003c\u003d value1_top",
+      "range": {
+        "startLine": 72,
+        "startChar": 67,
+        "endLine": 72,
+        "endChar": 80
+      },
+      "revId": "3294c9e1ef1a51fe614d6f3aaa1d1c9260684014",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0e0353b9",
+        "filename": "yardstick/benchmark/scenarios/lib/check_value.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-10T16:59:31Z",
+      "side": 1,
+      "message": "\"should fall within the range\"",
+      "range": {
+        "startLine": 74,
+        "startChar": 51,
+        "endLine": 74,
+        "endChar": 84
+      },
+      "revId": "3294c9e1ef1a51fe614d6f3aaa1d1c9260684014",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2e31f7a2",
+        "filename": "yardstick/benchmark/scenarios/lib/check_value.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-10T16:59:31Z",
+      "side": 1,
+      "message": "this is the same as part of the test that is in the conditional and therefore we already know that this is true?\n\nwhy do we need to test it a second time?\n\nalso, the other asserts are the inverse of the test, why isn\u0027t that the case here?\n\nbased on the other conditionals, this should be:\n\n assert value1_bottom \u003c\u003d float(value1) \u003c\u003d value1_top, \"Error...\"",
+      "revId": "3294c9e1ef1a51fe614d6f3aaa1d1c9260684014",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8e264367",
+        "filename": "yardstick/benchmark/scenarios/lib/check_value.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-10T16:59:31Z",
+      "side": 1,
+      "message": "again, though not using floating point values, this is nearly the opposite test that is in the \"elif\" for this section, so we already know that it will be false.\n\ni\u0027m also left wondering why we are asserting statements after setting local values (check_result) when the assertion will always fail and raise the exception and the local value will go unused.\n\nalso, why is this \"greater than\" (\u003e) instead of \"greater than or equal\" (\u003e\u003d)?",
+      "revId": "3294c9e1ef1a51fe614d6f3aaa1d1c9260684014",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8e0f63e1",
+        "filename": "yardstick/benchmark/scenarios/lib/check_value.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-10T16:59:31Z",
+      "side": 1,
+      "message": "for a single value, we don\u0027t need to create a new dict and update the existing one, please:\n\n result[\u0027check_result\u0027] \u003d check_result\n\nit seems to me that the only way that this line is executed is when check_result is \"PASS\", since when any of the if-elif tests match, then an assertion error will be raised.\n\nwhich is the design:\n1) raise exception on failure\n2) populate some data field on failure",
+      "revId": "3294c9e1ef1a51fe614d6f3aaa1d1c9260684014",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cef84bc7",
+        "filename": "yardstick/benchmark/scenarios/lib/check_value.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-10T16:59:31Z",
+      "side": 1,
+      "message": "KeyError?",
+      "revId": "3294c9e1ef1a51fe614d6f3aaa1d1c9260684014",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4e055bc1",
+        "filename": "yardstick/benchmark/scenarios/lib/create_flavor.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-10T16:59:31Z",
+      "side": 1,
+      "message": "KeyError?",
+      "revId": "3294c9e1ef1a51fe614d6f3aaa1d1c9260684014",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0e6cf39b",
+        "filename": "yardstick/benchmark/scenarios/lib/create_image.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-10T16:59:31Z",
+      "side": 1,
+      "message": "KeyError?",
+      "revId": "3294c9e1ef1a51fe614d6f3aaa1d1c9260684014",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ce716b79",
+        "filename": "yardstick/benchmark/scenarios/lib/get_flavor.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-10T16:59:31Z",
+      "side": 1,
+      "message": "flavor may not be defined at this point",
+      "revId": "3294c9e1ef1a51fe614d6f3aaa1d1c9260684014",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ae6ea794",
+        "filename": "yardstick/benchmark/scenarios/lib/get_flavor.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-10T16:59:31Z",
+      "side": 1,
+      "message": "how is a KeyError going to be raised?",
+      "revId": "3294c9e1ef1a51fe614d6f3aaa1d1c9260684014",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
