@@ -16,8 +16,7 @@ class DeleteImageTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.common.openstack_utils.delete_image')
     @mock.patch('yardstick.common.openstack_utils.get_image_id')
-    @mock.patch('yardstick.common.openstack_utils.get_glance_client')
-    def test_delete_image(self, mock_get_glance_client, mock_image_id, mock_delete_image):
+    def test_delete_image(self, mock_image_id, mock_delete_image):
         options = {
                 'image_name': 'yardstick_test_image_01'
         }
@@ -26,7 +25,6 @@ class DeleteImageTestCase(unittest.TestCase):
         obj.run({})
         self.assertTrue(mock_delete_image.called)
         self.assertTrue(mock_image_id.called)
-        self.assertTrue(mock_get_glance_client.called)
 
 def main():
     unittest.main()

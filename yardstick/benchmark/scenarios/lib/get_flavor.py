@@ -19,7 +19,23 @@ LOG = logging.getLogger(__name__)
 
 
 class GetFlavor(base.Scenario):
-    """Get an OpenStack flavor by name"""
+    """Get an OpenStack flavor by name or id
+
+    Parameters
+        flavor_name - name of the flavor
+            type:    string
+            unit:    N/A
+            default: null
+        flavor_id - id of the flavor
+            type:    string
+            unit:    N/A
+            default: null
+
+    Outputs:
+        flavor - dict of the target flavor content
+            type:    dict
+            unit:    N/A
+    """
 
     __scenario_type__ = "GetFlavor"
 
@@ -27,7 +43,10 @@ class GetFlavor(base.Scenario):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
         self.options = self.scenario_cfg['options']
-        self.flavor_name = self.options.get("flavor_name", "TestFlavor")
+
+        self.flavor_name = self.options.get("flavor_name", None)
+        self.flavor_id = self.options.get("flavor_id", None)
+
         self.setup_done = False
 
     def setup(self):
@@ -41,14 +60,24 @@ class GetFlavor(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        LOG.info("Querying flavor: %s", self.flavor_name)
-        flavor = op_utils.get_flavor_by_name(self.flavor_name)
+        if self.flavor_name:
+            LOG.info("Querying flavor by name: %s", self.flavor_name)
+            flavor = op_utils.get_flavor_by_name(self.flavor_name)
+        elif self.flavor_id:
+            LOG.info("Querying flavor by id: %s", self.flavor_id)
+            flavor = op_utils.get_flavor_by_id(self.flavor_id)
+
         if flavor:
             LOG.info("Get flavor successful!")
             values = [self._change_obj_to_dict(flavor)]
+            LOG.debug("flavor details: %s", values)
         else:
-            LOG.info("Get flavor: no flavor matched!")
+            LOG.info("Get flavor failed: no flavor matched!")
             values = []
 
-        keys = self.scenario_cfg.get('output', '').split()
-        return self._push_to_outputs(keys, values)
+        try:
+            keys = self.scenario_cfg.get('output', '').split()
+        except KeyError:
+            pass
+        else:
+            return self._push_to_outputs(keys, values)
