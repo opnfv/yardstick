@@ -12,60 +12,44 @@ from __future__ import absolute_import
 
 import time
 import logging
+from itertools import takewhile
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
 
 LOG = logging.getLogger(__name__)
 
 
-class CreateVolume(base.Scenario):
+class CreateVolume(base.OpenstackScenario):
     """Create an OpenStack volume"""
 
     __scenario_type__ = "CreateVolume"
+    LOGGER = LOG
+    DEFAULT_OPTIONS = {
+        "image": None,
+        "size": 100,
+        "volume_name": "TestVolume",
+    }
 
-    def __init__(self, scenario_cfg, context_cfg):
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
+    @staticmethod
+    def _status_predicate(status):
+        return status in ['creating', 'downloading']
 
-        self.volume_name = self.options.get("volume_name", "TestVolume")
-        self.volume_size = self.options.get("size", 100)
-        self.image_name = self.options.get("image", None)
-        self.image_id = None
+    def _get_status(self):
+        volume = self.cinder_get_volume_by_name(self.volume_name)
+        return volume.status
 
-        self.glance_client = op_utils.get_glance_client()
-        self.cinder_client = op_utils.get_cinder_client()
-
-        self.setup_done = False
-
-    def setup(self):
-        """scenario setup"""
-
-        self.setup_done = True
-
-    def run(self, result):
+    def _run(self, result):
         """execute the test"""
 
-        if not self.setup_done:
-            self.setup()
+        image_id = None
+        if self.image:
+            image_id = self.glance_get_image_id(self.glance_client, self.image)
 
-        if self.image_name:
-            self.image_id = op_utils.get_image_id(self.glance_client,
-                                                  self.image_name)
+        volume = self.cinder_create_volume(self.volume_name, self.size, image_id)
 
-        volume = op_utils.create_volume(self.cinder_client, self.volume_name,
-                                        self.volume_size, self.image_id)
-
-        status = volume.status
-        while(status == 'creating' or status == 'downloading'):
+        for status in takewhile(self._status_predicate, iter(self._get_status, object())):
             LOG.info("Volume status is: %s" % status)
             time.sleep(5)
-            volume = op_utils.get_volume_by_name(self.volume_name)
-            status = volume.status
 
         LOG.info("Create volume successful!")
-
-        values = [volume.id]
-        keys = self.scenario_cfg.get('output', '').split()
-        return self._push_to_outputs(keys, values)
+        return [volume.id]

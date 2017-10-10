@@ -35,12 +35,83 @@ class FakeParamikoException(Exception):
     pass
 
 
+IP_ADDR_SHOW_OUTPUT_1 = """\
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: ens10: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state group default qlen 1000
+    link/ether 00:50:be:ef:de:ad brd ff:ff:ff:ff:ff:ff
+    inet 10.10.10.10/23 brd 10.10.11.255 scope global ens160
+       valid_lft forever preferred_lft forever
+    inet6 fe80::250:56ff:fe98:2daf/64 scope link
+       valid_lft forever preferred_lft forever
+3: ens20: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc mq state UP group default qlen 1000
+    link/ether 00:50:de:ad:be:ef brd ff:ff:ff:ff:ff:ff
+    inet 10.20.30.40/23 brd 10.20.31.255 scope global ens192
+       valid_lft forever preferred_lft forever
+    inet6 fe80::250:56ff:fe98:f982/64 scope link
+       valid_lft forever preferred_lft forever
+"""
+
+
 class SSHTestCase(unittest.TestCase):
     """Test all small SSH methods."""
 
     def setUp(self):
         super(SSHTestCase, self).setUp()
         self.test_client = ssh.SSH("root", "example.net")
+
+    def test_parse_ip_addr(self):
+        expected = {
+            'lo': {
+                'name': 'lo',
+                'mac_address': 'Unknown',
+                'ip_addr_and_prefix': ['127.0.0.1/8'],
+                'admin_mode': 'Unknown',
+                'mtu': 65536,
+            },
+            'ens10': {
+                'name': 'ens10',
+                'mac_address': '00:50:be:ef:de:ad',
+                'ip_addr_and_prefix': ['10.10.10.10/23'],
+                'admin_mode': 'Group',
+                'mtu': 1500,
+            },
+            'ens20': {
+                'name': 'ens20',
+                'mac_address': '00:50:de:ad:be:ef',
+                'ip_addr_and_prefix': ['10.20.30.40/23'],
+                'admin_mode': 'Up',
+                'mtu': 9000,
+            },
+        }
+
+        result = ssh.parse_ip_addr(IP_ADDR_SHOW_OUTPUT_1)
+        self.assertDictEqual(result, expected, str(result))
+
+    def test_get_port_ip(self):
+        expected = '10.10.10.10'
+        with mock.patch.object(self.test_client, 'execute') as mock_execute:
+            mock_execute.return_value = 0, IP_ADDR_SHOW_OUTPUT_1, ''
+            result = self.test_client.get_port_ip('ens10')
+        self.assertEqual(result, expected)
+
+    def test_get_port_mac(self):
+        expected = '00:50:de:ad:be:ef'
+        with mock.patch.object(self.test_client, 'execute') as mock_execute:
+            mock_execute.return_value = 0, IP_ADDR_SHOW_OUTPUT_1, ''
+            result = self.test_client.get_port_mac('ens20')
+        self.assertEqual(result, expected)
+
+    def test_execute_with_raise_failure(self):
+        with mock.patch.object(self.test_client, 'execute') as mock_execute:
+            mock_execute.return_value = 1, 'bad output', 'error output'
+            with self.assertRaises(RuntimeError) as raised:
+                self.test_client.execute_with_raise('my_cmd')
+            self.assertIn('error output', str(raised.exception))
 
     @mock.patch("yardstick.ssh.SSH._get_pkey")
     def test_construct(self, mock_ssh__get_pkey):

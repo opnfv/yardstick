@@ -14,8 +14,9 @@ from yardstick.benchmark.scenarios.lib.attach_volume import AttachVolume
 
 class AttachVolumeTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.attach_server_volume')
-    def test_attach_volume(self, mock_attach_server_volume):
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_attach_volume(self, mock_openstack_utils):
+        mock_nova_client = mock_openstack_utils.get_nova_client()
         options = {
                 'volume_id': '123-456-000',
                 'server_id': '000-123-456'
@@ -23,7 +24,9 @@ class AttachVolumeTestCase(unittest.TestCase):
         args = {"options": options}
         obj = AttachVolume(args, {})
         obj.run({})
-        self.assertTrue(mock_attach_server_volume.called)
+        self.assertEqual(mock_openstack_utils.get_nova_client.call_count, 2)
+        self.assertTrue(mock_nova_client.attach_server_volume.called)
+
 
 def main():
     unittest.main()

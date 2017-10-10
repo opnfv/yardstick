@@ -13,52 +13,37 @@ from __future__ import absolute_import
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
 
 LOG = logging.getLogger(__name__)
 
 
-class CreateImage(base.Scenario):
+class CreateImage(base.OpenstackScenario):
     """Create an OpenStack image"""
 
     __scenario_type__ = "CreateImage"
+    LOGGER = LOG
+    DEFAULT_OPTIONS = {
+        'image_name': 'TestImage',
+        'file_path': None,
+        'disk_format': 'qcow2',
+        'container_format': 'bare',
+        'min_disk': 0,
+        'max_ram': 0,
+        'protected': False,
+        'public': 'public',
+    }
 
     def __init__(self, scenario_cfg, context_cfg):
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
+        super(CreateImage, self).__init__(scenario_cfg, context_cfg)
 
-        self.image_name = self.options.get("image_name", "TestImage")
-        self.file_path = self.options.get("file_path", None)
-        self.disk_format = self.options.get("disk_format", "qcow2")
-        self.container_format = self.options.get("container_format", "bare")
-        self.min_disk = self.options.get("min_disk", 0)
-        self.min_ram = self.options.get("min_ram", 0)
-        self.protected = self.options.get("protected", False)
-        self.public = self.options.get("public", "public")
-        self.tags = self.options.get("tags", [])
-        self.custom_property = self.options.get("property", {})
+        self.kwargs = self.options.get("property", {})
+        self.kwargs['tags'] = self.options.get("tags", [])
+        self.kwargs.update({key: getattr(self, key) for key in self.DEFAULT_OPTIONS})
 
-        self.glance_client = op_utils.get_glance_client()
-
-        self.setup_done = False
-
-    def setup(self):
-        """scenario setup"""
-
-        self.setup_done = True
-
-    def run(self, result):
+    def _run(self, result):
         """execute the test"""
 
-        if not self.setup_done:
-            self.setup()
-
-        image_id = op_utils.create_image(self.glance_client, self.image_name,
-                                         self.file_path, self.disk_format,
-                                         self.container_format, self.min_disk,
-                                         self.min_ram, self.protected, self.tags,
-                                         self.public, **self.custom_property)
+        image_id = self.glance_create_image(**self.kwargs)
 
         if image_id:
             LOG.info("Create image successful!")
@@ -68,5 +53,4 @@ class CreateImage(base.Scenario):
             LOG.info("Create image failed!")
             values = []
 
-        keys = self.scenario_cfg.get('output', '').split()
-        return self._push_to_outputs(keys, values)
+        return values

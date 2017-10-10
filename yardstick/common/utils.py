@@ -36,10 +36,23 @@ from six.moves import configparser
 from oslo_utils import importutils
 from oslo_serialization import jsonutils
 
+try:
+    # py27 Event is method, not type
+    # py3 doesn't have _Event
+    from threading import _Event as Event
+except ImportError:
+    from threading import Event
+
 import yardstick
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
+
+
+class ExecTuple(collections.namedtuple('ExecTuple', 'status, stdout, stderr')):
+
+    def succeeded(self):
+        return self.status == 0
 
 
 # Decorator for cli-args
@@ -168,45 +181,32 @@ def parse_ini_file(path):
     return config
 
 
-def get_port_mac(sshclient, port):
-    cmd = "ifconfig |grep HWaddr |grep %s |awk '{print $5}' " % port
-    status, stdout, stderr = sshclient.execute(cmd)
-
-    if status:
-        raise RuntimeError(stderr)
-    return stdout.rstrip()
+def get_port_mac(ssh_client, port):
+    return ssh_client.get_port_mac(port)
 
 
-def get_port_ip(sshclient, port):
-    cmd = "ifconfig %s |grep 'inet addr' |awk '{print $2}' " \
-        "|cut -d ':' -f2 " % port
-    status, stdout, stderr = sshclient.execute(cmd)
-
-    if status:
-        raise RuntimeError(stderr)
-    return stdout.rstrip()
+def get_port_ip(ssh_client, port):
+    return ssh_client.get_port_ip(port)
 
 
 def flatten_dict_key(data):
-    next_data = {}
-
-    # use list, because iterable is too generic
-    if not any(isinstance(v, (collections.Mapping, list))
-               for v in data.values()):
-        return data
-
-    for k, v in data.items():
-        if isinstance(v, collections.Mapping):
-            for n_k, n_v in v.items():
-                next_data["%s.%s" % (k, n_k)] = n_v
-        # use list because iterable is too generic
-        elif isinstance(v, collections.Iterable) and not isinstance(v, six.string_types):
-            for index, item in enumerate(v):
-                next_data["%s%d" % (k, index)] = item
+    flattened_value_count = 0
+    flattened_data = {}
+    for outer_key, outer_value in data.items():
+        if isinstance(outer_value, collections.Mapping):
+            flattened_value_count += 1
+            for inner_key, inner_value in outer_value.items():
+                flattened_data["{}.{}".format(outer_key, inner_key)] = inner_value
+        elif validate_non_string_iterable(outer_value) is outer_value:
+            flattened_value_count += 1
+            for index, item in enumerate(outer_value):
+                flattened_data["{}{}".format(outer_key, index)] = item
         else:
-            next_data[k] = v
+            flattened_data[outer_key] = outer_value
 
-    return flatten_dict_key(next_data)
+    if flattened_value_count:
+        return flatten_dict_key(flattened_data)
+    return data
 
 
 def translate_to_str(obj):
@@ -225,6 +225,10 @@ def result_handler(status, data):
         'result': data
     }
     return jsonify(result)
+
+
+def zip_to_dict(key_iterable, value_iterable):
+    return dict(zip(key_iterable, value_iterable))
 
 
 def change_obj_to_dict(obj):
@@ -349,8 +353,16 @@ def config_to_dict(config):
             config.sections()}
 
 
+def validate_non_string_iterable(value, default=None, raise_exc=None):
+    if isinstance(value, collections.Iterable) and not isinstance(value, six.string_types):
+        return value
+    if raise_exc:
+        raise raise_exc
+    return default
+
+
 def validate_non_string_sequence(value, default=None, raise_exc=None):
-    if isinstance(value, collections.Sequence) and not isinstance(value, str):
+    if isinstance(value, collections.Sequence) and not isinstance(value, six.string_types):
         return value
     if raise_exc:
         raise raise_exc
@@ -376,16 +388,73 @@ class ErrorClass(object):
 
 
 class Timer(object):
-    def __init__(self):
+
+    def __init__(self, duration=-1):
         super(Timer, self).__init__()
         self.start = self.delta = None
+        self.duration = duration
 
     def __enter__(self):
         self.start = datetime.datetime.now()
+        try:
+            self.end = self.start + self.duration
+        except TypeError:
+            self.end = self.start + datetime.timedelta(seconds=self.duration)
         return self
 
     def __exit__(self, *_):
-        self.delta = datetime.datetime.now() - self.start
+        self.delta = self.get_delta()
+
+    def get_delta(self):
+        return datetime.datetime.now() - self.start
+
+    def get_delta_with_microseconds(self):
+        return self.delta.seconds + self.delta.microseconds / 1e6
 
     def __getattr__(self, item):
         return getattr(self.delta, item)
+
+
+class IterableEvent(Event):
+
+    def __iter__(self):
+        return iter(self.is_set, True)
+
+
+class ClassHierarchy(object):
+
+    HIERARCHY_TYPE = 'general'
+    HIERARCHY_NAME = '__name__'
+
+    @classmethod
+    def find_cls(cls, hierarchy_type, seen=None):
+        local_default = object()
+        for sub_cls in itersubclasses(cls, seen):
+            if hierarchy_type == getattr(sub_cls, cls.HIERARCHY_NAME, local_default):
+                return sub_cls
+
+    @classmethod
+    def get_cls(cls, hierarchy_type):
+        """return class of specified type"""
+        sub_cls = cls.find_cls(hierarchy_type)
+        if not sub_cls:
+            raise RuntimeError("No such %s type %s" % (cls.HIERARCHY_TYPE, hierarchy_type))
+        return sub_cls
+
+    @classmethod
+    def get_types(cls, seen=None):
+        """return a list of known subclass type (class) names"""
+        return list(itersubclasses(cls, seen))
+
+    @classmethod
+    def get_module_path(cls, hierarchy_type):
+        """Returns module path of a for given type.
+        """
+        sub_cls = cls.get_cls(hierarchy_type)
+        return '.'.join([sub_cls.__module__, sub_cls.__name__])
+
+    @classmethod
+    def get(cls, hierarchy_type, *args, **kwargs):
+        """Returns instance of a hierarchy type for type.
+        """
+        return cls.get_cls(hierarchy_type)(*args, **kwargs)

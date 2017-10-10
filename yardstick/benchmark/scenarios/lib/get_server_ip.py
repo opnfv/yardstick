@@ -21,18 +21,14 @@ class GetServerIp(base.Scenario):
     """Get a server by name"""
 
     __scenario_type__ = "GetServerIp"
+    LOGGER = LOG
+    DEFAULT_OPTIONS = {
+        'ip_type': "floating",
+    }
 
-    def __init__(self, scenario_cfg, context_cfg):
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
-        self.options = self.scenario_cfg.get('options', {})
-        self.ip_type = self.options.get('ip_type', "floating")
-
-    def run(self, result):
-        server = self.options.get('server', {})
-        ip = next(n['addr'] for k, v in server['addresses'].items()
-                  for n in v if n['OS-EXT-IPS:type'] == self.ip_type)
-
-        keys = self.scenario_cfg.get('output', '').split()
-        values = [ip]
-        return self._push_to_outputs(keys, values)
+    def _run(self, result):
+        ip_type = self.ip_type
+        for address_list in self.server['addresses'].values():
+            for address_data in address_list:
+                if address_data['OS-EXT-IPS:type'] == ip_type:
+                    return [address_data['addr']]

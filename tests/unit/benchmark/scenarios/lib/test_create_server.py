@@ -14,24 +14,36 @@ from yardstick.benchmark.scenarios.lib.create_server import CreateServer
 
 class CreateServerTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.create_instance_and_wait_for_active')
-    @mock.patch('yardstick.common.openstack_utils.get_nova_client')
-    @mock.patch('yardstick.common.openstack_utils.get_glance_client')
-    @mock.patch('yardstick.common.openstack_utils.get_neutron_client')
-    def test_create_server(self, mock_get_nova_client, mock_get_neutron_client,
-                           mock_get_glance_client, mock_create_instance_and_wait_for_active):
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_create_server(self, mock_openstack_utils):
+        mock_nova_client = mock_openstack_utils.get_nova_client()
         scenario_cfg = {
             'options' : {
-                 'openstack_paras': 'example'
-             },
-             'output': 'server'
+                'openstack_paras': {},
+            },
+            'output': 'server',
         }
         obj = CreateServer(scenario_cfg, {})
         obj.run({})
-        self.assertTrue(mock_get_nova_client.called)
-        self.assertTrue(mock_get_glance_client.called)
-        self.assertTrue(mock_get_neutron_client.called)
-        self.assertTrue(mock_create_instance_and_wait_for_active.called)
+        self.assertEqual(mock_openstack_utils.get_nova_client.call_count, 2)
+        self.assertTrue(mock_nova_client.create_instance_and_wait_for_active.called)
+
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_create_server_with_flavor_and_image(self, mock_openstack_utils):
+        mock_nova_client = mock_openstack_utils.get_nova_client()
+        scenario_cfg = {
+            'options' : {
+                'flavor_name': 'example_flavor',
+                'image_name': 'example_image',
+            },
+            'output': 'server',
+        }
+        obj = CreateServer(scenario_cfg, {})
+        obj.run({})
+        self.assertEqual(mock_openstack_utils.get_nova_client.call_count, 2)
+        self.assertGreater(len(obj.openstack_paras), 0)
+        self.assertTrue(mock_openstack_utils.get_glance_client.called)
+        self.assertTrue(mock_nova_client.create_instance_and_wait_for_active.called)
 
 
 def main():

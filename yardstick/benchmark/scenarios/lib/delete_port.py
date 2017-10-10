@@ -13,39 +13,19 @@ from __future__ import absolute_import
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
 
 LOG = logging.getLogger(__name__)
 
 
-class DeletePort(base.Scenario):
+class DeletePort(base.OpenstackScenario):
     """Delete an OpenStack subnetwork"""
 
     __scenario_type__ = "DeletePort"
 
-    def __init__(self, scenario_cfg, context_cfg):
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
-
-        self.port_id = self.options.get("port_id", None)
-
-        self.neutron_client = op_utils.get_neutron_client()
-
-        self.setup_done = False
-
-    def setup(self):
-        """scenario setup"""
-
-        self.setup_done = True
-
-    def run(self, result):
+    def _run(self, result):
         """execute the test"""
 
-        if not self.setup_done:
-            self.setup()
-
-        status = self.neutron_client.delete_port(self.port_id)
+        status = self.neutron_delete_port(self.port_id)
         if status:
             result.update({"delete_port": 1})
             LOG.info("Delete Port successful!")

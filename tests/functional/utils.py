@@ -27,12 +27,10 @@ class Yardstick(object):
     """
 
     def __init__(self, fake=False):
-
+        super(Yardstick, self).__init__()
         self.args = ["yardstick"]
         self.env = copy.deepcopy(os.environ)
-
-    def __del__(self):
-        pass
+        self.fake = fake
 
     def __call__(self, cmd, getjson=False, report_path=None, raw=False,
                  suffix=None, extension=None, keep_old=False,
@@ -51,13 +49,11 @@ class Yardstick(object):
 
         if not isinstance(cmd, list):
             cmd = cmd.split(" ")
-        try:
-            output = encodeutils.safe_decode(subprocess.check_output(
-                self.args + cmd, stderr=subprocess.STDOUT, env=self.env),
-                'utf-8')
 
-            if getjson:
-                return jsonutils.loads(output)
-            return output
-        except subprocess.CalledProcessError as e:
-            raise e
+        output = encodeutils.safe_decode(subprocess.check_output(
+            self.args + cmd, stderr=subprocess.STDOUT, env=self.env),
+            'utf-8')
+
+        if getjson:
+            return jsonutils.loads(output)
+        return output

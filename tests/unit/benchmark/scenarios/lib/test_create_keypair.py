@@ -11,13 +11,12 @@ import mock
 
 from yardstick.benchmark.scenarios.lib.create_keypair import CreateKeypair
 
-PREFIX = "yardstick.benchmark.scenarios.lib.create_keypair"
-
 
 class CreateKeypairTestCase(unittest.TestCase):
-    @mock.patch('{}.paramiko'.format(PREFIX))
-    @mock.patch('{}.op_utils'.format(PREFIX))
-    def test_create_keypair(self, mock_op_utils, mock_paramiko):
+
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_create_keypair(self, mock_openstack_utils):
+        mock_nova_client = mock_openstack_utils.get_nova_client()
         options = {
             'key_name': 'yardstick_key',
             'key_path': '/tmp/yardstick_key'
@@ -25,7 +24,8 @@ class CreateKeypairTestCase(unittest.TestCase):
         args = {"options": options}
         obj = CreateKeypair(args, {})
         obj.run({})
-        self.assertTrue(mock_op_utils.create_keypair.called)
+        self.assertEqual(mock_openstack_utils.get_nova_client.call_count, 2)
+        self.assertTrue(mock_nova_client.create_keypair.called)
 
 
 def main():

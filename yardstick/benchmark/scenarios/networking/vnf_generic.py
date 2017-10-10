@@ -126,9 +126,7 @@ class NetworkServiceTestCase(base.Scenario):
     __scenario_type__ = "NSPerf"
 
     def __init__(self, scenario_cfg, context_cfg):  # Yardstick API
-        super(NetworkServiceTestCase, self).__init__()
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
+        super(NetworkServiceTestCase, self).__init__(scenario_cfg, context_cfg)
 
         # fixme: create schema to validate all fields have been provided
         with open_relative_file(scenario_cfg["topology"],

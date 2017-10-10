@@ -90,6 +90,41 @@ def convert_key_to_str(key):
     return k.getvalue()
 
 
+IP_ADDR_RE = re.compile(r"\d+: (?P<name>\S+):(?P<header>[^\n]+)\n(?P<content>(?:\D[^\n]+\n)+)")
+
+# dashes allowed, e.g. master ovs-system
+HEADER_RE = re.compile(r'(?<=mtu\s)(?P<mtu>\d*)(\s[\w-]*)*(?<=state\s)(?P<admin_mode>[\w-]*)')
+LINK_RE = re.compile(r'(?<=link/ether\s)([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})')
+IP_RE = re.compile(r'(?<=inet\s)(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2})')
+
+
+def group_get(match, name, default=None):
+    try:
+        return match.group(name)
+    except (IndexError, AttributeError, TypeError):
+        return default
+
+
+def parse_ip_addr_match(ip_match):
+    name, header, content = ip_match.group('name', 'header', 'content')
+    header_prop = HEADER_RE.search(header)
+    row_prop = LINK_RE.search(content)
+    data = {
+        'name': name,
+        'mac_address': group_get(row_prop, 0, default='Unknown'),
+        'ip_addr_and_prefix': IP_RE.findall(content),
+        # state may be absent for some reason
+        'admin_mode': group_get(header_prop, 'admin_mode', default='Down').title(),
+        'mtu': int(header_prop.group('mtu')),
+    }
+    return name, data
+
+
+def parse_ip_addr(output):
+    # Compile regular expression for validating output
+    return dict(parse_ip_addr_match(match) for match in IP_ADDR_RE.finditer(output))
+
+
 class SSHError(Exception):
     pass
 
@@ -105,14 +140,18 @@ class SSH(object):
 
     @staticmethod
     def gen_keys(key_filename, bit_count=2048):
-        rsa_key = paramiko.RSAKey.generate(bits=bit_count, progress_func=None)
-        rsa_key.write_private_key_file(key_filename)
         print("Writing %s ..." % key_filename)
-        with open('.'.join([key_filename, "pub"]), "w") as pubkey_file:
+        pub_filename = '.'.join([key_filename, "pub"])
+        rsa_key = paramiko.RSAKey.generate(bits=bit_count, progress_func=None)
+
+        with open(pub_filename, "w") as pubkey_file:
             pubkey_file.write(rsa_key.get_name())
             pubkey_file.write(' ')
             pubkey_file.write(rsa_key.get_base64())
             pubkey_file.write('\n')
+
+        rsa_key.write_private_key_file(key_filename)
+        return pub_filename
 
     @staticmethod
     def get_class():
@@ -342,6 +381,22 @@ class SSH(object):
             raise SSHError(details)
         return exit_status
 
+    def execute_with_raise(self, cmd, **kwargs):
+        status, stdout, stderr = self.execute(cmd, **kwargs)
+        if status:
+            raise RuntimeError(stderr)
+        return stdout
+
+    def get_port_mac(self, port):
+        cmd = "ip addr show"
+        port_info = parse_ip_addr(self.execute_with_raise(cmd))
+        return port_info[port]['mac_address']
+
+    def get_port_ip(self, port):
+        cmd = "ip addr show"
+        port_info = parse_ip_addr(self.execute_with_raise(cmd))
+        return port_info[port]['ip_addr_and_prefix'][0].split('/')[0]
+
     def execute(self, cmd, stdin=None, timeout=3600):
         """Execute the specified command on the server.
 
@@ -395,8 +450,11 @@ class SSH(object):
 
     TILDE_EXPANSIONS_RE = re.compile("(^~[^/]*/)?(.*)")
 
+    def put_file_shell(self, localpath, remotepath, mode=None):
+        return self._put_file_shell(localpath, remotepath, mode)
+
     def _put_file_shell(self, localpath, remotepath, mode=None):
-        # quote to stop wordpslit
+        # quote to stop word split
         tilde, remotepath = self.TILDE_EXPANSIONS_RE.match(remotepath).groups()
         if not tilde:
             tilde = ''
