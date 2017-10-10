@@ -82,7 +82,7 @@ following docker command::
 
 Run the Docker image to get a Yardstick container::
 
-  docker run -itd --privileged -v /var/run/docker.sock:/var/run/docker.sock -p 8888:5000 -e INSTALLER_IP=192.168.200.2 -e INSTALLER_TYPE=compass --name yardstick opnfv/yardstick:stable
+  docker run -itd --privileged -v /var/run/docker.sock:/var/run/docker.sock -p 8888:5000 --name yardstick opnfv/yardstick:stable
 
 Note:
 
@@ -100,21 +100,6 @@ Note:
 |                                              | ``yardstick-image`` in       |
 |                                              | Yardstick container, this    |
 |                                              | parameter is needed.         |
-+----------------------------------------------+------------------------------+
-| -e INSTALLER_IP=192.168.200.2                | If you want to use yardstick |
-|                                              | env prepare command(or       |
-| -e INSTALLER_TYPE=compass                    | related API) to load the     |
-|                                              | images that Yardstick needs, |
-|                                              | these parameters should be   |
-|                                              | provided.                    |
-|                                              | The INSTALLER_IP and         |
-|                                              | INSTALLER_TYPE are depending |
-|                                              | on your OpenStack installer. |
-|                                              | Currently Apex, Compass,     |
-|                                              | Fuel and Joid are supported. |
-|                                              | If you use other installers, |
-|                                              | such as devstack, these      |
-|                                              | parameters can be ignores.   |
 +----------------------------------------------+------------------------------+
 | -p 8888:5000                                 | If you want to call          |
 |                                              | Yardstick API out of         |
@@ -149,11 +134,11 @@ In the Yardstick container, the Yardstick repository is located in the ``/home/o
 
   yardstick env prepare
 
-**NOTE**: The above command works for four OPNFV installers -- **Apex**, **Compass**, **Fuel** and **Joid**.
-For Non-OPNFV installer OpenStack environment, the above command can also be used to configure the environment.
-But before running the above command in a Non-OPNFV installer environment, it is necessary to create the /etc/yardstick/openstack.creds file and
-save OpenStack environment variables in it. For details of the required OpenStack environment variables please refer to
-section **Export OpenStack environment variables**
+**NOTE**: Since Euphrates release, the above command will not able to automatically configure the /etc/yardstick/openstack.creds file.
+So before running the above command, it is necessary to create the /etc/yardstick/openstack.creds file and save OpenStack environment variables into it manually.
+If you have the openstack credential file saved outside the Yardstcik Docker container, you can do this easily by mapping the credential file into Yardstick container
+ using '-v /path/to/credential_file:/etc/yardstick/openstack.creds' when running the Yardstick container.
+For details of the required OpenStack environment variables please refer to section **Export OpenStack environment variables**
 
 The env prepare command may take up to 6-8 minutes to finish building
 yardstick-image and other environment preparation. Meanwhile if you wish to
@@ -648,3 +633,4 @@ yaml file and add test cases, constraint or task arguments if necessary.
 
 Proxy Support (**Todo**)
 ---------------------------
+
