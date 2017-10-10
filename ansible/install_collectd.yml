@@ -15,6 +15,7 @@
 - hosts: all
   vars:
     clone_dir: /tmp/yardstick-clone
+  environment: "{{ proxy_env|default({}) }}"
 
   roles:
     # build shared DPDK for collectd only, required DPDK downloaded already

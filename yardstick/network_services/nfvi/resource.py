@@ -239,7 +239,6 @@ class ResourceProfile(object):
     def _start_collectd(self, connection, bin_path):
         LOG.debug("Starting collectd to collect NFVi stats")
         connection.execute('sudo pkill -x -9 collectd')
-        bin_path = get_nsb_option("bin_path")
         collectd_path = os.path.join(bin_path, "collectd", "sbin", "collectd")
         config_file_path = os.path.join(bin_path, "collectd", "etc")
         exit_status = connection.execute("which %s > /dev/null 2>&1" % collectd_path)[0]
@@ -254,8 +253,12 @@ class ResourceProfile(object):
             #     collectd_installer, http_proxy, https_proxy))
             return
         if "intel_pmu" in self.plugins:
+            pmu_event_path = os.path.join(bin_path, "pmu_event.json")
+            self.plugins["intel_pmu"]["pmu_event_path"] = pmu_event_path
             LOG.debug("Downloading event list for pmu_stats plugin")
-            cmd = 'sudo bash -c \'cd /opt/tempT/pmu-tools/; python event_download_local.py\''
+            cmd = 'cd {0}; PMU_EVENTS_PATH={0} python event_download_local.py'.format(
+                pmu_event_path)
+            cmd = "sudo bash -c '{}'".format(cmd)
             connection.execute(cmd)
         LOG.debug("Starting collectd to collect NFVi stats")
         # ensure collectd.conf.d exists to avoid error/warning
