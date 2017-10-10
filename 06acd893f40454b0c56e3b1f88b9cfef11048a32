@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_8e5803fc",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_cgnapt_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-10T16:20:38Z",
+      "side": 1,
+      "message": "This review adds \"import time\" to cgnapt_vnf, that is why this needs to mock it.\n\nMocking time is about expediting execution and time is never a reason to fail a unit test.",
+      "parentUuid": "da33351e_6c050b45",
+      "revId": "06acd893f40454b0c56e3b1f88b9cfef11048a32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_c90a4989",
         "filename": "yardstick/network_services/vnf_generic/vnf/cgnapt_vnf.py",
         "patchSetId": 7
