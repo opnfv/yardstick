@@ -13,29 +13,35 @@ from yardstick.benchmark.scenarios.lib.check_value import CheckValue
 
 class CheckValueTestCase(unittest.TestCase):
 
-    def test_check_value_eq(self):
-        scenario_cfg = {'options': {'operator': 'eq', 'value1': 1, 'value2': 2}}
+    def test_check_value_equal(self):
+        scenario_cfg = {'options': {'operator': 'equal', 'value1': 1, 'value2': 2}}
         obj = CheckValue(scenario_cfg, {})
-        try:
-            obj.run({})
-        except Exception as e:
-            self.assertIsInstance(e, AssertionError)
+        obj.run({})
 
-    def test_check_value_eq_pass(self):
-        scenario_cfg = {'options': {'operator': 'eq', 'value1': 1, 'value2': 1}}
+    def test_check_value_equal_fluctuation(self):
+        scenario_cfg = {'options': {'operator': 'equal', 'value1': 1, 'value2': 1, 'fluctuation': 0.1}}
         obj = CheckValue(scenario_cfg, {})
-        try:
-            obj.run({})
-        except Exception as e:
-            self.assertIsInstance(e, AssertionError)
+        obj.run({})
 
-    def test_check_value_ne(self):
-        scenario_cfg = {'options': {'operator': 'ne', 'value1': 1, 'value2': 1}}
+    def test_check_value_equal_pass(self):
+        scenario_cfg = {'options': {'operator': 'equal', 'value1': 1, 'value2': 1}}
         obj = CheckValue(scenario_cfg, {})
-        try:
-            obj.run({})
-        except Exception as e:
-            self.assertIsInstance(e, AssertionError)
+        obj.run({})
+
+    def test_check_value_less_than(self):
+        scenario_cfg = {'options': {'operator': 'less than', 'value1': 2, 'value2': 1}}
+        obj = CheckValue(scenario_cfg, {})
+        obj.run({})
+
+    def test_check_value_larger_than(self):
+        scenario_cfg = {'options': {'operator': 'larger than', 'value1': 1, 'value2': 2}}
+        obj = CheckValue(scenario_cfg, {})
+        obj.run({})
+
+    def test_check_value_not_equal(self):
+        scenario_cfg = {'options': {'operator': 'not equal', 'value1': 1, 'value2': 1}}
+        obj = CheckValue(scenario_cfg, {})
+        obj.run({})
 
 
 def main():
