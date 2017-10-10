@@ -8,24 +8,23 @@
 ##############################################################################
 import unittest
 import mock
-import paramiko
 
 from yardstick.benchmark.scenarios.lib.delete_volume import DeleteVolume
 
 
 class DeleteVolumeTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.get_cinder_client')
-    @mock.patch('yardstick.common.openstack_utils.delete_volume')
-    def test_delete_volume(self, mock_get_cinder_client, mock_delete_volume):
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_delete_volume(self, mock_openstack_utils):
+        mock_cinder_client = mock_openstack_utils.get_cinder_client()
         options = {
             'volume_id': '123-123-123'
         }
         args = {"options": options}
         obj = DeleteVolume(args, {})
         obj.run({})
-        self.assertTrue(mock_get_cinder_client.called)
-        self.assertTrue(mock_delete_volume.called)
+        self.assertEqual(mock_openstack_utils.get_cinder_client.call_count, 2)
+        self.assertTrue(mock_cinder_client.delete_volume.called)
 
 
 def main():

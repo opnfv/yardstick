@@ -8,27 +8,27 @@
 ##############################################################################
 import unittest
 import mock
-import paramiko
 
 from yardstick.benchmark.scenarios.lib.create_router import CreateRouter
 
 
 class CreateRouterTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.get_neutron_client')
-    @mock.patch('yardstick.common.openstack_utils.create_neutron_router')
-    def test_create_router(self, mock_get_neutron_client, mock_create_neutron_router):
-        options = {
-          'openstack_paras': {
-             'admin_state_up': 'True',
-             'name': 'yardstick_router'
-          }
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_create_router(self, mock_openstack_utils):
+        mock_neutron_client = mock_openstack_utils.get_neutron_client()
+        args = {
+            "options": {
+                'openstack_paras': {
+                    'admin_state_up': 'True',
+                    'name': 'yardstick_router',
+                },
+            },
         }
-        args = {"options": options}
         obj = CreateRouter(args, {})
         obj.run({})
-        self.assertTrue(mock_get_neutron_client.called)
-        self.assertTrue(mock_create_neutron_router.called)
+        self.assertEqual(mock_openstack_utils.get_neutron_client.call_count, 2)
+        self.assertTrue(mock_neutron_client.create_router.called)
 
 
 def main():

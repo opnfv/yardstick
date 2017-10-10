@@ -8,16 +8,15 @@
 ##############################################################################
 import unittest
 import mock
-import paramiko
 
 from yardstick.benchmark.scenarios.lib.delete_router_interface import DeleteRouterInterface
 
 
 class DeleteRouterInterfaceTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.get_neutron_client')
-    @mock.patch('yardstick.common.openstack_utils.remove_interface_router')
-    def test_delete_router_interface(self, mock_get_neutron_client, mock_remove_interface_router):
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_delete_router_interface(self, mock_openstack_utils):
+        mock_neutron_client = mock_openstack_utils.get_neutron_client()
         options = {
             'router_id': '123-123-123',
             'subnet_id': '321-321-321'
@@ -25,8 +24,8 @@ class DeleteRouterInterfaceTestCase(unittest.TestCase):
         args = {"options": options}
         obj = DeleteRouterInterface(args, {})
         obj.run({})
-        self.assertTrue(mock_get_neutron_client.called)
-        self.assertTrue(mock_remove_interface_router.called)
+        self.assertEqual(mock_openstack_utils.get_neutron_client.call_count, 2)
+        self.assertTrue(mock_neutron_client.remove_interface_router.called)
 
 
 def main():

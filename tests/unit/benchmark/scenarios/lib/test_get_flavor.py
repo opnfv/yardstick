@@ -14,15 +14,17 @@ from yardstick.benchmark.scenarios.lib.get_flavor import GetFlavor
 
 class GetFlavorTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.get_flavor_by_name')
-    def test_get_flavor(self, mock_get_flavor_by_name):
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_get_flavor(self, mock_openstack_utils):
+        mock_nova_client = mock_openstack_utils.get_nova_client()
         options = {
             'flavor_name': 'yardstick_test_flavor'
         }
         args = {"options": options}
         obj = GetFlavor(args, {})
         obj.run({})
-        self.assertTrue(mock_get_flavor_by_name.called)
+        self.assertEqual(mock_openstack_utils.get_nova_client.call_count, 2)
+        self.assertTrue(mock_nova_client.get_flavor_by_name.called)
 
 
 def main():

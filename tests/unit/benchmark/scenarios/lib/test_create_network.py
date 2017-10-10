@@ -8,27 +8,27 @@
 ##############################################################################
 import unittest
 import mock
-import paramiko
 
 from yardstick.benchmark.scenarios.lib.create_network import CreateNetwork
 
 
 class CreateNetworkTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.get_neutron_client')
-    @mock.patch('yardstick.common.openstack_utils.create_neutron_net')
-    def test_create_network(self, mock_get_neutron_client, mock_create_neutron_net):
-        options = {
-          'openstack_paras': {
-             'name': 'yardstick_net',
-             'admin_state_up': 'True'
-          }
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_create_network(self, mock_openstack_utils):
+        mock_neutron_client = mock_openstack_utils.get_neutron_client()
+        args = {
+            "options": {
+                'openstack_paras': {
+                    'name': 'yardstick_net',
+                    'admin_state_up': 'True',
+                },
+            },
         }
-        args = {"options": options}
         obj = CreateNetwork(args, {})
         obj.run({})
-        self.assertTrue(mock_get_neutron_client.called)
-        self.assertTrue(mock_create_neutron_net.called)
+        self.assertEqual(mock_openstack_utils.get_neutron_client.call_count, 2)
+        self.assertTrue(mock_neutron_client.create_neutron_net.called)
 
 
 def main():

@@ -8,29 +8,29 @@
 ##############################################################################
 import unittest
 import mock
-import paramiko
 
 from yardstick.benchmark.scenarios.lib.create_subnet import CreateSubnet
 
 
 class CreateSubnetTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.get_neutron_client')
-    @mock.patch('yardstick.common.openstack_utils.create_neutron_subnet')
-    def test_create_subnet(self, mock_get_neutron_client, mock_create_neutron_subnet):
-        options = {
-          'openstack_paras': {
-             'network_id': '123-123-123',
-             'name': 'yardstick_subnet',
-             'cidr': '10.10.10.0/24',
-             'ip_version': '4'
-          }
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_create_subnet(self, mock_openstack_utils):
+        mock_neutron_client = mock_openstack_utils.get_neutron_client()
+        args = {
+            "options": {
+                'openstack_paras': {
+                    'network_id': '123-123-123',
+                    'name': 'yardstick_subnet',
+                    'cidr': '10.10.10.0/24',
+                    'ip_version': '4',
+                },
+            },
         }
-        args = {"options": options}
         obj = CreateSubnet(args, {})
         obj.run({})
-        self.assertTrue(mock_get_neutron_client.called)
-        self.assertTrue(mock_create_neutron_subnet.called)
+        self.assertEqual(mock_openstack_utils.get_neutron_client.call_count, 2)
+        self.assertTrue(mock_neutron_client.create_subnet.called)
 
 
 def main():

@@ -13,38 +13,23 @@ from __future__ import absolute_import
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
 
 LOG = logging.getLogger(__name__)
 
 
-class DeleteServer(base.Scenario):
+class DeleteServer(base.OpenstackScenario):
     """Delete an OpenStack server"""
 
     __scenario_type__ = "DeleteServer"
+    LOGGER = LOG
+    DEFAULT_OPTIONS = {
+        "server_id": None,
+    }
 
-    def __init__(self, scenario_cfg, context_cfg):
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
-        self.server_id = self.options.get("server_id", None)
-        self.nova_client = op_utils.get_nova_client()
-
-        self.setup_done = False
-
-    def setup(self):
-        """scenario setup"""
-
-        self.setup_done = True
-
-    def run(self, result):
+    def _run(self, result):
         """execute the test"""
 
-        if not self.setup_done:
-            self.setup()
-
-        status = op_utils.delete_instance(self.nova_client,
-                                          instance_id=self.server_id)
+        status = self.nova_delete_instance(instance_id=self.server_id)
         if status:
             LOG.info("Delete server successful!")
         else:

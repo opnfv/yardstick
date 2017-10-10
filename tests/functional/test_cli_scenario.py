@@ -10,8 +10,13 @@
 
 from __future__ import absolute_import
 import unittest
+import logging
+import subprocess
 
 from tests.functional import utils
+
+logging.basicConfig(level=logging.DEBUG)
+LOGGER = logging.getLogger(__name__)
 
 
 class ScenarioTestCase(unittest.TestCase):
@@ -21,7 +26,11 @@ class ScenarioTestCase(unittest.TestCase):
         self.yardstick = utils.Yardstick()
 
     def test_scenario_list(self):
-        res = self.yardstick("scenario list")
+        try:
+            res = self.yardstick("scenario list")
+        except subprocess.CalledProcessError as e:
+            LOGGER.error('Command output:\n%s', e.output)
+            raise
 
         self.assertIn("Lmbench", res)
         self.assertIn("Perf", res)
@@ -32,8 +41,8 @@ class ScenarioTestCase(unittest.TestCase):
 
     def test_scenario_show_Lmbench(self):
         res = self.yardstick("scenario show Lmbench")
-        lmbench = "Execute lmbench memory read latency"
-        "or memory bandwidth benchmark in a host" in res
+        lmbench = "Execute lmbench memory read latency" \
+                  "or memory bandwidth benchmark in a host" in res
         self.assertTrue(lmbench)
 
     def test_scenario_show_Perf(self):
