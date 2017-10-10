@@ -134,6 +134,14 @@ class TestResourceProfile(unittest.TestCase):
             self.assertIsNone(
                 self.resource_profile._prepare_collectd_conf("/opt/nsb_bin"))
 
+    def test__setup_intel_pmu(self):
+        self.assertIsNone(
+            self.resource_profile._setup_intel_pmu(self.ssh_mock, "/opt/nsb_bin"))
+
+    def test__setup_ovs_stats(self):
+        self.assertIsNone(
+            self.resource_profile._setup_ovs_stats(self.ssh_mock))
+
     @mock.patch("yardstick.network_services.nfvi.resource.open")
     @mock.patch("yardstick.network_services.nfvi.resource.os")
     def test__provide_config_file(self, mock_open, mock_os):
@@ -187,7 +195,6 @@ class TestResourceProfile(unittest.TestCase):
         res = self.resource_profile.parse_collectd_result({})
         expected_result = {'cpu': {}, 'dpdkstat': {}, 'hugepages': {},
                            'memory': {}, 'ovs_stats': {}, 'timestamp': '',
-                           'intel_pmu': {},
                            'virt': {}}
         self.assertDictEqual(res, expected_result)
 
@@ -200,7 +207,6 @@ class TestResourceProfile(unittest.TestCase):
         res = self.resource_profile.parse_collectd_result(metric)
         expected_result = {'cpu': {1: {'ipc': '1234'}}, 'dpdkstat': {}, 'hugepages': {},
                            'memory': {}, 'ovs_stats': {}, 'timestamp': '',
-                           'intel_pmu': {},
                            'virt': {}}
         self.assertDictEqual(res, expected_result)
 
@@ -209,7 +215,6 @@ class TestResourceProfile(unittest.TestCase):
         res = self.resource_profile.parse_collectd_result(metric)
         expected_result = {'cpu': {}, 'dpdkstat': {}, 'hugepages': {},
                            'memory': {'bw': '101'}, 'ovs_stats': {}, 'timestamp': '',
-                           'intel_pmu': {},
                            'virt': {}}
         self.assertDictEqual(res, expected_result)
 
@@ -220,7 +225,6 @@ class TestResourceProfile(unittest.TestCase):
         res = self.resource_profile.parse_collectd_result(metric)
         expected_result = {'cpu': {}, 'dpdkstat': {}, 'hugepages': {'free': '101'},
                            'memory': {}, 'ovs_stats': {}, 'timestamp': '',
-                           'intel_pmu': {},
                            'virt': {}}
         self.assertDictEqual(res, expected_result)
 
@@ -237,7 +241,6 @@ class TestResourceProfile(unittest.TestCase):
         res = self.resource_profile.parse_collectd_result(metric)
         expected_result = {'cpu': {}, 'dpdkstat': {'tx': '101'}, 'hugepages': {},
                            'memory': {}, 'ovs_stats': {'tx': '101'}, 'timestamp': '',
-                           'intel_pmu': {},
                            'virt': {'memory': '101'}}
         self.assertDictEqual(res, expected_result)
 
