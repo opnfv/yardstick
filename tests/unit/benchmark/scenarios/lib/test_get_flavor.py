@@ -19,10 +19,20 @@ class GetFlavorTestCase(unittest.TestCase):
         options = {
             'flavor_name': 'yardstick_test_flavor'
         }
-        args = {"options": options}
+        args = {"options": options, "output": 'flavor'}
         obj = GetFlavor(args, {})
         obj.run({})
         self.assertTrue(mock_get_flavor_by_name.called)
+
+    @mock.patch('yardstick.common.openstack_utils.get_flavor_by_id')
+    def test_get_flavor_id(self, mock_get_flavor_by_name):
+        options = {
+            'flavor_id': '123-123-123'
+        }
+        args = {"options": options}
+        obj = GetFlavor(args, {})
+        obj.run({})
+        self.assertTrue(mock_get_flavor_by_id.called)
 
 
 def main():
