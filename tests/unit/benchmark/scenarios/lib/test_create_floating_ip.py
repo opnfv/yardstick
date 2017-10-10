@@ -14,17 +14,16 @@ from yardstick.benchmark.scenarios.lib.create_floating_ip import CreateFloatingI
 
 class CreateFloatingIpTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.create_floating_ip')
-    @mock.patch('yardstick.common.openstack_utils.get_network_id')
-    @mock.patch('yardstick.common.openstack_utils.get_neutron_client')
-    def test_create_floating_ip(self, mock_create_floating_ip, mock_get_network_id, mock_get_neutron_client):
-        options = {}
-        args = {"options": options}
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_create_floating_ip(self, mock_openstack_utils):
+        mock_neutron_client = mock_openstack_utils.get_neutron_client()
+        args = {"options": {}}
         obj = CreateFloatingIp(args, {})
         obj.run({})
-        self.assertTrue(mock_create_floating_ip.called)
-        self.assertTrue(mock_get_network_id.called)
-        self.assertTrue(mock_get_neutron_client.called)
+        self.assertEqual(mock_openstack_utils.get_neutron_client.call_count, 2)
+        self.assertTrue(mock_neutron_client.create_floating_ip.called)
+        self.assertTrue(mock_neutron_client.get_network_id.called)
+
 
 def main():
     unittest.main()

@@ -13,53 +13,31 @@ from __future__ import absolute_import
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
 
 LOG = logging.getLogger(__name__)
 
 
-class CreateSecgroup(base.Scenario):
+class CreateSecgroup(base.OpenstackScenario):
     """Create an OpenStack security group"""
 
     __scenario_type__ = "CreateSecgroup"
+    LOGGER = LOG
+    DEFAULT_OPTIONS = {
+        "sg_name": "yardstick_sec_group",
+        "description": None,
+    }
 
-    def __init__(self, scenario_cfg, context_cfg):
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
-
-        self.sg_name = self.options.get("sg_name", "yardstick_sec_group")
-        self.description = self.options.get("description", None)
-        self.neutron_client = op_utils.get_neutron_client()
-
-        self.setup_done = False
-
-    def setup(self):
-        """scenario setup"""
-
-        self.setup_done = True
-
-    def run(self, result):
+    def _run(self, result):
         """execute the test"""
 
-        if not self.setup_done:
-            self.setup()
-
-        sg_id = op_utils.create_security_group_full(self.neutron_client,
-                                                    sg_name=self.sg_name,
-                                                    sg_description=self.description)
+        sg_id = self.neutron_create_security_group_full(sg_name=self.sg_name,
+                                                        sg_description=self.description)
 
         if sg_id:
-            result.update({"sg_create": 1})
+            result["sg_create"] = 1
             LOG.info("Create security group successful!")
         else:
-            result.update({"sg_create": 0})
+            result["sg_create"] = 0
             LOG.error("Create security group failed!")
 
-        try:
-            keys = self.scenario_cfg.get('output', '').split()
-        except KeyError:
-            pass
-        else:
-            values = [sg_id]
-            return self._push_to_outputs(keys, values)
+        return [sg_id]

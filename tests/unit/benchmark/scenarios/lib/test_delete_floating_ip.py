@@ -8,24 +8,23 @@
 ##############################################################################
 import unittest
 import mock
-import paramiko
 
 from yardstick.benchmark.scenarios.lib.delete_floating_ip import DeleteFloatingIp
 
 
 class DeleteFloatingIpTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.get_nova_client')
-    @mock.patch('yardstick.common.openstack_utils.delete_floating_ip')
-    def test_delete_floating_ip(self, mock_get_nova_client, mock_delete_floating_ip):
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_delete_floating_ip(self, mock_openstack_utils):
+        mock_nova_client = mock_openstack_utils.get_nova_client()
         options = {
             'floating_ip_id': '123-123-123'
         }
         args = {"options": options}
         obj = DeleteFloatingIp(args, {})
         obj.run({})
-        self.assertTrue(mock_get_nova_client.called)
-        self.assertTrue(mock_delete_floating_ip.called)
+        self.assertEqual(mock_openstack_utils.get_nova_client.call_count, 2)
+        self.assertTrue(mock_nova_client.delete_floating_ip.called)
 
 
 def main():

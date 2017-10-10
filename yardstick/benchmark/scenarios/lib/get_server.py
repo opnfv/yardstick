@@ -13,12 +13,11 @@ from __future__ import absolute_import
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
 
 LOG = logging.getLogger(__name__)
 
 
-class GetServer(base.Scenario):
+class GetServer(base.OpenstackScenario):
     """Get a server instance
 
   Parameters
@@ -45,39 +44,16 @@ class GetServer(base.Scenario):
     """
 
     __scenario_type__ = "GetServer"
+    LOGGER = LOG
 
-    def __init__(self, scenario_cfg, context_cfg):
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
-        self.options = self.scenario_cfg.get('options', {})
-
-        self.server_id = self.options.get("server_id")
-        if self.server_id:
-            LOG.debug('Server id is %s', self.server_id)
-
-        default_name = self.scenario_cfg.get('host',
-                                             self.scenario_cfg.get('target'))
-        self.server_name = self.options.get('server_name', default_name)
-        if self.server_name:
-            LOG.debug('Server name is %s', self.server_name)
-
-        self.nova_client = op_utils.get_nova_client()
-
-    def run(self, result):
+    def _run(self, result):
         """execute the test"""
 
-        if self.server_id:
-            server = self.nova_client.servers.get(self.server_id)
-        else:
-            server = op_utils.get_server_by_name(self.server_name)
-
-        keys = self.scenario_cfg.get('output', '').split()
-
-        if server:
+        if self.current_server:
             LOG.info("Get server successful!")
-            values = [0, self._change_obj_to_dict(server)]
+            values = [0, self.current_server_data]
         else:
             LOG.info("Get server failed!")
             values = [1]
 
-        return self._push_to_outputs(keys, values)
+        return values

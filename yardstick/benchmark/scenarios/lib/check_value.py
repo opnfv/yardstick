@@ -11,6 +11,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 
 import logging
+import operator
 
 from yardstick.benchmark.scenarios import base
 
@@ -28,31 +29,21 @@ class CheckValue(base.Scenario):
     """
 
     __scenario_type__ = "CheckValue"
+    LOGGER = LOG
 
-    def __init__(self, scenario_cfg, context_cfg):
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
-
-    def run(self, result):
+    def _run(self, result):
         """execute the test"""
 
-        op = self.options.get("operator")
+        operator_name = self.operator
+        operator_func = getattr(operator, operator_name)
         LOG.debug("options=%s", self.options)
-        value1 = str(self.options.get("value1"))
-        value2 = str(self.options.get("value2"))
-        check_result = "PASS"
-        if op == "eq" and value1 != value2:
-            LOG.info("value1=%s, value2=%s, error: should equal!!!", value1,
-                     value2)
-            check_result = "FAIL"
-            assert value1 == value2, "Error %s!=%s" % (value1, value2)
-        elif op == "ne" and value1 == value2:
-            LOG.info("value1=%s, value2=%s, error: should not equal!!!",
-                     value1, value2)
-            check_result = "FAIL"
-            assert value1 != value2, "Error %s==%s" % (value1, value2)
-        LOG.info("Check result is %s", check_result)
-        keys = self.scenario_cfg.get('output', '').split()
-        values = [check_result]
-        return self._push_to_outputs(keys, values)
+
+        message = "Error {} not {} {}".format(self.value1, operator_name, self.value2)
+        try:
+            assert operator_func and operator_func(self.value1, self.value2), message
+        except AssertionError:
+            LOG.info(message)
+            raise
+
+        LOG.info("Check result is PASS")
+        return ['PASS']

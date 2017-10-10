@@ -14,17 +14,18 @@ from yardstick.benchmark.scenarios.lib.delete_flavor import DeleteFlavor
 
 class DeleteFlavorTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.delete_flavor')
-    @mock.patch('yardstick.common.openstack_utils.get_nova_client')
-    def test_delete_flavor(self, mock_get_nova_client, mock_delete_flavor):
-        options = {
-            'flavor_name': 'yardstick_test_flavor'
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_delete_flavor(self, mock_openstack_utils):
+        mock_nova_client = mock_openstack_utils.get_nova_client()
+        args = {
+            "options": {
+               'flavor_name': 'yardstick_test_flavor',
+            },
         }
-        args = {"options": options}
         obj = DeleteFlavor(args, {})
         obj.run({})
-        self.assertTrue(mock_get_nova_client.called)
-        self.assertTrue(mock_delete_flavor.called)
+        self.assertEqual(mock_openstack_utils.get_nova_client.call_count, 2)
+        self.assertTrue(mock_nova_client.delete_flavor.called)
 
 
 def main():

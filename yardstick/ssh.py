@@ -105,14 +105,18 @@ class SSH(object):
 
     @staticmethod
     def gen_keys(key_filename, bit_count=2048):
-        rsa_key = paramiko.RSAKey.generate(bits=bit_count, progress_func=None)
-        rsa_key.write_private_key_file(key_filename)
         print("Writing %s ..." % key_filename)
-        with open('.'.join([key_filename, "pub"]), "w") as pubkey_file:
+        pub_filename = '.'.join([key_filename, "pub"])
+        rsa_key = paramiko.RSAKey.generate(bits=bit_count, progress_func=None)
+
+        with open(pub_filename, "w") as pubkey_file:
             pubkey_file.write(rsa_key.get_name())
             pubkey_file.write(' ')
             pubkey_file.write(rsa_key.get_base64())
             pubkey_file.write('\n')
+
+        rsa_key.write_private_key_file(key_filename)
+        return pub_filename
 
     @staticmethod
     def get_class():
@@ -342,6 +346,21 @@ class SSH(object):
             raise SSHError(details)
         return exit_status
 
+    def execute_with_raise(self, cmd, **kwargs):
+        status, stdout, stderr = self.execute(cmd, **kwargs)
+        if status:
+            raise RuntimeError(stderr)
+        return stdout
+
+    def get_port_mac(self, port):
+        cmd = "ifconfig | grep HWaddr | grep %s | awk '{print $5}' " % port
+        return self.execute_with_raise(cmd).rstrip()
+
+    def get_port_ip(self, port):
+        cmd = "ifconfig %s | grep 'inet addr' | awk '{print $2}' " \
+              "| cut -d ':' -f2 " % port
+        return self.execute_with_raise(cmd).rstrip()
+
     def execute(self, cmd, stdin=None, timeout=3600):
         """Execute the specified command on the server.
 
@@ -395,8 +414,11 @@ class SSH(object):
 
     TILDE_EXPANSIONS_RE = re.compile("(^~[^/]*/)?(.*)")
 
+    def put_file_shell(self, localpath, remotepath, mode=None):
+        return self._put_file_shell(localpath, remotepath, mode)
+
     def _put_file_shell(self, localpath, remotepath, mode=None):
-        # quote to stop wordpslit
+        # quote to stop word split
         tilde, remotepath = self.TILDE_EXPANSIONS_RE.match(remotepath).groups()
         if not tilde:
             tilde = ''

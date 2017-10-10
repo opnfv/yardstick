@@ -14,23 +14,24 @@ from yardstick.benchmark.scenarios.lib.create_volume import CreateVolume
 
 class CreateVolumeTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.create_volume')
-    @mock.patch('yardstick.common.openstack_utils.get_image_id')
-    @mock.patch('yardstick.common.openstack_utils.get_cinder_client')
-    @mock.patch('yardstick.common.openstack_utils.get_glance_client')
-    def test_create_volume(self, mock_get_glance_client, mock_get_cinder_client, mock_image_id, mock_create_volume):
-        options = {
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_create_volume(self, mock_openstack_utils):
+        mock_glance_client = mock_openstack_utils.get_glance_client()
+        mock_cinder_client = mock_openstack_utils.get_cinder_client()
+        args = {
+            "options": {
                 'volume_name': 'yardstick_test_volume_01',
                 'size': '256',
-                'image': 'cirros-0.3.5'
+                'image': 'cirros-0.3.5',
+            },
         }
-        args = {"options": options}
         obj = CreateVolume(args, {})
         obj.run({})
-        self.assertTrue(mock_create_volume.called)
-        self.assertTrue(mock_image_id.called)
-        self.assertTrue(mock_get_glance_client.called)
-        self.assertTrue(mock_get_cinder_client.called)
+        self.assertEqual(mock_openstack_utils.get_glance_client.call_count, 2)
+        self.assertEqual(mock_openstack_utils.get_cinder_client.call_count, 2)
+        self.assertTrue(mock_cinder_client.create_volume.called)
+        self.assertTrue(mock_glance_client.get_image_id.called)
+
 
 def main():
     unittest.main()

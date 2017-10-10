@@ -8,27 +8,27 @@
 ##############################################################################
 import unittest
 import mock
-import paramiko
 
 from yardstick.benchmark.scenarios.lib.create_sec_group import CreateSecgroup
 
 
 class CreateSecGroupTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.get_neutron_client')
-    @mock.patch('yardstick.common.openstack_utils.create_security_group_full')
-    def test_create_sec_group(self, mock_get_neutron_client, mock_create_security_group_full):
-        options = {
-          'openstack_paras': {
-             'sg_name': 'yardstick_sec_group',
-             'description': 'security group for yardstick manual VM'
-          }
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_create_sec_group(self, mock_openstack_utils):
+        mock_neutron_client = mock_openstack_utils.get_neutron_client()
+        args = {
+            "options": {
+                'openstack_paras': {
+                    'sg_name': 'yardstick_sec_group',
+                    'description': 'security group for yardstick manual VM',
+                },
+            },
         }
-        args = {"options": options}
         obj = CreateSecgroup(args, {})
         obj.run({})
-        self.assertTrue(mock_get_neutron_client.called)
-        self.assertTrue(mock_create_security_group_full.called)
+        self.assertEqual(mock_openstack_utils.get_neutron_client.call_count, 2)
+        self.assertTrue(mock_neutron_client.create_security_group_full.called)
 
 
 def main():

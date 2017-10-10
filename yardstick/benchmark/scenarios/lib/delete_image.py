@@ -13,49 +13,29 @@ from __future__ import absolute_import
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
 
 LOG = logging.getLogger(__name__)
 
 
-class DeleteImage(base.Scenario):
+class DeleteImage(base.OpenstackScenario):
     """Delete an OpenStack image"""
 
     __scenario_type__ = "DeleteImage"
+    LOGGER = LOG
+    DEFAULT_OPTIONS = {
+        "image_name": "TestImage",
+    }
 
-    def __init__(self, scenario_cfg, context_cfg):
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
-
-        self.image_name = self.options.get("image_name", "TestImage")
-        self.image_id = None
-
-        self.glance_client = op_utils.get_glance_client()
-
-        self.setup_done = False
-
-    def setup(self):
-        """scenario setup"""
-
-        self.setup_done = True
-
-    def run(self, result):
+    def _run(self, result):
         """execute the test"""
 
-        if not self.setup_done:
-            self.setup()
-
-        self.image_id = op_utils.get_image_id(self.glance_client, self.image_name)
+        image_id = self.glance_get_image_id(self.image_name)
         LOG.info("Deleting image: %s", self.image_name)
-        status = op_utils.delete_image(self.glance_client, self.image_id)
+        status = self.glance_delete_image(image_id)
 
         if status:
             LOG.info("Delete image successful!")
-            values = [status]
+            return [status]
         else:
             LOG.info("Delete image failed!")
-            values = []
-
-        keys = self.scenario_cfg.get('output', '').split()
-        return self._push_to_outputs(keys, values)
+            return []

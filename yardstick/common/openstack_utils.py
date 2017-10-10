@@ -9,10 +9,13 @@
 
 from __future__ import absolute_import
 
+import inspect
 import os
 import time
 import sys
 import logging
+
+from collections import Mapping
 
 from keystoneauth1 import loading
 from keystoneauth1 import session
@@ -25,6 +28,45 @@ log = logging.getLogger(__name__)
 
 DEFAULT_HEAT_API_VERSION = '1'
 DEFAULT_API_VERSION = '2'
+
+
+def get_args(client_init, client, data_arg):    # pragma: no cover
+    if isinstance(data_arg, Mapping):
+        # handle legacy behavior of only json_body as argument
+        return client_init(), data_arg
+
+    if not client:
+        client = client_init()
+
+    if not data_arg:
+        data_arg = {}
+
+    return client, data_arg
+
+
+def get_module_func_and_argspec(module, func_name):    # pragma: no cover
+    func = getattr(module, func_name)
+    return func_name, func, inspect.getargspec(getattr(module, func_name))
+
+
+def patch_client(client_instance, client_type_name):    # pragma: no cover
+    module = sys.modules[__name__]
+    module_funcs = dir(module)
+    argspec_iter = (get_module_func_and_argspec(module, func_name) for func_name in module_funcs)
+
+    client_type_word, _, _ = client_type_name.partition('_')
+    for func_name, func, argspec in argspec_iter:
+        if client_type_name == argspec.args[0]:
+            func_name_words = func_name.split('_')
+
+            try:
+                func_name_words.remove(client_type_word)
+            except ValueError:
+                pass
+            else:
+                func_name = '_'.join(func_name_words)
+
+            setattr(client_instance, func_name, func)
 
 
 # *********************************************
@@ -120,9 +162,12 @@ def get_cinder_client_version():      # pragma: no cover
         return api_version
 
 
-def get_cinder_client():      # pragma: no cover
+def get_cinder_client(patch=False):      # pragma: no cover
     sess = get_session()
-    return cinderclient.Client(get_cinder_client_version(), session=sess)
+    client = cinderclient.Client(get_cinder_client_version(), session=sess)
+    if patch:
+        patch_client(client, 'cinder_client')
+    return client
 
 
 def get_nova_client_version():      # pragma: no cover
@@ -135,9 +180,12 @@ def get_nova_client_version():      # pragma: no cover
         return api_version
 
 
-def get_nova_client():      # pragma: no cover
+def get_nova_client(patch=False):      # pragma: no cover
     sess = get_session()
-    return novaclient.Client(get_nova_client_version(), session=sess)
+    client = novaclient.Client(get_nova_client_version(), session=sess)
+    if patch:
+        patch_client(client, 'nova_client')
+    return client
 
 
 def get_neutron_client_version():   # pragma: no cover
@@ -150,9 +198,12 @@ def get_neutron_client_version():   # pragma: no cover
         return api_version
 
 
-def get_neutron_client():   # pragma: no cover
+def get_neutron_client(patch=False):   # pragma: no cover
     sess = get_session()
-    return neutronclient.Client(get_neutron_client_version(), session=sess)
+    client = neutronclient.Client(get_neutron_client_version(), session=sess)
+    if patch:
+        patch_client(client, 'neutron_client')
+    return client
 
 
 def get_glance_client_version():    # pragma: no cover
@@ -165,9 +216,12 @@ def get_glance_client_version():    # pragma: no cover
         return api_version
 
 
-def get_glance_client():    # pragma: no cover
+def get_glance_client(patch=False):    # pragma: no cover
     sess = get_session()
-    return glanceclient.Client(get_glance_client_version(), session=sess)
+    client = glanceclient.Client(get_glance_client_version(), session=sess)
+    if patch:
+        patch_client(client, 'glance_client')
+    return client
 
 
 # *********************************************
@@ -265,29 +319,38 @@ def create_aggregate_with_host(nova_client, aggregate_name, av_zone,
         return True
 
 
-def create_keypair(nova_client, name, key_path=None):    # pragma: no cover
+def create_keypair(name, key_path=None):    # pragma: no cover
+    nova_client = get_nova_client()
+    return create_nova_keypair(nova_client, name, key_path)
+
+
+def create_nova_keypair(nova_client, name, key_path=None):    # pragma: no cover
     try:
         with open(key_path) as fpubkey:
-            keypair = get_nova_client().keypairs.create(name=name, public_key=fpubkey.read())
+            keypair = nova_client.keypairs.create(name=name, public_key=fpubkey.read())
             return keypair
     except Exception:
         log.exception("Error [create_keypair(nova_client)]")
 
 
-def create_instance(json_body):    # pragma: no cover
+def create_instance(nova_client=None, json_body=None):    # pragma: no cover
     try:
-        return get_nova_client().servers.create(**json_body)
+        return nova_client.servers.create(**json_body)
     except Exception:
         log.exception("Error create instance failed")
         return None
 
 
 def create_instance_and_wait_for_active(json_body):    # pragma: no cover
-    SLEEP = 3
-    VM_BOOT_TIMEOUT = 180
     nova_client = get_nova_client()
+    return create_nova_instance_and_wait_for_active(nova_client, json_body)
+
+
+def create_nova_instance_and_wait_for_active(nova_client, json_body):  # pragma: no cover
+    sleep = 3
+    vm_boot_timeout = 180
     instance = create_instance(json_body)
-    count = VM_BOOT_TIMEOUT / SLEEP
+    count = vm_boot_timeout / sleep
     for n in range(count, -1, -1):
         status = get_instance_status(nova_client, instance)
         if status.lower() == "active":
@@ -295,14 +358,19 @@ def create_instance_and_wait_for_active(json_body):    # pragma: no cover
         elif status.lower() == "error":
             log.error("The instance went to ERROR status.")
             return None
-        time.sleep(SLEEP)
+        time.sleep(sleep)
     log.error("Timeout booting the instance.")
     return None
 
 
 def attach_server_volume(server_id, volume_id, device=None):    # pragma: no cover
+    nova_client = get_nova_client()
+    return attach_nova_server_volume(nova_client, server_id, volume_id, device)
+
+
+def attach_nova_server_volume(nova_client, server_id, volume_id, device=None):  # pragma: no cover
     try:
-        get_nova_client().volumes.create_server_volume(server_id, volume_id, device)
+        nova_client.volumes.create_server_volume(server_id, volume_id, device)
     except Exception:
         log.exception("Error [attach_server_volume(nova_client, '%s', '%s')]",
                       server_id, volume_id)
@@ -357,16 +425,26 @@ def delete_aggregate(nova_client, aggregate_name):  # pragma: no cover
 
 
 def get_server_by_name(name):   # pragma: no cover
+    nova_client = get_nova_client()
+    return get_nova_server_by_name(nova_client, name)
+
+
+def get_nova_server_by_name(nova_client, name):   # pragma: no cover
     try:
-        return get_nova_client().servers.list(search_opts={'name': name})[0]
+        return nova_client.servers.list(search_opts={'name': name})[0]
     except IndexError:
         log.exception('Failed to get nova client')
         raise
 
 
 def create_flavor(name, ram, vcpus, disk, **kwargs):   # pragma: no cover
+    nova_client = get_nova_client()
+    return create_nova_flavor(nova_client, ram, vcpus, disk, **kwargs)
+
+
+def create_nova_flavor(nova_client, name, ram, vcpus, disk, **kwargs):   # pragma: no cover
     try:
-        return get_nova_client().flavors.create(name, ram, vcpus, disk, **kwargs)
+        return nova_client.flavors.create(name, ram, vcpus, disk, **kwargs)
     except Exception:
         log.exception("Error [create_flavor(nova_client, %s, %s, %s, %s, %s)]",
                       name, ram, disk, vcpus, kwargs['is_public'])
@@ -374,7 +452,12 @@ def create_flavor(name, ram, vcpus, disk, **kwargs):   # pragma: no cover
 
 
 def get_image_by_name(name):    # pragma: no cover
-    images = get_nova_client().images.list()
+    nova_client = get_nova_client()
+    return get_nova_image_by_name(nova_client, name)
+
+
+def get_nova_image_by_name(nova_client, name):    # pragma: no cover
+    images = nova_client.images.list()
     try:
         return next((a for a in images if a.name == name))
     except StopIteration:
@@ -383,16 +466,20 @@ def get_image_by_name(name):    # pragma: no cover
 
 def get_flavor_id(nova_client, flavor_name):    # pragma: no cover
     flavors = nova_client.flavors.list(detailed=True)
-    flavor_id = ''
     for f in flavors:
         if f.name == flavor_name:
             flavor_id = f.id
-            break
-    return flavor_id
+            return flavor_id
+    return ''
 
 
 def get_flavor_by_name(name):   # pragma: no cover
-    flavors = get_nova_client().flavors.list()
+    nova_client = get_nova_client()
+    return get_nova_flavor_by_name(nova_client, name)
+
+
+def get_nova_flavor_by_name(nova_client, name):   # pragma: no cover
+    flavors = nova_client.flavors.list()
     try:
         return next((a for a in flavors if a.name == name))
     except StopIteration:
@@ -400,9 +487,14 @@ def get_flavor_by_name(name):   # pragma: no cover
 
 
 def check_status(status, name, iterations, interval):   # pragma: no cover
+    nova_client = get_nova_client()
+    return check_nova_status(nova_client, status, name, iterations, interval)
+
+
+def check_nova_status(nova_client, status, name, iterations, interval):   # pragma: no cover
     for i in range(iterations):
         try:
-            server = get_server_by_name(name)
+            server = get_nova_server_by_name(nova_client, name)
         except IndexError:
             log.error('Cannot found %s server', name)
             raise
@@ -415,8 +507,13 @@ def check_status(status, name, iterations, interval):   # pragma: no cover
 
 
 def delete_flavor(flavor_id):    # pragma: no cover
+    nova_client = get_nova_client()
+    return delete_nova_flavor(nova_client, flavor_id)
+
+
+def delete_nova_flavor(nova_client, flavor_id):    # pragma: no cover
     try:
-        get_nova_client().flavors.delete(flavor_id)
+        nova_client.flavors.delete(flavor_id)
     except Exception:
         log.exception("Error [delete_flavor(nova_client, %s)]", flavor_id)
         return False
@@ -454,7 +551,6 @@ def create_neutron_net(neutron_client, json_body):      # pragma: no cover
     except Exception:
         log.error("Error [create_neutron_net(neutron_client)]")
         raise Exception("operation error")
-        return None
 
 
 def delete_neutron_net(neutron_client, network_id):      # pragma: no cover
@@ -473,7 +569,6 @@ def create_neutron_subnet(neutron_client, json_body):      # pragma: no cover
     except Exception:
         log.error("Error [create_neutron_subnet")
         raise Exception("operation error")
-        return None
 
 
 def create_neutron_router(neutron_client, json_body):      # pragma: no cover
@@ -483,7 +578,6 @@ def create_neutron_router(neutron_client, json_body):      # pragma: no cover
     except Exception:
         log.error("Error [create_neutron_router(neutron_client)]")
         raise Exception("operation error")
-        return None
 
 
 def delete_neutron_router(neutron_client, router_id):      # pragma: no cover
@@ -707,8 +801,18 @@ def delete_image(glance_client, image_id):    # pragma: no cover
 #   CINDER
 # *********************************************
 def get_volume_id(volume_name):    # pragma: no cover
-    volumes = get_cinder_client().volumes.list()
-    return next((v.id for v in volumes if v.name == volume_name), None)
+    cinder_client = get_cinder_client()
+    return get_cinder_volume_id(cinder_client, volume_name)
+
+
+def get_cinder_volume_id(cinder_client, volume_name):    # pragma: no cover
+    volume = get_cinder_volume_by_name(cinder_client, volume_name)
+    return getattr(volume, 'id', None)
+
+
+def get_cinder_volume_by_name(cinder_client, volume_name):    # pragma: no cover
+    volumes = cinder_client.volumes.list()
+    return next((v for v in volumes if v.name == volume_name), None)
 
 
 def create_volume(cinder_client, volume_name, volume_size,
@@ -750,7 +854,16 @@ def delete_volume(cinder_client, volume_id, forced=False):      # pragma: no cov
 
 def detach_volume(server_id, volume_id):      # pragma: no cover
     try:
-        get_nova_client().volumes.delete_server_volume(server_id, volume_id)
+        return detach_cinder_volume(get_nova_client(), server_id, volume_id)
+    except Exception:
+        log.exception("Error [detach_server_volume(nova_client, '%s', '%s')]",
+                      server_id, volume_id)
+        return False
+
+
+def detach_cinder_volume(cinder_client, server_id, volume_id):      # pragma: no cover
+    try:
+        cinder_client.volumes.delete_server_volume(server_id, volume_id)
         return True
     except Exception:
         log.exception("Error [detach_server_volume(nova_client, '%s', '%s')]",
