@@ -14,8 +14,9 @@ from yardstick.benchmark.scenarios.lib.create_flavor import CreateFlavor
 
 class CreateFlavorTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.create_flavor')
-    def test_create_flavor(self, mock_create_flavor):
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_create_flavor(self, mock_openstack_utils):
+        mock_nova_client = mock_openstack_utils.get_nova_client()
         options = {
             'flavor_name': 'yardstick_test_flavor',
             'vcpus': '2',
@@ -26,7 +27,8 @@ class CreateFlavorTestCase(unittest.TestCase):
         args = {"options": options}
         obj = CreateFlavor(args, {})
         obj.run({})
-        self.assertTrue(mock_create_flavor.called)
+        self.assertEqual(mock_openstack_utils.get_nova_client.call_count, 2)
+        self.assertTrue(mock_nova_client.create_flavor.called)
 
 
 def main():

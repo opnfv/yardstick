@@ -13,40 +13,19 @@ from __future__ import absolute_import
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
 
 LOG = logging.getLogger(__name__)
 
 
-class DeleteRouter(base.Scenario):
+class DeleteRouter(base.OpenstackScenario):
     """Delete an OpenStack router"""
 
     __scenario_type__ = "DeleteRouter"
 
-    def __init__(self, scenario_cfg, context_cfg):
-        self.scenario_cfg = scenario_cfg
-        self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
-
-        self.router_id = self.options.get("router_id", None)
-
-        self.neutron_client = op_utils.get_neutron_client()
-
-        self.setup_done = False
-
-    def setup(self):
-        """scenario setup"""
-
-        self.setup_done = True
-
-    def run(self, result):
+    def _run(self, result):
         """execute the test"""
 
-        if not self.setup_done:
-            self.setup()
-
-        status = op_utils.delete_neutron_router(self.neutron_client,
-                                                router_id=self.router_id)
+        status = self.neutron_delete_neutron_router(router_id=self.router_id)
         if status:
             result.update({"delete_router": 1})
             LOG.info("Delete router successful!")

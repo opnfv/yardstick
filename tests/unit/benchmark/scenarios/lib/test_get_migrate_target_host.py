@@ -11,36 +11,26 @@ import mock
 
 from yardstick.benchmark.scenarios.lib.get_migrate_target_host import GetMigrateTargetHost
 
-BASE = 'yardstick.benchmark.scenarios.lib.get_migrate_target_host'
-
 
 class GetMigrateTargetHostTestCase(unittest.TestCase):
 
-    @mock.patch('{}.openstack_utils.get_nova_client'.format(BASE))
-    @mock.patch('{}.GetMigrateTargetHost._get_migrate_host'.format(BASE))
-    @mock.patch('{}.GetMigrateTargetHost._get_current_host_name'.format(BASE))
-    def test_get_migrate_target_host(self,
-                                     mock_get_current_host_name,
-                                     mock_get_migrate_host,
-                                     mock_get_nova_client):
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_get_migrate_target_host(self, mock_openstack_utils):
         obj = GetMigrateTargetHost({}, {})
         obj.run({})
-        self.assertTrue(mock_get_nova_client.called)
-        self.assertTrue(mock_get_current_host_name.called)
-        self.assertTrue(mock_get_migrate_host.called)
 
-    @mock.patch('{}.openstack_utils.get_nova_client'.format(BASE))
-    def test_get_migrate_host(self, mock_get_nova_client):
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_get_migrate_host(self, mock_openstack_utils):
         class A(object):
             def __init__(self, service):
                 self.service = service
                 self.host = 'host4'
 
-        mock_get_nova_client().hosts.list_all.return_value = [A('compute')]
+        mock_nova_client = mock_openstack_utils.get_nova_client()
+        mock_nova_client.hosts.list_all.return_value = [A('compute')]
         obj = GetMigrateTargetHost({}, {})
-        host = obj._get_migrate_host('host5')
-        self.assertTrue(mock_get_nova_client.called)
-        self.assertEqual(host, 'host4')
+        obj._host_name = 'host5'
+        obj._get_migrate_host()
 
 
 def main():

@@ -14,8 +14,8 @@ from yardstick.benchmark.scenarios.lib.add_memory_load import AddMemoryLoad
 
 class AddMemoryLoadTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.ssh.SSH.from_node')
-    def test_add_memory_load_with_load(self, mock_from_node):
+    @mock.patch('yardstick.benchmark.scenarios.base.ssh')
+    def test_add_memory_load_with_load(self, *_):
         scenario_cfg = {
             'options': {
                 'memory_load': 0.5
@@ -24,13 +24,14 @@ class AddMemoryLoadTestCase(unittest.TestCase):
         context_cfg = {
             'host': {}
         }
-        mock_from_node().execute.return_value = (0, '0 2048 512', '')
         obj = AddMemoryLoad(scenario_cfg, context_cfg)
+        obj._nodes = {obj.node_key: mock.Mock()}
+        obj.host_client.execute.return_value = (0, 'Mem: 0 2048 512', '')
         obj.run({})
-        self.assertTrue(mock_from_node.called)
+        self.assertTrue(obj.host_client.execute.called)
 
-    @mock.patch('yardstick.ssh.SSH.from_node')
-    def test_add_memory_load_without_load(self, mock_from_node):
+    @mock.patch('yardstick.benchmark.scenarios.base.ssh')
+    def test_add_memory_load_without_load(self, *_):
         scenario_cfg = {
             'options': {
                 'memory_load': 0
@@ -40,21 +41,20 @@ class AddMemoryLoadTestCase(unittest.TestCase):
             'host': {}
         }
         obj = AddMemoryLoad(scenario_cfg, context_cfg)
-        obj.run({})
-        self.assertTrue(mock_from_node.called)
+        result = obj.run({})
+        self.assertEqual(result, {})
 
-    @mock.patch('yardstick.ssh.SSH.from_node')
-    def test_add_memory_load_without_args(self, mock_from_node):
+    @mock.patch('yardstick.benchmark.scenarios.base.ssh')
+    def test_add_memory_load_without_args(self, *_):
         scenario_cfg = {
-            'options': {
-            }
+            'options': {}
         }
         context_cfg = {
             'host': {}
         }
         obj = AddMemoryLoad(scenario_cfg, context_cfg)
-        obj.run({})
-        self.assertTrue(mock_from_node.called)
+        result = obj.run({})
+        self.assertEqual(result, {})
 
 
 def main():

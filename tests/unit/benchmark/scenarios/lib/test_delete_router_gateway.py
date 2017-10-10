@@ -8,24 +8,23 @@
 ##############################################################################
 import unittest
 import mock
-import paramiko
 
 from yardstick.benchmark.scenarios.lib.delete_router_gateway import DeleteRouterGateway
 
 
 class DeleteRouterGatewayTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.get_neutron_client')
-    @mock.patch('yardstick.common.openstack_utils.remove_gateway_router')
-    def test_delete_router_gateway(self, mock_get_neutron_client, mock_remove_gateway_router):
+    @mock.patch('yardstick.benchmark.scenarios.base.openstack_utils')
+    def test_delete_router_gateway(self, mock_openstack_utils):
+        mock_neutron_client = mock_openstack_utils.get_neutron_client()
         options = {
             'router_id': '123-123-123'
         }
         args = {"options": options}
         obj = DeleteRouterGateway(args, {})
         obj.run({})
-        self.assertTrue(mock_get_neutron_client.called)
-        self.assertTrue(mock_remove_gateway_router.called)
+        self.assertEqual(mock_openstack_utils.get_neutron_client.call_count, 2)
+        self.assertTrue(mock_neutron_client.remove_gateway_router.called)
 
 
 def main():
