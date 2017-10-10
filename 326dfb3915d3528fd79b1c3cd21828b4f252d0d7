@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_6ecf7fb1",
+        "filename": "yardstick/benchmark/scenarios/networking/iperf3.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-10T16:06:19Z",
+      "side": 1,
+      "message": "we should set options to an empty dictionary instead of the empty string.",
+      "revId": "326dfb3915d3528fd79b1c3cd21828b4f252d0d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6e465f25",
+        "filename": "yardstick/benchmark/scenarios/networking/iperf3.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-10T16:06:19Z",
+      "side": 1,
+      "message": "i\u0027d prefer to see a try-except AttributeError block here, instead of the type checking.",
+      "revId": "326dfb3915d3528fd79b1c3cd21828b4f252d0d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
