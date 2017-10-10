@@ -35,7 +35,7 @@
 - name: Copy local event download file
   copy:
     src: event_download_local.py
-    dest: "{{ pmu_tools_dest }}"
+    dest: "{{ INSTALL_BIN_PATH }}/event_download_local.py"
     owner: root
     group: root
     mode: 0755

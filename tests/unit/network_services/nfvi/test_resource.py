@@ -134,6 +134,10 @@ class TestResourceProfile(unittest.TestCase):
             self.assertIsNone(
                 self.resource_profile._prepare_collectd_conf("/opt/nsb_bin"))
 
+    def test__setup_intel_pmu(self):
+        self.assertIsNone(
+            self.resource_profile._setup_intel_pmu(self.ssh_mock, "/opt/nsb_bin"))
+
     @mock.patch("yardstick.network_services.nfvi.resource.open")
     @mock.patch("yardstick.network_services.nfvi.resource.os")
     def test__provide_config_file(self, mock_open, mock_os):
