@@ -180,6 +180,9 @@ class Pktgen(base.Scenario):
             return
 
         for i in range(1, queue_number):
+
+            smp_affinity_mask = format(1 << i, 'x')
+
             cmd = "grep 'virtio0-input.%s' /proc/interrupts |" \
                   "awk '{match($0,/ +[0-9]+/)} " \
                   "{print substr($1,RSTART,RLENGTH-1)}'" % (i)
@@ -188,7 +191,7 @@ class Pktgen(base.Scenario):
                 raise RuntimeError(stderr)
 
             cmd = "echo %s | sudo tee /proc/irq/%s/smp_affinity" \
-                % (1 << i, int(stdout))
+                % (smp_affinity_mask, int(stdout))
             status, stdout, stderr = self.server.execute(cmd)
             status, stdout, stderr = self.client.execute(cmd)
             if status:
@@ -202,7 +205,7 @@ class Pktgen(base.Scenario):
                 raise RuntimeError(stderr)
 
             cmd = "echo %s | sudo tee /proc/irq/%s/smp_affinity" \
-                % (1 << i, int(stdout))
+                % (smp_affinity_mask, int(stdout))
             status, stdout, stderr = self.server.execute(cmd)
             status, stdout, stderr = self.client.execute(cmd)
             if status:
@@ -226,6 +229,8 @@ class Pktgen(base.Scenario):
             return
 
         for i in range(1, queue_number):
+            smp_affinity_mask = format(1 << i, 'x')
+
             cmd = "grep '%s-TxRx-%s' /proc/interrupts |" \
                   "awk '{match($0,/ +[0-9]+/)} " \
                   "{print substr($1,RSTART,RLENGTH-1)}'" % (self.vnic_name, i)
@@ -234,7 +239,7 @@ class Pktgen(base.Scenario):
                 raise RuntimeError(stderr)
 
             cmd = "echo %s | sudo tee /proc/irq/%s/smp_affinity" \
-                % (1 << i, int(stdout))
+                % (smp_affinity_mask, int(stdout))
             status, stdout, stderr = self.server.execute(cmd)
             status, stdout, stderr = self.client.execute(cmd)
             if status:
