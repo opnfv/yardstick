@@ -166,7 +166,7 @@ class ResourceProfile(object):
             res_key0 = next(res_key_iter)
             res_key1 = next(res_key_iter)
 
-            if "cpu" in res_key0 or "intel_rdt" in res_key0:
+            if "cpu" in res_key0 or "intel_rdt" in res_key0 or "intel_pmu" in res_key0:
                 cpu_key, name, metric, testcase = \
                     self.get_cpu_data(res_key0, res_key1, value)
                 result["cpu"].setdefault(cpu_key, {}).update({name: metric})
@@ -185,9 +185,6 @@ class ResourceProfile(object):
 
             elif "ovs_stats" in res_key0:
                 result["ovs_stats"].update(self.parse_ovs_stats(key_split, value))
-
-            elif "intel_pmu-all" in res_key0:
-                result["intel_pmu"].update(self.parse_intel_pmu_stats(res_key1, value))
 
         result["timestamp"] = testcase
 
@@ -278,7 +275,10 @@ class ResourceProfile(object):
         connection.execute("sudo rabbitmqctl set_permissions -p / admin '.*' '.*' '.*'")
 
         LOG.debug("Start collectd service..... %s second timeout", self.timeout)
-        connection.execute("sudo %s" % collectd_path, timeout=self.timeout)
+        # intel_pmu plug requires large numbers of files open, so try to set
+        # ulimit -n to a large value
+        connection.execute("sudo bash -c 'ulimit -n 1000000 ; %s'" % collectd_path,
+                           timeout=self.timeout)
         LOG.debug("Done")
 
     def initiate_systemagent(self, bin_path):
