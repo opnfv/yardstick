@@ -88,6 +88,24 @@
       "revId": "39a0db310e6ac8c0324a3c55f28ffae03b53a072",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_25d59a43",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-10T00:14:01Z",
+      "side": 1,
+      "message": "also if any interface still has missing keys, then we have to raise exception and fail the whole test as well.",
+      "parentUuid": "9a3d3df0_e5e3b231",
+      "revId": "39a0db310e6ac8c0324a3c55f28ffae03b53a072",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
