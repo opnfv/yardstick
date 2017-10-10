@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_a53b6a37",
+        "filename": "yardstick/network_services/helpers/samplevnf_helper.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-10T06:43:50Z",
+      "side": 1,
+      "message": "if the mask is applied then the host bits shouldn\u0027t matter.  why aren\u0027t we using the network address?\n\nor do the host bits matter when using the mask?",
+      "revId": "3c3e5cf88817d819fecb3deb86da696cd4ff10a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
