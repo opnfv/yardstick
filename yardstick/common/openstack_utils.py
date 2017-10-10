@@ -106,7 +106,7 @@ def get_heat_api_version():     # pragma: no cover
     except KeyError:
         return DEFAULT_HEAT_API_VERSION
     else:
-        log.info("HEAT_API_VERSION is set in env as '%s'", api_version)
+        log.debug("HEAT_API_VERSION is set in env as '%s'", api_version)
         return api_version
 
 
@@ -116,7 +116,7 @@ def get_cinder_client_version():      # pragma: no cover
     except KeyError:
         return DEFAULT_API_VERSION
     else:
-        log.info("OS_VOLUME_API_VERSION is set in env as '%s'", api_version)
+        log.debug("OS_VOLUME_API_VERSION is set in env as '%s'", api_version)
         return api_version
 
 
@@ -131,7 +131,7 @@ def get_nova_client_version():      # pragma: no cover
     except KeyError:
         return DEFAULT_API_VERSION
     else:
-        log.info("OS_COMPUTE_API_VERSION is set in env as '%s'", api_version)
+        log.debug("OS_COMPUTE_API_VERSION is set in env as '%s'", api_version)
         return api_version
 
 
@@ -146,7 +146,7 @@ def get_neutron_client_version():   # pragma: no cover
     except KeyError:
         return DEFAULT_API_VERSION
     else:
-        log.info("OS_NETWORK_API_VERSION is set in env as '%s'", api_version)
+        log.debug("OS_NETWORK_API_VERSION is set in env as '%s'", api_version)
         return api_version
 
 
@@ -161,7 +161,7 @@ def get_glance_client_version():    # pragma: no cover
     except KeyError:
         return DEFAULT_API_VERSION
     else:
-        log.info("OS_IMAGE_API_VERSION is set in env as '%s'", api_version)
+        log.debug("OS_IMAGE_API_VERSION is set in env as '%s'", api_version)
         return api_version
 
 
@@ -368,8 +368,8 @@ def create_flavor(name, ram, vcpus, disk, **kwargs):   # pragma: no cover
     try:
         return get_nova_client().flavors.create(name, ram, vcpus, disk, **kwargs)
     except Exception:
-        log.exception("Error [create_flavor(nova_client, %s, %s, %s, %s, %s)]",
-                      name, ram, disk, vcpus, kwargs['is_public'])
+        log.exception("Error [create_flavor(nova_client, %s, %s, %s, %s)]",
+                      name, ram, disk, vcpus)
         return None
 
 
@@ -381,8 +381,8 @@ def get_image_by_name(name):    # pragma: no cover
         log.exception('No image matched')
 
 
-def get_flavor_id(nova_client, flavor_name):    # pragma: no cover
-    flavors = nova_client.flavors.list(detailed=True)
+def get_flavor_id(flavor_name):    # pragma: no cover
+    flavors = get_nova_client().flavors.list(detailed=True)
     flavor_id = ''
     for f in flavors:
         if f.name == flavor_name:
@@ -391,10 +391,18 @@ def get_flavor_id(nova_client, flavor_name):    # pragma: no cover
     return flavor_id
 
 
-def get_flavor_by_name(name):   # pragma: no cover
+def get_flavor_by_name(flavor_name):   # pragma: no cover
     flavors = get_nova_client().flavors.list()
     try:
-        return next((a for a in flavors if a.name == name))
+        return next((a for a in flavors if a.name == flavor_name))
+    except StopIteration:
+        log.exception('No flavor matched')
+
+
+def get_flavor_by_id(flavor_id):   # pragma: no cover
+    flavors = get_nova_client().flavors.list()
+    try:
+        return next((a for a in flavors if a.id == flavor_id))
     except StopIteration:
         log.exception('No flavor matched')
 
@@ -418,7 +426,7 @@ def delete_flavor(flavor_id):    # pragma: no cover
     try:
         get_nova_client().flavors.delete(flavor_id)
     except Exception:
-        log.exception("Error [delete_flavor(nova_client, %s)]", flavor_id)
+        log.exception("Error [delete_flavor(%s)]", flavor_id)
         return False
     else:
         return True
@@ -655,49 +663,38 @@ def create_security_group_full(neutron_client,
 # *********************************************
 #   GLANCE
 # *********************************************
-def get_image_id(glance_client, image_name):    # pragma: no cover
-    images = glance_client.images.list()
+def get_image_id(image_name):    # pragma: no cover
+    images = get_glance_client().images.list()
     return next((i.id for i in images if i.name == image_name), None)
 
 
-def create_image(glance_client, image_name, file_path, disk_format,
-                 container_format, min_disk, min_ram, protected, tag,
-                 public, **kwargs):    # pragma: no cover
+def create_image(image_name, file_path, **kwargs):    # pragma: no cover
     if not os.path.isfile(file_path):
         log.error("Error: file %s does not exist." % file_path)
         return None
     try:
-        image_id = get_image_id(glance_client, image_name)
+        image_id = get_image_id(image_name)
         if image_id is not None:
             log.info("Image %s already exists." % image_name)
         else:
             log.info("Creating image '%s' from '%s'...", image_name, file_path)
 
-            image = glance_client.images.create(name=image_name,
-                                                visibility=public,
-                                                disk_format=disk_format,
-                                                container_format=container_format,
-                                                min_disk=min_disk,
-                                                min_ram=min_ram,
-                                                tags=tag,
-                                                protected=protected,
-                                                **kwargs)
+            image = get_glance_client().images.create(name=image_name, **kwargs)
             image_id = image.id
             with open(file_path) as image_data:
-                glance_client.images.upload(image_id, image_data)
+                get_glance_client().images.upload(image_id, image_data)
         return image_id
     except Exception:
-        log.error("Error [create_glance_image(glance_client, '%s', '%s', '%s')]",
-                  image_name, file_path, public)
+        log.error("Error [create_glance_image('%s', '%s')]",
+                  image_name, file_path)
         return None
 
 
-def delete_image(glance_client, image_id):    # pragma: no cover
+def delete_image(image_id):    # pragma: no cover
     try:
-        glance_client.images.delete(image_id)
-
+        get_glance_client().images.delete(image_id)
     except Exception:
-        log.exception("Error [delete_flavor(glance_client, %s)]", image_id)
+        log.exception("Error [delete_image(%s)]", image_id)
         return False
     else:
         return True
