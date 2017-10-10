@@ -29,13 +29,13 @@
     pmu_tools_path: "{{ pmu_tools_dest }}"
 
 - name: Create perfmon local mirror
-  command: "wget -mkEpnp {{ perfmon_url }} -P {{ pmu_tools_dest }}"
+  command: "wget -mkEpnp {{ perfmon_url }} -P {{ INSTALL_BIN_PATH }}/pmu_local_mirror"
   ignore_errors: yes
 
 - name: Copy local event download file
   copy:
     src: event_download_local.py
-    dest: "{{ pmu_tools_dest }}"
+    dest: "{{ INSTALL_BIN_PATH }}/event_download_local.py"
     owner: root
     group: root
     mode: 0755
