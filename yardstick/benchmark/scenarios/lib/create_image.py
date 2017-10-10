@@ -19,7 +19,27 @@ LOG = logging.getLogger(__name__)
 
 
 class CreateImage(base.Scenario):
-    """Create an OpenStack image"""
+    """Create an OpenStack image
+
+    Parameters
+        image_name - name of the image to be created
+            type:    string
+            unit:    N/A
+            default: 'test-image'
+        file_path - path to the image file
+            type:    string
+            unit:    N/A
+            default: null
+        openstack_params - additional openstack parameters
+            type:    dict
+            unit:    N/A
+            default: null
+
+    Outputs:
+        image_id - id of the created image
+            type:    string
+            unit:    N/A
+    """
 
     __scenario_type__ = "CreateImage"
 
@@ -28,18 +48,9 @@ class CreateImage(base.Scenario):
         self.context_cfg = context_cfg
         self.options = self.scenario_cfg['options']
 
-        self.image_name = self.options.get("image_name", "TestImage")
-        self.file_path = self.options.get("file_path", None)
-        self.disk_format = self.options.get("disk_format", "qcow2")
-        self.container_format = self.options.get("container_format", "bare")
-        self.min_disk = self.options.get("min_disk", 0)
-        self.min_ram = self.options.get("min_ram", 0)
-        self.protected = self.options.get("protected", False)
-        self.public = self.options.get("public", "public")
-        self.tags = self.options.get("tags", [])
-        self.custom_property = self.options.get("property", {})
-
-        self.glance_client = op_utils.get_glance_client()
+        self.image_name = self.options.get("image_name", "test-image")
+        self.file_path = self.options.get("file_path")
+        self.openstack_params = self.options.get("openstack_params", {})
 
         self.setup_done = False
 
@@ -54,11 +65,7 @@ class CreateImage(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        image_id = op_utils.create_image(self.glance_client, self.image_name,
-                                         self.file_path, self.disk_format,
-                                         self.container_format, self.min_disk,
-                                         self.min_ram, self.protected, self.tags,
-                                         self.public, **self.custom_property)
+        image_id = op_utils.create_image(self.image_name, self.file_path, **self.openstack_params)
 
         if image_id:
             LOG.info("Create image successful!")
@@ -68,5 +75,9 @@ class CreateImage(base.Scenario):
             LOG.info("Create image failed!")
             values = []
 
-        keys = self.scenario_cfg.get('output', '').split()
-        return self._push_to_outputs(keys, values)
+        try:
+            keys = self.scenario_cfg.get('output', '').split()
+        except KeyError:
+            pass
+        else:
+            return self._push_to_outputs(keys, values)
