@@ -21,5 +21,9 @@ nodes:
     password: r00t
     collectd:
         interval: 5
-        plugins:
-            ovs_stats: {}
+#        plugins:
+#            intel_rdt: {}
+#            virt: {}
+#            ovs_stats:
+#                ovs_socket_path: /var/run/openvswitch/db.sock
+#            intel_pmu: {}
