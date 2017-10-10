@@ -70,6 +70,24 @@
       "revId": "39a0db310e6ac8c0324a3c55f28ffae03b53a072",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e5e3b231",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-10T00:12:49Z",
+      "side": 1,
+      "message": "why node based? originally it was to save ssh connections with SshManager, maybe.\n\nalso that fact that for Ixia we can\u0027t ssh, it will error, so we need to make sure we only ssh when we have to.  \n\nif we do a loop over all the interfaces, and ssh once the first interface that needs probing is found, raising exceptions on SSH error, then it should work.\n\nbut then we want to cache the ssh connection when we loop each interface.\n\nif we have the ssh connection cached, then we could check each interface and only unbind one interface.\n\nprobe_netdevs and dpdk status dump, will dump info for all devices, but dict.update() should make sure things aren\u0027t clobbered.\n\n\nfor some reason I though dpdk rebind was global, but we can rebind each interface individually.\n\nmaybe.",
+      "parentUuid": "9a3d3df0_85f3c609",
+      "revId": "39a0db310e6ac8c0324a3c55f28ffae03b53a072",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
