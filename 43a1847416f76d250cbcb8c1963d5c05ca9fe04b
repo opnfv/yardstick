@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_eb7b7c27",
+        "filename": "yardstick/benchmark/scenarios/lib/check_connectivity.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-11T17:16:04Z",
+      "side": 1,
+      "message": "what is this doing for us?  isn\u0027t the natural result of a raised exception to propagate up the stack?\n\ni don\u0027t think we need this nested try-except block:\n\n try:\n   self.source_ip_addr \u003d self.options[\u0027src_ip_addr\u0027]\n   self.dest_ip_addr \u003d self.options[\u0027dest_ip_addr\u0027]\n except KeyError:\n   host \u003d self.context_cfg[\u0027host\u0027]\n   target \u003d self.context_cfg[\u0027target\u0027]\n   self.ssh_user \u003d host.get(\u0027user\u0027, \u0027ubuntu\u0027)\n   ...\n else:\n   self.ssh_user \u003d self.options.get(\u0027ssh_user\u0027, \u0027ubuntu\u0027)\n   ...\n\n self.connection \u003d None\n self.setup_done \u003d False",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 21
+      },
+      "revId": "43a1847416f76d250cbcb8c1963d5c05ca9fe04b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cb78382e",
+        "filename": "yardstick/benchmark/scenarios/lib/check_connectivity.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-11T17:16:04Z",
+      "side": 1,
+      "message": "why isn\u0027t the default the same as above?",
+      "range": {
+        "startLine": 51,
+        "startChar": 55,
+        "endLine": 51,
+        "endChar": 59
+      },
+      "revId": "43a1847416f76d250cbcb8c1963d5c05ca9fe04b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6b880c23",
+        "filename": "yardstick/benchmark/scenarios/lib/check_connectivity.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-11T17:16:04Z",
+      "side": 1,
+      "message": "why is this inside the try-except block?\n\ni can\u0027t figure out how this code would raise an assertion error.  i\u0027d like to see:\n\n cmd \u003d \u0027ping -c 4 {}\u0027.format(self.dest_ip_addr)\n parameter \u003d self.options.get(\u0027ping_parameter\u0027, None)\n if parameter:\n   cmd \u003d \u0027 \u0027.join([cmd, str(parameter)])\n\n LOG.info(...)\n LOG.info(...)\n status, _, stderr \u003d self.connection.execute(cmd)\n\n try:\n   conn_status \u003d self.scenario_cfg[\u0027sla\u0027][\u0027status\u0027]\n except KeyError:\n   result[\u0027Check_Connectivity\u0027] \u003d \u0027PASS\u0027\n   return\n\n try:\n   if status \u003d\u003d 0:\n     assert conn_status, \u0027%s \u003d/\u003d\u003e %s\u0027 % (...)\n   else:\n     LOG.info(...)\n     assert not conn_status, \u0027%s \u003d\u003d\u003e %s\u0027 % (...)\n except AssertionError:\n   result[\u0027Check_Connectivity\u0027] \u003d \u0027FAIL\u0027\n else:\n   result[\u0027Check_Connectivity\u0027] \u003d \u0027PASS\u0027",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 42
+      },
+      "revId": "43a1847416f76d250cbcb8c1963d5c05ca9fe04b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
