@@ -497,7 +497,7 @@ name (i.e. %s).\
             'type': 'OS::Neutron::SecurityGroup',
             'properties': {
                 'name': name,
-                'description': "Group allowing icmp and upd/tcp on all ports",
+                'description': "Group allowing IPv4 and IPv6 for icmp and upd/tcp on all ports",
                 'rules': [
                     {'remote_ip_prefix': '0.0.0.0/0',
                      'protocol': 'tcp',
@@ -508,6 +508,19 @@ name (i.e. %s).\
                      'port_range_min': '1',
                      'port_range_max': '65535'},
                     {'remote_ip_prefix': '0.0.0.0/0',
+                     'protocol': 'icmp'},
+                    {'remote_ip_prefix': "::/0",
+                     'ethertype': 'IPv6',
+                     'protocol': 'tcp',
+                     'port_range_min': '1',
+                     'port_range_max': '65535'},
+                    {'remote_ip_prefix': "::/0",
+                     'ethertype': 'IPv6',
+                     'protocol': 'udp',
+                     'port_range_min': '1',
+                     'port_range_max': '65535'},
+                    {'remote_ip_prefix': "::/0",
+                     'ethertype': 'IPv6',
                      'protocol': 'icmp'}
                 ]
             }
