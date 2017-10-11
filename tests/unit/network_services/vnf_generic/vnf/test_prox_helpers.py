@@ -44,6 +44,7 @@ if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxMplsProfileHelper
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxBngProfileHelper
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxVpeProfileHelper
+    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxlwAFTRProfileHelper
 
 
 class TestCoreTuple(unittest.TestCase):
@@ -2212,6 +2213,120 @@ class TestProxVpeProfileHelper(unittest.TestCase):
         resource_helper.sut.port_stats.return_value = list(range(10))
 
         helper = ProxVpeProfileHelper(resource_helper)
+
+        helper.run_test(120, 5, 6.5)
+        helper.run_test(-1000, 5, 6.5)  # negative pkt_size is the only way to make ratio > 1
+
+
+class TestProxlwAFTRProfileHelper(unittest.TestCase):
+
+    def test_lwaftr_cores(self):
+        resource_helper = mock.MagicMock()
+        resource_helper.setup_helper.prox_config_data = [
+            ('section1', []),
+            ('section2', [
+                ('a', 'b'),
+                ('c', 'd'),
+            ]),
+            ('core 1', []),
+            ('core 2', [
+                ('index', 8),
+                ('mode', ''),
+            ]),
+            ('core 3', [
+                ('index', 5),
+                ('mode', 'gen'),
+                ('name', 'tun'),
+            ]),
+            ('core 4', [
+                ('index', 7),
+                ('mode', 'gen'),
+                ('name', 'inet'),
+            ]),
+        ]
+
+        helper = ProxVpeProfileHelper(resource_helper)
+        helper._cpu_topology = {
+            0: {
+                1: {
+                    5: (5, 1, 0)
+                },
+                2: {
+                    6: (6, 2, 0)
+                },
+                3: {
+                    7: (7, 3, 0)
+                },
+                4: {
+                    8: (8, 3, 0)
+                },
+            }
+        }
+
+        expected_tun = [7]
+        expected_inet = [8]
+        expected_combined = (expected_tun, expected_inet)
+
+        self.assertIsNone(helper._cores_tuple)
+        self.assertEqual(helper.tun_cores, expected_tun)
+        self.assertEqual(helper.inet_cores, expected_inet)
+        self.assertEqual(helper._cores_tuple, expected_combined)
+
+    def test_tun_ports(self):
+        resource_helper = mock.MagicMock()
+        resource_helper.setup_helper.prox_config_data = [
+            ('section1', []),
+            ('section2', [
+                ('a', 'b'),
+                ('c', 'd'),
+            ]),
+            ('port 3', [
+                ('index', '5'),
+                ('name', 'lwB4'),
+                ('mac', 'hardware'),
+            ]),
+            ('port 4', [
+                ('index', '7'),
+                ('name', 'inet'),
+                ('mac', 'hardware'),
+            ]),
+        ]
+
+        helper = ProxlwAFTRProfileHelper(resource_helper)
+        helper._port_list = {
+            0: {
+                1: {
+                    5: 'lwB4'
+                },
+                2: {
+                    6: 'inet'
+                },
+                3: {
+                    7: 'lwB4'
+                },
+                4: {
+                    8: 'inet'
+                },
+            }
+        }
+
+        expected_tun = [3]
+        expected_inet = [4]
+        expected_combined = (expected_tun, expected_inet)
+
+        self.assertIsNone(helper._ports_tuple)
+        self.assertEqual(helper.tun_ports, expected_tun)
+        self.assertEqual(helper.inet_ports, expected_inet)
+        self.assertEqual(helper._ports_tuple, expected_combined)
+
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.time')
+    def test_run_test(self, _):
+        resource_helper = mock.MagicMock()
+        resource_helper.step_delta = 0.4
+        resource_helper.vnfd_helper.port_pairs.all_ports = list(range(2))
+        resource_helper.sut.port_stats.return_value = list(range(10))
+
+        helper = ProxlwAFTRProfileHelper(resource_helper)
 
         helper.run_test(120, 5, 6.5)
         helper.run_test(-1000, 5, 6.5)  # negative pkt_size is the only way to make ratio > 1
