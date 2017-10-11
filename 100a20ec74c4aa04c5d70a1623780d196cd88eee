@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_0b46a0bf",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1679,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-11T18:17:26Z",
+      "side": 1,
+      "message": "what is the purpose of this loop?\n\nis line 1681 errant and not intended?",
+      "range": {
+        "startLine": 1677,
+        "startChar": 0,
+        "endLine": 1679,
+        "endChar": 28
+      },
+      "revId": "100a20ec74c4aa04c5d70a1623780d196cd88eee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_abb69488",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1701,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-11T18:17:26Z",
+      "side": 1,
+      "message": "when will ratio be less than 1?\n\nif pkt_size is an integer, then pkt_size would need to be 19 or less for ratio to be less than 1, and it would be negative at that point.  i don\u0027t think a negative ratio is expected/desirable.\n\nas pkt_size gets big, ratio gets close to 1, but never drops below 1.\n\nas pkt_size gets small, ratio goes negative for (20, -20) and then returns to positive [-20, -inf) approaching 1 as it goes to negative infinity.\n\nbut i don\u0027t think negative values of pkt_size are valid.",
+      "revId": "100a20ec74c4aa04c5d70a1623780d196cd88eee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cbd798be",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1710,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-11T18:17:26Z",
+      "side": 1,
+      "message": "i\u0027d like to see these put into a helper method:\n\n @staticmethod\n def _resize(len1, len2):\n   if len1 \u003d\u003d len2:\n     return 1.0\n   return 1.0 * len1 / len2\n\nthen here we would have:\n\n max_down_speed *\u003d self._resize(len(self.tun_ports), len(self.tun_cores))\n max_up_speed *\u003d self._resize(len(self.inet_ports), len(self.inet_cores))",
+      "range": {
+        "startLine": 1707,
+        "startChar": 0,
+        "endLine": 1710,
+        "endChar": 77
+      },
+      "revId": "100a20ec74c4aa04c5d70a1623780d196cd88eee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
