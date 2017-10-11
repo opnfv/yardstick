@@ -566,7 +566,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Latency - Ping",
+          "title": "Latency - Ping, 999999 rtt indicates ping error",
           "tooltip": {
             "shared": true,
             "sort": 0,
