@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_0baa2070",
+        "filename": "yardstick/benchmark/scenarios/lib/check_value.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-11T17:43:13Z",
+      "side": 1,
+      "message": "i don\u0027t see the point of these asserts, they are already known to be false.\n\nfurther, the except block and else block are identical.\n\nthis could all be done without the asserts:\n\n value1_float \u003d try_float(value1, None)\n value2_float \u003d try_float(value2, None)\n if fluctuation !\u003d 0:\n   value1_top \u003d value2_float * (1 + fluctuation)\n   value1_bottom \u003d value2_float * (1 - fluctuation)\n\n if fluctuation !\u003d 0 and op \u003d\u003d \u0027equal\u0027 and not value1_bottom \u003c\u003d value1_float \u003c\u003d value1_top:\n   LOG.info(...)\n   check_result \u003d \u0027FAIL\u0027\n\n elif fluctuation \u003d\u003d 0 and op \u003d\u003d \u0027equal\u0027 and value1 !\u003d value2:\n   LOG.info(...)\n   check_result \u003d \u0027FAIL\u0027\n elif \u003clarger than\u003e\n   ...\n elif \u003cless than\u003e\n   ...\n elif \u003cnot equal\u003e\n   ...   \n\n LOG.info(...)\n result[\u0027check_result\u0027] \u003d check_result",
+      "revId": "00679e90552706c01b24658dda8ff35580698af5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4b942837",
+        "filename": "yardstick/benchmark/scenarios/lib/check_value.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-11T17:43:13Z",
+      "side": 1,
+      "message": "now that we\u0027re catching the assertion errors, what is the utility of the strings that describe the failure, those go unused, as far as i can tell.",
+      "revId": "00679e90552706c01b24658dda8ff35580698af5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
