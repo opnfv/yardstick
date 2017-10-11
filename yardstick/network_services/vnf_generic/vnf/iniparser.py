@@ -226,6 +226,20 @@ class ConfigParser(BaseParser):
     def find_section(self, section_name):
         return next((value for name, value in self.sections if name == section_name), None)
 
+    @staticmethod
+    def section_set_first_value(section, key, val):
+        next((item for item in section if item[0] == key))[1] = val
+
+    @staticmethod
+    def section_set_all_values(section, key, val):
+        items = (item for item in section if item[0] == key)
+        for item in items:
+            item[1] = val
+
+    @staticmethod
+    def section_get(section, key, default=None):
+        return next((v for k, v in section if key == key), default)
+
     def new_section(self, line_parser):
         section_name = line_parser.section_name
         index = self.find_section_index(section_name)
