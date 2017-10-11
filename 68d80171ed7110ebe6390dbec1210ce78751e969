@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_cbcdd85f",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate_benchmark.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-11T17:49:58Z",
+      "side": 1,
+      "message": "why are we echoing into /dev/null?\n\nthe new echo statements (lines 33 and 51) will go directly into /dev/null, why?",
+      "revId": "68d80171ed7110ebe6390dbec1210ce78751e969",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
