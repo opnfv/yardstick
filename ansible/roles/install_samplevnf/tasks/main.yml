@@ -29,9 +29,9 @@
         RTE_TARGET: "{{ RTE_TARGET }}"
         VNF_CORE: "{{ samplevnf_path }}"
 
-- name: set soft CRC for PROX when building in VM
+- name: set soft CRC and GEN_DECAP_IPV6_TO_IPV4_CKSUM for PROX when building in VM
   set_fact:
-      build_env_vars: "{{ build_env_vars|combine({'crc': 'soft'}) }}"
+      build_env_vars: "{{ build_env_vars|combine({'crc': 'soft'})|combine({'GEN_DECAP_IPV6_TO_IPV4_CKSUM':'y'}) }}"
   when: vnf_name == "PROX" and image_type is defined and image_type == "vm"
 
 - name: "make {{ vnf_name }} clean"
