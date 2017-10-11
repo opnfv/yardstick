@@ -11,6 +11,12 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
+import os
+from collections import Iterable
+
+from six.moves import StringIO
+
+_LOCAL_DEFAULT = object()
 
 
 class ParseError(Exception):
@@ -132,7 +138,13 @@ class BaseParser(object):
             if key is None:
                 raise line_parser.error_unexpected_continuation()
 
-            value.append(line_parser.active.lstrip())
+            active = line_parser.active.lstrip()
+            try:
+                value.append(active)
+            except AttributeError:
+                # multi-line keys!
+                key = os.linesep.join([key, active])
+
             return key, value
 
         if key:
@@ -201,7 +213,74 @@ class ConfigParser(BaseParser):
         ]
     """
 
-    def __init__(self, filename, sections=None):
+    @staticmethod
+    def dump_key_value(buffer, key, value, quote=None, linesep=None):
+        if key == "__name__":
+            return
+
+        if quote is None:
+            quote = ''
+        else:
+            quote = str(quote)
+
+        if linesep:
+            buffer.write(linesep)
+
+        if value is None or value == '@':
+            buffer.write(str(key).replace('\n', '\n\t'))
+        else:
+            buffer.write(str(key))
+            buffer.write('=')
+            buffer.write(quote)
+            buffer.write(str(value).replace('\n', '\n\t'))
+            buffer.write(quote)
+
+    @staticmethod
+    def _section_iter(section, key):
+        if not isinstance(section, Iterable):
+            section = []
+        return (item for item in section if item[0] == key)
+
+    @staticmethod
+    def section_get(section, key, default=None):
+        if not isinstance(section, Iterable):
+            section = []
+        return next((v for k, v in section if k == key), default)
+
+    @classmethod
+    def section_set_first_value(cls, section, key, val):
+        next(cls._section_iter(section, key))[1] = val
+
+    @classmethod
+    def section_set_all_values(cls, section, key, val):
+        for item in cls._section_iter(section, key):
+            item[1] = val
+
+    @classmethod
+    def update_section(cls, target_section, new_section):
+        target_section_data = target_section[1]
+        new_section_data = new_section[1]
+
+        target_indexes = {}
+        for i, (key, _) in enumerate(target_section_data):
+            target_indexes.setdefault(key, []).append(i)
+
+        new_indexes = {}
+        for i, (key, _) in enumerate(new_section_data):
+            new_indexes.setdefault(key, []).append(i)
+
+        for target_key, target_key_index_list in target_indexes.items():
+            target_index_iter = iter(target_key_index_list)
+            for new_key, new_value in new_section_data:
+                if target_key == new_key:
+                    try:
+                        target_index = next(target_index_iter)
+                    except StopIteration:
+                        target_section_data.append([new_key, new_value])
+                    else:
+                        target_section_data[target_index][1] = new_value
+
+    def __init__(self, filename=None, sections=None):
         super(ConfigParser, self).__init__()
         self.filename = filename
         if sections is not None:
@@ -211,11 +290,57 @@ class ConfigParser(BaseParser):
         self.section_name = None
         self.section = None
 
+    def read(self, file_path):
+        with open(file_path) as fh:
+            return self.readfp(fh)
+
+    def readfp(self, file_handle):
+        return self._parse(file_handle)
+
+    def write(self, file_handle):
+        self.dump(file_handle)
+
     def parse(self, data=None):
         if not data:
             data = self.filename
-        with open(data) as f:
-            return self._parse(f)
+        with open(data) as file_handle:
+            return self._parse(file_handle)
+
+    def load(self, file_path):
+        self.read(file_path)
+
+    def loads(self, data_string):
+        self.readfp(StringIO(data_string))
+
+    def dump(self, file_handle):
+        """
+        Write an .ini-format config string into the file handle
+
+        PROX does not allow a space before/after the =, so we need
+        a custom method
+        """
+        self._dump(file_handle)
+
+    def dumps(self):
+        """
+        Generate an .ini-format config string
+
+        PROX does not allow a space before/after the =, so we need
+        a custom method
+        """
+        return self._dump(StringIO()).getvalue()
+
+    def _dump(self, buffer):
+        linesep = ''
+        for section_name, section_data in self:
+            buffer.write(linesep)
+            linesep = os.linesep
+            buffer.write("[")
+            buffer.write(str(section_name))
+            buffer.write("]")
+            for key, value in section_data:
+                self.dump_key_value(buffer, key, value, linesep=linesep)
+        return buffer
 
     def __iter__(self):
         return iter(self.sections)
@@ -224,10 +349,9 @@ class ConfigParser(BaseParser):
         return next((i for i, (name, value) in enumerate(self) if name == section_name), -1)
 
     def find_section(self, section_name):
-        return next((value for name, value in self.sections if name == section_name), None)
+        return next((value for name, value in self if name == section_name), None)
 
-    def new_section(self, line_parser):
-        section_name = line_parser.section_name
+    def add_section(self, section_name):
         index = self.find_section_index(section_name)
         self.section_name = section_name
         if index == -1:
@@ -235,6 +359,22 @@ class ConfigParser(BaseParser):
             self.sections.append(self.section)
         else:
             self.section = self.sections[index]
+
+    def new_section(self, line_parser):
+        self.add_section(line_parser.section_name)
+
+    def get(self, section_name, key, default=_LOCAL_DEFAULT):
+        value = default
+        section = self.find_section(section_name)
+        if section:
+            value = next((v for k, v in section[1] if k == key), default)
+        if value == _LOCAL_DEFAULT:
+            raise KeyError('{}: {}'.format(section_name, key))
+        return value
+
+    def set(self, section_name, key, value):
+        self.add_section(section_name)
+        self.section.append([key, value])
 
     def _assignment(self, key, value, line_parser):
         if not self.section_name:

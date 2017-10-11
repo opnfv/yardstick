@@ -20,6 +20,7 @@ from __future__ import absolute_import
 import os
 import socket
 import unittest
+from collections import OrderedDict
 from itertools import repeat, chain
 import mock
 
@@ -744,6 +745,22 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         },
     }
 
+    def test_write_prox_lua(self):
+        data = OrderedDict()
+        expected = ''
+        result = ProxDpdkVnfSetupEnvHelper.write_prox_lua(data)
+        self.assertEqual(result, expected)
+
+        data = OrderedDict([
+            ('key1', 'value1'),
+            ('key2', 234),
+            (234, 'value3'),
+        ])
+
+        expected = os.linesep.join(['key1="value1"', 'key2="234"', '234="value3"'])
+        result = ProxDpdkVnfSetupEnvHelper.write_prox_lua(data)
+        self.assertEqual(result, expected)
+
     def test_global_section(self):
         setup_helper = ProxDpdkVnfSetupEnvHelper(mock.MagicMock(), mock.MagicMock(),
                                                  mock.MagicMock())
@@ -916,49 +933,6 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         ])
         expected = 1
         result = ProxDpdkVnfSetupEnvHelper._get_tx_port('section1', input_data)
-        self.assertEqual(result, expected)
-
-    def test_write_prox_config(self):
-        input_data = {}
-        expected = ''
-        result = ProxDpdkVnfSetupEnvHelper.write_prox_config(input_data)
-        self.assertEqual(result, expected)
-
-        input_data = [
-            [
-                'section1',
-                [],
-            ],
-        ]
-        expected = '[section1]'
-        result = ProxDpdkVnfSetupEnvHelper.write_prox_config(input_data)
-        self.assertEqual(result, expected)
-
-        input_data = [
-            [
-                'section1',
-                [],
-            ],
-            [
-                'section2',
-                [
-                    ['key1', 'value1'],
-                    ['__name__', 'not this one'],
-                    ['key2', None],
-                    ['key3', 234],
-                    ['key4', 'multi-line\nvalue'],
-                ],
-            ],
-        ]
-        expected = os.linesep.join([
-            '[section1]',
-            '[section2]',
-            'key1=value1',
-            'key2',
-            'key3=234',
-            'key4=multi-line\n\tvalue',
-        ])
-        result = ProxDpdkVnfSetupEnvHelper.write_prox_config(input_data)
         self.assertEqual(result, expected)
 
     def test_prox_config_data(self):

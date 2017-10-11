@@ -18,13 +18,13 @@ import ipaddress
 import logging
 import os
 import sys
-from collections import OrderedDict, defaultdict
+from collections import defaultdict
 from itertools import chain, repeat
 
 import six
-from six.moves.configparser import ConfigParser
 
 from yardstick.common.utils import ip_to_hex
+from yardstick.network_services.vnf_generic.vnf.iniparser import ConfigParser
 
 LOG = logging.getLogger(__name__)
 
@@ -172,11 +172,11 @@ class MultiPortConfig(object):
             stop = start + offset
         return cls.make_str(base, range(start, stop))
 
-    @staticmethod
-    def parser_get(parser, section, key, default=None):
-        if parser.has_option(section, key):
-            return parser.get(section, key)
-        return default
+    # @staticmethod
+    # def parser_get(parser, section, key, default=None):
+    #     if parser.has_option(section, key):
+    #         return parser.get(section, key)
+    #     return default
 
     @staticmethod
     def make_ip_addr(ip, mask):
@@ -214,7 +214,7 @@ class MultiPortConfig(object):
         self.write_parser = ConfigParser()
         self.read_parser = ConfigParser()
         self.read_parser.read(config_tpl)
-        self.master_core = self.read_parser.get("PIPELINE0", "core")
+        self.master_core = int(self.read_parser.get("PIPELINE0", "core", 0))
         self.master_tpl = self.get_config_tpl_data('MASTER')
         self.arpicmp_tpl = self.get_config_tpl_data('ARPICMP')
         self.txrx_tpl = self.get_config_tpl_data('TXRX')
@@ -268,38 +268,30 @@ class MultiPortConfig(object):
 
     def update_timer(self):
         timer_tpl = self.get_config_tpl_data('TIMER')
-        timer_tpl['core'] = self.gen_core(0)
-        self.update_write_parser(timer_tpl)
+        self.read_parser.section_set_all_values(timer_tpl, 'core', self.gen_core(0))
 
     def get_config_tpl_data(self, type_value):
-        for section in self.read_parser.sections():
-            if self.read_parser.has_option(section, 'type'):
-                if type_value == self.read_parser.get(section, 'type'):
-                    tpl = OrderedDict(self.read_parser.items(section))
-                    return tpl
+        for section in self.read_parser:
+            if any(type_value == val for key, val in section[1] if key == 'type'):
+                return section
 
     def get_txrx_tpl_data(self, value):
-        for section in self.read_parser.sections():
-            if self.read_parser.has_option(section, 'pipeline_txrx_type'):
-                if value == self.read_parser.get(section, 'pipeline_txrx_type'):
-                    tpl = OrderedDict(self.read_parser.items(section))
-                    return tpl
+        for section in self.read_parser:
+            if any(value == val for key, val in section[1] if key == 'pipeline_txrx_type'):
+                return section
 
-    def init_write_parser_template(self, type_value='ARPICMP'):
-        for section in self.read_parser.sections():
-            if type_value == self.parser_get(self.read_parser, section, 'type', object()):
-                self.pipeline_counter = self.read_parser.getint(section, 'core')
-                self.txrx_pipeline = self.read_parser.getint(section, 'core')
-                return
-            self.write_parser.add_section(section)
-            for name, value in self.read_parser.items(section):
-                self.write_parser.set(section, name, value)
+    def find_pipeline_indexes(self):
+        for section in self.read_parser:
+            section_type = self.read_parser.section_get(section, 'type')
+            if 'ARPICMP' == section_type:
+                self.pipeline_counter = int(self.read_parser.section_get(section, 'core'))
+            if 'TXRX' == section_type:
+                self.txrx_pipeline = int(self.read_parser.section_get(section, 'core'))
 
-    def update_write_parser(self, data):
+    def add_pipeline(self, data):
         section = "PIPELINE{0}".format(self.pipeline_counter)
-        self.write_parser.add_section(section)
         for name, value in data.items():
-            self.write_parser.set(section, name, value)
+            self.read_parser.set(section, name, value)
 
     def get_worker_threads(self, worker_threads):
         if self.worker_config == '1t':
@@ -332,8 +324,7 @@ class MultiPortConfig(object):
 
     def set_priv_to_pub_mapping(self):
         port_nums = [tuple(self.vnfd_helper.port_nums(x)) for x in self.port_pair_list]
-        return "".join(str(y).replace(" ", "") for y in
-                       port_nums)
+        return "".join(str(y).replace(" ", "") for y in port_nums)
 
     def set_priv_que_handler(self):
         # iterated twice, can't be generator
@@ -371,9 +362,9 @@ class MultiPortConfig(object):
         return ' '.join(build_arp_config(port) for port in self.all_ports)
 
     def generate_arpicmp_data(self):
-        swq_in_str = self.make_range_str('SWQ{}', self.swq, offset=self.lb_count)
+        pkqt_in = self.make_range_str('SWQ{}', self.swq, offset=self.lb_count)
         self.swq += self.lb_count
-        swq_out_str = self.make_range_str('SWQ{}', self.swq, offset=self.lb_count)
+        pktq_out = self.make_range_str('SWQ{}', self.swq, offset=self.lb_count)
         self.swq += self.lb_count
         # ports_mac_list is disabled for some reason
 
@@ -382,35 +373,34 @@ class MultiPortConfig(object):
         pktq_in_iter = ('RXQ{}.0'.format(self.vnfd_helper.port_num(x[0])) for x in
                         self.port_pair_list)
 
-        arpicmp_data = {
-            'core': self.gen_core(0),
-            'pktq_in': swq_in_str,
-            'pktq_out': swq_out_str,
-            # we need to disable ports_mac_list?
-            # it looks like ports_mac_list is no longer required
-            # 'ports_mac_list': ' '.join(mac_iter),
-            'pktq_in_prv': ' '.join(pktq_in_iter),
-            'prv_to_pub_map': self.set_priv_to_pub_mapping(),
-            'arp_route_tbl': self.generate_arp_route_tbl(),
-            # nd_route_tbl must be set or we get segault on random OpenStack IPv6 traffic
-            # 'nd_route_tbl': "(0064:ff9b:0:0:0:0:9810:6414,120,0,0064:ff9b:0:0:0:0:9810:6414)"
-            # safe default?  route discard prefix to localhost
-            'nd_route_tbl': "(0100::,64,0,::1)"
-        }
-        self.pktq_out_os = swq_out_str.split(' ')
+        self.pktq_out_os = pktq_out.split(' ')
         # HWLB is a run to complition. So override the pktq_in/pktq_out
         if self.lb_config == self.HW_LB:
             self.swq = 0
-            swq_in_str = \
+            pkqt_in = \
                 self.make_range_str('SWQ{}', self.swq,
                                     offset=(self.lb_count * self.worker_threads))
-            arpicmp_data['pktq_in'] = swq_in_str
             # WA: Since port_pairs will not be populated during arp pipeline
             self.port_pairs = self.port_pair_list
             port_iter = \
                 self.make_port_pairs_iter(self.float_x_plus_one_tenth_of_y, [self.mul])
             pktq_out = self.make_str('TXQ{}', port_iter)
-            arpicmp_data['pktq_out'] = pktq_out
+        arpicmp_data = [
+            ['type', 'ARPICMP'],
+            ['core', self.gen_core(0)],
+            ['pktq_in', pkqt_in],
+            ['pktq_out', pktq_out],
+            # we need to disable ports_mac_list?
+            # it looks like ports_mac_list is no longer required
+            # ['ports_mac_list', ' '.join(mac_iter)],
+            ['pktq_in_prv', ' '.join(pktq_in_iter)],
+            ['prv_to_pub_map', self.set_priv_to_pub_mapping()],
+            ['arp_route_tbl', self.generate_arp_route_tbl()],
+            # nd_route_tbl must be set or we get segault on random OpenStack IPv6 traffic
+            # ['nd_route_tbl', "(0064:ff9b:0:0:0:0:9810:6414,120,0,0064:ff9b:0:0:0:0:9810:6414)"],
+            # safe default?  route discard prefix to localhost
+            ['nd_route_tbl', "(0100::,64,0,::1)"],
+        ]
 
         return arpicmp_data
 
@@ -443,12 +433,14 @@ class MultiPortConfig(object):
 
         rxq_str = self.make_str('RXQ{}', pktq_iter)
         swq_str = self.make_range_str('SWQ{}', self.swq, offset=self.ports_len)
-        txrx_data = {
-            'pktq_in': rxq_str,
-            'pktq_out': swq_str + ' SWQ{0}'.format(self.lb_index - 1),
-            'pipeline_txrx_type': 'RXRX',
-            'core': self.gen_core(self.start_core),
-        }
+        txrx_data = [
+            ['type', 'TXRX'],
+            ['pipeline_txrx_type', 'RXRX'],
+            ['dest_if_offset', 176],
+            ['core', self.gen_core(self.start_core)],
+            ['pktq_in', rxq_str],
+            ['pktq_out', swq_str + ' SWQ{0}'.format(self.lb_index - 1)],
+        ]
         self.pipeline_counter += 1
         return self.start_core, txrx_data
 
@@ -461,13 +453,14 @@ class MultiPortConfig(object):
         self.pktq_out = pktq_out.split()
 
         self.swq += (self.ports_len * self.worker_threads)
-        lb_data = {
-            'prv_que_handler': self.prv_que_handler,
-            'pktq_in': pktq_in,
-            'pktq_out': pktq_out,
-            'n_vnf_threads': str(self.worker_threads),
-            'core': self.gen_core(self.start_core),
-        }
+        lb_data = [
+            ['type', 'LOADB'],
+            ['core', self.gen_core(self.start_core)],
+            ['pktq_in', pktq_in],
+            ['pktq_out', pktq_out],
+            ['n_vnf_threads', str(self.worker_threads)],
+            ['prv_que_handler', self.prv_que_handler],
+        ]
         self.pipeline_counter += 1
         return lb_data
 
@@ -509,13 +502,15 @@ class MultiPortConfig(object):
         return pipe_line_data
 
     def generate_config_data(self):
-        self.init_write_parser_template()
+        self.find_pipeline_indexes()
 
         # use master core for master, don't use self.start_core
-        self.write_parser.set('PIPELINE0', 'core', self.gen_core(self.master_core))
+        self.read_parser.section_set_all_values(self.master_tpl, 'core',
+                                                self.gen_core(self.master_core))
         arpicmp_data = self.generate_arpicmp_data()
-        self.arpicmp_tpl.update(arpicmp_data)
-        self.update_write_parser(self.arpicmp_tpl)
+        # replace list
+        self.arpicmp_tpl[:] = arpicmp_data
+        # self.update_write_parser(self.arpicmp_tpl)
 
         if self.vnf_type == 'CGNAPT':
             self.pipeline_counter += 1
@@ -535,14 +530,15 @@ class MultiPortConfig(object):
             self.port_pair_list = self.port_pair_list[port_pair_count:]
             self.ports_len = port_pair_count * 2
             self.set_priv_que_handler()
+            core = 0
             if self.lb_config == 'SW':
                 core, txrx_data = self.generate_initial_txrx_data()
                 self.txrx_tpl.update(txrx_data)
-                self.update_write_parser(self.txrx_tpl)
+                self.add_pipeline(self.txrx_tpl)
                 self.start_core += 1
                 lb_data = self.generate_lb_data()
                 self.loadb_tpl.update(lb_data)
-                self.update_write_parser(self.loadb_tpl)
+                self.add_pipeline(self.loadb_tpl)
                 self.start_core += 1
 
             for i in range(self.worker_threads):
@@ -550,7 +546,7 @@ class MultiPortConfig(object):
                 if not self.vnf_tpl:
                     self.vnf_tpl = {}
                 self.vnf_tpl.update(vnf_data)
-                self.update_write_parser(self.vnf_tpl)
+                self.add_pipeline(self.vnf_tpl)
                 try:
                     self.vnf_tpl.pop('vnf_set')
                 except KeyError:
@@ -562,7 +558,7 @@ class MultiPortConfig(object):
             if self.lb_config == 'SW':
                 txrx_data = self.generate_final_txrx_data(core)
                 self.txrx_tpl.update(txrx_data)
-                self.update_write_parser(self.txrx_tpl)
+                self.add_pipeline(self.txrx_tpl)
             self.vnf_tpl = self.get_config_tpl_data(self.vnf_type)
 
     def generate_config(self):
@@ -573,9 +569,9 @@ class MultiPortConfig(object):
         self.get_lb_count()
         self.generate_lb_to_port_pair_mapping()
         self.generate_config_data()
-        self.write_parser.write(sys.stdout)
+        self.read_parser.write(sys.stdout)
         with open(self.tmp_file, 'a') as tfh:
-            self.write_parser.write(tfh)
+            self.read_parser.write(tfh)
 
     def generate_link_config(self):
         def build_args(port):

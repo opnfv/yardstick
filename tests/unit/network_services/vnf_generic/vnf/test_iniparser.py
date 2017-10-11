@@ -15,6 +15,7 @@
 
 from __future__ import absolute_import
 
+import os
 import unittest
 from contextlib import contextmanager
 import mock
@@ -41,6 +42,11 @@ list1: value2
        value4
 key3='single quote value'  ; comment here
 key4=
+key1=value_one  # duplicate key
+key1=value_two  # duplicate key, immediately following its own appearance
+multi
+    line
+    key    # is this a thing?
 
 [section2]  ; comment with #2 other symbol
 # here is a comment line
@@ -141,6 +147,79 @@ class TestConfigParser(unittest.TestCase):
 
         return internal_open
 
+    def test_update_section(self):
+        input_sections = [
+            'MASTER',
+            [
+                ['type', 'value1'],
+                ['filename', 0],
+                ['type', 'value2'],
+                ['filename', 10],
+                ['type', 'value3'],
+            ],
+        ]
+        new_section_data = ['MASTER', [['filename', 1], ['filename', 15], ['filename', 25]]]
+        expected_sections = [
+            'MASTER',
+            [
+                ['type', 'value1'],
+                ['filename', 1],
+                ['type', 'value2'],
+                ['filename', 15],
+                ['type', 'value3'],
+                ['filename', 25],
+            ],
+        ]
+        self.assertIsNone(ConfigParser.update_section(input_sections, new_section_data))
+        self.assertEqual(input_sections, expected_sections)
+
+    def test_dump(self):
+        input_data = []
+        expected = ''
+
+        config_parser = ConfigParser(sections=input_data)
+        result = config_parser.dumps()
+        self.assertEqual(result, expected)
+
+        input_data = [
+            [
+                'section1',
+                [],
+            ],
+        ]
+        expected = '[section1]'
+        config_parser = ConfigParser(sections=input_data)
+        result = config_parser.dumps()
+        self.assertEqual(result, expected)
+
+        input_data = [
+            [
+                'section1',
+                [],
+            ],
+            [
+                'section2',
+                [
+                    ['key1', 'value1'],
+                    ['__name__', 'not this one'],
+                    ['key2', None],
+                    ['key3', 234],
+                    ['key4', 'multi-line\nvalue'],
+                ],
+            ],
+        ]
+        expected = os.linesep.join([
+            '[section1]',
+            '[section2]',
+            'key1=value1',
+            'key2',
+            'key3=234',
+            'key4=multi-line\n\tvalue',
+        ])
+        config_parser = ConfigParser(sections=input_data)
+        result = config_parser.dumps()
+        self.assertEqual(result, expected)
+
     @mock.patch('yardstick.network_services.vnf_generic.vnf.iniparser.open')
     def test_parse(self, mock_open):
         mock_open.side_effect = self.make_open(PARSE_TEXT_1)
@@ -163,6 +242,9 @@ class TestConfigParser(unittest.TestCase):
                     ['list1', 'value2\nvalue3\nvalue4'],
                     ['key3', 'single quote value'],
                     ['key4', ''],
+                    ['key1', 'value_one'],
+                    ['key1', 'value_two'],
+                    ['multi\nline\nkey', '@'],
                     ['key2', 'double quote value'],
                 ],
             ],
