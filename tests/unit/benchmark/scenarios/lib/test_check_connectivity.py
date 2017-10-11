@@ -1,0 +1,48 @@
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+# Unittest for yardstick.benchmark.scenarios.lib.check_connectivity.CheckConnectivity
+
+from __future__ import absolute_import
+
+import mock
+import unittest
+
+from yardstick.benchmark.scenarios.lib.check_connectivity import CheckConnectivity
+
+
+class CheckConnectivityTestCase(unittest.TestCase):
+
+    @mock.patch('yardstick.benchmark.scenarios.lib.check_connectivity.ssh')
+    def test_check_connectivity(self):
+
+        args = {
+            'options': {'src_ip_addr': '192.168.23.2',
+                        'dest_ip_addr': '192.168.23.10',
+                        'ssh_user': 'root',
+                        'ssh_passwd': 'root',
+                        'ssh_port: 22',
+                        'ssh_timeout': 600,
+                        'ping_parameter': "-s 2048"      
+                        },
+            'sla': {'status': 'True',
+                    'action': 'assert'}
+        }
+        obj = check_connectivity.CheckConnectivity(args, {})
+
+        mock_ssh.SSH.from_node().execute.return_value = (0, '100', '')
+        obj.run(result)
+        self.assertEqual(result, {"Check_Connectivity": 'PASS'})
+
+def main():
+    unittest.main()
+
+
+if __name__ == '__main__':
+    main()
