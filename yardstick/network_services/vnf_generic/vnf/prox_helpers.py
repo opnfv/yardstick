@@ -1596,3 +1596,195 @@ class ProxVpeProfileHelper(ProxProfileHelper):
                 data_helper.latency = self.get_latency()
 
         return data_helper.result_tuple, data_helper.samples
+
+
+class ProxlwAFTRProfileHelper(ProxProfileHelper):
+
+    __prox_profile_type__ = "lwAFTR gen"
+
+    def __init__(self, resource_helper):
+        super(ProxlwAFTRProfileHelper, self).__init__(resource_helper)
+        self._cores_tuple = None
+        self._ports_tuple = None
+        self.step_delta = 5
+        self.step_time = 0.5
+
+    @property
+    def lwaftr_cores(self):
+        if not self._cores_tuple:
+            self._cores_tuple = self.get_cores_gen_lwaftr()
+        return self._cores_tuple
+
+    @property
+    def tun_cores(self):
+        return self.lwaftr_cores[0]
+
+    @property
+    def inet_cores(self):
+        return self.lwaftr_cores[1]
+
+    @property
+    def lwaftr_ports(self):
+        if not self._ports_tuple:
+            self._ports_tuple = self.get_ports_gen_lw_aftr()
+        return self._ports_tuple
+
+    @property
+    def tun_ports(self):
+        return self.lwaftr_ports[0]
+
+    @property
+    def inet_ports(self):
+        return self.lwaftr_ports[1]
+
+    @property
+    def all_rx_cores(self):
+        return self.latency_cores
+
+    def get_cores_gen_lwaftr(self):
+        tun_cores = []
+        inet_cores = []
+        for section_name, section in self.resource_helper.setup_helper.prox_config_data:
+            if not section_name.startswith("core"):
+                continue
+
+            if all(key != "mode" or value != self.PROX_CORE_GEN_MODE for key, value in section):
+                continue
+
+            for item_key, item_value in section:
+                if item_key == "name" and item_value.startswith("tun"):
+                    core_tuple = CoreSocketTuple(section_name)
+                    core_tag = core_tuple.find_in_topology(self.cpu_topology)
+                    tun_cores.append(core_tag)
+
+                elif item_key == "name" and item_value.startswith("inet"):
+                    core_tuple = CoreSocketTuple(section_name)
+                    inet_core = core_tuple.find_in_topology(self.cpu_topology)
+                    inet_cores.append(inet_core)
+
+        return tun_cores, inet_cores
+
+    def get_ports_gen_lw_aftr(self):
+        tun_ports = []
+        inet_ports = []
+
+        for section_name, section in self.resource_helper.setup_helper.prox_config_data:
+            if not section_name.startswith("port"):
+                continue
+            tx_port_iter = re.finditer(r'\d+', section_name)
+            tx_port_no = int(next(tx_port_iter).group(0))
+
+            for item_key, item_value in section:
+                if item_key != 'name':
+                    continue
+
+            for item_key, item_value in section:
+                if item_value.startswith("lwB4"):
+                    tun_ports.append(tx_port_no)
+
+                elif item_value.startswith("inet"):
+                    inet_ports.append(tx_port_no)
+
+        return tun_ports, inet_ports
+
+    @contextmanager
+    def traffic_context(self, pkt_size, value):
+        # Tester is sending packets at the required speed already after
+        # setup_test(). Just get the current statistics, sleep the required
+        # amount of time and calculate packet loss.
+        tun_pkt_size = pkt_size
+        inet_pkt_size = pkt_size - 40
+        ratio = 1.0 * (tun_pkt_size + 20) / (inet_pkt_size + 20)
+
+        curr_up_speed = curr_down_speed = 0
+        max_up_speed = max_down_speed = value
+        if ratio < 1:
+            max_down_speed = value * ratio
+        else:
+            max_up_speed = value / ratio
+
+        # Adjust speed when multiple cores per port are used to generate traffic
+        if len(self.tun_ports) != len(self.tun_cores):
+            max_down_speed *= 1.0 * len(self.tun_ports) / len(self.tun_cores)
+        if len(self.inet_ports) != len(self.inet_cores):
+            max_up_speed *= 1.0 * len(self.inet_ports) / len(self.inet_cores)
+
+        # Initialize cores
+        self.sut.stop_all()
+        time.sleep(0.5)
+
+        # Flush any packets in the NIC RX buffers, otherwise the stats will be
+        # wrong.
+        self.sut.start(self.all_rx_cores)
+        time.sleep(0.5)
+        self.sut.stop(self.all_rx_cores)
+        time.sleep(0.5)
+        self.sut.reset_stats()
+
+        self.sut.set_pkt_size(self.inet_cores, inet_pkt_size)
+        self.sut.set_pkt_size(self.tun_cores, tun_pkt_size)
+
+        self.sut.reset_values(self.tun_cores)
+        self.sut.reset_values(self.inet_cores)
+
+        # Set correct IP and UDP lengths in packet headers
+        # tun
+        # IPv6 length (byte 18): 58 for MAC(12), EthType(2), IPv6(40) , CRC(4)
+        self.sut.set_value(self.tun_cores, 18, tun_pkt_size - 58, 2)
+        # IP length (byte 56): 58 for MAC(12), EthType(2), CRC(4)
+        self.sut.set_value(self.tun_cores, 56, tun_pkt_size - 58, 2)
+        # UDP length (byte 78): 78 for MAC(12), EthType(2), IP(20), UDP(8), CRC(4)
+        self.sut.set_value(self.tun_cores, 78, tun_pkt_size - 78, 2)
+
+        # INET
+        # IP length (byte 20): 22 for MAC(12), EthType(2), CRC(4)
+        self.sut.set_value(self.inet_cores, 16, inet_pkt_size - 18, 2)
+        # UDP length (byte 42): 42 for MAC(12), EthType(2), IP(20), UPD(8), CRC(4)
+        self.sut.set_value(self.inet_cores, 38, inet_pkt_size - 38, 2)
+
+        LOG.info("Initializing SUT: sending lwAFTR packets")
+        self.sut.set_speed(self.inet_cores, curr_up_speed)
+        self.sut.set_speed(self.tun_cores, curr_down_speed)
+        time.sleep(4)
+
+        # Ramp up the transmission speed. First go to the common speed, then
+        # increase steps for the faster one.
+        self.sut.start(self.tun_cores + self.inet_cores + self.latency_cores)
+
+        LOG.info("Ramping up speed to %s up, %s down", max_up_speed, max_down_speed)
+
+        while (curr_up_speed < max_up_speed) or (curr_down_speed < max_down_speed):
+            # The min(..., ...) takes care of 1) floating point rounding errors
+            # that could make curr_*_speed to be slightly greater than
+            # max_*_speed and 2) max_*_speed not being an exact multiple of
+            # self._step_delta.
+            if curr_up_speed < max_up_speed:
+                curr_up_speed = min(curr_up_speed + self.step_delta, max_up_speed)
+            if curr_down_speed < max_down_speed:
+                curr_down_speed = min(curr_down_speed + self.step_delta, max_down_speed)
+
+            self.sut.set_speed(self.inet_cores, curr_up_speed)
+            self.sut.set_speed(self.tun_cores, curr_down_speed)
+            time.sleep(self.step_time)
+
+        LOG.info("Target speeds reached. Starting real test.")
+
+        yield
+
+        self.sut.stop(self.tun_cores + self.inet_cores)
+        LOG.info("Test ended. Flushing NIC buffers")
+        self.sut.start(self.all_rx_cores)
+        time.sleep(3)
+        self.sut.stop(self.all_rx_cores)
+
+    def run_test(self, pkt_size, duration, value, tolerated_loss=0.0):
+        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size, value, tolerated_loss)
+
+        with data_helper, self.traffic_context(pkt_size, value):
+            with data_helper.measure_tot_stats():
+                time.sleep(duration)
+                # Getting statistics to calculate PPS at right speed....
+                data_helper.capture_tsc_hz()
+                data_helper.latency = self.get_latency()
+
+        return data_helper.result_tuple, data_helper.samples
