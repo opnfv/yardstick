@@ -55,7 +55,9 @@ class InfluxdbDispatcher(DispatchBase):
         for case, data in testcases.items():
             tc_criteria = data['criteria']
             for record in data['tc_data']:
-                self._upload_one_record(record, case, tc_criteria)
+                # skip results with no data because we influxdb encode empty dicts
+                if record.get("data"):
+                    self._upload_one_record(record, case, tc_criteria)
 
         return 0
 
