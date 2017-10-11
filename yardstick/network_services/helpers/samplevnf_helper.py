@@ -55,6 +55,10 @@ SCRIPT_TPL = """
 
 {arp_config6}
 
+{arp_route_tbl}
+
+{arp_route_tbl6}
+
 {actions}
 
 {rules}
@@ -345,30 +349,28 @@ class MultiPortConfig(object):
             "".join(("{},".format(port_list.index(x)) for x in uplink_ports)))
 
     def generate_arp_route_tbl(self):
-        arp_route_tbl_tmpl = "({port0_dst_ip_hex},{port0_netmask_hex},{port_num}," \
-                             "{next_hop_ip_hex})"
+        arp_route_tbl_tmpl = "routeadd net {port_num} {port_dst_ip} 0x{port_netmask_hex}"
 
         def build_arp_config(port):
             dpdk_port_num = self.vnfd_helper.port_num(port)
             interface = self.vnfd_helper.find_interface(name=port)["virtual-interface"]
             # We must use the dst because we are on the VNF and we need to
             # reach the TG.
-            dst_port0_ip = ipaddress.ip_interface(six.text_type(
+            dst_port_ip = ipaddress.ip_interface(six.text_type(
                 "%s/%s" % (interface["dst_ip"], interface["netmask"])))
 
             arp_vars = {
-                "port0_dst_ip_hex": ip_to_hex(dst_port0_ip.network.network_address.exploded),
-                "port0_netmask_hex": ip_to_hex(dst_port0_ip.network.netmask.exploded),
+                "port_netmask_hex": ip_to_hex(dst_port_ip.network.netmask.exploded),
                 # this is the port num that contains port0 subnet and next_hop_ip_hex
                 # this is LINKID which should be based on DPDK port number
                 "port_num": dpdk_port_num,
                 # next hop is dst in this case
                 # must be within subnet
-                "next_hop_ip_hex": ip_to_hex(dst_port0_ip.ip.exploded),
+                "port_dst_ip": dst_port_ip.ip.exploded,
             }
             return arp_route_tbl_tmpl.format(**arp_vars)
 
-        return ' '.join(build_arp_config(port) for port in self.all_ports)
+        return '\n'.join(build_arp_config(port) for port in self.all_ports)
 
     def generate_arpicmp_data(self):
         swq_in_str = self.make_range_str('SWQ{}', self.swq, offset=self.lb_count)
@@ -391,11 +393,6 @@ class MultiPortConfig(object):
             # 'ports_mac_list': ' '.join(mac_iter),
             'pktq_in_prv': ' '.join(pktq_in_iter),
             'prv_to_pub_map': self.set_priv_to_pub_mapping(),
-            'arp_route_tbl': self.generate_arp_route_tbl(),
-            # nd_route_tbl must be set or we get segault on random OpenStack IPv6 traffic
-            # 'nd_route_tbl': "(0064:ff9b:0:0:0:0:9810:6414,120,0,0064:ff9b:0:0:0:0:9810:6414)"
-            # safe default?  route discard prefix to localhost
-            'nd_route_tbl': "(0100::,64,0,::1)"
         }
         self.pktq_out_os = swq_out_str.split(' ')
         # HWLB is a run to complition. So override the pktq_in/pktq_out
@@ -710,6 +707,9 @@ class MultiPortConfig(object):
             # disable IPv6 for now
             # 'arp_config6': self.generate_arp_config6(),
             'arp_config6': "",
+            'arp_config': self.generate_arp_config(),
+            'arp_route_tbl': self.generate_arp_route_tbl(),
+            'arp_route_tbl6': "",
             'actions': '',
             'rules': '',
         }
