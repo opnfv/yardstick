@@ -426,7 +426,7 @@ class MultiPortConfig(object):
             'pktq_in': swq_str,
             'pktq_out': txq_str,
             'pipeline_txrx_type': 'TXTX',
-            'core': self.gen_core(core),
+            'core': '{}h'.format(int(core)),
         }
         pktq_in = rxtx_data['pktq_in']
         pktq_in = '{0} {1}'.format(pktq_in, self.pktq_out_os[self.lb_index - 1])
@@ -517,9 +517,6 @@ class MultiPortConfig(object):
         if self.vnf_type == 'CGNAPT':
             self.pipeline_counter += 1
             self.update_timer()
-
-        if self.lb_config == 'HW':
-            self.start_core = 1
 
         for lb in self.lb_to_port_pair_mapping:
             self.lb_index = lb
