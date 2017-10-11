@@ -60,6 +60,7 @@ class Ping(base.Scenario):
 
         rtt_result = {}
         ping_result = {"rtt": rtt_result}
+        sla_max_rtt = self.scenario_cfg.get("sla", {}).get("max_rtt")
 
         for pos, dest in enumerate(dest_list):
             if 'targets' in self.scenario_cfg:
@@ -76,20 +77,38 @@ class Ping(base.Scenario):
             if exit_status != 0:
                 raise RuntimeError(stderr)
 
+            if isinstance(target_vm, dict):
+                target_vm_name = target_vm.get("name")
+            else:
+                target_vm_name = target_vm.split('.')[0]
             if stdout:
-                if isinstance(target_vm, dict):
-                    target_vm_name = target_vm.get("name")
-                else:
-                    target_vm_name = target_vm.split('.')[0]
-                rtt_result[target_vm_name] = float(stdout)
-                if "sla" in self.scenario_cfg:
-                    sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
+                rtt_result[target_vm_name] = float(stdout.strip())
+                # store result before potential AssertionError
+                result.update(utils.flatten_dict_key(ping_result))
+                if sla_max_rtt is not None:
+                    sla_max_rtt = float(sla_max_rtt)
                     assert rtt_result[target_vm_name] <= sla_max_rtt,\
                         "rtt %f > sla: max_rtt(%f); " % \
                         (rtt_result[target_vm_name], sla_max_rtt)
             else:
+                # we need to specify a result to satisfy influxdb schema
+                # choose a very large number to inidcate timeout
+                if sla_max_rtt is not None:
+                    sla_max_rtt = float(sla_max_rtt)
+                    # in this case choose an order of magnitude greater than the SLA
+                    rtt_result[target_vm_name] = sla_max_rtt * 10
+                    # store result before potential AssertionError
+                    result.update(utils.flatten_dict_key(ping_result))
+                    assert rtt_result[target_vm_name] <= sla_max_rtt, \
+                        "packet dropped rtt %f > sla: max_rtt(%f); " % \
+                        (rtt_result[target_vm_name], sla_max_rtt)
+                else:
+                    # in this case this we don't have sla use very larg number that isn't +infinity
+                    rtt_result[target_vm_name] = float(9999)
+                    # store result before potential AssertionError
+                    result.update(utils.flatten_dict_key(ping_result))
+                    assert False, "packet dropped rtt %f" % (rtt_result[target_vm_name])
                 LOG.error("ping '%s' '%s' timeout", options, target_vm)
-        result.update(utils.flatten_dict_key(ping_result))
 
 
 def _test():    # pragma: no cover
