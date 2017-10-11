@@ -685,6 +685,7 @@ class SampleVNF(GenericVNF):
 
     VNF_PROMPT = "pipeline>"
     WAIT_TIME = 1
+    WAIT_TIME_FOR_SCRIPT = 10
     APP_NAME = "SampleVNF"
     # we run the VNF interactively, so the ssh command will timeout after this long
 
@@ -811,7 +812,7 @@ class SampleVNF(GenericVNF):
                                        self.APP_NAME)
 
             LOG.info("Waiting for %s VNF to start.. ", self.APP_NAME)
-            time.sleep(1)
+            time.sleep(self.WAIT_TIME_FOR_SCRIPT)
             # Send ENTER to display a new prompt in case the prompt text was corrupted
             # by other VNF output
             self.q_in.put('\r\n')
