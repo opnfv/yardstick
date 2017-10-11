@@ -210,6 +210,10 @@ class Runner(object):
 
     QUEUE_JOIN_INTERVAL = 5
 
+    def poll(self, timeout=QUEUE_JOIN_INTERVAL):
+        self.process.join(timeout)
+        return self.process.exitcode
+
     def join(self, outputs, result, interval=QUEUE_JOIN_INTERVAL):
         while self.process.exitcode is None:
             # drain the queue while we are running otherwise we won't terminate
