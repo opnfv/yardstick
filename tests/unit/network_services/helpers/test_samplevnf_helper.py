@@ -211,6 +211,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.generate_script_data = \
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
+                                    'arp_route_tbl': '', 'arp_route_tbl6': '',
                                     'rules': ''})
         opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         self.assertIsNotNone(opnfv_vnf.generate_script(self.VNFD))
@@ -823,8 +824,9 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
         opnfv_vnf.all_ports = [3, 2, 5]
 
-        expected = '(0a141000,fffff000,32,0a141e28) (0ac81e00,ffffff00,1,0ac81e28) ' \
-                   '(0a000000,ff000000,987,0a140328)'
+        expected = 'routeadd net 32 10.20.30.40 0xfffff000\n' \
+                   'routeadd net 1 10.200.30.40 0xffffff00\n' \
+                   'routeadd net 987 10.20.3.40 0xff000000'
         result = opnfv_vnf.generate_arp_route_tbl()
         self.assertEqual(result, expected)
 
