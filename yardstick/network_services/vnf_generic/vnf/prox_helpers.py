@@ -14,28 +14,27 @@
 from __future__ import absolute_import
 
 import array
-import operator
-import logging
 import io
+import logging
+import operator
 import os
 import re
 import select
 import socket
-
-from collections import OrderedDict, namedtuple
 import time
+
+from collections import OrderedDict, namedtuple, Iterable
 from contextlib import contextmanager
 from itertools import repeat, chain
 from multiprocessing import Queue
 
 import six
 from six.moves import zip, StringIO
-from six.moves import cStringIO
 
 from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
 from yardstick.common import utils
 from yardstick.common.utils import SocketTopology, join_non_strings, try_int
-from yardstick.network_services.vnf_generic.vnf.iniparser import ConfigParser
+from yardstick.network_services.helpers.iniparser import YardstickConfigParser
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
 
@@ -614,11 +613,12 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         self.config_queue = Queue()
         # allow_exit_without_flush
         self.config_queue.cancel_join_thread()
+        self.lua = []
         self._global_section = None
 
     @property
     def prox_config_data(self):
-        if self._prox_config_data is None:
+        if not isinstance(self._prox_config_data, Iterable):
             # this will block, but it needs too
             self._prox_config_data = self.config_queue.get(True, self.CONFIG_QUEUE_TIMEOUT)
         return self._prox_config_data
@@ -678,7 +678,7 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
 
     def generate_prox_config_file(self, config_path):
         sections = []
-        prox_config = ConfigParser(config_path, sections)
+        prox_config = YardstickConfigParser(config_path, sections)
         prox_config.parse()
 
         # Ensure MAC is set "hardware"
@@ -738,43 +738,16 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         PROX does not allow a space before/after the =, so we need
         a custom method
         """
-        out = []
-        for key in lua_config:
-            value = '"' + lua_config[key] + '"'
-            if key == "__name__":
-                continue
-            if value is not None and value != '@':
-                key = "=".join((key, str(value).replace('\n', '\n\t')))
-                out.append(key)
-            else:
-                key = str(key).replace('\n', '\n\t')
-                out.append(key)
-        return os.linesep.join(out)
+        out = StringIO()
+        linesep = ''
+        for key, value in lua_config.items():
+            YardstickConfigParser.dump_key_value(out, key, value, quote='"', linesep=linesep)
+            linesep = os.linesep
 
-    @staticmethod
-    def write_prox_config(prox_config):
-        """
-        Write an .ini-format config file for PROX
-        PROX does not allow a space before/after the =, so we need
-        a custom method
-        """
-        out = []
-        for i, (section_name, section) in enumerate(prox_config):
-            out.append("[{}]".format(section_name))
-            for index, item in enumerate(section):
-                key, value = item
-                if key == "__name__":
-                    continue
-                if value is not None and value != '@':
-                    key = "=".join((key, str(value).replace('\n', '\n\t')))
-                    out.append(key)
-                else:
-                    key = str(key).replace('\n', '\n\t')
-                    out.append(key)
-        return os.linesep.join(out)
+        return out.getvalue()
 
     def put_string_to_file(self, s, remote_path):
-        file_obj = cStringIO(s)
+        file_obj = StringIO(s)
         self.ssh_helper.put_file_obj(file_obj, remote_path)
         return remote_path
 
@@ -800,8 +773,9 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         return remote_path
 
     def upload_prox_config(self, config_file, prox_config_data):
-        # prox can't handle spaces around ' = ' so use custom method
-        out = StringIO(self.write_prox_config(prox_config_data))
+        config_parser = YardstickConfigParser(sections=prox_config_data)
+        out = StringIO()
+        config_parser.write(out)
         out.seek(0)
         remote_path = os.path.join("/tmp", config_file)
         self.ssh_helper.put_file_obj(out, remote_path)
@@ -818,7 +792,6 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
 
         try:
             if options['prox_generate_parameter']:
-                self.lua = []
                 self.lua = self.generate_prox_lua_file()
                 if len(self.lua) > 0:
                     self.upload_prox_lua("parameters.lua", self.lua)
