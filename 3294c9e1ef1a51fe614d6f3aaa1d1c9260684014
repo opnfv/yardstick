@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_f99b5770",
+        "filename": "yardstick/benchmark/scenarios/lib/check_value.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-10-11T02:05:54Z",
+      "side": 1,
+      "message": "In some use cases, the value1 and value2 could be string, and we use this scenario to check if these two stings are equal.\nSo convert values immediately after getting it may not be appropriate.",
+      "parentUuid": "9a3d3df0_ce1fab08",
+      "range": {
+        "startLine": 72,
+        "startChar": 67,
+        "endLine": 72,
+        "endChar": 80
+      },
+      "revId": "3294c9e1ef1a51fe614d6f3aaa1d1c9260684014",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_0e0353b9",
         "filename": "yardstick/benchmark/scenarios/lib/check_value.py",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2017-10-10T16:59:31Z",
       "side": 1,
       "message": "\"should fall within the range\"",
+      "range": {
+        "startLine": 74,
+        "startChar": 51,
+        "endLine": 74,
+        "endChar": 84
+      },
+      "revId": "3294c9e1ef1a51fe614d6f3aaa1d1c9260684014",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_79874710",
+        "filename": "yardstick/benchmark/scenarios/lib/check_value.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-10-11T02:05:54Z",
+      "side": 1,
+      "message": "thanks for correction.",
+      "parentUuid": "9a3d3df0_0e0353b9",
       "range": {
         "startLine": 74,
         "startChar": 51,
