@@ -55,4 +55,4 @@ context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: /etc/prox-baremetal-4.yml
+  file: /etc/yardstick/nodes/prox-baremetal-4.yml
