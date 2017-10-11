@@ -11,6 +11,7 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
+from collections import Iterable
 
 
 class ParseError(Exception):
@@ -200,6 +201,46 @@ class ConfigParser(BaseParser):
             ],
         ]
     """
+
+    @staticmethod
+    def _section_iter(section, key):
+        if not isinstance(section, Iterable):
+            section = []
+        return (item for item in section if item[0] == key)
+
+    @staticmethod
+    def section_get(section, key, default=None):
+        if not isinstance(section, Iterable):
+            section = []
+        return next((v for k, v in section if k == key), default)
+
+    @classmethod
+    def section_set_first_value(cls, section, key, val):
+        next(cls._section_iter(section, key))[1] = val
+
+    @classmethod
+    def section_set_all_values(cls, section, key, val):
+        for item in cls._section_iter(section, key):
+            item[1] = val
+
+    @classmethod
+    def update_section(cls, target_section, new_section):
+        target_indexes = {}
+        for i, (key, _) in enumerate(target_section[1]):
+            target_indexes.setdefault(key, []).append(i)
+
+        new_indexes = {}
+        for i, (key, _) in enumerate(new_section[1]):
+            new_indexes.setdefault(key, []).append(i)
+
+        for target_key, target_key_index in target_indexes.items():
+            old_index_iter = iter(target_key_index)
+            for new_key, new_value in new_section[1]:
+                if target_key == new_key:
+                    try:
+                        target_section[1][next(old_index_iter)][1] = new_value
+                    except StopIteration:
+                        target_section[1].append([new_key, new_value])
 
     def __init__(self, filename, sections=None):
         super(ConfigParser, self).__init__()

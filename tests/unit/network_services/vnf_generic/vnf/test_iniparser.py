@@ -41,6 +41,8 @@ list1: value2
        value4
 key3='single quote value'  ; comment here
 key4=
+key1=value_one  # duplicate key
+key1=value_two  # duplicate key, immediately following its own appearance
 
 [section2]  ; comment with #2 other symbol
 # here is a comment line
@@ -163,6 +165,8 @@ class TestConfigParser(unittest.TestCase):
                     ['list1', 'value2\nvalue3\nvalue4'],
                     ['key3', 'single quote value'],
                     ['key4', ''],
+                    ['key1', 'value_one'],
+                    ['key1', 'value_two'],
                     ['key2', 'double quote value'],
                 ],
             ],
