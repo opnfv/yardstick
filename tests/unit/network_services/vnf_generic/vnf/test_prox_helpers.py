@@ -918,49 +918,6 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = ProxDpdkVnfSetupEnvHelper._get_tx_port('section1', input_data)
         self.assertEqual(result, expected)
 
-    def test_write_prox_config(self):
-        input_data = {}
-        expected = ''
-        result = ProxDpdkVnfSetupEnvHelper.write_prox_config(input_data)
-        self.assertEqual(result, expected)
-
-        input_data = [
-            [
-                'section1',
-                [],
-            ],
-        ]
-        expected = '[section1]'
-        result = ProxDpdkVnfSetupEnvHelper.write_prox_config(input_data)
-        self.assertEqual(result, expected)
-
-        input_data = [
-            [
-                'section1',
-                [],
-            ],
-            [
-                'section2',
-                [
-                    ['key1', 'value1'],
-                    ['__name__', 'not this one'],
-                    ['key2', None],
-                    ['key3', 234],
-                    ['key4', 'multi-line\nvalue'],
-                ],
-            ],
-        ]
-        expected = os.linesep.join([
-            '[section1]',
-            '[section2]',
-            'key1=value1',
-            'key2',
-            'key3=234',
-            'key4=multi-line\n\tvalue',
-        ])
-        result = ProxDpdkVnfSetupEnvHelper.write_prox_config(input_data)
-        self.assertEqual(result, expected)
-
     def test_prox_config_data(self):
         setup_helper = ProxDpdkVnfSetupEnvHelper(mock.MagicMock(), mock.MagicMock(),
                                                  mock.MagicMock())
