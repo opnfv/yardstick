@@ -23,8 +23,8 @@ scenarios:
     vnf__0: vnf.yardstick
   options:
     framesize:
-      private: {64B: 5, 128B: 11, 256B: 16, 373B: 10, 570B: 35, 1400B: 10, 1500B: 13}
-      public: {64B: 5, 128B: 3, 256B: 4, 373B: 6, 570B: 8, 1400B: 36, 1500B: 38}
+      uplink: {64B: 5, 128B: 11, 256B: 16, 373B: 10, 570B: 35, 1400B: 10, 1500B: 13}
+      downlink: {64B: 5, 128B: 3, 256B: 4, 373B: 6, 570B: 8, 1400B: 36, 1500B: 38}
 
     flow:
       src_ip: [{'tg__0': 'xe0'}]

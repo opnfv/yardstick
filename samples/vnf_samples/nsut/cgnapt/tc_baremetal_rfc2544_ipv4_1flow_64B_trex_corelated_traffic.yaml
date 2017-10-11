@@ -24,11 +24,12 @@ scenarios:
     tg__1: trafficgen_2.yardstick
   options:
     framesize:
-      private: {64B: 100}
-      public: {64B: 100}
+      uplink: {64B: 100}
+      downlink: {64B: 100}
     flow:
       src_ip: [{'tg__0': 'xe0'}]
       dst_ip: [{'tg__1': 'xe0'}]
+      public_ip: ['152.16.40.10']
       count: 1
     traffic_type: 4
     rfc2544:
