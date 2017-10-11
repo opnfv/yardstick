@@ -226,7 +226,7 @@ class MultiPortConfig(object):
         self.tmp_file = os.path.join("/tmp", tmp_file)
         self.pktq_out_os = []
         self.socket = socket
-        self.start_core = 0
+        self.start_core = 1
         self.pipeline_counter = ""
         self.txrx_pipeline = ""
         self._port_pairs = None
@@ -520,9 +520,6 @@ class MultiPortConfig(object):
         if self.vnf_type == 'CGNAPT':
             self.pipeline_counter += 1
             self.update_timer()
-
-        if self.lb_config == 'HW':
-            self.start_core = 1
 
         for lb in self.lb_to_port_pair_mapping:
             self.lb_index = lb
