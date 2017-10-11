@@ -226,6 +226,37 @@ class ConfigParser(BaseParser):
     def find_section(self, section_name):
         return next((value for name, value in self.sections if name == section_name), None)
 
+    @classmethod
+    def update_section(cls, old_section, new_section):
+        old_indexes = {}
+        for i, item in enumerate(old_section):
+            old_indexes.setdefault(item[0], []).append(i)
+        new_indexes = {}
+        for i, item in enumerate(new_section):
+            new_indexes.setdefault(item[0], []).append(i)
+        for old_key, old_i in old_indexes.items():
+
+            for k, v in new_section:
+                if old_item[0] == k:
+                    old_item[1] = v
+
+    @staticmethod
+    def _section_iter(section, key):
+        return (item for item in section if item[0] == key)
+
+    @classmethod
+    def section_set_first_value(cls, section, key, val):
+        next(cls._section_iter(section))[1] = val
+
+    @classmethod
+    def section_set_all_values(cls, section, key, val):
+        for item in cls._section_iter(section):
+            item[1] = val
+
+    @staticmethod
+    def section_get(section, key, default=None):
+        return next((v for k, v in section if key == key), default)
+
     def new_section(self, line_parser):
         section_name = line_parser.section_name
         index = self.find_section_index(section_name)

@@ -600,12 +600,12 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.read_parser.has_option = mock.Mock(return_value=True)
         opnfv_vnf.read_parser.get = mock.Mock(return_value='filename')
 
-        self.assertIsNone(opnfv_vnf.init_write_parser_template('filename'))
+        self.assertIsNone(opnfv_vnf.find_pipeline_indexes('filename'))
         opnfv_vnf.write_parser.add_section = mock.MagicMock()
         opnfv_vnf.read_parser.item = mock.Mock(return_value=[1, 2, 3])
         opnfv_vnf.read_parser.has_option = mock.Mock(return_value=False)
         opnfv_vnf.write_parser.set = mock.Mock()
-        self.assertIsNone(opnfv_vnf.init_write_parser_template('filename'))
+        self.assertIsNone(opnfv_vnf.find_pipeline_indexes('filename'))
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
@@ -629,7 +629,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.read_parser.has_option = mock.Mock(return_value=[])
         opnfv_vnf.write_parser.set = mock.Mock()
         opnfv_vnf.read_parser.items = mock.MagicMock()
-        self.assertIsNone(opnfv_vnf.init_write_parser_template('filename'))
+        self.assertIsNone(opnfv_vnf.find_pipeline_indexes('filename'))
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
@@ -1090,7 +1090,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.ports_len = 1
         opnfv_vnf.pktq_out = ['1', '2']
         opnfv_vnf.prv_que_handler = 0
-        opnfv_vnf.init_write_parser_template = mock.Mock()
+        opnfv_vnf.find_pipeline_indexes = mock.Mock()
         opnfv_vnf.arpicmp_tpl = mock.MagicMock()
         opnfv_vnf.txrx_tpl = mock.MagicMock()
         opnfv_vnf.loadb_tpl = mock.MagicMock()
@@ -1109,7 +1109,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.ports_len = 1
         opnfv_vnf.pktq_out = ['1', '2']
         opnfv_vnf.prv_que_handler = 0
-        opnfv_vnf.init_write_parser_template = mock.Mock()
+        opnfv_vnf.find_pipeline_indexes = mock.Mock()
         opnfv_vnf.arpicmp_tpl = mock.MagicMock()
         opnfv_vnf.txrx_tpl = mock.MagicMock()
         opnfv_vnf.loadb_tpl = mock.MagicMock()
@@ -1156,7 +1156,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.ports_len = 1
         opnfv_vnf.pktq_out = ['1', '2']
         opnfv_vnf.prv_que_handler = 0
-        opnfv_vnf.init_write_parser_template = mock.Mock()
+        opnfv_vnf.find_pipeline_indexes = mock.Mock()
         opnfv_vnf.arpicmp_tpl = mock.MagicMock()
         opnfv_vnf.txrx_tpl = mock.MagicMock()
         opnfv_vnf.loadb_tpl = mock.MagicMock()
