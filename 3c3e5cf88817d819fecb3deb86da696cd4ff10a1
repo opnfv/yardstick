@@ -16,6 +16,24 @@
       "revId": "3c3e5cf88817d819fecb3deb86da696cd4ff10a1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1e2ffca2",
+        "filename": "yardstick/network_services/helpers/samplevnf_helper.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-10-12T05:08:01Z",
+      "side": 1,
+      "message": "arp considers it as separate ip and sends arp request. that is wht we are matching next hop ip \u0026 dst_ip\n\nanyways with new changes to routeadd in script this can be ignored. I have a patch for this https://gerrit.opnfv.org/gerrit/#/c/44815/",
+      "parentUuid": "9a3d3df0_a53b6a37",
+      "revId": "3c3e5cf88817d819fecb3deb86da696cd4ff10a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
