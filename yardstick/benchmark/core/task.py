@@ -28,6 +28,7 @@ from jinja2 import Environment
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
+from yardstick.common.constants import CONF_FILE
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.dispatcher.base import Base as DispatcherBase
 from yardstick.common.task_template import TaskTemplate
@@ -36,7 +37,6 @@ from yardstick.common import constants
 from yardstick.common.html_template import report_template
 
 output_file_default = "/tmp/yardstick.out"
-config_file = '/etc/yardstick/yardstick.conf'
 test_cases_dir_default = "tests/opnfv/test_cases/"
 LOG = logging.getLogger(__name__)
 
@@ -68,7 +68,7 @@ class Task(object):     # pragma: no cover
         self._set_log()
 
         try:
-            output_config = utils.parse_ini_file(config_file)
+            output_config = utils.parse_ini_file(CONF_FILE)
         except Exception:
             # all error will be ignore, the default value is {}
             output_config = {}
