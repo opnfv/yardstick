@@ -190,6 +190,12 @@ class NetworkServiceTestCase(base.Scenario):
             for index, publicip in enumerate(fflow.get("public_ip", [])):
                 flow["public_ip_{}".format(index)] = publicip
 
+            for index, src_port in enumerate(fflow.get("src_port", [])):
+                flow["src_port_{}".format(index)] = src_port
+
+            for index, dst_port in enumerate(fflow.get("dst_port", [])):
+                flow["dst_port_{}".format(index)] = dst_port
+
             flow["count"] = fflow["count"]
         except KeyError:
             flow = {}
