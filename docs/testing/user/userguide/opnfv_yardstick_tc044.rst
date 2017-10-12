@@ -7,7 +7,7 @@
 Yardstick Test Case Description TC044
 *************************************
 
-.. _man-pages: http://manpages.ubuntu.com/manpages/trusty/en/man1/free.1.html
+.. _man-pages: http://manpages.ubuntu.com/manpages/xenial/en/man1/free.1.html
 
 +-----------------------------------------------------------------------------+
 |Memory Utilization                                                           |
