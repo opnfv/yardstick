@@ -1,5 +1,5 @@
 ---
 pmu_tools_url: "https://github.com/andikleen/pmu-tools.git"
 pmu_tools_dest: "{{ clone_dest }}/pmu-tools"
-pmu_tools_version: "master"
+pmu_tools_version: "8a0417a90c3ec9a09264ae9364519f499e8975c1"
 perfmon_url: "https://download.01.org/perfmon/"
