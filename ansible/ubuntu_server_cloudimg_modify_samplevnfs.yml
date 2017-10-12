@@ -31,6 +31,8 @@
       when: proxy_env is defined and proxy_env
 #     can't update grub in chroot/docker
     - enable_hugepages_on_boot
+    # needed for collectd plugins
+    - increase_open_file_limits
     - modify_cloud_config
     - install_image_dependencies
     - role: download_dpdk
