@@ -34,6 +34,24 @@
       "revId": "3c3e5cf88817d819fecb3deb86da696cd4ff10a1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_812571ad",
+        "filename": "yardstick/network_services/helpers/samplevnf_helper.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-12T05:46:09Z",
+      "side": 1,
+      "message": "where is routeadd documented?",
+      "parentUuid": "9a3d3df0_1e2ffca2",
+      "revId": "3c3e5cf88817d819fecb3deb86da696cd4ff10a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
