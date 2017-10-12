@@ -1,4 +1,4 @@
 ---
 collectd_url: "https://github.com/collectd/collectd.git"
 collectd_dest: "{{ clone_dest }}/collectd"
-collectd_version: "47c86ace348a1d7a5352a83d10935209f89aa4f5"
+collectd_version: "c870991a2d614e51c03c0da76e9aef997343551b"
