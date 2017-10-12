@@ -209,10 +209,10 @@ EOF
 
 
 
-        local scenario_status="SUCCESS"
+        local scenario_status="PASS"
 
         if [ $failed -gt 0 ]; then
-            scenario_status="FAILED"
+            scenario_status="FAIL"
         fi
 
         report "${scenario_status}" "${start_date}" "${stop_date}"
