@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_7eb9e8e8",
+        "filename": "yardstick/benchmark/scenarios/lib/check_connectivity.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-10-12T01:29:30Z",
+      "side": 1,
+      "message": "will make them the same",
+      "parentUuid": "9a3d3df0_cb78382e",
+      "range": {
+        "startLine": 51,
+        "startChar": 55,
+        "endLine": 51,
+        "endChar": 59
+      },
+      "revId": "43a1847416f76d250cbcb8c1963d5c05ca9fe04b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_6b880c23",
         "filename": "yardstick/benchmark/scenarios/lib/check_connectivity.py",
         "patchSetId": 8
