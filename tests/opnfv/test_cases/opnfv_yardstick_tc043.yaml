@@ -13,16 +13,16 @@ description: >
     Yardstick TC043 config file;
     Measure latency between NFVI nodes using ping.
 
-{% set host = host or "node1.LF" %}
-{% set target = target or "node2.LF" %}
+{% set host = host or "node1" %}
+{% set target = target or "node2" %}
 {% set file = file or '/etc/yardstick/pod.yaml' %}
 scenarios:
 -
   type: Ping
   options:
     packetsize: 100
-  host: {{host}}
-  target: {{target}}
+  host: {{host}}.LF
+  target: {{target}}.LF
 
   runner:
     type: Duration

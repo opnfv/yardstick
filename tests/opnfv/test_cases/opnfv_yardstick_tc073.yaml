@@ -18,8 +18,8 @@ description: >
     In req/rsp test, TCP_RR TCP_CRR UDP_RR can be used;
     req_rsp_size is option of req/rsp test;
 
-{% set host = host or "node1.LF" %}
-{% set target = target or "node2.LF" %}
+{% set host = host or "node1" %}
+{% set target = target or "node2" %}
 {% set file = file or '/etc/yardstick/pod.yaml' %}
 scenarios:
 -
@@ -29,8 +29,8 @@ scenarios:
     send_msg_size: 1024
     duration: 20
 
-  host: {{host}}
-  target: {{target}}
+  host: {{host}}.LF
+  target: {{target}}.LF
 
   runner:
     type: Iteration
