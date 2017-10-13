@@ -14,6 +14,7 @@ description: >
     This test case is written by new scenario-based HA testing framework.
 
 {% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set attack_host = attack_host or "node1" %}
 {% set external_net = external_net or 'br-ex' %}
 {% set management_net = management_net or 'br-mgmt' %}
 {% set storage_net = storage_net or 'br-storage' %}
@@ -26,7 +27,7 @@ scenarios:
       attackers:
         -
           fault_type: "general-attacker"
-          host: node1
+          host: {{attack_host}}
           key: "close-br-public"
           attack_key: "close-interface"
           action_parameter:
@@ -36,7 +37,7 @@ scenarios:
 
         -
           fault_type: "general-attacker"
-          host: node1
+          host: {{attack_host}}
           key: "close-br-mgmt"
           attack_key: "close-interface"
           action_parameter:
@@ -46,7 +47,7 @@ scenarios:
 
         -
           fault_type: "general-attacker"
-          host: node1
+          host: {{attack_host}}
           key: "close-br-storage"
           attack_key: "close-interface"
           action_parameter:
@@ -56,7 +57,7 @@ scenarios:
 
         -
           fault_type: "general-attacker"
-          host: node1
+          host: {{attack_host}}
           key: "close-br-private"
           attack_key: "close-interface"
           action_parameter:
@@ -145,7 +146,7 @@ scenarios:
 
 
     nodes:
-      node1: node1.LF
+      {{attack_host}}: {{attack_host}}.LF
     runner:
       type: Duration
       duration: 1

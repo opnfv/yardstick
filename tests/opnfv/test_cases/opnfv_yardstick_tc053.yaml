@@ -14,6 +14,7 @@ description: >
     This test case is written by new scenario-based HA testing framework.
 
 {% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set attack_host = attack_host or "node1" %}
 
 scenarios:
   -
@@ -22,7 +23,7 @@ scenarios:
       attackers:
         -
           fault_type: "kill-process"
-          host: node1
+          host: {{attack_host}}
           key: "kill-process"
           process_name: "haproxy"
 
@@ -31,7 +32,7 @@ scenarios:
           monitor_type: "process"
           key: "service-status"
           process_name: "haproxy"
-          host: node1
+          host: {{attack_host}}
           monitor_time: 30
           monitor_number: 3
           sla:
@@ -61,7 +62,7 @@ scenarios:
           index: 3
 
     nodes:
-      node1: node1.LF
+      {{attack_host}}: {{attack_host}}.LF
     runner:
       type: Duration
       duration: 1

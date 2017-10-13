@@ -14,6 +14,7 @@ description: >
     This test case is written by new scenario-based HA testing framework.
 
 {% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set attack_host = attack_host or "node1" %}
 
 scenarios:
   -
@@ -22,7 +23,7 @@ scenarios:
       attackers:
         -
           fault_type: "general-attacker"
-          host: node1
+          host: {{attack_host}}
           key: "block-io"
           attack_key: "block-io"
 
@@ -76,7 +77,7 @@ scenarios:
           index: 4
 
     nodes:
-      node1: node1.LF
+      {{attack_host}}: {{attack_host}}.LF
     runner:
       type: Duration
       duration: 1

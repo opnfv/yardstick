@@ -19,14 +19,14 @@ description: >
     cache size per CPU, total cache size;
     HT (Hyper-Thread) support status, 1 for open, 0 for close.
 
-{% set host = host or "node5.yardstick-TC055" %}
 {% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set host = host or "node5" %}
 scenarios:
 -
   type: ComputeCapacity
 
   nodes:
-    host: {{host}}
+    host: {{host}}.yardstick-TC055
 
   runner:
     type: Iteration
