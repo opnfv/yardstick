@@ -15,12 +15,13 @@
 
 from __future__ import absolute_import
 
+import os
 import unittest
-from contextlib import contextmanager
 import mock
 
-from tests.unit import STL_MOCKS
+from contextlib import contextmanager
 
+from tests.unit import STL_MOCKS
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
@@ -30,7 +31,7 @@ if stl_patch:
     from yardstick.network_services.helpers.iniparser import ParseError
     from yardstick.network_services.helpers.iniparser import LineParser
     from yardstick.network_services.helpers.iniparser import BaseParser
-    from yardstick.network_services.helpers.iniparser import ConfigParser
+    from yardstick.network_services.helpers.iniparser import YardstickConfigParser
 
 PARSE_TEXT_1 = """\
 
@@ -41,6 +42,11 @@ list1: value2
        value4
 key3='single quote value'  ; comment here
 key4=
+key1=value_one  # duplicate key
+key1=value_two  # duplicate key, immediately following its own appearance
+multi
+    line
+    key    # is this a thing?
 
 [section2]  ; comment with #2 other symbol
 # here is a comment line
@@ -131,7 +137,7 @@ class TestBaseParser(unittest.TestCase):
             parser.comment('comment')
 
 
-class TestConfigParser(unittest.TestCase):
+class TestYardstickConfigParser(unittest.TestCase):
 
     @staticmethod
     def make_open(text_blob):
@@ -141,13 +147,203 @@ class TestConfigParser(unittest.TestCase):
 
         return internal_open
 
+    def test_section_get(self):
+        section = [
+            ['key1', 'value1'],
+            ['key2', 'value2'],
+        ]
+        value = YardstickConfigParser.section_get(section, 'key2')
+        self.assertEqual(value, 'value2')
+
+    def test_section_get_default(self):
+        section = [
+            ['key1', 'value1'],
+            ['key2', 'value2'],
+        ]
+        value = YardstickConfigParser.section_get(section, 'key3', 'default3')
+        self.assertEqual(value, 'default3')
+
+    def test_section_get_none(self):
+        value = YardstickConfigParser.section_get(None, 'key2', 'default2')
+        self.assertEqual(value, 'default2')
+
+    def test_section_get_negative(self):
+        section = [
+            ['key1', 'value1'],
+            ['key2', 'value2'],
+        ]
+        with self.assertRaises(KeyError):
+            YardstickConfigParser.section_get(section, 'key3')
+
+    def test_section_set_value(self):
+        section = [
+            ['key1', 'value1'],
+            ['key2', 'value2'],
+            ['key1', 'value3'],
+            ['key2', 'value4'],
+            ['key1', 'value5'],
+        ]
+
+        expected = [
+            ['key1', 'value1'],
+            ['key2', 'value_two'],
+            ['key1', 'value3'],
+            ['key2', 'value4'],
+            ['key1', 'value5'],
+        ]
+        YardstickConfigParser.section_set_value(section, 'key2', 'value_two')
+        self.assertEqual(section, expected)
+
+    def test_section_set_value_set_one_not_first(self):
+        section = [
+            ['key1', 'value1'],
+            ['key2', 'value2'],
+            ['key1', 'value3'],
+            ['key2', 'value4'],
+            ['key1', 'value5'],
+        ]
+
+        expected = [
+            ['key1', 'value1'],
+            ['key2', 'value2'],
+            ['key1', 'value_one'],
+            ['key2', 'value4'],
+            ['key1', 'value5'],
+        ]
+        YardstickConfigParser.section_set_value(section, 'key1', 'value_one', 1)
+        self.assertEqual(section, expected)
+
+    def test_section_set_value_set_two(self):
+        section = [
+            ['key1', 'value1'],
+            ['key2', 'value2'],
+            ['key1', 'value3'],
+            ['key2', 'value4'],
+            ['key1', 'value5'],
+        ]
+
+        expected = [
+            ['key1', 'value_one'],
+            ['key2', 'value2'],
+            ['key1', 'value3'],
+            ['key2', 'value4'],
+            ['key1', 'value_one'],
+        ]
+        YardstickConfigParser.section_set_value(section, 'key1', 'value_one', [0, 2])
+        self.assertEqual(section, expected)
+
+    def test_section_set_value_set_all(self):
+        section = [
+            ['key1', 'value1'],
+            ['key2', 'value2'],
+            ['key1', 'value3'],
+            ['key2', 'value4'],
+            ['key1', 'value5'],
+        ]
+        expected = [
+            ['key1', 'value1'],
+            ['key2', 'value_two'],
+            ['key1', 'value3'],
+            ['key2', 'value_two'],
+            ['key1', 'value5'],
+        ]
+        YardstickConfigParser.section_set_value(section, 'key2', 'value_two', set_all=True)
+        self.assertEqual(section, expected)
+
+    def test_section_set_value_key_not_present(self):
+        section = [
+            ['key1', 'value1'],
+            ['key2', 'value2'],
+            ['key1', 'value3'],
+            ['key2', 'value4'],
+            ['key1', 'value5'],
+        ]
+        YardstickConfigParser.section_set_value(section, 'key3', 'value6')
+        self.assertEqual(len(section), 5)
+        for key, value in section:
+            self.assertNotEqual(key, 'key3')
+            self.assertNotEqual(value, 'value6')
+
+    def test_update_section(self):
+        input_sections = [
+            'MASTER',
+            [
+                ['type', 'value1'],
+                ['filename', 0],
+                ['type', 'value2'],
+                ['filename', 10],
+                ['type', 'value3'],
+            ],
+        ]
+        new_section_data = ['MASTER', [['filename', 1], ['filename', 15], ['filename', 25]]]
+        expected_sections = [
+            'MASTER',
+            [
+                ['type', 'value1'],
+                ['filename', 1],
+                ['type', 'value2'],
+                ['filename', 15],
+                ['type', 'value3'],
+                ['filename', 25],
+            ],
+        ]
+        self.assertIsNone(YardstickConfigParser.update_section(input_sections, new_section_data))
+        self.assertEqual(input_sections, expected_sections)
+
+    def test_dump(self):
+        input_data = []
+        expected = ''
+
+        config_parser = YardstickConfigParser(sections=input_data)
+        result = config_parser.dumps()
+        self.assertEqual(result, expected)
+
+        input_data = [
+            [
+                'section1',
+                [],
+            ],
+        ]
+        expected = '[section1]'
+        config_parser = YardstickConfigParser(sections=input_data)
+        result = config_parser.dumps()
+        self.assertEqual(result, expected)
+
+        input_data = [
+            [
+                'section1',
+                [],
+            ],
+            [
+                'section2',
+                [
+                    ['key1', 'value1'],
+                    ['__name__', 'not this one'],
+                    ['key2', None],
+                    ['key3', 234],
+                    ['key4', 'multi-line\nvalue'],
+                ],
+            ],
+        ]
+        expected = os.linesep.join([
+            '[section1]',
+            '[section2]',
+            'key1=value1',
+            'key2',
+            'key3=234',
+            'key4=multi-line\n\tvalue',
+        ])
+        config_parser = YardstickConfigParser(sections=input_data)
+        result = config_parser.dumps()
+        self.assertEqual(result, expected)
+
     @mock.patch('yardstick.network_services.helpers.iniparser.open')
-    def test_parse(self, mock_open):
+    def test_load(self, mock_open):
         mock_open.side_effect = self.make_open(PARSE_TEXT_1)
 
         existing_data = [['section0', [['key0', 'value0']]]]
-        config_parser = ConfigParser('my_file', existing_data)
-        config_parser.parse()
+        config_parser = YardstickConfigParser(sections=existing_data)
+        config_parser.load('my_file')
 
         expected = [
             [
@@ -163,6 +359,9 @@ class TestConfigParser(unittest.TestCase):
                     ['list1', 'value2\nvalue3\nvalue4'],
                     ['key3', 'single quote value'],
                     ['key4', ''],
+                    ['key1', 'value_one'],
+                    ['key1', 'value_two'],
+                    ['multi\nline\nkey', '@'],
                     ['key2', 'double quote value'],
                 ],
             ],
@@ -177,16 +376,16 @@ class TestConfigParser(unittest.TestCase):
         ]
 
         self.assertEqual(config_parser.sections, expected)
-        self.assertIsNotNone(config_parser.find_section('section1'))
-        self.assertIsNone(config_parser.find_section('section3'))
+        self.assertIsNotNone(config_parser.find_section_data('section1'))
+        self.assertIsNone(config_parser.find_section_data('section3'))
         self.assertEqual(config_parser.find_section_index('section1'), 1)
         self.assertEqual(config_parser.find_section_index('section3'), -1)
 
     @mock.patch('yardstick.network_services.helpers.iniparser.open')
-    def test_parse_2(self, mock_open):
+    def test_parse(self, mock_open):
         mock_open.side_effect = self.make_open(PARSE_TEXT_2)
 
-        config_parser = ConfigParser('my_file')
+        config_parser = YardstickConfigParser('my_file')
         config_parser.parse()
 
         expected = [
@@ -213,7 +412,7 @@ class TestConfigParser(unittest.TestCase):
         for bad_reason, bad_text in bad_text_dict.items():
             mock_open.side_effect = self.make_open(bad_text)
 
-            config_parser = ConfigParser('my_file', [])
+            config_parser = YardstickConfigParser('my_file', [])
 
             try:
                 # TODO: replace with assertRaises, when the UT framework supports
@@ -223,3 +422,58 @@ class TestConfigParser(unittest.TestCase):
                 pass
             else:
                 self.fail('\n'.join([bad_reason, bad_text, str(config_parser.sections)]))
+
+    def test_get(self):
+        config_parser = YardstickConfigParser(sections=[['section1', [['key1', 'value1']]]])
+        self.assertEqual(config_parser.get('section1', 'key1'), 'value1')
+
+    def test_get_default(self):
+        config_parser = YardstickConfigParser(sections=[])
+        self.assertEqual(config_parser.get('section1', 'key1', 'default1'), 'default1')
+
+    def test_get_negative(self):
+        config_parser = YardstickConfigParser(sections=[])
+        with self.assertRaises(KeyError):
+            config_parser.get('section1', 'key1')
+
+    def test_set(self):
+        config_parser = YardstickConfigParser(sections=[])
+
+        expected = [['section1', [['key1', 'value1']]]]
+        config_parser.set('section1', 'key1', 'value1')
+        self.assertEqual(config_parser.sections, expected)
+
+    def test_set_existing_section(self):
+        config_parser = YardstickConfigParser(sections=[['section1', [['key1', 'value1']]]])
+
+        expected = [['section1', [['key1', 'value1'], ['key2', 'value2']]]]
+        config_parser.set('section1', 'key2', 'value2')
+        self.assertEqual(config_parser.sections, expected)
+
+    def test_set_update_existing_key(self):
+        config_parser = YardstickConfigParser(sections=[['section1', [['key1', 'value1']]]])
+
+        expected = [['section1', [['key1', 'value2']]]]
+        config_parser.set('section1', 'key1', 'value2')
+        self.assertEqual(config_parser.sections, expected)
+
+    def test_append(self):
+        config_parser = YardstickConfigParser(sections=[])
+
+        expected = [['section1', [['key1', 'value1']]]]
+        config_parser.append('section1', 'key1', 'value1')
+        self.assertEqual(config_parser.sections, expected)
+
+    def test_append_existing_section(self):
+        config_parser = YardstickConfigParser(sections=[['section1', [['key1', 'value1']]]])
+
+        expected = [['section1', [['key1', 'value1'], ['key2', 'value2']]]]
+        config_parser.append('section1', 'key2', 'value2')
+        self.assertEqual(config_parser.sections, expected)
+
+    def test_append_update_existing_key(self):
+        config_parser = YardstickConfigParser(sections=[['section1', [['key1', 'value1']]]])
+
+        expected = [['section1', [['key1', 'value1\nvalue2']]]]
+        config_parser.append('section1', 'key1', 'value2')
+        self.assertEqual(config_parser.sections, expected)

@@ -1507,7 +1507,7 @@ class TestRfc2544ResourceHelper(unittest.TestCase):
 class TestSampleVNFDeployHelper(unittest.TestCase):
 
     @mock.patch('subprocess.check_output')
-    def test_deploy_vnfs_disabled(self, mock_check_output):
+    def test_deploy_vnfs_disabled(self, mock_check_output, mock_time):
         vnfd_helper = mock.Mock()
         ssh_helper = mock.Mock()
         ssh_helper.join_bin_path.return_value = 'joined_path'
