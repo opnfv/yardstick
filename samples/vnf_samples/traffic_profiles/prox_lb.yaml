@@ -20,7 +20,7 @@ description:     Load Balancer 1-to-4 port
 traffic_profile:
   traffic_type: ProxBinSearchProfile
   tolerated_loss: 80.0
-  test_precision: 0.01
+  test_precision: 0.001
   packet_sizes: [64]
   duration: 5
   lower_bound: 0.0
