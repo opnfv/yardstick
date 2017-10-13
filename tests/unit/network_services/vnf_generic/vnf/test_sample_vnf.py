@@ -1886,6 +1886,7 @@ class TestSampleVnf(unittest.TestCase):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         sample_vnf = SampleVNF('vnf1', vnfd)
         sample_vnf.APP_NAME = 'sample1'
+        sample_vnf.WAIT_TIME_FOR_SCRIPT = 0
         sample_vnf._start_server = mock.Mock(return_value=0)
         sample_vnf._vnf_process = mock.MagicMock()
         sample_vnf._vnf_process.exitcode = 0
