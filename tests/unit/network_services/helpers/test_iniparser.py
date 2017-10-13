@@ -27,10 +27,10 @@ stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
 
 if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.iniparser import ParseError
-    from yardstick.network_services.vnf_generic.vnf.iniparser import LineParser
-    from yardstick.network_services.vnf_generic.vnf.iniparser import BaseParser
-    from yardstick.network_services.vnf_generic.vnf.iniparser import ConfigParser
+    from yardstick.network_services.helpers.iniparser import ParseError
+    from yardstick.network_services.helpers.iniparser import LineParser
+    from yardstick.network_services.helpers.iniparser import BaseParser
+    from yardstick.network_services.helpers.iniparser import ConfigParser
 
 PARSE_TEXT_1 = """\
 
@@ -141,7 +141,7 @@ class TestConfigParser(unittest.TestCase):
 
         return internal_open
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.iniparser.open')
+    @mock.patch('yardstick.network_services.helpers.iniparser.open')
     def test_parse(self, mock_open):
         mock_open.side_effect = self.make_open(PARSE_TEXT_1)
 
@@ -182,7 +182,7 @@ class TestConfigParser(unittest.TestCase):
         self.assertEqual(config_parser.find_section_index('section1'), 1)
         self.assertEqual(config_parser.find_section_index('section3'), -1)
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.iniparser.open')
+    @mock.patch('yardstick.network_services.helpers.iniparser.open')
     def test_parse_2(self, mock_open):
         mock_open.side_effect = self.make_open(PARSE_TEXT_2)
 
@@ -200,7 +200,7 @@ class TestConfigParser(unittest.TestCase):
 
         self.assertEqual(config_parser.sections, expected)
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.iniparser.open')
+    @mock.patch('yardstick.network_services.helpers.iniparser.open')
     def test_parse_negative(self, mock_open):
         bad_text_dict = {
             'no section': PARSE_TEXT_BAD_1,

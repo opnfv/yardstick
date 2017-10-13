@@ -14,28 +14,27 @@
 from __future__ import absolute_import
 
 import array
-import operator
-import logging
 import io
+import logging
+import operator
 import os
 import re
 import select
 import socket
-
-from collections import OrderedDict, namedtuple
 import time
+from collections import OrderedDict, namedtuple
 from contextlib import contextmanager
 from itertools import repeat, chain
 from multiprocessing import Queue
 
 import six
-from six.moves import zip, StringIO
 from six.moves import cStringIO
+from six.moves import zip, StringIO
 
 from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
 from yardstick.common import utils
 from yardstick.common.utils import SocketTopology, join_non_strings, try_int
-from yardstick.network_services.vnf_generic.vnf.iniparser import ConfigParser
+from yardstick.network_services.helpers.iniparser import ConfigParser
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
 
