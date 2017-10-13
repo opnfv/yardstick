@@ -376,7 +376,7 @@ class TestProxApproxVnf(unittest.TestCase):
         return file_path
 
     @mock.patch('yardstick.benchmark.scenarios.networking.vnf_generic.open', create=True)
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.iniparser.open', create=True)
+    @mock.patch('yardstick.network_services.helpers.iniparser.open', create=True)
     @mock.patch(SSH_HELPER)
     def test_run_prox(self, ssh, *_):
         mock_ssh(ssh)
