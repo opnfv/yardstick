@@ -23,18 +23,6 @@ LOG = logging.getLogger(__name__)
 class Collector(object):
     """Class that handles dictionary of results in yardstick-plot format."""
 
-    @staticmethod
-    def make_resource_profile(node, timeout):
-        # node dict works as mgmt dict
-        # don't need port names, there is no way we can
-        # tell what port is used on the compute node
-        collectd_options = node["collectd"]
-        plugins = collectd_options.get("plugins", {})
-        interval = collectd_options.get("interval")
-
-        # use default cores = None to MatchAllCores
-        return ResourceProfile(node, plugins=plugins, interval=interval, timeout=timeout)
-
     def __init__(self, vnfs, nodes, traffic_profile, timeout=3600):
         super(Collector, self).__init__()
         self.traffic_profile = traffic_profile
@@ -42,7 +30,7 @@ class Collector(object):
         self.nodes = nodes
         self.timeout = timeout
         self.bin_path = get_nsb_option('bin_path', '')
-        self.resource_profiles = {node_name: self.make_resource_profile(node, self.timeout)
+        self.resource_profiles = {node_name: ResourceProfile.make_from_node(node, self.timeout)
                                   for node_name, node in self.nodes.items()
                                   if node.get("collectd")}
 
