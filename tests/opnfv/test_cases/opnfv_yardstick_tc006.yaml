@@ -13,7 +13,8 @@ description: >
     Yardstick TC006 config file;
     Measure volume storage IOPS, throughput and latency using fio with job file.
 
-{% set directory = directory or "/FIO_Test" %}
+{% set job_file_config = job_file_config or '["[random-writers]", ioengine=libaio, rw=randwrite, size=128m, bs=32k, direct=0, size=64m, numjobs=4]' %}
+{% set directory = directory or '/FIO_Test' %}
 {% set volume_size = volume_size or 200 %}
 {% set provider = provider or none %}
 {% set physical_network = physical_network or 'physnet1' %}
@@ -25,8 +26,11 @@ scenarios:
 -
   type: Fio
   options:
-    job_file: "job_file.ini"
-    directory: {{ directory }}
+    # input the content of a fio job file directly
+    job_file_config: {{ job_file_config }}
+    # or input the job file name
+    #job_file: "job_file.ini"
+    #directory: {{ directory }}
 
   host: fio.yardstick-TC006
 
