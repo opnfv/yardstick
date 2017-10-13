@@ -32,6 +32,10 @@ class Fio(base.Scenario):
         type:    string
         unit:    na
         default: None
+    job_file_config - content of job configuration file
+        type:    list
+        unit:    na
+        default: None
     directory - mount directoey for test volume
         type:    string
         unit:    na
@@ -95,15 +99,28 @@ class Fio(base.Scenario):
             self.job_file_script = pkg_resources.resource_filename(
                 "yardstick.resources", 'files/' + self.job_file)
 
-            # copy script to host
+            # copy job file to host
             self.client._put_file_shell(self.job_file_script, '~/job_file.ini')
-
         else:
-            self.target_script = pkg_resources.resource_filename(
+            try:
+                config_lines = self.options.get("job_file_config")
+            except KeyError:
+                LOG.debug("No job file configuration received, Fio will use parameters.")
+                self.target_script = pkg_resources.resource_filename(
                 "yardstick.benchmark.scenarios.storage", Fio.TARGET_SCRIPT)
 
-            # copy script to host
-            self.client._put_file_shell(self.target_script, '~/fio.sh')
+                # copy script to host
+                self.client._put_file_shell(self.target_script, '~/fio.sh')
+            else:
+                LOG.debug("Job file configuration received, Fio job file will be created.")
+                with open("yardstick/resources/files/job_file.ini", 'w') as f:
+                    f.writelines(config_lines)
+                self.job_file = 'job_file.ini'
+                self.job_file_script = pkg_resources.resource_filename(
+                "yardstick.resources", 'files/' + self.job_file)
+
+                # copy job file to host
+                self.client._put_file_shell(self.job_file_script, '~/job_file.ini')
 
         mount_dir = self.options.get("directory", None)
 
