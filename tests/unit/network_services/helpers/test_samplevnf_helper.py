@@ -167,7 +167,7 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test___init__(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -182,7 +182,7 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test_update_timer(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -192,12 +192,12 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
+        opnfv_vnf.add_pipeline = mock.MagicMock()
         self.assertEqual(None, opnfv_vnf.update_timer())
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test_generate_script(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -207,7 +207,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
+        opnfv_vnf.add_pipeline = mock.MagicMock()
         opnfv_vnf.generate_script_data = \
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
@@ -220,7 +220,7 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test_generate_script_data(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -230,7 +230,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
+        opnfv_vnf.add_pipeline = mock.MagicMock()
         opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         opnfv_vnf.vnf_type = 'ACL'
         opnfv_vnf.generate_link_config = mock.Mock()
@@ -242,7 +242,7 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test_generate_rule_config(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -252,7 +252,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
+        opnfv_vnf.add_pipeline = mock.MagicMock()
         opnfv_vnf.generate_script_data = \
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
@@ -274,7 +274,7 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test_generate_action_config(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -284,7 +284,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
+        opnfv_vnf.add_pipeline = mock.MagicMock()
         opnfv_vnf.generate_script_data = \
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
@@ -302,7 +302,7 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test_generate_arp_config6(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -312,7 +312,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
+        opnfv_vnf.add_pipeline = mock.MagicMock()
         opnfv_vnf.generate_script_data = \
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
@@ -332,7 +332,7 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test_generate_arp_config(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -342,7 +342,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
+        opnfv_vnf.add_pipeline = mock.MagicMock()
         opnfv_vnf.generate_script_data = \
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
@@ -362,7 +362,7 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test_get_ports_gateway(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -372,7 +372,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
+        opnfv_vnf.add_pipeline = mock.MagicMock()
         opnfv_vnf.generate_script_data = \
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
@@ -389,7 +389,7 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test_get_ports_gateway6(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -399,7 +399,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
+        opnfv_vnf.add_pipeline = mock.MagicMock()
         opnfv_vnf.generate_script_data = \
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
@@ -416,7 +416,7 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test_get_netmask_gateway(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -426,7 +426,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
+        opnfv_vnf.add_pipeline = mock.MagicMock()
         opnfv_vnf.generate_script_data = \
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
@@ -443,7 +443,7 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test_get_netmask_gateway6(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -453,7 +453,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
+        opnfv_vnf.add_pipeline = mock.MagicMock()
         opnfv_vnf.generate_script_data = \
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
@@ -470,7 +470,7 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test_generate_link_config(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -481,7 +481,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
+        opnfv_vnf.add_pipeline = mock.MagicMock()
         opnfv_vnf.generate_script_data = \
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
@@ -502,7 +502,7 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test_generate_config(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -512,7 +512,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.get_config_tpl_data = mock.MagicMock()
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
+        opnfv_vnf.add_pipeline = mock.MagicMock()
         opnfv_vnf.generate_script_data = \
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
@@ -531,12 +531,10 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.is_openstack = False
         self.assertIsNone(opnfv_vnf.generate_config())
 
+    @mock.patch('yardstick.network_services.helpers.iniparser.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_get_config_tpl_data(self, mock_open, mock_os, ConfigParser,
-                                 OrderedDict):
+    def test_get_config_tpl_data(self, *_):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -548,19 +546,13 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
-        opnfv_vnf.read_parser = mock.MagicMock()
-        opnfv_vnf.read_parser.sections = mock.Mock(return_value=['MASTER'])
-        opnfv_vnf.read_parser.has_option = mock.Mock(return_value=True)
-        opnfv_vnf.read_parser.get = mock.Mock(return_value='filename')
-
+        opnfv_vnf.read_parser.sections = [['MASTER', [['mode', 'mode1'], ['type', 'filename']]]]
         self.assertIsNotNone(opnfv_vnf.get_config_tpl_data('filename'))
 
+    @mock.patch('yardstick.network_services.helpers.iniparser.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_get_txrx_tpl_data(self, mock_open, mock_os, ConfigParser,
-                               OrderedDict):
+    def test_get_txrx_tpl_data(self, *_):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -572,19 +564,21 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.txrx_pipeline = ''
         opnfv_vnf.rules = ''
         opnfv_vnf.write_parser = mock.MagicMock()
-        opnfv_vnf.read_parser = mock.MagicMock()
-        opnfv_vnf.read_parser.sections = mock.Mock(return_value=['MASTER'])
-        opnfv_vnf.read_parser.has_option = mock.Mock(return_value=True)
-        opnfv_vnf.read_parser.get = mock.Mock(return_value='filename')
-
+        opnfv_vnf.read_parser.sections = [
+            [
+                'MASTER',
+                [
+                    ['mode', 'mode1'],
+                    ['pipeline_txrx_type', 'filename'],
+                ],
+            ],
+        ]
         self.assertIsNotNone(opnfv_vnf.get_txrx_tpl_data('filename'))
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_init_write_parser_template(self, mock_open, mock_os, ConfigParser,
-                                        OrderedDict):
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
+    def test_init_write_parser_template(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -601,19 +595,17 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.read_parser.has_option = mock.Mock(return_value=True)
         opnfv_vnf.read_parser.get = mock.Mock(return_value='filename')
 
-        self.assertIsNone(opnfv_vnf.init_write_parser_template('filename'))
+        self.assertIsNone(opnfv_vnf.find_pipeline_indexes())
         opnfv_vnf.write_parser.add_section = mock.MagicMock()
         opnfv_vnf.read_parser.item = mock.Mock(return_value=[1, 2, 3])
         opnfv_vnf.read_parser.has_option = mock.Mock(return_value=False)
         opnfv_vnf.write_parser.set = mock.Mock()
-        self.assertIsNone(opnfv_vnf.init_write_parser_template('filename'))
+        self.assertIsNone(opnfv_vnf.find_pipeline_indexes())
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_init_write_parser_template_2(self, mock_open, mock_os, ConfigParser,
-                                          OrderedDict):
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
+    def test_init_write_parser_template_2(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -630,40 +622,12 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.read_parser.has_option = mock.Mock(return_value=[])
         opnfv_vnf.write_parser.set = mock.Mock()
         opnfv_vnf.read_parser.items = mock.MagicMock()
-        self.assertIsNone(opnfv_vnf.init_write_parser_template('filename'))
+        self.assertIsNone(opnfv_vnf.find_pipeline_indexes())
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_update_write_parser(self, mock_open, mock_os, ConfigParser,
-                                 OrderedDict):
-        topology_file = mock.Mock()
-        config_tpl = mock.Mock()
-        tmp_file = mock.Mock()
-        vnfd_mock = mock.MagicMock()
-        opnfv_vnf = MultiPortConfig(topology_file, config_tpl, tmp_file, vnfd_mock)
-        opnfv_vnf.socket = 0
-        opnfv_vnf.start_core = 0
-        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
-        opnfv_vnf.txrx_pipeline = ''
-        opnfv_vnf.rules = ''
-        opnfv_vnf.write_parser = mock.MagicMock()
-        opnfv_vnf.read_parser = mock.MagicMock()
-        opnfv_vnf.read_parser.sections = mock.Mock(return_value=['MASTER'])
-        opnfv_vnf.read_parser.has_option = mock.Mock(return_value=[])
-        opnfv_vnf.write_parser.set = mock.Mock()
-        opnfv_vnf.write_parser.add_section = mock.Mock()
-        opnfv_vnf.read_parser.items = mock.MagicMock()
-        opnfv_vnf.pipeline_counter = 0
-        self.assertIsNone(opnfv_vnf.update_write_parser({'filename': 1}))
-
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_get_worker_threads(self, mock_open, mock_os, ConfigParser,
-                                OrderedDict):
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
+    def test_get_worker_threads(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -694,10 +658,8 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_generate_next_core_id(self, mock_open, mock_os, ConfigParser,
-                                   OrderedDict):
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
+    def test_generate_next_core_id(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -730,10 +692,8 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_generate_lb_to_port_pair_mapping(self, mock_open, mock_os, ConfigParser,
-                                              OrderedDict):
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
+    def test_generate_lb_to_port_pair_mapping(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -763,10 +723,8 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_set_priv_que_handler(self, mock_open, mock_os, ConfigParser,
-                                  OrderedDict):
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
+    def test_set_priv_que_handler(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -793,7 +751,7 @@ class TestMultiPortConfig(unittest.TestCase):
         self.assertEqual(None, result)
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
     def test_generate_arp_route_tbl(self, *_):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
@@ -832,10 +790,8 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_generate_arpicmp_data(self, mock_open, mock_os, ConfigParser,
-                                   OrderedDict):
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
+    def test_generate_arpicmp_data(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -877,10 +833,8 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_generate_final_txrx_data(self, mock_open, mock_os, ConfigParser,
-                                      OrderedDict):
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
+    def test_generate_final_txrx_data(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -919,10 +873,8 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_generate_initial_txrx_data(self, mock_open, mock_os,
-                                        ConfigParser, OrderedDict):
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
+    def test_generate_initial_txrx_data(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -973,10 +925,8 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_generate_lb_data(self, mock_open, mock_os, ConfigParser,
-                              OrderedDict):
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
+    def test_generate_lb_data(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -1010,10 +960,8 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_generate_vnf_data(self, mock_open, mock_os, ConfigParser,
-                               OrderedDict):
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
+    def test_generate_vnf_data(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -1059,10 +1007,8 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_generate_config_data(self, mock_open, mock_os, ConfigParser,
-                                  OrderedDict):
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
+    def test_generate_config_data(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -1092,18 +1038,18 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.ports_len = 1
         opnfv_vnf.pktq_out = ['1', '2']
         opnfv_vnf.prv_que_handler = 0
-        opnfv_vnf.init_write_parser_template = mock.Mock()
+        opnfv_vnf.find_pipeline_indexes = mock.Mock()
         opnfv_vnf.arpicmp_tpl = mock.MagicMock()
         opnfv_vnf.txrx_tpl = mock.MagicMock()
         opnfv_vnf.loadb_tpl = mock.MagicMock()
         opnfv_vnf.vnf_tpl = {'public_ip_port_range': '98164810 (1,65535)',
                              'vnf_set': "(2,4,5)"}
         opnfv_vnf.generate_vnf_data = mock.Mock(return_value={})
-        opnfv_vnf.update_write_parser = mock.Mock()
+        opnfv_vnf.add_pipeline = mock.Mock()
         result = opnfv_vnf.generate_config_data()
         self.assertIsNone(result)
         opnfv_vnf.generate_final_txrx_data = mock.Mock()
-        opnfv_vnf.update_write_parser = mock.Mock()
+        opnfv_vnf.add_pipeline = mock.Mock()
         result = opnfv_vnf.generate_config_data()
         self.assertIsNone(result)
         opnfv_vnf.lb_to_port_pair_mapping = [0, 1]
@@ -1111,7 +1057,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.ports_len = 1
         opnfv_vnf.pktq_out = ['1', '2']
         opnfv_vnf.prv_que_handler = 0
-        opnfv_vnf.init_write_parser_template = mock.Mock()
+        opnfv_vnf.find_pipeline_indexes = mock.Mock()
         opnfv_vnf.arpicmp_tpl = mock.MagicMock()
         opnfv_vnf.txrx_tpl = mock.MagicMock()
         opnfv_vnf.loadb_tpl = mock.MagicMock()
@@ -1125,10 +1071,8 @@ class TestMultiPortConfig(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.OrderedDict')
-    def test_init_eal(self, mock_open, mock_os, ConfigParser,
-                      OrderedDict):
+    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.YardstickConfigParser')
+    def test_init_eal(self, mock_open, mock_os, ConfigParser):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -1158,13 +1102,13 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.ports_len = 1
         opnfv_vnf.pktq_out = ['1', '2']
         opnfv_vnf.prv_que_handler = 0
-        opnfv_vnf.init_write_parser_template = mock.Mock()
+        opnfv_vnf.find_pipeline_indexes = mock.Mock()
         opnfv_vnf.arpicmp_tpl = mock.MagicMock()
         opnfv_vnf.txrx_tpl = mock.MagicMock()
         opnfv_vnf.loadb_tpl = mock.MagicMock()
         opnfv_vnf.vnf_tpl = {'public_ip_port_range': '98164810 (1,65535)'}
         opnfv_vnf.generate_vnf_data = mock.Mock(return_value={})
-        opnfv_vnf.update_write_parser = mock.Mock()
+        opnfv_vnf.add_pipeline = mock.Mock()
         opnfv_vnf.tmp_file = "/tmp/config"
         result = opnfv_vnf.init_eal()
         self.assertIsNone(result)
