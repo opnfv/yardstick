@@ -150,8 +150,24 @@ class YardstickNSCli(object):
                 testcases = os.listdir(test_path + vnf)
                 print(("VNF :(%s)" % vnf))
                 print("================")
-                for testcase in [tc for tc in testcases if "tc_" in tc]:
-                    print('%s' % testcase)
+                test_cases = [tc for tc in testcases if "tc_" in tc and "template" not in tc]
+
+                print("\tBareMetal Testcase:")
+                print("\t===================")
+                for testcase in [tc for tc in test_cases if "baremetal" in tc]:
+                    print("\t%s" % testcase)
+
+                print(os.linesep)
+                print("\tStandalone Virtualization Testcase:")
+                print("\t===================================")
+                for testcase in [tc for tc in test_cases if "ovs" in tc or "sriov" in tc]:
+                    print("\t%s" % testcase)
+
+                print(os.linesep)
+                print("\tOpenstack Testcase:")
+                print("\t===================")
+                for testcase in [tc for tc in test_cases if "heat" in tc]:
+                    print("\t%s" % testcase)
                 print(os.linesep)
             raise SystemExit(0)
 
