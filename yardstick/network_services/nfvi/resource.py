@@ -82,6 +82,18 @@ class ResourceProfile(object):
         self.mgmt = mgmt
         self.connection = ssh.AutoConnectSSH.from_node(mgmt)
 
+    @classmethod
+    def make_from_node(cls, node, timeout):
+        # node dict works as mgmt dict
+        # don't need port names, there is no way we can
+        # tell what port is used on the compute node
+        collectd_options = node["collectd"]
+        plugins = collectd_options.get("plugins", {})
+        interval = collectd_options.get("interval")
+
+        # use default cores = None to MatchAllCores
+        return cls(node, plugins=plugins, interval=interval, timeout=timeout)
+
     def check_if_sa_running(self, process):
         """ verify if system agent is running """
         try:
