@@ -14,13 +14,13 @@ description: >
     Measure network capacity and scale.
     Measure number of connections, number of frames received;
 
-{% set host = host or "node1.LF" %}
+{% set host = host or "node1" %}
 {% set file = file or '/etc/yardstick/pod.yaml' %}
 
 scenarios:
 -
   type: NetworkCapacity
-  host: {{host}}
+  host: {{host}}.LF
 
   runner:
     type: Iteration
