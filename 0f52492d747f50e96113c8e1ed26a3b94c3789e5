@@ -22,6 +22,30 @@
       "revId": "0f52492d747f50e96113c8e1ed26a3b94c3789e5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_329f9161",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc006.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-10-13T09:38:04Z",
+      "side": 1,
+      "message": "the quota around [random-writers] is necessary, others can be ignored.",
+      "parentUuid": "9a3d3df0_1217edee",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 151
+      },
+      "revId": "0f52492d747f50e96113c8e1ed26a3b94c3789e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
