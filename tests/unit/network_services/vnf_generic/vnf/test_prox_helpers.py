@@ -13,6 +13,7 @@
 # limitations under the License.
 #
 
+from collections import OrderedDict
 from itertools import repeat, chain
 import os
 import socket
@@ -733,6 +734,22 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         },
     }
 
+    def test_write_prox_lua(self):
+        data = OrderedDict()
+        expected = ''
+        result = ProxDpdkVnfSetupEnvHelper.write_prox_lua(data)
+        self.assertEqual(result, expected)
+
+        data = OrderedDict([
+            ('key1', 'value1'),
+            ('key2', 234),
+            (234, 'value3'),
+        ])
+
+        expected = os.linesep.join(['key1="value1"', 'key2="234"', '234="value3"'])
+        result = ProxDpdkVnfSetupEnvHelper.write_prox_lua(data)
+        self.assertEqual(result, expected)
+
     def test_global_section(self):
         setup_helper = ProxDpdkVnfSetupEnvHelper(mock.MagicMock(), mock.MagicMock(),
                                                  mock.MagicMock())
@@ -907,49 +924,6 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = ProxDpdkVnfSetupEnvHelper._get_tx_port('section1', input_data)
         self.assertEqual(result, expected)
 
-    def test_write_prox_config(self):
-        input_data = {}
-        expected = ''
-        result = ProxDpdkVnfSetupEnvHelper.write_prox_config(input_data)
-        self.assertEqual(result, expected)
-
-        input_data = [
-            [
-                'section1',
-                [],
-            ],
-        ]
-        expected = '[section1]'
-        result = ProxDpdkVnfSetupEnvHelper.write_prox_config(input_data)
-        self.assertEqual(result, expected)
-
-        input_data = [
-            [
-                'section1',
-                [],
-            ],
-            [
-                'section2',
-                [
-                    ['key1', 'value1'],
-                    ['__name__', 'not this one'],
-                    ['key2', None],
-                    ['key3', 234],
-                    ['key4', 'multi-line\nvalue'],
-                ],
-            ],
-        ]
-        expected = os.linesep.join([
-            '[section1]',
-            '[section2]',
-            'key1=value1',
-            'key2',
-            'key3=234',
-            'key4=multi-line\n\tvalue',
-        ])
-        result = ProxDpdkVnfSetupEnvHelper.write_prox_config(input_data)
-        self.assertEqual(result, expected)
-
     def test_prox_config_data(self):
         setup_helper = ProxDpdkVnfSetupEnvHelper(mock.MagicMock(), mock.MagicMock(),
                                                  mock.MagicMock())
@@ -1108,7 +1082,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         res = helper._insert_additional_file('dofile("ipv4.lua")')
         self.assertEqual(res, 'dofile("/tmp/ipv4.lua")')
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.ConfigParser')
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.YardstickConfigParser')
     def test_generate_prox_config_file(self, mock_parser_type):
         def init(*args):
             if sections_data:
@@ -1193,7 +1167,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = helper.generate_prox_config_file('/c/d/e')
         self.assertEqual(result, expected, str(result))
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.ConfigParser')
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.YardstickConfigParser')
     def test_generate_prox_config_file_negative(self, mock_parser_type):
         def init(*args):
             args[-1].update(sections_data)

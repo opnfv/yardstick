@@ -11,6 +11,15 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
+import os
+import six
+from collections import Iterable
+
+from six.moves import StringIO
+
+from yardstick.common.utils import validate_non_string_sequence
+
+_LOCAL_DEFAULT = object()
 
 
 class ParseError(Exception):
@@ -41,13 +50,20 @@ class LineParser(object):
             value = value[1:-1]
         return key, [value]
 
-    def __init__(self, line, line_no):
+    def __init__(self, line, line_no, semi=';', pound='#'):
         super(LineParser, self).__init__()
         self.line = line
         self.line_no = line_no
         self.continuation = line != line.lstrip()
-        semi_active, _, semi_comment = line.partition(';')
-        pound_active, _, pound_comment = line.partition('#')
+
+        if semi:
+            semi_active, _, semi_comment = line.partition(';')
+        else:
+            semi_active = semi_comment = ''
+        if pound:
+            pound_active, _, pound_comment = line.partition('#')
+        else:
+            pound_active = pound_comment = ''
         if not semi_comment and not pound_comment:
             self.active = line.strip()
             self.comment = ''
@@ -132,7 +148,13 @@ class BaseParser(object):
             if key is None:
                 raise line_parser.error_unexpected_continuation()
 
-            value.append(line_parser.active.lstrip())
+            active = line_parser.active.lstrip()
+            try:
+                value.append(active)
+            except AttributeError:
+                # multi-line keys!
+                key = os.linesep.join([key, active])
+
             return key, value
 
         if key:
@@ -156,7 +178,8 @@ class BaseParser(object):
         key = None
         value = []
 
-        parse_iter = (LineParser(line, line_no) for line_no, line in enumerate(line_iter))
+        parse_iter = (LineParser(line, line_no, semi=self.semi, pound=self.pound) for line_no, line
+                      in enumerate(line_iter))
         for line_parser in parse_iter:
             key, value = self._next_key_value(line_parser, key, value)
 
@@ -181,7 +204,7 @@ class BaseParser(object):
         raise NotImplementedError()
 
 
-class ConfigParser(BaseParser):
+class YardstickConfigParser(BaseParser):
     """Parses a single config file, populating 'sections' to look like:
 
         [
@@ -201,8 +224,100 @@ class ConfigParser(BaseParser):
         ]
     """
 
-    def __init__(self, filename, sections=None):
-        super(ConfigParser, self).__init__()
+    @staticmethod
+    def dump_key_value(buffer, key, value, quote=None, linesep=None, equal_sep=''):
+        if key == "__name__":
+            return
+
+        if quote is None:
+            quote = ''
+        else:
+            quote = str(quote)
+
+        if linesep:
+            buffer.write(linesep)
+
+        if value is None or value == '@':
+            buffer.write(str(key).replace('\n', '\n\t'))
+        else:
+            buffer.write(str(key))
+            buffer.write('{0}={0}'.format(equal_sep))
+            buffer.write(quote)
+            buffer.write(str(value).replace('\n', '\n\t'))
+            buffer.write(quote)
+
+    @staticmethod
+    def _section_iter(section_data, key):
+        if not isinstance(section_data, Iterable):
+            section_data = []
+        return (item for item in section_data if item[0] == key)
+
+    @classmethod
+    def section_del(cls, section, key):
+        # make sure we are passed section not section_data
+        assert isinstance(section[0], six.string_types)
+        section_data = section[1]
+        # mutate with slice assignment
+        section_data[:] = [item for item in section_data if item[0] != key]
+
+    @classmethod
+    def section_get(cls, section, key, default=_LOCAL_DEFAULT):
+        # make sure we are passed section not section_data
+        assert isinstance(section[0], six.string_types)
+        section_data = section[1]
+        try:
+            result = next(cls._section_iter(section_data, key), (None, default))[1]
+        except IndexError:
+            raise
+        if result is _LOCAL_DEFAULT:
+            raise KeyError(key)
+        return result
+
+    @classmethod
+    def section_set_value(cls, section, key, val, indexes=None, set_all=False):
+        # make sure we are passed section not section_data
+        assert isinstance(section[0], six.string_types)
+        section_data = section[1]
+        if indexes is None:
+            indexes = [0]
+        else:
+            indexes = validate_non_string_sequence(indexes, [indexes])
+        for item_index, item in enumerate(cls._section_iter(section_data, key)):
+            if set_all or item_index in indexes:
+                item[1] = val
+
+    @classmethod
+    def update_section_data(cls, target_section, new_section_data):
+        assert isinstance(target_section[0], six.string_types)
+        target_section_data = target_section[1]
+
+        target_indexes = {}
+        for i, (key, _) in enumerate(target_section_data):
+            target_indexes.setdefault(key, []).append(i)
+
+        new_indexes = {}
+        for i, (key, _) in enumerate(new_section_data):
+            new_indexes.setdefault(key, []).append(i)
+
+        for target_key, target_key_index_list in target_indexes.items():
+            target_index_iter = iter(target_key_index_list)
+            for new_key, new_value in new_section_data:
+                if target_key == new_key:
+                    try:
+                        target_index = next(target_index_iter)
+                    except StopIteration:
+                        target_section_data.append([new_key, new_value])
+                    else:
+                        target_section_data[target_index][1] = new_value
+        # append new keys
+        for new_key, new_value in new_section_data:
+            if new_key not in target_indexes:
+                target_section_data.append([new_key, new_value])
+
+
+    def __init__(self, filename=None, sections=None, linesep=os.linesep, section_sep=os.linesep,
+                 equal_sep='', semi=';', pound='#'):
+        super(YardstickConfigParser, self).__init__()
         self.filename = filename
         if sections is not None:
             self.sections = sections
@@ -210,31 +325,112 @@ class ConfigParser(BaseParser):
             self.sections = []
         self.section_name = None
         self.section = None
+        self.linesep = linesep
+        self.section_sep = section_sep
+        self.equal_sep = equal_sep
+        self.semi = semi
+        self.pound = pound
+
+    def read(self, file_path):
+        with open(file_path) as fh:
+            return self.readfp(fh)
+
+    def readfp(self, file_handle):
+        return self._parse(file_handle)
+
+    def write(self, file_handle):
+        self.dump(file_handle)
 
     def parse(self, data=None):
         if not data:
             data = self.filename
-        with open(data) as f:
-            return self._parse(f)
+        with open(data) as file_handle:
+            return self._parse(file_handle)
+
+    def load(self, file_path):
+        self.read(file_path)
+
+    def loads(self, data_string):
+        self.readfp(StringIO(data_string))
+
+    def dump(self, file_handle):
+        """
+        Write an .ini-format config string into the file handle
+
+        PROX does not allow a space before/after the =, so we need
+        a custom method
+        """
+        self._dump(file_handle)
+
+    def dumps(self):
+        """
+        Generate an .ini-format config string
+
+        PROX does not allow a space before/after the =, so we need
+        a custom method
+        """
+        return self._dump(StringIO()).getvalue()
+
+    def _dump(self, buffer):
+        for section_name, section_data in self:
+            buffer.write("[")
+            buffer.write(str(section_name))
+            buffer.write("]")
+            for key, value in section_data:
+                self.dump_key_value(buffer, key, value, linesep=self.linesep,
+                                    equal_sep=self.equal_sep)
+            buffer.write(self.linesep)
+            buffer.write(self.section_sep)
+        return buffer
 
     def __iter__(self):
         return iter(self.sections)
 
     def find_section_index(self, section_name):
-        return next((i for i, (name, value) in enumerate(self) if name == section_name), -1)
+        return next((i for i, (name, _) in enumerate(self) if name == section_name), -1)
 
     def find_section(self, section_name):
-        return next((value for name, value in self.sections if name == section_name), None)
+        return next((section for section in self if section[0] == section_name), None)
 
-    def new_section(self, line_parser):
-        section_name = line_parser.section_name
-        index = self.find_section_index(section_name)
+    def find_section_data(self, section_name):
+        return next((value for name, value in self if name == section_name), None)
+
+    def add_section(self, section_name):
+        self.section = self.find_section(section_name)
         self.section_name = section_name
-        if index == -1:
+        if not self.section:
             self.section = [section_name, []]
             self.sections.append(self.section)
+
+    def new_section(self, line_parser):
+        self.add_section(line_parser.section_name)
+
+    def get(self, section_name, key, default=_LOCAL_DEFAULT):
+        value = default
+        section = self.find_section(section_name)
+        if section:
+            value = next((v for k, v in section[1] if k == key), default)
+        if value == _LOCAL_DEFAULT:
+            raise KeyError('{}: {}'.format(section_name, key))
+        return value
+
+    def set(self, section_name, key, value):
+        self.add_section(section_name)
+        for key_value_pair in self.section[1]:
+            if key_value_pair[0] == key:
+                key_value_pair[1] = str(value)
+                break
         else:
-            self.section = self.sections[index]
+            self.section[1].append([key, str(value)])
+
+    def append(self, section_name, key, value):
+        self.add_section(section_name)
+        for key_value_pair in self.section[1]:
+            if key_value_pair[0] == key:
+                key_value_pair[1] = '\n'.join([key_value_pair[1], str(value)])
+                break
+        else:
+            self.section[1].append([key, str(value)])
 
     def _assignment(self, key, value, line_parser):
         if not self.section_name:

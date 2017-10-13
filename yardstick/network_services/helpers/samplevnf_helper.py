@@ -12,19 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
 
+import copy
+from collections import defaultdict, namedtuple
 import ipaddress
+from itertools import chain, repeat
 import logging
 import os
-import sys
-from collections import OrderedDict, defaultdict
-from itertools import chain, repeat
+import re
 
 import six
-from six.moves.configparser import ConfigParser
 
-from yardstick.common.utils import ip_to_hex
+from yardstick.common.utils import ip_to_hex, try_int
+from yardstick.network_services.helpers.iniparser import YardstickConfigParser
 
 LOG = logging.getLogger(__name__)
 
@@ -34,23 +34,27 @@ link {0} config {1} {2}
 link {0} up
 """
 
+# add comment string with syntax
 ACTION_TEMPLATE = """\
-p action add {0} accept
-p action add {0} fwd {0}
-p action add {0} count
+# p action add <action-id> <action> <optional option>
+p action add {action_id} accept
+p action add {action_id} fwd {port_num}
+p action add {action_id} count
 """
 
 FW_ACTION_TEMPLATE = """\
-p action add {0} accept
-p action add {0} fwd {0}
-p action add {0} count
-p action add {0} conntrack
+# p action add <action-id> <action> <optional option>
+p action add {action_id} accept
+p action add {action_id} fwd {port_num}
+p action add {action_id} count
+p action add {action_id} conntrack
 """
 
 # This sets up a basic passthrough with no rules
 SCRIPT_TPL = """
 {link_config}
 
+# p <arpicmp_pipe_id> arpadd <interface_id> <ip_address in deciaml> <mac addr in hex>
 {arp_config}
 
 {arp_config6}
@@ -158,6 +162,65 @@ class PortPairs(object):
         return self._port_pair_list
 
 
+class Core(namedtuple('CoreTuple', 'socket, core, hyperthread')):
+    CORE_RE = re.compile(r"^(?:s(?P<socket>\d+))?c?(?P<core>\d+)(?P<hyperthread>h)?$")
+
+    def __new__(cls, socket=None, core=None, hyperthread=''):
+        try:
+            if socket and core is None and hyperthread == '':
+                    # first arg is a string
+                    matches = cls.CORE_RE.search(str(socket))
+                    if matches:
+                        m = matches.groupdict()
+                        socket = m['socket']
+                        core = m['core']
+                        hyperthread = m['hyperthread']
+            socket = try_int(socket, 0)
+            # fail if not int
+            core = int(core)
+
+            if hyperthread in {1, '1', True, 'h'}:
+                hyperthread = "h"
+            else:
+                hyperthread = ""
+
+            return super(Core, cls).__new__(cls, socket, core, hyperthread)
+
+        except (AttributeError, TypeError, IndexError, ValueError):
+            raise ValueError(
+                'Invalid core spec socket={} core={} hyperthread={}'.format(socket, core,
+                                                                            hyperthread))
+
+    def is_hyperthread(self):
+        return self.hyperthread == 'h'
+
+    def make_hyperthread(self):
+        return self.__new__(self.__class__, self.socket, self.core, "h")
+
+    def __str__(self):
+        if self.socket != 0:
+            s = "s{}c{}".format(self.socket, self.core)
+        else:
+            s = self.core
+        return "{}{}".format(s, self.hyperthread)
+
+    def __add__(self, other):
+        # when we increment we reset hyperthread
+        return self.__new__(self.__class__, self.socket, self.core + other, "")
+
+    def __sub__(self, other):
+        # when we decrement we reset hyperthread
+        return self.__new__(self.__class__, self.socket, self.core - other, "")
+
+    def __iadd__(self, other):
+        # when we increment we reset hyperthread
+        return self.__new__(self.__class__, self.socket, self.core + other, "")
+
+    def __isub__(self, other):
+        # when we decrement we reset hyperthread
+        return self.__new__(self.__class__, self.socket, self.core - other, "")
+
+
 class MultiPortConfig(object):
 
     HW_LB = "HW"
@@ -175,12 +238,6 @@ class MultiPortConfig(object):
         if offset and not stop:
             stop = start + offset
         return cls.make_str(base, range(start, stop))
-
-    @staticmethod
-    def parser_get(parser, section, key, default=None):
-        if parser.has_option(section, key):
-            return parser.get(section, key)
-        return default
 
     @staticmethod
     def make_ip_addr(ip, mask):
@@ -204,40 +261,48 @@ class MultiPortConfig(object):
         ip_addr = cls.make_ip_addr(ip_addr, prefixlen)
         return ip_addr.ip.exploded, ip_addr.network.prefixlen
 
-    def __init__(self, topology_file, config_tpl, tmp_file, vnfd_helper,
-                 vnf_type='CGNAT', lb_count=2, worker_threads=3,
-                 worker_config='1C/1T', lb_config='SW', socket=0):
+    def __init__(self, scenario_helper, config_tpl, tmp_file, vnfd_helper, vnf_type, core_map,
+                 socket=0):
 
         super(MultiPortConfig, self).__init__()
-        self.topology_file = topology_file
-        self.worker_config = worker_config.split('/')[1].lower()
-        self.worker_threads = self.get_worker_threads(worker_threads)
+        self.scenario_helper = scenario_helper
+        self.vnf_cfg = self.scenario_helper.vnf_cfg
+        self.worker_config = self.vnf_cfg.get('worker_config', '1C/1T').split('/')[1].lower()
+        self.worker_threads = self.get_worker_threads(self.vnf_cfg.get('worker_threads', 3))
+        self.txrx_mode = self.vnf_cfg.get('txrx_mode', 'share')
+        self.lb_count = int(self.vnf_cfg.get('lb_count', 3))
+        self.lb_config = self.vnf_cfg.get('lb_config', 'SW')
         self.vnf_type = vnf_type
+        self.core_map = core_map
         self.pipe_line = 0
         self.vnfd_helper = vnfd_helper
-        self.write_parser = ConfigParser()
-        self.read_parser = ConfigParser()
+        # disable semi-colon comments, because we use junk like
+        # outport_offset = 136; 8
+        # hash_offset = 200;72
+        self.write_parser = YardstickConfigParser(equal_sep=' ', semi='')
+        self.read_parser = YardstickConfigParser(semi='')
         self.read_parser.read(config_tpl)
-        self.master_core = self.read_parser.get("PIPELINE0", "core")
+        # set socket first
+        self.socket = socket
+        self.master_core = Core(socket=self.socket,
+                                core=self.read_parser.get("PIPELINE0", "core", 0))
         self.master_tpl = self.get_config_tpl_data('MASTER')
         self.arpicmp_tpl = self.get_config_tpl_data('ARPICMP')
         self.txrx_tpl = self.get_config_tpl_data('TXRX')
         self.loadb_tpl = self.get_config_tpl_data('LOADB')
         self.vnf_tpl = self.get_config_tpl_data(vnf_type)
         self.swq = 0
-        self.lb_count = int(lb_count)
-        self.lb_config = lb_config
         self.tmp_file = os.path.join("/tmp", tmp_file)
         self.pktq_out_os = []
-        self.socket = socket
-        self.start_core = 1
-        self.pipeline_counter = ""
-        self.txrx_pipeline = ""
+        self.start_core = None
+        self.pipeline_counter = None
+        self.txrx_pipeline = None
+        self.arpicmp_pipeline = None
         self._port_pairs = None
         self.all_ports = []
+        self.port_to_action_map = {}
         self.port_pair_list = []
         self.lb_to_port_pair_mapping = {}
-        self.init_eal()
 
         self.lb_index = None
         self.mul = 0
@@ -248,13 +313,6 @@ class MultiPortConfig(object):
         self.rules = None
         self.pktq_out = []
 
-    @staticmethod
-    def gen_core(core):
-        # return "s{}c{}".format(self.socket, core)
-        # don't use sockets for VNFs, because we don't want to have to
-        # adjust VM CPU topology.  It is virtual anyway
-        return str(core)
-
     def make_port_pairs_iter(self, operand, iterable):
         return (operand(self.vnfd_helper.port_num(x), y) for y in iterable for x in
                 chain.from_iterable(self.port_pairs))
@@ -263,47 +321,56 @@ class MultiPortConfig(object):
         return self.make_port_pairs_iter(operand, range(start, end))
 
     def init_eal(self):
-        lines = ['[EAL]\n']
-        vpci = (v['virtual-interface']["vpci"] for v in self.vnfd_helper.interfaces)
-        lines.extend('w = {0}\n'.format(item) for item in vpci)
-        lines.append('\n')
-        with open(self.tmp_file, 'w') as fh:
-            fh.writelines(lines)
+        # only use ports in the topology
+        intfs = (self.vnfd_helper.find_interface(name=port) for port in
+                 self.vnfd_helper.port_pairs.all_ports)
+        vpci = (intf['virtual-interface']["vpci"] for intf in intfs)
+        lines = [['w', item] for item in vpci]
+        section = ["EAL", lines]
+        self.write_parser.sections.insert(0, section)
 
-    def update_timer(self):
+    def add_updated_timer(self):
         timer_tpl = self.get_config_tpl_data('TIMER')
-        timer_tpl['core'] = self.gen_core(0)
-        self.update_write_parser(timer_tpl)
+        self.write_parser.section_set_value(timer_tpl, 'core', str(Core(self.socket, 0)),
+                                            set_all=True)
+        # reset pipeline number
+        timer_tpl[0] = "PIPELINE{0}".format(self.pipeline_counter)
+        self.write_parser.sections.append(timer_tpl)
 
     def get_config_tpl_data(self, type_value):
-        for section in self.read_parser.sections():
-            if self.read_parser.has_option(section, 'type'):
-                if type_value == self.read_parser.get(section, 'type'):
-                    tpl = OrderedDict(self.read_parser.items(section))
-                    return tpl
+        for section in self.read_parser:
+            if any(type_value == val for key, val in section[1] if key == 'type'):
+                return section
 
     def get_txrx_tpl_data(self, value):
-        for section in self.read_parser.sections():
-            if self.read_parser.has_option(section, 'pipeline_txrx_type'):
-                if value == self.read_parser.get(section, 'pipeline_txrx_type'):
-                    tpl = OrderedDict(self.read_parser.items(section))
-                    return tpl
+        for section in self.read_parser:
+            if any(value == val for key, val in section[1] if key == 'pipeline_txrx_type'):
+                return section
 
-    def init_write_parser_template(self, type_value='ARPICMP'):
-        for section in self.read_parser.sections():
-            if type_value == self.parser_get(self.read_parser, section, 'type', object()):
-                self.pipeline_counter = self.read_parser.getint(section, 'core')
-                self.txrx_pipeline = self.read_parser.getint(section, 'core')
-                return
-            self.write_parser.add_section(section)
-            for name, value in self.read_parser.items(section):
-                self.write_parser.set(section, name, value)
+    PIPELINE_RE = re.compile(r"PIPELINE(\d+)")
 
-    def update_write_parser(self, data):
-        section = "PIPELINE{0}".format(self.pipeline_counter)
-        self.write_parser.add_section(section)
-        for name, value in data.items():
-            self.write_parser.set(section, name, value)
+    def find_pipeline_indexes(self):
+        for section in self.read_parser:
+            section_type = self.read_parser.section_get(section, 'type', None)
+            if 'ARPICMP' == section_type:
+                # this is pipeline number, not core?
+                # self.pipeline_counter = Core(self.socket,
+                #                              self.read_parser.section_get(section, 'core'))
+                self.arpicmp_pipeline = int(self.PIPELINE_RE.search(section[0]).group(1))
+                self.pipeline_counter = self.arpicmp_pipeline + 1
+            # this won't work because TXRX is allocated last
+            # if 'TXRX' == section_type:
+            #     self.txrx_pipeline = int(self.PIPELINE_RE.search(section[0]).group(1))
+                # self.txrx_pipeline = Core(self.socket,
+                #                           self.read_parser.section_get(section, 'core'))
+
+    def new_pipeline(self, tpl_section, new_data):
+        new_section = copy.deepcopy(tpl_section)
+        new_section[0] = "PIPELINE{0}".format(self.pipeline_counter)
+        # increment pipeline_counter here where we add the section
+        self.pipeline_counter += 1
+        self.write_parser.update_section_data(new_section, new_data)
+        return new_section
 
     def get_worker_threads(self, worker_threads):
         if self.worker_config == '1t':
@@ -311,15 +378,32 @@ class MultiPortConfig(object):
         else:
             return worker_threads - worker_threads % 2
 
-    def generate_next_core_id(self):
-        if self.worker_config == '1t':
-            self.start_core += 1
-            return
+    def generate_rxrx_core_id(self, core, mode):
+        # hyperthreaded
+        if int(self.core_map["thread_per_core"]) > 1 and not self.start_core.is_hyperthread():
+            return core.make_hyperthread(), core + 1
+        # hyperthread is not enabled
+        else:
+            # share the same core for TX and RX
+            if mode == "share":
+                return core, core + 1
+            # place RXRX on next core
+            elif mode == "next":
+                return core + 1, core + 2
 
-        try:
-            self.start_core = '{}h'.format(int(self.start_core))
-        except ValueError:
-            self.start_core = int(self.start_core[:-1]) + 1
+    def generate_next_core_id(self, core):
+        if self.worker_config == '1t':
+            return core + 1
+
+        # hyperthread is not enabled
+        if int(self.core_map["thread_per_core"]) == 1:
+            return core + 1
+
+        if self.start_core.is_hyperthread():
+            # move to the next core
+            return core + 1
+        else:
+            return core.make_hyperthread()
 
     def get_lb_count(self):
         self.lb_count = int(min(len(self.port_pair_list), self.lb_count))
@@ -336,8 +420,7 @@ class MultiPortConfig(object):
 
     def set_priv_to_pub_mapping(self):
         port_nums = [tuple(self.vnfd_helper.port_nums(x)) for x in self.port_pair_list]
-        return "".join(str(y).replace(" ", "") for y in
-                       port_nums)
+        return "".join(str(y).replace(" ", "") for y in port_nums)
 
     def set_priv_que_handler(self):
         # iterated twice, can't be generator
@@ -372,10 +455,10 @@ class MultiPortConfig(object):
 
         return '\n'.join(build_arp_config(port) for port in self.all_ports)
 
-    def generate_arpicmp_data(self):
-        swq_in_str = self.make_range_str('SWQ{}', self.swq, offset=self.lb_count)
+    def generate_arpicmp_data(self, core):
+        pkqt_in = self.make_range_str('SWQ{}', self.swq, offset=self.lb_count)
         self.swq += self.lb_count
-        swq_out_str = self.make_range_str('SWQ{}', self.swq, offset=self.lb_count)
+        pktq_out = self.make_range_str('SWQ{}', self.swq, offset=self.lb_count)
         self.swq += self.lb_count
         # ports_mac_list is disabled for some reason
 
@@ -384,34 +467,38 @@ class MultiPortConfig(object):
         pktq_in_iter = ('RXQ{}.0'.format(self.vnfd_helper.port_num(x[0])) for x in
                         self.port_pair_list)
 
-        arpicmp_data = {
-            'core': self.gen_core(0),
-            'pktq_in': swq_in_str,
-            'pktq_out': swq_out_str,
-            # we need to disable ports_mac_list?
-            # it looks like ports_mac_list is no longer required
-            # 'ports_mac_list': ' '.join(mac_iter),
-            'pktq_in_prv': ' '.join(pktq_in_iter),
-            'prv_to_pub_map': self.set_priv_to_pub_mapping(),
-        }
-        self.pktq_out_os = swq_out_str.split(' ')
-        # HWLB is a run to complition. So override the pktq_in/pktq_out
+        self.pktq_out_os = pktq_out.split(' ')
+        # HWLB is a run to compelition? So override the pktq_in/pktq_out
         if self.lb_config == self.HW_LB:
             self.swq = 0
-            swq_in_str = \
+            pkqt_in = \
                 self.make_range_str('SWQ{}', self.swq,
                                     offset=(self.lb_count * self.worker_threads))
-            arpicmp_data['pktq_in'] = swq_in_str
             # WA: Since port_pairs will not be populated during arp pipeline
             self.port_pairs = self.port_pair_list
             port_iter = \
                 self.make_port_pairs_iter(self.float_x_plus_one_tenth_of_y, [self.mul])
             pktq_out = self.make_str('TXQ{}', port_iter)
-            arpicmp_data['pktq_out'] = pktq_out
+        arpicmp_data = [
+            ['type', 'ARPICMP'],
+            ['core', core],
+            ['pktq_in', pkqt_in],
+            ['pktq_out', pktq_out],
+            # we need to disable ports_mac_list?
+            # it looks like ports_mac_list is no longer required
+            # ['ports_mac_list', ' '.join(mac_iter)],
+            ['pktq_in_prv', ' '.join(pktq_in_iter)],
+            ['prv_to_pub_map', self.set_priv_to_pub_mapping()],
+            # DO NOT USE arp_route_tbl, use routeadd command
+            # ['arp_route_tbl', ],
+            # nd_route_tbl must be set or we get segault on random OpenStack IPv6 traffic
+            # safe default?  route discard prefix to localhost
+            ['nd_route_tbl', "(0100::,64,0,::1)"],
+        ]
 
         return arpicmp_data
 
-    def generate_final_txrx_data(self, core=0):
+    def generate_final_txrx_data(self, core):
         swq_start = self.swq - self.ports_len * self.worker_threads
 
         txq_start = 0
@@ -420,36 +507,34 @@ class MultiPortConfig(object):
         pktq_out_iter = self.make_range_port_pairs_iter(self.float_x_plus_one_tenth_of_y,
                                                         txq_start, txq_end)
 
-        swq_str = self.make_range_str('SWQ{}', swq_start, self.swq)
-        txq_str = self.make_str('TXQ{}', pktq_out_iter)
-        rxtx_data = {
-            'pktq_in': swq_str,
-            'pktq_out': txq_str,
-            'pipeline_txrx_type': 'TXTX',
-            'core': self.gen_core(core),
-        }
-        pktq_in = rxtx_data['pktq_in']
+        pktq_out = self.make_str('TXQ{}', pktq_out_iter)
+        pktq_in = self.make_range_str('SWQ{}', swq_start, self.swq)
         pktq_in = '{0} {1}'.format(pktq_in, self.pktq_out_os[self.lb_index - 1])
-        rxtx_data['pktq_in'] = pktq_in
-        self.pipeline_counter += 1
+        rxtx_data = [
+            ['pktq_in', pktq_in],
+            ['pktq_out', pktq_out],
+            ['pipeline_txrx_type', 'TXTX'],
+            ['core', core],
+        ]
         return rxtx_data
 
-    def generate_initial_txrx_data(self):
+    def generate_initial_txrx_data(self, core):
         pktq_iter = self.make_range_port_pairs_iter(self.float_x_plus_one_tenth_of_y,
                                                     0, self.worker_threads)
 
         rxq_str = self.make_str('RXQ{}', pktq_iter)
         swq_str = self.make_range_str('SWQ{}', self.swq, offset=self.ports_len)
-        txrx_data = {
-            'pktq_in': rxq_str,
-            'pktq_out': swq_str + ' SWQ{0}'.format(self.lb_index - 1),
-            'pipeline_txrx_type': 'RXRX',
-            'core': self.gen_core(self.start_core),
-        }
-        self.pipeline_counter += 1
-        return self.start_core, txrx_data
+        txrx_data = [
+            ['type', 'TXRX'],
+            ['pipeline_txrx_type', 'RXRX'],
+            ['dest_if_offset', 176],
+            ['core', core],
+            ['pktq_in', rxq_str],
+            ['pktq_out', swq_str + ' SWQ{0}'.format(self.lb_index - 1)],
+        ]
+        return txrx_data
 
-    def generate_lb_data(self):
+    def generate_lb_data(self, core):
         pktq_in = self.make_range_str('SWQ{}', self.swq, offset=self.ports_len)
         self.swq += self.ports_len
 
@@ -458,17 +543,17 @@ class MultiPortConfig(object):
         self.pktq_out = pktq_out.split()
 
         self.swq += (self.ports_len * self.worker_threads)
-        lb_data = {
-            'prv_que_handler': self.prv_que_handler,
-            'pktq_in': pktq_in,
-            'pktq_out': pktq_out,
-            'n_vnf_threads': str(self.worker_threads),
-            'core': self.gen_core(self.start_core),
-        }
-        self.pipeline_counter += 1
+        lb_data = [
+            ['type', 'LOADB'],
+            ['core', core],
+            ['pktq_in', pktq_in],
+            ['pktq_out', pktq_out],
+            ['n_vnf_threads', str(self.worker_threads)],
+            ['prv_que_handler', self.prv_que_handler],
+        ]
         return lb_data
 
-    def generate_vnf_data(self):
+    def generate_vnf_data(self, core):
         if self.lb_config == self.HW_LB:
             port_iter = self.make_port_pairs_iter(self.float_x_plus_one_tenth_of_y, [self.mul])
             pktq_in = self.make_str('RXQ{}', port_iter)
@@ -477,50 +562,61 @@ class MultiPortConfig(object):
             port_iter = self.make_port_pairs_iter(self.float_x_plus_one_tenth_of_y, [self.mul])
             pktq_out = self.make_str('TXQ{}', port_iter)
 
-            pipe_line_data = {
-                'pktq_in': pktq_in,
-                'pktq_out': pktq_out + ' SWQ{0}'.format(self.swq),
-                'prv_que_handler': self.prv_que_handler,
-                'core': self.gen_core(self.start_core),
-            }
+            pipe_line_data = [
+                ['pktq_in', pktq_in],
+                ['pktq_out', pktq_out + ' SWQ{0}'.format(self.swq)],
+                ['prv_que_handler', self.prv_que_handler],
+                ['core', core],
+            ]
             self.swq += 1
         else:
-            pipe_line_data = {
-                'pktq_in': ' '.join((self.pktq_out.pop(0) for _ in range(self.ports_len))),
-                'pktq_out': self.make_range_str('SWQ{}', self.swq, offset=self.ports_len),
-                'prv_que_handler': self.prv_que_handler,
-                'core': self.gen_core(self.start_core),
-            }
+            pipe_line_data = [
+                ['pktq_in', ' '.join((self.pktq_out.pop(0) for _ in range(self.ports_len)))],
+                ['pktq_out', self.make_range_str('SWQ{}', self.swq, offset=self.ports_len)],
+                ['prv_que_handler', self.prv_que_handler],
+                ['core', core],
+            ]
             self.swq += self.ports_len
 
         if self.vnf_type in ('ACL', 'VFW'):
-            pipe_line_data.pop('prv_que_handler')
+            pipe_line_data[:] = [item for item in pipe_line_data if item[0] != 'prv_que_handler']
 
-        if self.vnf_tpl.get('vnf_set'):
-            public_ip_port_range_list = self.vnf_tpl['public_ip_port_range'].split(':')
+        if self.read_parser.section_get(self.vnf_tpl, 'vnf_set', None):
+            public_ip_port_range_list = self.read_parser.section_get(
+                self.vnf_tpl, 'public_ip_port_range').split(':')
             ip_in_hex = '{:x}'.format(int(public_ip_port_range_list[0], 16) + self.lb_index - 1)
             public_ip_port_range_list[0] = ip_in_hex
-            self.vnf_tpl['public_ip_port_range'] = ':'.join(public_ip_port_range_list)
+            self.read_parser.section_set_value(self.vnf_tpl, 'public_ip_port_range',
+                                               ':'.join(public_ip_port_range_list), set_all=True)
 
-        self.pipeline_counter += 1
         return pipe_line_data
 
     def generate_config_data(self):
-        self.init_write_parser_template()
+        # copy over MASTER and ARPICMP
+        self.init_eal()
+        self.find_pipeline_indexes()
 
         # use master core for master, don't use self.start_core
-        self.write_parser.set('PIPELINE0', 'core', self.gen_core(self.master_core))
-        arpicmp_data = self.generate_arpicmp_data()
-        self.arpicmp_tpl.update(arpicmp_data)
-        self.update_write_parser(self.arpicmp_tpl)
+        self.write_parser.section_set_value(self.master_tpl, 'core',
+                                            str(self.master_core), set_all=True)
+        # mutate original sections and append
+        self.write_parser.sections.append(self.master_tpl)
+        # always put ARP on master core?
+        self.write_parser.update_section_data(self.arpicmp_tpl,
+                                              self.generate_arpicmp_data(self.master_core))
+        self.write_parser.sections.append(self.arpicmp_tpl)
+        self.start_core = self.master_core + 1
 
         if self.vnf_type == 'CGNAPT':
+            self.add_updated_timer()
             self.pipeline_counter += 1
-            self.update_timer()
 
-        if self.lb_config == 'HW':
-            self.start_core = 1
+        rxrx_data = []
+        txrx_data = []
 
+        new_pipelines = []
+        # create this section first, then we have to update it
+        rxrx_section = self.new_pipeline(self.txrx_tpl, {})
         for lb in self.lb_to_port_pair_mapping:
             self.lb_index = lb
             self.mul = 0
@@ -532,46 +628,59 @@ class MultiPortConfig(object):
             self.port_pair_list = self.port_pair_list[port_pair_count:]
             self.ports_len = port_pair_count * 2
             self.set_priv_que_handler()
+            # we are always SW LB in OpenStack instances
             if self.lb_config == 'SW':
-                core, txrx_data = self.generate_initial_txrx_data()
-                self.txrx_tpl.update(txrx_data)
-                self.update_write_parser(self.txrx_tpl)
+                rxrx_data = self.generate_initial_txrx_data(self.start_core)
+                # reserve core for final txrx
+                final_txrx_core, self.start_core = self.generate_rxrx_core_id(self.start_core,
+                                                                              self.txrx_mode)
+                lb_data = self.generate_lb_data(self.start_core)
+                new_pipelines.append(self.new_pipeline(self.loadb_tpl, lb_data))
                 self.start_core += 1
-                lb_data = self.generate_lb_data()
-                self.loadb_tpl.update(lb_data)
-                self.update_write_parser(self.loadb_tpl)
-                self.start_core += 1
+            else:
+                # why? we don't use final_txrx_core if not SW LB
+                # make pylint happy
+                final_txrx_core = self.start_core + 1
 
-            for i in range(self.worker_threads):
-                vnf_data = self.generate_vnf_data()
+            for _ in range(self.worker_threads):
+                vnf_data = self.generate_vnf_data(self.start_core)
                 if not self.vnf_tpl:
                     self.vnf_tpl = {}
-                self.vnf_tpl.update(vnf_data)
-                self.update_write_parser(self.vnf_tpl)
+                new_pipelines.append(self.new_pipeline(self.vnf_tpl, vnf_data))
                 try:
-                    self.vnf_tpl.pop('vnf_set')
+                    self.write_parser.section_get(self.vnf_tpl, 'vnf_set')
+                    self.write_parser.section_del(self.vnf_tpl, 'vnf_set')
                 except KeyError:
                     pass
                 else:
-                    self.vnf_tpl.pop('public_ip_port_range')
-                self.generate_next_core_id()
+                    self.write_parser.section_del(self.vnf_tpl, 'public_ip_port_range')
+                self.start_core = self.generate_next_core_id(self.start_core)
 
             if self.lb_config == 'SW':
-                txrx_data = self.generate_final_txrx_data(core)
-                self.txrx_tpl.update(txrx_data)
-                self.update_write_parser(self.txrx_tpl)
+                # this must happen here because we increment self.swq
+                txrx_data = self.generate_final_txrx_data(final_txrx_core)
             self.vnf_tpl = self.get_config_tpl_data(self.vnf_type)
+        # update only to preserve PIPELINE number
+        self.write_parser.update_section_data(rxrx_section, rxrx_data)
+        self.write_parser.sections.append(rxrx_section)
+        # write the new sections last
+        self.write_parser.sections.extend(new_pipelines)
+        # add final pipeline last since we are using lists and order matters
+        self.write_parser.sections.append(self.new_pipeline(self.txrx_tpl, txrx_data))
 
     def generate_config(self):
         self._port_pairs = PortPairs(self.vnfd_helper.interfaces)
         self.port_pair_list = self._port_pairs.port_pair_list
         self.all_ports = self._port_pairs.all_ports
+        # create map from port to action_id using index
+        self.port_to_action_map = {p: i for i, p in
+                                   enumerate(self.vnfd_helper.port_nums(self.all_ports))}
 
         self.get_lb_count()
         self.generate_lb_to_port_pair_mapping()
         self.generate_config_data()
-        self.write_parser.write(sys.stdout)
-        with open(self.tmp_file, 'a') as tfh:
+        # self.read_parser.write(sys.stdout)
+        with open(self.tmp_file, 'w') as tfh:
             self.write_parser.write(tfh)
 
     def generate_link_config(self):
@@ -608,34 +717,43 @@ class MultiPortConfig(object):
     def generate_arp_config(self):
         arp_config = []
         for port in self.all_ports:
-            # ignore gateway, always use TG IP
+            # ignore gateway, always use TG IP, assume next hop is TG
             # gateway = self.get_ports_gateway(port)
             vintf = self.vnfd_helper.find_interface(name=port)["virtual-interface"]
             dst_mac = vintf["dst_mac"]
             dst_ip = vintf["dst_ip"]
-            # arp_config.append(
-            #     (self.vnfd_helper.port_num(port), gateway, dst_mac, self.txrx_pipeline))
             # so dst_mac is the TG dest mac, so we need TG dest IP.
-            # should be dpdk_port_num
-            arp_config.append(
-                (self.vnfd_helper.port_num(port), dst_ip, dst_mac, self.txrx_pipeline))
+            arp_config.append({
+                "port_num": self.vnfd_helper.port_num(port),
+                "dst_ip": dst_ip,
+                "dst_mac": dst_mac,
+                "arpicmp_pipe_id": self.arpicmp_pipeline,
+            }
+            )
 
-        return '\n'.join(('p {3} arpadd {0} {1} {2}'.format(*values) for values in arp_config))
+        return '\n'.join(
+            ('p {arpicmp_pipe_id} arpadd {port_num} {dst_ip} {dst_mac}'.format(**values) for values
+             in arp_config))
 
     def generate_arp_config6(self):
         arp_config6 = []
         for port in self.all_ports:
-            # ignore gateway, always use TG IP
+            # ignore gateway, always use TG IP, assume next hop is TG
             # gateway6 = self.get_ports_gateway6(port)
             vintf = self.vnfd_helper.find_interface(name=port)["virtual-interface"]
             dst_mac6 = vintf["dst_mac"]
             dst_ip6 = vintf["dst_ip"]
-            # arp_config6.append(
-            #     (self.vnfd_helper.port_num(port), gateway6, dst_mac6, self.txrx_pipeline))
-            arp_config6.append(
-                (self.vnfd_helper.port_num(port), dst_ip6, dst_mac6, self.txrx_pipeline))
+            arp_config6.append({
+                "port_num": self.vnfd_helper.port_num(port),
+                "dst_ip": dst_ip6,
+                "dst_mac": dst_mac6,
+                "arpicmp_pipe_id": self.arpicmp_pipeline,
+            }
+            )
 
-        return '\n'.join(('p {3} arpadd {0} {1} {2}'.format(*values) for values in arp_config6))
+        return '\n'.join(
+            ('p {arpicmp_pipe_id} arpadd {port_num} {dst_ip} {dst_mac}'.format(**values) for values
+             in arp_config6))
 
     def generate_action_config(self):
         port_list = (self.vnfd_helper.port_num(p) for p in self.all_ports)
@@ -644,7 +762,9 @@ class MultiPortConfig(object):
         else:
             template = ACTION_TEMPLATE
 
-        return ''.join((template.format(port) for port in port_list))
+        return ''.join(
+            (template.format(action_id=self.port_to_action_map[port], port_num=port) for port in
+             port_list))
 
     def get_ip_from_port(self, port):
         # we can't use gateway because in OpenStack gateways interfer with floating ip routing
@@ -667,7 +787,10 @@ class MultiPortConfig(object):
         rules_config = self.rules if self.rules else ''
         new_rules = []
         new_ipv6_rules = []
-        pattern = 'p {0} add {1} {2} {3} {4} {5} 0 65535 0 65535 0 0 {6}'
+        # pattern = 'p {0} add {1} {2} {3} {4} {5} 0 65535 0 65535 0 0 {6}'
+        pattern = 'p {cmd} add {priority} {src_ip} {src_mask} {dst_ip} {dst_mask} {' \
+                  'src_port_from} {src_port_to} {dst_port_from} {dst_port_to} {protocol} {' \
+                  'protocol_mask} {action_id}'
         for src_intf, dst_intf in self.port_pair_list:
             src_port = self.vnfd_helper.port_num(src_intf)
             dst_port = self.vnfd_helper.port_num(dst_intf)
@@ -676,10 +799,41 @@ class MultiPortConfig(object):
             dst_net, dst_prefix_len = self.get_network_and_prefixlen_from_ip_of_port(dst_intf)
             # ignore entires with empty values
             if all((src_net, src_prefix_len, dst_net, dst_prefix_len)):
-                new_rules.append((cmd, self.txrx_pipeline, src_net, src_prefix_len,
-                                  dst_net, dst_prefix_len, dst_port))
-                new_rules.append((cmd, self.txrx_pipeline, dst_net, dst_prefix_len,
-                                  src_net, src_prefix_len, src_port))
+                # new_rules.append((cmd, self.txrx_pipeline, src_net, src_prefix_len,
+                #                   dst_net, dst_prefix_len, dst_port))
+                new_rules.append({
+                    "cmd": cmd,
+                    "priority": self.arpicmp_pipeline,
+                    "src_ip": src_net,
+                    "src_mask": src_prefix_len,
+                    "dst_ip": dst_net,
+                    "dst_mask": dst_prefix_len,
+                    "src_port_from": 0,
+                    "src_port_to": 65535,
+                    "dst_port_from": 0,
+                    "dst_port_to": 65535,
+                    "protocol": 0,
+                    "protocol_mask": 0,
+                    "action_id": self.port_to_action_map[dst_port],
+                })
+                # swap src and dst
+                # new_rules.append((cmd, self.txrx_pipeline, dst_net, dst_prefix_len,
+                #                   src_net, src_prefix_len, src_port))
+                new_rules.append({
+                    "cmd": cmd,
+                    "priority": self.arpicmp_pipeline,
+                    "src_ip": dst_net,
+                    "src_mask": dst_prefix_len,
+                    "dst_ip": src_net,
+                    "dst_mask": src_prefix_len,
+                    "src_port_from": 0,
+                    "src_port_to": 65535,
+                    "dst_port_from": 0,
+                    "dst_port_to": 65535,
+                    "protocol": 0,
+                    "protocol_mask": 0,
+                    "action_id": self.port_to_action_map[src_port],
+                })
 
             # src_net = self.get_ports_gateway6(port_pair[0])
             # src_prefix_len = self.get_netmask_gateway6(port_pair[0])
@@ -693,9 +847,13 @@ class MultiPortConfig(object):
             #                            src_net, src_prefix_len, src_port))
 
         acl_apply = "\np %s applyruleset" % cmd
-        new_rules_config = '\n'.join(pattern.format(*values) for values
+        # add comment string with syntax
+        doc_string = "# p acl add <priority> <src-ip> <mask> <dst-ip> <mask> <src-port-from> " \
+                     "<src-port-to> <dst-port-from> <dst-port-to> <protocol> <protocol-mask> " \
+                     "<action-id>\n"
+        new_rules_config = '\n'.join(pattern.format(**values) for values
                                      in chain(new_rules, new_ipv6_rules))
-        return ''.join([rules_config, new_rules_config, acl_apply])
+        return ''.join(chain(rules_config, doc_string, new_rules_config, acl_apply))
 
     def generate_script_data(self):
         self._port_pairs = PortPairs(self.vnfd_helper.interfaces)
@@ -705,9 +863,7 @@ class MultiPortConfig(object):
             'link_config': self.generate_link_config(),
             'arp_config': self.generate_arp_config(),
             # disable IPv6 for now
-            # 'arp_config6': self.generate_arp_config6(),
             'arp_config6': "",
-            'arp_config': self.generate_arp_config(),
             'arp_route_tbl': self.generate_arp_route_tbl(),
             'arp_route_tbl6': "",
             'actions': '',

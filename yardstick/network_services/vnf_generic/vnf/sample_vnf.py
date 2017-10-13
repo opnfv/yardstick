@@ -14,6 +14,7 @@
 """ Base class implementation for generic vnf implementation """
 
 from collections import Mapping
+from itertools import chain
 import logging
 from multiprocessing import Queue, Value, Process
 
@@ -33,7 +34,9 @@ from yardstick.common import exceptions as y_exceptions
 from yardstick.common.process import check_if_process_failed
 from yardstick.common import utils
 from yardstick.network_services import constants
+from yardstick.error import IncorrectConfig
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper, DpdkNode
+from yardstick.network_services.helpers.cpu import CpuSysCores
 from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 from yardstick.network_services.nfvi.resource import ResourceProfile
@@ -80,6 +83,10 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
     FIND_NET_CMD = "find /sys/class/net -lname '*{}*' -printf '%f'"
     NR_HUGEPAGES_PATH = '/proc/sys/vm/nr_hugepages'
 
+    HW_DEFAULT_CORE = 3
+    SW_DEFAULT_CORE = 2
+    MINIMUM_NUMBER_OF_CORES = 5
+
     @staticmethod
     def _update_packet_type(ip_pipeline_cfg, traffic_options):
         match_str = 'pkt_type = ipv4'
@@ -110,7 +117,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         super(DpdkVnfSetupEnvHelper, self).__init__(vnfd_helper, ssh_helper, scenario_helper)
         self.all_ports = None
         self.bound_pci = None
-        self.socket = None
+        self._socket = None
         self.used_drivers = None
         self.dpdk_bind_helper = DpdkBindHelper(ssh_helper)
 
@@ -127,15 +134,36 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         LOG.info('Hugepages size (kB): %s, number claimed: %s, number set: %s',
                  hp_size_kb, nr_hugepages, nr_hugepages_set)
 
-    def build_config(self):
-        vnf_cfg = self.scenario_helper.vnf_cfg
-        task_path = self.scenario_helper.task_path
+    def validate_cpu_cfg(self, core_map, vnf_cfg=None):
+        if vnf_cfg is None:
+            vnf_cfg = {
+                'lb_config': 'SW',
+                'lb_count': 1,
+                'worker_config': '1C/1T',
+                'worker_threads': 1
+            }
+        if core_map["thread_per_core"] == 1 and vnf_cfg["worker_config"] == "1C/2T":
+            raise IncorrectConfig("Test for {} only {} threads".format(vnf_cfg["worker_config"],
+                                                                       core_map[
+                                                                           "thread_per_core"]))
 
-        config_file = vnf_cfg.get('file')
-        lb_count = vnf_cfg.get('lb_count', 3)
-        lb_config = vnf_cfg.get('lb_config', 'SW')
-        worker_config = vnf_cfg.get('worker_config', '1C/1T')
-        worker_threads = vnf_cfg.get('worker_threads', 3)
+        if vnf_cfg['lb_config'] == 'SW':
+            num_cpu = int(vnf_cfg["worker_threads"]) + self.MINIMUM_NUMBER_OF_CORES
+            if core_map["cores_per_socket"] < num_cpu:
+                raise IncorrectConfig("Insufficient cores {}".format(num_cpu))
+
+    def build_config(self):
+        cpu_sys_cores = CpuSysCores(self.ssh_helper)
+        core_map = cpu_sys_cores.get_core_socket()
+        self.validate_cpu_cfg(core_map, self.scenario_helper.vnf_cfg)
+        config_tpl_cfg = utils.find_relative_file(self.DEFAULT_CONFIG_TPL_CFG,
+                                                                   self.scenario_helper.task_path)
+        config_basename = posixpath.basename(self.CFG_CONFIG)
+        script_basename = posixpath.basename(self.CFG_SCRIPT)
+        multiport = MultiPortConfig(self.scenario_helper, config_tpl_cfg, config_basename,
+                                    self.vnfd_helper, self.VNF_TYPE, core_map, self.socket)
+
+        multiport.generate_config()
 
         traffic_type = self.scenario_helper.all_options.get('traffic_type', 4)
         traffic_options = {
@@ -144,24 +172,9 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
             'vnf_type': self.VNF_TYPE,
         }
 
-        config_tpl_cfg = utils.find_relative_file(self.DEFAULT_CONFIG_TPL_CFG,
-                                                  task_path)
-        config_basename = posixpath.basename(self.CFG_CONFIG)
-        script_basename = posixpath.basename(self.CFG_SCRIPT)
-        multiport = MultiPortConfig(self.scenario_helper.topology,
-                                    config_tpl_cfg,
-                                    config_basename,
-                                    self.vnfd_helper,
-                                    self.VNF_TYPE,
-                                    lb_count,
-                                    worker_threads,
-                                    worker_config,
-                                    lb_config,
-                                    self.socket)
-
-        multiport.generate_config()
+        config_file = self.scenario_helper.vnf_cfg.get('file')
         if config_file:
-            with utils.open_relative_file(config_file, task_path) as infile:
+            with utils.open_relative_file(config_file, self.scenario_helper.task_path) as infile:
                 new_config = ['[EAL]']
                 vpci = []
                 for port in self.vnfd_helper.port_pairs.all_ports:
@@ -174,6 +187,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
                 new_config = handle.read()
             new_config = self._update_traffic_type(new_config, traffic_options)
             new_config = self._update_packet_type(new_config, traffic_options)
+
         self.ssh_helper.upload_config_file(config_basename, new_config)
         self.ssh_helper.upload_config_file(script_basename,
                                            multiport.generate_script(self.vnfd_helper))
@@ -199,6 +213,39 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
             'port_mask_hex': ports_mask_hex,
             'tool_path': tool_path,
         }
+
+    def _get_app_cpu(self):
+        if self.CORES:
+            return self.CORES
+
+        vnf_cfg = self.scenario_helper.vnf_cfg
+        sys_obj = CpuSysCores(self.ssh_helper)
+        self.sys_cpu = sys_obj.get_core_socket()
+        num_core = int(vnf_cfg["worker_threads"])
+        if vnf_cfg.get("lb_config", "SW") == 'HW':
+            num_core += self.HW_DEFAULT_CORE
+        else:
+            num_core += self.SW_DEFAULT_CORE
+        app_cpu = self.sys_cpu[str(self.socket)][:num_core]
+        return app_cpu
+
+    SIBLING_RE = re.compile(r"^(\d+)\s+([\d,]+)$", re.M)
+
+    def _get_cpu_sibling_list(self, cores=None):
+        if cores is None:
+            cores = self._get_app_cpu()
+        try:
+            topology = utils.ThreadSiblings(self.ssh_helper)
+        except Exception: # pylint: disable=broad-except
+            LOG.exception("")
+            return []
+
+        cpu_topology = list(
+            chain.from_iterable(topology[core] for core in cores if core in topology))
+        return cpu_topology
+
+    def _validate_cpu_cfg(self):
+        return self._get_cpu_sibling_list()
 
     def setup_vnf_environment(self):
         self._setup_dpdk()
@@ -232,13 +279,6 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         return options
 
     def _setup_resources(self):
-        # what is this magic?  how do we know which socket is for which port?
-        # what about quad-socket?
-        if any(v[5] == "0" for v in self.bound_pci):
-            self.socket = 0
-        else:
-            self.socket = 1
-
         # implicit ordering, presumably by DPDK port num, so pre-sort by port_num
         # this won't work because we don't have DPDK port numbers yet
         ports = sorted(self.vnfd_helper.interfaces, key=self.vnfd_helper.port_num)
@@ -258,6 +298,30 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         dpdk_node = DpdkNode(self.scenario_helper.name, self.vnfd_helper.interfaces,
                              self.ssh_helper, timeout)
         dpdk_node.check()
+
+    @property
+    def socket(self):
+        if self._socket is not None:
+            return self._socket
+        # what is this magic?  how do we know which socket is for which port?
+        # what about quad-socket?
+        # only bound devices
+        sockets = (
+            self.vnfd_helper.find_interface(name=port_name)['virtual-interface'].get('socket') for
+            port_name in self.vnfd_helper.port_pairs.all_ports
+        )
+        sockets = set((s for s in sockets if s))
+        if len(sockets) > 1:
+            socket = 0
+            LOG.warning("interfaces on multiple sockets %s, defaulting to socket %s", sockets,
+                        socket)
+        elif len(sockets) == 1:
+            socket = sockets.pop()
+        else:
+            socket = 0
+            LOG.warning("cannot detect socket, defaulting to socket %s", socket)
+        self._socket = socket
+        return self._socket
 
     def _detect_and_bind_drivers(self):
         interfaces = self.vnfd_helper.interfaces
