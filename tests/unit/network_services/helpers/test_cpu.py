@@ -51,8 +51,7 @@ class TestCpuSysCores(unittest.TestCase):
     def test_get_core_socket(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                    mock.Mock(return_value=(1, "cpu:1\ntest:2\n \n", ""))
+            ssh_mock.execute = mock.Mock(return_value=(1, "cpu:1\ntest:2\n \n", ""))
             ssh_mock.put = \
                 mock.Mock(return_value=(1, "", ""))
             cpu_topo = CpuSysCores(ssh_mock)
@@ -60,58 +59,6 @@ class TestCpuSysCores(unittest.TestCase):
             cpu_topo._get_core_details = \
                 mock.Mock(side_effect=[[{'Core(s) per socket': '2', 'Thread(s) per core': '1'}],
                                        [{'physical id': '2', 'processor': '1'}]])
-            self.assertEqual({'thread_per_core': '1', '2': ['1'],
-                              'cores_per_socket': '2'},
+            self.assertEqual({'thread_per_core': 1, '2': ['1'],
+                              'cores_per_socket': 2},
                              cpu_topo.get_core_socket())
-
-    def test_validate_cpu_cfg(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                    mock.Mock(return_value=(1, "cpu:1\ntest:2\n \n", ""))
-            ssh_mock.put = \
-                mock.Mock(return_value=(1, "", ""))
-            cpu_topo = CpuSysCores(ssh_mock)
-            subprocess.check_output = mock.Mock(return_value=0)
-            cpu_topo._get_core_details = \
-                mock.Mock(side_effect=[[{'Core(s) per socket': '2', 'Thread(s) per core': '1'}],
-                                       [{'physical id': '2', 'processor': '1'}]])
-            cpu_topo.core_map = \
-                {'thread_per_core': '1', '2':['1'], 'cores_per_socket': '2'}
-            self.assertEqual(-1, cpu_topo.validate_cpu_cfg())
-
-    def test_validate_cpu_cfg_2t(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                    mock.Mock(return_value=(1, "cpu:1\ntest:2\n \n", ""))
-            ssh_mock.put = \
-                mock.Mock(return_value=(1, "", ""))
-            cpu_topo = CpuSysCores(ssh_mock)
-            subprocess.check_output = mock.Mock(return_value=0)
-            cpu_topo._get_core_details = \
-                mock.Mock(side_effect=[[{'Core(s) per socket': '2', 'Thread(s) per core': '1'}],
-                                       [{'physical id': '2', 'processor': '1'}]])
-            cpu_topo.core_map = \
-                {'thread_per_core': 1, '2':['1'], 'cores_per_socket': '2'}
-            vnf_cfg = {'lb_config': 'SW', 'lb_count': 1, 'worker_config':
-                       '1C/2T', 'worker_threads': 1}
-            self.assertEqual(-1, cpu_topo.validate_cpu_cfg(vnf_cfg))
-
-    def test_validate_cpu_cfg_fail(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                    mock.Mock(return_value=(1, "cpu:1\ntest:2\n \n", ""))
-            ssh_mock.put = \
-                mock.Mock(return_value=(1, "", ""))
-            cpu_topo = CpuSysCores(ssh_mock)
-            subprocess.check_output = mock.Mock(return_value=0)
-            cpu_topo._get_core_details = \
-                mock.Mock(side_effect=[[{'Core(s) per socket': '2', 'Thread(s) per core': '1'}],
-                                       [{'physical id': '2', 'processor': '1'}]])
-            cpu_topo.core_map = \
-                {'thread_per_core': 1, '2':[1], 'cores_per_socket': 2}
-            vnf_cfg = {'lb_config': 'SW', 'lb_count': 1, 'worker_config':
-                       '1C/1T', 'worker_threads': 1}
-            self.assertEqual(-1, cpu_topo.validate_cpu_cfg(vnf_cfg))

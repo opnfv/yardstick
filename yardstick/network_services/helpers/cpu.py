@@ -18,8 +18,8 @@ import io
 
 class CpuSysCores(object):
 
-    def __init__(self, connection=""):
-        self.core_map = {}
+    def __init__(self, connection):
+        self.core_map = None
         self.connection = connection
 
     def _open_cpuinfo(self):
@@ -42,16 +42,20 @@ class CpuSysCores(object):
         return core_details
 
     def get_core_socket(self):
+        # cache value
+        if self.core_map is not None:
+            return self.core_map
         lines = self.connection.execute("lscpu")[1].split(u'\n')
         num_cores = self._get_core_details(lines)
+        self.core_map = {}
         for num in num_cores:
-            self.core_map["cores_per_socket"] = num["Core(s) per socket"]
-            self.core_map["thread_per_core"] = num["Thread(s) per core"]
+            self.core_map["cores_per_socket"] = int(num["Core(s) per socket"])
+            self.core_map["thread_per_core"] = int(num["Thread(s) per core"])
 
         lines = self._open_cpuinfo()
         core_details = self._get_core_details(lines)
         for core in core_details:
-            for k, v in core.items():
+            for k in core:
                 if k == "physical id":
                     if core["physical id"] not in self.core_map:
                         self.core_map[core['physical id']] = []
@@ -59,22 +63,3 @@ class CpuSysCores(object):
                         core["processor"])
 
         return self.core_map
-
-    def validate_cpu_cfg(self, vnf_cfg=None):
-        if vnf_cfg is None:
-            vnf_cfg = {
-                'lb_config': 'SW',
-                'lb_count': 1,
-                'worker_config': '1C/1T',
-                'worker_threads': 1
-            }
-        if self.core_map["thread_per_core"] == 1 and \
-                vnf_cfg["worker_config"] == "1C/2T":
-            return -1
-
-        if vnf_cfg['lb_config'] == 'SW':
-            num_cpu = int(vnf_cfg["worker_threads"]) + 5
-            if int(self.core_map["cores_per_socket"]) < num_cpu:
-                return -1
-
-        return 0

@@ -79,6 +79,7 @@ from scp import SCPClient
 import six
 
 from yardstick.common.utils import try_int, NON_NONE_DEFAULT, make_dict_from_map
+from yardstick.error import SSHError, SSHTimeout
 from yardstick.network_services.utils import provision_tool
 
 
@@ -88,14 +89,6 @@ def convert_key_to_str(key):
     k = io.StringIO()
     key.write_private_key(k)
     return k.getvalue()
-
-
-class SSHError(Exception):
-    pass
-
-
-class SSHTimeout(SSHError):
-    pass
 
 
 class SSH(object):
