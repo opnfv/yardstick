@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_1217edee",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc006.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-10-13T09:05:12Z",
+      "side": 1,
+      "message": "is the quotes necessary? if i run the test case and input the parameters, i think it need \\ to escape",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 151
+      },
+      "revId": "0f52492d747f50e96113c8e1ed26a3b94c3789e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
