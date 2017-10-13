@@ -13,6 +13,7 @@ description: >
     Test case for TC047 :Control node Openstack service down - glance api.
 
 {% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set attack_host = attack_host or "node1" %}
 
 scenarios:
 -
@@ -21,7 +22,7 @@ scenarios:
     attackers:
     - fault_type: "kill-process"
       process_name: "glance-api"
-      host: node1
+      host: {{attack_host}}
 
     monitors:
     - monitor_type: "openstack-cmd"
@@ -32,14 +33,14 @@ scenarios:
         max_outage_time: 5
     - monitor_type: "process"
       process_name: "glance-api"
-      host: node1
+      host: {{attack_host}}
       monitor_time: 30
       monitor_number: 3
       sla:
         max_recover_time: 30
 
   nodes:
-    node1: node1.LF
+    {{attack_host}}: {{attack_host}}.LF
 
   runner:
     type: Duration

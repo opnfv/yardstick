@@ -13,6 +13,7 @@ description: >
     Sample test case for the HA of controller node Openstack service.
 
 {% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set attack_host = attack_host or "{{attack_host}}" %}
 
 scenarios:
 -
@@ -21,7 +22,7 @@ scenarios:
     attackers:
     - fault_type: "kill-process"
       process_name: "nova-api"
-      host: node1
+      host: {{attack_host}}
 
     wait_time: 10
     monitors:
@@ -33,14 +34,14 @@ scenarios:
         max_outage_time: 5
     - monitor_type: "process"
       process_name: "nova-api"
-      host: node1
+      host: {{attack_host}}
       monitor_time: 30
       monitor_number: 3
       sla:
         max_recover_time: 30
 
   nodes:
-    node1: node1.LF
+    {{attack_host}}: {{attack_host}}.LF
 
   runner:
     type: Iteration
