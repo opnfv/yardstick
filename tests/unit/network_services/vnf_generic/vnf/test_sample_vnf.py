@@ -492,6 +492,40 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
             ]
         }
     }
+    THREAD_SIBLINGS_LIST = r"""\
+0 0,16
+10 10,26
+11 11,27
+12 12,28
+13 13,29
+14 14,30
+15 15,31
+16 0,16
+17 1,17
+18 2,18
+19 3,19
+1 1,17
+20 4,20
+21 5,21
+22 6,22
+23 7,23
+24 8,24
+25 9,25
+26 10,26
+27 11,27
+28 12,28
+29 13,29
+2 2,18
+30 14,30
+31 15,31
+3 3,19
+4 4,20
+5 5,21
+6 6,22
+7 7,23
+8 8,24
+9 9,25
+"""
 
     def test__update_packet_type(self):
         ip_pipeline_cfg = 'pkt_type = ipv4'
@@ -578,10 +612,13 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
             self.assertTrue(arg0.startswith(expect_start))
             self.assertIn(expect_in, arg0)
 
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.CpuSysCores')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.find_relative_file')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig')
-    def test_build_config(self, mock_multi_port_config_class, mock_find, _):
+    def test_build_config(self, mock_multi_port_config_class, mock_find, _, mock_cores):
+        mock_cores.get_core_socket.return_value = {'thread_per_core': '1', '2': ['1'],
+                                                   'cores_per_socket': '2'}
         mock_multi_port_config = mock_multi_port_config_class()
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
@@ -678,31 +715,31 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
     def test__get_cpu_sibling_list(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
-        ssh_helper.execute.side_effect = iter([(0, '5', ''), (0, '3,4', ''), (0, '10', '')])
+        ssh_helper.execute.side_effect = iter([(0, self.THREAD_SIBLINGS_LIST, '')])
         scenario_helper = mock.Mock()
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         dpdk_setup_helper._get_app_cpu = mock.Mock(return_value=[])
 
-        expected = ['5', '3', '4', '10']
+        expected = ['1', '17', '3', '19', '7', '23']
         result = dpdk_setup_helper._get_cpu_sibling_list([1, 3, 7])
         self.assertEqual(result, expected)
 
     def test__get_cpu_sibling_list_no_core_arg(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
-        ssh_helper.execute.side_effect = iter([(0, '5', ''), (0, '3,4', ''), (0, '10', '')])
+        ssh_helper.execute.side_effect = iter([(0, self.THREAD_SIBLINGS_LIST, '')])
         scenario_helper = mock.Mock()
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         dpdk_setup_helper._get_app_cpu = mock.Mock(return_value=[1, 7])
 
-        expected = ['5', '3', '4']
+        expected = ['1', '17', '7', '23']
         result = dpdk_setup_helper._get_cpu_sibling_list()
         self.assertEqual(result, expected)
 
     def test__get_cpu_sibling_list_ssh_failure(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
-        ssh_helper.execute.side_effect = iter([(0, '5', ''), SSHError, (0, '10', '')])
+        ssh_helper.execute.side_effect = iter([SSHError])
         scenario_helper = mock.Mock()
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         dpdk_setup_helper._get_app_cpu = mock.Mock(return_value=[])
@@ -714,12 +751,12 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
     def test__validate_cpu_cfg(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
-        ssh_helper.execute.side_effect = iter([(0, '5', ''), (0, '3,4', ''), (0, '10', '')])
+        ssh_helper.execute.side_effect = iter([(0, self.THREAD_SIBLINGS_LIST, '')])
         scenario_helper = mock.Mock()
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         dpdk_setup_helper._get_app_cpu = mock.Mock(return_value=[1, 3, 7])
 
-        expected = ['5', '3', '4', '10']
+        expected = ['1', '17', '3', '19', '7', '23']
         result = dpdk_setup_helper._validate_cpu_cfg()
         self.assertEqual(result, expected)
 

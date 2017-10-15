@@ -20,6 +20,7 @@ from __future__ import print_function
 
 import datetime
 import errno
+import io
 import logging
 import os
 import subprocess
@@ -30,6 +31,7 @@ import random
 import ipaddress
 from contextlib import closing
 
+import re
 import six
 from flask import jsonify
 from six.moves import configparser
@@ -332,6 +334,12 @@ class SocketTopology(dict):
 
         return cls(socket_map)
 
+    @classmethod
+    def probe(cls, ssh_helper):
+        stdout = io.BytesIO()
+        ssh_helper.get_file_obj("/proc/cpuinfo", stdout)
+        cls.parse_cpuinfo(stdout.getvalue().decode('utf-8'))
+
     def sockets(self):
         return sorted(self.keys())
 
@@ -342,6 +350,18 @@ class SocketTopology(dict):
         return sorted(
             proc for cores in self.values() for procs in cores.values() for
             proc in procs)
+
+
+class ThreadSiblings(dict):
+    SIBLING_RE = re.compile(r"^(\d+)\s+([\d,]+)$", re.M)
+
+    @classmethod
+    def _get_cpu_sibling_list(cls, conn):
+        cmd = r"""awk -F: '{match(FILENAME, "/cpu([0-9]+)/", res); printf("%s %s\n", res[1], \
+        $1)}'  /sys/devices/system/cpu/cpu*/topology/thread_siblings_list"""
+        output = conn.execute(cmd)[1]
+        return cls(
+            (int(m.group(1)), m.group(2).split(',')) for m in cls.SIBLING_RE.finditer(output))
 
 
 def config_to_dict(config):
