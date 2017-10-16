@@ -91,10 +91,12 @@ class ModelLibvirtTestCase(unittest.TestCase):
         image = Libvirt.create_snapshot_qemu(ssh_mock, "0", "ubuntu.img")
         self.assertEqual(image, result)
 
+    @mock.patch("yardstick.benchmark.contexts.standalone.model.Libvirt.pin_vcpu_for_perf")
     @mock.patch("yardstick.benchmark.contexts.standalone.model.Libvirt.create_snapshot_qemu")
     @mock.patch('yardstick.benchmark.contexts.standalone.model.open')
     @mock.patch('yardstick.benchmark.contexts.standalone.model.write_file')
-    def test_build_vm_xml(self, mock_open, mock_write_file, mock_create_snapshot_qemu):
+    def test_build_vm_xml(self, mock_open, mock_write_file, mock_create_snapshot_qemu,
+                          mock_pin_vcpu_for_perf):
         result = [4]
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -102,16 +104,9 @@ class ModelLibvirtTestCase(unittest.TestCase):
                 mock.Mock(return_value=(0, "a", ""))
             ssh.return_value = ssh_mock
         mock_create_snapshot_qemu.return_value = "0.img"
+
         status = Libvirt.build_vm_xml(ssh_mock, {}, "test", "vm_0", 0)
         self.assertEqual(status[0], result[0])
-
-    def test_split_cpu_list(self):
-        result = Libvirt.split_cpu_list("1,2,3")
-        self.assertEqual(result, [1, 2, 3])
-
-    def test_get_numa_nodes(self):
-        result = Libvirt.get_numa_nodes()
-        self.assertIsNotNone(result)
 
     def test_update_interrupts_hugepages_perf(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -122,17 +117,16 @@ class ModelLibvirtTestCase(unittest.TestCase):
         status = Libvirt.update_interrupts_hugepages_perf(ssh_mock)
         self.assertIsNone(status)
 
-    @mock.patch("yardstick.benchmark.contexts.standalone.model.Libvirt.get_numa_nodes")
+    @mock.patch("yardstick.benchmark.contexts.standalone.model.CpuSysCores")
     @mock.patch("yardstick.benchmark.contexts.standalone.model.Libvirt.update_interrupts_hugepages_perf")
-    def test_pin_vcpu_for_perf(self, mock_update_interrupts_hugepages_perf, mock_get_numa_nodes):
+    def test_pin_vcpu_for_perf(self, mock_update_interrupts_hugepages_perf, mock_CpuSysCores):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "a", ""))
             ssh.return_value = ssh_mock
-        mock_get_numa_nodes.return_value = {'1': [18, 19, 20, 21], '0': [0, 1, 2, 3]}
         status = Libvirt.pin_vcpu_for_perf(ssh_mock, "vm_0", 4)
-        self.assertIsNone(status)
+        self.assertIsNotNone(status)
 
 class StandaloneContextHelperTestCase(unittest.TestCase):
 
