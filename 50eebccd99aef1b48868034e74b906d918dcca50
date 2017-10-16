@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_17d19afb",
+        "filename": "ansible/standalone_ovs_scale_out_test.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-16T08:01:33Z",
+      "side": 1,
+      "message": "just ~  for None\nor you can use null\n\n  key_filename: ~\n  key_filename: null",
+      "revId": "50eebccd99aef1b48868034e74b906d918dcca50",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
