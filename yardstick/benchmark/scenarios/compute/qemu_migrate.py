@@ -8,7 +8,6 @@ import time
 
 
 import pkg_resources
-from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
@@ -112,8 +111,6 @@ class QemuMigrate(base.Scenario):
         status, stdout, stderr = self.host.execute(cmd)
         if status:
             raise RuntimeError(stderr)
-
-        result.update(jsonutils.loads(stdout))
 
         if "sla" in self.scenario_cfg:
             sla_error = ""
