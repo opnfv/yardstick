@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_37d81e1d",
+        "filename": "yardstick/benchmark/scenarios/storage/fio.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-16T08:08:22Z",
+      "side": 1,
+      "message": "shoudn\u0027t we use pkg_resources.resource_filename here?\n\notherwise this assume current directory is where yardstick/resources is.",
+      "revId": "3dd09effb014e6ef43f6c7d137a4be00c5210d88",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_97048a7f",
+        "filename": "yardstick/benchmark/scenarios/storage/fio.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-16T08:08:22Z",
+      "side": 1,
+      "message": "we are duplicating filename.\n\nshould these lines go before the write, and we can re-use self.job_file_script?",
+      "revId": "3dd09effb014e6ef43f6c7d137a4be00c5210d88",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
