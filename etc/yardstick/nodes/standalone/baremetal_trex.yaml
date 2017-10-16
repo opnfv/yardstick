@@ -21,17 +21,17 @@ nodes:
     password: {{gen.password}}
     key_filename: {{gen.key_filename}}
     interfaces:
-{% for num in range(item.num_vnfs|int) %}
+{% for num in range(num_vnfs|int) %}
        xe{{num * 2}}:  # logical name from topology.yaml and vnfd.yaml
-           vpci:      "{{gen.pcis.private[num]}}"
+           vpci:      "{{gen.pcis.uplink[num]}}"
            dpdk_port_num: {{num * 2}}
-           local_ip: "{{gen.ip.private[num] | ipaddr('address')}}"
-           netmask: "{{gen.ip.private[num] | ipaddr('netmask')}}"
-           local_mac:   "{{gen.mac.private[num]}}"
+           local_ip: "{{gen.ip.uplink[num] | ipaddr('address')}}"
+           netmask: "{{gen.ip.uplink[num] | ipaddr('netmask')}}"
+           local_mac:   "{{gen.mac.uplink[num]}}"
        xe{{(num * 2) + 1}}:  # logical name from topology.yaml and vnfd.yaml
-           vpci:      "{{gen.pcis.public[num]}}"
+           vpci:      "{{gen.pcis.downlink[num]}}"
            dpdk_port_num: {{(num * 2) + 1}}
-           local_ip: "{{gen.ip.public[num] | ipaddr('address') }}"
-           netmask: "{{gen.ip.private[num] | ipaddr('netmask')}}"
-           local_mac:   "{{gen.mac.public[num]}}"
+           local_ip: "{{gen.ip.downlink[num] | ipaddr('address') }}"
+           netmask: "{{gen.ip.uplink[num] | ipaddr('netmask')}}"
+           local_mac:   "{{gen.mac.downlink[num]}}"
 {% endfor %}

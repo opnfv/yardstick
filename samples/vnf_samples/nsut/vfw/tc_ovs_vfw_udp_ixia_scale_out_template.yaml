@@ -45,6 +45,7 @@ scenarios:
         rules: acl_1rule.yaml
         vnf_config: {lb_config: '{{flow.vnf_config.lb_config}}', lb_count: {{flow.vnf_config.lb_count}} , worker_config: '{{flow.vnf_config.worker_config}}', worker_threads: {{flow.vnf_config.worker_threads}}}
 {% endfor %}
+    ixia_profile: ../../traffic_profiles/ixia/ixia_ipv4_profile_{{num_vnfs * 2}}_port.ixncfg
     runner:
       type: Iteration
       iterations: 10
