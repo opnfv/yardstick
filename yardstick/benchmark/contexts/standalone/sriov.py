@@ -236,8 +236,6 @@ class SriovContext(Context):
             LOG.info("virsh create ...")
             Libvirt.virsh_create_vm(self.connection, cfg)
 
-            #    5: Tunning for better performace
-            Libvirt.pin_vcpu_for_perf(self.connection, vm_name, vcpu)
             self.vm_names.append(vm_name)
 
             # build vnf node details
