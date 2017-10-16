@@ -16,6 +16,24 @@
       "revId": "9e286baffe61a864975549be092be0d6ac405328",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c0e76ae3",
+        "filename": "yardstick/ssh.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T22:55:00Z",
+      "side": 1,
+      "message": "ok, i\u0027ll see about getting this in somewhere\n\nwhat is group_get?",
+      "parentUuid": "9a3d3df0_80ba82df",
+      "revId": "9e286baffe61a864975549be092be0d6ac405328",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
