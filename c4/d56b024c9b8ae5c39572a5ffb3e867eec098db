@@ -1,0 +1,7 @@
+Code-Review+2: Jing Lu <lvjing5@huawei.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Submitted-by: Jing Lu <lvjing5@huawei.com>
+Submitted-at: Mon, 16 Oct 2017 04:52:43 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/45177
+Project: yardstick
+Branch: refs/heads/stable/euphrates
