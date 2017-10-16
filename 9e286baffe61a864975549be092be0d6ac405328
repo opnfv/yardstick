@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_80ba82df",
+        "filename": "yardstick/ssh.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-16T22:16:10Z",
+      "side": 1,
+      "message": "some old code to parse ip addr\n\n IP_ADDR_RE \u003d re.compile(r\"\\d+: (?P\u003cname\u003e\\S+):(?P\u003cheader\u003e[^\\n]+)\\n(?P\u003ccontent\u003e(?:\\D[^\\n]+\\n)+)\")\n # dashes allowed, e.g. master ovs-system\n HEADER_RE \u003d re.compile(r\u0027(?\u003c\u003dmtu\\s)(?P\u003cmtu\u003e\\d*)(\\s[\\w-]*)*(?\u003c\u003dstate\\s)(?P\u003cadminMode\u003e[\\w-]*)\u0027)\n LINK_RE \u003d re.compile(r\u0027(?\u003c\u003dlink/ether\\s)([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})\u0027)\n IP_RE \u003d re.compile(r\u0027(?\u003c\u003dinet\\s)(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}/\\d{1,2})\u0027)\n\n\ndef parse_ip_addr(output):\n    \"\"\"\n    @brief  Returns list of dictionary of port properties.\n    @param  ports_table:  port information\n    @type  ports_table:  list[str]\n    @rtype:  dict\n    @return:  port properties\n    \"\"\"\n    # Compile regular experession for validating output\n\n    interfaces \u003d {}\n    for match in IP_ADDR_RE.finditer(output):\n        _row \u003d {}\n        name, header, content \u003d match.group(\u0027name\u0027, \u0027header\u0027, \u0027content\u0027)\n        _row[\u0027name\u0027] \u003d name\n        header_prop \u003d HEADER_RE.search(header)\n        _row[\u0027mtu\u0027] \u003d int(header_prop.group(\u0027mtu\u0027))\n        # state may be absent for some reason\n        _row[\u0027adminMode\u0027] \u003d group_get(header_prop, \u0027adminMode\u0027, default\u003d\u0027Down\u0027).title()\n        row_prop \u003d LINK_RE.search(content)\n        _row[\u0027macAddress\u0027] \u003d group_get(row_prop, 0, default\u003d\u0027Unknown\u0027)\n        _row[\u0027ip_addr_and_prefix\u0027] \u003d IP_RE.findall(content)\n        interfaces[name] \u003d _row\n    return interfaces",
+      "revId": "9e286baffe61a864975549be092be0d6ac405328",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
