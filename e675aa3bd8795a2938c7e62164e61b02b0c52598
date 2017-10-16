@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_e5c60049",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T17:20:00Z",
+      "side": 1,
+      "message": "why not convert to int when we get it on line 223?",
+      "range": {
+        "startLine": 224,
+        "startChar": 63,
+        "endLine": 224,
+        "endChar": 75
+      },
+      "revId": "e675aa3bd8795a2938c7e62164e61b02b0c52598",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
