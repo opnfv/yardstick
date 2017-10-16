@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_0525e4c1",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T20:59:44Z",
+      "side": 1,
+      "message": "trailing white space\n\nalso, if you want to disable code, it is advisable to use a conditional that is always true:\n\n TEMP_DISABLE \u003d True\n\n def _setup_dpdk(self):\n   if self.TEMP_DISABLE:\n     return\n   \u003cdisabled code\u003e\n\nif this is a permanent disable of code, then please delete it.\n\nbetter yet, subclass and override the method.",
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c512dc61",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T20:59:44Z",
+      "side": 1,
+      "message": "we\u0027re going to get a NameError here when \u0027flow\u0027 is not in scenario_cfg[\u0027options\u0027] since scr_ips won\u0027t be defined\n\nwhat is the behavior meant to be when \u0027flow\u0027 is not in the scenario config?",
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e508c02f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T20:59:44Z",
+      "side": 1,
+      "message": "why so many names for these values?\n\ni don\u0027t think we need the \"a\" and \"b\" names.",
+      "range": {
+        "startLine": 640,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 18
+      },
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c0200a9e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T20:59:44Z",
+      "side": 1,
+      "message": "IPRange will handle singleton ranges just fine:\n\n range1 \u003d IPRange(range1[0], range1[-1])\n\nwill work as desired if range1 is a list with one value\n\nor, using iterators:\n\n range1 \u003d itertools.cycle(iter(src_ips[0].split(\u0027-\u0027)))\n range2 \u003d itertools.cycle(iter(dst_ips[0].split(\u0027-\u0027)))\n range1 \u003d IPRange(next(range1), next(range1))\n range2 \u003d IPRange(next(range2), next(range2))\n for addr in range1:\n   self.ssh_helper.execute(ip_cmd % (addr, \u0027dp0s10\u0027))\n for addr in range2:\n   self.ssh_helper.execute(ip_cmd % (addr, \u0027dp0s11\u0027))\n ...",
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_60049e15",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T20:59:44Z",
+      "side": 1,
+      "message": "this should be:\n\n range1 \u003d IPRange(range1[0], range1[1])\n\nwhere is IPRange defined?",
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_201a966e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T20:59:44Z",
+      "side": 1,
+      "message": "IPRange is iterable, why do we need to convert them to lists?",
+      "range": {
+        "startLine": 649,
+        "startChar": 0,
+        "endLine": 650,
+        "endChar": 29
+      },
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a02506ad",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T20:59:44Z",
+      "side": 1,
+      "message": "if you aren\u0027t going to use the return value, then don\u0027t capture/name it.\n\ni would suggest defining the template string outside of the loop and making it usable by both loops:\n\n ip_cmd \u003d \u0027/sbin/ip neigh add %s lladdr 90:e2:ba:bf:8a:10 dev %s nud perm\u0027\n for addr in range1:\n   self.ssh_helper.execute(ip_cmd % (addr, \u0027dp0s10\u0027))\n for addr in range1:\n   self.ssh_helper.execute(ip_cmd % (addr, \u0027dp0s11\u0027))",
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_602bfe82",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T20:59:44Z",
+      "side": 1,
+      "message": "please use modulo:\n\n LOG.debug(\u0027arp %s\u0027, arp2_status)",
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_802602b9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T20:59:44Z",
+      "side": 1,
+      "message": "if we aren\u0027t returning anything, not even None, then we don\u0027t need to include this statement.",
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
