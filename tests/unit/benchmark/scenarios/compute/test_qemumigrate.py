@@ -16,7 +16,6 @@ from __future__ import absolute_import
 import unittest
 
 import mock
-from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.compute import qemu_migrate
 
@@ -84,7 +83,7 @@ class QemuMigrateTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         q.run(result)
-        expected_result = jsonutils.loads(sample_output)
+        expected_result = {}
         self.assertEqual(result, expected_result)
 
     def test_qemu_migrate_successful_sla(self, mock_ssh):
@@ -104,7 +103,7 @@ class QemuMigrateTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         q.run(result)
-        expected_result = jsonutils.loads(sample_output)
+        expected_result = {}
         self.assertEqual(result, expected_result)
 
     def test_qemu_migrate_unsuccessful_sla_totaltime(self, mock_ssh):
@@ -118,7 +117,8 @@ class QemuMigrateTestCase(unittest.TestCase):
         sample_output = '{"totaltime": 15, "downtime": 2, "setuptime": 1}'
 
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, q.run, result)
+        with self.assertRaises(AssertionError):
+          q.run(result)
 
     def test_qemu_migrate_unsuccessful_sla_downtime(self, mock_ssh):
 
@@ -131,7 +131,8 @@ class QemuMigrateTestCase(unittest.TestCase):
         sample_output = '{"totaltime": 15, "downtime": 2, "setuptime": 1}'
 
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, q.run, result)
+        with self.assertRaises(AssertionError):
+          q.run(result)
 
     def test_qemu_migrate_unsuccessful_sla_setuptime(self, mock_ssh):
 
@@ -142,9 +143,10 @@ class QemuMigrateTestCase(unittest.TestCase):
         q.setup()
 
         sample_output = '{"totaltime": 15, "downtime": 2, "setuptime": 1}'
-   
+
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, q.run, result)
+        with self.assertRaises(AssertionError):
+          q.run(result)
 
     def test_qemu_migrate_unsuccessful_script_error(self, mock_ssh):
 
@@ -154,9 +156,10 @@ class QemuMigrateTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         q.setup()
 
-
         mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
-        self.assertRaises(RuntimeError, q.run, result)
+        with self.assertRaises(AssertionError) as raised:
+          q.run(result)
+        self.assertIn('test_qemu_migrate_unsuccessful_script_error', str(raised.exception))
 
 
 def main():
