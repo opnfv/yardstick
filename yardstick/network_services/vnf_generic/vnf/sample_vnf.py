@@ -323,7 +323,6 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         else:
             self.socket = 1
 
-        cores = self._validate_cpu_cfg()
         # implicit ordering, presumably by DPDK port num, so pre-sort by port_num
         # this won't work because we don't have DPDK port numbers yet
         ports = sorted(self.vnfd_helper.interfaces, key=self.vnfd_helper.port_num)
@@ -331,7 +330,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         collectd_options = self.get_collectd_options()
         plugins = collectd_options.get("plugins", {})
         # we must set timeout to be the same as the VNF otherwise KPIs will die before VNF
-        return ResourceProfile(self.vnfd_helper.mgmt_interface, port_names=port_names, cores=cores,
+        return ResourceProfile(self.vnfd_helper.mgmt_interface, port_names=port_names,
                                plugins=plugins, interval=collectd_options.get("interval"),
                                timeout=self.scenario_helper.timeout)
 

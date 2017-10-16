@@ -99,7 +99,7 @@ class TestResourceProfile(unittest.TestCase):
             port_names = \
                 self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]['vdu'][0]['external-interface']
             self.resource_profile = \
-                ResourceProfile(mgmt, port_names, [1, 2, 3])
+                ResourceProfile(mgmt, port_names)
             self.resource_profile.connection = self.ssh_mock
 
     def test___init__(self):

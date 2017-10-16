@@ -55,8 +55,7 @@ class ResourceProfile(object):
     DEFAULT_TIMEOUT = 3600
     OVS_SOCKET_PATH = "/usr/local/var/run/openvswitch/db.sock"
 
-    def __init__(self, mgmt, port_names=None, cores=None, plugins=None,
-                 interval=None, timeout=None):
+    def __init__(self, mgmt, port_names=None, plugins=None, interval=None, timeout=None):
 
         if plugins is None:
             self.plugins = {}
@@ -91,7 +90,6 @@ class ResourceProfile(object):
         plugins = collectd_options.get("plugins", {})
         interval = collectd_options.get("interval")
 
-        # use default cores = None to MatchAllCores
         return cls(node, plugins=plugins, interval=interval, timeout=timeout)
 
     def check_if_sa_running(self, process):
