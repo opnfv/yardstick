@@ -113,7 +113,7 @@ class QemuMigrate(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
-        result.update(jsonutils.loads(stdout))
+        #result.update(jsonutils.loads(stdout))
 
         if "sla" in self.scenario_cfg:
             sla_error = ""
