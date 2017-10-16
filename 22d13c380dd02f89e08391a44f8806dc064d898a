@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_a587d80e",
+        "filename": "yardstick/benchmark/scenarios/lib/check_connectivity.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T17:00:05Z",
+      "side": 1,
+      "message": "i thought having an \u0027sla\u0027 value was optional and we wanted to suppress the key error when it is missing.\n\n try:\n   conn_status \u003d self.scenario_cfg[\u0027sla\u0027][\u0027status\u0027]\n except KeyError:\n   # update result?\n   return",
+      "revId": "22d13c380dd02f89e08391a44f8806dc064d898a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_459fec5f",
+        "filename": "yardstick/benchmark/scenarios/lib/check_connectivity.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T17:00:05Z",
+      "side": 1,
+      "message": "this message and the one for the assert on line 95 seem irrelevant, the way we are catching the assertion error means the error message is never seen.\n\nthis whole try-except for assertions is not good, this whole try-except block could be better done as:\n\n if status and not conn_status:\n   LOG.info(...)\n   result[\u0027Check_Connectivity\u0027] \u003d \u0027FAIL\u0027\n elif not status and conn_status:\n   result[\u0027Check_Connectivity\u0027] \u003d \u0027FAIL\u0027\n else:\n   result[\u0027Check_Connectivity\u0027] \u003d \u0027PASS\u0027\n\nif we are willing to log the stderr on all failures, then we could do:\n\n if bool(status) !\u003d bool(conn_status):\n   LOG.info(...)\n   result[\u0027Check_Connectivity\u0027] \u003d \u0027FAIL\u0027\n else:\n   result[\u0027Check_Connectivity\u0027] \u003d \u0027PASS\u0027",
+      "range": {
+        "startLine": 98,
+        "startChar": 36,
+        "endLine": 98,
+        "endChar": 91
+      },
+      "revId": "22d13c380dd02f89e08391a44f8806dc064d898a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
