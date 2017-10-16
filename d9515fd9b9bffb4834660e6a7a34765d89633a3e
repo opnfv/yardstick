@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_e0926e9e",
+        "filename": "yardstick/ssh.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-16T21:42:41Z",
+      "side": 1,
+      "message": "*sigh*, ifconfig is deprecated.  we really should fix this at some point. I have code somewhere.",
+      "revId": "d9515fd9b9bffb4834660e6a7a34765d89633a3e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
