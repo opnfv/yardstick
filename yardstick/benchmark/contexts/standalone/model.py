@@ -16,11 +16,9 @@ from __future__ import absolute_import
 import os
 import re
 import time
-import glob
 import uuid
 import random
 import logging
-import itertools
 import errno
 
 from netaddr import IPNetwork
@@ -30,6 +28,7 @@ from yardstick import ssh
 from yardstick.common.constants import YARDSTICK_ROOT_PATH
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.utils import PciAddress
+from yardstick.network_services.helpers.cpu import CpuSysCores
 from yardstick.common.utils import write_file
 
 LOG = logging.getLogger(__name__)
@@ -43,7 +42,7 @@ VM_TEMPLATE = """
   <memoryBacking>
     <hugepages />
   </memoryBacking>
-  <vcpu placement="static">{vcpu}</vcpu>
+  <vcpu cpuset='{cpuset}'>{vcpu}</vcpu>
   <os>
     <type arch="x86_64" machine="pc-i440fx-utopic">hvm</type>
     <boot dev="hd" />
@@ -192,6 +191,8 @@ class Libvirt(object):
         threads = extra_spec.get('hw:cpu_threads', '2')
         vcpu = int(cpu) * int(threads)
         numa_cpus = '0-%s' % (vcpu - 1)
+        hw_socket = flavor.get('hw_socket', '0')
+        cpuset = Libvirt.pin_vcpu_for_perf(connection, vm_name, vcpu, hw_socket)
 
         mac = StandaloneContextHelper.get_mac_address(0x00)
         image = cls.create_snapshot_qemu(connection, index,
@@ -203,36 +204,11 @@ class Libvirt(object):
             memory=memory, vcpu=vcpu, cpu=cpu,
             numa_cpus=numa_cpus,
             socket=socket, threads=threads,
-            vm_image=image)
+            vm_image=image, cpuset=cpuset)
 
         write_file(cfg, vm_xml)
 
         return [vcpu, mac]
-
-    @staticmethod
-    def split_cpu_list(cpu_list):
-        if not cpu_list:
-            return []
-
-        ranges = cpu_list.split(',')
-        bounds = ([int(b) for b in r.split('-')] for r in ranges)
-        range_objects = \
-            (range(bound[0], bound[1] + 1 if len(bound) == 2
-             else bound[0] + 1) for bound in bounds)
-
-        return sorted(itertools.chain.from_iterable(range_objects))
-
-    @classmethod
-    def get_numa_nodes(cls):
-        nodes_sysfs = glob.iglob("/sys/devices/system/node/node*")
-        nodes = {}
-        for node_sysfs in nodes_sysfs:
-            num = os.path.basename(node_sysfs).replace("node", "")
-            with open(os.path.join(node_sysfs, "cpulist")) as cpulist_file:
-                cpulist = cpulist_file.read().strip()
-            nodes[num] = cls.split_cpu_list(cpulist)
-        LOG.info("nodes: {0}".format(nodes))
-        return nodes
 
     @staticmethod
     def update_interrupts_hugepages_perf(connection):
@@ -240,14 +216,16 @@ class Libvirt(object):
         connection.execute("echo never > /sys/kernel/mm/transparent_hugepage/enabled")
 
     @classmethod
-    def pin_vcpu_for_perf(cls, connection, vm_name, cpu):
-        nodes = cls.get_numa_nodes()
-        num_nodes = len(nodes)
-        vcpi_pin_template = "virsh vcpupin {0} {1} {2}"
-        for i in range(0, int(cpu)):
-            core = nodes[str(num_nodes - 1)][i % len(nodes[str(num_nodes - 1)])]
-            connection.execute(vcpi_pin_template.format(vm_name, i, core))
-        cls.update_interrupts_hugepages_perf(connection)
+    def pin_vcpu_for_perf(cls, connection, vm_name, cpu, socket="0"):
+        threads = ""
+        sys_obj = CpuSysCores(connection)
+        soc_cpu = sys_obj.get_core_socket()
+        sys_cpu = int(soc_cpu["cores_per_socket"])
+        cores = "%s-%s" % (soc_cpu[socket][0], soc_cpu[socket][sys_cpu - 1])
+        if int(soc_cpu["thread_per_core"]):
+            threads = "%s-%s" % (soc_cpu[socket][sys_cpu], soc_cpu[socket][-1])
+        cpuset = "%s,%s" % (cores, threads)
+        return cpuset
 
 
 class StandaloneContextHelper(object):
