@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_a5b518cf",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T17:13:03Z",
+      "side": 1,
+      "message": "this needs to be removed or commented out since the single use is being commented out",
+      "revId": "5d8b35612659fa5215873bba2452e20ef1d7a58e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c5b01ce0",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-16T17:13:03Z",
+      "side": 1,
+      "message": "you need a space between the # and the comment.",
+      "revId": "5d8b35612659fa5215873bba2452e20ef1d7a58e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
