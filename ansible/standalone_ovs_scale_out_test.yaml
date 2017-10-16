@@ -51,9 +51,9 @@
 
     # Environment variables
     gen:
-      user: root
+      user: ""
       password: ""
-      key_filename: /root/.ssh/id_rsa
+      key_filename: "~"
       pcis:
         uplink:
           - "0000:05:00.0"
@@ -80,9 +80,9 @@
 
     host:
       ip: "192.168.100.101/24"
-      user: root
+      user: ""
       password: ""
-      key_filename: /root/.ssh/id_rsa
+      key_filename: "~"
 
     vnf:
       pcis:
