@@ -14,6 +14,7 @@ description: >
     Measure CPU performance using SPEC CPU2006;
 
 {% set file = file or "/etc/yardstick/pod.yaml" %}
+{% set host = host or 'node1' %}
 
 scenarios:
 -
@@ -26,7 +27,7 @@ scenarios:
       runspec_size: ref
       runspec_rate: 1
 
-  host: node1.yardstick-TC078
+  host: {{host}}.yardstick-TC078
 
   runner:
     type: Iteration
