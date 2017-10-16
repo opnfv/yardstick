@@ -196,6 +196,8 @@ class SriovContext(Context):
         LOG.info("Ports %s" % self.networks)
 
     def _enable_interfaces(self, index, idx, vfs, cfg):
+        vf_spoofchk = "ip link set {0} vf 0 spoofchk off"
+
         vf = self.networks[vfs[0]]
         vpci = PciAddress.parse_address(vf['vpci'].strip(), multi_line=True)
         # Generate the vpci for the interfaces
@@ -205,6 +207,7 @@ class SriovContext(Context):
         Libvirt.add_sriov_interfaces(
             vf['vpci'], vf['vf_pci']['vf_pci'], vf['mac'], str(cfg))
         self.connection.execute("ifconfig %s up" % vf['interface'])
+        self.connection.execute(vf_spoofchk.format(interface))
 
     def setup_sriov_context(self):
         nodes = []
