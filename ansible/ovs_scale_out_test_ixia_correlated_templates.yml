@@ -21,7 +21,7 @@
 
 
 - template:
-    src: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-ixia-scale-out.yaml
+    src: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-ixia-correlated-scale-out.yaml
     dest: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-ixia-{{ num_vnfs }}.yaml
 
 - template:
@@ -47,10 +47,6 @@
 - template:
      src: ../samples/vnf_samples/nsut/acl/acl-tg-topology-ixia-correlated-scale-out.yaml
      dest: ../samples/vnf_samples/nsut/acl/acl-tg-topology-ixia-correlated-scale-out-{{ num_vnfs }}.yaml
-
-- template:
-    src: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-cgnapt-ixia-scale-out.yaml
-    dest: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-cgnapt-{{ num_vnfs }}.yaml
 
 - template:
     src: ../samples/vnf_samples/nsut/cgnapt/tc_ovs_cgnapt_udp_ixia_correlated_scale_out_template.yaml

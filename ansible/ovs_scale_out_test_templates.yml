@@ -25,7 +25,7 @@
 
 - template:
     src: ../etc/yardstick/nodes/standalone/baremetal_trex.yaml
-    dest: /etc/yardstick/nodes/baremetal_trex_{{num_vnfs}}.yaml
+    dest: /etc/yardstick/nodes/baremetal_trex_{{ num_vnfs }}.yaml
 
 - template:
     src: ../etc/yardstick/nodes/standalone/pod_sriov.yaml
