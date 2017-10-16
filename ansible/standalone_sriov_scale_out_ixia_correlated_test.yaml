@@ -47,7 +47,7 @@
         ixchassis: "1.1.1.127" #ixia chassis ip
         tcl_port: "8009" # tcl server port
         lib_path: "/opt/ixia/ixos-api/8.01.0.2/lib/ixTcl1.0"
-        ""_dir: "/opt/ixia/ixos-api/8.01.0.2/"
+        root_dir: "/opt/ixia/ixos-api/8.01.0.2/"
         py_bin_path: "/opt/ixia/ixload/8.01.106.3/bin/"
         py_lib_path: "/opt/ixia/ixnetwork/8.01.1029.14/lib/PythonApi"
         dut_result_dir: "/mnt/results"
@@ -80,7 +80,7 @@
     gen_1:
       user: ""
       password: ""
-      key_filename: /""/.ssh/id_rsa
+      key_filename: "~"
       pcis:
         uplink:
           - "0000:05:00.0"
