@@ -17,6 +17,7 @@ import collections
 import datetime
 import getpass
 import logging
+import re
 
 import socket
 import time
@@ -637,6 +638,16 @@ name (i.e. %s).\
         # keep outputs as unicode
         self.outputs = {output["output_key"]: output["output_value"] for output
                         in outputs}
+
+        # temporary hack: we need to match the ip of the vnf to the
+        # hardcoded values in the ixload rxf file
+        for output in self.outputs.iterkeys():
+            port_key = re.match(u'vnf\.yardstick.*xe\d\-port', output)
+            if port_key:
+                port_ip = self.outputs[port_key.group()].split('.')
+                port_ip[-1] = u'10'
+                self.outputs[port_key.group()] = '.'.join(port_ip)
+
 
         stack.outputs = self.outputs
         return stack
