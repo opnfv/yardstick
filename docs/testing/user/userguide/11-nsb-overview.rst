@@ -3,12 +3,11 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, 2016-2017 Intel Corporation.
 
-=====================================
 Network Services Benchmarking (NSB)
-=====================================
+===================================
 
 Abstract
-========
+--------
 
 .. _Yardstick: https://wiki.opnfv.org/yardstick
 
@@ -16,9 +15,9 @@ This chapter provides an overview of the NSB, a contribution to OPNFV
 Yardstick_ from Intel.
 
 Overview
-========
+--------
 
-GOAL: Extend Yardstick to perform real world VNFs and NFVi Characterization and
+The goal of NSB is to Extend Yardstick to perform real world VNFs and NFVi Characterization and
 benchmarking with repeatable and deterministic methods.
 
 The Network Service Benchmarking (NSB) extends the yardstick framework to do
@@ -31,8 +30,7 @@ according to user defined profiles.
 
 NSB extension includes:
 
-    - Generic data models of Network Services, based on ETSI spec (ETSI GS NFV-TST 001)
-      .. _ETSI GS NFV-TST 001: http://www.etsi.org/deliver/etsi_gs/NFV-TST/001_099/001/01.01.01_60/gs_nfv-tst001v010101p.pdf
+    - Generic data models of Network Services, based on ETSI spec `ETSI GS NFV-TST 001 <http://www.etsi.org/deliver/etsi_gs/NFV-TST/001_099/001/01.01.01_60/gs_nfv-tst001v010101p.pdf>`_
 
     - New Standalone context for VNF testing like SRIOV, OVS, OVS-DPDK etc
 
@@ -72,7 +70,7 @@ NSB extension includes:
         - VNF KPIs, e.g., packet_in, packet_drop, packet_fwd etc
 
 Architecture
-============
+------------
 The Network Service (NS) defines a set of Virtual Network Functions (VNF)
 connected together using NFV infrastructure.
 
@@ -113,60 +111,60 @@ Network Service framework performs the necessary test steps. It may involve
     - Read the KPI's provided by particular VNF
 
 Components of Network Service
-------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* *Models for Network Service benchmarking*: The Network Service benchmarking
-  requires the proper modelling approach. The NSB provides models using Python
-  files and defining of NSDs and VNFDs.
+  * *Models for Network Service benchmarking*: The Network Service benchmarking
+    requires the proper modelling approach. The NSB provides models using Python
+    files and defining of NSDs and VNFDs.
 
-The benchmark control application being a part of OPNFV yardstick can call
-that python models to instantiate and configure the VNFs. Depending on
-infrastructure type (bare-metal or fully virtualized) that calls could be
-made directly or using MANO system.
+  The benchmark control application being a part of OPNFV yardstick can call
+  that python models to instantiate and configure the VNFs. Depending on
+  infrastructure type (bare-metal or fully virtualized) that calls could be
+  made directly or using MANO system.
 
-* *Traffic generators in NSB*: Any benchmark application requires a set of
-  traffic generator and traffic profiles defining the method in which traffic
-  is generated.
+  * *Traffic generators in NSB*: Any benchmark application requires a set of
+    traffic generator and traffic profiles defining the method in which traffic
+    is generated.
 
-The Network Service benchmarking model extends the Network Service
-definition with a set of Traffic Generators (TG) that are treated
-same way as other VNFs being a part of benchmarked network service.
-Same as other VNFs the traffic generator are instantiated and terminated.
+  The Network Service benchmarking model extends the Network Service
+  definition with a set of Traffic Generators (TG) that are treated
+  same way as other VNFs being a part of benchmarked network service.
+  Same as other VNFs the traffic generator are instantiated and terminated.
 
-Every traffic generator has own configuration defined as a traffic profile and
-a set of KPIs supported. The python models for TG is extended by specific calls
-to listen and generate traffic.
+  Every traffic generator has own configuration defined as a traffic profile and
+  a set of KPIs supported. The python models for TG is extended by specific calls
+  to listen and generate traffic.
 
-* *The stateless TREX traffic generator*: The main traffic generator used as
-  Network Service stimulus is open source TREX tool.
+  * *The stateless TREX traffic generator*: The main traffic generator used as
+    Network Service stimulus is open source TREX tool.
 
-The TREX tool can generate any kind of stateless traffic.
+  The TREX tool can generate any kind of stateless traffic.
 
-.. code-block:: console
+  .. code-block:: console
 
-        +--------+      +-------+      +--------+
-        |        |      |       |      |        |
-        |  Trex  | ---> |  VNF  | ---> |  Trex  |
-        |        |      |       |      |        |
-        +--------+      +-------+      +--------+
+          +--------+      +-------+      +--------+
+          |        |      |       |      |        |
+          |  Trex  | ---> |  VNF  | ---> |  Trex  |
+          |        |      |       |      |        |
+          +--------+      +-------+      +--------+
 
-Supported testcases scenarios:
+  Supported testcases scenarios:
 
-    - Correlated UDP traffic using TREX traffic generator and replay VNF.
+      - Correlated UDP traffic using TREX traffic generator and replay VNF.
 
-        - using different IMIX configuration like pure voice, pure video traffic etc
+          - using different IMIX configuration like pure voice, pure video traffic etc
 
-        - using different number IP flows like 1 flow, 1K, 16K, 64K, 256K, 1M flows
+          - using different number IP flows like 1 flow, 1K, 16K, 64K, 256K, 1M flows
 
-        - Using different number of rules configured like 1 rule, 1K, 10K rules
+          - Using different number of rules configured like 1 rule, 1K, 10K rules
 
-For UDP correlated traffic following Key Performance Indicators are collected
-for every combination of test case parameters:
+  For UDP correlated traffic following Key Performance Indicators are collected
+  for every combination of test case parameters:
 
-    - RFC2544 throughput for various loss rate defined (1% is a default)
+      - RFC2544 throughput for various loss rate defined (1% is a default)
 
 Graphical Overview
-==================
+------------------
 
 NSB Testing with yardstick framework  facilitate performance testing of various
 VNFs provided.
@@ -193,12 +191,11 @@ VNFs provided.
               Figure 1: Network Service - 2 server configuration
 
 VNFs supported for chracterization:
-----------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. CGNAPT - Carrier Grade Network Address and port Translation
 2. vFW - Virtual Firewall
 3. vACL - Access Control List
-4. vPE - Provider Edge Router
 5. Prox - Packet pROcessing eXecution engine:
           VNF can act as Drop, Basic Forwarding (no touch), L2 Forwarding (change MAC), GRE encap/decap, Load balance based on packet fields, Symmetric load balancing,
           QinQ encap/decap IPv4/IPv6, ARP, QoS, Routing, Unmpls, Policing, ACL
