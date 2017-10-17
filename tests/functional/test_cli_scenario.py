@@ -10,8 +10,14 @@
 
 from __future__ import absolute_import
 import unittest
+import logging
+import subprocess
 
 from tests.functional import utils
+
+
+logging.basicConfig(level=logging.DEBUG)
+LOGGER = logging.getLogger(__name__)
 
 
 class ScenarioTestCase(unittest.TestCase):
@@ -21,7 +27,11 @@ class ScenarioTestCase(unittest.TestCase):
         self.yardstick = utils.Yardstick()
 
     def test_scenario_list(self):
-        res = self.yardstick("scenario list")
+        try:
+            res = self.yardstick("scenario list")
+        except subprocess.CalledProcessError as e:
+            LOGGER.error('Command output:\n%s', e.output)
+            raise
 
         self.assertIn("Lmbench", res)
         self.assertIn("Perf", res)
@@ -32,31 +42,30 @@ class ScenarioTestCase(unittest.TestCase):
 
     def test_scenario_show_Lmbench(self):
         res = self.yardstick("scenario show Lmbench")
-        lmbench = "Execute lmbench memory read latency"
-        "or memory bandwidth benchmark in a host" in res
-        self.assertTrue(lmbench)
+        sub_str = "Execute lmbench memory read latency or memory bandwidth benchmark in a host"
+        self.assertIn(sub_str, res)
 
     def test_scenario_show_Perf(self):
         res = self.yardstick("scenario show Perf")
-        perf = "Execute perf benchmark in a host" in res
-        self.assertTrue(perf)
+        sub_str = "Execute perf benchmark in a host"
+        self.assertIn(sub_str, res)
 
     def test_scenario_show_Fio(self):
         res = self.yardstick("scenario show Fio")
-        fio = "Execute fio benchmark in a host" in res
-        self.assertTrue(fio)
+        sub_str = "Execute fio benchmark in a host"
+        self.assertIn(sub_str, res)
 
     def test_scenario_show_Ping(self):
         res = self.yardstick("scenario show Ping")
-        ping = "Execute ping between two hosts" in res
-        self.assertTrue(ping)
+        sub_str = "Execute ping between two hosts"
+        self.assertIn(sub_str, res)
 
     def test_scenario_show_Iperf3(self):
         res = self.yardstick("scenario show Iperf3")
-        iperf3 = "Execute iperf3 between two hosts" in res
-        self.assertTrue(iperf3)
+        sub_str = "Execute iperf3 between two hosts"
+        self.assertIn(sub_str, res)
 
     def test_scenario_show_Pktgen(self):
         res = self.yardstick("scenario show Pktgen")
-        pktgen = "Execute pktgen between two hosts" in res
-        self.assertTrue(pktgen)
+        sub_str = "Execute pktgen between two hosts"
+        self.assertIn(sub_str, res)
