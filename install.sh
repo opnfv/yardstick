@@ -79,7 +79,9 @@ apt-get update && apt-get install -y \
     uwsgi-plugin-python \
     supervisor \
     python-pip \
-    vim
+    vim \
+    libxft-dev \
+    libxss-dev
 
 if [[ "${DOCKER_ARCH}" != "aarch64" ]]; then
     apt-get install -y libc6:arm64
