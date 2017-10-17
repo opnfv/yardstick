@@ -17,6 +17,7 @@ import collections
 import datetime
 import getpass
 import logging
+import re
 
 import socket
 import time
