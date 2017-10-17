@@ -230,7 +230,7 @@ class MultiPortConfig(object):
         self.tmp_file = os.path.join("/tmp", tmp_file)
         self.pktq_out_os = []
         self.socket = socket
-        self.start_core = 0
+        self.start_core = 1
         self.pipeline_counter = ""
         self.txrx_pipeline = ""
         self._port_pairs = None
