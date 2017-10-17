@@ -3,12 +3,11 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, 2016-2017 Intel Corporation.
 
-=====================================
 Network Services Benchmarking (NSB)
-=====================================
+===================================
 
 Abstract
-========
+--------
 
 .. _Yardstick: https://wiki.opnfv.org/yardstick
 
@@ -16,7 +15,7 @@ This chapter provides an overview of the NSB, a contribution to OPNFV
 Yardstick_ from Intel.
 
 Overview
-========
+--------
 
 GOAL: Extend Yardstick to perform real world VNFs and NFVi Characterization and
 benchmarking with repeatable and deterministic methods.
@@ -72,7 +71,7 @@ NSB extension includes:
         - VNF KPIs, e.g., packet_in, packet_drop, packet_fwd etc
 
 Architecture
-============
+------------
 The Network Service (NS) defines a set of Virtual Network Functions (VNF)
 connected together using NFV infrastructure.
 
@@ -113,7 +112,7 @@ Network Service framework performs the necessary test steps. It may involve
     - Read the KPI's provided by particular VNF
 
 Components of Network Service
-------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * *Models for Network Service benchmarking*: The Network Service benchmarking
   requires the proper modelling approach. The NSB provides models using Python
@@ -166,7 +165,7 @@ for every combination of test case parameters:
     - RFC2544 throughput for various loss rate defined (1% is a default)
 
 Graphical Overview
-==================
+------------------
 
 NSB Testing with yardstick framework  facilitate performance testing of various
 VNFs provided.
@@ -193,7 +192,7 @@ VNFs provided.
               Figure 1: Network Service - 2 server configuration
 
 VNFs supported for chracterization:
-----------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. CGNAPT - Carrier Grade Network Address and port Translation
 2. vFW - Virtual Firewall
