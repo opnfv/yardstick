@@ -21,7 +21,7 @@
 
 
 - template:
-    src: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-ixia-scale-out.yaml
+    src: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-ixia-correlated-scale-out.yaml
     dest: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-ixia-{{ num_vnfs }}.yaml
 
 - template:

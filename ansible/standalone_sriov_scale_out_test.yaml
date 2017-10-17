@@ -19,7 +19,7 @@
       - 2
     flavor:
       user: root
-      password: ""!
+      password: ""
       ram: 4096
       image: "/var/lib/libvirt/images/ubuntu.qcow2"
       extra_specs:
