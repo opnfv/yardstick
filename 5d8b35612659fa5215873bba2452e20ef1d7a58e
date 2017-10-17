@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_0bf973c8",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5671
+      },
+      "writtenOn": "2017-10-17T05:38:25Z",
+      "side": 1,
+      "message": "sure will comment this line.",
+      "parentUuid": "9a3d3df0_a5b518cf",
+      "revId": "5d8b35612659fa5215873bba2452e20ef1d7a58e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_c5b01ce0",
         "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2017-10-16T17:13:03Z",
       "side": 1,
       "message": "you need a space between the # and the comment.",
+      "revId": "5d8b35612659fa5215873bba2452e20ef1d7a58e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ab14c7f5",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5671
+      },
+      "writtenOn": "2017-10-17T05:38:25Z",
+      "side": 1,
+      "message": "Will give space",
+      "parentUuid": "9a3d3df0_c5b01ce0",
       "revId": "5d8b35612659fa5215873bba2452e20ef1d7a58e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
