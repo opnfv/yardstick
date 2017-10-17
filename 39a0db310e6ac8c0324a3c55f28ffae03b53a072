@@ -106,6 +106,24 @@
       "revId": "39a0db310e6ac8c0324a3c55f28ffae03b53a072",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3a3f5e27",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-17T16:50:31Z",
+      "side": 1,
+      "message": "no, it was completely node first, then interface per node.  sure SshManager was the attempt to reuse connections, but that was too meager a reason and instead i made the DpdkNode class which could hold on to an SSH connection for itself and do much more.\n\nnow it is check interfaces, then issue commands that show no indication of affecting individual interfaces.  see how line 165 aggregates the missing fields from all the interfaces but an earlier patch set wanted to know if any interface knew everything about itself other than its driver.  strictly speaking these are not the same test.\n\n any({\u0027driver\u0027} \u003d\u003d intf.missing_fields for intf in self.dpdk_interfaces.values())\n\nvs\n\n \u0027driver\u0027 in set(chain.from_iterable(self.interface_missing_iter))\n\nif an interface is missing both \u0027driver\u0027 and something else, the first won\u0027t match and the second will.\n\nthen which of lines 170, 176, 177, 178, 188-190 affect a single interface?  i don\u0027t see any targeting of the interface.  if it works, then fine, but it isn\u0027t making 100% sense to me.",
+      "parentUuid": "9a3d3df0_25d59a43",
+      "revId": "39a0db310e6ac8c0324a3c55f28ffae03b53a072",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
