@@ -348,6 +348,21 @@ class HeatContext(Context):
                                                                            port['port'],
                                                                            port['stack_name'],
                                                                            self.stack.outputs)
+                self.override_heat_ip(server, network_name, port)
+
+    @staticmethod
+    def override_heat_ip(server, network_name, port):
+        ports = server.network_ports.get(network_name, [])
+        override = next((p.get(port['port']) for p in ports if isinstance(p, dict)), None)
+        if override:
+            try:
+                server.interfaces[port['port']]['local_ip'] = override['local_ip']
+            except KeyError:
+                pass
+            try:
+                server.interfaces[port['port']]['netmask'] = override['netmask']
+            except KeyError:
+                pass
 
     def make_interface_dict(self, network_name, port, stack_name, outputs):
         private_ip = outputs[stack_name]
