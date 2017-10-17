@@ -272,6 +272,11 @@ class Server(Object):     # pragma: no cover
                         if ports.startswith('-'):
                             LOG.warning("possible YAML error, port name starts with - '%s", ports)
                         ports = [ports]
+                    # convert port subdicts into their just port name
+                    # port subdicts are used to override Heat IP address,
+                    # but we just need the port name
+                    # we allow duplicates here and let Heat raise the error
+                    ports = [next(iter(p)) if isinstance(p, dict) else p for p in ports]
             # otherwise add a port for every network with port name as network name
             else:
                 ports = [network.name]
