@@ -119,8 +119,12 @@ class HeatContextTestCase(unittest.TestCase):
             "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b")
         mock_template.add_security_group.assert_called_with("foo-secgroup")
 #        mock_template.add_network.assert_called_with("bar-fool-network", 'physnet1', None)
-        mock_template.add_router.assert_called_with("bar-fool-network-router", netattrs["external_network"], "bar-fool-network-subnet")
-        mock_template.add_router_interface.assert_called_with("bar-fool-network-router-if0", "bar-fool-network-router", "bar-fool-network-subnet")
+        mock_template.add_router.assert_called_with("bar-fool-network-router",
+                                                    netattrs["external_network"],
+                                                    "bar-fool-network-subnet")
+        mock_template.add_router_interface.assert_called_with("bar-fool-network-router-if0",
+                                                              "bar-fool-network-router",
+                                                              "bar-fool-network-subnet")
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_attrs_get(self, mock_template):

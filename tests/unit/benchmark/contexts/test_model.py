@@ -179,6 +179,7 @@ class NetworkTestCase(unittest.TestCase):
         test_network = model.Network('foo', self.mock_context, attrs)
         self.assertIsNone(test_network.gateway_ip)
 
+
 class ServerTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -189,7 +190,6 @@ class ServerTestCase(unittest.TestCase):
         self.mock_context.user = "some-user"
         netattrs = {'cidr': '10.0.0.0/24', 'provider': None, 'external_network': 'ext_net'}
         self.mock_context.networks = [model.Network("some-network", self.mock_context, netattrs)]
-
 
     def test_construct_defaults(self):
 
@@ -227,8 +227,8 @@ class ServerTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_instance(self, mock_template):
-
-        attrs = {'image': 'some-image', 'flavor': 'some-flavor', 'floating_ip': '192.168.1.10', 'floating_ip_assoc': 'some-vm'}
+        attrs = {'image': 'some-image', 'flavor': 'some-flavor', 'floating_ip': '192.168.1.10',
+                 'floating_ip_assoc': 'some-vm'}
         test_server = model.Server('foo', self.mock_context, attrs)
 
         self.mock_context.flavors = ['flavor1', 'flavor2', 'some-flavor']
@@ -241,7 +241,8 @@ class ServerTestCase(unittest.TestCase):
         mock_network.subnet_stack_name = 'some-network-stack-subnet'
         mock_network.provider = 'sriov'
         mock_network.external_network = 'ext_net'
-        mock_network.router = model.Router('some-router', 'some-network', self.mock_context, 'ext_net')
+        mock_network.router = model.Router('some-router', 'some-network', self.mock_context,
+                                           'ext_net')
 
         test_server._add_instance(mock_template, 'some-server',
                                   [mock_network], 'hints')
@@ -278,6 +279,155 @@ class ServerTestCase(unittest.TestCase):
             key_name=self.mock_context.keypair_name,
             user_data='',
             scheduler_hints='hints')
+
+    def test_override_ip(self):
+        network_ports = {
+            'mgmt': ['mgmt'],
+            'uplink_0': [
+                {'xe0': {'local_ip': '10.44.0.20', 'netmask': '255.255.255.0'}},
+            ],
+            'downlink_0': [
+                {'xe1': {'local_ip': '10.44.0.30', 'netmask': '255.255.255.0'}},
+            ],
+        }
+        attrs = {
+            'image': 'some-image', 'flavor': 'some-flavor',
+        }
+        test_server = model.Server('foo', self.mock_context, attrs)
+        test_server.interfaces = {
+            "xe0": {
+                "local_ip": "1.2.3.4",
+                "netmask": "255.255.255.0",
+            },
+            "xe1": {
+                "local_ip": "1.2.3.5",
+                "netmask": "255.255.255.0"
+            }
+        }
+        test_server.network_ports = network_ports
+
+        test_server.override_ip("uplink_0", {"port": "xe0"})
+        self.assertEqual(test_server.interfaces["xe0"], network_ports["uplink_0"][0]["xe0"])
+
+    def test_override_ip_multiple(self):
+        network_ports = {
+            'mgmt': ['mgmt'],
+            'uplink_0': [
+                {'xe0': {'local_ip': '10.44.0.20', 'netmask': '255.255.255.0'}},
+                {'xe0': {'local_ip': '10.44.0.21', 'netmask': '255.255.255.0'}},
+            ],
+            'downlink_0': [
+                {'xe1': {'local_ip': '10.44.0.30', 'netmask': '255.255.255.0'}},
+            ],
+        }
+        attrs = {
+            'image': 'some-image', 'flavor': 'some-flavor',
+        }
+        test_server = model.Server('foo', self.mock_context, attrs)
+        test_server.interfaces = {
+            "xe0": {
+                "local_ip": "1.2.3.4",
+                "netmask": "255.255.255.0",
+            },
+            "xe1": {
+                "local_ip": "1.2.3.5",
+                "netmask": "255.255.255.0"
+            }
+        }
+        test_server.network_ports = network_ports
+        test_server.override_ip("uplink_0", {"port": "xe0"})
+        self.assertEqual(test_server.interfaces["xe0"], network_ports["uplink_0"][1]["xe0"])
+
+    def test_override_ip_mixed(self):
+        network_ports = {
+            'mgmt': ['mgmt'],
+            'uplink_0': [
+                'xe0',
+                {'xe0': {'local_ip': '10.44.0.21', 'netmask': '255.255.255.0'}},
+            ],
+            'downlink_0': [
+                {'xe1': {'local_ip': '10.44.0.30', 'netmask': '255.255.255.0'}},
+            ],
+        }
+        attrs = {
+            'image': 'some-image', 'flavor': 'some-flavor',
+        }
+        test_server = model.Server('foo', self.mock_context, attrs)
+        test_server.interfaces = {
+            "xe0": {
+                "local_ip": "1.2.3.4",
+                "netmask": "255.255.255.0",
+            },
+            "xe1": {
+                "local_ip": "1.2.3.5",
+                "netmask": "255.255.255.0"
+            }
+        }
+        test_server.network_ports = network_ports
+        test_server.override_ip("uplink_0", {"port": "xe0"})
+        self.assertEqual(test_server.interfaces["xe0"], network_ports["uplink_0"][1]["xe0"])
+
+    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
+    def test__add_instance_with_ip_override(self, mock_template):
+        network_ports = {
+            'mgmt': ['mgmt'],
+            'uplink_0': [
+                {'xe0': {'local_ip': '10.44.0.20', 'netmask': '255.255.255.0'}},
+            ],
+            'downlink_0': [
+                {'xe1': {'local_ip': '10.44.0.30', 'netmask': '255.255.255.0'}},
+            ],
+        }
+        attrs = {
+            'image': 'some-image', 'flavor': 'some-flavor',
+        }
+        test_server = model.Server('foo', self.mock_context, attrs)
+        test_server.network_ports = network_ports
+        context = type("Context", (object,), {})
+        # can't use Mock because Mock.name is reserved
+        context.name = "context"
+        networks = [model.Network(n, context, {}) for n in network_ports]
+
+        test_server._add_instance(mock_template, 'some-server',
+                                  networks, 'hints')
+        self.assertEqual(test_server.ports, {
+            'downlink_0': [{'port': 'xe1', 'stack_name': 'some-server-xe1-port'}],
+            'mgmt': [{'port': 'mgmt', 'stack_name': 'some-server-mgmt-port'}],
+            'uplink_0': [{'port': 'xe0', 'stack_name': 'some-server-xe0-port'}]
+        })
+
+    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
+    def test__add_instance_with_multiple_ip_override(self, mock_template):
+        network_ports = {
+            'mgmt': ['mgmt'],
+            'uplink_0': [
+                {'xe0': {'local_ip': '10.44.0.20', 'netmask': '255.255.255.0'}},
+                {'xe0': {'local_ip': '10.44.0.21', 'netmask': '255.255.255.0'}},
+            ],
+            'downlink_0': [
+                {'xe1': {'local_ip': '10.44.0.30', 'netmask': '255.255.255.0'}},
+            ],
+        }
+        attrs = {
+            'image': 'some-image', 'flavor': 'some-flavor',
+        }
+        test_server = model.Server('foo', self.mock_context, attrs)
+        test_server.network_ports = network_ports
+        context = type("Context", (object,), {})
+        # can't use Mock because Mock.name is reserved
+        context.name = "context"
+        networks = [model.Network(n, context, {}) for n in network_ports]
+
+        test_server._add_instance(mock_template, 'some-server',
+                                  networks, 'hints')
+        self.assertEqual(test_server.ports, {
+            'downlink_0': [{'port': 'xe1', 'stack_name': 'some-server-xe1-port'}],
+            'mgmt': [{'port': 'mgmt', 'stack_name': 'some-server-mgmt-port'}],
+            'uplink_0': [{'port': 'xe0', 'stack_name': 'some-server-xe0-port'},
+                         # this is not an error, we can produce this, it is left to Heat
+                         # to detect duplicate ports and error
+                         {'port': 'xe0', 'stack_name': 'some-server-xe0-port'}]
+        })
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_instance_with_user_data(self, mock_template):
@@ -351,7 +501,7 @@ class ServerTestCase(unittest.TestCase):
         }
         test_server = model.Server('ServerFlavor-3', self.mock_context, attrs)
 
-        self.mock_context.flavors =  ['flavor2']
+        self.mock_context.flavors = ['flavor2']
         self.mock_context.flavor = {'vcpus': 4}
         mock_network = mock.Mock()
         mock_network.name = 'some-network'
@@ -360,7 +510,6 @@ class ServerTestCase(unittest.TestCase):
 
         test_server._add_instance(mock_template, 'ServerFlavor-3',
                                   [mock_network], 'hints')
-
 
         mock_template.add_port(
             'ServerFlavor-3-some-network-port',
@@ -388,4 +537,3 @@ class ServerTestCase(unittest.TestCase):
             key_name=self.mock_context.keypair_name,
             user_data=user_data,
             scheduler_hints='hints')
-

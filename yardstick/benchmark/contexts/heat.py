@@ -348,6 +348,7 @@ class HeatContext(Context):
                                                                            port['port'],
                                                                            port['stack_name'],
                                                                            self.stack.outputs)
+                server.override_ip(network_name, port)
 
     def make_interface_dict(self, network_name, port, stack_name, outputs):
         private_ip = outputs[stack_name]
