@@ -276,6 +276,9 @@ class Server(Object):     # pragma: no cover
             else:
                 ports = [network.name]
             for port in ports:
+                if isinstance(port, dict):
+                    # port is a dict, grab the first key
+                    port = next(iter(port))
                 port_name = "{0}-{1}-port".format(server_name, port)
                 self.ports.setdefault(network.name, []).append(
                     {"stack_name": port_name, "port": port})
