@@ -47,6 +47,7 @@ traffic_profile:
 
 uplink_0:
       ipv4:
+        id: 1
         outer_l2:
             framesize:
                 64B: "{{get(imix, 'imix.uplink.64B', '0') }}"
@@ -72,6 +73,7 @@ uplink_0:
             count: "{{get(flow, 'flow.count', '1') }}"
 downlink_0:
       ipv4:
+        id: 2
         outer_l2:
             framesize:
                 64B: "{{ get(imix, 'imix.downlink.64B', '0') }}"

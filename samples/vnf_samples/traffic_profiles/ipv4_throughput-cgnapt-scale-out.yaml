@@ -50,6 +50,7 @@ traffic_profile:
 [% for vnf_num in range(num_vnfs|int) %]
 uplink_[[ vnf_num ]]:
   ipv4:
+    id: [[vnf_num * 2 + 1]]
     outer_l2:
       framesize:
         64B: "{{ get(imix, 'imix.uplink.64B', '0') }}"
@@ -74,6 +75,7 @@ uplink_[[ vnf_num ]]:
       count: "{{get(flow, 'flow.count', '1') }}"
 downlink_[[ vnf_num ]]:
   ipv4:
+    id: [[vnf_num * 2 + 2]]
     outer_l2:
       framesize:
         64B: "{{ get(imix, 'imix.downlink.64B', '0') }}"
