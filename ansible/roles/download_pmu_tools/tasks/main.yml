@@ -31,6 +31,8 @@
 - name: Create perfmon local mirror
   command: "wget -mkEpnp {{ perfmon_url }} -P {{ INSTALL_BIN_PATH }}/pmu_local_mirror"
   ignore_errors: yes
+  failed_when: false #some of the links while creating mirror are not found, results in failure
+  no_log: True
 
 - name: Copy local event download file
   copy:
