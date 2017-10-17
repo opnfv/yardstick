@@ -158,6 +158,41 @@ class HeatContextTestCase(unittest.TestCase):
                                          {'image': 'cirros'})
         self.assertIsNotNone(self.test_context.stack)
 
+    def test_override_heat_ip(self):
+        network_ports = {
+            'mgmt': ['mgmt'],
+            'uplink_0': [
+                {'xe0': {'local_ip': '10.44.0.20', 'netmask': '255.255.255.0'}},
+            ],
+            'downlink_0': [
+                {'xe1': {'local_ip': '10.44.0.30', 'netmask': '255.255.255.0'}},
+            ],
+        }
+
+        s = mock.MagicMock()
+        s.network_ports = network_ports
+        s.interfaces = {"xe0": {}, "xe1": {}}
+        heat.HeatContext.override_heat_ip(s, "uplink_0", {"port": "xe0"})
+        self.assertEqual(s.interfaces["xe0"], network_ports["uplink_0"][0]["xe0"])
+
+    def test_override_heat_ip_multiple(self):
+        network_ports = {
+            'mgmt': ['mgmt'],
+            'uplink_0': [
+                {'xe0': {'local_ip': '10.44.0.20', 'netmask': '255.255.255.0'}},
+                {'xe0': {'local_ip': '10.44.0.21', 'netmask': '255.255.255.0'}},
+            ],
+            'downlink_0': [
+                {'xe1':
+                     {'local_ip': '10.44.0.30', 'netmask': '255.255.255.0'}},
+            ],
+        }
+        s = mock.MagicMock()
+        s.network_ports = network_ports
+        s.interfaces = {"xe0": {}, "xe1": {}}
+        heat.HeatContext.override_heat_ip(s, "uplink_0", {"port": "xe0"})
+        self.assertEqual(s.interfaces["xe0"], network_ports["uplink_0"][1]["xe0"])
+
     def test_add_server_port(self):
         network1 = mock.MagicMock()
         network2 = mock.MagicMock()
