@@ -193,7 +193,7 @@ VNFs provided.
               Figure 1: Network Service - 2 server configuration
 
 VNFs supported for chracterization:
-----------------------------------
+-----------------------------------
 
 1. CGNAPT - Carrier Grade Network Address and port Translation
 2. vFW - Virtual Firewall
