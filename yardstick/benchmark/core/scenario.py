@@ -27,12 +27,13 @@ class Scenarios(object):    # pragma: no cover
         print_hbar(78)
         print("| %-16s | %-60s" % ("Type", "Description"))
         print_hbar(78)
-        for stype in types:
-            print("| %-16s | %-60s" % (stype.__scenario_type__,
-                                       stype.__doc__.split("\n")[0]))
+        for scenario_class in types:
+            description = str(getattr(scenario_class, '__doc__', None)).split('\n')[0]
+            scenario_type = str(getattr(scenario_class, '__scenario_type__', None))
+            print("| %-16s | %-60s" % (scenario_type, description))
         print_hbar(78)
 
     def show(self, args):
         """Show details of a specific scenario type"""
-        stype = Scenario.get_cls(args.type[0])
-        print(stype.__doc__)
+        scenario_class = Scenario.get_cls(args.type[0])
+        print(str(getattr(scenario_class, '__doc__', None)))
