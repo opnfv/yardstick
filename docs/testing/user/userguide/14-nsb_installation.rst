@@ -64,13 +64,6 @@ Install directly in Ubuntu
 --------------------------
 .. _install-framework:
 
-Alternatively you can install Yardstick framework directly in Ubuntu or in an Ubuntu Docker image. No matter which way you choose to install Yardstick, the following installation steps are identical.
-
-If you choose to use the Ubuntu Docker image, you can pull the Ubuntu
-Docker image from Docker hub::
-
-  docker pull ubuntu:16.04
-
 Install Yardstick
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -92,7 +85,6 @@ Download the source code and install Yardstick from it::
   git clone https://gerrit.opnfv.org/gerrit/yardstick
   export YARDSTICK_REPO_DIR=~/yardstick
   cd yardstick
-  ./install.sh
 
 
 After *Yardstick* is installed, executing the "nsb_setup.sh" script to setup
@@ -258,38 +250,24 @@ Config pod.yaml
           gateway: "0064:ff9b:0:0:0:0:9810:2814"
           if: "xe1"
 
-Enable yardstick virtual environment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Before executing yardstick test cases, make sure to activate yardstick
-python virtual environment if runnin on ubuntu without docker::
-
-    source /opt/nsb_bin/yardstick_venv/bin/activate
-
-On docker, virtual env is in main path.
 
 Run Yardstick - Network Service Testcases
 -----------------------------------------
 
-NS testing - using NSBperf CLI
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-::
-
-  PYTHONPATH: ". ~/.bash_profile"
-  cd <yardstick_repo>/yardstick/cmd
-
- Execute command: ./NSPerf.py -h
-      ./NSBperf.py --vnf <selected vnf> --test <rfc test>
-      eg: ./NSBperf.py --vnf vpe --test tc_baremetal_rfc2544_ipv4_1flow_64B.yaml
 
 NS testing - using yardstick CLI
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ::
+  See :doc:`04-installation`
+
+
   PYTHONPATH: ". ~/.bash_profile"
 
-Go to test case forlder type we want to execute.
-      e.g. <yardstick repo>/samples/vnf_samples/nsut/<vnf>/
-      run: yardstick --debug task start <test_case.yaml>
+  docker exec -it yardstick /bin/bash
+  cd /home/opnfv/repos/yardstick
+  source /etc/yardstick/openstack.creds
+  export EXTERNAL_NETWORK="<openstack public network"
+  yardstick --debug task start /samples/vnf_samples/nsut/<vnf>/
 
 Network Service Benchmarking - Standalone Virtualization
 --------------------------------------------------------
@@ -375,14 +353,14 @@ Config pod.yaml describing Topology
                                     |          |
                                +--------+  +--------+
                                | PF NIC -  - PF NIC -
-  +----------+               +-------------------------+          +------------+
-  |          |               |       ^          ^      |          |            |
-  |          |               |       |          |      |          |            |
-  |          | (0)<----->(0) | ------           |      |          |    TG2     |
-  |    TG1   |               |           SUT    |      |          |(UDP Replay)|
-  |          |               |                  |      |          |            |
-  |          | (n)<----->(n) |                  ------ |(n)<-->(n)|            |
-  +----------+               +-------------------------+          +------------+
+  +----------+               +-------------------------+            +--------------+
+  |          |               |       ^          ^      |            |              |
+  |          |               |       |          |      |            |              |
+  |          | (0)<----->(0) | ------           |      |            |     TG2      |
+  |    TG1   |               |           SUT    |      |            | (UDP Replay) |
+  |          |               |                  |      |            |              |
+  |          | (n)<----->(n) |                  ------ | (n)<-->(n) |              |
+  +----------+               +-------------------------+            +--------------+
   trafficgen_1                          host                       trafficgen_2
 
 Before executing Yardstick test cases, make sure that pod.yaml reflects the
@@ -475,38 +453,22 @@ Config pod.yaml
           gateway: "0064:ff9b:0:0:0:0:9810:2814"
           if: "xe1"
 
-Enable yardstick virtual environment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Before executing yardstick test cases, make sure to activate yardstick
-python virtual environment if runnin on ubuntu without docker::
-
-    source /opt/nsb_bin/yardstick_venv/bin/activate
-
-On docker, virtual env is in main path.
-
 Run Yardstick - Network Service Testcases
 -----------------------------------------
-
-NS testing - using NSBperf CLI
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-::
-
-  PYTHONPATH: ". ~/.bash_profile"
-  cd <yardstick_repo>/yardstick/cmd
-
- Execute command: ./NSPerf.py -h
-      ./NSBperf.py --vnf <selected vnf> --test <rfc test>
-      eg: ./NSBperf.py --vnf vfw --test tc_sriov_rfc2544_ipv4_1flow_64B.yaml
 
 NS testing - using yardstick CLI
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ::
+  See :doc:`04-installation`
+
+
   PYTHONPATH: ". ~/.bash_profile"
 
-Go to test case forlder type we want to execute.
-      e.g. <yardstick repo>/samples/vnf_samples/nsut/<vnf>/
-      run: yardstick --debug task start <test_case.yaml>
+  docker exec -it yardstick /bin/bash
+  cd /home/opnfv/repos/yardstick
+  source /etc/yardstick/openstack.creds
+  export EXTERNAL_NETWORK="<openstack public network"
+  yardstick --debug task start /samples/vnf_samples/nsut/<vnf>/
 
 OVS-DPDK:
 -----
@@ -703,35 +665,22 @@ Config pod.yaml
           gateway: "0064:ff9b:0:0:0:0:9810:2814"
           if: "xe1"
 
-Enable yardstick virtual environment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Before executing yardstick test cases, make sure to activate yardstick
-python virtual environment if runnin on ubuntu without docker::
-
-    source /opt/nsb_bin/yardstick_venv/bin/activate
-
-On docker, virtual env is in main path.
 
 Run Yardstick - Network Service Testcases
 -----------------------------------------
 
-NS testing - using NSBperf CLI
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-::
-
-  PYTHONPATH: ". ~/.bash_profile"
-  cd <yardstick_repo>/yardstick/cmd
-
- Execute command: ./NSPerf.py -h
-      ./NSBperf.py --vnf <selected vnf> --test <rfc test>
-      eg: ./NSBperf.py --vnf vfw --test tc_ovs_rfc2544_ipv4_1flow_64B.yaml
 
 NS testing - using yardstick CLI
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ::
+  See :doc:`04-installation`
+
+
+
   PYTHONPATH: ". ~/.bash_profile"
 
-Go to test case forlder type we want to execute.
-      e.g. <yardstick repo>/samples/vnf_samples/nsut/<vnf>/
-      run: yardstick --debug task start <test_case.yaml>
+  docker exec -it yardstick /bin/bash
+  cd /home/opnfv/repos/yardstick
+  source /etc/yardstick/openstack.creds
+  export EXTERNAL_NETWORK="<openstack public network"
+  yardstick --debug task start /samples/vnf_samples/nsut/<vnf>/
