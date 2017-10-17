@@ -350,7 +350,7 @@ def config_to_dict(config):
 
 
 def validate_non_string_sequence(value, default=None, raise_exc=None):
-    if isinstance(value, collections.Sequence) and not isinstance(value, str):
+    if isinstance(value, collections.Sequence) and not isinstance(value, six.string_types):
         return value
     if raise_exc:
         raise raise_exc
