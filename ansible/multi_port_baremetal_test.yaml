@@ -1,0 +1,95 @@
+# Copyright (c) 2017 Intel Corporation. #
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- hosts: localhost
+  connection: local
+  vars:
+    scale_out:
+      - 1
+      - 2
+    flow:
+      traffic_type: 4
+      pkt_size:
+         uplink: {64B: 100}
+         downlink: {64B: 100}
+      count: 10
+      rfc2544:
+        allowed_drop_rate: 0.0001 - 0.0001
+      vnf_config:
+        lb_config: 'SW'
+        lb_count: 1
+        worker_config: '1C/1T'
+        worker_threads: 1
+
+    # Environment variables
+    gen:
+      user: root
+      password: ""
+      key_filename: /root/.ssh/id_rsa
+      pcis:
+        uplink:
+          - "0000:05:00.0"
+          - "0000:05:00.2"
+        downlink:
+          - "0000:05:00.1"
+          - "0000:05:00.3"
+      ip:
+        mgmt:
+          - '1.2.1.6/24'
+        uplink:
+          - '152.16.100.20/24'
+          - '172.16.100.20/24'
+        downlink:
+          - '152.16.40.20/24'
+          - '172.16.40.20/24'
+      mac:
+        uplink:
+          - '00:00:00:9e:00:f8'
+          - '00:00:00:9e:00:fa'
+        downlink:
+          - '00:00:00:9e:00:f9'
+          - '00:00:00:9e:00:fb'
+
+    vnf:
+      ip: "192.168.100.101/24"
+      user: root
+      password: ""
+      key_filename: /root/.ssh/id_rsa
+      pcis:
+        uplink:
+          - "0000:05:00.0"
+          - "0000:05:00.2"
+        downlink:
+          - "0000:05:00.1"
+          - "0000:05:00.3"
+      ip:
+        mgmt:
+          - '1.2.1.6/24'
+        uplink:
+          - '152.16.100.10/24'
+          - '172.16.100.10/24'
+        downlink:
+          - '152.16.40.10/24'
+          - '172.16.40.10/24'
+      mac:
+        uplink:
+          - '00:00:00:9e:00:f8'
+          - '00:00:00:9e:00:fa'
+        downlink:
+          - '00:00:00:9e:00:f9'
+          - '00:00:00:9e:00:fb'
+
+  tasks:
+    - include: multi_port_baremetal_test_templates.yml
+      with_items: "{{ scale_out }}"
+

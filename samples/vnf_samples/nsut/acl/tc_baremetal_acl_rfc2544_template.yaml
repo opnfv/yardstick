@@ -1,0 +1,54 @@
+# Copyright (c) 2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: yardstick:task:0.1
+scenarios:
+  - type: NSPerf
+    traffic_profile: ../../traffic_profiles/ipv4_throughput-{{ num_vnfs }}.yaml
+    topology: acl-tg-topology-scale-out-{{ num_vnfs }}.yaml
+    nodes:
+      tg__0: tg__0.yardstick
+      vnf__0: vnf__0.yardstick
+    options:
+      framesize:
+        uplink: {{ flow.pkt_size.uplink }}
+        downlink: {{ flow.pkt_size.downlink }}
+      flow:
+        src_ip:
+{% for vnf_num in range(num_vnfs|int) %}
+          - {'tg__0': 'xe{{ (vnf_num * 2)}}'}
+{% endfor %}
+        dst_ip:
+{% for vnf_num in range(num_vnfs|int) %}
+          - {'tg__0': 'xe{{ (vnf_num * 2) + 1}}'}
+{% endfor %}
+        count: {{ flow.count }}
+      traffic_type: {{ flow.traffic_type }}
+      rfc2544:
+        allowed_drop_rate: {{ flow.rfc2544.allowed_drop_rate }}
+      vnf__0:
+        rules: acl_1rule.yaml
+        vnf_config: {lb_config: '{{flow.vnf_config.lb_config}}', lb_count: {{flow.vnf_config.lb_count}} , worker_config: '{{flow.vnf_config.worker_config}}', worker_threads: {{flow.vnf_config.worker_threads}}}
+    runner:
+      type: Iteration
+      iterations: 10
+      interval: 35
+contexts:
+   - name: yardstick
+     type: Node
+     file: /etc/yardstick/nodes/baremetal_trex_{{num_vnfs}}.yaml
+   - name: yardstick
+     type: Node
+     file: /etc/yardstick/nodes/pod_bm_vnf_{{num_vnfs}}.yaml
