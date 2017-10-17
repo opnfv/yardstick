@@ -25,8 +25,8 @@ done
 pip install ansible==2.3.2 shade==1.17.0 docker-py==1.10.6
 
 if [ $# -eq 1 ]; then
-    extra_args="-e openrc_file=$1"
-    OPENRC=$1
+    OPENRC=$($(which readlink) -f -- "$1")
+    extra_args="-e openrc_file=${OPENRC}"
     source "${OPENRC}"
     CONTROLLER_IP=$(echo ${OS_AUTH_URL} | sed -ne "s/http:\/\/\(.*\):.*/\1/p")
     export no_proxy="localhost,127.0.0.1,${CONTROLLER_IP},$no_proxy"
