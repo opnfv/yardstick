@@ -14,6 +14,8 @@ from __future__ import absolute_import
 
 import six
 import logging
+
+from collections import Mapping
 from six.moves import range
 
 
@@ -240,6 +242,26 @@ class Server(Object):     # pragma: no cover
 
         Server.list.append(self)
 
+    def override_ip(self, network_name, port):
+        def find_port_overrides():
+            for p in ports:
+                # p can be string or dict
+                # we can't just use p[port['port'] in case p is a string
+                # and port['port'] is an int?
+                if isinstance(p, Mapping):
+                    g = p.get(port['port'])
+                    # filter out empty dicts
+                    if g:
+                        yield g
+
+        ports = self.network_ports.get(network_name, [])
+        intf = self.interfaces[port['port']]
+        for override in find_port_overrides():
+            intf['local_ip'] = override.get('local_ip', intf['local_ip'])
+            intf['netmask'] = override.get('netmask', intf['netmask'])
+            # only use the first value
+            break
+
     @property
     def image(self):
         """returns a server's image name"""
@@ -269,9 +291,13 @@ class Server(Object):     # pragma: no cover
                     continue
                 else:
                     if isinstance(ports, six.string_types):
-                        if ports.startswith('-'):
-                            LOG.warning("possible YAML error, port name starts with - '%s", ports)
-                        ports = [ports]
+                        # because strings are iterable we have to check specifically
+                        raise SyntaxError("network_port must be a list '{}'".format(ports))
+                    # convert port subdicts into their just port name
+                    # port subdicts are used to override Heat IP address,
+                    # but we just need the port name
+                    # we allow duplicates here and let Heat raise the error
+                    ports = [next(iter(p)) if isinstance(p, dict) else p for p in ports]
             # otherwise add a port for every network with port name as network name
             else:
                 ports = [network.name]
