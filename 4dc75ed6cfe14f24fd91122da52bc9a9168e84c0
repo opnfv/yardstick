@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_1a925a57",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 304
+      },
+      "writtenOn": "2017-10-17T15:52:52Z",
+      "side": 1,
+      "message": "I have issue with the calculation of dropped packets here... I believe from the documentation you should be able to get the real dropped packet stats:\nhttps://01.org/intel-data-plane-performance-demonstrators/documentation/prox-documentation\n\ndiff between rx and tx on ports is completely subjective to timing. also abs here is completely incorrect, if for some weird reason you send more packets than you send - you will have negative dropped packets and abs masks this to a value ignoring the sign. misrepresenting dropped packets.\n\nAs the person who implemented the xstats API in DPDK you should be able to get the real drop counters even as far back as DPDK 2.0",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 56
+      },
+      "revId": "4dc75ed6cfe14f24fd91122da52bc9a9168e84c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
