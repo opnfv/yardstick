@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ba040e7f",
+        "filename": "tests/unit/benchmark/scenarios/compute/test_qemumigrate.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-17T16:31:10Z",
+      "side": 1,
+      "message": "by commenting these lines, there is no point to this unit test and it results in lines of qemu_migrate being untested and therefore getting -1 from jenkins.\n\ninstead of commenting these lines, please adjust the expectation so that the assert succeeds.",
+      "revId": "20337480aaeb2feb496b7fb9a95abb1f4e9b70f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_da03d271",
+        "filename": "tests/unit/benchmark/scenarios/compute/test_qemumigrate.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-17T16:31:10Z",
+      "side": 1,
+      "message": "you need to re-instate this code so that qemu_migrate can be tested and this review can get +1 verify.\n\nfor error raising assertions, i would ask that we use the context manager style, as in:\n\n with self.assertRaises(AssertionError):\n   q.run(result)\n\nand if you need the error that was raised, then we can do:\n\n with self.assertRaises(AssertionError) as raised:\n   q.run(result)\n\n self.assertIn(\u0027my error text\u0027, str(raised.exception))",
+      "revId": "20337480aaeb2feb496b7fb9a95abb1f4e9b70f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
