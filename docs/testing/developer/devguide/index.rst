@@ -5,9 +5,9 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Ericsson AB and others.
 
-*********************************
-OPNFV Yardstick developer guide
-*********************************
+***************
+Developer Guide
+***************
 
 .. toctree::
    :maxdepth: 4
