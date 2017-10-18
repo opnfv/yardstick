@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ffcde05e",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-18T18:10:40Z",
+      "side": 1,
+      "message": "Mapping?",
+      "range": {
+        "startLine": 356,
+        "startChar": 77,
+        "endLine": 356,
+        "endChar": 81
+      },
+      "revId": "483d43d925611a4a3ac7f54e9c0c30ac9413479f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9f04947f",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-18T18:10:40Z",
+      "side": 1,
+      "message": "why test (and indent)?  why not:\n\n override \u003d next(...)\n try:\n   server.interfaces[port[\u0027port\u0027]][\u0027local_ip\u0027] \u003d override[\u0027local_ip\u0027]\n except TypeError:\n   return\n except KeyError:\n   pass\n\n try:\n   server.interfaces[port[\u0027port\u0027]][\u0027netmask\u0027] \u003d override[\u0027netmask\u0027]\n except KeyError:\n   pass",
+      "revId": "483d43d925611a4a3ac7f54e9c0c30ac9413479f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7fe270d6",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-18T18:10:40Z",
+      "side": 1,
+      "message": "odd, any random key is fine?  usually the values are the important part, and keys are how you get the right value, not random stuff.\n\nnot sure why you need \".keys\"\n\n port \u003d next(iter(port))\n\nshould be fine.  unless you\u0027re intending to get the AttributeError should port be not a Mapping.",
+      "revId": "483d43d925611a4a3ac7f54e9c0c30ac9413479f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
