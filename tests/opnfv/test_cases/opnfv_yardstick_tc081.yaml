@@ -8,10 +8,12 @@
 ##############################################################################
 
 ---
-# Sample benchmark task config file
-# measure network latency using ping betwwen container and VM
 
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC081 config file;
+    measure network latency between container and VM using ping;
+
 
 scenarios:
 -
