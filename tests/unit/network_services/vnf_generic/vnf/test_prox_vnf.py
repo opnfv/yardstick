@@ -348,9 +348,9 @@ class TestProxApproxVnf(unittest.TestCase):
         prox_approx_vnf.resource_helper = resource_helper
 
         expected = {
-            'packets_in': 7,
-            'packets_dropped': 1,
-            'packets_fwd': 6,
+            'packets_in': 6,
+            'packets_dropped': -1,
+            'packets_fwd': 7,
             'collect_stats': {'core': {'result': 234}},
         }
         result = prox_approx_vnf.collect_kpi()
