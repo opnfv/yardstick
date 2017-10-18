@@ -90,7 +90,7 @@ class ProxApproxVnf(SampleVNF):
 
         result = {
             "packets_in": tx_total,
-            "packets_dropped": abs(rx_total - tx_total),
+            "packets_dropped": rx_total - tx_total,
             "packets_fwd": rx_total,
             # we share ProxResourceHelper with TG, but we want to collect
             # collectd KPIs here and not TG KPIs, so use a different method name
