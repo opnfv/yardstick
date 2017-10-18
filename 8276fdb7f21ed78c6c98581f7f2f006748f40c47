@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_849a8d12",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 304
+      },
+      "writtenOn": "2017-10-18T16:19:48Z",
+      "side": 1,
+      "message": "I still have issue with the calculation of dropped packets here... it\u0027s a misrepresentation. If you can\u0027t retrieve the dropped packets then that should be relayed as that. not try to compensate with a calculation that isn\u0027t a fair representation of packets dropped.\n\nI believe from the documentation you should be able to get the real dropped packet stats from the DPDK stats/xstats APIs:\nhttps://01.org/intel-data-plane-performance-demonstrators/documentation/prox-documentation\n\nYou should try to get the real dropped counters from the relevant ports and add them up.",
+      "range": {
+        "startLine": 93,
+        "startChar": 11,
+        "endLine": 93,
+        "endChar": 51
+      },
+      "revId": "8276fdb7f21ed78c6c98581f7f2f006748f40c47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
