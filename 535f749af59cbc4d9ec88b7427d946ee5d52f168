@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_103cfb2e",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7041
+      },
+      "writtenOn": "2017-10-18T05:27:36Z",
+      "side": 1,
+      "message": "Typo: Installation",
+      "range": {
+        "startLine": 31,
+        "startChar": 24,
+        "endLine": 31,
+        "endChar": 36
+      },
+      "revId": "535f749af59cbc4d9ec88b7427d946ee5d52f168",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_504683c0",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 7041
+      },
+      "writtenOn": "2017-10-18T05:27:36Z",
+      "side": 1,
+      "message": "on each BM or standalone node to",
+      "range": {
+        "startLine": 90,
+        "startChar": 68,
+        "endLine": 90,
+        "endChar": 70
+      },
+      "revId": "535f749af59cbc4d9ec88b7427d946ee5d52f168",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_704907d0",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 7041
+      },
+      "writtenOn": "2017-10-18T05:27:36Z",
+      "side": 1,
+      "message": "execute",
+      "range": {
+        "startLine": 90,
+        "startChar": 32,
+        "endLine": 90,
+        "endChar": 41
+      },
+      "revId": "535f749af59cbc4d9ec88b7427d946ee5d52f168",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7020e7f7",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7041
+      },
+      "writtenOn": "2017-10-18T05:27:36Z",
+      "side": 1,
+      "message": "For an openstack environment, execute the \"nsb_setup.sh\" script with the full path to openstack admin rc credentials::\n\n   ./nsb_setup.sh \u003cfull path to admin rc\u003e",
+      "revId": "535f749af59cbc4d9ec88b7427d946ee5d52f168",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5074c3fc",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7041
+      },
+      "writtenOn": "2017-10-18T05:27:36Z",
+      "side": 1,
+      "message": "unnecessary when using yardstick container started with nsb_setup?",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 26
+      },
+      "revId": "535f749af59cbc4d9ec88b7427d946ee5d52f168",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_504b23b0",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7041
+      },
+      "writtenOn": "2017-10-18T05:27:36Z",
+      "side": 1,
+      "message": "unnecessary when using yardstick container started with nsb_setup?",
+      "range": {
+        "startLine": 127,
+        "startChar": 3,
+        "endLine": 148,
+        "endChar": 46
+      },
+      "revId": "535f749af59cbc4d9ec88b7427d946ee5d52f168",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
