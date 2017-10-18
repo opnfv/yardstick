@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_3fd8e81c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-10-18T18:10:20Z",
+      "side": 1,
+      "message": "Will push another patch set with subclass implementation.",
+      "parentUuid": "da33351e_0c86ffda",
+      "revId": "9d0a4fdcd1c19d2b2deb4dfa4289d4b31f939eef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_2c8303cd",
         "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2017-10-05T01:01:05Z",
       "side": 1,
       "message": "I assume this is custom Linux and they are not using the iproute2 tools\n\nnormally this would be \n\n ip addr add 152.16.100.19/24 dev dp0s10\n\nand the arp command would be replaced with\n\n ip neigh add",
+      "revId": "9d0a4fdcd1c19d2b2deb4dfa4289d4b31f939eef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_00967294",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-10-18T18:10:20Z",
+      "side": 1,
+      "message": "Done in patch set 4.",
+      "parentUuid": "da33351e_2c8303cd",
       "revId": "9d0a4fdcd1c19d2b2deb4dfa4289d4b31f939eef",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
