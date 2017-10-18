@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_f7d7d6bd",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc006.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-10-18T03:28:30Z",
+      "side": 1,
+      "message": "can be \"\\\\[random-writers\\\\]  ioengine\u003dlibaio  rw\u003drandwrite size\u003d128m bs\u003d32k direct\u003d0 size\u003d64m numjobs\u003d4\", then you need no quotes commas. you can use str.split(\" \") and  f.writelines() in fio.py",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 150
+      },
+      "revId": "3dd09effb014e6ef43f6c7d137a4be00c5210d88",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_37d81e1d",
         "filename": "yardstick/benchmark/scenarios/storage/fio.py",
         "patchSetId": 4
