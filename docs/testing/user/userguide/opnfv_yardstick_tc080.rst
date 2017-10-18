@@ -1,29 +1,28 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International
 .. License.
 .. http://creativecommons.org/licenses/by/4.0
-.. (c) OPNFV, Ericsson AB and others.
+.. (c) OPNFV, Huawei Technologies Co.,Ltd and others.
 
 *************************************
-Yardstick Test Case Description TC002
+Yardstick Test Case Description TC080
 *************************************
 
-.. _cirros-image: https://download.cirros-cloud.net
 .. _Ping: https://linux.die.net/man/8/ping
 
 +-----------------------------------------------------------------------------+
 |Network Latency                                                              |
 |                                                                             |
 +--------------+--------------------------------------------------------------+
-|test case id  | OPNFV_YARDSTICK_TC002_NETWORK LATENCY                        |
+|test case id  | OPNFV_YARDSTICK_TC080_NETWORK_LATENCY_BETWEEN_CONTAINER      |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |metric        | RTT (Round Trip Time)                                        |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|test purpose  | The purpose of TC002 is to do a basic verification that      |
+|test purpose  | The purpose of TC080 is to do a basic verification that      |
 |              | network latency is within acceptable boundaries when packets |
-|              | travel between hosts located on same or different compute    |
-|              | blades.                                                      |
+|              | travel between containers located in two different           |
+|              | Kubernetes pods.                                             |
 |              |                                                              |
 |              | The purpose is also to be able to spot the trends.           |
 |              | Test results, graphs and similar shall be stored for         |
@@ -42,23 +41,16 @@ Yardstick Test Case Description TC002
 |              | Ping is normally part of any Linux distribution, hence it    |
 |              | doesn't need to be installed. It is also part of the         |
 |              | Yardstick Docker image.                                      |
-|              | (For example also a Cirros image can be downloaded from      |
-|              | cirros-image_, it includes ping)                             |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test topology | Ping packets (ICMP protocol's mandatory ECHO_REQUEST         |
-|              | datagram) are sent from host VM to target VM(s) to elicit    |
-|              | ICMP ECHO_RESPONSE.                                          |
-|              |                                                              |
-|              | For one host VM there can be multiple target VMs.            |
-|              | Host VM and target VM(s) can be on same or different compute |
-|              | blades.                                                      |
+|              | datagram) are sent from host container to target container   |
+|              | to elicit ICMP ECHO_RESPONSE.                                |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|configuration | file: opnfv_yardstick_tc002.yaml                             |
+|configuration | file: opnfv_yardstick_tc080.yaml                             |
 |              |                                                              |
-|              | Packet size 100 bytes. Test duration 60 seconds.             |
-|              | One ping each 10 seconds. Test is iterated two times.        |
+|              | Packet size 200 bytes. Test duration 60 seconds.             |
 |              | SLA RTT is set to maximum 10 ms.                             |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
@@ -84,8 +76,7 @@ Yardstick Test Case Description TC002
 |              | have to be tuned for different configuration purposes.       |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|usability     | This test case is one of Yardstick's generic test. Thus it   |
-|              | is runnable on most of the scenarios.                        |
+|usability     | This test case should be run in Kunernetes environment.      |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |references    | Ping_                                                        |
@@ -93,31 +84,31 @@ Yardstick Test Case Description TC002
 |              | ETSI-NFV-TST001                                              |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|pre-test      | The test case image (cirros-image) needs to be installed     |
-|conditions    | into Glance with ping included in it.                        |
+|pre-test      | The test case Docker image (openretriever/yardstick) needs   |
+|conditions    | to be pulled into Kubernetes environment.                    |
 |              |                                                              |
-|              | No POD specific requirements have been identified.           |
+|              | No further requirements have been identified.                |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test sequence | description and expected result                              |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|step 1        | Two host VMs are booted, as server and client.               |
+|step 1        | Two containers are booted, as server and client.             |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|step 2        | Yardstick is connected with the server VM by using ssh.      |
-|              | 'ping_benchmark' bash script is copied from Jump Host to    |
-|              | the server VM via the ssh tunnel.                            |
+|step 2        | Yardstick is connected with the server container by using    |
+|              | ssh. 'ping_benchmark' bash script is copied from Jump Host   |
+|              | to the server container via the ssh tunnel.                  |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|step 3        | Ping is invoked. Ping packets are sent from server VM to     |
-|              | client VM. RTT results are calculated and checked against    |
-|              | the SLA. Logs are produced and stored.                       |
+|step 3        | Ping is invoked. Ping packets are sent from server container |
+|              | to client container. RTT results are calculated and checked  |
+|              | against the SLA. Logs are produced and stored.               |
 |              |                                                              |
 |              | Result: Logs are stored.                                     |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|step 4        | Two host VMs are deleted.                                    |
+|step 4        | Two containers are deleted.                                  |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test verdict  | Test should not PASS if any RTT is above the optional SLA    |

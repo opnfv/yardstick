@@ -8,10 +8,11 @@
 ##############################################################################
 
 ---
-# Sample benchmark task config file
-# measure network latency using ping in container
 
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC080 config file;
+    measure network latency between containers in k8s using ping;
 
 scenarios:
 -
