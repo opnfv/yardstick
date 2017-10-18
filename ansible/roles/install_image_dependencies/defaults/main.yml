@@ -22,6 +22,9 @@ install_dependencies:
     - unzip
     # for Trex
     - libpython2.7-dev
+    # for IxLoad
+    - libxft-dev
+    - libxss-dev
   RedHat:
     - bc
     - fio
