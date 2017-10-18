@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_db374faf",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_external_rfc2544_ipv4_1rule_1flow_128B_ixia.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-18T21:31:25Z",
+      "side": 1,
+      "message": "can we loop inside the testcase or use Jinja2 templating\n\nwrap the scenario with\n\n{% for framesize on 1 2 3 4... %}\n\n{% endfor %}",
+      "revId": "f0fdb21b5ad9af4ea651dad900547e6fb208ab0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
