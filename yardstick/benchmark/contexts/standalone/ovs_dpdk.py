@@ -138,6 +138,7 @@ class OvsDpdkContext(Context):
 
         cmd_list = [
             "mkdir -p /usr/local/var/run/openvswitch",
+            "mkdir -p {}".format(os.path.dirname(log_path)),
             "ovsdb-server --remote=punix:/{0}/{1}  --pidfile --detach".format(vpath,
                                                                               ovs_sock_path),
             ovs_other_config.format("--no-wait ", "dpdk-init=true"),
