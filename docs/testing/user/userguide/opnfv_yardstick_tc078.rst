@@ -114,7 +114,8 @@ Yardstick Test Case Description TC078
 |step 3        | Yardstick is connected with the target server by using ssh.  |
 |              | If custom runspec config file is used, this file is copyied  |
 |              | from yardstick to the target server via the ssh tunnel.      |
---------------+---------------------------------------------------------------+
+|              |                                                              |
++--------------+--------------------------------------------------------------+
 |step 4        | SPEC CPU2006 benchmark is invoked and SPEC CPU 2006 metrics  |
 |              | are generated.                                               |
 |              |                                                              |
