@@ -924,8 +924,9 @@ class SampleVNFTrafficGen(GenericTrafficGen):
 
     def instantiate(self, scenario_cfg, context_cfg):
         self.scenario_helper.scenario_cfg = scenario_cfg
-        self.resource_helper.generate_cfg()
         self.resource_helper.setup()
+        # must generate_cfg after DPDK bind because we need port number
+        self.resource_helper.generate_cfg()
 
         LOG.info("Starting %s server...", self.APP_NAME)
         name = "{}-{}-{}".format(self.name, self.APP_NAME, os.getpid())
