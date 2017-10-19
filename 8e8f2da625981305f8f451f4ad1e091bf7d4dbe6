@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ea4a3b82",
+        "filename": "docs/testing/user/userguide/index.rst",
+        "patchSetId": 14
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-19T17:29:39Z",
+      "side": 1,
+      "message": "maybe make 14-list-of-nsb-tests\n\nthen add  nsb/tc_proxy_context_l2fwd_port to that file.\n\nyou can see how it renders from the Jenkins output.  It builds the docs for each patch version.\n\nhttp://artifacts.opnfv.org/yardstick/review/45395/testing_user_userguide/index.html",
+      "revId": "8e8f2da625981305f8f451f4ad1e091bf7d4dbe6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ca4f7791",
+        "filename": "docs/testing/user/userguide/nsb/tc_prox_context_l2fwd_port.rst",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-19T17:29:39Z",
+      "side": 1,
+      "message": "Warning: rst validation (doc8) has failed, please fix the following error(s).\n    docs/testing/user/userguide/13-nsb_operation.rst:154: D002 Trailing whitespace\n    docs/testing/user/userguide/nsb/tc_prox_context_l2fwd_port.rst:16: D002 Trailing whitespace\n    docs/testing/user/userguide/nsb/tc_prox_context_l2fwd_port.rst:17: D002 Trailing whitespace\n    docs/testing/user/userguide/nsb/tc_prox_context_l2fwd_port.rst:31: D002 Trailing whitespace\nDocument link(s):",
+      "revId": "8e8f2da625981305f8f451f4ad1e091bf7d4dbe6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
