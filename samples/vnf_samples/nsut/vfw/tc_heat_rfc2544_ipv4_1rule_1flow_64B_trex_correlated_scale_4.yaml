@@ -15,16 +15,16 @@
 ---
 schema: yardstick:task:0.1
 scenarios:
-- type: NSPerf
-  traffic_profile: ../../traffic_profiles/ipv4_throughput-4.yaml
-  topology: vfw-tg-topology-3node-4.yaml
-  nodes:
-    tg__0: tg_0.yardstick
-    tg__1: tg_1.yardstick
-    vnf__0: vnf_0.yardstick
-    vnf__1: vnf_1.yardstick
-    vnf__2: vnf_2.yardstick
-    vnf__3: vnf_3.yardstick
+  - type: NSPerf
+    traffic_profile: ../../traffic_profiles/ipv4_throughput-4.yaml
+    topology: vfw-tg-topology-3node-4.yaml
+    nodes:
+      tg__0: tg_0.yardstick
+      tg__1: tg_1.yardstick
+      vnf__0: vnf_0.yardstick
+      vnf__1: vnf_1.yardstick
+      vnf__2: vnf_2.yardstick
+      vnf__3: vnf_3.yardstick
     options:
       framesize:
         uplink: {64B: 100}
