@@ -16,6 +16,24 @@
       "revId": "eab7e0f4b1ffb895a93107ab28b26ceb3b084e99",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2a426310",
+        "filename": "samples/vnf_samples/nsut/cgnapt/cgnat.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-19T15:08:13Z",
+      "side": 1,
+      "message": "not with ConfigParser",
+      "parentUuid": "9a3d3df0_a4498cd2",
+      "revId": "eab7e0f4b1ffb895a93107ab28b26ceb3b084e99",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
