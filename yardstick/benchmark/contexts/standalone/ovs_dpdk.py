@@ -164,7 +164,7 @@ class OvsDpdkContext(Context):
 
         cmd_dpdk_list = [
             "ovs-vsctl del-br br0",
-            "rm -rf /usr/local/var/run/openvswitch/dpdkvhostuser*",
+            "rm -rf {0}/var/run/openvswitch/dpdkvhostuser*".format(vpath),
             "ovs-vsctl add-br br0 -- set bridge br0 datapath_type=netdev",
         ]
 
@@ -175,7 +175,7 @@ class OvsDpdkContext(Context):
             dpdk_list.append(ovs_add_port.format(br='br0', port='dpdk%s' % vnf.get("port_num", 0),
                                                  type_='dpdk', dpdk_args=dpdk_args))
             dpdk_list.append(ovs_add_queue.format(port='dpdk%s' % vnf.get("port_num", 0),
-                                                  queue=self.ovs_properties.get("queues", 4)))
+                                                  queue=self.ovs_properties.get("queues", 1)))
 
         # Sorting the array to make sure we execute dpdk0... in the order
         list.sort(dpdk_list)
@@ -370,8 +370,6 @@ class OvsDpdkContext(Context):
             LOG.info("virsh create ...")
             Libvirt.virsh_create_vm(self.connection, cfg)
 
-            #    5: Tunning for better performace
-            Libvirt.pin_vcpu_for_perf(self.connection, vm_name, vcpu)
             self.vm_names.append(vm_name)
 
             # build vnf node details
