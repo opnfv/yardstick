@@ -15,14 +15,14 @@
 ---
 schema: yardstick:task:0.1
 scenarios:
-- type: NSPerf
-  traffic_profile: ../../traffic_profiles/ipv4_throughput-{{ num_vnfs }}.yaml
-  topology: vfw-tg-topology-3node-{{ num_vnfs }}.yaml
-  nodes:
-    tg__0: tg_0.yardstick
-    tg__1: tg_1.yardstick
+  - type: NSPerf
+    traffic_profile: ../../traffic_profiles/ipv4_throughput-{{ num_vnfs }}.yaml
+    topology: vfw-tg-topology-3node-{{ num_vnfs }}.yaml
+    nodes:
+      tg__0: tg_0.yardstick
+      tg__1: tg_1.yardstick
 {% for vnf_num in range(num_vnfs|int) %}
-    vnf__{{ vnf_num }}: vnf_{{ vnf_num }}.yardstick
+      vnf__{{ vnf_num }}: vnf_{{ vnf_num }}.yardstick
 {% endfor %}
     options:
       framesize:

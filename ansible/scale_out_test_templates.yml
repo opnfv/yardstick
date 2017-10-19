@@ -40,6 +40,10 @@
     dest: ../samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_correlated_scale_{{ num_vnfs }}.yaml
 
 - template:
+    src: ../samples/vnf_samples/nsut/vfw/vfw-tg-topology-3node-scale-out.yaml
+    dest: ../samples/vnf_samples/nsut/vfw/vfw-tg-topology-3node-{{ num_vnfs }}.yaml
+
+- template:
     src: ../samples/vnf_samples/nsut/cgnapt/tc_heat_rfc2544_ipv4_1flow_64B_trex_correlated_scale_out.yaml
     dest: ../samples/vnf_samples/nsut/cgnapt/tc_heat_rfc2544_ipv4_1flow_64B_trex_correlated_scale_{{ num_vnfs }}.yaml
 
