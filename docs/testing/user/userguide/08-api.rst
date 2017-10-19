@@ -21,9 +21,9 @@ Available API
 
 Description: This API is used to do some work related to environment. For now, we support:
 
-1. Prepare yardstick environment(Including fetch openrc file, get external network and load images)
-2. Start a InfluxDB docker container and config yardstick output to InfluxDB.
-3. Start a Grafana docker container and config with the InfluxDB.
+1. Prepare yardstick environment (including get external network and load images and flavors)
+2. Start an InfluxDB Docker container and config yardstick output to InfluxDB.
+3. Start a Grafana Docker container and config with the InfluxDB.
 
 Which API to call will depend on the Parameters.
 
@@ -162,12 +162,24 @@ Example::
 This is an asynchronous API. You need to call /yardstick/results to get the result.
 
 
+/yardstick/tasks/
+
+Description: This API is used to get the real time log if we use API(v1) run test cases.
+
+Method: GET
+
+Get real time of test cases
+Example:
+
+    http://localhost:8888/yardstick/tasks/14795be8-f144-4f54-81ce-43f4e3eab33f/log?index=0
+
+
 /yardstick/results
 ^^^^^^^^^^^^^^^^^^
 
-
 Description: This API is used to get the test results of certain task. If you call /yardstick/testcases/samples/action API, it will return a task id. You can use the returned task id to get the results by using this API.
 
+Method: GET
 
 Get test results of one task
 Example::
@@ -175,3 +187,190 @@ Example::
     http://localhost:8888/yardstick/results?task_id=3f3f5e03-972a-4847-a5f8-154f1b31db8c
 
 This API will return a list of test case result
+
+
+/api/v2/yardstick/openrcs/action
+
+Description: This API is used to do some work related to OpenStack credential file (openrc). For now, we support:
+
+1. Upload an openrc file for an OpenStack environment.
+2. Update an openrc file.
+3. Get openrc file information.
+4. Delete an openrc file.
+
+Which API to call will depend on the Parameters.
+
+
+METHOD: POST
+
+
+Upload an openrc file for an OpenStack environment
+Example:
+
+    { 
+        'action': 'upload_openrc',
+        'args': {
+            'file': file,
+            'environment_id': environment_id
+        }
+    }
+
+
+METHOD: POST
+
+
+Update an openrc file
+Example:
+
+    {
+        'action': 'update_openrc',
+        'args': {
+            'openrc': {
+                "EXTERNAL_NETWORK": "ext-net",
+                "OS_AUTH_URL": "http://192.168.23.51:5000/v3",
+                "OS_IDENTITY_API_VERSION": "3",
+                "OS_IMAGE_API_VERSION": "2",
+                "OS_PASSWORD": "console",
+                "OS_PROJECT_DOMAIN_NAME": "default",
+                "OS_PROJECT_NAME": "admin",
+                "OS_TENANT_NAME": "admin",
+                "OS_USERNAME": "admin",
+                "OS_USER_DOMAIN_NAME": "default"
+            },
+            'environment_id': environment_id
+        }
+    }
+
+
+METHOD: GET
+
+Get openrc file information
+Example:
+
+    http://localhost:8888/api/v2/yardstick/openrcs/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+
+
+METHOD: DELETE
+
+
+Delete openrc file
+Example:
+
+    http://localhost:8888/api/v2/yardstick/openrcs/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+
+
+/api/v2/yardstick/pods/action
+
+Description: This API is used to do some work related to Yardstick pod file (pod.yaml). For now, we support:
+
+1. Upload a pod file.
+2. Get pod file information.
+3. Delete an openrc file.
+
+Which API to call will depend on the Parameters.
+
+
+METHOD: POST
+
+
+Upload a pod.yaml file
+Example:
+
+    {
+        'action': 'upload_pod_file',
+        'args': {
+            'file': file,
+            'environment_id': environment_id
+        }
+    }
+
+
+METHOD: GET
+
+Get pod file information
+Example:
+
+    http://localhost:8888/api/v2/yardstick/pods/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+
+
+METHOD: DELETE
+
+Delete openrc file
+Example:
+
+    http://localhost:8888/api/v2/yardstick/pods/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+
+
+/api/v2/yardstick/images/action
+
+Description: This API is used to do some work related to images. For now, we support:
+
+1. Load images.
+2. Get image information.
+3. Delete images.
+
+Which API to call will depend on the Parameters.
+
+
+METHOD: POST
+
+
+Load images
+Example:
+
+    {
+        'action': 'load_images'
+    }
+
+
+METHOD: GET
+
+Get image information
+Example:
+
+    http://localhost:8888/api/v2/yardstick/images/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+
+
+METHOD: DELETE
+
+Delete images
+Example:
+
+    http://localhost:8888/api/v2/yardstick/images/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+
+
+/api/v2/yardstick/tasks/action
+
+Description: This API is used to do some work related to yardstick tasks. For now, we support:
+
+1. run a task.
+2. Get all tasks' info.
+3. Delete a task.
+
+Which API to call will depend on the Parameters.
+
+
+METHOD: PUT
+
+
+Run a task
+Example:
+
+    {
+        'action': 'run'
+    }
+
+
+METHOD: GET
+
+Get all tasks' information
+Example:
+
+    http://localhost:8888/api/v2/yardstick/tasks/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+
+
+METHOD: DELETE
+
+Delete a task
+Example:
+    http://localhost:8888/api/v2/yardstick/tasks/5g6g3e02-155a-4847-a5f8-154f1b31db8c
