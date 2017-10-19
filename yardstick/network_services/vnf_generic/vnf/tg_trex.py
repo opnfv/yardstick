@@ -49,30 +49,33 @@ class TrexResourceHelper(ClientResourceHelper):
     SYNC_PORT = 4501
 
     def generate_cfg(self):
-        ext_intf = self.vnfd_helper.interfaces
+        port_names = self.vnfd_helper.port_pairs.all_ports
         vpci_list = []
         port_list = []
-        trex_cfg = {
-            'interfaces': vpci_list,
-            'port_info': port_list,
-            "port_limit": len(ext_intf),
-            "version": '2',
-        }
-        cfg_file = [trex_cfg]
 
-        for interface in ext_intf:
+        port_nums = sorted(self.vnfd_helper.port_nums(port_names))
+        for port_num in port_nums:
+            interface = self.vnfd_helper.find_interface_by_port(port_num)
             virtual_interface = interface['virtual-interface']
-            vpci_list.append(virtual_interface["vpci"])
             dst_mac = virtual_interface["dst_mac"]
 
+            # why skip?, ordering is based on DPDK port number so we can't skip
             if not dst_mac:
                 continue
-
+            # TRex ports must be in DPDK port number, so order of append matters
+            vpci_list.append(virtual_interface["vpci"])
             local_mac = virtual_interface["local_mac"]
             port_list.append({
                 "src_mac": mac_address_to_hex_list(local_mac),
                 "dest_mac": mac_address_to_hex_list(dst_mac),
             })
+        trex_cfg = {
+            'interfaces': vpci_list,
+            'port_info': port_list,
+            "port_limit": len(port_names),
+            "version": '2',
+        }
+        cfg_file = [trex_cfg]
 
         cfg_str = yaml.safe_dump(cfg_file, default_flow_style=False, explicit_start=True)
         self.ssh_helper.upload_config_file(os.path.basename(self.CONF_FILE), cfg_str)
