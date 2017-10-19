@@ -93,6 +93,30 @@
       "revId": "8276fdb7f21ed78c6c98581f7f2f006748f40c47",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_efffedff",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 304
+      },
+      "writtenOn": "2017-10-19T09:31:35Z",
+      "side": 1,
+      "message": "you need to dig into the real code. looking at documentation is not enough. + the real register that needs to be used is not being used. at worsed ierrors, at best the total_queue_errors... but you should not take it upon yourself to calculate dropped packets that have an accurate representation from a NIC",
+      "parentUuid": "9a3d3df0_3fbbc80f",
+      "range": {
+        "startLine": 93,
+        "startChar": 11,
+        "endLine": 93,
+        "endChar": 51
+      },
+      "revId": "8276fdb7f21ed78c6c98581f7f2f006748f40c47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
