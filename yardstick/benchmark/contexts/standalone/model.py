@@ -223,7 +223,7 @@ class Libvirt(object):
         sys_cpu = int(soc_cpu["cores_per_socket"])
         cores = "%s-%s" % (soc_cpu[socket][0], soc_cpu[socket][sys_cpu - 1])
         if int(soc_cpu["thread_per_core"]):
-            threads = "%s-%s" % (soc_cpu[socket][sys_cpu], soc_cpu[socket][-1])
+            threads = "%s-%s" % (soc_cpu[socket][sys_cpu-1], soc_cpu[socket][-1])
         cpuset = "%s,%s" % (cores, threads)
         return cpuset
 
