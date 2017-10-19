@@ -26,5 +26,6 @@ Yardstick User Guide
    13-nsb-overview
    14-nsb_installation
    15-list-of-tcs
+   nsb/nsb-list-of-tcs
    glossary
    references
