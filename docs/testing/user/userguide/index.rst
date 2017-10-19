@@ -23,8 +23,9 @@ Yardstick User Guide
    08-api
    09-yardstick_user_interface
    10-vtc-overview
-   13-nsb-overview
-   14-nsb_installation
+   11-nsb-overview
+   12-nsb_installation
+   13-nsb_operation
    15-list-of-tcs
    glossary
    references
