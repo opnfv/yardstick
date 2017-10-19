@@ -300,6 +300,17 @@ New Scenarios
 New Test cases
 ^^^^^^^^^^^^^^
 
+* Generic NFVI test cases
+
+ * OPNFV_YARDSTICK_TCO78 - SPEC CPU 2006
+
+ * OPNFV_YARDSTICK_TCO79 - Bonnie++
+
+* Kubernetes Test cases
+
+ * OPNFV_YARDSTICK_TCO80 - NETWORK LATENCY BETWEEN CONTAINER
+
+ * OPNFV_YARDSTICK_TCO81 - NETWORK LATENCY BETWEEN CONTAINER AND VM
 
 
 Version Change
