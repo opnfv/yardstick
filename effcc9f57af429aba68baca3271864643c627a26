@@ -22,6 +22,30 @@
       "revId": "effcc9f57af429aba68baca3271864643c627a26",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9e93f5f9",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-19T02:47:14Z",
+      "side": 1,
+      "message": "yes, can you please help update this.",
+      "parentUuid": "9a3d3df0_1eb1a5e1",
+      "range": {
+        "startLine": 301,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 20
+      },
+      "revId": "effcc9f57af429aba68baca3271864643c627a26",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
