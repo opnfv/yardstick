@@ -19,6 +19,42 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c0e80a7f",
+        "filename": "yardstick/benchmark/scenarios/lib/check_connectivity.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-10-19T02:04:44Z",
+      "side": 1,
+      "message": "I think in this scenario \u0027sla\u0027 should be obligatory.",
+      "parentUuid": "9a3d3df0_a587d80e",
+      "revId": "22d13c380dd02f89e08391a44f8806dc064d898a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0002f23d",
+        "filename": "yardstick/benchmark/scenarios/lib/check_connectivity.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-10-19T02:04:44Z",
+      "side": 1,
+      "message": "I think in this sceanrio the \u0027sla\u0027 should be obligatory so I don\u0027t want suppress the key error.",
+      "parentUuid": "9a3d3df0_a587d80e",
+      "revId": "22d13c380dd02f89e08391a44f8806dc064d898a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_459fec5f",
         "filename": "yardstick/benchmark/scenarios/lib/check_connectivity.py",
         "patchSetId": 9
