@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_1eb1a5e1",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2017-10-19T01:53:22Z",
+      "side": 1,
+      "message": "we have implemented serveral new test cases in Euphrates: tc078, tc0079, tc080 and tc081",
+      "range": {
+        "startLine": 301,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 20
+      },
+      "revId": "effcc9f57af429aba68baca3271864643c627a26",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
