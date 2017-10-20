@@ -2,6 +2,142 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_079af562",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_1024k_Requests-65000_Concurrency.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-10-20T17:22:54Z",
+      "side": 1,
+      "message": "change private to uplink and public to downlink",
+      "revId": "f0fdb21b5ad9af4ea651dad900547e6fb208ab0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a794e937",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_256k_Requests-65000_Concurrency.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-10-20T17:22:54Z",
+      "side": 1,
+      "message": "change private to uplink and public to downlink",
+      "revId": "f0fdb21b5ad9af4ea651dad900547e6fb208ab0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c78f6d22",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_4k_Requests-65000_Concurrency.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-10-20T17:22:54Z",
+      "side": 1,
+      "message": "change private to uplink and public to downlink",
+      "revId": "f0fdb21b5ad9af4ea651dad900547e6fb208ab0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6773014e",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_512k_Requests-65000_Concurrency.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-10-20T17:22:54Z",
+      "side": 1,
+      "message": "change private to uplink and public to downlink",
+      "revId": "f0fdb21b5ad9af4ea651dad900547e6fb208ab0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8776053d",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_64k_Requests-65000_Concurrency.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-10-20T17:22:54Z",
+      "side": 1,
+      "message": "change private to uplink and public to downlink",
+      "revId": "f0fdb21b5ad9af4ea651dad900547e6fb208ab0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_477cfd20",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_external_rfc2544_ipv4_1rule_1flow_1024B_ixia.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-10-20T17:22:54Z",
+      "side": 1,
+      "message": "change private to uplink and public to downlink",
+      "revId": "f0fdb21b5ad9af4ea651dad900547e6fb208ab0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e787110e",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_external_rfc2544_ipv4_1rule_1flow_1280B_ixia.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-10-20T17:22:54Z",
+      "side": 1,
+      "message": "change private to uplink and public to downlink",
+      "revId": "f0fdb21b5ad9af4ea651dad900547e6fb208ab0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_07831505",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_external_rfc2544_ipv4_1rule_1flow_128B_ixia.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-10-20T17:22:54Z",
+      "side": 1,
+      "message": "change private to uplink and public to downlink",
+      "revId": "f0fdb21b5ad9af4ea651dad900547e6fb208ab0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_db374faf",
         "filename": "samples/vnf_samples/nsut/vfw/tc_heat_external_rfc2544_ipv4_1rule_1flow_128B_ixia.yaml",
         "patchSetId": 1
@@ -13,6 +149,74 @@
       "writtenOn": "2017-10-18T21:31:25Z",
       "side": 1,
       "message": "can we loop inside the testcase or use Jinja2 templating\n\nwrap the scenario with\n\n{% for framesize on 1 2 3 4... %}\n\n{% endfor %}",
+      "revId": "f0fdb21b5ad9af4ea651dad900547e6fb208ab0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c7880d25",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_external_rfc2544_ipv4_1rule_1flow_1518B_ixia.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-10-20T17:22:54Z",
+      "side": 1,
+      "message": "change private to uplink and public to downlink",
+      "revId": "f0fdb21b5ad9af4ea651dad900547e6fb208ab0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_679ca16a",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_external_rfc2544_ipv4_1rule_1flow_256B_ixia.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-10-20T17:22:54Z",
+      "side": 1,
+      "message": "change private to uplink and public to downlink",
+      "revId": "f0fdb21b5ad9af4ea651dad900547e6fb208ab0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_27929957",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_external_rfc2544_ipv4_1rule_1flow_512B_ixia.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-10-20T17:22:54Z",
+      "side": 1,
+      "message": "private should be changed to uplink to fix framesize issue.",
+      "revId": "f0fdb21b5ad9af4ea651dad900547e6fb208ab0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_879f255f",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_external_rfc2544_ipv4_1rule_1flow_512B_ixia.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-10-20T17:22:54Z",
+      "side": 1,
+      "message": "public should be changed to downlink",
       "revId": "f0fdb21b5ad9af4ea651dad900547e6fb208ab0e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
