@@ -245,6 +245,14 @@ Yardstick guest images. This script is mainly used for CI and can be also used i
   source $YARDSTICK_REPO_DIR/tests/ci/load_images.sh
 
 
+The Yardstick container GUI
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In Euphrates release, Yardstick implemeted a GUI for Yardstick Docker container. After booting up Yardstick container, you can visit the GUI at <container_host_ip>:8888/gui/index.html
+For usage of Yardstick GUI, please watch our demo video at https://www.youtube.com/watch?v=M3qbJDp6QBk
+**Note:** The Yardstick GUI is still in development, the GUI layout and features may change.
+
+
 Delete the Yardstick container
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
