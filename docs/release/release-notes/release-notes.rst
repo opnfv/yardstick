@@ -98,6 +98,8 @@ testing:
 
 * Test cases for the following OPNFV Projects:
 
+  * Container4NFV
+
   * High Availability
 
   * IPv6
@@ -248,6 +250,8 @@ New Scenarios
 |                |                                                     |
 |                | * computecapacity                                   |
 |                |                                                     |
+|                | * SpecCPU2006                                       |
+|                |                                                     |
 +----------------+-----------------------------------------------------+
 | *Networking*   | * iperf3                                            |
 |                |                                                     |
@@ -279,11 +283,15 @@ New Scenarios
 |                |                                                     |
 |                | * nstat                                             |
 |                |                                                     |
+|                | * pktgenDPDK                                        |
+|                |                                                     |
 +----------------+-----------------------------------------------------+
 | *Parser*       | Tosca2Heat                                          |
 |                |                                                     |
 +----------------+-----------------------------------------------------+
 | *Storage*      | fio                                                 |
+|                |                                                     |
+|                | bonnie++                                            |
 |                |                                                     |
 |                | storagecapacity                                     |
 |                |                                                     |
@@ -300,6 +308,17 @@ New Scenarios
 New Test cases
 ^^^^^^^^^^^^^^
 
+* Generic NFVI test cases
+
+ * OPNFV_YARDSTICK_TCO78 - SPEC CPU 2006
+
+ * OPNFV_YARDSTICK_TCO79 - Bonnie++
+
+* Kubernetes Test cases
+
+ * OPNFV_YARDSTICK_TCO80 - NETWORK LATENCY BETWEEN CONTAINER
+
+ * OPNFV_YARDSTICK_TCO81 - NETWORK LATENCY BETWEEN CONTAINER AND VM
 
 
 Version Change
@@ -308,16 +327,20 @@ Version Change
 Module Version Changes
 ^^^^^^^^^^^^^^^^^^^^^^
 
-This is the fourth tracked release of Yardstick. It is based on following
+This is the fifth tracked release of Yardstick. It is based on following
 upstream versions:
 
 - OpenStack Ocata
+
+- OpenDayLight Nitrogen
+
+- ONOS Junco
 
 
 Document Version Changes
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-This is the fourth tracked version of the Yardstick framework in OPNFV.
+This is the fifth tracked version of the Yardstick framework in OPNFV.
 It includes the following documentation updates:
 
 - Yardstick User Guide: add "network service benchmarking(NSB)" chapter;
@@ -334,19 +357,21 @@ Feature additions
 
 - Yardstick RESTful API support
 
-- Introduce Network service benchmarking
+- Network service benchmarking
 
-- Introduce stress testing with Bottlenecks team
+- Stress testing with Bottlenecks team
 
 - Yardstick framework improvement:
-
-  - Parellel test cases execution support
 
   - yardstick report CLI
 
   - Node context support OpenStack configuration via Ansible
 
   - Https support
+
+  - Kubernetes context type
+
+- Yardstick container local GUI
 
 - Python 3 support
 
@@ -488,12 +513,6 @@ Open JIRA tickets
 +---------------------+----------------------------------------------+
 | **JIRA REFERENCE**  | **DESCRIPTION**                              |
 |                     |                                              |
-+---------------------+----------------------------------------------+
-| JIRA: YARDSTICK-626 | Fio and Lmbench don't work in Ubuntu-arm64   |
-|                     | image                                        |
-+---------------------+----------------------------------------------+
-| JIRA: YARDSTICK-603 | Timeout waiting for floating ip              |
-|                     | (which actually pingable)                    |
 +---------------------+----------------------------------------------+
 | JIRA: YARDSTICK-412 | IPv6 test case should add support for newton |
 |                     |                                              |
