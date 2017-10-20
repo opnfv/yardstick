@@ -10,11 +10,11 @@ Yardstick Test Case Description TC083
 .. _netperf: http://www.netperf.org/netperf/training/Netperf.html
 
 +-----------------------------------------------------------------------------+
-|Throughput per VM test                                                |
+|Throughput per VM test                                                       |
 |                                                                             |
 +--------------+--------------------------------------------------------------+
 |test case id  | OPNFV_YARDSTICK_TC083_Network latency and throughput between |
-|              | VMs                                                        |
+|              | VMs                                                          |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |metric        | Network latency and throughput                               |
