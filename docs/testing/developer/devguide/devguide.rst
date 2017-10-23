@@ -63,6 +63,256 @@ How Yardstick works?
 
 The installation and configuration of the Yardstick is described in the `user guide`_.
 
+How to work with test cases?
+----------------------------
+
+
+**Sample Test cases**
+
+Yardstick provides many sample test cases which are located at "samples" directory of repo.
+
+Sample test cases are designed as following goals:
+
+1. Helping user better understand yardstick features(including new feature and new test capacity).
+
+2. Helping developer to debug his new feature and test case before it is offical released.
+
+3. Helping other developers understand and verify the new patch before the patch merged.
+
+So developers should upload your sample test case as well when they are trying to upload a new patch which is about the yardstick new test case or new feature.
+
+
+**OPNFV Release Test cases**
+
+OPNFV Release test cases which are located at "tests/opnfv/test_cases" of repo.
+those test cases are runing by OPNFV CI jobs, It means those test cases should be more mature than sample test cases.
+OPNFV scenario owners can select related test cases and add them into the test suites which is represent the scenario.
+
+
+**Test case Description File**
+
+This section will introduce the meaning of the Test case description file.
+we will use ping.yaml as a example to show you how to understand the test case description file.
+In this Yaml file, you can easily find it consists of two sections. One is “Scenarios”,  the other is “Context”.::
+
+  ---
+    # Sample benchmark task config file
+    # measure network latency using ping
+
+    schema: "yardstick:task:0.1"
+
+    {% set provider = provider or none %}
+    {% set physical_network = physical_network or 'physnet1' %}
+    {% set segmentation_id = segmentation_id or none %}
+    scenarios:
+    -
+      type: Ping
+      options:
+        packetsize: 200
+      host: athena.demo
+      target: ares.demo
+
+      runner:
+        type: Duration
+        duration: 60
+        interval: 1
+
+      sla:
+        max_rtt: 10
+        action: monitor
+
+    context:
+      name: demo
+      image: cirros-0.3.5
+      flavor: yardstick-flavor
+      user: cirros
+
+      placement_groups:
+        pgrp1:
+          policy: "availability"
+
+      servers:
+        athena:
+          floating_ip: true
+          placement: "pgrp1"
+        ares:
+          placement: "pgrp1"
+
+      networks:
+        test:
+          cidr: '10.0.1.0/24'
+          {% if provider == "vlan" %}
+          provider: {{provider}}
+          physical_network: {{physical_network}}
+            {% if segmentation_id %}
+          segmentation_id: {{segmentation_id}}
+            {% endif %}
+         {% endif %}
+
+
+"Contexts" section is the description of pre-condition of testing. As ping.yaml shown, you can configure the image, flavor , name ,affinity and network of Test VM(servers),  with this section, you will get a pre-condition env for Testing. 
+Yardstick will automatic setup the stack which are described in this section.
+In fact, yardstick use convert this section to heat template and setup the VMs by heat-client (Meanwhile, yardstick can support to convert this section to Kubernetes template to setup containers).
+
+Two Test VMs(athena and ares) are configured by keyword "servers".
+"flavor" will determine how many vCPU, how much memory for test VMs.
+As "yardstick-flavor" is a basic flavor which will be automatically created when you run command "yardstick env prepare". "yardstick-flavor" is "1 vCPU 1G RAM,3G Disk".
+"image" is the image name of test VMs. if you use cirros.3.5.0, you need fill the username of this image into "user". the "policy" of placement of Test VMs have two values (affinity and availability). 
+"availability" means anti-affinity. In "network" section, you can configure which provide network and physical_network you want Test VMs use.
+you may need to configure segmentation_id when your network is vlan.
+
+Moreover, you can configure your specific flavor as below, yardstick will setup the stack for you. ::
+
+  flavor:
+    name: yardstick-new-flavor
+    vcpus: 12
+    ram: 1024
+    disk: 2
+
+
+Besides default heat stack, yardstick also allow you to setup other two types stack. they are "Node" and "Kubernetes". ::
+
+  context:
+    type: Kubernetes
+    name: k8s
+
+and ::
+
+  context:
+    type: Node
+    name: LF
+
+
+
+"Scenarios" section is the description of testing step, you can orchestrate the complex testing step through orchestrate scenarios.
+
+Each scenario will do one testing step, In one scenario, you can configure the type of scenario(operation), runner type and SLA of the scenario.
+
+For TC002, We only have one step , that is Ping from host VM to target VM. In this step, we also have some detail operation implement ( such as ssh to VM, ping from VM1 to VM2. Get the latency, verify the SLA, report the result).
+
+If you want to get this detail implement , you can check with the scenario.py file. For Ping scenario, you can find it in yardstick repo ( yardstick / yardstick / benchmark / scenarios / networking / ping.py)
+
+after you select the type of scenario( such as Ping), you will select one type of runner, there are 4 types of runner. Usually, we use the "Iteration" and "Duration". and Default is "Iteration". 
+For Iteration, you can specify the iteration number and interval of iteration. ::
+
+  runner:
+    type: Iteration
+    iterations: 10
+    interval: 1
+
+That means yardstick will iterate the 10 times of Ping test and the interval of each iteration is one second.
+
+For Duration, you can specify the duration of this scenario and the interval of each ping test. ::
+
+  runner:
+    type: Duration
+    duration: 60
+    interval: 10
+
+That means yardstick will run the ping test as loop until the total time of this scenario reach the 60s and the interval of each loop is ten seconds.
+
+
+SLA is the criterion of this scenario. that depends on the scenario. different scenario can have different SLA metric.
+
+
+**How to write a new test case**
+
+Yardstick already provide a library of testing step. that means yardstick provide lots of type scenario.
+
+Basiclly, What you need to do is to orchestrate the scenario from the library.
+
+Here, We will show two cases. One is how to write a simple test case, the other is how to write a quite complex test case.
+
+
+Write a new simple test case
+
+First, you can image a basic test case description as below.
+
++-----------------------------------------------------------------------------+
+|Storage Performance                                                          |
+|                                                                             |
++--------------+--------------------------------------------------------------+
+|metric        | IOPS (Average IOs performed per second),                     |
+|              | Throughput (Average disk read/write bandwidth rate),         |
+|              | Latency (Average disk read/write latency)                    |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|test purpose  | The purpose of TC005 is to evaluate the IaaS storage         |
+|              | performance with regards to IOPS, throughput and latency.    |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|test          | fio test is invoked in a host VM on a compute blade, a job   |
+|description   | file as well as parameters are passed to fio and fio will    |
+|              | start doing what the job file tells it to do.                |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|configuration | file: opnfv_yardstick_tc005.yaml                             |
+|              |                                                              |
+|              | IO types is set to read, write, randwrite, randread, rw.     |
+|              | IO block size is set to 4KB, 64KB, 1024KB.                   |
+|              | fio is run for each IO type and IO block size scheme,        |
+|              | each iteration runs for 30 seconds (10 for ramp time, 20 for |
+|              | runtime).                                                    |
+|              |                                                              |
+|              | For SLA, minimum read/write iops is set to 100,              |
+|              | minimum read/write throughput is set to 400 KB/s,            |
+|              | and maximum read/write latency is set to 20000 usec.         |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|applicability | This test case can be configured with different:             |
+|              |                                                              |
+|              |   * IO types;                                                |
+|              |   * IO block size;                                           |
+|              |   * IO depth;                                                |
+|              |   * ramp time;                                               |
+|              |   * test duration.                                           |
+|              |                                                              |
+|              | Default values exist.                                        |
+|              |                                                              |
+|              | SLA is optional. The SLA in this test case serves as an      |
+|              | example. Considerably higher throughput and lower latency    |
+|              | are expected. However, to cover most configurations, both    |
+|              | baremetal and fully virtualized  ones, this value should be  |
+|              | possible to achieve and acceptable for black box testing.    |
+|              | Many heavy IO applications start to suffer badly if the      |
+|              | read/write bandwidths are lower than this.                   |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|pre-test      | The test case image needs to be installed into Glance        |
+|conditions    | with fio included in it.                                     |
+|              |                                                              |
+|              | No POD specific requirements have been identified.           |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|test sequence | description and expected result                              |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|step 1        | A host VM with fio installed is booted.                      |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|step 2        | Yardstick is connected with the host VM by using ssh.        |
+|              | 'fio_benchmark' bash script is copyied from Jump Host to     |
+|              | the host VM via the ssh tunnel.                              |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|step 3        | 'fio_benchmark' script is invoked. Simulated IO operations   |
+|              | are started. IOPS, disk read/write bandwidth and latency are |
+|              | recorded and checked against the SLA. Logs are produced and  |
+|              | stored.                                                      |
+|              |                                                              |
+|              | Result: Logs are stored.                                     |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|step 4        | The host VM is deleted.                                      |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|test verdict  | Fails only if SLA is not passed, or if there is a test case  |
+|              | execution problem.                                           |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+
+TODO
+
 How can I contribute to Yardstick?
 -----------------------------------
 
