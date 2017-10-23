@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_98902097",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-23T17:44:07Z",
+      "side": 1,
+      "message": "Mapping?",
+      "range": {
+        "startLine": 279,
+        "startChar": 36,
+        "endLine": 279,
+        "endChar": 40
+      },
+      "revId": "7d69da5a8ffc180e7163ec5d7bf0e4828314e7be",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_788d5c7b",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-23T17:44:07Z",
+      "side": 1,
+      "message": "\"a random key\"",
+      "range": {
+        "startLine": 280,
+        "startChar": 43,
+        "endLine": 280,
+        "endChar": 56
+      },
+      "revId": "7d69da5a8ffc180e7163ec5d7bf0e4828314e7be",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
