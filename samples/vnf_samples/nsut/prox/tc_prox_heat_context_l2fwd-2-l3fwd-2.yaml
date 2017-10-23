@@ -27,13 +27,13 @@ scenarios:
 
   options:
     vnf__0:
-      prox_path: /root/dppd-PROX-v037/build/prox
+      prox_path: /opt/nsb_bin/prox
       prox_config: "configs/handle_l2fwd-2.cfg"
       prox_args:
         "-t": ""
 
     tg__0:
-      prox_path: /root/dppd-PROX-v037/build/prox
+      prox_path: /opt/nsb_bin/prox
       prox_config: "configs/gen_l2fwd-2.cfg"
       prox_args:
         "-e": ""
@@ -56,7 +56,7 @@ scenarios:
 
   options:
     vnf__0:
-      prox_path: /root/dppd-PROX-v037.1/build/prox
+      prox_path: /opt/nsb_bin/prox
       prox_config: "configs/handle_l3fwd-2.cfg"
       prox_args:
         "-t": ""
@@ -64,7 +64,7 @@ scenarios:
         "configs/ipv4.lua" : ""
 
     tg__0:
-      prox_path: /root/dppd-PROX-v037.1/build/prox
+      prox_path: /opt/nsb_bin/prox
       prox_config: "configs/gen_l3fwd-2.cfg"
       prox_args:
         "-e": ""

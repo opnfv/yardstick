@@ -27,7 +27,7 @@ scenarios:
 
   options:
     vnf__0:
-      prox_path: /root/dppd-PROX-v037/build/prox
+      prox_path: /opt/nsb_bin/prox
       prox_config: "configs/handle_vpe-4.cfg"
       prox_args:
         "-t": ""
@@ -40,7 +40,7 @@ scenarios:
       prox_generate_parameter: True
 
     tg__0:
-      prox_path: /root/dppd-PROX-v037/build/prox
+      prox_path: /opt/nsb_bin/prox
       prox_config: "configs/gen_vpe-4.cfg"
       prox_args:
         "-e": ""
@@ -55,5 +55,5 @@ context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: /etc/yardstick/nodes/prox-baremetal-4.yml
+  file: prox-baremetal-4.yaml
 

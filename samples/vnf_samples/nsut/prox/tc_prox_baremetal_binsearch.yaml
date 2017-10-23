@@ -27,13 +27,13 @@ scenarios:
 
   options:
     vnf__0:
-      prox_path: /root/dppd-PROX-v035/build/prox
+      prox_path: /opt/nsb_bin/prox
       prox_config: "configs/handle_none-2.cfg"
       prox_args:
         "-t": ""
 
     tg__0:
-      prox_path: /root/dppd-PROX-v035/build/prox
+      prox_path: /opt/nsb_bin/prox
       prox_config: "configs/gen_all-2.cfg"
       prox_args:
         "-e": ""
@@ -48,4 +48,4 @@ context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: prox-baremetal.yml
+  file: prox-baremetal-2.yaml
