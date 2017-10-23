@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_f8aa0cd3",
+        "filename": "tests/unit/benchmark/scenarios/compute/test_qemumigrate.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-23T17:21:56Z",
+      "side": 1,
+      "message": "this is a runtime error, not assertion",
+      "range": {
+        "startLine": 160,
+        "startChar": 31,
+        "endLine": 160,
+        "endChar": 45
+      },
+      "revId": "230317c50b5506a5dbbcb9a53f9ad66cf2f6d424",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
