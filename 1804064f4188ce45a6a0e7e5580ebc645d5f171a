@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_785f1c0f",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-23T17:11:37Z",
+      "side": 1,
+      "message": "this seems to be the only value needed from soc_cpu, can we give it a local name, and perhaps discard all the other data (not name it)?",
+      "range": {
+        "startLine": 224,
+        "startChar": 27,
+        "endLine": 224,
+        "endChar": 42
+      },
+      "revId": "1804064f4188ce45a6a0e7e5580ebc645d5f171a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9862e0d6",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-23T17:11:37Z",
+      "side": 1,
+      "message": "do we really have to wait 100 seconds before attempting?\n\ni\u0027d prefer that we increase the re-attempt count.\n\nif we must keep this 100 second delay, then we need to ensure that the unit tests that run this code mocked this module\u0027s time value.",
+      "revId": "1804064f4188ce45a6a0e7e5580ebc645d5f171a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
