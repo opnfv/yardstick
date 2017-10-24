@@ -152,6 +152,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_338657ba",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T16:49:46Z",
+      "side": 1,
+      "message": "Ok, but this is againts https://www.python.org/dev/peps/pep-0008/#maximum-line-length",
+      "parentUuid": "9a3d3df0_53d15bfa",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f32b4f2e",
         "filename": "yardstick/benchmark/contexts/node.py",
         "patchSetId": 11
@@ -463,6 +481,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b3c1c7e6",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T16:49:46Z",
+      "side": 1,
+      "message": "This is valid for this operation [1] without any problem. And this is the \"phytonic\" way along with the ternary operator. But if/else is not needed here because the condition to evaluate is the variable itself.\n\n[1] https://stackoverflow.com/questions/6704711/best-way-to-do-conditional-assignment-in-python",
+      "parentUuid": "9a3d3df0_b330a757",
+      "range": {
+        "startLine": 399,
+        "startChar": 8,
+        "endLine": 400,
+        "endChar": 42
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_b3a0a7f5",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 11
@@ -561,6 +603,24 @@
       "side": 1,
       "message": "path.exists isn\u0027t quite the same as open.\n\nchecking with stat() or access() won\u0027t resolve permissions correctly and won\u0027t ensure read access.\n\nthe only real way to ensure a file can be opened is to open it with the open() syscall and checking errno.\n\nI think this was added based on one of the old Linux secure programming/filesystem race documents.",
       "parentUuid": "9a3d3df0_93900397",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9393e3f9",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T16:49:46Z",
+      "side": 1,
+      "message": "I\u0027m not suggesting to replace open(). But the the first try (L415) is just to check if the file is there and then, if not, format the new path and then open again in L421. IMO, the suggested code is cleaner.\n\nBTW, and this is important: what is returned in L416, in self.handle, is the open file. But it will be close out of this scope:\n\n\nclass TestClass():\n\n    def _open(self):\n        with open(\u0027/opt/stack/test.py\u0027) as self.fp:\n            yield\n\n    def __enter__(self):\n        _iter \u003d self._open()\n        next(_iter)\n        return self\n\n    def __exit__(self, exc_type, exc_val, exc_tb):\n        print(\"bye\")\n\na \u003d TestClass()\nwith a as _class:\n    z \u003d yaml.load(_class.fp)  # At this point, _class.fp is closed!!!\n    print(z)",
+      "parentUuid": "9a3d3df0_93f2c398",
       "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
