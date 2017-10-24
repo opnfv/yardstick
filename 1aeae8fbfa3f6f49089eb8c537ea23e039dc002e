@@ -170,6 +170,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_33adb732",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-24T17:10:05Z",
+      "side": 1,
+      "message": "sticking to 79 tended to trigger massive refactors to decrease indentation.\n\nbut maybe refactors are a good thing.",
+      "parentUuid": "9a3d3df0_338657ba",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f32b4f2e",
         "filename": "yardstick/benchmark/contexts/node.py",
         "patchSetId": 11
@@ -493,6 +511,30 @@
       "side": 1,
       "message": "This is valid for this operation [1] without any problem. And this is the \"phytonic\" way along with the ternary operator. But if/else is not needed here because the condition to evaluate is the variable itself.\n\n[1] https://stackoverflow.com/questions/6704711/best-way-to-do-conditional-assignment-in-python",
       "parentUuid": "9a3d3df0_b330a757",
+      "range": {
+        "startLine": 399,
+        "startChar": 8,
+        "endLine": 400,
+        "endChar": 42
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_337497ce",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-24T17:10:05Z",
+      "side": 1,
+      "message": "I was deferring to Hettinger\u0027s style.\n\n\nhttps://mail.python.org/pipermail/python-dev/2005-September/056510.html\nOn 9/19/05, Raymond Hettinger \u003craymond.hettinger at verizon.net\u003e wrote: \n\n\u003e I propose that in Py3.0, the \"and\" and \"or\" operators be simplified to always return a Boolean value instead of returning the last evaluated argument.",
+      "parentUuid": "9a3d3df0_b3c1c7e6",
       "range": {
         "startLine": 399,
         "startChar": 8,
