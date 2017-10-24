@@ -134,6 +134,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_53d15bfa",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-24T15:06:03Z",
+      "side": 1,
+      "message": "there was a vote during last release to increase line length to 99.",
+      "parentUuid": "9a3d3df0_b331c7a4",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f32b4f2e",
         "filename": "yardstick/benchmark/contexts/node.py",
         "patchSetId": 11
