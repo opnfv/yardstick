@@ -439,6 +439,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b330a757",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-24T15:27:07Z",
+      "side": 1,
+      "message": "I think somewhere we decided on preferring  if else ternary to \u0027or\u0027.\n\nthere was some suggestion that c \u003d a or b might start returning boolean instead of the objects themselves.",
+      "parentUuid": "9a3d3df0_9362c3d6",
+      "range": {
+        "startLine": 399,
+        "startChar": 8,
+        "endLine": 400,
+        "endChar": 42
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_b3a0a7f5",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 11
@@ -519,6 +543,24 @@
       "writtenOn": "2017-10-24T14:51:04Z",
       "side": 1,
       "message": "Instead of trying to open directly a file, we can test if it already exists.\n\nYou can create a property:\n\n  @property\n  def path(self):\n    if not self._path:\n      self._path \u003d os.path.abspath(self.base_path)\n      if not os.path.exists(self._path):\n        self._path \u003d os.path.abspath(os.path.join(self.alt_path, self.base_path))\n      if not os.path.exists(self._path):\n        return \u003csome handmade exception or errno.ENOENT\u003e\n\n    return self._path\n\nThen _open() will be only a simple try/catch function, without calling open again in the except branch.",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_93f2c398",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-24T15:27:07Z",
+      "side": 1,
+      "message": "path.exists isn\u0027t quite the same as open.\n\nchecking with stat() or access() won\u0027t resolve permissions correctly and won\u0027t ensure read access.\n\nthe only real way to ensure a file can be opened is to open it with the open() syscall and checking errno.\n\nI think this was added based on one of the old Linux secure programming/filesystem race documents.",
+      "parentUuid": "9a3d3df0_93900397",
       "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
