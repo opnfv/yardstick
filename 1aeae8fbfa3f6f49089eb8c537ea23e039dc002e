@@ -1,0 +1,589 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_13b193e1",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_vfw_vnf.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "Consistency: \u0027 or \"",
+      "range": {
+        "startLine": 336,
+        "startChar": 16,
+        "endLine": 336,
+        "endChar": 17
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f3b50fce",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_vfw_vnf.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "When something is mocked, there should be a check to find out how it was called.",
+      "range": {
+        "startLine": 340,
+        "startChar": 36,
+        "endLine": 340,
+        "endChar": 38
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_931da369",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "sep \u003d sep or \u0027.\u0027\n\nAnyway, a string in Python is unmutable so it could be set as the default value of a function argument. IMO, this change is unnecesary.",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d32c4b4d",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "operator1 \u003d not_contains if invert else operator.contains",
+      "range": {
+        "startLine": 50,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 41
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1327d365",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "Is this logic correct?\n\nThis will try to find \"str(node.get(\u0027role\u0027, \u0027\u0027))\" in \"node_role_set\".",
+      "range": {
+        "startLine": 55,
+        "startChar": 52,
+        "endLine": 55,
+        "endChar": 91
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b331c7a4",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "length \u003e 79",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f32b4f2e",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "This will try to find [\"Controller\"] inside nodes, not \"Controller\" but the list variable. Is this correct?",
+      "range": {
+        "startLine": 58,
+        "startChar": 63,
+        "endLine": 58,
+        "endChar": 77
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_33e4970c",
+        "filename": "yardstick/benchmark/contexts/standalone/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "I don\u0027t understand. If this is not needed, why?",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b3942738",
+        "filename": "yardstick/benchmark/contexts/standalone/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "This logic is quite complex, based in exceptions and could be simplified, in spite of creating an intermediate variable.\n\n\nmatching_nodes \u003d [n for n in self.nodes if n[\"name\"] \u003d\u003d node_name]\nif len(matching_nodes) \u003d\u003d 0:\n  return None\nif len(matching_nodes) \u003e 1:\n  raise ValueError(\"Duplicate nodes\")\n\nnode \u003d dict(matching_nodes[0])\nnode[\"name\"] \u003d attr_name\nreturn node",
+      "range": {
+        "startLine": 121,
+        "startChar": 7,
+        "endLine": 138,
+        "endChar": 19
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_73aa9f71",
+        "filename": "yardstick/benchmark/contexts/standalone/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "Do you need to create a new object by copying the entire dict? Do you need to have this ordered?",
+      "range": {
+        "startLine": 169,
+        "startChar": 43,
+        "endLine": 169,
+        "endChar": 54
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_13deb33f",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "for pkg in (pkg for pkg in pkgs if pkg not in seen):",
+      "range": {
+        "startLine": 237,
+        "startChar": 4,
+        "endLine": 239,
+        "endChar": 20
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f3e22f02",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "As in [1], this could be\n\ncmd \u003d (\"sudo -E %s --ovs\u003d\u0027%s\u0027 --dpdk\u003d\u0027%s\u0027 -p\u003d\u0027%s\u0027\" %\n       (remote_ovs_deploy, ovs, dpdk, http_proxy))\n\n[1] https://www.python.org/dev/peps/pep-0008/#should-a-line-break-before-or-after-a-binary-operator",
+      "range": {
+        "startLine": 441,
+        "startChar": 8,
+        "endLine": 442,
+        "endChar": 55
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_53e79b12",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "Triple quoted strings are almost exclusively used only for documentation.\n\nThis could be broken in two lines:\nOVS_ADD_PORT_TEMPLATE \u003d (\"ovs-vsctl add-port {br} {port} -- set Interface {port} \"\n                         \"type\u003d{type_}{dpdk_args}\")",
+      "range": {
+        "startLine": 32,
+        "startChar": 24,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d3ba8be0",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "If the vm is not deployed, self.dpdk_bind_helper is no declared.",
+      "range": {
+        "startLine": 95,
+        "startChar": 13,
+        "endLine": 95,
+        "endChar": 29
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b3bf07d0",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "dpdk_args \u003d \" options:dpdk-devargs\u003d{}\" if ovs_ver \u003e\u003d [2, 7, 0] else \"\"",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 26
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_13b513ee",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "Why? You are going to overwrite it in L148.",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 18
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d34d6b74",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "nit: it\u0027s usually better to import the whole module and then use the object inside it, just for documentation purposes:\n\nL400:  alt_path \u003d constants.YARDSTICK_ROOT_PATH",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 58
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f3734faf",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9362c3d6",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "alt_path \u003d alt_path or YARDSTICK_ROOT_PATH",
+      "range": {
+        "startLine": 399,
+        "startChar": 8,
+        "endLine": 400,
+        "endChar": 42
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b3a0a7f5",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "The parent class is \"object\", there is no need to call super.",
+      "range": {
+        "startLine": 402,
+        "startChar": 8,
+        "endLine": 402,
+        "endChar": 47
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f3aa2fd3",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "self.alt_path \u003d alt_path or YARDSTICK_ROOT_PATH\n\nAnd deleting L399-400",
+      "range": {
+        "startLine": 405,
+        "startChar": 8,
+        "endLine": 405,
+        "endChar": 32
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_53af9be3",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "self.mode \u003d mode or \u0027r\u0027",
+      "range": {
+        "startLine": 407,
+        "startChar": 8,
+        "endLine": 410,
+        "endChar": 28
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_93900397",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "Instead of trying to open directly a file, we can test if it already exists.\n\nYou can create a property:\n\n  @property\n  def path(self):\n    if not self._path:\n      self._path \u003d os.path.abspath(self.base_path)\n      if not os.path.exists(self._path):\n        self._path \u003d os.path.abspath(os.path.join(self.alt_path, self.base_path))\n      if not os.path.exists(self._path):\n        return \u003csome handmade exception or errno.ENOENT\u003e\n\n    return self._path\n\nThen _open() will be only a simple try/catch function, without calling open again in the except branch.",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_738d7f7b",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "The mode is missing",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7300dfaa",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "There is no need to call _open() or create an interator.\n\nThis could be easier:\n  def __enter__(self):\n    self.fp \u003d open(file)\n    return self      # or maybe just self.fp\n\n\n  def __exit__(self):\n    self.fp.close()\n\n  ....\n\n  with FilePathWrapper_variable() as wrapper:\n    var \u003d yaml.loader(wrapper)  # with \"return self.fp\"",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d3d3ab36",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "Why this numbers?",
+      "range": {
+        "startLine": 53,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 17
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_931ac315",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T14:51:04Z",
+      "side": 1,
+      "message": "Instead of reversing, you can define sequence (in \"make_random\") in the correct order",
+      "range": {
+        "startLine": 65,
+        "startChar": 67,
+        "endLine": 65,
+        "endChar": 85
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
