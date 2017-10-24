@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_b3042716",
+        "filename": "tests/unit/benchmark/scenarios/compute/test_qemumigrate.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T10:27:34Z",
+      "side": 1,
+      "message": "You are not using the context, so you can skip this assignation.\n\nYou had this in PS9:\n\nself.assertIn(\u0027test_qemu_migrate_unsuccessful_script_error\u0027, str(raised.exception))",
+      "range": {
+        "startLine": 160,
+        "startChar": 48,
+        "endLine": 160,
+        "endChar": 54
+      },
+      "revId": "2af164d65d70f77da67d9556a095adc59a4f467b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
