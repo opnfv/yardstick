@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_8e1d7a69",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-24T18:24:58Z",
+      "side": 1,
+      "message": "ah, so this is a bug, should not be duplicate ports.",
+      "revId": "69a9321e8fe64e7c02a7fc6ef705d98aa73edf57",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
