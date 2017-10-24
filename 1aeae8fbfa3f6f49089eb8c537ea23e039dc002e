@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_7390dfec",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_vfw_vnf.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-24T18:23:56Z",
+      "side": 1,
+      "message": "while i see the advantage of this in general, i fear that the unit tests become too implementation-specific, too \"white-box/clear-box\".\n\nnotice there are four mocks before entering the test and there are three more defined within the test, that\u0027s seven mocks to test and five of them are class instances that may have many member methods called.\n\ni also don\u0027t see the point of testing the mocking of time modules as they are used for sleeping in our code and we don\u0027t want to wait during unit tests.",
+      "parentUuid": "9a3d3df0_f3b50fce",
+      "range": {
+        "startLine": 340,
+        "startChar": 36,
+        "endLine": 340,
+        "endChar": 38
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_931da369",
         "filename": "yardstick/benchmark/contexts/base.py",
         "patchSetId": 11
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_53b03b8b",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-24T18:23:56Z",
+      "side": 1,
+      "message": "my reason for the change was that it is easier to use None as \"give me the default value\" than guessing at the default value, for methods that are written to use a method like this but expose the separator argument to their users.\n\neven with \u0027.\u0027 as the default value, None could still be passed in and i would be inclined to replace None with the default value, so we could leave L25 as it was, but L26-27 should be added.",
+      "parentUuid": "9a3d3df0_931da369",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_d32c4b4d",
         "filename": "yardstick/benchmark/contexts/base.py",
         "patchSetId": 11
@@ -82,6 +130,30 @@
       "writtenOn": "2017-10-24T14:51:04Z",
       "side": 1,
       "message": "operator1 \u003d not_contains if invert else operator.contains",
+      "range": {
+        "startLine": 50,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 41
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_93812392",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-24T18:23:56Z",
+      "side": 1,
+      "message": "for what it\u0027s worth, such a change would mean two fewer statements and one less branch to cover.  we still need two unit tests to cover both cases, but one unit test would be enough to satisfy the coverage requirement.\n\nwhile i don\u0027t agree, i\u0027ve been told that the conditional operator is hard to read/understand.",
+      "parentUuid": "9a3d3df0_d32c4b4d",
       "range": {
         "startLine": 50,
         "startChar": 7,
@@ -211,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_535e7b46",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-24T18:23:56Z",
+      "side": 1,
+      "message": "no, the list defined here is treated as a set within the method iter_nodes_of_role, the second argument named \"node_role_set\".  this argument is then used in the interior method \"not_contains\":\n\n def not_contains(a, b):\n    return b not in a\n\nand used:\n\n not_contains(node_role_set, node.get(\u0027role\u0027, \u0027\u0027))\n\nand thereby expanded to:\n\n return node.get(\u0027role\u0027, \u0027\u0027) not in node_role_set\n\nor as this statement wants:\n\n return node.get(\u0027role\u0027, \u0027\u0027) not in [\u0027Controller\u0027]\n\ncontains is similar:\n\n \u003e\u003e\u003e help(operator.contains)\n Help on built-in function contains in module _operator:\n\n contains(...)\n     contains(a, b) -- Same as b in a (note reversed operands).\n\n\"a\" is \"node_role_set\" and \"b\" is \"node.get(\u0027role\u0027, \u0027\u0027)\".",
+      "parentUuid": "9a3d3df0_f32b4f2e",
+      "range": {
+        "startLine": 58,
+        "startChar": 63,
+        "endLine": 58,
+        "endChar": 77
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_33e4970c",
         "filename": "yardstick/benchmark/contexts/standalone/base.py",
         "patchSetId": 11
@@ -222,6 +318,24 @@
       "writtenOn": "2017-10-24T14:51:04Z",
       "side": 1,
       "message": "I don\u0027t understand. If this is not needed, why?",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_932f63a1",
+        "filename": "yardstick/benchmark/contexts/standalone/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-24T18:23:56Z",
+      "side": 1,
+      "message": "i am sure this is a copy-paste oversight.  L75 should be removed or changed.",
+      "parentUuid": "9a3d3df0_33e4970c",
       "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -285,6 +399,30 @@
       "writtenOn": "2017-10-24T14:51:04Z",
       "side": 1,
       "message": "for pkg in (pkg for pkg in pkgs if pkg not in seen):",
+      "range": {
+        "startLine": 237,
+        "startChar": 4,
+        "endLine": 239,
+        "endChar": 20
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_732c5fac",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-24T18:23:56Z",
+      "side": 1,
+      "message": "i consider doing this, but i\u0027m never sure how well it is received.  and better yet, would be a helper iterator that would hold the \"seen\" set and filter for us:\n\n class SeenFilter(object):\n\n     def __init__(self, iterable, watch_index\u003d0):\n         super(SeenFilter, self).__init__()\n         self.watch_index \u003d watch_index\n         self.seen \u003d set()\n         self.iterable \u003d filter(self.predicate, iterable)\n\n     def clear(self):\n         return self.seen.clear()\n\n     def predicate(self, value):\n         try:\n             return self._add(value[self.watch_index])\n         except TypeError:\n             return self._add(value)\n\n     def _add(self, other):\n         try:\n             return other not in self.seen\n         finally:\n             self.seen.add(other)\n\n     def __iter__(self):\n         return self\n\n     def __next__(self):\n         return next(self.iterable)\n\nthen here:\n\n for pkg in SeenFilter(pkgs):\n   if connection.execute(...)[0]:\n     ...",
+      "parentUuid": "9a3d3df0_13deb33f",
       "range": {
         "startLine": 237,
         "startChar": 4,
@@ -366,6 +504,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_f317cf4f",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-24T18:23:56Z",
+      "side": 1,
+      "message": "agreed, though it seems to me that many of these methods should be marked as protected/private.  specific_deploy should only be called \"during or after\" deploy.\n\nof course, we could protective checks in each of these methods to test whether the vm was deployed.  i\u0027m not sure the best way to do as requested in the case that the vm was not deployed, current raising an exception is the reaction.\n\ncan we make dpdk_bind_helper a property and make the SSH connection on demand?  will this work with pre-deployed vms?",
+      "parentUuid": "9a3d3df0_d3ba8be0",
+      "range": {
+        "startLine": 95,
+        "startChar": 13,
+        "endLine": 95,
+        "endChar": 29
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_b3bf07d0",
         "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
         "patchSetId": 11
@@ -400,6 +562,30 @@
       "writtenOn": "2017-10-24T14:51:04Z",
       "side": 1,
       "message": "Why? You are going to overwrite it in L148.",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 18
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b31d4776",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-24T18:23:56Z",
+      "side": 1,
+      "message": "actually that is incorrect:\n\n \u003e\u003e\u003e i \u003d -1\n \u003e\u003e\u003e for i in enumerate([]):\n ...   print(i)\n ...\n \u003e\u003e\u003e i\n -1\n\nif there is nothing to enumerate, then \"i\" is not defined by the for loop:\n\n \u003e\u003e\u003e i\n Traceback (most recent call last):\n   File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e\n NameError: name \u0027i\u0027 is not defined\n \u003e\u003e\u003e for i in enumerate([]):\n ...   print(i)\n ...\n \u003e\u003e\u003e i\n Traceback (most recent call last):\n   File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e\n NameError: name \u0027i\u0027 is not defined\n \u003e\u003e\u003e",
+      "parentUuid": "9a3d3df0_13b513ee",
       "range": {
         "startLine": 147,
         "startChar": 8,
@@ -535,6 +721,30 @@
       "side": 1,
       "message": "I was deferring to Hettinger\u0027s style.\n\n\nhttps://mail.python.org/pipermail/python-dev/2005-September/056510.html\nOn 9/19/05, Raymond Hettinger \u003craymond.hettinger at verizon.net\u003e wrote: \n\n\u003e I propose that in Py3.0, the \"and\" and \"or\" operators be simplified to always return a Boolean value instead of returning the last evaluated argument.",
       "parentUuid": "9a3d3df0_b3c1c7e6",
+      "range": {
+        "startLine": 399,
+        "startChar": 8,
+        "endLine": 400,
+        "endChar": 42
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d3bc4b6f",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-24T18:23:56Z",
+      "side": 1,
+      "message": "i tend to write the specifically for None, such that the empty string, or sometimes 0 or [] or {}, is not replaced by the default.\n\nalso, the conditional operator and \"or\" behavior are not recognized by the coverage package as branches, should branches ever be a criteria of coverage.",
+      "parentUuid": "9a3d3df0_b330a757",
       "range": {
         "startLine": 399,
         "startChar": 8,
@@ -737,6 +947,30 @@
       "writtenOn": "2017-10-24T14:51:04Z",
       "side": 1,
       "message": "Instead of reversing, you can define sequence (in \"make_random\") in the correct order",
+      "range": {
+        "startLine": 65,
+        "startChar": 67,
+        "endLine": 65,
+        "endChar": 85
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_33093732",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-24T18:23:56Z",
+      "side": 1,
+      "message": "sequence is meant to be human-readable, as in:\n\n list(int(x, 16) for x in \"de:ad:be:ef:01:89\".split(\":\"))\n\nor\n\n [0xde, 0xad, 0xbe, 0xef, 0x01, 0x89]\n\nbut this is most significant first and math works in the reverse order: least significant first.\n\nideally, enumerate would have a decrement variant, then we could use that flavor of enumerate and avoid reversed.\n\ni suppose we could zip \"sequence\" with \"range(5, -1, -1)\" and get it.\n\n return cls(sum(int(v) * 2 ** (i * 8) for i, v in zip(range(5, -1, -1), sequence)))\n\nthough there are subtle variations should sequence be a list of fewer than 6 values.",
+      "parentUuid": "9a3d3df0_931ac315",
       "range": {
         "startLine": 65,
         "startChar": 67,
