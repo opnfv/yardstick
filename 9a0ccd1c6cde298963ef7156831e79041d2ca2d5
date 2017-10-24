@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_33ff7736",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T16:09:16Z",
+      "side": 1,
+      "message": "The try/except if for a possible KeyError in override? That could be handled by getting the value:\n\ninterface \u003d server.interfaces[port[\u0027port\u0027]]\ninterface[\u0027local_ip\u0027] \u003d override.get(\u0027local_ip\u0027, interface[\u0027local_ip\u0027])\ninterface[\u0027netmask\u0027] \u003d override.get(\u0027netmask\u0027, interface[\u0027netmask\u0027])",
+      "range": {
+        "startLine": 358,
+        "startChar": 12,
+        "endLine": 361,
+        "endChar": 20
+      },
+      "revId": "9a0ccd1c6cde298963ef7156831e79041d2ca2d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_93fc8340",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T16:09:16Z",
+      "side": 1,
+      "message": "Can you add a test for this?",
+      "revId": "9a0ccd1c6cde298963ef7156831e79041d2ca2d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d3128bb3",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-24T16:09:16Z",
+      "side": 1,
+      "message": "At this point, according to [1], port is also a dict, e.g.:\n  port \u003d {local_ip: 10.44.0.20, netmask: 255.255.255.0}\n\nIn L282 the port_name formating won\u0027t work.\n\n[1] https://jira.opnfv.org/browse/YARDSTICK-826",
+      "revId": "9a0ccd1c6cde298963ef7156831e79041d2ca2d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
