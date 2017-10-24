@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_f8816c4b",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1501,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-24T18:23:56Z",
+      "side": 1,
+      "message": "please mock the time module as imported by...",
+      "revId": "debdf63afe3bd75181e62692d0b7d1ae56b7c64b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
