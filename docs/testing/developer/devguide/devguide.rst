@@ -150,14 +150,14 @@ In this Yaml file, you can easily find it consists of two sections. One is “Sc
          {% endif %}
 
 
-"Contexts" section is the description of pre-condition of testing. As ping.yaml shown, you can configure the image, flavor , name ,affinity and network of Test VM(servers),  with this section, you will get a pre-condition env for Testing. 
+"Contexts" section is the description of pre-condition of testing. As ping.yaml shown, you can configure the image, flavor , name ,affinity and network of Test VM(servers),  with this section, you will get a pre-condition env for Testing.
 Yardstick will automatic setup the stack which are described in this section.
 In fact, yardstick use convert this section to heat template and setup the VMs by heat-client (Meanwhile, yardstick can support to convert this section to Kubernetes template to setup containers).
 
 Two Test VMs(athena and ares) are configured by keyword "servers".
 "flavor" will determine how many vCPU, how much memory for test VMs.
 As "yardstick-flavor" is a basic flavor which will be automatically created when you run command "yardstick env prepare". "yardstick-flavor" is "1 vCPU 1G RAM,3G Disk".
-"image" is the image name of test VMs. if you use cirros.3.5.0, you need fill the username of this image into "user". the "policy" of placement of Test VMs have two values (affinity and availability). 
+"image" is the image name of test VMs. if you use cirros.3.5.0, you need fill the username of this image into "user". the "policy" of placement of Test VMs have two values (affinity and availability).
 "availability" means anti-affinity. In "network" section, you can configure which provide network and physical_network you want Test VMs use.
 you may need to configure segmentation_id when your network is vlan.
 
@@ -192,7 +192,7 @@ For TC002, We only have one step , that is Ping from host VM to target VM. In th
 
 If you want to get this detail implement , you can check with the scenario.py file. For Ping scenario, you can find it in yardstick repo ( yardstick / yardstick / benchmark / scenarios / networking / ping.py)
 
-after you select the type of scenario( such as Ping), you will select one type of runner, there are 4 types of runner. Usually, we use the "Iteration" and "Duration". and Default is "Iteration". 
+after you select the type of scenario( such as Ping), you will select one type of runner, there are 4 types of runner. Usually, we use the "Iteration" and "Duration". and Default is "Iteration".
 For Iteration, you can specify the iteration number and interval of iteration. ::
 
   runner:
