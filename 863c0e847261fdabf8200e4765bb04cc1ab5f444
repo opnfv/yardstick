@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_735bba87",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T10:56:22Z",
+      "side": 1,
+      "message": "This should be downlink",
+      "range": {
+        "startLine": 73,
+        "startChar": 42,
+        "endLine": 73,
+        "endChar": 48
+      },
+      "revId": "863c0e847261fdabf8200e4765bb04cc1ab5f444",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_53603632",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T10:56:22Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 74,
+        "startChar": 42,
+        "endLine": 74,
+        "endChar": 48
+      },
+      "revId": "863c0e847261fdabf8200e4765bb04cc1ab5f444",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b3542255",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T10:56:22Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 132,
+        "startChar": 42,
+        "endLine": 132,
+        "endChar": 48
+      },
+      "revId": "863c0e847261fdabf8200e4765bb04cc1ab5f444",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_93511e65",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T10:56:22Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 133,
+        "startChar": 42,
+        "endLine": 133,
+        "endChar": 48
+      },
+      "revId": "863c0e847261fdabf8200e4765bb04cc1ab5f444",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
