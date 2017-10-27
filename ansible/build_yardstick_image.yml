@@ -150,6 +150,23 @@
     - set_fact:
         fake_fstab: "{{ mktemp_res.stdout.strip() }}"
 
+    - name: create the yardstick dir
+      command: "mkdir -p {{ mountdir }}"
+
+    # For Ubuntu 14.04, ansible mount module doesn't support
+    # -T option to specify an alternate fstab file.
+    - name: mount first parition on image device
+      command: "mount {{ image_first_partition_device }} {{ mountdir }}"
+      when: {{ ansible_distribution_version }} == "14.04"
+      register: mount_device_result
+      failed_when: mount_device_result.rc >= 2
+
+    - name: mount first parition on image device
+      command: "mount -t proc none {{ mountdir }}/proc"
+      when: {{ ansible_distribution_version }} == "14.04"
+      register: mount_proc_result
+      failed_when: mount_proc_result.rc >= 2
+
     - name: mount first parition on image device
       mount:
         src: "{{ image_first_partition_device }}"
@@ -160,6 +177,7 @@
         # and prevent the system from booting
         fstab: "{{ fake_fstab }}"
         state: mounted
+      when: {{ ansible_distribution_version }} != "14.04"
 
     - name: mount chroot /proc
       mount:
@@ -170,6 +188,7 @@
         # and prevent the system from booting
         fstab: "{{ fake_fstab }}"
         state: mounted
+      when: {{ ansible_distribution_version }} != "14.04"
 
     - name: if arm copy qemu-aarch64-static into chroot
       copy:
