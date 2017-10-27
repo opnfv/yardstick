@@ -16,6 +16,24 @@
       "revId": "33a5247e2f4b0a32496ee1715604f3b4531c8435",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_96ac6cef",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-27T17:47:32Z",
+      "side": 1,
+      "message": "L279 is checking each element of \"ports\" not \"ports\".  Yes, \"ports\" is a list, that\u0027s why we will always be able to iterate over its contents, starting on L278.  but lists can contain all types of values: strings, integers, lists, dicts, objects, etc, so if we want port to be a string, then we need to handle the cases when the __str__ of the type is not suitable.\n\nfurther, just because some specification/requirement says that this value must be this type or in some manner, that does not absolve the code of validating the input.  we do our best when we treat all input is malicious until otherwise demonstrated.  we once had \"trust, but verify\"[1], but this is evolving to \"verify and verify\" and may finally become \"don\u0027t trust, verify\".\n\nhopefully it would never happen, but what if port is an empty dict?  then L281 will raise a StopIteration exception, is this acceptable?  if it is, then please write a unit test that demonstrates this behavior?\n\n1 https://en.wikipedia.org/wiki/Trust,_but_verify",
+      "parentUuid": "9a3d3df0_736e1a03",
+      "revId": "33a5247e2f4b0a32496ee1715604f3b4531c8435",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
