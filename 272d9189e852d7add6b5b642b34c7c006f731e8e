@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_33de5212",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/fault_process_kill.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T10:17:52Z",
+      "side": 1,
+      "message": "Please, can you specify an example where the previous expresion was failing?\n\nSo far, process like:\n* /usr/local/bin/uwsgi --ini /etc/keystone/keystone-uwsgi-public.ini\n* /usr/bin/python /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf\nare correctly found by the previous expression.",
+      "revId": "272d9189e852d7add6b5b642b34c7c006f731e8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
