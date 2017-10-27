@@ -22,7 +22,6 @@ import os
 import re
 import subprocess
 from collections import Mapping
-
 from multiprocessing import Queue, Value, Process
 
 from six.moves import cStringIO
@@ -30,7 +29,6 @@ from six.moves import cStringIO
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
 from yardstick.common.process import check_if_process_failed
-from yardstick.network_services.helpers.cpu import CpuSysCores
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
@@ -97,7 +95,6 @@ class SetupEnvHelper(object):
 
     CFG_CONFIG = os.path.join(REMOTE_TMP, "sample_config")
     CFG_SCRIPT = os.path.join(REMOTE_TMP, "sample_script")
-    CORES = []
     DEFAULT_CONFIG_TPL_CFG = "sample.cfg"
     PIPELINE_COMMAND = ''
     VNF_TYPE = "SAMPLE"
@@ -125,9 +122,6 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
 
     APP_NAME = 'DpdkVnf'
     FIND_NET_CMD = "find /sys/class/net -lname '*{}*' -printf '%f'"
-
-    HW_DEFAULT_CORE = 3
-    SW_DEFAULT_CORE = 2
 
     @staticmethod
     def _update_packet_type(ip_pipeline_cfg, traffic_options):
@@ -240,41 +234,6 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
             'port_mask_hex': ports_mask_hex,
             'tool_path': tool_path,
         }
-
-    def _get_app_cpu(self):
-        if self.CORES:
-            return self.CORES
-
-        vnf_cfg = self.scenario_helper.vnf_cfg
-        sys_obj = CpuSysCores(self.ssh_helper)
-        self.sys_cpu = sys_obj.get_core_socket()
-        num_core = int(vnf_cfg["worker_threads"])
-        if vnf_cfg.get("lb_config", "SW") == 'HW':
-            num_core += self.HW_DEFAULT_CORE
-        else:
-            num_core += self.SW_DEFAULT_CORE
-        app_cpu = self.sys_cpu[str(self.socket)][:num_core]
-        return app_cpu
-
-    def _get_cpu_sibling_list(self, cores=None):
-        if cores is None:
-            cores = self._get_app_cpu()
-        sys_cmd_template = "%s/cpu%s/topology/thread_siblings_list"
-        awk_template = "awk -F: '{ print $1 }' < %s"
-        sys_path = "/sys/devices/system/cpu/"
-        cpu_topology = []
-        try:
-            for core in cores:
-                sys_cmd = sys_cmd_template % (sys_path, core)
-                cpu_id = self.ssh_helper.execute(awk_template % sys_cmd)[1]
-                cpu_topology.extend(cpu.strip() for cpu in cpu_id.split(','))
-
-            return cpu_topology
-        except Exception:
-            return []
-
-    def _validate_cpu_cfg(self):
-        return self._get_cpu_sibling_list()
 
     def setup_vnf_environment(self):
         self._setup_dpdk()
