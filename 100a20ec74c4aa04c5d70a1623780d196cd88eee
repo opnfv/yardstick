@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_73e9fa7f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1679,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-10-27T12:21:45Z",
+      "side": 1,
+      "message": "For each section that begins with \"port\"\n  For element in the section with element.key \u003d \"name\"\n      If element.value begins with \"lwB4\" \n         add port_no to list of tun_ports\n      else if element.value begins with \"inet\" \n         add port_no to list of inet_ports\n\nNo 1681 is intended.",
+      "parentUuid": "9a3d3df0_0b46a0bf",
+      "range": {
+        "startLine": 1677,
+        "startChar": 0,
+        "endLine": 1679,
+        "endChar": 28
+      },
+      "revId": "100a20ec74c4aa04c5d70a1623780d196cd88eee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_abb69488",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 6
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_53ee7689",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1701,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-10-27T12:21:45Z",
+      "side": 1,
+      "message": "ok .. will remove less than 1",
+      "parentUuid": "9a3d3df0_abb69488",
+      "revId": "100a20ec74c4aa04c5d70a1623780d196cd88eee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_cbd798be",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 6
@@ -53,6 +95,30 @@
       "writtenOn": "2017-10-11T18:17:26Z",
       "side": 1,
       "message": "i\u0027d like to see these put into a helper method:\n\n @staticmethod\n def _resize(len1, len2):\n   if len1 \u003d\u003d len2:\n     return 1.0\n   return 1.0 * len1 / len2\n\nthen here we would have:\n\n max_down_speed *\u003d self._resize(len(self.tun_ports), len(self.tun_cores))\n max_up_speed *\u003d self._resize(len(self.inet_ports), len(self.inet_cores))",
+      "range": {
+        "startLine": 1707,
+        "startChar": 0,
+        "endLine": 1710,
+        "endChar": 77
+      },
+      "revId": "100a20ec74c4aa04c5d70a1623780d196cd88eee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_93ff5e34",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1710,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-10-27T12:21:45Z",
+      "side": 1,
+      "message": "Will do",
+      "parentUuid": "9a3d3df0_cbd798be",
       "range": {
         "startLine": 1707,
         "startChar": 0,
