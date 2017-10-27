@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_13506e31",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T15:10:37Z",
+      "side": 1,
+      "message": "According to https://gerrit.opnfv.org/gerrit/#/c/45393/7/yardstick/benchmark/contexts/model.py@271, a network in \"network_ports\" port could be defined with a single port.\n\n    \u0027uplink_0\u0027: {\u0027xe0\u0027: {\u0027local_ip\u0027: \u002710.44.0.20\u0027, \u0027netmask\u0027: \u0027255.255.255.0\u0027}}\n\nThis should be checked too.",
+      "revId": "69a9321e8fe64e7c02a7fc6ef705d98aa73edf57",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_8e1d7a69",
         "filename": "tests/unit/benchmark/contexts/test_model.py",
         "patchSetId": 6
