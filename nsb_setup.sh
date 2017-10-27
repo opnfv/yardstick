@@ -28,7 +28,7 @@ if [ $# -eq 1 ]; then
     OPENRC=$(readlink -f -- "$1")
     extra_args="-e openrc_file=${OPENRC}"
     source "${OPENRC}"
-    CONTROLLER_IP=$(echo ${OS_AUTH_URL} | sed -ne "s/http:\/\/\(.*\):.*/\1/p")
+    CONTROLLER_IP=$(echo ${OS_AUTH_URL} | sed -ne "s#http://\([0-9a-zA-Z.\-]*\):*[0-9]*/.*#\1#p")
     export no_proxy="localhost,127.0.0.1,${CONTROLLER_IP},$no_proxy"
 fi
 
