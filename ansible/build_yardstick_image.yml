@@ -150,6 +150,17 @@
     - set_fact:
         fake_fstab: "{{ mktemp_res.stdout.strip() }}"
 
+    - name: create the yardstick dir
+      command: "mkdir -p {{ mountdir }}"
+
+    - name: mount first parition on image device
+      command: "mount {{ image_first_partition_device }} {{ mountdir }}"
+      when: {{ ansible_distribution_version }} == "14.04"
+
+    - name: mount first parition on image device
+      command: "mount -t proc none {{ mountdir }}/proc"
+      when: {{ ansible_distribution_version }} == "14.04"
+
     - name: mount first parition on image device
       mount:
         src: "{{ image_first_partition_device }}"
@@ -160,6 +171,7 @@
         # and prevent the system from booting
         fstab: "{{ fake_fstab }}"
         state: mounted
+      when: {{ ansible_distribution_version }} == "16.04"
 
     - name: mount chroot /proc
       mount:
@@ -170,6 +182,7 @@
         # and prevent the system from booting
         fstab: "{{ fake_fstab }}"
         state: mounted
+      when: {{ ansible_distribution_version }} == "16.04"
 
     - name: if arm copy qemu-aarch64-static into chroot
       copy:
