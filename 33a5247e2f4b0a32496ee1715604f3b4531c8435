@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_736e1a03",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T15:10:37Z",
+      "side": 1,
+      "message": "IMHO, this conversion should be done when the port is retrieved. In this case, this will happen in L266.\n\n\nfor network in networks:\n    ports \u003d [list(port.keys())[0] for port in ports.get(network.name, [])\n    for port in ports:\n        if port.startswith(\u0027-\u0027):\n             LOG.warning(\"possible YAML error, port name starts with - \u0027%s\", port)\n\nWith these code L279-L281 and L264-L274 are not needed.\n\n\nBTW, in L271 \"ports\" is always a list, so this check is irrelevant, unless a network port could defined both as a list or just one dict element.",
+      "revId": "33a5247e2f4b0a32496ee1715604f3b4531c8435",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
