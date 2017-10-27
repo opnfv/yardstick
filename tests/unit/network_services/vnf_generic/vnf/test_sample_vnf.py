@@ -29,7 +29,6 @@ from yardstick.benchmark.contexts.base import Context
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.traffic_profile.base import TrafficProfile
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
-from yardstick.ssh import SSHError
 
 
 class MockError(BaseException):
@@ -608,111 +607,6 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         }
         dpdk_setup_helper._build_pipeline_kwargs()
         self.assertDictEqual(dpdk_setup_helper.pipeline_kwargs, expected)
-
-    def test__get_app_cpu(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        ssh_helper.provision_tool.return_value = 'tool_path'
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-
-        dpdk_setup_helper.CORES = expected = [5, 4, 3]
-        result = dpdk_setup_helper._get_app_cpu()
-        self.assertEqual(result, expected)
-
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.CpuSysCores')
-    def test__get_app_cpu_no_cores_sw(self, mock_cpu_sys_cores_class):
-        mock_cpu_sys_cores = mock_cpu_sys_cores_class()
-        mock_cpu_sys_cores.get_core_socket.return_value = {
-            'socket': [2, 4, 8, 10, 12],
-        }
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        ssh_helper.provision_tool.return_value = 'tool_path'
-        scenario_helper = mock.Mock()
-        scenario_helper.vnf_cfg = {
-            'worker_threads': '2',
-        }
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper.CORES = []
-        dpdk_setup_helper.SW_DEFAULT_CORE = 1
-        dpdk_setup_helper.HW_DEFAULT_CORE = 2
-        dpdk_setup_helper.socket = 'socket'
-
-        expected = [2, 4, 8]
-        result = dpdk_setup_helper._get_app_cpu()
-        self.assertEqual(result, expected)
-
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.CpuSysCores')
-    def test__get_app_cpu_no_cores_hw(self, mock_cpu_sys_cores_class):
-        mock_cpu_sys_cores = mock_cpu_sys_cores_class()
-        mock_cpu_sys_cores.get_core_socket.return_value = {
-            'socket': [2, 4, 8, 10, 12],
-        }
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        scenario_helper.vnf_cfg = {
-            'worker_threads': '2',
-            'lb_config': 'HW',
-        }
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper.CORES = []
-        dpdk_setup_helper.SW_DEFAULT_CORE = 1
-        dpdk_setup_helper.HW_DEFAULT_CORE = 2
-        dpdk_setup_helper.socket = 'socket'
-
-        expected = [2, 4, 8, 10]
-        result = dpdk_setup_helper._get_app_cpu()
-        self.assertEqual(result, expected)
-
-    def test__get_cpu_sibling_list(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        ssh_helper.execute.side_effect = iter([(0, '5', ''), (0, '3,4', ''), (0, '10', '')])
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper._get_app_cpu = mock.Mock(return_value=[])
-
-        expected = ['5', '3', '4', '10']
-        result = dpdk_setup_helper._get_cpu_sibling_list([1, 3, 7])
-        self.assertEqual(result, expected)
-
-    def test__get_cpu_sibling_list_no_core_arg(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        ssh_helper.execute.side_effect = iter([(0, '5', ''), (0, '3,4', ''), (0, '10', '')])
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper._get_app_cpu = mock.Mock(return_value=[1, 7])
-
-        expected = ['5', '3', '4']
-        result = dpdk_setup_helper._get_cpu_sibling_list()
-        self.assertEqual(result, expected)
-
-    def test__get_cpu_sibling_list_ssh_failure(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        ssh_helper.execute.side_effect = iter([(0, '5', ''), SSHError, (0, '10', '')])
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper._get_app_cpu = mock.Mock(return_value=[])
-
-        expected = []
-        result = dpdk_setup_helper._get_cpu_sibling_list([1, 3, 7])
-        self.assertEqual(result, expected)
-
-    def test__validate_cpu_cfg(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        ssh_helper.execute.side_effect = iter([(0, '5', ''), (0, '3,4', ''), (0, '10', '')])
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper._get_app_cpu = mock.Mock(return_value=[1, 3, 7])
-
-        expected = ['5', '3', '4', '10']
-        result = dpdk_setup_helper._validate_cpu_cfg()
-        self.assertEqual(result, expected)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
     @mock.patch('yardstick.ssh.SSH')
