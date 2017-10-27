@@ -21,7 +21,7 @@ if [ "$process_name" = "keystone" ]; then
             kill -9 "${pid}"
         done
 else
-    for pid in $(pgrep -f "/usr/.*/${process_name}");
+    for pid in $(pgrep -f "^/usr/[^ ]*/${process_name}");
         do
             kill -9 "${pid}"
         done
