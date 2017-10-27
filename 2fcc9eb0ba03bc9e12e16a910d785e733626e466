@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_3683e057",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1612,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-27T18:16:39Z",
+      "side": 1,
+      "message": "it is hard to tell whether something will be used \"outside\", but on the other hand, it is easier to make a protected member public than to make a public member protected.",
+      "parentUuid": "9a3d3df0_53415659",
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_733c5ae3",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 11
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_16885c70",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1643,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-27T18:16:39Z",
+      "side": 1,
+      "message": "this definitely should be marked as protected, since its main purpose is to be used by the property to populate the cached value.\n\nwere this to need to be public, then it should check self._cores_tuple and return that immediately if it exists.  perhaps adding a \"force\" argument to the function should the user have need of an non-cached value.",
+      "parentUuid": "9a3d3df0_b32542c4",
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_93091e34",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 11
@@ -64,6 +100,30 @@
       "writtenOn": "2017-10-27T17:00:28Z",
       "side": 1,
       "message": "This can be done in less lines:\n\nfor key, value in (k, v for k, v in section if v \u003d\u003d \u0027name\u0027):\n    core_tuple \u003d CoreSocketTuple(section_name)\n    core_tag \u003d core_tuple.find_in_topology(self.cpu_topology)\n    if item_value.startswith(\"tun\"):\n        tun_cores.append(core_tag)\n    if item_value.startswith(\"inet\"):\n        inet_cores.append(core_tag)",
+      "range": {
+        "startLine": 1653,
+        "startChar": 0,
+        "endLine": 1662,
+        "endChar": 48
+      },
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f6905897",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-27T18:16:39Z",
+      "side": 1,
+      "message": "do we want to save \"lines of code\" or \"cpu cycles and memory footprint at runtime\"?\n\nalthough, why are we recreating core_tuple and recalculating core_tag, when the item_key and item_value play no part in these?  why not:\n\n core_tuple \u003d CoreSocketTuple(section_name)\n core_tag \u003d core_tuple.find_in_topology(self.cpu_topology)\n for item_value in (v for k, v in section if k \u003d\u003d \u0027name\u0027):\n   if item_value.startswith(\u0027tun\u0027):\n     tun_cores.append(core_tag)\n   elif item_value.startswith(\u0027inet\u0027):\n     inet_cores.append(core_tag)",
+      "parentUuid": "9a3d3df0_93091e34",
       "range": {
         "startLine": 1653,
         "startChar": 0,
@@ -99,6 +159,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_76f448f2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-27T18:16:39Z",
+      "side": 1,
+      "message": "also consider my comment to L1643.",
+      "parentUuid": "9a3d3df0_9322beb7",
+      "range": {
+        "startLine": 1666,
+        "startChar": 8,
+        "endLine": 1666,
+        "endChar": 29
+      },
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_d61a746d",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 11
@@ -122,6 +206,53 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_36eac00f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1674,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-27T18:16:39Z",
+      "side": 1,
+      "message": "agree about merging the test into the re, however the re should be:\n\n port_re \u003d re.compile(\u0027^port\\D*(\\d+)\u0027)",
+      "parentUuid": "9a3d3df0_d61a746d",
+      "range": {
+        "startLine": 1671,
+        "startChar": 0,
+        "endLine": 1674,
+        "endChar": 57
+      },
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_16efbc1f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-27T18:16:39Z",
+      "side": 1,
+      "message": "what is the purpose of this for loop?  as far as i can tell it is a series of no operations statements.\n\n for item_key, item_value in section:\n   if item_key !\u003d \u0027name:\n     # do nothing, go to next key-value pair\n   # do nothing, go to next key-value pair\n\nwhy?\n\nis this meant to be part of the for loop immediately following this for loop?  as in L1680 is errant and should be removed.",
+      "range": {
+        "startLine": 1676,
+        "startChar": 0,
+        "endLine": 1678,
+        "endChar": 28
+      },
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_362760b8",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 11
@@ -133,6 +264,30 @@
       "writtenOn": "2017-10-27T17:00:28Z",
       "side": 1,
       "message": "The same as in L1653",
+      "range": {
+        "startLine": 1676,
+        "startChar": 12,
+        "endLine": 1685,
+        "endChar": 49
+      },
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_56f944e8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1685,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-10-27T18:16:39Z",
+      "side": 1,
+      "message": "i don\u0027t see what you see, calculating/determining \"tx_port_no\" is already done outside of the inner for loop.",
+      "parentUuid": "9a3d3df0_362760b8",
       "range": {
         "startLine": 1676,
         "startChar": 12,
