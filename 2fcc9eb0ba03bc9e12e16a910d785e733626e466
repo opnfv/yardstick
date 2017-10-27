@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_53415659",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1612,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T17:00:28Z",
+      "side": 1,
+      "message": "If this property is not going to be used outside the class, make it private.",
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_733c5ae3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1626,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T17:00:28Z",
+      "side": 1,
+      "message": "If this property is not going to be used outside the class, make it private.",
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b32542c4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1643,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T17:00:28Z",
+      "side": 1,
+      "message": "If this method is not going to be used outside the class, make it private.",
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_93091e34",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T17:00:28Z",
+      "side": 1,
+      "message": "This can be done in less lines:\n\nfor key, value in (k, v for k, v in section if v \u003d\u003d \u0027name\u0027):\n    core_tuple \u003d CoreSocketTuple(section_name)\n    core_tag \u003d core_tuple.find_in_topology(self.cpu_topology)\n    if item_value.startswith(\"tun\"):\n        tun_cores.append(core_tag)\n    if item_value.startswith(\"inet\"):\n        inet_cores.append(core_tag)",
+      "range": {
+        "startLine": 1653,
+        "startChar": 0,
+        "endLine": 1662,
+        "endChar": 48
+      },
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9322beb7",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T17:00:28Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1666,
+        "startChar": 8,
+        "endLine": 1666,
+        "endChar": 29
+      },
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d61a746d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1674,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T17:00:28Z",
+      "side": 1,
+      "message": "Instead of using \"startswith\" and then a regex, find directly the port number with a regex (faster):\n\nre_port \u003d re.compile(\u0027port (\\d+)\u0027)\nfor section_name, section in self.resource_helper.setup_helper.prox_config_data:\n    match \u003d re_port.search(section_name)\n    if not match:\n        continue:\n    port_id \u003d match.group(1)",
+      "range": {
+        "startLine": 1671,
+        "startChar": 0,
+        "endLine": 1674,
+        "endChar": 57
+      },
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_362760b8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 1685,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T17:00:28Z",
+      "side": 1,
+      "message": "The same as in L1653",
+      "range": {
+        "startLine": 1676,
+        "startChar": 12,
+        "endLine": 1685,
+        "endChar": 49
+      },
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1337ce00",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T17:00:28Z",
+      "side": 1,
+      "message": "ICMPv6 protocol number (58) is different from ICMP protocol (1).\n\nIn [1] you have the Neutron protocols (both strings and numbers) supported. Neutron convert the string/int contained in \"protocol\" using [2].\n\nThis value should be \"ipv6-icmp\" or 58.\n\n[1] https://github.com/openstack/neutron-lib/blob/master/neutron_lib/constants.py#L138\n[2] https://github.com/openstack/neutron/blob/master/neutron/extensions/securitygroup.py#L146",
+      "range": {
+        "startLine": 524,
+        "startChar": 34,
+        "endLine": 524,
+        "endChar": 38
+      },
+      "revId": "2fcc9eb0ba03bc9e12e16a910d785e733626e466",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
