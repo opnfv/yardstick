@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_13bceeba",
+        "filename": "ansible/build_yardstick_image.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T10:00:02Z",
+      "side": 1,
+      "message": "# For Ubuntu 14.04, ansible mount module doesn\u0027t support\n# -T option to specify an alternate fstab file.",
+      "range": {
+        "startLine": 156,
+        "startChar": 6,
+        "endLine": 156,
+        "endChar": 60
+      },
+      "revId": "ea90988dab473cf68ff9de4d5526c51bdef7e36c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
