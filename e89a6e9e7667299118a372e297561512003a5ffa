@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_f3e50aa9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-27T11:31:32Z",
+      "side": 1,
+      "message": "This function is meant to return the cpu_topology.\n\nSo far, this is the only purpose of this function.\n\n* \"_validate_cpu_cfg()\" calls \"_get_cpu_sibling_list()\"\n* \"_get_cpu_sibling_list()\" retieves the cpu topology\n* \"_get_cpu_sibling_list()\" calls \"_get_app_cpu()\"\n* \"_get_app_cpu()\" assigns (if not self.CORES) the value of self.sys_cpu. All this call pile could be reduced to:\n\n\n   def _define_core_socket()\n        if self.CORES:\n            return self.CORES\n\n        vnf_cfg \u003d self.scenario_helper.vnf_cfg\n        sys_obj \u003d CpuSysCores(self.ssh_helper)\n        self.sys_cpu \u003d sys_obj.get_core_socket()",
+      "range": {
+        "startLine": 326,
+        "startChar": 13,
+        "endLine": 326,
+        "endChar": 30
+      },
+      "revId": "e89a6e9e7667299118a372e297561512003a5ffa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
