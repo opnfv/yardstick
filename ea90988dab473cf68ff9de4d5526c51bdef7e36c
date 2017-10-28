@@ -22,6 +22,30 @@
       "revId": "ea90988dab473cf68ff9de4d5526c51bdef7e36c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_769a8864",
+        "filename": "ansible/build_yardstick_image.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5439
+      },
+      "writtenOn": "2017-10-28T00:43:40Z",
+      "side": 1,
+      "message": "Done, Thanks",
+      "parentUuid": "9a3d3df0_13bceeba",
+      "range": {
+        "startLine": 156,
+        "startChar": 6,
+        "endLine": 156,
+        "endChar": 60
+      },
+      "revId": "ea90988dab473cf68ff9de4d5526c51bdef7e36c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
