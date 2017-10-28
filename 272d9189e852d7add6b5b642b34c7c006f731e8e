@@ -16,6 +16,24 @@
       "revId": "272d9189e852d7add6b5b642b34c7c006f731e8e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f6c4d841",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/fault_process_kill.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-10-28T01:00:11Z",
+      "side": 1,
+      "message": "hi, it\u0027s not the expression failing to find process, but it found more than it want.\nsince previous regex \"/usr/.*/process_name\" match like \"python /usr/bin/other_process haproxy ...\" This process exist because haproxy sometimes used to keep heartbeat in some case. In this situation, it would mistakenly match since it match .* in it. This only occurs to haproxy situation.\nI\u0027ll get another patch to apply it only to haproxy situation.",
+      "parentUuid": "9a3d3df0_33de5212",
+      "revId": "272d9189e852d7add6b5b642b34c7c006f731e8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
