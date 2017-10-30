@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_c7b6403d",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2017-10-30T20:52:43Z",
+      "side": 1,
+      "message": "This does not catch hostnames. Add \u0027a-zA-Z\u0027:\n\n  sed -ne \"s/http:\\/\\/\\([0-9a-zA-Z.]*\\):*[0-9]*\\/.*/\\1/p\"",
+      "range": {
+        "startLine": 31,
+        "startChar": 68,
+        "endLine": 31,
+        "endChar": 69
+      },
+      "revId": "7bf11b5cfd216a83822d5cd91bf3fc49ac3ecd45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
