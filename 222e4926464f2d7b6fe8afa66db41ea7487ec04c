@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_e2ad328a",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-10-31T17:39:22Z",
+      "side": 1,
+      "message": "You can use a different character instead of the \"/\" to make it easier to grok the command.\n\ne.g.: \"s#http://\\([0-9a-zA-Z.\\-]*\\):*[0-9]*/.*#\\1#p\"",
+      "range": {
+        "startLine": 31,
+        "startChar": 51,
+        "endLine": 31,
+        "endChar": 99
+      },
+      "revId": "222e4926464f2d7b6fe8afa66db41ea7487ec04c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
