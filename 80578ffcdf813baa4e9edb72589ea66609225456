@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_4204de7a",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-10-31T18:07:03Z",
+      "side": 1,
+      "message": "There shouldn\u0027t be a need for an \"Abstract\" section here.\n\nThe text from the \"Abstract\" can be part of the introduction the start of the doc\n\ni.e. remove the \"Abstract\" section heading",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 8
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_020ad689",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-10-31T18:07:03Z",
+      "side": 1,
+      "message": "Why is this here twice?",
+      "range": {
+        "startLine": 77,
+        "startChar": 1,
+        "endLine": 78,
+        "endChar": 46
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c2d8ee1f",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-10-31T18:07:03Z",
+      "side": 1,
+      "message": "Should these names be more descriptive than \"first\", \"second\" and \"third\"?",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 31
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_22055a7a",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-10-31T18:07:03Z",
+      "side": 1,
+      "message": "More descriptive name: \"Deploying yardstick in an OpenStack environment\"?",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 14
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_82cee658",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-10-31T18:07:03Z",
+      "side": 1,
+      "message": "typo: Yardstick",
+      "range": {
+        "startLine": 250,
+        "startChar": 21,
+        "endLine": 250,
+        "endChar": 30
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a2d16afd",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-10-31T18:07:03Z",
+      "side": 1,
+      "message": "A lot of these can be removed, you only need to show a few to get a point across, there\u0027s already a lot of content in this document",
+      "range": {
+        "startLine": 471,
+        "startChar": 2,
+        "endLine": 478,
+        "endChar": 84
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_42edfec2",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-10-31T18:07:03Z",
+      "side": 1,
+      "message": "Does this header really need to be here? It doesn\u0027t add anything to the document.",
+      "range": {
+        "startLine": 491,
+        "startChar": 3,
+        "endLine": 498,
+        "endChar": 78
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_62e802b5",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-10-31T18:07:03Z",
+      "side": 1,
+      "message": "Use stable-euphrates, if this is for the stable branch\nhttp://docs.opnfv.org/en/stable-euphrates/release/userguide.introduction.html#feature-configuration-guides\n\nor refer to the latest docs since this is on the master branch\nhttp://docs.opnfv.org/en/latest/release/userguide.introduction.html",
+      "range": {
+        "startLine": 732,
+        "startChar": 40,
+        "endLine": 732,
+        "endChar": 132
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
