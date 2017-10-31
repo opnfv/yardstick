@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_87cef858",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-31T08:33:39Z",
+      "side": 1,
+      "message": "This function should have tested the call to _validate_cpu_cfg",
+      "revId": "23081c1116d172467f4679c34d493ab3bf3ddeed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a7d17cfd",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-10-31T08:33:39Z",
+      "side": 1,
+      "message": "This function doesn\u0027t exist anymore.",
+      "range": {
+        "startLine": 285,
+        "startChar": 21,
+        "endLine": 285,
+        "endChar": 38
+      },
+      "revId": "23081c1116d172467f4679c34d493ab3bf3ddeed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
