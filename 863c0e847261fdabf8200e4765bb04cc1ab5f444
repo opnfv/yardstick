@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_27272cb8",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-10-31T14:45:33Z",
+      "side": 1,
+      "message": "nice catch.  fixed.",
+      "parentUuid": "9a3d3df0_735bba87",
+      "range": {
+        "startLine": 73,
+        "startChar": 42,
+        "endLine": 73,
+        "endChar": 48
+      },
+      "revId": "863c0e847261fdabf8200e4765bb04cc1ab5f444",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_53603632",
         "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency.yaml",
         "patchSetId": 1
