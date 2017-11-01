@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_1989a826",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:26:59Z",
+      "side": 1,
+      "message": "follow-up: Where are these extra args used?",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "7ccc79492ade6ce4e38c8fb200415c882ec79981",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
