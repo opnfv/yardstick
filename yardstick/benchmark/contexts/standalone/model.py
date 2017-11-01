@@ -162,7 +162,7 @@ class Libvirt(object):
 
         addr = ET.SubElement(source, "address")
         addr.set('domain', "0x0")
-        addr.set('bus', "{0}".format(pci_address.bus))
+        addr.set('bus', "0x{0}".format(pci_address.bus))
         addr.set('function', "{0}".format(pci_address.function))
         addr.set('slot', "0x{0}".format(pci_address.slot))
         addr.set('type', "pci")
