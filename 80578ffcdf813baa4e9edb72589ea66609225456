@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_f6369302",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2017-11-01T10:43:27Z",
+      "side": 1,
+      "message": "According to me better to have: please first consult \u0027Proxy Support\u0027 section which is towards the end of this document.",
+      "range": {
+        "startLine": 54,
+        "startChar": 10,
+        "endLine": 54,
+        "endChar": 42
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_962587c4",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2017-11-01T10:43:27Z",
+      "side": 1,
+      "message": "what is the purpose of adding sudo -EH?",
+      "range": {
+        "startLine": 77,
+        "startChar": 3,
+        "endLine": 77,
+        "endChar": 11
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_020ad689",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -48,6 +94,52 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_d62f0fa0",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2017-11-01T10:43:27Z",
+      "side": 1,
+      "message": "As there are other docker commands too so to be more specific it can be: ``docker run``.",
+      "range": {
+        "startLine": 92,
+        "startChar": 53,
+        "endLine": 92,
+        "endChar": 59
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3618fb80",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2017-11-01T10:43:27Z",
+      "side": 1,
+      "message": "is \u0027to\u0027 really needed. I think it can be : Before that, access the Yardstick container",
+      "range": {
+        "startLine": 119,
+        "startChar": 47,
+        "endLine": 119,
+        "endChar": 49
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_c2d8ee1f",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -64,6 +156,52 @@
         "startChar": 0,
         "endLine": 125,
         "endChar": 31
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f904c416",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2017-11-01T10:43:27Z",
+      "side": 1,
+      "message": "should it be: will not be able to",
+      "range": {
+        "startLine": 135,
+        "startChar": 53,
+        "endLine": 135,
+        "endChar": 66
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5921709e",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2017-11-01T10:43:27Z",
+      "side": 1,
+      "message": "shouldn\u0027t it be something like we had for `Proxy Support`_ above.",
+      "range": {
+        "startLine": 146,
+        "startChar": 47,
+        "endLine": 147,
+        "endChar": 12
       },
       "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -140,6 +278,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_194ec86f",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2017-11-01T10:43:27Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "9a3d3df0_a2d16afd",
+      "range": {
+        "startLine": 471,
+        "startChar": 2,
+        "endLine": 478,
+        "endChar": 84
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_42edfec2",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -156,6 +318,29 @@
         "startChar": 3,
         "endLine": 498,
         "endChar": 78
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_59585032",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2017-11-01T10:43:27Z",
+      "side": 1,
+      "message": "something missing?",
+      "range": {
+        "startLine": 603,
+        "startChar": 29,
+        "endLine": 603,
+        "endChar": 31
       },
       "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
