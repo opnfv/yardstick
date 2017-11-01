@@ -16,19 +16,19 @@
 # yardstick comment: this is a modified copy of rally/rally/common/utils.py
 
 from __future__ import absolute_import
-from __future__ import print_function
 
+from contextlib import closing
+import collections
 import datetime
 import errno
+import functools
+import ipaddress
 import logging
 import os
+import random
+import socket
 import subprocess
 import sys
-import collections
-import socket
-import random
-import ipaddress
-from contextlib import closing
 
 import six
 from flask import jsonify
@@ -37,6 +37,7 @@ from oslo_utils import importutils
 from oslo_serialization import jsonutils
 
 import yardstick
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -389,3 +390,25 @@ class Timer(object):
 
     def __getattr__(self, item):
         return getattr(self.delta, item)
+
+
+def deprecated(message=''):
+    """This is a decorator which can be used to mark functions as deprecated.
+
+    It will result in a warning being emitted when the function is used first
+    time and filter is set for show DeprecationWarning.
+    """
+    def decorator_wrapper(func):
+        @functools.wraps(func)
+        def function_wrapper(*args, **kwargs):
+            current_call_source = '{}.{}'.format(func.__name__, message)
+            if current_call_source not in function_wrapper.last_call_source:
+                logger.warning('Function {} is now deprecated. Reason: {}'
+                               .format(func.__name__, message))
+                function_wrapper.last_call_source.add(current_call_source)
+            return func(*args, **kwargs)
+
+        function_wrapper.last_call_source = set()
+        return function_wrapper
+
+    return decorator_wrapper

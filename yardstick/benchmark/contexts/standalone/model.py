@@ -107,18 +107,48 @@ class Libvirt(object):
         connection.execute("virsh destroy %s" % vm_name)
 
     @staticmethod
-    def add_interface_address(interface, pci_address):
+    def _add_interface_address(interface, pci_address):
+        """Add a PCI 'address' XML node
+
+        <address type='pci' domain='0x0000' bus='0x00' slot='0x08'
+         function='0x0'/>
+
+        Refence: https://software.intel.com/en-us/articles/
+                 configure-sr-iov-network-virtual-functions-in-linux-kvm
+        """
         vm_pci = ET.SubElement(interface, 'address')
         vm_pci.set('type', 'pci')
-        vm_pci.set('domain', '0x%s' % pci_address.domain)
-        vm_pci.set('bus', '0x%s' % pci_address.bus)
-        vm_pci.set('slot', '0x%s' % pci_address.slot)
-        vm_pci.set('function', '0x%s' % pci_address.function)
+        vm_pci.set('domain', '0x{}'.format(pci_address.domain))
+        vm_pci.set('bus', '0x{}'.format(pci_address.bus))
+        vm_pci.set('slot', '0x{}'.format(pci_address.slot))
+        vm_pci.set('function', '0x{}'.format(pci_address.function))
         return vm_pci
 
     @classmethod
     def add_ovs_interface(cls, vpath, port_num, vpci, vports_mac, xml):
-        vhost_path = '{0}/var/run/openvswitch/dpdkvhostuser{1}'
+        """Add a DPDK OVS 'interface' XML node in 'devices' node
+
+        <devices>
+            <interface type='vhostuser'>
+                <mac address='00:00:00:00:00:01'/>
+                <source type='unix' path='/usr/local/var/run/openvswitch/
+                 dpdkvhostuser0' mode='client'/>
+                <model type='virtio'/>
+                <driver queues='4'>
+                    <host mrg_rxbuf='off'/>
+                </driver>
+                <address type='pci' domain='0x0000' bus='0x00' slot='0x03'
+                 function='0x0'/>
+            </interface>
+            ...
+        </devices>
+
+        Reference: http://docs.openvswitch.org/en/latest/topics/dpdk/
+                   vhost-user/
+        """
+
+        vhost_path = ('{0}/var/run/openvswitch/dpdkvhostuser{1}'.
+                      format(vpath, port_num))
         root = ET.parse(xml)
         pci_address = PciAddress.parse_address(vpci.strip(), multi_line=True)
         device = root.find('devices')
@@ -130,7 +160,7 @@ class Libvirt(object):
 
         source = ET.SubElement(interface, 'source')
         source.set('type', 'unix')
-        source.set('path', vhost_path.format(vpath, port_num))
+        source.set('path', vhost_path)
         source.set('mode', 'client')
 
         model = ET.SubElement(interface, 'model')
@@ -142,14 +172,35 @@ class Libvirt(object):
         host = ET.SubElement(driver, 'host')
         host.set('mrg_rxbuf', 'off')
 
-        cls.add_interface_address(interface, pci_address)
+        cls._add_interface_address(interface, pci_address)
 
         root.write(xml)
 
     @classmethod
-    def add_sriov_interfaces(cls, vm_pci, vf_pci, vfmac, xml):
+    def add_sriov_interfaces(cls, vm_pci, vf_pci, vf_mac, xml):
+        """Add a SR-IOV 'interface' XML node in 'devices' node
+
+        <devices>
+           <interface type='hostdev' managed='yes'>
+             <source>
+               <address type='pci' domain='0x0000' bus='0x00' slot='0x03'
+                function='0x0'/>
+             </source>
+             <mac address='52:54:00:6d:90:02'>
+             <address type='pci' domain='0x0000' bus='0x02' slot='0x04'
+              function='0x1'/>
+           </interface>
+           ...
+         </devices>
+
+        Reference: https://access.redhat.com/documentation/en-us/
+            red_hat_enterprise_linux/6/html/
+            virtualization_host_configuration_and_guest_installation_guide/
+            sect-virtualization_host_configuration_and_guest_installation_guide
+            -sr_iov-how_sr_iov_libvirt_works
+        """
+
         root = ET.parse(xml)
-        pci_address = PciAddress.parse_address(vf_pci.strip(), multi_line=True)
         device = root.find('devices')
 
         interface = ET.SubElement(device, 'interface')
@@ -157,18 +208,16 @@ class Libvirt(object):
         interface.set('type', 'hostdev')
 
         mac = ET.SubElement(interface, 'mac')
-        mac.set('address', vfmac)
+        mac.set('address', vf_mac)
+
         source = ET.SubElement(interface, 'source')
+        addr = ET.SubElement(source, 'address')
+        pci_address = PciAddress.parse_address(vf_pci.strip(), multi_line=True)
+        cls._add_interface_address(addr, pci_address)
 
-        addr = ET.SubElement(source, "address")
-        addr.set('domain', "0x0")
-        addr.set('bus', "{0}".format(pci_address.bus))
-        addr.set('function', "{0}".format(pci_address.function))
-        addr.set('slot', "0x{0}".format(pci_address.slot))
-        addr.set('type', "pci")
-
-        pci_vm_address = PciAddress.parse_address(vm_pci.strip(), multi_line=True)
-        cls.add_interface_address(interface, pci_vm_address)
+        pci_vm_address = PciAddress.parse_address(vm_pci.strip(),
+                                                  multi_line=True)
+        cls._add_interface_address(interface, pci_vm_address)
 
         root.write(xml)
 
@@ -292,7 +341,7 @@ class StandaloneContextHelper(object):
         cmd = "cat /sys/bus/pci/devices/{0}/virtfn0/uevent"
         output = connection.execute(cmd.format(pci))[1]
 
-        pattern = "PCI_SLOT_NAME=({})".format(PciAddress.PCI_PATTERN_STR)
+        pattern = "PCI_SLOT_NAME=({})".format(PciAddress.PCI_PATTERN_STR_DBDF)
         m = re.search(pattern, output, re.MULTILINE)
 
         pf_vfs = {}
