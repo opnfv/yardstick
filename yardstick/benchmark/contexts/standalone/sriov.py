@@ -110,7 +110,7 @@ class SriovContext(Context):
             Libvirt.check_if_vm_exists_and_delete(vm, self.connection)
 
         # Bind nics back to kernel
-        for key, ports in self.networks.items():
+        for ports in self.networks.values():
             # enable VFs for given...
             build_vfs = "echo 0 > /sys/bus/pci/devices/{0}/sriov_numvfs"
             self.connection.execute(build_vfs.format(ports.get('phy_port')))
@@ -170,8 +170,7 @@ class SriovContext(Context):
 
     def configure_nics_for_sriov(self):
         vf_cmd = "ip link set {0} vf 0 mac {1}"
-        for key, ports in self.networks.items():
-            vf_pci = []
+        for ports in self.networks.values():
             host_driver = ports.get('driver')
             if host_driver not in self.drivers:
                 self.connection.execute("rmmod %svf" % host_driver)
@@ -187,19 +186,19 @@ class SriovContext(Context):
             if interface is not None:
                 self.connection.execute(vf_cmd.format(interface, mac))
 
-            vf_pci = self.get_vf_data('vf_pci', ports.get('phy_port'), mac, interface)
+            vf_pci = self._get_vf_data(ports.get('phy_port'), mac, interface)
             ports.update({
                 'vf_pci': vf_pci,
                 'mac': mac
             })
 
-        LOG.info("Ports %s" % self.networks)
+        LOG.info('Ports %s', self.networks)
 
     def _enable_interfaces(self, index, idx, vfs, cfg):
         vf_spoofchk = "ip link set {0} vf 0 spoofchk off"
 
         vf = self.networks[vfs[0]]
-        vpci = PciAddress.parse_address(vf['vpci'].strip(), multi_line=True)
+        vpci = PciAddress(vf['vpci'].strip())
         # Generate the vpci for the interfaces
         slot = index + idx + 10
         vf['vpci'] = \
@@ -222,7 +221,7 @@ class SriovContext(Context):
             # 1. Check and delete VM if already exists
             Libvirt.check_if_vm_exists_and_delete(vm_name, self.connection)
 
-            vcpu, mac = Libvirt.build_vm_xml(self.connection, self.vm_flavor, cfg, vm_name, index)
+            _, mac = Libvirt.build_vm_xml(self.connection, self.vm_flavor, cfg, vm_name, index)
             # 2: Cleanup already available VMs
             for idx, (vkey, vfs) in enumerate(OrderedDict(vnf["network_ports"]).items()):
                 if vkey == "mgmt":
@@ -232,7 +231,7 @@ class SriovContext(Context):
             # copy xml to target...
             self.connection.put(cfg, cfg)
 
-            #    FIXME: launch through libvirt
+            # NOTE: launch through libvirt
             LOG.info("virsh create ...")
             Libvirt.virsh_create_vm(self.connection, cfg)
 
@@ -246,15 +245,15 @@ class SriovContext(Context):
 
         return nodes
 
-    def get_vf_data(self, key, value, vfmac, pfif):
+    def _get_vf_data(self, value, vfmac, pfif):
         vf_data = {
             "mac": vfmac,
             "pf_if": pfif
         }
         vfs = StandaloneContextHelper.get_virtual_devices(self.connection, value)
         for k, v in vfs.items():
-            m = PciAddress.parse_address(k.strip(), multi_line=True)
-            m1 = PciAddress.parse_address(value.strip(), multi_line=True)
+            m = PciAddress(k.strip())
+            m1 = PciAddress(value.strip())
             if m.bus == m1.bus:
                 vf_data.update({"vf_pci": str(v)})
                 break
