@@ -342,6 +342,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_a7021c3c",
+        "filename": "yardstick/benchmark/contexts/standalone/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-11-01T13:42:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_932f63a1",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_b3942738",
         "filename": "yardstick/benchmark/contexts/standalone/base.py",
         "patchSetId": 11
@@ -365,6 +383,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_27960cf1",
+        "filename": "yardstick/benchmark/contexts/standalone/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-11-01T13:42:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_b3942738",
+      "range": {
+        "startLine": 121,
+        "startChar": 7,
+        "endLine": 138,
+        "endChar": 19
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_73aa9f71",
         "filename": "yardstick/benchmark/contexts/standalone/base.py",
         "patchSetId": 11
@@ -376,6 +418,30 @@
       "writtenOn": "2017-10-24T14:51:04Z",
       "side": 1,
       "message": "Do you need to create a new object by copying the entire dict? Do you need to have this ordered?",
+      "range": {
+        "startLine": 169,
+        "startChar": 43,
+        "endLine": 169,
+        "endChar": 54
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_edf1abce",
+        "filename": "yardstick/benchmark/contexts/standalone/base.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-11-01T13:42:01Z",
+      "side": 1,
+      "message": "Yes, it makes little sense to create an OrderedDict here as it doesn\u0027t really sort the self.servers nor is the created object stored anywhere. If we care of the the order, we probably should sort it instead. I am not sure, if we want it sorted.",
+      "parentUuid": "9a3d3df0_73aa9f71",
       "range": {
         "startLine": 169,
         "startChar": 43,
@@ -435,6 +501,29 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_87d8b8f0",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-11-01T13:42:01Z",
+      "side": 1,
+      "message": "this will call ten times query(), so it will 10 times do fping and also ssh if fping succeeds. Regardless if the query_mgmt_ip return the address or not.",
+      "range": {
+        "startLine": 337,
+        "startChar": 4,
+        "endLine": 337,
+        "endChar": 55
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f3e22f02",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 11
@@ -458,6 +547,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c7a7604e",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-11-01T13:42:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_f3e22f02",
+      "range": {
+        "startLine": 441,
+        "startChar": 8,
+        "endLine": 442,
+        "endChar": 55
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_53e79b12",
         "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
         "patchSetId": 11
@@ -469,6 +582,30 @@
       "writtenOn": "2017-10-24T14:51:04Z",
       "side": 1,
       "message": "Triple quoted strings are almost exclusively used only for documentation.\n\nThis could be broken in two lines:\nOVS_ADD_PORT_TEMPLATE \u003d (\"ovs-vsctl add-port {br} {port} -- set Interface {port} \"\n                         \"type\u003d{type_}{dpdk_args}\")",
+      "range": {
+        "startLine": 32,
+        "startChar": 24,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_076948f9",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-11-01T13:42:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_53e79b12",
       "range": {
         "startLine": 32,
         "startChar": 24,
@@ -516,6 +653,30 @@
       "side": 1,
       "message": "agreed, though it seems to me that many of these methods should be marked as protected/private.  specific_deploy should only be called \"during or after\" deploy.\n\nof course, we could protective checks in each of these methods to test whether the vm was deployed.  i\u0027m not sure the best way to do as requested in the case that the vm was not deployed, current raising an exception is the reaction.\n\ncan we make dpdk_bind_helper a property and make the SSH connection on demand?  will this work with pre-deployed vms?",
       "parentUuid": "9a3d3df0_d3ba8be0",
+      "range": {
+        "startLine": 95,
+        "startChar": 13,
+        "endLine": 95,
+        "endChar": 29
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c77e40ae",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-11-01T13:42:01Z",
+      "side": 1,
+      "message": "I have made the methods private, so they should not be called if the vm was not deployed.",
+      "parentUuid": "9a3d3df0_f317cf4f",
       "range": {
         "startLine": 95,
         "startChar": 13,
@@ -780,6 +941,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c755a01e",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-11-01T13:42:01Z",
+      "side": 1,
+      "message": "I think it\u0027s better to call super().__init__() always. IIRC, in case of multiple inheritence, not calling super().__init__() will cause that other constructors are not called.",
+      "parentUuid": "9a3d3df0_b3a0a7f5",
+      "range": {
+        "startLine": 402,
+        "startChar": 8,
+        "endLine": 402,
+        "endChar": 47
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f3aa2fd3",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 11
@@ -879,6 +1064,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_422cde47",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-11-01T13:42:01Z",
+      "side": 1,
+      "message": "The behaviour would be different. With your suggested change, if the file exists, we would try to open it and if it is not readable we would fail. With the current code, if the file exists, we would try to open it, if it fails (e.g. because of permissions) we would try to open the file in the alt location.\nRegarding the file handle, it works fine and the file handle remains open, if you use an instance attribute instead of a local variable in the __enter__ method (self._iter). As it is done in the current code. (L426)",
+      "parentUuid": "9a3d3df0_9393e3f9",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_738d7f7b",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 11
@@ -890,6 +1093,24 @@
       "writtenOn": "2017-10-24T14:51:04Z",
       "side": 1,
       "message": "The mode is missing",
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_569adf63",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-11-01T13:42:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_738d7f7b",
       "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -924,6 +1145,30 @@
       "writtenOn": "2017-10-24T14:51:04Z",
       "side": 1,
       "message": "Why this numbers?",
+      "range": {
+        "startLine": 53,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 17
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_96caa74d",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-11-01T13:42:01Z",
+      "side": 1,
+      "message": "I don\u0027t know, it\u0027s been there. I suggest to keep it.",
+      "parentUuid": "9a3d3df0_d3d3ab36",
       "range": {
         "startLine": 53,
         "startChar": 12,
