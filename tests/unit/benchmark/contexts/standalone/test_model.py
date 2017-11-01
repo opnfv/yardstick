@@ -16,21 +16,51 @@
 
 # Unittest for yardstick.benchmark.contexts.standalone.model
 
-
 from __future__ import absolute_import
+import copy
 import os
 import unittest
-import errno
 import mock
 
-from yardstick.common import constants as consts
+from xml.etree import ElementTree
+
 from yardstick.benchmark.contexts.standalone.model import Libvirt
 from yardstick.benchmark.contexts.standalone.model import StandaloneContextHelper
 from yardstick.benchmark.contexts.standalone import model
-from yardstick.network_services.utils import PciAddress
+from yardstick.network_services import utils
 
+
+XML_SAMPLE = """<?xml version="1.0"?>
+<domain type="kvm">
+    <devices>
+    </devices>
+</domain>
+"""
+
+XML_SAMPLE_INTERFACE = """<?xml version="1.0"?>
+<domain type="kvm">
+    <devices>
+        <interface>
+        </interface>
+    </devices>
+</domain>
+"""
 
 class ModelLibvirtTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.xml = ElementTree.ElementTree(
+            element=ElementTree.fromstring(XML_SAMPLE))
+        self.pci_address_str = '0001:04:03.2'
+        self.pci_address = utils.PciAddress(self.pci_address_str)
+        self.mac = '00:00:00:00:00:01'
+        self._mock_write_xml = mock.patch.object(ElementTree.ElementTree, 'write')
+        self.mock_write_xml = self._mock_write_xml.start()
+
+        self.addCleanup(self._cleanup)
+
+    def _cleanup(self):
+        self._mock_write_xml.stop()
 
     def test_check_if_vm_exists_and_delete(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -59,27 +89,67 @@ class ModelLibvirtTestCase(unittest.TestCase):
         result = Libvirt.virsh_destroy_vm("vm_0", ssh_mock)
         self.assertIsNone(result)
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.ET')
-    def test_add_interface_address(self, mock_et):
-        pci_address = PciAddress.parse_address("0000:00:04.0", multi_line=True)
-        result = Libvirt.add_interface_address("<interface/>", pci_address)
-        self.assertIsNotNone(result)
+    def test_add_interface_address(self):
+        xml = ElementTree.ElementTree(
+            element=ElementTree.fromstring(XML_SAMPLE_INTERFACE))
+        interface = xml.find('devices').find('interface')
+        result = Libvirt._add_interface_address(interface, self.pci_address)
+        self.assertEqual('pci', result.get('type'))
+        self.assertEqual('0x{}'.format(self.pci_address.domain),
+                         result.get('domain'))
+        self.assertEqual('0x{}'.format(self.pci_address.bus),
+                         result.get('bus'))
+        self.assertEqual('0x{}'.format(self.pci_address.slot),
+                         result.get('slot'))
+        self.assertEqual('0x{}'.format(self.pci_address.function),
+                         result.get('function'))
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.Libvirt.add_interface_address')
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.ET')
-    def test_add_ovs_interfaces(self, mock_et, mock_add_interface_address):
-        pci_address = PciAddress.parse_address("0000:00:04.0", multi_line=True)
-        result = Libvirt.add_ovs_interface("/usr/local", 0, "0000:00:04.0",
-                                                "00:00:00:00:00:01", "xml")
-        self.assertIsNone(result)
+    def test_add_ovs_interfaces(self):
+        xml_input = mock.Mock()
+        with mock.patch.object(ElementTree, 'parse', return_value=self.xml) \
+                as mock_parse:
+            xml = copy.deepcopy(self.xml)
+            mock_parse.return_value = xml
+            Libvirt.add_ovs_interface('/usr/local', 0, self.pci_address_str,
+                                      self.mac, xml_input)
+            mock_parse.assert_called_once_with(xml_input)
+            self.mock_write_xml.assert_called_once_with(xml_input)
+            interface = xml.find('devices').find('interface')
+            self.assertEqual('vhostuser', interface.get('type'))
+            mac = interface.find('mac')
+            self.assertEqual(self.mac, mac.get('address'))
+            source = interface.find('source')
+            self.assertEqual('unix', source.get('type'))
+            self.assertEqual('/usr/local/var/run/openvswitch/dpdkvhostuser0',
+                             source.get('path'))
+            self.assertEqual('client', source.get('mode'))
+            model = interface.find('model')
+            self.assertEqual('virtio', model.get('type'))
+            driver = interface.find('driver')
+            self.assertEqual('4', driver.get('queues'))
+            host = driver.find('host')
+            self.assertEqual('off', host.get('mrg_rxbuf'))
+            self.assertIsNotNone(interface.find('address'))
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.Libvirt.add_interface_address')
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.ET')
-    def test_add_sriov_interfaces(self, mock_et, mock_add_interface_address):
-        pci_address = PciAddress.parse_address("0000:00:04.0", multi_line=True)
-        result = Libvirt.add_sriov_interfaces("0000:00:05.0", "0000:00:04.0",
-                                              "00:00:00:00:00:01", "xml")
-        self.assertIsNone(result)
+    def test_add_sriov_interfaces(self):
+        xml_input = mock.Mock()
+        with mock.patch.object(ElementTree, 'parse', return_value=self.xml) \
+                as mock_parse:
+            xml = copy.deepcopy(self.xml)
+            mock_parse.return_value = xml
+            vf_pci = '0001:05:04.2'
+            Libvirt.add_sriov_interfaces(self.pci_address_str, vf_pci,
+                                         self.mac, xml_input)
+            mock_parse.assert_called_once_with(xml_input)
+            self.mock_write_xml.assert_called_once_with(xml_input)
+            interface = xml.find('devices').find('interface')
+            self.assertEqual('yes', interface.get('managed'))
+            self.assertEqual('hostdev', interface.get('type'))
+            mac = interface.find('mac')
+            self.assertEqual(self.mac, mac.get('address'))
+            source = interface.find('source')
+            self.assertIsNotNone(source.find('address'))
+            self.assertIsNotNone(interface.find('address'))
 
     def test_create_snapshot_qemu(self):
         result = "/var/lib/libvirt/images/0.qcow2"

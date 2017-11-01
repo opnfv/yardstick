@@ -15,8 +15,6 @@
 
 # Unittest for yardstick.network_services.utils
 
-from __future__ import absolute_import
-
 import os
 import unittest
 import mock
@@ -62,3 +60,51 @@ class UtilsTestCase(unittest.TestCase):
             ssh.return_value = ssh_mock
             tool_path = utils.provision_tool(ssh_mock, self.DPDK_PATH)
             self.assertEqual(tool_path, self.DPDK_PATH)
+
+
+class PciAddressTestCase(unittest.TestCase):
+
+    PCI_ADDRESS_DBSF = '0001:07:03.2'
+    PCI_ADDRESS_BSF = '06:02.1'
+    PCI_ADDRESS_DBSF_MULTILINE_1 = '0001:08:04.3\nother text\n'
+    PCI_ADDRESS_DBSF_MULTILINE_2 = 'first line\n   0001:08:04.3 \nother text\n'
+    # Will match and return the first address found.
+    PCI_ADDRESS_DBSF_MULTILINE_3 = '  0001:08:04.1 \n  0002:05:03.1 \nother\n'
+
+    def test_pciaddress_dbsf(self):
+        pci_address = utils.PciAddress(PciAddressTestCase.PCI_ADDRESS_DBSF)
+        self.assertEqual('0001', pci_address.domain)
+        self.assertEqual('07', pci_address.bus)
+        self.assertEqual('03', pci_address.slot)
+        self.assertEqual('2', pci_address.function)
+
+    def test_pciaddress_bsf(self):
+        pci_address = utils.PciAddress(PciAddressTestCase.PCI_ADDRESS_BSF)
+        self.assertEqual('0000', pci_address.domain)
+        self.assertEqual('06', pci_address.bus)
+        self.assertEqual('02', pci_address.slot)
+        self.assertEqual('1', pci_address.function)
+
+    def test_pciaddress_multiline_1(self):
+        pci_address = utils.PciAddress(
+            PciAddressTestCase.PCI_ADDRESS_DBSF_MULTILINE_1, multi_line=True)
+        self.assertEqual('0001', pci_address.domain)
+        self.assertEqual('08', pci_address.bus)
+        self.assertEqual('04', pci_address.slot)
+        self.assertEqual('3', pci_address.function)
+
+    def test_pciaddress_multiline_2(self):
+        pci_address = utils.PciAddress(
+            PciAddressTestCase.PCI_ADDRESS_DBSF_MULTILINE_2, multi_line=True)
+        self.assertEqual('0001', pci_address.domain)
+        self.assertEqual('08', pci_address.bus)
+        self.assertEqual('04', pci_address.slot)
+        self.assertEqual('3', pci_address.function)
+
+    def test_pciaddress_multiline_3(self):
+        pci_address = utils.PciAddress(
+            PciAddressTestCase.PCI_ADDRESS_DBSF_MULTILINE_3, multi_line=True)
+        self.assertEqual('0001', pci_address.domain)
+        self.assertEqual('08', pci_address.bus)
+        self.assertEqual('04', pci_address.slot)
+        self.assertEqual('1', pci_address.function)

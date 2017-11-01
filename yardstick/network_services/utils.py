@@ -22,6 +22,9 @@ from oslo_config import cfg
 from oslo_config.cfg import NoSuchOptError
 from oslo_utils import encodeutils
 
+from yardstick.common import utils
+
+
 NSB_ROOT = "/opt/nsb_bin"
 
 CONF = cfg.CONF
@@ -43,30 +46,53 @@ HEXADECIMAL = "[0-9a-zA-Z]"
 
 
 class PciAddress(object):
+    """Class to handle PCI addresses.
 
-    PCI_PATTERN_STR = HEXADECIMAL.join([
-        "(",
-        "{4}):(",  # domain (4 bytes)
-        "{2}):(",  # bus (2 bytes)
-        "{2}).(",  # function (2 bytes)
-        ")",       # slot (1 byte)
-    ])
+    A PCI address could be written in two ways:
+    - Simple BDF notation:
+        00:00.0 # bus:device.function
+    - With domain extension.
+        0000:00:00.0 # domain:bus:device.function
 
-    PCI_PATTERN = re.compile(PCI_PATTERN_STR)
+    Note: in Libvirt, 'device' is called 'slot'.
+
+    Reference: https://wiki.xenproject.org/wiki/
+               Bus:Device.Function_(BDF)_Notation
+    """
+    PCI_PATTERN_STR_DBDF = (
+        r"(?P<domain>[0-9a-zA-Z]{4}):(?P<bus>[0-9a-zA-Z]{2}):"
+        "(?P<slot>[0-9a-zA-Z]{2}).(?P<function>[0-9a-zA-Z]{1})")
+    PCI_PATTERN_STR_BDF = (
+        r"(?P<bus>[0-9a-zA-Z]{2}):(?P<slot>[0-9a-zA-Z]{2})."
+        "(?P<function>[0-9a-zA-Z]{1})")
 
     @classmethod
+    @utils.deprecated('Instantiate the class directly')
     def parse_address(cls, text, multi_line=False):
-        if multi_line:
-            text = text.replace(os.linesep, '')
-            match = cls.PCI_PATTERN.search(text)
-        return cls(match.group(0))
+        return cls(text, multi_line)
 
-    def __init__(self, address):
+    def __init__(self, address, multi_line=False):
         super(PciAddress, self).__init__()
-        match = self.PCI_PATTERN.match(address)
+        flags = re.MULTILINE if multi_line else 0
+        PCI_PATTERN_DBDF = re.compile(PciAddress.PCI_PATTERN_STR_DBDF, flags)
+        PCI_PATTERN_BDF = re.compile(PciAddress.PCI_PATTERN_STR_BDF, flags)
+
+        match = PCI_PATTERN_DBDF.search(address)
+        if not match:
+            self._domain = '0000'
+            match = PCI_PATTERN_BDF.search(address)
         if not match:
             raise ValueError('Invalid PCI address: {}'.format(address))
-        self.address = address
+
+        self._domain = (match.group('domain') if 'domain' in match.groupdict()
+                        else self._domain)
+        self._bus = match.group('bus')
+        self._slot = match.group('slot')
+        self._function = match.group('function')
+        self.address = '{:0>4}:{:0>2}:{:0>4}.{:1}'.format(self.domain,
+                                                          self.bus,
+                                                          self.slot,
+                                                          self.function)
         self.match = match
 
     def __repr__(self):
@@ -74,22 +100,22 @@ class PciAddress(object):
 
     @property
     def domain(self):
-        return self.match.group(1)
+        return self._domain
 
     @property
     def bus(self):
-        return self.match.group(2)
+        return self._bus
 
     @property
     def slot(self):
-        return self.match.group(3)
+        return self._slot
 
     @property
     def function(self):
-        return self.match.group(4)
+        return self._function
 
     def values(self):
-        return [self.match.group(n) for n in range(1, 5)]
+        return [self._domain, self._bus, self._slot, self._function]
 
 
 def get_nsb_option(option, default=None):
