@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_59b5f0ec",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2017-11-01T12:16:25Z",
+      "side": 1,
+      "message": "Thanks for clarification Ross.",
+      "parentUuid": "9a3d3df0_f987a45f",
+      "range": {
+        "startLine": 77,
+        "startChar": 3,
+        "endLine": 77,
+        "endChar": 11
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_020ad689",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
