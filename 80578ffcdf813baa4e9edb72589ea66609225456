@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_f987a45f",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-01T10:55:03Z",
+      "side": 1,
+      "message": "sudo -E preserves http_proxy in env vars.\nsudo -H sets $HOME",
+      "parentUuid": "9a3d3df0_962587c4",
+      "range": {
+        "startLine": 77,
+        "startChar": 3,
+        "endLine": 77,
+        "endChar": 11
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_020ad689",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -336,6 +360,30 @@
       "writtenOn": "2017-11-01T10:43:27Z",
       "side": 1,
       "message": "something missing?",
+      "range": {
+        "startLine": 603,
+        "startChar": 29,
+        "endLine": 603,
+        "endChar": 31
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_99965893",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-01T10:55:03Z",
+      "side": 1,
+      "message": "this got lost or removed\n\n`here \u003chttps://wiki.opnfv.org/display/yardstick/How+to+run+Yardstick+in+a+local+environment\u003e`_.",
+      "parentUuid": "9a3d3df0_59585032",
       "range": {
         "startLine": 603,
         "startChar": 29,
