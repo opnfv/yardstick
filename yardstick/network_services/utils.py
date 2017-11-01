@@ -22,6 +22,7 @@ from oslo_config import cfg
 from oslo_config.cfg import NoSuchOptError
 from oslo_utils import encodeutils
 
+
 NSB_ROOT = "/opt/nsb_bin"
 
 CONF = cfg.CONF
@@ -43,30 +44,37 @@ HEXADECIMAL = "[0-9a-zA-Z]"
 
 
 class PciAddress(object):
+    """Class to handle PCI addresses.
 
-    PCI_PATTERN_STR = HEXADECIMAL.join([
-        "(",
-        "{4}):(",  # domain (4 bytes)
-        "{2}):(",  # bus (2 bytes)
-        "{2}).(",  # function (2 bytes)
-        ")",       # slot (1 byte)
-    ])
+    A PCI address could be written in two ways:
+    - Simple BDF notation:
+        00:00.0 # bus:device.function
+    - With domain extension.
+        0000:00:00.0 # domain:bus:device.function
 
-    PCI_PATTERN = re.compile(PCI_PATTERN_STR)
+    Note: in Libvirt, 'device' is called 'slot'.
 
-    @classmethod
-    def parse_address(cls, text, multi_line=False):
-        if multi_line:
-            text = text.replace(os.linesep, '')
-            match = cls.PCI_PATTERN.search(text)
-        return cls(match.group(0))
+    Reference: https://wiki.xenproject.org/wiki/
+               Bus:Device.Function_(BDF)_Notation
+    """
+    PCI_PATTERN_STR = (
+        r"((?P<domain>[0-9a-zA-Z]{4}):)?(?P<bus>[0-9a-zA-Z]{2}):"
+        r"(?P<slot>[0-9a-zA-Z]{2})\.(?P<function>[0-9a-zA-Z]{1})")
 
     def __init__(self, address):
-        super(PciAddress, self).__init__()
-        match = self.PCI_PATTERN.match(address)
+        pci_pattern = re.compile(self.PCI_PATTERN_STR)
+        match = pci_pattern.search(address)
         if not match:
             raise ValueError('Invalid PCI address: {}'.format(address))
-        self.address = address
+
+        self._domain = (match.group('domain') or '0000').lower()
+        self._bus = match.group('bus').lower()
+        self._slot = match.group('slot').lower()
+        self._function = match.group('function').lower()
+        self.address = '{:0>4}:{:0>2}:{:0>2}.{:1}'.format(self.domain,
+                                                          self.bus,
+                                                          self.slot,
+                                                          self.function)
         self.match = match
 
     def __repr__(self):
@@ -74,22 +82,22 @@ class PciAddress(object):
 
     @property
     def domain(self):
-        return self.match.group(1)
+        return self._domain
 
     @property
     def bus(self):
-        return self.match.group(2)
+        return self._bus
 
     @property
     def slot(self):
-        return self.match.group(3)
+        return self._slot
 
     @property
     def function(self):
-        return self.match.group(4)
+        return self._function
 
     def values(self):
-        return [self.match.group(n) for n in range(1, 5)]
+        return [self._domain, self._bus, self._slot, self._function]
 
 
 def get_nsb_option(option, default=None):
