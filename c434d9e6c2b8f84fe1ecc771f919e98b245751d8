@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_2cab8cd9",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-01T19:49:22Z",
+      "side": 1,
+      "message": "what type is server, can we move this method to that type?",
+      "range": {
+        "startLine": 353,
+        "startChar": 5,
+        "endLine": 353,
+        "endChar": 17
+      },
+      "revId": "c434d9e6c2b8f84fe1ecc771f919e98b245751d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_acb67c3b",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-01T19:49:22Z",
+      "side": 1,
+      "message": "what type is going to have a .get and not be a Mapping?\n\nand if we really need to deal with non-Mapping types that have .get methods, then how about:\n\n (getter(port[\u0027port\u0027], {}) for getter in (getattr(p, \u0027get\u0027, None) for p in ports) if isinstance(getter, Callable))\n\nbut really, do we need to make an iteration instead of:\n\n for override_port in ports:\n   try:\n     override \u003d override_port[port[\u0027port\u0027]]\n   except (TypeError, KeyError):\n     continue",
+      "range": {
+        "startLine": 357,
+        "startChar": 63,
+        "endLine": 357,
+        "endChar": 80
+      },
+      "revId": "c434d9e6c2b8f84fe1ecc771f919e98b245751d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
