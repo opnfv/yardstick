@@ -524,6 +524,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_ace4bc3b",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-01T20:32:51Z",
+      "side": 1,
+      "message": "sure, if this iteration is fed to list(), but L338 doesn\u0027t do that.  L338 takes each value from the iteration and stops when query returns something other than None.\n\nbut your change is possibly more easily understood.",
+      "parentUuid": "9a3d3df0_87d8b8f0",
+      "range": {
+        "startLine": 337,
+        "startChar": 4,
+        "endLine": 337,
+        "endChar": 55
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f3e22f02",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 11
@@ -606,6 +630,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "9a3d3df0_53e79b12",
+      "range": {
+        "startLine": 32,
+        "startChar": 24,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_eceec421",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-01T20:32:51Z",
+      "side": 1,
+      "message": "this is fine, but i use triple quoted strings for:\n\n1) multi-line strings, often in unit tests for sample output text\n\n IPTABLES_OUTPUT \u003d \"\"\"\\\n Chain INPUT (policy ACCEPT 25839713 packets, 4670493543 bytes)\n     pkts      bytes target     prot opt in     out     source               destination\n        0        0 ACCEPT     udp  --  virbr0 *       0.0.0.0/0            0.0.0.0/0            udp dpt:53\n        0        0 ACCEPT     tcp  --  virbr0 *       0.0.0.0/0            0.0.0.0/0            tcp dpt:53\n   150000        0 ACCEPT     tcp  --  virbr0 *       0.0.0.0/0            0.0.0.0/0            dpts:1000:1010\n        0        0 ACCEPT     udp  --  virbr0 *       0.0.0.0/0            0.0.0.0/0            udp dpt:67\n        0        0 ACCEPT     tcp  --  virbr0 *       0.0.0.0/0            0.0.0.0/0            tcp dpt:67\n \"\"\"\n\n2) strings that contain both types of quote character\n\n \"\"\"find \"{}\" -ls | awk \u0027{print $2}\u0027\"\"\".format(\"$HOME/my/path with spaces/and needs to be quoted\")",
+      "parentUuid": "9a3d3df0_076948f9",
       "range": {
         "startLine": 32,
         "startChar": 24,
