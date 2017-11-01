@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_d9e7403f",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-01T11:01:47Z",
+      "side": 1,
+      "message": "we reduced the supported OVS-DPDK list, but this wasn\u0027t updated.\n\nWe only want to support \n\novs 2.8, dpdk 17.05.2 \n\nand\n\nOvs: 2.7.90 (from networking-ovs-dpdk plugin Sean updated)\nDPDK 17.02.1",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 25
+      },
+      "revId": "835ec9bb2ab09cc4d05c69a0822d87115c600788",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
