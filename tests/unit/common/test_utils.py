@@ -11,7 +11,9 @@
 
 from __future__ import absolute_import
 
+import functools
 import ipaddress
+import logging
 import os
 import unittest
 from copy import deepcopy
@@ -775,7 +777,7 @@ class RemoveFileTestCase(unittest.TestCase):
     def test_remove_file(self):
         try:
             utils.remove_file('notexistfile.txt')
-        except Exception as e:
+        except Exception as e: # pylint: disable=broad-except
             self.assertTrue(isinstance(e, OSError))
 
 
@@ -997,7 +999,8 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
             self.assertEqual(utils.safe_ip_address(addr), expected, addr)
 
     @mock.patch("yardstick.common.utils.logging")
-    def test_safe_ip_address_negative(self, mock_logging):
+    def test_safe_ip_address_negative(self, *args):
+        # NOTE(ralonsoh): this test should check mocked function calls.
         for value in self.INVALID_IP_ADDRESS_STR_LIST:
             self.assertIsNone(utils.safe_ip_address(value), value)
 
@@ -1026,7 +1029,8 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
             self.assertEqual(utils.get_ip_version(addr), 6, addr)
 
     @mock.patch("yardstick.common.utils.logging")
-    def test_get_ip_version_negative(self, mock_logging):
+    def test_get_ip_version_negative(self, *args):
+        # NOTE(ralonsoh): this test should check mocked function calls.
         for value in self.INVALID_IP_ADDRESS_STR_LIST:
             self.assertIsNone(utils.get_ip_version(value), value)
 
@@ -1055,12 +1059,86 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
             self.assertEqual(utils.ip_to_hex(value), value)
 
     @mock.patch("yardstick.common.utils.logging")
-    def test_ip_to_hex_negative(self, mock_logging):
+    def test_ip_to_hex_negative(self, *args):
+        # NOTE(ralonsoh): this test should check mocked function calls.
         addr_list = self.GOOD_IP_V4_ADDRESS_STR_LIST
         mask_list = self.GOOD_IP_V4_MASK_STR_LIST
         value_iter = (''.join(pair) for pair in product(addr_list, mask_list))
         for value in chain(value_iter, self.INVALID_IP_ADDRESS_STR_LIST):
             self.assertEqual(utils.ip_to_hex(value), value)
+
+
+class DeprecatedTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self._mock_warning = mock.patch.object(logging.Logger, 'warning')
+        self.mock_warning = self._mock_warning.start()
+
+        self.addCleanup(self._cleanup)
+
+    def _cleanup(self):
+        self._mock_warning.stop()
+
+    def test_deprecate_function(self):
+        @utils.deprecated('This function/method is deprecated')
+        def dummy_func():
+            pass
+
+        dummy_func()
+        self.mock_warning.assert_called_once()
+        dummy_func()
+        # logging.Logger.warning must be called only the first time.
+        self.mock_warning.assert_called_once()
+
+    def test_deprecate_method(self):
+
+        class DummyClass(object):
+
+            @utils.deprecated('This function/method is deprecated')
+            def dummy_method(self):
+                pass
+
+        dummy_class = DummyClass()
+        dummy_class.dummy_method()
+        self.mock_warning.assert_called_once()
+        dummy_class.dummy_method()
+        self.mock_warning.assert_called_once()
+
+    def test_deprecate_classmethod(self):
+
+        class DummyClass(object):
+
+            @classmethod
+            @utils.deprecated('This function/method is deprecated')
+            def dummy_method(cls):
+                pass
+
+        DummyClass.dummy_method()
+        self.mock_warning.assert_called_once()
+        DummyClass.dummy_method()
+        self.mock_warning.assert_called_once()
+
+    def test_deprecate_decorated_method(self):
+        def _other_decorator(func):
+
+            @functools.wraps(func)
+            def function_wrapper(*args, **kwargs):
+                return func(*args, **kwargs)
+
+            return function_wrapper
+
+        class DummyClass(object):
+
+            @_other_decorator
+            @utils.deprecated('This function/method is deprecated')
+            def dummy_method(self):
+                pass
+
+        dummy_class = DummyClass()
+        dummy_class.dummy_method()
+        self.mock_warning.assert_called_once()
+        dummy_class.dummy_method()
+        self.mock_warning.assert_called_once()
 
 
 def main():
