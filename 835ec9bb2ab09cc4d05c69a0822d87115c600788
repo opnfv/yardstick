@@ -22,6 +22,30 @@
       "revId": "835ec9bb2ab09cc4d05c69a0822d87115c600788",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_393bcc3b",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-11-01T13:42:01Z",
+      "side": 1,
+      "message": "ok, the question is if this kind of information should be burried here in this class or should be on some higher level place, something like yardstick\u0027s global constants file...",
+      "parentUuid": "9a3d3df0_d9e7403f",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 25
+      },
+      "revId": "835ec9bb2ab09cc4d05c69a0822d87115c600788",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
