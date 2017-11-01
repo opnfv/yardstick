@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_4ccb70a5",
+        "filename": "yardstick/benchmark/contexts/standalone/base.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-01T20:32:51Z",
+      "side": 1,
+      "message": "why do we need to build a list of all node names?\n\ncan we zip this iteration with range(2) to limit it to 2?\n\n matching_nodes \u003d [n for _, n in zip(range(2), (n for n in self.nodes if n[\u0027name\u0027] \u003d\u003d node_name)]\n\nperhaps making this a utility function:\n\n def limit_iter(iterable, max_count):\n   return (v for _, v in zip(range(max_count), iterable))\n\nmaking this\n\n matching_nodes \u003d [limit_iter((n for n in self.nodes if n[\u0027name\u0027] \u003d\u003d node_name), 2)]",
+      "revId": "249de3ccf95147fbb02a1ddfa7ed468262cc4ef0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
