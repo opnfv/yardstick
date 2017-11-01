@@ -17,12 +17,10 @@
 from __future__ import absolute_import
 import os
 import unittest
-import errno
 import mock
 
-from yardstick.common import constants as consts
+from yardstick import ssh
 from yardstick.benchmark.contexts.standalone import sriov
-from yardstick.network_services.utils import PciAddress
 
 
 class SriovContextTestCase(unittest.TestCase):
@@ -66,6 +64,9 @@ class SriovContextTestCase(unittest.TestCase):
     @mock.patch('yardstick.benchmark.contexts.standalone.sriov.Libvirt')
     @mock.patch('yardstick.benchmark.contexts.standalone.model.Server')
     def test___init__(self, mock_helper, mock_libvirt, mock_server):
+        # pylint: disable=unused-argument
+        # NOTE(ralonsoh): this test doesn't cover function execution.
+        # The pylint exception should be removed.
         self.sriov.helper = mock_helper
         self.sriov.vnf_node = mock_server
         self.assertIsNone(self.sriov.file_path)
@@ -75,14 +76,11 @@ class SriovContextTestCase(unittest.TestCase):
         self.sriov.helper.parse_pod_file = mock.Mock(return_value=[{}, {}, {}])
         self.assertIsNone(self.sriov.init(self.ATTRS))
 
-    @mock.patch('yardstick.ssh.SSH')
+    @mock.patch.object(ssh, 'SSH', return_value=(0, "a", ""))
     def test_deploy(self, mock_ssh):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "a", ""))
-            ssh.return_value = ssh_mock
-
+        # pylint: disable=unused-argument
+        # NOTE(ralonsoh): this test doesn't cover function execution.
+        # The pylint exception should be removed.
         self.sriov.vm_deploy = False
         self.assertIsNone(self.sriov.deploy())
 
@@ -94,20 +92,16 @@ class SriovContextTestCase(unittest.TestCase):
         self.sriov.wait_for_vnfs_to_start = mock.Mock(return_value={})
         self.assertIsNone(self.sriov.deploy())
 
-    @mock.patch('yardstick.ssh.SSH')
+    @mock.patch.object(ssh, 'SSH', return_value=(0, "a", ""))
     @mock.patch('yardstick.benchmark.contexts.standalone.sriov.Libvirt')
     def test_undeploy(self, mock_libvirt, mock_ssh):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "a", ""))
-            ssh.return_value = ssh_mock
-
+        # pylint: disable=unused-argument
+        # NOTE(ralonsoh): the pylint exception should be removed.
         self.sriov.vm_deploy = False
         self.assertIsNone(self.sriov.undeploy())
 
         self.sriov.vm_deploy = True
-        self.sriov.connection = ssh_mock
+        self.sriov.connection = mock_ssh
         self.sriov.vm_names = ['vm_0', 'vm_1']
         self.sriov.drivers = ['vm_0', 'vm_1']
         self.assertIsNone(self.sriov.undeploy())
@@ -246,27 +240,27 @@ class SriovContextTestCase(unittest.TestCase):
         self.sriov.drivers = []
         self.sriov.networks = self.NETWORKS
         self.sriov.helper.get_mac_address = mock.Mock(return_value="")
-        self.sriov.get_vf_data = mock.Mock(return_value="")
+        self.sriov._get_vf_data = mock.Mock(return_value="")
         self.assertIsNone(self.sriov.configure_nics_for_sriov())
 
+    @mock.patch.object(ssh, 'SSH', return_value=(0, "a", ""))
     @mock.patch('yardstick.benchmark.contexts.standalone.sriov.Libvirt')
-    def test__enable_interfaces(self, mock_libvirt):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "a", ""))
-            ssh.return_value = ssh_mock
+    def test__enable_interfaces(self, mock_libvirt, mock_ssh):
+        # pylint: disable=unused-argument
+        # NOTE(ralonsoh): the pylint exception should be removed.
         self.sriov.vm_deploy = True
-        self.sriov.connection = ssh_mock
+        self.sriov.connection = mock_ssh
         self.sriov.vm_names = ['vm_0', 'vm_1']
         self.sriov.drivers = []
         self.sriov.networks = self.NETWORKS
-        self.sriov.get_vf_data = mock.Mock(return_value="")
+        self.sriov._get_vf_data = mock.Mock(return_value="")
         self.assertIsNone(self.sriov._enable_interfaces(0, 0, ["private_0"], 'test'))
 
     @mock.patch('yardstick.benchmark.contexts.standalone.model.Server')
     @mock.patch('yardstick.benchmark.contexts.standalone.sriov.Libvirt')
     def test_setup_sriov_context(self, mock_libvirt, mock_server):
+        # pylint: disable=unused-argument
+        # NOTE(ralonsoh): the pylint exception should be removed.
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -296,7 +290,7 @@ class SriovContextTestCase(unittest.TestCase):
         self.sriov.vnf_node.generate_vnf_instance = mock.Mock(return_value={})
         self.assertIsNotNone(self.sriov.setup_sriov_context())
 
-    def test_get_vf_data(self):
+    def test__get_vf_data(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -318,5 +312,7 @@ class SriovContextTestCase(unittest.TestCase):
             }
         }
         self.sriov.networks = self.NETWORKS
-        self.sriov.helper.get_virtual_devices = mock.Mock(return_value={"0000:00:01.0": ""})
-        self.assertIsNotNone(self.sriov.get_vf_data("", "0000:00:01.0", "00:00:00:00:00:01", "if0"))
+        self.sriov.helper.get_virtual_devices = mock.Mock(
+            return_value={'0000:00:01.0': ''})
+        self.assertIsNotNone(self.sriov._get_vf_data(
+            '0000:00:01.0', '00:00:00:00:00:01', 'if0'))
