@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b9b6bc3b",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:22:45Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "9a3d3df0_f6369302",
+      "range": {
+        "startLine": 54,
+        "startChar": 10,
+        "endLine": 54,
+        "endChar": 42
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_962587c4",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -119,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_39e3cc08",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:22:45Z",
+      "side": 1,
+      "message": "sudo because docker needs root privileges, and -E to pass in any environment variables (like proxy), -H so that the HOME variable is set to the target user (so behavior is the same as if you\u0027d su\u0027d to root to execute the commands)",
+      "parentUuid": "9a3d3df0_962587c4",
+      "range": {
+        "startLine": 77,
+        "startChar": 3,
+        "endLine": 77,
+        "endChar": 11
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_020ad689",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -165,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_99e77812",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:22:45Z",
+      "side": 1,
+      "message": "+1, be specific as this is explaining the ``docker run`` command that is above",
+      "parentUuid": "9a3d3df0_d62f0fa0",
+      "range": {
+        "startLine": 92,
+        "startChar": 53,
+        "endLine": 92,
+        "endChar": 59
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_3618fb80",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -176,6 +248,30 @@
       "writtenOn": "2017-11-01T10:43:27Z",
       "side": 1,
       "message": "is \u0027to\u0027 really needed. I think it can be : Before that, access the Yardstick container",
+      "range": {
+        "startLine": 119,
+        "startChar": 47,
+        "endLine": 119,
+        "endChar": 49
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d9f100cf",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:22:45Z",
+      "side": 1,
+      "message": "+1 remove \"to\" completely, as it is not needed",
+      "parentUuid": "9a3d3df0_3618fb80",
       "range": {
         "startLine": 119,
         "startChar": 47,
@@ -222,6 +318,30 @@
       "writtenOn": "2017-11-01T10:43:27Z",
       "side": 1,
       "message": "should it be: will not be able to",
+      "range": {
+        "startLine": 135,
+        "startChar": 53,
+        "endLine": 135,
+        "endChar": 66
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b9eebcea",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:22:45Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "9a3d3df0_f904c416",
       "range": {
         "startLine": 135,
         "startChar": 53,
@@ -303,6 +423,138 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_19bb68e6",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:22:45Z",
+      "side": 1,
+      "message": "Is $YARDSTICK_VENV actually used elsewhere?",
+      "range": {
+        "startLine": 310,
+        "startChar": 0,
+        "endLine": 310,
+        "endChar": 41
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f9bfa4ce",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:22:45Z",
+      "side": 1,
+      "message": "Is $YARDSTICK_REPO_DIR used anywhere else?",
+      "range": {
+        "startLine": 316,
+        "startChar": 10,
+        "endLine": 316,
+        "endChar": 28
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_79cb9472",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:22:45Z",
+      "side": 1,
+      "message": "Using docker should require root privileges, as it did before",
+      "range": {
+        "startLine": 399,
+        "startChar": 3,
+        "endLine": 400,
+        "endChar": 30
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_99ce5882",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:22:45Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 404,
+        "startChar": 3,
+        "endLine": 405,
+        "endChar": 61
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d9c8e076",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:22:45Z",
+      "side": 1,
+      "message": "sudo -EH ?",
+      "range": {
+        "startLine": 419,
+        "startChar": 3,
+        "endLine": 419,
+        "endChar": 10
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b9c51c5d",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:22:45Z",
+      "side": 1,
+      "message": "sudo -EH?",
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_a2d16afd",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -373,6 +625,29 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_19a248ae",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:22:45Z",
+      "side": 1,
+      "message": "nit: `` instead of ** to put make the commands mono-spaced, instead of bold",
+      "range": {
+        "startLine": 565,
+        "startChar": 0,
+        "endLine": 565,
+        "endChar": 41
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_59585032",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -413,6 +688,53 @@
         "startChar": 29,
         "endLine": 603,
         "endChar": 31
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f9a684c0",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:22:45Z",
+      "side": 1,
+      "message": "I believe it should be `How to run Yardstick in a local environment`_",
+      "parentUuid": "9a3d3df0_59585032",
+      "range": {
+        "startLine": 603,
+        "startChar": 29,
+        "endLine": 603,
+        "endChar": 31
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d99f405e",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-01T12:22:45Z",
+      "side": 1,
+      "message": "Add a link to that section?\n\n    Then follow the instructions to \u003cBuild the yardstick container\u003e",
+      "range": {
+        "startLine": 726,
+        "startChar": 12,
+        "endLine": 726,
+        "endChar": 36
       },
       "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
