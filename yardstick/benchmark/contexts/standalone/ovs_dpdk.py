@@ -118,7 +118,7 @@ class OvsDpdkContext(Context):
             self.connection.execute(cmd)
         bind_cmd = "{dpdk_nic_bind} --force -b {driver} {port}"
         phy_driver = "vfio-pci"
-        for key, port in self.networks.items():
+        for _, port in self.networks.items():
             vpci = port.get("phy_port")
             self.connection.execute(bind_cmd.format(dpdk_nic_bind=self.dpdk_nic_bind,
                                                     driver=phy_driver, port=vpci))
@@ -170,7 +170,7 @@ class OvsDpdkContext(Context):
         ]
 
         ordered_network = OrderedDict(self.networks)
-        for index, (key, vnf) in enumerate(ordered_network.items()):
+        for index, vnf in enumerate(ordered_network.values()):
             if ovs_ver >= [2, 7, 0]:
                 dpdk_args = " options:dpdk-devargs=%s" % vnf.get("phy_port")
             dpdk_list.append(ovs_add_port.format(br='br0', port='dpdk%s' % vnf.get("port_num", 0),
@@ -263,7 +263,7 @@ class OvsDpdkContext(Context):
 
         # Bind nics back to kernel
         bind_cmd = "{dpdk_nic_bind} --force -b {driver} {port}"
-        for key, port in self.networks.items():
+        for port in self.networks.values():
             vpci = port.get("phy_port")
             phy_driver = port.get("driver")
             self.connection.execute(bind_cmd.format(dpdk_nic_bind=self.dpdk_nic_bind,
@@ -328,17 +328,17 @@ class OvsDpdkContext(Context):
 
     def configure_nics_for_ovs_dpdk(self):
         portlist = OrderedDict(self.networks)
-        for key, ports in portlist.items():
+        for key in portlist:
             mac = StandaloneContextHelper.get_mac_address()
             portlist[key].update({'mac': mac})
         self.networks = portlist
-        LOG.info("Ports %s" % self.networks)
+        LOG.info("Ports %s", self.networks)
 
     def _enable_interfaces(self, index, vfs, cfg):
         vpath = self.ovs_properties.get("vpath", "/usr/local")
         vf = self.networks[vfs[0]]
         port_num = vf.get('port_num', 0)
-        vpci = PciAddress.parse_address(vf['vpci'].strip(), multi_line=True)
+        vpci = PciAddress(vf['vpci'].strip())
         # Generate the vpci for the interfaces
         slot = index + port_num + 10
         vf['vpci'] = \
@@ -357,9 +357,10 @@ class OvsDpdkContext(Context):
             # 1. Check and delete VM if already exists
             Libvirt.check_if_vm_exists_and_delete(vm_name, self.connection)
 
-            vcpu, mac = Libvirt.build_vm_xml(self.connection, self.vm_flavor, cfg, vm_name, index)
+            _, mac = Libvirt.build_vm_xml(self.connection, self.vm_flavor,
+                                          cfg, vm_name, index)
             # 2: Cleanup already available VMs
-            for idx, (vkey, vfs) in enumerate(OrderedDict(vnf["network_ports"]).items()):
+            for vkey, vfs in OrderedDict(vnf["network_ports"]).items():
                 if vkey == "mgmt":
                     continue
                 self._enable_interfaces(index, vfs, cfg)
@@ -367,7 +368,7 @@ class OvsDpdkContext(Context):
             # copy xml to target...
             self.connection.put(cfg, cfg)
 
-            #    FIXME: launch through libvirt
+            # NOTE: launch through libvirt
             LOG.info("virsh create ...")
             Libvirt.virsh_create_vm(self.connection, cfg)
 
