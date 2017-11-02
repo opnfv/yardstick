@@ -22,27 +22,6 @@ export PY_VER
 COVER_DIR_NAME="./tests/ci/"
 export COVER_DIR_NAME
 
-run_flake8() {
-    echo "Running flake8 ... "
-    logfile=test_results.log
-    if [ $FILE_OPTION == "f" ]; then
-        flake8 yardstick > $logfile
-    else
-        flake8 yardstick
-    fi
-
-    if [ $? -ne 0 ]; then
-        echo "FAILED"
-        if [ $FILE_OPTION == "f" ]; then
-            echo "Results in $logfile"
-        fi
-        exit 1
-    else
-        echo "OK"
-    fi
-}
-
-
 run_tests() {
     echo "Get external libs needed for unit test"
 
@@ -90,7 +69,6 @@ run_functional_test() {
 }
 
 
-run_flake8
 run_tests
 run_coverage
 run_functional_test
