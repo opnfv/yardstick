@@ -20,6 +20,7 @@ import logging
 import os
 
 import yaml
+from collections import OrderedDict
 
 from yardstick.common.utils import mac_address_to_hex_list, try_int
 from yardstick.network_services.utils import get_nsb_option
@@ -48,14 +49,21 @@ class TrexResourceHelper(ClientResourceHelper):
     ASYNC_PORT = 4500
     SYNC_PORT = 4501
 
+    def __init__(self, setup_helper):
+        super(TrexResourceHelper, self).__init__(setup_helper)
+        self.port_map = {}
+        self.dpdk_to_trex_port_map = {}
+
     def generate_cfg(self):
         port_names = self.vnfd_helper.port_pairs.all_ports
         vpci_list = []
         port_list = []
+        self.dpdk_to_trex_port_map = OrderedDict()
 
-        port_nums = sorted(self.vnfd_helper.port_nums(port_names))
-        for port_num in port_nums:
-            interface = self.vnfd_helper.find_interface_by_port(port_num)
+        sorted_ports = sorted((self.vnfd_helper.port_num(port_name), port_name) for port_name in
+                              port_names)
+        for index, (port_num, port_name) in enumerate(sorted_ports):
+            interface = self.vnfd_helper.find_interface(name=port_name)
             virtual_interface = interface['virtual-interface']
             dst_mac = virtual_interface["dst_mac"]
 
@@ -69,6 +77,8 @@ class TrexResourceHelper(ClientResourceHelper):
                 "src_mac": mac_address_to_hex_list(local_mac),
                 "dest_mac": mac_address_to_hex_list(dst_mac),
             })
+            self.port_map[port_name] = index
+            self.dpdk_to_trex_port_map[port_num] = index
         trex_cfg = {
             'interfaces': vpci_list,
             'port_info': port_list,
@@ -79,6 +89,17 @@ class TrexResourceHelper(ClientResourceHelper):
 
         cfg_str = yaml.safe_dump(cfg_file, default_flow_style=False, explicit_start=True)
         self.ssh_helper.upload_config_file(os.path.basename(self.CONF_FILE), cfg_str)
+
+    def _build_ports(self):
+        super(TrexResourceHelper, self)._build_ports()
+        # override with TRex logic port number
+        self.uplink_ports = [self.dpdk_to_trex_port_map[p] for p in self.uplink_ports]
+        self.downlink_ports = [self.dpdk_to_trex_port_map[p] for p in self.downlink_ports]
+        self.all_ports = [self.dpdk_to_trex_port_map[p] for p in self.all_ports]
+
+    def port_num(self, intf):
+        # return logical TRex port
+        return self.port_map[intf]
 
     def check_status(self):
         status, _, _ = self.ssh_helper.execute("sudo lsof -i:%s" % self.SYNC_PORT)
