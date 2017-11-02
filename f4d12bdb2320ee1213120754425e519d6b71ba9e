@@ -75,6 +75,42 @@
       "revId": "f4d12bdb2320ee1213120754425e519d6b71ba9e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ca2000fa",
+        "filename": "tox.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-02T17:45:58Z",
+      "side": 1,
+      "message": "I can move the other folders to the blacklist.\n\nI\u0027ll add tests to the blacklist as well, but will open a bug to fix it.\n\nThere are currently 2 violations in api, which are trivial to fix.",
+      "parentUuid": "9a3d3df0_8ad1d8fd",
+      "revId": "f4d12bdb2320ee1213120754425e519d6b71ba9e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ea17c4a1",
+        "filename": "tox.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-02T17:45:58Z",
+      "side": 1,
+      "message": "Are you running that with \"tox -e pep8\"?\nIt should pick up the new line length limit of 99",
+      "parentUuid": "9a3d3df0_8a3f1825",
+      "revId": "f4d12bdb2320ee1213120754425e519d6b71ba9e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
