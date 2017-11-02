@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ca4920d2",
+        "filename": "tests/functional/test_cli_scenario.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T17:39:13Z",
+      "side": 1,
+      "message": "You shouldn\u0027t expect a right command to fail.\n\nAlso you should never raise manually an exception in a test case.",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 17
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_eabb44c2",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T17:39:13Z",
+      "side": 1,
+      "message": "For code documentation, is better to import the lib file instead of importing the objects",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 42
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cac48042",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T17:39:13Z",
+      "side": 1,
+      "message": "class \"Yardstick\" is only used in \"test_cli_runner\" and \"test_cli_scenario\". None of them are using this parameter.\n\nMoreover, the class itself doesn\u0027t use it. It should be removed.",
+      "range": {
+        "startLine": 30,
+        "startChar": 23,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_aac13c30",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T17:39:13Z",
+      "side": 1,
+      "message": "What is the purpose of this change?\n\nI agree with using Popen, but where is the justification?\n\nFor example, \"check_output\" is just a use case of Python, a wrapper, or to control the output and exceptions, etc.",
+      "range": {
+        "startLine": 54,
+        "startChar": 18,
+        "endLine": 54,
+        "endChar": 23
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4ae870b4",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T17:39:13Z",
+      "side": 1,
+      "message": "I recomend you to create a \"safe_decode_utf8\" like this one:\n\ndef safe_decode_utf8(s):\n    \"\"\"Safe decode a str from UTF.\n\n    :param s: The str to decode.\n    :returns: The decoded str.\n    \"\"\"\n    if six.PY3 and isinstance(s, bytes):\n        return s.decode(\u0027utf-8\u0027, \u0027surrogateescape\u0027)\n    return s",
+      "range": {
+        "startLine": 56,
+        "startChar": 29,
+        "endLine": 56,
+        "endChar": 40
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2aed2cc4",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T17:39:13Z",
+      "side": 1,
+      "message": "What is happening now with the errors and exceptions?\n\nWhy don\u0027t you handle the exceptions and log messages, rather than leaving this to the test cases?",
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4a835004",
+        "filename": "yardstick/benchmark/core/scenario.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T17:39:13Z",
+      "side": 1,
+      "message": "The default value of \"getattr\" is None, therefore this is redundant.",
+      "range": {
+        "startLine": 31,
+        "startChar": 65,
+        "endLine": 31,
+        "endChar": 69
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_caada08a",
+        "filename": "yardstick/benchmark/core/scenario.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T17:39:13Z",
+      "side": 1,
+      "message": "If there is no doc, you\u0027ll get None. Then you are converting this to string and spliting this string. Instead of this, you can get the attribute and set \"\" as default, skiping the str conversion.\n\n__doc__ is an attribute in every Python object, and can be access it directly: scenario_class.__doc__\n\n\nTo split lines, str.splitlines() is recommended.\n  doc_lines \u003d scenario_class.__doc__.splitlines()\n  description \u003d doc_lines[0] if doc_lines else str(None)",
+      "range": {
+        "startLine": 31,
+        "startChar": 26,
+        "endLine": 31,
+        "endChar": 86
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_aaaadc6d",
+        "filename": "yardstick/benchmark/core/scenario.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T17:39:13Z",
+      "side": 1,
+      "message": "The default value of \"getattr\" is None, therefore this is redundant.",
+      "range": {
+        "startLine": 32,
+        "startChar": 77,
+        "endLine": 32,
+        "endChar": 81
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
