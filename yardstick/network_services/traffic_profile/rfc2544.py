@@ -62,7 +62,7 @@ class RFC2544Profile(TrexProfile):
                 self.generator.rfc2544_helper.correlated_traffic:
                 continue
             for intf in intfs:
-                port = self.generator.vnfd_helper.port_num(intf)
+                port = self.generator.port_num(intf)
                 self.ports.append(port)
                 self.generator.client.add_streams(self.get_streams(profile_data), ports=port)
 
@@ -170,7 +170,7 @@ class RFC2544Profile(TrexProfile):
                 self.generator.rfc2544_helper.correlated_traffic:
                 continue
             for intf in intfs:
-                port = self.generator.vnfd_helper.port_num(intf)
+                port = self.generator.port_num(intf)
                 self.ports.append(port)
                 self.generator.client.add_streams(self.get_streams(profile_data), ports=port)
 

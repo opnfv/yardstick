@@ -433,6 +433,10 @@ class ClientResourceHelper(ResourceHelper):
             self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.downlink_ports)
         self.all_ports = self.vnfd_helper.port_nums(self.vnfd_helper.port_pairs.all_ports)
 
+    def port_num(self, intf):
+        # by default return port num
+        return self.vnfd_helper.port_num(intf)
+
     def get_stats(self, *args, **kwargs):
         try:
             return self.client.get_stats(*args, **kwargs)
