@@ -75,6 +75,8 @@ class TestTrexTrafficGen(unittest.TestCase):
                                         'driver': "i40e",
                                         'dst_ip': '152.16.100.20',
                                         'local_iface_name': 'xe0',
+                                        'vld_id': 'downlink_0',
+                                        'ifname': 'xe0',
                                         'local_mac': '00:00:00:00:00:02'},
                                    'vnfd-connection-point-ref': 'xe0',
                                    'name': 'xe0'},
@@ -89,6 +91,8 @@ class TestTrexTrafficGen(unittest.TestCase):
                                         'bandwidth': '10 Gbps',
                                         'dst_ip': '152.16.40.20',
                                         'local_iface_name': 'xe1',
+                                        'vld_id': 'uplink_0',
+                                        'ifname': 'xe1',
                                         'local_mac': '00:00:00:00:00:01'},
                                    'vnfd-connection-point-ref': 'xe1',
                                    'name': 'xe1'}]}],
@@ -395,6 +399,80 @@ class TestTrexTrafficGen(unittest.TestCase):
         trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
         self.assertIsNone(trex_traffic_gen.resource_helper.generate_cfg())
+
+    @mock.patch(SSH_HELPER)
+    def test_build_ports_reversed_pci_ordering(self, ssh):
+        mock_ssh(ssh)
+        VNFD = {'vnfd:vnfd-catalog':
+                    {'vnfd':
+                         [{'short-name': 'VpeVnf',
+                           'vdu':
+                               [{'routing_table':
+                                     [{'network': '152.16.100.20',
+                                       'netmask': '255.255.255.0',
+                                       'gateway': '152.16.100.20',
+                                       'if': 'xe0'},
+                                      {'network': '152.16.40.20',
+                                       'netmask': '255.255.255.0',
+                                       'gateway': '152.16.40.20',
+                                       'if': 'xe1'}],
+                                 'description': 'VPE approximation using DPDK',
+                                 'name': 'vpevnf-baremetal',
+                                 'id': 'vpevnf-baremetal',
+                                 'external-interface':
+                                     [{'virtual-interface':
+                                           {'dst_mac': '00:00:00:00:00:04',
+                                            'vpci': '0000:05:00.0',
+                                            'local_ip': '152.16.100.19',
+                                            'type': 'PCI-PASSTHROUGH',
+                                            'netmask': '255.255.255.0',
+                                            'dpdk_port_num': 2,
+                                            'bandwidth': '10 Gbps',
+                                            'driver': "i40e",
+                                            'dst_ip': '152.16.100.20',
+                                            'local_iface_name': 'xe0',
+                                            'vld_id': 'downlink_0',
+                                            'ifname': 'xe0',
+                                            'local_mac': '00:00:00:00:00:02'},
+                                       'vnfd-connection-point-ref': 'xe0',
+                                       'name': 'xe0'},
+                                      {'virtual-interface':
+                                           {'dst_mac': '00:00:00:00:00:03',
+                                            'vpci': '0000:04:00.0',
+                                            'local_ip': '152.16.40.19',
+                                            'type': 'PCI-PASSTHROUGH',
+                                            'driver': "i40e",
+                                            'netmask': '255.255.255.0',
+                                            'dpdk_port_num': 0,
+                                            'bandwidth': '10 Gbps',
+                                            'dst_ip': '152.16.40.20',
+                                            'local_iface_name': 'xe1',
+                                            'vld_id': 'uplink_0',
+                                            'ifname': 'xe1',
+                                            'local_mac': '00:00:00:00:00:01'},
+                                       'vnfd-connection-point-ref': 'xe1',
+                                       'name': 'xe1'}]}],
+                           'description': 'Vpe approximation using DPDK',
+                           'mgmt-interface':
+                               {'vdu-id': 'vpevnf-baremetal',
+                                'host': '1.1.1.1',
+                                'password': 'r00t',
+                                'user': 'root',
+                                'ip': '1.1.1.1'},
+                           'benchmark':
+                               {'kpi': ['packets_in', 'packets_fwd', 'packets_dropped']},
+                           'connection-point': [{'type': 'VPORT', 'name': 'xe0'},
+                                                {'type': 'VPORT', 'name': 'xe1'}],
+                           'id': 'VpeApproxVnf', 'name': 'VPEVnfSsh'}]}}
+        vnfd = VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
+        trex_traffic_gen.resource_helper.generate_cfg()
+        trex_traffic_gen.resource_helper._build_ports()
+        self.assertEqual(sorted(trex_traffic_gen.resource_helper.all_ports), [0, 1])
+        # there is a gap in ordering
+        self.assertEqual(dict(trex_traffic_gen.resource_helper.dpdk_to_trex_port_map),
+                         {0: 0, 2: 1})
 
     @mock.patch(SSH_HELPER)
     def test_run_traffic(self, ssh):
