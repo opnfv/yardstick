@@ -372,7 +372,7 @@ directory using the ``cd`` command. Assume that ``YARDSTICK_REPO_DIR`` is the pa
 
 Verify your patch::
 
-  ./run_tests.sh
+  tox
 
 It is used in CI but also by the CLI.
 
