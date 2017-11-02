@@ -16,6 +16,24 @@
       "revId": "f4d12bdb2320ee1213120754425e519d6b71ba9e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8ad1d8fd",
+        "filename": "tox.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-02T17:23:46Z",
+      "side": 1,
+      "message": "ah, but this is wrong we are missing the api/ dir, that must have been an oversight when we added the API code.\n\nwe could move to blacklist and temp blacklist tests/ for now, and maybe ansible/\n\nthere will probably always be third party code that we redistribute that won\u0027t be flake8 compliant, e.g.  ./ansible/roles/download_pmu_tools/files/event_download_local.py  from the Intel PMU project.",
+      "parentUuid": "9a3d3df0_0ade6811",
+      "revId": "f4d12bdb2320ee1213120754425e519d6b71ba9e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
