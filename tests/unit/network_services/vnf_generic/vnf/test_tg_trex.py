@@ -18,6 +18,8 @@
 from __future__ import absolute_import
 
 import unittest
+
+import copy
 import mock
 
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
@@ -75,6 +77,8 @@ class TestTrexTrafficGen(unittest.TestCase):
                                         'driver': "i40e",
                                         'dst_ip': '152.16.100.20',
                                         'local_iface_name': 'xe0',
+                                        'vld_id': 'downlink_0',
+                                        'ifname': 'xe0',
                                         'local_mac': '00:00:00:00:00:02'},
                                    'vnfd-connection-point-ref': 'xe0',
                                    'name': 'xe0'},
@@ -89,6 +93,8 @@ class TestTrexTrafficGen(unittest.TestCase):
                                         'bandwidth': '10 Gbps',
                                         'dst_ip': '152.16.40.20',
                                         'local_iface_name': 'xe1',
+                                        'vld_id': 'uplink_0',
+                                        'ifname': 'xe1',
                                         'local_mac': '00:00:00:00:00:01'},
                                    'vnfd-connection-point-ref': 'xe1',
                                    'name': 'xe1'}]}],
@@ -386,6 +392,8 @@ class TestTrexTrafficGen(unittest.TestCase):
         self.sut._connect_client.get_stats = mock.Mock(return_value="0")
         self.sut.resource_helper.RUN_DURATION = 0
         self.sut.resource_helper.QUEUE_WAIT_TIME = 0
+        # must generate cfg before we can run traffic so Trex port mapping is created
+        self.sut.resource_helper.generate_cfg()
         self.sut._traffic_runner(mock_traffic_profile)
 
     @mock.patch(SSH_HELPER)
@@ -395,6 +403,52 @@ class TestTrexTrafficGen(unittest.TestCase):
         trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
         self.assertIsNone(trex_traffic_gen.resource_helper.generate_cfg())
+
+    @mock.patch(SSH_HELPER)
+    def test_build_ports_reversed_pci_ordering(self, ssh):
+        mock_ssh(ssh)
+        vnfd = copy.deepcopy(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        vnfd['vdu'][0]['external-interface'] = [
+            {'virtual-interface':
+                 {'dst_mac': '00:00:00:00:00:04',
+                  'vpci': '0000:05:00.0',
+                  'local_ip': '152.16.100.19',
+                  'type': 'PCI-PASSTHROUGH',
+                  'netmask': '255.255.255.0',
+                  'dpdk_port_num': 2,
+                  'bandwidth': '10 Gbps',
+                  'driver': "i40e",
+                  'dst_ip': '152.16.100.20',
+                  'local_iface_name': 'xe0',
+                  'vld_id': 'downlink_0',
+                  'ifname': 'xe0',
+                  'local_mac': '00:00:00:00:00:02'},
+             'vnfd-connection-point-ref': 'xe0',
+             'name': 'xe0'},
+            {'virtual-interface':
+                 {'dst_mac': '00:00:00:00:00:03',
+                  'vpci': '0000:04:00.0',
+                  'local_ip': '152.16.40.19',
+                  'type': 'PCI-PASSTHROUGH',
+                  'driver': "i40e",
+                  'netmask': '255.255.255.0',
+                  'dpdk_port_num': 0,
+                  'bandwidth': '10 Gbps',
+                  'dst_ip': '152.16.40.20',
+                  'local_iface_name': 'xe1',
+                  'vld_id': 'uplink_0',
+                  'ifname': 'xe1',
+                  'local_mac': '00:00:00:00:00:01'},
+             'vnfd-connection-point-ref': 'xe1',
+             'name': 'xe1'}]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
+        trex_traffic_gen.resource_helper.generate_cfg()
+        trex_traffic_gen.resource_helper._build_ports()
+        self.assertEqual(sorted(trex_traffic_gen.resource_helper.all_ports), [0, 1])
+        # there is a gap in ordering
+        self.assertEqual(dict(trex_traffic_gen.resource_helper.dpdk_to_trex_port_map),
+                         {0: 0, 2: 1})
 
     @mock.patch(SSH_HELPER)
     def test_run_traffic(self, ssh):
