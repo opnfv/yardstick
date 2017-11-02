@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_8aaf18e3",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "You are right.",
+      "parentUuid": "9a3d3df0_4204de7a",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 8
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f6369302",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2017-11-01T12:22:45Z",
       "side": 1,
       "message": "+1",
+      "parentUuid": "9a3d3df0_f6369302",
+      "range": {
+        "startLine": 54,
+        "startChar": 10,
+        "endLine": 54,
+        "endChar": 42
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cab92030",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "9a3d3df0_f6369302",
       "range": {
         "startLine": 54,
@@ -190,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_2a824c4f",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "My bad, this is an error.",
+      "parentUuid": "9a3d3df0_020ad689",
+      "range": {
+        "startLine": 77,
+        "startChar": 1,
+        "endLine": 78,
+        "endChar": 46
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_d62f0fa0",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -225,6 +297,54 @@
       "side": 1,
       "message": "+1, be specific as this is explaining the ``docker run`` command that is above",
       "parentUuid": "9a3d3df0_d62f0fa0",
+      "range": {
+        "startLine": 92,
+        "startChar": 53,
+        "endLine": 92,
+        "endChar": 59
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8a96f892",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_d62f0fa0",
+      "range": {
+        "startLine": 92,
+        "startChar": 53,
+        "endLine": 92,
+        "endChar": 59
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6a93b4a3",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_99e77812",
       "range": {
         "startLine": 92,
         "startChar": 53,
@@ -284,6 +404,54 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_aa8dbc7d",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_d9f100cf",
+      "range": {
+        "startLine": 119,
+        "startChar": 47,
+        "endLine": 119,
+        "endChar": 49
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ca900098",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_3618fb80",
+      "range": {
+        "startLine": 119,
+        "startChar": 47,
+        "endLine": 119,
+        "endChar": 49
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_c2d8ee1f",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -295,6 +463,30 @@
       "writtenOn": "2017-10-31T18:07:03Z",
       "side": 1,
       "message": "Should these names be more descriptive than \"first\", \"second\" and \"third\"?",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 31
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_eaeea421",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "You are right.",
+      "parentUuid": "9a3d3df0_c2d8ee1f",
       "range": {
         "startLine": 125,
         "startChar": 0,
@@ -354,6 +546,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_2af9ace9",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_f904c416",
+      "range": {
+        "startLine": 135,
+        "startChar": 53,
+        "endLine": 135,
+        "endChar": 66
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5921709e",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -365,6 +581,30 @@
       "writtenOn": "2017-11-01T10:43:27Z",
       "side": 1,
       "message": "shouldn\u0027t it be something like we had for `Proxy Support`_ above.",
+      "range": {
+        "startLine": 146,
+        "startChar": 47,
+        "endLine": 147,
+        "endChar": 12
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8ac43893",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "I don\u0027t understand this comment. How should it be?",
+      "parentUuid": "9a3d3df0_5921709e",
       "range": {
         "startLine": 146,
         "startChar": 47,
@@ -400,6 +640,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_6ac1f47f",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_22055a7a",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 14
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_82cee658",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -411,6 +675,30 @@
       "writtenOn": "2017-10-31T18:07:03Z",
       "side": 1,
       "message": "typo: Yardstick",
+      "range": {
+        "startLine": 250,
+        "startChar": 21,
+        "endLine": 250,
+        "endChar": 30
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cabe40ff",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_82cee658",
       "range": {
         "startLine": 250,
         "startChar": 21,
@@ -446,6 +734,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_0a38289f",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "For the installation of the WSGI.",
+      "parentUuid": "9a3d3df0_19bb68e6",
+      "range": {
+        "startLine": 310,
+        "startChar": 0,
+        "endLine": 310,
+        "endChar": 41
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f9bfa4ce",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -457,6 +769,30 @@
       "writtenOn": "2017-11-01T12:22:45Z",
       "side": 1,
       "message": "Is $YARDSTICK_REPO_DIR used anywhere else?",
+      "range": {
+        "startLine": 316,
+        "startChar": 10,
+        "endLine": 316,
+        "endChar": 28
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4a423011",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "9a3d3df0_f9bfa4ce",
       "range": {
         "startLine": 316,
         "startChar": 10,
@@ -492,6 +828,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_2a47ec20",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "You are right.",
+      "parentUuid": "9a3d3df0_79cb9472",
+      "range": {
+        "startLine": 399,
+        "startChar": 3,
+        "endLine": 400,
+        "endChar": 30
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_99ce5882",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -503,6 +863,30 @@
       "writtenOn": "2017-11-01T12:22:45Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 404,
+        "startChar": 3,
+        "endLine": 405,
+        "endChar": 61
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8a4b982a",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_99ce5882",
       "range": {
         "startLine": 404,
         "startChar": 3,
@@ -538,6 +922,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_6a48d42d",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_d9c8e076",
+      "range": {
+        "startLine": 419,
+        "startChar": 3,
+        "endLine": 419,
+        "endChar": 10
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_b9c51c5d",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -549,6 +957,24 @@
       "writtenOn": "2017-11-01T12:22:45Z",
       "side": 1,
       "message": "sudo -EH?",
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ca55a0c7",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_b9c51c5d",
       "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -602,6 +1028,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_ea6344af",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_a2d16afd",
+      "range": {
+        "startLine": 471,
+        "startChar": 2,
+        "endLine": 478,
+        "endChar": 84
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_42edfec2",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -625,6 +1075,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_2a5ecce6",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "No. I was a bit lazy when I refactored this section.",
+      "parentUuid": "9a3d3df0_42edfec2",
+      "range": {
+        "startLine": 491,
+        "startChar": 3,
+        "endLine": 498,
+        "endChar": 78
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_19a248ae",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -636,6 +1110,30 @@
       "writtenOn": "2017-11-01T12:22:45Z",
       "side": 1,
       "message": "nit: `` instead of ** to put make the commands mono-spaced, instead of bold",
+      "range": {
+        "startLine": 565,
+        "startChar": 0,
+        "endLine": 565,
+        "endChar": 41
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8a72787a",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_19a248ae",
       "range": {
         "startLine": 565,
         "startChar": 0,
@@ -743,6 +1241,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_6a6f3493",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Emma is right: I moved the link but I never used the ref.",
+      "parentUuid": "9a3d3df0_d9c46042",
+      "range": {
+        "startLine": 603,
+        "startChar": 29,
+        "endLine": 603,
+        "endChar": 31
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_d99f405e",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -766,6 +1288,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_aa693c8d",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_d99f405e",
+      "range": {
+        "startLine": 726,
+        "startChar": 12,
+        "endLine": 726,
+        "endChar": 36
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_62e802b5",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -777,6 +1323,30 @@
       "writtenOn": "2017-10-31T18:07:03Z",
       "side": 1,
       "message": "Use stable-euphrates, if this is for the stable branch\nhttp://docs.opnfv.org/en/stable-euphrates/release/userguide.introduction.html#feature-configuration-guides\n\nor refer to the latest docs since this is on the master branch\nhttp://docs.opnfv.org/en/latest/release/userguide.introduction.html",
+      "range": {
+        "startLine": 732,
+        "startChar": 40,
+        "endLine": 732,
+        "endChar": 132
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4a107001",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T15:34:27Z",
+      "side": 1,
+      "message": "This is master, not a release version. I\u0027ll use the second one.\nThanks!",
+      "parentUuid": "9a3d3df0_62e802b5",
       "range": {
         "startLine": 732,
         "startChar": 40,
