@@ -617,6 +617,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_0a9668f0",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-02T18:20:39Z",
+      "side": 1,
+      "message": "I believe Shobhi is referring to line 53-56.\n\nI suggest:\n    \"... please refer to the `Export OpenStack environment variables`_ section.\"",
+      "parentUuid": "9a3d3df0_8ac43893",
+      "range": {
+        "startLine": 146,
+        "startChar": 47,
+        "endLine": 147,
+        "endChar": 12
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_22055a7a",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -746,6 +770,30 @@
       "side": 1,
       "message": "For the installation of the WSGI.",
       "parentUuid": "9a3d3df0_19bb68e6",
+      "range": {
+        "startLine": 310,
+        "startChar": 0,
+        "endLine": 310,
+        "endChar": 41
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2ad7ecc2",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-02T18:20:39Z",
+      "side": 1,
+      "message": "Is that covered in this document?",
+      "parentUuid": "9a3d3df0_0a38289f",
       "range": {
         "startLine": 310,
         "startChar": 0,
