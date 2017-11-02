@@ -641,6 +641,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_ea6864f7",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-02T18:30:11Z",
+      "side": 1,
+      "message": "Perhaps: \"For details... please refer to the `Export..`_ section\"",
+      "parentUuid": "9a3d3df0_8ac43893",
+      "range": {
+        "startLine": 146,
+        "startChar": 47,
+        "endLine": 147,
+        "endChar": 12
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_22055a7a",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
