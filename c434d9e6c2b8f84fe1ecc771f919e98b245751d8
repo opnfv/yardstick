@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_45586332",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-02T20:24:19Z",
+      "side": 1,
+      "message": "I have been hesitant in case model is a more generic model independent of Heat, but model is only used for Heat I guess.\n\nThis override operation is also abstract I suppose.\n\nmoved.",
+      "parentUuid": "9a3d3df0_2cab8cd9",
+      "range": {
+        "startLine": 353,
+        "startChar": 5,
+        "endLine": 353,
+        "endChar": 17
+      },
+      "revId": "c434d9e6c2b8f84fe1ecc771f919e98b245751d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_acb67c3b",
         "filename": "yardstick/benchmark/contexts/heat.py",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-01T19:49:22Z",
       "side": 1,
       "message": "what type is going to have a .get and not be a Mapping?\n\nand if we really need to deal with non-Mapping types that have .get methods, then how about:\n\n (getter(port[\u0027port\u0027], {}) for getter in (getattr(p, \u0027get\u0027, None) for p in ports) if isinstance(getter, Callable))\n\nbut really, do we need to make an iteration instead of:\n\n for override_port in ports:\n   try:\n     override \u003d override_port[port[\u0027port\u0027]]\n   except (TypeError, KeyError):\n     continue",
+      "range": {
+        "startLine": 357,
+        "startChar": 63,
+        "endLine": 357,
+        "endChar": 80
+      },
+      "revId": "c434d9e6c2b8f84fe1ecc771f919e98b245751d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_255d5f22",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-02T20:24:19Z",
+      "side": 1,
+      "message": "I\u0027m hesitant to just use getitem and catch TypeError because override_port will be a string, so if port[\u0027port\u0027] is an int, the string getitem might succeed silently.\n\nalso I think we want to filter out empty dicts in the iteration, maybe.",
+      "parentUuid": "9a3d3df0_acb67c3b",
       "range": {
         "startLine": 357,
         "startChar": 63,
