@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ef1d1675",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T14:16:38Z",
+      "side": 1,
+      "message": "This should be renamed to \"add_pci_address\"",
+      "range": {
+        "startLine": 110,
+        "startChar": 8,
+        "endLine": 110,
+        "endChar": 29
+      },
+      "revId": "62ef8be24f69d2d33623a8ff469202588c408a09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4f136266",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T14:16:38Z",
+      "side": 1,
+      "message": "This should be renamed to \"parent_element\"",
+      "range": {
+        "startLine": 110,
+        "startChar": 30,
+        "endLine": 110,
+        "endChar": 39
+      },
+      "revId": "62ef8be24f69d2d33623a8ff469202588c408a09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8f256ac4",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T14:16:38Z",
+      "side": 1,
+      "message": "This function should define an sriov interface based on [1].\n\nThe DBFS address is written twice:\n- First in L163-L168\n- Second in L171 --\u003e this one is incorrect, because the subelement \"address\" should be under \"source\" element.\n\n[1] https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Virtualization_Host_Configuration_and_Guest_Installation_Guide/sect-Virtualization_Host_Configuration_and_Guest_Installation_Guide-SR_IOV-How_SR_IOV_Libvirt_Works.html",
+      "revId": "62ef8be24f69d2d33623a8ff469202588c408a09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cf065220",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T14:16:38Z",
+      "side": 1,
+      "message": "This should be replace with a call to \"add_interface_address\".\n\nInstead of this code, this could be replaced with:\n\n  cls.add_interface_address(source, pci_address)",
+      "range": {
+        "startLine": 164,
+        "startChar": 8,
+        "endLine": 168,
+        "endChar": 31
+      },
+      "revId": "62ef8be24f69d2d33623a8ff469202588c408a09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cf2f72a0",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-02T14:16:38Z",
+      "side": 1,
+      "message": "This is incorrect and should be removed",
+      "range": {
+        "startLine": 171,
+        "startChar": 8,
+        "endLine": 171,
+        "endChar": 60
+      },
+      "revId": "62ef8be24f69d2d33623a8ff469202588c408a09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
