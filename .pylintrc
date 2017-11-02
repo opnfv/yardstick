@@ -1,0 +1,152 @@
+[MASTER]
+
+# List of plugins (as comma separated values of python modules names) to load,
+# usually to register additional checkers.
+load-plugins=
+
+# Use multiple processes to speed up Pylint.
+jobs=1
+
+# A comma-separated list of package or module names from where C extensions may
+# be loaded. Extensions are loading into the active Python interpreter and may
+# run arbitrary code
+extension-pkg-whitelist=
+
+
+[MESSAGES CONTROL]
+
+# --disable=W"
+disable=
+# "F" Fatal errors that prevent further processing
+ import-error,
+# "I" Informational noise
+ locally-disabled,
+# "E" Error for important programming issues (likely bugs)
+ access-member-before-definition,
+ no-member,
+ no-method-argument,
+ no-self-argument,
+ not-an-iterable,
+# "W" Warnings for stylistic problems or minor programming issues
+ abstract-method,
+ arguments-differ,
+ attribute-defined-outside-init,
+ bad-builtin,
+ bad-indentation,
+ dangerous-default-value,
+ deprecated-lambda,
+ expression-not-assigned,
+ global-statement,
+ literal-comparison,
+ no-init,
+ non-parent-init-called,
+ not-callable,
+ redefined-builtin,
+ redefined-outer-name,
+ signature-differs,
+ star-args,
+ super-init-not-called,
+ super-on-old-class,
+ unpacking-non-sequence,
+ useless-super-delegation,
+ nonstandard-exception,
+# "C" Coding convention violations
+ bad-continuation,
+ consider-iterating-dictionary,
+ consider-using-enumerate,
+ invalid-name,
+ len-as-condition,
+ misplaced-comparison-constant,
+ singleton-comparison,
+ superfluous-parens,
+ ungrouped-imports,
+ wrong-import-order,
+# "R" Refactor recommendations
+ abstract-class-little-used,
+ abstract-class-not-used,
+ consider-merging-isinstance,
+ consider-using-ternary,
+ duplicate-code,
+ interface-not-implemented,
+ no-else-return,
+ no-self-use,
+ redefined-argument-from-local,
+ simplifiable-if-statement,
+ too-few-public-methods,
+ too-many-ancestors,
+ too-many-arguments,
+ too-many-branches,
+ too-many-instance-attributes,
+ too-many-lines,
+ too-many-locals,
+ too-many-nested-blocks,
+ too-many-public-methods,
+ too-many-return-statements,
+ too-many-statements
+
+[BASIC]
+# Variable names can be 1 to 31 characters long, with lowercase and underscores
+variable-rgx=[a-z_][a-z0-9_]{0,30}$
+
+# Argument names can be 2 to 31 characters long, with lowercase and underscores
+argument-rgx=[a-z_][a-z0-9_]{1,30}$
+
+# Method names should be at least 3 characters long
+# and be lowercased with underscores
+method-rgx=([a-z_][a-z0-9_]{2,}|setUp|tearDown)$
+
+# Module names matching neutron-* are ok (files in bin/)
+module-rgx=(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$
+
+# Don't require docstrings on tests.
+no-docstring-rgx=((__.*__)|([tT]est.*)|setUp|tearDown)$
+
+dummy-variables-rgx=(_+[a-zA-Z0-9]*?$)|dummy|args
+
+[FORMAT]
+# Maximum number of characters on a single line.
+max-line-length=99
+
+# String used as indentation unit. This is usually "    " (4 spaces) or "\t" (1
+# tab).
+indent-string='    '
+
+
+[VARIABLES]
+# List of additional names supposed to be defined in builtins. Remember that
+# you should avoid to define new builtins when possible.
+# _ is used by our localization
+additional-builtins=_
+
+
+[CLASSES]
+# List of interface methods to ignore, separated by a comma.
+ignore-iface-methods=
+
+
+[TYPECHECK]
+# List of module names for which member attributes should not be checked
+ignored-modules=six.moves,_MovedItems
+
+
+[REPORTS]
+# Tells whether to display a full report or only the messages
+reports=yes
+
+# Set the output format. Available formats are text, parseable, colorized, msvs
+# (visual studio) and html. You can also give a reporter class, eg
+# mypackage.mymodule.MyReporterClass.
+output-format=colorized
+
+# Python expression which should return a note less than 10 (10 is the highest
+# note). You have access to the variables errors warning, statement which
+# respectively contain the number of errors / warnings messages and the total
+# number of statements analyzed. This is used by the global evaluation report
+# (RP0004).
+evaluation=10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10)
+
+
+[MISCELLANEOUS]
+
+# List of note tags to take in consideration, separated by a comma.
+notes=FIXME,XXX,TODO
