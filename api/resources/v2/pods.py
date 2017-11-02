@@ -7,7 +7,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 import uuid
-import yaml
 import logging
 
 from oslo_serialization import jsonutils

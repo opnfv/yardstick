@@ -58,6 +58,7 @@ class TestSuiteActionArgsOptsModel:
         'suite': fields.String
     }
 
+
 @swagger.model
 class TestSuiteActionArgsModel:
     resource_fields = {
