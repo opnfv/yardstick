@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_456fc3c5",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-02T20:54:23Z",
+      "side": 1,
+      "message": "I think this was in part a 79 col workaround to shorten the code line.\n\n subprocess.Popen(self.args + cmd, stdout\u003dsubprocess.PIPE, stderr\u003dsubprocess.PIPE, env\u003denv).communicate()\n\nis a lot of chars.",
+      "parentUuid": "9a3d3df0_eabb44c2",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 42
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_cac48042",
         "filename": "tests/functional/utils.py",
         "patchSetId": 2
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_e579b794",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-02T20:54:23Z",
+      "side": 1,
+      "message": "maybe we are ignoring the CalledProcessError?",
+      "parentUuid": "9a3d3df0_aac13c30",
+      "range": {
+        "startLine": 54,
+        "startChar": 18,
+        "endLine": 54,
+        "endChar": 23
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_4ae870b4",
         "filename": "tests/functional/utils.py",
         "patchSetId": 2
@@ -105,6 +153,30 @@
       "writtenOn": "2017-11-02T17:39:13Z",
       "side": 1,
       "message": "I recomend you to create a \"safe_decode_utf8\" like this one:\n\ndef safe_decode_utf8(s):\n    \"\"\"Safe decode a str from UTF.\n\n    :param s: The str to decode.\n    :returns: The decoded str.\n    \"\"\"\n    if six.PY3 and isinstance(s, bytes):\n        return s.decode(\u0027utf-8\u0027, \u0027surrogateescape\u0027)\n    return s",
+      "range": {
+        "startLine": 56,
+        "startChar": 29,
+        "endLine": 56,
+        "endChar": 40
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a5484f5c",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-02T20:54:23Z",
+      "side": 1,
+      "message": "Good idea, although I\u0027m disappointed oslo_utils didn\u0027t already do this.",
+      "parentUuid": "9a3d3df0_4ae870b4",
       "range": {
         "startLine": 56,
         "startChar": 29,
@@ -173,6 +245,30 @@
         "startChar": 26,
         "endLine": 31,
         "endChar": 86
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_25743f98",
+        "filename": "yardstick/benchmark/core/scenario.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-02T20:54:23Z",
+      "side": 1,
+      "message": "getattr is different it raises AttributeError if default is not provided.",
+      "parentUuid": "9a3d3df0_4a835004",
+      "range": {
+        "startLine": 31,
+        "startChar": 65,
+        "endLine": 31,
+        "endChar": 69
       },
       "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
