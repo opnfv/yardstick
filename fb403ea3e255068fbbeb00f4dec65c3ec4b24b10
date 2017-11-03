@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_60d8f5ef",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-11-03T15:03:33Z",
+      "side": 1,
+      "message": "can we have a look into the /sys filesystem?\n cat /sys/class/pci_bus/0000\\:05/device/numa_node",
+      "range": {
+        "startLine": 76,
+        "startChar": 12,
+        "endLine": 79,
+        "endChar": 71
+      },
+      "revId": "fb403ea3e255068fbbeb00f4dec65c3ec4b24b10",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
