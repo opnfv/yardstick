@@ -23,6 +23,7 @@ import mock
 import unittest
 
 from six.moves.configparser import ConfigParser
+from six.moves import StringIO
 
 from yardstick.common import ansible_common
 
@@ -30,19 +31,18 @@ PREFIX = 'yardstick.common.ansible_common'
 
 
 class OverwriteDictTestCase(unittest.TestCase):
-
     def test_overwrite_dict_cfg(self):
         c = ConfigParser(allow_no_value=True)
         d = {
             "section_a": "empty_value",
-            "section_b": {"key_c": "val_d", "key_d": "val_d"},
+            "section_b": {"key_c": "Val_d", "key_d": "VAL_D"},
             "section_c": ["key_c", "key_d"],
         }
         ansible_common.overwrite_dict_to_cfg(c, d)
         # Python3 and Python2 convert empty values into None or ''
         # we don't really care but we need to compare correctly for unittest
         self.assertTrue(c.has_option("section_a", "empty_value"))
-        self.assertEqual(sorted(c.items("section_b")), [('key_c', 'val_d'), ('key_d', 'val_d')])
+        self.assertEqual(sorted(c.items("section_b")), [('key_c', 'Val_d'), ('key_d', 'VAL_D')])
         self.assertTrue(c.has_option("section_c", "key_c"))
         self.assertTrue(c.has_option("section_c", "key_d"))
 
@@ -50,23 +50,23 @@ class OverwriteDictTestCase(unittest.TestCase):
 class FilenameGeneratorTestCase(unittest.TestCase):
     @mock.patch('{}.NamedTemporaryFile'.format(PREFIX))
     def test__handle_existing_file(self, mock_tmp):
-        f = ansible_common.FileNameGenerator._handle_existing_file("/dev/null")
+        ansible_common.FileNameGenerator._handle_existing_file("/dev/null")
 
     def test_get_generator_from_file(self):
-        f = ansible_common.FileNameGenerator.get_generator_from_filename("/dev/null", "", "", "")
+        ansible_common.FileNameGenerator.get_generator_from_filename("/dev/null", "", "", "")
 
     def test_get_generator_from_file_middle(self):
-        f = ansible_common.FileNameGenerator.get_generator_from_filename("/dev/null", "", "",
-                                                                         "null")
+        ansible_common.FileNameGenerator.get_generator_from_filename("/dev/null", "", "",
+                                                                     "null")
 
     def test_get_generator_from_file_prefix(self):
-        f = ansible_common.FileNameGenerator.get_generator_from_filename("/dev/null", "", "null",
-                                                                         "middle")
+        ansible_common.FileNameGenerator.get_generator_from_filename("/dev/null", "", "null",
+                                                                     "middle")
 
 
 class AnsibleNodeTestCase(unittest.TestCase):
     def test_ansible_node(self):
-        a = ansible_common.AnsibleNode()
+        ansible_common.AnsibleNode()
 
     def test_ansible_node_len(self):
         a = ansible_common.AnsibleNode()
@@ -104,34 +104,43 @@ class AnsibleNodeTestCase(unittest.TestCase):
 
 class AnsibleNodeDictTestCase(unittest.TestCase):
     def test_ansible_node_dict(self):
-        n = ansible_common.AnsibleNode()
-        a = ansible_common.AnsibleNodeDict(n, {})
+        n = ansible_common.AnsibleNode
+        ansible_common.AnsibleNodeDict(n, {})
 
     def test_ansible_node_dict_len(self):
-        n = ansible_common.AnsibleNode()
+        n = ansible_common.AnsibleNode
         a = ansible_common.AnsibleNodeDict(n, {})
         len(a)
 
     def test_ansible_node_dict_repr(self):
-        n = ansible_common.AnsibleNode()
+        n = ansible_common.AnsibleNode
         a = ansible_common.AnsibleNodeDict(n, {})
         repr(a)
 
     def test_ansible_node_dict_iter(self):
-        n = ansible_common.AnsibleNode()
+        n = ansible_common.AnsibleNode
         a = ansible_common.AnsibleNodeDict(n, {})
         for _ in a:
             pass
 
     def test_ansible_node_dict_get(self):
-        n = ansible_common.AnsibleNode()
+        n = ansible_common.AnsibleNode
         a = ansible_common.AnsibleNodeDict(n, {})
         self.assertIsNone(a.get(""))
 
     def test_gen_inventory_lines_for_all_of_type(self):
-        n = ansible_common.AnsibleNode()
+        n = ansible_common.AnsibleNode
         a = ansible_common.AnsibleNodeDict(n, {})
         self.assertEqual(a.gen_inventory_lines_for_all_of_type(""), [])
+
+    def test_gen_inventory_lines(self):
+        n = ansible_common.AnsibleNode
+        a = ansible_common.AnsibleNodeDict(n, [{
+            "name": "name", "user": "user", "password": "PASS",
+            "role": "role",
+        }])
+        self.assertEqual(a.gen_all_inventory_lines(),
+                         ["name ansible_user=user ansible_ssh_pass=PASS"])
 
 
 class AnsibleCommonTestCase(unittest.TestCase):
@@ -139,7 +148,7 @@ class AnsibleCommonTestCase(unittest.TestCase):
         self.assertAlmostEquals(ansible_common.AnsibleCommon.get_timeout(-100), 1200.0)
 
     def test__init__(self):
-        a = ansible_common.AnsibleCommon({})
+        ansible_common.AnsibleCommon({})
 
     def test_reset(self):
         a = ansible_common.AnsibleCommon({})
@@ -150,9 +159,16 @@ class AnsibleCommonTestCase(unittest.TestCase):
         self.assertRaises(OSError, a.do_install, '', '')
 
     def test_gen_inventory_dict(self):
-        a = ansible_common.AnsibleCommon({})
-        a.inventory_dict = {}
-        self.assertIsNone(a.gen_inventory_ini_dict())
+        nodes = [{
+            "name": "name", "user": "user", "password": "PASS",
+            "role": "role",
+        }]
+        a = ansible_common.AnsibleCommon(nodes)
+        a.gen_inventory_ini_dict()
+        self.assertEqual(a.inventory_dict, {
+            'nodes': ['name ansible_user=user ansible_ssh_pass=PASS'],
+            'role': ['name']
+        })
 
     def test_deploy_dir(self):
         a = ansible_common.AnsibleCommon({})
@@ -173,6 +189,25 @@ class AnsibleCommonTestCase(unittest.TestCase):
         try:
             a = ansible_common.AnsibleCommon({})
             a._gen_ansible_playbook_file(["a"], d)
+        finally:
+            os.rmdir(d)
+
+    @mock.patch('{}.NamedTemporaryFile'.format(PREFIX))
+    @mock.patch('{}.open'.format(PREFIX))
+    def test__gen_ansible_inventory_file(self, mock_open, mock_tmp):
+        nodes = [{
+            "name": "name", "user": "user", "password": "PASS",
+            "role": "role",
+        }]
+        d = tempfile.mkdtemp()
+        try:
+            a = ansible_common.AnsibleCommon(nodes)
+            a.gen_inventory_ini_dict()
+            inv_context = a._gen_ansible_inventory_file(d)
+            with inv_context:
+                c = StringIO()
+                inv_context.write_func(c)
+                self.assertIn("ansible_ssh_pass=PASS", c.getvalue())
         finally:
             os.rmdir(d)
 

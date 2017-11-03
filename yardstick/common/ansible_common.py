@@ -472,6 +472,8 @@ class AnsibleCommon(object):
         prefix = '_'.join([self.prefix, prefix, 'inventory'])
         ini_temp_file = IniMapTemporaryFile(directory=directory, prefix=prefix)
         inventory_config = ConfigParser.ConfigParser(allow_no_value=True)
+        # disable default lowercasing
+        inventory_config.optionxform = str
         return ini_temp_file.make_context(self.inventory_dict, write_func,
                                           descriptor='inventory')
 
