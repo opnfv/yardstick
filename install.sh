@@ -13,6 +13,7 @@ DOCKER_ARCH="$(uname -m)"
 
 UBUNTU_PORTS_URL="http://ports.ubuntu.com/ubuntu-ports/"
 UBUNTU_ARCHIVE_URL="http://archive.ubuntu.com/ubuntu/"
+NSB_DIR="/opt/nsb_bin"
 
 source /etc/os-release
 source_file=/etc/apt/sources.list
@@ -81,7 +82,9 @@ apt-get update && apt-get install -y \
     python-pip \
     vim \
     libxft-dev \
-    libxss-dev
+    libxss-dev \
+    sudo \
+    iputils-ping
 
 if [[ "${DOCKER_ARCH}" != "aarch64" ]]; then
     apt-get install -y libc6:arm64
@@ -102,6 +105,12 @@ pip install -e .
 cd "${PWD}/gui" && /bin/bash gui.sh
 mkdir -p /etc/nginx/yardstick
 mv dist /etc/nginx/yardstick/gui
+
+mkdir -p ${NSB_DIR}
+
+wget -P ${NSB_DIR}/ http://artifacts.opnfv.org/yardstick/third-party/trex_client.tar.gz
+tar xvf ${NSB_DIR}/trex_client.tar.gz -C ${NSB_DIR}
+rm -f ${NSB_DIR}/trex_client.tar.gz
 
 service nginx restart
 uwsgi -i /etc/yardstick/yardstick.ini
