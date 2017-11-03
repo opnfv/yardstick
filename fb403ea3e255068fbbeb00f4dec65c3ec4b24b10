@@ -22,6 +22,30 @@
       "revId": "fb403ea3e255068fbbeb00f4dec65c3ec4b24b10",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8002593c",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-03T15:13:19Z",
+      "side": 1,
+      "message": "yes, added numa_node to FIND_NETDEVICE_STRING in L246\n\nThis is the fallback.",
+      "parentUuid": "9a3d3df0_60d8f5ef",
+      "range": {
+        "startLine": 76,
+        "startChar": 12,
+        "endLine": 79,
+        "endChar": 71
+      },
+      "revId": "fb403ea3e255068fbbeb00f4dec65c3ec4b24b10",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
