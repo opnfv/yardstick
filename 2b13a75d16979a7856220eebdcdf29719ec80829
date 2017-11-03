@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_052dbb46",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-03T00:51:55Z",
+      "side": 1,
+      "message": "In general I prefer Popen() but that\u0027s because check_output is new since 2.7.\n\ncheck_output raises exceptions, but Popen doesn\u0027t, so this is really the what-to-do-with-Exceptions question?",
+      "parentUuid": "9a3d3df0_6548072e",
+      "range": {
+        "startLine": 54,
+        "startChar": 18,
+        "endLine": 54,
+        "endChar": 23
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_4ae870b4",
         "filename": "tests/functional/utils.py",
         "patchSetId": 2
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "so we don\u0027t want to use encodeutils anymore?",
       "parentUuid": "9a3d3df0_a5484f5c",
+      "range": {
+        "startLine": 56,
+        "startChar": 29,
+        "endLine": 56,
+        "endChar": 40
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a5004fab",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-03T00:51:55Z",
+      "side": 1,
+      "message": "I think we want encodeutils, but we also want a specific function that always calls safe_decode with \u0027utf-8\u0027 hardcoded.",
+      "parentUuid": "9a3d3df0_c55593c7",
       "range": {
         "startLine": 56,
         "startChar": 29,
