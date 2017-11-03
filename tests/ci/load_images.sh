@@ -63,11 +63,14 @@ build_yardstick_image()
         fi
     else
         if [ ! -f "${QCOW_IMAGE}" ];then
-            local cmd
-            cmd="sudo $(which yardstick-img-modify) $(pwd)/tools/ubuntu-server-cloudimg-modify.sh"
-
-            # Build the image. Retry once if the build fails
-            $cmd || $cmd
+            ANSIBLE_SCRIPTS="${0%/*}/../../ansible"
+            cd ${ANSIBLE_SCRIPTS} &&\
+            ansible-playbook \
+                     -e img_modify_playbook='ubuntu_server_cloudimg_modify.yml' \
+                     -e target_os='Ubuntu' \
+                     -e YARD_IMG_ARCH='amd64' \
+                     -e ubuntu_img_file="${QCOW_IMAGE}" \
+                     -vvv -i inventory.ini build_yardstick_image.yml
 
             if [ ! -f "${QCOW_IMAGE}" ]; then
                 echo "Failed building QCOW image"
@@ -209,7 +212,7 @@ create_nova_flavor()
         echo
         echo "========== Creating yardstick-flavor =========="
         # Create the nova flavor used by some sample test cases
-        openstack ${SECURE} flavor create --id 100 --ram 1024 --disk 3 --vcpus 1 yardstick-flavor
+        openstack ${SECURE} flavor create --id 100 --ram 1024 --disk 10 --vcpus 1 yardstick-flavor
         # DPDK-enabled OVS requires guest memory to be backed by large pages
         if [[ $DEPLOY_SCENARIO == *[_-]ovs[_-]* ]]; then
             openstack ${SECURE} flavor set --property hw:mem_page_size=large yardstick-flavor
