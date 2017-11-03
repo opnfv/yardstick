@@ -29,7 +29,6 @@
     sha256sums_url: "{{ lookup('env', 'SHA256SUMS_URL')|default('https://' ~ host ~ '/' ~ sha256sums_path, true) }}"
 
     workspace: "{{ lookup('env', 'workspace')|default('/tmp/workspace/yardstick', true) }}"
-    imgfile: "{{ workspace }}/yardstick-image.img"
     raw_imgfile_basename: "yardstick-{{ release }}-server.raw"
   environment:
     PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin
@@ -39,6 +38,9 @@
         key: image_builder
 
     - package: name=parted state=present
+
+    - set_fact:
+        imgfile: "{{ workspace }}/yardstick-image.img"
 
     - set_fact:
         mountdir: "{{ lookup('env', 'mountdir')|default('/mnt/yardstick', true) }}"
@@ -205,6 +207,11 @@
 - name: include {{ img_modify_playbook }}
   include: "{{ img_modify_playbook }}"
 
+- hosts: localhost
+  tasks:
+    - name: convert image to image file
+      command: "qemu-img convert -c -o compat=0.10 -O qcow2 {{ raw_imgfile }} {{ imgfile }}"
+
 - name: run post build tasks
   include: post_build_yardstick_image.yml
 
@@ -212,4 +219,4 @@
 
   tasks:
     - debug:
-        msg: "yardstick image = {{ raw_imgfile }}"
+        msg: "yardstick image = {{ imgfile }}"
