@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_25471f21",
+        "filename": "tests/functional/test_cli_scenario.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-03T00:42:23Z",
+      "side": 1,
+      "message": "this is about logging an exception, the exception is raised elsewhere.  L34 is not \"manually raising an exception\", it says \"continue raising an existing exception\".\n\nwithout this, the command output is never reported upon failure.  i needed the command output to figure out what the error was when i was making another change.  i don\u0027t know that all users of the Yardstick class want/need this.\n\nthough if we use Popen, then this may never happen.  i can remove this.",
+      "parentUuid": "9a3d3df0_ca4920d2",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 17
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_eabb44c2",
         "filename": "tests/functional/utils.py",
         "patchSetId": 2
@@ -95,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_85f9cbca",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-03T00:42:23Z",
+      "side": 1,
+      "message": "there\u0027s also a big \"TODO\" in __call__, this class seems to be unfinished.\n\nall the same, i can remove this.",
+      "parentUuid": "9a3d3df0_cac48042",
+      "range": {
+        "startLine": 30,
+        "startChar": 23,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_aac13c30",
         "filename": "tests/functional/utils.py",
         "patchSetId": 2
@@ -130,6 +178,30 @@
       "side": 1,
       "message": "maybe we are ignoring the CalledProcessError?",
       "parentUuid": "9a3d3df0_aac13c30",
+      "range": {
+        "startLine": 54,
+        "startChar": 18,
+        "endLine": 54,
+        "endChar": 23
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6548072e",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-03T00:42:23Z",
+      "side": 1,
+      "message": "why do you agree?\n\nPopen is more powerful and explicit?\n\nbut regardless, you want to continue using check_output?",
+      "parentUuid": "9a3d3df0_e579b794",
       "range": {
         "startLine": 54,
         "startChar": 18,
@@ -189,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c55593c7",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-03T00:42:23Z",
+      "side": 1,
+      "message": "so we don\u0027t want to use encodeutils anymore?",
+      "parentUuid": "9a3d3df0_a5484f5c",
+      "range": {
+        "startLine": 56,
+        "startChar": 29,
+        "endLine": 56,
+        "endChar": 40
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_2aed2cc4",
         "filename": "tests/functional/utils.py",
         "patchSetId": 2
@@ -200,6 +296,24 @@
       "writtenOn": "2017-11-02T17:39:13Z",
       "side": 1,
       "message": "What is happening now with the errors and exceptions?\n\nWhy don\u0027t you handle the exceptions and log messages, rather than leaving this to the test cases?",
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_854b8b2a",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-03T00:42:23Z",
+      "side": 1,
+      "message": "the existing code does nothing with the exception, other than change the reported call stack, hiding information.\n\n try:\n   # code\n except Exception as e:\n  raise e\n\nis not exception handling, it is useless and misreports the exception when it is eventually handled.  therefore i removed this \"exception handling\".",
+      "parentUuid": "9a3d3df0_2aed2cc4",
       "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -264,6 +378,30 @@
       "side": 1,
       "message": "getattr is different it raises AttributeError if default is not provided.",
       "parentUuid": "9a3d3df0_4a835004",
+      "range": {
+        "startLine": 31,
+        "startChar": 65,
+        "endLine": 31,
+        "endChar": 69
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a5520fdb",
+        "filename": "yardstick/benchmark/core/scenario.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-03T00:42:23Z",
+      "side": 1,
+      "message": "as ross says:\n\n \u003e\u003e\u003e getattr(object(), \u0027non_attr\u0027) is None\n Traceback (most recent call last):\n   File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e\n AttributeError: \u0027object\u0027 object has no attribute \u0027non_attr\u0027\n\nversus:\n\n \u003e\u003e\u003e getattr(object(), \u0027non_attr\u0027, None) is None\n True",
+      "parentUuid": "9a3d3df0_25743f98",
       "range": {
         "startLine": 31,
         "startChar": 65,
