@@ -7,7 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 LABEL image=opnfv/yardstick
 
@@ -48,5 +48,6 @@ ADD http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-d
 
 COPY ./exec_tests.sh /usr/local/bin/
 
+ENV PYTHONPATH ${PYTHONPATH}:/opt/nsb_bin/trex_client:/opt/nsb_bin/trex_client/stl
 WORKDIR ${REPOS_DIR}
 CMD ["/usr/bin/supervisord"]
