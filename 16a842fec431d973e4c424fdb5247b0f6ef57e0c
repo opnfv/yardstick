@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_5bacc0ed",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_trex.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-03T18:37:16Z",
+      "side": 1,
+      "message": "agree,\n\nthere is a follow-on patch to refactor ClientResourceHelper because it really contains Trex specific code that should be moved into TrexResourceHelper.",
+      "parentUuid": "9a3d3df0_7b41c438",
+      "range": {
+        "startLine": 425,
+        "startChar": 0,
+        "endLine": 456,
+        "endChar": 57
+      },
+      "revId": "16a842fec431d973e4c424fdb5247b0f6ef57e0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5b37a0e3",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_1b82384f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-03T18:37:16Z",
+      "side": 1,
+      "message": "Pylint always complains about instance variables not being initialized in __init__.\n\nso we tend to always init in __init__.\n\nit is W0201\n\nyardstick/yardstick/network_services/vnf_generic/vnf/tg_trex.py:64: [W0201]  Attribute \u0027dpdk_to_trex_port_map\u0027 defined outside __init__ [attribute-defined-outside-init]",
+      "parentUuid": "9a3d3df0_5b37a0e3",
+      "range": {
+        "startLine": 54,
+        "startChar": 13,
+        "endLine": 54,
+        "endChar": 34
+      },
+      "revId": "16a842fec431d973e4c424fdb5247b0f6ef57e0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_fb4dd473",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2017-11-03T17:43:32Z",
       "side": 1,
       "message": "Why OrderedDict()?\n\nIn \"_build_ports()\" the values stored in it are going to be accessed using __getitem__. The order doesn\u0027t seem to be relevant here.\n\nThis could be just:\n  self.dpdk_to_trex_port_map \u003d {}",
+      "range": {
+        "startLine": 60,
+        "startChar": 37,
+        "endLine": 60,
+        "endChar": 48
+      },
+      "revId": "16a842fec431d973e4c424fdb5247b0f6ef57e0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5b9320a3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-03T18:37:16Z",
+      "side": 1,
+      "message": "this is a temp fix for Dino.  We may keep this specific Trex fix, or maybe we need to look at the Ixia code and figure out a unified logical port mapping.",
+      "parentUuid": "9a3d3df0_fb4dd473",
       "range": {
         "startLine": 60,
         "startChar": 37,
