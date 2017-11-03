@@ -30,7 +30,6 @@ PREFIX = 'yardstick.common.ansible_common'
 
 
 class OverwriteDictTestCase(unittest.TestCase):
-
     def test_overwrite_dict_cfg(self):
         c = ConfigParser(allow_no_value=True)
         d = {
@@ -104,34 +103,43 @@ class AnsibleNodeTestCase(unittest.TestCase):
 
 class AnsibleNodeDictTestCase(unittest.TestCase):
     def test_ansible_node_dict(self):
-        n = ansible_common.AnsibleNode()
+        n = ansible_common.AnsibleNode
         a = ansible_common.AnsibleNodeDict(n, {})
 
     def test_ansible_node_dict_len(self):
-        n = ansible_common.AnsibleNode()
+        n = ansible_common.AnsibleNode
         a = ansible_common.AnsibleNodeDict(n, {})
         len(a)
 
     def test_ansible_node_dict_repr(self):
-        n = ansible_common.AnsibleNode()
+        n = ansible_common.AnsibleNode
         a = ansible_common.AnsibleNodeDict(n, {})
         repr(a)
 
     def test_ansible_node_dict_iter(self):
-        n = ansible_common.AnsibleNode()
+        n = ansible_common.AnsibleNode
         a = ansible_common.AnsibleNodeDict(n, {})
         for _ in a:
             pass
 
     def test_ansible_node_dict_get(self):
-        n = ansible_common.AnsibleNode()
+        n = ansible_common.AnsibleNode
         a = ansible_common.AnsibleNodeDict(n, {})
         self.assertIsNone(a.get(""))
 
     def test_gen_inventory_lines_for_all_of_type(self):
-        n = ansible_common.AnsibleNode()
+        n = ansible_common.AnsibleNode
         a = ansible_common.AnsibleNodeDict(n, {})
         self.assertEqual(a.gen_inventory_lines_for_all_of_type(""), [])
+
+    def test_gen_inventory_lines(self):
+        n = ansible_common.AnsibleNode
+        a = ansible_common.AnsibleNodeDict(n, [{
+            "name": "name", "user": "user", "password": "PASS",
+            "role": "role",
+        }])
+        self.assertEqual(a.gen_all_inventory_lines(),
+                         ["name ansible_user=user ansible_ssh_pass=PASS"])
 
 
 class AnsibleCommonTestCase(unittest.TestCase):
@@ -150,9 +158,16 @@ class AnsibleCommonTestCase(unittest.TestCase):
         self.assertRaises(OSError, a.do_install, '', '')
 
     def test_gen_inventory_dict(self):
-        a = ansible_common.AnsibleCommon({})
-        a.inventory_dict = {}
-        self.assertIsNone(a.gen_inventory_ini_dict())
+        nodes = [{
+            "name": "name", "user": "user", "password": "PASS",
+            "role": "role",
+        }]
+        a = ansible_common.AnsibleCommon(nodes)
+        a.gen_inventory_ini_dict()
+        self.assertEqual(a.inventory_dict, {
+            'nodes': ['name ansible_user=user ansible_ssh_pass=PASS'],
+            'role': ['name']
+        })
 
     def test_deploy_dir(self):
         a = ansible_common.AnsibleCommon({})
