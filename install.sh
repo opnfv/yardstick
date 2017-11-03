@@ -81,7 +81,9 @@ apt-get update && apt-get install -y \
     python-pip \
     vim \
     libxft-dev \
-    libxss-dev
+    libxss-dev \
+    sudo \
+    iputils-ping
 
 if [[ "${DOCKER_ARCH}" != "aarch64" ]]; then
     apt-get install -y libc6:arm64

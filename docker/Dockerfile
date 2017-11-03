@@ -7,7 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 LABEL image=opnfv/yardstick
 
@@ -23,12 +23,14 @@ ENV IMAGE_DIR /home/opnfv/images/
 ENV YARDSTICK_REPO_DIR ${REPOS_DIR}/yardstick
 ENV RELENG_REPO_DIR ${REPOS_DIR}/releng
 ENV STORPERF_REPO_DIR ${REPOS_DIR}/storperf
+ENV NSB_DIR /opt/nsb_bin
 
 RUN apt-get update && apt-get install -y git python-setuptools python-pip
 RUN easy_install -U setuptools==30.0.0
 RUN pip install appdirs==1.4.0
 
 RUN mkdir -p ${REPOS_DIR}
+RUN mkdir -p ${NSB_DIR}
 
 RUN git config --global http.sslVerify false
 RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR}
@@ -48,5 +50,9 @@ ADD http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-d
 
 COPY ./exec_tests.sh /usr/local/bin/
 
+RUN wget -P ${NSB_DIR}/ http://artifacts.opnfv.org/yardstick/third-party/trex_client.tar.gz
+RUN tar xvf ${NSB_DIR}/trex_client.tar.gz -C ${NSB_DIR}
+RUN rm -f ${NSB_DIR}/trex_client.tar.gz
+ENV PYTHONPATH ${PYTHONPATH}:/opt/nsb_bin/trex_client:/opt/nsb_bin/trex_client/stl
 WORKDIR ${REPOS_DIR}
 CMD ["/usr/bin/supervisord"]

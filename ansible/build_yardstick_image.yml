@@ -205,6 +205,11 @@
 - name: include {{ img_modify_playbook }}
   include: "{{ img_modify_playbook }}"
 
+- hosts: localhost
+  tasks:
+    - name: convert image to image file
+      command: "qemu-img convert -c -o compat=0.10 -O qcow2 {{ raw_imgfile }} {{ imgfile }}"
+
 - name: run post build tasks
   include: post_build_yardstick_image.yml
 
@@ -212,4 +217,4 @@
 
   tasks:
     - debug:
-        msg: "yardstick image = {{ raw_imgfile }}"
+        msg: "yardstick image = {{ imgfile }}"
