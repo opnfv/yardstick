@@ -16,6 +16,24 @@
       "revId": "1d4d1dd011f00ad44d69373b4b566e3ae659e2fe",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_40de9140",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-11-03T11:26:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_c590f397",
+      "revId": "1d4d1dd011f00ad44d69373b4b566e3ae659e2fe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
