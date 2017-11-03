@@ -665,6 +665,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c0c46142",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2017-11-03T14:28:56Z",
+      "side": 1,
+      "message": "Here I was referring to the format of \u0027reference\u0027. Reference for `Export OpenStack environment\nvariables`_. should be similar to what we have in line 247.",
+      "parentUuid": "9a3d3df0_8ac43893",
+      "range": {
+        "startLine": 146,
+        "startChar": 47,
+        "endLine": 147,
+        "endChar": 12
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_22055a7a",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -1330,6 +1354,29 @@
         "startChar": 29,
         "endLine": 603,
         "endChar": 31
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e009a596",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2017-11-03T14:28:56Z",
+      "side": 1,
+      "message": "can have a warning section.",
+      "range": {
+        "startLine": 720,
+        "startChar": 30,
+        "endLine": 721,
+        "endChar": 12
       },
       "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
