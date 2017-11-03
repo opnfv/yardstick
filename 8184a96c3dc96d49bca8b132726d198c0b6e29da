@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_6010f54e",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-03T07:06:51Z",
+      "side": 1,
+      "message": "can we combine these into one layer to save space\n\n   RUN wget ... \u0026\u0026 tar xvf .. \u0026\u0026 rm -f\n\nwe should probably try to optimize space and reduce layers while we are converting to 16.04",
+      "revId": "8184a96c3dc96d49bca8b132726d198c0b6e29da",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
