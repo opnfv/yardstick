@@ -20,6 +20,9 @@ install_dependencies:
     - stress
     - sysstat
     - unzip
+    - netperf
+    - bonnie++
+    - lmbench
     # for Trex
     - libpython2.7-dev
     # for IxLoad
