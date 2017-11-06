@@ -21,6 +21,7 @@ import mock
 
 from yardstick.benchmark.contexts.standalone import ovs_dpdk
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
+from yardstick.common import utils
 
 
 class OvsDpdkContextTestCase(unittest.TestCase):
@@ -64,6 +65,7 @@ class OvsDpdkContextTestCase(unittest.TestCase):
     }
 
     def setUp(self):
+        utils.MethodCallsOrder.ENABLED = False
         self.ovs_dpdk = ovs_dpdk.OvsDpdkContext()
 
     def test___init__(self):
@@ -72,7 +74,7 @@ class OvsDpdkContextTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.benchmark.contexts.standalone.base.model')
     def test_init(self, mock_model):
-        mock_model.parse_pod_file.return_value = [{}, {}, {}]
+        mock_model.parse_pod_file.return_value = [{}, [{}], {}]
         self.assertIsNone(self.ovs_dpdk.init(self.ATTRS))
 
     def test__setup_ovs(self):
@@ -376,4 +378,6 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk._enable_interfaces = mock.Mock(return_value="")
         mock_libvirt.virsh_create_vm = mock.Mock(return_value="")
         mock_libvirt.pin_vcpu_for_perf = mock.Mock(return_value="")
+        self.ovs_dpdk.cloud_init = mock.Mock()
+        self.ovs_dpdk.cloud_init.enabled.return_value = True
         self.assertIsNotNone(self.ovs_dpdk.setup_context())
