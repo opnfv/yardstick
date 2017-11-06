@@ -93,6 +93,30 @@
       "revId": "c434d9e6c2b8f84fe1ecc771f919e98b245751d8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7a053d79",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-06T22:08:20Z",
+      "side": 1,
+      "message": "ok, so the simple for loop is out, but see the new revision comment.",
+      "parentUuid": "9a3d3df0_255d5f22",
+      "range": {
+        "startLine": 357,
+        "startChar": 63,
+        "endLine": 357,
+        "endChar": 80
+      },
+      "revId": "c434d9e6c2b8f84fe1ecc771f919e98b245751d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
