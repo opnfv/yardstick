@@ -22,6 +22,30 @@
       "revId": "5a756e6171ad2d867914793dc2fd8b1aa7a19a6e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bae865b5",
+        "filename": "api/resources/v1/env.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-06T22:10:06Z",
+      "side": 0,
+      "message": "it looks like the EXTERNAL_NETWORK check and handling has moved to L275.  so this variable is going from required to optional, and when missing the rcfile will be updated with some value.",
+      "parentUuid": "9a3d3df0_5ad4b946",
+      "range": {
+        "startLine": 253,
+        "startChar": 48,
+        "endLine": 253,
+        "endChar": 64
+      },
+      "revId": "5a756e6171ad2d867914793dc2fd8b1aa7a19a6e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }

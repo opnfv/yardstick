@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_9aebe1af",
+        "filename": "api/resources/v1/env.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-06T22:10:06Z",
+      "side": 1,
+      "message": "do we need this else, the then block raises an exception.",
+      "revId": "8f498f573dacfc8e6f12e868ce333df23cd94508",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
