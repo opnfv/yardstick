@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5ad4b946",
+        "filename": "api/resources/v1/env.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T14:57:24Z",
+      "side": 0,
+      "message": "Why are you removing this variable? \"_prepare_env_daemon\" is still adding it to openrc.\n\nIn addition, 04-installation guide is telling as that an example openrc file looks like:\n\n  export OS_PASSWORD\u003dconsole\n  export OS_TENANT_NAME\u003dadmin\n  export OS_AUTH_URL\u003dhttp://172.16.1.222:35357/v2.0\n  export OS_USERNAME\u003dadmin\n  export OS_VOLUME_API_VERSION\u003d2\n  export EXTERNAL_NETWORK\u003dnet04_ext",
+      "range": {
+        "startLine": 253,
+        "startChar": 48,
+        "endLine": 253,
+        "endChar": 64
+      },
+      "revId": "5a756e6171ad2d867914793dc2fd8b1aa7a19a6e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
