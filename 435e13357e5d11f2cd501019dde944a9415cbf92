@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_57c014e0",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T13:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_a0ef9daf",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 8
+      },
+      "revId": "435e13357e5d11f2cd501019dde944a9415cbf92",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e0308558",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-03T14:28:56Z",
       "side": 1,
       "message": "Better to have \u0027Automatic creation of Yardstick\u0027 or \u0027Automatically creating Yardstick\u0027 in order to align with above Manual heading",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 20
+      },
+      "revId": "435e13357e5d11f2cd501019dde944a9415cbf92",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b7b7e085",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T13:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_e0308558",
       "range": {
         "startLine": 246,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_97ba9c6c",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T13:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_40369153",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 39
+      },
+      "revId": "435e13357e5d11f2cd501019dde944a9415cbf92",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_203b8d3b",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2017-11-03T14:28:56Z",
       "side": 1,
       "message": "note should start from next line.",
+      "range": {
+        "startLine": 265,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 9
+      },
+      "revId": "435e13357e5d11f2cd501019dde944a9415cbf92",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f7b0488d",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T13:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_203b8d3b",
       "range": {
         "startLine": 265,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_d7ab841c",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T13:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_803ff924",
+      "range": {
+        "startLine": 289,
+        "startChar": 2,
+        "endLine": 289,
+        "endChar": 3
+      },
+      "revId": "435e13357e5d11f2cd501019dde944a9415cbf92",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_603c7530",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2017-11-03T14:28:56Z",
       "side": 1,
       "message": "can",
+      "range": {
+        "startLine": 390,
+        "startChar": 4,
+        "endLine": 390,
+        "endChar": 9
+      },
+      "revId": "435e13357e5d11f2cd501019dde944a9415cbf92",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_37abd01e",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T13:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_603c7530",
       "range": {
         "startLine": 390,
         "startChar": 4,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_17a68c53",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T13:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_c04901d2",
+      "range": {
+        "startLine": 665,
+        "startChar": 0,
+        "endLine": 665,
+        "endChar": 54
+      },
+      "revId": "435e13357e5d11f2cd501019dde944a9415cbf92",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_20126db1",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 2
@@ -174,6 +342,30 @@
       "writtenOn": "2017-11-03T14:28:56Z",
       "side": 1,
       "message": "needs",
+      "range": {
+        "startLine": 691,
+        "startChar": 12,
+        "endLine": 691,
+        "endChar": 16
+      },
+      "revId": "435e13357e5d11f2cd501019dde944a9415cbf92",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_77643822",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T13:40:06Z",
+      "side": 1,
+      "message": "? Maybe I\u0027m wrong, but \"the changes\" is second person of plural",
+      "parentUuid": "9a3d3df0_20126db1",
       "range": {
         "startLine": 691,
         "startChar": 12,
