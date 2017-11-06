@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_fa682dbc",
+        "filename": "ansible/build_yardstick_image.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T14:19:52Z",
+      "side": 1,
+      "message": "Why this change?",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "e6d7b730350db63e2ecd2097c8a867615573a235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f7afa8e1",
         "filename": "docker/Dockerfile",
         "patchSetId": 2
@@ -49,6 +72,98 @@
       "side": 1,
       "message": "Maybe I didn\u0027t express clearly. What I mean is to set multiple env variables at one time[1].\nENV PYTHONPATH\u003d\"***\"\n    REPOS_DIR\u003d\"***\"\nI think it is also easy to read and produces a single layer.\n\n[1] https://docs.docker.com/engine/reference/builder/#env",
       "parentUuid": "9a3d3df0_f7968893",
+      "revId": "e6d7b730350db63e2ecd2097c8a867615573a235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1a47d14c",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T14:19:52Z",
+      "side": 1,
+      "message": "This should be NSB_DIR.",
+      "range": {
+        "startLine": 51,
+        "startChar": 29,
+        "endLine": 51,
+        "endChar": 41
+      },
+      "revId": "e6d7b730350db63e2ecd2097c8a867615573a235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_da3c49c2",
+        "filename": "install.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T14:19:52Z",
+      "side": 1,
+      "message": "Where is this variable defined?",
+      "range": {
+        "startLine": 109,
+        "startChar": 11,
+        "endLine": 109,
+        "endChar": 18
+      },
+      "revId": "e6d7b730350db63e2ecd2097c8a867615573a235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_baa6a50e",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T14:19:52Z",
+      "side": 1,
+      "message": "To be deleted",
+      "range": {
+        "startLine": 66,
+        "startChar": 12,
+        "endLine": 66,
+        "endChar": 21
+      },
+      "revId": "e6d7b730350db63e2ecd2097c8a867615573a235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3a63b5dd",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T14:19:52Z",
+      "side": 1,
+      "message": "If this is not going to be executed, should be deleted.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 25
+      },
       "revId": "e6d7b730350db63e2ecd2097c8a867615573a235",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
