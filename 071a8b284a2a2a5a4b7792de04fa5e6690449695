@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9a2ac12a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-06T16:04:40Z",
+      "side": 1,
+      "message": "I updated the code, and forgot to update the commit message",
+      "parentUuid": "9a3d3df0_1754cc1f",
+      "range": {
+        "startLine": 14,
+        "startChar": 2,
+        "endLine": 14,
+        "endChar": 35
+      },
+      "revId": "071a8b284a2a2a5a4b7792de04fa5e6690449695",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_9748dc88",
         "filename": "tox.ini",
         "patchSetId": 3
