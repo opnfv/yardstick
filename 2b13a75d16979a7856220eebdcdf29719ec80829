@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_3a1bb51c",
+        "filename": "tests/functional/test_cli_scenario.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T16:08:27Z",
+      "side": 1,
+      "message": "The point is every exception expected (forced) in a unit test should be captured with \"assertRaises\".\n\n\u0027res \u003d self.yardstick(\"scenario list\")\u0027 shouldn\u0027t raise an exception in this test case, so you don\u0027t need to catch it in a try/except clause.\n\nIf you are specifically looking for an exception, this should be in a \"assertRaises\" check.",
+      "parentUuid": "9a3d3df0_25471f21",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 17
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_eabb44c2",
         "filename": "tests/functional/utils.py",
         "patchSetId": 2
@@ -225,6 +249,30 @@
       "writtenOn": "2017-11-03T00:51:55Z",
       "side": 1,
       "message": "In general I prefer Popen() but that\u0027s because check_output is new since 2.7.\n\ncheck_output raises exceptions, but Popen doesn\u0027t, so this is really the what-to-do-with-Exceptions question?",
+      "parentUuid": "9a3d3df0_6548072e",
+      "range": {
+        "startLine": 54,
+        "startChar": 18,
+        "endLine": 54,
+        "endChar": 23
+      },
+      "revId": "2b13a75d16979a7856220eebdcdf29719ec80829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fa202d4b",
+        "filename": "tests/functional/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T16:08:27Z",
+      "side": 1,
+      "message": "What I\u0027m asking for is to explicitly justify this kind of changes.",
       "parentUuid": "9a3d3df0_6548072e",
       "range": {
         "startLine": 54,
