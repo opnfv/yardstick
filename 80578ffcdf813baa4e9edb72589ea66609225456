@@ -854,6 +854,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_379470e1",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T13:35:30Z",
+      "side": 1,
+      "message": "It\u0027s part of Yardstick installation. This is a must.\n\nThe wsgi installation is done, as many other things, in L318",
+      "parentUuid": "9a3d3df0_2ad7ecc2",
+      "range": {
+        "startLine": 310,
+        "startChar": 0,
+        "endLine": 310,
+        "endChar": 41
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f9bfa4ce",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -1372,6 +1396,30 @@
       "writtenOn": "2017-11-03T14:28:56Z",
       "side": 1,
       "message": "can have a warning section.",
+      "range": {
+        "startLine": 720,
+        "startChar": 30,
+        "endLine": 721,
+        "endChar": 12
+      },
+      "revId": "80578ffcdf813baa4e9edb72589ea66609225456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_178faccd",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T13:35:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_e009a596",
       "range": {
         "startLine": 720,
         "startChar": 30,
