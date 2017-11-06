@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_7a2c1d03",
+        "filename": "yardstick/common/ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-06T23:43:22Z",
+      "side": 0,
+      "message": "this is the first call to the interior write_func.",
+      "revId": "5a756e6171ad2d867914793dc2fd8b1aa7a19a6e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

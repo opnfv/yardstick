@@ -72,6 +72,47 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_1aeeb1b4",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-06T23:43:22Z",
+      "side": 1,
+      "message": "partially correct ross, entering the context is where the interior write_func is called (L101 of ansible_common).  the interior write_func is created/defined when the context is created/initialized.  so L209 here is a second calling of write_func.\n\nperhaps we could divide these tests into smaller tests, but having one for both should demonstrate the design and usage better.\n\nreally we should do:\n\n a \u003d ...\n ...\n inv_context \u003d ...\n expected_filename \u003d ...\n expected_str \u003d ...\n c \u003d StringIO()\n inv_context.creator \u003d lambda: c\n mock_open.return_value \u003d c\n # here we could know \n with inv_context as inv_filename:\n   self.assertEqual(inv_filename, expected_filename)\n self.assertIn(expected_str, c.getvalue())",
+      "parentUuid": "9a3d3df0_9ab801e7",
+      "range": {
+        "startLine": 207,
+        "startChar": 12,
+        "endLine": 207,
+        "endChar": 29
+      },
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5a2f99f6",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-06T23:43:22Z",
+      "side": 1,
+      "message": "move this to before entering the context and get the value to be the context manager\u0027s \u0027data_file\u0027 attribute, either via the mock_open or via the creator method on the context manager.",
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5a62f9ad",
         "filename": "tests/unit/common/test_ansible_common.py",
         "patchSetId": 5
@@ -107,6 +148,30 @@
       "side": 1,
       "message": "I want to remove the tmpdir, but I can\u0027t figure out how to mock it correctly currently.\n\nI thought NamedTemporaryFile mock would work, but I guess not.",
       "parentUuid": "9a3d3df0_5a62f9ad",
+      "range": {
+        "startLine": 211,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 23
+      },
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3af3b59f",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-06T23:43:22Z",
+      "side": 1,
+      "message": "you need to mock\n\n \u0027{}.ConfigParser.ConfigParser\u0027.format(PREFIX)\n\nand it needs to return something that has:\n\n* add_section(section_name)\n* remove_section(section_name)\n* set(section_name, key, value)\n* write(txt)\n\nthen there\u0027s:\n\n \u0027{}.TempfileContext\u0027.format(PREFIX)\n\nwhich, since you may want to test the code within it, you may want to patch after entering the unit test. something like:\n\n def test_(self, *_):\n   mock_file_handle \u003d mock.Mock()\n   custom_tempfile_context \u003d TempfileContext(...)\n   custom_tempfile_context.creator \u003d mock.Mock(return_value\u003dmock_file_handle)\n   with mock.patch(\u0027{}.TempfileContext\u0027.format(PREFIX)) as mock_tempfile_context:\n     mock_tempfile_context.return_value \u003d custom_tempfile_context\n     ...\n\nbasically, you want to have a real TempfileContext, but inject our own \u0027creator\u0027 method.\n\nunless you\u0027d rather patch \u0027{}.os.path.exists\u0027.format(PREFIX) such that it doesn\u0027t use the \u0027creator\u0027 method.",
+      "parentUuid": "9a3d3df0_face6d82",
       "range": {
         "startLine": 211,
         "startChar": 8,
