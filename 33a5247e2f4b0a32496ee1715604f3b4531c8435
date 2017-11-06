@@ -34,6 +34,24 @@
       "revId": "33a5247e2f4b0a32496ee1715604f3b4531c8435",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7a2d3d46",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-06T15:56:12Z",
+      "side": 1,
+      "message": "If you change the code in L266 and beyond with my suggestion, there is no need for this check.\n\n\"ports\" is a local variable you are creating. There is no need to check it IF you are creating it correctly.",
+      "parentUuid": "9a3d3df0_96ac6cef",
+      "revId": "33a5247e2f4b0a32496ee1715604f3b4531c8435",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
