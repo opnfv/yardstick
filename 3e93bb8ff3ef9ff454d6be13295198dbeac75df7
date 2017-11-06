@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9ab801e7",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-06T17:05:50Z",
+      "side": 1,
+      "message": "we need to call inv_context.__enter__ to create write_func, pretty sure.",
+      "parentUuid": "9a3d3df0_5a0959dc",
+      "range": {
+        "startLine": 207,
+        "startChar": 12,
+        "endLine": 207,
+        "endChar": 29
+      },
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5a62f9ad",
         "filename": "tests/unit/common/test_ansible_common.py",
         "patchSetId": 5
@@ -59,6 +83,30 @@
       "writtenOn": "2017-11-06T15:39:10Z",
       "side": 1,
       "message": "Those kind of cleanup operations in testing should be handle with addCleanup:\n\ndef test__gen_ansible_inventory_file(self, mock_open, mock_tmp):\n  d \u003d tempfile.mkdtemp()\n  # This function will be ALWAYS executed, despite any raisen exception.\n  self.addCleanup(self._del_tmpdir, d) \n  .........\n\n\ndef _delete_tmpdir(directory):\n  os.rmdir(directory)",
+      "range": {
+        "startLine": 211,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 23
+      },
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_face6d82",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-06T17:05:50Z",
+      "side": 1,
+      "message": "I want to remove the tmpdir, but I can\u0027t figure out how to mock it correctly currently.\n\nI thought NamedTemporaryFile mock would work, but I guess not.",
+      "parentUuid": "9a3d3df0_5a62f9ad",
       "range": {
         "startLine": 211,
         "startChar": 8,
