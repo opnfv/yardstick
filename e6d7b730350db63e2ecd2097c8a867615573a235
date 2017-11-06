@@ -16,6 +16,24 @@
       "revId": "e6d7b730350db63e2ecd2097c8a867615573a235",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f7968893",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-11-06T03:47:43Z",
+      "side": 1,
+      "message": "I agree it\u0027s better to produce a single layer. But do we need to merge them into one line here? We need to get balance between this rule and readability.",
+      "parentUuid": "9a3d3df0_f7afa8e1",
+      "revId": "e6d7b730350db63e2ecd2097c8a867615573a235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
