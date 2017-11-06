@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5a083991",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-06T22:08:20Z",
+      "side": 1,
+      "message": "isn\u0027t this describing \"p\"?\n\nport better be a Mapping, otherwise L252 and L258 are going to be bad.",
+      "range": {
+        "startLine": 248,
+        "startChar": 18,
+        "endLine": 248,
+        "endChar": 22
+      },
+      "revId": "48fd904a35b3780f864939190242705c726471dd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9a02c16d",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-06T22:08:20Z",
+      "side": 1,
+      "message": "if we use a try-except block, then we don\u0027t need to test:\n\n try:\n   port_override \u003d p.get(port[\u0027port\u0027])\n   assert port_override\n except (TypeError, AttributeError, AssertionError):\n   pass\n else:\n   yield port_override\n\nor, with one test:\n\n port_override \u003d getattr(p, \u0027get\u0027, lambda x: None)(port[\u0027port\u0027])\n if port_override:\n   yield port_override",
+      "revId": "48fd904a35b3780f864939190242705c726471dd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_baffc566",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-06T22:08:20Z",
+      "side": 1,
+      "message": "and None values!",
+      "range": {
+        "startLine": 253,
+        "startChar": 39,
+        "endLine": 253,
+        "endChar": 44
+      },
+      "revId": "48fd904a35b3780f864939190242705c726471dd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_dacc4964",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-06T22:08:20Z",
+      "side": 1,
+      "message": "why isn\u0027t this in an else clause from L291?\n\nL291 tells us that we have a single, string port and so we make a list of that value, why do we need to build another list in case that single string value becomes a mapping?\n\n else:\n   if isinstance(ports, six.string_types):\n     ...\n     ports \u003d [ports]  # we don\u0027t need recreate this list\n   else:\n     ports \u003d [next(iter(p)) if isinstance(p, Mapping) else p for p in ports]",
+      "revId": "48fd904a35b3780f864939190242705c726471dd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
