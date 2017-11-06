@@ -249,34 +249,34 @@ class V1Env(ApiResource):
         """Check if openrc is sourced already"""
         return all(os.environ.get(k) for k in ['OS_AUTH_URL',
                                                'OS_USERNAME',
-                                               'OS_PASSWORD',
-                                               'EXTERNAL_NETWORK'])
+                                               'OS_PASSWORD'])
 
     def _prepare_env_daemon(self, task_id):
         self._create_task(task_id)
 
-        try:
-            self._create_directories()
+        rc_file = consts.OPENRC
 
-            rc_file = consts.OPENRC
+        if not self._already_source_openrc():
+            if not os.path.exists(rc_file):
+                message = 'Openrc file not found'
+                LOG.error(message)
+                self._update_task_error(task_id, message)
+                raise RuntimeError(message)
 
-            LOG.info('Checkout Openrc Environment variable')
+            LOG.info('Source openrc file')
+            self._source_file(rc_file)
+
             if not self._already_source_openrc():
-                LOG.info('Openrc variable not found in Environment')
-                if not os.path.exists(rc_file):
-                    LOG.info('Openrc file not found')
-                    installer_ip = os.environ.get('INSTALLER_IP',
-                                                  '192.168.200.2')
-                    installer_type = os.environ.get('INSTALLER_TYPE', 'compass')
-                    LOG.info('Getting openrc file from %s', installer_type)
-                    self._get_remote_rc_file(rc_file,
-                                             installer_ip,
-                                             installer_type)
-                    LOG.info('Source openrc file')
-                    self._source_file(rc_file)
-                    LOG.info('Appending external network')
-                    self._append_external_network(rc_file)
-                LOG.info('Openrc file exist, source openrc file')
+                message = 'Openrc variable not found in Environment'
+                LOG.error(message)
+                self._update_task_error(task_id, message)
+                raise RuntimeError(message)
+
+        try:
+            if not os.environ.get('EXTERNAL_NETWORK'):
+                LOG.info('Appending external network')
+                self._create_directories()
+                self._append_external_network(rc_file)
                 self._source_file(rc_file)
 
             LOG.info('Cleaning images')
@@ -296,22 +296,6 @@ class V1Env(ApiResource):
 
     def _source_file(self, rc_file):
         utils.source_env(rc_file)
-
-    def _get_remote_rc_file(self, rc_file, installer_ip, installer_type):
-
-        os_fetch_script = os.path.join(consts.RELENG_DIR, consts.FETCH_SCRIPT)
-
-        try:
-            cmd = [os_fetch_script, '-d', rc_file, '-i', installer_type,
-                   '-a', installer_ip]
-            p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-            p.communicate()
-
-            if p.returncode != 0:
-                LOG.error('Failed to fetch credentials from installer')
-        except OSError as e:
-            if e.errno != errno.EEXIST:
-                raise
 
     def _append_external_network(self, rc_file):
         neutron_client = openstack_utils.get_neutron_client()
