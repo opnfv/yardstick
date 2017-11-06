@@ -34,6 +34,24 @@
       "revId": "e6d7b730350db63e2ecd2097c8a867615573a235",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d746e420",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2017-11-06T05:49:09Z",
+      "side": 1,
+      "message": "Maybe I didn\u0027t express clearly. What I mean is to set multiple env variables at one time[1].\nENV PYTHONPATH\u003d\"***\"\n    REPOS_DIR\u003d\"***\"\nI think it is also easy to read and produces a single layer.\n\n[1] https://docs.docker.com/engine/reference/builder/#env",
+      "parentUuid": "9a3d3df0_f7968893",
+      "revId": "e6d7b730350db63e2ecd2097c8a867615573a235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
