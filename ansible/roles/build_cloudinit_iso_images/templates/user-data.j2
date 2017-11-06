@@ -1,0 +1,26 @@
+#cloud-config
+
+disable_root: 0
+ssh_pwauth:   1
+chpasswd:
+  list: |
+    root:s
+    ubuntu:s
+  expire: false
+
+write_files:
+{% if "http_proxy" in proxy_env or "https_proxy" in proxy_env %}
+  - path: /etc/environment
+    content: |
+{% for proxy, url in proxy_env.iteritems() %}
+      {{ proxy }}={{ url }}
+{% endfor %}
+
+  - path: /etc/profile.d/proxy.sh
+    content: |
+{% for proxy, url in proxy_env.iteritems() %}
+      export {{ proxy }}={{ url }}
+{% endfor %}
+
+{% endif %}
+

@@ -12,15 +12,49 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 import logging
+import os
 from yardstick import ssh
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts import common
+from yardstick.common.constants import ANSIBLE_DIR
 from collections import OrderedDict
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
+from yardstick.common.ansible_common import AnsibleCommon
+import tempfile
 
 LOG = logging.getLogger(__name__)
+
+
+class CloudInit(object):
+
+    DEFAULT_IMAGE_PATH = '/var/lib/yardstick'
+
+    def __init__(self, node, cfg=None):
+        self.node = node
+        self.cfg = node.get('cloud_init', {})
+
+    def generate_iso_images(self):
+        if not self.cfg.get('generate_iso_images', False):
+            return
+
+        tmpdir = tempfile.mkdtemp(prefix='ansible-')
+        playbook_vars = copy.deepcopy(self.cfg)
+        playbook_vars['vm_path'] = tmpdir
+        ansible_exec = AnsibleCommon(nodes=[self.node], test_vars=playbook_vars)
+        ansible_exec.gen_inventory_ini_dict()
+        ansible_exec.execute_ansible(os.path.join(ANSIBLE_DIR, 'build_cloudinit_iso_images.yml'),
+                                     tmpdir)
+
+    @property
+    def iso_image_path(self):
+        return self.cfg.get('iso_image_path', self.DEFAULT_IMAGE_PATH)
+
+    @property
+    def enabled(self):
+        return self.cfg.get('enabled', False)
 
 
 class StandaloneBase(Context):
@@ -45,11 +79,11 @@ class StandaloneBase(Context):
         self.host_mgmt = None
         self.connection = None
         self.networks = None
+        self.cloud_init = None
         super(StandaloneBase, self).__init__()
 
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
-
         self.name = attrs["name"]
         self.file_path = attrs.get("file", "pod.yaml")
 
@@ -62,6 +96,8 @@ class StandaloneBase(Context):
         self.vm_deploy = attrs.get("vm_deploy", True)
         # add optional static network definition
         self.networks = OrderedDict(sorted(attrs.get("networks", {}).items()))
+
+        self.cloud_init = CloudInit(self.nfvi_host[0])
 
         LOG.debug("Nodes: %r", self.nodes)
         LOG.debug("NFVi Node: %r", self.nfvi_host)
@@ -125,6 +161,14 @@ class StandaloneBase(Context):
                 if vkey == "mgmt":
                     continue
                 self._enable_interfaces(vm_index, port_index, vfs, cfg)
+
+            if self.cloud_init.enabled:
+                self.cloud_init.generate_iso_images()
+                iso_image_path = '{0}/vm{1}/vm{1}-cidata.iso'.format(
+                    self.cloud_init.iso_image_path,
+                    vm_index,
+                )
+                model.add_nodata_source(cfg, iso_image_path)
 
             # copy xml to target...
             self.connection.put(cfg, cfg)

@@ -20,3 +20,10 @@ nodes:
     user: {{host.user}}
     password: {{host.password}}
     key_filename: {{host.key_filename}}
+    cloud_init:
+        enabled: True
+        generate_iso_images: True
+        mgmt_addr: '1.1.1.1/8'
+        vm_count: 1
+        vm_address_offset: 100
+        iso_image_path: '/var/lib/yardstick'

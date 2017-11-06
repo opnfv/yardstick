@@ -72,7 +72,7 @@ class SriovContextTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.benchmark.contexts.standalone.base.model')
     def test_init(self, mock_model):
-        mock_model.parse_pod_file.return_value = [{}, {}, {}]
+        mock_model.parse_pod_file.return_value = [{}, [{}], {}]
         self.assertIsNone(self.sriov.init(self.ATTRS))
 
     @mock.patch('yardstick.ssh.SSH')
@@ -292,6 +292,8 @@ class SriovContextTestCase(unittest.TestCase):
         self.sriov.configure_nics = mock.Mock(return_value="")
         mock_libvirt.build_vm_xml = mock.Mock(return_value=[6, "00:00:00:00:00:01"])
         self.sriov._enable_interfaces = mock.Mock(return_value="")
+        self.sriov.cloud_init = mock.Mock()
+        self.sriov.cloud_init.enabled.return_value = True
         self.assertIsNotNone(self.sriov.setup_context())
 
     def test__get_vf_data(self):
