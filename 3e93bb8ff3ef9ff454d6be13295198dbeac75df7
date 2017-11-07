@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_1dba2b0a",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-07T09:43:17Z",
+      "side": 1,
+      "message": "Also we should test the new change, which is inventory_config.optionxform \u003d str.\n\nWe should test the same string but with and without capital letters.",
+      "parentUuid": "9a3d3df0_1aeeb1b4",
+      "range": {
+        "startLine": 207,
+        "startChar": 12,
+        "endLine": 207,
+        "endChar": 29
+      },
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5a2f99f6",
         "filename": "tests/unit/common/test_ansible_common.py",
         "patchSetId": 5
@@ -172,6 +196,30 @@
       "side": 1,
       "message": "you need to mock\n\n \u0027{}.ConfigParser.ConfigParser\u0027.format(PREFIX)\n\nand it needs to return something that has:\n\n* add_section(section_name)\n* remove_section(section_name)\n* set(section_name, key, value)\n* write(txt)\n\nthen there\u0027s:\n\n \u0027{}.TempfileContext\u0027.format(PREFIX)\n\nwhich, since you may want to test the code within it, you may want to patch after entering the unit test. something like:\n\n def test_(self, *_):\n   mock_file_handle \u003d mock.Mock()\n   custom_tempfile_context \u003d TempfileContext(...)\n   custom_tempfile_context.creator \u003d mock.Mock(return_value\u003dmock_file_handle)\n   with mock.patch(\u0027{}.TempfileContext\u0027.format(PREFIX)) as mock_tempfile_context:\n     mock_tempfile_context.return_value \u003d custom_tempfile_context\n     ...\n\nbasically, you want to have a real TempfileContext, but inject our own \u0027creator\u0027 method.\n\nunless you\u0027d rather patch \u0027{}.os.path.exists\u0027.format(PREFIX) such that it doesn\u0027t use the \u0027creator\u0027 method.",
       "parentUuid": "9a3d3df0_face6d82",
+      "range": {
+        "startLine": 211,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 23
+      },
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3d91ef99",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-07T09:43:17Z",
+      "side": 1,
+      "message": "Be careful: the more we mock, the more far from the reality we are.\n\nPassing a real directory and then deleting it it\u0027s perfectly correct, avoinding to mock so many things.\n\nI recommend to keep the creating of the tmp dir and then deleting it.",
+      "parentUuid": "9a3d3df0_3af3b59f",
       "range": {
         "startLine": 211,
         "startChar": 8,
