@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_3d30cf00",
+        "filename": "tox.ini",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-07T17:33:05Z",
+      "side": 1,
+      "message": "I think we should use pylint: it\u0027s more strict and flexible [1]\n\n[1] https://github.com/seanfisk/python-project-template/issues/31",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 46
+      },
+      "revId": "69665658b0f21721bac6f1dc91ed133763148c2e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_dd20c3b2",
+        "filename": "tox.ini",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-07T17:33:05Z",
+      "side": 1,
+      "message": "* Only one should be executed. I prefer pylint\n* If the first command fails, the second one is not executed.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 55
+      },
+      "revId": "69665658b0f21721bac6f1dc91ed133763148c2e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
