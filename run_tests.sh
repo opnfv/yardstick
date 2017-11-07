@@ -12,6 +12,7 @@
 # Run yardstick's flake8, unit, coverage, functional test
 
 getopts ":f" FILE_OPTION
+opts=$@ # get other args
 
 # don't write .pyc files this can cause odd unittest results
 export PYTHONDONTWRITEBYTECODE=1
@@ -45,11 +46,8 @@ run_tests() {
 }
 
 run_coverage() {
-    # don't re-run coverage on both py27 py3, it takes too long
-    if [[ -z $SKIP_COVERAGE ]] ; then
-        source $COVER_DIR_NAME/cover.sh
-        run_coverage_test
-    fi
+    source $COVER_DIR_NAME/cover.sh
+    run_coverage_test
 }
 
 run_functional_test() {
@@ -68,7 +66,14 @@ run_functional_test() {
     fi
 }
 
+if [[ $opts =~ "--unit" ]]; then
+    run_tests
+fi
 
-run_tests
-run_coverage
-run_functional_test
+if [[ $opts =~ "--coverage" ]]; then
+    run_coverage
+fi
+
+if [[ $opts =~ "--functional" ]]; then
+    run_functional_test
+fi
