@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_a00dd839",
+        "filename": "yardstick/benchmark/contexts/standalone/base.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-07T18:16:21Z",
+      "side": 1,
+      "message": "where is the check for having called self.init()?\n\nof course, L151 will error if init hasn\u0027t been called.",
+      "revId": "39026de216f88c7aa96ee0bf91aa5db45fc26059",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
