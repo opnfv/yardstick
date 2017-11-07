@@ -16,6 +16,24 @@
       "revId": "8f498f573dacfc8e6f12e868ce333df23cd94508",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3afd753b",
+        "filename": "api/resources/v1/env.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2017-11-07T06:35:36Z",
+      "side": 1,
+      "message": "yes, if openrc file exists, I will help to source it. So it is needed. And I will recheck it bellow.",
+      "parentUuid": "9a3d3df0_9aebe1af",
+      "revId": "8f498f573dacfc8e6f12e868ce333df23cd94508",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
