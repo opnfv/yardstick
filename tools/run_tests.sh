@@ -20,7 +20,7 @@ export PYTHONDONTWRITEBYTECODE=1
 PY_VER="py$( python --version | sed 's/[^[:digit:]]//g' | cut -c-2 )"
 export PY_VER
 
-COVER_DIR_NAME="./tests/ci/"
+COVER_DIR_NAME="./tools/"
 export COVER_DIR_NAME
 
 run_tests() {
