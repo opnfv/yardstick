@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_2047084d",
+        "filename": "samples/vnf_samples/nsut/prox/configs/tuples.lua",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-07T19:31:02Z",
+      "side": 1,
+      "message": "Is the \";\" required?",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 3
+      },
+      "revId": "b9815a865f09a290d068192ebdbd45c445f467ef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
