@@ -34,6 +34,24 @@
       "revId": "8f498f573dacfc8e6f12e868ce333df23cd94508",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7d19b787",
+        "filename": "api/resources/v1/env.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-07T17:55:08Z",
+      "side": 1,
+      "message": "agreed: we need the code within the else clause, but does that code need to be contained within the else clause?\n\nalternately: the only way to execute L268 is by executing the code of the else clause, so that code may as well be part of the main clause, so what i would prefer looks like:\n\n if not exists:\n   ...\n   raise RuntimeError\n\n LOG.info(\u0027source\u0027)\n self._source_file(rc_file)\n if not already_sourced:\n   ...\n ...\n\nwith no else clauses.",
+      "parentUuid": "9a3d3df0_3afd753b",
+      "revId": "8f498f573dacfc8e6f12e868ce333df23cd94508",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
