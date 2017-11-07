@@ -10,7 +10,6 @@
 """ Handler for yardstick command 'scenario' """
 
 from __future__ import absolute_import
-from __future__ import print_function
 from yardstick.benchmark.scenarios.base import Scenario
 from yardstick.benchmark.core import print_hbar
 
@@ -27,9 +26,9 @@ class Scenarios(object):    # pragma: no cover
         print_hbar(78)
         print("| %-16s | %-60s" % ("Type", "Description"))
         print_hbar(78)
-        for stype in types:
-            print("| %-16s | %-60s" % (stype.__scenario_type__,
-                                       stype.__doc__.split("\n")[0]))
+        for scenario_class in types:
+            print("| %-16s | %-60s" % (scenario_class.get_scenario_type(),
+                                       scenario_class.get_description()))
         print_hbar(78)
 
     def show(self, args):
