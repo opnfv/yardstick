@@ -243,19 +243,6 @@ class ResourceProfile(object):
         }
         self._provide_config_file(config_file_path, self.COLLECTD_CONF, kwargs)
 
-    def _setup_intel_pmu(self, connection, bin_path):
-        pmu_event_path = os.path.join(bin_path, "pmu_event.json")
-        try:
-            self.plugins["intel_pmu"]["pmu_event_path"] = pmu_event_path
-        except KeyError:
-            # if intel_pmu is not a dict, force it into a dict
-            self.plugins["intel_pmu"] = {"pmu_event_path": pmu_event_path}
-        LOG.debug("Downloading event list for pmu_stats plugin")
-        cmd = 'cd {0}; PMU_EVENTS_PATH={1} python event_download_local.py'.format(
-            bin_path, pmu_event_path)
-        cmd = "sudo bash -c '{}'".format(cmd)
-        connection.execute(cmd)
-
     def _setup_ovs_stats(self, connection):
         try:
             socket_path = self.plugins["ovs_stats"].get("ovs_socket_path", self.OVS_SOCKET_PATH)
@@ -282,8 +269,6 @@ class ResourceProfile(object):
             # connection.execute("sudo %s '%s' '%s'" % (
             #     collectd_installer, http_proxy, https_proxy))
             return
-        if "intel_pmu" in self.plugins:
-            self._setup_intel_pmu(connection, bin_path)
         if "ovs_stats" in self.plugins:
             self._setup_ovs_stats(connection)
 
