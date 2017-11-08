@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_2b3089e7",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-08T10:54:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_b7452072",
+      "range": {
+        "startLine": 363,
+        "startChar": 10,
+        "endLine": 363,
+        "endChar": 16
+      },
+      "revId": "165aa9754bb37a84f3e12600d6beaa770a4081d0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_574e5497",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_8b4ef56d",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-08T10:54:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_574e5497",
+      "range": {
+        "startLine": 388,
+        "startChar": 7,
+        "endLine": 388,
+        "endChar": 13
+      },
+      "revId": "165aa9754bb37a84f3e12600d6beaa770a4081d0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f75e8844",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2017-11-06T13:51:13Z",
       "side": 1,
       "message": "Be careful, above `rm` command will delete container completely i.e. everything on this container will be lost.",
+      "range": {
+        "startLine": 703,
+        "startChar": 13,
+        "endLine": 703,
+        "endChar": 67
+      },
+      "revId": "165aa9754bb37a84f3e12600d6beaa770a4081d0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4b350dd9",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-08T10:54:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_f75e8844",
       "range": {
         "startLine": 703,
         "startChar": 13,
