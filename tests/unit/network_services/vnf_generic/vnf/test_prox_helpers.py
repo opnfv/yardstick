@@ -533,20 +533,6 @@ class TestProxSocketHelper(unittest.TestCase):
         result = prox.hz()
         self.assertEqual(result, expected)
 
-    def test_rx_stats(self, mock_time):
-        core_stats = [
-            '3,4,5,6',
-            '7,8,9,10,NaN',
-            '11,12,13,14,15',
-        ]
-
-        mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
-        prox.get_data = mock.MagicMock(side_effect=core_stats)
-        expected = 21, 24, 27, 14
-        result = prox.rx_stats([3, 4, 5], 16)
-        self.assertEqual(result, expected)
-
     def test_core_stats(self, mock_time):
         core_stats = [
             '3,4,5,6',
