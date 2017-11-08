@@ -314,6 +314,87 @@ For unistalling Yardstick, just delete the virtual environment::
   rm -rf ~/yardstick_venv
 
 
+Install Yardstick directly in OpenSUSE
+---------------------------------------
+
+.. _install-framework:
+
+You can install Yardstick framework directly in OpenSUSE.
+
+
+Install Yardstick
+^^^^^^^^^^^^^^^^^^^^^
+
+Prerequisite preparation::
+
+  zypper -n install -y gcc \
+  wget \
+  git \
+  sshpass \
+  qemu-tools \
+  kpartx \
+  libffi-devel \
+  libopenssl-devel \
+  python \
+  python-devel \
+  python-virtualenv \
+  libxml2-devel \
+  libxslt-devel \
+  python-setuptools-git
+
+Create a virtual environment::
+
+  virtualenv ~/yardstick_venv
+  export YARDSTICK_VENV=~/yardstick_venv
+  source ~/yardstick_venv/bin/activate
+  easy_install -U setuptools
+
+Download the source code and install Yardstick from it::
+
+  git clone https://gerrit.opnfv.org/gerrit/yardstick
+  export YARDSTICK_REPO_DIR=~/yardstick
+  cd yardstick
+  python setup.py install
+  pip install -r requirements.txt
+
+Install missing python modules::
+
+  pip install pyyaml \
+  oslo_utils \
+  oslo_serialization \
+  oslo_config \
+  paramiko \
+  python.heatclient \
+  python.novaclient \
+  python.glanceclient \
+  python.neutronclient \
+  scp \
+  jinja2
+
+Configure the Yardstick environment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Source the OpenStack environment variables::
+
+  source DEVSTACK_DIRECTORY/openrc
+
+Export the Openstack external network. The default installation of Devstack names the external network public::
+
+  export EXTERNAL_NETWORK=public
+  export OS_USERNAME=demo
+
+Change the API version used by Yardstick to v2.0 (the devstack openrc sets it to v3)::
+
+  export OS_AUTH_URL=http://PUBLIC_IP_ADDRESS:5000/v2.0
+
+
+Uninstall Yardstick
+^^^^^^^^^^^^^^^^^^^^^^
+
+For unistalling Yardstick, just delete the virtual environment::
+
+  rm -rf ~/yardstick_venv
+
+
 Verify the installation
 -----------------------------
 
