@@ -19,7 +19,7 @@ chainmap==1.0.2		# Python Software Foundation License; OSI Approved  Python Soft
 cliff==2.4.0		# OSI Approved  Apache Software License
 cmd2==0.6.9		# MIT; OSI Approved  MIT License
 coverage==4.3.4		# Apache 2.0; OSI Approved  Apache Software License; http://www.apache.org/licenses/LICENSE-2.0; http://www.apache.org/licenses/LICENSE-2.0
-debtcollector==1.11.0		# OSI Approved  Apache Software License
+debtcollector==0.1.0		# OSI Approved  Apache Software License
 django==1.8.17		# BSD; OSI Approved  BSD License
 docker-py==1.10.6		# OSI Approved  Apache Software License
 ecdsa==0.13		# MIT
