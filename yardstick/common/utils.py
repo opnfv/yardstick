@@ -76,7 +76,7 @@ def import_modules_from_package(package):
     """
     yardstick_root = os.path.dirname(os.path.dirname(yardstick.__file__))
     path = os.path.join(yardstick_root, *package.split("."))
-    for root, dirs, files in os.walk(path):
+    for root, _, files in os.walk(path):
         matches = (filename for filename in files if filename.endswith(".py") and
                    not filename.startswith("__"))
         new_package = os.path.relpath(root, yardstick_root).replace(os.sep, ".")
@@ -350,10 +350,13 @@ def config_to_dict(config):
 
 
 def validate_non_string_sequence(value, default=None, raise_exc=None):
+    # NOTE(ralonsoh): refactor this function to check if raise_exc is an
+    # Exception. Remove duplicate code, this function is duplicated in this
+    # repository.
     if isinstance(value, collections.Sequence) and not isinstance(value, six.string_types):
         return value
     if raise_exc:
-        raise raise_exc
+        raise raise_exc  # pylint: disable=raising-bad-type
     return default
 
 
@@ -363,6 +366,13 @@ def join_non_strings(separator, *non_strings):
     except (IndexError, RuntimeError):
         pass
     return str(separator).join(str(non_string) for non_string in non_strings)
+
+
+def safe_decode_utf8(s):
+    """Safe decode a str from UTF"""
+    if six.PY3 and isinstance(s, bytes):
+        return s.decode('utf-8', 'surrogateescape')
+    return s
 
 
 class ErrorClass(object):
