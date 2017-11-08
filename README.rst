@@ -48,7 +48,7 @@ For more information on Yardstick architecture, please read:
 Installation
 ------------
 
-Yardstick supports installation on Ubuntu 14.04 or via a Docker image.
+Yardstick supports installation on Ubuntu 14.04, OpenSUSE Leap 42.2, 42.3 and Tumbleweed  or via a Docker image.
 
 To learn how to install Yardstick, consult the documentation available online
 at:
