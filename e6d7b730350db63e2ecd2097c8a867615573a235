@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_601c7078",
+        "filename": "ansible/build_yardstick_image.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5439
+      },
+      "writtenOn": "2017-11-08T10:09:02Z",
+      "side": 1,
+      "message": "At the \"convert image to image file\" section,\nwe need to use the value {{ imgfile }}\nso I have to set this value \"set_fact\"",
+      "parentUuid": "9a3d3df0_fa682dbc",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "e6d7b730350db63e2ecd2097c8a867615573a235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f7afa8e1",
         "filename": "docker/Dockerfile",
         "patchSetId": 2
