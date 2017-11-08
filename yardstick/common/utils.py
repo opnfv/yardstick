@@ -365,6 +365,13 @@ def join_non_strings(separator, *non_strings):
     return str(separator).join(str(non_string) for non_string in non_strings)
 
 
+def safe_decode_utf8(s):
+    """Safe decode a str from UTF"""
+    if six.PY3 and isinstance(s, bytes):
+        return s.decode('utf-8', 'surrogateescape')
+    return s
+
+
 class ErrorClass(object):
 
     def __init__(self, *args, **kwargs):

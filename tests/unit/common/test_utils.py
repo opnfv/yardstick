@@ -11,15 +11,15 @@
 
 from __future__ import absolute_import
 
-import ipaddress
-import os
-import unittest
 from copy import deepcopy
-from itertools import product, chain
-
 import errno
+import ipaddress
+from itertools import product, chain
 import mock
+import os
+import six
 from six.moves import configparser
+import unittest
 
 import yardstick
 from yardstick.common import utils
@@ -1061,6 +1061,17 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
         value_iter = (''.join(pair) for pair in product(addr_list, mask_list))
         for value in chain(value_iter, self.INVALID_IP_ADDRESS_STR_LIST):
             self.assertEqual(utils.ip_to_hex(value), value)
+
+
+class SafeDecodeUtf8TestCase(unittest.TestCase):
+
+    @unittest.skipIf(six.PY2,
+                     'This test should be launch only with Python 3.x')
+    def test_safe_decode_utf8(self):
+        _bytes = b'this is a byte array'
+        out = utils.safe_decode_utf8(_bytes)
+        self.assertIs(type(out), str)
+        self.assertEqual('this is a byte array', out)
 
 
 def main():
