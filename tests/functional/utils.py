@@ -7,14 +7,12 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import absolute_import
-
 import copy
 import os
-import subprocess
 
 from oslo_serialization import jsonutils
-from oslo_utils import encodeutils
+
+from yardstick.common import process
 
 
 class Yardstick(object):
@@ -26,38 +24,22 @@ class Yardstick(object):
 
     """
 
-    def __init__(self, fake=False):
-
-        self.args = ["yardstick"]
+    def __init__(self):
+        self._args = ["yardstick"]
         self.env = copy.deepcopy(os.environ)
 
-    def __del__(self):
-        pass
-
-    def __call__(self, cmd, getjson=False, report_path=None, raw=False,
-                 suffix=None, extension=None, keep_old=False,
-                 write_report=False):
+    def __call__(self, cmd, getjson=False):
         """Call yardstick in the shell
 
-        :param cmd: yardstick command
-        :param getjson: in cases, when yardstick prints JSON, you can catch
-         output deserialized
-        TO DO:
-        :param report_path: if present, yardstick command and its output will
-         be written to file with passed file name
-        :param raw: don't write command itself to report file. Only output
-            will be written
+        :param cmd: Yardstick command.
+        :param getjson: If the output is a JSON object, it's deserialized.
+        :return Command output string.
         """
 
         if not isinstance(cmd, list):
             cmd = cmd.split(" ")
-        try:
-            output = encodeutils.safe_decode(subprocess.check_output(
-                self.args + cmd, stderr=subprocess.STDOUT, env=self.env),
-                'utf-8')
-
-            if getjson:
-                return jsonutils.loads(output)
-            return output
-        except subprocess.CalledProcessError as e:
-            raise e
+        cmd = self._args + cmd
+        output = process.execute(cmd=cmd)
+        if getjson:
+            return jsonutils.loads(output)
+        return output
