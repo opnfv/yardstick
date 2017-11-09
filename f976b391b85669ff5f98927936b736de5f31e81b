@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_a6ecd090",
+        "filename": "run_tests.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-09T09:03:38Z",
+      "side": 1,
+      "message": "Just a suggestion. Let me know what do you think.\n\nMake these options exclusive and add a warning message (with error exit):\nif [[ $opts \u003d~ \"--unit\" ]]; then\n    run_tests\nelif [[ $opts \u003d~ \"--coverage\" ]]; then\n    run_coverage\nelif [[ $opts \u003d~ \"--functional\" ]]; then\n    run_functional_test\nelse\n    echo \"Ehhhhhhh, you need to add an option!!!!!!!!!!!!\"\n    exit 1\nfi",
+      "revId": "f976b391b85669ff5f98927936b736de5f31e81b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a65e9074",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-09T09:03:38Z",
+      "side": 1,
+      "message": "py{27,3}, for consistency",
+      "range": {
+        "startLine": 4,
+        "startChar": 10,
+        "endLine": 4,
+        "endChar": 18
+      },
+      "revId": "f976b391b85669ff5f98927936b736de5f31e81b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_86ef0c87",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-09T09:03:38Z",
+      "side": 1,
+      "message": "This should be removed. With comment in L14 is not used.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 33
+      },
+      "revId": "f976b391b85669ff5f98927936b736de5f31e81b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_26e1e09a",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-09T09:03:38Z",
+      "side": 1,
+      "message": "py27 and py3 are executing the same test and scenario.\n\n* You need to create a py27 env and a py3 env.\n* this section [testenv] commands could be removed.\n\n\n[testenv:py27]\ncommands \u003d\n  /bin/bash ./run_tests.sh --unit\n\n[testenv:py3]\nbasepython \u003d python3  ## **You are missing this part!!**\ncommands \u003d {[testenv:py27]commands}",
+      "revId": "f976b391b85669ff5f98927936b736de5f31e81b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
