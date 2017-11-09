@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_a67170e2",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-09T10:17:56Z",
+      "side": 1,
+      "message": "should this be \u003e 1?",
+      "revId": "fa6a09e9c9d72fda904633b1368c26101c227b81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_06781cc3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-09T10:17:56Z",
+      "side": 1,
+      "message": "deploy VNF in NSB code has usually meant the downloading and installing of the VNF.\n\ndeploy_vnfs sounds more like a SetupHelper method.\n\nit looks more like setup_vnf_environment method.\n\nOr you could just place called it whatever, like configure_routes and call it here from instantiate\n\n\n def configure_routes(self):\n     ...\n\n  def instantiate(self, scenario_cfg, context_cfg):\n     ...\n     self.configure_routes()",
+      "revId": "fa6a09e9c9d72fda904633b1368c26101c227b81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e67258e2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-09T10:17:56Z",
+      "side": 1,
+      "message": "is there a way we can check if the config is loaded?\n\nit would be nice to poll something instead of just waiting.",
+      "revId": "fa6a09e9c9d72fda904633b1368c26101c227b81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_46822495",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-09T10:17:56Z",
+      "side": 1,
+      "message": "yes, in general these packet stats aren\u0027t really helpful, in practice we usually just use TG stats.",
+      "revId": "fa6a09e9c9d72fda904633b1368c26101c227b81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
