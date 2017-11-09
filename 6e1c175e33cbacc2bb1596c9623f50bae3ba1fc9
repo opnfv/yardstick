@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_661648a9",
+        "filename": ".pylintrc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-09T08:38:18Z",
+      "side": 1,
+      "message": "Where does this file came from?",
+      "revId": "6e1c175e33cbacc2bb1596c9623f50bae3ba1fc9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e621b8fd",
+        "filename": ".pylintrc",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-09T08:38:18Z",
+      "side": 1,
+      "message": "The \"disable\" option should have the options documented in https://paste.ofcode.org/q6Rvh7ZPahDeHaBEkGq74L (L4-L72).\n\nAlso could be very useful to have one per line.",
+      "revId": "6e1c175e33cbacc2bb1596c9623f50bae3ba1fc9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_264560b3",
+        "filename": ".pylintrc",
+        "patchSetId": 8
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-09T08:38:18Z",
+      "side": 1,
+      "message": "reports\u003dyes\n\nThe output should be only the error and warning lines, to avoid extra and not needed information.",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 11
+      },
+      "revId": "6e1c175e33cbacc2bb1596c9623f50bae3ba1fc9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e63a5833",
+        "filename": ".pylintrc",
+        "patchSetId": 8
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-09T08:38:18Z",
+      "side": 1,
+      "message": "ignored-modules\u003dsix.moves,_MovedItems",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 16
+      },
+      "revId": "6e1c175e33cbacc2bb1596c9623f50bae3ba1fc9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_261c40c1",
+        "filename": "tox.ini",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-09T08:38:18Z",
+      "side": 1,
+      "message": "++\n\nSimple and effective! Thanks",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 55
+      },
+      "revId": "6e1c175e33cbacc2bb1596c9623f50bae3ba1fc9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
