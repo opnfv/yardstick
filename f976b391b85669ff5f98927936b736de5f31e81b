@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_51301c01",
+        "filename": "run_tests.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-09T18:15:11Z",
+      "side": 1,
+      "message": "As it, it can run multiple sets of tests at once.\ni.e.\n    ./run_tests.sh --coverage --unit\nThis would run unit AND coverage tests.\n\nThat was the original intention.\nIf the CI runs this script directly (and not through tox), it means that it can run multiple sets of tests together.\n\nIf someone wants to define a new tox target, they can do that too, and just use one command (if two commands are specified, and the first fails, tox doesn\u0027t run subsequent commands).",
+      "parentUuid": "9a3d3df0_a6ecd090",
+      "revId": "f976b391b85669ff5f98927936b736de5f31e81b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_a65e9074",
         "filename": "tox.ini",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2017-11-09T09:03:38Z",
       "side": 1,
       "message": "py{27,3}, for consistency",
+      "range": {
+        "startLine": 4,
+        "startChar": 10,
+        "endLine": 4,
+        "endChar": 18
+      },
+      "revId": "f976b391b85669ff5f98927936b736de5f31e81b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4cba4324",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-09T18:15:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_a65e9074",
       "range": {
         "startLine": 4,
         "startChar": 10,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_2cb53f31",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-09T18:15:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_86ef0c87",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 33
+      },
+      "revId": "f976b391b85669ff5f98927936b736de5f31e81b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_26e1e09a",
         "filename": "tox.ini",
         "patchSetId": 2
@@ -76,6 +142,24 @@
       "writtenOn": "2017-11-09T09:03:38Z",
       "side": 1,
       "message": "py27 and py3 are executing the same test and scenario.\n\n* You need to create a py27 env and a py3 env.\n* this section [testenv] commands could be removed.\n\n\n[testenv:py27]\ncommands \u003d\n  /bin/bash ./run_tests.sh --unit\n\n[testenv:py3]\nbasepython \u003d python3  ## **You are missing this part!!**\ncommands \u003d {[testenv:py27]commands}",
+      "revId": "f976b391b85669ff5f98927936b736de5f31e81b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_312bd895",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-09T18:15:11Z",
+      "side": 1,
+      "message": "I thought that the py27 and py3 environments were built in?\n\nThat was an assumption on my part, it\u0027s easy enough to change though :)",
+      "parentUuid": "9a3d3df0_26e1e09a",
       "revId": "f976b391b85669ff5f98927936b736de5f31e81b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
