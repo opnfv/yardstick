@@ -1,0 +1,220 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_4ce6c3b5",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T08:34:18Z",
+      "side": 1,
+      "message": "Match the lenght",
+      "revId": "60a9d588d985a8e1dc3fcff0663533988443eded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2c4a5fac",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T08:34:18Z",
+      "side": 1,
+      "message": "sudo -EH zypper ...",
+      "revId": "60a9d588d985a8e1dc3fcff0663533988443eded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8cc8cb23",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T08:34:18Z",
+      "side": 1,
+      "message": "Can you double indent the wrapped lines?",
+      "revId": "60a9d588d985a8e1dc3fcff0663533988443eded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6ccbc71e",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T08:34:18Z",
+      "side": 1,
+      "message": "sudo -EH easy_install -U setuptools",
+      "revId": "60a9d588d985a8e1dc3fcff0663533988443eded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ccd2d3d1",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T08:34:18Z",
+      "side": 1,
+      "message": "sudo -EH ...",
+      "revId": "60a9d588d985a8e1dc3fcff0663533988443eded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_acd5cfba",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T08:34:18Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "60a9d588d985a8e1dc3fcff0663533988443eded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0cdcbbe3",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T08:34:18Z",
+      "side": 1,
+      "message": "sudo -EH pip install ...",
+      "revId": "60a9d588d985a8e1dc3fcff0663533988443eded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ecd6b7c2",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T08:34:18Z",
+      "side": 1,
+      "message": "Indentation for wrapped lines",
+      "revId": "60a9d588d985a8e1dc3fcff0663533988443eded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6cf2a770",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T08:34:18Z",
+      "side": 1,
+      "message": "Lenght",
+      "range": {
+        "startLine": 375,
+        "startChar": 0,
+        "endLine": 375,
+        "endChar": 39
+      },
+      "revId": "60a9d588d985a8e1dc3fcff0663533988443eded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2ce1bf9a",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T08:34:18Z",
+      "side": 1,
+      "message": "Please, add an empty line",
+      "revId": "60a9d588d985a8e1dc3fcff0663533988443eded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8cef2b87",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T08:34:18Z",
+      "side": 1,
+      "message": "Wrap the line at 79 chars",
+      "revId": "60a9d588d985a8e1dc3fcff0663533988443eded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cce93382",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T08:34:18Z",
+      "side": 1,
+      "message": "Length",
+      "range": {
+        "startLine": 391,
+        "startChar": 0,
+        "endLine": 391,
+        "endChar": 22
+      },
+      "revId": "60a9d588d985a8e1dc3fcff0663533988443eded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
