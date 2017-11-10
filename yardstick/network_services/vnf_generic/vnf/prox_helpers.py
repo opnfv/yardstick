@@ -509,11 +509,6 @@ class ProxSocketHelper(object):
     def hz(self):
         return self.get_all_tot_stats()[3]
 
-    # Deprecated
-    # TODO: remove
-    def rx_stats(self, cores, task=0):
-        return self.core_stats(cores, task)
-
     def core_stats(self, cores, task=0):
         """Get the receive statistics from the remote system"""
         rx = tx = drop = tsc = 0
