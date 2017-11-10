@@ -70,6 +70,24 @@
       "revId": "5a756e6171ad2d867914793dc2fd8b1aa7a19a6e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_803b6f9b",
+        "filename": "yardstick/benchmark/core/scenario.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-10T12:06:13Z",
+      "side": 0,
+      "message": "on python2 pylint will complain without the print_function import.\n\nscenario.py:27: [C0325]  Unnecessary parens after \u0027print\u0027 keyword [superfluous-parens]",
+      "parentUuid": "9a3d3df0_e0f4fbf3",
+      "revId": "5a756e6171ad2d867914793dc2fd8b1aa7a19a6e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
