@@ -19,6 +19,70 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_ac3f8fd5",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T11:44:09Z",
+      "side": 1,
+      "message": "Agree",
+      "parentUuid": "9a3d3df0_a67170e2",
+      "revId": "fa6a09e9c9d72fda904633b1368c26101c227b81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0c267bce",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T11:44:09Z",
+      "side": 1,
+      "message": "You should call parent class init with all arguments [1]:\n   super(RouterVNF, self).__init__(name, vnfd, setup_env_helper_type, resource_helper_type)\n\n[1] https://github.com/opnfv/yardstick/blob/master/yardstick/network_services/vnf_generic/vnf/sample_vnf.py#L643",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 51
+      },
+      "revId": "fa6a09e9c9d72fda904633b1368c26101c227b81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_20dee36d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T11:44:09Z",
+      "side": 1,
+      "message": "This is not necessary because is written in super(RouterVNF, self).__init__()",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 32
+      },
+      "revId": "fa6a09e9c9d72fda904633b1368c26101c227b81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_06781cc3",
         "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
         "patchSetId": 6
