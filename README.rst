@@ -23,7 +23,7 @@ service performance to be within a certain level of agreement.
 For more information on Yardstick project, please visit:
 
     https://wiki.opnfv.org/display/yardstick/Yardstick
-    http://artifacts.opnfv.org/yardstick/colorado/3.0/docs/userguide/index.html#document-01-introduction
+    http://artifacts.opnfv.org/yardstick/docs/userguide/index.html#document-01-introduction
 
 
 Architecture
@@ -42,7 +42,7 @@ records to a file.
 
 For more information on Yardstick architecture, please read:
 
-    http://artifacts.opnfv.org/yardstick/colorado/3.0/docs/userguide/index.html#document-03-architecture
+    http://artifacts.opnfv.org/yardstick/docs/userguide/index.html#document-03-architecture
 
 
 Installation
@@ -53,7 +53,7 @@ Yardstick supports installation on Ubuntu 14.04 or via a Docker image.
 To learn how to install Yardstick, consult the documentation available online
 at:
 
-    http://artifacts.opnfv.org/yardstick/colorado/3.0/docs/userguide/index.html#document-07-installation
+    http://artifacts.opnfv.org/yardstick/docs/userguide/index.html#document-09-installation
 
 
 Developers
