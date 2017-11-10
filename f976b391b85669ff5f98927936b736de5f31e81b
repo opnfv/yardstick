@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c05c57f0",
+        "filename": "run_tests.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T12:15:27Z",
+      "side": 1,
+      "message": "nit: At least you should add a warning if no options are specified.",
+      "parentUuid": "9a3d3df0_51301c01",
+      "revId": "f976b391b85669ff5f98927936b736de5f31e81b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_a65e9074",
         "filename": "tox.ini",
         "patchSetId": 2
