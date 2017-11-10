@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_40684787",
+        "filename": "api/resources/v1/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T12:32:12Z",
+      "side": 1,
+      "message": "If EXTERNAL_NETWORK shouldn\u0027t be in openrc file (makes sense, is not part of OpenStack resource file), why are we adding it here?",
+      "range": {
+        "startLine": 279,
+        "startChar": 16,
+        "endLine": 279,
+        "endChar": 54
+      },
+      "revId": "7f988b676b84e23c3f7c41d7c580f67fb4da03a3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
