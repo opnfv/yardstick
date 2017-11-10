@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_00475f1e",
+        "filename": ".pylintrc",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-10T12:08:46Z",
+      "side": 1,
+      "message": "99 chars was added to Yardstick to help during the migration.\n\nBecause pep8 is going to run in the CI only for modified files, this should be changed to 79 [1] to start coding according to PEP8 style guide.\n\n\n[1] https://www.python.org/dev/peps/pep-0008/#maximum-line-length",
+      "range": {
+        "startLine": 108,
+        "startChar": 16,
+        "endLine": 108,
+        "endChar": 18
+      },
+      "revId": "e5e926e854a3f5f8228ad7ff378a91e336a9e024",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
