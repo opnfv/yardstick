@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_19c5168e",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-13T15:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_1997d691",
+      "range": {
+        "startLine": 259,
+        "startChar": 32,
+        "endLine": 259,
+        "endChar": 42
+      },
+      "revId": "6837699ad37432d89f7e9b8f8b884a100e7ac85f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f991529b",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-13T15:09:01Z",
       "side": 1,
       "message": "spellcheck",
+      "range": {
+        "startLine": 329,
+        "startChar": 4,
+        "endLine": 329,
+        "endChar": 15
+      },
+      "revId": "6837699ad37432d89f7e9b8f8b884a100e7ac85f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f9bf92fa",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-13T15:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_f991529b",
       "range": {
         "startLine": 329,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_59bf9efb",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-13T15:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_59915e98",
+      "range": {
+        "startLine": 358,
+        "startChar": 47,
+        "endLine": 358,
+        "endChar": 55
+      },
+      "revId": "6837699ad37432d89f7e9b8f8b884a100e7ac85f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_398c5a7f",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2017-11-13T15:09:01Z",
       "side": 1,
       "message": "\"inconvenient\" is the correct word perhaps",
+      "range": {
+        "startLine": 359,
+        "startChar": 38,
+        "endLine": 359,
+        "endChar": 50
+      },
+      "revId": "6837699ad37432d89f7e9b8f8b884a100e7ac85f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_39ba9a0a",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-13T15:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_398c5a7f",
       "range": {
         "startLine": 359,
         "startChar": 38,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_993806a2",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-13T15:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_99eac60d",
+      "range": {
+        "startLine": 423,
+        "startChar": 29,
+        "endLine": 423,
+        "endChar": 41
+      },
+      "revId": "6837699ad37432d89f7e9b8f8b884a100e7ac85f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_79ed4225",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 4
@@ -128,6 +248,30 @@
       "writtenOn": "2017-11-13T15:09:01Z",
       "side": 1,
       "message": "spell check: specify",
+      "range": {
+        "startLine": 570,
+        "startChar": 61,
+        "endLine": 570,
+        "endChar": 67
+      },
+      "revId": "6837699ad37432d89f7e9b8f8b884a100e7ac85f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_793b829c",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-13T15:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_79ed4225",
       "range": {
         "startLine": 570,
         "startChar": 61,
