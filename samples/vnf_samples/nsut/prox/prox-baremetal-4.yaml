@@ -16,7 +16,7 @@
 
 nodes:
 -
-    name: "trafficgen_1"
+    name: "tg_0"
     role: TrafficGen
     ip: 1.1.1.1
     user: "root"
@@ -52,7 +52,7 @@ nodes:
             netmask: "255.255.255.0"
             dpdk_port_num: 3
 -
-    name: "vnf"
+    name: "vnf_0"
     role: VNF
     ip: 1.1.1.2
     user: "root"
