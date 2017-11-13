@@ -46,6 +46,30 @@
       "revId": "7f988b676b84e23c3f7c41d7c580f67fb4da03a3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5904bebf",
+        "filename": "api/resources/v1/env.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-13T15:47:06Z",
+      "side": 1,
+      "message": "You do this customarily? So why are you removing it from the file?\n\nOk, if EXTERNAL_NETWORK is going to be out of openrc, keep it always, don\u0027t append now openrc to add it.\n\nIf EXTERNAL_NETWORK is going to be an env variable, keep it like this.\n\nIf, anyway, you need to save EXTERNAL_NETWORK in a file, don\u0027t use the file which is not meant to store this variable.",
+      "parentUuid": "9a3d3df0_7686f166",
+      "range": {
+        "startLine": 279,
+        "startChar": 16,
+        "endLine": 279,
+        "endChar": 54
+      },
+      "revId": "7f988b676b84e23c3f7c41d7c580f67fb4da03a3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
