@@ -83,6 +83,29 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_395e1a13",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-13T14:30:54Z",
+      "side": 1,
+      "message": "would you like to initiate dpdk?\nIf yes you need to setup this before calling super().__init__() - line 95.\nOtherwise it\u0027s useless to setup it.",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 57
+      },
+      "revId": "fa6a09e9c9d72fda904633b1368c26101c227b81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_20dee36d",
         "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
         "patchSetId": 6
