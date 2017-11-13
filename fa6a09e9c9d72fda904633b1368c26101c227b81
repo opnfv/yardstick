@@ -37,6 +37,29 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_f96312db",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-13T14:19:39Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 73,
+        "startChar": 41,
+        "endLine": 73,
+        "endChar": 51
+      },
+      "revId": "fa6a09e9c9d72fda904633b1368c26101c227b81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_0c267bce",
         "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
         "patchSetId": 6
