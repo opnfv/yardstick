@@ -22,8 +22,8 @@ scenarios:
   topology: prox-tg-topology-2.yaml
 
   nodes:
-    tg__0: trafficgen_1.yardstick
-    vnf__0: vnf.yardstick
+    tg__0: tg_0.yardstick
+    vnf__0: vnf_0.yardstick
 
   options:
     vnf__0:
@@ -40,10 +40,9 @@ scenarios:
         "-t": ""
 
   runner:
-    type: Search
-    # we kill after timeout, independent of test duration, so set this high
-    interval: 5
-    timeout: 1200
+    type: Duration
+    # we kill after duration, independent of test duration, so set this high
+    duration: 300
 
 context:
   type: Node
