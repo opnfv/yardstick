@@ -22,6 +22,30 @@
       "revId": "a311c9d8024f0228ec37b85a8988d5953dbcdaa1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cf48008a",
+        "filename": ".pylintrc",
+        "patchSetId": 11
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-14T19:25:26Z",
+      "side": 1,
+      "message": "Yardstick voted to move to 99.",
+      "parentUuid": "9a3d3df0_0faca834",
+      "range": {
+        "startLine": 108,
+        "startChar": 15,
+        "endLine": 108,
+        "endChar": 18
+      },
+      "revId": "a311c9d8024f0228ec37b85a8988d5953dbcdaa1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
