@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_197876c3",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2017-11-14T00:37:40Z",
+      "side": 1,
+      "message": "Add \" \\\" in the end. like line 51.",
+      "revId": "d857b69cf30b93cf0a7184963c3cdaa6d6e1899f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f972f2e1",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2017-11-14T00:37:40Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "d857b69cf30b93cf0a7184963c3cdaa6d6e1899f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5982fe94",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1469
+      },
+      "writtenOn": "2017-11-14T00:37:40Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "d857b69cf30b93cf0a7184963c3cdaa6d6e1899f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
