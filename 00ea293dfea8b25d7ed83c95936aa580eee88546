@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_8f78b890",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_all-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-14T13:15:06Z",
+      "side": 1,
+      "message": "I don\u0027t know if the changes here are in the scope of the Jira issue",
+      "revId": "00ea293dfea8b25d7ed83c95936aa580eee88546",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ef6fc4c3",
+        "filename": "samples/vnf_samples/nsut/prox/prox-baremetal-1.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-14T13:15:06Z",
+      "side": 1,
+      "message": "It\u0027s out of scope, but you can remove it",
+      "range": {
+        "startLine": 33,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 4
+      },
+      "revId": "00ea293dfea8b25d7ed83c95936aa580eee88546",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
