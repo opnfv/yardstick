@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_c9dd9b72",
+        "filename": "requirements.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-15T16:04:59Z",
+      "side": 0,
+      "message": "This should be moved to test-requirements",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 9
+      },
+      "revId": "5b5cb96b8b09130885aafa439d80c7ca6b22142a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
