@@ -10,8 +10,8 @@
 
 schema: "yardstick:task:0.1"
 description: >
-    Test case for TC051 :OpenStack Controller Node CPU Overload High Availability;
-    This test case is written by new scenario-based HA testing framework.
+    Yardstick TC051 config file;
+    HA test case: OpenStack Controller Node CPU Overload High Availability.
 
 {% set file = file or '/etc/yardstick/pod.yaml' %}
 {% set attack_host = attack_host or "node1" %}

@@ -10,8 +10,8 @@
 
 schema: "yardstick:task:0.1"
 description: >
-    Test case for TC054 :OpenStack VIP Master Node abnormally shutdown High Availability;
-    This test case is written by new scenario-based HA testing framework.
+    Yardstick TC054 config file;
+    HA test case: OpenStack VIP Master Node abnormally shutdown High Availability.
 
 {% set jump_host = jump_host or 'node0' %}
 {% set attack_host = attack_host or 'node1' %}
