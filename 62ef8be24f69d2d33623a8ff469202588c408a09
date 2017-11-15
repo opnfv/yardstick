@@ -108,6 +108,30 @@
       "revId": "62ef8be24f69d2d33623a8ff469202588c408a09",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8a93864e",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 6507
+      },
+      "writtenOn": "2017-11-15T04:35:13Z",
+      "side": 1,
+      "message": "why is this incorrect?",
+      "parentUuid": "9a3d3df0_cf2f72a0",
+      "range": {
+        "startLine": 171,
+        "startChar": 8,
+        "endLine": 171,
+        "endChar": 60
+      },
+      "revId": "62ef8be24f69d2d33623a8ff469202588c408a09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
