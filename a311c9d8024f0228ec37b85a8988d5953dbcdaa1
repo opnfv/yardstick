@@ -46,6 +46,30 @@
       "revId": "a311c9d8024f0228ec37b85a8988d5953dbcdaa1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_653595d9",
+        "filename": ".pylintrc",
+        "patchSetId": 11
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-15T09:36:31Z",
+      "side": 1,
+      "message": "This is an arbitrary line lenght without any standard support. Because this check is going to be applied in new code, we should start enforcing this limitation to new code.\n\nThose kind of things shouldn\u0027t be arguable because are against a standard.",
+      "parentUuid": "9a3d3df0_cf48008a",
+      "range": {
+        "startLine": 108,
+        "startChar": 15,
+        "endLine": 108,
+        "endChar": 18
+      },
+      "revId": "a311c9d8024f0228ec37b85a8988d5953dbcdaa1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
