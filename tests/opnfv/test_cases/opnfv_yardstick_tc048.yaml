@@ -10,7 +10,7 @@
 
 schema: "yardstick:task:0.1"
 description: >
-    Test case for TC048 :Control node Openstack service down - cinder api.
+    HA test case: Control node Openstack service down - cinder-api.
 
 {% set file = file or '/etc/yardstick/pod.yaml' %}
 {% set attack_host = attack_host or "node1" %}

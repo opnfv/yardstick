@@ -10,11 +10,7 @@
 
 schema: "yardstick:task:0.1"
 description: >
-    Sample test case for the HA of OpenStack Controll Node abnormally shutdown.
-    In order to power on the shutdown node after testing, the jumphost is
-    required to install ipmitool. Ipmi jumphost info and each nodes' ipmi ip,
-    username, password are needed in pod file (There is a sample pod file in
-    "etc/yardstick/nodes/pod.yaml.ipmi.sample").
+    HA test case: OpenStack Controll Node abnormally shutdown.
 
 {% set file = file or '/etc/yardstick/pod.yaml' %}
 {% set jump_host = jump_host or 'node0' %}
