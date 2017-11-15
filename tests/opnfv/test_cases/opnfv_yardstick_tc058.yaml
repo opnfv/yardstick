@@ -10,9 +10,7 @@
 
 schema: "yardstick:task:0.1"
 description: >
-    Test case for TC058 :OpenStack Controller Virtual Router Service High
-    Availability;
-    This test case is written by scenario-based HA testing framework.
+    HA test case: OpenStack Controller Virtual Router Service High Availability.
 
 {% set file = file or '/etc/yardstick/pod.yaml' %}
 {% set image = image or 'yardstick-image' %}

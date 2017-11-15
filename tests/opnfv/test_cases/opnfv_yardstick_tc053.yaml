@@ -10,8 +10,7 @@
 
 schema: "yardstick:task:0.1"
 description: >
-    Test case for TC053 :Openstack Controller Load Balance Service High Availability;
-    This test case is written by new scenario-based HA testing framework.
+    HA test case: Openstack Controller Load Balance Service High Availability.
 
 {% set file = file or '/etc/yardstick/pod.yaml' %}
 {% set attack_host = attack_host or "node1" %}
