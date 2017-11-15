@@ -70,6 +70,30 @@
       "revId": "a311c9d8024f0228ec37b85a8988d5953dbcdaa1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e56fe5c3",
+        "filename": ".pylintrc",
+        "patchSetId": 11
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-15T09:42:00Z",
+      "side": 1,
+      "message": "pep8 does allow for the longer line length of 100 (99 characters):\n    https://www.python.org/dev/peps/pep-0008/#maximum-line-length",
+      "parentUuid": "9a3d3df0_653595d9",
+      "range": {
+        "startLine": 108,
+        "startChar": 15,
+        "endLine": 108,
+        "endChar": 18
+      },
+      "revId": "a311c9d8024f0228ec37b85a8988d5953dbcdaa1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
