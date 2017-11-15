@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_4554d120",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 304
+      },
+      "writtenOn": "2017-11-15T15:04:41Z",
+      "side": 1,
+      "message": "does this override any user configuration for what they expect the uplink/downlink port to be?\n\nthis should probably be documented also in the documentation so someone doesn\u0027t have to dig through git logs/code to understand how this works",
+      "revId": "ce52059f5f78912eeff2d97235c1028c218bf960",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
