@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_2f2fe7f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-16T17:58:53Z",
+      "side": 1,
+      "message": "Is this required for the upgrade to Ubuntu 16.04? \nIf it can be done independently, then it should be a separate change.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 44
+      },
+      "revId": "daa92a790be1be926b558039f64efb2e5555b228",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4f2ceb02",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-16T17:58:53Z",
+      "side": 1,
+      "message": "It seems like this is independent of the upgrade to Ubuntu 16.04",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "daa92a790be1be926b558039f64efb2e5555b228",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0ff3039f",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-16T17:58:53Z",
+      "side": 1,
+      "message": "There should be double quotes around this, to be consistent with the rest of the strings",
+      "range": {
+        "startLine": 18,
+        "startChar": 13,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "daa92a790be1be926b558039f64efb2e5555b228",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
