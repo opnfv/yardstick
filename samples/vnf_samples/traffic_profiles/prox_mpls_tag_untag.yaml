@@ -18,7 +18,7 @@ name:            prox_mpls_tag_untag
 description:     MPLS tag/untag for max no-drop throughput over given packet sizes
 
 traffic_profile:
-  traffic_type: ProxMplsTagUntagProfile
+  traffic_type: ProxBinSearchProfile
   tolerated_loss: 0.001
   test_precision: 0.1
 #  packet_sizes: [64, 128, 256, 512, 1024, 1280, 1518]
