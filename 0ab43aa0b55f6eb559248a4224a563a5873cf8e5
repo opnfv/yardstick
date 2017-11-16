@@ -16,6 +16,24 @@
       "revId": "0ab43aa0b55f6eb559248a4224a563a5873cf8e5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0f1e6363",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-16T11:18:40Z",
+      "side": 1,
+      "message": "But this change cause other ERRRORS:\nNameError: global name \u0027SSHError\u0027 is not defined in test__get_cpu_sibling_list_ssh_failure\nand\n File \"yardstick/network_services/vnf_generic/vnf/sample_vnf.py\", line 329, in _setup_resources\n self.socket \u003d 0\nAttributeError: can\u0027t set attribute\nin test__setup_resources\nI\u0027m not sure if they are in scope of this review",
+      "parentUuid": "9a3d3df0_ec018d07",
+      "revId": "0ab43aa0b55f6eb559248a4224a563a5873cf8e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
