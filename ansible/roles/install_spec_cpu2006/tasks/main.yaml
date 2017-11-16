@@ -16,7 +16,7 @@
 
 - name: install SPEC CPU2006
   shell:
-    mount -t iso9660 -o ro,exec ~/cpu2006-1.2.iso /mnt;
+    sudo mount -t iso9660 -o ro,exec ~/cpu2006-1.2.iso /mnt;
     cd /mnt;
     ./install.sh -fd /usr/cpu2006;
   args:
