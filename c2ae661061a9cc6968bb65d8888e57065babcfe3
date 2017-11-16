@@ -16,6 +16,24 @@
       "revId": "c2ae661061a9cc6968bb65d8888e57065babcfe3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_efb4df36",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-16T13:43:43Z",
+      "side": 1,
+      "message": "I rewrote code with ENV based on:\nhttps://github.com/moby/moby/issues/684",
+      "parentUuid": "da33351e_27ed5026",
+      "revId": "c2ae661061a9cc6968bb65d8888e57065babcfe3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
