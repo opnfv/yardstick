@@ -204,13 +204,6 @@ class IxiaTrafficGen(SampleVNFTrafficGen):
     def scale(self, flavor=""):
         pass
 
-    def listen_traffic(self, traffic_profile):
-        pass
-
     def terminate(self):
         self.resource_helper.stop_collect()
         super(IxiaTrafficGen, self).terminate()
-
-    def wait_for_instantiate(self):
-        # not needed for IxNet
-        pass

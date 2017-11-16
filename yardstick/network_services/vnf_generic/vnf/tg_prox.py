@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import print_function, absolute_import
+from __future__ import absolute_import
 
 import logging
 
@@ -62,9 +62,6 @@ class ProxTrafficGen(SampleVNFTrafficGen):
         # used for generating stats
         self.vpci_if_name_ascending = self._sort_vpci(vnfd)
         self.resource_helper.vpci_if_name_ascending = self._sort_vpci(vnfd)
-
-    def listen_traffic(self, traffic_profile):
-        pass
 
     def terminate(self):
         self._vnf_wrapper.terminate()

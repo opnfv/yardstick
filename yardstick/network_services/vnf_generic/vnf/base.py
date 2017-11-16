@@ -13,10 +13,13 @@
 # limitations under the License.
 """ Base class implementation for generic vnf implementation """
 
-from __future__ import absolute_import
+import abc
+
 import logging
+import six
 
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
+
 
 LOG = logging.getLogger(__name__)
 
@@ -207,6 +210,7 @@ class GenericVNF(VNFObject):
         raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class GenericTrafficGen(GenericVNF):
     """ Class providing file-like API for generic traffic generator """
 
@@ -215,18 +219,29 @@ class GenericTrafficGen(GenericVNF):
         self.runs_traffic = True
         self.traffic_finished = False
 
+    @abc.abstractmethod
     def run_traffic(self, traffic_profile):
-        """ Generate traffic on the wire according to the given params.
-        Method is non-blocking, returns immediately when traffic process
+        """Generate traffic on the wire according to the given params.
+
+        This method is non-blocking, returns immediately when traffic process
         is running. Mandatory.
 
         :param traffic_profile:
         :return: True/False
         """
-        raise NotImplementedError()
+
+    @abc.abstractmethod
+    def terminate(self):
+        """After this method finishes, all traffic processes should stop.
+
+        Mandatory.
+
+        :return: True/False
+        """
 
     def listen_traffic(self, traffic_profile):
-        """ Listen to traffic with the given parameters.
+        """Listen to traffic with the given parameters.
+
         Method is non-blocking, returns immediately when traffic process
         is running. Optional.
 
@@ -236,16 +251,20 @@ class GenericTrafficGen(GenericVNF):
         pass
 
     def verify_traffic(self, traffic_profile):
-        """ Verify captured traffic after it has ended. Optional.
+        """Verify captured traffic after it has ended.
+
+        Optional.
 
         :param traffic_profile:
         :return: dict
         """
         pass
 
-    def terminate(self):
-        """ After this method finishes, all traffic processes should stop. Mandatory.
+    def wait_for_instantiate(self):
+        """Wait for an instance to load.
+
+        Optional.
 
         :return: True/False
         """
-        raise NotImplementedError()
+        pass

@@ -170,15 +170,8 @@ class IxLoadTrafficGen(SampleVNFTrafficGen):
         self.resource_helper.log()
         self.resource_helper.data = self.resource_helper.make_aggregates()
 
-    def listen_traffic(self, traffic_profile):
-        pass
-
     def instantiate(self, scenario_cfg, context_cfg):
         super(IxLoadTrafficGen, self).instantiate(scenario_cfg, context_cfg)
-
-    def wait_for_instantiate(self):
-        # not needed for Ixload
-        pass
 
     def terminate(self):
         call(["pkill", "-9", "http_ixload.py"])

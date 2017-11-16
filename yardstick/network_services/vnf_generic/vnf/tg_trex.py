@@ -14,8 +14,6 @@
 """ Trex acts as traffic generation and vnf definitions based on IETS Spec """
 
 from __future__ import absolute_import
-from __future__ import print_function
-
 import logging
 import os
 
@@ -191,8 +189,8 @@ class TrexTrafficGen(SampleVNFTrafficGen):
     def scale(self, flavor=""):
         pass
 
-    def listen_traffic(self, traffic_profile):
-        pass
-
     def terminate(self):
         self.resource_helper.terminate()
+
+    def wait_for_instantiate(self):
+        return self._wait_for_process()

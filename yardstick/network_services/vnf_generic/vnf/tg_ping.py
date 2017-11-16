@@ -14,7 +14,6 @@
 """ PING acts as traffic generation and vnf definitions based on IETS Spec """
 
 from __future__ import absolute_import
-from __future__ import print_function
 import logging
 import re
 
@@ -135,14 +134,3 @@ class PingTrafficGen(SampleVNFTrafficGen):
         }
 
         self.setup_helper.setup_vnf_environment()
-
-    def wait_for_instantiate(self):
-        pass
-
-    def listen_traffic(self, traffic_profile):
-        """ Not needed for ping
-
-        :param traffic_profile:
-        :return:
-        """
-        pass
