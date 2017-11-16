@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_6fa9efde",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-16T13:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aa4ed85_e23cda31",
+      "revId": "84d6623bed88b94103845a6b6fccd40b86cdf74a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_ff6d5105",
         "filename": "docker/Dockerfile",
         "patchSetId": 3
