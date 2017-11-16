@@ -16,6 +16,24 @@
       "revId": "ce52059f5f78912eeff2d97235c1028c218bf960",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0f6dc398",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-16T14:39:30Z",
+      "side": 1,
+      "message": "it all maps correctly.\n\nfor Heat this is all dynamic.  For baremetal/standalone user must specify MAC, PCI BUS and DPDK_PORT_NUM for xe0, xe1 based on hardware.\n\nThen the topology specifies uplink_0, downlink_0.",
+      "parentUuid": "9a3d3df0_4554d120",
+      "revId": "ce52059f5f78912eeff2d97235c1028c218bf960",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
