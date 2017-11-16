@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_4cefd987",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-16T10:25:44Z",
+      "side": 1,
+      "message": "You\u0027re changing more than these tests. Can you update the commit message to list the other tests too?",
+      "range": {
+        "startLine": 7,
+        "startChar": 1,
+        "endLine": 7,
+        "endChar": 61
+      },
+      "revId": "02544551b3a42b14b3ede8826b462dbcbee6bd69",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
