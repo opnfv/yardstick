@@ -10,9 +10,8 @@
 
 - name: remove SPEC CPU 2006
   file:
-    path: /usr/cpu2006
+    path: ~/cpu2006
     state: absent
-  become: true
 
 - name: umount SPEC CPU 2006 ISO
   shell:
@@ -25,4 +24,3 @@
   file:
     path: ~/cpu2006-1.2.iso
     state: absent
-  become: true

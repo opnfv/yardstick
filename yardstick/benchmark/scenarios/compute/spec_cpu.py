@@ -10,6 +10,7 @@ from __future__ import absolute_import
 
 import logging
 import pkg_resources
+import os
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
@@ -66,6 +67,7 @@ class SpecCPU(base.Scenario):
             default:    na
     """
     __scenario_type__ = "SpecCPU2006"
+    CPU2006_DIR = "~/cpu2006"
 
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
@@ -87,8 +89,8 @@ class SpecCPU(base.Scenario):
                 "yardstick.resources", 'files/' + self.runspec_config)
 
             # copy SPEC CPU2006 config file to host if given
-            self.client._put_file_shell(self.runspec_config_file,
-                                        '/usr/cpu2006/config/yardstick_spec_cpu2006.cfg')
+            cfg_path = os.path.join(self.CPU2006_DIR, 'config/yardstick_spec_cpu2006.cfg')
+            self.client._put_file_shell(self.runspec_config_file, cfg_path)
         else:
             self.runspec_config = "Example-linux64-amd64-gcc43+.cfg"
 
@@ -100,7 +102,7 @@ class SpecCPU(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        cmd = "cd /usr/cpu2006/ && . ./shrc && runspec --config %s" % self.runspec_config
+        cmd = "cd %s && . ./shrc && runspec --config %s" % (self.CPU2006_DIR, self.runspec_config)
         cmd_args = ""
 
         if "rate" in self.options:

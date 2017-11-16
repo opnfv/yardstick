@@ -10,6 +10,5 @@
 
 - name: archive_spec_cpu2006_result
   archive:
-    path: /usr/cpu2006/result
-    dest: /usr/cpu2006/spec_cpu2006_result.zip
-  become: true
+    path: ~/cpu2006/result
+    dest: ~/cpu2006/spec_cpu2006_result.zip
