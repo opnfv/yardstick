@@ -13,4 +13,3 @@
     src: /tmp/spec_cpu2006_result.zip
     dest: /tmp/
     remote_src: True
-  become: true
