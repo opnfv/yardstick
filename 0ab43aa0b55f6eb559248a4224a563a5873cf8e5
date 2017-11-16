@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ec018d07",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-16T11:13:22Z",
+      "side": 1,
+      "message": "In file yardstick/network_services/vnf_generic/vnf/sample_vnf.py it\u0027s included from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file, \\\n    IncorrectConfig",
+      "revId": "0ab43aa0b55f6eb559248a4224a563a5873cf8e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
