@@ -10,18 +10,21 @@
 
 schema: "yardstick:task:0.1"
 description: >
-    Yardstick TC078 config file;
     Measure CPU performance using SPEC CPU2006;
 
 {% set file = file or "/etc/yardstick/pod.yaml" %}
 {% set host = host or 'node1' %}
+{% set benchmark = benchmark or 'int' %}
+{% set runspec_iterations = runspec_iterations or 1 %}
+{% set runspec_tune = runspec_tune or 'base' %}
+{% set runspec_rate = runspec_rate or 1 %}
 
 scenarios:
 -
   type: SpecCPU2006
 
   options:
-      SPECint_benchmark: int^429
+      SPECint_benchmark: {{benchmark}}
       runspec_iterations: 1
       runspec_tune: base
       runspec_size: ref
