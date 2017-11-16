@@ -10,7 +10,6 @@
 
 - name: fetch_spec_cpu2006_result
   fetch:
-    src: /usr/cpu2006/spec_cpu2006_result.zip
+    src: ~/cpu2006/spec_cpu2006_result.zip
     dest: /tmp/
     flat: yes
-  become: true
