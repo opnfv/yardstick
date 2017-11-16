@@ -895,10 +895,6 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         self._tg_process = Process(name=name, target=self._start_server)
         self._tg_process.start()
 
-    def wait_for_instantiate(self):
-        # overridden by subclasses
-        return self._wait_for_process()
-
     def _check_status(self):
         raise NotImplementedError
 
@@ -941,24 +937,6 @@ class SampleVNFTrafficGen(GenericTrafficGen):
                 break
 
         return self._traffic_process.is_alive()
-
-    def listen_traffic(self, traffic_profile):
-        """ Listen to traffic with the given parameters.
-        Method is non-blocking, returns immediately when traffic process
-        is running. Optional.
-
-        :param traffic_profile:
-        :return: True/False
-        """
-        pass
-
-    def verify_traffic(self, traffic_profile):
-        """ Verify captured traffic after it has ended. Optional.
-
-        :param traffic_profile:
-        :return: dict
-        """
-        pass
 
     def collect_kpi(self):
         # check if the tg processes have exited

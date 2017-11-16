@@ -243,31 +243,12 @@ class TestGenericVNF(unittest.TestCase):
 
 
 class TestGenericTrafficGen(unittest.TestCase):
-    def test___init__(self):
-        vnfd = TestGenericVNF.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        generic_traffic_gen = GenericTrafficGen('vnf1', vnfd)
-        assert generic_traffic_gen.name == "vnf1"
 
-    def test_listen_traffic(self):
+    def test_definition(self):
         vnfd = TestGenericVNF.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        generic_traffic_gen = GenericTrafficGen('vnf1', vnfd)
-        traffic_profile = {}
-        self.assertIsNone(generic_traffic_gen.listen_traffic(traffic_profile))
-
-    def test_run_traffic(self):
-        vnfd = TestGenericVNF.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        generic_traffic_gen = GenericTrafficGen('vnf1', vnfd)
-        traffic_profile = {}
-        self.assertRaises(NotImplementedError,
-                          generic_traffic_gen.run_traffic, traffic_profile)
-
-    def test_terminate(self):
-        vnfd = TestGenericVNF.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        generic_traffic_gen = GenericTrafficGen('vnf1', vnfd)
-        self.assertRaises(NotImplementedError, generic_traffic_gen.terminate)
-
-    def test_verify_traffic(self):
-        vnfd = TestGenericVNF.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        generic_traffic_gen = GenericTrafficGen('vnf1', vnfd)
-        traffic_profile = {}
-        self.assertIsNone(generic_traffic_gen.verify_traffic(traffic_profile))
+        name = 'vnf1'
+        with self.assertRaises(TypeError) as exc:
+            GenericTrafficGen(name, vnfd)
+        msg = ("Can't instantiate abstract class GenericTrafficGen with "
+               "abstract methods run_traffic, terminate")
+        self.assertEqual(msg, str(exc.exception))

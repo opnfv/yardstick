@@ -2022,55 +2022,32 @@ class TestSampleVNFTrafficGen(unittest.TestCase):
 
         sample_vnf_tg.terminate()
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.LOG')
-    def test_wait_for_instantiate(self, mock_logger, mock_time):
+    def test__wait_for_process(self):
         sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0)
-        sample_vnf_tg._check_status = mock.Mock(side_effect=iter([1, 0]))
-        sample_vnf_tg._tg_process = mock.Mock()
-        sample_vnf_tg._tg_process.is_alive.return_value = True
-        sample_vnf_tg._tg_process.exitcode = 234
+        with mock.patch.object(sample_vnf_tg, '_check_status',
+                               return_value=0) as mock_status, \
+                mock.patch.object(sample_vnf_tg, '_tg_process') as mock_proc:
+            mock_proc.is_alive.return_value = True
+            mock_proc.exitcode = 234
+            self.assertEqual(sample_vnf_tg._wait_for_process(), 234)
+            mock_proc.is_alive.assert_called_once()
+            mock_status.assert_called_once()
 
-        self.assertEqual(sample_vnf_tg.wait_for_instantiate(), 234)
-
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.LOG')
-    def test_wait_for_instantiate_not_alive(self, mock_logger, mock_time):
+    def test__wait_for_process_not_alive(self):
         sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0)
-        sample_vnf_tg._check_status = mock.Mock(return_value=1)
-        sample_vnf_tg._tg_process = mock.Mock()
-        sample_vnf_tg._tg_process.is_alive.side_effect = iter([True, False])
-        sample_vnf_tg._tg_process.exitcode = 234
+        with mock.patch.object(sample_vnf_tg, '_tg_process') as mock_proc:
+            mock_proc.is_alive.return_value = False
+            self.assertRaises(RuntimeError, sample_vnf_tg._wait_for_process)
+            mock_proc.is_alive.assert_called_once()
 
-        with self.assertRaises(RuntimeError):
-            sample_vnf_tg.wait_for_instantiate()
-
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.LOG')
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.Process')
-    def test_wait_for_instantiate_delayed(self, mock_process, mock_logger, mock_time):
-        class MockClientStarted(mock.Mock):
-
-            def __init__(self, *args, **kwargs):
-                super(MockClientStarted, self).__init__(*args, **kwargs)
-                self.iter = iter([0, 0, 1])
-
-            @property
-            def value(self):
-                return next(self.iter)
-
-        mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
-        mock_traffic_profile.get_traffic_definition.return_value = "64"
-        mock_traffic_profile.execute_traffic.return_value = "64"
-        mock_traffic_profile.params = self.TRAFFIC_PROFILE
-
+    def test__wait_for_process_delayed(self):
         sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0)
-        sample_vnf_tg._check_status = mock.Mock(side_effect=iter([1, 0]))
-        sample_vnf_tg._tg_process = mock.Mock()
-        sample_vnf_tg._tg_process.is_alive.return_value = True
-        sample_vnf_tg._tg_process.exitcode = 234
-        sample_vnf_tg.resource_helper = mock.Mock()
-        sample_vnf_tg.resource_helper.client_started = MockClientStarted()
-
-        self.assertTrue(sample_vnf_tg.run_traffic(mock_traffic_profile))
-        self.assertEqual(mock_time.sleep.call_count, 2)
+        with mock.patch.object(sample_vnf_tg, '_check_status',
+                               side_effect=[1, 0]) as mock_status, \
+                mock.patch.object(sample_vnf_tg,
+                                  '_tg_process') as mock_proc:
+            mock_proc.is_alive.return_value = True
+            mock_proc.exitcode = 234
+            self.assertEqual(sample_vnf_tg._wait_for_process(), 234)
+            mock_proc.is_alive.assert_has_calls([mock.call(), mock.call()])
+            mock_status.assert_has_calls([mock.call(), mock.call()])
