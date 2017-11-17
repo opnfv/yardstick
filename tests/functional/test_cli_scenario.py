@@ -32,31 +32,25 @@ class ScenarioTestCase(unittest.TestCase):
 
     def test_scenario_show_Lmbench(self):
         res = self.yardstick("scenario show Lmbench")
-        lmbench = "Execute lmbench memory read latency"
-        "or memory bandwidth benchmark in a host" in res
-        self.assertTrue(lmbench)
+        self.assertIn("Execute lmbench memory read latency or memory "
+                      "bandwidth benchmark in a hos", res)
 
     def test_scenario_show_Perf(self):
         res = self.yardstick("scenario show Perf")
-        perf = "Execute perf benchmark in a host" in res
-        self.assertTrue(perf)
+        self.assertIn("Execute perf benchmark in a host", res)
 
     def test_scenario_show_Fio(self):
         res = self.yardstick("scenario show Fio")
-        fio = "Execute fio benchmark in a host" in res
-        self.assertTrue(fio)
+        self.assertIn("Execute fio benchmark in a host", res)
 
     def test_scenario_show_Ping(self):
         res = self.yardstick("scenario show Ping")
-        ping = "Execute ping between two hosts" in res
-        self.assertTrue(ping)
+        self.assertIn("Execute ping between two hosts", res)
 
     def test_scenario_show_Iperf3(self):
         res = self.yardstick("scenario show Iperf3")
-        iperf3 = "Execute iperf3 between two hosts" in res
-        self.assertTrue(iperf3)
+        self.assertIn("Execute iperf3 between two hosts", res)
 
     def test_scenario_show_Pktgen(self):
         res = self.yardstick("scenario show Pktgen")
-        pktgen = "Execute pktgen between two hosts" in res
-        self.assertTrue(pktgen)
+        self.assertIn("Execute pktgen between two hosts", res)
