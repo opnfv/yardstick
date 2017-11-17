@@ -16,6 +16,24 @@
       "revId": "35d9ae750414e98ff56df8f21a2043f51052c6d4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3d2c3d02",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-17T14:04:14Z",
+      "side": 1,
+      "message": "vnfd_helper.port_num() is the DPDK port number, which does not always start at 0.\n\ngiven a list\nxe0    dpdk_port_num \u003d 6\nxe1    dpdk_port_num \u003d 4\n\nwe want to assign LINK ID based on sorted dpdk_port_num ordering.\n\nwe should get\n\nxe0 link_id \u003d 1\nxe1 link_id \u003d 0\n\nwith link_id order\n\nlink_id \u003d 0  dpdk_port_num \u003d 4\nlink_id \u003d 1  dpdk_port_num \u003d 6\n\nport_mask \u003d 0x1010000",
+      "parentUuid": "9a3d3df0_ddc39155",
+      "revId": "35d9ae750414e98ff56df8f21a2043f51052c6d4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
