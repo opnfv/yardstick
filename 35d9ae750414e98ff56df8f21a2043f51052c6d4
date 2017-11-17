@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ddc39155",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-17T11:35:37Z",
+      "side": 1,
+      "message": "Hmmm, I don\u0027t think this function is doing this conversion:\n  interface name -\u003e DPDK id --\u003e Link ID\n\nIn the \"for\" loop, we are:\n1) Listing all port names.\n2) Then sorting these port using the name-\u003eDPDK number func\n   (self.vnfd_helper.port_num). DPDK port id list always starts at zero.\n      \"name_234\": DPDK 0\n      \"name_689\": DPDK 1, etc...\n3) That means \"enumerate\" will return in link_id the same number as DPDP port id\n   (DPDK port id list starts at zero).\n      \"name_234\": DPDK 0: link_id 0\n      \"name_689\": DPDK 1: link_id 1\n\n--\u003e where are you converting from DPDK_ID to LINK_ID??",
+      "revId": "35d9ae750414e98ff56df8f21a2043f51052c6d4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
