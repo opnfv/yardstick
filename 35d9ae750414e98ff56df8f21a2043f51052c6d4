@@ -34,6 +34,24 @@
       "revId": "35d9ae750414e98ff56df8f21a2043f51052c6d4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9d4f49be",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-17T14:53:21Z",
+      "side": 1,
+      "message": "similar code here:\n\nhttps://git.opnfv.org/yardstick/tree/yardstick/network_services/vnf_generic/vnf/sample_vnf.py#n228\n\nideally this would be handled by samplevnf_helper.py and we would merge VPE config into the classes in that module.\n\nI\u0027m not sure why the VPE config is a special case and done in this class.",
+      "parentUuid": "9a3d3df0_3d2c3d02",
+      "revId": "35d9ae750414e98ff56df8f21a2043f51052c6d4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
