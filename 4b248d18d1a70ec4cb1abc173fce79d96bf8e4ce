@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_7de9a57f",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-17T15:06:04Z",
+      "side": 1,
+      "message": "This is essentially what the debtcollector module does.\n\nIt is an OpenStack project that is already installed by yardstick.\n\nhttps://docs.openstack.org/debtcollector/latest/user/usage.html",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 414,
+        "endChar": 28
+      },
+      "revId": "4b248d18d1a70ec4cb1abc173fce79d96bf8e4ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
