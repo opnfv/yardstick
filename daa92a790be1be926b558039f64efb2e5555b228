@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_72cef4b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5439
+      },
+      "writtenOn": "2017-11-17T01:13:52Z",
+      "side": 1,
+      "message": "Yes. If we don\u0027t change to ansible build image, there will be problem in build image script, This two method both take time to debug, so I choose to debug the ansible script, this will save time in further.",
+      "parentUuid": "9a3d3df0_2f2fe7f7",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 44
+      },
+      "revId": "daa92a790be1be926b558039f64efb2e5555b228",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_4f2ceb02",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_12bfa8fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5439
+      },
+      "writtenOn": "2017-11-17T01:13:52Z",
+      "side": 1,
+      "message": "Yes, I will submit another patch to fix trex_client problem.",
+      "parentUuid": "9a3d3df0_4f2ceb02",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "daa92a790be1be926b558039f64efb2e5555b228",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_0ff3039f",
         "filename": "docker/Dockerfile",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2017-11-16T17:58:53Z",
       "side": 1,
       "message": "There should be double quotes around this, to be consistent with the rest of the strings",
+      "range": {
+        "startLine": 18,
+        "startChar": 13,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "daa92a790be1be926b558039f64efb2e5555b228",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_523810a0",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5439
+      },
+      "writtenOn": "2017-11-17T01:13:52Z",
+      "side": 1,
+      "message": "Done, Thanks",
+      "parentUuid": "9a3d3df0_0ff3039f",
       "range": {
         "startLine": 18,
         "startChar": 13,
