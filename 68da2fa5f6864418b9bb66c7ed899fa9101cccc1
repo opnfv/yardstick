@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_8f3c33e4",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-17T10:15:37Z",
+      "side": 1,
+      "message": "Suggestion: Add in a test description.\nSomething like: \n    \"\"\"Make sure that the abstract class GenericTrafficGen cannot be instantiated.\"\"\"",
+      "revId": "68da2fa5f6864418b9bb66c7ed899fa9101cccc1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2f3527f7",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 2029,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-17T10:15:37Z",
+      "side": 1,
+      "message": "Would using decorators for the mocks make this more readable?",
+      "range": {
+        "startLine": 2027,
+        "startChar": 8,
+        "endLine": 2029,
+        "endChar": 77
+      },
+      "revId": "68da2fa5f6864418b9bb66c7ed899fa9101cccc1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ef533f37",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_prox.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-17T10:15:37Z",
+      "side": 1,
+      "message": "nit: you removed a blank line",
+      "revId": "68da2fa5f6864418b9bb66c7ed899fa9101cccc1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0f59435a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-17T10:15:37Z",
+      "side": 1,
+      "message": "Nit: you deleted a blank line here.\nUnrelated change.",
+      "revId": "68da2fa5f6864418b9bb66c7ed899fa9101cccc1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
