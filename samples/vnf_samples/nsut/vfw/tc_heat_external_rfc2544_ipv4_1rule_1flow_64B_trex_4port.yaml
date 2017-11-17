@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation
+# Copyright (c) 2016-2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 schema: yardstick:task:0.1
 scenarios:
 - type: NSPerf
-  traffic_profile: ../../traffic_profiles/ixia_ipv4_latency.yaml
-  topology: vfw_vnf_topology_ixia.yaml
+  traffic_profile: ../../traffic_profiles/ipv4_throughput-4.yaml
+  topology: vfw-tg-topology-4port.yaml
   nodes:
     tg__0: tg_0.traffic_gen
     vnf__0: vnf_0.yardstick
@@ -26,20 +26,20 @@ scenarios:
       uplink: {64B: 100}
       downlink: {64B: 100}
     flow:
-      src_ip: [{'tg__0': 'xe0'}]
-      dst_ip: [{'tg__0': 'xe1'}]
+      src_ip: [{'tg__0': 'xe0'}, {'tg__0': 'xe2'}]
+      dst_ip: [{'tg__0': 'xe1'}, {'tg__0': 'xe3'}]
       count: 1
     traffic_type: 4
     rfc2544:
       allowed_drop_rate: 0.0001 - 0.0001
     vnf__0:
       rules: acl_1rule.yaml
-      vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      vnf_config: {lb_config: 'SW', lb_count: 2, worker_config: '1C/1T', worker_threads: 1}
   runner:
     type: Iteration
     iterations: 10
     interval: 35
-  ixia_profile: ../../traffic_profiles/vfw/vfw_ipv4_profile_1flows.ixncfg
+  ixia_profile: ../../traffic_profiles/vfw/vfw_ipv4_profile_muttiport.ixncfg
 contexts:
   # put node context first, so we don't HEAT deploy if node has errors
   - name: traffic_gen
@@ -78,5 +78,19 @@ contexts:
         gateway_ip: 'null'
         provider: true
         physical_network: phystenant2
+        port_security_enabled: false
+        enable_dhcp: 'false'
+      uplink_1:
+        cidr: '10.3.0.0/24'
+        gateway_ip: 'null'
+        provider: true
+        physical_network: phystenant3
+        port_security_enabled: false
+        enable_dhcp: 'false'
+      downlink_2:
+        cidr: '10.4.0.0/24'
+        gateway_ip: 'null'
+        provider: true
+        physical_network: phystenant4
         port_security_enabled: false
         enable_dhcp: 'false'
