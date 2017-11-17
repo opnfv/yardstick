@@ -64,6 +64,20 @@ class Scenario(object):
 
         raise RuntimeError("No such scenario type %s" % scenario_type)
 
+    @classmethod
+    def get_scenario_type(cls):
+        """Return a string with the scenario type, if defined"""
+        return str(getattr(cls, '__scenario_type__', None))
+
+    @classmethod
+    def get_description(cls):
+        """Return a single line string with the class description
+
+        This function will retrieve the class docstring and return the first
+        line, or 'None' if it's empty.
+        """
+        return cls.__doc__.splitlines()[0] if cls.__doc__ else str(None)
+
     def _push_to_outputs(self, keys, values):
         return dict(zip(keys, values))
 
