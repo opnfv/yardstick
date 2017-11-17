@@ -132,6 +132,30 @@
       "revId": "62ef8be24f69d2d33623a8ff469202588c408a09",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7d108501",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-17T10:29:11Z",
+      "side": 1,
+      "message": "You are right. This is the vm address. What is written in L164-168 is the physical host address.\n\nI was wrong.",
+      "parentUuid": "9a3d3df0_8a93864e",
+      "range": {
+        "startLine": 171,
+        "startChar": 8,
+        "endLine": 171,
+        "endChar": 60
+      },
+      "revId": "62ef8be24f69d2d33623a8ff469202588c408a09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
