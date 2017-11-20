@@ -50,9 +50,8 @@ class CreateVolume(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        if self.image_name:
-            self.image_id = op_utils.get_image_id(self.glance_client,
-                                                  self.image_name)
+        self.image_id = op_utils.get_image_id(self.glance_client,
+                                              self.image_name)
 
         volume = op_utils.create_volume(self.cinder_client, self.volume_name,
                                         self.volume_size, self.image_id)
