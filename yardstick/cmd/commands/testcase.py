@@ -10,9 +10,9 @@
 """ Handler for yardstick command 'testcase' """
 from __future__ import print_function
 from __future__ import absolute_import
+import prettytable
 
 from yardstick.benchmark.core.testcase import Testcase
-from yardstick.benchmark.core import print_hbar
 from yardstick.common.utils import cliargs
 from yardstick.cmd.commands import change_osloobj_to_paras
 from yardstick.cmd.commands import Commands
@@ -26,6 +26,7 @@ class TestcaseCommands(Commands):
 
     def do_list(self, args):
         """List existing test cases"""
+        # pylint: disable=unused-argument
         testcase_list = self.client.get('/yardstick/testcases')['result']
         self._format_print(testcase_list)
 
@@ -37,11 +38,8 @@ class TestcaseCommands(Commands):
 
     def _format_print(self, testcase_list):
         """format output"""
-
-        print_hbar(88)
-        print("| %-21s | %-60s" % ("Testcase Name", "Description"))
-        print_hbar(88)
+        case_table = prettytable.PrettyTable(['Testcase Name', 'Description'])
+        case_table.align = 'l'
         for testcase_record in testcase_list:
-            print("| %-16s | %-60s" % (testcase_record['Name'],
-                                       testcase_record['Description']))
-        print_hbar(88)
+            case_table.add_row([testcase_record['Name'], testcase_record['Description']])
+        print(case_table)

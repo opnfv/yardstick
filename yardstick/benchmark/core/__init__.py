@@ -6,10 +6,18 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+"""
+Yardstick benchmark core.
+"""
+
 from __future__ import print_function
 
 
 class Param(object):
+    """Parma Object.
+
+    This calss convert parameters dictionary to an object.
+    """
 
     def __init__(self, kwargs):
         # list
@@ -31,10 +39,3 @@ class Param(object):
 
         # list
         self.type = kwargs.get('type')
-
-
-def print_hbar(barlen):
-    """print to stdout a horizontal bar"""
-    print("+")
-    print("-" * barlen)
-    print("+")

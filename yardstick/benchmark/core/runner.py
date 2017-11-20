@@ -11,8 +11,9 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+import prettytable
+
 from yardstick.benchmark.runners.base import Runner
-from yardstick.benchmark.core import print_hbar
 
 
 class Runners(object):  # pragma: no cover
@@ -23,14 +24,14 @@ class Runners(object):  # pragma: no cover
 
     def list_all(self, args):
         """List existing runner types"""
+        # pylint: disable=unused-argument
         types = Runner.get_types()
-        print_hbar(78)
-        print("| %-16s | %-60s" % ("Type", "Description"))
-        print_hbar(78)
+        runner_table = prettytable.PrettyTable(['Type', 'Description'])
+        runner_table.align = 'l'
         for rtype in types:
-            print("| %-16s | %-60s" % (rtype.__execution_type__,
-                                       rtype.__doc__.split("\n")[0]))
-        print_hbar(78)
+            runner_table.add_row([rtype.__execution_type__,
+                                  rtype.__doc__.split("\n")[0]])
+        print(runner_table)
 
     def show(self, args):
         """Show details of a specific runner type"""
