@@ -16,6 +16,7 @@ UBUNTU_ARCHIVE_URL="http://archive.ubuntu.com/ubuntu/"
 
 source /etc/os-release
 source_file=/etc/apt/sources.list
+NSB_DIR="/opt/nsb_bin"
 
 if [[ "${DOCKER_ARCH}" == "aarch64" ]]; then
     sed -i -e 's/^deb \([^/[]\)/deb [arch=arm64] \1/g' "${source_file}"
@@ -104,6 +105,12 @@ pip install -e .
 cd "${PWD}/gui" && /bin/bash gui.sh
 mkdir -p /etc/nginx/yardstick
 mv dist /etc/nginx/yardstick/gui
+
+mkdir -p ${NSB_DIR}
+
+wget -P ${NSB_DIR}/ http://artifacts.opnfv.org/yardstick/third-party/trex_client.tar.gz
+tar xvf ${NSB_DIR}/trex_client.tar.gz -C ${NSB_DIR}
+rm -f ${NSB_DIR}/trex_client.tar.gz
 
 service nginx restart
 uwsgi -i /etc/yardstick/yardstick.ini
