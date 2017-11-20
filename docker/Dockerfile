@@ -7,22 +7,22 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 LABEL image=opnfv/yardstick
 
 ARG BRANCH=master
 
 # GIT repo directory
-ENV REPOS_DIR /home/opnfv/repos
-ENV IMAGE_DIR /home/opnfv/images/
+ENV REPOS_DIR="/home/opnfv/repos" \
+    IMAGE_DIR="/home/opnfv/images/"
 
 # Set work directory
 
 # Yardstick repo
-ENV YARDSTICK_REPO_DIR ${REPOS_DIR}/yardstick
-ENV RELENG_REPO_DIR ${REPOS_DIR}/releng
-ENV STORPERF_REPO_DIR ${REPOS_DIR}/storperf
+ENV YARDSTICK_REPO_DIR="${REPOS_DIR}/yardstick" \
+    RELENG_REPO_DIR="${REPOS_DIR}/releng" \
+    STORPERF_REPO_DIR="${REPOS_DIR}/storperf"
 
 RUN apt-get update && apt-get install -y git python-setuptools python-pip && apt-get -y autoremove && apt-get clean
 RUN easy_install -U setuptools==30.0.0
