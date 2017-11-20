@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_4e6892ba",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-11-20T07:04:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_0525e4c1",
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_c512dc61",
         "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2017-10-16T20:59:44Z",
       "side": 1,
       "message": "we\u0027re going to get a NameError here when \u0027flow\u0027 is not in scenario_cfg[\u0027options\u0027] since scr_ips won\u0027t be defined\n\nwhat is the behavior meant to be when \u0027flow\u0027 is not in the scenario config?",
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_aea03ef5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-11-20T07:04:40Z",
+      "side": 1,
+      "message": "I\u0027ll raise an exception with a \u0027missing flow message\u0027 here as flow is a requirement for the test case. Would it be OK?",
+      "parentUuid": "9a3d3df0_c512dc61",
       "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_be94f937",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-11-20T07:04:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_e508c02f",
+      "range": {
+        "startLine": 640,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 18
+      },
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_c0200a9e",
         "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
         "patchSetId": 4
@@ -70,6 +130,24 @@
       "writtenOn": "2017-10-16T20:59:44Z",
       "side": 1,
       "message": "IPRange will handle singleton ranges just fine:\n\n range1 \u003d IPRange(range1[0], range1[-1])\n\nwill work as desired if range1 is a list with one value\n\nor, using iterators:\n\n range1 \u003d itertools.cycle(iter(src_ips[0].split(\u0027-\u0027)))\n range2 \u003d itertools.cycle(iter(dst_ips[0].split(\u0027-\u0027)))\n range1 \u003d IPRange(next(range1), next(range1))\n range2 \u003d IPRange(next(range2), next(range2))\n for addr in range1:\n   self.ssh_helper.execute(ip_cmd % (addr, \u0027dp0s10\u0027))\n for addr in range2:\n   self.ssh_helper.execute(ip_cmd % (addr, \u0027dp0s11\u0027))\n ...",
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0e27aa65",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-11-20T07:04:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_c0200a9e",
       "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -133,6 +211,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_ee2b662e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-11-20T07:04:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_a02506ad",
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_602bfe82",
         "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
         "patchSetId": 4
@@ -150,6 +246,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9306431f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-11-20T07:04:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_602bfe82",
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_802602b9",
         "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
         "patchSetId": 4
@@ -161,6 +275,24 @@
       "writtenOn": "2017-10-16T20:59:44Z",
       "side": 1,
       "message": "if we aren\u0027t returning anything, not even None, then we don\u0027t need to include this statement.",
+      "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_deb61ddc",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-11-20T07:04:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_802602b9",
       "revId": "9fb7edcd6198c8cdf6a233b92231215880d73871",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
