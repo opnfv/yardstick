@@ -48,5 +48,8 @@ ADD http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-d
 
 COPY ./exec_tests.sh /usr/local/bin/
 
+ENV NSB_DIR="/opt/nsb_bin" \
+    PYTHONPATH="${PYTHONPATH}:${NSB_DIR}/trex_client:${NSB_DIR}/trex_client/stl"
+
 WORKDIR ${REPOS_DIR}
 CMD ["/usr/bin/supervisord"]
