@@ -10,6 +10,7 @@
 Babel==2.3.4            # BSD; OSI Approved  BSD License
 Jinja2==2.8.1           # BSD; OSI Approved  BSD License
 MarkupSafe==0.23        # BSD; OSI Approved  BSD License
+PTable==0.9.2	     	# BSD (3 clause); OSI Approved  BSD License
 PyYAML==3.12            # MIT; OSI Approved  MIT License
 SQLAlchemy==1.1.4       # MIT License; OSI Approved  MIT License
 ansible==2.3.2          # GPLv3; OSI Approved  GNU General Public License v3 or later (GPLv3+)
@@ -58,7 +59,6 @@ pbr==1.10.0             # OSI Approved  Apache Software License; Apache License,
 # version 14.5.0 for compatibility with trex traffic generator
 pika==0.10.0            # BSD; OSI Approved  BSD License
 positional==1.1.1       # OSI Approved  Apache Software License
-prettytable==0.7.2      # BSD (3 clause); OSI Approved  BSD License
 pycrypto==2.6.1         # Public Domain
 pyparsing==2.1.10       # MIT License; OSI Approved  MIT License
 pyroute2==0.4.12        # dual license GPLv2+ and Apache v2; OSI Approved  GNU General Public License v2 or later (GPLv2+); OSI Approved  Apache Software License
