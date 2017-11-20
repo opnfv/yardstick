@@ -62,7 +62,10 @@ class CreateVolume(base.Scenario):
             LOG.info("Volume status is: %s" % status)
             time.sleep(5)
             volume = op_utils.get_volume_by_name(self.volume_name)
-            status = volume.status
+            if volume:
+                status = volume.status
+            else:
+                status = False
 
         LOG.info("Create volume successful!")
 

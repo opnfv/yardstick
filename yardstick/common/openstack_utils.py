@@ -710,6 +710,14 @@ def get_volume_id(volume_name):    # pragma: no cover
     volumes = get_cinder_client().volumes.list()
     return next((v.id for v in volumes if v.name == volume_name), None)
 
+def get_volume_by_name(volume_name):
+    try:
+        volume = get_cinder_client().volumes.get(volume_name)
+        return volume
+    except:
+        log.exception("Error [get_volume_by_name('%s')]" % volume_name)
+        return False
+
 
 def create_volume(cinder_client, volume_name, volume_size,
                   volume_image=False):    # pragma: no cover
