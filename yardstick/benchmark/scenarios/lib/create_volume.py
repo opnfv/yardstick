@@ -44,22 +44,21 @@ class CreateVolume(base.Scenario):
 
         self.setup_done = True
 
-    def run(self, result):
+    def run(self):
         """execute the test"""
 
         if not self.setup_done:
             self.setup()
 
-        if self.image_name:
-            self.image_id = op_utils.get_image_id(self.glance_client,
-                                                  self.image_name)
+        self.image_id = op_utils.get_image_id(self.glance_client,
+                                              self.image_name)
 
         volume = op_utils.create_volume(self.cinder_client, self.volume_name,
                                         self.volume_size, self.image_id)
 
         status = volume.status
         while(status == 'creating' or status == 'downloading'):
-            LOG.info("Volume status is: %s" % status)
+            LOG.info("Volume status is: %s", status)
             time.sleep(5)
             volume = op_utils.get_volume_by_name(self.volume_name)
             status = volume.status
