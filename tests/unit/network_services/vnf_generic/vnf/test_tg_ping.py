@@ -228,7 +228,7 @@ class TestPingTrafficGen(unittest.TestCase):
     CMD_KWARGS = {
         'target_ip': u'152.16.100.20',
         'local_ip': u'152.16.100.19',
-        'local_if_name': u'xe0',
+        'local_if_name': u'xe0_fake',
     }
 
     @mock.patch("yardstick.ssh.SSH")
@@ -270,7 +270,7 @@ class TestPingTrafficGen(unittest.TestCase):
         mock_ssh(ssh, spec=VnfSshHelper, exec_result=(0, "success", ""))
         ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0)
         ping_traffic_gen.setup_helper.ssh_helper = mock.MagicMock(
-            **{"execute.return_value": (0, "success", "")})
+            **{"execute.return_value": (0, "xe0_fake", "")})
         self.assertIsInstance(ping_traffic_gen.ssh_helper, mock.Mock)
         self.assertEqual(ping_traffic_gen._result, {})
 
@@ -278,7 +278,7 @@ class TestPingTrafficGen(unittest.TestCase):
 
         self.assertEqual(
             ping_traffic_gen.vnfd_helper.interfaces[0]['virtual-interface']['local_iface_name'],
-            'success')
+            'xe0_fake')
         self.assertEqual(self.CMD_KWARGS, ping_traffic_gen.resource_helper.cmd_kwargs)
         self.assertIsNotNone(ping_traffic_gen._result)
 
