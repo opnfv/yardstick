@@ -14,7 +14,7 @@
 # limitations under the License.
 
 apt-get update > /dev/null 2>&1
-pkg=(python-pip build-essential libssl-dev libffi-dev python3-dev python-dev)
+pkg=(python-pip build-essential libssl-dev libffi-dev python3-dev python-dev kpartx)
 for i in "${pkg[@]}"; do
     dpkg-query -W --showformat='${Status}\n' "${i}"|grep "install ok installed"
     if [  "$?" -eq "1" ]; then
