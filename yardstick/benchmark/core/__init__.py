@@ -31,10 +31,3 @@ class Param(object):
 
         # list
         self.type = kwargs.get('type')
-
-
-def print_hbar(barlen):
-    """print to stdout a horizontal bar"""
-    print("+")
-    print("-" * barlen)
-    print("+")

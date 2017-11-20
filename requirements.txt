@@ -64,7 +64,7 @@ pep8==1.7.0		# Expat license; OSI Approved  MIT License
 # version 14.5.0 for compatibility with trex traffic generator
 pika==0.10.0		# BSD; OSI Approved  BSD License
 positional==1.1.1		# OSI Approved  Apache Software License
-prettytable==0.7.2		# BSD (3 clause); OSI Approved  BSD License
+PTable==0.9.2		# BSD (3 clause); OSI Approved  BSD License
 pycrypto==2.6.1		# Public Domain
 pyflakes==1.0.0		# MIT; OSI Approved  MIT License
 pyparsing==2.1.10		# MIT License; OSI Approved  MIT License
