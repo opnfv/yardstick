@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_c8cc6c64",
+        "filename": "tests/unit/benchmark/scenarios/lib/test_create_volume.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-21T09:58:03Z",
+      "side": 1,
+      "message": "If you are refactoring this TestCase, you should create:\n1) one function to check CreateVolume.__init__, and check the following values:\n        self.volume_name\n        self.volume_size\n        self.image_name\n        self.image_id\n        self.glance_client\n        self.cinder_client\n\n2) several functions to check \"run\":\n   - One without setup_done\n   - Another one with image_name\n   In each test you should check what is returned and the calls to the functions.",
+      "revId": "893685c1c8d906bf356051b90d412f19ba1baca8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
