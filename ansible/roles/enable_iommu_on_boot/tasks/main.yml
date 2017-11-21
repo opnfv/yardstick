@@ -1,0 +1,58 @@
+# Copyright (c) 2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Set iommu_boot_params for Intel
+  set_fact: 
+    iommu_boot_params: '\1 intel_iommu=on iommu=pt'
+  when: hostvars[inventory_hostname]['ansible_system_vendor'] == "Intel Corporation"
+
+- name: Set iommu_boot_params for AMD
+  set_fact: 
+    iommu_boot_params: '\1 amd_iommu=on iommu=pt'
+  when: hostvars[inventory_hostname]['ansible_system_vendor'] == "AuthenticAMD"
+
+- name: set fact iommu_replace_regex, identifies original kernel params
+  set_fact:
+    iommu_original_kernel_params: '^GRUB_CMDLINE_LINUX="\$GRUB_CMDLINE_LINUX default_hugepagesz=1G hugepagesz=1G hugepages=8"  # added by hugepages role'
+
+- name: set fact iommu_param_regex, identifies if iommu was enabled by this role
+  set_fact:
+    iommu_enabled_kernel_params: "{{ iommu_original_kernel_params | regex_replace('(.* ) #.*', '\\1 {{ iommu_boot_params }}  # added by hugepages role, added by iommu role') }}"
+#'^GRUB_CMDLINE_LINUX="\$GRUB_CMDLINE_LINUX default_hugepagesz=1G hugepagesz=1G hugepages=8 {{ iommu_boot_params }}"  # added by hugepages role, added by iommu role'
+
+- name: check if iommu is set by this role
+  command: "grep -o '{{ iommu_enabled_kernel_params }}' /etc/default/grub"
+  register: is_mine_iommu
+  ignore_errors: True
+
+- name: check if iommu is set by someone else
+  command: "grep -o 'iommu' /etc/default/grub"
+  register: is_iommu
+  ignore_errors: True
+
+- fail:
+    msg: "Iommu already set by someone else"
+  when: is_mine_iommu.stdout == "" and is_iommu.stdout != ""
+
+- name: set iommu in grub
+  lineinfile:
+    dest: /etc/default/grub
+    regexp: '{{ iommu_original_kernel_params }}'
+    line: '{{ iommu_enabled_kernel_params }}'
+    state: present
+    backrefs: yes
+
+- include: manual_modify_grub.yml
+  # only tested on Ubuntu, kernel line is probably different on other distros
+  when: ansible_distribution == "Ubuntu"
