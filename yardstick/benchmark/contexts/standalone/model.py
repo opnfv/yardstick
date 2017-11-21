@@ -79,6 +79,12 @@ VM_TEMPLATE = """
       <source bridge="br-int" />
       <model type='virtio'/>
     </interface>
+    <serial type='pty'>
+       <target port='0'/>
+     </serial>
+     <console type='pty'>
+       <target type='serial' port='0'/>
+     </console>
    </devices>
 </domain>
 """
