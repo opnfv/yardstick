@@ -331,7 +331,7 @@ class TestProxTrafficGen(unittest.TestCase):
 
         prox_traffic_gen = ProxTrafficGen(NAME, self.VNFD0)
         prox_traffic_gen._vnf_wrapper.resource_helper.resource = mock.MagicMock(
-            **{"check_if_sa_running.return_value": [False]})
+            **{"self.check_if_system_agent_running.return_value": [False]})
         prox_traffic_gen._vnf_wrapper.vnf_execute = mock.Mock(return_value="")
         self.assertEqual({}, prox_traffic_gen.collect_kpi())
 

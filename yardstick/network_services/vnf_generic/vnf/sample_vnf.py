@@ -345,7 +345,7 @@ class ResourceHelper(object):
 
     def _collect_resource_kpi(self):
         result = {}
-        status = self.resource.check_if_sa_running("collectd")[0]
+        status = self.resource.check_if_system_agent_running("collectd")[0]
         if status == 0:
             result = self.resource.amqp_collect_nfvi_kpi()
 

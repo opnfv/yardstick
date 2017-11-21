@@ -92,7 +92,7 @@ class ResourceProfile(object):
 
         return cls(node, plugins=plugins, interval=interval, timeout=timeout)
 
-    def check_if_sa_running(self, process):
+    def check_if_system_agent_running(self, process):
         """ verify if system agent is running """
         try:
             err, pid, _ = self.connection.execute("pgrep -f %s" % process)
@@ -101,7 +101,7 @@ class ResourceProfile(object):
         except OSError as e:
             if e.errno in {errno.ECONNRESET}:
                 # if we can't connect to check, then we won't be able to connect to stop it
-                LOG.exception("can't connect to host to check collectd status")
+                LOG.exception("Can't connect to host to check %s status" % process)
                 return 1, None
             raise
 
@@ -327,7 +327,7 @@ class ResourceProfile(object):
             self.amqp_client.terminate()
 
         LOG.debug("Check if %s is running", agent)
-        status, pid = self.check_if_sa_running(agent)
+        status, pid = self.check_if_system_agent_running(agent)
         LOG.debug("status %s  pid %s", status, pid)
         if status != 0:
             return
