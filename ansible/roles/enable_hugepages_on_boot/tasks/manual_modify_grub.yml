@@ -24,12 +24,6 @@
 - name: added hugepages to grub manually because we can't run update-grub in chroot
   replace:
     dest: "{{ item.path }}"
-    # console= should end the line
-    regexp: '(linux\s+/boot/vmlinuz.*console=\S+$)'
-    # default_hugepagesz=1G hugepagesz=1G hugepages=8
+    regexp: '(linux\s+/boot/vmlinuz.*$)'
     replace: '\1 default_hugepagesz={{ huge_pagesize_short[huge_pagesize_mb] }} hugepagesz={{ huge_pagesize_short[huge_pagesize_mb] }} hugepages={{ num_hugepages }}'
   with_items: "{{ grub_files.files }}"
-
-
-
-
