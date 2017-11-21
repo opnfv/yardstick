@@ -15,11 +15,12 @@
 # limitations under the License.
 #
 
-import mock
 from multiprocessing import Process, Queue
 import os
-import six.moves.configparser as configparser
 import time
+
+import mock
+import six.moves.configparser as configparser
 import unittest
 
 from tests.unit import STL_MOCKS
@@ -543,9 +544,9 @@ class TestVpeApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         resource = mock.Mock(autospec=ResourceProfile)
-        resource.check_if_sa_running.return_value = 1, ''
+        resource.check_if_system_agent_running.return_value = 1, ''
         resource.amqp_collect_nfvi_kpi.return_value = {'foo': 234}
-        resource.check_if_sa_running.return_value = (1, None)
+        resource.check_if_system_agent_running.return_value = (1, None)
 
         vpe_approx_vnf = VpeApproxVnf(NAME, self.VNFD_0)
         vpe_approx_vnf.q_in = mock.MagicMock()
@@ -567,7 +568,7 @@ class TestVpeApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         resource = mock.Mock(autospec=ResourceProfile)
-        resource.check_if_sa_running.return_value = 0, '1234'
+        resource.check_if_system_agent_running.return_value = 0, '1234'
         resource.amqp_collect_nfvi_kpi.return_value = {'foo': 234}
 
         vpe_approx_vnf = VpeApproxVnf(NAME, self.VNFD_0)

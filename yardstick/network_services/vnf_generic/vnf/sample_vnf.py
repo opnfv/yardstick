@@ -13,37 +13,33 @@
 # limitations under the License.
 """ Base class implementation for generic vnf implementation """
 
-from __future__ import absolute_import
-
-import posixpath
-import time
-import logging
-import os
-import re
-import subprocess
 from collections import Mapping
+import logging
 from multiprocessing import Queue, Value, Process
-
+import os
+import posixpath
+import re
 from six.moves import cStringIO
+import subprocess
+import time
 
+from trex_stl_lib.trex_stl_client import LoggerApi
+from trex_stl_lib.trex_stl_client import STLClient
+from trex_stl_lib.trex_stl_exceptions import STLError
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
 from yardstick.common import exceptions as y_exceptions
 from yardstick.common.process import check_if_process_failed
+from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
-from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
 from yardstick.network_services.nfvi.resource import ResourceProfile
-from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
-from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
-from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
 from yardstick.network_services.utils import get_nsb_option
-
-from trex_stl_lib.trex_stl_client import STLClient
-from trex_stl_lib.trex_stl_client import LoggerApi
-from trex_stl_lib.trex_stl_exceptions import STLError
-
+from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
+from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
+from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
 from yardstick.ssh import AutoConnectSSH
+
 
 DPDK_VERSION = "dpdk-16.07"
 
@@ -346,7 +342,7 @@ class ResourceHelper(object):
 
     def _collect_resource_kpi(self):
         result = {}
-        status = self.resource.check_if_sa_running("collectd")[0]
+        status = self.resource.check_if_system_agent_running("collectd")[0]
         if status == 0:
             result = self.resource.amqp_collect_nfvi_kpi()
 

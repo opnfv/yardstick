@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
-import unittest
-
 import errno
+
 import mock
+import unittest
 
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.nfvi import resource, collectd
@@ -105,14 +104,16 @@ class TestResourceProfile(unittest.TestCase):
     def test___init__(self):
         self.assertEqual(True, self.resource_profile.enable)
 
-    def test_check_if_sa_running(self):
-        self.assertEqual(self.resource_profile.check_if_sa_running("collectd"),
+    def test_check_if_system_agent_running(self):
+        self.assertEqual(self.resource_profile.check_if_system_agent_running("collectd"),
                          (0, ""))
 
-    def test_check_if_sa_running_excetion(self):
+    def test_check_if_system_agent_running_excetion(self):
         with mock.patch.object(self.resource_profile.connection, "execute") as mock_execute:
             mock_execute.side_effect = OSError(errno.ECONNRESET, "error")
-            self.assertEqual(self.resource_profile.check_if_sa_running("collectd"), (1, None))
+            self.assertEqual(
+                self.resource_profile.check_if_system_agent_running("collectd"),
+                (1, None))
 
     def test_get_cpu_data(self):
         reskey = ["", "cpufreq", "cpufreq-0"]
@@ -139,8 +140,7 @@ class TestResourceProfile(unittest.TestCase):
             self.resource_profile._setup_ovs_stats(self.ssh_mock))
 
     @mock.patch("yardstick.network_services.nfvi.resource.open")
-    @mock.patch("yardstick.network_services.nfvi.resource.os")
-    def test__provide_config_file(self, mock_open, mock_os):
+    def test__provide_config_file(self, *args):
         loadplugin = range(5)
         port_names = range(5)
         kwargs = {
@@ -152,13 +152,13 @@ class TestResourceProfile(unittest.TestCase):
         self.ssh_mock.execute.assert_called_once()
 
     @mock.patch("yardstick.network_services.nfvi.resource.open")
-    def test_initiate_systemagent(self, mock_open):
+    def test_initiate_systemagent(self, *args):
         self.resource_profile._start_collectd = mock.Mock()
         self.assertIsNone(
             self.resource_profile.initiate_systemagent("/opt/nsb_bin"))
 
     @mock.patch("yardstick.network_services.nfvi.resource.open")
-    def test_initiate_systemagent_raise(self, mock_open):
+    def test_initiate_systemagent_raise(self, *args):
         self.resource_profile._start_collectd = mock.Mock(side_effect=RuntimeError)
         with self.assertRaises(RuntimeError):
             self.resource_profile.initiate_systemagent("/opt/nsb_bin")
@@ -267,8 +267,10 @@ class TestResourceProfile(unittest.TestCase):
     def test_stop(self):
         self.assertIsNone(self.resource_profile.stop())
 
-    def test_stop(self):
+    def test_stop_amqp_not_running(self):
         self.resource_profile.amqp_client = mock.MagicMock()
+        # TODO(efoley): Fix this incorrect test.
+        # Should check that we don't try to stop amqp when it's not running
         self.assertIsNone(self.resource_profile.stop())
 
 if __name__ == '__main__':

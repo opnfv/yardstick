@@ -16,14 +16,16 @@
 #
 
 from itertools import repeat, chain
-import mock
 import os
 import socket
 import time
+
+import mock
 import unittest
 
 from tests.unit import STL_MOCKS
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
+
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
@@ -1433,9 +1435,9 @@ class TestProxResourceHelper(unittest.TestCase):
         helper = ProxResourceHelper(mock.MagicMock())
         helper.resource = resource = mock.MagicMock()
 
-        resource.check_if_sa_running.return_value = 0, '1234'
+        resource.check_if_system_agent_running.return_value = 0, '1234'
         resource.amqp_collect_nfvi_kpi.return_value = 543
-        resource.check_if_sa_running.return_value = (0, None)
+        resource.check_if_system_agent_running.return_value = (0, None)
 
         expected = {'core': 543}
         result = helper.collect_collectd_kpi()
@@ -1447,9 +1449,9 @@ class TestProxResourceHelper(unittest.TestCase):
         helper._result = {'z': 123}
         helper.resource = resource = mock.MagicMock()
 
-        resource.check_if_sa_running.return_value = 0, '1234'
+        resource.check_if_system_agent_running.return_value = 0, '1234'
         resource.amqp_collect_nfvi_kpi.return_value = 543
-        resource.check_if_sa_running.return_value = (0, None)
+        resource.check_if_system_agent_running.return_value = (0, None)
 
         queue.empty.return_value = False
         queue.get.return_value = {'a': 789}
