@@ -105,14 +105,16 @@ class TestResourceProfile(unittest.TestCase):
     def test___init__(self):
         self.assertEqual(True, self.resource_profile.enable)
 
-    def test_check_if_sa_running(self):
-        self.assertEqual(self.resource_profile.check_if_sa_running("collectd"),
+    def test_check_if_system_agent_running(self):
+        self.assertEqual(self.resource_profile.check_if_system_agent_running("collectd"),
                          (0, ""))
 
-    def test_check_if_sa_running_excetion(self):
+    def test_check_if_system_agent_running_excetion(self):
         with mock.patch.object(self.resource_profile.connection, "execute") as mock_execute:
             mock_execute.side_effect = OSError(errno.ECONNRESET, "error")
-            self.assertEqual(self.resource_profile.check_if_sa_running("collectd"), (1, None))
+            self.assertEqual(
+                self.resource_profile.check_if_system_agent_running("collectd"),
+                (1, None))
 
     def test_get_cpu_data(self):
         reskey = ["", "cpufreq", "cpufreq-0"]
