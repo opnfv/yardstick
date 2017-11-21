@@ -35,7 +35,7 @@ LOG = logging.getLogger(__name__)
 
 VM_TEMPLATE = """
 <domain type="kvm">
- <name>{vm_name}</name>
+  <name>{vm_name}</name>
   <uuid>{random_uuid}</uuid>
   <memory unit="MB">{memory}</memory>
   <currentMemory unit="MB">{memory}</currentMemory>
@@ -79,7 +79,13 @@ VM_TEMPLATE = """
       <source bridge="br-int" />
       <model type='virtio'/>
     </interface>
-   </devices>
+    <serial type='pty'>
+      <target port='0'/>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
+  </devices>
 </domain>
 """
 WAIT_FOR_BOOT = 30
@@ -284,7 +290,8 @@ class StandaloneContextHelper(object):
         super(StandaloneContextHelper, self).__init__()
 
     @staticmethod
-    def install_req_libs(connection, extra_pkgs=[]):
+    def install_req_libs(connection, extra_pkgs=None):
+        extra_pkgs = extra_pkgs or []
         pkgs = ["qemu-kvm", "libvirt-bin", "bridge-utils", "numactl", "fping"]
         pkgs.extend(extra_pkgs)
         cmd_template = "dpkg-query -W --showformat='${Status}\\n' \"%s\"|grep 'ok installed'"

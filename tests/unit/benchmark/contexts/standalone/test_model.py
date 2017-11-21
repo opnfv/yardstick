@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Copyright (c) 2016-2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +14,6 @@
 
 # Unittest for yardstick.benchmark.contexts.standalone.model
 
-from __future__ import absolute_import
 import copy
 import os
 import unittest
@@ -24,9 +21,9 @@ import mock
 
 from xml.etree import ElementTree
 
+from yardstick.benchmark.contexts.standalone.model import Libvirt
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.network_services import utils
-from yardstick.network_services.helpers import cpu
 
 
 XML_SAMPLE = """<?xml version="1.0"?>
@@ -181,21 +178,23 @@ class ModelLibvirtTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "a", ""))
             ssh.return_value = ssh_mock
-        # NOTE(ralonsoh): this test doesn't cover function execution. This test
-        # should also check mocked function calls.
-        model.Libvirt.update_interrupts_hugepages_perf(ssh_mock)
+        # NOTE(ralonsoh): 'update_interrupts_hugepages_perf' always return
+        # None, this check is trivial.
+        #status = Libvirt.update_interrupts_hugepages_perf(ssh_mock)
+        #self.assertIsNone(status)
+        Libvirt.update_interrupts_hugepages_perf(ssh_mock)
 
-    @mock.patch.object(cpu.CpuSysCores, 'get_core_socket')
-    def test_pin_vcpu_for_perf(self, mock_get_core_socket):
-        mock_get_core_socket.return_value = {
-            'cores_per_socket': 1,
-            'thread_per_core': 1,
-            '0': [1, 2]
-        }
-        # NOTE(ralonsoh): this test doesn't cover function execution. This
-        # function needs more tests.
-        model.Libvirt.pin_vcpu_for_perf(mock.Mock())
-
+    @mock.patch("yardstick.benchmark.contexts.standalone.model.CpuSysCores")
+    @mock.patch.object(model.Libvirt, 'update_interrupts_hugepages_perf')
+    def test_pin_vcpu_for_perf(self, *args):
+        # NOTE(ralonsoh): test mocked methods/variables.
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "a", ""))
+            ssh.return_value = ssh_mock
+        status = Libvirt.pin_vcpu_for_perf(ssh_mock, 4)
+        self.assertIsNotNone(status)
 
 class StandaloneContextHelperTestCase(unittest.TestCase):
 
@@ -247,8 +246,7 @@ class StandaloneContextHelperTestCase(unittest.TestCase):
     def test_get_nic_details(self, mock_get_kernel_module):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(1, "i40e ixgbe", ""))
+            ssh_mock.execute = mock.Mock(return_value=(1, "i40e ixgbe", ""))
             ssh.return_value = ssh_mock
         mock_get_kernel_module.return_value = "i40e"
         # NOTE(ralonsoh): this test doesn't cover function execution. This test
@@ -296,6 +294,7 @@ class StandaloneContextHelperTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.ssh.SSH')
     def test_get_mgmt_ip(self, *args):
+        # NOTE(ralonsoh): test mocked methods/variables.
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = mock.Mock(
@@ -309,6 +308,7 @@ class StandaloneContextHelperTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.ssh.SSH')
     def test_get_mgmt_ip_no(self, *args):
+        # NOTE(ralonsoh): test mocked methods/variables.
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
