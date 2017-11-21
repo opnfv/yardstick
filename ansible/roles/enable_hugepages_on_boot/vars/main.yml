@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-hugepage_param_regex: '^GRUB_CMDLINE_LINUX="\$GRUB_CMDLINE_LINUX.*# added by hugepages role'
+hugepage_param_regex: '^GRUB_CMDLINE_LINUX="\$GRUB_CMDLINE_LINUX.*"  # added by hugepages role'
 hugepage_param: 'GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX default_hugepagesz={{ huge_pagesize_short[huge_pagesize_mb] }} hugepagesz={{ huge_pagesize_short[huge_pagesize_mb] }} hugepages={{ num_hugepages }}"  # added by hugepages role'
 
 update_grub:
