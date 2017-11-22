@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_6683d156",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-11-22T02:44:23Z",
+      "side": 1,
+      "message": "link is OK on my PC it goes to https://jira.opnfv.org/browse/YARDSTICK-855",
+      "parentUuid": "9a3d3df0_6890c043",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "46746d83d7667cdb09283295577d1107703e6f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_0872d448",
         "filename": "yardstick/benchmark/core/runner.py",
         "patchSetId": 3
@@ -53,6 +77,24 @@
       "writtenOn": "2017-11-21T09:13:13Z",
       "side": 1,
       "message": "nit: don\u0027t you want to use the same align as in \"testcase\"?\n\n  case_table.align \u003d \u0027l\u0027",
+      "revId": "46746d83d7667cdb09283295577d1107703e6f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_86809547",
+        "filename": "yardstick/benchmark/core/runner.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-11-22T02:44:23Z",
+      "side": 1,
+      "message": "runner description is short, it looks good for the runner table, so i don\u0027t use the align",
+      "parentUuid": "9a3d3df0_c8774c3a",
       "revId": "46746d83d7667cdb09283295577d1107703e6f15",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -93,6 +135,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_46eded24",
+        "filename": "yardstick/benchmark/core/scenario.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-11-22T02:44:23Z",
+      "side": 1,
+      "message": "same as the runner situation, it looks good to align in the middle when the description is short .",
+      "parentUuid": "9a3d3df0_2877d83b",
+      "revId": "46746d83d7667cdb09283295577d1107703e6f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_8886e411",
         "filename": "yardstick/cmd/__init__.py",
         "patchSetId": 3
@@ -104,6 +164,30 @@
       "writtenOn": "2017-11-21T09:13:13Z",
       "side": 1,
       "message": "And empty __init__.py file (without any code), shouldn\u0027t have a header.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 78
+      },
+      "revId": "46746d83d7667cdb09283295577d1107703e6f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c691fd9b",
+        "filename": "yardstick/cmd/__init__.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-11-22T02:44:23Z",
+      "side": 1,
+      "message": "u r right, will remove it, thanks",
+      "parentUuid": "9a3d3df0_8886e411",
       "range": {
         "startLine": 1,
         "startChar": 0,
@@ -139,6 +223,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_2691c999",
+        "filename": "yardstick/cmd/commands/testcase.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-11-22T02:44:23Z",
+      "side": 1,
+      "message": "it make sense, will do.",
+      "parentUuid": "9a3d3df0_68bba0e5",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 35
+      },
+      "revId": "46746d83d7667cdb09283295577d1107703e6f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_a883e802",
         "filename": "yardstick/cmd/commands/testcase.py",
         "patchSetId": 3
@@ -150,6 +258,24 @@
       "writtenOn": "2017-11-21T09:13:13Z",
       "side": 1,
       "message": "prettytable hasn\u0027t been updated since 2013. Instead of this, you should use PTable v0.9.2.\n\nThis project is a fork of the first one but it\u0027s updated.\n\nYou should also remove prettytable from requirements.txt and add ptable 0.9.2\n\nThe API is the same.",
+      "revId": "46746d83d7667cdb09283295577d1107703e6f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_068c857e",
+        "filename": "yardstick/cmd/commands/testcase.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-11-22T02:44:23Z",
+      "side": 1,
+      "message": "thanks for you info, i\u0027ll replace it in next patch",
+      "parentUuid": "9a3d3df0_a883e802",
       "revId": "46746d83d7667cdb09283295577d1107703e6f15",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
