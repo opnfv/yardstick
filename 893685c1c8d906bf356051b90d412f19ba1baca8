@@ -34,6 +34,24 @@
       "revId": "893685c1c8d906bf356051b90d412f19ba1baca8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a1ff8366",
+        "filename": "tests/unit/benchmark/scenarios/lib/test_create_volume.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-22T16:54:30Z",
+      "side": 1,
+      "message": "What do you mean here?\n    2) several functions to check \"run\":\n       - Another one with image_name\n\nImage name is always set. If it wasn\u0027t set, there would be an KeyError when instantiating CreateVolume, since this is an expected key in the scenario_cfg.",
+      "parentUuid": "9a3d3df0_81b87fe6",
+      "revId": "893685c1c8d906bf356051b90d412f19ba1baca8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
