@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_01510fd8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-22T13:49:49Z",
+      "side": 1,
+      "message": "There\u0027s a permission issue when trying to view this Jira ticket.",
+      "parentUuid": "9a3d3df0_6683d156",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "46746d83d7667cdb09283295577d1107703e6f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_0872d448",
         "filename": "yardstick/benchmark/core/runner.py",
         "patchSetId": 3
@@ -101,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_410957dc",
+        "filename": "yardstick/benchmark/core/runner.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-22T13:49:49Z",
+      "side": 1,
+      "message": "That\u0027s okay for now, but if any additional runners are created, their descriptions might be longer.",
+      "parentUuid": "9a3d3df0_86809547",
+      "revId": "46746d83d7667cdb09283295577d1107703e6f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e87cd022",
         "filename": "yardstick/benchmark/core/scenario.py",
         "patchSetId": 3
@@ -147,6 +189,24 @@
       "side": 1,
       "message": "same as the runner situation, it looks good to align in the middle when the description is short .",
       "parentUuid": "9a3d3df0_2877d83b",
+      "revId": "46746d83d7667cdb09283295577d1107703e6f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a1102302",
+        "filename": "yardstick/benchmark/core/scenario.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-22T13:49:49Z",
+      "side": 1,
+      "message": "Same again, scenario descriptions won\u0027t always be short.",
+      "parentUuid": "9a3d3df0_46eded24",
       "revId": "46746d83d7667cdb09283295577d1107703e6f15",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
