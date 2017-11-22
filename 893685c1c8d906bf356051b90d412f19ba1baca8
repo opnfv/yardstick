@@ -16,6 +16,24 @@
       "revId": "893685c1c8d906bf356051b90d412f19ba1baca8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_81b87fe6",
+        "filename": "tests/unit/benchmark/scenarios/lib/test_create_volume.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-22T14:55:03Z",
+      "side": 1,
+      "message": "Thanks Rodolfo, that makes sense. I\u0027ll update this in the next patch",
+      "parentUuid": "9a3d3df0_c8cc6c64",
+      "revId": "893685c1c8d906bf356051b90d412f19ba1baca8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
