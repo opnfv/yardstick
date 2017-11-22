@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_46c04de0",
+        "filename": "docs/testing/user/userguide/nsb/tc_prox_context_lw_aftr_port.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-11-22T10:05:24Z",
+      "side": 1,
+      "message": "This should be \"lw_aftr workload\"",
+      "range": {
+        "startLine": 80,
+        "startChar": 25,
+        "endLine": 80,
+        "endChar": 38
+      },
+      "revId": "74caea30f3c488e2583a2a678943352e89dd7169",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e62521c3",
+        "filename": "docs/testing/user/userguide/nsb/tc_prox_context_vpe_port.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-11-22T10:05:24Z",
+      "side": 1,
+      "message": "alignment of box to be fixed",
+      "range": {
+        "startLine": 45,
+        "startChar": 76,
+        "endLine": 45,
+        "endChar": 78
+      },
+      "revId": "74caea30f3c488e2583a2a678943352e89dd7169",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c620ddb2",
+        "filename": "docs/testing/user/userguide/nsb/tc_prox_context_vpe_port.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-11-22T10:05:24Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 55,
+        "startChar": 69,
+        "endLine": 55,
+        "endChar": 71
+      },
+      "revId": "74caea30f3c488e2583a2a678943352e89dd7169",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2630a900",
+        "filename": "docs/testing/user/userguide/nsb/tc_prox_context_vpe_port.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2017-11-22T10:05:24Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 81,
+        "startChar": 76,
+        "endLine": 81,
+        "endChar": 78
+      },
+      "revId": "74caea30f3c488e2583a2a678943352e89dd7169",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
