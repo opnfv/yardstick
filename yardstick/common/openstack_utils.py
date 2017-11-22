@@ -110,7 +110,8 @@ def get_heat_api_version():     # pragma: no cover
         return api_version
 
 
-def get_cinder_client_version():      # pragma: no cover
+def get_cinder_api_version():      # pragma: no cover
+    """Get the Cinder API version from the environment."""
     try:
         api_version = os.environ['OS_VOLUME_API_VERSION']
     except KeyError:
@@ -122,10 +123,11 @@ def get_cinder_client_version():      # pragma: no cover
 
 def get_cinder_client():      # pragma: no cover
     sess = get_session()
-    return cinderclient.Client(get_cinder_client_version(), session=sess)
+    return cinderclient.Client(get_cinder_api_version(), session=sess)
 
 
-def get_nova_client_version():      # pragma: no cover
+def get_nova_api_version():      # pragma: no cover
+    """Get the Nova API version from the environment."""
     try:
         api_version = os.environ['OS_COMPUTE_API_VERSION']
     except KeyError:
@@ -137,10 +139,11 @@ def get_nova_client_version():      # pragma: no cover
 
 def get_nova_client():      # pragma: no cover
     sess = get_session()
-    return novaclient.Client(get_nova_client_version(), session=sess)
+    return novaclient.Client(get_nova_api_version(), session=sess)
 
 
-def get_neutron_client_version():   # pragma: no cover
+def get_neutron_api_version():   # pragma: no cover
+    """Get the Neutron API version from the environment."""
     try:
         api_version = os.environ['OS_NETWORK_API_VERSION']
     except KeyError:
@@ -152,10 +155,11 @@ def get_neutron_client_version():   # pragma: no cover
 
 def get_neutron_client():   # pragma: no cover
     sess = get_session()
-    return neutronclient.Client(get_neutron_client_version(), session=sess)
+    return neutronclient.Client(get_neutron_api_version(), session=sess)
 
 
-def get_glance_client_version():    # pragma: no cover
+def get_glance_api_version():    # pragma: no cover
+    """Get the Glance API version from the environment."""
     try:
         api_version = os.environ['OS_IMAGE_API_VERSION']
     except KeyError:
@@ -167,7 +171,7 @@ def get_glance_client_version():    # pragma: no cover
 
 def get_glance_client():    # pragma: no cover
     sess = get_session()
-    return glanceclient.Client(get_glance_client_version(), session=sess)
+    return glanceclient.Client(get_glance_api_version(), session=sess)
 
 
 # *********************************************
