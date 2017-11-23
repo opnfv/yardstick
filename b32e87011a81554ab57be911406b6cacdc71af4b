@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_b3c4f45f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-23T22:39:03Z",
+      "side": 1,
+      "message": "nit: add detail as to why this dependency is needed.\n\nIs it a new dependency, or is  it used in the container, but wasn\u0027t already installed?",
+      "revId": "b32e87011a81554ab57be911406b6cacdc71af4b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
