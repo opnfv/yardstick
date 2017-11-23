@@ -2,6 +2,144 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_53ada89b",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-23T23:03:02Z",
+      "side": 1,
+      "message": "This isn\u0027t testing anything.\n\nAll you know is that there was no error when you called it, but this does not assert state before or after the function call.",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 30
+      },
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_33b0e4f3",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-23T23:03:02Z",
+      "side": 1,
+      "message": "ditto for this and the following methods",
+      "range": {
+        "startLine": 110,
+        "startChar": 8,
+        "endLine": 110,
+        "endChar": 34
+      },
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9396104b",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-23T23:03:02Z",
+      "side": 1,
+      "message": "This is not testing the length, it is just printing it.\n\nHere, you only know that \"a\" is set, otherwise, there would be an error in invoking len(a).\n\nYou need to compare it to an expected value.",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 13
+      },
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7391cc51",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-23T23:03:02Z",
+      "side": 1,
+      "message": "ditto for this not checking anything",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 12
+      },
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d3a098a1",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-23T23:03:02Z",
+      "side": 1,
+      "message": "ditto for this not checking anything.\n\nYou should check that:\n- the length is correct (can be combined with the method above)\n- the correct values are being set\n- optional: the output a is of the correct type.",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 124,
+        "endChar": 16
+      },
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b39b5471",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-23T23:03:02Z",
+      "side": 1,
+      "message": "Is this a meaningful test? It checks that a call get an non existent item returns None.",
+      "range": {
+        "startLine": 129,
+        "startChar": 31,
+        "endLine": 129,
+        "endChar": 36
+      },
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_ba598500",
         "filename": "tests/unit/common/test_ansible_common.py",
         "patchSetId": 5
