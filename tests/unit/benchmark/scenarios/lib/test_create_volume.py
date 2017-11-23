@@ -81,11 +81,3 @@ class CreateVolumeTestCase(unittest.TestCase):
         self.scenario.setup_done = False
         self.scenario.run()
         scenario_setup.assert_called_once()
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

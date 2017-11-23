@@ -27,11 +27,3 @@ class CreateFlavorTestCase(unittest.TestCase):
         obj = CreateFlavor(args, {})
         obj.run({})
         self.assertTrue(mock_create_flavor.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

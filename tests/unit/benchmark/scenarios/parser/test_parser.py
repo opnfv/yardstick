@@ -53,10 +53,3 @@ class ParserTestCase(unittest.TestCase):
         mock_subprocess.call().return_value = 0
         p.teardown()
         self.assertEqual(p.teardown_done, True)
-
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()

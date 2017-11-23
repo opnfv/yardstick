@@ -36,11 +36,3 @@ class CheckValueTestCase(unittest.TestCase):
             obj.run({})
         except Exception as e:
             self.assertIsInstance(e, AssertionError)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

@@ -25,11 +25,3 @@ class DetachVolumeTestCase(unittest.TestCase):
         obj = DetachVolume(args, {})
         obj.run({})
         self.assertTrue(mock_detach_volume.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()
