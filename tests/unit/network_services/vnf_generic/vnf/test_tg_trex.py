@@ -469,13 +469,6 @@ class TestTrexTrafficGen(unittest.TestCase):
         self.assertIsNotNone(result)
 
     @mock.patch(SSH_HELPER)
-    def test_scale(self, ssh):
-        mock_ssh(ssh, exec_result=(1, "", ""))
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
-        trex_traffic_gen.scale('')
-
-    @mock.patch(SSH_HELPER)
     def test_terminate(self, ssh):
         mock_ssh(ssh)
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
