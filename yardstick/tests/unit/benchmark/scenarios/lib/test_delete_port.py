@@ -23,11 +23,3 @@ class DeletePortTestCase(unittest.TestCase):
         obj = DeletePort(args, {})
         obj.run({})
         self.assertTrue(mock_get_neutron_client.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

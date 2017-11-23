@@ -12,7 +12,6 @@
 
 # yardstick: this file is copied from python-heatclient and slightly modified
 
-from __future__ import absolute_import
 import unittest
 
 from yardstick.common import yaml_loader
@@ -23,10 +22,3 @@ class TemplateFormatTestCase(unittest.TestCase):
     def test_parse_to_value_exception(self):
 
         self.assertEqual(yaml_loader.yaml_load("string"), u"string")
-
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()

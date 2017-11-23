@@ -28,11 +28,3 @@ class CreateSecGroupTestCase(unittest.TestCase):
         obj.run({})
         self.assertTrue(mock_get_neutron_client.called)
         self.assertTrue(mock_create_security_group_full.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

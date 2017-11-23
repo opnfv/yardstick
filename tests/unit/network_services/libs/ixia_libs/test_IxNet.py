@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Copyright (c) 2016-2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +34,7 @@ class TestIxNextgen(unittest.TestCase):
         self.assertIsNone(ixnet_gen._bidir)
 
     @mock.patch("yardstick.network_services.libs.ixia_libs.IxNet.IxNet.sys")
-    def test_connect(self, mock_sys):
+    def test_connect(self, *args):
 
         ixnet_gen = IxNextgen()
         ixnet_gen.get_config = mock.MagicMock()

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Copyright (c) 2016-2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -262,6 +260,3 @@ class TestRouterVNF(unittest.TestCase):
         router_vnf._vnf_process = mock.MagicMock()
         router_vnf._vnf_process.terminate = mock.Mock()
         self.assertIsNone(router_vnf.terminate())
-
-if __name__ == '__main__':
-    unittest.main()

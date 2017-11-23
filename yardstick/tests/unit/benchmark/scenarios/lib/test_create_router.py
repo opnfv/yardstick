@@ -28,11 +28,3 @@ class CreateRouterTestCase(unittest.TestCase):
         obj.run({})
         self.assertTrue(mock_get_neutron_client.called)
         self.assertTrue(mock_create_neutron_router.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

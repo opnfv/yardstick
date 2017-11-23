@@ -74,11 +74,3 @@ class CheckNumaInfoTestCase(unittest.TestCase):
         obj = CheckNumaInfo(scenario_cfg, {})
         status = obj._check_vm2_status(info1, info2)
         self.assertFalse(status)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

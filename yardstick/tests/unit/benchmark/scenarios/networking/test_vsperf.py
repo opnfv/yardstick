@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Copyright 2016 Intel Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -126,11 +124,3 @@ class VsperfTestCase(unittest.TestCase):
 
         result = {}
         self.assertRaises(RuntimeError, p.run, result)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

@@ -24,11 +24,3 @@ class AttachVolumeTestCase(unittest.TestCase):
         obj = AttachVolume(args, {})
         obj.run({})
         self.assertTrue(mock_attach_server_volume.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

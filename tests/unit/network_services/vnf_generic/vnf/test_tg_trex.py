@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Copyright (c) 2016-2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -483,7 +481,3 @@ class TestTrexTrafficGen(unittest.TestCase):
         client = mock.Mock(autospec=STLClient)
         client.connect = mock.Mock(return_value=0)
         self.assertIsNotNone(trex_traffic_gen.resource_helper._connect(client))
-
-
-if __name__ == '__main__':
-    unittest.main()

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
 #
@@ -76,9 +74,3 @@ class SpecCPUforVMTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, s.run, self.result)
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()

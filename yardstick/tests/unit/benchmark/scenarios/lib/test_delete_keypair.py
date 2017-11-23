@@ -25,11 +25,3 @@ class DeleteKeypairTestCase(unittest.TestCase):
         obj.run({})
         self.assertTrue(mock_get_nova_client.called)
         self.assertTrue(mock_delete_keypair.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

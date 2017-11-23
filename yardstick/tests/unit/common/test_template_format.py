@@ -45,10 +45,3 @@ class TemplateFormatTestCase(unittest.TestCase):
                 "Resources: {}\n" \
                 "Outputs: {}"
         self.assertRaises(ValueError, template_format.parse, yaml2)
-
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()
