@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2016 Huawei Technologies Co.,Ltd.
 #
@@ -233,10 +231,3 @@ class StorPerfTestCase(unittest.TestCase):
         s = storperf.StorPerf(args, self.ctx)
 
         self.assertRaises(AssertionError, s.teardown(), self.result)
-
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()

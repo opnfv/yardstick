@@ -33,10 +33,3 @@ class CheckValueTestCase(unittest.TestCase):
         obj = CheckValue(scenario_cfg, {})
         self.assertRaises(AssertionError, obj.run, self.result)
         self.assertEqual({}, self.result)
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

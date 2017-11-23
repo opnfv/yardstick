@@ -27,11 +27,3 @@ class DeleteImageTestCase(unittest.TestCase):
         self.assertTrue(mock_delete_image.called)
         self.assertTrue(mock_image_id.called)
         self.assertTrue(mock_get_glance_client.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

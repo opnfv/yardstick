@@ -25,11 +25,3 @@ class DeleteVolumeTestCase(unittest.TestCase):
         obj.run({})
         self.assertTrue(mock_get_cinder_client.called)
         self.assertTrue(mock_delete_volume.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

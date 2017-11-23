@@ -76,11 +76,3 @@ class CheckConnectivityTestCase(unittest.TestCase):
         obj.setup()
 
         mock_ssh.SSH.execute.return_value = (0, '100', '')
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()
