@@ -413,13 +413,6 @@ class TestProxApproxVnf(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             prox_approx_vnf.wait_for_instantiate()
 
-    @mock.patch(SSH_HELPER)
-    def test_scale(self, ssh, mock_time):
-        mock_ssh(ssh)
-        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
-        with self.assertRaises(NotImplementedError):
-            prox_approx_vnf.scale()
-
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.socket')
     @mock.patch(SSH_HELPER)
     def test_terminate(self, ssh, mock_socket, mock_time):

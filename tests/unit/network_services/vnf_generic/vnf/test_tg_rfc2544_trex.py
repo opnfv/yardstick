@@ -331,15 +331,6 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
         self.assertIsNone(trex_traffic_gen.resource_helper.generate_cfg())
 
-    def test_scale(self):
-        with mock.patch(SSH_HELPER) as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = mock.Mock(return_value=(0, "", ""))
-            ssh_mock.run = mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
-            trex_traffic_gen.scale('')
-
     def test_terminate(self):
         with mock.patch(SSH_HELPER) as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)

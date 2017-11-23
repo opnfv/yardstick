@@ -467,12 +467,6 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             udp_replay_approx_vnf.wait_for_instantiate()
 
-    def test_scale(self, _):
-        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
-        flavor = ""
-
-        self.assertRaises(NotImplementedError, udp_replay_approx_vnf.scale, flavor)
-
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
     def test_terminate(self, ssh, mock_time, _):

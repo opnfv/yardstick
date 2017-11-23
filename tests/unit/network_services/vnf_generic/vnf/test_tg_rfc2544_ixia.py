@@ -236,11 +236,6 @@ class TestIXIATrafficGen(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
-    def test_scale(self, mock_ix_nextgen):
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sut = IxiaTrafficGen('vnf1', vnfd)
-        sut.scale()
-
     def test__check_status(self, mock_ix_nextgen):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         sut = IxiaTrafficGen('vnf1', vnfd)

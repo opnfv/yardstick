@@ -793,11 +793,6 @@ class TestVpeApproxVnf(unittest.TestCase):
 
         self.assertIn('Error starting', str(raised.exception))
 
-    def test_scale(self, _):
-        vpe_approx_vnf = VpeApproxVnf(NAME, self.VNFD_0)
-        with self.assertRaises(NotImplementedError):
-            vpe_approx_vnf.scale('')
-
     @mock.patch(SSH_HELPER)
     def test_terminate(self, ssh, _):
         mock_ssh(ssh)

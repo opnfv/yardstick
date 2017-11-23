@@ -333,13 +333,6 @@ class TestAclApproxVnf(unittest.TestCase):
         self.assertIsNone(acl_approx_vnf.instantiate(self.scenario_cfg,
                                                      self.context_cfg))
 
-    def test_scale(self, mock_process):
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
-        flavor = ""
-        with self.assertRaises(NotImplementedError):
-            acl_approx_vnf.scale(flavor)
-
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
     def test_terminate(self, ssh, mock_time, mock_process):

@@ -201,9 +201,6 @@ class IxiaTrafficGen(SampleVNFTrafficGen):
     def _check_status(self):
         pass
 
-    def scale(self, flavor=""):
-        pass
-
     def terminate(self):
         self.resource_helper.stop_collect()
         super(IxiaTrafficGen, self).terminate()

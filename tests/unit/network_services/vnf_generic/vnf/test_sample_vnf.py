@@ -26,6 +26,7 @@ from copy import deepcopy
 from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from tests.unit import STL_MOCKS
 from yardstick.benchmark.contexts.base import Context
+from yardstick.common import exceptions as y_exceptions
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.traffic_profile.base import TrafficProfile
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
@@ -1877,6 +1878,12 @@ class TestSampleVnf(unittest.TestCase):
         result = sample_vnf.collect_kpi()
         self.assertDictEqual(result, expected)
 
+    def test_scale(self):
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        sample_vnf = SampleVNF('vnf1', vnfd)
+        self.assertRaises(y_exceptions.FunctionNotImplemented,
+                          sample_vnf.scale)
+
 
 class TestSampleVNFTrafficGen(unittest.TestCase):
 
@@ -2051,3 +2058,8 @@ class TestSampleVNFTrafficGen(unittest.TestCase):
             self.assertEqual(sample_vnf_tg._wait_for_process(), 234)
             mock_proc.is_alive.assert_has_calls([mock.call(), mock.call()])
             mock_status.assert_has_calls([mock.call(), mock.call()])
+
+    def test_scale(self):
+        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0)
+        self.assertRaises(y_exceptions.FunctionNotImplemented,
+                          sample_vnf_tg.scale)
