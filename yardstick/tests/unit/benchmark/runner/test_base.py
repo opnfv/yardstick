@@ -81,11 +81,3 @@ class RunnerTestCase(unittest.TestCase):
 
         with self.assertRaises(NotImplementedError):
             runner._run_benchmark(mock.Mock(), mock.Mock(), mock.Mock(), mock.Mock())
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

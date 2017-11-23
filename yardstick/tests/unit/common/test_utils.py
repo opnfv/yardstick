@@ -1073,10 +1073,3 @@ class SafeDecodeUtf8TestCase(unittest.TestCase):
         out = utils.safe_decode_utf8(_bytes)
         self.assertIs(type(out), str)
         self.assertEqual('this is a byte array', out)
-
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2015 Huawei Technologies Co.,Ltd and others.
 #
@@ -35,11 +33,3 @@ class TestcaseUT(unittest.TestCase):
         casename = Arg()
         result = t.show(casename)
         self.assertTrue(result)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

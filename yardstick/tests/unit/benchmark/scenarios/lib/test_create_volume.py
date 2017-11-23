@@ -98,11 +98,3 @@ class CreateVolumeTestCase(unittest.TestCase):
         self.assertTrue(mock_image_id.called)
         self.assertTrue(mock_get_glance_client.called)
         self.assertTrue(mock_get_cinder_client.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

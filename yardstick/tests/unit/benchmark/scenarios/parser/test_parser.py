@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2015 Huawei Technologies Co.,Ltd and other.
 #
@@ -70,10 +68,3 @@ class ParserTestCase(unittest.TestCase):
         self.mock_call.return_value = 0
         self.scenario.teardown()
         self.assertTrue(self.scenario.teardown_done)
-
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()

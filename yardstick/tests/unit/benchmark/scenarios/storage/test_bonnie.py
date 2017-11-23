@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
 #
@@ -8,8 +6,6 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
-# Unittest for yardstick.benchmark.scenarios.storage.bonnie.Bonnie
 
 from __future__ import absolute_import
 
@@ -65,11 +61,3 @@ class BonnieTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, b.run, self.result)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

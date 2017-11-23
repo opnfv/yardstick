@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2017 Intel Corporation
 #
@@ -104,11 +102,3 @@ service ssh restart;while true ; do sleep 10000; done']
         mock_get_pod_list.return_value.items = []
         pods = k8s_template.get_rc_pods()
         self.assertEqual(pods, [])
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

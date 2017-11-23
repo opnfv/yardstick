@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2015 Ericsson AB and others.
 #
@@ -116,10 +114,3 @@ class PingTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.side_effect = [
             (0, 'host1', ''), (1, '', 'FOOBAR')]
         self.assertRaises(RuntimeError, p.run, result)
-
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()

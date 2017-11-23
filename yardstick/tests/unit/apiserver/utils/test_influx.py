@@ -50,11 +50,3 @@ class QueryTestCase(unittest.TestCase):
             influx.query(sql)
         except Exception as e:  # pylint: disable=broad-except
             self.assertIsInstance(e, RuntimeError)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

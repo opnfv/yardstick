@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Copyright (c) 2016-2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -612,7 +610,3 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         self.assertEqual(
             None,
             r_f_c2544_profile.start_ixia_latency(traffic_generator, ixia_obj))
-
-
-if __name__ == '__main__':
-    unittest.main()
