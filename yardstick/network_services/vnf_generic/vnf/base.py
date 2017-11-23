@@ -150,9 +150,14 @@ class VNFObject(object):
         self.vnfd_helper = VnfdHelper(vnfd)  # fixme: parse this into a structure
 
 
+@six.add_metaclass(abc.ABCMeta)
 class GenericVNF(VNFObject):
+    """Class providing file-like API for generic VNF implementation
 
-    """ Class providing file-like API for generic VNF implementation """
+    Currently the only class implementing this interface is
+    yardstick/network_services/vnf_generic/vnf/sample_vnf:SampleVNF.
+    """
+
     def __init__(self, name, vnfd):
         super(GenericVNF, self).__init__(name, vnfd)
         # List of statistics we can obtain from this VNF
@@ -163,51 +168,46 @@ class GenericVNF(VNFObject):
         self.runs_traffic = False
 
     def _get_kpi_definition(self):
-        """ Get list of KPIs defined in VNFD
+        """Get list of KPIs defined in VNFD
 
-        :param vnfd:
-        :return: list of KPIs, e.g. ['throughput', 'latency']
+        :return: List of KPIs, e.g. ['throughput', 'latency']
         """
         return self.vnfd_helper.kpi
 
+    @abc.abstractmethod
     def instantiate(self, scenario_cfg, context_cfg):
-        """ Prepare VNF for operation and start the VNF process/VM
+        """Prepare VNF for operation and start the VNF process/VM
 
-        :param scenario_cfg:
-        :param context_cfg:
+        :param scenario_cfg: Scenario config
+        :param context_cfg: Context config
         :return: True/False
         """
-        raise NotImplementedError()
 
+    @abc.abstractmethod
     def wait_for_instantiate(self):
-        """ Wait for VNF to start
+        """Wait for VNF to start
 
         :return: True/False
         """
-        raise NotImplementedError()
 
+    @abc.abstractmethod
     def terminate(self):
-        """ Kill all VNF processes
+        """Kill all VNF processes"""
 
-        :return:
-        """
-        raise NotImplementedError()
-
+    @abc.abstractmethod
     def scale(self, flavor=""):
-        """
+        """Scale a VNF based on a flavor input
 
-        :param flavor:
+        :param flavor: Name of the flavor.
         :return:
         """
-        raise NotImplementedError()
 
+    @abc.abstractmethod
     def collect_kpi(self):
-        """This method should return a dictionary containing the
-        selected KPI at a given point of time.
+        """Return a dict containing the selected KPI at a given point of time
 
         :return: {"kpi": value, "kpi2": value}
         """
-        raise NotImplementedError()
 
 
 @six.add_metaclass(abc.ABCMeta)
