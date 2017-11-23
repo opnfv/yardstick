@@ -26,11 +26,3 @@ class CreateKeypairTestCase(unittest.TestCase):
         obj = CreateKeypair(args, {})
         obj.run({})
         self.assertTrue(mock_op_utils.create_keypair.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

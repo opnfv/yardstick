@@ -26,11 +26,3 @@ class DeleteFloatingIpTestCase(unittest.TestCase):
         obj.run({})
         self.assertTrue(mock_get_nova_client.called)
         self.assertTrue(mock_delete_floating_ip.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

@@ -34,11 +34,3 @@ class EnvTestCase(APITestCase):
         time.sleep(0)
 
         self.assertTrue(u'status' in resp)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

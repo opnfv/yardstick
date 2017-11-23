@@ -59,11 +59,3 @@ class EnvCommandTestCase(unittest.TestCase):
             EnvCommand()._print_status('hello', 'word')
         except Exception as e:
             self.assertIsInstance(e, IndexError)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

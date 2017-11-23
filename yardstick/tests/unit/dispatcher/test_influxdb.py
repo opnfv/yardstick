@@ -109,11 +109,3 @@ class InfluxdbDispatcherTestCase(unittest.TestCase):
         mock_time.time.return_value = 1451461248.925574
         self.assertEqual(influxdb._get_nano_timestamp(results),
                          '1451461248925574144')
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

@@ -36,11 +36,3 @@ class GetHeatApiVersionTestCase(unittest.TestCase):
         with mock.patch.dict('os.environ', {API: '2'}, clear=True):
             api_version = openstack_utils.get_heat_api_version()
             self.assertEqual(api_version, expected_result)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

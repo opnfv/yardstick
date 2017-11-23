@@ -195,11 +195,3 @@ class KubernetesTestCase(unittest.TestCase):
         k8s_context.init(context_cfg)
         k8s_context._delete_services()
         self.assertTrue(mock_delete.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()
