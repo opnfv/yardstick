@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_13016005",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ping.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-23T17:19:13Z",
+      "side": 1,
+      "message": "If this was causing issues before, which was causing testcases to fail, you should add a unit tests to simulate the previous failure and make sure it is fixed and that it doesn\u0027t regressions are caught.",
+      "range": {
+        "startLine": 130,
+        "startChar": 1,
+        "endLine": 130,
+        "endChar": 49
+      },
+      "revId": "74b8951ba2d25cd411d86e2f888984214e670e5e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
