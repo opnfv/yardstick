@@ -239,7 +239,8 @@ class TestFWApproxVnf(unittest.TestCase):
                               'password': 'r00t',
                               'VNF model': 'vfw_vnf.yaml'}}}
 
-    def test___init__(self, mock_process):
+    def test___init__(self, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         vfw_approx_vnf = FWApproxVnf(name, vnfd)
         self.assertIsNone(vfw_approx_vnf._vnf_process)
@@ -260,7 +261,8 @@ pipeline>
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh, mock_time, mock_process):
+    def test_collect_kpi(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -282,7 +284,8 @@ pipeline>
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
-    def test_vnf_execute_command(self, ssh, mock_time, mock_process):
+    def test_vnf_execute_command(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -294,7 +297,8 @@ pipeline>
         self.assertEqual(vfw_approx_vnf.vnf_execute(cmd), "")
 
     @mock.patch(SSH_HELPER)
-    def test_get_stats(self, ssh, mock_process):
+    def test_get_stats(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -314,7 +318,8 @@ pipeline>
     @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.eval")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.open")
     @mock.patch(SSH_HELPER)
-    def test_run_vfw(self, ssh, mock_open, mock_eval, mock_hex, mock_process):
+    def test_run_vfw(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -337,7 +342,8 @@ pipeline>
     @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.YangModel")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_instantiate(self, ssh, mock_context, mock_yang, mock_find, mock_process):
+    def test_instantiate(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -351,16 +357,10 @@ pipeline>
         self.scenario_cfg.update({"nodes": {"vnf__1": ""}})
         self.assertIsNone(vfw_approx_vnf.instantiate(self.scenario_cfg, self.context_cfg))
 
-    def test_scale(self, mock_process):
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        vfw_approx_vnf = FWApproxVnf(name, vnfd)
-        flavor = ""
-        with self.assertRaises(NotImplementedError):
-            vfw_approx_vnf.scale(flavor)
-
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
-    def test_terminate(self, ssh, mock_time, mock_process):
+    def test_terminate(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]

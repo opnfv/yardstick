@@ -28,6 +28,7 @@ from six.moves import cStringIO
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
+from yardstick.common import exceptions as y_exceptions
 from yardstick.common.process import check_if_process_failed
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
@@ -308,7 +309,8 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
                             if vpci == v['virtual-interface']['vpci'])
                 # force to int
                 intf['virtual-interface']['dpdk_port_num'] = int(dpdk_port_num)
-            except:
+            except Exception:  # pylint: disable=broad-except
+                # NOTE(ralonsoh): to narrow exception scope.
                 pass
         time.sleep(2)
 
@@ -480,8 +482,8 @@ class ClientResourceHelper(ResourceHelper):
         if not self._queue.empty():
             kpi = self._queue.get()
             self._result.update(kpi)
-            LOG.debug("Got KPIs from _queue for {0} {1}".format(
-                self.scenario_helper.name, self.RESOURCE_WORD))
+            LOG.debug("Got KPIs from _queue for %s %s",
+                      self.scenario_helper.name, self.RESOURCE_WORD)
         return self._result
 
     def _connect(self, client=None):
@@ -670,7 +672,7 @@ class SampleVNF(GenericVNF):
         self.pipeline_kwargs = {}
         self.uplink_ports = None
         self.downlink_ports = None
-        # TODO(esm): make QueueFileWrapper invert-able so that we
+        # NOTE(esm): make QueueFileWrapper invert-able so that we
         #            never have to manage the queues
         self.q_in = Queue()
         self.q_out = Queue()
@@ -751,7 +753,7 @@ class SampleVNF(GenericVNF):
             if not self._vnf_process.is_alive():
                 raise RuntimeError("%s VNF process died." % self.APP_NAME)
 
-            # TODO(esm): move to QueueFileWrapper
+            # NOTE(esm): move to QueueFileWrapper
             while self.q_out.qsize() > 0:
                 buf.append(self.q_out.get())
                 message = ''.join(buf)
@@ -821,7 +823,7 @@ class SampleVNF(GenericVNF):
             self._vnf_process.terminate()
         # no terminate children here because we share processes with tg
 
-    def get_stats(self, *args, **kwargs):
+    def get_stats(self, *args, **kwargs):  # pylint: disable=unused-argument
         """
         Method for checking the statistics
 
@@ -848,6 +850,11 @@ class SampleVNF(GenericVNF):
             }
         LOG.debug("%s collect KPIs %s", self.APP_NAME, result)
         return result
+
+    def scale(self, flavor=""):
+        """The SampleVNF base class doesn't provide the 'scale' feature"""
+        raise y_exceptions.FunctionNotImplemented(
+            function_name='scale', class_name='SampleVNFTrafficGen')
 
 
 class SampleVNFTrafficGen(GenericTrafficGen):
@@ -964,3 +971,8 @@ class SampleVNFTrafficGen(GenericTrafficGen):
             self._tg_process.join(PROCESS_JOIN_TIMEOUT)
             self._tg_process.terminate()
         # no terminate children here because we share processes with vnf
+
+    def scale(self, flavor=""):
+        """A traffic generator VFN doesn't provide the 'scale' feature"""
+        raise y_exceptions.FunctionNotImplemented(
+            function_name='scale', class_name='SampleVNFTrafficGen')
