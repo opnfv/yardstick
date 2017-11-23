@@ -28,6 +28,7 @@ from six.moves import cStringIO
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
+from yardstick.common import exceptions as y_exceptions
 from yardstick.common.process import check_if_process_failed
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
@@ -849,6 +850,11 @@ class SampleVNF(GenericVNF):
         LOG.debug("%s collect KPIs %s", self.APP_NAME, result)
         return result
 
+    def scale(self, flavor=""):
+        """The SampleVNF base class doesn't provide the 'scale' feature"""
+        raise y_exceptions.FunctionNotImplemented(
+            function_name='scale', class_name='SampleVNFTrafficGen')
+
 
 class SampleVNFTrafficGen(GenericTrafficGen):
     """ Class providing file-like API for generic traffic generator """
@@ -964,3 +970,8 @@ class SampleVNFTrafficGen(GenericTrafficGen):
             self._tg_process.join(PROCESS_JOIN_TIMEOUT)
             self._tg_process.terminate()
         # no terminate children here because we share processes with vnf
+
+    def scale(self, flavor=""):
+        """A traffic generator VNF doesn't provide the 'scale' feature"""
+        raise y_exceptions.FunctionNotImplemented(
+            function_name='scale', class_name='SampleVNFTrafficGen')

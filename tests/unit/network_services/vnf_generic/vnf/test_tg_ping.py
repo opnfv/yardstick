@@ -288,14 +288,6 @@ class TestPingTrafficGen(unittest.TestCase):
         self.assertIsNone(ping_traffic_gen.listen_traffic({}))
 
     @mock.patch("yardstick.ssh.SSH")
-    def test_scale_negative(self, ssh):
-        ssh.from_node.return_value.execute.return_value = 0, "success", ""
-        ssh.from_node.return_value.run.return_value = 0, "success", ""
-
-        ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0)
-        ping_traffic_gen.scale()
-
-    @mock.patch("yardstick.ssh.SSH")
     def test_terminate(self, ssh):
         ssh.from_node.return_value.execute.return_value = 0, "success", ""
         ssh.from_node.return_value.run.return_value = 0, "success", ""
