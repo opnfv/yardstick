@@ -17,26 +17,132 @@
 
 # Unittest for yardstick.network_services.vnf_generic.vnf.test_base
 
-from __future__ import absolute_import
-import unittest
+import multiprocessing
 import os
-import mock
-from multiprocessing import Queue
 
-from yardstick.network_services.vnf_generic.vnf.base import \
-    QueueFileWrapper, GenericVNF, GenericTrafficGen
+import mock
+import unittest
+
+from yardstick.network_services.vnf_generic.vnf import base
 from yardstick.ssh import SSH
+
 
 IP_PIPELINE_CFG_FILE_TPL = """
 arp_route_tbl = ({port0_local_ip_hex},{port0_netmask_hex},1,"""
 """{port1_local_ip_hex}) ({port1_local_ip_hex},{port1_netmask_hex},0,"""
-"""{port0_local_ip_hex})"""
+"""{port0_local_ip_hex})"""  # pylint: disable=pointless-string-statement
+# NOTE(ralonsoh): review this string statement
 
 IP_PIPELINE_ND_CFG_FILE_TPL = """
 nd_route_tbl = ({port1_dst_ip_hex6},"""
 """{port1_dst_netmask_hex6},1,{port1_dst_ip_hex6})"""
 
 _LOCAL_OBJECT = object()
+
+VNFD_0 = {
+    'short-name': 'VpeVnf',
+    'vdu': [
+        {
+            'routing_table': [
+                {
+                    'network': '152.16.100.20',
+                    'netmask': '255.255.255.0',
+                    'gateway': '152.16.100.20',
+                    'if': 'xe0'
+                },
+                {
+                    'network': '152.16.40.20',
+                    'netmask': '255.255.255.0',
+                    'gateway': '152.16.40.20',
+                    'if': 'xe1'
+                },
+            ],
+            'description': 'VPE approximation using DPDK',
+            'name': 'vpevnf-baremetal',
+            'nd_route_tbl': [
+                {
+                    'network': '0064:ff9b:0:0:0:0:9810:6414',
+                    'netmask': '112',
+                    'gateway': '0064:ff9b:0:0:0:0:9810:6414',
+                    'if': 'xe0'
+                },
+                {
+                    'network': '0064:ff9b:0:0:0:0:9810:2814',
+                    'netmask': '112',
+                    'gateway': '0064:ff9b:0:0:0:0:9810:2814',
+                    'if': 'xe1'
+                },
+            ],
+            'id': 'vpevnf-baremetal',
+            'external-interface': [
+                {
+                    'virtual-interface': {
+                        'dst_mac': '00:00:00:00:00:03',
+                        'vpci': '0000:05:00.0',
+                        'local_ip': '152.16.100.19',
+                        'type': 'PCI-PASSTHROUGH',
+                        'netmask': '255.255.255.0',
+                        'dpdk_port_num': 0,
+                        'bandwidth': '10 Gbps',
+                        'dst_ip': '152.16.100.20',
+                        'local_mac': '00:00:00:00:00:01'
+                    },
+                    'vnfd-connection-point-ref': 'xe0',
+                    'name': 'xe0'
+                },
+                {
+                    'virtual-interface': {
+                        'dst_mac': '00:00:00:00:00:04',
+                        'vpci': '0000:05:00.1',
+                        'local_ip': '152.16.40.19',
+                        'type': 'PCI-PASSTHROUGH',
+                        'netmask': '255.255.255.0',
+                        'dpdk_port_num': 1,
+                        'bandwidth': '10 Gbps',
+                        'dst_ip': '152.16.40.20',
+                        'local_mac': '00:00:00:00:00:02'
+                    },
+                    'vnfd-connection-point-ref': 'xe1',
+                    'name': 'xe1'
+                },
+            ],
+        },
+    ],
+    'description': 'Vpe approximation using DPDK',
+    'mgmt-interface': {
+        'vdu-id': 'vpevnf-baremetal',
+        'host': '1.1.1.1',
+        'password': 'r00t',
+        'user': 'root',
+        'ip': '1.1.1.1'
+    },
+    'benchmark': {
+        'kpi': [
+            'packets_in',
+            'packets_fwd',
+            'packets_dropped',
+        ],
+    },
+    'connection-point': [
+        {
+            'type': 'VPORT',
+            'name': 'xe0',
+        },
+        {
+            'type': 'VPORT',
+            'name': 'xe1',
+        },
+    ],
+    'id': 'VpeApproxVnf', 'name': 'VPEVnfSsh'
+}
+
+VNFD = {
+    'vnfd:vnfd-catalog': {
+        'vnfd': [
+            VNFD_0,
+        ]
+    }
+}
 
 
 class FileAbsPath(object):
@@ -70,17 +176,17 @@ def mock_ssh(mock_ssh_type, spec=None, exec_result=_LOCAL_OBJECT, run_result=_LO
 class TestQueueFileWrapper(unittest.TestCase):
     def setUp(self):
         self.prompt = "pipeline>"
-        self.q_in = Queue()
-        self.q_out = Queue()
+        self.q_in = multiprocessing.Queue()
+        self.q_out = multiprocessing.Queue()
 
     def test___init__(self):
         queue_file_wrapper = \
-            QueueFileWrapper(self.q_in, self.q_out, self.prompt)
+            base.QueueFileWrapper(self.q_in, self.q_out, self.prompt)
         self.assertEqual(queue_file_wrapper.prompt, self.prompt)
 
     def test_clear(self):
         queue_file_wrapper = \
-            QueueFileWrapper(self.q_in, self.q_out, self.prompt)
+            base.QueueFileWrapper(self.q_in, self.q_out, self.prompt)
         queue_file_wrapper.bufsize = 5
         queue_file_wrapper.write("pipeline>")
         queue_file_wrapper.close()
@@ -89,167 +195,45 @@ class TestQueueFileWrapper(unittest.TestCase):
 
     def test_close(self):
         queue_file_wrapper = \
-            QueueFileWrapper(self.q_in, self.q_out, self.prompt)
+            base.QueueFileWrapper(self.q_in, self.q_out, self.prompt)
         self.assertEqual(None, queue_file_wrapper.close())
 
     def test_read(self):
         queue_file_wrapper = \
-            QueueFileWrapper(self.q_in, self.q_out, self.prompt)
+            base.QueueFileWrapper(self.q_in, self.q_out, self.prompt)
         queue_file_wrapper.q_in.put("pipeline>")
         self.assertEqual("pipeline>", queue_file_wrapper.read(20))
 
     def test_write(self):
         queue_file_wrapper = \
-            QueueFileWrapper(self.q_in, self.q_out, self.prompt)
+            base.QueueFileWrapper(self.q_in, self.q_out, self.prompt)
         queue_file_wrapper.write("pipeline>")
         self.assertIsNotNone(queue_file_wrapper.q_out.empty())
 
 
 class TestGenericVNF(unittest.TestCase):
 
-    VNFD_0 = {
-        'short-name': 'VpeVnf',
-        'vdu': [
-            {
-                'routing_table': [
-                    {
-                        'network': '152.16.100.20',
-                        'netmask': '255.255.255.0',
-                        'gateway': '152.16.100.20',
-                        'if': 'xe0'
-                    },
-                    {
-                        'network': '152.16.40.20',
-                        'netmask': '255.255.255.0',
-                        'gateway': '152.16.40.20',
-                        'if': 'xe1'
-                    },
-                ],
-                'description': 'VPE approximation using DPDK',
-                'name': 'vpevnf-baremetal',
-                'nd_route_tbl': [
-                    {
-                        'network': '0064:ff9b:0:0:0:0:9810:6414',
-                        'netmask': '112',
-                        'gateway': '0064:ff9b:0:0:0:0:9810:6414',
-                        'if': 'xe0'
-                    },
-                    {
-                        'network': '0064:ff9b:0:0:0:0:9810:2814',
-                        'netmask': '112',
-                        'gateway': '0064:ff9b:0:0:0:0:9810:2814',
-                        'if': 'xe1'
-                    },
-                ],
-                'id': 'vpevnf-baremetal',
-                'external-interface': [
-                    {
-                        'virtual-interface': {
-                            'dst_mac': '00:00:00:00:00:03',
-                            'vpci': '0000:05:00.0',
-                            'local_ip': '152.16.100.19',
-                            'type': 'PCI-PASSTHROUGH',
-                            'netmask': '255.255.255.0',
-                            'dpdk_port_num': 0,
-                            'bandwidth': '10 Gbps',
-                            'dst_ip': '152.16.100.20',
-                            'local_mac': '00:00:00:00:00:01'
-                        },
-                        'vnfd-connection-point-ref': 'xe0',
-                        'name': 'xe0'
-                    },
-                    {
-                        'virtual-interface': {
-                            'dst_mac': '00:00:00:00:00:04',
-                            'vpci': '0000:05:00.1',
-                            'local_ip': '152.16.40.19',
-                            'type': 'PCI-PASSTHROUGH',
-                            'netmask': '255.255.255.0',
-                            'dpdk_port_num': 1,
-                            'bandwidth': '10 Gbps',
-                            'dst_ip': '152.16.40.20',
-                            'local_mac': '00:00:00:00:00:02'
-                        },
-                        'vnfd-connection-point-ref': 'xe1',
-                        'name': 'xe1'
-                    },
-                ],
-            },
-        ],
-        'description': 'Vpe approximation using DPDK',
-        'mgmt-interface': {
-            'vdu-id': 'vpevnf-baremetal',
-            'host': '1.1.1.1',
-            'password': 'r00t',
-            'user': 'root',
-            'ip': '1.1.1.1'
-        },
-        'benchmark': {
-            'kpi': [
-                'packets_in',
-                'packets_fwd',
-                'packets_dropped',
-            ],
-        },
-        'connection-point': [
-            {
-                'type': 'VPORT',
-                'name': 'xe0',
-            },
-            {
-                'type': 'VPORT',
-                'name': 'xe1',
-            },
-        ],
-        'id': 'VpeApproxVnf', 'name': 'VPEVnfSsh'
-    }
-
-    VNFD = {
-        'vnfd:vnfd-catalog': {
-            'vnfd': [
-                VNFD_0,
-            ]
-        }
-    }
-
-    def test___init__(self):
-        generic_vnf = GenericVNF('vnf1', self.VNFD_0)
-        assert generic_vnf.kpi
-
-    def test_collect_kpi(self):
-        generic_vnf = GenericVNF('vnf1', self.VNFD_0)
-        self.assertRaises(NotImplementedError, generic_vnf.collect_kpi)
-
-    def test__get_kpi_definition(self):
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        generic_vnf = GenericVNF('vnf1', vnfd)
-        kpi = generic_vnf._get_kpi_definition()
-        self.assertEqual(kpi, ['packets_in', 'packets_fwd', 'packets_dropped'])
-
-    def test_instantiate(self):
-        generic_vnf = GenericVNF('vnf1', self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
-        with self.assertRaises(NotImplementedError):
-            generic_vnf.instantiate({}, {})
-
-    def test_scale(self):
-        generic_vnf = GenericVNF('vnf1', self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
-        with self.assertRaises(NotImplementedError):
-            generic_vnf.scale()
-
-    def test_terminate(self):
-        generic_vnf = GenericVNF('vnf1', self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
-        with self.assertRaises(NotImplementedError):
-            generic_vnf.terminate()
+    def test_definition(self):
+        """Make sure that the abstract class cannot be instantiated"""
+        with self.assertRaises(TypeError) as exc:
+            # pylint: disable=abstract-class-instantiated
+            base.GenericVNF('vnf1', VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        msg = ("Can't instantiate abstract class GenericVNF with abstract "
+               "methods collect_kpi, instantiate, scale, terminate, "
+               "wait_for_instantiate")
+        self.assertEqual(msg, str(exc.exception))
 
 
 class TestGenericTrafficGen(unittest.TestCase):
 
     def test_definition(self):
         """Make sure that the abstract class cannot be instantiated"""
-        vnfd = TestGenericVNF.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        vnfd = VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         name = 'vnf1'
         with self.assertRaises(TypeError) as exc:
-            GenericTrafficGen(name, vnfd)
+            # pylint: disable=abstract-class-instantiated
+            base.GenericTrafficGen(name, vnfd)
         msg = ("Can't instantiate abstract class GenericTrafficGen with "
-               "abstract methods run_traffic, terminate")
+               "abstract methods collect_kpi, instantiate, run_traffic, "
+               "scale, terminate")
         self.assertEqual(msg, str(exc.exception))

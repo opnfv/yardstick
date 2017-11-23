@@ -26,7 +26,8 @@ from multiprocessing import Process, Queue
 from tests.unit import STL_MOCKS
 from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
-
+from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+from tests.unit.network_services.vnf_generic.vnf.test_base import FileAbsPath
 
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
 
@@ -39,9 +40,6 @@ if stl_patch:
     from yardstick.network_services.nfvi.resource import ResourceProfile
     from yardstick.network_services.vnf_generic.vnf.vpe_vnf import \
         VpeApproxVnf, VpeApproxSetupEnvHelper
-
-from tests.unit.network_services.vnf_generic.vnf.test_base import FileAbsPath
-from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
@@ -227,28 +225,6 @@ class TestConfigCreate(unittest.TestCase):
         self.assertNotEqual(result, '')
 
     def test_create_vpe_config(self):
-        uplink_ports = [
-            {
-                'index': 0,
-                'dpdk_port_num': 1,
-                'peer_intf': {
-                    'dpdk_port_num': 2,
-                    'index': 3,
-                },
-            },
-        ]
-
-        downlink_ports = [
-            {
-                'index': 2,
-                'dpdk_port_num': 3,
-                'peer_intf': {
-                    'dpdk_port_num': 0,
-                    'index': 1,
-                },
-            },
-        ]
-
         vnfd_helper = VnfdHelper(self.VNFD_0)
         config_create = ConfigCreate(vnfd_helper, 23)
         config_create.downlink_ports = ['xe1']
@@ -646,12 +622,13 @@ class TestVpeApproxVnf(unittest.TestCase):
         self.assertIsInstance(vpe_approx_vnf.ssh_helper, mock.Mock)
         self.assertIsNone(vpe_approx_vnf._run())
 
+    @mock.patch(SSH_HELPER)
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.vpe_vnf.ConfigCreate")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.vpe_vnf.open")
-    @mock.patch(SSH_HELPER)
-    def test_build_config(self, mock_mul, mock_context, mock_config, mock_open, ssh, _):
+    def test_build_config(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables.
         mock_ssh(ssh)
         vpe_approx_vnf = VpeApproxSetupEnvHelper(mock.MagicMock(),
                                                  mock.MagicMock, mock.MagicMock)
@@ -792,11 +769,6 @@ class TestVpeApproxVnf(unittest.TestCase):
             vpe_approx_vnf.wait_for_instantiate()
 
         self.assertIn('Error starting', str(raised.exception))
-
-    def test_scale(self, _):
-        vpe_approx_vnf = VpeApproxVnf(NAME, self.VNFD_0)
-        with self.assertRaises(NotImplementedError):
-            vpe_approx_vnf.scale('')
 
     @mock.patch(SSH_HELPER)
     def test_terminate(self, ssh, _):

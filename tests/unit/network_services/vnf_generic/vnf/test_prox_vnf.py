@@ -316,13 +316,15 @@ class TestProxApproxVnf(unittest.TestCase):
     }
 
     @mock.patch(SSH_HELPER)
-    def test___init__(self, ssh, mock_time):
+    def test___init__(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_ssh(ssh)
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
         self.assertIsNone(prox_approx_vnf._vnf_process)
 
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi_no_client(self, ssh, mock_time):
+    def test_collect_kpi_no_client(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_ssh(ssh)
 
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
@@ -337,7 +339,8 @@ class TestProxApproxVnf(unittest.TestCase):
         self.assertEqual(result, expected)
 
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh, mock_time):
+    def test_collect_kpi(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_ssh(ssh)
 
         resource_helper = mock.MagicMock()
@@ -357,7 +360,8 @@ class TestProxApproxVnf(unittest.TestCase):
         self.assertEqual(result, expected)
 
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi_error(self, ssh, mock_time):
+    def test_collect_kpi_error(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_ssh(ssh)
 
         resource_helper = mock.MagicMock()
@@ -370,7 +374,7 @@ class TestProxApproxVnf(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             prox_approx_vnf.collect_kpi()
 
-    def _get_file_abspath(self, filename, mock_time):
+    def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(curr_path, filename)
         return file_path
@@ -394,7 +398,8 @@ class TestProxApproxVnf(unittest.TestCase):
         self.assertEqual(result, expected)
 
     @mock.patch(SSH_HELPER)
-    def bad_test_instantiate(self, ssh, mock_time):
+    def bad_test_instantiate(self, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
         prox_approx_vnf.scenario_helper = mock.MagicMock()
         prox_approx_vnf.setup_helper = mock.MagicMock()
@@ -403,7 +408,8 @@ class TestProxApproxVnf(unittest.TestCase):
         prox_approx_vnf.setup_helper.build_config.assert_called_once()
 
     @mock.patch(SSH_HELPER)
-    def test_wait_for_instantiate_panic(self, ssh, mock_time):
+    def test_wait_for_instantiate_panic(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_ssh(ssh, exec_result=(1, "", ""))
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
         prox_approx_vnf._vnf_process = mock.MagicMock(**{"is_alive.return_value": True})
@@ -413,16 +419,10 @@ class TestProxApproxVnf(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             prox_approx_vnf.wait_for_instantiate()
 
-    @mock.patch(SSH_HELPER)
-    def test_scale(self, ssh, mock_time):
-        mock_ssh(ssh)
-        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
-        with self.assertRaises(NotImplementedError):
-            prox_approx_vnf.scale()
-
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.socket')
     @mock.patch(SSH_HELPER)
-    def test_terminate(self, ssh, mock_socket, mock_time):
+    def test_terminate(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_ssh(ssh)
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
         prox_approx_vnf._vnf_process = mock.MagicMock()
@@ -434,7 +434,8 @@ class TestProxApproxVnf(unittest.TestCase):
         self.assertIsNone(prox_approx_vnf.terminate())
 
     @mock.patch(SSH_HELPER)
-    def test__vnf_up_post(self, ssh, mock_time):
+    def test__vnf_up_post(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_ssh(ssh)
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
         prox_approx_vnf.resource_helper = resource_helper = mock.Mock()
@@ -443,7 +444,8 @@ class TestProxApproxVnf(unittest.TestCase):
         self.assertEqual(resource_helper.up_post.call_count, 1)
 
     @mock.patch(SSH_HELPER)
-    def test_vnf_execute_oserror(self, ssh, mock_time):
+    def test_vnf_execute_oserror(self, ssh, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_ssh(ssh)
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
         prox_approx_vnf.resource_helper = resource_helper = mock.Mock()
@@ -457,6 +459,3 @@ class TestProxApproxVnf(unittest.TestCase):
         resource_helper.execute.side_effect = OSError(errno.EADDRINUSE, "")
         with self.assertRaises(OSError):
             prox_approx_vnf.vnf_execute("", _ignore_errors=True)
-
-if __name__ == '__main__':
-    unittest.main()

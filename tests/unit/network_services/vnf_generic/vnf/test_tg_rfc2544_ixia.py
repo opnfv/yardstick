@@ -40,14 +40,16 @@ NAME = "tg__1"
 
 @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.IxNextgen")
 class TestIxiaResourceHelper(unittest.TestCase):
-    def test___init___with_custom_rfc_helper(self, mock_ix_nextgen):
+    def test___init___with_custom_rfc_helper(self, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         class MyRfcHelper(IxiaRfc2544Helper):
             pass
 
         ixia_resource_helper = IxiaResourceHelper(mock.Mock(), MyRfcHelper)
         self.assertIsInstance(ixia_resource_helper.rfc_helper, MyRfcHelper)
 
-    def test_stop_collect_with_client(self, mock_ix_nextgen):
+    def test_stop_collect_with_client(self, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         mock_client = mock.Mock()
 
         ixia_resource_helper = IxiaResourceHelper(mock.Mock())
@@ -154,16 +156,20 @@ class TestIXIATrafficGen(unittest.TestCase):
                            'file': '/etc/yardstick/nodes/pod.yaml'},
                'schema': 'yardstick:task:0.1'}
 
-    def test___init__(self, mock_ixnextgen):
+    def test___init__(self, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ixnet_traffic_gen = IxiaTrafficGen(NAME, vnfd)
+            # NOTE: check the expected result
+            #ixnet_traffic_gen = IxiaTrafficGen(NAME, vnfd)
+            IxiaTrafficGen(NAME, vnfd)
 
-    def test_listen_traffic(self, mock_ixnextgen):
+    def test_listen_traffic(self, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -173,7 +179,8 @@ class TestIXIATrafficGen(unittest.TestCase):
             ixnet_traffic_gen = IxiaTrafficGen(NAME, vnfd)
             self.assertEqual(None, ixnet_traffic_gen.listen_traffic({}))
 
-    def test_instantiate(self, mock_ixnextgen):
+    def test_instantiate(self, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -203,7 +210,8 @@ class TestIXIATrafficGen(unittest.TestCase):
                 IOError,
                 ixnet_traffic_gen.instantiate(scenario_cfg, {}))
 
-    def test_collect_kpi(self, mock_ixnextgen):
+    def test_collect_kpi(self, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -215,7 +223,8 @@ class TestIXIATrafficGen(unittest.TestCase):
             restult = ixnet_traffic_gen.collect_kpi()
             self.assertEqual({}, restult)
 
-    def test_terminate(self, mock_ixnextgen):
+    def test_terminate(self, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -236,12 +245,8 @@ class TestIXIATrafficGen(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
-    def test_scale(self, mock_ix_nextgen):
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sut = IxiaTrafficGen('vnf1', vnfd)
-        sut.scale()
-
-    def test__check_status(self, mock_ix_nextgen):
+    def test__check_status(self, *args):
+        # NOTE(ralonsoh): check mocked functions/variables
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         sut = IxiaTrafficGen('vnf1', vnfd)
         sut._check_status()
@@ -249,6 +254,9 @@ class TestIXIATrafficGen(unittest.TestCase):
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.time")
     @mock.patch("yardstick.ssh.SSH")
     def test_traffic_runner(self, mock_ixnextgen, mock_ssh, mock_time):
+        # pylint: disable=unused-argument
+        # NOTE(ralonsoh): check mocked functions/variables, remove the pylint
+        # exception.
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
