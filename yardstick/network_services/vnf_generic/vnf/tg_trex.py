@@ -186,9 +186,6 @@ class TrexTrafficGen(SampleVNFTrafficGen):
         super(TrexTrafficGen, self)._start_server()
         self.resource_helper.start()
 
-    def scale(self, flavor=""):
-        pass
-
     def terminate(self):
         self.resource_helper.terminate()
 
