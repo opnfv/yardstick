@@ -25,10 +25,3 @@ class CreateFloatingIpTestCase(unittest.TestCase):
         self.assertTrue(mock_create_floating_ip.called)
         self.assertTrue(mock_get_network_id.called)
         self.assertTrue(mock_get_neutron_client.called)
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

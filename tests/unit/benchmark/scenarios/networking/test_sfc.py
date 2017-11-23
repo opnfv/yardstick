@@ -68,10 +68,3 @@ class SfcTestCase(unittest.TestCase):
         self.sfc.setup()
         self.sfc.run(result)
         self.sfc.teardown()
-
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()

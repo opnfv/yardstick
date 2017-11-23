@@ -31,11 +31,3 @@ class CreateImageTestCase(unittest.TestCase):
         obj = CreateImage(args, {})
         obj.run({})
         self.assertTrue(mock_create_image.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

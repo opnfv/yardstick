@@ -31,11 +31,3 @@ class GetServerIpTestCase(unittest.TestCase):
         obj = GetServerIp(scenario_cfg, {})
         result = obj.run({})
         self.assertEqual(result, {'ip': '127.0.0.1'})
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()
