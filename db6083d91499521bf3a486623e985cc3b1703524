@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5322c8a4",
+        "filename": "docs/testing/user/userguide/nsb/tc_prox_context_lw_aftr_port.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-23T17:38:45Z",
+      "side": 1,
+      "message": "Above, the contexts are referred to OpenStack and barematal (in that order).\n\nTo keep the document consistent and improve readability:\n  * refer to the contexts in the same way each time\n  * Refer to them in the same order each time",
+      "range": {
+        "startLine": 76,
+        "startChar": 17,
+        "endLine": 77,
+        "endChar": 40
+      },
+      "revId": "db6083d91499521bf3a486623e985cc3b1703524",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_332584ab",
+        "filename": "docs/testing/user/userguide/nsb/tc_prox_context_vpe_port.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-23T17:38:45Z",
+      "side": 1,
+      "message": "Same comment as the other file",
+      "range": {
+        "startLine": 65,
+        "startChar": 17,
+        "endLine": 71,
+        "endChar": 65
+      },
+      "revId": "db6083d91499521bf3a486623e985cc3b1703524",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
