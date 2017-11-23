@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_93cf307f",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-23T22:34:05Z",
+      "side": 1,
+      "message": "You could use assertRaisesRegexp() to make sure the exception message matches, instead of doing additional comparisons.\nThe method names vary from py2 (assertRaisesRegexp) to py3 (AssertRaisesRegex).\n\nAssertRaisesRegexp works for both at the moment, however, it has been deprecated since python 3.2.\n\n[py2] https://docs.python.org/2/library/unittest.html#unittest.TestCase.assertRaisesRegexp\n[py3]https://docs.python.org/3/library/unittest.html#unittest.TestCase.assertRaisesRegex",
+      "range": {
+        "startLine": 222,
+        "startChar": 8,
+        "endLine": 222,
+        "endChar": 49
+      },
+      "revId": "f56711819a43e0c64e211ab28f4fc69b5818e34f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
