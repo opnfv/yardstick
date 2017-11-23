@@ -1,0 +1,10 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Abhijit Sinha <abhijit.sinha@intel.com>
+Code-Review+1: Rodolfo Alonso Hernandez <rodolfo.alonso.hernandez@intel.com>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Code-Review+2: Jing Lu <lvjing5@huawei.com>
+Submitted-by: Jing Lu <lvjing5@huawei.com>
+Submitted-at: Thu, 23 Nov 2017 01:32:52 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/47503
+Project: yardstick
+Branch: refs/heads/master
