@@ -399,14 +399,6 @@ class TestProxTrafficGen(unittest.TestCase):
         sut._connect_client.get_stats = mock.Mock(return_value="0")
         sut._traffic_runner(mock_traffic_profile)
 
-    @mock.patch(SSH_HELPER)
-    def test_scale(self, ssh, mock_time):
-        mock_ssh(ssh, exec_result=(1, "", ""))
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        prox_traffic_gen = ProxTrafficGen(NAME, vnfd)
-        with self.assertRaises(NotImplementedError):
-            prox_traffic_gen.scale('')
-
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.socket')
     @mock.patch(SSH_HELPER)
     def test_listen_traffic(self, ssh, mock_socket, mock_time):

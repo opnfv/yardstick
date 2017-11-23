@@ -138,76 +138,62 @@ class VnfdHelper(dict):
             yield port_name, port_num
 
 
-class VNFObject(object):
+@six.add_metaclass(abc.ABCMeta)
+class GenericVNF(object):
+    """Class providing file-like API for generic VNF implementation
+
+    Currently the only class implementing this interface is
+    yardstick/network_services/vnf_generic/vnf/sample_vnf:SampleVNF.
+    """
 
     # centralize network naming convention
     UPLINK = PortPairs.UPLINK
     DOWNLINK = PortPairs.DOWNLINK
 
     def __init__(self, name, vnfd):
-        super(VNFObject, self).__init__()
         self.name = name
-        self.vnfd_helper = VnfdHelper(vnfd)  # fixme: parse this into a structure
-
-
-class GenericVNF(VNFObject):
-
-    """ Class providing file-like API for generic VNF implementation """
-    def __init__(self, name, vnfd):
-        super(GenericVNF, self).__init__(name, vnfd)
+        self.vnfd_helper = VnfdHelper(vnfd)
         # List of statistics we can obtain from this VNF
         # - ETSI MANO 6.3.1.1 monitoring_parameter
-        self.kpi = self._get_kpi_definition()
+        self.kpi = self.vnfd_helper.kpi
         # Standard dictionary containing params like thread no, buffer size etc
         self.config = {}
         self.runs_traffic = False
 
-    def _get_kpi_definition(self):
-        """ Get list of KPIs defined in VNFD
-
-        :param vnfd:
-        :return: list of KPIs, e.g. ['throughput', 'latency']
-        """
-        return self.vnfd_helper.kpi
-
+    @abc.abstractmethod
     def instantiate(self, scenario_cfg, context_cfg):
-        """ Prepare VNF for operation and start the VNF process/VM
+        """Prepare VNF for operation and start the VNF process/VM
 
-        :param scenario_cfg:
-        :param context_cfg:
+        :param scenario_cfg: Scenario config
+        :param context_cfg: Context config
         :return: True/False
         """
-        raise NotImplementedError()
 
+    @abc.abstractmethod
     def wait_for_instantiate(self):
-        """ Wait for VNF to start
+        """Wait for VNF to start
 
         :return: True/False
         """
-        raise NotImplementedError()
 
+    @abc.abstractmethod
     def terminate(self):
-        """ Kill all VNF processes
+        """Kill all VNF processes"""
 
-        :return:
-        """
-        raise NotImplementedError()
-
+    @abc.abstractmethod
     def scale(self, flavor=""):
-        """
+        """rest
 
-        :param flavor:
+        :param flavor: Name of the flavor.
         :return:
         """
-        raise NotImplementedError()
 
+    @abc.abstractmethod
     def collect_kpi(self):
-        """This method should return a dictionary containing the
-        selected KPI at a given point of time.
+        """Return a dict containing the selected KPI at a given point of time
 
         :return: {"kpi": value, "kpi2": value}
         """
-        raise NotImplementedError()
 
 
 @six.add_metaclass(abc.ABCMeta)
