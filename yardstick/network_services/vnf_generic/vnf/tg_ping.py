@@ -113,10 +113,6 @@ class PingTrafficGen(SampleVNFTrafficGen):
                                              resource_helper_type)
         self._result = {}
 
-    def scale(self, flavor=""):
-        """ scale vnf-based on flavor input """
-        pass
-
     def _check_status(self):
         return self._tg_process.is_alive()
 
