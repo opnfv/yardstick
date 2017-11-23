@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_3c8c3635",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-11-23T06:40:23Z",
+      "side": 1,
+      "message": "I think it\u0027s due to the default \"Embargo\" security level in new jira task. Thank ross to remove the tag. Can you access the jira task now?",
+      "parentUuid": "9a3d3df0_01510fd8",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "46746d83d7667cdb09283295577d1107703e6f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_0872d448",
         "filename": "yardstick/benchmark/core/runner.py",
         "patchSetId": 3
@@ -143,6 +167,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9c83c203",
+        "filename": "yardstick/benchmark/core/runner.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-11-23T06:40:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_410957dc",
+      "revId": "46746d83d7667cdb09283295577d1107703e6f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e87cd022",
         "filename": "yardstick/benchmark/core/scenario.py",
         "patchSetId": 3
@@ -207,6 +249,24 @@
       "side": 1,
       "message": "Same again, scenario descriptions won\u0027t always be short.",
       "parentUuid": "9a3d3df0_46eded24",
+      "revId": "46746d83d7667cdb09283295577d1107703e6f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7c86be14",
+        "filename": "yardstick/benchmark/core/scenario.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-11-23T06:40:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_a1102302",
       "revId": "46746d83d7667cdb09283295577d1107703e6f15",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
