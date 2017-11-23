@@ -174,7 +174,7 @@ class IxiaResourceHelper(ClientResourceHelper):
                     break
 
             self.client.ix_stop_traffic()
-        except Exception:
+        except Exception:  # pylint: disable=broad-except
             LOG.exception("Run Traffic terminated")
 
         self._terminated.value = 1
@@ -199,9 +199,6 @@ class IxiaTrafficGen(SampleVNFTrafficGen):
         self.vnf_port_pairs = []
 
     def _check_status(self):
-        pass
-
-    def scale(self, flavor=""):
         pass
 
     def terminate(self):

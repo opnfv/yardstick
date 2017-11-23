@@ -61,9 +61,6 @@ class AclApproxVnf(SampleVNF):
         super(AclApproxVnf, self).__init__(name, vnfd, setup_env_helper_type, resource_helper_type)
         self.acl_rules = None
 
-    def scale(self, flavor=""):
-        raise NotImplementedError
-
     def _start_vnf(self):
         yang_model_path = find_relative_file(self.scenario_helper.options['rules'],
                                              self.scenario_helper.task_path)

@@ -126,6 +126,11 @@ class TrexResourceHelper(ClientResourceHelper):
         self.ssh_helper.execute(self.MAKE_INSTALL.format(ko_src))
 
     def start(self, ports=None, *args, **kwargs):
+        # pylint: disable=keyword-arg-before-vararg
+        # NOTE(ralonsoh): defining keyworded arguments before variable
+        # positional arguments is a bug. This function definition doesn't work
+        # in Python 2, although it works in Python 3. Reference:
+        # https://www.python.org/dev/peps/pep-3102/
         cmd = "sudo fuser -n tcp {0.SYNC_PORT} {0.ASYNC_PORT} -k > /dev/null 2>&1"
         self.ssh_helper.execute(cmd.format(self))
 
@@ -185,9 +190,6 @@ class TrexTrafficGen(SampleVNFTrafficGen):
     def _start_server(self):
         super(TrexTrafficGen, self)._start_server()
         self.resource_helper.start()
-
-    def scale(self, flavor=""):
-        pass
 
     def terminate(self):
         self.resource_helper.terminate()

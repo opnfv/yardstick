@@ -15,15 +15,16 @@
 # limitations under the License.
 #
 
-from __future__ import absolute_import
-import six.moves.configparser as configparser
-
-import os
-import unittest
 import mock
 from multiprocessing import Process, Queue
+import os
+import six.moves.configparser as configparser
+import time
+import unittest
 
 from tests.unit import STL_MOCKS
+from tests.unit.network_services.vnf_generic.vnf.test_base import FileAbsPath
+from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 
@@ -39,9 +40,6 @@ if stl_patch:
     from yardstick.network_services.nfvi.resource import ResourceProfile
     from yardstick.network_services.vnf_generic.vnf.vpe_vnf import \
         VpeApproxVnf, VpeApproxSetupEnvHelper
-
-from tests.unit.network_services.vnf_generic.vnf.test_base import FileAbsPath
-from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
@@ -227,28 +225,6 @@ class TestConfigCreate(unittest.TestCase):
         self.assertNotEqual(result, '')
 
     def test_create_vpe_config(self):
-        uplink_ports = [
-            {
-                'index': 0,
-                'dpdk_port_num': 1,
-                'peer_intf': {
-                    'dpdk_port_num': 2,
-                    'index': 3,
-                },
-            },
-        ]
-
-        downlink_ports = [
-            {
-                'index': 2,
-                'dpdk_port_num': 3,
-                'peer_intf': {
-                    'dpdk_port_num': 0,
-                    'index': 1,
-                },
-            },
-        ]
-
         vnfd_helper = VnfdHelper(self.VNFD_0)
         config_create = ConfigCreate(vnfd_helper, 23)
         config_create.downlink_ports = ['xe1']
@@ -260,7 +236,6 @@ class TestConfigCreate(unittest.TestCase):
         os.system("git checkout -- %s" % vnf_cfg)
 
 
-@mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
 class TestVpeApproxVnf(unittest.TestCase):
 
     VNFD_0 = {
@@ -556,12 +531,15 @@ class TestVpeApproxVnf(unittest.TestCase):
         },
     }
 
-    def test___init__(self, _):
+    def setUp(self):
+        self.mock_sleep = mock.patch.object(time, 'sleep').start()
+
+    def test___init__(self):
         vpe_approx_vnf = VpeApproxVnf(NAME, self.VNFD_0)
         self.assertIsNone(vpe_approx_vnf._vnf_process)
 
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi_sa_not_running(self, ssh, _):
+    def test_collect_kpi_sa_not_running(self, ssh):
         mock_ssh(ssh)
 
         resource = mock.Mock(autospec=ResourceProfile)
@@ -585,7 +563,7 @@ class TestVpeApproxVnf(unittest.TestCase):
         self.assertEqual(vpe_approx_vnf.collect_kpi(), expected)
 
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi_sa_running(self, ssh, _):
+    def test_collect_kpi_sa_running(self, ssh):
         mock_ssh(ssh)
 
         resource = mock.Mock(autospec=ResourceProfile)
@@ -608,7 +586,7 @@ class TestVpeApproxVnf(unittest.TestCase):
         self.assertEqual(vpe_approx_vnf.collect_kpi(), expected)
 
     @mock.patch(SSH_HELPER)
-    def test_vnf_execute(self, ssh, _):
+    def test_vnf_execute(self, ssh):
         mock_ssh(ssh)
         vpe_approx_vnf = VpeApproxVnf(NAME, self.VNFD_0)
         vpe_approx_vnf.q_in = mock.MagicMock()
@@ -617,7 +595,7 @@ class TestVpeApproxVnf(unittest.TestCase):
         self.assertEqual(vpe_approx_vnf.vnf_execute("quit", 0), '')
 
     @mock.patch(SSH_HELPER)
-    def test_run_vpe(self, ssh, _):
+    def test_run_vpe(self, ssh):
         mock_ssh(ssh)
 
         vpe_approx_vnf = VpeApproxVnf(NAME, self.VNFD_0)
@@ -651,7 +629,7 @@ class TestVpeApproxVnf(unittest.TestCase):
     @mock.patch("yardstick.network_services.vnf_generic.vnf.vpe_vnf.ConfigCreate")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.vpe_vnf.open")
     @mock.patch(SSH_HELPER)
-    def test_build_config(self, mock_mul, mock_context, mock_config, mock_open, ssh, _):
+    def test_build_config(self, ssh, *args):
         mock_ssh(ssh)
         vpe_approx_vnf = VpeApproxSetupEnvHelper(mock.MagicMock(),
                                                  mock.MagicMock, mock.MagicMock)
@@ -684,7 +662,7 @@ class TestVpeApproxVnf(unittest.TestCase):
         self.assertIsNotNone(vpe_approx_vnf.build_config())
 
     @mock.patch(SSH_HELPER)
-    def test_wait_for_instantiate(self, ssh, _):
+    def test_wait_for_instantiate(self, ssh):
         mock_ssh(ssh)
 
         mock_process = mock.Mock(autospec=Process)
@@ -707,7 +685,7 @@ class TestVpeApproxVnf(unittest.TestCase):
         self.assertEqual(vpe_approx_vnf.wait_for_instantiate(), 432)
 
     @mock.patch(SSH_HELPER)
-    def test_wait_for_instantiate_fragmented(self, ssh, _):
+    def test_wait_for_instantiate_fragmented(self, ssh):
         mock_ssh(ssh)
 
         mock_process = mock.Mock(autospec=Process)
@@ -730,7 +708,7 @@ class TestVpeApproxVnf(unittest.TestCase):
         self.assertEqual(vpe_approx_vnf.wait_for_instantiate(), 432)
 
     @mock.patch(SSH_HELPER)
-    def test_wait_for_instantiate_crash(self, ssh, _):
+    def test_wait_for_instantiate_crash(self, ssh):
         mock_ssh(ssh, exec_result=(1, "", ""))
 
         mock_process = mock.Mock(autospec=Process)
@@ -749,7 +727,7 @@ class TestVpeApproxVnf(unittest.TestCase):
         self.assertIn('VNF process died', str(raised.exception))
 
     @mock.patch(SSH_HELPER)
-    def test_wait_for_instantiate_panic(self, ssh, _):
+    def test_wait_for_instantiate_panic(self, ssh):
         mock_ssh(ssh, exec_result=(1, "", ""))
 
         mock_process = mock.Mock(autospec=Process)
@@ -769,7 +747,7 @@ class TestVpeApproxVnf(unittest.TestCase):
         self.assertIn('Error starting', str(raised.exception))
 
     @mock.patch(SSH_HELPER)
-    def test_wait_for_instantiate_panic_fragmented(self, ssh, _):
+    def test_wait_for_instantiate_panic_fragmented(self, ssh):
         mock_ssh(ssh, exec_result=(1, "", ""))
 
         mock_process = mock.Mock(autospec=Process)
@@ -793,13 +771,8 @@ class TestVpeApproxVnf(unittest.TestCase):
 
         self.assertIn('Error starting', str(raised.exception))
 
-    def test_scale(self, _):
-        vpe_approx_vnf = VpeApproxVnf(NAME, self.VNFD_0)
-        with self.assertRaises(NotImplementedError):
-            vpe_approx_vnf.scale('')
-
     @mock.patch(SSH_HELPER)
-    def test_terminate(self, ssh, _):
+    def test_terminate(self, ssh):
         mock_ssh(ssh)
 
         vpe_approx_vnf = VpeApproxVnf(NAME, self.VNFD_0)
@@ -808,7 +781,3 @@ class TestVpeApproxVnf(unittest.TestCase):
         vpe_approx_vnf.resource_helper = mock.MagicMock()
 
         self.assertIsNone(vpe_approx_vnf.terminate())
-
-
-if __name__ == '__main__':
-    unittest.main()

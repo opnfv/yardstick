@@ -15,18 +15,16 @@
 # limitations under the License.
 #
 
-from __future__ import absolute_import
-
-import unittest
-
 import copy
 import mock
 
-SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
+import unittest
 
 from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from tests.unit import STL_MOCKS
 
+
+SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
 NAME = 'vnf_1'
 
 STLClient = mock.MagicMock()
@@ -467,13 +465,6 @@ class TestTrexTrafficGen(unittest.TestCase):
         result = self.sut.run_traffic(mock_traffic_profile)
         self.sut._traffic_process.terminate()
         self.assertIsNotNone(result)
-
-    @mock.patch(SSH_HELPER)
-    def test_scale(self, ssh):
-        mock_ssh(ssh, exec_result=(1, "", ""))
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
-        trex_traffic_gen.scale('')
 
     @mock.patch(SSH_HELPER)
     def test_terminate(self, ssh):

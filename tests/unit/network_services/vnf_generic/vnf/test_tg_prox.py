@@ -13,13 +13,12 @@
 # limitations under the License.
 #
 
-from __future__ import absolute_import
-
 import unittest
 import mock
 
 from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from tests.unit import STL_MOCKS
+
 
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
 NAME = 'vnf__1'
@@ -319,14 +318,14 @@ class TestProxTrafficGen(unittest.TestCase):
             'upper_bound': 100.0}}
 
     @mock.patch(SSH_HELPER)
-    def test___init__(self, ssh, mock_time):
+    def test___init__(self, ssh, *args):
         mock_ssh(ssh)
         prox_traffic_gen = ProxTrafficGen(NAME, self.VNFD0)
         self.assertIsNone(prox_traffic_gen._tg_process)
         self.assertIsNone(prox_traffic_gen._traffic_process)
 
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh, mock_time):
+    def test_collect_kpi(self, ssh, *args):
         mock_ssh(ssh)
 
         prox_traffic_gen = ProxTrafficGen(NAME, self.VNFD0)
@@ -335,10 +334,12 @@ class TestProxTrafficGen(unittest.TestCase):
         prox_traffic_gen._vnf_wrapper.vnf_execute = mock.Mock(return_value="")
         self.assertEqual({}, prox_traffic_gen.collect_kpi())
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.CpuSysCores')
+
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
+    @mock.patch(
+        'yardstick.network_services.vnf_generic.vnf.sample_vnf.CpuSysCores')
     @mock.patch(SSH_HELPER)
-    def bad_test_instantiate(self, ssh, mock_find, mock_cpu_sys_cores, mock_time):
+    def bad_test_instantiate(self, ssh, mock_cpu_sys_cores, *args):
         mock_ssh(ssh)
 
         mock_cpu_sys_cores.get_core_socket.return_value = {'0': '01234'}
@@ -381,7 +382,7 @@ class TestProxTrafficGen(unittest.TestCase):
         prox_traffic_gen.instantiate(scenario_cfg, {})
 
     @mock.patch(SSH_HELPER)
-    def test__traffic_runner(self, ssh, mock_time):
+    def test__traffic_runner(self, ssh, *args):
         mock_ssh(ssh)
 
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
@@ -399,17 +400,9 @@ class TestProxTrafficGen(unittest.TestCase):
         sut._connect_client.get_stats = mock.Mock(return_value="0")
         sut._traffic_runner(mock_traffic_profile)
 
-    @mock.patch(SSH_HELPER)
-    def test_scale(self, ssh, mock_time):
-        mock_ssh(ssh, exec_result=(1, "", ""))
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        prox_traffic_gen = ProxTrafficGen(NAME, vnfd)
-        with self.assertRaises(NotImplementedError):
-            prox_traffic_gen.scale('')
-
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.socket')
     @mock.patch(SSH_HELPER)
-    def test_listen_traffic(self, ssh, mock_socket, mock_time):
+    def test_listen_traffic(self, ssh, *args):
         mock_ssh(ssh)
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         prox_traffic_gen = ProxTrafficGen(NAME, vnfd)
@@ -417,7 +410,7 @@ class TestProxTrafficGen(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.socket')
     @mock.patch(SSH_HELPER)
-    def test_terminate(self, ssh, mock_socket, mock_time):
+    def test_terminate(self, ssh, *args):
         mock_ssh(ssh)
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         prox_traffic_gen = ProxTrafficGen(NAME, vnfd)
