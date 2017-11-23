@@ -63,11 +63,3 @@ class EnvCommandTestCase(unittest.TestCase):
         except Exception as e:  # pylint: disable=broad-except
             # NOTE(ralonsoh): try to reduce the scope of this exception.
             self.assertIsInstance(e, IndexError)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

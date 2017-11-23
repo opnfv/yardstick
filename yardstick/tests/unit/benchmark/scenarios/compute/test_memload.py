@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2016 Huawei Technologies Co.,Ltd and others.
 #
@@ -109,11 +107,3 @@ class MEMLoadTestCase(unittest.TestCase):
         with open(output) as f:
             sample_output = f.read()
         return sample_output
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

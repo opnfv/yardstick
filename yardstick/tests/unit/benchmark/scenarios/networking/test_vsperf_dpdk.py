@@ -211,11 +211,3 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
         result = {}
         self.assertRaises(RuntimeError, self.scenario.run, result)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

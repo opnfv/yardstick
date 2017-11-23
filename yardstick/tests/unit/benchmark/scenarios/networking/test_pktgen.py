@@ -665,11 +665,3 @@ class PktgenTestCase(unittest.TestCase):
         expected_result["packets_received"] = 149300
         expected_result["packetsize"] = 60
         self.assertEqual(result, expected_result)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()
