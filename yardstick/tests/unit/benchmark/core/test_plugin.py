@@ -92,11 +92,3 @@ class pluginTestCase(unittest.TestCase):
         p._run(plugin_name)
         expected_result = {}
         self.assertEqual(self.result, expected_result)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

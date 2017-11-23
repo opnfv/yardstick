@@ -52,11 +52,3 @@ class QueryTestCase(unittest.TestCase):
             influx.query(sql)
         except Exception as e:
             self.assertIsInstance(e, RuntimeError)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

@@ -41,11 +41,3 @@ class GetMigrateTargetHostTestCase(unittest.TestCase):
         host = obj._get_migrate_host('host5')
         self.assertTrue(mock_get_nova_client.called)
         self.assertEqual(host, 'host4')
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

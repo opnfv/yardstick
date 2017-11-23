@@ -263,11 +263,3 @@ class FioTestCase(unittest.TestCase):
         with open(output) as f:
             sample_output = f.read()
         return sample_output
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

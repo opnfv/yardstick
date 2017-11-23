@@ -229,10 +229,3 @@ class StorPerfTestCase(unittest.TestCase):
         s = storperf.StorPerf(args, self.ctx)
 
         self.assertRaises(AssertionError, s.teardown(), self.result)
-
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()

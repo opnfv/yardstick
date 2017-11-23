@@ -78,9 +78,3 @@ class SpecCPUTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, s.run, self.result)
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()

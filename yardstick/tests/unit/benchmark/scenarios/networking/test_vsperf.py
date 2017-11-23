@@ -126,11 +126,3 @@ class VsperfTestCase(unittest.TestCase):
 
         result = {}
         self.assertRaises(RuntimeError, p.run, result)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

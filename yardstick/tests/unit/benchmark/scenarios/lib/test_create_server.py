@@ -32,11 +32,3 @@ class CreateServerTestCase(unittest.TestCase):
         self.assertTrue(mock_get_glance_client.called)
         self.assertTrue(mock_get_neutron_client.called)
         self.assertTrue(mock_create_instance_and_wait_for_active.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

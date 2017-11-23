@@ -23,11 +23,3 @@ class GetFlavorTestCase(unittest.TestCase):
         obj = GetFlavor(args, {})
         obj.run({})
         self.assertTrue(mock_get_flavor_by_name.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

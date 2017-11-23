@@ -23,10 +23,3 @@ class TemplateFormatTestCase(unittest.TestCase):
     def test_parse_to_value_exception(self):
 
         self.assertEquals(yaml_loader.yaml_load("string"), u"string")
-
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()

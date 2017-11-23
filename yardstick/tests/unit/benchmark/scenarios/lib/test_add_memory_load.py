@@ -55,11 +55,3 @@ class AddMemoryLoadTestCase(unittest.TestCase):
         obj = AddMemoryLoad(scenario_cfg, context_cfg)
         obj.run({})
         self.assertTrue(mock_from_node.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

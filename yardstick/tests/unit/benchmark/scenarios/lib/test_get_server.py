@@ -40,11 +40,3 @@ class GetServerTestCase(unittest.TestCase):
         obj = GetServer(scenario_cfg, {})
         obj.run({})
         self.assertTrue(mock_get_nova_client.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

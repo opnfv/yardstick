@@ -1061,10 +1061,3 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
         value_iter = (''.join(pair) for pair in product(addr_list, mask_list))
         for value in chain(value_iter, self.INVALID_IP_ADDRESS_STR_LIST):
             self.assertEqual(utils.ip_to_hex(value), value)
-
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()

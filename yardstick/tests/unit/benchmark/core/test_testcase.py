@@ -35,11 +35,3 @@ class TestcaseUT(unittest.TestCase):
         casename = Arg()
         result = t.show(casename)
         self.assertTrue(result)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

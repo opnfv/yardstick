@@ -388,11 +388,3 @@ class NodeContextTestCase(unittest.TestCase):
         expected = network1
         result = self.test_context._get_network(attr_name)
         self.assertDictEqual(result, expected)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

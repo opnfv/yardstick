@@ -235,10 +235,3 @@ class RamspeedTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.return_value = (1, '', 'No such type_id: 30 for \
                                                Ramspeed scenario')
         self.assertRaises(RuntimeError, r.run, self.result)
-
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()
