@@ -33,11 +33,3 @@ class HttpClientTestCase(unittest.TestCase):
         url = 'http://localhost:5000/hello'
         httpClient.HttpClient().get(url)
         mock_requests.get.assert_called_with(url)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

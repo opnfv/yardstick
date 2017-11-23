@@ -271,6 +271,3 @@ class TestResourceProfile(unittest.TestCase):
         # TODO(efoley): Fix this incorrect test.
         # Should check that we don't try to stop amqp when it's not running
         self.assertIsNone(self.resource_profile.stop())
-
-if __name__ == '__main__':
-    unittest.main()

@@ -19,11 +19,3 @@ class TestcaseCommandsUT(unittest.TestCase):
         mock_client.get.return_value = {'result': []}
         TestcaseCommands().do_list({})
         self.assertTrue(mock_print.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

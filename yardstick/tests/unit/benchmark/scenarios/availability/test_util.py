@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2016 Kanglin Yin and others
 # 14_ykl@tongji.edu.cn

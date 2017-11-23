@@ -25,11 +25,3 @@ class DeleteRouterGatewayTestCase(unittest.TestCase):
         obj.run({})
         self.assertTrue(mock_get_neutron_client.called)
         self.assertTrue(mock_remove_gateway_router.called)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

@@ -297,11 +297,3 @@ class TaskTestCase(unittest.TestCase):
 
     def change_to_abspath(self, filepath):
         return os.path.join(consts.YARDSTICK_ROOT_PATH, filepath)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

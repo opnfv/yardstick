@@ -113,7 +113,3 @@ class BaseMonitorTestCase(unittest.TestCase):
         except Exception:  # pylint: disable=broad-except
             pass
         self.assertIsNone(cls)
-
-
-if __name__ == "__main__":
-    unittest.main()

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2016 Huan Li and others
 # lihuansse@tongji.edu.cn

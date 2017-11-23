@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2015 Huawei Technologies Co.,Ltd and others.
 #
