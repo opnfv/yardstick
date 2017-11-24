@@ -68,6 +68,7 @@ class SpecCPU(base.Scenario):
     """
     __scenario_type__ = "SpecCPU2006"
     CPU2006_DIR = "~/cpu2006"
+    CPU2006_RESULT_FILE = os.path.join(CPU2006_DIR, "result/CINT2006.001.ref.txt")
 
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
@@ -144,5 +145,12 @@ class SpecCPU(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
+        cmd = "cat %s" % self.CPU2006_RESULT_FILE
+        LOG.debug("Executing command: %s", cmd)
+        status, stdout, stderr = self.client.execute(cmd, timeout=30)
+        if status:
+            raise RuntimeError(stderr)
+        if stdout:
+            LOG.info("SPEC CPU2006 result is:\n%s", stdout)
         LOG.info('SPEC CPU2006 benchmark completed, please find benchmark reports \
                   at /tmp/result directory')
