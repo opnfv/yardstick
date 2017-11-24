@@ -29,30 +29,53 @@ class ParserTestCase(unittest.TestCase):
 
     def test_parser_successful_setup(self, mock_subprocess):
 
-        p = parser.Parser({}, {})
+        scenario = parser.Parser({}, {})
         mock_subprocess.call().return_value = 0
-        p.setup()
-        self.assertEqual(p.setup_done, True)
+        scenario.setup()
+        self.assertTrue(scenario.setup_done)
 
     def test_parser_successful(self, mock_subprocess):
         args = {
             'options': {'yangfile': '/root/yardstick/samples/yang.yaml',
                         'toscafile': '/root/yardstick/samples/tosca.yaml'},
         }
-        p = parser.Parser(args, {})
-        result = {}
-        mock_subprocess.call().return_value = 0
-        sample_output = '{"yangtotosca": "success"}'
+        scenario = parser.Parser(scenario_cfg=args, context_cfg={})
 
-        p.run(result)
+        result = {}
+
+        mock_subprocess.Popen = mock.Mock()
+        mock_subprocess.Popen().returncode = 0
+
+        sample_output = '{"yangtotosca": "success"}'
         expected_result = jsonutils.loads(sample_output)
+
+        scenario.run(result)
+        self.assertEqual(result, expected_result)
+
+    def test_parser_fail(self, mock_subprocess):
+        args = {
+            'options': {'yangfile': '/root/yardstick/samples/yang.yaml',
+                        'toscafile': '/root/yardstick/samples/tosca.yaml'},
+        }
+        scenario = parser.Parser(scenario_cfg=args, context_cfg={})
+
+        result = {}
+
+        mock_subprocess.Popen = mock.Mock()
+        mock_subprocess.Popen().returncode = 1
+
+        sample_output = '{"yangtotosca": "fail"}'
+        expected_result = jsonutils.loads(sample_output)
+
+        scenario.run(result)
+        self.assertEqual(result, expected_result)
 
     def test_parser_teardown_successful(self, mock_subprocess):
 
-        p = parser.Parser({}, {})
+        scenario = parser.Parser({}, {})
         mock_subprocess.call().return_value = 0
-        p.teardown()
-        self.assertEqual(p.teardown_done, True)
+        scenario.teardown()
+        self.assertTrue(scenario.teardown_done)
 
 
 def main():
