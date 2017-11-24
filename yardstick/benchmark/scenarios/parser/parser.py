@@ -6,12 +6,13 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-from __future__ import print_function
 from __future__ import absolute_import
+
 import pkg_resources
 import logging
 import subprocess
 from yardstick.benchmark.scenarios import base
+
 
 LOG = logging.getLogger(__name__)
 
@@ -63,7 +64,7 @@ class Parser(base.Scenario):
         p = subprocess.Popen(cmd1, shell=True, stdout=subprocess.PIPE,
                              stderr=subprocess.PIPE)
         p.communicate()
-        print("yangtotosca finished")
+        LOG.info("yangtotosca finished")
 
         result['yangtotosca'] = "success" if p.returncode == 0 else "fail"
 
