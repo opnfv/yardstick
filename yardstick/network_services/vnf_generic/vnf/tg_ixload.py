@@ -91,7 +91,7 @@ class IxLoadResourceHelper(ClientResourceHelper):
                     self.result[key].append(value)
 
     def setup(self):
-        # TODO: fixupt scenario_helper to hanlde ixia
+        # NOTE: fixupt scenario_helper to hanlde ixia
         self.resource_file_name = \
             find_relative_file(self.scenario_helper.scenario_cfg['ixia_profile'],
                                self.scenario_helper.scenario_cfg["task_path"])
@@ -113,7 +113,7 @@ class IxLoadResourceHelper(ClientResourceHelper):
     def collect_kpi(self):
         if self.data:
             self._result.update(self.data)
-        LOG.info("Collect {0} KPIs {1}".format(self.RESOURCE_WORD, self._result))
+        LOG.info("Collect %s KPIs %s", self.RESOURCE_WORD, self._result)
         return self._result
 
     def log(self):
@@ -169,9 +169,6 @@ class IxLoadTrafficGen(SampleVNFTrafficGen):
 
         self.resource_helper.log()
         self.resource_helper.data = self.resource_helper.make_aggregates()
-
-    def instantiate(self, scenario_cfg, context_cfg):
-        super(IxLoadTrafficGen, self).instantiate(scenario_cfg, context_cfg)
 
     def terminate(self):
         call(["pkill", "-9", "http_ixload.py"])
