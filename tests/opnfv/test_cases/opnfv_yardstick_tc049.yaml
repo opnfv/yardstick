@@ -14,6 +14,7 @@ description: >
 
 {% set file = file or '/etc/yardstick/pod.yaml' %}
 {% set attack_host = attack_host or "node1" %}
+{% set attack_process = attack_process or "swift-proxy" %}
 
 scenarios:
 -
@@ -21,7 +22,7 @@ scenarios:
   options:
     attackers:
     - fault_type: "kill-process"
-      process_name: "swift-proxy"
+      process_name: {{attack_process}}
       host: {{attack_host}}
 
     monitors:
