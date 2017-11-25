@@ -26,7 +26,7 @@ elif [ "$process_name" = "haproxy" ]; then
             kill -9 "${pid}"
         done
 else
-    for pid in $(pgrep -f "/usr/.*/${process_name}");
+    for pid in $(pgrep -fa [^-_a-zA-Z0-9]${process_name} | grep -v " ${process_name} " | grep -iv heartbeat | awk '{print $1}');
         do
             kill -9 "${pid}"
         done
