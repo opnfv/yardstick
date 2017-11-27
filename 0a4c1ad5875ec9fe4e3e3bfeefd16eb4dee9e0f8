@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_7cacf935",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-27T13:20:35Z",
+      "side": 1,
+      "message": "the real problem with this method is the local tool_path and remote tool_path are the same.\n\nthis is because writing to /opt/nsb_bin requires root, so we have to sudo wrap everything.  (ubuntu cloud image doesn\u0027t support root ssh)\n\nIt would make more sense for run-time uploads to use /tmp like ansible does, but then we have to replace /opt/nsb_bin with /tmp/nsb_bin everywhere.\n\nwe also intially didn\u0027t use /opt/nsb_bin for PROX, hence the attempt to not-hard the code with the legacy prox_path setting:\n\n      prox_path: /root/dppd-PROX-v035/build/prox\n\nwe need to change the API to allow for independent local and remote paths.\n\nThen if we change the API then this method pretty much reduces to an simple sftp check and put, in which case it may not need to reside here, but could be placed in the SSH class.",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 40
+      },
+      "revId": "0a4c1ad5875ec9fe4e3e3bfeefd16eb4dee9e0f8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5c6f75fd",
+        "filename": "yardstick/ssh.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-27T13:20:35Z",
+      "side": 1,
+      "message": "probably not really useful without a sudo wrap.\n\nby default we can only ssh into Ubuntu cloud image using ubuntu user.",
+      "revId": "0a4c1ad5875ec9fe4e3e3bfeefd16eb4dee9e0f8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
