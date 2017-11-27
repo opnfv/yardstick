@@ -438,6 +438,45 @@ class SSH(object):
         with client.open_sftp() as sftp:
             sftp.getfo(remotepath, file_obj)
 
+    def file_exists(self, file_name):
+        """Check if a file exists in the remote host"""
+        client = self._get_client()
+
+        with client.open_sftp() as sftp:
+            try:
+                sftp.stat(file_name)
+                return True
+            except IOError:
+                return False
+
+    def directory_exists(self, dir_name):
+        """Check if a directory exists in the remote host"""
+        client = self._get_client()
+
+        with client.open_sftp() as sftp:
+            try:
+                sftp.chdir(dir_name)
+                return True
+            except IOError:
+                return False
+
+    def create_directory(self, directory):
+        """Create a directory, making parent directories as needed"""
+        client = self._get_client()
+
+        with client.open_sftp() as sftp:
+            create_dir = '/'
+            for _dir in (_dir for _dir in directory.split("/") if _dir):
+                create_dir = os.path.join(create_dir, _dir)
+                if self.directory_exists(create_dir):
+                    continue
+                try:
+                    sftp.mkdir(create_dir)
+                except IOError:
+                    return
+
+        return create_dir
+
 
 class AutoConnectSSH(SSH):
 

@@ -103,24 +103,21 @@ def get_nsb_option(option, default=None):
 
 
 def provision_tool(connection, tool_path, tool_file=None):
-    """
-    verify if the tool path exits on the node,
-    if not push the local binary to remote node
+    """Push a tool to a remote node.
 
-    :return - Tool path
+    Verify if the tool path exits on the node, if not push the local binary to
+    the remote node
     """
     if not tool_path:
         tool_path = get_nsb_option('tool_path')
     if tool_file:
         tool_path = os.path.join(tool_path, tool_file)
-    bin_path = get_nsb_option("bin_path")
-    exit_status = connection.execute("which %s > /dev/null 2>&1" % tool_path)[0]
-    if exit_status == 0:
+    if connection.file_exists(tool_path):
         return encodeutils.safe_decode(tool_path, incoming='utf-8').rstrip()
 
-    logging.warning("%s not found on %s, will try to copy from localhost",
+    logging.warning('"%s" not found on %s, will try to copy from localhost',
                     tool_path, connection.host)
-    bin_path = get_nsb_option("bin_path")
-    connection.execute('mkdir -p "%s"' % bin_path)
+    _dir = os.path.dirname(tool_path)
+    connection.create_directory(_dir)
     connection.put(tool_path, tool_path)
     return tool_path
