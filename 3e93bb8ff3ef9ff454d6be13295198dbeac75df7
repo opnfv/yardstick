@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_5c001567",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-27T10:21:34Z",
+      "side": 1,
+      "message": "I guess it tests that __init__ doesn\u0027t raise an exception.\n\nThis code was copied from another internal projects and cut down to fit into yardstick, so I\u0027m sure there are parts that don\u0027t make sense.",
+      "parentUuid": "9a3d3df0_53ada89b",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 30
+      },
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_33b0e4f3",
         "filename": "tests/unit/common/test_ansible_common.py",
         "patchSetId": 5
