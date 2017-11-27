@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_5c14954d",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-27T14:14:03Z",
+      "side": 1,
+      "message": "The refactor is not changing the functionality of the method.\n\nI checked provision_tool() and I don\u0027t see any root wrapper on the commands, but I could be wrong.",
+      "parentUuid": "9a3d3df0_7cacf935",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 40
+      },
+      "revId": "0a4c1ad5875ec9fe4e3e3bfeefd16eb4dee9e0f8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5c6f75fd",
         "filename": "yardstick/ssh.py",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2017-11-27T13:20:35Z",
       "side": 1,
       "message": "probably not really useful without a sudo wrap.\n\nby default we can only ssh into Ubuntu cloud image using ubuntu user.",
+      "revId": "0a4c1ad5875ec9fe4e3e3bfeefd16eb4dee9e0f8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fc1c8979",
+        "filename": "yardstick/ssh.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-27T14:14:03Z",
+      "side": 1,
+      "message": "The same as put_file(). But you can\u0027t copy a file to a non existing directory.\n\nThe root permission is other problem.",
+      "parentUuid": "9a3d3df0_5c6f75fd",
       "revId": "0a4c1ad5875ec9fe4e3e3bfeefd16eb4dee9e0f8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
