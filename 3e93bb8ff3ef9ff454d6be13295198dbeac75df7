@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_bc732114",
+        "filename": "tests/unit/common/test_ansible_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-11-27T12:21:31Z",
+      "side": 1,
+      "message": "Sure, it implicitly tests that __init__ doesn\u0027t raise an exception, but it doesn\u0027t check any states after the object is created.",
+      "parentUuid": "9a3d3df0_5c001567",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 30
+      },
+      "revId": "3e93bb8ff3ef9ff454d6be13295198dbeac75df7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_33b0e4f3",
         "filename": "tests/unit/common/test_ansible_common.py",
         "patchSetId": 5
