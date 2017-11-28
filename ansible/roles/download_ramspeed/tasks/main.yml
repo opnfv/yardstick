@@ -19,3 +19,4 @@
     accept_hostkey: yes
     recursive: no
     force: yes
+  environment: "{{ proxy_env }}"

@@ -24,6 +24,7 @@
     accept_hostkey: yes
     recursive: no
     force: yes
+  environment: "{{ proxy_env }}"
 
 - set_fact:
     intel_cmt_cat_path: "{{ intel_cmt_cat_dest }}"

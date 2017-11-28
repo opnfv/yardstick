@@ -24,12 +24,14 @@
     accept_hostkey: yes
     recursive: no
     force: yes
+  environment: "{{ proxy_env }}"
 
 - set_fact:
     pmu_tools_path: "{{ pmu_tools_dest }}"
 
 - name: Create perfmon local mirror
   command: "wget -mkEpnp {{ perfmon_url }} -P {{ INSTALL_BIN_PATH }}/pmu_local_mirror"
+  environment: "{{ proxy_env }}"
   ignore_errors: yes
   failed_when: false #some of the links while creating mirror are not found, results in failure
   no_log: True
