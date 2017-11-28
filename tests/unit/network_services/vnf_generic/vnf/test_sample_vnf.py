@@ -1877,6 +1877,22 @@ class TestSampleVnf(unittest.TestCase):
         result = sample_vnf.collect_kpi()
         self.assertDictEqual(result, expected)
 
+    def test__run(self):
+        test_cmd = 'test cmd'
+        run_kwargs = {'arg1': 'val1', 'arg2': 'val2'}
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf.ssh_helper = mock.Mock()
+        sample_vnf.setup_helper = mock.Mock()
+        with mock.patch.object(sample_vnf, '_build_config',
+                               return_value=test_cmd), \
+                mock.patch.object(sample_vnf, '_build_run_kwargs'):
+            sample_vnf.run_kwargs = run_kwargs
+            sample_vnf._run()
+        sample_vnf.ssh_helper.drop_connection.assert_called_once()
+        sample_vnf.ssh_helper.run.assert_called_once_with(test_cmd,
+                                                          **run_kwargs)
+        sample_vnf.setup_helper.kill_vnf.assert_called_once()
 
 class TestSampleVNFTrafficGen(unittest.TestCase):
 

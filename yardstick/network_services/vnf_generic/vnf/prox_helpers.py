@@ -637,13 +637,6 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
             raise KeyError(template.format(section_key, section_name))
         return result
 
-    def _build_pipeline_kwargs(self):
-        tool_path = self.ssh_helper.provision_tool(tool_file=self.APP_NAME)
-        self.pipeline_kwargs = {
-            'tool_path': tool_path,
-            'tool_dir': os.path.dirname(tool_path),
-        }
-
     def copy_to_target(self, config_file_path, prox_file):
         remote_path = os.path.join("/tmp", prox_file)
         self.ssh_helper.put(config_file_path, remote_path)
@@ -837,17 +830,20 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         self.build_config_file()
 
         options = self.scenario_helper.options
-
         prox_args = options['prox_args']
-        LOG.info("Provision and start the %s", self.APP_NAME)
-        self._build_pipeline_kwargs()
-        self.pipeline_kwargs["args"] = " ".join(
-            " ".join([k, v if v else ""]) for k, v in prox_args.items())
-        self.pipeline_kwargs["cfg_file"] = self.remote_path
+        tool_path = self.ssh_helper.join_bin_path(self.APP_NAME)
 
-        cmd_template = "sudo bash -c 'cd {tool_dir}; {tool_path} -o cli {args} -f {cfg_file} '"
-        prox_cmd = cmd_template.format(**self.pipeline_kwargs)
-        return prox_cmd
+        self.pipeline_kwargs = {
+            'tool_path': tool_path,
+            'tool_dir': os.path.dirname(tool_path),
+            'cfg_file': self.remote_path,
+            'args': ' '.join(' '.join([str(k), str(v) if v else ''])
+                             for k, v in prox_args.items())
+        }
+
+        cmd_template = ("sudo bash -c 'cd {tool_dir}; {tool_path} -o cli "
+                        "{args} -f {cfg_file} '")
+        return cmd_template.format(**self.pipeline_kwargs)
 
 
 # this might be bad, sometimes we want regular ResourceHelper methods, like collect_kpi
