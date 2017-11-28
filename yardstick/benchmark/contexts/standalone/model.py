@@ -26,7 +26,6 @@ import xml.etree.ElementTree as ET
 from yardstick import ssh
 from yardstick.common import constants
 from yardstick.network_services import utils
-from yardstick.network_services.helpers.cpu import CpuSysCores
 from yardstick.network_services.utils import MacAddress
 from yardstick.common.utils import write_file
 from yardstick.common.utils import YamlFilePathWrapper
@@ -46,7 +45,6 @@ VM_TEMPLATE = """
   <memoryBacking>
     <hugepages />
   </memoryBacking>
-  <vcpu cpuset='{cpuset}'>{vcpu}</vcpu>
   <os>
     <type arch="x86_64" machine="pc-i440fx-utopic">hvm</type>
     <boot dev="hd" />
@@ -244,7 +242,6 @@ def build_vm_xml(connection, flavor, cfg, vm_name, index):
     threads = extra_spec.get('hw:cpu_threads', '2')
     vcpu = int(cpu) * int(threads)
     mac = MacAddress.make_random_str(0x00)
-    hw_socket = flavor.get('hw_socket', '0')
 
     kwargs = {
         'memory': flavor.get('ram', '4096'),
@@ -259,7 +256,6 @@ def build_vm_xml(connection, flavor, cfg, vm_name, index):
         'index': index,
         'random_uuid': uuid.uuid4(),
         'vm_name': vm_name,
-        'cpuset': pin_vcpu_for_perf(connection, hw_socket)
     }
     vm_xml = VM_TEMPLATE.format(**kwargs)
 
@@ -273,17 +269,18 @@ def update_interrupts_hugepages_perf(connection):
     connection.execute("echo never > /sys/kernel/mm/transparent_hugepage/enabled")
 
 
-def pin_vcpu_for_perf(connection, socket="0"):
-    threads = ""
-    sys_obj = CpuSysCores(connection)
-    soc_cpu = sys_obj.get_core_socket()
-    sys_cpu = int(soc_cpu["cores_per_socket"])
-    socket = str(socket)
-    cores = "%s-%s" % (soc_cpu[socket][0], soc_cpu[socket][sys_cpu - 1])
-    if int(soc_cpu["thread_per_core"]) > 1:
-        threads = "%s-%s" % (soc_cpu[socket][sys_cpu], soc_cpu[socket][-1])
-    cpuset = "%s,%s" % (cores, threads)
-    return cpuset
+def add_vm_vcpu_pinning(key, cfg, cpu_properties):
+    root = ET.parse(cfg)
+    domain = root.getroot()
+    cputune = ET.SubElement(domain, 'cputune')
+    for vcpu, cpu in cpu_properties.vm[key]['cpu_map'].items():
+        vcpupin = ET.SubElement(cputune, 'vcpupin')
+        vcpupin.set('vcpu', str(vcpu))
+        vcpupin.set('cpuset', str(cpu))
+    emulatorpin_el = ET.SubElement(cputune, 'emulatorpin')
+    emulatorpin_el.set('cpuset', cpu_properties.vm[key]['emulatorpin'])
+
+    root.write(cfg)
 
 
 def install_req_libs(connection, extra_pkgs=None):

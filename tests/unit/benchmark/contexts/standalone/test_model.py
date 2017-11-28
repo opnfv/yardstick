@@ -26,6 +26,7 @@ import mock
 from xml.etree import ElementTree
 from yardstick import ssh
 from yardstick.benchmark.contexts.standalone import model
+from yardstick.benchmark.contexts.standalone.base import CpuProperties
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
 
 from yardstick.network_services import utils
@@ -214,6 +215,30 @@ class StandaloneModelTestCase(unittest.TestCase):
             self.assertIsNotNone(source.find('address'))
             self.assertIsNotNone(interface.find('address'))
 
+    def test_add_vm_vcpu_pinning(self):
+        xml_input = mock.Mock()
+        cpu_properties = CpuProperties()
+        cpu_properties.vm = {
+            'vnf0': {
+                'cpu_map': {
+                    0: '1',
+                },
+                'emulatorpin': 0
+            },
+        }
+        with mock.patch.object(ElementTree, 'parse', return_value=self.xml) \
+                as mock_parse:
+            xml = copy.deepcopy(self.xml)
+            mock_parse.return_value = xml
+
+            model.add_vm_vcpu_pinning('vnf0', xml_input, cpu_properties)
+            cputune = xml.find('cputune')
+            for a_vcpupin in cputune.iter(tag='vcpupin'):
+                self.assertEqual(a_vcpupin.get('vcpu'), '0')
+                self.assertEqual(a_vcpupin.get('cpuset'), '1')
+            emulatorpin = cputune.find('emulatorpin')
+            self.assertEqual(emulatorpin.get('cpuset'), 0)
+
     def test_create_snapshot_qemu(self):
         ssh_mock = mock.Mock(autospec=ssh.SSH)
         ssh_mock.execute.return_value = 0, "a", ""
@@ -222,7 +247,6 @@ class StandaloneModelTestCase(unittest.TestCase):
         result = model.create_snapshot_qemu(ssh_mock, "0", "ubuntu.img")
         self.assertEqual(result, expected)
 
-    @mock.patch("yardstick.benchmark.contexts.standalone.model.pin_vcpu_for_perf")
     @mock.patch('yardstick.benchmark.contexts.standalone.model.open')
     @mock.patch('yardstick.benchmark.contexts.standalone.model.write_file')
     @mock.patch("yardstick.benchmark.contexts.standalone.model.create_snapshot_qemu")
@@ -238,16 +262,6 @@ class StandaloneModelTestCase(unittest.TestCase):
         ssh_mock.execute.return_value = 0, "a", ""
 
         model.update_interrupts_hugepages_perf(ssh_mock)
-
-    @mock.patch("yardstick.benchmark.contexts.standalone.model.CpuSysCores")
-    @mock.patch("yardstick.benchmark.contexts.standalone.model.update_interrupts_hugepages_perf")
-    def test_pin_vcpu_for_perf(self, *_):
-        ssh_mock = mock.Mock(autospec=ssh.SSH)
-        ssh_mock.execute.return_value = 0, "a", ""
-        status = model.pin_vcpu_for_perf(ssh_mock)
-        self.assertIsNotNone(status)
-
-        model.pin_vcpu_for_perf(ssh_mock)
 
     def test_install_req_libs(self):
         ssh_mock = mock.Mock(autospec=ssh.SSH)

@@ -20,7 +20,7 @@ scenarios:
   topology: acl-tg-topology.yaml
   nodes:
     tg__0: tg__0.yardstick
-    vnf__0: vnf.yardstick
+    vnf__0: vnf__0.yardstick
   options:
     framesize:
       uplink: {64B: 100}
@@ -44,9 +44,20 @@ contexts:
      type: Node
      file: /etc/yardstick/nodes/standalone/pod_trex.yaml
    - type: StandaloneSriov
-     file: /etc/yardstick/nodes/standalone/host_sriov.yaml
      name: yardstick
+     file: /etc/yardstick/nodes/standalone/pod_sriov.yaml
      vm_deploy: True
+     ovs_properties:
+       version:
+         ovs: 2.8.0
+         dpdk: 17.05.2
+       pmd_threads: 2
+       ram:
+         socket_0: 2048
+         socket_1: 2048
+       queues: 4
+       vpath: "/usr/local"
+
      flavor:
        images: "/var/lib/libvirt/images/ubuntu.qcow2"
        ram: 4096
@@ -54,24 +65,29 @@ contexts:
          hw:cpu_sockets: 1
          hw:cpu_cores: 6
          hw:cpu_threads: 2
-       user: ""
-       password: ""
+       user: "ubuntu"
+       password: "s"
      servers:
-       vnf:
+       vnf__0:
          network_ports:
            mgmt:
-             cidr: '1.1.1.61/24'
+             cidr: '11.191.24.100/24'
            xe0:
              - uplink_0
            xe1:
              - downlink_0
+         cpu_properties:
+           isolate_cpus: [1, 2]
+
      networks:
        uplink_0:
+         port_num: 0
          phy_port: "0000:05:00.0"
          vpci: "0000:00:07.0"
          cidr: '152.16.100.10/24'
          gateway_ip: '152.16.100.20'
        downlink_0:
+         port_num: 1
          phy_port: "0000:05:00.1"
          vpci: "0000:00:08.0"
          cidr: '152.16.40.10/24'

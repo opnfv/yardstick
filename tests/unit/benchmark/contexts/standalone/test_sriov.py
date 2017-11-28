@@ -96,8 +96,8 @@ class SriovContextTestCase(unittest.TestCase):
         self.sriov.populate_nic_details = mock.Mock(return_value={})
         self.sriov.setup_context = mock.Mock(return_value={})
         self.sriov.wait_for_vnfs_to_start = mock.Mock(return_value={})
+        self.sriov.handle_cpu_configuration = mock.Mock()
         # NOTE(ralonsoh): this test doesn't cover function execution.
-        # The pylint exception should be removed.
         self.assertIsNone(self.sriov.deploy())
 
     @mock.patch('yardstick.ssh.SSH')
