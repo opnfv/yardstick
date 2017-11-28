@@ -238,6 +238,20 @@ def pin_vcpu_for_perf(connection, vm_name, cpu, socket="0"):
     cpuset = "%s,%s" % (cores, threads)
     return cpuset
 
+def add_vm_vcpu_pinning(vm, cfg, cpu_properties):
+    root = ET.parse(cfg)
+    domain = root.getroot()
+    cputune = ET.SubElement(domain, 'cputune')
+    for vcpu, cpu in cpu_properties.vm[vm]['cpu_map'].iteritems():
+        vcpupin = ET.SubElement(cputune, 'vcpupin')
+        vcpupin.set('vcpu', str(vcpu))
+        vcpupin.set('cpuset', str(cpu))
+    emulatorpin_el = ET.SubElement(cputune, 'emulatorpin')
+    emulatorpin_el.set('cpuset', cpu_properties.vm['emulatorpin'])
+    iothreadpin_el = ET.SubElement(cputune, 'iothreadpin')
+    iothreadpin_el.set('cpuset', cpu_properties.vm['iothreadpin'])
+
+    root.write(cfg)
 
 def install_req_libs(connection, extra_pkgs=None):
     pkgs = ["qemu-kvm", "libvirt-bin", "bridge-utils", "numactl", "fping"]

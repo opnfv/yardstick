@@ -65,17 +65,19 @@ contexts:
          hw:cpu_sockets: 1
          hw:cpu_cores: 6
          hw:cpu_threads: 2
-       user: ""
-       password: ""
+       user: "ubuntu"
+       password: "password"
      servers:
        vnf__0:
          network_ports:
            mgmt:
-             cidr: '1.1.1.7/24'
+             cidr: '1.1.1.1/24'
            xe0:
              - uplink_0
            xe1:
              - downlink_0
+         cpu_properties:
+           isolate_cpus: [2, 4, 6]
      networks:
        uplink_0:
          port_num: 0

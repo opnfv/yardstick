@@ -22,6 +22,37 @@ import mock
 from yardstick.benchmark.contexts.standalone import ovs_dpdk
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
 from yardstick.common import utils
+from yardstick.common.cpu_model import CpuList
+from yardstick.common.cpu_model import CpuInfo
+
+CPU_CONFIGURATION = {
+    'cpu_properties': {
+        'cpu_cores_pool': '0-15'
+    }
+}
+
+EXAMPLE_HT_TOPO = """\
+0: 0, 10
+1: 1, 11
+2: 2, 12
+3: 3, 13
+4: 4, 14
+5: 5, 15
+6: 6, 16
+7: 7, 17
+8: 8, 18
+9: 9, 19
+10: 0, 10
+11: 1, 11
+12: 2, 12
+13: 3, 13
+14: 4, 14
+15: 5, 15
+16: 6, 16
+17: 7, 17
+18: 8, 18
+19: 9, 19
+"""
 
 
 class OvsDpdkContextTestCase(unittest.TestCase):
@@ -173,6 +204,7 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk.setup_context = mock.Mock(return_value={})
         self.ovs_dpdk.wait_for_vnfs_to_start = mock.Mock(return_value={})
         self.ovs_dpdk.networks = self.NETWORKS
+        self.ovs_dpdk.handle_cpu_configuration = mock.Mock()
         self.assertIsNone(self.ovs_dpdk.deploy())
 
     @mock.patch('yardstick.benchmark.contexts.standalone.ovs_dpdk.model')
@@ -381,3 +413,86 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk.cloud_init = mock.Mock()
         self.ovs_dpdk.cloud_init.enabled.return_value = True
         self.assertIsNotNone(self.ovs_dpdk.setup_context())
+
+    CPUINFO = "yardstick.benchmark.contexts.standalone.base.CpuInfo"
+
+    @mock.patch("yardstick.benchmark.contexts.standalone.base.CpuInfo")
+    def test_handle_cpu_configuration(self, mock_cpuinfo):
+        my_mock = mock.Mock(autospec=CpuInfo)
+        my_mock.isolcpus = CpuList('0-19')
+        my_mock.ht_topo = mock.Mock(return_value=EXAMPLE_HT_TOPO)
+        mock_cpuinfo.return_value = my_mock
+
+        self.ovs_dpdk.handle_cpu_configuration()
+
+        self.assertEquals(self.ovs_dpdk.cpu_model.cpu_core_pool, CpuList('0-9'))
+
+    @mock.patch("yardstick.benchmark.contexts.standalone.base.CpuInfo")
+    def test_handle_cpu_configuration_2(self, mock_cpuinfo):
+        my_mock = mock.Mock(autospec=CpuInfo)
+        my_mock.isolcpus = CpuList('0-19')
+        my_mock.numa_node_to_cpus = mock.Mock(return_value={0: '0-9'})
+        my_mock.pci_to_numa_node = mock.Mock(return_value=0)
+        my_mock.lscpu = mock.Mock(return_value={'CPU(s)': 20})
+        my_mock.ht_topo = mock.Mock(return_value=EXAMPLE_HT_TOPO)
+        mock_cpuinfo.return_value = my_mock
+
+        mock_cpuinfo.return_value = my_mock
+
+        # import rpdb2; rpdb2.start_embedded_debugger('ahoj', fAllowUnencrypted=True, fAllowRemote=True)
+
+        self.ovs_dpdk.attrs['cpu_properties'] = {
+            'emulator_threads': 1,
+            'pmd_threads': 6,
+        }
+
+        self.ovs_dpdk.handle_cpu_configuration()
+
+        self.assertEquals(self.ovs_dpdk.cpu_model.cpu_core_pool, CpuList('7-9'))
+
+    @mock.patch("yardstick.benchmark.contexts.standalone.base.CpuInfo")
+    def test_handle_cpu_configuration_3(self, mock_cpuinfo):
+        my_mock = mock.Mock(autospec=CpuInfo)
+        my_mock.isolcpus = None
+        my_mock.numa_node_to_cpus = {0: '0-8'}
+        my_mock.pci_to_numa_node = mock.Mock(return_value=0)
+        my_mock.ht_topo = mock.Mock(return_value=EXAMPLE_HT_TOPO)
+        mock_cpuinfo.return_value = my_mock
+
+        mock_cpuinfo.return_value = my_mock
+
+        # import rpdb2; rpdb2.start_embedded_debugger('ahoj', fAllowUnencrypted=True, fAllowRemote=True)
+
+        self.ovs_dpdk.attrs['cpu_properties'] = {
+            'emulator_threads': 1,
+            'pmd_threads': 6,
+        }
+        self.ovs_dpdk.networks = self.NETWORKS
+
+        self.ovs_dpdk.handle_cpu_configuration()
+
+        self.assertEquals(self.ovs_dpdk.cpu_model.cpu_core_pool, CpuList('7-8'))
+
+    @mock.patch("yardstick.benchmark.contexts.standalone.base.CpuInfo")
+    def test_handle_cpu_configuration_4(self, mock_cpuinfo):
+        my_mock = mock.Mock(autospec=CpuInfo)
+        my_mock.isolcpus = CpuList('0-19,49-59')
+        my_mock.numa_node_to_cpus = {0: '0-8'}
+        my_mock.pci_to_numa_node = mock.Mock(return_value=0)
+        my_mock.ht_topo = mock.Mock(return_value=EXAMPLE_HT_TOPO)
+        mock_cpuinfo.return_value = my_mock
+
+        mock_cpuinfo.return_value = my_mock
+
+        # import rpdb2; rpdb2.start_embedded_debugger('ahoj', fAllowUnencrypted=True, fAllowRemote=True)
+
+        self.ovs_dpdk.attrs['cpu_properties'] = {
+            'emulator_threads': 1,
+            'pmd_threads': 6,
+            'allow_ht_threads': True,
+        }
+        self.ovs_dpdk.networks = self.NETWORKS
+
+        self.ovs_dpdk.handle_cpu_configuration()
+
+        self.assertEquals(self.ovs_dpdk.cpu_model.cpu_core_pool, CpuList('7-19,49-59'))

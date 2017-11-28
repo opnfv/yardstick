@@ -43,6 +43,7 @@ CLOUD_INIT = {
     },
 }
 
+
 class TestCloudInit(unittest.TestCase):
 
     def test__init__(self):
@@ -54,7 +55,6 @@ class TestCloudInit(unittest.TestCase):
         node['cloud_init']['enabled'] = False
         cloud_init = CloudInit(node)
         self.assertFalse(cloud_init.enabled)
-
 
     @mock.patch('yardstick.benchmark.contexts.standalone.base.tempfile')
     @mock.patch('yardstick.benchmark.contexts.standalone.base.AnsibleCommon')
@@ -79,5 +79,3 @@ class TestCloudInit(unittest.TestCase):
         cloud_init = CloudInit(node)
 
         self.assertEquals('/var/lib/yardstick', cloud_init.iso_image_path)
-
-

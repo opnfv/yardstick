@@ -20,13 +20,30 @@ from yardstick import ssh
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts import common
 from yardstick.common.constants import ANSIBLE_DIR
+from yardstick.common.cpu_model import CpuList
 from collections import OrderedDict
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
 from yardstick.common.ansible_common import AnsibleCommon
 from yardstick.common.utils import MethodCallsOrder
+from yardstick.common.cpu_model import CpuInfo
+from yardstick.common.cpu_model import CpuModel
 
 LOG = logging.getLogger(__name__)
+
+class CpuProperties(object):
+    KEYS = ['emulator_threads',
+            'io_threads',
+            'emulator_pin',
+            'cpu_cores_pool',
+            'allow_ht_threads',
+            'pmd_threads',
+            'pmd_thread_pin',
+            ]
+
+    def __init__(self, props):
+        for a_key in self.KEYS:
+            self.__setattr__(a_key, props.get(a_key))
 
 
 class CloudInit(object):
@@ -83,6 +100,7 @@ class StandaloneBase(Context):
         self.connection = None
         self.networks = None
         self.cloud_init = None
+        self.cpu_properties = {}
         MethodCallsOrder.add(self, self.METHOD_CALL_ORDER)
         super(StandaloneBase, self).__init__()
 
@@ -112,6 +130,88 @@ class StandaloneBase(Context):
         # to be implemented by a subclass
         raise NotImplemented
 
+    def _vm_cpu_handling(self):
+        self.cpu_properties.vm = {}
+        extra_spec = self.vm_flavor.get('extra_specs', {})
+        cpu_cores = extra_spec.get('hw:cpu_cores', '2')
+        cpu_threads = extra_spec.get('hw:cpu_threads', '2')
+        vcpus = list(range(cpu_cores * cpu_threads))
+
+        for key, vnf in self.servers.items():
+            if vnf.get('cpu_properties'):
+                isolate_cpus = vnf['cpu_properties'].get('isolate_cpus')
+                if isolate_cpus:
+                    cpu_map = {}
+                    for vcpu in isolate_cpus:
+                        cpu_map[vcpu] = str(self.cpu_model.allocate(1))
+                        LOG.info('VM {} vcpu {} pinned to core {}'.format(vm_index,
+                                                                          vcpu,
+                                                                          cpu_map[vcpu]))
+                    emulatorpin =  vnf['cpu_properties'].get('emulatorpin'),
+                    iothreadpin = vnf['cpu_properties'].get('iothreadpin'),
+                    if emulatorpin = None:
+                        emulatorpin = self.cpu_properties.emulatorpin
+                    if iothreadpin = None:
+                        iothreadpin = self.cpu_properties.iothreadpin
+                    if iothreadpin = None:
+                        iothreadpin = emulatorpin
+                    if emulatorpin = None:
+                        emulatorpin = self.cpu_model.allocate(self.cpu_properties.emulator_threads)
+                    if iothreadpin = None:
+                        iothreadpin = self.cpu_model.allocate(self.cpu_properties.io_threads)
+                    self.cpu_properties.vm[key] = {
+                        'cpu_map': cpu_map,
+                        'emulatorpin': emulatorpin
+                        'iothreadpin': iothreadpin
+                    }
+        # whatever is not allocated, pinned to the remaining cores from the free pool.
+        # If not done, it would be pinned to all cpus by the libvirt.
+        free_cores = str(self.cpu_properties.cpu_cores_pool)
+        for vm in self.cpu_properties.vm:
+            isolated = vm['cpu_map'].keys()
+            if vm['emulatorpin'] is None:
+                vm['emulatorpin'] = free_cores
+            if vm['iothreadpin'] is None:
+                vm['iothreadpin'] = free_cores
+            for cpu in vcpus:
+                if cpu in isolated:
+                    continue
+                vm['cpu_map'][cpu] = free_cores
+
+    def handle_cpu_configuration(self):
+        # Detect witch CPU cores we will work with
+        cpu_info = CpuInfo(self.connection)
+        cpu_pool = None
+
+        cpu_properties = CpuProperties(self.nfvi_host[0]['cpu_properties'])
+
+        cpu_pool = CpuList(self.cpu_properties.cpu_cores_pool)
+        exclude_ht_cores = not bool(self.cpu_properties.allow_ht_threads)
+
+        if cpu_pool is None:
+            cpu_pool = cpu_info.isolcpus
+        if cpu_pool is None:
+            first_interface = self.networks.keys()[0]
+            pci_addr = self.networks[first_interface]['phy_port']
+            numa_node = cpu_info.pci_to_numa_node(pci_addr)
+            cpu_pool = cpu_info.numa_node_to_cpus(numa_node)
+        if cpu_pool is None:
+            cpu_pool = cpu_info.lscpu['CPU(s)']
+        if cpu_pool is None:
+            raise Exception('Cannot get list of CPUs')
+
+        self.cpu_model = CpuModel(cpu_info)
+        self.cpu_model.exclude_ht_cores = exclude_ht_cores
+        self.cpu_model.cpu_core_pool = cpu_pool
+
+        # ovs-dpdk satisfies the dpdk's pmd's requirements
+        self._specific_cpu_handling()
+
+        # from the remaining cores, the VM vcpus that should be isolated get their dedicated
+        # cores. The rest is pinned to the remaining free cores from our pool.
+        self._vm_cpu_handling()
+
+
     @MethodCallsOrder.validate
     def deploy(self):
         if not self.vm_deploy:
@@ -123,6 +223,8 @@ class StandaloneBase(Context):
         self.dpdk_bind_helper.save_used_drivers()
         model.install_req_libs(self.connection)
         model.populate_nic_details(self.connection, self.networks, self.dpdk_bind_helper)
+
+        self.handle_cpu_configuration()
 
         self._specific_deploy()
         self.nodes = self.setup_context()
@@ -177,6 +279,8 @@ class StandaloneBase(Context):
                     vm_index,
                 )
                 model.add_nodata_source(cfg, iso_image_path)
+
+            model.add_vm_vcpu_pinning(key, cfg, self.cpu_properties)
 
             # copy xml to target...
             self.connection.put(cfg, cfg)
