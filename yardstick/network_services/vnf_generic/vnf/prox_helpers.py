@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from __future__ import absolute_import
 
 import array
 import io
@@ -363,9 +362,9 @@ class ProxSocketHelper(object):
         """ send data to the remote instance """
         LOG.debug("Sending data to socket: [%s]", to_send.rstrip('\n'))
         try:
-            # TODO: sendall will block, we need a timeout
+            # NOTE: sendall will block, we need a timeout
             self._sock.sendall(to_send.encode('utf-8'))
-        except:
+        except:  # pylint: disable=bare-except
             pass
 
     def get_packet_dump(self):
@@ -539,7 +538,7 @@ class ProxSocketHelper(object):
         finally:
             container['end_tot'] = end = self.get_all_tot_stats()
 
-        container['delta'] = TotStatsTuple(end - start for start, end in zip(start, end))
+        container['delta'] = TotStatsTuple(e - s for s, e in zip(start, end))
 
     def tot_stats(self):
         """Get the total statistics from the remote system"""
@@ -637,13 +636,6 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
             raise KeyError(template.format(section_key, section_name))
         return result
 
-    def _build_pipeline_kwargs(self):
-        tool_path = self.ssh_helper.provision_tool(tool_file=self.APP_NAME)
-        self.pipeline_kwargs = {
-            'tool_path': tool_path,
-            'tool_dir': os.path.dirname(tool_path),
-        }
-
     def copy_to_target(self, config_file_path, prox_file):
         remote_path = os.path.join("/tmp", prox_file)
         self.ssh_helper.put(config_file_path, remote_path)
@@ -685,14 +677,13 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
                 if port_section_name != section_name:
                     continue
 
-                for index, section_data in enumerate(section):
+                for section_data in section:
                     if section_data[0] == "mac":
                         section_data[1] = "hardware"
 
         # search for dst mac
         for _, section in sections:
-            # for index, (item_key, item_val) in enumerate(section):
-            for index, section_data in enumerate(section):
+            for section_data in section:
                 item_key, item_val = section_data
                 if item_val.startswith("@@dst_mac"):
                     tx_port_iter = re.finditer(r'\d+', item_val)
@@ -713,14 +704,14 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
             return sections
 
         for section_name, section in sections:
-            for index, section_data in enumerate(section):
+            for section_data in section:
                 try:
                     if section_data[0].startswith("dofile"):
                         section_data[0] = self._insert_additional_file(section_data[0])
 
                     if section_data[1].startswith("dofile"):
                         section_data[1] = self._insert_additional_file(section_data[1])
-                except:
+                except:  # pylint: disable=bare-except
                     pass
 
         return sections
@@ -753,9 +744,9 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         a custom method
         """
         out = []
-        for i, (section_name, section) in enumerate(prox_config):
+        for (section_name, section) in prox_config:
             out.append("[{}]".format(section_name))
-            for index, item in enumerate(section):
+            for item in section:
                 key, value = item
                 if key == "__name__":
                     continue
@@ -816,7 +807,7 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
                 self.lua = self.generate_prox_lua_file()
                 if len(self.lua) > 0:
                     self.upload_prox_lua("parameters.lua", self.lua)
-        except:
+        except:  # pylint: disable=bare-except
             pass
 
         prox_files = options.get('prox_files', [])
@@ -837,17 +828,20 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         self.build_config_file()
 
         options = self.scenario_helper.options
-
         prox_args = options['prox_args']
-        LOG.info("Provision and start the %s", self.APP_NAME)
-        self._build_pipeline_kwargs()
-        self.pipeline_kwargs["args"] = " ".join(
-            " ".join([k, v if v else ""]) for k, v in prox_args.items())
-        self.pipeline_kwargs["cfg_file"] = self.remote_path
+        tool_path = self.ssh_helper.join_bin_path(self.APP_NAME)
 
-        cmd_template = "sudo bash -c 'cd {tool_dir}; {tool_path} -o cli {args} -f {cfg_file} '"
-        prox_cmd = cmd_template.format(**self.pipeline_kwargs)
-        return prox_cmd
+        self.pipeline_kwargs = {
+            'tool_path': tool_path,
+            'tool_dir': os.path.dirname(tool_path),
+            'cfg_file': self.remote_path,
+            'args': ' '.join(' '.join([str(k), str(v) if v else ''])
+                             for k, v in prox_args.items())
+        }
+
+        cmd_template = ("sudo bash -c 'cd {tool_dir}; {tool_path} -o cli "
+                        "{args} -f {cfg_file} '")
+        return cmd_template.format(**self.pipeline_kwargs)
 
 
 # this might be bad, sometimes we want regular ResourceHelper methods, like collect_kpi
@@ -1057,7 +1051,7 @@ class ProxDataHelper(object):
         self.tsc_hz = float(self.sut.hz())
 
     def line_rate_to_pps(self):
-        # FIXME Don't hardcode 10Gb/s
+        # NOTE: to fix, don't hardcode 10Gb/s
         return self.port_count * TEN_GIGABIT / BITS_PER_BYTE / (self.pkt_size + 20)
 
 
@@ -1658,7 +1652,7 @@ class ProxlwAFTRProfileHelper(ProxProfileHelper):
         tun_ports = []
         inet_ports = []
 
-        re_port = re.compile('port (\d+)')
+        re_port = re.compile(r'port (\d+)')
         for section_name, section in self.resource_helper.setup_helper.prox_config_data:
             match = re_port.search(section_name)
             if not match:
