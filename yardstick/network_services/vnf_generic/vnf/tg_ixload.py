@@ -22,10 +22,9 @@ import shutil
 from collections import OrderedDict
 from subprocess import call
 
-from yardstick.common.utils import makedirs
+from yardstick.common.utils import makedirs, FilePathWrapper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
-from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
 
 LOG = logging.getLogger(__name__)
 
@@ -92,9 +91,9 @@ class IxLoadResourceHelper(ClientResourceHelper):
 
     def setup(self):
         # TODO: fixupt scenario_helper to hanlde ixia
-        self.resource_file_name = \
-            find_relative_file(self.scenario_helper.scenario_cfg['ixia_profile'],
-                               self.scenario_helper.scenario_cfg["task_path"])
+        ixia_profile = self.scenario_helper.scenario_cfg['ixia_profile']
+        task_path = self.scenario_helper.scenario_cfg["task_path"]
+        self.resource_file_name = FilePathWrapper(ixia_profile, task_path).get_path()
         makedirs(self.RESULTS_MOUNT)
         cmd = MOUNT_CMD.format(self.vnfd_helper.mgmt_interface, self)
         LOG.debug(cmd)

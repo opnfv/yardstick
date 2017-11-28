@@ -56,12 +56,14 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertIsNotNone(self.test_context.key_uuid)
         self.assertIsNotNone(self.test_context.key_filename)
 
+    @mock.patch('yardstick.benchmark.contexts.heat.os.environ')
+    @mock.patch('yardstick.benchmark.contexts.heat.source_env')
     @mock.patch('yardstick.benchmark.contexts.heat.PlacementGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.ServerGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.Network')
     @mock.patch('yardstick.benchmark.contexts.heat.Server')
-    def test_init(self, mock_server, mock_network, mock_sg, mock_pg):
-
+    def test_init(self, mock_server, mock_network, mock_sg, mock_pg, mock_source_env, mock_env):
+        mock_env.side_effect = KeyError()
         pgs = {'pgrp1': {'policy': 'availability'}}
         sgs = {'servergroup1': {'policy': 'affinity'}}
         networks = {'bar': {'cidr': '10.0.1.0/24'}}
