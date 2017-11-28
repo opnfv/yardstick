@@ -16,7 +16,9 @@
   vars:
     YARD_IMG_ARCH: amd64
 
-- hosts: localhost
+- hosts: jumphost
+  environment:
+    "{{ proxy_env }}"
   roles:
     - install_dependencies
     - docker
@@ -27,22 +29,24 @@
     release: xenial
   when: openrc_file is defined
 
-- include: clean_images.yml
-  when: openrc_file is defined
-
-- hosts: localhost
-  post_tasks:
-    - os_image:
-        name: yardstick-samplevnfs
-        is_public: yes
-        disk_format: qcow2
-        container_format: bare
-        filename: "{{ raw_imgfile }}"
-        properties:
-          hw_vif_multiqueue_enabled: true
-      environment: "{{ openrc }}"
+- hosts: jumphost
+  environment:
+    - "{{ proxy_env }}"
+  vars_files:
+    - yardstick_config.yml
+  roles:
+    - role: convert_openrc
       when: openrc_file is defined
-
+    - role: clean_images
+      environment:  "{{ openrc }}"
+      when: openrc_file is defined
+    - role: clean_flavors
+      environment:  "{{ openrc }}"
+      when: openrc_file is defined
+    - role: create_image
+      environment:  "{{ openrc }}"
+      when: openrc_file is defined
+  post_tasks:
     - name: Start yardstick container
       docker_container:
         name: yardstick
