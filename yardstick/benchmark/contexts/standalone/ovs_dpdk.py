@@ -25,6 +25,7 @@ from yardstick.benchmark.contexts.standalone import model
 from yardstick.benchmark.contexts.standalone.model import OvsDeploy
 from yardstick.network_services.utils import PciAddress
 from yardstick.benchmark.contexts.standalone.base import StandaloneBase
+from yardstick.common.cpu_model import CpuList
 
 LOG = logging.getLogger(__name__)
 
@@ -93,11 +94,14 @@ class OvsDpdkContext(StandaloneBase):
 
     def _start_ovs_serverswitch(self):
         vpath = self.ovs_properties.get("vpath")
-        pmd_nums = int(self.ovs_properties.get("pmd_threads", 2))
+        LOG.info("PMD threads CPUs: {}".format(self.cpu_properties.pmd_pin))
+
         ovs_sock_path = '/var/run/openvswitch/db.sock'
         log_path = '/var/log/openvswitch/ovs-vswitchd.log'
 
-        pmd_mask = hex(sum(2 ** num for num in range(pmd_nums)) << 1)
+        # pmd_mask = hex(sum(2 ** num for num in range(pmd_nums)) << 1)
+        pmd_pin = CpuList(self.cpu_properties.pmd_pin)
+        pmd_mask = hex(pmd_pin.mask)
         socket0 = self.ovs_properties.get("ram", {}).get("socket_0", "2048")
         socket1 = self.ovs_properties.get("ram", {}).get("socket_1", "2048")
 
@@ -188,8 +192,29 @@ class OvsDpdkContext(StandaloneBase):
             deploy = OvsDeploy(self.connection, get_nsb_option("bin_path"), self.ovs_properties)
             deploy.ovs_deploy()
 
+    def _specific_cpu_handling(self):
+        # first satisfy host dpdk
+        # allways allocate core 0 for dpdk.
+        #  - how do we know core 0 is available...
+        #  - core 0 being the master core for the ovs-dpdk seems to be hardcoded somewhere
+        self.cpu_model.allocate(CpuList([0]))
+
+        pmd_pin = self.cpu_model.allocate(self.cpu_properties.pmd_threads)
+        if pmd_pin is None:
+            pmd_pin = self.cpu_properties.pmd_thread_pin
+        if pmd_pin is None:
+            try:
+                pmd_pin = self.cpu_model.allocate(self.attrs['ovs_properties']['pmd_threads'])
+            except KeyError:
+                pass
+        if pmd_pin is None:
+            pmd_pin = self.cpu_model.allocate(2)
+
+        self.cpu_properties.pmd_pin = pmd_pin
+
     def _specific_deploy(self):
         # Check dpdk/ovs version, if not present install
+        # Read if there are any user's preferences about PMD and qemu threads
         self._check_ovs_dpdk_env()
         self._setup_ovs()
         self._start_ovs_serverswitch()
