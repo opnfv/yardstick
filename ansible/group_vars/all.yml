@@ -3,4 +3,9 @@ clone_dest: /opt/tempT
 release: xenial
 target_os: Ubuntu
 ubuntu_image_file: /tmp/workspace/yardstick/yardstick-trusty-server.raw
-proxy_env: {}
+proxy_env:
+  http_proxy: http://proxy.example.com
+  https_proxy: https://proxy.example.com
+resolve_namespaces:
+  - 8.8.8.8
+  - 9.9.9.9

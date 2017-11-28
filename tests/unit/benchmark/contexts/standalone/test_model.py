@@ -27,6 +27,7 @@ from yardstick import ssh
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.network_services.utils import PciAddress
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
+import xml.etree.ElementTree as ET
 
 
 class StandaloneModelTestCase(unittest.TestCase):
@@ -128,6 +129,10 @@ class StandaloneModelTestCase(unittest.TestCase):
     def test_add_ovs_interfaces(self, *_):
         mac_addr = "00:00:00:00:00:01"
         model.add_ovs_interface("/usr/local", 0, "0000:00:04.0", mac_addr, "xml")
+
+    @mock.patch('yardstick.benchmark.contexts.standalone.model.ET', autospec=ET)
+    def test_add_nodata_source(self, _):
+        model.add_nodata_source("/some/path", "/var/lib/yardstick/vm0/vm0_cidata.iso")
 
     @mock.patch('yardstick.benchmark.contexts.standalone.model.add_interface_address')
     @mock.patch('yardstick.benchmark.contexts.standalone.model.ET')

@@ -18,16 +18,17 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+import collections
 import datetime
 import errno
+import ipaddress
+import itertools
 import logging
 import os
+import random
+import socket
 import subprocess
 import sys
-import collections
-import socket
-import random
-import ipaddress
 from contextlib import closing
 
 import six
@@ -466,3 +467,59 @@ class JsonFilePathWrapper(FilePathWrapper):
 
     def get_data(self):
         return jsonutils.loads(self.read())
+
+
+class MethodCallsOrderException(Exception):
+    pass
+
+
+class MethodCallsOrder(object):
+    INSTANCES = {}
+    SEPARATOR = object
+    ENABLED = True
+
+    @classmethod
+    def add(cls, instance, order):
+        if not cls.ENABLED:
+            return
+        # We need to delete the instance from the INSTANCES list when the last method
+        # is called. Otherwise the list would grow indefinitelly.
+        # When we don't find a separator after the last method name, we will know we can
+        # delete the instance from the list.
+        m_order = [val for pair in zip(order, itertools.repeat(cls.SEPARATOR)) for val in pair]
+        m_order.pop()
+        cls.INSTANCES[instance] = iter(m_order)
+
+    @classmethod
+    def clean(cls, instance=None):
+        if instance is None:
+            cls.INSTANCES = {}
+        else:
+            del(cls.INSTANCES[instance])
+
+    @classmethod
+    def validate(cls, func):
+        def f(instance, *args, **kwargs):
+            if not cls.ENABLED:
+                return func(instance, *args, **kwargs)
+
+            try:
+                expected_method_name = next(cls.INSTANCES[instance])
+            except KeyError:
+                raise MethodCallsOrderException("Unknown instance.")
+
+            # Try to read the separator. If not found, it was the last method to check
+            # and we must delete the instance from the list.
+            try:
+                next(cls.INSTANCES[instance])
+            except StopIteration:
+                del(cls.INSTANCES[instance])
+
+            if func.__name__ != expected_method_name:
+                raise MethodCallsOrderException(
+                    'Method {} called instead of {}!'.format(func.__name__,
+                                                             expected_method_name)
+                )
+            return func(instance, *args, **kwargs)
+
+        return f
