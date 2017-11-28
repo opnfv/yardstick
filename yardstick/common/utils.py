@@ -18,16 +18,16 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+import collections
 import datetime
 import errno
+import ipaddress
 import logging
 import os
+import random
+import socket
 import subprocess
 import sys
-import collections
-import socket
-import random
-import ipaddress
 from contextlib import closing
 
 import six
