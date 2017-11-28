@@ -31,12 +31,14 @@ import ipaddress
 from contextlib import closing
 
 import six
-from flask import jsonify
+import flask
 from six.moves import configparser
 from oslo_utils import importutils
 from oslo_serialization import jsonutils
 
 import yardstick
+from yardstick.common import constants
+from yardstick.common import yaml_loader
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -224,7 +226,7 @@ def result_handler(status, data):
         'status': status,
         'result': data
     }
-    return jsonify(result)
+    return flask.jsonify(result)
 
 
 def change_obj_to_dict(obj):
@@ -353,7 +355,7 @@ def validate_non_string_sequence(value, default=None, raise_exc=None):
     if isinstance(value, collections.Sequence) and not isinstance(value, six.string_types):
         return value
     if raise_exc:
-        raise raise_exc
+        raise raise_exc # pylint: disable=raising-bad-type
     return default
 
 
@@ -389,3 +391,78 @@ class Timer(object):
 
     def __getattr__(self, item):
         return getattr(self.delta, item)
+
+
+class FilePathWrapper(object):
+
+    def __init__(self, base_path, alt_path=None, mode=None):
+        super(FilePathWrapper, self).__init__()
+
+        self.alt_path = alt_path
+        if alt_path is None:
+            self.alt_path = constants.YARDSTICK_ROOT_PATH
+
+        self.base_path = base_path
+        self.path = os.path.abspath(base_path)
+        self.handle = None
+        if mode is None:
+            self.mode = 'r'
+        else:
+            self.mode = mode
+        self._open_iter = None
+
+    def _open(self):
+        try:
+            with open(self.path, self.mode) as self.handle:
+                yield
+        except IOError as e:
+            if e.errno != errno.ENOENT:
+                raise
+            self.path = os.path.abspath(os.path.join(self.alt_path, self.base_path))
+            with open(self.path, self.mode) as self.handle:
+                yield
+
+    def __enter__(self):
+        assert self._open_iter is None
+        self._open_iter = self._open()
+        next(self._open_iter)
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        list(self._open_iter)
+        self.handle = None
+        self._open_iter = None
+
+    def get_path(self):
+        assert self._open_iter is None
+        self._open_iter = self._open()
+        list(self._open_iter)
+        return self.path
+
+    def get_data(self):
+        return self.read()
+
+    def read(self, *args, **kwargs):
+        if self.handle:
+            return self.handle.read(*args, **kwargs)
+        with self:
+            return self.handle.read(*args, **kwargs)
+
+    def write(self, *args, **kwargs):
+        if self.handle:
+            self.handle.write(*args, **kwargs)
+            return
+        with self:
+            self.handle.write(*args, **kwargs)
+
+
+class YamlFilePathWrapper(FilePathWrapper):
+
+    def get_data(self):
+        return yaml_loader.yaml_load(self.read())
+
+
+class JsonFilePathWrapper(FilePathWrapper):
+
+    def get_data(self):
+        return jsonutils.loads(self.read())
