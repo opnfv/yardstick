@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_0d9ad913",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-28T19:29:22Z",
+      "side": 1,
+      "message": "I moved export no_proxy to http[s]_proxy sections",
+      "parentUuid": "9a3d3df0_ad400da6",
+      "revId": "225c9339dbdd11e0e2a894a48aad4c611ad2631d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_8d3b8937",
         "filename": "nsb_setup.sh",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2017-11-28T18:24:05Z",
       "side": 1,
       "message": "I think for bash we want [[ ]] to avoid word splitting whitespace issues.",
+      "revId": "225c9339dbdd11e0e2a894a48aad4c611ad2631d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8dfee936",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-28T19:29:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_8d3b8937",
       "revId": "225c9339dbdd11e0e2a894a48aad4c611ad2631d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
