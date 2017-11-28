@@ -93,6 +93,10 @@ VM_TEMPLATE = """
 WAIT_FOR_BOOT = 30
 
 
+class LibvirtException(Exception):
+    pass
+
+
 def check_if_vm_exists_and_delete(vm_name, connection):
     cmd_template = "virsh list --name | grep -i %s"
     status = connection.execute(cmd_template % vm_name)[0]
@@ -408,6 +412,23 @@ def generate_vnf_instance(flavor, ports, ip, key, vnf, mac):
 
     LOG.info('%s', result)
     return result
+
+
+def add_nodata_source(xml, iso_image_path):
+    root = ET.parse(xml)
+    devices = root.find('devices')
+    disk = ET.SubElement(devices, 'disk')
+    disk.set('device', 'cdrom')
+    disk.set('type', 'file')
+    driver = ET.SubElement(disk, 'driver')
+    driver.set('name', 'qemu')
+    driver.set('type', 'raw')
+    source = ET.SubElement(disk, 'source')
+    source.set('file', iso_image_path)
+    target = ET.SubElement(disk, 'target')
+    target.set('bus', 'virtio')
+    target.set('dev', 'vdb')
+    root.write(xml)
 
 
 class OvsDeploy(object):
