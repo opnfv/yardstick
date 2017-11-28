@@ -1136,6 +1136,66 @@ class TestFilePathWrapper(unittest.TestCase):
 
 
 
+class DummyClass(object):
+    METHODS_ORDER = ['method1', 'method2', 'method3']
+
+    def __init__(self):
+        utils.MethodCallsOrder.add(self, self.METHODS_ORDER)
+
+    @utils.MethodCallsOrder.validate
+    def method1(self):
+        pass
+
+    @utils.MethodCallsOrder.validate
+    def method2(self):
+        pass
+
+    @utils.MethodCallsOrder.validate
+    def method3(self):
+        pass
+
+
+class TestMethodCallsOrder(unittest.TestCase):
+    def setUp(self):
+        utils.MethodCallsOrder.ENABLED = True
+
+    def test_validate_cleanup(self):
+        utils.MethodCallsOrder.INSTANCES = {}
+        dummy = DummyClass()
+
+        dummy.method1()
+        dummy.method2()
+        dummy.method3()
+
+        self.assertEquals({}, utils.MethodCallsOrder.INSTANCES)
+
+    def test_validate_wrong_order(self):
+        utils.MethodCallsOrder.INSTANCES = {}
+        dummy = DummyClass()
+
+        with self.assertRaises(utils.MethodCallsOrderException):
+            dummy.method1()
+            dummy.method3()
+            dummy.method2()
+
+        utils.MethodCallsOrder.clean(dummy)
+        self.assertEquals({}, utils.MethodCallsOrder.INSTANCES)
+
+    def test_validate_interleaved_instances(self):
+        utils.MethodCallsOrder.INSTANCES = {}
+        dummy1 = DummyClass()
+        dummy2 = DummyClass()
+
+        dummy1.method1()
+        dummy1.method2()
+        dummy2.method1()
+        dummy1.method3()
+        dummy2.method2()
+        dummy2.method3()
+
+        self.assertEquals({}, utils.MethodCallsOrder.INSTANCES)
+
+
 def main():
     unittest.main()
 
