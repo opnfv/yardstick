@@ -13,6 +13,37 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# OPENRC handling has to be first due no_proxy
+if [ $# -eq 1 ]; then
+    OPENRC=$(readlink -f -- "$1")
+    extra_args="${extra_args} -e openrc_file=${OPENRC}"
+    source "${OPENRC}"
+    CONTROLLER_IP=$(echo ${OS_AUTH_URL} | sed -ne "s#http://\([0-9a-zA-Z.\-]*\):*[0-9]*/.*#\1#p")
+fi
+
+# if http[s]_proxy is not set in env, try to load values from /etc/environment file
+if [[ -z ${http_proxy+x} ]]; then
+    export http_proxy=$(sed -ne "s/http_proxy=[\"\']\(.*\)[\"\']/\1/p" /etc/environment)
+fi
+
+if [[ -z ${https_proxy+x} ]]; then
+    export https_proxy=$(sed -ne "s/https_proxy=[\"\']\(.*\)[\"\']/\1/p" /etc/environment)
+fi
+
+# if http[s]_proxy is set (from env or /etc/environment) prepare proxy for ansible
+if [ "$http_proxy" != "" ] || [ "$https_proxy" != "" ]; then
+    export no_proxy="localhost,127.0.0.1,${CONTROLLER_IP},$no_proxy"
+    extra_args="${extra_args} -e @/tmp/proxy.yml "
+
+    cat <<EOF > /tmp/proxy.yml
+---
+proxy_env:
+  http_proxy: $http_proxy
+  https_proxy: $https_proxy
+  no_proxy: $no_proxy
+EOF
+fi
+
 apt-get update > /dev/null 2>&1
 pkg=(python-pip build-essential libssl-dev libffi-dev python3-dev python-dev)
 for i in "${pkg[@]}"; do
@@ -23,26 +54,6 @@ for i in "${pkg[@]}"; do
 done
 
 pip install ansible==2.3.2 shade==1.17.0 docker-py==1.10.6
-
-if [ $# -eq 1 ]; then
-    OPENRC=$(readlink -f -- "$1")
-    extra_args="-e openrc_file=${OPENRC}"
-    source "${OPENRC}"
-    CONTROLLER_IP=$(echo ${OS_AUTH_URL} | sed -ne "s#http://\([0-9a-zA-Z.\-]*\):*[0-9]*/.*#\1#p")
-    export no_proxy="localhost,127.0.0.1,${CONTROLLER_IP},$no_proxy"
-fi
-
-if [ "$http_proxy" != "" ] || [ "$https_proxy" != "" ]; then
-    extra_args="${extra_args} -e @/tmp/proxy.yml"
-
-    cat <<EOF > /tmp/proxy.yml
----
-proxy_env:
-  http_proxy: $http_proxy
-  https_proxy: $https_proxy
-  no_proxy: $no_proxy
-EOF
-fi
 
 ANSIBLE_SCRIPTS="ansible"
 

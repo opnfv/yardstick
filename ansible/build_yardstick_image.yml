@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- hosts: localhost
+- hosts: jumphost
 
   vars:
     boot_modes:
@@ -85,6 +85,7 @@
         url: "{{ image_url }}"
         sha256url: "{{ sha256sums_url }}"
         dest: "{{ image_dest }}"
+      environment: "{{ proxy_env }}"
 
     - name: convert image to raw
       command: "qemu-img convert {{ image_dest }} {{ raw_imgfile }}"
