@@ -382,6 +382,24 @@ class StandaloneModelTestCase(unittest.TestCase):
                                              'vm_0', vnf, '00:00:00:00:00:01')
         self.assertIsNotNone(status)
 
+    def test_add_nodata_source(self):
+        xml = ElementTree.ElementTree(
+            element=ElementTree.fromstring(XML_SAMPLE_INTERFACE))
+        with mock.patch.object(ElementTree, 'parse', return_value=self.xml) as mock_parse:
+            mock_parse.return_value = xml
+
+            model.add_nodata_source('/local/xmlfile', '/path/to/image')
+
+            devices = xml.find('devices')
+            disk = None
+            for a_device in devices.iter(tag='disk'):
+                if a_device.get('device') == 'cdrom':
+                    disk = a_device
+            self.assertIsNotNone(disk)
+
+            source = disk.find('source')
+            self.assertEqual(source.get('file'), '/path/to/image')
+
 
 class OvsDeployTestCase(unittest.TestCase):
 
