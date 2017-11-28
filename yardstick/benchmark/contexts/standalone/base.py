@@ -20,11 +20,14 @@ from yardstick import ssh
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts import common
 from yardstick.common.constants import ANSIBLE_DIR
+from yardstick.common.cpu_model import CpuList
 from collections import OrderedDict
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
 from yardstick.common.ansible_common import AnsibleCommon
 from yardstick.common.utils import MethodCallsOrder
+from yardstick.common.cpu_model import CpuInfo
+from yardstick.common.cpu_model import CpuModel
 
 LOG = logging.getLogger(__name__)
 
@@ -83,6 +86,7 @@ class StandaloneBase(Context):
         self.connection = None
         self.networks = None
         self.cloud_init = None
+        self.cpu_properties = {}
         MethodCallsOrder.add(self, self.METHOD_CALL_ORDER)
         super(StandaloneBase, self).__init__()
 
@@ -112,6 +116,57 @@ class StandaloneBase(Context):
         # to be implemented by a subclass
         raise NotImplemented
 
+    # TODO: maybe create a class for handling the cpu_properties
+    def handle_cpu_configuration(self):
+        # Detect witch CPU cores we will work with
+        cpu_info = CpuInfo(self.connection)
+        cpu_pool = None
+
+        try:
+            cpu_properties = self.attrs['cpu_properties']
+        except KeyError:
+            cpu_properties = {}
+
+        cpu_pool = cpu_properties.get('cpu_cores_pool')
+        exclude_ht_cores = not bool(cpu_properties.get('allow_ht_threads'))
+
+        if cpu_pool is None:
+            cpu_pool = cpu_info.isolcpus
+        if cpu_pool is None:
+            first_interface = self.networks.keys()[0]
+            pci_addr = self.networks[first_interface]['phy_port']
+            numa_node = cpu_info.pci_to_numa_node(pci_addr)
+            cpu_pool = cpu_info.numa_node_to_cpus[numa_node]
+        if cpu_pool is None:
+            cpu_pool = cpu_info.lscpu['CPU(s)']
+        if cpu_pool is None:
+            raise Exception('Cannot get list of CPUs')
+
+        # TODO: exclude the hyperthreaded nodes
+        self.cpu_model = CpuModel(cpu_info)
+        self.cpu_model.exclude_ht_cores = exclude_ht_cores
+        self.cpu_model.cpu_core_pool = cpu_pool
+
+        # Read if there are any user's preferences about PMD and qemu threads
+        if cpu_properties is None:
+            return
+
+        for key, value in cpu_properties.iteritems():
+            if key == 'emulator_pin':
+                self.cpu_properties[key] = CpuList(value)
+                continue
+            if key == 'io_pin':
+                self.cpu_properties[key] = CpuList(value)
+                continue
+            if key == 'pmd_thread_pin':
+                self.cpu_properties[key] = CpuList(value)
+            if key == 'emulator_threads':
+                self.cpu_properties['emulator_pin'] = self.cpu_model.allocate(value)
+            if key == 'io_threads':
+                self.cpu_properties['io_pin'] = self.cpu_model.allocate(value)
+            if key == 'pmd_threads':
+                self.cpu_properties['pmd_thread_pin'] = self.cpu_model.allocate(value)
+
     @MethodCallsOrder.validate
     def deploy(self):
         if not self.vm_deploy:
@@ -123,6 +178,8 @@ class StandaloneBase(Context):
         self.dpdk_bind_helper.save_used_drivers()
         model.install_req_libs(self.connection)
         model.populate_nic_details(self.connection, self.networks, self.dpdk_bind_helper)
+
+        self.handle_cpu_configuration()
 
         self._specific_deploy()
         self.nodes = self.setup_context()
