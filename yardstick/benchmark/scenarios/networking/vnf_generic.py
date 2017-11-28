@@ -61,11 +61,6 @@ class IncorrectConfig(Exception):
     pass
 
 
-class IncorrectSetup(Exception):
-    """Class handles incorrect setup during setup"""
-    pass
-
-
 class SshManager(object):
     def __init__(self, node, timeout=120):
         super(SshManager, self).__init__()
@@ -343,43 +338,6 @@ class NetworkServiceTestCase(base.Scenario):
             vnfd = self._find_vnfd_from_vnf_idx(vnf_idx)
             self.context_cfg["nodes"][vnf_name].update(vnfd)
 
-    def _probe_netdevs(self, node, node_dict, timeout=120):
-        try:
-            return self.node_netdevs[node]
-        except KeyError:
-            pass
-
-        netdevs = {}
-        cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
-
-        with SshManager(node_dict, timeout=timeout) as conn:
-            if conn:
-                exit_status = conn.execute(cmd)[0]
-                if exit_status != 0:
-                    raise IncorrectSetup("Node's %s lacks ip tool." % node)
-                exit_status, stdout, _ = conn.execute(
-                    self.FIND_NETDEVICE_STRING)
-                if exit_status != 0:
-                    raise IncorrectSetup(
-                        "Cannot find netdev info in sysfs" % node)
-                netdevs = node_dict['netdevs'] = self.parse_netdev_info(stdout)
-
-        self.node_netdevs[node] = netdevs
-        return netdevs
-
-    @classmethod
-    def _probe_missing_values(cls, netdevs, network):
-
-        mac_lower = network['local_mac'].lower()
-        for netdev in netdevs.values():
-            if netdev['address'].lower() != mac_lower:
-                continue
-            network.update({
-                'driver': netdev['driver'],
-                'vpci': netdev['pci_bus_id'],
-                'ifindex': netdev['ifindex'],
-            })
-
     def _generate_pod_yaml(self):
         context_yaml = os.path.join(LOG_DIR, "pod-{}.yaml".format(self.scenario_cfg['task_id']))
         # convert OrderedDict to a list
@@ -405,8 +363,7 @@ class NetworkServiceTestCase(base.Scenario):
             pass
         return new_node
 
-    TOPOLOGY_REQUIRED_KEYS = frozenset({
-        "vpci", "local_ip", "netmask", "local_mac", "driver"})
+    TOPOLOGY_REQUIRED_KEYS = frozenset({"local_ip", "netmask", "local_mac"})
 
     def map_topology_to_infrastructure(self):
         """ This method should verify if the available resources defined in pod.yaml
@@ -415,31 +372,10 @@ class NetworkServiceTestCase(base.Scenario):
         :return: None. Side effect: context_cfg is updated
         """
         num_nodes = len(self.context_cfg["nodes"])
-        # OpenStack instance creation time is probably proportional to the number
-        # of instances
-        timeout = 120 * num_nodes
         for node, node_dict in self.context_cfg["nodes"].items():
 
             for network in node_dict["interfaces"].values():
                 missing = self.TOPOLOGY_REQUIRED_KEYS.difference(network)
-                if not missing:
-                    continue
-
-                # only ssh probe if there are missing values
-                # ssh probe won't work on Ixia, so we had better define all our values
-                try:
-                    netdevs = self._probe_netdevs(node, node_dict, timeout=timeout)
-                except (SSHError, SSHTimeout):
-                    raise IncorrectConfig(
-                        "Unable to probe missing interface fields '%s', on node %s "
-                        "SSH Error" % (', '.join(missing), node))
-                try:
-                    self._probe_missing_values(netdevs, network)
-                except KeyError:
-                    pass
-                else:
-                    missing = self.TOPOLOGY_REQUIRED_KEYS.difference(
-                        network)
                 if missing:
                     raise IncorrectConfig(
                         "Require interface fields '%s' not found, topology file "
@@ -450,36 +386,6 @@ class NetworkServiceTestCase(base.Scenario):
         # 3. Use topology file to find connections & resolve dest address
         self._resolve_topology()
         self._update_context_with_topology()
-
-    FIND_NETDEVICE_STRING = r"""find /sys/devices/pci* -type d -name net -exec sh -c '{ grep -sH ^ \
-$1/ifindex $1/address $1/operstate $1/device/vendor $1/device/device \
-$1/device/subsystem_vendor $1/device/subsystem_device ; \
-printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
-' sh  \{\}/* \;
-"""
-    BASE_ADAPTER_RE = re.compile(
-        '^/sys/devices/(.*)/net/([^/]*)/([^:]*):(.*)$', re.M)
-
-    @classmethod
-    def parse_netdev_info(cls, stdout):
-        network_devices = defaultdict(dict)
-        matches = cls.BASE_ADAPTER_RE.findall(stdout)
-        for bus_path, interface_name, name, value in matches:
-            dirname, bus_id = os.path.split(bus_path)
-            if 'virtio' in bus_id:
-                # for some stupid reason VMs include virtio1/
-                # in PCI device path
-                bus_id = os.path.basename(dirname)
-            # remove extra 'device/' from 'device/vendor,
-            # device/subsystem_vendor', etc.
-            if 'device/' in name:
-                name = name.split('/')[1]
-            network_devices[interface_name][name] = value
-            network_devices[interface_name][
-                'interface_name'] = interface_name
-            network_devices[interface_name]['pci_bus_id'] = bus_id
-        # convert back to regular dict
-        return dict(network_devices)
 
     @classmethod
     def get_vnf_impl(cls, vnf_model_id):
