@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: pre-clean openstack enviroment
-  hosts: yardstick
-  vars_files:
-    - yardstick_config.yml
-
-  roles:
-    - convert_openrc
-    - clean_images
-    - clean_flavors
+- name: create yardstick-samplevnfs image
+  when: openrc_file is defined
+  os_image:
+    name: yardstick-samplevnfs
+    is_public: yes
+    disk_format: qcow2
+    container_format: bare
+    filename: "{{ raw_imgfile }}"
+    properties:
+      hw_vif_multiqueue_enabled: true
