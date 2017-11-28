@@ -18,20 +18,21 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+import collections
 import datetime
 import errno
+import ipaddress
+import itertools
 import logging
 import os
+import random
+import socket
 import subprocess
 import sys
-import collections
-import socket
-import random
-import ipaddress
 from contextlib import closing
 
 import six
-from flask import jsonify
+import flask
 from six.moves import configparser
 from oslo_utils import importutils
 from oslo_serialization import jsonutils
@@ -76,7 +77,7 @@ def import_modules_from_package(package):
     """
     yardstick_root = os.path.dirname(os.path.dirname(yardstick.__file__))
     path = os.path.join(yardstick_root, *package.split("."))
-    for root, dirs, files in os.walk(path):
+    for root, _, files in os.walk(path):
         matches = (filename for filename in files if filename.endswith(".py") and
                    not filename.startswith("__"))
         new_package = os.path.relpath(root, yardstick_root).replace(os.sep, ".")
@@ -224,7 +225,7 @@ def result_handler(status, data):
         'status': status,
         'result': data
     }
-    return jsonify(result)
+    return flask.jsonify(result)
 
 
 def change_obj_to_dict(obj):
@@ -249,7 +250,7 @@ def set_dict_value(dic, keys, value):
     return dic
 
 
-def get_free_port(ip):
+def get_free_port(ip): # pylint: disable=inconsistent-return-statements
     with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
         while True:
             port = random.randint(5000, 10000)
@@ -353,7 +354,7 @@ def validate_non_string_sequence(value, default=None, raise_exc=None):
     if isinstance(value, collections.Sequence) and not isinstance(value, six.string_types):
         return value
     if raise_exc:
-        raise raise_exc
+        raise raise_exc # pylint: disable=raising-bad-type
     return default
 
 
@@ -389,3 +390,59 @@ class Timer(object):
 
     def __getattr__(self, item):
         return getattr(self.delta, item)
+
+
+class MethodCallsOrderException(Exception):
+    pass
+
+
+class MethodCallsOrder(object):
+    INSTANCES = {}
+    SEPARATOR = object
+    ENABLED = True
+
+    @classmethod
+    def add(cls, instance, order):
+        if not cls.ENABLED:
+            return
+        # We need to delete the instance from the INSTANCES list when the last method
+        # is called. Otherwise the list would grow indefinitelly.
+        # When we don't find a separator after the last method name, we will know we can
+        # delete the instance from the list.
+        m_order = [val for pair in zip(order, itertools.repeat(cls.SEPARATOR)) for val in pair]
+        m_order.pop()
+        cls.INSTANCES[instance] = iter(m_order)
+
+    @classmethod
+    def clean(cls, instance=None):
+        if instance is None:
+            cls.INSTANCES = {}
+        else:
+            del(cls.INSTANCES[instance])
+
+    @classmethod
+    def validate(cls, func):
+        def f(instance, *args, **kwargs):
+            if not cls.ENABLED:
+                return func(instance, *args, **kwargs)
+
+            try:
+                expected_method_name = next(cls.INSTANCES[instance])
+            except KeyError:
+                raise MethodCallsOrderException("Unknown instance.")
+
+            # Try to read the separator. If not found, it was the last method to check
+            # and we must delete the instance from the list.
+            try:
+                next(cls.INSTANCES[instance])
+            except StopIteration:
+                del(cls.INSTANCES[instance])
+
+            if func.__name__ != expected_method_name:
+                raise MethodCallsOrderException(
+                    'Method {} called instead of {}!'.format(func.__name__,
+                                                             expected_method_name)
+                )
+            return func(instance, *args, **kwargs)
+
+        return f

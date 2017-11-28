@@ -148,6 +148,24 @@ class ModelLibvirtTestCase(unittest.TestCase):
             self.assertIsNotNone(source.find('address'))
             self.assertIsNotNone(interface.find('address'))
 
+    def test_add_nodata_source(self):
+        xml = ElementTree.ElementTree(
+            element=ElementTree.fromstring(XML_SAMPLE_INTERFACE))
+        with mock.patch.object(ElementTree, 'parse', return_value=self.xml) as mock_parse:
+            mock_parse.return_value = xml
+
+            model.Libvirt.add_nodata_source('/local/xmlfile', '/path/to/image')
+
+            devices = xml.find('devices')
+            disk = None
+            for a_device in devices.iter(tag='disk'):
+                if a_device.get('device') == 'cdrom':
+                    disk = a_device
+            self.assertIsNotNone(disk)
+
+            source = disk.find('source')
+            self.assertEqual(source.get('file'), '/path/to/image')
+
     def test_create_snapshot_qemu(self):
         result = "/var/lib/libvirt/images/0.qcow2"
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -370,6 +388,8 @@ class ServerTestCase(unittest.TestCase):
         status = self.server.generate_vnf_instance(
             {}, self.NETWORKS, '1.1.1.1/24', 'vm_0', vnf, '00:00:00:00:00:01')
         self.assertIsNotNone(status)
+
+
 
 class OvsDeployTestCase(unittest.TestCase):
 

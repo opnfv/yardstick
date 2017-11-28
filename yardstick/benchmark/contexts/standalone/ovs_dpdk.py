@@ -28,7 +28,8 @@ from yardstick.benchmark.contexts.standalone.model import Libvirt
 from yardstick.benchmark.contexts.standalone.model import StandaloneContextHelper
 from yardstick.benchmark.contexts.standalone.model import Server
 from yardstick.benchmark.contexts.standalone.model import OvsDeploy
-from yardstick.network_services.utils import PciAddress
+from yardstick.network_services import utils
+from yardstick.common.utils import MethodCallsOrder
 
 LOG = logging.getLogger(__name__)
 
@@ -53,6 +54,8 @@ class OvsDpdkContext(Context):
 
     PKILL_TEMPLATE = "pkill %s %s"
 
+    METHOD_CALL_ORDER = ['init', 'deploy', 'setup_ovs_dpdk_context', 'undeploy']
+
     def __init__(self):
         self.file_path = None
         self.sriov = []
@@ -70,8 +73,11 @@ class OvsDpdkContext(Context):
         self.vnf_node = Server()
         self.ovs_properties = {}
         self.wait_for_vswitchd = 10
+        self.cloud_init = None
+        MethodCallsOrder.add(self, self.METHOD_CALL_ORDER)
         super(OvsDpdkContext, self).__init__()
 
+    @MethodCallsOrder.validate
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
 
@@ -88,6 +94,8 @@ class OvsDpdkContext(Context):
         self.ovs_properties = attrs.get('ovs_properties', {})
         # add optional static network definition
         self.networks = attrs.get("networks", {})
+
+        self.cloud_init = utils.CloudInit(self.nfvi_host[0])
 
         LOG.debug("Nodes: %r", self.nodes)
         LOG.debug("NFVi Node: %r", self.nfvi_host)
@@ -233,6 +241,7 @@ class OvsDpdkContext(Context):
                                self.ovs_properties)
             deploy.ovs_deploy()
 
+    @MethodCallsOrder.validate
     def deploy(self):
         """don't need to deploy"""
 
@@ -346,13 +355,14 @@ class OvsDpdkContext(Context):
         vpath = self.ovs_properties.get("vpath", "/usr/local")
         vf = self.networks[vfs[0]]
         port_num = vf.get('port_num', 0)
-        vpci = PciAddress(vf['vpci'].strip())
+        vpci = utils.PciAddress(vf['vpci'].strip())
         # Generate the vpci for the interfaces
         slot = index + port_num + 10
         vf['vpci'] = \
             "{}:{}:{:02x}.{}".format(vpci.domain, vpci.bus, slot, vpci.function)
         Libvirt.add_ovs_interface(vpath, port_num, vf['vpci'], vf['mac'], str(cfg))
 
+    @MethodCallsOrder.validate
     def setup_ovs_dpdk_context(self):
         nodes = []
 
@@ -372,6 +382,14 @@ class OvsDpdkContext(Context):
                 if vkey == "mgmt":
                     continue
                 self._enable_interfaces(index, vfs, cfg)
+
+            if self.cloud_init.enabled:
+                self.cloud_init.generate_iso_images()
+                iso_image_path = '{0}/vm{1}/vm{1}-cidata.iso'.format(
+                    self.cloud_init.iso_image_path,
+                    index,
+                )
+                Libvirt.add_nodata_source(cfg, iso_image_path)
 
             # copy xml to target...
             self.connection.put(cfg, cfg)

@@ -14,13 +14,18 @@
 """ Helper function to get Network Service testing configuration """
 
 from __future__ import absolute_import
+import copy
 import logging
 import os
+import tempfile
 import re
 
 from oslo_config import cfg
 from oslo_config.cfg import NoSuchOptError
 from oslo_utils import encodeutils
+
+from yardstick.common.ansible_common import AnsibleCommon
+from yardstick.common.constants import ANSIBLE_DIR
 
 
 NSB_ROOT = "/opt/nsb_bin"
@@ -98,6 +103,35 @@ class PciAddress(object):
 
     def values(self):
         return [self._domain, self._bus, self._slot, self._function]
+
+
+class CloudInit(object):
+
+    DEFAULT_IMAGE_PATH = '/var/lib/yardstick'
+
+    def __init__(self, node):
+        self.node = node
+        self.cfg = node.get('cloud_init', {})
+
+    def generate_iso_images(self):
+        if not self.cfg.get('generate_iso_images', False):
+            return
+
+        tmpdir = tempfile.mkdtemp(prefix='ansible-')
+        playbook_vars = copy.deepcopy(self.cfg)
+        playbook_vars['vm_path'] = tmpdir
+        ansible_exec = AnsibleCommon(nodes=[self.node], test_vars=playbook_vars)
+        ansible_exec.gen_inventory_ini_dict()
+        ansible_exec.execute_ansible(os.path.join(ANSIBLE_DIR, 'build_cloudinit_iso_images.yml'),
+                                     tmpdir)
+
+    @property
+    def iso_image_path(self):
+        return self.cfg.get('iso_image_path', self.DEFAULT_IMAGE_PATH)
+
+    @property
+    def enabled(self):
+        return self.cfg.get('enabled', False)
 
 
 def get_nsb_option(option, default=None):

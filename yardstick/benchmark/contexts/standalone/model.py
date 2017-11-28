@@ -69,6 +69,10 @@ VM_TEMPLATE = """
   <on_crash>restart</on_crash>
   <devices>
     <emulator>/usr/bin/kvm-spice</emulator>
+    <serial type="pty">
+       <source path="/dev/pty{index}"/>
+       <target port="0"/>
+    </serial>
     <disk device="disk" type="file">
       <driver name="qemu" type="qcow2" />
       <source file="{vm_image}"/>
@@ -222,6 +226,23 @@ class Libvirt(object):
         root.write(xml)
 
     @staticmethod
+    def add_nodata_source(xml, iso_image_path):
+        root = ET.parse(xml)
+        devices = root.find('devices')
+        disk = ET.SubElement(devices, 'disk')
+        disk.set('device', 'cdrom')
+        disk.set('type', 'file')
+        driver = ET.SubElement(disk, 'driver')
+        driver.set('name', 'qemu')
+        driver.set('type', 'raw')
+        source = ET.SubElement(disk, 'source')
+        source.set('file', iso_image_path)
+        target = ET.SubElement(disk, 'target')
+        target.set('bus', 'virtio')
+        target.set('dev', 'vdb')
+        root.write(xml)
+
+    @staticmethod
     def create_snapshot_qemu(connection, index, vm_image):
         # build snapshot image
         image = "/var/lib/libvirt/images/%s.qcow2" % index
@@ -254,7 +275,7 @@ class Libvirt(object):
             memory=memory, vcpu=vcpu, cpu=cpu,
             numa_cpus=numa_cpus,
             socket=socket, threads=threads,
-            vm_image=image, cpuset=cpuset, cputune=cputune)
+            vm_image=image, cpuset=cpuset, cputune=cputune, index=index)
 
         write_file(cfg, vm_xml)
 
@@ -479,6 +500,7 @@ class Server(object):
             pass
         LOG.info(result)
         return result
+
 
 
 class OvsDeploy(object):

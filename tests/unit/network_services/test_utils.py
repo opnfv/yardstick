@@ -15,9 +15,10 @@
 
 # Unittest for yardstick.network_services.utils
 
+import copy
+import mock
 import os
 import unittest
-import mock
 
 from yardstick.network_services import utils
 
@@ -141,3 +142,65 @@ class PciAddressTestCase(unittest.TestCase):
             utils.PciAddress(PciAddressTestCase.BAD_INPUT_3)
         self.assertEqual('Invalid PCI address: {}'.format(
                 PciAddressTestCase.BAD_INPUT_3), str(exception.exception))
+
+
+NODE = {
+    'name': 'ovs',
+    'role': 'OvsDpdk',
+    'ip': '1.1.1.1',
+    'ssh_port': 22,
+    'user': 'root',
+    'auth_type': 'password',
+}
+
+CLOUD_INIT = {
+    'cloud_init': {
+            'enabled': True,
+            'generate_iso_images': True,
+            'mgmt_addr': '11.191.24.2/8',
+            'vm_count': 1,
+            'vm_address_offset': 100,
+            'iso_image_path': '/var/lib/yardstick',
+            'chpasswd': {
+                'root': 'passw0rd',
+                'ubuntu': 'passw0rd',
+            },
+    },
+}
+
+class TestCloudInit(unittest.TestCase):
+
+    def test__init__(self):
+        node = copy.deepcopy(NODE)
+        node.update(CLOUD_INIT)
+        cloud_init = utils.CloudInit(node)
+        self.assertTrue(cloud_init.enabled)
+
+        node['cloud_init']['enabled'] = False
+        cloud_init = utils.CloudInit(node)
+        self.assertFalse(cloud_init.enabled)
+
+
+    @mock.patch('yardstick.network_services.utils.tempfile')
+    @mock.patch('yardstick.network_services.utils.AnsibleCommon')
+    def test_generate_iso_images(self, mock_ansible_common, _):
+        node = copy.deepcopy(NODE)
+        node.update(CLOUD_INIT)
+        node['cloud_init']['generate_iso_images'] = False
+        mock_ansible_common.execute_ansible = mock.Mock()
+
+        cloud_init = utils.CloudInit(node)
+        cloud_init.generate_iso_images()
+        self.assertFalse(mock_ansible_common.return_value.execute_ansible.called)
+
+        node['cloud_init']['generate_iso_images'] = True
+        cloud_init = utils.CloudInit(node)
+        cloud_init.generate_iso_images()
+        self.assertTrue(mock_ansible_common.return_value.execute_ansible.called)
+
+    def test_iso_image_path(self):
+        node = copy.deepcopy(NODE)
+        node.update(CLOUD_INIT)
+        cloud_init = utils.CloudInit(node)
+
+        self.assertEquals('/var/lib/yardstick', cloud_init.iso_image_path)

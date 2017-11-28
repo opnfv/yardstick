@@ -775,7 +775,7 @@ class RemoveFileTestCase(unittest.TestCase):
     def test_remove_file(self):
         try:
             utils.remove_file('notexistfile.txt')
-        except Exception as e:
+        except Exception as e: # pylint: disable=broad-except
             self.assertTrue(isinstance(e, OSError))
 
 
@@ -796,7 +796,7 @@ class TestUtils(unittest.TestCase):
         with self.assertRaises(OSError):
             utils.makedirs('a/b/c/d')
 
-    @mock.patch('yardstick.common.utils.jsonify')
+    @mock.patch('yardstick.common.utils.flask.jsonify')
     def test_result_handler(self, mock_jsonify):
         mock_jsonify.return_value = 432
 
@@ -997,7 +997,7 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
             self.assertEqual(utils.safe_ip_address(addr), expected, addr)
 
     @mock.patch("yardstick.common.utils.logging")
-    def test_safe_ip_address_negative(self, mock_logging):
+    def test_safe_ip_address_negative(self, _):
         for value in self.INVALID_IP_ADDRESS_STR_LIST:
             self.assertIsNone(utils.safe_ip_address(value), value)
 
@@ -1026,7 +1026,7 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
             self.assertEqual(utils.get_ip_version(addr), 6, addr)
 
     @mock.patch("yardstick.common.utils.logging")
-    def test_get_ip_version_negative(self, mock_logging):
+    def test_get_ip_version_negative(self, _):
         for value in self.INVALID_IP_ADDRESS_STR_LIST:
             self.assertIsNone(utils.get_ip_version(value), value)
 
@@ -1055,12 +1055,72 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
             self.assertEqual(utils.ip_to_hex(value), value)
 
     @mock.patch("yardstick.common.utils.logging")
-    def test_ip_to_hex_negative(self, mock_logging):
+    def test_ip_to_hex_negative(self, _):
         addr_list = self.GOOD_IP_V4_ADDRESS_STR_LIST
         mask_list = self.GOOD_IP_V4_MASK_STR_LIST
         value_iter = (''.join(pair) for pair in product(addr_list, mask_list))
         for value in chain(value_iter, self.INVALID_IP_ADDRESS_STR_LIST):
             self.assertEqual(utils.ip_to_hex(value), value)
+
+
+class DummyClass(object):
+    METHODS_ORDER = ['method1', 'method2', 'method3']
+
+    def __init__(self):
+        utils.MethodCallsOrder.add(self, self.METHODS_ORDER)
+
+    @utils.MethodCallsOrder.validate
+    def method1(self):
+        pass
+
+    @utils.MethodCallsOrder.validate
+    def method2(self):
+        pass
+
+    @utils.MethodCallsOrder.validate
+    def method3(self):
+        pass
+
+
+class TestMethodCallsOrder(unittest.TestCase):
+    def setUp(self):
+        utils.MethodCallsOrder.ENABLED = True
+
+    def test_validate_cleanup(self):
+        utils.MethodCallsOrder.INSTANCES = {}
+        dummy = DummyClass()
+
+        dummy.method1()
+        dummy.method2()
+        dummy.method3()
+
+        self.assertEquals({}, utils.MethodCallsOrder.INSTANCES)
+
+    def test_validate_wrong_order(self):
+        utils.MethodCallsOrder.INSTANCES = {}
+        dummy = DummyClass()
+
+        with self.assertRaises(utils.MethodCallsOrderException):
+            dummy.method1()
+            dummy.method3()
+            dummy.method2()
+
+        utils.MethodCallsOrder.clean(dummy)
+        self.assertEquals({}, utils.MethodCallsOrder.INSTANCES)
+
+    def test_validate_interleaved_instances(self):
+        utils.MethodCallsOrder.INSTANCES = {}
+        dummy1 = DummyClass()
+        dummy2 = DummyClass()
+
+        dummy1.method1()
+        dummy1.method2()
+        dummy2.method1()
+        dummy1.method3()
+        dummy2.method2()
+        dummy2.method3()
+
+        self.assertEquals({}, utils.MethodCallsOrder.INSTANCES)
 
 
 def main():

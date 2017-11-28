@@ -25,7 +25,8 @@ from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts.standalone.model import Libvirt
 from yardstick.benchmark.contexts.standalone.model import StandaloneContextHelper
 from yardstick.benchmark.contexts.standalone.model import Server
-from yardstick.network_services.utils import PciAddress
+from yardstick.network_services import utils
+from yardstick.common.utils import MethodCallsOrder
 
 LOG = logging.getLogger(__name__)
 
@@ -36,6 +37,8 @@ class SriovContext(Context):
     """
 
     __context_type__ = "StandaloneSriov"
+
+    METHOD_CALL_ORDER = ['init', 'deploy', 'setup_sriov_context', 'undeploy']
 
     def __init__(self):
         self.file_path = None
@@ -53,6 +56,8 @@ class SriovContext(Context):
         self.helper = StandaloneContextHelper()
         self.vnf_node = Server()
         self.drivers = []
+        self.cloud_init = None
+        MethodCallsOrder.add(self, self.METHOD_CALL_ORDER)
         super(SriovContext, self).__init__()
 
     def init(self, attrs):
@@ -70,6 +75,8 @@ class SriovContext(Context):
         self.vm_deploy = attrs.get("vm_deploy", True)
         # add optional static network definition
         self.networks = attrs.get("networks", {})
+
+        self.cloud_init = utils.CloudInit(self.nfvi_host[0])
 
         LOG.debug("Nodes: %r", self.nodes)
         LOG.debug("NFVi Node: %r", self.nfvi_host)
@@ -138,8 +145,7 @@ class SriovContext(Context):
         except StopIteration:
             pass
         else:
-            raise ValueError("Duplicate nodes!!! Nodes: %s %s",
-                             (node, duplicate))
+            raise ValueError("Duplicate nodes!!! Nodes: %s %s" % (node, duplicate))
 
         node["name"] = attr_name
         return node
@@ -198,7 +204,7 @@ class SriovContext(Context):
         vf_spoofchk = "ip link set {0} vf 0 spoofchk off"
 
         vf = self.networks[vfs[0]]
-        vpci = PciAddress(vf['vpci'].strip())
+        vpci = utils.PciAddress(vf['vpci'].strip())
         # Generate the vpci for the interfaces
         slot = index + idx + 10
         vf['vpci'] = \
@@ -228,6 +234,14 @@ class SriovContext(Context):
                     continue
                 self._enable_interfaces(index, idx, vfs, cfg)
 
+            if self.cloud_init.enabled:
+                self.cloud_init.generate_iso_images()
+                iso_image_path = '{0}/vm{1}/vm{1}-cidata.iso'.format(
+                    self.cloud_init.iso_image_path,
+                    index,
+                )
+                Libvirt.add_nodata_source(cfg, iso_image_path)
+
             # copy xml to target...
             self.connection.put(cfg, cfg)
 
@@ -252,8 +266,8 @@ class SriovContext(Context):
         }
         vfs = StandaloneContextHelper.get_virtual_devices(self.connection, value)
         for k, v in vfs.items():
-            m = PciAddress(k.strip())
-            m1 = PciAddress(value.strip())
+            m = utils.PciAddress(k.strip())
+            m1 = utils.PciAddress(value.strip())
             if m.bus == m1.bus:
                 vf_data.update({"vf_pci": str(v)})
                 break

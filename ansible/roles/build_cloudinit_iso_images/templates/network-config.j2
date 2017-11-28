@@ -1,0 +1,12 @@
+version: 1
+config:
+  - type: physical
+    name: ens3
+    subnets:
+      - type: static
+        address: {{ '.'.join(mgmt_addr.split('.')[:3]) }}.{{ item|int + vm_address_offset }}/{{ mgmt_addr.split('/')[1] }}
+        gateway: {{ mgmt_addr.split('/')[0] }}
+        dns_nameservers:
+{% for dns in resolve_namespaces %}
+          - {{ dns }}
+{% endfor %}

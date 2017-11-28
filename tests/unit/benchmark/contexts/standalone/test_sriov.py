@@ -20,6 +20,7 @@ import unittest
 import mock
 
 from yardstick import ssh
+from yardstick.common import utils
 from yardstick.benchmark.contexts.standalone import sriov
 
 
@@ -58,6 +59,7 @@ class SriovContextTestCase(unittest.TestCase):
     }
 
     def setUp(self):
+        utils.MethodCallsOrder.ENABLED = False
         self.sriov = sriov.SriovContext()
 
     @mock.patch('yardstick.benchmark.contexts.standalone.model.StandaloneContextHelper')
@@ -73,7 +75,7 @@ class SriovContextTestCase(unittest.TestCase):
         self.assertEqual(self.sriov.first_run, True)
 
     def test_init(self):
-        self.sriov.helper.parse_pod_file = mock.Mock(return_value=[{}, {}, {}])
+        self.sriov.helper.parse_pod_file = mock.Mock(return_value=[{}, [{}], {}])
         self.assertIsNone(self.sriov.init(self.ATTRS))
 
     @mock.patch.object(ssh, 'SSH', return_value=(0, "a", ""))
@@ -132,7 +134,7 @@ class SriovContextTestCase(unittest.TestCase):
             'file': self._get_file_abspath(self.NODES_SRIOV_SAMPLE)
         }
 
-        self.sriov.helper.parse_pod_file = mock.Mock(return_value=[{}, {}, {}])
+        self.sriov.helper.parse_pod_file = mock.Mock(return_value=[{}, [{}], {}])
         self.sriov.init(attrs)
 
         attr_name = 'bar.foo'
@@ -288,6 +290,8 @@ class SriovContextTestCase(unittest.TestCase):
         mock_libvirt.build_vm_xml = mock.Mock(return_value=[6, "00:00:00:00:00:01"])
         self.sriov._enable_interfaces = mock.Mock(return_value="")
         self.sriov.vnf_node.generate_vnf_instance = mock.Mock(return_value={})
+        self.sriov.cloud_init = mock.Mock()
+        self.sriov.cloud_init.enabled.return_value = True
         self.assertIsNotNone(self.sriov.setup_sriov_context())
 
     def test__get_vf_data(self):
