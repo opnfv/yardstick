@@ -411,7 +411,6 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         cgnapt_approx_vnf.used_drivers = {"01:01.0": "i40e",
                                           "01:01.1": "i40e"}
         cgnapt_approx_vnf.vnf_execute = mock.MagicMock()
-        cgnapt_approx_vnf.dpdk_nic_bind = "dpdk_nic_bind.py"
         cgnapt_approx_vnf._resource_collect_stop = mock.Mock()
         self.assertEqual(None, cgnapt_approx_vnf.terminate())
 
