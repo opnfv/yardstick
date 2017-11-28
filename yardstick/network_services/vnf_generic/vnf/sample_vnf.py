@@ -21,7 +21,7 @@ import logging
 import os
 import re
 import subprocess
-from collections import Mapping
+from collections import Mapping, defaultdict
 from multiprocessing import Queue, Value, Process
 
 from six.moves import cStringIO
@@ -29,6 +29,7 @@ from six.moves import cStringIO
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
 from yardstick.common.process import check_if_process_failed
+from yardstick.common.utils import try_int
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
@@ -42,7 +43,7 @@ from trex_stl_lib.trex_stl_client import STLClient
 from trex_stl_lib.trex_stl_client import LoggerApi
 from trex_stl_lib.trex_stl_exceptions import STLError
 
-from yardstick.ssh import AutoConnectSSH
+from yardstick.ssh import AutoConnectSSH, SSHError, SSHTimeout
 
 DPDK_VERSION = "dpdk-16.07"
 
@@ -52,6 +53,16 @@ LOG = logging.getLogger(__name__)
 REMOTE_TMP = "/tmp"
 DEFAULT_VNF_TIMEOUT = 3600
 PROCESS_JOIN_TIMEOUT = 3
+
+
+class IncorrectSetup(Exception):
+    """Class handles incorrect setup during setup"""
+    pass
+
+
+class IncorrectConfig(Exception):
+    """Class handles incorrect configuration during setup"""
+    pass
 
 
 class VnfSshHelper(AutoConnectSSH):
@@ -151,6 +162,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
 
     def __init__(self, vnfd_helper, ssh_helper, scenario_helper):
         super(DpdkVnfSetupEnvHelper, self).__init__(vnfd_helper, ssh_helper, scenario_helper)
+        self.netdevs = {}
         self.all_ports = None
         self.bound_pci = None
         self.socket = None
@@ -293,8 +305,125 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
                                plugins=plugins, interval=collectd_options.get("interval"),
                                timeout=self.scenario_helper.timeout)
 
+    FIND_NETDEVICE_STRING = r"""\
+find /sys/devices/pci* -type d -name net -exec sh -c '{ grep -sH ^ \
+$1/ifindex $1/address $1/operstate $1/device/vendor $1/device/device \
+$1/device/subsystem_vendor $1/device/subsystem_device $1/device/numa_node ; \
+printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
+' sh  \{\}/* \;
+"""
+    BASE_ADAPTER_RE = re.compile(
+        '^/sys/devices/(.*)/net/([^/]*)/([^:]*):(.*)$', re.M)
+
+    @classmethod
+    def parse_netdev_info(cls, stdout):
+        network_devices = defaultdict(dict)
+        matches = cls.BASE_ADAPTER_RE.findall(stdout)
+        for bus_path, interface_name, name, value in matches:
+            dirname, bus_id = os.path.split(bus_path)
+            if 'virtio' in bus_id:
+                # for some stupid reason VMs include virtio1/
+                # in PCI device path
+                bus_id = os.path.basename(dirname)
+            # remove extra 'device/' from 'device/vendor,
+            # device/subsystem_vendor', etc.
+            if 'device/' in name:
+                name = name.split('/')[1]
+            network_devices[interface_name][name] = value
+            network_devices[interface_name][
+                'interface_name'] = interface_name
+            network_devices[interface_name]['pci_bus_id'] = bus_id
+        # convert back to regular dict
+        return dict(network_devices)
+
+    @staticmethod
+    def _detect_socket(netdev):
+        try:
+            socket = try_int(netdev['numa_node'])
+        except KeyError:
+            # Where is this documented?
+            # It seems for dual-sockets systems the second socket PCI bridge
+            # will have an address > 0x0f, e.g.
+            # Bridge PCI->PCI (P#524320 busid=0000:80:02.0 id=8086:6f04
+            if netdev['pci_bus_id'][5] == "0":
+                socket = 0
+            else:
+                # this doesn't handle quad-sockets
+                # TODO: fix this for quad-socket
+                socket = 1
+        # -1 is linux kernel NUMA_NO_NODE, so set socket to 0 since we always have socket 0
+        if socket == -1:
+            socket = 0
+        return socket
+
+    def _probe_missing_values(self, network):
+
+        mac_lower = network['local_mac'].lower()
+        for netdev in self.netdevs.values():
+            if netdev['address'].lower() != mac_lower:
+                continue
+            socket = self._detect_socket(netdev)
+            network.update({
+                'driver': netdev['driver'],
+                'vpci': netdev['pci_bus_id'],
+                'socket': socket,
+                # don't need ifindex
+            })
+
+    def _probe_netdevs(self):
+        # cache value because we can probe for each interface
+        if self.netdevs:
+            return self.netdevs
+
+        self.netdevs = {}
+        cmd = "PATH=$PATH:/sbin:/usr/sbin ip addr show"
+
+        exit_status = self.ssh_helper.execute(cmd)[0]
+        if exit_status != 0:
+            raise IncorrectSetup("cannot find ip tool")
+        exit_status, stdout, _ = self.ssh_helper.execute(self.FIND_NETDEVICE_STRING)
+        if exit_status != 0:
+            raise IncorrectSetup("Cannot find netdev info in sysfs")
+        self.netdevs = self.parse_netdev_info(stdout)
+
+        return self.netdevs
+
+    # now require socket
+    TOPOLOGY_REQUIRED_KEYS = frozenset(
+        {"vpci", "local_ip", "netmask", "local_mac", "driver", "socket"})
+
+    def _check_interface_fields(self):
+        # only check interfaces used by the topology
+        for port_name in self.vnfd_helper.port_pairs.all_ports:
+            interface = self.vnfd_helper.find_interface(name=port_name)
+            vintf = interface['virtual-interface']
+            missing = self.TOPOLOGY_REQUIRED_KEYS.difference(vintf)
+            if not missing:
+                continue
+
+            # only ssh probe if there are missing values
+            # ssh probe won't work on Ixia, so we had better define all our values in pod.yaml
+            try:
+                self._probe_netdevs()
+            except (SSHError, SSHTimeout):
+                raise IncorrectConfig(
+                    "Unable to probe missing interface fields '%s' "
+                    "SSH Error" % (', '.join(missing)))
+            try:
+                self._probe_missing_values(vintf)
+            except KeyError:
+                pass
+            else:
+                missing = self.TOPOLOGY_REQUIRED_KEYS.difference(vintf)
+            if missing:
+                raise IncorrectConfig(
+                    "Require interface fields '%s' not found, topology file "
+                    "corrupted" % ', '.join(missing))
+
     def _detect_and_bind_drivers(self):
         interfaces = self.vnfd_helper.interfaces
+
+        self._check_interface_fields()
 
         self.dpdk_bind_helper.read_status()
         self.dpdk_bind_helper.save_used_drivers()
