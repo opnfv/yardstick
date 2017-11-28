@@ -12,12 +12,38 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: pre-clean openstack enviroment
-  hosts: yardstick
+###
+#   we need openrc env structure later.
+#   Prepare it here and use later in env
+###
+- name: convert openrc_file to openrc env dict
+  hosts: jumphost
   vars_files:
     - yardstick_config.yml
-
   roles:
     - convert_openrc
+
+###
+#  Build yardstick image for openstack quest
+#  check included file for other vars/env
+###
+- include: build_yardstick_image.yml
+  vars:
+    YARD_IMG_ARCH: amd64
+    release: xenial
+
+###
+#  Delete old yardstick image and flavors
+#  Upload new image
+###
+- name: cleanup old openstack images, upload new
+  hosts: jumphost
+  vars_files:
+    - yardstick_config.yml
+  environment:
+    "{{ openrc }}"
+  roles:
     - clean_images
     - clean_flavors
+    - create_image
+      
