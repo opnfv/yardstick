@@ -26,6 +26,7 @@
     dest: "{{ dpdk_dest }}"
     validate_certs: False
     checksum: "{{ dpdk_sha256s[dpdk_version] }}"
+  environment: "{{ proxy_env }}"
 
 - unarchive:
     src: "{{ dpdk_dest }}/{{ dpdk_file }}"

@@ -14,3 +14,4 @@
 ---
 - name: install storperf
   command: yardstick -d plugin install plugin/CI/storperf.yaml
+  environment: "{{ proxy_env }}"

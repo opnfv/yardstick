@@ -18,6 +18,7 @@
     dest: "{{ trex_dest }}"
     validate_certs: False
     checksum: "{{ trex_sha256s[trex_version] }}"
+  environment: "{{ proxy_env }}"
 
 - name: unarchive Trex
   unarchive:
