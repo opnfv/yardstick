@@ -18,6 +18,7 @@
     dest: "{{ clone_dest }}/"
     validate_certs: False
     checksum: "{{ civetweb_sha256s }}"
+  environment: "{{ proxy_env }}"
 
 - name: unarchive civetweb
   unarchive:

@@ -113,6 +113,23 @@ Download the source code and install Yardstick from it
   git checkout stable/euphrates
 
   # For Bare-Metal or Standalone Virtualization
+
+  # [OPTIONAL] Configure http[s]_proxy in
+  #  - /etc/environment
+  #  or
+  #  - env variables
+
+  # Modify ansible/yardstick-install-inventory.ini:
+  cat ./ansible/yardstick-install-inventory.ini
+  [yardstick]
+  localhost  ansible_connection=local
+  yardstick-standalone-node ansible_host=192.168.1.2
+  yardstick-standalone-node-2 ansible_host=192.168.1.3
+
+  [all:vars]
+  ansible_user=root
+  ansible_pass=root
+
   ./nsb_setup.sh
 
   # For OpenStack

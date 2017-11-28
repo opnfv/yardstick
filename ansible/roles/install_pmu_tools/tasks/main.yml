@@ -15,6 +15,7 @@
 
 - name: Install extra build dependencies
   action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
+  environment: "{{ proxy_env }}"
   with_items: "{{ pmu_tools_build_dependencies[ansible_os_family] }}"
 
 - name: fix pmu-tools CFLAGS to include -fPIC
