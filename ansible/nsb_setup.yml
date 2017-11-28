@@ -12,37 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- include: ubuntu_server_baremetal_deploy_samplevnfs.yml
-  vars:
-    YARD_IMG_ARCH: amd64
+#- name: Prepare baremetal machine
+#  include: ubuntu_server_baremetal_deploy_samplevnfs.yml
+#  vars:
+#    YARD_IMG_ARCH: amd64
+#
+#- name: Install jumphost dependencies and configure docker
+#  hosts: jumphost
+#  environment:
+#    "{{ proxy_env }}"
+#  roles:
+#    - install_dependencies
+#    - docker
 
-- hosts: localhost
-  roles:
-    - install_dependencies
-    - docker
-
-- include: build_yardstick_image.yml
-  vars:
-    YARD_IMG_ARCH: amd64
-    release: xenial
+- name: "handle all openstack stuff when: openrc_file is defined"
+  include: prepare_openstack.yml
   when: openrc_file is defined
 
-- include: clean_images.yml
-  when: openrc_file is defined
-
-- hosts: localhost
-  post_tasks:
-    - os_image:
-        name: yardstick-samplevnfs
-        is_public: yes
-        disk_format: qcow2
-        container_format: bare
-        filename: "{{ raw_imgfile }}"
-        properties:
-          hw_vif_multiqueue_enabled: true
-      environment: "{{ openrc }}"
-      when: openrc_file is defined
-
+- name: start yardstick container on jumphost
+  hosts: jumphost
+  tasks:
     - name: Start yardstick container
       docker_container:
         name: yardstick
