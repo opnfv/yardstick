@@ -15,8 +15,9 @@ import logging
 
 import re
 import itertools
-
 import six
+
+from yardstick.network_services.utils import get_nsb_option
 
 NETWORK_KERNEL = 'network_kernel'
 NETWORK_DPDK = 'network_dpdk'
@@ -37,8 +38,8 @@ class DpdkBindHelper(object):
     DPDK_STATUS_CMD = "{dpdk_nic_bind} --status"
     DPDK_BIND_CMD = "sudo {dpdk_nic_bind} {force} -b {driver} {vpci}"
 
-    NIC_ROW_RE = re.compile("([^ ]+) '([^']+)' (?:if=([^ ]+) )?drv=([^ ]+) "
-                            "unused=([^ ]*)(?: (\*Active\*))?")
+    NIC_ROW_RE = re.compile(r"([^ ]+) '([^']+)' (?:if=([^ ]+) )?drv=([^ ]+) "
+                            r"unused=([^ ]*)(?: (\*Active\*))?")
     SKIP_RE = re.compile('(====|<none>|^$)')
     NIC_ROW_FIELDS = ['vpci', 'dev_type', 'iface', 'driver', 'unused', 'active']
 
@@ -66,8 +67,13 @@ class DpdkBindHelper(object):
         self.status_nic_row_re = None
         self._dpdk_nic_bind_attr = None
         self._status_cmd_attr = None
+        self.used_drivers = None
 
         self.ssh_helper = ssh_helper
+        try:
+            self.bin_path = ssh_helper.bin_path
+        except AttributeError:
+            self.bin_path = get_nsb_option("bin_path")
         self.clean_status()
 
     def _dpdk_execute(self, *args, **kwargs):
@@ -80,7 +86,8 @@ class DpdkBindHelper(object):
     @property
     def _dpdk_nic_bind(self):
         if self._dpdk_nic_bind_attr is None:
-            self._dpdk_nic_bind_attr = self.ssh_helper.provision_tool(tool_file="dpdk-devbind.py")
+            self._dpdk_nic_bind_attr = self.ssh_helper.provision_tool(tool_path=self.bin_path,
+                                                                      tool_file="dpdk-devbind.py")
         return self._dpdk_nic_bind_attr
 
     @property

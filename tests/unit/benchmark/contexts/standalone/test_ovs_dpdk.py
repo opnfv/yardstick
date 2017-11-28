@@ -17,12 +17,10 @@
 from __future__ import absolute_import
 import os
 import unittest
-import errno
 import mock
 
-from yardstick.common import constants as consts
 from yardstick.benchmark.contexts.standalone import ovs_dpdk
-from yardstick.network_services.utils import PciAddress
+from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
 
 
 class OvsDpdkContextTestCase(unittest.TestCase):
@@ -42,50 +40,54 @@ class OvsDpdkContextTestCase(unittest.TestCase):
     NETWORKS = {
         'mgmt': {'cidr': '152.16.100.10/24'},
         'private_0': {
-         'phy_port': "0000:05:00.0",
-         'vpci': "0000:00:07.0",
-         'cidr': '152.16.100.10/24',
-         'interface': 'if0',
-         'mac': "00:00:00:00:00:01",
-         'vf_pci': {'vf_pci': 0},
-         'gateway_ip': '152.16.100.20'},
+            'phy_port': "0000:05:00.0",
+            'vpci': "0000:00:07.0",
+            'cidr': '152.16.100.10/24',
+            'interface': 'if0',
+            'mac': "00:00:00:00:00:01",
+            'vf_pci': {
+                'vf_pci': 0,
+            },
+            'gateway_ip': '152.16.100.20',
+        },
         'public_0': {
-         'phy_port': "0000:05:00.1",
-         'vpci': "0000:00:08.0",
-         'cidr': '152.16.40.10/24',
-         'interface': 'if0',
-         'vf_pci': {'vf_pci': 0},
-         'mac': "00:00:00:00:00:01",
-         'gateway_ip': '152.16.100.20'},
+            'phy_port': "0000:05:00.1",
+            'vpci': "0000:00:08.0",
+            'cidr': '152.16.40.10/24',
+            'interface': 'if0',
+            'vf_pci': {
+                'vf_pci': 0,
+            },
+            'mac': "00:00:00:00:00:01",
+            'gateway_ip': '152.16.100.20',
+        },
     }
 
     def setUp(self):
         self.ovs_dpdk = ovs_dpdk.OvsDpdkContext()
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.StandaloneContextHelper')
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.Server')
-    def test___init__(self, mock_helper, mock_server):
-        self.ovs_dpdk.helper = mock_helper
-        self.ovs_dpdk.vnf_node = mock_server
+    def test___init__(self):
         self.assertIsNone(self.ovs_dpdk.file_path)
         self.assertEqual(self.ovs_dpdk.first_run, True)
 
-    def test_init(self):
-        self.ovs_dpdk.helper.parse_pod_file = mock.Mock(return_value=[{}, {}, {}])
+    @mock.patch('yardstick.benchmark.contexts.standalone.base.model')
+    def test_init(self, mock_model):
+        mock_model.parse_pod_file.return_value = [{}, {}, {}]
         self.assertIsNone(self.ovs_dpdk.init(self.ATTRS))
 
-    def test_setup_ovs(self):
+    def test__setup_ovs(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "a", ""))
             ssh.return_value = ssh_mock
             self.ovs_dpdk.connection = ssh_mock
+            self.ovs_dpdk.dpdk_bind_helper = mock.Mock(autospec=DpdkBindHelper)
             self.ovs_dpdk.networks = self.NETWORKS
             self.ovs_dpdk.ovs_properties = {}
-            self.assertIsNone(self.ovs_dpdk.setup_ovs())
+            self.assertIsNone(self.ovs_dpdk._setup_ovs())
 
-    def test_start_ovs_serverswitch(self):
+    def test__start_ovs_serverswitch(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -95,9 +97,9 @@ class OvsDpdkContextTestCase(unittest.TestCase):
             self.ovs_dpdk.networks = self.NETWORKS
             self.ovs_dpdk.ovs_properties = {}
             self.ovs_dpdk.wait_for_vswitchd = 0
-            self.assertIsNone(self.ovs_dpdk.start_ovs_serverswitch())
+            self.assertIsNone(self.ovs_dpdk._start_ovs_serverswitch())
 
-    def test_setup_ovs_bridge_add_flows(self):
+    def test__setup_ovs_bridge_add_flows(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -109,9 +111,9 @@ class OvsDpdkContextTestCase(unittest.TestCase):
                 'version': {'ovs': '2.7.0'}
             }
             self.ovs_dpdk.wait_for_vswitchd = 0
-            self.assertIsNone(self.ovs_dpdk.setup_ovs_bridge_add_flows())
+            self.assertIsNone(self.ovs_dpdk._setup_ovs_bridge_add_flows())
 
-    def test_cleanup_ovs_dpdk_env(self):
+    def test__cleanup_ovs_dpdk_env(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -123,10 +125,10 @@ class OvsDpdkContextTestCase(unittest.TestCase):
                 'version': {'ovs': '2.7.0'}
             }
             self.ovs_dpdk.wait_for_vswitchd = 0
-            self.assertIsNone(self.ovs_dpdk.cleanup_ovs_dpdk_env())
+            self.assertIsNone(self.ovs_dpdk._cleanup_ovs_dpdk_env())
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.OvsDeploy')
-    def test_check_ovs_dpdk_env(self, mock_ovs):
+    @mock.patch('yardstick.benchmark.contexts.standalone.ovs_dpdk.OvsDeploy')
+    def test__check_ovs_dpdk_env(self, _):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -134,22 +136,23 @@ class OvsDpdkContextTestCase(unittest.TestCase):
             ssh.return_value = ssh_mock
             self.ovs_dpdk.connection = ssh_mock
             self.ovs_dpdk.networks = self.NETWORKS
-            self.ovs_dpdk.ovs_properties = {
-                    'version': {'ovs': '2.7.0', 'dpdk': '16.11.1'}
-            }
             self.ovs_dpdk.wait_for_vswitchd = 0
-            self.ovs_dpdk.cleanup_ovs_dpdk_env = mock.Mock()
-            self.assertIsNone(self.ovs_dpdk.check_ovs_dpdk_env())
+            self.ovs_dpdk._cleanup_ovs_dpdk_env = mock.Mock()
+
+            self.ovs_dpdk.ovs_properties = {
+                'version': {'ovs': '2.8.0', 'dpdk': '17.05.2'}
+            }
+            self.assertIsNone(self.ovs_dpdk._check_ovs_dpdk_env())
+
             self.ovs_dpdk.ovs_properties = {
                 'version': {'ovs': '2.0.0'}
             }
             self.ovs_dpdk.wait_for_vswitchd = 0
-            self.cleanup_ovs_dpdk_env = mock.Mock()
-            mock_ovs.deploy = mock.Mock()
-            self.assertRaises(Exception, self.ovs_dpdk.check_ovs_dpdk_env)
+            self.assertRaises(Exception, self.ovs_dpdk._check_ovs_dpdk_env)
 
+    @mock.patch('yardstick.benchmark.contexts.standalone.base.DpdkBindHelper')
     @mock.patch('yardstick.ssh.SSH')
-    def test_deploy(self, mock_ssh):
+    def test_deploy(self, *_):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -161,18 +164,18 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk.vm_deploy = True
         self.ovs_dpdk.host_mgmt = {}
         self.ovs_dpdk.install_req_libs = mock.Mock()
-        self.ovs_dpdk.helper.get_nic_details = mock.Mock(return_value={})
-        self.ovs_dpdk.check_ovs_dpdk_env = mock.Mock(return_value={})
-        self.ovs_dpdk.setup_ovs = mock.Mock(return_value={})
-        self.ovs_dpdk.start_ovs_serverswitch = mock.Mock(return_value={})
-        self.ovs_dpdk.setup_ovs_bridge_add_flows = mock.Mock(return_value={})
-        self.ovs_dpdk.setup_ovs_dpdk_context = mock.Mock(return_value={})
+        self.ovs_dpdk._check_ovs_dpdk_env = mock.Mock(return_value={})
+        self.ovs_dpdk._setup_ovs = mock.Mock(return_value={})
+        self.ovs_dpdk._start_ovs_serverswitch = mock.Mock(return_value={})
+        self.ovs_dpdk._setup_ovs_bridge_add_flows = mock.Mock(return_value={})
+        self.ovs_dpdk.setup_context = mock.Mock(return_value={})
         self.ovs_dpdk.wait_for_vnfs_to_start = mock.Mock(return_value={})
+        self.ovs_dpdk.networks = self.NETWORKS
         self.assertIsNone(self.ovs_dpdk.deploy())
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.ovs_dpdk.Libvirt')
+    @mock.patch('yardstick.benchmark.contexts.standalone.ovs_dpdk.model')
     @mock.patch('yardstick.ssh.SSH')
-    def test_undeploy(self, mock_ssh, mock_libvirt):
+    def test_undeploy(self, *_):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -183,9 +186,10 @@ class OvsDpdkContextTestCase(unittest.TestCase):
 
         self.ovs_dpdk.vm_deploy = True
         self.ovs_dpdk.connection = ssh_mock
+        self.ovs_dpdk.dpdk_bind_helper = mock.Mock(autospec=DpdkBindHelper)
         self.ovs_dpdk.vm_names = ['vm_0', 'vm_1']
         self.ovs_dpdk.drivers = ['vm_0', 'vm_1']
-        self.ovs_dpdk.cleanup_ovs_dpdk_env = mock.Mock()
+        self.ovs_dpdk._cleanup_ovs_dpdk_env = mock.Mock()
         self.ovs_dpdk.networks = self.NETWORKS
         self.assertIsNone(self.ovs_dpdk.undeploy())
 
@@ -208,14 +212,15 @@ class OvsDpdkContextTestCase(unittest.TestCase):
 
         self.assertEqual(result, None)
 
-    def test__get_server_not_found(self):
+    @mock.patch('yardstick.benchmark.contexts.standalone.ovs_dpdk.model')
+    def test__get_server_not_found(self, mock_model):
 
         attrs = {
             'name': 'foo',
             'file': self._get_file_abspath(self.NODES_ovs_dpdk_SAMPLE)
         }
 
-        self.ovs_dpdk.helper.parse_pod_file = mock.Mock(return_value=[{}, {}, {}])
+        mock_model.parse_pod_file.return_value = [{}, {}, {}]
         self.ovs_dpdk.init(attrs)
 
         attr_name = 'bar.foo'
@@ -311,23 +316,7 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         result = self.ovs_dpdk._get_network(attr_name)
         self.assertDictEqual(result, expected)
 
-    def test_configure_nics_for_ovs_dpdk(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "a", ""))
-            ssh.return_value = ssh_mock
-        self.ovs_dpdk.vm_deploy = True
-        self.ovs_dpdk.connection = ssh_mock
-        self.ovs_dpdk.vm_names = ['vm_0', 'vm_1']
-        self.ovs_dpdk.drivers = []
-        self.ovs_dpdk.networks = self.NETWORKS
-        self.ovs_dpdk.helper.get_mac_address = mock.Mock(return_value="")
-        self.ovs_dpdk.get_vf_datas = mock.Mock(return_value="")
-        self.assertIsNone(self.ovs_dpdk.configure_nics_for_ovs_dpdk())
-
-    @mock.patch('yardstick.benchmark.contexts.standalone.ovs_dpdk.Libvirt')
-    def test__enable_interfaces(self, mock_add_ovs_interface):
+    def test__configure_nics(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -339,11 +328,25 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk.drivers = []
         self.ovs_dpdk.networks = self.NETWORKS
         self.ovs_dpdk.get_vf_datas = mock.Mock(return_value="")
-        self.assertIsNone(self.ovs_dpdk._enable_interfaces(0, ["private_0"], 'test'))
+        self.assertIsNone(self.ovs_dpdk._configure_nics())
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.ovs_dpdk.Libvirt')
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.Server')
-    def test_setup_ovs_dpdk_context(self, mock_server, mock_libvirt):
+    @mock.patch('yardstick.benchmark.contexts.standalone.ovs_dpdk.model')
+    def test__enable_interfaces(self, _):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, "a", ""))
+            ssh.return_value = ssh_mock
+        self.ovs_dpdk.vm_deploy = True
+        self.ovs_dpdk.connection = ssh_mock
+        self.ovs_dpdk.vm_names = ['vm_0', 'vm_1']
+        self.ovs_dpdk.drivers = []
+        self.ovs_dpdk.networks = self.NETWORKS
+        self.ovs_dpdk.get_vf_datas = mock.Mock(return_value="")
+        self.assertIsNone(self.ovs_dpdk._enable_interfaces(0, 0, ["private_0"], 'test'))
+
+    @mock.patch('yardstick.benchmark.contexts.standalone.base.model')
+    def test_setup_context(self, mock_libvirt):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -367,11 +370,10 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk.networks = self.NETWORKS
         self.ovs_dpdk.host_mgmt = {}
         self.ovs_dpdk.flavor = {}
-        self.ovs_dpdk.configure_nics_for_ovs_dpdk = mock.Mock(return_value="")
+        self.ovs_dpdk._configure_nics_for_ovs_dpdk = mock.Mock(return_value="")
         mock_libvirt.check_if_vm_exists_and_delete = mock.Mock(return_value="")
         mock_libvirt.build_vm_xml = mock.Mock(return_value=[6, "00:00:00:00:00:01"])
         self.ovs_dpdk._enable_interfaces = mock.Mock(return_value="")
         mock_libvirt.virsh_create_vm = mock.Mock(return_value="")
-        mock_libvirt.pin_vcpu_for_perf= mock.Mock(return_value="")
-        self.ovs_dpdk.vnf_node.generate_vnf_instance = mock.Mock(return_value={})
-        self.assertIsNotNone(self.ovs_dpdk.setup_ovs_dpdk_context())
+        mock_libvirt.pin_vcpu_for_perf = mock.Mock(return_value="")
+        self.assertIsNotNone(self.ovs_dpdk.setup_context())

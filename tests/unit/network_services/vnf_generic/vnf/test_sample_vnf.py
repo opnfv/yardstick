@@ -27,7 +27,6 @@ from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from tests.unit import STL_MOCKS
 from yardstick.benchmark.contexts.base import Context
 from yardstick.network_services.nfvi.resource import ResourceProfile
-from yardstick.network_services.traffic_profile.base import TrafficProfile
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 
 
@@ -569,9 +568,9 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
             self.assertIn(expect_in, arg0)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.find_relative_file')
+    @mock.patch('yardstick.benchmark.contexts.base.utils.FilePathWrapper.get_path')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig')
-    def test_build_config(self, mock_multi_port_config_class, mock_find, _):
+    def test_build_config(self, mock_multi_port_config_class, mock_get_path, _):
         mock_multi_port_config = mock_multi_port_config_class()
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
@@ -584,7 +583,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = dpdk_setup_helper.build_config()
         self.assertEqual(result, expected)
         self.assertGreaterEqual(ssh_helper.upload_config_file.call_count, 2)
-        self.assertGreaterEqual(mock_find.call_count, 1)
+        self.assertGreaterEqual(mock_get_path.call_count, 1)
         self.assertGreaterEqual(mock_multi_port_config.generate_config.call_count, 1)
         self.assertGreaterEqual(mock_multi_port_config.generate_script.call_count, 1)
 
@@ -610,8 +609,8 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
     @mock.patch('yardstick.ssh.SSH')
-    def test_setup_vnf_environment(self, _, mock_time):
-        def execute(cmd, *args, **kwargs):
+    def test_setup_vnf_environment(self, *_):
+        def execute(cmd, *_, **__):
             if cmd.startswith('which '):
                 return exec_failure
             return exec_success
@@ -643,7 +642,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
 
     @mock.patch('yardstick.ssh.SSH')
     def test__setup_dpdk_short(self, _):
-        def execute_side(cmd, *args, **kwargs):
+        def execute_side(cmd, *_, **__):
             if 'joined_path' in cmd:
                 return 0, 'output', ''
             return 1, 'bad output', 'error output'
@@ -691,7 +690,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         self.assertEqual(dpdk_setup_helper.socket, 1)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
-    def test__detect_and_bind_drivers(self, mock_time):
+    def test__detect_and_bind_drivers(self, _):
         vnfd_helper = VnfdHelper(deepcopy(self.VNFD_0))
         ssh_helper = mock.Mock()
         # ssh_helper.execute = mock.Mock(return_value = (0, 'text', ''))
@@ -1002,7 +1001,7 @@ class TestClientResourceHelper(unittest.TestCase):
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.LOG')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.STLError',
                 new_callable=lambda: MockError)
-    def test_get_stats_not_connected(self, mock_state_error, mock_logger):
+    def test_get_stats_not_connected(self, mock_state_error, _):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
@@ -1221,7 +1220,7 @@ class TestClientResourceHelper(unittest.TestCase):
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.LOG')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.STLError',
                 new_callable=lambda: MockError)
-    def test__connect_with_failures(self, mock_error, mock_logger, mock_time):
+    def test__connect_with_failures(self, mock_error, *_):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
@@ -1393,7 +1392,7 @@ class TestSampleVNFDeployHelper(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
     @mock.patch('subprocess.check_output')
-    def test_deploy_vnfs_disabled(self, mock_check_output, mock_time):
+    def test_deploy_vnfs_disabled(self, *_):
         vnfd_helper = mock.Mock()
         ssh_helper = mock.Mock()
         ssh_helper.join_bin_path.return_value = 'joined_path'
@@ -1408,7 +1407,7 @@ class TestSampleVNFDeployHelper(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
     @mock.patch('subprocess.check_output')
-    def test_deploy_vnfs(self, mock_check_output, mock_time):
+    def test_deploy_vnfs(self, *_):
         vnfd_helper = mock.Mock()
         ssh_helper = mock.Mock()
         ssh_helper.join_bin_path.return_value = 'joined_path'
@@ -1422,7 +1421,7 @@ class TestSampleVNFDeployHelper(unittest.TestCase):
         self.assertEqual(ssh_helper.put.call_count, 1)
 
     @mock.patch('subprocess.check_output')
-    def test_deploy_vnfs_early_success(self, mock_check_output):
+    def test_deploy_vnfs_early_success(self, _):
         vnfd_helper = mock.Mock()
         ssh_helper = mock.Mock()
         ssh_helper.join_bin_path.return_value = 'joined_path'
@@ -1700,7 +1699,7 @@ class TestSampleVnf(unittest.TestCase):
         self.assertEqual(result, expected)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.Process')
-    def test__start_vnf(self, mock_process_type):
+    def test__start_vnf(self, _):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         sample_vnf = SampleVNF('vnf1', vnfd)
         sample_vnf._run = mock.Mock()
@@ -1754,7 +1753,7 @@ class TestSampleVnf(unittest.TestCase):
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch("yardstick.ssh.SSH")
-    def test_wait_for_instantiate_empty_queue(self, ssh, mock_time):
+    def test_wait_for_instantiate_empty_queue(self, ssh, _):
         mock_ssh(ssh, exec_result=(1, "", ""))
 
         queue_size_list = [
@@ -1798,7 +1797,7 @@ class TestSampleVnf(unittest.TestCase):
         self.assertIsNotNone(sample_vnf.my_ports)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
-    def test_vnf_execute_with_queue_data(self, mock_time):
+    def test_vnf_execute_with_queue_data(self, _):
         queue_size_list = [
             1,
             1,
@@ -1843,7 +1842,7 @@ class TestSampleVnf(unittest.TestCase):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         sample_vnf = SampleVNF('vnf1', vnfd)
         sample_vnf.APP_NAME = 'sample1'
-        sample_vnf.COLLECT_KPI = '\s(\d+)\D*(\d+)\D*(\d+)'
+        sample_vnf.COLLECT_KPI = r'\s(\d+)\D*(\d+)\D*(\d+)'
         sample_vnf.COLLECT_MAP = {
             'k1': 3,
             'k2': 1,
@@ -1866,7 +1865,7 @@ class TestSampleVnf(unittest.TestCase):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         sample_vnf = SampleVNF('vnf1', vnfd)
         sample_vnf.APP_NAME = 'sample1'
-        sample_vnf.COLLECT_KPI = '\s(\d+)\D*(\d+)\D*(\d+)'
+        sample_vnf.COLLECT_KPI = r'\s(\d+)\D*(\d+)\D*(\d+)'
         sample_vnf.get_stats = mock.Mock(return_value='')
 
         expected = {
