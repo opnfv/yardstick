@@ -85,10 +85,17 @@ class GetParaFromYaml(unittest.TestCase):
     @mock.patch('yardstick.common.utils.os.environ.get')
     def test_get_param_para_exists(self, get_env):
         file_path = 'config_sample.yaml'
-        get_env.return_value = self._get_file_abspath(file_path)
-        args = 'releng.dir'
-        para = '/home/opnfv/repos/releng'
-        self.assertEqual(para, constants.get_param(args))
+        # CONF must be re-initialized, because it is populated when constants module is
+        # imported. Then the config_sample.yaml wouldn't be used at all.
+        tmp_conf = constants.CONF
+        constants.CONF = {}
+        try:
+            get_env.return_value = self._get_file_abspath(file_path)
+            args = 'releng.dir'
+            para = '/home/opnfv/repos/releng'
+            self.assertEqual(para, constants.get_param(args))
+        finally:
+            constants.CONF = tmp_conf
 
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
@@ -775,7 +782,7 @@ class RemoveFileTestCase(unittest.TestCase):
     def test_remove_file(self):
         try:
             utils.remove_file('notexistfile.txt')
-        except Exception as e:
+        except Exception as e: # pylint: disable=broad-except
             self.assertTrue(isinstance(e, OSError))
 
 
@@ -796,7 +803,7 @@ class TestUtils(unittest.TestCase):
         with self.assertRaises(OSError):
             utils.makedirs('a/b/c/d')
 
-    @mock.patch('yardstick.common.utils.jsonify')
+    @mock.patch('yardstick.common.utils.flask.jsonify')
     def test_result_handler(self, mock_jsonify):
         mock_jsonify.return_value = 432
 
@@ -997,7 +1004,7 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
             self.assertEqual(utils.safe_ip_address(addr), expected, addr)
 
     @mock.patch("yardstick.common.utils.logging")
-    def test_safe_ip_address_negative(self, mock_logging):
+    def test_safe_ip_address_negative(self, _):
         for value in self.INVALID_IP_ADDRESS_STR_LIST:
             self.assertIsNone(utils.safe_ip_address(value), value)
 
@@ -1026,7 +1033,7 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
             self.assertEqual(utils.get_ip_version(addr), 6, addr)
 
     @mock.patch("yardstick.common.utils.logging")
-    def test_get_ip_version_negative(self, mock_logging):
+    def test_get_ip_version_negative(self, _):
         for value in self.INVALID_IP_ADDRESS_STR_LIST:
             self.assertIsNone(utils.get_ip_version(value), value)
 
@@ -1055,12 +1062,78 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
             self.assertEqual(utils.ip_to_hex(value), value)
 
     @mock.patch("yardstick.common.utils.logging")
-    def test_ip_to_hex_negative(self, mock_logging):
+    def test_ip_to_hex_negative(self, _):
         addr_list = self.GOOD_IP_V4_ADDRESS_STR_LIST
         mask_list = self.GOOD_IP_V4_MASK_STR_LIST
         value_iter = (''.join(pair) for pair in product(addr_list, mask_list))
         for value in chain(value_iter, self.INVALID_IP_ADDRESS_STR_LIST):
             self.assertEqual(utils.ip_to_hex(value), value)
+
+
+class TestFilePathWrapper(unittest.TestCase):
+
+    def test_open_relative_path(self):
+        mock_open = mock.mock_open()
+        mock_open_result = mock_open()
+        mock_open_call_count = 1  # initial call to get result
+
+        module_name = 'yardstick.common.utils.open'
+
+        # test
+        with mock.patch(module_name, mock_open, create=True):
+            wrapper1 = utils.FilePathWrapper('foo', 'bar')
+            self.assertEqual(wrapper1.get_path(), os.path.abspath('foo'))
+
+            mock_open_call_count += 1  # one more call expected
+            self.assertEqual(mock_open.call_count, mock_open_call_count)
+            self.assertIn('foo', mock_open.call_args_list[-1][0][0])
+            self.assertNotIn('bar', mock_open.call_args_list[-1][0][0])
+
+            expected = os.path.abspath(os.path.join('bar', 'foo'))
+            def open_effect(*args, **kwargs):
+                if kwargs.get('name', args[0]) == expected:
+                    return mock_open_result
+                raise IOError(errno.ENOENT, 'not found')
+
+            mock_open.side_effect = open_effect
+            wrapper2 = utils.FilePathWrapper('foo', 'bar')
+            self.assertEqual(wrapper2.get_path(), expected)
+            self.assertNotEqual(wrapper1.path, wrapper2.path)
+
+            wrapper2.get_data()
+
+            mock_open_call_count += 2  # two more calls expected
+            self.assertEqual(mock_open.call_count, mock_open_call_count)
+            self.assertIn('foo', mock_open.call_args_list[-1][0][0])
+            self.assertIn('bar', mock_open.call_args_list[-1][0][0])
+
+            # test an IOError of type ENOENT
+            mock_open.side_effect = IOError(errno.ENOENT, 'not found')
+            wrapper3 = utils.FilePathWrapper('foo', 'bar')
+            with self.assertRaises(IOError):
+                # the second call still raises
+                wrapper3.get_path()
+
+            mock_open_call_count += 2  # two more calls expected
+            self.assertEqual(mock_open.call_count, mock_open_call_count)
+            self.assertIn('foo', mock_open.call_args_list[-1][0][0])
+            self.assertIn('bar', mock_open.call_args_list[-1][0][0])
+
+            # test an IOError other than ENOENT
+            mock_open.side_effect = IOError(errno.EBUSY, 'busy')
+            wrapper4 = utils.FilePathWrapper('foo', 'bar')
+            with self.assertRaises(IOError):
+                wrapper4.get_path()
+
+            mock_open_call_count += 1  # one more call expected
+            self.assertEqual(mock_open.call_count, mock_open_call_count)
+
+    @mock.patch('yardstick.common.utils.yaml_loader.yaml_load')
+    @mock.patch('yardstick.common.utils.jsonutils.loads')
+    def test_subclasses(self, *_):
+        utils.YamlFilePathWrapper('/some/path')
+        utils.JsonFilePathWrapper('/some/path')
+
 
 
 def main():

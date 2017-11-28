@@ -125,7 +125,7 @@ class TrexResourceHelper(ClientResourceHelper):
         ko_src = os.path.join(trex_path, "scripts/ko/src/")
         self.ssh_helper.execute(self.MAKE_INSTALL.format(ko_src))
 
-    def start(self, ports=None, *args, **kwargs):
+    def start(self, ports=None, *args, **kwargs): # pylint: disable=keyword-arg-before-vararg
         cmd = "sudo fuser -n tcp {0.SYNC_PORT} {0.ASYNC_PORT} -k > /dev/null 2>&1"
         self.ssh_helper.execute(cmd.format(self))
 

@@ -98,6 +98,20 @@ class SSHTimeout(SSHError):
     pass
 
 
+class SSHCommandError(SSHError):
+    def __init__(self, msg, status):
+        super(SSHCommandError, self).__init__()
+        print("SSH execute returned status {}:".format(status[0]))
+        print(msg)
+        print(80 * "-")
+        if status[1]:
+            print(status[1])
+            print(80 * "-")
+        if status[2]:
+            print(status[2])
+            print(80 * "-")
+
+
 class SSH(object):
     """Represent ssh connection."""
 
@@ -287,7 +301,7 @@ class SSH(object):
 
         while True:
             # Block until data can be read/write.
-            r, w, e = select.select([session], writes, [session], 1)
+            _, _, e = select.select([session], writes, [session], 1)
 
             if session.recv_ready():
                 data = encodeutils.safe_decode(session.recv(4096), 'utf-8')
@@ -371,7 +385,7 @@ class SSH(object):
                 self.log.debug("Ssh is still unavailable: %r", e)
                 time.sleep(interval)
             if time.time() > (start_time + timeout):
-                raise SSHTimeout("Timeout waiting for '%s'", self.host)
+                raise SSHTimeout("Timeout waiting for '%s'" % self.host)
 
     def put(self, files, remote_path=b'.', recursive=False):
         client = self._get_client()
