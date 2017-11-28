@@ -305,14 +305,14 @@ class TestCgnaptApproxVnf(unittest.TestCase):
     def setUp(self):
         self.scenario_cfg = deepcopy(self.SCENARIO_CFG)
 
-    def test___init__(self, mock_process):
+    def test___init__(self, _):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
         self.assertIsNone(cgnapt_approx_vnf._vnf_process)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh, mock_time, mock_process):
+    def test_collect_kpi(self, ssh, *_):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -328,7 +328,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
     @mock.patch(SSH_HELPER)
-    def test_vnf_execute_command(self, ssh, mock_time, mock_process):
+    def test_vnf_execute_command(self, ssh, *_):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -340,7 +340,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         self.assertEqual("", cgnapt_approx_vnf.vnf_execute(cmd))
 
     @mock.patch(SSH_HELPER)
-    def test_get_stats(self, ssh, mock_process):
+    def test_get_stats(self, ssh, _):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -362,7 +362,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
     @mock.patch("yardstick.network_services.vnf_generic.vnf.cgnapt_vnf.eval")
     @mock.patch('yardstick.network_services.vnf_generic.vnf.cgnapt_vnf.open')
     @mock.patch(SSH_HELPER)
-    def test_run_vcgnapt(self, ssh, mock_hex, mock_eval, mock_open, mock_process):
+    def test_run_vcgnapt(self, ssh, *_):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -377,7 +377,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_instantiate(self, ssh, mock_context, mock_process):
+    def test_instantiate(self, ssh, *_):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -393,7 +393,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         self.assertIsNone(cgnapt_approx_vnf.instantiate(self.scenario_cfg,
                                                         self.context_cfg))
 
-    def test_scale(self, mock_process):
+    def test_scale(self, _):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
         flavor = ""
@@ -401,7 +401,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
-    def test_terminate(self, ssh, mock_time, mock_process):
+    def test_terminate(self, ssh, *_):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -411,13 +411,12 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         cgnapt_approx_vnf.used_drivers = {"01:01.0": "i40e",
                                           "01:01.1": "i40e"}
         cgnapt_approx_vnf.vnf_execute = mock.MagicMock()
-        cgnapt_approx_vnf.dpdk_nic_bind = "dpdk_nic_bind.py"
         cgnapt_approx_vnf._resource_collect_stop = mock.Mock()
         self.assertEqual(None, cgnapt_approx_vnf.terminate())
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
-    def test__vnf_up_post(self, ssh, mock_time, mock_process):
+    def test__vnf_up_post(self, ssh, *_):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -433,7 +432,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
-    def test__vnf_up_post_short(self, ssh, mock_time, mock_process):
+    def test__vnf_up_post_short(self, ssh, *_):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]

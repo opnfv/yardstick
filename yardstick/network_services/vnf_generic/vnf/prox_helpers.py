@@ -31,9 +31,11 @@ import six
 from six.moves import cStringIO
 from six.moves import zip, StringIO
 
-from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
 from yardstick.common import utils
-from yardstick.common.utils import SocketTopology, join_non_strings, try_int
+from yardstick.common.utils import SocketTopology
+from yardstick.common.utils import join_non_strings
+from yardstick.common.utils import try_int
+from yardstick.common.utils import FilePathWrapper
 from yardstick.network_services.helpers.iniparser import ConfigParser
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
@@ -363,9 +365,9 @@ class ProxSocketHelper(object):
         """ send data to the remote instance """
         LOG.debug("Sending data to socket: [%s]", to_send.rstrip('\n'))
         try:
-            # TODO: sendall will block, we need a timeout
+            # TODO: sendall will block, we need a timeout pylint: disable=fixme
             self._sock.sendall(to_send.encode('utf-8'))
-        except:
+        except socket.error:
             pass
 
     def get_packet_dump(self):
@@ -537,7 +539,7 @@ class ProxSocketHelper(object):
         try:
             yield container
         finally:
-            container['end_tot'] = end = self.get_all_tot_stats()
+            container['end_tot'] = end = self.get_all_tot_stats() # pylint: disable=unused-variable
 
         container['delta'] = TotStatsTuple(end - start for start, end in zip(start, end))
 
@@ -685,14 +687,13 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
                 if port_section_name != section_name:
                     continue
 
-                for index, section_data in enumerate(section):
+                for section_data in section:
                     if section_data[0] == "mac":
                         section_data[1] = "hardware"
 
         # search for dst mac
         for _, section in sections:
-            # for index, (item_key, item_val) in enumerate(section):
-            for index, section_data in enumerate(section):
+            for section_data in section:
                 item_key, item_val = section_data
                 if item_val.startswith("@@dst_mac"):
                     tx_port_iter = re.finditer(r'\d+', item_val)
@@ -713,14 +714,14 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
             return sections
 
         for section_name, section in sections:
-            for index, section_data in enumerate(section):
+            for section_data in section:
                 try:
                     if section_data[0].startswith("dofile"):
                         section_data[0] = self._insert_additional_file(section_data[0])
 
                     if section_data[1].startswith("dofile"):
                         section_data[1] = self._insert_additional_file(section_data[1])
-                except:
+                except: # pylint: disable=bare-except
                     pass
 
         return sections
@@ -753,9 +754,9 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         a custom method
         """
         out = []
-        for i, (section_name, section) in enumerate(prox_config):
+        for section_name, section in prox_config:
             out.append("[{}]".format(section_name))
-            for index, item in enumerate(section):
+            for item in section:
                 key, value = item
                 if key == "__name__":
                     continue
@@ -807,7 +808,7 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         options = self.scenario_helper.options
         config_path = options['prox_config']
         config_file = os.path.basename(config_path)
-        config_path = find_relative_file(config_path, task_path)
+        config_path = FilePathWrapper(config_path, task_path).get_path()
         self.additional_files = {}
 
         try:
@@ -816,7 +817,7 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
                 self.lua = self.generate_prox_lua_file()
                 if len(self.lua) > 0:
                     self.upload_prox_lua("parameters.lua", self.lua)
-        except:
+        except: # pylint: disable=bare-except
             pass
 
         prox_files = options.get('prox_files', [])
@@ -824,7 +825,7 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
             prox_files = [prox_files]
         for key_prox_file in prox_files:
             base_prox_file = os.path.basename(key_prox_file)
-            key_prox_path = find_relative_file(key_prox_file, task_path)
+            key_prox_path = FilePathWrapper(key_prox_file, task_path).get_path()
             remote_prox_file = self.copy_to_target(key_prox_path, base_prox_file)
             self.additional_files[base_prox_file] = remote_prox_file
 
@@ -1057,7 +1058,7 @@ class ProxDataHelper(object):
         self.tsc_hz = float(self.sut.hz())
 
     def line_rate_to_pps(self):
-        # FIXME Don't hardcode 10Gb/s
+        # FIXME Don't hardcode 10Gb/s  pylint: disable=fixme
         return self.port_count * TEN_GIGABIT / BITS_PER_BYTE / (self.pkt_size + 20)
 
 
@@ -1658,7 +1659,7 @@ class ProxlwAFTRProfileHelper(ProxProfileHelper):
         tun_ports = []
         inet_ports = []
 
-        re_port = re.compile('port (\d+)')
+        re_port = re.compile(r'port (\d+)')
         for section_name, section in self.resource_helper.setup_helper.prox_config_data:
             match = re_port.search(section_name)
             if not match:

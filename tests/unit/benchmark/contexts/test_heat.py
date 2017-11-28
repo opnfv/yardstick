@@ -56,12 +56,14 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertIsNotNone(self.test_context.key_uuid)
         self.assertIsNotNone(self.test_context.key_filename)
 
+    @mock.patch('yardstick.benchmark.contexts.heat.source_env')
+    @mock.patch('yardstick.benchmark.contexts.heat.Server')
+    @mock.patch('yardstick.benchmark.contexts.heat.os.environ')
     @mock.patch('yardstick.benchmark.contexts.heat.PlacementGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.ServerGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.Network')
-    @mock.patch('yardstick.benchmark.contexts.heat.Server')
-    def test_init(self, mock_server, mock_network, mock_sg, mock_pg):
-
+    def test_init(self, mock_network, mock_sg, mock_pg, mock_env, mock_server, *_):
+        mock_env.side_effect = KeyError()
         pgs = {'pgrp1': {'policy': 'availability'}}
         sgs = {'servergroup1': {'policy': 'affinity'}}
         networks = {'bar': {'cidr': '10.0.1.0/24'}}
@@ -118,7 +120,6 @@ class HeatContextTestCase(unittest.TestCase):
             "foo-key",
             "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b")
         mock_template.add_security_group.assert_called_with("foo-secgroup")
-#        mock_template.add_network.assert_called_with("bar-fool-network", 'physnet1', None)
         mock_template.add_router.assert_called_with("bar-fool-network-router",
                                                     netattrs["external_network"],
                                                     "bar-fool-network-subnet")
@@ -127,7 +128,7 @@ class HeatContextTestCase(unittest.TestCase):
                                                               "bar-fool-network-subnet")
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
-    def test_attrs_get(self, mock_template):
+    def test_attrs_get(self, _):
         image, flavor, user = expected_tuple = 'foo1', 'foo2', 'foo3'
         self.assertNotEqual(self.test_context.image, image)
         self.assertNotEqual(self.test_context.flavor, flavor)
@@ -139,7 +140,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertEqual(attr_tuple, expected_tuple)
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
-    def test_attrs_set_negative(self, mock_template):
+    def test_attrs_set_negative(self, _):
         with self.assertRaises(AttributeError):
             self.test_context.image = 'foo'
 
@@ -233,7 +234,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertIsNone(self.test_context.undeploy())
 
     @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
-    def test__get_server_found_dict(self, mock_pkg_resources):
+    def test__get_server_found_dict(self, _):
         """
         Use HeatContext._get_server to get a server that matches
         based on a dictionary input.
@@ -274,7 +275,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertEqual(result['private_ip'], '10.0.0.1')
 
     @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
-    def test__get_server_found_dict_no_attrs(self, mock_pkg_resources):
+    def test__get_server_found_dict_no_attrs(self, _):
         """
         Use HeatContext._get_server to get a server that matches
         based on a dictionary input.
@@ -313,7 +314,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertNotIn('ip', result)
 
     @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
-    def test__get_server_found_not_dict(self, mock_pkg_resources):
+    def test__get_server_found_not_dict(self, _):
         """
         Use HeatContext._get_server to get a server that matches
         based on a non-dictionary input
@@ -350,7 +351,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertNotIn('public_ip', result)
 
     @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
-    def test__get_server_none_found_not_dict(self, mock_pkg_resources):
+    def test__get_server_none_found_not_dict(self, _):
         """
         Use HeatContext._get_server to not get a server due to
         None value associated with the match to a non-dictionary
@@ -384,7 +385,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertIsNone(result)
 
     @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
-    def test__get_server_not_found_dict(self, mock_pkg_resources):
+    def test__get_server_not_found_dict(self, _):
         """
         Use HeatContext._get_server to not get a server for lack
         of a match to a dictionary input
@@ -420,7 +421,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertIsNone(result)
 
     @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
-    def test__get_server_not_found_not_dict(self, mock_pkg_resources):
+    def test__get_server_not_found_not_dict(self, _):
         """
         Use HeatContext._get_server to not get a server for lack
         of a match to a non-dictionary input
