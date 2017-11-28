@@ -1,0 +1,25 @@
+# Copyright (c) 2017 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- hosts: standalone, ovs, sriov
+  # takes the following parameters:
+  # vm_path:  where the iso images should be stored, /var/lib/yardstick/vm<item> by default
+  # vm_count: number of vm instances to create iso images for
+  # proxy_env: dictionary with proxy environment (http_proxy, https_proxy, no_proxy)
+  # mgmt_addr: address of the management interface of the host of the VMs (example: 1.1.1.2/8)
+  # vm_address_offset: starting IP address from the mgmt_addr/24 network. (example: 100,
+  #                    meaning addresses 1.1.1.100, 1.1.1.101, ...)
+  #
+  roles:
+    - build_cloudinit_iso_images

@@ -1135,7 +1135,6 @@ class TestFilePathWrapper(unittest.TestCase):
         utils.JsonFilePathWrapper('/some/path')
 
 
-
 def main():
     unittest.main()
 
