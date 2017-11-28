@@ -382,6 +382,45 @@ class StandaloneModelTestCase(unittest.TestCase):
                                              'vm_0', vnf, '00:00:00:00:00:01')
         self.assertIsNotNone(status)
 
+    def test_add_nodata_source(self):
+        xml_path = '/local/xmlfile'
+        image_path = '/path/to/image'
+        xml = copy.deepcopy(self.xml)
+
+        with mock.patch.object(ElementTree, 'parse', return_value=xml) as mock_parse:
+            model.add_nodata_source(xml_path, image_path)
+
+        mock_parse.assert_called_once_with(xml_path)
+        self.mock_write_xml.assert_called_once_with(xml_path)
+
+        cdrom = None
+        for a_device in xml.find('devices').iter(tag='disk'):
+            if a_device.get('device') == 'cdrom':
+                cdrom = a_device
+
+        self.assertIsNotNone(cdrom)
+        self.assertEqual(cdrom.get('type'), 'file')
+        self.assertIsNotNone(cdrom.find('readonly'))
+
+        expected_pairs = {
+            'driver': [
+                ('name', 'qemu'),
+                ('type', 'raw'),
+            ],
+            'source': [
+                ('file', image_path),
+            ],
+            'target': [
+                ('bus', 'virtio'),
+                ('dev', 'vdb'),
+            ],
+        }
+
+        for element_name, pairs in expected_pairs.items():
+            element = cdrom.find(element_name)
+            for attribute, value in pairs:
+                self.assertEqual(element.get(attribute), value)
+
 
 class OvsDeployTestCase(unittest.TestCase):
 

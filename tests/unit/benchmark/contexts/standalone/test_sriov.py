@@ -20,6 +20,7 @@ import os
 import unittest
 import mock
 
+from yardstick.common import utils
 from yardstick.benchmark.contexts.standalone import sriov
 
 
@@ -64,7 +65,14 @@ class SriovContextTestCase(unittest.TestCase):
     }
 
     def setUp(self):
+        self.method_calls_order_enabled = utils.MethodCallsOrder.ENABLED
+        utils.MethodCallsOrder.ENABLED = False
+        self.addCleanup(self._cleanup)
+
         self.sriov = sriov.SriovContext()
+
+    def _cleanup(self):
+        utils.MethodCallsOrder.ENABLED = self.method_calls_order_enabled
 
     def test___init__(self):
         # NOTE(ralonsoh): this test doesn't cover function execution.
@@ -74,7 +82,7 @@ class SriovContextTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.benchmark.contexts.standalone.base.model')
     def test_init(self, mock_model):
-        mock_model.parse_pod_file.return_value = [{}, {}, {}]
+        mock_model.parse_pod_file.return_value = [{}, [{}], {}]
         self.assertIsNone(self.sriov.init(self.ATTRS))
 
     @mock.patch('yardstick.benchmark.contexts.standalone.base.DpdkBindHelper')
@@ -297,6 +305,8 @@ class SriovContextTestCase(unittest.TestCase):
         self.sriov.configure_nics = mock.Mock(return_value="")
         mock_libvirt.build_vm_xml = mock.Mock(return_value=[6, "00:00:00:00:00:01"])
         self.sriov._enable_interfaces = mock.Mock(return_value="")
+        self.sriov.cloud_init = mock.Mock()
+        self.sriov.cloud_init.enabled.return_value = True
         self.assertIsNotNone(self.sriov.setup_context())
 
     def test__get_vf_data(self):

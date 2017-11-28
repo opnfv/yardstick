@@ -1135,6 +1135,79 @@ class TestFilePathWrapper(unittest.TestCase):
         utils.JsonFilePathWrapper('/some/path')
 
 
+class DummyClass(object):
+    METHODS_ORDER = ['method1', 'method2', 'method3']
+
+    def __init__(self):
+        utils.MethodCallsOrder.add(self, self.METHODS_ORDER)
+        self.method1_calls = 0
+        self.method2_calls = 0
+        self.method3_calls = 0
+
+    @utils.MethodCallsOrder.validate
+    def method1(self):
+        self.method1_calls += 1
+
+    @utils.MethodCallsOrder.validate
+    def method2(self):
+        self.method2_calls += 1
+
+    @utils.MethodCallsOrder.validate
+    def method3(self):
+        self.method3_calls += 1
+
+
+class TestMethodCallsOrder(unittest.TestCase):
+    def setUp(self):
+        self.method_calls_order_enabled = utils.MethodCallsOrder.ENABLED
+        self.method_calls_order_instances = utils.MethodCallsOrder._INSTANCES
+        self.addCleanup(self._cleanup)
+        utils.MethodCallsOrder.ENABLED = True
+        utils.MethodCallsOrder._INSTANCES = {}
+
+        self.dummy = DummyClass()
+
+    def _cleanup(self):
+        utils.MethodCallsOrder.ENABLED = self.method_calls_order_enabled
+        utils.MethodCallsOrder._INSTANCES = self.method_calls_order_instances
+        self.dummy = None
+
+    def test_validate_cleanup(self):
+        self.dummy.method1()
+        self.dummy.method2()
+        self.dummy.method3()
+
+        self.assertEqual({}, utils.MethodCallsOrder._INSTANCES)
+        self.assertEqual(self.dummy.method1_calls, 1)
+        self.assertEqual(self.dummy.method2_calls, 1)
+        self.assertEqual(self.dummy.method3_calls, 1)
+
+    def test_validate_wrong_order(self):
+
+        with self.assertRaises(utils.MethodCallsOrderException):
+            self.dummy.method1()
+            self.dummy.method3()
+            self.dummy.method2()
+
+        self.assertEqual(self.dummy.method1_calls, 1)
+        self.assertEqual(self.dummy.method2_calls, 0)
+        self.assertEqual(self.dummy.method3_calls, 0)
+
+        utils.MethodCallsOrder.clean(self.dummy)
+        self.assertEqual({}, utils.MethodCallsOrder._INSTANCES)
+
+    def test_validate_interleaved_instances(self):
+        self.dummy2 = DummyClass()
+
+        self.dummy.method1()
+        self.dummy.method2()
+        self.dummy2.method1()
+        self.dummy.method3()
+        self.dummy2.method2()
+        self.dummy2.method3()
+
+        self.assertEqual({}, utils.MethodCallsOrder._INSTANCES)
+
 
 def main():
     unittest.main()
