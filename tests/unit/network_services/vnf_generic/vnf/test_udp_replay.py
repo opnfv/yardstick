@@ -22,6 +22,7 @@ import mock
 import os
 
 from tests.unit import STL_MOCKS
+from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
 
 
@@ -31,10 +32,8 @@ stl_patch.start()
 
 if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.udp_replay import UdpReplayApproxVnf
-    from yardstick.network_services.nfvi.resource import ResourceProfile
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import ScenarioHelper
 
-from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
 
@@ -437,8 +436,6 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
     def test_instantiate(self, ssh, *_):
         mock_ssh(ssh)
 
-        resource = mock.Mock(autospec=ResourceProfile)
-
         udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
         udp_replay_approx_vnf.q_out.put("Replay>")
         udp_replay_approx_vnf.WAIT_TIME = 0
@@ -482,7 +479,6 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         udp_replay_approx_vnf._vnf_process = mock.MagicMock()
         udp_replay_approx_vnf._vnf_process.terminate = mock.Mock()
         udp_replay_approx_vnf.used_drivers = {"01:01.0": "i40e", "01:01.1": "i40e"}
-        udp_replay_approx_vnf.dpdk_nic_bind = "dpdk_nic_bind.py"
         self.assertEqual(None, udp_replay_approx_vnf.terminate())
 
 if __name__ == '__main__':

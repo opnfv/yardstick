@@ -161,7 +161,7 @@ class TestIXIATrafficGen(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ixnet_traffic_gen = IxiaTrafficGen(NAME, vnfd)
+            IxiaTrafficGen(NAME, vnfd)
 
     def test_listen_traffic(self, mock_ixnextgen):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -347,7 +347,7 @@ class TestIXIATrafficGen(unittest.TestCase):
             'task_path': '/path/to/task'
         }
 
-        @mock.patch('yardstick.benchmark.scenarios.networking.vnf_generic.open', create=True)
+        @mock.patch('yardstick.common.utils.open', create=True)
         @mock.patch('yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.open',
                     mock.mock_open(), create=True)
         @mock.patch('yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.LOG.exception')

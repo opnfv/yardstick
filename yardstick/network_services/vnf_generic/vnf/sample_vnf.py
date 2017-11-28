@@ -27,7 +27,7 @@ from multiprocessing import Queue, Value, Process
 from six.moves import cStringIO
 
 from yardstick.benchmark.contexts.base import Context
-from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
+from yardstick.common.utils import FilePathWrapper
 from yardstick.common.process import check_if_process_failed
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
@@ -188,7 +188,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
             'vnf_type': self.VNF_TYPE,
         }
 
-        config_tpl_cfg = find_relative_file(self.DEFAULT_CONFIG_TPL_CFG, task_path)
+        config_tpl_cfg = FilePathWrapper(self.DEFAULT_CONFIG_TPL_CFG, task_path).get_path()
         config_basename = posixpath.basename(self.CFG_CONFIG)
         script_basename = posixpath.basename(self.CFG_SCRIPT)
         multiport = MultiPortConfig(self.scenario_helper.topology,
@@ -480,8 +480,9 @@ class ClientResourceHelper(ResourceHelper):
         if not self._queue.empty():
             kpi = self._queue.get()
             self._result.update(kpi)
-            LOG.debug("Got KPIs from _queue for {0} {1}".format(
-                self.scenario_helper.name, self.RESOURCE_WORD))
+            LOG.debug("Got KPIs from _queue for %s %s",
+                      self.scenario_helper.name,
+                      self.RESOURCE_WORD)
         return self._result
 
     def _connect(self, client=None):

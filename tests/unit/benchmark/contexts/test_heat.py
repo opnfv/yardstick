@@ -56,12 +56,14 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertIsNotNone(self.test_context.key_uuid)
         self.assertIsNotNone(self.test_context.key_filename)
 
+    @mock.patch('yardstick.benchmark.contexts.heat.os.environ')
+    @mock.patch('yardstick.benchmark.contexts.heat.source_env')
     @mock.patch('yardstick.benchmark.contexts.heat.PlacementGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.ServerGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.Network')
     @mock.patch('yardstick.benchmark.contexts.heat.Server')
-    def test_init(self, mock_server, mock_network, mock_sg, mock_pg):
-
+    def test_init(self, mock_server, mock_network, mock_sg, mock_pg, mock_source_env, mock_env):
+        mock_env.side_effect = KeyError()
         pgs = {'pgrp1': {'policy': 'availability'}}
         sgs = {'servergroup1': {'policy': 'affinity'}}
         networks = {'bar': {'cidr': '10.0.1.0/24'}}
@@ -118,9 +120,12 @@ class HeatContextTestCase(unittest.TestCase):
             "foo-key",
             "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b")
         mock_template.add_security_group.assert_called_with("foo-secgroup")
-#        mock_template.add_network.assert_called_with("bar-fool-network", 'physnet1', None)
-        mock_template.add_router.assert_called_with("bar-fool-network-router", netattrs["external_network"], "bar-fool-network-subnet")
-        mock_template.add_router_interface.assert_called_with("bar-fool-network-router-if0", "bar-fool-network-router", "bar-fool-network-subnet")
+        mock_template.add_router.assert_called_with("bar-fool-network-router",
+                                                    netattrs["external_network"],
+                                                    "bar-fool-network-subnet")
+        mock_template.add_router_interface.assert_called_with("bar-fool-network-router-if0",
+                                                              "bar-fool-network-router",
+                                                              "bar-fool-network-subnet")
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_attrs_get(self, mock_template):
