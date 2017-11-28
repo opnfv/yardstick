@@ -8,9 +8,12 @@
 ##############################################################################
 from __future__ import absolute_import
 import abc
+import operator
+
 import six
 
 import yardstick.common.utils as utils
+from yardstick.common.yaml_loader import yaml_load
 
 
 @six.add_metaclass(abc.ABCMeta)
@@ -19,13 +22,37 @@ class Context(object):
     list = []
 
     @staticmethod
-    def split_name(name, sep='.'):
+    def split_name(name, sep=None):
+        if sep is None:
+            sep = '.'
         try:
             name_iter = iter(name.split(sep))
         except AttributeError:
             # name is not a string
             return None, None
         return next(name_iter), next(name_iter, None)
+
+    @staticmethod
+    def load_pod_yaml(logger, attrs, key='file', default='pod.yaml', alt_path=None):
+        wrapper = utils.FilePathWrapper(attrs.get(key, default), alt_path)
+
+        with wrapper:
+            logger.info("Parsing pod file: %s", wrapper.base_path)
+            cfg = yaml_load(wrapper.handle)
+
+        return wrapper.base_path, cfg
+
+    @staticmethod
+    def iter_nodes_of_role(nodes, node_role_set, invert=False):
+        def not_contains(a, b):
+            return b not in a
+
+        if invert:
+            operator1 = not_contains
+        else:
+            operator1 = operator.contains
+
+        return (node for node in nodes if operator1(node_role_set, str(node.get('role', ''))))
 
     def __init__(self):
         Context.list.append(self)
