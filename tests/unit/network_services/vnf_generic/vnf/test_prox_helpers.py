@@ -1062,8 +1062,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         self.assertEqual(helper._prox_config_data, '44')
         self.assertEqual(helper.remote_path, '55')
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
-    def test_build_config(self, mock_find_path):
+    ###@mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
+    def test_build_config(self):
         vnf1 = {
             'prox_args': {'-f': ""},
             'prox_path': '/opt/nsb_bin/prox',
@@ -1075,10 +1075,9 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             ],
         }
 
-        mock_find_path.side_effect = ['1', '2']
-        vnfd_helper = mock.MagicMock()
-        ssh_helper = mock.MagicMock()
-        ssh_helper.provision_tool.return_value = "/opt/nsb_bin/prox"
+        vnfd_helper = mock.Mock()
+        ssh_helper = mock.Mock()
+        ssh_helper.join_bin_path.return_value = '/opt/nsb_bin/prox'
         scenario_helper = ScenarioHelper('vnf1')
         scenario_helper.scenario_cfg = {
             'task_path': 'a/b',
@@ -1087,12 +1086,16 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             },
         }
 
-        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        helper.remote_path = "/tmp/prox.cfg"
-        expected = "sudo bash -c 'cd /opt/nsb_bin; /opt/nsb_bin/prox -o cli -f  -f /tmp/prox.cfg '"
-        with mock.patch.object(helper, "build_config_file") as mock_build_config:
+        expected = ("sudo bash -c 'cd /opt/nsb_bin; /opt/nsb_bin/prox -o cli "
+                    "-f  -f /tmp/prox.cfg '")
+
+        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper,
+                                           scenario_helper)
+        with mock.patch.object(helper, 'build_config_file') as mock_cfg_file:
+            helper.remote_path = '/tmp/prox.cfg'
             prox_cmd = helper.build_config()
             self.assertEqual(prox_cmd, expected)
+            mock_cfg_file.assert_called_once()
 
     def test__insert_additional_file(self):
         vnfd_helper = mock.MagicMock()
@@ -1255,16 +1258,6 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         expected = 'a/b'
         result = helper.put_string_to_file('my long string', 'a/b')
         self.assertEqual(result, expected)
-
-    def test__build_pipeline_kwarags(self):
-        vnfd_helper = mock.MagicMock()
-        ssh_helper = mock.MagicMock()
-        ssh_helper.provision_tool.return_value = "/tmp/nosuch"
-        scenario_helper = mock.MagicMock()
-
-        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        helper._build_pipeline_kwargs()
-        self.assertEqual(helper.pipeline_kwargs, {'tool_path': '/tmp/nosuch', 'tool_dir': '/tmp'})
 
     def test_copy_to_target(self):
         vnfd_helper = mock.MagicMock()
