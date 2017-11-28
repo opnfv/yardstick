@@ -24,6 +24,7 @@
     accept_hostkey: yes
     recursive: no
     force: yes
+  environment: "{{ proxy_env }}"
 
 - set_fact:
     collectd_path: "{{ collectd_dest }}"

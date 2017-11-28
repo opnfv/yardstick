@@ -16,7 +16,7 @@
   vars:
     YARD_IMG_ARCH: amd64
 
-- hosts: localhost
+- hosts: jumphost
   roles:
     - install_dependencies
     - docker
@@ -30,7 +30,7 @@
 - include: clean_images.yml
   when: openrc_file is defined
 
-- hosts: localhost
+- hosts: jumphost
   post_tasks:
     - os_image:
         name: yardstick-samplevnfs
