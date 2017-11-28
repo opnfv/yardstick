@@ -15,6 +15,7 @@
 - name: Install extra build dependencies
   action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
   with_items: "{{ civetweb_build_dependencies.get(ansible_os_family, []) }}"
+  environment: "{{ proxy_env }}"
 
 - name: Build civetweb lib
   make:

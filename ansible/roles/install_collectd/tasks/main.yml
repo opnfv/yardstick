@@ -15,6 +15,7 @@
 - name: Install extra build dependencies
   action: "{{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes"
   with_items: "{{ collectd_build_dependencies[ansible_os_family] }}"
+  environment: "{{ proxy_env }}"
 
 - name: prepare autotools
   command: ./build.sh

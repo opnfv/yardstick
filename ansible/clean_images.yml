@@ -13,7 +13,7 @@
 # limitations under the License.
 ---
 - name: pre-clean openstack enviroment
-  hosts: yardstick
+  hosts: jumphost
   vars_files:
     - yardstick_config.yml
 

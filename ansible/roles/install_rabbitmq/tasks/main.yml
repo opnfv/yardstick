@@ -18,5 +18,6 @@
 
 - name: Install extra build dependencies
   action: "{{ ansible_pkg_mgr }} name={{ item }} state=latest update_cache=yes"
+  environment: "{{ proxy_env }}"
   with_items: "{{ rabbitmq_packages[ansible_os_family] }}"
 
