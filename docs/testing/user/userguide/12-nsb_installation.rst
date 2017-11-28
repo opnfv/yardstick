@@ -112,6 +112,34 @@ Download the source code and install Yardstick from it
   # git checkout <tag or stable branch>
   git checkout stable/euphrates
 
+  # [OPTIONAL] Configure http[s]_proxy in
+  #  - /etc/environment
+     cat /etc/environment
+    http_proxy='http://proxy.company.com:port'
+    https_proxy='http://proxy.company.com:port'
+  #  or
+  #  - env variables
+    export http_proxy='http://proxy.company.com:port'
+    export https_proxy='http://proxy.company.com:port'
+
+  # Modify ansible/yardstick-install-inventory.ini:
+  cat ./ansible/yardstick-install-inventory.ini
+  [jumphost]
+  localhost  ansible_connection=local
+
+  [yardstick-standalone]
+  yardstick-standalone-node ansible_host=192.168.1.2
+  yardstick-standalone-node-2 ansible_host=192.168.1.3
+
+  # section below is only due backward compatibility.
+  # it will be removed later
+  [yardstick:children]
+  jumphost
+
+  [all:vars]
+  ansible_user=root
+  ansible_pass=root
+
   # For Bare-Metal or Standalone Virtualization
   ./nsb_setup.sh
 
