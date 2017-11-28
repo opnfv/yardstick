@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ed4a15c4",
+        "filename": "ansible/roles/download_pmu_tools/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-28T18:24:05Z",
+      "side": 1,
+      "message": "is proxy_env defaulted to {}  somewhere?",
+      "revId": "225c9339dbdd11e0e2a894a48aad4c611ad2631d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ad400da6",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-28T18:24:05Z",
+      "side": 1,
+      "message": "I think we only set no_proxy if we have a proxy, if we don\u0027t have a proxy then we don\u0027t need no_proxy\n\n\nthis is getting tricky, maybe we can rewrite it all in python.",
+      "revId": "225c9339dbdd11e0e2a894a48aad4c611ad2631d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8d3b8937",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-11-28T18:24:05Z",
+      "side": 1,
+      "message": "I think for bash we want [[ ]] to avoid word splitting whitespace issues.",
+      "revId": "225c9339dbdd11e0e2a894a48aad4c611ad2631d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
