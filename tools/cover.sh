@@ -49,10 +49,10 @@ run_coverage_test() {
     rm -rf .testrepository
     find . -type f -name "*.pyc" -delete
 
-    #python setup.py testr --coverage --testr-args=""
-    python setup.py testr --coverage --slowest --testr-args="$*"
-    testr failing
-    coverage report > ${baseline_report}
+    coverage run -m unittest discover ./tests/unit
+    coverage run -m unittest discover ./yardstick/tests/unit    ./tools/run_tests.sh --unit
+
+    coverage report --omit=yardstick/tests/*/* > ${baseline_report}
 
     # debug awk
     tail -1 ${baseline_report}
@@ -76,10 +76,10 @@ run_coverage_test() {
     rm -rf .testrepository
     find . -type f -name "*.pyc" -delete
 
-    #python setup.py testr --coverage --testr-args=""
-    python setup.py testr --coverage --slowest --testr-args="$*"
-    testr failing
-    coverage report > ${current_report}
+    coverage run -m unittest discover ./tests/unit
+    coverage run -m unittest discover ./yardstick/tests/unit    ./tools/run_tests.sh --unit
+
+    coverage report --omit=yardstick/tests/*/* > ${current_report}
 
     rm -rf cover-$PY_VER
     coverage html -d cover-$PY_VER
