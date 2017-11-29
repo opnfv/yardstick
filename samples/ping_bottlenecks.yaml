@@ -34,9 +34,9 @@ contexts:
 {% for num in range(stack_num) %}
 -
   name: demo{{num}}
-  image: cirros-0.3.5
+  image: yardstick-image
   flavor: yardstick-flavor
-  user: cirros
+  user: ubuntu
 
   placement_groups:
     pgrp1:

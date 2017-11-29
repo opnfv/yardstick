@@ -123,9 +123,9 @@ In this Yaml file, you can easily find it consists of two sections. One is “Sc
 
     context:
       name: demo
-      image: cirros-0.3.5
+      image: yardstick-image
       flavor: yardstick-flavor
-      user: cirros
+      user: ubuntu
 
       placement_groups:
         pgrp1:

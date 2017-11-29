@@ -40,7 +40,7 @@ context:
   user: cirros
   heat_template: /tmp/heat-templates/hot/servers_in_new_neutron_net.yaml
   heat_parameters:
-    image: cirros-0.3.5
+    image: yardstick-image
     flavor: yardstick-flavor
     key_name: yardstick
     public_net: "660fc7c3-7a56-4faf-91e5-3c9ebdda0104"

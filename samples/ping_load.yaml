@@ -34,9 +34,9 @@ scenarios:
 contexts:
 -
   name: demo1
-  image: cirros-0.3.5
+  image: yardstick-image
   flavor: yardstick-flavor
-  user: cirros
+  user: ubuntu
 
   placement_groups:
     pgrp1:
@@ -58,9 +58,9 @@ contexts:
       cidr: '10.0.1.0/24'
 -
   name: demo2
-  image: cirros-0.3.5
+  image: yardstick-image
   flavor: yardstick-flavor
-  user: cirros
+  user: ubuntu
   placement_groups:
     pgrp1:
       policy: "availability"

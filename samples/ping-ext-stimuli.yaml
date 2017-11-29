@@ -44,9 +44,9 @@ scenarios:
 
 context:
   name: demo
-  image: cirros-0.3.5
+  image: yardstick-image
   flavor: yardstick-flavor
-  user: cirros
+  user: ubuntu
   servers:
     goofy:
       floating_ip: true
