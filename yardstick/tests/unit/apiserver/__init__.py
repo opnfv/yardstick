@@ -1,3 +1,4 @@
+"""Tests for yardstick/api/server.py"""
 from __future__ import absolute_import
 
 import mock
@@ -12,14 +13,16 @@ from yardstick.common import constants as consts
 
 
 class APITestCase(unittest.TestCase):
-
+    """Tests for the YardStick API server"""
     def setUp(self):
         self.db_fd, self.db_path = tempfile.mkstemp()
         consts.SQLITE = 'sqlite:///{}'.format(self.db_path)
 
-        # server calls gethostbyname which takes 4 seconds, and we should mock it anyway
+        # server calls gethostbyname which takes 4 seconds, and we should mock
+        # it anyway
         self.socket_mock = mock.patch.dict("sys.modules", {"socket": mock.MagicMock(
-            **{"gethostbyname.return_value": "127.0.0.1", "gethostname.return_value": "localhost"})})
+            **{"gethostbyname.return_value": "127.0.0.1",
+               "gethostname.return_value": "localhost"})})
         self.socket_mock.start()
         try:
             from api import server

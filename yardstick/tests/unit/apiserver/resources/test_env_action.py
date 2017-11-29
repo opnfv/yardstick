@@ -11,7 +11,7 @@ from __future__ import absolute_import
 import time
 import unittest
 
-from tests.unit.apiserver import APITestCase
+from yardstick.tests.unit.apiserver import APITestCase
 
 
 class EnvTestCase(APITestCase):
