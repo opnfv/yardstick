@@ -6,13 +6,11 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-from __future__ import absolute_import
 import unittest
 import mock
 
 from api.utils import influx
-
-import six.moves.configparser as ConfigParser
+from six.moves import configparser as ConfigParser
 
 
 class GetDataDbClientTestCase(unittest.TestCase):
@@ -25,7 +23,7 @@ class GetDataDbClientTestCase(unittest.TestCase):
         mock_parser.NoOptionError = ConfigParser.NoOptionError
         try:
             influx.get_data_db_client()
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-except
             self.assertIsInstance(e, RuntimeError)
 
 
@@ -50,7 +48,7 @@ class QueryTestCase(unittest.TestCase):
         try:
             sql = 'select * form tasklist'
             influx.query(sql)
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-except
             self.assertIsInstance(e, RuntimeError)
 
 
