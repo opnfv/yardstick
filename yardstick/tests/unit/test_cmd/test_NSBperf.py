@@ -59,7 +59,7 @@ class TestYardstickNSCli(unittest.TestCase):
     def test_handle_list_options(self):
         yardstick_ns_cli = YardstickNSCli()
         CLI_PATH = os.path.dirname(os.path.realpath(__file__))
-        repo_dir = CLI_PATH + "/../../"
+        repo_dir = CLI_PATH + "/../../../"
         test_path = os.path.join(repo_dir, "../samples/vnf_samples/nsut/")
         args = {"list_vnfs": True, "list": False}
         self.assertRaises(SystemExit, yardstick_ns_cli.handle_list_options,
