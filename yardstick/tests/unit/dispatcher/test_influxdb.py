@@ -20,10 +20,9 @@ try:
 except ImportError:
     import mock
 
+from yardstick.dispatcher.influxdb import InfluxdbDispatcher
 from yardstick import _init_logging
 _init_logging()
-
-from yardstick.dispatcher.influxdb import InfluxdbDispatcher
 
 
 class InfluxdbDispatcherTestCase(unittest.TestCase):
