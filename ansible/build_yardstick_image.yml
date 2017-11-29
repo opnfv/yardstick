@@ -186,14 +186,6 @@
         mode: 0755
       when: "target_os == 'Ubuntu'"
 
-    - name: set img_modify_playbook
-      set_fact:
-        img_modify_playbook: ubuntu_server_cloudimg_modify.yml
-
-    - debug:
-        var: img_modify_playbook
-        verbosity: 2
-
     - name: add chroot as host
       add_host:
         name: "{{ mountdir }}"
