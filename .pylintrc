@@ -36,6 +36,7 @@ disable=
  dangerous-default-value,
  deprecated-lambda,
  expression-not-assigned,
+ fixme,
  global-statement,
  literal-comparison,
  no-init,
@@ -103,7 +104,7 @@ module-rgx=(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$
 # Don't require docstrings on tests.
 no-docstring-rgx=((__.*__)|([tT]est.*)|setUp|tearDown)$
 
-dummy-variables-rgx=(_+[a-zA-Z0-9]*?$)|dummy|args
+dummy-variables-rgx=(_+[a-zA-Z0-9]*?$)|dummy|args|kwargs|mock_
 
 [FORMAT]
 # Maximum number of characters on a single line.
