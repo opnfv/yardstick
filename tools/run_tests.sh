@@ -56,7 +56,6 @@ run_functional_test() {
 
     mkdir -p .testrepository
     python -m subunit.run discover yardstick/tests/functional > .testrepository/subunit.log
-    python -m subunit.run discover tests/functional >> .testrepository/subunit.log
 
     subunit2pyunit < .testrepository/subunit.log
     EXIT_CODE=$?

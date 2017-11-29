@@ -7,11 +7,9 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-
-from __future__ import absolute_import
 import unittest
 
-from tests.functional import utils
+from yardstick.tests.functional import utils
 
 
 class RunnerTestCase(unittest.TestCase):
