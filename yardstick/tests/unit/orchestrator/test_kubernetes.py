@@ -64,7 +64,7 @@ service ssh restart;while true ; do sleep 10000; done"
                             }
                         ],
                         "nodeSelector": {
-                           "kubernetes.io/hostname": "node-01"
+                            "kubernetes.io/hostname": "node-01"
                         }
                     }
                 }
@@ -75,7 +75,7 @@ service ssh restart;while true ; do sleep 10000; done"
             'args': ['-c', 'chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; \
 service ssh restart;while true ; do sleep 10000; done'],
             'ssh_key': 'k8s-86096c30-key',
-            'nodeSelector': { 'kubernetes.io/hostname': 'node-01'}
+            'nodeSelector': {'kubernetes.io/hostname': 'node-01'}
         }
         name = 'host-k8s-86096c30'
         output_r = KubernetesObject(name, **input_s).get_template()

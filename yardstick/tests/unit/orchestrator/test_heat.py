@@ -65,6 +65,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertEqual(heat.HEAT_KEY_UUID_LENGTH, len(k))
         self.assertIn(k, str(u))
 
+
 class HeatTemplateTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -73,38 +74,63 @@ class HeatTemplateTestCase(unittest.TestCase):
     def test_add_tenant_network(self):
         self.template.add_network('some-network')
 
-        self.assertEqual(self.template.resources['some-network']['type'], 'OS::Neutron::Net')
+        self.assertEqual(
+            self.template.resources['some-network']['type'],
+            'OS::Neutron::Net')
 
     def test_add_provider_network(self):
         self.template.add_network('some-network', 'physnet2', 'sriov')
 
-        self.assertEqual(self.template.resources['some-network']['type'], 'OS::Neutron::ProviderNet')
-        self.assertEqual(self.template.resources['some-network']['properties']['physical_network'], 'physnet2')
+        self.assertEqual(
+            self.template.resources['some-network']['type'],
+            'OS::Neutron::ProviderNet')
+        self.assertEqual(
+            self.template.resources['some-network']['properties']['physical_network'],
+            'physnet2')
 
     def test_add_subnet(self):
-        netattrs = {'cidr': '10.0.0.0/24', 'provider': None, 'external_network': 'ext_net'}
-        self.template.add_subnet('some-subnet', "some-network", netattrs['cidr'])
+        netattrs = {'cidr': '10.0.0.0/24',
+                    'provider': None, 'external_network': 'ext_net'}
+        self.template.add_subnet(
+            'some-subnet', "some-network", netattrs['cidr'])
 
-        self.assertEqual(self.template.resources['some-subnet']['type'], 'OS::Neutron::Subnet')
-        self.assertEqual(self.template.resources['some-subnet']['properties']['cidr'], '10.0.0.0/24')
+        self.assertEqual(
+            self.template.resources['some-subnet']['type'],
+            'OS::Neutron::Subnet')
+        self.assertEqual(
+            self.template.resources['some-subnet']['properties']['cidr'],
+            '10.0.0.0/24')
 
     def test_add_router(self):
         self.template.add_router('some-router', 'ext-net', 'some-subnet')
 
-        self.assertEqual(self.template.resources['some-router']['type'], 'OS::Neutron::Router')
-        self.assertIn('some-subnet', self.template.resources['some-router']['depends_on'])
+        self.assertEqual(
+            self.template.resources['some-router']['type'],
+            'OS::Neutron::Router')
+        self.assertIn(
+            'some-subnet',
+            self.template.resources['some-router']['depends_on'])
 
     def test_add_router_interface(self):
-        self.template.add_router_interface('some-router-if', 'some-router', 'some-subnet')
+        self.template.add_router_interface(
+            'some-router-if', 'some-router', 'some-subnet')
 
-        self.assertEqual(self.template.resources['some-router-if']['type'], 'OS::Neutron::RouterInterface')
-        self.assertIn('some-subnet', self.template.resources['some-router-if']['depends_on'])
+        self.assertEqual(
+            self.template.resources['some-router-if']['type'],
+            'OS::Neutron::RouterInterface')
+        self.assertIn(
+            'some-subnet',
+            self.template.resources['some-router-if']['depends_on'])
 
     def test_add_servergroup(self):
         self.template.add_servergroup('some-server-group', 'anti-affinity')
 
-        self.assertEqual(self.template.resources['some-server-group']['type'], 'OS::Nova::ServerGroup')
-        self.assertEqual(self.template.resources['some-server-group']['properties']['policies'], ['anti-affinity'])
+        self.assertEqual(
+            self.template.resources['some-server-group']['type'],
+            'OS::Nova::ServerGroup')
+        self.assertEqual(
+            self.template.resources['some-server-group']['properties']['policies'],
+            ['anti-affinity'])
 
     def test__add_resources_to_template_raw(self):
         test_context = node.NodeContext()
@@ -136,49 +162,136 @@ class HeatTemplateTestCase(unittest.TestCase):
         heat_template.add_router("router1", "gw1", "subnet1")
         heat_template.add_router_interface("router_if1", "router1", "subnet1")
         heat_template.add_port("port1", "network1", "subnet1", "normal")
-        heat_template.add_port("port2", "network2", "subnet2", "normal", sec_group_id="sec_group1",provider="not-sriov")
-        heat_template.add_port("port3", "network2", "subnet2", "normal", sec_group_id="sec_group1",provider="sriov")
-        heat_template.add_floating_ip("floating_ip1", "network1", "port1", "router_if1")
-        heat_template.add_floating_ip("floating_ip2", "network2", "port2", "router_if2", "foo-secgroup")
-        heat_template.add_floating_ip_association("floating_ip1_association", "floating_ip1", "port1")
+        heat_template.add_port(
+            "port2",
+            "network2",
+            "subnet2",
+            "normal",
+            sec_group_id="sec_group1",
+            provider="not-sriov")
+        heat_template.add_port(
+            "port3",
+            "network2",
+            "subnet2",
+            "normal",
+            sec_group_id="sec_group1",
+            provider="sriov")
+        heat_template.add_floating_ip(
+            "floating_ip1", "network1", "port1", "router_if1")
+        heat_template.add_floating_ip(
+            "floating_ip2", "network2", "port2", "router_if2", "foo-secgroup")
+        heat_template.add_floating_ip_association(
+            "floating_ip1_association", "floating_ip1", "port1")
         heat_template.add_servergroup("server_grp2", "affinity")
         heat_template.add_servergroup("server_grp3", "anti-affinity")
         heat_template.add_security_group("security_group")
-        heat_template.add_server(name="server1", image="image1", flavor="flavor1", flavors=[])
-        heat_template.add_server_group(name="servergroup", policies=["policy1","policy2"])
+        heat_template.add_server(
+            name="server1", image="image1", flavor="flavor1", flavors=[])
+        heat_template.add_server_group(
+            name="servergroup", policies=["policy1", "policy2"])
         heat_template.add_server_group(name="servergroup", policies="policy1")
-        heat_template.add_server(name="server2", image="image1", flavor="flavor1", flavors=[], ports=["port1", "port2"],
-                                 networks=["network1", "network2"], scheduler_hints="hints1", user="user1",
-                                 key_name="foo-key", user_data="user", metadata={"cat": 1, "doc": 2},
-                                 additional_properties={"prop1": 1, "prop2": 2})
-        heat_template.add_server(name="server2", image="image1", flavor="flavor1", flavors=["flavor1", "flavor2"],
-                                 ports=["port1", "port2"],
-                                 networks=["network1", "network2"], scheduler_hints="hints1", user="user1",
-                                 key_name="foo-key", user_data="user", metadata={"cat": 1, "doc": 2},
-                                 additional_properties={"prop1": 1, "prop2": 2} )
-        heat_template.add_server(name="server2", image="image1", flavor="flavor1", flavors=["flavor3", "flavor4"],
-                                 ports=["port1", "port2"],
-                                 networks=["network1", "network2"], scheduler_hints="hints1", user="user1",
-                                 key_name="foo-key", user_data="user", metadata={"cat": 1, "doc": 2},
-                                 additional_properties={"prop1": 1, "prop2": 2})
-        heat_template.add_flavor(name="flavor1", vcpus=1, ram=2048, disk=1,extra_specs={"cat": 1, "dog": 2})
+        heat_template.add_server(
+            name="server2",
+            image="image1",
+            flavor="flavor1",
+            flavors=[],
+            ports=[
+                "port1",
+                "port2"],
+            networks=[
+                "network1",
+                "network2"],
+            scheduler_hints="hints1",
+            user="user1",
+            key_name="foo-key",
+            user_data="user",
+            metadata={
+                "cat": 1,
+                "doc": 2},
+            additional_properties={
+                "prop1": 1,
+                "prop2": 2})
+        heat_template.add_server(
+            name="server2",
+            image="image1",
+            flavor="flavor1",
+            flavors=[
+                "flavor1",
+                "flavor2"],
+            ports=[
+                "port1",
+                "port2"],
+            networks=[
+                "network1",
+                "network2"],
+            scheduler_hints="hints1",
+            user="user1",
+            key_name="foo-key",
+            user_data="user",
+            metadata={
+                "cat": 1,
+                "doc": 2},
+            additional_properties={
+                "prop1": 1,
+                "prop2": 2})
+        heat_template.add_server(
+            name="server2",
+            image="image1",
+            flavor="flavor1",
+            flavors=[
+                "flavor3",
+                "flavor4"],
+            ports=[
+                "port1",
+                "port2"],
+            networks=[
+                "network1",
+                "network2"],
+            scheduler_hints="hints1",
+            user="user1",
+            key_name="foo-key",
+            user_data="user",
+            metadata={
+                "cat": 1,
+                "doc": 2},
+            additional_properties={
+                "prop1": 1,
+                "prop2": 2})
+        heat_template.add_flavor(
+            name="flavor1",
+            vcpus=1,
+            ram=2048,
+            disk=1,
+            extra_specs={
+                "cat": 1,
+                "dog": 2})
         heat_template.add_flavor(name=None, vcpus=1, ram=2048)
-        heat_template.add_server(name="server1",
-                                 image="image1",
-                                 flavor="flavor1",
-                                 flavors=[],
-                                 ports=["port1", "port2"],
-                                 networks=["network1", "network2"],
-                                 scheduler_hints="hints1",
-                                 user="user1",
-                                 key_name="foo-key",
-                                 user_data="user",
-                                 metadata={"cat": 1, "doc": 2},
-                                 additional_properties= {"prop1": 1, "prop2": 2} )
+        heat_template.add_server(
+            name="server1",
+            image="image1",
+            flavor="flavor1",
+            flavors=[],
+            ports=[
+                "port1",
+                "port2"],
+            networks=[
+                "network1",
+                "network2"],
+            scheduler_hints="hints1",
+            user="user1",
+            key_name="foo-key",
+            user_data="user",
+            metadata={
+                "cat": 1,
+                "doc": 2},
+            additional_properties={
+                "prop1": 1,
+                "prop2": 2})
         heat_template.add_network("network1")
 
         heat_template.add_flavor("test")
-        self.assertEqual(heat_template.resources['test']['type'], 'OS::Nova::Flavor')
+        self.assertEqual(
+            heat_template.resources['test']['type'], 'OS::Nova::Flavor')
 
     @mock_patch_target_module('op_utils')
     @mock_patch_target_module('heatclient')
@@ -202,13 +315,20 @@ class HeatTemplateTestCase(unittest.TestCase):
 
             # ensure op_utils was used
             expected_op_utils_usage += 1
-            self.assertEqual(mock_op_utils.get_session.call_count, expected_op_utils_usage)
-            self.assertEqual(mock_op_utils.get_endpoint.call_count, expected_op_utils_usage)
-            self.assertEqual(mock_op_utils.get_heat_api_version.call_count, expected_op_utils_usage)
+            self.assertEqual(
+                mock_op_utils.get_session.call_count, expected_op_utils_usage)
+            self.assertEqual(
+                mock_op_utils.get_endpoint.call_count, expected_op_utils_usage)
+            self.assertEqual(
+                mock_op_utils.get_heat_api_version.call_count,
+                expected_op_utils_usage)
 
             # ensure the constructor and instance were used
-            self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
-            self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
+            self.assertEqual(mock_heat_client_class.call_count,
+                             expected_constructor_calls)
+            self.assertEqual(
+                mock_heat_client.stacks.create.call_count,
+                expected_create_calls)
 
             # ensure that the status was used
             self.assertGreater(mock_status.call_count, expected_status_calls)
@@ -225,14 +345,22 @@ class HeatTemplateTestCase(unittest.TestCase):
             with self.assertRaises(RuntimeError) as raised, timer() as time_data:
                 self.template.create(block=True, timeout=timeout)
 
-            # ensure the existing heat_client was used and op_utils was used again
-            self.assertEqual(mock_op_utils.get_session.call_count, expected_op_utils_usage)
-            self.assertEqual(mock_op_utils.get_endpoint.call_count, expected_op_utils_usage)
-            self.assertEqual(mock_op_utils.get_heat_api_version.call_count, expected_op_utils_usage)
+            # ensure the existing heat_client was used and op_utils was used
+            # again
+            self.assertEqual(
+                mock_op_utils.get_session.call_count, expected_op_utils_usage)
+            self.assertEqual(
+                mock_op_utils.get_endpoint.call_count, expected_op_utils_usage)
+            self.assertEqual(
+                mock_op_utils.get_heat_api_version.call_count,
+                expected_op_utils_usage)
 
             # ensure the constructor was not used but the instance was used
-            self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
-            self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
+            self.assertEqual(mock_heat_client_class.call_count,
+                             expected_constructor_calls)
+            self.assertEqual(
+                mock_heat_client.stacks.create.call_count,
+                expected_create_calls)
 
             # ensure that the status was used three times
             expected_status_calls += 3
@@ -266,17 +394,25 @@ class HeatTemplateTestCase(unittest.TestCase):
             mock_status.return_value = None
 
             # no block
-            self.assertIsInstance(self.template.create(block=False, timeout=2), heat.HeatStack)
+            self.assertIsInstance(self.template.create(
+                block=False, timeout=2), heat.HeatStack)
 
             # ensure op_utils was used
             expected_op_utils_usage += 1
-            self.assertEqual(mock_op_utils.get_session.call_count, expected_op_utils_usage)
-            self.assertEqual(mock_op_utils.get_endpoint.call_count, expected_op_utils_usage)
-            self.assertEqual(mock_op_utils.get_heat_api_version.call_count, expected_op_utils_usage)
+            self.assertEqual(
+                mock_op_utils.get_session.call_count, expected_op_utils_usage)
+            self.assertEqual(
+                mock_op_utils.get_endpoint.call_count, expected_op_utils_usage)
+            self.assertEqual(
+                mock_op_utils.get_heat_api_version.call_count,
+                expected_op_utils_usage)
 
             # ensure the constructor and instance were used
-            self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
-            self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
+            self.assertEqual(mock_heat_client_class.call_count,
+                             expected_constructor_calls)
+            self.assertEqual(
+                mock_heat_client.stacks.create.call_count,
+                expected_create_calls)
 
             # ensure that the status was not used
             self.assertEqual(mock_status.call_count, expected_status_calls)
@@ -288,11 +424,15 @@ class HeatTemplateTestCase(unittest.TestCase):
             self.template.name = 'block, immediate complete test'
 
             mock_status.return_value = self.template.HEAT_CREATE_COMPLETE_STATUS
-            self.assertIsInstance(self.template.create(block=True, timeout=2), heat.HeatStack)
+            self.assertIsInstance(self.template.create(
+                block=True, timeout=2), heat.HeatStack)
 
             # ensure existing instance was re-used and op_utils was not used
-            self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
-            self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
+            self.assertEqual(mock_heat_client_class.call_count,
+                             expected_constructor_calls)
+            self.assertEqual(
+                mock_heat_client.stacks.create.call_count,
+                expected_create_calls)
 
             # ensure status was checked once
             expected_status_calls += 1
@@ -305,13 +445,17 @@ class HeatTemplateTestCase(unittest.TestCase):
             self.template.name = 'block, delayed complete test'
 
             success_index = 2
-            mock_status.side_effect = index_value_iter(success_index,
-                                                       self.template.HEAT_CREATE_COMPLETE_STATUS)
-            self.assertIsInstance(self.template.create(block=True, timeout=2), heat.HeatStack)
+            mock_status.side_effect = index_value_iter(
+                success_index, self.template.HEAT_CREATE_COMPLETE_STATUS)
+            self.assertIsInstance(self.template.create(
+                block=True, timeout=2), heat.HeatStack)
 
             # ensure existing instance was re-used and op_utils was not used
-            self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
-            self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
+            self.assertEqual(mock_heat_client_class.call_count,
+                             expected_constructor_calls)
+            self.assertEqual(
+                mock_heat_client.stacks.create.call_count,
+                expected_create_calls)
 
             # ensure status was checked three more times
             expected_status_calls += 1 + success_index
