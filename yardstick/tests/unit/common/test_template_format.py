@@ -24,6 +24,8 @@ class TemplateFormatTestCase(unittest.TestCase):
 
     def test_parse_to_value_exception(self):
 
+        # TODO: Don't hide the error that occurs in template_format.parse
+        # TODO: Separate these tests; one per error type
         with mock.patch.object(yaml, 'load') as yaml_loader:
             yaml_loader.side_effect = yaml.scanner.ScannerError()
             self.assertRaises(ValueError, template_format.parse, 'FOOBAR')
