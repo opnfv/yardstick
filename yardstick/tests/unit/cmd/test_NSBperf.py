@@ -59,7 +59,7 @@ class TestYardstickNSCli(unittest.TestCase):
         yardstick_ns_cli = YardstickNSCli()
         CLI_PATH = os.path.dirname(os.path.realpath(__file__))
         repo_dir = CLI_PATH + "/../../"
-        test_path = os.path.join(repo_dir, "../samples/vnf_samples/nsut/")
+        test_path = os.path.join(repo_dir, "../../samples/vnf_samples/nsut/")
         args = {"list_vnfs": True, "list": False}
         self.assertRaises(SystemExit, yardstick_ns_cli.handle_list_options,
                           args, test_path)
@@ -80,6 +80,7 @@ class TestYardstickNSCli(unittest.TestCase):
         yardstick_ns_cli = YardstickNSCli()
         self.assertRaises(SystemExit, yardstick_ns_cli.parse_arguments)
 
+    # TODO: unittest.assertEqual(None, x) --> unittest.assertIsNone(x)
     def test_run_test(self):
         cur_dir = os.getcwd()
         CLI_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -99,7 +100,7 @@ class TestYardstickNSCli(unittest.TestCase):
                 "test": "tc_baremetal_rfc2544_ipv4_1flow_1518B.yaml."}
         self.assertEqual(None, yardstick_ns_cli.run_test(args, test_path))
         os.chdir(cur_dir)
-        args = []
+        args = []  # pylint: disable=redefined-variable-type
         self.assertEqual(None, yardstick_ns_cli.run_test(args, test_path))
         os.chdir(cur_dir)
 
