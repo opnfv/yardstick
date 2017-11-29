@@ -7,8 +7,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import absolute_import
-
 import copy
 import os
 import subprocess
@@ -26,7 +24,7 @@ class Yardstick(object):
 
     """
 
-    def __init__(self, fake=False):
+    def __init__(self):
 
         self.args = ["yardstick"]
         self.env = copy.deepcopy(os.environ)
