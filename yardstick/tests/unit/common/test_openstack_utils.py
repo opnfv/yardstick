@@ -21,7 +21,7 @@ from yardstick.common import openstack_utils
 class GetCredentialsTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.common.openstack_utils.os')
-    def test_get_credentials(self, mock_os):
+    def test_get_credentials(self, _):
         with mock.patch.dict('os.environ', {'OS_IDENTITY_API_VERSION': '2'},
                              clear=True):
             openstack_utils.get_credentials()

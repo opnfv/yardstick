@@ -49,7 +49,7 @@ class OverwriteDictTestCase(unittest.TestCase):
 
 class FilenameGeneratorTestCase(unittest.TestCase):
     @mock.patch('{}.NamedTemporaryFile'.format(PREFIX))
-    def test__handle_existing_file(self, mock_tmp):
+    def test__handle_existing_file(self, _):
         ansible_common.FileNameGenerator._handle_existing_file("/dev/null")
 
     def test_get_generator_from_file(self):
@@ -184,7 +184,7 @@ class AnsibleCommonTestCase(unittest.TestCase):
         self.assertEqual(a.deploy_dir, "d")
 
     @mock.patch('{}.open'.format(PREFIX))
-    def test__gen_ansible_playbook_file_list(self, mock_open):
+    def test__gen_ansible_playbook_file_list(self, _):
         d = tempfile.mkdtemp()
         try:
             a = ansible_common.AnsibleCommon({})
@@ -194,7 +194,7 @@ class AnsibleCommonTestCase(unittest.TestCase):
 
     @mock.patch('{}.NamedTemporaryFile'.format(PREFIX))
     @mock.patch('{}.open'.format(PREFIX))
-    def test__gen_ansible_inventory_file(self, mock_open, mock_tmp):
+    def test__gen_ansible_inventory_file(self, _, __):
         nodes = [{
             "name": "name", "user": "user", "password": "PASS",
             "role": "role",
@@ -213,7 +213,7 @@ class AnsibleCommonTestCase(unittest.TestCase):
 
     @mock.patch('{}.NamedTemporaryFile'.format(PREFIX))
     @mock.patch('{}.open'.format(PREFIX))
-    def test__gen_ansible_playbook_file_list_multiple(self, mock_open, mock_tmp):
+    def test__gen_ansible_playbook_file_list_multiple(self, _, __):
         d = tempfile.mkdtemp()
         try:
             a = ansible_common.AnsibleCommon({})
@@ -224,7 +224,7 @@ class AnsibleCommonTestCase(unittest.TestCase):
     @mock.patch('{}.NamedTemporaryFile'.format(PREFIX))
     @mock.patch('{}.Popen'.format(PREFIX))
     @mock.patch('{}.open'.format(PREFIX))
-    def test_do_install_tmp_dir(self, mock_open, mock_popen, mock_tmp):
+    def test_do_install_tmp_dir(self, _, mock_popen, __):
         mock_popen.return_value.communicate.return_value = "", ""
         mock_popen.return_value.wait.return_value = 0
         d = tempfile.mkdtemp()
@@ -237,7 +237,7 @@ class AnsibleCommonTestCase(unittest.TestCase):
     @mock.patch('{}.NamedTemporaryFile'.format(PREFIX))
     @mock.patch('{}.Popen'.format(PREFIX))
     @mock.patch('{}.open'.format(PREFIX))
-    def test_execute_ansible_check(self, mock_open, mock_popen, mock_tmp):
+    def test_execute_ansible_check(self, _, mock_popen, __):
         mock_popen.return_value.communicate.return_value = "", ""
         mock_popen.return_value.wait.return_value = 0
         d = tempfile.mkdtemp()
