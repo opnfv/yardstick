@@ -46,9 +46,9 @@ contexts:
 -
   type: Heat
   name: openstack
-  image: cirros-0.3.5
+  image: yardstick-image
   flavor: yardstick-flavor
-  user: cirros
+  user: ubuntu
 
   servers:
     target:
