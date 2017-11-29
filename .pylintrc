@@ -21,6 +21,7 @@ disable=
  import-error,
 # "I" Informational noise
  locally-disabled,
+ locally-enabled,
 # "E" Error for important programming issues (likely bugs)
  access-member-before-definition,
  no-member,
@@ -33,9 +34,11 @@ disable=
  attribute-defined-outside-init,
  bad-builtin,
  bad-indentation,
+ broad-except,
  dangerous-default-value,
  deprecated-lambda,
  expression-not-assigned,
+ fixme,
  global-statement,
  literal-comparison,
  no-init,
@@ -49,6 +52,8 @@ disable=
  super-init-not-called,
  super-on-old-class,
  unpacking-non-sequence,
+ unused-argument,
+ unused-variable,
  useless-super-delegation,
  nonstandard-exception,
 # "C" Coding convention violations
@@ -103,7 +108,7 @@ module-rgx=(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$
 # Don't require docstrings on tests.
 no-docstring-rgx=((__.*__)|([tT]est.*)|setUp|tearDown)$
 
-dummy-variables-rgx=(_+[a-zA-Z0-9]*?$)|dummy|args
+dummy-variables-rgx=(_+[a-zA-Z0-9]*?$)|dummy|args|kwargs|mock_
 
 [FORMAT]
 # Maximum number of characters on a single line.
