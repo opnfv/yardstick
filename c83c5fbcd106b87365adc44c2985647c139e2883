@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_08c127e4",
+        "filename": "ansible/yardstick-install-inventory.ini",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-29T11:42:55Z",
+      "side": 1,
+      "message": "There are other yml file using \"yardstick\" as \"hosts\" variable [1]\n\n[1] https://github.com/opnfv/yardstick/search?l\u003dYAML\u0026q\u003dhosts%3A+yardstick\u0026type\u003d\u0026utf8\u003d%E2%9C%93",
+      "range": {
+        "startLine": 3,
+        "startChar": 1,
+        "endLine": 3,
+        "endChar": 9
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_28beab65",
+        "filename": "ansible/yardstick-install-inventory.ini",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-29T11:42:55Z",
+      "side": 1,
+      "message": "This should be in the documentation (as is), not here",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 18
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c88f3fcb",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-29T11:42:55Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be in baremetal/standalone section.\n\nYou should add a new paragraph for this, adding examples of how to do this via file or via env variables.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 20
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_086807f4",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-29T11:42:55Z",
+      "side": 1,
+      "message": "This is not needed anymore. No other commands where executed before.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e8820393",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-29T11:42:55Z",
+      "side": 1,
+      "message": "You are checking only http_proxy.",
+      "range": {
+        "startLine": 24,
+        "startChar": 9,
+        "endLine": 24,
+        "endChar": 12
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_88ac1737",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-29T11:42:55Z",
+      "side": 1,
+      "message": "What is that for?",
+      "range": {
+        "startLine": 25,
+        "startChar": 21,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e8ab231b",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-29T11:42:55Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 29,
+        "startChar": 22,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_887377e6",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-29T11:42:55Z",
+      "side": 1,
+      "message": "are",
+      "range": {
+        "startLine": 33,
+        "startChar": 19,
+        "endLine": 33,
+        "endChar": 21
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c87d7fb3",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-29T11:42:55Z",
+      "side": 1,
+      "message": "! -z \"$http_proxy\"",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 24
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_284ceb9d",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-29T11:42:55Z",
+      "side": 1,
+      "message": "! -z \"$https_proxy\"",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 34,
+        "endChar": 52
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
