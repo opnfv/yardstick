@@ -36,6 +36,7 @@ disable=
  dangerous-default-value,
  deprecated-lambda,
  expression-not-assigned,
+ fixme,
  global-statement,
  literal-comparison,
  no-init,

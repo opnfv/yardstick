@@ -42,17 +42,17 @@ run_coverage_test() {
     git checkout HEAD^
 
     baseline_report=$(mktemp -t yardstick_coverageXXXXXXX)
-    ls -l .testrepository
 
-    # workaround 'db type could not be determined' bug
-    # https://bugs.launchpad.net/testrepository/+bug/1229445
-    rm -rf .testrepository
     find . -type f -name "*.pyc" -delete
 
-    #python setup.py testr --coverage --testr-args=""
-    python setup.py testr --coverage --slowest --testr-args="$*"
-    testr failing
-    coverage report > ${baseline_report}
+    # Temporarily run tests from two directories, until all tests have moved
+    coverage run -p -m unittest discover ./tests/unit
+    coverage run -p -m unittest discover ./yardstick/tests/unit
+    coverage combine
+
+    # Temporarily omit yardstick/tests from the report
+    coverage report --omit=yardstick/tests/*/* > ${baseline_report}
+    coverage erase
 
     # debug awk
     tail -1 ${baseline_report}
@@ -69,17 +69,17 @@ run_coverage_test() {
 
     # Generate and save coverage report
     current_report=$(mktemp -t yardstick_coverageXXXXXXX)
-    ls -l .testrepository
 
-    # workaround 'db type could not be determined' bug
-    # https://bugs.launchpad.net/testrepository/+bug/1229445
-    rm -rf .testrepository
     find . -type f -name "*.pyc" -delete
 
-    #python setup.py testr --coverage --testr-args=""
-    python setup.py testr --coverage --slowest --testr-args="$*"
-    testr failing
-    coverage report > ${current_report}
+    # Temporarily run tests from two directories, until all tests have moved
+    coverage run -p -m unittest discover ./tests/unit
+    coverage run -p -m unittest discover ./yardstick/tests/unit
+    coverage combine
+
+    # Temporarily omit yardstick/tests from the report
+    coverage report --omit=yardstick/tests/*/* > ${current_report}
+    coverage erase
 
     rm -rf cover-$PY_VER
     coverage html -d cover-$PY_VER
