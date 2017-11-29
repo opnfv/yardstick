@@ -26,7 +26,7 @@ class Yardstick(object):
 
     """
 
-    def __init__(self, fake=False):
+    def __init__(self):
 
         self.args = ["yardstick"]
         self.env = copy.deepcopy(os.environ)
