@@ -75,6 +75,7 @@ class TestTrexTrafficGen(unittest.TestCase):
                                         'local_iface_name': 'xe0',
                                         'vld_id': 'downlink_0',
                                         'ifname': 'xe0',
+                                        'socket': 0,
                                         'local_mac': '00:00:00:00:00:02'},
                                    'vnfd-connection-point-ref': 'xe0',
                                    'name': 'xe0'},
@@ -91,6 +92,7 @@ class TestTrexTrafficGen(unittest.TestCase):
                                         'local_iface_name': 'xe1',
                                         'vld_id': 'uplink_0',
                                         'ifname': 'xe1',
+                                        'socket': 0,
                                         'local_mac': '00:00:00:00:00:01'},
                                    'vnfd-connection-point-ref': 'xe1',
                                    'name': 'xe1'}]}],
@@ -133,7 +135,8 @@ class TestTrexTrafficGen(unittest.TestCase):
                     "lb_count": 1,
                     "worker_config": "1C/1T",
                     "worker_threads": 1,
-                }
+                },
+                "trex_server_debug": True,
             }
         },
         "task_id": "a70bdf4a-8e67-47a3-9dc1-273c14506eb7",
@@ -296,6 +299,198 @@ class TestTrexTrafficGen(unittest.TestCase):
         }
     }
 
+    CPUINFO_DUAL_SOCKET_HYPERTHREAD = """\
+processor       : 1
+vendor_id       : GenuineIntel
+cpu family      : 6
+model           : 79
+model name      : Intel(R) Xeon(R) CPU E5-2699 v4 @ 2.20GHz
+stepping        : 1
+microcode       : 0xb00001f
+cpu MHz         : 1200.976
+cache size      : 56320 KB
+physical id     : 0
+siblings        : 44
+core id         : 1
+cpu cores       : 22
+apicid          : 2
+initial apicid  : 2
+fpu             : yes
+fpu_exception   : yes
+cpuid level     : 20
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch epb cat_l3 cdp_l3 intel_ppin intel_pt tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm rdt_a rdseed adx smap xsaveopt cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts
+bugs            :
+bogomips        : 4401.07
+clflush size    : 64
+cache_alignment : 64
+address sizes   : 46 bits physical, 48 bits virtual
+power management:
+
+processor       : 2
+vendor_id       : GenuineIntel
+cpu family      : 6
+model           : 79
+model name      : Intel(R) Xeon(R) CPU E5-2699 v4 @ 2.20GHz
+stepping        : 1
+microcode       : 0xb00001f
+cpu MHz         : 1226.892
+cache size      : 56320 KB
+physical id     : 0
+siblings        : 44
+core id         : 2
+cpu cores       : 22
+apicid          : 4
+initial apicid  : 4
+fpu             : yes
+fpu_exception   : yes
+cpuid level     : 20
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch epb cat_l3 cdp_l3 intel_ppin intel_pt tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm rdt_a rdseed adx smap xsaveopt cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts
+bugs            :
+bogomips        : 4400.84
+clflush size    : 64
+cache_alignment : 64
+address sizes   : 46 bits physical, 48 bits virtual
+power management:
+
+processor       : 43
+vendor_id       : GenuineIntel
+cpu family      : 6
+model           : 79
+model name      : Intel(R) Xeon(R) CPU E5-2699 v4 @ 2.20GHz
+stepping        : 1
+microcode       : 0xb00001f
+cpu MHz         : 1200.305
+cache size      : 56320 KB
+physical id     : 1
+siblings        : 44
+core id         : 28
+cpu cores       : 22
+apicid          : 120
+initial apicid  : 120
+fpu             : yes
+fpu_exception   : yes
+cpuid level     : 20
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch epb cat_l3 cdp_l3 intel_ppin intel_pt tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm rdt_a rdseed adx smap xsaveopt cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts
+bugs            :
+bogomips        : 4411.31
+clflush size    : 64
+cache_alignment : 64
+address sizes   : 46 bits physical, 48 bits virtual
+power management:
+
+processor       : 44
+vendor_id       : GenuineIntel
+cpu family      : 6
+model           : 79
+model name      : Intel(R) Xeon(R) CPU E5-2699 v4 @ 2.20GHz
+stepping        : 1
+microcode       : 0xb00001f
+cpu MHz         : 1200.305
+cache size      : 56320 KB
+physical id     : 0
+siblings        : 44
+core id         : 0
+cpu cores       : 22
+apicid          : 1
+initial apicid  : 1
+fpu             : yes
+fpu_exception   : yes
+cpuid level     : 20
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch epb cat_l3 cdp_l3 intel_ppin intel_pt tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm rdt_a rdseed adx smap xsaveopt cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts
+bugs            :
+bogomips        : 4410.61
+clflush size    : 64
+cache_alignment : 64
+address sizes   : 46 bits physical, 48 bits virtual
+power management:
+
+processor       : 85
+vendor_id       : GenuineIntel
+cpu family      : 6
+model           : 79
+model name      : Intel(R) Xeon(R) CPU E5-2699 v4 @ 2.20GHz
+stepping        : 1
+microcode       : 0xb00001f
+cpu MHz         : 1200.573
+cache size      : 56320 KB
+physical id     : 1
+siblings        : 44
+core id         : 26
+cpu cores       : 22
+apicid          : 117
+initial apicid  : 117
+fpu             : yes
+fpu_exception   : yes
+cpuid level     : 20
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch epb cat_l3 cdp_l3 intel_ppin intel_pt tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm rdt_a rdseed adx smap xsaveopt cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts
+bugs            :
+bogomips        : 4409.07
+clflush size    : 64
+cache_alignment : 64
+address sizes   : 46 bits physical, 48 bits virtual
+power management:
+
+processor       : 86
+vendor_id       : GenuineIntel
+cpu family      : 6
+model           : 79
+model name      : Intel(R) Xeon(R) CPU E5-2699 v4 @ 2.20GHz
+stepping        : 1
+microcode       : 0xb00001f
+cpu MHz         : 1200.305
+cache size      : 56320 KB
+physical id     : 1
+siblings        : 44
+core id         : 27
+cpu cores       : 22
+apicid          : 119
+initial apicid  : 119
+fpu             : yes
+fpu_exception   : yes
+cpuid level     : 20
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch epb cat_l3 cdp_l3 intel_ppin intel_pt tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm rdt_a rdseed adx smap xsaveopt cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts
+bugs            :
+bogomips        : 4406.62
+clflush size    : 64
+cache_alignment : 64
+address sizes   : 46 bits physical, 48 bits virtual
+power management:
+
+processor       : 87
+vendor_id       : GenuineIntel
+cpu family      : 6
+model           : 79
+model name      : Intel(R) Xeon(R) CPU E5-2699 v4 @ 2.20GHz
+stepping        : 1
+microcode       : 0xb00001f
+cpu MHz         : 1200.708
+cache size      : 56320 KB
+physical id     : 1
+siblings        : 44
+core id         : 28
+cpu cores       : 22
+apicid          : 121
+initial apicid  : 121
+fpu             : yes
+fpu_exception   : yes
+cpuid level     : 20
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch epb cat_l3 cdp_l3 intel_ppin intel_pt tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm rdt_a rdseed adx smap xsaveopt cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts
+bugs            :
+bogomips        : 4413.48
+clflush size    : 64
+cache_alignment : 64
+address sizes   : 46 bits physical, 48 bits virtual
+power management:
+
+"""
+
     @mock.patch(SSH_HELPER)
     def test___init__(self, ssh):
         mock_ssh(ssh)
@@ -351,6 +546,25 @@ class TestTrexTrafficGen(unittest.TestCase):
         trex_traffic_gen.setup_helper.setup_vnf_environment = mock.MagicMock()
         self.assertIsNone(trex_traffic_gen.instantiate(self.SCENARIO_CFG, self.CONTEXT_CFG))
 
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
+    @mock.patch(SSH_HELPER)
+    def test_wait_for_instantiate(self, ssh, _):
+        mock_ssh(ssh)
+
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen._start_server = mock.Mock(return_value=0)
+        trex_traffic_gen._tg_process = mock.MagicMock()
+        trex_traffic_gen._tg_process.start = mock.Mock()
+        trex_traffic_gen._tg_process.exitcode = 0
+        trex_traffic_gen._tg_process._is_alive = mock.Mock(return_value=1)
+        trex_traffic_gen.ssh_helper = mock.MagicMock()
+        trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
+        trex_traffic_gen.resource_helper.ssh_helper.execute.return_value = (0, "", "")
+        trex_traffic_gen.setup_helper.setup_vnf_environment = mock.MagicMock()
+
+        self.assertEqual(trex_traffic_gen.wait_for_instantiate(), 0)
+
     @mock.patch(SSH_HELPER)
     def test__start_server(self, ssh):
         mock_ssh(ssh)
@@ -359,6 +573,17 @@ class TestTrexTrafficGen(unittest.TestCase):
         trex_traffic_gen.ssh_helper = mock.MagicMock()
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
         trex_traffic_gen.scenario_helper.scenario_cfg = {}
+        self.assertIsNone(trex_traffic_gen._start_server())
+
+    @mock.patch(SSH_HELPER)
+    def test__start_server_trex_debug(self, ssh):
+        mock_ssh(ssh)
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen.ssh_helper = mock.MagicMock()
+        trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
+        trex_traffic_gen.scenario_helper.scenario_cfg = {
+            "options": {NAME: {"trex_server_debug": True}}}
         self.assertIsNone(trex_traffic_gen._start_server())
 
     @mock.patch(SSH_HELPER)
@@ -382,8 +607,10 @@ class TestTrexTrafficGen(unittest.TestCase):
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         self.sut = TrexTrafficGen(NAME, vnfd)
-        self.sut.ssh_helper = mock.Mock()
-        self.sut.ssh_helper.run = mock.Mock()
+        # self.sut.ssh_helper = mock.Mock()
+        # self.sut.ssh_helper.run = mock.Mock()
+        self.sut.ssh_helper.get_file_obj.side_effect = lambda *args: args[-1].write(
+            self.CPUINFO_DUAL_SOCKET_HYPERTHREAD.encode('utf-8'))
         self.sut._connect_client = mock.Mock(autospec=STLClient)
         self.sut._connect_client.get_stats = mock.Mock(return_value="0")
         self.sut.resource_helper.RUN_DURATION = 0
@@ -391,6 +618,7 @@ class TestTrexTrafficGen(unittest.TestCase):
         # must generate cfg before we can run traffic so Trex port mapping is created
         self.sut.resource_helper.generate_cfg()
         self.sut._traffic_runner(mock_traffic_profile)
+        self.assertEqual(self.sut.resource_helper.port_num("xe0"), 0)
 
     @mock.patch(SSH_HELPER)
     def test__generate_trex_cfg(self, ssh):
@@ -418,6 +646,7 @@ class TestTrexTrafficGen(unittest.TestCase):
                   'local_iface_name': 'xe0',
                   'vld_id': 'downlink_0',
                   'ifname': 'xe0',
+                  'socket': 0,
                   'local_mac': '00:00:00:00:00:02'},
              'vnfd-connection-point-ref': 'xe0',
              'name': 'xe0'},
@@ -434,6 +663,7 @@ class TestTrexTrafficGen(unittest.TestCase):
                   'local_iface_name': 'xe1',
                   'vld_id': 'uplink_0',
                   'ifname': 'xe1',
+                  'socket': 0,
                   'local_mac': '00:00:00:00:00:01'},
              'vnfd-connection-point-ref': 'xe1',
              'name': 'xe1'}]
@@ -456,8 +686,6 @@ class TestTrexTrafficGen(unittest.TestCase):
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         self.sut = TrexTrafficGen(NAME, vnfd)
-        self.sut.ssh_helper = mock.Mock()
-        self.sut.ssh_helper.run = mock.Mock()
         self.sut._traffic_runner = mock.Mock(return_value=0)
         self.sut.resource_helper.client_started.value = 1
         result = self.sut.run_traffic(mock_traffic_profile)
@@ -469,8 +697,6 @@ class TestTrexTrafficGen(unittest.TestCase):
         mock_ssh(ssh)
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
-        trex_traffic_gen.ssh_helper = mock.MagicMock()
-        trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
         self.assertIsNone(trex_traffic_gen.terminate())
 
     @mock.patch(SSH_HELPER)
@@ -481,3 +707,12 @@ class TestTrexTrafficGen(unittest.TestCase):
         client = mock.Mock(autospec=STLClient)
         client.connect = mock.Mock(return_value=0)
         self.assertIsNotNone(trex_traffic_gen.resource_helper._connect(client))
+
+    @mock.patch(SSH_HELPER)
+    def test_check_status(self, ssh):
+        mock_ssh(ssh)
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen.resource_helper.ssh_helper.execute.return_value = (
+        1, "trex dead", "really")
+        self.assertEqual(trex_traffic_gen._check_status(), 1)

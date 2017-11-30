@@ -15,11 +15,12 @@
 
 from __future__ import absolute_import
 import logging
+import io
 import os
 
 import yaml
 
-from yardstick.common.utils import mac_address_to_hex_list, try_int
+from yardstick.common.utils import mac_address_to_hex_list, try_int, SocketTopology
 from yardstick.network_services.utils import get_nsb_option
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
@@ -45,11 +46,38 @@ class TrexResourceHelper(ClientResourceHelper):
 
     ASYNC_PORT = 4500
     SYNC_PORT = 4501
+    MASTER_THREAD = 0
+    LATENCY_THREAD = 1
+    RESERVED_THREADS = {MASTER_THREAD, LATENCY_THREAD}
 
     def __init__(self, setup_helper):
         super(TrexResourceHelper, self).__init__(setup_helper)
         self.port_map = {}
         self.dpdk_to_trex_port_map = {}
+        self.index_socket_map = {}
+
+    def _get_threads(self, topo, socket):
+        return sorted(proc for procs in topo[socket].values() for proc in procs if
+                      proc not in self.RESERVED_THREADS)
+
+    def _set_platform_socket_threads(self):
+        stdout = io.BytesIO()
+        self.ssh_helper.get_file_obj("/proc/cpuinfo", stdout)
+        cpu_topology = SocketTopology.parse_cpuinfo(stdout.getvalue().decode('utf-8'))
+        if not cpu_topology:
+            LOG.warning("Cannont find socket topology, unable to assign threads")
+            return {}
+        dual_if = []
+        for socket in sorted(self.index_socket_map.values()):
+            dual_if.append({
+                "socket": socket,
+                "threads": self._get_threads(cpu_topology, socket)
+            })
+        return {
+            "master_thread_id": self.MASTER_THREAD,
+            "latency_thread_id": self.LATENCY_THREAD,
+            "dual_if": dual_if,
+        }
 
     def generate_cfg(self):
         port_names = self.vnfd_helper.port_pairs.all_ports
@@ -78,11 +106,14 @@ class TrexResourceHelper(ClientResourceHelper):
             })
             self.port_map[port_name] = index
             self.dpdk_to_trex_port_map[port_num] = index
+            self.index_socket_map[index] = try_int(virtual_interface["socket"])
+
         trex_cfg = {
             'interfaces': vpci_list,
             'port_info': port_list,
             "port_limit": len(port_names),
             "version": '2',
+            "platform": self._set_platform_socket_threads(),
         }
         cfg_file = [trex_cfg]
 
@@ -103,27 +134,6 @@ class TrexResourceHelper(ClientResourceHelper):
     def check_status(self):
         status, _, _ = self.ssh_helper.execute("sudo lsof -i:%s" % self.SYNC_PORT)
         return status
-
-    # temp disable
-    DISABLE_DEPLOY = True
-
-    def setup(self):
-        super(TrexResourceHelper, self).setup()
-        if self.DISABLE_DEPLOY:
-            return
-
-        trex_path = self.ssh_helper.join_bin_path('trex')
-
-        err = self.ssh_helper.execute("which {}".format(trex_path))[0]
-        if err == 0:
-            return
-
-        LOG.info("Copying %s to destination...", self.RESOURCE_WORD)
-        self.ssh_helper.run("sudo mkdir -p '{}'".format(os.path.dirname(trex_path)))
-        self.ssh_helper.put("~/.bash_profile", "~/.bash_profile")
-        self.ssh_helper.put(trex_path, trex_path, True)
-        ko_src = os.path.join(trex_path, "scripts/ko/src/")
-        self.ssh_helper.execute(self.MAKE_INSTALL.format(ko_src))
 
     def start(self, ports=None, *args, **kwargs):
         # pylint: disable=keyword-arg-before-vararg
