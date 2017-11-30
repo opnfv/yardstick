@@ -113,11 +113,11 @@ class QemuMigrate(base.Scenario):
         if status:
             raise RuntimeError(stderr)
 
-        parsed_data = jsonutils.loads(stdout)
+        result.update(jsonutils.loads(stdout))
 
         if "sla" in self.scenario_cfg:
             sla_error = ""
-            for t, timevalue in parsed_data.items():
+            for t, timevalue in result.items():
                 if 'max_%s' % t not in self.scenario_cfg['sla']:
                     continue
 
