@@ -94,7 +94,7 @@ class QemuMigrate(base.Scenario):
 
         self.setup_done = True
 
-    def run(self, result):
+    def run(self):
         """execute the benchmark"""
 
         options = self.scenario_cfg["options"]
@@ -129,6 +129,7 @@ class QemuMigrate(base.Scenario):
                         (t, timevalue, t, sla_time)
             assert sla_error == "", sla_error
 
+        return parsed_data
 
 def _test():    # pragma: no cover
     """internal test function"""
@@ -164,7 +165,7 @@ def _test():    # pragma: no cover
     result = {}
 
     migrate = QemuMigrate(args, ctx)
-    migrate.run(result)
+    result=migrate.run()
     print(result)
 
 if __name__ == '__main__':    # pragma: no cover
