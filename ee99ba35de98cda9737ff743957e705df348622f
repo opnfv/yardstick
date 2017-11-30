@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_121151ac",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate_benchmark.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-30T18:02:31Z",
+      "side": 0,
+      "message": "you could keep this, put it in a function, like do_migrate below, and redirect the output similarly.",
+      "revId": "ee99ba35de98cda9737ff743957e705df348622f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7227fd12",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate_benchmark.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-30T18:02:31Z",
+      "side": 0,
+      "message": "no need to remove this if we\u0027re redirecting all the output to /dev/null.",
+      "revId": "ee99ba35de98cda9737ff743957e705df348622f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5222b901",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate_benchmark.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-30T18:02:31Z",
+      "side": 0,
+      "message": "same as L33",
+      "revId": "ee99ba35de98cda9737ff743957e705df348622f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b22185fd",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate_benchmark.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-30T18:02:31Z",
+      "side": 0,
+      "message": "this is already going into a file, why remove it?",
+      "revId": "ee99ba35de98cda9737ff743957e705df348622f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_921c41c3",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate_benchmark.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-30T18:02:31Z",
+      "side": 0,
+      "message": "you could make a function, perhaps named human_echo, and that would send what it echoes to wherever human-targeted messages should go (file or stderr).",
+      "revId": "ee99ba35de98cda9737ff743957e705df348622f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

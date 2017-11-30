@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_320e158e",
+        "filename": "yardstick/benchmark/scenarios/compute/qemu_migrate_benchmark.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-11-30T18:02:31Z",
+      "side": 1,
+      "message": "you could make this configurable, if you want to allow for manual execution\n\nalso, if you default the human-readable output to stderr and keep it separate from stdout, then the python script should be able to ignore the stderr and only parse the stdout as json.",
+      "revId": "9b6c40ece7e947d798bebc0dcbd994b41bfaa604",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
