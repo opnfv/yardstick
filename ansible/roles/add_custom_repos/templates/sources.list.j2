@@ -2,4 +2,7 @@
 deb [arch={{ YARD_IMG_ARCH }}] http://ports.ubuntu.com/ {{ release }}-backports main restricted universe multiverse
 {% else %}
 deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ {{ release }}-backports main restricted universe multiverse
+    {% if multiverse_repos.rc != 0 %}
+deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ {{ release }} multiverse
+    {% endif %}
 {% endif %}
