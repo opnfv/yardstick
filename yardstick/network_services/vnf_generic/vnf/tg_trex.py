@@ -15,11 +15,12 @@
 
 from __future__ import absolute_import
 import logging
+import io
 import os
 
 import yaml
 
-from yardstick.common.utils import mac_address_to_hex_list, try_int
+from yardstick.common.utils import mac_address_to_hex_list, try_int, SocketTopology
 from yardstick.network_services.utils import get_nsb_option
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
@@ -50,6 +51,26 @@ class TrexResourceHelper(ClientResourceHelper):
         super(TrexResourceHelper, self).__init__(setup_helper)
         self.port_map = {}
         self.dpdk_to_trex_port_map = {}
+        self.index_socket_map = {}
+        self._cpu_topology = {}
+
+    def set_platform_socket_threads(self):
+        stdout = io.BytesIO()
+        self.ssh_helper.get_file_obj("/proc/cpuinfo", stdout)
+        self._cpu_topology = SocketTopology.parse_cpuinfo(stdout.getvalue().decode('utf-8'))
+        dual_if = []
+        for index, socket in sorted(self.index_socket_map.items()):
+            dual_if.append({
+                "socket": socket,
+                "threads": sorted(
+                    proc for procs in self._cpu_topology[socket].values() for proc in procs)
+            })
+        platform = {
+            "master_thread_id": 0,
+            "latency_thread_id": 1,
+            "dual_if": dual_if,
+        }
+        return platform
 
     def generate_cfg(self):
         port_names = self.vnfd_helper.port_pairs.all_ports
@@ -78,11 +99,16 @@ class TrexResourceHelper(ClientResourceHelper):
             })
             self.port_map[port_name] = index
             self.dpdk_to_trex_port_map[port_num] = index
+            self.index_socket_map[index] = virtual_interface["socket"]
+
+        platform = self.set_platform_socket_threads()
+
         trex_cfg = {
             'interfaces': vpci_list,
             'port_info': port_list,
             "port_limit": len(port_names),
             "version": '2',
+            "platform": platform,
         }
         cfg_file = [trex_cfg]
 
