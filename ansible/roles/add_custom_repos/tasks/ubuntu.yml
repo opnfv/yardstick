@@ -12,6 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+- name: Check multiverse repository
+  shell: "apt-cache policy | grep {{ release }}/multiverse"
+  args:
+      executable: /bin/bash
+  register: multiverse_repos
+  ignore_errors: yes
+
 - name: add custom repos
   template:
     src: sources.list.j2
