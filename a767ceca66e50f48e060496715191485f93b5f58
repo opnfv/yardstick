@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_b26d059b",
+        "filename": "samples/multistack_storage_bottlenecks.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2017-11-30T14:37:22Z",
+      "side": 1,
+      "message": "Note that a warm_up run is needed to first fill the whole volume with random data.  200g is rather large, so you might want to use a smaller default.",
+      "revId": "a767ceca66e50f48e060496715191485f93b5f58",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_52f599c9",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc007.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2017-11-30T14:37:22Z",
+      "side": 1,
+      "message": "For HDD, the max acceptable latency guideline that I have seen is 30ms, so 20 is good.  However, for SSD that should be a lot lower, closer to 5ms with Ceph involved.\n\nNote that StorPerf now reports latency in ns, so StorPerf would report this as 30000000.",
+      "revId": "a767ceca66e50f48e060496715191485f93b5f58",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
