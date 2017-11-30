@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_32e9f5b8",
+        "filename": "ansible/yardstick-install-inventory.ini",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-30T19:59:36Z",
+      "side": 1,
+      "message": "I added section [yardstick] as a children of jumphost for backward compatibility",
+      "parentUuid": "9a3d3df0_08c127e4",
+      "range": {
+        "startLine": 3,
+        "startChar": 1,
+        "endLine": 3,
+        "endChar": 9
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_28beab65",
         "filename": "ansible/yardstick-install-inventory.ini",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-29T11:42:55Z",
       "side": 1,
       "message": "This should be in the documentation (as is), not here",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 18
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_12ecb1c6",
+        "filename": "ansible/yardstick-install-inventory.ini",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-30T19:59:36Z",
+      "side": 1,
+      "message": "Documentation was updated also",
+      "parentUuid": "9a3d3df0_28beab65",
       "range": {
         "startLine": 6,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_924561b5",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-30T19:59:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_c88f3fcb",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 20
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_086807f4",
         "filename": "nsb_setup.sh",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2017-11-29T11:42:55Z",
       "side": 1,
       "message": "This is not needed anymore. No other commands where executed before.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_12b5d1cc",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-30T19:59:36Z",
+      "side": 1,
+      "message": "we need it, someone may uset it for standalone/sriov",
+      "parentUuid": "9a3d3df0_086807f4",
       "range": {
         "startLine": 17,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_72cb7d53",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-30T19:59:36Z",
+      "side": 1,
+      "message": "there are two \"if\" sections (lines 25 and 29)",
+      "parentUuid": "9a3d3df0_e8820393",
+      "range": {
+        "startLine": 24,
+        "startChar": 9,
+        "endLine": 24,
+        "endChar": 12
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_88ac1737",
         "filename": "nsb_setup.sh",
         "patchSetId": 6
@@ -128,6 +248,30 @@
       "writtenOn": "2017-11-29T11:42:55Z",
       "side": 1,
       "message": "What is that for?",
+      "range": {
+        "startLine": 25,
+        "startChar": 21,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_52c6394a",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-30T19:59:36Z",
+      "side": 1,
+      "message": "idea was to distinguish unset variable and variable set to empty string. \nPlease refer to: https://stackoverflow.com/questions/3601515/how-to-check-if-a-variable-is-set-in-bash\nWe don\u0027t need it.",
+      "parentUuid": "9a3d3df0_88ac1737",
       "range": {
         "startLine": 25,
         "startChar": 21,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b2c5053e",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-30T19:59:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_e8ab231b",
+      "range": {
+        "startLine": 29,
+        "startChar": 22,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_887377e6",
         "filename": "nsb_setup.sh",
         "patchSetId": 6
@@ -174,6 +342,30 @@
       "writtenOn": "2017-11-29T11:42:55Z",
       "side": 1,
       "message": "are",
+      "range": {
+        "startLine": 33,
+        "startChar": 19,
+        "endLine": 33,
+        "endChar": 21
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_92c0c12b",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-30T19:59:36Z",
+      "side": 1,
+      "message": "comment rewritten",
+      "parentUuid": "9a3d3df0_887377e6",
       "range": {
         "startLine": 33,
         "startChar": 19,
@@ -220,6 +412,54 @@
       "writtenOn": "2017-11-29T11:42:55Z",
       "side": 1,
       "message": "! -z \"$https_proxy\"",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 34,
+        "endChar": 52
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d2e1a9d1",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-30T19:59:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_c87d7fb3",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 24
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f2de6d10",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-11-30T19:59:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_284ceb9d",
       "range": {
         "startLine": 34,
         "startChar": 32,
