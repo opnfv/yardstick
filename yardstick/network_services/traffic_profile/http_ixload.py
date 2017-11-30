@@ -15,7 +15,6 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-import sys
 import os
 import logging
 import collections
@@ -93,7 +92,7 @@ def validate_non_string_sequence(value, default=None, raise_exc=None):
     if isinstance(value, collections.Sequence) and not isinstance(value, str):
         return value
     if raise_exc:
-        raise raise_exc
+        raise raise_exc  # pylint: disable=raising-bad-type
     return default
 
 
@@ -218,8 +217,8 @@ class IXLOADHttpTest(object):
         #  ---- Remap ports ----
         try:
             self.reassign_ports(test, repository, self.ports_to_reassign)
-        except Exception:
-            LOG.exception("Exception occurred during reassign_ports")
+        except Exception as exc:  # pylint: disable=broad-except
+            LOG.exception("Exception occurred during reassign_ports: %s", exc)
 
         # -----------------------------------------------------------------------
         # Set up stat Collection
@@ -306,15 +305,3 @@ class IXLOADHttpTest(object):
         ]
 
         LOG.debug("Ports to be reassigned: %s", self.ports_to_reassign)
-
-
-def main(args):
-    # Get the args from cmdline and parse and run the test
-    test_input = "".join(args[1:])
-    if test_input:
-        ixload_obj = IXLOADHttpTest(test_input)
-        ixload_obj.start_http_test()
-
-if __name__ == '__main__':
-    LOG.info("Start http_ixload test")
-    main(sys.argv)
