@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_52e3d904",
+        "filename": "yardstick/benchmark/core/runner.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-30T15:41:39Z",
+      "side": 1,
+      "message": "Instead of disabling a grammar check, change the grammar.\n\nDefine the function like:\n    def list_all(self, *args):",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 41
+      },
+      "revId": "a09f437af0cfd6fbe8230cdabd5785a85381f305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b2f225d0",
+        "filename": "yardstick/benchmark/core/scenario.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-30T15:41:39Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 41
+      },
+      "revId": "a09f437af0cfd6fbe8230cdabd5785a85381f305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_92ed61f2",
+        "filename": "yardstick/cmd/commands/testcase.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-30T15:41:39Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "a09f437af0cfd6fbe8230cdabd5785a85381f305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
