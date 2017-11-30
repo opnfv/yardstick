@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_12b031f3",
+        "filename": "tests/unit/benchmark/scenarios/lib/test_create_volume.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-30T16:01:15Z",
+      "side": 1,
+      "message": "Because we are cleaning this file, let\u0027s take advantage of it.\n\nInstead of importing the class, import the library and instantiate the class using the library, in order to document where every class is from.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 72
+      },
+      "revId": "0d4c435e84ceabf8f42ee336ab0c94e43338b8a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_32ad759d",
+        "filename": "tests/unit/benchmark/scenarios/lib/test_create_volume.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-30T16:01:15Z",
+      "side": 1,
+      "message": "Avoid using mock decorators in a setup function. Instead of that, create a mock inside it and start it.\n\n\nfrom yardstick.common import openstack_utils\n\ndef setUp(self):\n    self._mock_cinder_client \u003d mock.patch.object(openstack_utils,\n                                                 \u0027get_cinder_client\u0027)\n    self.mock_cinder_client \u003d self._mock_cinder_client.start()\n    ...\n    self.addCleanup(self._stop_mock)\n\ndef _stop_mock():\n    self._mock_cinder_client.stop()\n    ...",
+      "range": {
+        "startLine": 23,
+        "startChar": 8,
+        "endLine": 23,
+        "endChar": 52
+      },
+      "revId": "0d4c435e84ceabf8f42ee336ab0c94e43338b8a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_72cffd7f",
+        "filename": "tests/unit/benchmark/scenarios/lib/test_create_volume.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-30T16:01:15Z",
+      "side": 1,
+      "message": "And this should be removed",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 69
+      },
+      "revId": "0d4c435e84ceabf8f42ee336ab0c94e43338b8a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_52cab96e",
+        "filename": "tests/unit/benchmark/scenarios/lib/test_create_volume.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-30T16:01:15Z",
+      "side": 1,
+      "message": "assert_called_once(), to be sure that the function is called only one single time.",
+      "range": {
+        "startLine": 94,
+        "startChar": 22,
+        "endLine": 94,
+        "endChar": 35
+      },
+      "revId": "0d4c435e84ceabf8f42ee336ab0c94e43338b8a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b2c9857a",
+        "filename": "tests/unit/benchmark/scenarios/lib/test_create_volume.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-30T16:01:15Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 95,
+        "startChar": 27,
+        "endLine": 95,
+        "endChar": 40
+      },
+      "revId": "0d4c435e84ceabf8f42ee336ab0c94e43338b8a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_92c44160",
+        "filename": "tests/unit/benchmark/scenarios/lib/test_create_volume.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-11-30T16:01:15Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 109,
+        "startChar": 23,
+        "endLine": 109,
+        "endChar": 36
+      },
+      "revId": "0d4c435e84ceabf8f42ee336ab0c94e43338b8a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
