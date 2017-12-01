@@ -284,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b05e9d10",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-01T10:13:39Z",
+      "side": 1,
+      "message": "I didn\u0027t know that. Thanks!",
+      "parentUuid": "9a3d3df0_52c6394a",
+      "range": {
+        "startLine": 25,
+        "startChar": 21,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "c83c5fbcd106b87365adc44c2985647c139e2883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e8ab231b",
         "filename": "nsb_setup.sh",
         "patchSetId": 6
