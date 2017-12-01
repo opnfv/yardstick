@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5573c3e6",
+        "filename": "ansible/build_yardstick_image.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-01T10:13:39Z",
+      "side": 1,
+      "message": "L35 is not enough?",
+      "range": {
+        "startLine": 89,
+        "startChar": 5,
+        "endLine": 89,
+        "endChar": 36
+      },
+      "revId": "5e08ce94b1a5878d3b47ec6dd9a1c025f957d3a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3073adb2",
+        "filename": "ansible/nsb_setup.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-01T10:13:39Z",
+      "side": 1,
+      "message": "prepare_openstack.yml",
+      "range": {
+        "startLine": 34,
+        "startChar": 11,
+        "endLine": 34,
+        "endChar": 28
+      },
+      "revId": "5e08ce94b1a5878d3b47ec6dd9a1c025f957d3a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3546ff7c",
+        "filename": "ansible/prepare_openstack.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-01T10:13:39Z",
+      "side": 1,
+      "message": "The task name should be explicit enough to describe the task. But this a personal opinion.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 3
+      },
+      "revId": "5e08ce94b1a5878d3b47ec6dd9a1c025f957d3a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_15493b8b",
+        "filename": "ansible/prepare_openstack.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-01T10:13:39Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 3
+      },
+      "revId": "5e08ce94b1a5878d3b47ec6dd9a1c025f957d3a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_755fe741",
+        "filename": "ansible/prepare_openstack.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-01T10:13:39Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 3
+      },
+      "revId": "5e08ce94b1a5878d3b47ec6dd9a1c025f957d3a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d54eb395",
+        "filename": "ansible/prepare_openstack.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-01T10:13:39Z",
+      "side": 1,
+      "message": "Delete this, please",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 6
+      },
+      "revId": "5e08ce94b1a5878d3b47ec6dd9a1c025f957d3a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f0782591",
+        "filename": "ansible/roles/create_image/tasks/main.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-01T10:13:39Z",
+      "side": 1,
+      "message": "delete this, please",
+      "range": {
+        "startLine": 15,
+        "startChar": 41,
+        "endLine": 15,
+        "endChar": 42
+      },
+      "revId": "5e08ce94b1a5878d3b47ec6dd9a1c025f957d3a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d06361da",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-01T10:13:39Z",
+      "side": 1,
+      "message": "I don\u0027t see this section in our ini files",
+      "range": {
+        "startLine": 135,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 10
+      },
+      "revId": "5e08ce94b1a5878d3b47ec6dd9a1c025f957d3a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
