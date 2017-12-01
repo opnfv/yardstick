@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Edward MacGillivray <edward.s.macgillivray@intel.com>
+Code-Review+2: Jing Lu <lvjing5@huawei.com>
+Code-Review+1: shravani paladugula <shravanix.paladugula@intel.com>
+Submitted-by: Jing Lu <lvjing5@huawei.com>
+Submitted-at: Fri, 01 Dec 2017 05:40:23 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/48129
+Project: yardstick
+Branch: refs/heads/master
