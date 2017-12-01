@@ -9,6 +9,9 @@
 ---
 
 schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC023 config file;
+    Measure VM availability during VM live migration.
 
 {% set file = file or "etc/yardstick/nodes/compass_sclab_virtual/pod.yaml" %}
 {% set cpu_set = cpu_set or "0,1,2,3" %}

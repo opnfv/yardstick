@@ -10,7 +10,9 @@
 
 schema: "yardstick:task:0.1"
 description: >
-    Sample test case for the HA of controller node Openstack service.
+
+    Yardstick TC019 config file;
+    HA test case: HA test case: Control node Openstack service down - nova-api.
 
 {% set file = file or '/etc/yardstick/pod.yaml' %}
 {% set attack_host = attack_host or "node1" %}
