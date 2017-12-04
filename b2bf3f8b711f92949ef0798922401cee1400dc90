@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_0662b33d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-04T07:58:13Z",
+      "side": 1,
+      "message": "nit: remove",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 1
+      },
+      "revId": "b2bf3f8b711f92949ef0798922401cee1400dc90",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e664ef4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-04T07:58:13Z",
+      "side": 1,
+      "message": "guest",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "b2bf3f8b711f92949ef0798922401cee1400dc90",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_465cbb7e",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-04T07:58:13Z",
+      "side": 1,
+      "message": "Keep the same indentation. Remove one char",
+      "range": {
+        "startLine": 83,
+        "startChar": 6,
+        "endLine": 87,
+        "endChar": 15
+      },
+      "revId": "b2bf3f8b711f92949ef0798922401cee1400dc90",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
