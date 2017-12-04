@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_613609e9",
+        "filename": "ansible/roles/enable_iommu_on_boot/tasks/manual_modify_grub.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-12-04T09:45:58Z",
+      "side": 1,
+      "message": "I added these params based on yardstick documentation:\nhttp://docs.opnfv.org/en/latest/submodules/yardstick/docs/testing/user/userguide/12-nsb_installation.html\nPlease refer to section \"Boot settings\".\n\nI will rewrite it using cpu vendor detection",
+      "parentUuid": "9a3d3df0_866ec32d",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 49
+      },
+      "revId": "72753130f3b9f26f49eed00e662354f381ecbb1a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_6669ff24",
         "filename": "ansible/roles/enable_iommu_on_boot/vars/main.yml",
         "patchSetId": 2
