@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_06be3365",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-12-04T08:56:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_e664ef4a",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "b2bf3f8b711f92949ef0798922401cee1400dc90",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a68f87cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-12-04T08:56:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_0662b33d",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 1
+      },
+      "revId": "b2bf3f8b711f92949ef0798922401cee1400dc90",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_465cbb7e",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2017-12-04T07:58:13Z",
       "side": 1,
       "message": "Keep the same indentation. Remove one char",
+      "range": {
+        "startLine": 83,
+        "startChar": 6,
+        "endLine": 87,
+        "endChar": 15
+      },
+      "revId": "b2bf3f8b711f92949ef0798922401cee1400dc90",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_267257e5",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-12-04T08:56:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_465cbb7e",
       "range": {
         "startLine": 83,
         "startChar": 6,
