@@ -40,7 +40,12 @@
     - package: name=parted state=present
 
     - set_fact:
-        imgfile: "{{ workspace }}/yardstick-image.img"
+        imgfile: "{{ normal_image_file }}"
+      when: img_property == "normal"
+
+    - set_fact:
+        imgfile: "{{ nsb_image_file }}"
+      when: img_property == "nsb"
 
     - set_fact:
         mountdir: "{{ lookup('env', 'mountdir')|default('/mnt/yardstick', true) }}"
@@ -196,8 +201,13 @@
         nameserver_ip: "{{ ansible_dns.nameservers[0] }}"
         image_type: vm
 
-- name: include {{ img_modify_playbook }}
-  include: "{{ img_modify_playbook }}"
+- name: include ubuntu_server_cloudimg_modify.yml
+  include: ubuntu_server_cloudimg_modify.yml
+  when: img_property == "normal"
+
+- name: include ubuntu_server_cloudimg_modify_samplevnfs.yml
+  include: ubuntu_server_cloudimg_modify_samplevnfs.yml
+  when: img_property == "nsb"
 
 - hosts: localhost
   tasks:

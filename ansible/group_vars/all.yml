@@ -1,6 +1,9 @@
 ---
+target_os: "Ubuntu"
+YARD_IMG_ARCH: "amd64"
 clone_dest: /opt/tempT
 release: xenial
-target_os: Ubuntu
+normal_image_file: "{{ workspace }}/yardstick-image.img"
+nsb_image_file: "{{ workspace }}/yardstick-nsb-image.img"
 ubuntu_image_file: /tmp/workspace/yardstick/yardstick-trusty-server.raw
 proxy_env: {}
