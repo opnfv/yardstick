@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_268897e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-04T07:51:31Z",
+      "side": 1,
+      "message": "You should explain that you are adding iommu AND passthrough support",
+      "revId": "72753130f3b9f26f49eed00e662354f381ecbb1a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_866ec32d",
+        "filename": "ansible/roles/enable_iommu_on_boot/tasks/manual_modify_grub.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-04T07:51:31Z",
+      "side": 1,
+      "message": "These options doesn\u0027t work together [1][2].\n\nYou should have, depending on the processor (Intel, AMD):\n- intel_iommu\u003don, iommu\u003dpt\n- amd_iommu\u003don, iommu\u003dpt\n\n\n[1] https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.1/html/installation_guide/appe-configuring_a_hypervisor_host_for_pci_passthrough\n[2] https://dpdk-guide.gitlab.io/dpdk-guide/setup/iommu.html",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 49
+      },
+      "revId": "72753130f3b9f26f49eed00e662354f381ecbb1a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6669ff24",
+        "filename": "ansible/roles/enable_iommu_on_boot/vars/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-04T07:51:31Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 15,
+        "startChar": 110,
+        "endLine": 15,
+        "endChar": 142
+      },
+      "revId": "72753130f3b9f26f49eed00e662354f381ecbb1a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
