@@ -13,10 +13,15 @@
 from contextlib import contextmanager
 from itertools import count
 from tempfile import NamedTemporaryFile
-import unittest
 import uuid
 import time
+import tempfile
+
 import mock
+from oslo_serialization import jsonutils
+from oslo_utils import uuidutils
+import shade
+import unittest
 
 from yardstick.benchmark.contexts import node
 from yardstick.orchestrator import heat
@@ -38,16 +43,16 @@ def timer():
     finally:
         data['end'] = end = time.time()
         data['delta'] = end - start
-
-
-def index_value_iter(index, index_value, base_value=None):
-    for current_index in count():
-        if current_index == index:
-            yield index_value
-        else:
-            yield base_value
-
-
+#
+#
+# def index_value_iter(index, index_value, base_value=None):
+#     for current_index in count():
+#         if current_index == index:
+#             yield index_value
+#         else:
+#             yield base_value
+#
+#
 def get_error_message(error):
     try:
         # py2
@@ -57,13 +62,100 @@ def get_error_message(error):
         return next((arg for arg in error.args if isinstance(arg, str)), None)
 
 
-class HeatContextTestCase(unittest.TestCase):
+# class HeatContextTestCase(unittest.TestCase):
+#
+#     def test_get_short_key_uuid(self):
+#         u = uuid.uuid4()
+#         k = heat.get_short_key_uuid(u)
+#         self.assertEqual(heat.HEAT_KEY_UUID_LENGTH, len(k))
+#         self.assertIn(k, str(u))
 
-    def test_get_short_key_uuid(self):
-        u = uuid.uuid4()
-        k = heat.get_short_key_uuid(u)
-        self.assertEqual(heat.HEAT_KEY_UUID_LENGTH, len(k))
-        self.assertIn(k, str(u))
+class FakeStack(object):
+
+    def __init__(self, outputs, status, id):
+        self.outputs = outputs
+        self.status = status
+        self.id = id
+
+
+class HeatStackTestCase(unittest.TestCase):
+    #
+    # def test_delete_calls__delete_multiple_times(self):
+    #     stack = heat.HeatStack('test')
+    #     stack.uuid = 1
+    #     with mock.patch.object(stack, "_delete") as delete_mock:
+    #         stack.delete()
+    #     # call once and then call again if uuid is not none
+    #     self.assertGreater(delete_mock.call_count, 1)
+    #
+    # @mock.patch('yardstick.orchestrator.heat.op_utils')
+    # def test_delete_all_calls_delete(self, mock_op):
+    #     # we must patch the object before we create an instance
+    #     # so we can override delete() in all the instances
+    #     with mock.patch.object(heat.HeatStack, "delete") as delete_mock:
+    #         stack = heat.HeatStack('test')
+    #         stack.uuid = 1
+    #         stack.delete_all()
+    #         self.assertGreater(delete_mock.call_count, 0)
+
+    def setUp(self):
+        self.stack_name = 'STACK NAME'
+        with mock.patch.object(shade, 'openstack_cloud'):
+            self.heatstack = heat.HeatStack(self.stack_name)
+        self._mock_stack_create = mock.patch.object(self.heatstack._cloud,
+                                                    'create_stack')
+        self.mock_stack_create = self._mock_stack_create.start()
+        self._mock_stack_delete = mock.patch.object(self.heatstack._cloud,
+                                                    'delete_stack')
+        self.mock_stack_delete = self._mock_stack_delete.start()
+
+        self.addCleanup(self._cleanup)
+
+    def _cleanup(self):
+        self._mock_stack_create.stop()
+        self._mock_stack_delete.stop()
+        heat._DEPLOYED_STACKS = {}
+
+    def test_create(self):
+        template = {'tkey': 'tval'}
+        heat_parameters = {'pkey': 'pval'}
+        outputs = [{'output_key': 'okey', 'output_value': 'oval'}]
+        id = uuidutils.generate_uuid()
+        self.mock_stack_create.return_value = FakeStack(outputs, mock.Mock(),
+                                                        id)
+        mock_tfile = mock.Mock()
+        with mock.patch.object(tempfile._TemporaryFileWrapper, '__enter__',
+                               return_value=mock_tfile):
+            self.heatstack.create(template, heat_parameters, True, 100)
+            mock_tfile.write.assert_called_once_with(jsonutils.dumps(template))
+            mock_tfile.close.assert_called_once()
+
+        self.mock_stack_create.assert_called_once_with(
+            self.stack_name, template_file=mock_tfile.name, wait=True,
+            timeout=100, pkey='pval')
+        self.assertEqual({'okey': 'oval'}, self.heatstack.outputs)
+        self.assertEqual(heat._DEPLOYED_STACKS[id], self.heatstack._stack)
+
+    def test_stacks_exist(self):
+        self.assertEqual(0, self.heatstack.stacks_exist())
+        heat._DEPLOYED_STACKS['id'] = 'stack'
+        self.assertEqual(1, self.heatstack.stacks_exist())
+
+    def test_delete_not_uuid(self):
+        self.assertIsNone(self.heatstack.delete())
+
+    def test_delete_existing_uuid(self):
+        id = uuidutils.generate_uuid()
+        self.heatstack._stack = FakeStack(mock.Mock(), mock.Mock(), id)
+        heat._DEPLOYED_STACKS[id] = self.heatstack._stack
+        delete_return = mock.Mock()
+        self.mock_stack_delete.return_value = delete_return
+
+        ret = self.heatstack.delete(wait=True)
+        self.assertEqual(delete_return, ret)
+        self.assertFalse(heat._DEPLOYED_STACKS)
+        self.mock_stack_delete.assert_called_once_with(id, wait=True)
+
 
 class HeatTemplateTestCase(unittest.TestCase):
 
@@ -115,7 +207,7 @@ class HeatTemplateTestCase(unittest.TestCase):
         test_context.keypair_name = "foo-key"
         test_context.secgroup_name = "foo-secgroup"
         test_context.key_uuid = "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b"
-        heat_object = heat.HeatObject()
+        ####heat_object = heat.HeatObject()
 
         heat_stack = heat.HeatStack("tmpStack")
         self.assertTrue(heat_stack.stacks_exist())
@@ -124,7 +216,7 @@ class HeatTemplateTestCase(unittest.TestCase):
         test_context.tmpfile.write("heat_template_version: 2015-04-30")
         test_context.tmpfile.flush()
         test_context.tmpfile.seek(0)
-        heat_template = heat.HeatTemplate(heat_object)
+        heat_template = heat.HeatTemplate('template name')
         heat_template.resources = {}
 
         heat_template.add_network("network1")
@@ -180,160 +272,161 @@ class HeatTemplateTestCase(unittest.TestCase):
         heat_template.add_flavor("test")
         self.assertEqual(heat_template.resources['test']['type'], 'OS::Nova::Flavor')
 
-    @mock_patch_target_module('op_utils')
-    @mock_patch_target_module('heatclient')
-    def test_create_negative(self, mock_heat_client_class, mock_op_utils):
-        self.template.HEAT_WAIT_LOOP_INTERVAL = 0
-        mock_heat_client = mock_heat_client_class()  # get the constructed mock
-
-        # populate attributes of the constructed mock
-        mock_heat_client.stacks.get().stack_status_reason = 'the reason'
-
-        expected_status_calls = 0
-        expected_constructor_calls = 1  # above, to get the instance
-        expected_create_calls = 0
-        expected_op_utils_usage = 0
-
-        with mock.patch.object(self.template, 'status', return_value=None) as mock_status:
-            # block with timeout hit
-            timeout = 0
-            with self.assertRaises(RuntimeError) as raised, timer() as time_data:
-                self.template.create(block=True, timeout=timeout)
-
-            # ensure op_utils was used
-            expected_op_utils_usage += 1
-            self.assertEqual(mock_op_utils.get_session.call_count, expected_op_utils_usage)
-            self.assertEqual(mock_op_utils.get_endpoint.call_count, expected_op_utils_usage)
-            self.assertEqual(mock_op_utils.get_heat_api_version.call_count, expected_op_utils_usage)
-
-            # ensure the constructor and instance were used
-            self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
-            self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
-
-            # ensure that the status was used
-            self.assertGreater(mock_status.call_count, expected_status_calls)
-            expected_status_calls = mock_status.call_count  # synchronize the value
-
-            # ensure the expected exception was raised
-            error_message = get_error_message(raised.exception)
-            self.assertIn('timeout', error_message)
-            self.assertNotIn('the reason', error_message)
-
-            # block with create failed
-            timeout = 10
-            mock_status.side_effect = iter([None, None, u'CREATE_FAILED'])
-            with self.assertRaises(RuntimeError) as raised, timer() as time_data:
-                self.template.create(block=True, timeout=timeout)
-
-            # ensure the existing heat_client was used and op_utils was used again
-            self.assertEqual(mock_op_utils.get_session.call_count, expected_op_utils_usage)
-            self.assertEqual(mock_op_utils.get_endpoint.call_count, expected_op_utils_usage)
-            self.assertEqual(mock_op_utils.get_heat_api_version.call_count, expected_op_utils_usage)
-
-            # ensure the constructor was not used but the instance was used
-            self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
-            self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
-
-            # ensure that the status was used three times
-            expected_status_calls += 3
-            self.assertEqual(mock_status.call_count, expected_status_calls)
-
-    @mock_patch_target_module('op_utils')
-    @mock_patch_target_module('heatclient')
-    def test_create(self, mock_heat_client_class, mock_op_utils):
-        self.template.HEAT_WAIT_LOOP_INTERVAL = 0.2
-        mock_heat_client = mock_heat_client_class()
-
-        # populate attributes of the constructed mock
-        mock_heat_client.stacks.get().outputs = [
-            {'output_key': 'key1', 'output_value': 'value1'},
-            {'output_key': 'key2', 'output_value': 'value2'},
-            {'output_key': 'key3', 'output_value': 'value3'},
-        ]
-        expected_outputs = {
-            'key1': 'value1',
-            'key2': 'value2',
-            'key3': 'value3',
-        }
-
-        expected_status_calls = 0
-        expected_constructor_calls = 1  # above, to get the instance
-        expected_create_calls = 0
-        expected_op_utils_usage = 0
-
-        with mock.patch.object(self.template, 'status') as mock_status:
-            self.template.name = 'no block test'
-            mock_status.return_value = None
-
-            # no block
-            self.assertIsInstance(self.template.create(block=False, timeout=2), heat.HeatStack)
-
-            # ensure op_utils was used
-            expected_op_utils_usage += 1
-            self.assertEqual(mock_op_utils.get_session.call_count, expected_op_utils_usage)
-            self.assertEqual(mock_op_utils.get_endpoint.call_count, expected_op_utils_usage)
-            self.assertEqual(mock_op_utils.get_heat_api_version.call_count, expected_op_utils_usage)
-
-            # ensure the constructor and instance were used
-            self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
-            self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
-
-            # ensure that the status was not used
-            self.assertEqual(mock_status.call_count, expected_status_calls)
-
-            # ensure no outputs because this requires blocking
-            self.assertEqual(self.template.outputs, {})
-
-            # block with immediate complete
-            self.template.name = 'block, immediate complete test'
-
-            mock_status.return_value = self.template.HEAT_CREATE_COMPLETE_STATUS
-            self.assertIsInstance(self.template.create(block=True, timeout=2), heat.HeatStack)
-
-            # ensure existing instance was re-used and op_utils was not used
-            self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
-            self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
-
-            # ensure status was checked once
-            expected_status_calls += 1
-            self.assertEqual(mock_status.call_count, expected_status_calls)
-
-            # reset template outputs
-            self.template.outputs = None
-
-            # block with delayed complete
-            self.template.name = 'block, delayed complete test'
-
-            success_index = 2
-            mock_status.side_effect = index_value_iter(success_index,
-                                                       self.template.HEAT_CREATE_COMPLETE_STATUS)
-            self.assertIsInstance(self.template.create(block=True, timeout=2), heat.HeatStack)
-
-            # ensure existing instance was re-used and op_utils was not used
-            self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
-            self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
-
-            # ensure status was checked three more times
-            expected_status_calls += 1 + success_index
-            self.assertEqual(mock_status.call_count, expected_status_calls)
 
 
-class HeatStackTestCase(unittest.TestCase):
 
-    def test_delete_calls__delete_multiple_times(self):
-        stack = heat.HeatStack('test')
-        stack.uuid = 1
-        with mock.patch.object(stack, "_delete") as delete_mock:
-            stack.delete()
-        # call once and then call again if uuid is not none
-        self.assertGreater(delete_mock.call_count, 1)
 
-    @mock.patch('yardstick.orchestrator.heat.op_utils')
-    def test_delete_all_calls_delete(self, mock_op):
-        # we must patch the object before we create an instance
-        # so we can override delete() in all the instances
-        with mock.patch.object(heat.HeatStack, "delete") as delete_mock:
-            stack = heat.HeatStack('test')
-            stack.uuid = 1
-            stack.delete_all()
-            self.assertGreater(delete_mock.call_count, 0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #
+    # @mock_patch_target_module('op_utils')
+    # @mock_patch_target_module('heatclient')
+    # def test_create_negative(self, mock_heat_client_class, mock_op_utils):
+    #     self.template.HEAT_WAIT_LOOP_INTERVAL = 0
+    #     mock_heat_client = mock_heat_client_class()  # get the constructed mock
+    #
+    #     # populate attributes of the constructed mock
+    #     mock_heat_client.stacks.get().stack_status_reason = 'the reason'
+    #
+    #     expected_status_calls = 0
+    #     expected_constructor_calls = 1  # above, to get the instance
+    #     expected_create_calls = 0
+    #     expected_op_utils_usage = 0
+    #
+    #     with mock.patch.object(self.template, 'status', return_value=None) as mock_status:
+    #         # block with timeout hit
+    #         timeout = 0
+    #         with self.assertRaises(RuntimeError) as raised, timer() as time_data:
+    #             self.template.create(block=True, timeout=timeout)
+    #
+    #         # ensure op_utils was used
+    #         expected_op_utils_usage += 1
+    #         self.assertEqual(mock_op_utils.get_session.call_count, expected_op_utils_usage)
+    #         self.assertEqual(mock_op_utils.get_endpoint.call_count, expected_op_utils_usage)
+    #         self.assertEqual(mock_op_utils.get_heat_api_version.call_count, expected_op_utils_usage)
+    #
+    #         # ensure the constructor and instance were used
+    #         self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
+    #         self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
+    #
+    #         # ensure that the status was used
+    #         self.assertGreater(mock_status.call_count, expected_status_calls)
+    #         expected_status_calls = mock_status.call_count  # synchronize the value
+    #
+    #         # ensure the expected exception was raised
+    #         error_message = get_error_message(raised.exception)
+    #         self.assertIn('timeout', error_message)
+    #         self.assertNotIn('the reason', error_message)
+    #
+    #         # block with create failed
+    #         timeout = 10
+    #         mock_status.side_effect = iter([None, None, u'CREATE_FAILED'])
+    #         with self.assertRaises(RuntimeError) as raised, timer() as time_data:
+    #             self.template.create(block=True, timeout=timeout)
+    #
+    #         # ensure the existing heat_client was used and op_utils was used again
+    #         self.assertEqual(mock_op_utils.get_session.call_count, expected_op_utils_usage)
+    #         self.assertEqual(mock_op_utils.get_endpoint.call_count, expected_op_utils_usage)
+    #         self.assertEqual(mock_op_utils.get_heat_api_version.call_count, expected_op_utils_usage)
+    #
+    #         # ensure the constructor was not used but the instance was used
+    #         self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
+    #         self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
+    #
+    #         # ensure that the status was used three times
+    #         expected_status_calls += 3
+    #         self.assertEqual(mock_status.call_count, expected_status_calls)
+
+    # @mock_patch_target_module('op_utils')
+    # @mock_patch_target_module('heatclient')
+    # def test_create(self, mock_heat_client_class, mock_op_utils):
+    #     self.template.HEAT_WAIT_LOOP_INTERVAL = 0.2
+    #     mock_heat_client = mock_heat_client_class()
+    #
+    #     # populate attributes of the constructed mock
+    #     mock_heat_client.stacks.get().outputs = [
+    #         {'output_key': 'key1', 'output_value': 'value1'},
+    #         {'output_key': 'key2', 'output_value': 'value2'},
+    #         {'output_key': 'key3', 'output_value': 'value3'},
+    #     ]
+    #     expected_outputs = {
+    #         'key1': 'value1',
+    #         'key2': 'value2',
+    #         'key3': 'value3',
+    #     }
+    #
+    #     expected_status_calls = 0
+    #     expected_constructor_calls = 1  # above, to get the instance
+    #     expected_create_calls = 0
+    #     expected_op_utils_usage = 0
+    #
+    #     with mock.patch.object(self.template, 'status') as mock_status:
+    #         self.template.name = 'no block test'
+    #         mock_status.return_value = None
+    #
+    #         # no block
+    #         self.assertIsInstance(self.template.create(block=False, timeout=2), heat.HeatStack)
+    #
+    #         # ensure op_utils was used
+    #         expected_op_utils_usage += 1
+    #         self.assertEqual(mock_op_utils.get_session.call_count, expected_op_utils_usage)
+    #         self.assertEqual(mock_op_utils.get_endpoint.call_count, expected_op_utils_usage)
+    #         self.assertEqual(mock_op_utils.get_heat_api_version.call_count, expected_op_utils_usage)
+    #
+    #         # ensure the constructor and instance were used
+    #         self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
+    #         self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
+    #
+    #         # ensure that the status was not used
+    #         self.assertEqual(mock_status.call_count, expected_status_calls)
+    #
+    #         # ensure no outputs because this requires blocking
+    #         self.assertEqual(self.template.outputs, {})
+    #
+    #         # block with immediate complete
+    #         self.template.name = 'block, immediate complete test'
+    #
+    #         mock_status.return_value = self.template.HEAT_CREATE_COMPLETE_STATUS
+    #         self.assertIsInstance(self.template.create(block=True, timeout=2), heat.HeatStack)
+    #
+    #         # ensure existing instance was re-used and op_utils was not used
+    #         self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
+    #         self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
+    #
+    #         # ensure status was checked once
+    #         expected_status_calls += 1
+    #         self.assertEqual(mock_status.call_count, expected_status_calls)
+    #
+    #         # reset template outputs
+    #         self.template.outputs = None
+    #
+    #         # block with delayed complete
+    #         self.template.name = 'block, delayed complete test'
+    #
+    #         success_index = 2
+    #         mock_status.side_effect = index_value_iter(success_index,
+    #                                                    self.template.HEAT_CREATE_COMPLETE_STATUS)
+    #         self.assertIsInstance(self.template.create(block=True, timeout=2), heat.HeatStack)
+    #
+    #         # ensure existing instance was re-used and op_utils was not used
+    #         self.assertEqual(mock_heat_client_class.call_count, expected_constructor_calls)
+    #         self.assertEqual(mock_heat_client.stacks.create.call_count, expected_create_calls)
+    #
+    #         # ensure status was checked three more times
+    #         expected_status_calls += 1 + success_index
+    #         self.assertEqual(mock_status.call_count, expected_status_calls)
+
+

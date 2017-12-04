@@ -10,23 +10,22 @@
 """Heat template and stack management"""
 
 from __future__ import absolute_import
-from __future__ import print_function
-from six.moves import range
-
 import collections
 import datetime
 import getpass
 import logging
-
+import pkg_resources
 import socket
+import tempfile
 import time
 
-import heatclient.client
-import pkg_resources
-
+from oslo_serialization import jsonutils
 from oslo_utils import encodeutils
+from six.moves import range
+import shade
 
 import yardstick.common.openstack_utils as op_utils
+from yardstick.common import exceptions
 from yardstick.common import template_format
 
 log = logging.getLogger(__name__)
@@ -36,122 +35,83 @@ HEAT_KEY_UUID_LENGTH = 8
 
 PROVIDER_SRIOV = "sriov"
 
+_DEPLOYED_STACKS = {}
+
 
 def get_short_key_uuid(uuid):
     return str(uuid)[:HEAT_KEY_UUID_LENGTH]
 
 
-class HeatObject(object):
-    """base class for template and stack"""
-
-    def __init__(self):
-        self._heat_client = None
-        self.uuid = None
-
-    @property
-    def heat_client(self):
-        """returns a heat client instance"""
-
-        if self._heat_client is None:
-            sess = op_utils.get_session()
-            heat_endpoint = op_utils.get_endpoint(service_type='orchestration')
-            self._heat_client = heatclient.client.Client(
-                op_utils.get_heat_api_version(),
-                endpoint=heat_endpoint, session=sess)
-
-        return self._heat_client
-
-    def status(self):
-        """returns stack state as a string"""
-        heat_client = self.heat_client
-        stack = heat_client.stacks.get(self.uuid)
-        return stack.stack_status
-
-
-class HeatStack(HeatObject):
+class HeatStack(object):
     """Represents a Heat stack (deployed template) """
-    stacks = []
 
     def __init__(self, name):
-        super(HeatStack, self).__init__()
-        self.uuid = None
         self.name = name
-        self.outputs = None
-        HeatStack.stacks.append(self)
+        self.outputs = {}
+        self._cloud = shade.openstack_cloud()
+        self._stack = None
+
+    def create(self, template, heat_parameters, wait, timeout):
+        """Creates an OpenStack stack from a template"""
+        with tempfile.NamedTemporaryFile('wb', delete=False) as template_file:
+            template_file.write(jsonutils.dumps(template))
+            template_file.close()
+            self._stack = self._cloud.create_stack(
+                self.name, template_file=template_file.name, wait=wait,
+                timeout=timeout, **heat_parameters)
+        outputs = self._stack.outputs
+        self.outputs = {output['output_key']: output['output_value'] for output
+                        in outputs}
+        if self.uuid:
+            _DEPLOYED_STACKS[self.uuid] = self._stack
 
     @staticmethod
     def stacks_exist():
-        """check if any stack has been deployed"""
-        return len(HeatStack.stacks) > 0
+        """Check if any stack has been deployed"""
+        return len(_DEPLOYED_STACKS) > 0
 
-    def _delete(self):
-        """deletes a stack from the target cloud using heat"""
+    def delete(self, wait=True):
+        """Deletes a stack in the target cloud"""
         if self.uuid is None:
             return
 
-        log.info("Deleting stack '%s' START, uuid:%s", self.name, self.uuid)
-        heat = self.heat_client
-        template = heat.stacks.get(self.uuid)
-        start_time = time.time()
-        template.delete()
-
-        for status in iter(self.status, u'DELETE_COMPLETE'):
-            log.debug("Deleting stack state: %s", status)
-            if status == u'DELETE_FAILED':
-                raise RuntimeError(
-                    heat.stacks.get(self.uuid).stack_status_reason)
-
-            time.sleep(2)
-
-        end_time = time.time()
-        log.info("Deleting stack '%s' DONE in %d secs", self.name,
-                 end_time - start_time)
-        self.uuid = None
-
-    def delete(self, block=True, retries=3):
-        """deletes a stack in the target cloud using heat (with retry)
-        Sometimes delete fail with "InternalServerError" and the next attempt
-        succeeds. So it is worthwhile to test a couple of times.
-        """
-        if self.uuid is None:
-            return
-
-        if not block:
-            self._delete()
-            return
-
-        for _ in range(retries):
-            try:
-                self._delete()
-                break
-            except RuntimeError as err:
-                log.warning(err.args)
-                time.sleep(2)
-
-        # if still not deleted try once more and let it fail everything
-        if self.uuid is not None:
-            self._delete()
-
-        HeatStack.stacks.remove(self)
+        ret = self._cloud.delete_stack(self.uuid, wait=wait)
+        _DEPLOYED_STACKS.pop(self.uuid)
+        self._stack = None
+        return ret
 
     @staticmethod
     def delete_all():
-        for stack in HeatStack.stacks[:]:
+        """Delete all deployed stacks"""
+        for stack in _DEPLOYED_STACKS:
             stack.delete()
 
-    def update(self):
-        """update a stack"""
-        raise RuntimeError("not implemented")
+    @property
+    def status(self):
+        """Retrieve the current stack status"""
+        if self._stack:
+            return self._stack.status
+
+    @property
+    def uuid(self):
+        """Retrieve the current stack ID"""
+        if self._stack:
+            return self._stack.id
 
 
-class HeatTemplate(HeatObject):
+class HeatTemplate(object):
     """Describes a Heat template and a method to deploy template to a stack"""
 
-    DESCRIPTION_TEMPLATE = """\
+    DESCRIPTION_TEMPLATE = """
 Stack built by the yardstick framework for %s on host %s %s.
 All referred generated resources are prefixed with the template
-name (i.e. %s).\
+name (i.e. %s).
 """
+
+    HEAT_WAIT_LOOP_INTERVAL = 2
+    HEAT_STATUS_COMPLETE = 'COMPLETE'
+    HEAT_STATUS_IN_PROGRESS = 'IN_PROGRESS'
+    HEAT_STATUS_FAILED = 'FAILED'
 
     def _init_template(self):
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -171,9 +131,7 @@ name (i.e. %s).\
         self.resources = self._template['resources']
 
     def __init__(self, name, template_file=None, heat_parameters=None):
-        super(HeatTemplate, self).__init__()
         self.name = name
-        self.state = "NOT_CREATED"
         self.keystone_client = None
         self.heat_parameters = {}
 
@@ -184,15 +142,12 @@ name (i.e. %s).\
 
         if template_file:
             with open(template_file) as stream:
-                print("Parsing external template:", template_file)
+                print("Parsing external template: %s" % template_file)
                 template_str = stream.read()
             self._template = template_format.parse(template_str)
             self._parameters = heat_parameters
         else:
             self._init_template()
-
-        # holds results of requested output after deployment
-        self.outputs = {}
 
         log.debug("template object '%s' created", name)
 
@@ -600,57 +555,28 @@ name (i.e. %s).\
             'value': {'get_resource': name}
         }
 
-    HEAT_WAIT_LOOP_INTERVAL = 2
-    HEAT_CREATE_COMPLETE_STATUS = u'CREATE_COMPLETE'
-
     def create(self, block=True, timeout=3600):
-        """
-        creates a template in the target cloud using heat
-        returns a dict with the requested output values from the template
+        """Creates a stack in the target based on the stored template
 
-        :param block: Wait for Heat create to finish
-        :type block: bool
-        :param: timeout: timeout in seconds for Heat create, default 3600s
-        :type timeout: int
+        :param block: (bool) Wait for Heat create to finish
+        :param timeout: (int) Timeout in seconds for Heat create,
+               default 3600s
+        :return A dict with the requested output values from the template
         """
         log.info("Creating stack '%s' START", self.name)
 
-        # create stack early to support cleanup, e.g. ctrl-c while waiting
-        stack = HeatStack(self.name)
-
-        heat_client = self.heat_client
         start_time = time.time()
-        stack.uuid = self.uuid = heat_client.stacks.create(
-            stack_name=self.name, template=self._template,
-            parameters=self.heat_parameters)['stack']['id']
+        stack = HeatStack(self.name)
+        stack.create(self._template, self.heat_parameters, block, timeout)
 
         if not block:
-            self.outputs = stack.outputs = {}
-            end_time = time.time()
             log.info("Creating stack '%s' DONE in %d secs",
-                     self.name, end_time - start_time)
+                     self.name, time.time() - start_time)
             return stack
 
-        time_limit = start_time + timeout
-        for status in iter(self.status, self.HEAT_CREATE_COMPLETE_STATUS):
-            log.debug("Creating stack state: %s", status)
-            if status == u'CREATE_FAILED':
-                stack_status_reason = heat_client.stacks.get(self.uuid).stack_status_reason
-                heat_client.stacks.delete(self.uuid)
-                raise RuntimeError(stack_status_reason)
-            if time.time() > time_limit:
-                raise RuntimeError("Heat stack create timeout")
+        if stack.status != self.HEAT_STATUS_COMPLETE:
+            raise exceptions.HeatTemplateError(stack_name=self.name)
 
-            time.sleep(self.HEAT_WAIT_LOOP_INTERVAL)
-
-        end_time = time.time()
-        outputs = heat_client.stacks.get(self.uuid).outputs
         log.info("Creating stack '%s' DONE in %d secs",
-                 self.name, end_time - start_time)
-
-        # keep outputs as unicode
-        self.outputs = {output["output_key"]: output["output_value"] for output
-                        in outputs}
-
-        stack.outputs = self.outputs
+                 self.name, time.time() - start_time)
         return stack
