@@ -332,6 +332,9 @@ class HeatContext(Context):
 
         LOG.info("Deploying context '%s' DONE", self.name)
 
+
+        raise Exception("Salimoooooooooooooooooooows")
+
     def add_server_port(self, server):
         # use private ip from first port in first network
         try:
