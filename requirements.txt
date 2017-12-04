@@ -49,7 +49,6 @@ pyroute2==0.4.21        # dual license GPLv2+ and Apache v2; OSI Approved  GNU G
 pyrsistent==0.14.1      # LICENSE.mit; OSI Approved  MIT License
 python-cinderclient==3.1.0      # OSI Approved  Apache Software License
 python-glanceclient==2.8.0      # OSI Approved  Apache Software License
-python-heatclient==1.11.1       # OSI Approved  Apache Software License
 python-keystoneclient==3.13.0   # OSI Approved  Apache Software License
 python-neutronclient==6.5.0     # OSI Approved  Apache Software License
 python-novaclient==9.1.1        # OSI Approved  Apache Software License
