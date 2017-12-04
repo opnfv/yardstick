@@ -67,9 +67,7 @@ build_yardstick_image()
             cd ${ANSIBLE_SCRIPTS} &&\
             ansible-playbook \
                      -e img_modify_playbook='ubuntu_server_cloudimg_modify.yml' \
-                     -e target_os='Ubuntu' \
-                     -e YARD_IMG_ARCH='amd64' \
-                     -e ubuntu_img_file="${QCOW_IMAGE}" \
+                     -e img_property="normal" \
                      -vvv -i inventory.ini build_yardstick_image.yml
 
             if [ ! -f "${QCOW_IMAGE}" ]; then

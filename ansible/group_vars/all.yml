@@ -1,4 +1,8 @@
 ---
+target_os: "Ubuntu"
+YARD_IMG_ARCH: "amd64"
+target_os_family: "Debian"
+target_os_version: "16.04"
 clone_dest: /opt/tempT
 release: xenial
 target_os: Ubuntu

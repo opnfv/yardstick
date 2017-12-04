@@ -41,6 +41,11 @@
 
     - set_fact:
         imgfile: "{{ workspace }}/yardstick-image.img"
+      when: img_property == "normal"
+
+    - set_fact:
+        imgfile: "{{ workspace }}/yardstick-nsb-image.img"
+      when: img_property == "nsb"
 
     - set_fact:
         mountdir: "{{ lookup('env', 'mountdir')|default('/mnt/yardstick', true) }}"
