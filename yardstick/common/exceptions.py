@@ -12,8 +12,49 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from oslo_utils import excutils
+
 
 class ProcessExecutionError(RuntimeError):
     def __init__(self, message, returncode):
         super(ProcessExecutionError, self).__init__(message)
         self.returncode = returncode
+
+
+class YardstickException(Exception):
+    """Base Yardstick Exception.
+
+    To correctly use this class, inherit from it and define
+    a 'message' property. That message will get printf'd
+    with the keyword arguments provided to the constructor.
+
+    Based on NeutronException class.
+    """
+    message = "An unknown exception occurred."
+
+    def __init__(self, **kwargs):
+        try:
+            super(YardstickException, self).__init__(self.message % kwargs)
+            self.msg = self.message % kwargs
+        except Exception: # pylint: disable=W0703
+            with excutils.save_and_reraise_exception() as ctxt:
+                if not self.use_fatal_exceptions():
+                    ctxt.reraise = False
+                    # At least get the core message out if something happened
+                    super(YardstickException, self).__init__(self.message)
+
+    def __str__(self):
+        return self.msg
+
+    def use_fatal_exceptions(self):
+        """Is the instance using fatal exceptions.
+
+        :returns: Always returns False.
+        """
+        return False
+
+
+class HeatTemplateError(YardstickException):
+    """Error in Heat during the stack deployment"""
+    message = ('Error in Heat during the creation of the OpenStack stack '
+               '"%(stack_name)"')
