@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_a8775139",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-12-05T14:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_268897e6",
+      "revId": "72753130f3b9f26f49eed00e662354f381ecbb1a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_866ec32d",
         "filename": "ansible/roles/enable_iommu_on_boot/tasks/manual_modify_grub.yml",
         "patchSetId": 2
@@ -66,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_88724d47",
+        "filename": "ansible/roles/enable_iommu_on_boot/tasks/manual_modify_grub.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-12-05T14:13:02Z",
+      "side": 1,
+      "message": "rewritten, please check actual review",
+      "parentUuid": "9a3d3df0_613609e9",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 49
+      },
+      "revId": "72753130f3b9f26f49eed00e662354f381ecbb1a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_6669ff24",
         "filename": "ansible/roles/enable_iommu_on_boot/vars/main.yml",
         "patchSetId": 2
@@ -77,6 +119,30 @@
       "writtenOn": "2017-12-04T07:51:31Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 15,
+        "startChar": 110,
+        "endLine": 15,
+        "endChar": 142
+      },
+      "revId": "72753130f3b9f26f49eed00e662354f381ecbb1a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e8903945",
+        "filename": "ansible/roles/enable_iommu_on_boot/vars/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-12-05T14:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_6669ff24",
       "range": {
         "startLine": 15,
         "startChar": 110,
