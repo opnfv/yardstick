@@ -108,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_e87af9ef",
+        "filename": "ansible/roles/enable_iommu_on_boot/tasks/manual_modify_grub.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-12-05T16:10:01Z",
+      "side": 1,
+      "message": "I thought these were all hacky BIOS workarounds.  Shouldn\u0027t modern kernels and BIOSes automatically detect Intel IOMMU?\n\nHave we checked with the Linux kernel guys to see if this is needed anymore?\n\nThe kernel should detect intel_iommu automatically.  Or we should file a bug with the kernel/BIOS people.\n\nIt seems like we\u0027ve been having to do these kernel tweaks for like seven years or more.  That is ridiculous.",
+      "parentUuid": "9a3d3df0_866ec32d",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 49
+      },
+      "revId": "72753130f3b9f26f49eed00e662354f381ecbb1a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_6669ff24",
         "filename": "ansible/roles/enable_iommu_on_boot/vars/main.yml",
         "patchSetId": 2
