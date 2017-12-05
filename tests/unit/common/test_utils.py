@@ -85,10 +85,17 @@ class GetParaFromYaml(unittest.TestCase):
     @mock.patch('yardstick.common.utils.os.environ.get')
     def test_get_param_para_exists(self, get_env):
         file_path = 'config_sample.yaml'
-        get_env.return_value = self._get_file_abspath(file_path)
-        args = 'releng.dir'
-        para = '/home/opnfv/repos/releng'
-        self.assertEqual(para, constants.get_param(args))
+        # CONF must be re-initialized, because it is populated when constants module is
+        # imported. Then the config_sample.yaml wouldn't be used at all.
+        tmp_conf = constants.CONF
+        constants.CONF = {}
+        try:
+            get_env.return_value = self._get_file_abspath(file_path)
+            args = 'releng.dir'
+            para = '/home/opnfv/repos/releng'
+            self.assertEqual(para, constants.get_param(args))
+        finally:
+            constants.CONF = tmp_conf
 
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
