@@ -41,6 +41,7 @@ disable=
  no-init,
  non-parent-init-called,
  not-callable,
+ protected-access,
  redefined-builtin,
  redefined-outer-name,
  signature-differs,
