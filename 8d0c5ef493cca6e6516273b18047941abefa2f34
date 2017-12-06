@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_0eec85c6",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-06T17:30:13Z",
+      "side": 1,
+      "message": "Sorry, can you explain me this?",
+      "range": {
+        "startLine": 184,
+        "startChar": 12,
+        "endLine": 184,
+        "endChar": 51
+      },
+      "revId": "8d0c5ef493cca6e6516273b18047941abefa2f34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6ef9d17f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-06T17:30:13Z",
+      "side": 1,
+      "message": "In general, all new functions should have UTs associated. But in this case, given the complexity of this function, this is a must.",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "8d0c5ef493cca6e6516273b18047941abefa2f34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f5d49721",
         "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
         "patchSetId": 7
@@ -31,6 +77,29 @@
       "side": 1,
       "message": "we should modify vnfd before vnfd_helper is instantiated\n\n vnfd[\u0027mgmt-interface\u0027].pop(\"pkey\", \"\")\n vnfd[\u0027mgmt-interface\u0027][\u0027password\u0027] \u003d \u0027password\u0027",
       "parentUuid": "9a3d3df0_f5d49721",
+      "revId": "8d0c5ef493cca6e6516273b18047941abefa2f34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ce08dd93",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-06T17:30:13Z",
+      "side": 1,
+      "message": "This is not used and is written in in SampleVNF.__init__",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 26
+      },
       "revId": "8d0c5ef493cca6e6516273b18047941abefa2f34",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -76,6 +145,52 @@
         "startChar": 0,
         "endLine": 118,
         "endChar": 70
+      },
+      "revId": "8d0c5ef493cca6e6516273b18047941abefa2f34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2e006966",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-06T17:30:13Z",
+      "side": 1,
+      "message": "Is this function needed? Could be executed in collect_kpi",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 137,
+        "endChar": 17
+      },
+      "revId": "8d0c5ef493cca6e6516273b18047941abefa2f34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0e03e573",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-06T17:30:13Z",
+      "side": 1,
+      "message": "In L154 you are not reading this. Anyway, I think you should remove this function.",
+      "range": {
+        "startLine": 150,
+        "startChar": 8,
+        "endLine": 150,
+        "endChar": 18
       },
       "revId": "8d0c5ef493cca6e6516273b18047941abefa2f34",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
