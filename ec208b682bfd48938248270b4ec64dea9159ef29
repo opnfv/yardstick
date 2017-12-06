@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_2e5ce97d",
+        "filename": "tests/unit/network_services/test_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-06T19:07:19Z",
+      "side": 1,
+      "message": "why no negative tests?  surely we want users to know that bad input results in an exception.",
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ee61613a",
+        "filename": "tests/unit/network_services/test_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-06T19:07:19Z",
+      "side": 1,
+      "message": "can we also get a BSF multi-line string?\n\nwhat about a multi-line string with both BSF and DBSF, and different strings, one with each before the other.",
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ce645d4b",
+        "filename": "tests/unit/network_services/test_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-06T19:07:19Z",
+      "side": 1,
+      "message": "please show what happens when multi-line strings are passed without setting multi_line to True.\n\nafaict, there is no difference, which begs the question: why have it?",
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4e504d5e",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-06T19:07:19Z",
+      "side": 1,
+      "message": "if this is deprecated and we are modifying it, then why not also convert to avoid using the deprecated method?",
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ae4f59bc",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-06T19:07:19Z",
+      "side": 1,
+      "message": "if this is deprecated and we are modifying it, then why not also convert to avoid using the deprecated method?",
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6e55514f",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-06T19:07:19Z",
+      "side": 1,
+      "message": "as local names/variables, why are these all capital letters?\n\nalso, multi-line used to indicate re.search and the default was re.match.\n\nworse, your pattern strings don\u0027t allow for newline characters to be within the address, so setting the re.MULTILINE flag is irrelevant:\n\n \u003e\u003e\u003e p1 \u003d \u0027(?P\u003cdomain\u003e[0-9a-zA-Z]{4}):(?P\u003cbus\u003e[0-9a-zA-Z]{2}):(?P\u003cslot\u003e[0-9a-zA-Z]{2}).(?P\u003cfunction\u003e[0-9a-zA-Z]{1})\u0027\n \u003e\u003e\u003e re1 \u003d re.compile(p1)\n \u003e\u003e\u003e re2 \u003d re.compile(p1, re.MULTILINE)\n \u003e\u003e\u003e blob1 \u003d \u00270e1f:6a:c4:8\u0027\n \u003e\u003e\u003e blob2 \u003d \u0027hello\\n0e1f:6a:c4:8\\nworld\u0027\n \u003e\u003e\u003e blob3 \u003d \u00270e1f:6a\\n:c4\\n:8\u0027\n \u003e\u003e\u003e\n \u003e\u003e\u003e (re1.match(blob1) is None,\n        re1.match(blob2) is None,\n        re1.match(blob3) is None)\n (False, True, True)\n \u003e\u003e\u003e (re1.search(blob1) is None,\n        re1.search(blob2) is None,\n        re1.search(blob3) is None)\n (False, False, True)\n \u003e\u003e\u003e\n \u003e\u003e\u003e (re2.match(blob1) is None,\n        re2.match(blob2) is None,\n        re2.match(blob3) is None)\n (False, True, True)\n \u003e\u003e\u003e (re2.search(blob1) is None,\n        re2.search(blob2) is None,\n        re2.search(blob3) is None)\n (False, False, True)\n\nso re1 and re2 have the same match and search results, despite re2 being set for multi-line.\n\nif blob3 is meant to be viable, then it would probably better to remove newline characters from the blob before using the RE.\n\n \u003e\u003e\u003e (re1.match(blob1.replace(\u0027\\n\u0027, \u0027\u0027)) is None,\n        re1.match(blob2.replace(\u0027\\n\u0027, \u0027\u0027)) is None,\n        re1.match(blob3.replace(\u0027\\n\u0027, \u0027\u0027)) is None)\n (False, True, False)\n \u003e\u003e\u003e (re1.search(blob1.replace(\u0027\\n\u0027, \u0027\u0027)) is None,\n        re1.search(blob2.replace(\u0027\\n\u0027, \u0027\u0027)) is None,\n        re1.search(blob3.replace(\u0027\\n\u0027, \u0027\u0027)) is None)\n (False, False, False)",
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0e5f6573",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-06T19:07:19Z",
+      "side": 1,
+      "message": "why do this here?  it is redone on L87, just put the literal value as the else value.\n\nor, make an else clause to this conditional and set self._domain from the match in it.",
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
