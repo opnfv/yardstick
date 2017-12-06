@@ -22,6 +22,8 @@ import time
 
 import mock
 import unittest
+from itertools import repeat, chain
+import mock
 
 from tests.unit import STL_MOCKS
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
@@ -289,6 +291,7 @@ no data length value
 """
 
 
+@mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.time')
 class TestProxSocketHelper(unittest.TestCase):
 
     def setUp(self):
@@ -1262,6 +1265,16 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = helper.put_string_to_file('my long string', 'a/b')
         self.assertEqual(result, expected)
 
+    def test__build_pipeline_kwarags(self):
+        vnfd_helper = mock.MagicMock()
+        ssh_helper = mock.MagicMock()
+        ssh_helper.provision_tool.return_value = "/tmp/nosuch"
+        scenario_helper = mock.MagicMock()
+
+        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        helper._build_pipeline_kwargs()
+        self.assertEqual(helper.pipeline_kwargs, {'tool_path': '/tmp/nosuch', 'tool_dir': '/tmp'})
+
     def test_copy_to_target(self):
         vnfd_helper = mock.MagicMock()
         vnfd_helper.interfaces = []
@@ -1730,7 +1743,7 @@ class TestProxProfileHelper(unittest.TestCase):
         }
 
         self.assertIsNone(helper._test_cores)
-        expected = [12, 23]
+        expected = [3, 4]
         result = helper.test_cores
         self.assertEqual(result, expected)
         self.assertIs(result, helper._test_cores)
@@ -1787,7 +1800,7 @@ class TestProxProfileHelper(unittest.TestCase):
         }
 
         self.assertIsNone(helper._latency_cores)
-        expected = [12, 23]
+        expected = [3, 4]
         result = helper.latency_cores
         self.assertEqual(result, expected)
         self.assertIs(result, helper._latency_cores)
@@ -1842,7 +1855,7 @@ class TestProxProfileHelper(unittest.TestCase):
             }
         }
 
-        expected = [7, 8]
+        expected = [3, 4]
         result = helper.get_cores(helper.PROX_CORE_GEN_MODE)
         self.assertEqual(result, expected)
 

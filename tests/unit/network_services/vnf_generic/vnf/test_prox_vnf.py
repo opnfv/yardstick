@@ -352,7 +352,11 @@ class TestProxApproxVnf(unittest.TestCase):
             'collect_stats': {'core': {'result': 234}},
         }
         result = prox_approx_vnf.collect_kpi()
-        self.assertEqual(result, expected)
+        self.assertEqual(result['packets_in'], expected['packets_in'])
+        self.assertEqual(result['packets_dropped'], expected['packets_dropped'])
+        self.assertEqual(result['packets_fwd'], expected['packets_fwd'])
+        self.assertNotEqual(result['packets_fwd'], 0)
+        self.assertNotEqual(result['packets_fwd'], 0)
 
     @mock.patch(SSH_HELPER)
     def test_collect_kpi_error(self, ssh, *args):
@@ -373,6 +377,8 @@ class TestProxApproxVnf(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
+    @mock.patch('yardstick.benchmark.scenarios.networking.vnf_generic.open', create=True)
+    @mock.patch('yardstick.network_services.helpers.iniparser.open', create=True)
     @mock.patch(SSH_HELPER)
     def bad_test_instantiate(self, *args):
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
@@ -392,6 +398,13 @@ class TestProxApproxVnf(unittest.TestCase):
         prox_approx_vnf.q_out.put("PANIC")
         with self.assertRaises(RuntimeError):
             prox_approx_vnf.wait_for_instantiate()
+
+    @mock.patch(SSH_HELPER)
+    def test_scale(self, ssh, mock_time):
+        mock_ssh(ssh)
+        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        with self.assertRaises(NotImplementedError):
+            prox_approx_vnf.scale()
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.socket')
     @mock.patch(SSH_HELPER)
@@ -430,3 +443,6 @@ class TestProxApproxVnf(unittest.TestCase):
         resource_helper.execute.side_effect = OSError(errno.EADDRINUSE, "")
         with self.assertRaises(OSError):
             prox_approx_vnf.vnf_execute("", _ignore_errors=True)
+
+if __name__ == '__main__':
+    unittest.main()
