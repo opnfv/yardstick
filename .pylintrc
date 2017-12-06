@@ -57,6 +57,7 @@ disable=
  invalid-name,
  len-as-condition,
  misplaced-comparison-constant,
+ missing-docstring,
  singleton-comparison,
  superfluous-parens,
  ungrouped-imports,
