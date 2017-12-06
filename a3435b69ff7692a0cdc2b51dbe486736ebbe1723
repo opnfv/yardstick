@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_0e73e5b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-06T10:48:28Z",
+      "side": 1,
+      "message": "nit: this should be in capital letters, to be parsed by gerrit and create the link to OPNFV Jira.\n\nE.g.: https://gerrit.opnfv.org/gerrit/#/c/46307/6//COMMIT_MSG",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 4
+      },
+      "revId": "a3435b69ff7692a0cdc2b51dbe486736ebbe1723",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
