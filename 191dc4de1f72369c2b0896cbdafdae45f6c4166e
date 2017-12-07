@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_d906e5cd",
+        "filename": "samples/vnf_samples/traffic_profiles/http_tests/HTTP_1024K-requests_65000_concurrency.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-07T07:21:41Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be NSB?",
+      "range": {
+        "startLine": 1,
+        "startChar": 9,
+        "endLine": 1,
+        "endChar": 12
+      },
+      "revId": "191dc4de1f72369c2b0896cbdafdae45f6c4166e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b90961df",
+        "filename": "samples/vnf_samples/traffic_profiles/http_tests/HTTP_1024K-requests_65000_concurrency.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-07T07:21:41Z",
+      "side": 1,
+      "message": "If this is the only difference between the files, these can be parameterised, and when they\u0027re called, the args can be parsed.",
+      "revId": "191dc4de1f72369c2b0896cbdafdae45f6c4166e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
