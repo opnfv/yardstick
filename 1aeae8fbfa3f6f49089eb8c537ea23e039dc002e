@@ -548,6 +548,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_6f6f4693",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-07T14:59:25Z",
+      "side": 1,
+      "message": "Right, this is the difference between python2 and python3. In python2 already the zip creates the list.",
+      "parentUuid": "9a3d3df0_ace4bc3b",
+      "range": {
+        "startLine": 337,
+        "startChar": 4,
+        "endLine": 337,
+        "endChar": 55
+      },
+      "revId": "1aeae8fbfa3f6f49089eb8c537ea23e039dc002e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f3e22f02",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 11
