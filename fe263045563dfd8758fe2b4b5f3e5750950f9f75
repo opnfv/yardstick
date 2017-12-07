@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5955b54e",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "Delete \"is\"",
+      "range": {
+        "startLine": 5,
+        "startChar": 49,
+        "endLine": 5,
+        "endChar": 52
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d9c8a524",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "Same comment as System Under Test just below: sometimes used as \"packet generator\" sometimes \"Traffic Generator\". It would be better if more consistent e.g. always use \"Traffic generator.",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 20
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_794a39ad",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "System Under Test is written in different forms (lower case, upper case, with underscores, ...). It would be better if always written the same way e.g. System Under Test",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 21
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_941ee461",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "Prox sometimes in lower case, sometimes Upper...",
+      "range": {
+        "startLine": 147,
+        "startChar": 6,
+        "endLine": 147,
+        "endChar": 10
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1422d4a3",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "Can you also add an hyperlink to the detailed documentation below. This would I think help structuring the document. Same for all other config files.",
+      "range": {
+        "startLine": 160,
+        "startChar": 22,
+        "endLine": 160,
+        "endChar": 23
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7419a078",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "I would add that it contains the name of the Traffic Generator and the System Under Test config files, the traffic profile description, and the bare metal configuration, which are all described below.",
+      "range": {
+        "startLine": 160,
+        "startChar": 22,
+        "endLine": 160,
+        "endChar": 23
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_340f1830",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "System Under Test",
+      "range": {
+        "startLine": 178,
+        "startChar": 26,
+        "endLine": 178,
+        "endChar": 43
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b42a087c",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "I would also list the traffic profile as one important config file",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 1
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f45bf02b",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "I would describe the traffic profile separately",
+      "range": {
+        "startLine": 228,
+        "startChar": 4,
+        "endLine": 228,
+        "endChar": 19
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d427ccb4",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "s",
+      "range": {
+        "startLine": 228,
+        "startChar": 36,
+        "endLine": 228,
+        "endChar": 37
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_743080e8",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "s. Same at other location.",
+      "range": {
+        "startLine": 300,
+        "startChar": 30,
+        "endLine": 300,
+        "endChar": 31
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_54429c3e",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "Do you mean that you advise not to use the \u0027s\u0027 syntax? In that case I would still add that in case of bare metal two sockets server, it is up to the user to make sure that cores from the right sockets are used (i.e. from the socket on which the NIC is attached to), to ensure good performance (EPA).",
+      "range": {
+        "startLine": 486,
+        "startChar": 20,
+        "endLine": 487,
+        "endChar": 20
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_944c2472",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "Does this need to be run on all different nodes (i.e. the rone running the scripts, the System Under Test and the Test generator\")? If yes, I would spell it out.",
+      "range": {
+        "startLine": 816,
+        "startChar": 6,
+        "endLine": 816,
+        "endChar": 44
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_343d58bc",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "This is only valid in case of openstack run. Not needed I think when running bare metal.",
+      "range": {
+        "startLine": 816,
+        "startChar": 21,
+        "endLine": 816,
+        "endChar": 44
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7447e04b",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "This is confusing. If we execute the test as normal, then we will not be able to start prox manually in step 2, 3.",
+      "range": {
+        "startLine": 900,
+        "startChar": 3,
+        "endLine": 900,
+        "endChar": 31
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_941b841a",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2017-12-07T16:03:57Z",
+      "side": 1,
+      "message": "I would also add the possibility to dump packets being transmitted - very useful for debugging (e.g. see MAC addresses)",
+      "range": {
+        "startLine": 944,
+        "startChar": 32,
+        "endLine": 944,
+        "endChar": 33
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
