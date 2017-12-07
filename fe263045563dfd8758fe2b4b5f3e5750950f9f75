@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_9430a402",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-07T23:13:47Z",
+      "side": 1,
+      "message": "Please remove the whitespace.\n\nsed can do this for you:\n    sed -i \u0027s/ $//g devguide_nsb_prox.rst\u0027",
+      "range": {
+        "startLine": 4,
+        "startChar": 72,
+        "endLine": 4,
+        "endChar": 73
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5955b54e",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -48,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_742b6094",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-07T23:13:47Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "9a3d3df0_d9c8a524",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 20
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_794a39ad",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -59,6 +106,30 @@
       "writtenOn": "2017-12-07T16:03:57Z",
       "side": 1,
       "message": "System Under Test is written in different forms (lower case, upper case, with underscores, ...). It would be better if always written the same way e.g. System Under Test",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 21
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d4198c89",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-07T23:13:47Z",
+      "side": 1,
+      "message": "Or even SUT.\n\nBut this should be defined here, i.e.  \n    \"A system under test (SUT) consumes... \"\n\nI\u0027d put the SUT in the list before the Traffic generator",
+      "parentUuid": "9a3d3df0_794a39ad",
       "range": {
         "startLine": 62,
         "startChar": 4,
@@ -87,6 +158,29 @@
         "startChar": 6,
         "endLine": 147,
         "endChar": 10
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bf03010c",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-07T23:13:47Z",
+      "side": 1,
+      "message": "Instead of using inverted commas, if you use backticks, then the text will be rendered as monospaced font, which is easier to spot visually.\n\n``tc_prox_\u003ccontext\u003e_\u003ctest\u003e-\u003cports\u003e.yaml``\n\nThis helps highlight file names and code samples/technical terms.\n\nThis applies to all the text below that is in quotes.",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 150,
+        "endChar": 3
       },
       "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -186,6 +280,29 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_3f0ff12f",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-07T23:13:47Z",
+      "side": 1,
+      "message": "Nit: As this is a heading, this doesn\u0027t need to to be bolded as well.",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 1
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f45bf02b",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -232,6 +349,29 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_bf2ae17b",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-07T23:13:47Z",
+      "side": 1,
+      "message": "this should be formatted the same way as other list items.\n\nThe list items above are bolded (e.g. line 80)",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 12
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_743080e8",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -255,6 +395,121 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9f355ddc",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-07T23:13:47Z",
+      "side": 1,
+      "message": "s",
+      "range": {
+        "startLine": 303,
+        "startChar": 32,
+        "endLine": 303,
+        "endChar": 33
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1f22eda3",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-07T23:13:47Z",
+      "side": 1,
+      "message": "same as above, the heading doesn\u0027t need to be bolded",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 1
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7f3059e8",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-07T23:13:47Z",
+      "side": 1,
+      "message": "ditto on the bolding",
+      "range": {
+        "startLine": 378,
+        "startChar": 0,
+        "endLine": 378,
+        "endChar": 1
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_df4ec56e",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-07T23:13:47Z",
+      "side": 1,
+      "message": "Is this directive case sensitive? \n\nPlease use lowercase",
+      "range": {
+        "startLine": 419,
+        "startChar": 6,
+        "endLine": 419,
+        "endChar": 13
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bf514110",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-07T23:13:47Z",
+      "side": 1,
+      "message": "nit: use lowercase, as above",
+      "range": {
+        "startLine": 479,
+        "startChar": 3,
+        "endLine": 479,
+        "endChar": 4
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_54429c3e",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -271,6 +526,29 @@
         "startChar": 20,
         "endLine": 487,
         "endChar": 20
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ff5bc92b",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-07T23:13:47Z",
+      "side": 1,
+      "message": "Please use the same order for the supported modes and their descriptions.\n\nIdeally, they should be in a list in the  form:\n* ``\u003cmode\u003e``: description",
+      "range": {
+        "startLine": 519,
+        "startChar": 17,
+        "endLine": 538,
+        "endChar": 14
       },
       "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
