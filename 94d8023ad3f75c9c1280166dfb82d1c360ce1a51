@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_147e546b",
+        "filename": ".pylintrc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-07T14:55:25Z",
+      "side": 1,
+      "message": "What about having a different pylintrc for the unittests than is for the yardstick module and running the pylint tests in two steps?\nThis would be more robust than relying on code reviews.\n\nAnother possiblity would be to require a line:\n # pylint: disable\u003dprotected-access \n\nin the unittest modules.",
+      "range": {
+        "startLine": 44,
+        "startChar": 1,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "94d8023ad3f75c9c1280166dfb82d1c360ce1a51",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
