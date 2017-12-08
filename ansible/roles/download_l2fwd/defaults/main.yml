@@ -1,0 +1,4 @@
+---
+l2fwd_url: "http://artifacts.opnfv.org/yardstick/third-party/l2fwd.tar"
+l2fwd_file: "l2fwd.tar"
+l2fwd_dest: "/home"

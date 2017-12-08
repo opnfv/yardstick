@@ -1,0 +1,96 @@
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# VSPERF specific configuration file for execution of RFC2544 throughput
+# traffic. Traffic executed by traffic generator is forwarded directly
+# between interfaces connected to the traffic generator. So test will only
+# benchmark the performance of OVS external bridge at controller node.
+# Details about supported test options and test case execution can be
+# found in VSPERF documentation:
+#
+#   http://artifacts.opnfv.org/vswitchperf/docs/userguide/yardstick.html
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+{% for multistream in [1, 1000] %}
+-
+  type: MoongenTestPMD
+  options:
+    multistream: {{multistream}}
+    frame_size: 1024
+    testpmd_queue: 2
+    trafficgen_port1: 'ens4'
+    trafficgen_port2: 'ens5'
+    moongen_host_user: 'root'
+    moongen_host_passwd: 'root'
+    moongen_host_ip: '192.168.37.2'
+    moongen_dir: '/home/lua-trafficgen'
+    moongen_runBidirec: 'true'
+    Package_Loss: 0
+    SearchRuntime: 60
+    moongen_port1_mac: '88:cf:98:2f:4d:ed'
+    moongen_port2_mac: '88:cf:98:2f:4d:ee'
+
+  host: testpmd.demo
+
+  runner:
+    type: Sequence
+    scenario_option_name: frame_size
+    sequence:
+    - 64
+
+  sla:
+    # The throughput SLA (or any other SLA) cannot be set to a meaningful
+    # value without knowledge of the server and networking environment,
+    # possibly including prior testing in that environment to establish
+    # a baseline SLA level under well-understood circumstances.
+    throughput_rx_mpps: 0.5
+{% endfor %}
+
+context:
+  name: demo
+  #image: yardstick-image
+  image: yardstick-samplevnfs
+  flavor:
+    vcpus: 10
+    ram: 20480
+    disk: 6
+    extra_specs:
+      hw:mem_page_size: "1GB"
+      hw:cpu_policy: "dedicated"
+      hw:vif_multiqueue_enabled: "true"
+  user: ubuntu
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    testpmd:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+    test2:
+      cidr: '10.0.2.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    test3:
+      cidr: '10.0.3.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
