@@ -22,6 +22,30 @@
       "revId": "94d8023ad3f75c9c1280166dfb82d1c360ce1a51",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0eb2c0e5",
+        "filename": ".pylintrc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-11T09:42:56Z",
+      "side": 1,
+      "message": "I disagree with having two pep8 files that will diverge in the the future.\n\nAlso using the pragma statement in every test file is an abuse. This sould be use only in exceptional cases.\n\nIf you take a look at any OpenStack project (Neutron for example), you\u0027ll see this exception is done.",
+      "parentUuid": "9a3d3df0_147e546b",
+      "range": {
+        "startLine": 44,
+        "startChar": 1,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "94d8023ad3f75c9c1280166dfb82d1c360ce1a51",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
