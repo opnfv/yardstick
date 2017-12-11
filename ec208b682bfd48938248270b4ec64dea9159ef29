@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_cea298ad",
+        "filename": "tests/unit/network_services/test_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-11T16:17:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_2e5ce97d",
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_ee61613a",
         "filename": "tests/unit/network_services/test_utils.py",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2017-12-06T19:07:19Z",
       "side": 1,
       "message": "can we also get a BSF multi-line string?\n\nwhat about a multi-line string with both BSF and DBSF, and different strings, one with each before the other.",
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_aea594b6",
+        "filename": "tests/unit/network_services/test_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-11T16:17:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_ee61613a",
       "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_4e96884d",
+        "filename": "tests/unit/network_services/test_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-11T16:17:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_ce645d4b",
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_4e504d5e",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2017-12-06T19:07:19Z",
       "side": 1,
       "message": "if this is deprecated and we are modifying it, then why not also convert to avoid using the deprecated method?",
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2e918452",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-11T16:17:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_4e504d5e",
       "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_8ea090a0",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-11T16:17:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_ae4f59bc",
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_6e55514f",
         "filename": "yardstick/network_services/utils.py",
         "patchSetId": 3
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_4ecb2853",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-11T16:17:25Z",
+      "side": 1,
+      "message": "Blob3 is not meant to be viable.\n\nI\u0027ll remove multiline support in regex searchs, it\u0027s not needed. In a multiline input, the result should be the first match found, using re.search.",
+      "parentUuid": "9a3d3df0_6e55514f",
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_0e5f6573",
         "filename": "yardstick/network_services/utils.py",
         "patchSetId": 3
@@ -115,6 +223,24 @@
       "writtenOn": "2017-12-06T19:07:19Z",
       "side": 1,
       "message": "why do this here?  it is redone on L87, just put the literal value as the else value.\n\nor, make an else clause to this conditional and set self._domain from the match in it.",
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2ec6a449",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-11T16:17:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_0e5f6573",
       "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
