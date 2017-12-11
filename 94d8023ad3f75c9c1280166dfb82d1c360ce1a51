@@ -46,6 +46,30 @@
       "revId": "94d8023ad3f75c9c1280166dfb82d1c360ce1a51",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6e454cb2",
+        "filename": ".pylintrc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-11T10:20:14Z",
+      "side": 1,
+      "message": "This makes sense for testing. Having different rules for tests and non-tests makes sense, however, we\u0027d have to maintain this.\n\nIt would be nice to have longer term, however, we might get complacent in code reviews; the protected access is pretty easy to detect and correct",
+      "parentUuid": "9a3d3df0_0eb2c0e5",
+      "range": {
+        "startLine": 44,
+        "startChar": 1,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "94d8023ad3f75c9c1280166dfb82d1c360ce1a51",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
