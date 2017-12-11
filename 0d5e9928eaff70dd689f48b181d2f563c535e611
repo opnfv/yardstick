@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_a4edb527",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-12-11T21:00:28Z",
+      "side": 1,
+      "message": "it is easier to use the for loop naturally, then check for non-empty first value.\n\nwe could break in the for loop I suppose.",
+      "parentUuid": "9a3d3df0_71d7eded",
+      "range": {
+        "startLine": 341,
+        "startChar": 82,
+        "endLine": 341,
+        "endChar": 83
+      },
+      "revId": "0d5e9928eaff70dd689f48b181d2f563c535e611",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_d105197b",
         "filename": "tests/unit/benchmark/contexts/test_model.py",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2017-12-11T17:00:16Z",
       "side": 1,
       "message": "Is this correct? I mean, is accepted but should we reject this?",
+      "range": {
+        "startLine": 347,
+        "startChar": 16,
+        "endLine": 347,
+        "endChar": 22
+      },
+      "revId": "0d5e9928eaff70dd689f48b181d2f563c535e611",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_44c5c98c",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2017-12-11T21:00:28Z",
+      "side": 1,
+      "message": "strings are valid syntax if we aren\u0027t overriding.  we accept for backwards compat.\n\nwe don\u0027t check for multiple keys.  \n\nIdeally we would define a schema and do formal schema validation for the YAML.",
+      "parentUuid": "9a3d3df0_d105197b",
       "range": {
         "startLine": 347,
         "startChar": 16,
