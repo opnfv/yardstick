@@ -22,6 +22,30 @@
       "revId": "4ef9ae7d5de342d72f15fa488662403a50996f60",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_71e1ad99",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-11T17:32:31Z",
+      "side": 1,
+      "message": "I know, but:\n1) we need to add a new dependency (bedcollector project).\n2) debcollector will write a new log line everytime it\u0027s called and I want to avoid this\n\nThis function could be used in this project to mark some classes/methods to be deprecated without the overhead of debcollector",
+      "parentUuid": "9a3d3df0_f102dd6d",
+      "range": {
+        "startLine": 396,
+        "startChar": 27,
+        "endLine": 396,
+        "endChar": 27
+      },
+      "revId": "4ef9ae7d5de342d72f15fa488662403a50996f60",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
