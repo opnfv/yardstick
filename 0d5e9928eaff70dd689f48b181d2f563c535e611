@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_71d7eded",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-11T17:00:16Z",
+      "side": 1,
+      "message": "I don\u0027t understand https://gerrit.opnfv.org/gerrit/#/c/45393/9/yardstick/benchmark/contexts/model.py@259. If we have several IPs in network_ports[\"uplink_0\"], why are we taking the last one?",
+      "range": {
+        "startLine": 341,
+        "startChar": 82,
+        "endLine": 341,
+        "endChar": 83
+      },
+      "revId": "0d5e9928eaff70dd689f48b181d2f563c535e611",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d105197b",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-11T17:00:16Z",
+      "side": 1,
+      "message": "Is this correct? I mean, is accepted but should we reject this?",
+      "range": {
+        "startLine": 347,
+        "startChar": 16,
+        "endLine": 347,
+        "endChar": 22
+      },
+      "revId": "0d5e9928eaff70dd689f48b181d2f563c535e611",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
