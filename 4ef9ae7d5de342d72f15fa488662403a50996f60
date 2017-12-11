@@ -46,6 +46,92 @@
       "revId": "4ef9ae7d5de342d72f15fa488662403a50996f60",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d14b5985",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-11T18:27:22Z",
+      "side": 1,
+      "message": "why do we not use the self variable/name?\n\nby using the literal name of the class, we preclude children classes from redefining the pattern string and still using super.\n\nas per pylint, super should always be used in __init__, but if the PciAddress pattern is incorrect/insufficient for a child class, then the child is expected to call this code and then discard the erroneous work done by it and redo that work.",
+      "range": {
+        "startLine": 77,
+        "startChar": 38,
+        "endLine": 77,
+        "endChar": 48
+      },
+      "revId": "4ef9ae7d5de342d72f15fa488662403a50996f60",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_717d2db1",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-11T18:27:22Z",
+      "side": 1,
+      "message": "these are still local variables/names, why are they all capital letters?\n\nif they are meant to be class attributes, then they should be defined/assigned in that scope, and then accessed via the self variable/name.\n\nif they are intended to be local variables/names, then please change their capitalization and i\u0027m not even sure we should compile them, just use\n\n re.search(self.MY_PATTERN)\n\ninstead of\n\n my_re.search()",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 23
+      },
+      "revId": "4ef9ae7d5de342d72f15fa488662403a50996f60",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d132390f",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-11T18:27:22Z",
+      "side": 1,
+      "message": "i\u0027d prefer:\n\n elif match_dbdf:\n   match \u003d match_dbdf\n elif match_bdf:\n   match \u003d match_bdf\n else:\n   raise ValueError(...)\n\nno need to do two or operations.  or\n\n if match_dbdf:\n   if match_bdf:\n     pos_dbdf \u003d ...\n     pos_bdf \u003d ...\n     match \u003d ...\n   else:\n     match \u003d match_dbdf\n elif match_bdf:\n   match \u003d match_bdf\n else:\n   raise ValueError(...)",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 43
+      },
+      "revId": "4ef9ae7d5de342d72f15fa488662403a50996f60",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_71024d0c",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-11T18:27:22Z",
+      "side": 1,
+      "message": "the patterns require each string to have 4, 2, 2 and 1 hex characters, and while the second pattern allows for the 4 grouping to be missing, we set the value to a string of four 0s.  so why do we need to include them here?\n\nif they are so important, then why not include them in the individual properties?\n\ni like the idea of having a class attribute that defines this format template, but i\u0027m not sure we need to use it here.",
+      "revId": "4ef9ae7d5de342d72f15fa488662403a50996f60",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
