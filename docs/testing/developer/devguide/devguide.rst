@@ -361,7 +361,7 @@ Verify your patch locally before submitting
 
 Once you finish a patch, you can submit it to Gerrit for code review. A
 developer sends a new patch to Gerrit will trigger patch verify job on Jenkins
-CI. The yardstick patch verify job includes python flake8 check, unit test and
+CI. The yardstick patch verify job includes python pylint check, unit test and
 code coverage test. Before you submit your patch, it is recommended to run the
 patch verification in your local environment first.
 
