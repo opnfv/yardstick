@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_dd5c08f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-12T17:02:55Z",
+      "side": 1,
+      "message": "It\u0027s on the commit message",
+      "parentUuid": "9a3d3df0_7de85c10",
+      "revId": "83b9ce90c8509ad5c593feb5f4cfc61b1fd07ce8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_3dded46d",
         "filename": "tests/unit/test_cmd/commands/test_env.py",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2017-12-12T17:00:19Z",
       "side": 1,
       "message": "Are the changes to this directory required?\nI don\u0027t see a change to the pylint verson.\n\nAnother patch which includes the changes to tests/unit/test_cmd should be uploaded.",
+      "revId": "83b9ce90c8509ad5c593feb5f4cfc61b1fd07ce8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3d737481",
+        "filename": "tests/unit/test_cmd/commands/test_env.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-12T17:02:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_3dded46d",
       "revId": "83b9ce90c8509ad5c593feb5f4cfc61b1fd07ce8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
