@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_a2d76522",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T14:29:41Z",
+      "side": 1,
+      "message": "nit:no jira reference.\n\nI believe this is related to the introduction of pylint in the first place (Yardstick-832).",
+      "revId": "5715a5aa7dc83748426ccd6f401819a566db81af",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
