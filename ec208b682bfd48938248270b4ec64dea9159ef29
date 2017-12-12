@@ -408,6 +408,30 @@
       "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fd846cd5",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-12T21:14:43Z",
+      "side": 1,
+      "message": "tuple would not be mutable.  i made this a list because i expected some users to want to take the values and replace one of the values.  this is meant to be like dict.values(), at least PY2 values.  perhaps we could also have \"as_dict\".\n\nif we wanted a tuple, then we could make this a subclass of namedtuple and define the namedtuple to be the four properties, then we would have the values as a tuple for nothing.\n\nthinking about it, the __init__ should be able to construct an instance from a list (or tuple).  and dict?",
+      "parentUuid": "9a3d3df0_f42ad02a",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 68
+      },
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
