@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_3d21b44d",
+        "filename": "test-requirements.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T17:29:54Z",
+      "side": 1,
+      "message": "While reviewing a few more changes, I realized that this isn\u0027t used either.\n\nBoth flake8 and pep8 usages were superseded by the addition of pylint IINM",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 62
+      },
+      "revId": "4180a741bac3aed053c1d0cceb3b8fd1c6c2cfe9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
