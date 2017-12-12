@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_424c9942",
+        "filename": "requirements.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T14:12:30Z",
+      "side": 1,
+      "message": "Is there a need for the three \"\u003d\" here?",
+      "range": {
+        "startLine": 16,
+        "startChar": 6,
+        "endLine": 16,
+        "endChar": 7
+      },
+      "revId": "f0ac1e15b1eb6761ef11d89c4228de8d5711a012",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2247d51e",
+        "filename": "requirements.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T14:12:30Z",
+      "side": 1,
+      "message": "ditto\nCan you use \u003d\u003d instead of \u003d\u003d\u003d?",
+      "range": {
+        "startLine": 24,
+        "startChar": 9,
+        "endLine": 24,
+        "endChar": 10
+      },
+      "revId": "f0ac1e15b1eb6761ef11d89c4228de8d5711a012",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_025a91f2",
+        "filename": "test-requirements.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T14:12:30Z",
+      "side": 1,
+      "message": "Do these have to be in line with OpenStack requirements too? I don\u0027t see why they should.\n\nIf test-requirements needs to match OpenStack as well, a change should be made to tools/os-requirements-check.sh, to check test-requirements.txt IFF there is a need for them to match.",
+      "range": {
+        "startLine": 5,
+        "startChar": 11,
+        "endLine": 5,
+        "endChar": 15
+      },
+      "revId": "f0ac1e15b1eb6761ef11d89c4228de8d5711a012",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
