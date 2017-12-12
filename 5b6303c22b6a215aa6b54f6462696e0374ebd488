@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_dd5ec875",
+        "filename": "yardstick/network_services/vnf_generic/vnf/base.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T21:26:36Z",
+      "side": 1,
+      "message": "This might be better named GenericNF or GenericNetworkFunction, as it is the parent for GenericTrafficGen as well.",
+      "range": {
+        "startLine": 142,
+        "startChar": 6,
+        "endLine": 142,
+        "endChar": 16
+      },
+      "revId": "5b6303c22b6a215aa6b54f6462696e0374ebd488",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bdc82423",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T21:26:36Z",
+      "side": 1,
+      "message": "This is what the GenericTrafficGen class does as well, is there any distinguishing factor between the SampleVNFTrafficGen and the GEnericTrafficGen, in terms of purpose, and functionality, that could be described here?\n\nIs the difference that the GenericTrafficGen models both HW and SW and the SampleVNFTrafficGen models only SW?\n\nI think there needs to be an explanation here of when you\u0027d use a SampleVNFTrafficGen, the name implied that this is for Traffic gens that are part of the SampleVNF project (i.e. PROX). If this is the case, then it should be specified here.",
+      "range": {
+        "startLine": 860,
+        "startChar": 6,
+        "endLine": 860,
+        "endChar": 67
+      },
+      "revId": "5b6303c22b6a215aa6b54f6462696e0374ebd488",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fdd2acd0",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T21:26:36Z",
+      "side": 1,
+      "message": "nit: VNF\n\nIf it doesn\u0027t provide the scale feature, then maybe the hierarchy and inheritance should be re-evaluated.\n\nOr maybe the SampleVNF traffic gen should implement the scale method, as a SW Traffic generator?\nIt\u0027s hard to say unless the purpose of this particular class (distinct from the GenericTrafficGen), is comprehended.",
+      "range": {
+        "startLine": 975,
+        "startChar": 31,
+        "endLine": 975,
+        "endChar": 34
+      },
+      "revId": "5b6303c22b6a215aa6b54f6462696e0374ebd488",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1dd790c0",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T21:26:36Z",
+      "side": 1,
+      "message": "SampleVNFTrafficGen should be used when you need to boot a VM to interact with a traffic gen? (further to the request for a more detailed description of SampleVNFTrafficGen)",
+      "range": {
+        "startLine": 187,
+        "startChar": 21,
+        "endLine": 187,
+        "endChar": 40
+      },
+      "revId": "5b6303c22b6a215aa6b54f6462696e0374ebd488",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
