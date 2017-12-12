@@ -28,6 +28,8 @@ from yardstick.cmd.commands import testcase
 from yardstick.cmd.commands import plugin
 from yardstick.cmd.commands import env
 from yardstick.cmd.commands import report
+from yardstick.common import import_tools
+
 
 CONF = cfg.CONF
 cli_opts = [
@@ -53,7 +55,8 @@ def find_config_files(path_list):
     return None
 
 
-class YardstickCLI():   # pragma: no cover
+@import_tools.decorator_banned_modules
+class YardstickCLI(object):   # pragma: no cover
     """Command-line interface to yardstick"""
 
     # Command categories
@@ -108,7 +111,7 @@ class YardstickCLI():   # pragma: no cover
 
         # register subcommands to parse additional command line arguments
         def parser(subparsers):
-            self._add_command_parsers(YardstickCLI.categories, subparsers)
+            self._add_command_parsers(self.categories, subparsers)
 
         category_opt = cfg.SubCommandOpt("category",
                                          title="Command categories",
