@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_7dfdfc39",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc078.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T22:01:41Z",
+      "side": 1,
+      "message": "Can this be parameterised/templated so that this TC can be run with different numbers of iterations?\n\nShould it be changed? If it changes it might deviate from the test spec, however, it should be fine as long as the default is still 1.",
+      "range": {
+        "startLine": 38,
+        "startChar": 15,
+        "endLine": 38,
+        "endChar": 17
+      },
+      "revId": "2cebcb71f78023e6a182cce43be63d833ca00d65",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9d99e021",
+        "filename": "yardstick/benchmark/scenarios/compute/spec_cpu.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T22:01:41Z",
+      "side": 1,
+      "message": "nit: line length\n\nAlthough the pylintrc only enforces a 100 character limit, we should try to keep lines to a length of 80, to comply with OPNFV[1] and pep8 conventions.\n\n[1] https://wiki.opnfv.org/display/DEV/Contribution+Guidelines",
+      "revId": "2cebcb71f78023e6a182cce43be63d833ca00d65",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
