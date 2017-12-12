@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_3de894e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T17:38:50Z",
+      "side": 1,
+      "message": "Wouldn\u0027t the feature code collide as well? \nI mean yardstick/yardstick/cmd?\n\nOr are you referring to yardstick/yardstick/cmd here?\n\nWouldn\u0027t using the full module name, or importing it as yardstick_cmd would solve this problem?",
+      "range": {
+        "startLine": 11,
+        "startChar": 27,
+        "endLine": 11,
+        "endChar": 30
+      },
+      "revId": "36000ec737278801c96fe517e8878511d29501b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9dd72023",
+        "filename": "tests/unit/test_cmd/commands/test_env.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T17:38:50Z",
+      "side": 1,
+      "message": "nit: unrelated to the moving of the directory\n\nAlthough, it is required to pass the gate.",
+      "revId": "36000ec737278801c96fe517e8878511d29501b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fdde2c3e",
+        "filename": "tests/unit/test_cmd/commands/test_env.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T17:38:50Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "36000ec737278801c96fe517e8878511d29501b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bdd4a420",
+        "filename": "tests/unit/test_cmd/test_NSBperf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T17:38:50Z",
+      "side": 1,
+      "message": "nit: unrelated\n\nI know it is required to pass the gate, but it should be added as a prerequisite to the main change of renaming the directory.",
+      "revId": "36000ec737278801c96fe517e8878511d29501b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
