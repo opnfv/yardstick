@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5de11899",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T21:30:44Z",
+      "side": 1,
+      "message": "nit: Jira reference.\n\nIf Jira tickets are used for all bugs/features, then release notes could be generated from a Jira query.",
+      "revId": "ed93ca1ab78c781b54d61d5d65e12e06b01784fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
