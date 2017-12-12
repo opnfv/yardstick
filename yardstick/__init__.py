@@ -14,8 +14,9 @@ import errno
 
 # this module must only import other modules that do
 # not require loggers to be created, so this cannot
-# include yardstick.common.utils
 from yardstick.common import constants
+from yardstick.common import exceptions
+
 
 try:
     # do not use yardstick.common.utils.makedirs
