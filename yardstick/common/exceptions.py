@@ -57,3 +57,8 @@ class YardstickException(Exception):
 class FunctionNotImplemented(YardstickException):
     message = ('The function "%(function_name)s" is not implemented in '
                '"%(class_name)" class.')
+
+
+class YardstickBannedModuleImported(YardstickException):
+    # pragma: no cover
+    message = 'Module "%(module)s" cannnot be imported. Reason: "%(reason)s"'
