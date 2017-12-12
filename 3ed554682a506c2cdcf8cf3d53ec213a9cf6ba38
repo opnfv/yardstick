@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_9dcba01d",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-12T21:14:43Z",
+      "side": 1,
+      "message": "good point, though i might move this to the True portion of the conditional operator:\n\n (match.group(\u0027domain\u0027).lower() if \u0027domain\u0027 in match.groupdict() else \u00270000\u0027)\n\nsince we know \u00270000\u0027 is already lower case.",
+      "range": {
+        "startLine": 83,
+        "startChar": 36,
+        "endLine": 83,
+        "endChar": 44
+      },
+      "revId": "3ed554682a506c2cdcf8cf3d53ec213a9cf6ba38",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
