@@ -247,6 +247,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_47cf8b7f",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-12T11:52:55Z",
+      "side": 1,
+      "message": "Good catch. It\u0027s already modified in PS4",
+      "parentUuid": "9a3d3df0_14281433",
+      "range": {
+        "startLine": 64,
+        "startChar": 33,
+        "endLine": 64,
+        "endChar": 34
+      },
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_6e55514f",
         "filename": "yardstick/network_services/utils.py",
         "patchSetId": 3
@@ -328,6 +352,30 @@
       "writtenOn": "2017-12-12T09:13:08Z",
       "side": 1,
       "message": "I suggest to call lower() on these to get consistent output.",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 48
+      },
+      "revId": "ec208b682bfd48938248270b4ec64dea9159ef29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_07ad839c",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-12T11:52:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_5421fc4b",
       "range": {
         "startLine": 89,
         "startChar": 8,
