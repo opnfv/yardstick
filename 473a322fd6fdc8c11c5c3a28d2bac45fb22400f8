@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_c22d4948",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-12T14:23:13Z",
+      "side": 1,
+      "message": "You should include a Jira reference in this commit.\n\nThe previous commit used: JIRA: YARDSTICK-832, which should be suitable here too.",
+      "revId": "473a322fd6fdc8c11c5c3a28d2bac45fb22400f8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
