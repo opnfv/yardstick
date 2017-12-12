@@ -11,11 +11,14 @@ from __future__ import absolute_import
 import logging
 import os
 import errno
+import sys
 
 # this module must only import other modules that do
 # not require loggers to be created, so this cannot
 # include yardstick.common.utils
 from yardstick.common import constants
+from yardstick.common import exceptions
+
 
 try:
     # do not use yardstick.common.utils.makedirs
@@ -54,3 +57,12 @@ def _init_logging():
     logging.root.addHandler(_LOG_STREAM_HDLR)
     logging.root.addHandler(_LOG_FILE_HDLR)
     logging.debug("logging.root.handlers = %s", logging.root.handlers)
+
+
+BANNED_MODULES = {'ansible': 'Module with GPLv3 license'}
+
+for module in sys.modules.keys():
+    for banned_module, reason in BANNED_MODULES.items():
+        if module.startswith(banned_module):
+            raise exceptions.YardstickBannedModuleImported(
+                module=banned_module, reason=reason)
