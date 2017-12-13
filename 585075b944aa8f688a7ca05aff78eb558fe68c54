@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_d3ba396d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:14:07Z",
+      "side": 1,
+      "message": "NOTEs\n\nTODO will raise a pylint error",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 11
+      },
+      "revId": "585075b944aa8f688a7ca05aff78eb558fe68c54",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_33b1e58f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:14:07Z",
+      "side": 1,
+      "message": "JIRA",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 4
+      },
+      "revId": "585075b944aa8f688a7ca05aff78eb558fe68c54",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_93671125",
+        "filename": "yardstick/tests/unit/orchestrator/test_heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:14:07Z",
+      "side": 1,
+      "message": "This should be out from this block, between project modules and Python standard libraries.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 15
+      },
+      "revId": "585075b944aa8f688a7ca05aff78eb558fe68c54",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f36e5d00",
+        "filename": "yardstick/tests/unit/orchestrator/test_kubernetes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:14:07Z",
+      "side": 1,
+      "message": "to delete",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 10
+      },
+      "revId": "585075b944aa8f688a7ca05aff78eb558fe68c54",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

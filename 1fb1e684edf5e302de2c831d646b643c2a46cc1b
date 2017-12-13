@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_13aca134",
+        "filename": "tests/unit/orchestrator/test_heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:14:07Z",
+      "side": 0,
+      "message": "Try to preserve the git history. Rename this file instead of deleting and creating it again.",
+      "revId": "1fb1e684edf5e302de2c831d646b643c2a46cc1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
