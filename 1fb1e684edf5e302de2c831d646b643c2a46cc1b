@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_b3905544",
+        "filename": "tests/unit/network_services/traffic_profile/test_traffic_profile.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T11:48:16Z",
+      "side": 0,
+      "message": "Try to rename this file instead of deleting and creating a new one, to preserver the git history",
+      "revId": "1fb1e684edf5e302de2c831d646b643c2a46cc1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

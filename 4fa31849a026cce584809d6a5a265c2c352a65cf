@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_f39add61",
+        "filename": "yardstick/tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T11:48:16Z",
+      "side": 1,
+      "message": "Please, delete this",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 19
+      },
+      "revId": "4fa31849a026cce584809d6a5a265c2c352a65cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d39d195b",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_ixia_rfc2544.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T11:48:16Z",
+      "side": 1,
+      "message": "Please, delete this",
+      "range": {
+        "startLine": 664,
+        "startChar": 0,
+        "endLine": 665,
+        "endChar": 19
+      },
+      "revId": "4fa31849a026cce584809d6a5a265c2c352a65cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_33a445a5",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_rfc2544.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T11:48:16Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 294,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 19
+      },
+      "revId": "4fa31849a026cce584809d6a5a265c2c352a65cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_139f8151",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_acl_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T11:48:16Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 19
+      },
+      "revId": "4fa31849a026cce584809d6a5a265c2c352a65cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_73aecd86",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_cgnapt_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T11:48:16Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 450,
+        "endChar": 19
+      },
+      "revId": "4fa31849a026cce584809d6a5a265c2c352a65cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_53a9097a",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T11:48:16Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 461,
+        "startChar": 0,
+        "endLine": 462,
+        "endChar": 19
+      },
+      "revId": "4fa31849a026cce584809d6a5a265c2c352a65cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b3b7b5d7",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_trex.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T11:48:16Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 501,
+        "startChar": 0,
+        "endLine": 503,
+        "endChar": 19
+      },
+      "revId": "4fa31849a026cce584809d6a5a265c2c352a65cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_93ba71be",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_udp_replay.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T11:48:16Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 490,
+        "startChar": 0,
+        "endLine": 491,
+        "endChar": 19
+      },
+      "revId": "4fa31849a026cce584809d6a5a265c2c352a65cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f3b13de2",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_vfw_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T11:48:16Z",
+      "side": 1,
+      "message": "keep this one, just for fun.\n\nOk, no, delete it",
+      "range": {
+        "startLine": 376,
+        "startChar": 0,
+        "endLine": 377,
+        "endChar": 19
+      },
+      "revId": "4fa31849a026cce584809d6a5a265c2c352a65cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d3b4f9d2",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_vpe_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T11:48:16Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 812,
+        "startChar": 0,
+        "endLine": 814,
+        "endChar": 19
+      },
+      "revId": "4fa31849a026cce584809d6a5a265c2c352a65cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
