@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_137301e8",
+        "filename": "tests/unit/common/test_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:42:01Z",
+      "side": 1,
+      "message": "Why are you assigning a value here? You should rely on the value loaded.",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 27
+      },
+      "revId": "50149bf8439b710449fb7a88592b1f96ce757a1e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_537d89b0",
+        "filename": "tests/unit/common/test_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:42:01Z",
+      "side": 1,
+      "message": "This is not the way to make a cleanup when testing. You should use addCleanup.\n\n\n    @mock.patch.object(os.environ, \u0027get\u0027)\n    def test_get_param_para_exists(self, mock_get_env):\n        file_name \u003d \u0027config_sample.yaml\u0027\n        tmp_conf \u003d constants.CONF\n        self.addCleanup(self._clean_config, tmp_conf)\n\n        mock_get_env.return_value \u003d self._get_file_abspath(file_name)\n        args \u003d \u0027releng.dir\u0027\n        para \u003d \u0027/home/opnfv/repos/releng\u0027\n        self.assertEqual(para, constants.get_param(args))\n\n    def _clean_config(self, pre_config):\n        constants.CONF \u003d pre_config",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 12
+      },
+      "revId": "50149bf8439b710449fb7a88592b1f96ce757a1e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
