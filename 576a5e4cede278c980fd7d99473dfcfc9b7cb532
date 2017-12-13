@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_f3d2ddd0",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc019.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T13:55:27Z",
+      "side": 1,
+      "message": "Code style in ansible [1] is to leave a space between the braces and the variable. Also we should force the conversion of this variable to string.\n\n    process_name: \"{{ attack_process }}\"\n\nSame comment in the rest of the files.\n\n[1] http://docs.ansible.com/ansible/latest/playbooks_variables.html",
+      "range": {
+        "startLine": 27,
+        "startChar": 20,
+        "endLine": 27,
+        "endChar": 38
+      },
+      "revId": "576a5e4cede278c980fd7d99473dfcfc9b7cb532",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d3d519ba",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/fault_process_kill.bash",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T13:55:27Z",
+      "side": 1,
+      "message": "I\u0027m not sure why do you need this filter. Can you put an example?",
+      "range": {
+        "startLine": 29,
+        "startChar": 58,
+        "endLine": 29,
+        "endChar": 85
+      },
+      "revId": "576a5e4cede278c980fd7d99473dfcfc9b7cb532",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
