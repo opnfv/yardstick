@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_bda2e4ab",
+        "filename": "tests/unit/common/test_process.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-13T09:21:12Z",
+      "side": 1,
+      "message": "addl_env has the same value in each test, does it make sense to add it to the set-up, or does it make the tests easier to understand if it stays as-is?",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 30
+      },
+      "revId": "3e48e25e32e00f4a4bf019d72c230d3ca24e1434",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9da560b7",
+        "filename": "tests/unit/common/test_process.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-13T09:21:12Z",
+      "side": 1,
+      "message": "nit: same comment as for the method, renaming this var to additional_env improves readability",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 16
+      },
+      "revId": "3e48e25e32e00f4a4bf019d72c230d3ca24e1434",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bdbb04e4",
+        "filename": "tests/unit/common/test_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-13T09:21:12Z",
+      "side": 1,
+      "message": "nit: these are a separate change IMHO\nAt first glance, it looks like you\u0027re importing a load of new libraries",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 15
+      },
+      "revId": "3e48e25e32e00f4a4bf019d72c230d3ca24e1434",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5ded98ee",
+        "filename": "tests/unit/common/test_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-13T09:21:12Z",
+      "side": 1,
+      "message": "nit: \"This test should only be launched with Python 3.x\"",
+      "range": {
+        "startLine": 1069,
+        "startChar": 22,
+        "endLine": 1069,
+        "endChar": 69
+      },
+      "revId": "3e48e25e32e00f4a4bf019d72c230d3ca24e1434",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9dbe00d3",
+        "filename": "yardstick/common/process.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-13T09:21:12Z",
+      "side": 1,
+      "message": "nit: whitespace change\n\nFor clarity, is it reasonable to say that whitespace and formatting errors should be separated into a preceding patch?",
+      "revId": "3e48e25e32e00f4a4bf019d72c230d3ca24e1434",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fdb58cee",
+        "filename": "yardstick/common/process.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-13T09:21:12Z",
+      "side": 1,
+      "message": "Renaming this function to ``_additional_env_args`` would make it easier to grok what this does when it\u0027s called elsewhere in the module.",
+      "range": {
+        "startLine": 59,
+        "startChar": 5,
+        "endLine": 59,
+        "endChar": 9
+      },
+      "revId": "3e48e25e32e00f4a4bf019d72c230d3ca24e1434",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ddb888e7",
+        "filename": "yardstick/common/process.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-13T09:21:12Z",
+      "side": 1,
+      "message": "Should this be docstring instead?",
+      "range": {
+        "startLine": 67,
+        "startChar": 1,
+        "endLine": 68,
+        "endChar": 37
+      },
+      "revId": "3e48e25e32e00f4a4bf019d72c230d3ca24e1434",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3dcff480",
+        "filename": "yardstick/common/process.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-13T09:21:12Z",
+      "side": 1,
+      "message": "docstring: utility function to wrap subprocess.Popen with some parameters fixed for this module.\n\nNit: the args are not in the same order in subprocess_popen and subprocess.Popen.\nWhat is the reason for this?",
+      "revId": "3e48e25e32e00f4a4bf019d72c230d3ca24e1434",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1dcaf06d",
+        "filename": "yardstick/common/process.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-13T09:21:12Z",
+      "side": 1,
+      "message": "nit: \"handle a command executed as root, using...\"",
+      "range": {
+        "startLine": 89,
+        "startChar": 26,
+        "endLine": 89,
+        "endChar": 70
+      },
+      "revId": "3e48e25e32e00f4a4bf019d72c230d3ca24e1434",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7dc97c77",
+        "filename": "yardstick/common/process.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-13T09:21:12Z",
+      "side": 1,
+      "message": "Same comment as above.\n\nShould there be an \"if run_as_root:\" here as there is above?",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 108,
+        "endChar": 56
+      },
+      "revId": "3e48e25e32e00f4a4bf019d72c230d3ca24e1434",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5dc4785e",
+        "filename": "yardstick/common/process.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-13T09:21:12Z",
+      "side": 1,
+      "message": "nit: \n\n\"This appears to be necessary in order for the subprocess to clean up something between call, without it, the second process hangs when two execute calls are made in a row.\"",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 30
+      },
+      "revId": "3e48e25e32e00f4a4bf019d72c230d3ca24e1434",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
