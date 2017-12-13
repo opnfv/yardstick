@@ -262,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_78598a59",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T09:01:28Z",
+      "side": 1,
+      "message": "For this simple operation, I prefer to have both regex. It\u0027s easier to see and debug.",
+      "parentUuid": "9a3d3df0_5d4ab8ac",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 43
+      },
+      "revId": "4ef9ae7d5de342d72f15fa488662403a50996f60",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_71024d0c",
         "filename": "yardstick/network_services/utils.py",
         "patchSetId": 4
@@ -309,6 +333,24 @@
       "side": 1,
       "message": "i\u0027m saying that this code is like:\n\n self.address \u003d \u0027{:0\u003e4}:{:0\u003e2}:{:0\u003e2}.{:1}\u0027.format(\u00270a12\u0027, \u002700\u0027, \u002701\u0027, \u00270\u0027)\n\nso each string is already the correct width (4, 2, 2, 1 respectively), so there is no need for padding.  as opposed to:\n\n self.address \u003d \u0027{:0\u003e4}:{:0\u003e2}:{:0\u003e2}.{:1}\u0027.format(\u0027a12\u0027, \u00270\u0027, \u00271\u0027, \u00270\u0027)\n\nwhere the widths are 3, 1, 1, 1 respectively and zero-padding is necessary.  however, this is not supported by the re pattern.\n\nif the internal data was held as integers, instead of strings, then we would need it.",
       "parentUuid": "9a3d3df0_6768cf87",
+      "revId": "4ef9ae7d5de342d72f15fa488662403a50996f60",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_58548620",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T09:01:28Z",
+      "side": 1,
+      "message": "The padding is just a visual remainder for other developers of DBDF format.",
+      "parentUuid": "9a3d3df0_7d4fbcbd",
       "revId": "4ef9ae7d5de342d72f15fa488662403a50996f60",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
