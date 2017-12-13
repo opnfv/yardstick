@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_f3849dd5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T13:26:33Z",
+      "side": 1,
+      "message": "JIRA in capital letters to be parsed by gerrit and add the link.\n\nAlso could look better if you take this line before the change-id and the sign.\n\n...\nJIRA: YARDSTICK-837\n\nChange-Id: I2847c380556985fae2c92bb8a7da9c47e91e1338\nSigned-off-by: Emma Foley \u003cemma.l.foley@intel.com\u003e",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 4
+      },
+      "revId": "ce80c92f9df9a974fa0a0a669183e486afe39501",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d35eb975",
+        "filename": "yardstick/tests/unit/common/test_httpClient.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T13:26:33Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 10
+      },
+      "revId": "ce80c92f9df9a974fa0a0a669183e486afe39501",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f35bfd84",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T13:26:33Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 10
+      },
+      "revId": "ce80c92f9df9a974fa0a0a669183e486afe39501",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d387d9d5",
+        "filename": "yardstick/tests/unit/common/test_template_format.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T13:26:33Z",
+      "side": 1,
+      "message": "+1\n\nnit: sign your comments\n# NOTE(efoley):\n\nnit: use NOTE, instead of TODO because it will fail with pylint",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 73
+      },
+      "revId": "ce80c92f9df9a974fa0a0a669183e486afe39501",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_336e0530",
+        "filename": "yardstick/tests/unit/common/test_template_format.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T13:26:33Z",
+      "side": 1,
+      "message": "+1",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 56
+      },
+      "revId": "ce80c92f9df9a974fa0a0a669183e486afe39501",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9364314a",
+        "filename": "yardstick/tests/unit/common/test_template_format.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T13:26:33Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 10
+      },
+      "revId": "ce80c92f9df9a974fa0a0a669183e486afe39501",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b361753b",
+        "filename": "yardstick/tests/unit/common/test_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T13:26:33Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1066,
+        "startChar": 0,
+        "endLine": 1070,
+        "endChar": 10
+      },
+      "revId": "ce80c92f9df9a974fa0a0a669183e486afe39501",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_73788df2",
+        "filename": "yardstick/tests/unit/common/test_yaml_loader.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T13:26:33Z",
+      "side": 1,
+      "message": "to be removed",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 10
+      },
+      "revId": "ce80c92f9df9a974fa0a0a669183e486afe39501",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
