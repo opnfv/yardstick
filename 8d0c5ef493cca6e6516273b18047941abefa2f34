@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_d1bb59e3",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-12-13T03:19:56Z",
+      "side": 1,
+      "message": "Will remove this in upcoming patch set. \nI had issues enabling sriov vfs but it was resolved after a reboot.",
+      "parentUuid": "9a3d3df0_0eec85c6",
+      "range": {
+        "startLine": 184,
+        "startChar": 12,
+        "endLine": 184,
+        "endChar": 51
+      },
+      "revId": "8d0c5ef493cca6e6516273b18047941abefa2f34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_6ef9d17f",
         "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
         "patchSetId": 7
@@ -83,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_6eb1d18e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-12-13T03:19:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_f5d49721",
+      "revId": "8d0c5ef493cca6e6516273b18047941abefa2f34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_ce08dd93",
         "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
         "patchSetId": 7
@@ -129,6 +171,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_0ebbe572",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-12-13T03:19:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_b51b2f1a",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 71
+      },
+      "revId": "8d0c5ef493cca6e6516273b18047941abefa2f34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_9516ebef",
         "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
         "patchSetId": 7
@@ -140,6 +206,30 @@
       "writtenOn": "2017-11-30T22:55:01Z",
       "side": 1,
       "message": "these can be deleted",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 70
+      },
+      "revId": "8d0c5ef493cca6e6516273b18047941abefa2f34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2eb86975",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-12-13T03:19:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_9516ebef",
       "range": {
         "startLine": 115,
         "startChar": 0,
@@ -175,6 +265,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_4eaccd35",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-12-13T03:19:56Z",
+      "side": 1,
+      "message": "I\u0027ll remove this. Thanks",
+      "parentUuid": "9a3d3df0_2e006966",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 137,
+        "endChar": 17
+      },
+      "revId": "8d0c5ef493cca6e6516273b18047941abefa2f34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_0e03e573",
         "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
         "patchSetId": 7
@@ -186,6 +300,30 @@
       "writtenOn": "2017-12-06T17:30:13Z",
       "side": 1,
       "message": "In L154 you are not reading this. Anyway, I think you should remove this function.",
+      "range": {
+        "startLine": 150,
+        "startChar": 8,
+        "endLine": 150,
+        "endChar": 18
+      },
+      "revId": "8d0c5ef493cca6e6516273b18047941abefa2f34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_aeabd91b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2017-12-13T03:19:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_0e03e573",
       "range": {
         "startLine": 150,
         "startChar": 8,
