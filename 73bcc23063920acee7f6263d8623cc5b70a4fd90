@@ -16,6 +16,24 @@
       "revId": "73bcc23063920acee7f6263d8623cc5b70a4fd90",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1378212a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T11:33:45Z",
+      "side": 1,
+      "message": "The patch was submitted by Ross. My name is on the commit (L4) and on the code lines.",
+      "parentUuid": "9a3d3df0_9d30c09f",
+      "revId": "73bcc23063920acee7f6263d8623cc5b70a4fd90",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
