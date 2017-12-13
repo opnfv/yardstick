@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_53c0e929",
+        "filename": "yardstick/benchmark/core/runner.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T11:51:01Z",
+      "side": 1,
+      "message": "nit: could be removed",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 37
+      },
+      "revId": "d0e51c3580b3fe96f2123701a523c0697f3a5cd6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_13c66149",
+        "filename": "yardstick/cmd/commands/testcase.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T11:51:01Z",
+      "side": 1,
+      "message": "nit: could be removed",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 37
+      },
+      "revId": "d0e51c3580b3fe96f2123701a523c0697f3a5cd6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
