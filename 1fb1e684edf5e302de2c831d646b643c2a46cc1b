@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_2f15f93f",
+        "filename": ".pylintrc",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T15:04:35Z",
+      "side": 1,
+      "message": "remove this one",
+      "range": {
+        "startLine": 24,
+        "startChar": 1,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "1fb1e684edf5e302de2c831d646b643c2a46cc1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ef079116",
+        "filename": ".pylintrc",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T15:04:35Z",
+      "side": 1,
+      "message": "I don\u0027t think we should remove it.",
+      "range": {
+        "startLine": 37,
+        "startChar": 1,
+        "endLine": 37,
+        "endChar": 13
+      },
+      "revId": "1fb1e684edf5e302de2c831d646b643c2a46cc1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cf0c4d3e",
+        "filename": ".pylintrc",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T15:04:35Z",
+      "side": 1,
+      "message": "Those warnings should be there. Don\u0027t disable these ones.",
+      "range": {
+        "startLine": 55,
+        "startChar": 1,
+        "endLine": 56,
+        "endChar": 17
+      },
+      "revId": "1fb1e684edf5e302de2c831d646b643c2a46cc1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8f06c51b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T15:04:35Z",
+      "side": 1,
+      "message": "JIRA",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 4
+      },
+      "revId": "1fb1e684edf5e302de2c831d646b643c2a46cc1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6f1b8173",
+        "filename": "tools/cover.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T15:04:35Z",
+      "side": 1,
+      "message": "This is temporary. Add a comment.",
+      "revId": "1fb1e684edf5e302de2c831d646b643c2a46cc1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0f12b556",
+        "filename": "tools/cover.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T15:04:35Z",
+      "side": 1,
+      "message": "This is temporary. Add a comment.",
+      "range": {
+        "startLine": 55,
+        "startChar": 20,
+        "endLine": 55,
+        "endChar": 46
+      },
+      "revId": "1fb1e684edf5e302de2c831d646b643c2a46cc1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4f183d75",
+        "filename": "tools/run_tests.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T15:04:35Z",
+      "side": 1,
+      "message": "\u003e\u003e\n\nDon\u0027t overwrite the previous report.",
+      "range": {
+        "startLine": 32,
+        "startChar": 63,
+        "endLine": 32,
+        "endChar": 64
+      },
+      "revId": "1fb1e684edf5e302de2c831d646b643c2a46cc1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_af28e986",
+        "filename": "tools/run_tests.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T15:04:35Z",
+      "side": 1,
+      "message": "\u003e\u003e\n\nDon\u0027t overwrite the previous report.",
+      "range": {
+        "startLine": 59,
+        "startChar": 52,
+        "endLine": 59,
+        "endChar": 53
+      },
+      "revId": "1fb1e684edf5e302de2c831d646b643c2a46cc1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
