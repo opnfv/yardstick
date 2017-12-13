@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_f33c9de4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:53:02Z",
+      "side": 1,
+      "message": "JIRA",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 4
+      },
+      "revId": "29d092f209418ef77f2a24323eb2f70c302fb677",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_933551f9",
+        "filename": "yardstick/tests/unit/test_ssh.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:53:02Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 38
+      },
+      "revId": "29d092f209418ef77f2a24323eb2f70c302fb677",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_135ae14f",
+        "filename": "yardstick/tests/unit/test_ssh.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:53:02Z",
+      "side": 1,
+      "message": "to delete",
+      "range": {
+        "startLine": 557,
+        "startChar": 0,
+        "endLine": 563,
+        "endChar": 10
+      },
+      "revId": "29d092f209418ef77f2a24323eb2f70c302fb677",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
