@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_33d28500",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T12:31:38Z",
+      "side": 1,
+      "message": "Please, follow [1]. One line title, space and description.\n\n[1] https://www.mediawiki.org/wiki/Gerrit/Commit_message_guidelines",
+      "revId": "b2c1d951dcefb9dff56f909a2598e93fe338437c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_13cdc15d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T12:31:38Z",
+      "side": 1,
+      "message": "Create a Jira ticket and refer to it: https://jira.opnfv.org/projects/YARDSTICK/issues/",
+      "revId": "b2c1d951dcefb9dff56f909a2598e93fe338437c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_33f9e580",
+        "filename": "ansible/prepare_openstack.yml",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T12:31:38Z",
+      "side": 1,
+      "message": "The title written in \"name\" section should be enough",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 3
+      },
+      "revId": "b2c1d951dcefb9dff56f909a2598e93fe338437c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b305f57b",
+        "filename": "ansible/yardstick-install-inventory.ini",
+        "patchSetId": 12
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T12:31:38Z",
+      "side": 1,
+      "message": "Again, \"yardstick\" is being used as host by many other scripts, not only the ones you have modified.",
+      "range": {
+        "startLine": 3,
+        "startChar": 1,
+        "endLine": 3,
+        "endChar": 9
+      },
+      "revId": "b2c1d951dcefb9dff56f909a2598e93fe338437c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_13f4a185",
+        "filename": "ansible/yardstick-install-inventory.ini",
+        "patchSetId": 12
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T12:31:38Z",
+      "side": 1,
+      "message": "Why yardstick? Where is the parent section?",
+      "range": {
+        "startLine": 8,
+        "startChar": 1,
+        "endLine": 8,
+        "endChar": 10
+      },
+      "revId": "b2c1d951dcefb9dff56f909a2598e93fe338437c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_73f36d9e",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 12
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T12:31:38Z",
+      "side": 1,
+      "message": "The whole section is confusing. You shouldn\u0027t write everything in the same code-block section.\n\nAlso you are mixing anv vars (not written in any file) and config file vars in the same block.\n\nMy suggestion: http://paste.openstack.org/show/628839/",
+      "revId": "b2c1d951dcefb9dff56f909a2598e93fe338437c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b32cd503",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T12:31:38Z",
+      "side": 1,
+      "message": "The description is more confusing than reading the code. I recommend you to remove it. The code is clear enough",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 117
+      },
+      "revId": "b2c1d951dcefb9dff56f909a2598e93fe338437c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_53ee29b5",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T12:31:38Z",
+      "side": 1,
+      "message": "If we do this, we could have two versions: the env variable and the one in etc/environment.\n\nIf env_http_proxy is not null, you must force \"export http_proxy\u003d${env_http_proxy}\"",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 63
+      },
+      "revId": "b2c1d951dcefb9dff56f909a2598e93fe338437c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_932f11f6",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T12:31:38Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 65
+      },
+      "revId": "b2c1d951dcefb9dff56f909a2598e93fe338437c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
