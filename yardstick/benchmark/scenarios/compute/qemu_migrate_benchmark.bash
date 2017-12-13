@@ -21,13 +21,6 @@ max_down_time=$6
 
 OUTPUT_FILE=/tmp/output-qemu.log
 
-echo "To check the parameters:"
-echo "SRC: $src"
-echo "DST: $dst"
-echo "DST_IP: $dst_ip"
-echo "MIGRATE_PORT: $migrate_to_port"
-echo "DOWN_TIME: $max_down_time"
-
 do_migrate()
 {
         echo "Execution of Live Migration"
@@ -49,7 +42,8 @@ do_migrate()
         done
 
         echo "End of Live Migration"
-}
+
+} > /dev/null
 
 output_qemu()
 {
@@ -74,14 +68,18 @@ echo -e "{ \
         \"setuptime\":\"$setuptime\" \
          }"
 }
+
 # main entry
 main()
 {
-    echo "Perform LiveMigration"
+    # Perform LiveMigration
     do_migrate
-    echo "LiveMigration Status"
+
+    # LiveMigration Status
     output_qemu
-    echo "LiveMigration JSON output "
+
+    # LiveMigration JSON output
     output_json
 }
+
 main
