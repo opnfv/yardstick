@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_6f3261f3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T15:34:12Z",
+      "side": 1,
+      "message": "I don\u0027t think this should be a class variable, just a local variable in set_platform_socket_threads",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 31
+      },
+      "revId": "980de0c86e550bbbc4ac6c718daaf2aa9386386f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_af4f496a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T15:34:12Z",
+      "side": 1,
+      "message": "This should be a private method.",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 35
+      },
+      "revId": "980de0c86e550bbbc4ac6c718daaf2aa9386386f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ef55d1fa",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T15:34:12Z",
+      "side": 1,
+      "message": "I don\u0027t understand this part....",
+      "range": {
+        "startLine": 66,
+        "startChar": 74,
+        "endLine": 66,
+        "endChar": 91
+      },
+      "revId": "980de0c86e550bbbc4ac6c718daaf2aa9386386f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8f540500",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T15:34:12Z",
+      "side": 1,
+      "message": "procs for procs, I think",
+      "range": {
+        "startLine": 66,
+        "startChar": 20,
+        "endLine": 66,
+        "endChar": 34
+      },
+      "revId": "980de0c86e550bbbc4ac6c718daaf2aa9386386f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4f2f9d88",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T15:34:12Z",
+      "side": 1,
+      "message": "just directly:\n\nreturn { .... }",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 18
+      },
+      "revId": "980de0c86e550bbbc4ac6c718daaf2aa9386386f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
