@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_f3e93d81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:08:02Z",
+      "side": 1,
+      "message": "Capital letters",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 4
+      },
+      "revId": "98cf966d9075fc612bd26377ccf236b242767c67",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d3ecf991",
+        "filename": "yardstick/tests/unit/apiserver/__init__.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:08:02Z",
+      "side": 1,
+      "message": "You should leave an empty line",
+      "revId": "98cf966d9075fc612bd26377ccf236b242767c67",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_13fe6138",
+        "filename": "yardstick/tests/unit/apiserver/resources/test_env_action.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:08:02Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "98cf966d9075fc612bd26377ccf236b242767c67",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3303a543",
+        "filename": "yardstick/tests/unit/apiserver/resources/test_env_action.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:08:02Z",
+      "side": 1,
+      "message": "to delete",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 10
+      },
+      "revId": "98cf966d9075fc612bd26377ccf236b242767c67",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_53f8e948",
+        "filename": "yardstick/tests/unit/apiserver/utils/test_influx.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:08:02Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "98cf966d9075fc612bd26377ccf236b242767c67",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9399d121",
+        "filename": "yardstick/tests/unit/apiserver/utils/test_influx.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:08:02Z",
+      "side": 1,
+      "message": "Instead of importing the class, import the module, for tracking purposes",
+      "range": {
+        "startLine": 15,
+        "startChar": 33,
+        "endLine": 15,
+        "endChar": 45
+      },
+      "revId": "98cf966d9075fc612bd26377ccf236b242767c67",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b39695ee",
+        "filename": "yardstick/tests/unit/apiserver/utils/test_influx.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:08:02Z",
+      "side": 1,
+      "message": "Everything should be in the same block and in order",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 45
+      },
+      "revId": "98cf966d9075fc612bd26377ccf236b242767c67",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_73fd2d3a",
+        "filename": "yardstick/tests/unit/apiserver/utils/test_influx.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-13T14:08:02Z",
+      "side": 1,
+      "message": "to delete",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 10
+      },
+      "revId": "98cf966d9075fc612bd26377ccf236b242767c67",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
