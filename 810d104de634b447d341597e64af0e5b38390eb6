@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_aff0e967",
+        "filename": "tests/unit/network_services/test_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-13T18:16:59Z",
+      "side": 1,
+      "message": "can we use the context manager version of assertRaises?\n\n with self.assertRaises(ValueError):\n   _ \u003d utils.PciAddress(PciAddressTestCase.BAD_INPUT_1)\n\nbesides no being a statement in need of continuation, it allows for the call to the constructor to be the same as the positive tests.  this allows IDEs to better know when to change something when refactoring.\n\nin some cases, i also capture the raised exception and do additional assertions on that, as in:\n\n with self.assertRaises(ValueError) as raised:\n   _ \u003d utils.PciAddress(PciAddressTestCase.BAD_INPUT_1)\n\n self.assertIn(\u0027some text\u0027, str(raised.exception))",
+      "revId": "810d104de634b447d341597e64af0e5b38390eb6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8ff52559",
+        "filename": "tests/unit/network_services/test_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-13T18:16:59Z",
+      "side": 1,
+      "message": "see comment to L125",
+      "revId": "810d104de634b447d341597e64af0e5b38390eb6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
