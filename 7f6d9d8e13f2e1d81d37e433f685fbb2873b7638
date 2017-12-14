@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_6346fa50",
+        "filename": "ansible/roles/enable_hugepages_on_boot/tasks/manual_modify_grub.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-14T16:02:10Z",
+      "side": 1,
+      "message": "I don\u0027t know how many grub config files will have. I suppose that only one.\n\nAnyway, maybe in the future will find a better way to do this.",
+      "range": {
+        "startLine": 36,
+        "startChar": 9,
+        "endLine": 36,
+        "endChar": 52
+      },
+      "revId": "7f6d9d8e13f2e1d81d37e433f685fbb2873b7638",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
