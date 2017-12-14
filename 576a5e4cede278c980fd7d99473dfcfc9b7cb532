@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_d80c113e",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc019.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-14T11:02:54Z",
+      "side": 1,
+      "message": "In this case (port number, integer), we don\u0027t need it.",
+      "parentUuid": "9a3d3df0_9280aac1",
+      "range": {
+        "startLine": 27,
+        "startChar": 20,
+        "endLine": 27,
+        "endChar": 38
+      },
+      "revId": "576a5e4cede278c980fd7d99473dfcfc9b7cb532",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_d3d519ba",
         "filename": "yardstick/benchmark/scenarios/availability/ha_tools/fault_process_kill.bash",
         "patchSetId": 3
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "this filter is to remove the situation \" nova-api\" with a space before the process name.",
       "parentUuid": "9a3d3df0_d3d519ba",
+      "range": {
+        "startLine": 29,
+        "startChar": 58,
+        "endLine": 29,
+        "endChar": 85
+      },
+      "revId": "576a5e4cede278c980fd7d99473dfcfc9b7cb532",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_38153d40",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/fault_process_kill.bash",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-14T11:02:54Z",
+      "side": 1,
+      "message": "The problem is you left an empty space at the end too:\n\" ${process_name} \"\n\nI don\u0027t know if this is going to affect the regex",
+      "parentUuid": "9a3d3df0_f258168c",
       "range": {
         "startLine": 29,
         "startChar": 58,
