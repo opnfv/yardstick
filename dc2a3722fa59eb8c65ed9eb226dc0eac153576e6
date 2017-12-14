@@ -16,6 +16,24 @@
       "revId": "dc2a3722fa59eb8c65ed9eb226dc0eac153576e6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9889e977",
+        "filename": "dashboard/opnfv_yardstick_tc079.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-12-14T12:02:44Z",
+      "side": 1,
+      "message": "for tc079, it don\u0027t need it since it don\u0027t use the database for now.",
+      "parentUuid": "9a3d3df0_9806091c",
+      "revId": "dc2a3722fa59eb8c65ed9eb226dc0eac153576e6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
