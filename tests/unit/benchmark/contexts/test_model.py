@@ -179,6 +179,7 @@ class NetworkTestCase(unittest.TestCase):
         test_network = model.Network('foo', self.mock_context, attrs)
         self.assertIsNone(test_network.gateway_ip)
 
+
 class ServerTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -189,7 +190,6 @@ class ServerTestCase(unittest.TestCase):
         self.mock_context.user = "some-user"
         netattrs = {'cidr': '10.0.0.0/24', 'provider': None, 'external_network': 'ext_net'}
         self.mock_context.networks = [model.Network("some-network", self.mock_context, netattrs)]
-
 
     def test_construct_defaults(self):
 
@@ -227,8 +227,9 @@ class ServerTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_instance(self, mock_template):
-
-        attrs = {'image': 'some-image', 'flavor': 'some-flavor', 'floating_ip': '192.168.1.10', 'floating_ip_assoc': 'some-vm'}
+        attrs = {'image': 'some-image', 'flavor': 'some-flavor', 'floating_ip': '192.168.1.10',
+                 'floating_ip_assoc': 'some-vm',
+                 'availability_zone': 'zone'}
         test_server = model.Server('foo', self.mock_context, attrs)
 
         self.mock_context.flavors = ['flavor1', 'flavor2', 'some-flavor']
@@ -241,7 +242,8 @@ class ServerTestCase(unittest.TestCase):
         mock_network.subnet_stack_name = 'some-network-stack-subnet'
         mock_network.provider = 'sriov'
         mock_network.external_network = 'ext_net'
-        mock_network.router = model.Router('some-router', 'some-network', self.mock_context, 'ext_net')
+        mock_network.router = model.Router('some-router', 'some-network', self.mock_context,
+                                           'ext_net')
 
         test_server._add_instance(mock_template, 'some-server',
                                   [mock_network], 'hints')
@@ -277,7 +279,8 @@ class ServerTestCase(unittest.TestCase):
             user=self.mock_context.user,
             key_name=self.mock_context.keypair_name,
             user_data='',
-            scheduler_hints='hints')
+            scheduler_hints='hints',
+            availability_zone='zone')
 
     def test_override_ip(self):
         network_ports = {
@@ -471,7 +474,30 @@ class ServerTestCase(unittest.TestCase):
             user=self.mock_context.user,
             key_name=self.mock_context.keypair_name,
             user_data=user_data,
-            scheduler_hints='hints')
+            scheduler_hints='hints',
+            availability_zone=None)
+
+    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
+    def test__add_instance_with_availablity_zone(self, mock_template):
+        attrs = {
+            'image': 'some-image', 'flavor': 'some-flavor',
+            'availability_zone': 'zone',
+        }
+        test_server = model.Server('foo', self.mock_context, attrs)
+
+        test_server._add_instance(mock_template, 'some-server',
+                                  [], 'hints')
+
+        mock_template.add_server.assert_called_with(
+            'some-server', 'some-image',
+            flavor='some-flavor',
+            flavors=self.mock_context.flavors,
+            ports=[],
+            user=self.mock_context.user,
+            key_name=self.mock_context.keypair_name,
+            user_data='',
+            scheduler_hints='hints',
+            availability_zone='zone')
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_instance_plus_flavor(self, mock_template):
@@ -511,7 +537,8 @@ class ServerTestCase(unittest.TestCase):
             user=self.mock_context.user,
             key_name=self.mock_context.keypair_name,
             user_data=user_data,
-            scheduler_hints='hints')
+            scheduler_hints='hints',
+            availability_zone=None)
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_instance_misc(self, mock_template):
@@ -523,7 +550,7 @@ class ServerTestCase(unittest.TestCase):
         }
         test_server = model.Server('ServerFlavor-3', self.mock_context, attrs)
 
-        self.mock_context.flavors =  ['flavor2']
+        self.mock_context.flavors = ['flavor2']
         self.mock_context.flavor = {'vcpus': 4}
         mock_network = mock.Mock()
         mock_network.name = 'some-network'
@@ -532,7 +559,6 @@ class ServerTestCase(unittest.TestCase):
 
         test_server._add_instance(mock_template, 'ServerFlavor-3',
                                   [mock_network], 'hints')
-
 
         mock_template.add_port(
             'ServerFlavor-3-some-network-port',
@@ -559,5 +585,5 @@ class ServerTestCase(unittest.TestCase):
             user=self.mock_context.user,
             key_name=self.mock_context.keypair_name,
             user_data=user_data,
-            scheduler_hints='hints')
-
+            scheduler_hints='hints',
+            availability_zone=None)
