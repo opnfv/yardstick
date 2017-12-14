@@ -34,6 +34,24 @@
       "revId": "061769d82b3a14d79ab1d7292718be6a95a38ccb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4315b63e",
+        "filename": "ansible/roles/create_image/tasks/main.yml",
+        "patchSetId": 12
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-14T15:46:44Z",
+      "side": 0,
+      "message": "[stack@silpixa00390422 yardstick]$ansible-playbook ansible/yardstick_verify.yml -i ansible/inventory.ini\nERROR! the file_name \u0027/opt/stack/yardstick/ansible/clean_images.yml\u0027 does not exist, or is not readable\n\n\n\nThis problem is still there",
+      "parentUuid": "9a3d3df0_78c6a569",
+      "revId": "061769d82b3a14d79ab1d7292718be6a95a38ccb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
