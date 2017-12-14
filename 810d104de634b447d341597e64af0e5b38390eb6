@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b8f02d68",
+        "filename": "tests/unit/network_services/test_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-14T15:17:07Z",
+      "side": 1,
+      "message": "You are right.",
+      "parentUuid": "9a3d3df0_aff0e967",
+      "revId": "810d104de634b447d341597e64af0e5b38390eb6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_8ff52559",
         "filename": "tests/unit/network_services/test_utils.py",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2017-12-13T18:16:59Z",
       "side": 1,
       "message": "see comment to L125",
+      "revId": "810d104de634b447d341597e64af0e5b38390eb6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_98f56959",
+        "filename": "tests/unit/network_services/test_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-14T15:17:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_8ff52559",
       "revId": "810d104de634b447d341597e64af0e5b38390eb6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
