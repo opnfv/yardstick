@@ -1,4 +1,4 @@
-schema: "isb:traffic_profile:0.1"
+schema: "nsb:traffic_profile:0.1"
 
 name:            TrafficProfileGenericHTTP
 description:     Traffic profile to run HTTP test
