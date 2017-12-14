@@ -16,6 +16,24 @@
       "revId": "7478dbc29213f7fa34c76b69dcbddf7b2a80fecb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d5869cda",
+        "filename": "yardstick/benchmark/scenarios/compute/spec_cpu.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-12-14T09:13:06Z",
+      "side": 1,
+      "message": "Thanks for your advise.\nThe purpose I use \"cat\" is to get the file content so the result can be fetched in \"run\" function, not to check if the file exists. Do you have suggestion about how to fetch the file content via ssh properly?",
+      "parentUuid": "9a3d3df0_53e10999",
+      "revId": "7478dbc29213f7fa34c76b69dcbddf7b2a80fecb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
