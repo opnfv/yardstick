@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_63443ab7",
+        "filename": "tests/unit/network_services/test_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-14T18:04:46Z",
+      "side": 1,
+      "message": "BaseException has \"message\" as class variable",
+      "parentUuid": "9a3d3df0_03fd6e6e",
+      "range": {
+        "startLine": 128,
+        "startChar": 49,
+        "endLine": 128,
+        "endChar": 76
+      },
+      "revId": "e6c21a80a91919707b05ee301de990c660e24b85",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_c306e685",
         "filename": "tests/unit/network_services/test_utils.py",
         "patchSetId": 7
