@@ -298,8 +298,9 @@ class AnsibleNode(MutableMapping):
     def gen_inventory_line(self):
         inventory_params = self.get_inventory_params()
         # use format to convert ints
+        # sort to ensure consistent key value ordering
         formatted_args = (u"{}={}".format(*entry) for entry in
-                          inventory_params.items())
+                          sorted(inventory_params.items()))
         line = u" ".join(chain([self['name']], formatted_args))
         return line
 
@@ -472,6 +473,8 @@ class AnsibleCommon(object):
         prefix = '_'.join([self.prefix, prefix, 'inventory'])
         ini_temp_file = IniMapTemporaryFile(directory=directory, prefix=prefix)
         inventory_config = ConfigParser.ConfigParser(allow_no_value=True)
+        # disable default lowercasing
+        inventory_config.optionxform = str
         return ini_temp_file.make_context(self.inventory_dict, write_func,
                                           descriptor='inventory')
 
