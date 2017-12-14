@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9280aac1",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc019.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-12-14T03:00:04Z",
+      "side": 1,
+      "message": "Thanks for you information. I\u0027ll try to fix this in next patch.\nA question about the quotes\"\", if the variable is a number like \nport: 80, do we need to add the quotes like port: \"{{ PORT }}\" or just port: {{ PORT }}",
+      "parentUuid": "9a3d3df0_f3d2ddd0",
+      "range": {
+        "startLine": 27,
+        "startChar": 20,
+        "endLine": 27,
+        "endChar": 38
+      },
+      "revId": "576a5e4cede278c980fd7d99473dfcfc9b7cb532",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_d3d519ba",
         "filename": "yardstick/benchmark/scenarios/availability/ha_tools/fault_process_kill.bash",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2017-12-13T13:55:27Z",
       "side": 1,
       "message": "I\u0027m not sure why do you need this filter. Can you put an example?",
+      "range": {
+        "startLine": 29,
+        "startChar": 58,
+        "endLine": 29,
+        "endChar": 85
+      },
+      "revId": "576a5e4cede278c980fd7d99473dfcfc9b7cb532",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b27b2ef4",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/fault_process_kill.bash",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2017-12-14T03:00:04Z",
+      "side": 1,
+      "message": "Hi, this bugfix is from dovetail using this test case.\nIn some SUT, the controller node has process name with \"nova-api\" in. take a example:\nroot       5304   2488  0 14:05 ?        00:00:00 /usr/bin/python2 /bin/nova-api --config-file\u003d/etc/nova/nova.conf\npostgres   8706 195736  0 14:29 ?        00:00:00 postgres: admin-nova-api nova_api 192.168.204.4(49659) idle\nin this case, previous script would also kill \"admin-nova-api\", which is not the attack target.\nThat\u0027s why I add this filter.",
+      "parentUuid": "9a3d3df0_d3d519ba",
       "range": {
         "startLine": 29,
         "startChar": 58,
