@@ -82,6 +82,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_f858f58b",
+        "filename": "ansible/yardstick-install-inventory.ini",
+        "patchSetId": 12
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-14T15:01:26Z",
+      "side": 1,
+      "message": "Ok, that was my fault during the manual test.\n\nThis configuration is correct.",
+      "parentUuid": "9a3d3df0_b305f57b",
+      "range": {
+        "startLine": 3,
+        "startChar": 1,
+        "endLine": 3,
+        "endChar": 9
+      },
+      "revId": "b2c1d951dcefb9dff56f909a2598e93fe338437c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_13f4a185",
         "filename": "ansible/yardstick-install-inventory.ini",
         "patchSetId": 12
@@ -93,6 +117,30 @@
       "writtenOn": "2017-12-13T12:31:38Z",
       "side": 1,
       "message": "Why yardstick? Where is the parent section?",
+      "range": {
+        "startLine": 8,
+        "startChar": 1,
+        "endLine": 8,
+        "endChar": 10
+      },
+      "revId": "b2c1d951dcefb9dff56f909a2598e93fe338437c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1853196c",
+        "filename": "ansible/yardstick-install-inventory.ini",
+        "patchSetId": 12
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-14T15:01:26Z",
+      "side": 1,
+      "message": "ditto\n\nMy bad",
+      "parentUuid": "9a3d3df0_13f4a185",
       "range": {
         "startLine": 8,
         "startChar": 1,
