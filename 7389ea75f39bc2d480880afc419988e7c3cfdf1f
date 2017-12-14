@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_38989dbf",
+        "filename": "yardstick/network_services/vnf_generic/vnf/firewall_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-14T12:15:12Z",
+      "side": 1,
+      "message": "This was copy-pasted from yardstick/network_services/vnf_generic/vnf/sample_vnf.py\n\nRemove it and import from this other file",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 77
+      },
+      "revId": "7389ea75f39bc2d480880afc419988e7c3cfdf1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_982d6998",
+        "filename": "yardstick/network_services/vnf_generic/vnf/firewall_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-14T12:15:12Z",
+      "side": 1,
+      "message": "Is this necessary here?\nIs it applicable to other SampleVNFs/their env helpers?",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 29
+      },
+      "revId": "7389ea75f39bc2d480880afc419988e7c3cfdf1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_781b4573",
+        "filename": "yardstick/network_services/vnf_generic/vnf/firewall_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-14T12:15:12Z",
+      "side": 1,
+      "message": "Remove this",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 40
+      },
+      "revId": "7389ea75f39bc2d480880afc419988e7c3cfdf1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b8eb0d12",
+        "filename": "yardstick/network_services/vnf_generic/vnf/firewall_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-14T12:15:12Z",
+      "side": 1,
+      "message": "This is not cop-pasted, but the rest of the class appears to be.\n\nImport from:\n\nyardstick/network_services/vnf_generic/vnf/sample_vnf.py\nand make this additional method a member of DpdkVnfSetupEnvHelper",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 19
+      },
+      "revId": "7389ea75f39bc2d480880afc419988e7c3cfdf1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_58180175",
+        "filename": "yardstick/network_services/vnf_generic/vnf/firewall_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-14T12:15:12Z",
+      "side": 1,
+      "message": "Why does this return None?\n\nIs it not needed?\nIn which case, why is this method here?\n\nIs this supposed to be an abstract class/interface?\nIn which case, it should not be in this file, but rather with some of the other abstract classes, assuming it is useful for the  other sample VNFs too.",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 19
+      },
+      "revId": "7389ea75f39bc2d480880afc419988e7c3cfdf1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f81e355e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/firewall_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-14T12:15:12Z",
+      "side": 1,
+      "message": "nit: keep line length to 79",
+      "range": {
+        "startLine": 327,
+        "startChar": 73,
+        "endLine": 327,
+        "endChar": 81
+      },
+      "revId": "7389ea75f39bc2d480880afc419988e7c3cfdf1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d8f6d1f8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/firewall_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-14T12:15:12Z",
+      "side": 1,
+      "message": "This method exists in yardstick/network_services/vnf_generic/vnf/sample_vnf.py\n as well, can you use that one instead, it seems that this should be common to all SampleVNFs",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 46
+      },
+      "revId": "7389ea75f39bc2d480880afc419988e7c3cfdf1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f87ab575",
+        "filename": "yardstick/network_services/vnf_generic/vnf/firewall_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-14T12:15:12Z",
+      "side": 1,
+      "message": "It looks like this was copy-pasted from yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+      "range": {
+        "startLine": 366,
+        "startChar": 0,
+        "endLine": 405,
+        "endChar": 43
+      },
+      "revId": "7389ea75f39bc2d480880afc419988e7c3cfdf1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_38dffd6a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/firewall_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-14T12:15:12Z",
+      "side": 1,
+      "message": "this exists in the other file as well...",
+      "range": {
+        "startLine": 408,
+        "startChar": 0,
+        "endLine": 538,
+        "endChar": 21
+      },
+      "revId": "7389ea75f39bc2d480880afc419988e7c3cfdf1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_18dcb972",
+        "filename": "yardstick/network_services/vnf_generic/vnf/firewall_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-14T12:15:12Z",
+      "side": 1,
+      "message": "This is in the other file too, I see a difference in the DEFAULT_TOLERANCE, but no other differences immediately popped out",
+      "range": {
+        "startLine": 541,
+        "startChar": 0,
+        "endLine": 596,
+        "endChar": 71
+      },
+      "revId": "7389ea75f39bc2d480880afc419988e7c3cfdf1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_78e50537",
+        "filename": "yardstick/network_services/vnf_generic/vnf/firewall_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-14T12:15:12Z",
+      "side": 1,
+      "message": "Remove all the commented code",
+      "range": {
+        "startLine": 610,
+        "startChar": 0,
+        "endLine": 631,
+        "endChar": 44
+      },
+      "revId": "7389ea75f39bc2d480880afc419988e7c3cfdf1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_58e2c12f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/firewall_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-14T12:15:12Z",
+      "side": 1,
+      "message": "This is in yardstick/network_services/vnf_generic/vnf/sample_vnf.py as well...\n consider importing it...",
+      "range": {
+        "startLine": 635,
+        "startChar": 0,
+        "endLine": 670,
+        "endChar": 44
+      },
+      "revId": "7389ea75f39bc2d480880afc419988e7c3cfdf1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b8d2ed59",
+        "filename": "yardstick/network_services/vnf_generic/vnf/firewall_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-14T12:15:12Z",
+      "side": 1,
+      "message": "this is not the right description of this class, since it is not interacting with a generic traffic gen",
+      "range": {
+        "startLine": 878,
+        "startChar": 8,
+        "endLine": 878,
+        "endChar": 68
+      },
+      "revId": "7389ea75f39bc2d480880afc419988e7c3cfdf1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_98d7294b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/firewall_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-14T12:15:12Z",
+      "side": 1,
+      "message": "Should the app name be \u0027vFW\u0027 or something other than \u0027Sample\u0027",
+      "range": {
+        "startLine": 880,
+        "startChar": 16,
+        "endLine": 880,
+        "endChar": 22
+      },
+      "revId": "7389ea75f39bc2d480880afc419988e7c3cfdf1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
