@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_9806091c",
+        "filename": "dashboard/opnfv_yardstick_tc079.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-14T10:59:42Z",
+      "side": 1,
+      "message": "I don\u0027t know if this template need this: https://gerrit.opnfv.org/gerrit/#/c/48927/1/dashboard/opnfv_yardstick_tc006.json@4",
+      "revId": "dc2a3722fa59eb8c65ed9eb226dc0eac153576e6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
