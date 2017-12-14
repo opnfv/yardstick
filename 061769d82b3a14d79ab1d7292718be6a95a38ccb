@@ -16,6 +16,24 @@
       "revId": "061769d82b3a14d79ab1d7292718be6a95a38ccb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_78c6a569",
+        "filename": "ansible/roles/create_image/tasks/main.yml",
+        "patchSetId": 12
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6817
+      },
+      "writtenOn": "2017-12-14T15:02:04Z",
+      "side": 0,
+      "message": "I created new file for creating yardstick-samplevnfs image and reverted changes for this file",
+      "parentUuid": "9a3d3df0_53d749ed",
+      "revId": "061769d82b3a14d79ab1d7292718be6a95a38ccb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
