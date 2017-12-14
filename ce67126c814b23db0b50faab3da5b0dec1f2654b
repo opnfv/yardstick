@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5501ec04",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-14T10:55:22Z",
+      "side": 1,
+      "message": "This link should be:\n\nhttp://docs.opnfv.org/en/stable-euphrates/release/userguide.introduction.html",
+      "range": {
+        "startLine": 713,
+        "startChar": 40,
+        "endLine": 713,
+        "endChar": 107
+      },
+      "revId": "ce67126c814b23db0b50faab3da5b0dec1f2654b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
