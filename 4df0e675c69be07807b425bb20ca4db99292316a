@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_69a89977",
+        "filename": "ansible/build_yardstick_image.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-15T11:33:15Z",
+      "side": 1,
+      "message": "The name \"yardstick-image.img\" is harcoded in ansible/load_images.yml:IMAGE_OUTPUT. We can\u0027t generate a file with other name",
+      "range": {
+        "startLine": 47,
+        "startChar": 34,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "4df0e675c69be07807b425bb20ca4db99292316a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a996213d",
+        "filename": "ansible/group_vars/all.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-15T11:33:15Z",
+      "side": 1,
+      "message": "Where are these variables used?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 26
+      },
+      "revId": "4df0e675c69be07807b425bb20ca4db99292316a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0998ed68",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-15T11:33:15Z",
+      "side": 1,
+      "message": "If \"img_modify_playbook\" depends on the img_property, this should be defined in \"build_yardstick_image.yml\" based on the value of this variable.",
+      "range": {
+        "startLine": 69,
+        "startChar": 24,
+        "endLine": 69,
+        "endChar": 79
+      },
+      "revId": "4df0e675c69be07807b425bb20ca4db99292316a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
