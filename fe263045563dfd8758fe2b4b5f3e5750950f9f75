@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_2925f108",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "sed -i \u0027s/ $//g\u0027 devguide_nsb_prox.rst .. correct syntax",
+      "parentUuid": "9a3d3df0_9430a402",
+      "range": {
+        "startLine": 4,
+        "startChar": 72,
+        "endLine": 4,
+        "endChar": 73
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5955b54e",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-12-07T16:03:57Z",
       "side": 1,
       "message": "Delete \"is\"",
+      "range": {
+        "startLine": 5,
+        "startChar": 49,
+        "endLine": 5,
+        "endChar": 52
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_891ebdb9",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_5955b54e",
       "range": {
         "startLine": 5,
         "startChar": 49,
@@ -82,6 +130,54 @@
       "writtenOn": "2017-12-07T23:13:47Z",
       "side": 1,
       "message": "+1",
+      "parentUuid": "9a3d3df0_d9c8a524",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 20
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0982adc7",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_742b6094",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 20
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a980e1c0",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "9a3d3df0_d9c8a524",
       "range": {
         "startLine": 58,
@@ -142,6 +238,54 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_e98669da",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_794a39ad",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 21
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_496f952b",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "No. See Diagram. Traffic Generator is first.",
+      "parentUuid": "9a3d3df0_d4198c89",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 21
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_941ee461",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -165,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_89751dfc",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_941ee461",
+      "range": {
+        "startLine": 147,
+        "startChar": 6,
+        "endLine": 147,
+        "endChar": 10
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_bf03010c",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -176,6 +344,30 @@
       "writtenOn": "2017-12-07T23:13:47Z",
       "side": 1,
       "message": "Instead of using inverted commas, if you use backticks, then the text will be rendered as monospaced font, which is easier to spot visually.\n\n``tc_prox_\u003ccontext\u003e_\u003ctest\u003e-\u003cports\u003e.yaml``\n\nThis helps highlight file names and code samples/technical terms.\n\nThis applies to all the text below that is in quotes.",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 150,
+        "endChar": 3
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_69725912",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_bf03010c",
       "range": {
         "startLine": 150,
         "startChar": 2,
@@ -234,6 +426,54 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_4904b549",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_1422d4a3",
+      "range": {
+        "startLine": 160,
+        "startChar": 22,
+        "endLine": 160,
+        "endChar": 23
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_29017138",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_7419a078",
+      "range": {
+        "startLine": 160,
+        "startChar": 22,
+        "endLine": 160,
+        "endChar": 23
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_340f1830",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -245,6 +485,30 @@
       "writtenOn": "2017-12-07T16:03:57Z",
       "side": 1,
       "message": "System Under Test",
+      "range": {
+        "startLine": 178,
+        "startChar": 26,
+        "endLine": 178,
+        "endChar": 43
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c962853d",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_340f1830",
       "range": {
         "startLine": 178,
         "startChar": 26,
@@ -303,6 +567,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_89fa3d41",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "It does not need to be bolded. But it does need to be emphasised. It looks better.",
+      "parentUuid": "9a3d3df0_3f0ff12f",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 1
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f45bf02b",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -349,6 +637,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_69f7f959",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_d427ccb4",
+      "range": {
+        "startLine": 228,
+        "startChar": 36,
+        "endLine": 228,
+        "endChar": 37
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_bf2ae17b",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -360,6 +672,30 @@
       "writtenOn": "2017-12-07T23:13:47Z",
       "side": 1,
       "message": "this should be formatted the same way as other list items.\n\nThe list items above are bolded (e.g. line 80)",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 12
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e9a2e949",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Items ~line 80 referred to items in the diagram. I bolded them to make them stand out in a sea of text. However all other items at this level were unbolded.\n\nI unbolded line ~line 80 to be consistent. (I think it is worse unbolded but it is consistent)",
+      "parentUuid": "9a3d3df0_bf2ae17b",
       "range": {
         "startLine": 260,
         "startChar": 4,
@@ -395,6 +731,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_498b15c3",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_743080e8",
+      "range": {
+        "startLine": 300,
+        "startChar": 30,
+        "endLine": 300,
+        "endChar": 31
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_9f355ddc",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -406,6 +766,30 @@
       "writtenOn": "2017-12-07T23:13:47Z",
       "side": 1,
       "message": "s",
+      "range": {
+        "startLine": 303,
+        "startChar": 32,
+        "endLine": 303,
+        "endChar": 33
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_298851c4",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_9f355ddc",
       "range": {
         "startLine": 303,
         "startChar": 32,
@@ -441,6 +825,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_89919df3",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "YES this does. This is one of the 6 file that make up a test. This needs to be emphasised.",
+      "parentUuid": "9a3d3df0_1f22eda3",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 1
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_7f3059e8",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -452,6 +860,30 @@
       "writtenOn": "2017-12-07T23:13:47Z",
       "side": 1,
       "message": "ditto on the bolding",
+      "range": {
+        "startLine": 378,
+        "startChar": 0,
+        "endLine": 378,
+        "endChar": 1
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c9be0565",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Ditto - No",
+      "parentUuid": "9a3d3df0_7f3059e8",
       "range": {
         "startLine": 378,
         "startChar": 0,
@@ -487,6 +919,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_a9c3c1eb",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_df4ec56e",
+      "range": {
+        "startLine": 419,
+        "startChar": 6,
+        "endLine": 419,
+        "endChar": 13
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_bf514110",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -510,6 +966,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_09b58d7d",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_bf514110",
+      "range": {
+        "startLine": 479,
+        "startChar": 3,
+        "endLine": 479,
+        "endChar": 4
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_54429c3e",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -521,6 +1001,30 @@
       "writtenOn": "2017-12-07T16:03:57Z",
       "side": 1,
       "message": "Do you mean that you advise not to use the \u0027s\u0027 syntax? In that case I would still add that in case of bare metal two sockets server, it is up to the user to make sure that cores from the right sockets are used (i.e. from the socket on which the NIC is attached to), to ensure good performance (EPA).",
+      "range": {
+        "startLine": 486,
+        "startChar": 20,
+        "endLine": 487,
+        "endChar": 20
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e40cd03d",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_54429c3e",
       "range": {
         "startLine": 486,
         "startChar": 20,
@@ -602,6 +1106,54 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_a406481b",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_343d58bc",
+      "range": {
+        "startLine": 816,
+        "startChar": 21,
+        "endLine": 816,
+        "endChar": 44
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c401cc06",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_944c2472",
+      "range": {
+        "startLine": 816,
+        "startChar": 6,
+        "endLine": 816,
+        "endChar": 44
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_7447e04b",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -625,6 +1177,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_8904fd18",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "text altered",
+      "parentUuid": "9a3d3df0_7447e04b",
+      "range": {
+        "startLine": 900,
+        "startChar": 3,
+        "endLine": 900,
+        "endChar": 31
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_941b841a",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -636,6 +1212,30 @@
       "writtenOn": "2017-12-07T16:03:57Z",
       "side": 1,
       "message": "I would also add the possibility to dump packets being transmitted - very useful for debugging (e.g. see MAC addresses)",
+      "range": {
+        "startLine": 944,
+        "startChar": 32,
+        "endLine": 944,
+        "endChar": 33
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_290b312b",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-15T16:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_941b841a",
       "range": {
         "startLine": 944,
         "startChar": 32,
