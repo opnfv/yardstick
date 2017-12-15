@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_7d569cd3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-15T12:00:36Z",
+      "side": 1,
+      "message": "Please add a blank line after this header.\nThis first line forms the title/summary of your commit, which is displayed in git.\n\nhttps://wiki.opnfv.org/display/DEV/Contribution+Guidelines",
+      "revId": "c9aa31a351fe8b86d7ec503f2401e58236b51d23",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
