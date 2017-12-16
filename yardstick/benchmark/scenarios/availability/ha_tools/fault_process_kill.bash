@@ -20,6 +20,11 @@ if [ "$process_name" = "keystone" ]; then
         do
             kill -9 "${pid}"
         done
+elif [ "$process_name" = "haproxy" ]; then
+    for pid in $(pgrep -f "^/usr/[^ ]*/${process_name}");
+        do
+            kill -9 "${pid}"
+        done
 else
     for pid in $(pgrep -f "/usr/.*/${process_name}");
         do
