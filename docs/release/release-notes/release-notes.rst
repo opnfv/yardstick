@@ -30,13 +30,16 @@ This document describes the release note of Yardstick project.
 
 Version History
 ---------------
-+------------------+-----------+---------------------------------+
-| *Date*           | *Version* | *Comment*                       |
-|                  |           |                                 |
-+------------------+-----------+---------------------------------+
-| October 20, 2017 | 5.0.0     | Yardstick for Euphrates release |
-|                  |           |                                 |
-+------------------+-----------+---------------------------------+
++-------------------+-----------+---------------------------------+
+| *Date*            | *Version* | *Comment*                       |
+|                   |           |                                 |
++-------------------+-----------+---------------------------------+
+| December 15, 2017 | 5.1.0     | Yardstick for Euphrates release |
+|                   |           |                                 |
++-------------------+-----------+---------------------------------+
+| October 20, 2017  | 5.0.0     | Yardstick for Euphrates release |
+|                   |           |                                 |
++-------------------+-----------+---------------------------------+
 
 
 Important Notes
@@ -129,19 +132,19 @@ Release Data
 | **Project**                    | Yardstick             |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Repo/tag**                   | yardstick/opnfv-5.0.0 |
+| **Repo/tag**                   | yardstick/opnfv-5.1.0 |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Yardstick Docker image tag** | opnfv-5.0.0           |
+| **Yardstick Docker image tag** | opnfv-5.1.0           |
 |                                |                       |
 +--------------------------------+-----------------------+
 | **Release designation**        | Euphrates             |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release date**               | October 20, 2017      |
+| **Release date**               | December 15, 2017     |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Purpose of the delivery**    | OPNFV Euphrates 5.0.0 |
+| **Purpose of the delivery**    | OPNFV Euphrates 5.1.0 |
 |                                |                       |
 +--------------------------------+-----------------------+
 
@@ -161,7 +164,7 @@ Software Deliverables
 ^^^^^^^^^^^^^^^^^^^^^
 
 
- - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: opnfv-5.0.0)
+ - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: opnfv-5.1.0)
 
 
 New Contexts
@@ -475,6 +478,52 @@ Known Issues/Faults
 Corrected Faults
 ^^^^^^^^^^^^^^^^
 
+Euphrates 5.1.0:
+
++---------------------+-------------------------------------------------------------------------+
+| **JIRA REFERENCE**  | **DESCRIPTION**                                                         |
+|                     |                                                                         |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-841 | Fix various NSB license issues                                          |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-73  | How To Work with Test Cases                                             |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-500 | VNF testing documentation                                               |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-826 | Allow overriding Heat IP addresses to match traffic generator profile   |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-828 | Refactor doc/testing/user/userguide "Yardstick Installation"            |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-830 | build_yardstick_image Ansible mount module doesn't work on Ubuntu 14.04 |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-833 | ansible_common transform password into lower case                       |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-847 | tc006, tc079, tc082 miss grafana dashboard in local deployment          |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-849 | kill process do not accurately kill the process like "nova-api"         |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-850 | tc023 miss description and tc050-58 wrong description                   |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-852 | tc078 cpu2006 fails in some situation                                   |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-854 | yardstick docker lack of trex_client                                    |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-867 | testcase tc078 have no data stored or dashboard to show results         |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-871 | Remove img_modify_playbook assignation in build_yardstick_image.yml     |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-829 | "nsb_setup.sh" doesn't parse the controller IP correctly                |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-839 | NSB Prox BM test cases to be fixed for incorporating scale-up           |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-840 | NSB Prox test documentation of vPE and LW-AFTR test cases               |
++---------------------+-------------------------------------------------------------------------+
+| JIRA: YARDSTICK-848 | NSB "Prox" : Cleanup duplicated traffic profile                         |
++---------------------+-------------------------------------------------------------------------+
+
+
+
+
 Euphrates 5.0.0:
 
 +---------------------+--------------------------------------------+
@@ -505,18 +554,6 @@ Euphratess 5.0.0 known restrictions/issues
 |           |           | raising network interfaces.                  |
 |           |           |                                              |
 +-----------+-----------+----------------------------------------------+
-
-
-Open JIRA tickets
------------------
-
-+---------------------+----------------------------------------------+
-| **JIRA REFERENCE**  | **DESCRIPTION**                              |
-|                     |                                              |
-+---------------------+----------------------------------------------+
-| JIRA: YARDSTICK-412 | IPv6 test case should add support for newton |
-|                     |                                              |
-+---------------------+----------------------------------------------+
 
 
 Useful links
