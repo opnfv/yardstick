@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_2e7b3229",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7087
+      },
+      "writtenOn": "2017-12-18T16:50:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_4e979648",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 26
+      },
+      "revId": "1fefd841b06d20dfb6bd1f92f36405efe4950e96",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_eeae6a97",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_8e74fe36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7087
+      },
+      "writtenOn": "2017-12-18T16:50:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_eeae6a97",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 57
+      },
+      "revId": "1fefd841b06d20dfb6bd1f92f36405efe4950e96",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_6ec37a57",
         "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_ping.py",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2017-12-18T16:34:03Z",
       "side": 1,
       "message": "After new pep8 tests were merged, everytime we submit a patch, all files modified will be analyzed.\n\nBecause \"ssh\" is not being used in this function, pep8 returns:\nW:286,34: Unused argument \u0027ssh\u0027 (unused-argument)\n\nMake this function input variable to avoid this warning:\n\n    def test_listen_traffic(self, *args):",
+      "range": {
+        "startLine": 286,
+        "startChar": 34,
+        "endLine": 286,
+        "endChar": 37
+      },
+      "revId": "1fefd841b06d20dfb6bd1f92f36405efe4950e96",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4e7e761a",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_ping.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 7087
+      },
+      "writtenOn": "2017-12-18T16:50:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_6ec37a57",
       "range": {
         "startLine": 286,
         "startChar": 34,
