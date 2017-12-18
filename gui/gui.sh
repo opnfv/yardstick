@@ -1,5 +1,5 @@
+sh -c 'curl -sL https://deb.nodesource.com/setup_8.x | bash -'
 apt-get install -y nodejs
-apt-get install -y npm
 ln -s /usr/bin/nodejs /usr/bin/node
 npm install
 npm install -g grunt
