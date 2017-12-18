@@ -544,6 +544,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_8eab5e74",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-18T17:14:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_b42a087c",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 1
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_3f0ff12f",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -1048,6 +1072,30 @@
       "writtenOn": "2017-12-07T23:13:47Z",
       "side": 1,
       "message": "Please use the same order for the supported modes and their descriptions.\n\nIdeally, they should be in a list in the  form:\n* ``\u003cmode\u003e``: description",
+      "range": {
+        "startLine": 519,
+        "startChar": 17,
+        "endLine": 538,
+        "endChar": 14
+      },
+      "revId": "fe263045563dfd8758fe2b4b5f3e5750950f9f75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2ec97259",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-18T17:14:00Z",
+      "side": 1,
+      "message": "I have reordered them to match the tag name. However there is not a 1-to-1 relationship between what they do and mode.",
+      "parentUuid": "9a3d3df0_ff5bc92b",
       "range": {
         "startLine": 519,
         "startChar": 17,
