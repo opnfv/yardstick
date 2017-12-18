@@ -157,6 +157,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_8e607ed0",
+        "filename": "tools/run_tests.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-18T15:19:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_4f183d75",
+      "range": {
+        "startLine": 32,
+        "startChar": 63,
+        "endLine": 32,
+        "endChar": 64
+      },
+      "revId": "1fb1e684edf5e302de2c831d646b643c2a46cc1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_af28e986",
         "filename": "tools/run_tests.sh",
         "patchSetId": 8
@@ -168,6 +192,30 @@
       "writtenOn": "2017-12-13T15:04:35Z",
       "side": 1,
       "message": "\u003e\u003e\n\nDon\u0027t overwrite the previous report.",
+      "range": {
+        "startLine": 59,
+        "startChar": 52,
+        "endLine": 59,
+        "endChar": 53
+      },
+      "revId": "1fb1e684edf5e302de2c831d646b643c2a46cc1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2e67b2ea",
+        "filename": "tools/run_tests.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-18T15:19:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_af28e986",
       "range": {
         "startLine": 59,
         "startChar": 52,
