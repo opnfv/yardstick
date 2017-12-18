@@ -10,8 +10,9 @@
 """ Handler for yardstick command 'scenario' """
 
 from __future__ import absolute_import
+import prettytable
+
 from yardstick.benchmark.scenarios.base import Scenario
-from yardstick.benchmark.core import print_hbar
 
 
 class Scenarios(object):    # pragma: no cover
@@ -20,16 +21,15 @@ class Scenarios(object):    # pragma: no cover
        Set of commands to discover and display scenario types.
     """
 
-    def list_all(self, args):
+    def list_all(self, *args):
         """List existing scenario types"""
         types = Scenario.get_types()
-        print_hbar(78)
-        print("| %-16s | %-60s" % ("Type", "Description"))
-        print_hbar(78)
+        scenario_table = prettytable.PrettyTable(['Type', 'Description'])
+        scenario_table.align = 'l'
         for scenario_class in types:
-            print("| %-16s | %-60s" % (scenario_class.get_scenario_type(),
-                                       scenario_class.get_description()))
-        print_hbar(78)
+            scenario_table.add_row([scenario_class.get_scenario_type(),
+                                    scenario_class.get_description()])
+        print(scenario_table)
 
     def show(self, args):
         """Show details of a specific scenario type"""
