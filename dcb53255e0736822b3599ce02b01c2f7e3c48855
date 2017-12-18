@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_8e9d1e69",
+        "filename": "tools/cover.sh",
+        "patchSetId": 10
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-18T16:38:11Z",
+      "side": 1,
+      "message": "+1",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 20
+      },
+      "revId": "dcb53255e0736822b3599ce02b01c2f7e3c48855",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ce8a861a",
+        "filename": "tools/cover.sh",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-18T16:38:11Z",
+      "side": 1,
+      "message": "+1",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 18
+      },
+      "revId": "dcb53255e0736822b3599ce02b01c2f7e3c48855",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
