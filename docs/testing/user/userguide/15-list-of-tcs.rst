@@ -80,6 +80,7 @@ H A
    opnfv_yardstick_tc052.rst
    opnfv_yardstick_tc053.rst
    opnfv_yardstick_tc054.rst
+   opnfv_yardstick_tc087.rst
 
 IPv6
 ----
