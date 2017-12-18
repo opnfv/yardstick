@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_db2d2600",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_ping.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-18T09:18:09Z",
+      "side": 1,
+      "message": "as a general comment, this test should be refactored, but maybe not in this patch.",
+      "revId": "9696e789e54ee13740ab40a605e73b77c8a0b805",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
