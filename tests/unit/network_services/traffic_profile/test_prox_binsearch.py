@@ -43,6 +43,8 @@ class TestProxBinSearchProfile(unittest.TestCase):
         tp_config = {
             'traffic_profile': {
                 'packet_sizes': [200],
+                'test_precision': 2.0,
+                'tolerated_loss': 0.001,
             },
         }
 
@@ -77,6 +79,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
             'traffic_profile': {
                 'packet_sizes': [200],
                 'test_precision': 2.0,
+                'tolerated_loss': 0.001,
             },
         }
 
