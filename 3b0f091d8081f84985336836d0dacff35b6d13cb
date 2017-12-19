@@ -306,6 +306,40 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9d60aed0",
+        "filename": "tests/unit/common/test_utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1179,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T21:31:08Z",
+      "side": 1,
+      "message": "can we add an assert that method2 was not called?\n\neither adjust the dummy class to keep track of what methods get called.  or capture the exception and assert that the exception is from method3 and method2 was expected.",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3d67e2ea",
+        "filename": "tests/unit/common/test_utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1194,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T21:31:08Z",
+      "side": 1,
+      "message": "call any of these messages again and you get an \"unknown instance\" exception, despite both being \"known\" but now \"exhausted\".",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_47af792a",
         "filename": "yardstick/benchmark/contexts/standalone/base.py",
         "patchSetId": 9
@@ -409,6 +443,156 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_fd71faa8",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T21:31:08Z",
+      "side": 1,
+      "message": "is there a reason for making this a static class (with a global enable/disable)?\n\ni\u0027d prefer to see an instance class (no classmethods) and each class that uses it would have its own instance.  the enable/disable should be at the instance level too.  if an instance class, then we could support the repeated calling of a sequence of methods.\n\nwould this be better as a meta-class?",
+      "parentUuid": "9a3d3df0_878ea1ce",
+      "range": {
+        "startLine": 476,
+        "startChar": 6,
+        "endLine": 476,
+        "endChar": 22
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fda8dadc",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T21:31:08Z",
+      "side": 1,
+      "message": "this should be a protected attribute, otherwise any code could just change it, no need for clean.",
+      "range": {
+        "startLine": 477,
+        "startChar": 4,
+        "endLine": 477,
+        "endChar": 13
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bd7bf28a",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T21:31:08Z",
+      "side": 1,
+      "message": "how about using *order, then users don\u0027t need to construct their own sequences to pass and m_order can be made as an iteration and not a list, see comment to L489.",
+      "range": {
+        "startLine": 482,
+        "startChar": 27,
+        "endLine": 482,
+        "endChar": 32
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e2be7b64",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T21:31:08Z",
+      "side": 1,
+      "message": "only one \u0027L\u0027\n\nwhat list is going to grow indefinitely?\n\n1. INSTANCES is a dictionary\n2. when the iterator created by this method is done (L515), the iterator is removed from the dictionary (L516)\n\nbut the dictionary will grow as instances are created, regardless of #2.  but without #2, we would still get a StopIteration exception, but it would happen on L507 instead of L514.  if we caught that, then we could raise a different exception: \"known but exhausted\".\n\nthis helper class seems to be designed to be useful for sequences of methods that must be called in a given order and that order can only be done once.  what about methods that should be called in a given order, but the sequence can be repeated?",
+      "range": {
+        "startLine": 486,
+        "startChar": 51,
+        "endLine": 486,
+        "endChar": 64
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1d565e06",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T21:31:08Z",
+      "side": 1,
+      "message": "this would be done better using itertools.chain.from_iterable\n\n m_order \u003d itertools.chain.from_iterable(zip(iter(order),\n                                         itertools.repeat(cls.SEPARATOR)))",
+      "range": {
+        "startLine": 489,
+        "startChar": 19,
+        "endLine": 489,
+        "endChar": 94
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fd5a9a28",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T21:31:08Z",
+      "side": 1,
+      "message": "if you reverse the order of the iterables pass to zip, then you could call next instead of pop:\n\n m_order \u003d itertools.chain.from_iterable(zip(itertools.repeat(cls.SEPARATOR), iter(order)))\n next(m_order)\n cls.INSTANCES[instance] \u003d m_order",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bd5492ff",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T21:31:08Z",
+      "side": 1,
+      "message": "is it allowed to call add after having created an instance?\n\n class MyOrderedCallObject(object):\n    def __init__(self):\n      MethodCallsOrder.add(self, [\u0027f1\u0027, \u0027f2\u0027, \u0027f3\u0027])\n    ...\n\n my_object \u003d MyOrderedCallObject()\n MethodCallsOrder.add(my_object, (\u0027f2\u0027, \u0027f1\u0027, \u0027f3\u0027])\n my_object.f2()\n my_object.f1()\n my_object.f3()\n\nperhaps we should have an assertion/check that instance is not in INSTANCES.  and doing this as a meta-class may be more strict, since all i would need to do is to clean the instance before calling add, with this assert/check.",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_27e7d5ad",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 9
@@ -426,6 +610,57 @@
         "endLine": 494,
         "endChar": 13
       },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3daec2e6",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T21:31:08Z",
+      "side": 1,
+      "message": "can we pop instead of del?\n\n cls.INSTANCES.pop(instance)",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5d6aa6b3",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T21:31:08Z",
+      "side": 1,
+      "message": "what if the sequence of methods was called correctly and then L516 removed the instance from INSTANCES: the instance was known and now an invalid method is being called, but the user is told it was an unknown instance.\n\ncan we also include the instance in the exception? at least as a string and maybe as a second argument.\n\n raise MethodCallsOrderException(\u0027Unknown instance {}.\u0027.format(instance),\n                                 instance)",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5db10646",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T21:31:08Z",
+      "side": 1,
+      "message": "can we pop instead of del?\n\n cls.INSTANCES.pop(instance)",
       "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
