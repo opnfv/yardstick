@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_8ca52649",
+        "filename": "test-requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T12:31:25Z",
+      "side": 1,
+      "message": "Please, add the license type:\n\npylint\u003d\u003d1.8.1             # GPLv2",
+      "revId": "4a89d8995b0958ff1cef67dd59544ab202fda2f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
