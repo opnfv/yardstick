@@ -24,11 +24,11 @@ class DummyTestCase(unittest.TestCase):
 
         self.assertIsNone(self.test_context.scenario_cfg)
         self.assertIsNone(self.test_context.context_cfg)
-        self.assertEqual(self.test_context.setup_done, False)
+        self.assertFalse(self.test_context.setup_done)
 
     def test_run(self):
         result = {}
         self.test_context.run(result)
 
         self.assertEqual(result["hello"], "yardstick")
-        self.assertEqual(self.test_context.setup_done, True)
+        self.assertTrue(self.test_context.setup_done)

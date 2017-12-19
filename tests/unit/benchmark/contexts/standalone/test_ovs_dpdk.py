@@ -68,7 +68,7 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk.helper = mock_helper
         self.ovs_dpdk.vnf_node = mock_server
         self.assertIsNone(self.ovs_dpdk.file_path)
-        self.assertEqual(self.ovs_dpdk.first_run, True)
+        self.assertTrue(self.ovs_dpdk.first_run)
 
     def test_init(self):
         self.ovs_dpdk.helper.parse_pod_file = mock.Mock(return_value=[{}, {}, {}])
