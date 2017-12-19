@@ -16,6 +16,24 @@
       "revId": "7d12701a769864ad229e967a286dbb65ed55172f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a218f31e",
+        "filename": "yardstick/tests/unit/apiserver/__init__.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-19T17:52:48Z",
+      "side": 1,
+      "message": "There\u0027s a problem there.\nMy company are not the original creators of this file.\nAnd I don\u0027t have the right to add that copyright on behalf of another company",
+      "parentUuid": "9a3d3df0_2cd05ac8",
+      "revId": "7d12701a769864ad229e967a286dbb65ed55172f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
