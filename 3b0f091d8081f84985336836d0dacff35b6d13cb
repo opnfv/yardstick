@@ -1,0 +1,434 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_e2603ba7",
+        "filename": "ansible/build_cloudinit_iso_images.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "Please, remove the empty chars at the end of the lines.",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 4
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2225035c",
+        "filename": "ansible/group_vars/all.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "This variable is filled when the ansible script is called. You can\u0027t define the values statically.\n\nTake a look at nsb_setup.sh:\n# Add new cmd args\nextra_args\u003d\"${extra_args} -e @/tmp/proxy.yml\"\n\n# Write proxy.yml\ncat \u003c\u003cEOF \u003e /tmp/proxy.yml\n---\nproxy_env:\n  http_proxy: $http_proxy\n  https_proxy: $https_proxy\n  no_proxy: $no_proxy\nEOF\nfi\n\n# Call ansible script. \"extra_args\" is an input and will populate this variable.\ncd ${ANSIBLE_SCRIPTS} \u0026\u0026\\\nansible-playbook \\\n         -e img_modify_playbook\u003d\u0027ubuntu_server_cloudimg_modify_samplevnfs.yml\u0027 \\\n         -e YARD_IMG_ARCH\u003d\u0027amd64\u0027 ${extra_args}\\\n         -i yardstick-install-inventory.ini nsb_setup.yml",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 10
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_42c3e788",
+        "filename": "ansible/inventory.ini",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "I\u0027m asking this because of my lack of knowledge here. Are we going to have always the same IP?",
+      "range": {
+        "startLine": 13,
+        "startChar": 29,
+        "endLine": 13,
+        "endChar": 54
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_82468f4d",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "This should be mock_ansible_common.execute_ansible",
+      "range": {
+        "startLine": 69,
+        "startChar": 25,
+        "endLine": 69,
+        "endChar": 73
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_42ae47e7",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "To check if a mocked method was called/not called:\n\nmock_ansible_common.execute_ansible.assert_called_once()\nmock_ansible_common.execute_ansible.assert_called_once_with(variables)\n\nmock_ansible_common.execute_ansible.assert_not_called()",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_82b4cf35",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_02ceffb3",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "assertEquals is deprecated. Instead of this, you should use assertEqual\n\nhttps://docs.python.org/2/library/unittest.html#deprecated-aliases",
+      "range": {
+        "startLine": 81,
+        "startChar": 13,
+        "endLine": 81,
+        "endChar": 25
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_47dad9e8",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "You don\u0027t need to create a new ETree. self.xml is enough",
+      "range": {
+        "startLine": 387,
+        "startChar": 43,
+        "endLine": 387,
+        "endChar": 63
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_87e06197",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "You can use copy.deepcopy(self.xml)",
+      "range": {
+        "startLine": 389,
+        "startChar": 38,
+        "endLine": 389,
+        "endChar": 41
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a7e3e5a2",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "This should be a mock variable. Then, use the same variable to test mocked functions (self.mock_write_xml or mock_parse) are called.",
+      "range": {
+        "startLine": 391,
+        "startChar": 36,
+        "endLine": 391,
+        "endChar": 52
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e7f04d69",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "You know every element inside this block. Go parameter by parameter and check the value. Take a look at \"test_add_sriov_interfaces\"",
+      "range": {
+        "startLine": 393,
+        "startChar": 12,
+        "endLine": 401,
+        "endChar": 66
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a2491362",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_ovs_dpdk.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "You are modifying a class variable that could be used then in other test. Please, add a addCleanup method to reset the original value.",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 46
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_62438b42",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_sriov.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "You are modifying a class variable that could be used then in other test. Please, add a addCleanup method to reset the original value.",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 46
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c79c2912",
+        "filename": "tests/unit/common/test_utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "remove one empty line",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_47af792a",
+        "filename": "yardstick/benchmark/contexts/standalone/base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "This is not needed. The default value is None",
+      "range": {
+        "startLine": 41,
+        "startChar": 49,
+        "endLine": 41,
+        "endChar": 57
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e7c96d27",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "You should add a description here. E.g.:\n\n\n\"\"\"Add a ISO file XML node in \u0027devices\u0027 node, as a CDROM drive\n\n    \u003cdevices\u003e\n        \u003cdisk type\u003d\u0027file\u0027 device\u003d\u0027cdrom\u0027\u003e\n            \u003cdriver name\u003d\u0027qemu\u0027 type\u003d\u0027raw\u0027/\u003e\n            \u003csource file\u003d\u0027iso_file\u0027/\u003e\n            \u003ctarget dev\u003d\u0027hde\u0027 bus\u003d\u0027ide\u0027/\u003e\n            \u003creadonly/\u003e\n        \u003c/disk\u003e\n        ...\n    \u003c/devices\u003e\n\n    Reference: http://ravada.readthedocs.io/en/latest/docs/\n               new_kvm_template.html\n    \"\"\"",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_27d075c8",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "Is this correct? I can\u0027t see any CDROM config with this type of bus. All of them are using IDE.",
+      "range": {
+        "startLine": 479,
+        "startChar": 15,
+        "endLine": 480,
+        "endChar": 28
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c7cee92d",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "You should add the parameter \u003creadonly/\u003e",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_878ea1ce",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "Is this class from any other project?",
+      "range": {
+        "startLine": 476,
+        "startChar": 6,
+        "endLine": 476,
+        "endChar": 22
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_27e7d5ad",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T17:09:47Z",
+      "side": 1,
+      "message": "Where are you using this method? Apart from the tests.",
+      "range": {
+        "startLine": 494,
+        "startChar": 8,
+        "endLine": 494,
+        "endChar": 13
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
