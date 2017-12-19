@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_02871fd8",
+        "filename": "tests/unit/network_services/traffic_profile/test_prox_binsearch.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T18:37:29Z",
+      "side": 1,
+      "message": "it seems this need to be changed or marked for pep8 to disregard",
+      "range": {
+        "startLine": 35,
+        "startChar": 28,
+        "endLine": 35,
+        "endChar": 34
+      },
+      "revId": "1c8ad0dcb794ed2d9e6106ffe0cc15e099cf7a9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_626f0b2c",
+        "filename": "tests/unit/network_services/traffic_profile/test_prox_binsearch.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T18:37:29Z",
+      "side": 1,
+      "message": "it seems this need to be changed or marked for pep8 to disregard",
+      "range": {
+        "startLine": 70,
+        "startChar": 28,
+        "endLine": 70,
+        "endChar": 34
+      },
+      "revId": "1c8ad0dcb794ed2d9e6106ffe0cc15e099cf7a9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e2f03b69",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T18:37:29Z",
+      "side": 1,
+      "message": "if we don\u0027t need the data structure within the body of this method, then we don\u0027t need to give it a (local) name:\n\n # Store values a single time time in influxdb\n self.queue.put({\n   \u0027test_duration\u0027: traffic_gen.scenario_helper.scenario_cfg[\u0027runner\u0027][\u0027duration\u0027],\n   \u0027test_precision\u0027: self.params[\u0027traffic_profile\u0027][\u0027test_precision\u0027],\n   \u0027tolerated_loss\u0027: self.params[\u0027traffic_profile\u0027][\u0027tolerated_loss\u0027],\n   \u0027duration\u0027: duration,\n })",
+      "range": {
+        "startLine": 95,
+        "startChar": 23,
+        "endLine": 95,
+        "endChar": 37
+      },
+      "revId": "1c8ad0dcb794ed2d9e6106ffe0cc15e099cf7a9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_220b437e",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T18:37:29Z",
+      "side": 1,
+      "message": "did we consider making it, optionally, possible for the user of the result instance to provide a prefix to the keys that get_samples populates?\n\nsuch that these lines become:\n\n samples \u003d result.get_samples(pkt_size, successful_pkt_lost,\n                              port_samples, \u0027Success_\u0027)\n self.queue.put(samples)\n\nif not, then can we use interpolation?\n\n success_samples \u003d {\u0027Success_\u0027 + key: value for key, value in samples.items()}",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 47
+      },
+      "revId": "1c8ad0dcb794ed2d9e6106ffe0cc15e099cf7a9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_423e4729",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T18:37:29Z",
+      "side": 1,
+      "message": "is this different from:\n\n result_samples[\u0027Result_Actual_throughput\u0027] \u003d samples[\u0027RxThroughput\u0027]\n\nthough if we can have get_samples make the \"Success_\" prefixed keys, then we won\u0027t have the shorter keys.  but then perhaps we can just deal with samples and not have success_samples",
+      "revId": "1c8ad0dcb794ed2d9e6106ffe0cc15e099cf7a9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c232575e",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T18:37:29Z",
+      "side": 1,
+      "message": "why not swap and merge these lines:\n\n theor_max_thruput \u003d samples[\u0027TxThroughput\u0027]\n self.queue.put({\u0027theor_max_throughput\u0027: theor_max_thruput})",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 48
+      },
+      "revId": "1c8ad0dcb794ed2d9e6106ffe0cc15e099cf7a9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e27b1bf3",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T18:37:29Z",
+      "side": 1,
+      "message": "i don\u0027t see pkt_size change during the method, why not put the pkt_size value in the dictionary when the dictionary is created?\n\n L86    result_samples \u003d {\u0027Result_pktSize\u0027: pkt_size}",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 51
+      },
+      "revId": "1c8ad0dcb794ed2d9e6106ffe0cc15e099cf7a9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
