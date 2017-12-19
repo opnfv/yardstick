@@ -12,15 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: Fetch TENANT_ID
-  os_project_facts:
-    name: admin
-  environment: "{{ openrc }}"
-
-- name: Fetch TENANT_ID
-  set_fact:
-    os_tenant_id: "{{ openstack_projects[0].id }}"
-
 - name: Create storperf_admin-rc
   template:
     src: storperf_admin-rc.j2
