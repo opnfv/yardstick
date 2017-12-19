@@ -145,6 +145,30 @@
       "revId": "521a2d8c33d4b1082483cbe239e5b45033cb3881",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c2ced72d",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-19T18:37:29Z",
+      "side": 1,
+      "message": "how do you know that it is always a higher value?  result.success only checks for packet loss.\n\nadjusted and additional unit tests to demonstrate would be appropriate.",
+      "parentUuid": "9a3d3df0_a7748536",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 58
+      },
+      "revId": "521a2d8c33d4b1082483cbe239e5b45033cb3881",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
