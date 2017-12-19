@@ -107,7 +107,7 @@ angular.module('yardStickGui2App')
             $scope.envInfo = [
                 { name: 'OS_USERNAME', value: '' },
                 { name: 'OS_PASSWORD', value: '' },
-                { name: 'OS_TENANT_NAME', value: '' },
+                { name: 'OS_PROJECT_NAME', value: '' },
                 { name: 'EXTERNAL_NETWORK', value: '' }
             ];
 
@@ -298,7 +298,7 @@ angular.module('yardStickGui2App')
                 $scope.envInfo = [
                     { name: 'OS_USERNAME', value: '' },
                     { name: 'OS_PASSWORD', value: '' },
-                    { name: 'OS_TENANT_NAME', value: '' },
+                    { name: 'OS_PROJECT_NAME', value: '' },
                     { name: 'EXTERNAL_NETWORK', value: '' }
                 ];
                 $scope.displayOpenrcFile = null;
