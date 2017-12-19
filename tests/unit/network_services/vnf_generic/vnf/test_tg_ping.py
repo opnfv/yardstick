@@ -80,7 +80,7 @@ class TestPingParser(unittest.TestCase):
         ping_parser = PingParser(q_out)
         ping_parser.write(sample_out)
         ping_parser.clear()
-        self.assertEqual(True, q_out.empty())
+        self.assertTrue(q_out.empty())
 
     def test_close(self):
         q_out = Queue()

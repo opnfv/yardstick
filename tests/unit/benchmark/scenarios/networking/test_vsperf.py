@@ -66,7 +66,7 @@ class VsperfTestCase(unittest.TestCase):
 
         p.setup()
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
     def test_vsperf_teardown(self, mock_ssh, mock_subprocess):
         p = vsperf.Vsperf(self.args, self.ctx)
@@ -77,10 +77,10 @@ class VsperfTestCase(unittest.TestCase):
 
         p.setup()
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
         p.teardown()
-        self.assertEqual(p.setup_done, False)
+        self.assertFalse(p.setup_done)
 
     def test_vsperf_run_ok(self, mock_ssh, mock_subprocess):
         p = vsperf.Vsperf(self.args, self.ctx)

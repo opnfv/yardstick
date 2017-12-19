@@ -47,7 +47,7 @@ class PktgenDPDKTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (0, '', '')
         self.assertIsNotNone(p.server)
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
     def test_pktgen_dpdk_throughput_successful_no_sla(self, mock__time, mock_ssh):
         args = {
@@ -163,7 +163,7 @@ class PktgenDPDKTestCase(unittest.TestCase):
 
         p.dpdk_setup()
 
-        self.assertEqual(p.dpdk_setup_done, True)
+        self.assertTrue(p.dpdk_setup_done)
 
     def test_pktgen_dpdk_throughput_dpdk_get_result(self, mock__time, mock_ssh):
         args = {

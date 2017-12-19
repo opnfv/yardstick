@@ -56,7 +56,7 @@ class ServicehaTestCase(unittest.TestCase):
         p = serviceha.ServiceHA(self.args, self.ctx)
 
         p.setup()
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
         mock_monitor.MonitorMgr().verify_SLA.return_value = True
         ret = {}
         p.run(ret)
@@ -66,7 +66,7 @@ class ServicehaTestCase(unittest.TestCase):
         p = serviceha.ServiceHA(self.args, self.ctx)
 
         p.setup()
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
         result = {}
         result["outage_time"] = 10

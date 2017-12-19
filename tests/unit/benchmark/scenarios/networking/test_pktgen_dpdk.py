@@ -50,7 +50,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         self.assertIsNotNone(p.server)
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
     def test_pktgen_dpdk_successful_get_port_ip(self, mock_ssh, mock_time):
 

@@ -71,7 +71,7 @@ class QemuMigrateTestCase(unittest.TestCase):
 
         q.setup()
         self.assertIsNotNone(q.host)
-        self.assertEqual(q.setup_done, True)
+        self.assertTrue(q.setup_done)
 
     def test_qemu_migrate_successful_no_sla(self, mock_ssh):
         result = {}

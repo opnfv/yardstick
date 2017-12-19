@@ -37,7 +37,7 @@ class CheckNumaInfoTestCase(unittest.TestCase):
         scenario_cfg = {'info1': info1, 'info2': info2}
         obj = CheckNumaInfo(scenario_cfg, {})
         status = obj._check_vm2_status(info1, info2)
-        self.assertEqual(status, True)
+        self.assertTrue(status)
 
     def test_check_vm2_status_length_gt_1(self):
         info1 = {
@@ -55,7 +55,7 @@ class CheckNumaInfoTestCase(unittest.TestCase):
         scenario_cfg = {'info1': info1, 'info2': info2}
         obj = CheckNumaInfo(scenario_cfg, {})
         status = obj._check_vm2_status(info1, info2)
-        self.assertEqual(status, False)
+        self.assertFalse(status)
 
     def test_check_vm2_status_length_not_in_set(self):
         info1 = {
@@ -73,7 +73,7 @@ class CheckNumaInfoTestCase(unittest.TestCase):
         scenario_cfg = {'info1': info1, 'info2': info2}
         obj = CheckNumaInfo(scenario_cfg, {})
         status = obj._check_vm2_status(info1, info2)
-        self.assertEqual(status, False)
+        self.assertFalse(status)
 
 
 def main():

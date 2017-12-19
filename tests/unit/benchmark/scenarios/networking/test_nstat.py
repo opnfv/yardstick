@@ -38,7 +38,7 @@ class NstatTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         self.assertIsNotNone(n.client)
-        self.assertEqual(n.setup_done, True)
+        self.assertTrue(n.setup_done)
 
     def test_nstat_successful_no_sla(self, mock_ssh):
 

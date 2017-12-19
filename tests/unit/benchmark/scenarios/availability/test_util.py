@@ -28,7 +28,7 @@ class ExecuteShellTestCase(unittest.TestCase):
     def test_util_build_command_shell(self,mock_subprocess):
         result = util.build_shell_command(self.param_config, True,
                                           self.intermediate_variables)
-        self.assertEqual("nova-api" in result, True)
+        self.assertTrue("nova-api" in result)
 
     def test_read_stdout_item(self,mock_subprocess):
         result = util.read_stdout_item(self.std_output,'id')
