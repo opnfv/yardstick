@@ -68,6 +68,52 @@
       "revId": "4e39039bc43488497ef4df19bee08d7023fb0936",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ac1bca71",
+        "filename": "yardstick/tests/unit/apiserver/resources/test_env_action.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T09:28:32Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 10
+      },
+      "revId": "4e39039bc43488497ef4df19bee08d7023fb0936",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4c12fe57",
+        "filename": "yardstick/tests/unit/apiserver/utils/test_influx.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T09:28:32Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 10
+      },
+      "revId": "4e39039bc43488497ef4df19bee08d7023fb0936",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
