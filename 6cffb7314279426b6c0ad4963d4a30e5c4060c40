@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_cc0bae8c",
+        "filename": ".pylintrc",
+        "patchSetId": 11
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:10:17Z",
+      "side": 1,
+      "message": "I won\u0027t add this one here. Doing this we allow the possibility to add mock variables in a testcase without using them. Every mocked method/variable should be tested.",
+      "range": {
+        "startLine": 107,
+        "startChar": 57,
+        "endLine": 107,
+        "endChar": 62
+      },
+      "revId": "6cffb7314279426b6c0ad4963d4a30e5c4060c40",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
