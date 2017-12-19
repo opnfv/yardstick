@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ec7b12f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:33:03Z",
+      "side": 1,
+      "message": "JIRA.\n\nAnd take a look at: https://wiki.opnfv.org/display/DEV/Contribution+Guidelines\n(I modified it yersterday)\n\n\n\n\n\nTitle of the message in present tense\n  \nBody of the message, describing the patch. Remember: less is not\nmore; more is more.\n  \nJIRA: YARDSTICK-000\n  \nChange-Id: Iccd000000000000000000000000000000000001\nSigned-off-by: Name Surname \u003cname.surname@company.com\u003e",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 4
+      },
+      "revId": "3e60c2b1e6c9a4d02cced83e2454e6037fd9a762",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ac758afb",
+        "filename": "yardstick/tests/functional/test_cli_runner.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:33:03Z",
+      "side": 1,
+      "message": "remove this line",
+      "revId": "3e60c2b1e6c9a4d02cced83e2454e6037fd9a762",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2c821ac8",
+        "filename": "yardstick/tests/functional/test_cli_runner.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:33:03Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 38
+      },
+      "revId": "3e60c2b1e6c9a4d02cced83e2454e6037fd9a762",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6c6f022c",
+        "filename": "yardstick/tests/functional/test_cli_scenario.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:33:03Z",
+      "side": 1,
+      "message": "remove this line",
+      "revId": "3e60c2b1e6c9a4d02cced83e2454e6037fd9a762",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0c8756d8",
+        "filename": "yardstick/tests/functional/test_cli_scenario.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:33:03Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 38
+      },
+      "revId": "3e60c2b1e6c9a4d02cced83e2454e6037fd9a762",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4c6cbe35",
+        "filename": "yardstick/tests/functional/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:33:03Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "3e60c2b1e6c9a4d02cced83e2454e6037fd9a762",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
