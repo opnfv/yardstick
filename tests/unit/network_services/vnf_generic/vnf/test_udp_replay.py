@@ -451,7 +451,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         udp_replay_approx_vnf._vnf_process.is_alive = mock.Mock(return_value=1)
         udp_replay_approx_vnf._vnf_process.exitcode = 0
 
-        self.assertEquals(udp_replay_approx_vnf.wait_for_instantiate(), 0)
+        self.assertEqual(udp_replay_approx_vnf.wait_for_instantiate(), 0)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch('yardstick.ssh.SSH')
