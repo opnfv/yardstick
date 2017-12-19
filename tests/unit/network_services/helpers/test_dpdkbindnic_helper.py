@@ -116,8 +116,8 @@ Other crypto devices
 
         dpdk_bind_helper = DpdkBindHelper(conn)
 
-        self.assertEquals(conn, dpdk_bind_helper.ssh_helper)
-        self.assertEquals(self.CLEAN_STATUS, dpdk_bind_helper.dpdk_status)
+        self.assertEqual(conn, dpdk_bind_helper.ssh_helper)
+        self.assertEqual(self.CLEAN_STATUS, dpdk_bind_helper.dpdk_status)
         self.assertIsNone(dpdk_bind_helper.status_nic_row_re)
         self.assertIsNone(dpdk_bind_helper._dpdk_nic_bind_attr)
         self.assertIsNone(dpdk_bind_helper._status_cmd_attr)
@@ -127,7 +127,7 @@ Other crypto devices
         conn.execute = mock.Mock(return_value=(0, 'output', 'error'))
         conn.provision_tool = mock.Mock(return_value='tool_path')
         dpdk_bind_helper = DpdkBindHelper(conn)
-        self.assertEquals((0, 'output', 'error'), dpdk_bind_helper._dpdk_execute('command'))
+        self.assertEqual((0, 'output', 'error'), dpdk_bind_helper._dpdk_execute('command'))
 
     def test__dpdk_execute_failure(self):
         conn = mock.Mock()
@@ -145,7 +145,7 @@ Other crypto devices
         dpdk_bind_helper._addline(NETWORK_KERNEL, self.ONE_INPUT_LINE)
 
         self.assertIsNotNone(dpdk_bind_helper.dpdk_status)
-        self.assertEquals(self.ONE_INPUT_LINE_PARSED, dpdk_bind_helper.dpdk_status[NETWORK_KERNEL])
+        self.assertEqual(self.ONE_INPUT_LINE_PARSED, dpdk_bind_helper.dpdk_status[NETWORK_KERNEL])
 
     def test__switch_active_dict_by_header(self):
         line = "Crypto devices using DPDK-compatible driver"
@@ -165,7 +165,7 @@ Other crypto devices
         dpdk_bind_helper.parse_dpdk_status_output(self.EXAMPLE_OUTPUT)
 
         self.maxDiff = None
-        self.assertEquals(self.PARSED_EXAMPLE, dpdk_bind_helper.dpdk_status)
+        self.assertEqual(self.PARSED_EXAMPLE, dpdk_bind_helper.dpdk_status)
 
     def test_read_status(self):
         conn = mock.Mock()
@@ -174,7 +174,7 @@ Other crypto devices
 
         dpdk_bind_helper = DpdkBindHelper(conn)
 
-        self.assertEquals(self.PARSED_EXAMPLE, dpdk_bind_helper.read_status())
+        self.assertEqual(self.PARSED_EXAMPLE, dpdk_bind_helper.read_status())
 
     def test__get_bound_pci_addresses(self):
         conn = mock.Mock()
@@ -183,9 +183,9 @@ Other crypto devices
 
         dpdk_bind_helper.parse_dpdk_status_output(self.EXAMPLE_OUTPUT)
 
-        self.assertEquals(['0000:00:04.0', '0000:00:05.0'],
+        self.assertEqual(['0000:00:04.0', '0000:00:05.0'],
                           dpdk_bind_helper._get_bound_pci_addresses(NETWORK_DPDK))
-        self.assertEquals(['0000:00:03.0'],
+        self.assertEqual(['0000:00:03.0'],
                           dpdk_bind_helper._get_bound_pci_addresses(NETWORK_KERNEL))
 
     def test_interface_driver_map(self):
@@ -195,7 +195,7 @@ Other crypto devices
 
         dpdk_bind_helper.parse_dpdk_status_output(self.EXAMPLE_OUTPUT)
 
-        self.assertEquals({'0000:00:04.0': 'igb_uio',
+        self.assertEqual({'0000:00:04.0': 'igb_uio',
                            '0000:00:03.0': 'virtio-pci',
                            '0000:00:05.0': 'igb_uio',
                            },
