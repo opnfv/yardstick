@@ -32,7 +32,7 @@ class ParserTestCase(unittest.TestCase):
         p = parser.Parser({}, {})
         mock_subprocess.call().return_value = 0
         p.setup()
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
     def test_parser_successful(self, mock_subprocess):
         args = {
@@ -52,7 +52,7 @@ class ParserTestCase(unittest.TestCase):
         p = parser.Parser({}, {})
         mock_subprocess.call().return_value = 0
         p.teardown()
-        self.assertEqual(p.teardown_done, True)
+        self.assertTrue(p.teardown_done)
 
 
 def main():
