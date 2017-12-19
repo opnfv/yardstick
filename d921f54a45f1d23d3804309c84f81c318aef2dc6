@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ac910af3",
+        "filename": "tests/unit/benchmark/scenarios/availability/test_util.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T12:09:07Z",
+      "side": 1,
+      "message": "space",
+      "revId": "d921f54a45f1d23d3804309c84f81c318aef2dc6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
