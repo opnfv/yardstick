@@ -8,7 +8,7 @@ flake8==2.5.4               # MIT; OSI Approved  MIT License
 packaging==16.8.0           # BSD or Apache License, Version 2.0
 pep8==1.7.0         # Expat license; OSI Approved  MIT License
 pyflakes==1.0.0             # MIT; OSI Approved  MIT License
-pylint
+pylint==1.8.1
 python-subunit==1.2.0       # OSI Approved  Apache Software License; OSI Approved  BSD License
 testrepository==0.0.20      # OSI Approved  BSD License; OSI Approved  Apache Software License
 testtools==2.2.0            # OSI Approved  MIT License
