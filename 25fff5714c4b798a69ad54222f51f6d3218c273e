@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_4cf79e8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:29:20Z",
+      "side": 1,
+      "message": "JIRA",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 4
+      },
+      "revId": "25fff5714c4b798a69ad54222f51f6d3218c273e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0c10f6a6",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:29:20Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 38
+      },
+      "revId": "25fff5714c4b798a69ad54222f51f6d3218c273e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ec14b2a1",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:29:20Z",
+      "side": 1,
+      "message": "Import mock directly:\n\n  import mock",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "25fff5714c4b798a69ad54222f51f6d3218c273e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ac474abb",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:29:20Z",
+      "side": 1,
+      "message": "You should leave two empty lines",
+      "revId": "25fff5714c4b798a69ad54222f51f6d3218c273e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8c4406b8",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:29:20Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 10
+      },
+      "revId": "25fff5714c4b798a69ad54222f51f6d3218c273e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4c25de07",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb_line_protocol.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:29:20Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 38
+      },
+      "revId": "25fff5714c4b798a69ad54222f51f6d3218c273e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6c28a2e2",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb_line_protocol.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:29:20Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 38
+      },
+      "revId": "25fff5714c4b798a69ad54222f51f6d3218c273e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
