@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_27987569",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-19T15:17:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_a76ac57e",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 28
+      },
+      "revId": "521a2d8c33d4b1082483cbe239e5b45033cb3881",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_270eb5e5",
         "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
         "patchSetId": 3
@@ -59,6 +83,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_079d7159",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-19T15:17:29Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "9a3d3df0_270eb5e5",
+      "revId": "521a2d8c33d4b1082483cbe239e5b45033cb3881",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e72e8d42",
         "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
         "patchSetId": 3
@@ -70,6 +112,30 @@
       "writtenOn": "2017-12-19T14:39:16Z",
       "side": 1,
       "message": "You are going to overwrite this value in each iteration. Is that what you want?",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 58
+      },
+      "revId": "521a2d8c33d4b1082483cbe239e5b45033cb3881",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a7748536",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-19T15:17:29Z",
+      "side": 1,
+      "message": "Each time result_samples[\"Result_Actual_throughput\"] is overwritten, it is over written with a higher value. On exit is is stored on influxzDB",
+      "parentUuid": "9a3d3df0_e72e8d42",
       "range": {
         "startLine": 115,
         "startChar": 16,
