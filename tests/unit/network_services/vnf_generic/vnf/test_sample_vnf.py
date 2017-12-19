@@ -708,8 +708,8 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
 
         intf_0 = vnfd_helper.vdu[0]['external-interface'][0]['virtual-interface']
         intf_1 = vnfd_helper.vdu[0]['external-interface'][1]['virtual-interface']
-        self.assertEquals(0, intf_0['dpdk_port_num'])
-        self.assertEquals(1, intf_1['dpdk_port_num'])
+        self.assertEqual(0, intf_0['dpdk_port_num'])
+        self.assertEqual(1, intf_1['dpdk_port_num'])
 
     def test_tear_down(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
