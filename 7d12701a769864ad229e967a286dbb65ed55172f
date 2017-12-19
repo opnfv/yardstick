@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_2cd05ac8",
+        "filename": "yardstick/tests/unit/apiserver/__init__.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T11:50:00Z",
+      "side": 1,
+      "message": "nit: If you state the copyright, you should write the company",
+      "revId": "7d12701a769864ad229e967a286dbb65ed55172f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
