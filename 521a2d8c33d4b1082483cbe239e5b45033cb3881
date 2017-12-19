@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_471f7908",
+        "filename": "tests/unit/network_services/traffic_profile/test_prox_binsearch.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T14:39:16Z",
+      "side": 1,
+      "message": "I would like to see here an example of:\n- A test execution and the result samples.\n- A test execution with theor_max_sample value in the result queue\n- A test execution without any succesfull result and the output",
+      "revId": "521a2d8c33d4b1082483cbe239e5b45033cb3881",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a76ac57e",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T14:39:16Z",
+      "side": 1,
+      "message": "You don\u0027t need to initialize this variable here, you are doing this in L109",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 28
+      },
+      "revId": "521a2d8c33d4b1082483cbe239e5b45033cb3881",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_270eb5e5",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T14:39:16Z",
+      "side": 1,
+      "message": "It\u0027s ok to this assignation, but you can build the dict in one shot:\n\nsingle_samples \u003d {\n    \"test_duration\" \u003d traffic_gen.scenario_helper.scenario_cfg[\"runner\"][\"duration\"],\n    \"test_precision\" \u003d self.params[\"traffic_profile\"][\"test_precision\"],\n    \"tolerated_loss\" \u003d self.params[\"traffic_profile\"][\"tolerated_loss\"],\n    \"duration\" \u003d duration\n}\n\n\nAnd remove L87",
+      "revId": "521a2d8c33d4b1082483cbe239e5b45033cb3881",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e72e8d42",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T14:39:16Z",
+      "side": 1,
+      "message": "You are going to overwrite this value in each iteration. Is that what you want?",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 58
+      },
+      "revId": "521a2d8c33d4b1082483cbe239e5b45033cb3881",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
