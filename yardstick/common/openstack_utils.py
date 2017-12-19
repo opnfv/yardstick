@@ -31,38 +31,22 @@ DEFAULT_API_VERSION = '2'
 #   CREDENTIALS
 # *********************************************
 def get_credentials():
-    """Returns a creds dictionary filled with parsed from env"""
-    creds = {}
+    """Returns a creds dictionary filled with parsed from env
 
-    keystone_api_version = os.getenv('OS_IDENTITY_API_VERSION')
+    Keystone API version used is 3; v2 was deprecated in 2014 (Icehouse). Along
+    with this deprecation, environment variable 'OS_TENANT_NAME' is replaced by
+    'OS_PROJECT_NAME'.
+    """
+    creds = {'username': os.environ.get('OS_USERNAME'),
+             'password': os.environ.get('OS_PASSWORD'),
+             'auth_url': os.environ.get('OS_AUTH_URL'),
+             'project_name': os.environ.get('OS_PROJECT_NAME')
+             }
 
-    if keystone_api_version is None or keystone_api_version == '2':
-        keystone_v3 = False
-        tenant_env = 'OS_TENANT_NAME'
-        tenant = 'tenant_name'
-    else:
-        keystone_v3 = True
-        tenant_env = 'OS_PROJECT_NAME'
-        tenant = 'project_name'
-
-    # The most common way to pass these info to the script is to do it
-    # through environment variables.
-    creds.update({
-        "username": os.environ.get("OS_USERNAME"),
-        "password": os.environ.get("OS_PASSWORD"),
-        "auth_url": os.environ.get("OS_AUTH_URL"),
-        tenant: os.environ.get(tenant_env)
-    })
-
-    if keystone_v3:
-        if os.getenv('OS_USER_DOMAIN_NAME') is not None:
-            creds.update({
-                "user_domain_name": os.getenv('OS_USER_DOMAIN_NAME')
-            })
-        if os.getenv('OS_PROJECT_DOMAIN_NAME') is not None:
-            creds.update({
-                "project_domain_name": os.getenv('OS_PROJECT_DOMAIN_NAME')
-            })
+    if os.getenv('OS_USER_DOMAIN_NAME'):
+        creds['user_domain_name'] = os.getenv('OS_USER_DOMAIN_NAME')
+    if os.getenv('OS_PROJECT_DOMAIN_NAME'):
+        creds['project_domain_name'] = os.getenv('OS_PROJECT_DOMAIN_NAME')
 
     return creds
 

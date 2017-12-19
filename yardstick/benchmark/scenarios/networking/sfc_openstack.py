@@ -34,11 +34,13 @@ def get_credentials(service):  # pragma: no cover
 
     # The most common way to pass these info to the script is to do it through
     # environment variables.
+    # NOTE(ralonsoh): OS_TENANT_NAME is deprecated.
+    project_name = os.environ.get('OS_PROJECT_NAME', 'admin')
     creds.update({
         "username": os.environ.get('OS_USERNAME', "admin"),
         password: os.environ.get("OS_PASSWORD", 'admin'),
         "auth_url": os.environ.get("OS_AUTH_URL"),
-        tenant: os.environ.get("OS_TENANT_NAME", "admin"),
+        tenant: os.environ.get("OS_TENANT_NAME", project_name),
     })
     cacert = os.environ.get("OS_CACERT")
     if cacert is not None:
