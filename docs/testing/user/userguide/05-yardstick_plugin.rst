@@ -49,7 +49,7 @@ environment and other dependencies:
 3. Make sure Jump Host have access to the OpenStack Controller API.
 4. Make sure Jump Host must have internet connectivity for downloading docker image.
 5. You need to know where to get basic openstack Keystone authorization info, such as
-   OS_PASSWORD, OS_TENANT_NAME, OS_AUTH_URL, OS_USERNAME.
+   OS_PASSWORD, OS_PROJECT_NAME, OS_AUTH_URL, OS_USERNAME.
 6. To run a Storperf container, you need to have OpenStack Controller environment
    variables defined and passed to Storperf container. The best way to do this is to
    put environment variables in a "storperf_admin-rc" file. The storperf_admin-rc
@@ -58,8 +58,6 @@ environment and other dependencies:
 * OS_AUTH_URL
 * OS_USERNAME
 * OS_PASSWORD
-* OS_TENANT_ID
-* OS_TENANT_NAME
 * OS_PROJECT_NAME
 * OS_PROJECT_ID
 * OS_USER_DOMAIN_ID
@@ -76,8 +74,9 @@ test/ci/prepare_storperf_admin-rc.sh
   USERNAME=${OS_USERNAME:-admin}
   PASSWORD=${OS_PASSWORD:-console}
 
+  # OS_TENANT_NAME is still present to keep backward compatibility with legacy
+  # deployments, but should be replaced by OS_PROJECT_NAME.
   TENANT_NAME=${OS_TENANT_NAME:-admin}
-  TENANT_ID=`openstack project show admin|grep '\bid\b' |awk -F '|' '{print $3}'|sed -e 's/^[[:space:]]*//'`
   PROJECT_NAME=${OS_PROJECT_NAME:-$TENANT_NAME}
   PROJECT_ID=`openstack project show admin|grep '\bid\b' |awk -F '|' '{print $3}'|sed -e 's/^[[:space:]]*//'`
   USER_DOMAIN_ID=${OS_USER_DOMAIN_ID:-default}
@@ -90,8 +89,6 @@ test/ci/prepare_storperf_admin-rc.sh
   echo "OS_PASSWORD="$PASSWORD >> ~/storperf_admin-rc
   echo "OS_PROJECT_NAME="$PROJECT_NAME >> ~/storperf_admin-rc
   echo "OS_PROJECT_ID="$PROJECT_ID >> ~/storperf_admin-rc
-  echo "OS_TENANT_NAME="$TENANT_NAME >> ~/storperf_admin-rc
-  echo "OS_TENANT_ID="$TENANT_ID >> ~/storperf_admin-rc
   echo "OS_USER_DOMAIN_ID="$USER_DOMAIN_ID >> ~/storperf_admin-rc
 
 
