@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_0c7116e0",
+        "filename": "samples/vnf_samples/nsut/acl/acl-tg-topology-3node-1.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T12:38:22Z",
+      "side": 1,
+      "message": "Because this file is the same as acl-tg-topology-3node.yaml, I think you should rename the previous one and change the references to this file",
+      "revId": "f042e94ac58d428f0644678d183b9a881e39b9bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6c79c2c7",
+        "filename": "samples/vnf_samples/traffic_profiles/ipv4_throughput-1.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T12:38:22Z",
+      "side": 1,
+      "message": "ditto: you should rename this file and change the references to it.",
+      "revId": "f042e94ac58d428f0644678d183b9a881e39b9bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2c6cda07",
+        "filename": "samples/vnf_scale_out_bottlenecks.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T12:38:22Z",
+      "side": 1,
+      "message": "Should this file be in ./samples/??\n\nI think this file should be in ./samples/vnf_samples/nsut/acl",
+      "revId": "f042e94ac58d428f0644678d183b9a881e39b9bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
