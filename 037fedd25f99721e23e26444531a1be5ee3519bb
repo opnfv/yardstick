@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_875061d5",
+        "filename": "docker/Dockerfile.local",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T14:22:15Z",
+      "side": 1,
+      "message": "Does it mean that you\u0027ll have the yardstick repo downloaded into the docker container? I don\u0027t think so.",
+      "revId": "037fedd25f99721e23e26444531a1be5ee3519bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
