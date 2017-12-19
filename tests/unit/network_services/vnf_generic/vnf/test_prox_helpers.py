@@ -1734,7 +1734,7 @@ class TestProxProfileHelper(unittest.TestCase):
         }
 
         self.assertIsNone(helper._test_cores)
-        expected = [12, 23]
+        expected = [3, 4]
         result = helper.test_cores
         self.assertEqual(result, expected)
         self.assertIs(result, helper._test_cores)
@@ -1791,7 +1791,7 @@ class TestProxProfileHelper(unittest.TestCase):
         }
 
         self.assertIsNone(helper._latency_cores)
-        expected = [12, 23]
+        expected = [3, 4]
         result = helper.latency_cores
         self.assertEqual(result, expected)
         self.assertIs(result, helper._latency_cores)
@@ -1846,7 +1846,7 @@ class TestProxProfileHelper(unittest.TestCase):
             }
         }
 
-        expected = [7, 8]
+        expected = [3, 4]
         result = helper.get_cores(helper.PROX_CORE_GEN_MODE)
         self.assertEqual(result, expected)
 
