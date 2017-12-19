@@ -16,6 +16,24 @@
       "revId": "037fedd25f99721e23e26444531a1be5ee3519bb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9d326ef0",
+        "filename": "docker/Dockerfile.local",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6489
+      },
+      "writtenOn": "2017-12-19T20:42:49Z",
+      "side": 1,
+      "message": "We always have the repo inside (https://gerrit.opnfv.org/gerrit/gitweb?p\u003dyardstick.git;a\u003dblob;f\u003ddocker/Dockerfile;h\u003db1eb50592839f37e4bb00fa67b102aa4919d36ea;hb\u003dHEAD#l34), Here I just wanted to have my local repo used instead of the remote one.\nAnyway, this review can be abandoned since one can achieve same thing by just adding volume to container with your local repo masking the one inside the container.",
+      "parentUuid": "9a3d3df0_875061d5",
+      "revId": "037fedd25f99721e23e26444531a1be5ee3519bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
