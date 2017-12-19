@@ -32,7 +32,7 @@ class EnvTestCase(APITestCase):
 
         time.sleep(0)
 
-        self.assertTrue(u'status' in resp)
+        self.assertIn(u'status', resp)
 
 
 def main():
