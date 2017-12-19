@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_acc62a66",
+        "filename": "yardstick/tests/unit/apiserver/__init__.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-19T17:52:48Z",
+      "side": 1,
+      "message": "Added the copyright from here: \nhttps://wiki.opnfv.org/display/DEV/Contribution+Guidelines#ContributionGuidelines-Bash/Python",
+      "parentUuid": "9a3d3df0_510e173c",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 39
+      },
+      "revId": "4e39039bc43488497ef4df19bee08d7023fb0936",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_2c085a27",
         "filename": "yardstick/tests/unit/apiserver/__init__.py",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2017-12-19T09:27:53Z",
       "side": 1,
       "message": "One question: where, in this testcase class, are the test cases?",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 17
+      },
+      "revId": "4e39039bc43488497ef4df19bee08d7023fb0936",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2ce69ae8",
+        "filename": "yardstick/tests/unit/apiserver/__init__.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-19T17:52:48Z",
+      "side": 1,
+      "message": "That is an excellent question Rodolfo.\n\nThe file being tested looks like it\u0027s intended to be run as a script, as opposed to a library",
+      "parentUuid": "9a3d3df0_2c085a27",
       "range": {
         "startLine": 15,
         "startChar": 6,
@@ -71,6 +119,52 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_0cebd6b0",
+        "filename": "yardstick/tests/unit/apiserver/__init__.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-19T17:52:48Z",
+      "side": 1,
+      "message": "To answer your previous question:\n\nThis where the ``testing`` is happening",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 23
+      },
+      "revId": "4e39039bc43488497ef4df19bee08d7023fb0936",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2cfdfa6e",
+        "filename": "yardstick/tests/unit/apiserver/resources/test_env_action.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-19T17:52:48Z",
+      "side": 1,
+      "message": "This needs to be updated to use assertIn",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 42
+      },
+      "revId": "4e39039bc43488497ef4df19bee08d7023fb0936",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_ac1bca71",
         "filename": "yardstick/tests/unit/apiserver/resources/test_env_action.py",
         "patchSetId": 3
@@ -82,6 +176,30 @@
       "writtenOn": "2017-12-19T09:28:32Z",
       "side": 1,
       "message": "remove this",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 10
+      },
+      "revId": "4e39039bc43488497ef4df19bee08d7023fb0936",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ec067285",
+        "filename": "yardstick/tests/unit/apiserver/resources/test_env_action.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2017-12-19T17:52:48Z",
+      "side": 1,
+      "message": "This is covered in a separate change.[1]\n\n\n[1] https://gerrit.opnfv.org/gerrit/#/c/47677/",
+      "parentUuid": "9a3d3df0_ac1bca71",
       "range": {
         "startLine": 38,
         "startChar": 0,
