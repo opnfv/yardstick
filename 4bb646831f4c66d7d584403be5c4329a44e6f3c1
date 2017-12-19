@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_67df1d6a",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-19T14:17:30Z",
+      "side": 1,
+      "message": "If we are not going to raise an exception, this should be a warning.\n\nAnyway, I think the test case definition should be accurate. IMO, we should raise an exception here.",
+      "range": {
+        "startLine": 515,
+        "startChar": 16,
+        "endLine": 515,
+        "endChar": 26
+      },
+      "revId": "4bb646831f4c66d7d584403be5c4329a44e6f3c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
