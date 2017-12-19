@@ -32,12 +32,11 @@ class ExecuteShellTestCase(unittest.TestCase):
 
     def test_read_stdout_item(self):
         result = util.read_stdout_item(self.std_output, 'id')
-        self.assertEquals('1', result)
+        self.assertEqual('1', result)
 
     def test_buildshellparams(self):
         result = util.buildshellparams(self.cmd_config, True)
-        self.assertEquals('/bin/bash -s {0} {1}', result)
-
+        self.assertEqual('/bin/bash -s {0} {1}', result)
 
     @mock.patch('subprocess.check_output')
     def test__fun_execute_shell_command_successful(self,

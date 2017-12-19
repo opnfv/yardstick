@@ -238,7 +238,7 @@ class TestPingTrafficGen(unittest.TestCase):
 
         self.assertIsInstance(ping_traffic_gen.setup_helper, PingSetupEnvHelper)
         self.assertIsInstance(ping_traffic_gen.resource_helper, PingResourceHelper)
-        self.assertEquals(ping_traffic_gen._result, {})
+        self.assertEqual(ping_traffic_gen._result, {})
 
     @mock.patch("yardstick.ssh.SSH")
     def test__bind_device_kernel_with_failure(self, ssh):
