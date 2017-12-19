@@ -16,6 +16,8 @@
 from __future__ import absolute_import
 
 import logging
+import datetime
+import time
 
 from yardstick.network_services.traffic_profile.prox_profile import ProxProfile
 
@@ -81,19 +83,66 @@ class ProxBinSearchProfile(ProxProfile):
         # success, the binary search will complete on an integer multiple
         # of the precision, rather than on a fraction of it.
 
+        theor_max_thruput = 0
+
+        result_samples = {}
+
+        # Store one time only value in influxdb
+        single_samples = {
+            "test_duration" : traffic_gen.scenario_helper.scenario_cfg["runner"]["duration"],
+            "test_precision" : self.params["traffic_profile"]["test_precision"],
+            "tolerated_loss" : self.params["traffic_profile"]["tolerated_loss"],
+            "duration" : duration
+        }
+        self.queue.put(single_samples)
+        self.prev_time = time.time()
+
         # throughput and packet loss from the most recent successful test
         successful_pkt_loss = 0.0
         for test_value in self.bounds_iterator(LOG):
             result, port_samples = self._profile_helper.run_test(pkt_size, duration,
                                                                  test_value, self.tolerated_loss)
+            self.curr_time = time.time()
+            diff_time = self.curr_time - self.prev_time
+            self.prev_time = self.curr_time
 
             if result.success:
                 LOG.debug("Success! Increasing lower bound")
                 self.current_lower = test_value
                 successful_pkt_loss = result.pkt_loss
+                samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
+                samples["TxThroughput"] = samples["TxThroughput"] * 1000 * 1000
+
+                # store results with success tag in influxdb
+                success_samples = {'Success_' + key: value for key, value in samples.items()}
+
+                success_samples["Success_rx_total"] = int(result.rx_total / diff_time)
+                success_samples["Success_tx_total"] = int(result.tx_total / diff_time)
+                success_samples["Success_can_be_lost"] = int(result.can_be_lost / diff_time)
+                success_samples["Success_drop_total"] = int(result.drop_total / diff_time)
+                self.queue.put(success_samples)
+
+                # Store Actual throughput for result samples
+                result_samples["Result_Actual_throughput"] = \
+                    success_samples["Success_RxThroughput"]
             else:
                 LOG.debug("Failure... Decreasing upper bound")
                 self.current_upper = test_value
+                samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
 
-            samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
+            for k in samples:
+                    tmp = samples[k]
+                    if isinstance(tmp, dict):
+                        for k2 in tmp:
+                            samples[k][k2] = int(samples[k][k2] / diff_time)
+
+            if theor_max_thruput < samples["TxThroughput"]:
+                theor_max_thruput = samples['TxThroughput']
+                self.queue.put({'theor_max_throughput': theor_max_thruput})
+
+            LOG.debug("Collect TG KPIs %s %s", datetime.datetime.now(), samples)
             self.queue.put(samples)
+
+        result_samples["Result_pktSize"] = pkt_size
+        result_samples["Result_theor_max_throughput"] = theor_max_thruput/ (1000 * 1000)
+        self.queue.put(result_samples)
