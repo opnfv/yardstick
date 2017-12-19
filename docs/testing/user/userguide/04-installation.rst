@@ -172,13 +172,13 @@ Environment variables in the ``openrc`` file have to include at least::
    OS_AUTH_URL
    OS_USERNAME
    OS_PASSWORD
-   OS_TENANT_NAME
+   OS_PROJECT_NAME
    EXTERNAL_NETWORK
 
 A sample ``openrc`` file may look like this::
 
   export OS_PASSWORD=console
-  export OS_TENANT_NAME=admin
+  export OS_PROJECT_NAME=admin
   export OS_AUTH_URL=http://172.16.1.222:35357/v2.0
   export OS_USERNAME=admin
   export OS_VOLUME_API_VERSION=2

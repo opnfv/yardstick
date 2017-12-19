@@ -29,14 +29,8 @@
       auth_url: "{{ openrc.OS_AUTH_URL }}"
       password: "{{ openrc.OS_PASSWORD }}"
       username: "{{ openrc.OS_USERNAME }}"
-      project_name: "{{ openrc.OS_PROJECT_NAME }}"
-#      tenant_name: "{{ openrc.OS_TENANT_NAME }}"
+      project_name: "{{ openrc.OS_PROJECT_NAME|default(openrc.OS_TENANT_NAME) }}"
       project_domain_name: "{{ openrc.OS_PROJECT_DOMAIN_NAME }}"
-#      user_domain_name: "{{ openrc.OS_USER_DOMAIN_NAME }}"
-      # BUGS: We need to specify identity_api_version == 3, but we can't do it here
-      # because it is not the write place
-      # we need to set it via OS_IDENTITY_API_VERSION or clouds.yaml
-#      identity_api_version: "{{ openrc.OS_IDENTITY_API_VERSION }}"
 
 - debug: var=os_auth
 
@@ -44,7 +38,7 @@
     clouds:
         demo:
             # must specify API version here
-            identity_api_version: "{{ openrc.OS_IDENTITY_API_VERSION }}"
+            identity_api_version: "{{ openrc.OS_IDENTITY_API_VERSION|default(3) }}"
             auth: "{{ os_auth }}"
 
 - template:

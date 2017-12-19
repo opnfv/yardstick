@@ -32,38 +32,22 @@ DEFAULT_API_VERSION = '2'
 #   CREDENTIALS
 # *********************************************
 def get_credentials():
-    """Returns a creds dictionary filled with parsed from env"""
-    creds = {}
+    """Returns a creds dictionary filled with parsed from env
 
-    keystone_api_version = os.getenv('OS_IDENTITY_API_VERSION')
+    Keystone API version used is 3; v2 was deprecated in 2014 (Icehouse). Along
+    with this deprecation, environment variable 'OS_TENANT_NAME' is replaced by
+    'OS_PROJECT_NAME'.
+    """
+    creds = {'username': os.environ.get('OS_USERNAME'),
+             'password': os.environ.get('OS_PASSWORD'),
+             'auth_url': os.environ.get('OS_AUTH_URL'),
+             'project_name': os.environ.get('OS_PROJECT_NAME')
+             }
 
-    if keystone_api_version is None or keystone_api_version == '2':
-        keystone_v3 = False
-        tenant_env = 'OS_TENANT_NAME'
-        tenant = 'tenant_name'
-    else:
-        keystone_v3 = True
-        tenant_env = 'OS_PROJECT_NAME'
-        tenant = 'project_name'
-
-    # The most common way to pass these info to the script is to do it
-    # through environment variables.
-    creds.update({
-        "username": os.environ.get("OS_USERNAME"),
-        "password": os.environ.get("OS_PASSWORD"),
-        "auth_url": os.environ.get("OS_AUTH_URL"),
-        tenant: os.environ.get(tenant_env)
-    })
-
-    if keystone_v3:
-        if os.getenv('OS_USER_DOMAIN_NAME') is not None:
-            creds.update({
-                "user_domain_name": os.getenv('OS_USER_DOMAIN_NAME')
-            })
-        if os.getenv('OS_PROJECT_DOMAIN_NAME') is not None:
-            creds.update({
-                "project_domain_name": os.getenv('OS_PROJECT_DOMAIN_NAME')
-            })
+    if os.getenv('OS_USER_DOMAIN_NAME'):
+        creds['user_domain_name'] = os.getenv('OS_USER_DOMAIN_NAME')
+    if os.getenv('OS_PROJECT_DOMAIN_NAME'):
+        creds['project_domain_name'] = os.getenv('OS_PROJECT_DOMAIN_NAME')
 
     return creds
 
@@ -291,8 +275,7 @@ def create_instance_and_wait_for_active(json_body):    # pragma: no cover
     VM_BOOT_TIMEOUT = 180
     nova_client = get_nova_client()
     instance = create_instance(json_body)
-    count = VM_BOOT_TIMEOUT / SLEEP
-    for _ in range(count, -1, -1):
+    for _ in range(int(VM_BOOT_TIMEOUT / SLEEP)):
         status = get_instance_status(nova_client, instance)
         if status.lower() == "active":
             return instance
