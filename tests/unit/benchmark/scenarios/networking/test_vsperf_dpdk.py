@@ -79,7 +79,7 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
         p.setup()
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
     def test_vsperf_dpdk_teardown(self, mock_subprocess):
         p = vsperf_dpdk.VsperfDPDK(self.args, self.ctx)
@@ -89,10 +89,10 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
         p.setup()
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
         p.teardown()
-        self.assertEqual(p.setup_done, False)
+        self.assertFalse(p.setup_done)
 
     def test_vsperf_dpdk_is_dpdk_setup_no(self, mock_subprocess):
         p = vsperf_dpdk.VsperfDPDK(self.args, self.ctx)
@@ -102,13 +102,13 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
         p.setup()
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
         # is_dpdk_setup() specific mocks
         self.mock_ssh.SSH.from_node().execute.return_value = (0, 'dummy', '')
 
         result = p._is_dpdk_setup()
-        self.assertEqual(result, False)
+        self.assertFalse(result)
 
     def test_vsperf_dpdk_is_dpdk_setup_yes(self, mock_subprocess):
         p = vsperf_dpdk.VsperfDPDK(self.args, self.ctx)
@@ -118,13 +118,13 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
         p.setup()
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
         # is_dpdk_setup() specific mocks
         self.mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
 
         result = p._is_dpdk_setup()
-        self.assertEqual(result, True)
+        self.assertTrue(result)
 
     @mock.patch('time.sleep')
     def test_vsperf_dpdk_dpdk_setup_first(self, _, mock_subprocess):
@@ -135,14 +135,14 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
         p.setup()
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
         # is_dpdk_setup() specific mocks
         self.mock_ssh.SSH.from_node().execute.return_value = (0, 'dummy', '')
 
         p.dpdk_setup()
-        self.assertEqual(p._is_dpdk_setup(), False)
-        self.assertEqual(p.dpdk_setup_done, True)
+        self.assertFalse(p._is_dpdk_setup())
+        self.assertTrue(p.dpdk_setup_done)
 
     @mock.patch('time.sleep')
     def test_vsperf_dpdk_dpdk_setup_next(self, _, mock_subprocess):
@@ -154,11 +154,11 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
         p.setup()
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
         p.dpdk_setup()
-        self.assertEqual(p._is_dpdk_setup(), True)
-        self.assertEqual(p.dpdk_setup_done, True)
+        self.assertTrue(p._is_dpdk_setup())
+        self.assertTrue(p.dpdk_setup_done)
 
     @mock.patch('time.sleep')
     def test_vsperf_dpdk_dpdk_setup_fail(self, _, mock_subprocess):
@@ -171,7 +171,7 @@ class VsperfDPDKTestCase(unittest.TestCase):
         p.setup()
         self.assertIsNotNone(p.client)
         self.mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
         self.assertRaises(RuntimeError, p.dpdk_setup)
 
@@ -185,7 +185,7 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
         p.setup()
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
         # run() specific mocks
         mock_subprocess.call().execute.return_value = None
@@ -206,7 +206,7 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
         p.setup()
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
         # run() specific mocks
         mock_subprocess.call().execute.return_value = None
@@ -225,7 +225,7 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
         p.setup()
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
         # run() specific mocks
         mock_subprocess.call().execute.return_value = None

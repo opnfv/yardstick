@@ -61,7 +61,7 @@ class MonitorOpenstackCmdTestCase(unittest.TestCase):
         instance.setup()
         mock_subprocess_check_output.return_value = (0, 'unittest')
         ret = instance.monitor_func()
-        self.assertEqual(ret, True)
+        self.assertTrue(ret)
         instance._result = {"outage_time": 0}
         instance.verify_SLA()
 
@@ -72,7 +72,7 @@ class MonitorOpenstackCmdTestCase(unittest.TestCase):
         instance.setup()
         mock_subprocess_check_output.side_effect = RuntimeError
         ret = instance.monitor_func()
-        self.assertEqual(ret, False)
+        self.assertFalse(ret)
         mock_log.error.assert_called_once()
         instance._result = {"outage_time": 10}
         instance.verify_SLA()

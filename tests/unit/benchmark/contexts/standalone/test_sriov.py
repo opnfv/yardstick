@@ -70,7 +70,7 @@ class SriovContextTestCase(unittest.TestCase):
         self.sriov.helper = mock_helper
         self.sriov.vnf_node = mock_server
         self.assertIsNone(self.sriov.file_path)
-        self.assertEqual(self.sriov.first_run, True)
+        self.assertTrue(self.sriov.first_run)
 
     def test_init(self):
         self.sriov.helper.parse_pod_file = mock.Mock(return_value=[{}, {}, {}])
