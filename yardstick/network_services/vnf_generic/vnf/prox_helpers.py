@@ -685,7 +685,7 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
                 if port_section_name != section_name:
                     continue
 
-                for index, section_data in enumerate(section):
+                for _, section_data in enumerate(section):
                     if section_data[0] == "mac":
                         section_data[1] = "hardware"
 
@@ -753,9 +753,9 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         a custom method
         """
         out = []
-        for i, (section_name, section) in enumerate(prox_config):
+        for _, (section_name, section) in enumerate(prox_config):
             out.append("[{}]".format(section_name))
-            for index, item in enumerate(section):
+            for _, item in enumerate(section):
                 key, value = item
                 if key == "__name__":
                     continue
@@ -935,6 +935,7 @@ class ProxResourceHelper(ClientResourceHelper):
         func = getattr(self.sut, cmd, None)
         if func:
             return func(*args, **kwargs)
+        return {}
 
     def _connect(self, client=None):
         """Run and connect to prox on the remote system """
@@ -1011,11 +1012,17 @@ class ProxDataHelper(object):
     def samples(self):
         samples = {}
         for port_name, port_num in self.vnfd_helper.ports_iter():
-            port_rx_total, port_tx_total = self.sut.port_stats([port_num])[6:8]
-            samples[port_name] = {
-                "in_packets": port_rx_total,
-                "out_packets": port_tx_total,
-            }
+            try:
+                port_rx_total, port_tx_total = self.sut.port_stats([port_num])[6:8]
+                samples[port_name] = {
+                    "in_packets": port_rx_total,
+                    "out_packets": port_tx_total,
+                }
+            except:
+                samples[port_name] = {
+                    "in_packets": 0,
+                    "out_packets": 0,
+                }
         return samples
 
     def __enter__(self):
@@ -1133,7 +1140,8 @@ class ProxProfileHelper(object):
             for key, value in section:
                 if key == "mode" and value == mode:
                     core_tuple = CoreSocketTuple(section_name)
-                    core = core_tuple.find_in_topology(self.cpu_topology)
+                    core = core_tuple.core_id
+#                   core = core_tuple.find_in_topology(self.cpu_topology)
                     cores.append(core)
 
         return cores
@@ -1155,6 +1163,10 @@ class ProxProfileHelper(object):
         :return: return lat_min, lat_max, lat_avg
         :rtype: list
         """
+
+        if not self._latency_cores:
+            self._latency_cores = self.get_cores(self.PROX_CORE_LAT_MODE)
+
         if self._latency_cores:
             return self.sut.lat_stats(self._latency_cores)
         return []
