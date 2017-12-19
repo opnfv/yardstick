@@ -43,6 +43,8 @@ class TestProxBinSearchProfile(unittest.TestCase):
         tp_config = {
             'traffic_profile': {
                 'packet_sizes': [200],
+                'test_precision': 2.0,
+                'tolerated_loss': 0.001,
             },
         }
 
@@ -61,8 +63,8 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
         profile.execute_traffic(traffic_generator)
         self.assertEqual(round(profile.current_lower, 2), 74.69)
-        self.assertEqual(round(profile.current_upper, 2), 75.39)
-        self.assertEqual(len(runs), 8)
+        self.assertEqual(round(profile.current_upper, 2), 76.09)
+        self.assertEqual(len(runs), 7)
 
     def test_execute_2(self):
         def target(*args, **kwargs):
@@ -77,6 +79,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
             'traffic_profile': {
                 'packet_sizes': [200],
                 'test_precision': 2.0,
+                'tolerated_loss': 0.001,
             },
         }
 
