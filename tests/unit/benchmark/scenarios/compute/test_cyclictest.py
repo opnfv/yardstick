@@ -74,7 +74,7 @@ class CyclictestTestCase(unittest.TestCase):
         c.setup()
         self.assertIsNotNone(c.guest)
         self.assertIsNotNone(c.host)
-        self.assertEqual(c.setup_done, True)
+        self.assertTrue(c.setup_done)
 
     def test_cyclictest_successful_no_sla(self, mock_ssh):
         result = {}

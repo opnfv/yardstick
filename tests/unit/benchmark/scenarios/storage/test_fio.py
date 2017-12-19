@@ -53,7 +53,7 @@ class FioTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
     def test_fio_job_file_successful_setup(self, mock_ssh):
 
@@ -67,7 +67,7 @@ class FioTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
     def test_fio_successful_no_sla(self, mock_ssh):
 

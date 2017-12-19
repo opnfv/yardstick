@@ -59,7 +59,7 @@ class PingTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.return_value = (0, '0', '')
         p.setup()
 
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping6.ssh')
     def test_ping_successful_no_sla(self, mock_ssh):

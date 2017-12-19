@@ -48,7 +48,7 @@ class NetperfTestCase(unittest.TestCase):
         p.setup()
         self.assertIsNotNone(p.server)
         self.assertIsNotNone(p.client)
-        self.assertEqual(p.setup_done, True)
+        self.assertTrue(p.setup_done)
 
     def test_netperf_successful_no_sla(self, mock_ssh):
 

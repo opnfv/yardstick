@@ -103,7 +103,7 @@ class TestResourceProfile(unittest.TestCase):
             self.resource_profile.connection = self.ssh_mock
 
     def test___init__(self):
-        self.assertEqual(True, self.resource_profile.enable)
+        self.assertTrue(self.resource_profile.enable)
 
     def test_check_if_sa_running(self):
         self.assertEqual(self.resource_profile.check_if_sa_running("collectd"),
