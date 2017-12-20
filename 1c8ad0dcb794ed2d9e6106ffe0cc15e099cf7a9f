@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_81e96ce8",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-20T13:54:05Z",
+      "side": 1,
+      "message": "This is more for readability - These values are ONCE off values.",
+      "parentUuid": "9a3d3df0_e2f03b69",
+      "range": {
+        "startLine": 95,
+        "startChar": 23,
+        "endLine": 95,
+        "endChar": 37
+      },
+      "revId": "1c8ad0dcb794ed2d9e6106ffe0cc15e099cf7a9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_220b437e",
         "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
         "patchSetId": 7
@@ -82,6 +106,30 @@
       "writtenOn": "2017-12-19T18:37:29Z",
       "side": 1,
       "message": "did we consider making it, optionally, possible for the user of the result instance to provide a prefix to the keys that get_samples populates?\n\nsuch that these lines become:\n\n samples \u003d result.get_samples(pkt_size, successful_pkt_lost,\n                              port_samples, \u0027Success_\u0027)\n self.queue.put(samples)\n\nif not, then can we use interpolation?\n\n success_samples \u003d {\u0027Success_\u0027 + key: value for key, value in samples.items()}",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 47
+      },
+      "revId": "1c8ad0dcb794ed2d9e6106ffe0cc15e099cf7a9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_01bd5cd8",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-20T13:54:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_220b437e",
       "range": {
         "startLine": 106,
         "startChar": 0,
@@ -111,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_a1ec70f4",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-20T13:54:05Z",
+      "side": 1,
+      "message": "No we need 1 Result Tuple (per pktSize) and\n1 or more Success Tuple and\nMany Sample Tuples.\n\nNeed for Grafana",
+      "parentUuid": "9a3d3df0_423e4729",
+      "revId": "1c8ad0dcb794ed2d9e6106ffe0cc15e099cf7a9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_c232575e",
         "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
         "patchSetId": 7
@@ -134,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c1eff4e7",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-20T13:54:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_c232575e",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 48
+      },
+      "revId": "1c8ad0dcb794ed2d9e6106ffe0cc15e099cf7a9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e27b1bf3",
         "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
         "patchSetId": 7
@@ -145,6 +235,30 @@
       "writtenOn": "2017-12-19T18:37:29Z",
       "side": 1,
       "message": "i don\u0027t see pkt_size change during the method, why not put the pkt_size value in the dictionary when the dictionary is created?\n\n L86    result_samples \u003d {\u0027Result_pktSize\u0027: pkt_size}",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 51
+      },
+      "revId": "1c8ad0dcb794ed2d9e6106ffe0cc15e099cf7a9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_61e6e816",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-20T13:54:05Z",
+      "side": 1,
+      "message": "We only want the Result_pktSize to appear in database on Success.",
+      "parentUuid": "9a3d3df0_e27b1bf3",
       "range": {
         "startLine": 128,
         "startChar": 0,
