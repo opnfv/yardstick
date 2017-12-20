@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5d746667",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc084.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2017-12-20T01:51:19Z",
+      "side": 1,
+      "message": "is this test case specific for ODL? or it could also be used for other SDN controllers?",
+      "range": {
+        "startLine": 35,
+        "startChar": 35,
+        "endLine": 35,
+        "endChar": 78
+      },
+      "revId": "9c020e853d8017b5293f0d8f2ec10169634f1b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
