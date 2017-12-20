@@ -169,6 +169,30 @@
       "revId": "521a2d8c33d4b1082483cbe239e5b45033cb3881",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_41b3e409",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2017-12-20T13:54:05Z",
+      "side": 1,
+      "message": "Due to the nature of the binsearch. \nIf we get a success .. then the next attempt will be half way between this and the upper bound. The next success must always be higher than the last.",
+      "parentUuid": "9a3d3df0_c2ced72d",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 58
+      },
+      "revId": "521a2d8c33d4b1082483cbe239e5b45033cb3881",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
