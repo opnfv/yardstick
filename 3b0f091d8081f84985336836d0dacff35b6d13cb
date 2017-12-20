@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_2211835d",
+        "filename": "ansible/build_cloudinit_iso_images.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_e2603ba7",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 4
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_2225035c",
         "filename": "ansible/group_vars/all.yml",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2017-12-19T17:09:47Z",
       "side": 1,
       "message": "This variable is filled when the ansible script is called. You can\u0027t define the values statically.\n\nTake a look at nsb_setup.sh:\n# Add new cmd args\nextra_args\u003d\"${extra_args} -e @/tmp/proxy.yml\"\n\n# Write proxy.yml\ncat \u003c\u003cEOF \u003e /tmp/proxy.yml\n---\nproxy_env:\n  http_proxy: $http_proxy\n  https_proxy: $https_proxy\n  no_proxy: $no_proxy\nEOF\nfi\n\n# Call ansible script. \"extra_args\" is an input and will populate this variable.\ncd ${ANSIBLE_SCRIPTS} \u0026\u0026\\\nansible-playbook \\\n         -e img_modify_playbook\u003d\u0027ubuntu_server_cloudimg_modify_samplevnfs.yml\u0027 \\\n         -e YARD_IMG_ARCH\u003d\u0027amd64\u0027 ${extra_args}\\\n         -i yardstick-install-inventory.ini nsb_setup.yml",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 10
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0216ff54",
+        "filename": "ansible/group_vars/all.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_2225035c",
       "range": {
         "startLine": 6,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_420be729",
+        "filename": "ansible/inventory.ini",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "No. This must be configured when someone wants to run the build_cloudinit_iso_images.yaml playbook manually. \nThe mgmt_addr is the address of the br-int bridge (or the management interface) on the host. E.g. 10.20.30.2. Then e.g. if the vm_count is 10, iso images for VMs with addresses 10.20.30.100 -- 10.20.30.109 will be generated.",
+      "parentUuid": "9a3d3df0_42c3e788",
+      "range": {
+        "startLine": 13,
+        "startChar": 29,
+        "endLine": 13,
+        "endChar": 54
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_82468f4d",
         "filename": "tests/unit/benchmark/contexts/standalone/test_base.py",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2017-12-19T17:09:47Z",
       "side": 1,
       "message": "This should be mock_ansible_common.execute_ansible",
+      "range": {
+        "startLine": 69,
+        "startChar": 25,
+        "endLine": 69,
+        "endChar": 73
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a2047318",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_82468f4d",
       "range": {
         "startLine": 69,
         "startChar": 25,
@@ -128,6 +224,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_dd019606",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_82b4cf35",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_02ceffb3",
         "filename": "tests/unit/benchmark/contexts/standalone/test_base.py",
         "patchSetId": 9
@@ -139,6 +253,30 @@
       "writtenOn": "2017-12-19T17:09:47Z",
       "side": 1,
       "message": "assertEquals is deprecated. Instead of this, you should use assertEqual\n\nhttps://docs.python.org/2/library/unittest.html#deprecated-aliases",
+      "range": {
+        "startLine": 81,
+        "startChar": 13,
+        "endLine": 81,
+        "endChar": 25
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bd06521b",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_02ceffb3",
       "range": {
         "startLine": 81,
         "startChar": 13,
@@ -174,6 +312,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9dd9ce24",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_47dad9e8",
+      "range": {
+        "startLine": 387,
+        "startChar": 43,
+        "endLine": 387,
+        "endChar": 63
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_87e06197",
         "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
         "patchSetId": 9
@@ -185,6 +347,30 @@
       "writtenOn": "2017-12-19T17:09:47Z",
       "side": 1,
       "message": "You can use copy.deepcopy(self.xml)",
+      "range": {
+        "startLine": 389,
+        "startChar": 38,
+        "endLine": 389,
+        "endChar": 41
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7dd68af2",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_87e06197",
       "range": {
         "startLine": 389,
         "startChar": 38,
@@ -220,6 +406,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_dd2d1600",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_a7e3e5a2",
+      "range": {
+        "startLine": 391,
+        "startChar": 36,
+        "endLine": 391,
+        "endChar": 52
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e7f04d69",
         "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
         "patchSetId": 9
@@ -231,6 +441,30 @@
       "writtenOn": "2017-12-19T17:09:47Z",
       "side": 1,
       "message": "You know every element inside this block. Go parameter by parameter and check the value. Take a look at \"test_add_sriov_interfaces\"",
+      "range": {
+        "startLine": 393,
+        "startChar": 12,
+        "endLine": 401,
+        "endChar": 66
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bd32d25c",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_e7f04d69",
       "range": {
         "startLine": 393,
         "startChar": 12,
@@ -266,6 +500,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_dd14f6a1",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_ovs_dpdk.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_a2491362",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 46
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_62438b42",
         "filename": "tests/unit/benchmark/contexts/standalone/test_sriov.py",
         "patchSetId": 9
@@ -277,6 +535,30 @@
       "writtenOn": "2017-12-19T17:09:47Z",
       "side": 1,
       "message": "You are modifying a class variable that could be used then in other test. Please, add a addCleanup method to reset the original value.",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 46
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1d0bfe7d",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_sriov.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_62438b42",
       "range": {
         "startLine": 68,
         "startChar": 8,
@@ -323,6 +605,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9d042e19",
+        "filename": "tests/unit/common/test_utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1179,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_9d60aed0",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_3d67e2ea",
         "filename": "tests/unit/common/test_utils.py",
         "patchSetId": 9
@@ -340,6 +640,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_7d016a05",
+        "filename": "tests/unit/common/test_utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1194,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "It depends what semantics we want. My implementation checks that the methods are called in a given order, exactly once.\nWe can also check only the order. Which, I admit, the name MethodCallsOrder suggests.\nIn our case (why I have written it) the methods must be called in particular order and just once. In this way I can clean the records of the instance that owns the methods after the last method is called.\nIf I check only the order (a method can be called only when method(s) that it requires were called) I don\u0027t know if I can cleanup the instance records, which would be a memory leak. Maybe if the records were owned by the instance, that could be a solution.",
+      "parentUuid": "9a3d3df0_3d67e2ea",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_47af792a",
         "filename": "yardstick/benchmark/contexts/standalone/base.py",
         "patchSetId": 9
@@ -351,6 +669,30 @@
       "writtenOn": "2017-12-19T17:09:47Z",
       "side": 1,
       "message": "This is not needed. The default value is None",
+      "range": {
+        "startLine": 41,
+        "startChar": 49,
+        "endLine": 41,
+        "endChar": 57
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0150bc09",
+        "filename": "yardstick/benchmark/contexts/standalone/base.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_47af792a",
       "range": {
         "startLine": 41,
         "startChar": 49,
@@ -403,6 +745,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c1b7f438",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Not sure. I think it is correct. At least, it works. I haven\u0027t found anywhere any indication which types of bus are allowed here. In all examples I can see ide, you\u0027re right. On the other hand, in most examples, ide is used also for device\u003d\u0027disk\u0027. According to [0] it seems that virtio should be better (from the performance pov).\n\n[0] https://wiki.libvirt.org/page/Virtio",
+      "parentUuid": "9a3d3df0_27d075c8",
+      "range": {
+        "startLine": 479,
+        "startChar": 15,
+        "endLine": 480,
+        "endChar": 28
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_c7cee92d",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 9
@@ -414,6 +780,24 @@
       "writtenOn": "2017-12-19T17:09:47Z",
       "side": 1,
       "message": "You should add the parameter \u003creadonly/\u003e",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a1b47035",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_c7cee92d",
       "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -467,6 +851,54 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_81dfac68",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "It could be done. I can attempt. This was a simplistic approach.",
+      "parentUuid": "9a3d3df0_fd71faa8",
+      "range": {
+        "startLine": 476,
+        "startChar": 6,
+        "endLine": 476,
+        "endChar": 22
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_01855c59",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "No.",
+      "parentUuid": "9a3d3df0_878ea1ce",
+      "range": {
+        "startLine": 476,
+        "startChar": 6,
+        "endLine": 476,
+        "endChar": 22
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_fda8dadc",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 9
@@ -478,6 +910,30 @@
       "writtenOn": "2017-12-19T21:31:08Z",
       "side": 1,
       "message": "this should be a protected attribute, otherwise any code could just change it, no need for clean.",
+      "range": {
+        "startLine": 477,
+        "startChar": 4,
+        "endLine": 477,
+        "endChar": 13
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e1d79849",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_fda8dadc",
       "range": {
         "startLine": 477,
         "startChar": 4,
@@ -536,6 +992,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_012f1c40",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "ad 1) right\nad 2) my concern was that if I have e.g. a loop with many iterations and in that loop I would instantiate a class with this validator, having only the loop lifespan, it would grow with every iteration, which doesn\u0027t with #2.\n\nAs stated elsewhere, it was indeed designed to check the order and every method called just once. I\u0027ll attempt to improve it.",
+      "parentUuid": "9a3d3df0_e2be7b64",
+      "range": {
+        "startLine": 486,
+        "startChar": 51,
+        "endLine": 486,
+        "endChar": 64
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_1d565e06",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 9
@@ -547,6 +1027,30 @@
       "writtenOn": "2017-12-19T21:31:08Z",
       "side": 1,
       "message": "this would be done better using itertools.chain.from_iterable\n\n m_order \u003d itertools.chain.from_iterable(zip(iter(order),\n                                         itertools.repeat(cls.SEPARATOR)))",
+      "range": {
+        "startLine": 489,
+        "startChar": 19,
+        "endLine": 489,
+        "endChar": 94
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_212a202c",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_1d565e06",
       "range": {
         "startLine": 489,
         "startChar": 19,
@@ -576,6 +1080,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_81220c50",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_fd5a9a28",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_bd5492ff",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 9
@@ -587,6 +1109,24 @@
       "writtenOn": "2017-12-19T21:31:08Z",
       "side": 1,
       "message": "is it allowed to call add after having created an instance?\n\n class MyOrderedCallObject(object):\n    def __init__(self):\n      MethodCallsOrder.add(self, [\u0027f1\u0027, \u0027f2\u0027, \u0027f3\u0027])\n    ...\n\n my_object \u003d MyOrderedCallObject()\n MethodCallsOrder.add(my_object, (\u0027f2\u0027, \u0027f1\u0027, \u0027f3\u0027])\n my_object.f2()\n my_object.f1()\n my_object.f3()\n\nperhaps we should have an assertion/check that instance is not in INSTANCES.  and doing this as a meta-class may be more strict, since all i would need to do is to clean the instance before calling add, with this assert/check.",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_41dc8446",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong opinion on this. I would allow to change the method call order if the programmer thinks that they knows what they does.",
+      "parentUuid": "9a3d3df0_bd5492ff",
       "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -616,6 +1156,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_215ce0ec",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Nowhere. Just for the sake of completeness.",
+      "parentUuid": "9a3d3df0_27e7d5ad",
+      "range": {
+        "startLine": 494,
+        "startChar": 8,
+        "endLine": 494,
+        "endChar": 13
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_3daec2e6",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 9
@@ -627,6 +1191,24 @@
       "writtenOn": "2017-12-19T21:31:08Z",
       "side": 1,
       "message": "can we pop instead of del?\n\n cls.INSTANCES.pop(instance)",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8174cc68",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Is that better?",
+      "parentUuid": "9a3d3df0_3daec2e6",
       "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -650,6 +1232,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c16a5480",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "I meant to check that the methods were called in order and exactly once. And then delete the records not to leave a memory leak.\nAs written elsewhere, I can attempt to write something more general, maybe using the metaclass and __prepare__ method that would automatically create the MethodCallsOrder instance.",
+      "parentUuid": "9a3d3df0_5d6aa6b3",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5db10646",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 9
@@ -661,6 +1261,24 @@
       "writtenOn": "2017-12-19T21:31:08Z",
       "side": 1,
       "message": "can we pop instead of del?\n\n cls.INSTANCES.pop(instance)",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a16750b6",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 6891
+      },
+      "writtenOn": "2017-12-20T15:25:50Z",
+      "side": 1,
+      "message": "Why is that better?",
+      "parentUuid": "9a3d3df0_5db10646",
       "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
