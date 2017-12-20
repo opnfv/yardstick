@@ -658,6 +658,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_213fc0d7",
+        "filename": "tests/unit/common/test_utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1194,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-20T18:27:20Z",
+      "side": 1,
+      "message": "good points, see my comment to utils.py about weak references for another idea.",
+      "parentUuid": "9a3d3df0_7d016a05",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_47af792a",
         "filename": "yardstick/benchmark/contexts/standalone/base.py",
         "patchSetId": 9
@@ -1016,6 +1034,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_e1515837",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-20T18:27:20Z",
+      "side": 1,
+      "message": "so, you mean the dictionary (INSTANCES) will grow indefinitely, not the list.\n\nwhile i agree that a reference in INSTANCES should not preclude an instance from being garbage collected, i also don\u0027t think that means we should forbid ourselves from holding a weak reference to the instance.\n\nsince say someone created an instance and then did not complete the call order sequence, the instance would be held by the tracker and the instance could not be garbage collected.\n\nso, we need to make use of the weakref module to address both our concerns.",
+      "parentUuid": "9a3d3df0_012f1c40",
+      "range": {
+        "startLine": 486,
+        "startChar": 51,
+        "endLine": 486,
+        "endChar": 64
+      },
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_1d565e06",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 9
@@ -1250,6 +1292,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_217180e0",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-20T18:27:20Z",
+      "side": 1,
+      "message": "metaclass may be superior, but perhaps decorating the class would be enough.",
+      "parentUuid": "9a3d3df0_c16a5480",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5db10646",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 9
@@ -1279,6 +1339,24 @@
       "side": 1,
       "message": "Why is that better?",
       "parentUuid": "9a3d3df0_5db10646",
+      "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0166fc29",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 6831
+      },
+      "writtenOn": "2017-12-20T18:27:20Z",
+      "side": 1,
+      "message": "del is usually associated with micro-management of the garbage collector.  plus dictionaries are meant to be popped, it\u0027s part of the interface, so why not use it?",
+      "parentUuid": "9a3d3df0_a16750b6",
       "revId": "3b0f091d8081f84985336836d0dacff35b6d13cb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
