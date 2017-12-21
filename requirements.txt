@@ -67,7 +67,6 @@ python-cinderclient==1.11.0     # OSI Approved  Apache Software License
 python-glanceclient==2.6.0      # OSI Approved  Apache Software License
 python-keystoneclient==3.10.0   # OSI Approved  Apache Software License
 python-mimeparse==1.6.0         # OSI Approved  MIT License
-python-neutronclient==6.1.0     # OSI Approved  Apache Software License
 python-novaclient==7.1.1        # OSI Approved  Apache Software License
 python-openstackclient==3.8.1   # OSI Approved  Apache Software License
 python-swiftclient==3.3.0       # OSI Approved  Apache Software License
