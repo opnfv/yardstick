@@ -13,13 +13,13 @@ import os
 import time
 import sys
 import logging
+import shade
 
 from keystoneauth1 import loading
 from keystoneauth1 import session
 from cinderclient import client as cinderclient
 from novaclient import client as novaclient
 from glanceclient import client as glanceclient
-from neutronclient.neutron import client as neutronclient
 
 log = logging.getLogger(__name__)
 
@@ -138,21 +138,6 @@ def get_nova_client_version():      # pragma: no cover
 def get_nova_client():      # pragma: no cover
     sess = get_session()
     return novaclient.Client(get_nova_client_version(), session=sess)
-
-
-def get_neutron_client_version():   # pragma: no cover
-    try:
-        api_version = os.environ['OS_NETWORK_API_VERSION']
-    except KeyError:
-        return DEFAULT_API_VERSION
-    else:
-        log.info("OS_NETWORK_API_VERSION is set in env as '%s'", api_version)
-        return api_version
-
-
-def get_neutron_client():   # pragma: no cover
-    sess = get_session()
-    return neutronclient.Client(get_neutron_client_version(), session=sess)
 
 
 def get_glance_client_version():    # pragma: no cover
@@ -436,15 +421,12 @@ def delete_keypair(nova_client, key):     # pragma: no cover
 # *********************************************
 #   NEUTRON
 # *********************************************
-def get_network_id(neutron_client, network_name):       # pragma: no cover
-    networks = neutron_client.list_networks()['networks']
+def __init__(self):
+    self._cloud = shade.openstack_cloud()
+
+def get_network_id(network_name):       # pragma: no cover
+    networks = self._cloud.list_networks()['networks']
     return next((n['id'] for n in networks if n['name'] == network_name), None)
-
-
-def get_port_id_by_ip(neutron_client, ip_address):      # pragma: no cover
-    ports = neutron_client.list_ports()['ports']
-    return next((i['id'] for i in ports for j in i.get(
-        'fixed_ips') if j['ip_address'] == ip_address), None)
 
 
 def create_neutron_net(neutron_client, json_body):      # pragma: no cover
