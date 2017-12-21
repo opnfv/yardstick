@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_2ace75b4",
+        "filename": "gui/gui.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-21T14:11:08Z",
+      "side": 1,
+      "message": "Why version 8? Don\u0027t we support version 9?\n\nhttps://github.com/nodesource/distributions",
+      "range": {
+        "startLine": 1,
+        "startChar": 49,
+        "endLine": 1,
+        "endChar": 52
+      },
+      "revId": "3431cd1801023e2ee09b520fc9f7a890677ff7b1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
