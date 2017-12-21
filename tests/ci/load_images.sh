@@ -136,7 +136,7 @@ load_cirros_image()
         CIRROS_IMAGE_PATH="/home/opnfv/images/cirros-d161201-aarch64-disk.img"
         EXTRA_PARAMS="--property hw_video_model=vga --property short_id=ubuntu16.04"
     else
-        CIRROS_IMAGE_VERSION="Cirros-0.3.5"
+        CIRROS_IMAGE_VERSION="cirros-0.3.5"
         CIRROS_IMAGE_PATH="/home/opnfv/images/cirros-0.3.5-x86_64-disk.img"
     fi
 
