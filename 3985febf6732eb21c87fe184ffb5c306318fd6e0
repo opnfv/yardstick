@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_4743f46b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-21T13:54:47Z",
+      "side": 1,
+      "message": "I know this is WIP.\n\nJust for information:\n- Follow https://wiki.opnfv.org/display/DEV/Contribution+Guidelines\n- To mark a patch a WIP:\n\n[WIP] Title...\n\nContent (the same as the final patch)\n\nJIRA: YARDSTICK-XXX     \u003c-- to have a reference!",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 9
+      },
+      "revId": "3985febf6732eb21c87fe184ffb5c306318fd6e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_27487086",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-21T13:54:47Z",
+      "side": 1,
+      "message": "shade is not a builtin library, it\u0027s an external library. This should go in the second import section.\n\nsection 1: built-in modules (e.g.: import os)\nsection 2: external modules, installed by the project (e.g.: import shade)\nsection 3: internal project modules (e.g.: from yardstick.common import openstack_utils)",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 12
+      },
+      "revId": "3985febf6732eb21c87fe184ffb5c306318fd6e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ca49c961",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-21T13:54:47Z",
+      "side": 1,
+      "message": "Don\u0027t use __init__ to define a function, outside a class.",
+      "range": {
+        "startLine": 424,
+        "startChar": 0,
+        "endLine": 425,
+        "endChar": 41
+      },
+      "revId": "3985febf6732eb21c87fe184ffb5c306318fd6e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8a6a21b1",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2017-12-21T13:54:47Z",
+      "side": 1,
+      "message": "You don\u0027t have \"self\" defined in this context.\n\nCreate a function called set_shade_client() and return the shade client.\n\ndef _get_shade_client():\n    return shade.openstack_cloud()\n\nAlthough this is trivial, we can wrap inside this function other parameters and configurations we could use in a future.",
+      "range": {
+        "startLine": 428,
+        "startChar": 15,
+        "endLine": 428,
+        "endChar": 19
+      },
+      "revId": "3985febf6732eb21c87fe184ffb5c306318fd6e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
