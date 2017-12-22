@@ -46,6 +46,29 @@
       "revId": "9c020e853d8017b5293f0d8f2ec10169634f1b4d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d0a218fc",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc084.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2017-12-22T11:56:31Z",
+      "side": 1,
+      "message": "Before this step executes, the SDN controller needs to be restarted. We should add an explicit step for this.\n\nIn the current framework, it seems the process restart happens as part of a rollback action. We need to understand if this mechanism needs to be extended.",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 64
+      },
+      "revId": "9c020e853d8017b5293f0d8f2ec10169634f1b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
