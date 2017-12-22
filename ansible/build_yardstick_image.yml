@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- hosts: localhost
+- hosts: jumphost
 
   vars:
     boot_modes:
@@ -31,7 +31,8 @@
     workspace: "{{ lookup('env', 'workspace')|default('/tmp/workspace/yardstick', true) }}"
     raw_imgfile_basename: "yardstick-{{ release }}-server.raw"
   environment:
-    PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin
+    - PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin
+    - "{{ proxy_env }}"
 
   tasks:
     - group_by:

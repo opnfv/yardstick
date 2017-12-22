@@ -112,12 +112,52 @@ Download the source code and install Yardstick from it
   # git checkout <tag or stable branch>
   git checkout stable/euphrates
 
-  # For Bare-Metal or Standalone Virtualization
-  ./nsb_setup.sh
+Configure the network proxy, either using the environment variables or setting
+the global environment file:
 
-  # For OpenStack
-  ./nsb_setup.sh <path to admin-openrc.sh>
+.. code-block:: ini
+    cat /etc/environment
+    http_proxy='http://proxy.company.com:port'
+    https_proxy='http://proxy.company.com:port'
 
+.. code-block:: console
+    export http_proxy='http://proxy.company.com:port'
+    export https_proxy='http://proxy.company.com:port'
+
+The last step is to modify the Yardstick installation inventory, used by
+Ansible:
+
+.. code-block:: ini
+  cat ./ansible/yardstick-install-inventory.ini
+  [jumphost]
+  localhost  ansible_connection=local
+
+  [yardstick-standalone]
+  yardstick-standalone-node ansible_host=192.168.1.2
+  yardstick-standalone-node-2 ansible_host=192.168.1.3
+
+  # section below is only due backward compatibility.
+  # it will be removed later
+  [yardstick:children]
+  jumphost
+
+  [all:vars]
+  ansible_user=root
+  ansible_pass=root
+
+
+To execute an installation for a Bare-Metal or a Standalone context:
+
+.. code-block:: console
+
+    ./nsb_setup.sh
+
+
+To execute an installation for an OpenStack context:
+
+.. code-block:: console
+
+    ./nsb_setup.sh <path to admin-openrc.sh>
 
 Above command setup docker with latest yardstick code. To execute
 
