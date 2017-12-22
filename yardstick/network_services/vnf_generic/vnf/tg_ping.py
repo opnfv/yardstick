@@ -126,11 +126,10 @@ class PingTrafficGen(SampleVNFTrafficGen):
             "packets_received": 0,
             "rtt": 0,
         }
+        self.setup_helper.setup_vnf_environment()
         intf = self.vnfd_helper.interfaces[0]["virtual-interface"]
         self.resource_helper.cmd_kwargs = {
             'target_ip': IPv4Interface(intf["dst_ip"]).ip.exploded,
             'local_ip': IPv4Interface(intf["local_ip"]).ip.exploded,
             'local_if_name': intf["local_iface_name"].split('/')[0],
         }
-
-        self.setup_helper.setup_vnf_environment()
