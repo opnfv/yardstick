@@ -11,15 +11,15 @@
 
 from __future__ import absolute_import
 
-import ipaddress
-import os
-import unittest
 from copy import deepcopy
-from itertools import product, chain
-
 import errno
+import ipaddress
+from itertools import product, chain
 import mock
+import os
+import six
 from six.moves import configparser
+import unittest
 
 import yardstick
 from yardstick.common import utils
@@ -775,7 +775,8 @@ class RemoveFileTestCase(unittest.TestCase):
     def test_remove_file(self):
         try:
             utils.remove_file('notexistfile.txt')
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-except
+            # NOTE(ralonsoh): to narrow the scope of this exception.
             self.assertTrue(isinstance(e, OSError))
 
 
@@ -997,7 +998,8 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
             self.assertEqual(utils.safe_ip_address(addr), expected, addr)
 
     @mock.patch("yardstick.common.utils.logging")
-    def test_safe_ip_address_negative(self, mock_logging):
+    def test_safe_ip_address_negative(self, *args):
+        # NOTE(ralonsoh): check the calls to mocked functions.
         for value in self.INVALID_IP_ADDRESS_STR_LIST:
             self.assertIsNone(utils.safe_ip_address(value), value)
 
@@ -1026,7 +1028,8 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
             self.assertEqual(utils.get_ip_version(addr), 6, addr)
 
     @mock.patch("yardstick.common.utils.logging")
-    def test_get_ip_version_negative(self, mock_logging):
+    def test_get_ip_version_negative(self, *args):
+        # NOTE(ralonsoh): check the calls to mocked functions.
         for value in self.INVALID_IP_ADDRESS_STR_LIST:
             self.assertIsNone(utils.get_ip_version(value), value)
 
@@ -1055,12 +1058,24 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
             self.assertEqual(utils.ip_to_hex(value), value)
 
     @mock.patch("yardstick.common.utils.logging")
-    def test_ip_to_hex_negative(self, mock_logging):
+    def test_ip_to_hex_negative(self, *args):
+        # NOTE(ralonsoh): check the calls to mocked functions.
         addr_list = self.GOOD_IP_V4_ADDRESS_STR_LIST
         mask_list = self.GOOD_IP_V4_MASK_STR_LIST
         value_iter = (''.join(pair) for pair in product(addr_list, mask_list))
         for value in chain(value_iter, self.INVALID_IP_ADDRESS_STR_LIST):
             self.assertEqual(utils.ip_to_hex(value), value)
+
+
+class SafeDecodeUtf8TestCase(unittest.TestCase):
+
+    @unittest.skipIf(six.PY2,
+                     'This test should only be launched with Python 3.x')
+    def test_safe_decode_utf8(self):
+        _bytes = b'this is a byte array'
+        out = utils.safe_decode_utf8(_bytes)
+        self.assertIs(type(out), str)
+        self.assertEqual('this is a byte array', out)
 
 
 def main():
