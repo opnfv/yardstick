@@ -60,6 +60,7 @@ pbr==1.10.0             # OSI Approved  Apache Software License; Apache License,
 pika==0.10.0            # BSD; OSI Approved  BSD License
 positional==1.1.1       # OSI Approved  Apache Software License
 pycrypto==2.6.1         # Public Domain
+pyopenssl==16.2.0       # OSI Approved  Apache Software License
 pyparsing==2.1.10       # MIT License; OSI Approved  MIT License
 pyroute2==0.4.12        # dual license GPLv2+ and Apache v2; OSI Approved  GNU General Public License v2 or later (GPLv2+); OSI Approved  Apache Software License
 pyrsistent==0.11.12     # LICENSE.mit; OSI Approved  MIT License
