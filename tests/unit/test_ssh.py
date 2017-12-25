@@ -546,6 +546,15 @@ class TestAutoConnectSSH(unittest.TestCase):
         with mock_scp_client_type() as mock_scp_client:
             self.assertEqual(mock_scp_client.put.call_count, 1)
 
+    @mock.patch('yardstick.ssh.SCPClient')
+    def test_get(self, mock_scp_client_type):
+        auto_connect_ssh = AutoConnectSSH('user1', 'host1')
+        auto_connect_ssh._client = mock.Mock()
+
+        auto_connect_ssh.get('a', 'z')
+        with mock_scp_client_type() as mock_scp_client:
+            self.assertEqual(mock_scp_client.get.call_count, 1)
+
     def test_put_file(self):
         auto_connect_ssh = AutoConnectSSH('user1', 'host1')
         auto_connect_ssh._client = mock.Mock()

@@ -379,6 +379,12 @@ class SSH(object):
         with SCPClient(client.get_transport()) as scp:
             scp.put(files, remote_path, recursive)
 
+    def get(self, remote_path, local_path='/tmp/', recursive=True):
+        client = self._get_client()
+
+        with SCPClient(client.get_transport()) as scp:
+            scp.get(remote_path, local_path, recursive)
+
     # keep shell running in the background, e.g. screen
     def send_command(self, command):
         client = self._get_client()
