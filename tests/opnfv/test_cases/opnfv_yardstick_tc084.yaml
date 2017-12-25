@@ -1,0 +1,67 @@
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+
+schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC084 config file;
+    Measure CPU performance using SPEC CPU2006 in Virtual machines;
+
+{% set provider = provider or none %}
+{% set physical_network = physical_network or 'physnet1' %}
+{% set segmentation_id = segmentation_id or none %}
+
+{% set benchmark = benchmark or 'int' %}
+{% set runspec_iterations = runspec_iterations or 1 %}
+{% set runspec_tune = runspec_tune or 'base' %}
+{% set runspec_size = runspec_size or 'ref' %}
+{% set runspec_rate = runspec_rate or 1 %}
+
+scenarios:
+-
+  type: SpecCPU2006_for_VM
+
+  options:
+      SPECint_benchmark: {{benchmark}}
+      runspec_iterations: {{runspec_iterations}}
+      runspec_tune: {{runspec_tune}}
+      runspec_size: {{runspec_size}}
+      runspec_rate: {{runspec_rate}}
+
+  host: spec.yardstick-TC084
+
+  runner:
+    type: Iteration
+    iterations: 1
+
+context:
+  name: yardstick-TC084
+  image: yardstick-image
+  flavor: yardstick-flavor
+  user: ubuntu
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    spec:
+      floating_ip: true
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+      {% if provider == "vlan" %}
+      provider: {{provider}}
+      physical_network: {{physical_network}}
+        {% if segmentation_id %}
+      segmentation_id: {{segmentation_id}}
+        {% endif %}
+      {% endif %}
