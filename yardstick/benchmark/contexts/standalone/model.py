@@ -212,9 +212,8 @@ class Libvirt(object):
         mac.set('address', vf_mac)
 
         source = ET.SubElement(interface, 'source')
-        addr = ET.SubElement(source, 'address')
         pci_address = PciAddress(vf_pci.strip())
-        cls._add_interface_address(addr, pci_address)
+        cls._add_interface_address(source, pci_address)
 
         pci_vm_address = PciAddress(vm_pci.strip())
         cls._add_interface_address(interface, pci_vm_address)
