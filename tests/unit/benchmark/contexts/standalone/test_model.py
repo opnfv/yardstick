@@ -134,9 +134,9 @@ class ModelLibvirtTestCase(unittest.TestCase):
                 as mock_parse:
             xml = copy.deepcopy(self.xml)
             mock_parse.return_value = xml
-            vf_pci = '0001:05:04.2'
+            vm_pci = '0001:05:04.2'
             model.Libvirt.add_sriov_interfaces(
-                self.pci_address_str, vf_pci, self.mac, xml_input)
+                vm_pci, self.pci_address_str, self.mac, xml_input)
             mock_parse.assert_called_once_with(xml_input)
             self.mock_write_xml.assert_called_once_with(xml_input)
             interface = xml.find('devices').find('interface')
@@ -145,8 +145,29 @@ class ModelLibvirtTestCase(unittest.TestCase):
             mac = interface.find('mac')
             self.assertEqual(self.mac, mac.get('address'))
             source = interface.find('source')
+            source_address = source.find('address')
             self.assertIsNotNone(source.find('address'))
-            self.assertIsNotNone(interface.find('address'))
+
+            self.assertEqual('pci', source_address.get('type'))
+            self.assertEqual('0x' + self.pci_address_str.split(':')[0],
+                             source_address.get('domain'))
+            self.assertEqual('0x' + self.pci_address_str.split(':')[1],
+                             source_address.get('bus'))
+            self.assertEqual('0x' + self.pci_address_str.split(':')[2].split('.')[0],
+                             source_address.get('slot'))
+            self.assertEqual('0x' + self.pci_address_str.split(':')[2].split('.')[1],
+                             source_address.get('function'))
+
+            interface_address = interface.find('address')
+            self.assertEqual('pci', interface_address.get('type'))
+            self.assertEqual('0x' + vm_pci.split(':')[0],
+                             interface_address.get('domain'))
+            self.assertEqual('0x' + vm_pci.split(':')[1],
+                             interface_address.get('bus'))
+            self.assertEqual('0x' + vm_pci.split(':')[2].split('.')[0],
+                             interface_address.get('slot'))
+            self.assertEqual('0x' + vm_pci.split(':')[2].split('.')[1],
+                             interface_address.get('function'))
 
     def test_create_snapshot_qemu(self):
         result = "/var/lib/libvirt/images/0.qcow2"
