@@ -69,6 +69,7 @@ disable=
  consider-merging-isinstance,
  consider-using-ternary,
  duplicate-code,
+ inconsistent-return-statements,
  interface-not-implemented,
  no-else-return,
  no-self-use,
