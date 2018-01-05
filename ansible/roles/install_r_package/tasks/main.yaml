@@ -1,0 +1,27 @@
+---
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+- name: add CRAN apt key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: E298A3A825C0D65DFD57CBB651716619E084DAB9
+  become: true
+
+- name: add CRAN apt repository
+  apt_repository:
+     repo: 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial/'
+     codename: 'xenial'
+  become: true
+
+- name: install R package
+  apt:
+    name: r-base
+    update_cache: yes
+  become: true
