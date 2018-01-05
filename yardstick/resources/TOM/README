@@ -1,0 +1,27 @@
+# TOM: Machine Learning-Based Test Results Analysis
+This folder is created for TOM, a performance dataset processing tool, by Alassane Samba <alassane.samba@orange.com>
+see https://wiki.opnfv.org/display/testing/R+post-processing+of+the+Yardstick+results
+
+## deploy the TOM API server
+Rscript tomRun.R
+
+## load file
+curl <your_local_ip>:8000/read?file=~/TOM/examples/test_opnfv_yardstick_tc012.csv
+
+## analyze
+curl <your_local_ip>:8000/analyze?input=deploy_scenario:version:pod_name:runner_id&output=bandwidth.MBps.
+
+## view bivariate correlation between the inputs and the output
+curl <your_local_ip>:8000/correlation
+
+## view the analysis results in terms of output explaination rate obtained by combining inputs
+curl <your_local_ip>:8000/explain
+
+## view the corresponding graphic
+curl <your_local_ip>:8000/explainGraph > explainGraph.png
+
+## compare different PODs (boxplots)
+curl <your_local_ip>:8000/comparGraph?input=pod_name&output=bandwidth.MBps.&limit=10 > comparGraph.png
+
+## compare different configurations described by pod_name and deploy_scenario (boxplots)
+curl <your_local_ip>:8000/comparGraph?input=pod_name:deploy_scenario&output=bandwidth.MBps.&limit=20 > comparGraph2.png
