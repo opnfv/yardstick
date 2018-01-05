@@ -1,0 +1,20 @@
+---
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+- name: install R package
+  shell:
+    # The Ubuntu archives on CRAN are signed with the key of
+    # "Michael Rutter marutter@gmail.com" with key ID E084DAB9.
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+    # For trusty
+    sh -c 'echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list'
+    apt-get update
+    apt-get -y install r-base
+  become: true
