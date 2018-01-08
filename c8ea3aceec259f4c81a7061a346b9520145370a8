@@ -1,0 +1,371 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_148f412b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "Add an extra paragraph adding a longer description --\u003e\n\nAdd guide for installing OpenStack with APEX\n\nAdded a guide to install OpenStack with APEX OPNFV installer [1].\nThis guide is not a reference manual but just a helper for developers\nwhen using OpenStack.\n\n[1] https://wiki.opnfv.org/display/apex/Apex\n\nJIRA: YARDSTICK-914\n\nChange-Id: I99d222b0c0dc2a4ac8f7a2fbb8de6938eccd5c50\nSigned-off-by: John O Loughlin \u003cjohn.oloughlin@intel.com\u003e",
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3491a547",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "Add the TM\n\n.. This work is licensed under a Creative Commons Attribution 4.0 International\n.. License.\n.. http://creativecommons.org/licenses/by/4.0\n.. (c) OPNFV, Ericsson AB, Huawei Technologies Co.,Ltd, Intel and others.",
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1496213f",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "You need to add a title:\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nEnvironment deployment\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 12
+      },
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d4703942",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "Remove this. The line should be aligned to the previous one.",
+      "range": {
+        "startLine": 2,
+        "startChar": 12,
+        "endLine": 2,
+        "endChar": 13
+      },
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f4aa9d6f",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "This should be configurable.",
+      "range": {
+        "startLine": 3,
+        "startChar": 60,
+        "endLine": 3,
+        "endChar": 92
+      },
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_549c295d",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "installation",
+      "range": {
+        "startLine": 3,
+        "startChar": 20,
+        "endLine": 3,
+        "endChar": 31
+      },
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_94a19196",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "CentOS 7",
+      "range": {
+        "startLine": 3,
+        "startChar": 52,
+        "endLine": 3,
+        "endChar": 59
+      },
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7497ad3a",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "This is one of the first installation methods.\n\nAdd a generic introduction.\n\nThen, rename this section to \"Install OpenStack with APEX\"",
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b4a495a6",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "APEX",
+      "range": {
+        "startLine": 3,
+        "startChar": 42,
+        "endLine": 3,
+        "endChar": 46
+      },
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_34b885c7",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "You should separate the code section, like this --\u003e\n\nThe following should be set on the host::\n    (empty line)\n    http_proxy\u003dhttp://proxy.com:123\n    https_proxy\u003dhttps://proxy.com:123\n\n ^ 4 chars, not tab",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 33
+      },
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d4a799a5",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "You don\u0027t need to put this if you define the proxy like this:\n\nhttp_proxy\u003d\"http://\u003cproxy_address\u003e:\u003cproxy_port\u003e\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_14bd81b7",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "``/etc/enviroment``",
+      "range": {
+        "startLine": 8,
+        "startChar": 43,
+        "endLine": 8,
+        "endChar": 59
+      },
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_74ae8d82",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "Use references:\n\nInformation about apex can be found at `APEX installation instructions`_\n\nThen you need to add at the end of the document a section:\n\nReferences\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\n.. _`APEX installation instructions`: http://artifacts.opnfv.org/apex/docs/installation-instructions/architecture.html",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 119
+      },
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_54b389e8",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b4cbf551",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "alignment",
+      "range": {
+        "startLine": 13,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 6
+      },
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_94c87156",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "Add an empty line",
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f473bd4b",
+        "filename": "docs/testing/developer/devguide/index.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:59:17Z",
+      "side": 1,
+      "message": "env-deployment\n\nThis is going to be a manual, with new future sections, to deploy the environment quickly to develop.",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "c8ea3aceec259f4c81a7061a346b9520145370a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
