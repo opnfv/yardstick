@@ -22,6 +22,76 @@
       "revId": "0c254fc02b36c5a2112f00f03ead6622cba80702",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d499597a",
+        "filename": "tests/unit/benchmark/scenarios/availability/test_util.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:35:19Z",
+      "side": 1,
+      "message": "I agree!",
+      "parentUuid": "9a3d3df0_54aee998",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 73
+      },
+      "revId": "0c254fc02b36c5a2112f00f03ead6622cba80702",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9493515a",
+        "filename": "tests/unit/benchmark/scenarios/availability/test_util.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:35:19Z",
+      "side": 1,
+      "message": "It\u0027s ok (because we have a regex to skip this).\n\nBut is better using \"_\" (underscore)\n\nhttps://hackernoon.com/understanding-the-underscore-of-python-309d1a029edc",
+      "range": {
+        "startLine": 44,
+        "startChar": 18,
+        "endLine": 44,
+        "endChar": 30
+      },
+      "revId": "0c254fc02b36c5a2112f00f03ead6622cba80702",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f49c5d6c",
+        "filename": "tests/unit/benchmark/scenarios/availability/test_util.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-08T17:35:19Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 50,
+        "startChar": 18,
+        "endLine": 50,
+        "endChar": 30
+      },
+      "revId": "0c254fc02b36c5a2112f00f03ead6622cba80702",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
