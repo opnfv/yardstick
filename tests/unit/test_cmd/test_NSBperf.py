@@ -27,7 +27,8 @@ from yardstick.cmd import NSBperf
 
 @mock.patch('six.moves.input', return_value='0')
 class TestHandler(unittest.TestCase):
-    def test_handler(self, test):
+
+    def test_handler(self, *args):
         subprocess.call = mock.Mock(return_value=0)
         self.assertRaises(SystemExit, NSBperf.sigint_handler)
 
