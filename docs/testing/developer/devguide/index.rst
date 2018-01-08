@@ -13,4 +13,5 @@ Yardstick Developer Guide
    :maxdepth: 4
    :numbered:
 
-   devguide
+   devguide-01
+   devguide-02
