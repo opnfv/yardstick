@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_54aee998",
+        "filename": "tests/unit/benchmark/scenarios/availability/test_util.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-08T17:32:35Z",
+      "side": 1,
+      "message": "This should be done in the setup function.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 73
+      },
+      "revId": "0c254fc02b36c5a2112f00f03ead6622cba80702",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
