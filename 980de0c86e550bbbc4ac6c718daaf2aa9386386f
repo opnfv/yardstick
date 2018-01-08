@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_945cf14c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-08T22:56:03Z",
+      "side": 1,
+      "message": "nested for loop\n\nequivalent to:\n \n for procs in cpu_topology[socket].values():\n   for proc in procs:\n       yield proc\n\nThe first \u0027proc\u0027 indicates that we are yielding proc.\n\n\nmaybe we could use itertools.chain()",
+      "parentUuid": "9a3d3df0_ef55d1fa",
+      "range": {
+        "startLine": 66,
+        "startChar": 74,
+        "endLine": 66,
+        "endChar": 91
+      },
+      "revId": "980de0c86e550bbbc4ac6c718daaf2aa9386386f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_4f2f9d88",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
         "patchSetId": 1
