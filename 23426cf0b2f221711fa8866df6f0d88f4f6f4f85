@@ -25,6 +25,98 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_0d6574b4",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-09T13:56:20Z",
+      "side": 1,
+      "message": "~/apex-rpms",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 15
+      },
+      "revId": "23426cf0b2f221711fa8866df6f0d88f4f6f4f85",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6d56c0cf",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-09T13:56:20Z",
+      "side": 1,
+      "message": "~/apex-rpms",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 36,
+        "endChar": 12
+      },
+      "revId": "23426cf0b2f221711fa8866df6f0d88f4f6f4f85",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4d5bfcf5",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-09T13:56:20Z",
+      "side": 1,
+      "message": "~/apex",
+      "range": {
+        "startLine": 58,
+        "startChar": 3,
+        "endLine": 58,
+        "endChar": 7
+      },
+      "revId": "23426cf0b2f221711fa8866df6f0d88f4f6f4f85",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ad73a87e",
+        "filename": "docs/testing/developer/devguide/02-devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-09T13:56:20Z",
+      "side": 1,
+      "message": "only needed if behind proxy",
+      "range": {
+        "startLine": 62,
+        "startChar": 1,
+        "endLine": 78,
+        "endChar": 0
+      },
+      "revId": "23426cf0b2f221711fa8866df6f0d88f4f6f4f85",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_0d3e148c",
         "filename": "docs/testing/developer/devguide/index.rst",
         "patchSetId": 4
