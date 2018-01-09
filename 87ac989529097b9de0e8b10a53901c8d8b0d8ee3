@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ead8f61f",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc084.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-09T10:06:55Z",
+      "side": 1,
+      "message": "Sorry, I missed this before...\n\"VM images\"",
+      "range": {
+        "startLine": 96,
+        "startChar": 35,
+        "endLine": 96,
+        "endChar": 37
+      },
+      "revId": "87ac989529097b9de0e8b10a53901c8d8b0d8ee3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cad532e6",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc084.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-09T10:06:55Z",
+      "side": 1,
+      "message": "VM images",
+      "range": {
+        "startLine": 98,
+        "startChar": 43,
+        "endLine": 98,
+        "endChar": 54
+      },
+      "revId": "87ac989529097b9de0e8b10a53901c8d8b0d8ee3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
