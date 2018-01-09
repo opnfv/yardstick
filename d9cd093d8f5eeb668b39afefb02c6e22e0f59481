@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_6a8186c2",
+        "filename": "ansible/roles/create_storperf_admin_rc/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-09T10:44:38Z",
+      "side": 1,
+      "message": "What is used in this case instead of TENANT_ID?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 3
+      },
+      "revId": "d9cd093d8f5eeb668b39afefb02c6e22e0f59481",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4a8642dc",
+        "filename": "gui/app/scripts/controllers/main.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-09T10:44:38Z",
+      "side": 1,
+      "message": "Looks like OS_PROJECT_NAME wasn\u0027t used previously, what depends on these setting that might be affected?",
+      "range": {
+        "startLine": 110,
+        "startChar": 25,
+        "endLine": 110,
+        "endChar": 41
+      },
+      "revId": "d9cd093d8f5eeb668b39afefb02c6e22e0f59481",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
