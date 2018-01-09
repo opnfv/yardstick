@@ -22,6 +22,30 @@
       "revId": "dd19046bb90a9b6de6b7afeea9cf749358172ed2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6d97e03a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-09T15:06:10Z",
+      "side": 1,
+      "message": "threads is actual processor number, cpu number.\n\n cpu_topology[socket].values() \u003d\u003d \n [{0: (0, 0, 0), 4: (4, 0, 0)},\n {1: (1, 1, 0), 5: (5, 1, 0)},\n {2: (2, 2, 0), 6: (6, 2, 0)},\n {3: (3, 3, 0), 7: (7, 3, 0)}]\n\na list of dicts with processor as key\n\n\nthen we have to flatten all the keys to generate threads.",
+      "parentUuid": "9a3d3df0_2a077ecb",
+      "range": {
+        "startLine": 68,
+        "startChar": 20,
+        "endLine": 68,
+        "endChar": 85
+      },
+      "revId": "dd19046bb90a9b6de6b7afeea9cf749358172ed2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
