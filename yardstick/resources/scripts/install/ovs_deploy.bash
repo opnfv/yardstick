@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set -e
+
 INSTALL_OVS_BIN="/usr/src"
 cd $INSTALL_OVS_BIN
 
@@ -21,20 +23,6 @@ if [[ $EUID -ne 0 ]]; then
   echo "Must be root to run $0"
   exit 1;
 fi
-
-prerequisite()
-{
-  echo "Install required libraries to run collectd..."
-  pkg=(git flex bison build-essential pkg-config automake autotools-dev libltdl-dev cmake qemu-kvm libvirt-bin bridge-utils numactl libnuma-dev libpcap-dev)
-  for i in "${pkg[@]}"; do
-  dpkg-query -W --showformat='${Status}\n' "${i}"|grep "install ok installed"
-  if [  "$?" -eq "1" ]; then
-    apt-get update
-    apt-get -y install "${i}";
-  fi
-  done
-  echo "Done"
-}
 
 download_zip()
 {
@@ -53,6 +41,7 @@ download_zip()
 
 dpdk_build()
 {
+  echo "Building and installing DPDK libraries"
   pushd .
   if [[ $DPDK_VERSION != "" ]]; then
     export DPDK_DIR=$INSTALL_OVS_BIN/dpdk-stable-$DPDK_VERSION
@@ -62,13 +51,16 @@ dpdk_build()
     DPDK_DOWNLOAD="http://fast.dpdk.org/rel/dpdk-$DPDK_VERSION.tar.xz"
     download_zip "${DPDK_DOWNLOAD}" "DPDK"
     cd dpdk-stable-"$DPDK_VERSION"
-    make install -j T=$RTE_TARGET
+    make config T=$RTE_TARGET
+    make install -j $(nproc) T=$RTE_TARGET
   fi
   popd
+  echo "Done building and installing DPDK libraries"
 }
 
 ovs()
 {
+  echo "Building and installing OVS with DPDK"
   pushd .
   if [[ $OVS_VERSION != "" ]]; then
     rm -rf openswitch-"$OVS_VERSION"
@@ -82,9 +74,10 @@ ovs()
     else
       ./configure
     fi
-    make install -j
+    make install -j $(nproc)
   fi
   popd
+  echo "Done building and installing OVS with DPDK"
 }
 
 main()
