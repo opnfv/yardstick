@@ -15,12 +15,11 @@
 # limitations under the License.
 #
 
-from __future__ import absolute_import
+from multiprocessing import Queue
+import multiprocessing
 
 import unittest
 import mock
-from multiprocessing import Queue
-import multiprocessing
 
 from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from tests.unit import STL_MOCKS
@@ -282,8 +281,7 @@ class TestPingTrafficGen(unittest.TestCase):
         self.assertEqual(self.CMD_KWARGS, ping_traffic_gen.resource_helper.cmd_kwargs)
         self.assertIsNotNone(ping_traffic_gen._result)
 
-    @mock.patch("yardstick.ssh.SSH")
-    def test_listen_traffic(self, *args):
+    def test_listen_traffic(self):
         ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0)
         self.assertIsNone(ping_traffic_gen.listen_traffic({}))
 

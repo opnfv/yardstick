@@ -9,18 +9,12 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.scenarios.availability.serviceha
-
-from __future__ import absolute_import
 import mock
 import unittest
 
 from yardstick.benchmark.scenarios.availability import serviceha
 
 
-@mock.patch('yardstick.benchmark.scenarios.availability.serviceha.basemonitor')
-@mock.patch(
-    'yardstick.benchmark.scenarios.availability.serviceha.baseattacker')
 class ServicehaTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -51,7 +45,10 @@ class ServicehaTestCase(unittest.TestCase):
         sla = {"outage_time": 5}
         self.args = {"options": options, "sla": sla}
 
-    def test__serviceha_setup_run_successful(self, mock_attacker,
+    @mock.patch('yardstick.benchmark.scenarios.availability.serviceha.basemonitor')
+    @mock.patch(
+        'yardstick.benchmark.scenarios.availability.serviceha.baseattacker')
+    def test__serviceha_setup_run_successful(self, _,
                                              mock_monitor):
         p = serviceha.ServiceHA(self.args, self.ctx)
 
@@ -61,17 +58,20 @@ class ServicehaTestCase(unittest.TestCase):
         ret = {}
         p.run(ret)
         p.teardown()
-"""
-    def test__serviceha_run_sla_error(self, mock_attacker, mock_monitor):
-        p = serviceha.ServiceHA(self.args, self.ctx)
 
         p.setup()
         self.assertEqual(p.setup_done, True)
 
-        result = {}
-        result["outage_time"] = 10
-        mock_monitor.Monitor().get_result.return_value = result
+    # NOTE(elfoley): This tests needs to be finished
+#     def test__serviceha_run_sla_error(self, mock_attacker, mock_monitor):
+#         p = serviceha.ServiceHA(self.args, self.ctx)
 
-        ret = {}
-        self.assertRaises(AssertionError, p.run, ret)
-"""
+#         p.setup()
+#         self.assertTrue(p.setup_done)
+#
+#         result = {}
+#         result["outage_time"] = 10
+#         mock_monitor.Monitor().get_result.return_value = result
+
+#         ret = {}
+#         self.assertRaises(AssertionError, p.run, ret)
