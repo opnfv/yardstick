@@ -63,3 +63,29 @@ class HeatTemplateError(YardstickException):
     """Error in Heat during the stack deployment"""
     message = ('Error in Heat during the creation of the OpenStack stack '
                '"%(stack_name)"')
+
+
+class OVSUnsupportedVersion(YardstickException):
+    message = ('Unsupported ovs "%(ovs_version)". Please check the config. '
+               'OVS to DPDK version map: %(ovs_to_dpdk_map).')
+
+
+class OVSHugepagesInfoError(YardstickException):
+    message = 'MemInfo cannnot be retrieved.'
+
+
+class OVSHugepagesNotConfigured(YardstickException):
+    message = 'HugePages are not configured in this system.'
+
+
+class OVSHugepagesZeroFree(YardstickException):
+    message = ('There are no HugePages free in this system. Total HugePages '
+               'configured: %(total_hugepages)s')
+
+
+class OVSDeployError(YardstickException):
+    message = 'OVS deploy tool failed with error: %(stderr)s.'
+
+
+class OVSSetupError(YardstickException):
+    message = 'OVS setup error. Command: %(command)s. Error: %(error)s.'
