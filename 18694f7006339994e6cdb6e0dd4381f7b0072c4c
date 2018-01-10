@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_f9b60e3d",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-10T18:56:00Z",
+      "side": 1,
+      "message": "we need to reduce Docker layers to reduce container size, can we combine all the pip installs or make a new file docker-requirements.txt?\n\n\n RUN pip install appdirs\u003d\u003d1.4.0 pyopenssl\u003d\u003d17.5.0 \n\nor\n\n RUN pip install -r docker-requirements.txt",
+      "revId": "18694f7006339994e6cdb6e0dd4381f7b0072c4c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
