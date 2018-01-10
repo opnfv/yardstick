@@ -16,13 +16,14 @@ import unittest
 
 from yardstick.benchmark.scenarios.availability import util
 
+
 class ExecuteShellTestCase(unittest.TestCase):
 
     def setUp(self):
         self.param_config = {'serviceName': '@serviceName', 'value': 1}
         self.intermediate_variables = {'@serviceName': 'nova-api'}
         self.std_output = '| id       | 1                     |'
-        self.cmd_config = {'cmd':'ls', 'param':'-a'}
+        self.cmd_config = {'cmd': 'ls', 'param': '-a'}
 
         self._mock_subprocess = mock.patch.object(util, 'subprocess')
         self.mock_subprocess = self._mock_subprocess.start()
