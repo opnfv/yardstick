@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_43df4d0d",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-10T09:38:59Z",
+      "side": 1,
+      "message": "will correct",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 4
+      },
+      "revId": "1479eb42e8a05efd6b2c197ad8bdf9491374c06a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_23e4c9df",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-10T09:38:59Z",
+      "side": 1,
+      "message": "will correct",
+      "range": {
+        "startLine": 139,
+        "startChar": 20,
+        "endLine": 139,
+        "endChar": 21
+      },
+      "revId": "1479eb42e8a05efd6b2c197ad8bdf9491374c06a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_83e5d5dd",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-10T09:38:59Z",
+      "side": 1,
+      "message": "will correct",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 1
+      },
+      "revId": "1479eb42e8a05efd6b2c197ad8bdf9491374c06a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_63ea51ad",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-10T09:38:59Z",
+      "side": 1,
+      "message": "instructions",
+      "range": {
+        "startLine": 168,
+        "startChar": 23,
+        "endLine": 168,
+        "endChar": 34
+      },
+      "revId": "1479eb42e8a05efd6b2c197ad8bdf9491374c06a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
