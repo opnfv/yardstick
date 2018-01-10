@@ -19,6 +19,7 @@ import mock
 
 from yardstick.benchmark.scenarios.networking import nstat
 
+
 @mock.patch('yardstick.benchmark.scenarios.networking.nstat.ssh')
 class NstatTestCase(unittest.TestCase):
 
@@ -51,17 +52,17 @@ class NstatTestCase(unittest.TestCase):
         n = nstat.Nstat(args, self.ctx)
         result = {}
 
-        sample_output = '#kernel\nIpInReceives                    1837               0.0\nIpInHdrErrors                   0                  0.0\nIpInAddrErrors                  2                  0.0\nIcmpInMsgs                      319                  0.0\nIcmpInErrors                    0                0.0\nTcpInSegs                       36               0.0\nTcpInErrs                       0                  0.0\nUdpInDatagrams                  1318                  0.0\nUdpInErrors                     0                  0.0\n'
+        sample_output = '#kernel\nIpInReceives                    1837               0.0\nIpInHdrErrors                   0                  0.0\nIpInAddrErrors                  2                  0.0\nIcmpInMsgs                      319                  0.0\nIcmpInErrors                    0                0.0\nTcpInSegs                       36               0.0\nTcpInErrs                       0                  0.0\nUdpInDatagrams                  1318                  0.0\nUdpInErrors                     0                  0.0\n'  # pylint: disable=line-too-long
 
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         n.run(result)
         expected_result = {"TcpInErrs": 0, "UdpInDatagrams": 1318,
-            "Tcp_segment_error_rate": 0.0, "IpInAddrErrors": 2,
-            "IpInHdrErrors": 0, "IcmpInErrors": 0, "IpErrors": 2,
-            "TcpInSegs": 36, "IpInReceives": 1837, "IcmpInMsgs": 319,
-            "IP_datagram_error_rate": 0.001, "Udp_datagram_error_rate": 0.0,
-            "Icmp_message_error_rate": 0.0, "UdpInErrors": 0}
+                           "Tcp_segment_error_rate": 0.0, "IpInAddrErrors": 2,
+                           "IpInHdrErrors": 0, "IcmpInErrors": 0, "IpErrors": 2,
+                           "TcpInSegs": 36, "IpInReceives": 1837, "IcmpInMsgs": 319,
+                           "IP_datagram_error_rate": 0.001, "Udp_datagram_error_rate": 0.0,
+                           "Icmp_message_error_rate": 0.0, "UdpInErrors": 0}
         self.assertEqual(result, expected_result)
 
     def test_nstat_successful_sla(self, mock_ssh):
@@ -79,17 +80,17 @@ class NstatTestCase(unittest.TestCase):
         n = nstat.Nstat(args, self.ctx)
         result = {}
 
-        sample_output = '#kernel\nIpInReceives                    1837               0.0\nIpInHdrErrors                   0                  0.0\nIpInAddrErrors                  2                  0.0\nIcmpInMsgs                      319                  0.0\nIcmpInErrors                    0                0.0\nTcpInSegs                       36               0.0\nTcpInErrs                       0                  0.0\nUdpInDatagrams                  1318                  0.0\nUdpInErrors                     0                  0.0\n'
+        sample_output = '#kernel\nIpInReceives                    1837               0.0\nIpInHdrErrors                   0                  0.0\nIpInAddrErrors                  2                  0.0\nIcmpInMsgs                      319                  0.0\nIcmpInErrors                    0                0.0\nTcpInSegs                       36               0.0\nTcpInErrs                       0                  0.0\nUdpInDatagrams                  1318                  0.0\nUdpInErrors                     0                  0.0\n'  # pylint: disable=line-too-long
 
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
 
         n.run(result)
         expected_result = {"TcpInErrs": 0, "UdpInDatagrams": 1318,
-            "Tcp_segment_error_rate": 0.0, "IpInAddrErrors": 2,
-            "IpInHdrErrors": 0, "IcmpInErrors": 0, "IpErrors": 2,
-            "TcpInSegs": 36, "IpInReceives": 1837, "IcmpInMsgs": 319,
-            "IP_datagram_error_rate": 0.001, "Udp_datagram_error_rate": 0.0,
-            "Icmp_message_error_rate": 0.0, "UdpInErrors": 0}
+                           "Tcp_segment_error_rate": 0.0, "IpInAddrErrors": 2,
+                           "IpInHdrErrors": 0, "IcmpInErrors": 0, "IpErrors": 2,
+                           "TcpInSegs": 36, "IpInReceives": 1837, "IcmpInMsgs": 319,
+                           "IP_datagram_error_rate": 0.001, "Udp_datagram_error_rate": 0.0,
+                           "Icmp_message_error_rate": 0.0, "UdpInErrors": 0}
         self.assertEqual(result, expected_result)
 
     def test_nstat_unsuccessful_cmd_error(self, mock_ssh):
@@ -113,6 +114,7 @@ class NstatTestCase(unittest.TestCase):
 
 def main():
     unittest.main()
+
 
 if __name__ == '__main__':
     main()
