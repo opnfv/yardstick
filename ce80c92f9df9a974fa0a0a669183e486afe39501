@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_5e472077",
+        "filename": "yardstick/tests/unit/common/test_httpClient.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-10T17:43:28Z",
+      "side": 1,
+      "message": "This is addressed here: https://gerrit.opnfv.org/gerrit/#/c/47677/ but this will have to wait to merge until after all the test moving is done",
+      "parentUuid": "9a3d3df0_d35eb975",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 10
+      },
+      "revId": "ce80c92f9df9a974fa0a0a669183e486afe39501",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f35bfd84",
         "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
         "patchSetId": 3
@@ -82,6 +106,30 @@
       "writtenOn": "2017-12-13T13:26:33Z",
       "side": 1,
       "message": "+1\n\nnit: sign your comments\n# NOTE(efoley):\n\nnit: use NOTE, instead of TODO because it will fail with pylint",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 73
+      },
+      "revId": "ce80c92f9df9a974fa0a0a669183e486afe39501",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fe55541e",
+        "filename": "yardstick/tests/unit/common/test_template_format.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-10T17:43:28Z",
+      "side": 1,
+      "message": "Actually, they won\u0027t fail. But we shouldn\u0027t encourage this behavior, I intended to log all these TODOs as Jira tickets as I was going through the reviews in gerrit. The TODO/NOTE serves as a placeholder for where the change needs to take place.",
+      "parentUuid": "9a3d3df0_d387d9d5",
       "range": {
         "startLine": 27,
         "startChar": 8,
