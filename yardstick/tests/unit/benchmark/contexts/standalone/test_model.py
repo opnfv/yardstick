@@ -18,7 +18,10 @@ import unittest
 import mock
 
 from xml.etree import ElementTree
+
+from yardstick import ssh
 from yardstick.benchmark.contexts.standalone import model
+from yardstick import constants
 from yardstick.network_services import utils
 
 
@@ -37,6 +40,7 @@ XML_SAMPLE_INTERFACE = """<?xml version="1.0"?>
     </devices>
 </domain>
 """
+
 
 class ModelLibvirtTestCase(unittest.TestCase):
 
@@ -398,43 +402,80 @@ class ServerTestCase(unittest.TestCase):
 
 class OvsDeployTestCase(unittest.TestCase):
 
-    NETWORKS = {
-        'mgmt': {'cidr': '152.16.100.10/24'},
-        'private_0': {
-            'phy_port': "0000:05:00.0",
-            'vpci': "0000:00:07.0",
-            'driver': 'i40e',
-            'mac': '',
-            'cidr': '152.16.100.10/24',
-            'gateway_ip': '152.16.100.20'},
-        'public_0': {
-            'phy_port': "0000:05:00.1",
-            'vpci': "0000:00:08.0",
-            'driver': 'i40e',
-            'mac': '',
-            'cidr': '152.16.40.10/24',
-            'gateway_ip': '152.16.100.20'}
-    }
+    OVS_DETAILS = {'version': {'ovs': 'ovs_version', 'dpdk': 'dpdk_version'}}
 
-    @mock.patch('yardstick.ssh.SSH')
-    def setUp(self, mock_ssh):
-        self.ovs_deploy = model.OvsDeploy(mock_ssh, '/tmp/dpdk-devbind.py', {})
+    def setUp(self):
+        self._mock_ssh = mock.patch.object(ssh, 'SSH')
+        self.mock_ssh = self._mock_ssh .start()
+        self.ovs_deploy = model.OvsDeploy(self.mock_ssh,
+                                          '/tmp/dpdk-devbind.py',
+                                          self.OVS_DETAILS)
+        self._mock_path_isfile = mock.patch.object(os.path, 'isfile')
+        self._mock_path_join = mock.patch.object(os.path, 'join')
+        self.mock_path_isfile = self._mock_path_isfile.start()
+        self.mock_path_join = self._mock_path_join.start()
 
-    def test___init__(self):
-        self.assertIsNotNone(self.ovs_deploy.connection)
+        self.addCleanup(self._stop_mock)
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.os')
-    def test_prerequisite(self, *args):
-        # NOTE(ralonsoh): this test should check mocked function calls.
-        self.ovs_deploy.helper = mock.Mock()
-        self.assertIsNone(self.ovs_deploy.prerequisite())
+    def _stop_mock(self):
+        self._mock_ssh.stop()
+        self._mock_path_isfile.stop()
+        self._mock_path_join.stop()
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.os')
-    def test_prerequisite_2(self, *args):
-        # NOTE(ralonsoh): this test should check mocked function calls. Rename
-        # this test properly.
-        self.ovs_deploy.helper = mock.Mock()
-        self.ovs_deploy.connection.execute = mock.Mock(
-            return_value=(1, '1.2.3.4 00:00:00:00:00:01', ''))
-        self.ovs_deploy.prerequisite = mock.Mock()
-        self.assertIsNone(self.ovs_deploy.ovs_deploy())
+    @mock.patch.object(model.StandaloneContextHelper, 'install_req_libs')
+    def test_prerequisite(self, mock_install_req_libs):
+        pkgs = ["git", "build-essential", "pkg-config", "automake",
+                "autotools-dev", "libltdl-dev", "cmake", "libnuma-dev",
+                "libpcap-dev"]
+        self.ovs_deploy.prerequisite()
+        mock_install_req_libs.assert_called_once_with(
+            self.ovs_deploy.connection, pkgs)
+
+    def test_ovs_deploy_no_file(self):
+        self.mock_path_isfile.return_value = False
+        mock_file = mock.Mock()
+        self.mock_path_join.return_value = mock_file
+
+        self.ovs_deploy.ovs_deploy()
+        self.mock_path_isfile.assert_called_once_with(mock_file)
+        self.mock_path_join.assert_called_once_with(
+            constants.YARDSTICK_ROOT_PATH,
+            'yardstick/resources/scripts/install/',
+            self.ovs_deploy.OVS_DEPLOY_SCRIPT)
+
+    @mock.patch.object(os.environ, 'get', return_value='test_proxy')
+    def test_ovs_deploy(self, mock_env_get):
+        self.mock_path_isfile.return_value = True
+        mock_deploy_file = mock.Mock()
+        mock_remove_ovs_deploy = mock.Mock()
+        self.mock_path_join.side_effect = [mock_deploy_file,
+                                           mock_remove_ovs_deploy]
+        dpdk_version = self.OVS_DETAILS['version']['dpdk']
+        ovs_version = self.OVS_DETAILS['version']['ovs']
+
+        with mock.patch.object(self.ovs_deploy.connection, 'put') as \
+                mock_put, \
+                mock.patch.object(self.ovs_deploy.connection, 'execute') as \
+                mock_execute, \
+                mock.patch.object(self.ovs_deploy, 'prerequisite'):
+            mock_execute.return_value = (0, 0, 0)
+            self.ovs_deploy.ovs_deploy()
+
+            self.mock_path_isfile.assert_called_once_with(mock_deploy_file)
+            self.mock_path_join.assert_has_calls([
+                mock.call(constants.YARDSTICK_ROOT_PATH,
+                          'yardstick/resources/scripts/install/',
+                          self.ovs_deploy.OVS_DEPLOY_SCRIPT),
+                mock.call(self.ovs_deploy.bin_path,
+                          self.ovs_deploy.OVS_DEPLOY_SCRIPT)
+            ])
+            mock_put.assert_called_once_with(mock_deploy_file,
+                                             mock_remove_ovs_deploy)
+            cmd = ("sudo -E %(remote_ovs_deploy)s --ovs='%(ovs_version)s' "
+                   "--dpdk='%(dpdk_version)s' -p='%(proxy)s'" %
+                   {'remote_ovs_deploy': mock_remove_ovs_deploy,
+                    'ovs_version': ovs_version,
+                    'dpdk_version': dpdk_version,
+                    'proxy': 'test_proxy'})
+            mock_execute.assert_called_once_with(cmd)
+            mock_env_get.assert_called_once_with('http_proxy', '')

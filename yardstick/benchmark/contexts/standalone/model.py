@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
 import os
 import re
 import time
@@ -25,7 +24,8 @@ from netaddr import IPNetwork
 import xml.etree.ElementTree as ET
 
 from yardstick import ssh
-from yardstick.common.constants import YARDSTICK_ROOT_PATH
+from yardstick.common import constants
+from yardstick.common import exceptions
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.utils import PciAddress
 from yardstick.network_services.helpers.cpu import CpuSysCores
@@ -374,7 +374,8 @@ class StandaloneContextHelper(object):
         except IOError as io_error:
             if io_error.errno != errno.ENOENT:
                 raise
-            self.file_path = os.path.join(YARDSTICK_ROOT_PATH, file_path)
+            self.file_path = os.path.join(constants.YARDSTICK_ROOT_PATH,
+                                          file_path)
             cfg = self.read_config_file()
 
         nodes.extend([node for node in cfg["nodes"] if str(node["role"]) != nfvi_role])
@@ -506,7 +507,7 @@ class OvsDeploy(object):
         StandaloneContextHelper.install_req_libs(self.connection, pkgs)
 
     def ovs_deploy(self):
-        ovs_deploy = os.path.join(YARDSTICK_ROOT_PATH,
+        ovs_deploy = os.path.join(constants.YARDSTICK_ROOT_PATH,
                                   "yardstick/resources/scripts/install/",
                                   self.OVS_DEPLOY_SCRIPT)
         if os.path.isfile(ovs_deploy):
@@ -522,4 +523,6 @@ class OvsDeploy(object):
 
             cmd = "sudo -E %s --ovs='%s' --dpdk='%s' -p='%s'" % (remote_ovs_deploy,
                                                                  ovs, dpdk, http_proxy)
-            self.connection.execute(cmd)
+            exit_status, _, stderr = self.connection.execute(cmd)
+            if exit_status:
+                raise exceptions.OVSDeployError(stderr=stderr)
