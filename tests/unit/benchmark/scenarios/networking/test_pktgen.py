@@ -632,9 +632,13 @@ class PktgenTestCase(unittest.TestCase):
 
     def test_pktgen_run_with_setup_done(self, mock_ssh):
         args = {
-            'options': {'packetsize': 60, 'number_of_ports': 10, 'duration': 20, 'multiqueue': True},
-            'sla': {'max_ppm': 1}
-        }
+            'options': {
+                'packetsize': 60,
+                'number_of_ports': 10,
+                'duration': 20,
+                'multiqueue': True},
+            'sla': {
+                'max_ppm': 1}}
         result = {}
         p = pktgen.Pktgen(args, self.ctx)
         p.server = mock_ssh.SSH.from_node()
@@ -659,9 +663,13 @@ class PktgenTestCase(unittest.TestCase):
 
     def test_pktgen_run_with_ovs_multiqueque(self, mock_ssh):
         args = {
-            'options': {'packetsize': 60, 'number_of_ports': 10, 'duration': 20, 'multiqueue': True},
-            'sla': {'max_ppm': 1}
-        }
+            'options': {
+                'packetsize': 60,
+                'number_of_ports': 10,
+                'duration': 20,
+                'multiqueue': True},
+            'sla': {
+                'max_ppm': 1}}
         result = {}
 
         p = pktgen.Pktgen(args, self.ctx)
@@ -683,7 +691,7 @@ class PktgenTestCase(unittest.TestCase):
 
         mock_result3 = mock.Mock()
         mock_result3.return_value = 4
-        p._enable_ovs_multiqueue  = mock_result3
+        p._enable_ovs_multiqueue = mock_result3
 
         mock_result4 = mock.Mock()
         p._setup_irqmapping_ovs = mock_result4
@@ -704,9 +712,13 @@ class PktgenTestCase(unittest.TestCase):
 
     def test_pktgen_run_with_sriov_multiqueque(self, mock_ssh):
         args = {
-            'options': {'packetsize': 60, 'number_of_ports': 10, 'duration': 20, 'multiqueue': True},
-            'sla': {'max_ppm': 1}
-        }
+            'options': {
+                'packetsize': 60,
+                'number_of_ports': 10,
+                'duration': 20,
+                'multiqueue': True},
+            'sla': {
+                'max_ppm': 1}}
         result = {}
 
         p = pktgen.Pktgen(args, self.ctx)
@@ -739,8 +751,10 @@ class PktgenTestCase(unittest.TestCase):
         expected_result["packetsize"] = 60
         self.assertEqual(result, expected_result)
 
+
 def main():
     unittest.main()
+
 
 if __name__ == '__main__':
     main()

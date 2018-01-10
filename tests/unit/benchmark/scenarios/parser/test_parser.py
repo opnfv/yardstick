@@ -45,7 +45,7 @@ class ParserTestCase(unittest.TestCase):
         sample_output = '{"yangtotosca": "success"}'
 
         p.run(result)
-        expected_result = jsonutils.loads(sample_output)
+        expected_result = jsonutils.loads(sample_output)  # pylint: disable=unused-variable
 
     def test_parser_teardown_successful(self, mock_subprocess):
 
