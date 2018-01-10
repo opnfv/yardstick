@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_bede2c6b",
+        "filename": "tests/unit/benchmark/scenarios/parser/test_parser.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-10T14:41:03Z",
+      "side": 1,
+      "message": "ditto, not in PS2",
+      "parentUuid": "9a3d3df0_5628f633",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 69
+      },
+      "revId": "1cf65182ecce91e39abe31823069c7c9dfd8ce6b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_361452f4",
         "filename": "tests/unit/benchmark/scenarios/parser/test_parser.py",
         "patchSetId": 1
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "I wasn\u0027t even paying attention to names vs tested methods. \n\nI completely agree with this, and will update it.",
       "parentUuid": "9a3d3df0_361452f4",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 36
+      },
+      "revId": "1cf65182ecce91e39abe31823069c7c9dfd8ce6b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5ef600fa",
+        "filename": "tests/unit/benchmark/scenarios/parser/test_parser.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-10T14:41:03Z",
+      "side": 1,
+      "message": "The same comment, not done in PS2",
+      "parentUuid": "9a3d3df0_b6d7c2ec",
       "range": {
         "startLine": 30,
         "startChar": 8,
