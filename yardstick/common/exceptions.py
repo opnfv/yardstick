@@ -112,3 +112,29 @@ class ScenarioCreateSubnetError(YardstickException):
 
 class ScenarioDeleteRouterError(YardstickException):
     message = 'Delete Neutron Router Scenario failed'
+
+
+class OVSUnsupportedVersion(YardstickException):
+    message = ('Unsupported OVS version "%(ovs_version)s". Please check the '
+               'config. OVS to DPDK version map: %(ovs_to_dpdk_map)s.')
+
+
+class OVSHugepagesInfoError(YardstickException):
+    message = 'MemInfo cannnot be retrieved.'
+
+
+class OVSHugepagesNotConfigured(YardstickException):
+    message = 'HugePages are not configured in this system.'
+
+
+class OVSHugepagesZeroFree(YardstickException):
+    message = ('There are no HugePages free in this system. Total HugePages '
+               'configured: %(total_hugepages)s')
+
+
+class OVSDeployError(YardstickException):
+    message = 'OVS deploy tool failed with error: %(stderr)s.'
+
+
+class OVSSetupError(YardstickException):
+    message = 'OVS setup error. Command: %(command)s. Error: %(error)s.'

@@ -12,12 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import io
 import os
 
 import mock
+import six
 import unittest
 
+from yardstick.benchmark.contexts.standalone import model
 from yardstick.benchmark.contexts.standalone import ovs_dpdk
+from yardstick.common import exceptions
+from yardstick.network_services import utils
 
 
 class OvsDpdkContextTestCase(unittest.TestCase):
@@ -129,34 +134,45 @@ class OvsDpdkContextTestCase(unittest.TestCase):
        self.ovs_dpdk.wait_for_vswitchd = 0
        self.assertIsNone(self.ovs_dpdk.cleanup_ovs_dpdk_env())
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.OvsDeploy')
-    def test_check_ovs_dpdk_env(self, mock_ovs):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(1, "a", ""))
-            ssh.return_value = ssh_mock
-            self.ovs_dpdk.connection = ssh_mock
-            self.ovs_dpdk.networks = self.NETWORKS
-            self.ovs_dpdk.ovs_properties = {
-                'version': {'ovs': '2.7.0', 'dpdk': '16.11.1'}
-            }
-            self.ovs_dpdk.wait_for_vswitchd = 0
-            self.ovs_dpdk.cleanup_ovs_dpdk_env = mock.Mock()
-            self.assertIsNone(self.ovs_dpdk.check_ovs_dpdk_env())
-            self.ovs_dpdk.ovs_properties = {
-                'version': {'ovs': '2.0.0'}
-            }
-            self.ovs_dpdk.wait_for_vswitchd = 0
-            self.cleanup_ovs_dpdk_env = mock.Mock()
-            mock_ovs.deploy = mock.Mock()
-            # NOTE(elfoley): Check for a specific Exception
-            self.assertRaises(Exception, self.ovs_dpdk.check_ovs_dpdk_env)
+    @mock.patch.object(ovs_dpdk.OvsDpdkContext, '_check_hugepages')
+    @mock.patch.object(utils, 'get_nsb_option')
+    @mock.patch.object(model.OvsDeploy, 'ovs_deploy')
+    def test_check_ovs_dpdk_env(self, mock_ovs_deploy, mock_get_nsb_option,
+                                mock_check_hugepages):
+        self.ovs_dpdk.connection = mock.Mock()
+        self.ovs_dpdk.connection.execute = mock.Mock(
+            return_value=(1, 0, 0))
+        self.ovs_dpdk.networks = self.NETWORKS
+        self.ovs_dpdk.ovs_properties = {
+            'version': {'ovs': '2.7.0', 'dpdk': '16.11.1'}
+        }
+        self.ovs_dpdk.wait_for_vswitchd = 0
+        self.ovs_dpdk.cleanup_ovs_dpdk_env = mock.Mock()
+        mock_get_nsb_option.return_value = 'fake_path'
+
+        self.ovs_dpdk.check_ovs_dpdk_env()
+        mock_ovs_deploy.assert_called_once()
+        mock_check_hugepages.assert_called_once()
+        mock_get_nsb_option.assert_called_once_with('bin_path')
+
+    @mock.patch.object(ovs_dpdk.OvsDpdkContext, '_check_hugepages')
+    def test_check_ovs_dpdk_env_wrong_version(self, mock_check_hugepages):
+        self.ovs_dpdk.connection = mock.Mock()
+        self.ovs_dpdk.connection.execute = mock.Mock(
+            return_value=(1, 0, 0))
+        self.ovs_dpdk.networks = self.NETWORKS
+        self.ovs_dpdk.ovs_properties = {
+            'version': {'ovs': '0.0.1', 'dpdk': '9.8.7'}
+        }
+        self.ovs_dpdk.wait_for_vswitchd = 0
+        self.ovs_dpdk.cleanup_ovs_dpdk_env = mock.Mock()
+
+        with self.assertRaises(exceptions.OVSUnsupportedVersion):
+            self.ovs_dpdk.check_ovs_dpdk_env()
+        mock_check_hugepages.assert_called_once()
 
     @mock.patch('yardstick.ssh.SSH')
-    def test_deploy(self, mock_ssh):
-        mock_ssh.execute.return_value = 0, "a", ""
-
+    def test_deploy(self, *args):
         self.ovs_dpdk.vm_deploy = False
         self.assertIsNone(self.ovs_dpdk.deploy())
 
@@ -174,21 +190,19 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         # output.
         self.assertIsNone(self.ovs_dpdk.deploy())
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.Libvirt')
-    @mock.patch('yardstick.ssh.SSH')
-    def test_undeploy(self, mock_ssh, *args):
-        mock_ssh.execute.return_value = 0, "a", ""
-
-        self.ovs_dpdk.vm_deploy = False
-        self.assertIsNone(self.ovs_dpdk.undeploy())
-
+    @mock.patch.object(model.Libvirt, 'check_if_vm_exists_and_delete')
+    def test_undeploy(self, mock_libvirt):
         self.ovs_dpdk.vm_deploy = True
-        self.ovs_dpdk.connection = mock_ssh
+        self.ovs_dpdk.connection = mock.Mock()
         self.ovs_dpdk.vm_names = ['vm_0', 'vm_1']
         self.ovs_dpdk.drivers = ['vm_0', 'vm_1']
         self.ovs_dpdk.cleanup_ovs_dpdk_env = mock.Mock()
         self.ovs_dpdk.networks = self.NETWORKS
-        self.assertIsNone(self.ovs_dpdk.undeploy())
+        self.ovs_dpdk.undeploy()
+        mock_libvirt.assert_has_calls([
+            mock.call(self.ovs_dpdk.vm_names[0], self.ovs_dpdk.connection),
+            mock.call(self.ovs_dpdk.vm_names[1], self.ovs_dpdk.connection)
+        ])
 
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
@@ -310,25 +324,25 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk.get_vf_datas = mock.Mock(return_value="")
         self.assertIsNone(self.ovs_dpdk.configure_nics_for_ovs_dpdk())
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.ovs_dpdk.Libvirt')
-    def test__enable_interfaces(self, *args):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "a", ""))
-            ssh.return_value = ssh_mock
+    @mock.patch.object(model.Libvirt, 'add_ovs_interface')
+    def test__enable_interfaces(self, mock_add_ovs_interface):
         self.ovs_dpdk.vm_deploy = True
-        self.ovs_dpdk.connection = ssh_mock
+        self.ovs_dpdk.connection = mock.Mock()
         self.ovs_dpdk.vm_names = ['vm_0', 'vm_1']
         self.ovs_dpdk.drivers = []
         self.ovs_dpdk.networks = self.NETWORKS
+        self.ovs_dpdk.ovs_properties = {'vpath': 'fake_path'}
         self.ovs_dpdk.get_vf_datas = mock.Mock(return_value="")
-        self.assertIsNone(self.ovs_dpdk._enable_interfaces(
-            0, ["private_0"], 'test'))
+        self.ovs_dpdk._enable_interfaces(0, ["private_0"], 'test')
+        mock_add_ovs_interface.assert_called_once_with(
+            'fake_path', 0, self.NETWORKS['private_0']['vpci'],
+            self.NETWORKS['private_0']['mac'], 'test')
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.model.Server')
-    @mock.patch('yardstick.benchmark.contexts.standalone.ovs_dpdk.Libvirt')
-    def test_setup_ovs_dpdk_context(self, mock_libvirt, *args):
+    @mock.patch.object(model.Libvirt, 'build_vm_xml')
+    @mock.patch.object(model.Libvirt, 'check_if_vm_exists_and_delete')
+    @mock.patch.object(model.Libvirt, 'virsh_create_vm')
+    def test_setup_ovs_dpdk_context(self, mock_create_vm, mock_check_if_exists,
+                                    mock_build_xml):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -353,11 +367,63 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk.host_mgmt = {}
         self.ovs_dpdk.flavor = {}
         self.ovs_dpdk.configure_nics_for_ovs_dpdk = mock.Mock(return_value="")
-        mock_libvirt.build_vm_xml.return_value = [6, "00:00:00:00:00:01"]
+        mock_build_xml.return_value = [6, "00:00:00:00:00:01"]
         self.ovs_dpdk._enable_interfaces = mock.Mock(return_value="")
-        mock_libvirt.virsh_create_vm.return_value = ""
-        mock_libvirt.pin_vcpu_for_perf.return_value = ""
+        vnf_instance = mock.Mock()
         self.ovs_dpdk.vnf_node.generate_vnf_instance = mock.Mock(
-            return_value={})
+            return_value=vnf_instance)
 
-        self.assertIsNotNone(self.ovs_dpdk.setup_ovs_dpdk_context())
+        self.assertEqual([vnf_instance],
+                         self.ovs_dpdk.setup_ovs_dpdk_context())
+        mock_create_vm.assert_called_once_with(
+            self.ovs_dpdk.connection, '/tmp/vm_ovs_0.xml')
+        mock_check_if_exists.assert_called_once_with(
+            'vm_0', self.ovs_dpdk.connection)
+        mock_build_xml.assert_called_once_with(
+            self.ovs_dpdk.connection, self.ovs_dpdk.vm_flavor,
+            '/tmp/vm_ovs_0.xml', 'vm_0', 0)
+
+    @mock.patch.object(io, 'BytesIO')
+    def test__check_hugepages(self, mock_bytesio):
+        data = six.BytesIO('HugePages_Total:      20\n'
+                           'HugePages_Free:       20\n'
+                           'HugePages_Rsvd:        0\n'
+                           'HugePages_Surp:        0\n'
+                           'Hugepagesize:    1048576 kB'.encode())
+        mock_bytesio.return_value = data
+        self.ovs_dpdk.connection = mock.Mock()
+        self.ovs_dpdk._check_hugepages()
+
+    @mock.patch.object(io, 'BytesIO')
+    def test__check_hugepages_no_info(self, mock_bytesio):
+        data = six.BytesIO(''.encode())
+        mock_bytesio.return_value = data
+        self.ovs_dpdk.connection = mock.Mock()
+        with self.assertRaises(exceptions.OVSHugepagesInfoError):
+            self.ovs_dpdk._check_hugepages()
+
+    @mock.patch.object(io, 'BytesIO')
+    def test__check_hugepages_no_total_hp(self, mock_bytesio):
+        data = six.BytesIO('HugePages_Total:       0\n'
+                           'HugePages_Free:        0\n'
+                           'HugePages_Rsvd:        0\n'
+                           'HugePages_Surp:        0\n'
+                           'Hugepagesize:    1048576 kB'.encode())
+        mock_bytesio.return_value = data
+        self.ovs_dpdk.connection = mock.Mock()
+        with self.assertRaises(exceptions.OVSHugepagesNotConfigured):
+            self.ovs_dpdk._check_hugepages()
+
+    @mock.patch.object(io, 'BytesIO')
+    def test__check_hugepages_no_free_hp(self, mock_bytesio):
+        data = six.BytesIO('HugePages_Total:      20\n'
+                           'HugePages_Free:        0\n'
+                           'HugePages_Rsvd:        0\n'
+                           'HugePages_Surp:        0\n'
+                           'Hugepagesize:    1048576 kB'.encode())
+        mock_bytesio.return_value = data
+        self.ovs_dpdk.connection = mock.Mock()
+        with self.assertRaises(exceptions.OVSHugepagesZeroFree) as exc:
+            self.ovs_dpdk._check_hugepages()
+        self.assertEqual('There are no HugePages free in this system. Total '
+                         'HugePages configured: 20', exc.exception.msg)
