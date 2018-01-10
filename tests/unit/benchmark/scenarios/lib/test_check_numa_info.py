@@ -14,7 +14,8 @@ from yardstick.benchmark.scenarios.lib.check_numa_info import CheckNumaInfo
 
 class CheckNumaInfoTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.benchmark.scenarios.lib.check_numa_info.CheckNumaInfo._check_vm2_status')
+    @mock.patch(
+        'yardstick.benchmark.scenarios.lib.check_numa_info.CheckNumaInfo._check_vm2_status')
     def test_check_numa_info(self, mock_check_vm2):
         scenario_cfg = {'info1': {}, 'info2': {}}
         obj = CheckNumaInfo(scenario_cfg, {})

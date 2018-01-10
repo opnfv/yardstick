@@ -17,12 +17,9 @@
 from __future__ import absolute_import
 import os
 import unittest
-import errno
 import mock
 
-from yardstick.common import constants as consts
 from yardstick.benchmark.contexts.standalone import ovs_dpdk
-from yardstick.network_services.utils import PciAddress
 
 
 class OvsDpdkContextTestCase(unittest.TestCase):
@@ -149,12 +146,9 @@ class OvsDpdkContextTestCase(unittest.TestCase):
             self.assertRaises(Exception, self.ovs_dpdk.check_ovs_dpdk_env)
 
     @mock.patch('yardstick.ssh.SSH')
-    def test_deploy(self, mock_ssh):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "a", ""))
-            ssh.return_value = ssh_mock
+    def test_deploy(self, ssh_mock):
+        ssh_mock.execute.return_value = (0, "a", "")
+
         self.ovs_dpdk.vm_deploy = False
         self.assertIsNone(self.ovs_dpdk.deploy())
 
@@ -168,22 +162,21 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk.setup_ovs_bridge_add_flows = mock.Mock(return_value={})
         self.ovs_dpdk.setup_ovs_dpdk_context = mock.Mock(return_value={})
         self.ovs_dpdk.wait_for_vnfs_to_start = mock.Mock(return_value={})
+        # TODO(elfoley): This test should check states/sideeffects instead of
+        # output.
         self.assertIsNone(self.ovs_dpdk.deploy())
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.ovs_dpdk.Libvirt')
+    @mock.patch('yardstick.benchmark.contexts.standalone.model.Libvirt')
     @mock.patch('yardstick.ssh.SSH')
-    def test_undeploy(self, mock_ssh, mock_libvirt):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "a", ""))
-            ssh.return_value = ssh_mock
+    def test_undeploy(self, ssh_mock, _):
+        ssh_mock.execute.return_value = (0, "a", "")
+
         self.ovs_dpdk.vm_deploy = False
         self.assertIsNone(self.ovs_dpdk.undeploy())
 
         self.ovs_dpdk.vm_deploy = True
-        self.ovs_dpdk.connection = ssh_mock
         self.ovs_dpdk.vm_names = ['vm_0', 'vm_1']
+        self.ovs_dpdk.connection = ssh_mock
         self.ovs_dpdk.drivers = ['vm_0', 'vm_1']
         self.ovs_dpdk.cleanup_ovs_dpdk_env = mock.Mock()
         self.ovs_dpdk.networks = self.NETWORKS
@@ -326,8 +319,8 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk.get_vf_datas = mock.Mock(return_value="")
         self.assertIsNone(self.ovs_dpdk.configure_nics_for_ovs_dpdk())
 
-    @mock.patch('yardstick.benchmark.contexts.standalone.ovs_dpdk.Libvirt')
-    def test__enable_interfaces(self, mock_add_ovs_interface):
+    @mock.patch('yardstick.benchmark.contexts.standalone.model.Libvirt.add_ovs_interface')
+    def test__enable_interfaces(self, _):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -343,7 +336,7 @@ class OvsDpdkContextTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.benchmark.contexts.standalone.ovs_dpdk.Libvirt')
     @mock.patch('yardstick.benchmark.contexts.standalone.model.Server')
-    def test_setup_ovs_dpdk_context(self, mock_server, mock_libvirt):
+    def test_setup_ovs_dpdk_context(self, _, mock_libvirt):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -372,6 +365,6 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         mock_libvirt.build_vm_xml = mock.Mock(return_value=[6, "00:00:00:00:00:01"])
         self.ovs_dpdk._enable_interfaces = mock.Mock(return_value="")
         mock_libvirt.virsh_create_vm = mock.Mock(return_value="")
-        mock_libvirt.pin_vcpu_for_perf= mock.Mock(return_value="")
+        mock_libvirt.pin_vcpu_for_perf = mock.Mock(return_value="")
         self.ovs_dpdk.vnf_node.generate_vnf_instance = mock.Mock(return_value={})
         self.assertIsNotNone(self.ovs_dpdk.setup_ovs_dpdk_context())
