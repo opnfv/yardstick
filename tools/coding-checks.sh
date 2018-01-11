@@ -28,6 +28,7 @@ process_options () {
 
 run_pylint () {
     local target="${scriptargs:-all}"
+    local output_format=""
 
     if [ "$target" = "all" ]; then
         files="ansible api tests yardstick"
@@ -37,11 +38,15 @@ run_pylint () {
             *) echo "$target is an unrecognized basecommit"; exit 1;;
         esac
     fi
-
+    # make Jenkins output parseable because Jenkins doesn't handle color
+    # enventually we should use the Jenkins Pylint plugin or other tools
+    if [ -n "${JENKINS_HOME:-}" ] ; then
+        output_format="--output-format=parseable"
+    fi
     echo "Running pylint..."
     echo "You can speed this up by running it on 'HEAD~[0-9]' (e.g. HEAD~0, this change only)..."
     if [ -n "${files}" ]; then
-        pylint --rcfile=.pylintrc ${files}
+        pylint --rcfile=.pylintrc ${output_format} ${files}
     else
         echo "No python changes in this commit, pylint check not required."
         exit 0
