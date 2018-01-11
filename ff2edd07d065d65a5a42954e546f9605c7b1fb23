@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_0340a032",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-11T21:50:48Z",
+      "side": 1,
+      "message": "do we have to use a temporary file?    We already have it as JSON, can we use a data url with application/json?\n\n    template_url \u003d \"data:application/json,\" + json.dumps(template)\n\n    self._stack \u003d self._cloud.create_stack(self.name, template_url\u003dtemplate_url, wait\u003dwait, timeout\u003dtimeout, **heat_parameters)\n\ntempfiles need cleanup, are messy, subject to filesystem issues, and I/O latency.\n\nsize shouldn\u0027t be a problem, urlopen DataHandler.data_open() seems to handle at least 1GB strings",
+      "revId": "ff2edd07d065d65a5a42954e546f9605c7b1fb23",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
