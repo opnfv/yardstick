@@ -118,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_1d60fdff",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-11T17:28:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_3d67c1b8",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 63
+      },
+      "revId": "24fbbf2f109b4342a5044b55e924d9ce95383d48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_dd0df5e9",
         "filename": "docs/testing/developer/devguide/env-deployment.rst",
         "patchSetId": 6
@@ -129,6 +153,30 @@
       "writtenOn": "2018-01-11T10:53:56Z",
       "side": 1,
       "message": "Please use a numbered list for these instructions.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 17
+      },
+      "revId": "24fbbf2f109b4342a5044b55e924d9ce95383d48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e0dbf24c",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-11T17:28:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_dd0df5e9",
       "range": {
         "startLine": 28,
         "startChar": 0,
@@ -164,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_fd5c394d",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-11T17:28:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_bd291139",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 17
+      },
+      "revId": "24fbbf2f109b4342a5044b55e924d9ce95383d48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5d01e5ad",
         "filename": "docs/testing/developer/devguide/env-deployment.rst",
         "patchSetId": 6
@@ -187,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_3d53413a",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-11T17:28:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_5d01e5ad",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 21
+      },
+      "revId": "24fbbf2f109b4342a5044b55e924d9ce95383d48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_dd24d561",
         "filename": "docs/testing/developer/devguide/env-deployment.rst",
         "patchSetId": 6
@@ -198,6 +294,30 @@
       "writtenOn": "2018-01-11T10:53:56Z",
       "side": 1,
       "message": "The main part of the guide should not include proxy settings.\n\nIf there are additional changes that need to be made to certain files, add a short comment saying to refer to the proxy section if you\u0027re behind a proxy.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 56
+      },
+      "revId": "24fbbf2f109b4342a5044b55e924d9ce95383d48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_402f3e88",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-11T17:28:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_dd24d561",
       "range": {
         "startLine": 91,
         "startChar": 0,
