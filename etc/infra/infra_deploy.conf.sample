@@ -1,0 +1,30 @@
+nodes:
+  - name: Yardstick VM
+    hostname: yardstickvm
+    interfaces:
+      - network: management
+        ip: 192.168.1.10
+        netmask: 255.255.255.0
+    user: ubuntu
+    pasword: password
+    image: /tmp/image1.qcow
+    disk: 50000
+    ram: 8192
+    vcpus: 4
+
+  - name: SampleVNF VM
+    hostname: samplevnfvm
+    interfaces:
+      - network: management
+        ip: 192.168.1.20
+        netmask: 255.255.255.0
+    user: ubuntu
+    pasword: password
+    image: /tmp/image2.qcow
+    disk: 30000
+    ram: 8192
+    vcpus: 12
+
+networks:
+  - name: management
+    host_ip: 192.168.1.1 # not mandatory
