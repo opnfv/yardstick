@@ -16,6 +16,24 @@
       "revId": "ff2edd07d065d65a5a42954e546f9605c7b1fb23",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a37614a2",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-11T22:09:10Z",
+      "side": 1,
+      "message": "probably need a urllib quote()\n\n\n     template_url \u003d \"data:application/json,\" + six.moves.urllib.parse.quote(jsonutils.dumps(d))",
+      "parentUuid": "9a3d3df0_0340a032",
+      "revId": "ff2edd07d065d65a5a42954e546f9605c7b1fb23",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
