@@ -40,7 +40,7 @@ run_pylint () {
     fi
     # make Jenkins output parseable because Jenkins doesn't handle color
     # enventually we should use the Jenkins Pylint plugin or other tools
-    if [ -n "${JENKINS_HOME:-}" ] ; then
+    if [ -n "${BRANCH:-}" ] ; then
         output_format="--output-format=parseable"
     fi
     echo "Running pylint..."
