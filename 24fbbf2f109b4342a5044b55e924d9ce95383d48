@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_bdb751f4",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-11T11:16:06Z",
+      "side": 1,
+      "message": "This is taken from the guide http://artifacts.opnfv.org/apex/docs/installation-instructions/architecture.html\nwhich is referenced below",
+      "parentUuid": "9a3d3df0_fd70b973",
+      "range": {
+        "startLine": 11,
+        "startChar": 74,
+        "endLine": 11,
+        "endChar": 81
+      },
+      "revId": "24fbbf2f109b4342a5044b55e924d9ce95383d48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5d6a8581",
         "filename": "docs/testing/developer/devguide/env-deployment.rst",
         "patchSetId": 6
@@ -197,6 +221,30 @@
       "writtenOn": "2018-01-11T10:53:56Z",
       "side": 1,
       "message": "Does all of this apply to when a proxy is used?",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 37
+      },
+      "revId": "24fbbf2f109b4342a5044b55e924d9ce95383d48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ddb21505",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-11T11:16:06Z",
+      "side": 1,
+      "message": "The following is required \n        - name: insert proxy settings\n          shell: echo \"export http_proxy\u003dhttp://proxy.com:123\" \u003e\u003e /etc/environment\n        - name: insert proxy settings\n          shell: echo \"export https_proxy\u003dhttps://proxy.com:123\" \u003e\u003e /etc/environment\n        - name: insert proxy settings\n          shell: echo \"export no_proxy\u003d$no_proxy,192.0.2.1\" \u003e\u003e /etc/environment\n        - name: source proxy settings\n          shell: . /etc/environment\n\nThe rest is to show where it should be placed in the script",
+      "parentUuid": "9a3d3df0_9d2ecd41",
       "range": {
         "startLine": 91,
         "startChar": 0,
