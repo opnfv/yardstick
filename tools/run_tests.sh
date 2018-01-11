@@ -29,8 +29,10 @@ run_tests() {
     echo "Running unittest ... "
     if [ $FILE_OPTION == "f" ]; then
         python -m unittest discover -v -s tests/unit > $logfile 2>&1
+        python -m unittest discover -v -s yardstick/tests/unit >> $logfile 2>&1
     else
         python -m unittest discover -v -s tests/unit
+        python -m unittest discover -v -s yardstick/tests/unit
     fi
 
     if [ $? -ne 0 ]; then
@@ -53,7 +55,8 @@ run_coverage() {
 run_functional_test() {
 
     mkdir -p .testrepository
-    python -m subunit.run discover tests/functional > .testrepository/subunit.log
+    python -m subunit.run discover yardstick/tests/functional > .testrepository/subunit.log
+    python -m subunit.run discover tests/functional >> .testrepository/subunit.log
 
     subunit2pyunit < .testrepository/subunit.log
     EXIT_CODE=$?
