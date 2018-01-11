@@ -25,8 +25,6 @@ from yardstick.network_services.helpers.dpdkbindnic_helper import CRYPTO_DPDK
 from yardstick.network_services.helpers.dpdkbindnic_helper import NETWORK_OTHER
 from yardstick.network_services.helpers.dpdkbindnic_helper import CRYPTO_OTHER
 
-pass
-
 
 class TestDpdkBindHelper(unittest.TestCase):
     EXAMPLE_OUTPUT = """
