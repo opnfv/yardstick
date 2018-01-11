@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_80e4a6e1",
+        "filename": "docker/Dockerfile.aarch64.patch",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2018-01-11T18:02:29Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 1
+      },
+      "revId": "2a14bd5e7598d89ab20a31f9a953e1ad03e77e55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a0df2a0c",
+        "filename": "docker/Dockerfile.aarch64.patch",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2018-01-11T18:02:29Z",
+      "side": 1,
+      "message": "cirros 0.4.0 is out, maybe yardstick should switch to it?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 102
+      },
+      "revId": "2a14bd5e7598d89ab20a31f9a953e1ad03e77e55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
