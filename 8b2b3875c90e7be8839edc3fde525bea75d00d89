@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_66741a36",
+        "filename": "samples/storage_bottlenecks.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-12T12:31:25Z",
+      "side": 1,
+      "message": "s/context/contexts/\n\nYou need to create a list of contexts: https://github.com/opnfv/yardstick/blob/master/yardstick/benchmark/core/task.py#L515",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 7
+      },
+      "revId": "8b2b3875c90e7be8839edc3fde525bea75d00d89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
