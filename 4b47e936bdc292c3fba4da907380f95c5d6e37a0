@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_e61e6a5e",
+        "filename": "yardstick/tests/unit/benchmark/contexts/standalone/test_ovs_dpdk.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T09:52:21Z",
+      "side": 1,
+      "message": "Please do this per-method, as there aren\u0027t very many violation in this file. \n\nIf it\u0027s done per method, then new tests will still be checked.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 72
+      },
+      "revId": "4b47e936bdc292c3fba4da907380f95c5d6e37a0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c62366a5",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T09:52:21Z",
+      "side": 1,
+      "message": "Disabling pylint checks should be done per-method, not per file",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 72
+      },
+      "revId": "4b47e936bdc292c3fba4da907380f95c5d6e37a0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_263cd2c7",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_node.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T09:52:21Z",
+      "side": 1,
+      "message": "This was being ignored because the test needed to be re-written.\n\nIt\u0027s going to be flagged again.",
+      "revId": "4b47e936bdc292c3fba4da907380f95c5d6e37a0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0639ced6",
+        "filename": "yardstick/tests/unit/benchmark/core/test_task.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T09:52:21Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 72
+      },
+      "revId": "4b47e936bdc292c3fba4da907380f95c5d6e37a0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_66325af3",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/availability/test_attacker_baremetal.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T09:52:21Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 72
+      },
+      "revId": "4b47e936bdc292c3fba4da907380f95c5d6e37a0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
