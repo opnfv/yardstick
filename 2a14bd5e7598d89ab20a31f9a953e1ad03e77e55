@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_66537ae2",
+        "filename": "docker/Dockerfile.aarch64.patch",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5267
+      },
+      "writtenOn": "2018-01-12T11:07:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_80e4a6e1",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 1
+      },
+      "revId": "2a14bd5e7598d89ab20a31f9a953e1ad03e77e55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_a0df2a0c",
         "filename": "docker/Dockerfile.aarch64.patch",
         "patchSetId": 1
