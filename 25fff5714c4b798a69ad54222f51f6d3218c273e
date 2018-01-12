@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_e6f14a02",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T11:00:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_0c10f6a6",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 38
+      },
+      "revId": "25fff5714c4b798a69ad54222f51f6d3218c273e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_ec14b2a1",
         "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
         "patchSetId": 3
@@ -59,6 +83,30 @@
       "writtenOn": "2017-12-19T11:29:20Z",
       "side": 1,
       "message": "Import mock directly:\n\n  import mock",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "25fff5714c4b798a69ad54222f51f6d3218c273e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c6f6c6f8",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T11:00:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_ec14b2a1",
       "range": {
         "startLine": 18,
         "startChar": 0,
@@ -88,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_26dfb26a",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T11:00:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_ac474abb",
+      "revId": "25fff5714c4b798a69ad54222f51f6d3218c273e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_8c4406b8",
         "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
         "patchSetId": 3
@@ -99,6 +165,30 @@
       "writtenOn": "2017-12-19T11:29:20Z",
       "side": 1,
       "message": "remove this",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 10
+      },
+      "revId": "25fff5714c4b798a69ad54222f51f6d3218c273e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_06dc2e72",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T11:00:57Z",
+      "side": 1,
+      "message": "in progress in a different patchset",
+      "parentUuid": "9a3d3df0_8c4406b8",
       "range": {
         "startLine": 112,
         "startChar": 0,
@@ -145,6 +235,30 @@
       "writtenOn": "2017-12-19T11:29:20Z",
       "side": 1,
       "message": "remove this",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 38
+      },
+      "revId": "25fff5714c4b798a69ad54222f51f6d3218c273e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_66bc1a07",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb_line_protocol.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T11:00:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_6c28a2e2",
       "range": {
         "startLine": 14,
         "startChar": 0,
