@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_a61462a0",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T14:26:05Z",
+      "side": 1,
+      "message": "This file should be called 02-env-deployment.rst, otherwise, it won\u0027t be included in the final output",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "5712d9f79f8e1fbe71b0778a0af9199519165325",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_86195ed9",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T14:26:05Z",
+      "side": 1,
+      "message": "please number these, as there is more than on step.",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 32
+      },
+      "revId": "5712d9f79f8e1fbe71b0778a0af9199519165325",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e60aea77",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T14:26:05Z",
+      "side": 1,
+      "message": "What does \"the following\" do?\n\nI suggest something like \"Add proxy configurations to...\"",
+      "range": {
+        "startLine": 157,
+        "startChar": 1,
+        "endLine": 157,
+        "endChar": 74
+      },
+      "revId": "5712d9f79f8e1fbe71b0778a0af9199519165325",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a67bc2f3",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T14:26:05Z",
+      "side": 1,
+      "message": "double backticks are needed for monospaced font.",
+      "range": {
+        "startLine": 158,
+        "startChar": 47,
+        "endLine": 158,
+        "endChar": 69
+      },
+      "revId": "5712d9f79f8e1fbe71b0778a0af9199519165325",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c60fe686",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T14:26:05Z",
+      "side": 1,
+      "message": "Use http://\u003cproxy_address\u003e:\u003cproxy_port\u003e, as above.\n\nAs it is at the moment, you could copy and past the code block below and it would work as the format is correct.\nIf you change it to something that is syntactically incorrect, then users will be aware of an error.",
+      "range": {
+        "startLine": 158,
+        "startChar": 48,
+        "endLine": 158,
+        "endChar": 68
+      },
+      "revId": "5712d9f79f8e1fbe71b0778a0af9199519165325",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_06254e08",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T14:26:05Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 165,
+        "startChar": 34,
+        "endLine": 165,
+        "endChar": 66
+      },
+      "revId": "5712d9f79f8e1fbe71b0778a0af9199519165325",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_661edabc",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T14:26:05Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 167,
+        "startChar": 26,
+        "endLine": 167,
+        "endChar": 67
+      },
+      "revId": "5712d9f79f8e1fbe71b0778a0af9199519165325",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_461bd6c9",
+        "filename": "docs/testing/developer/devguide/env-deployment.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T14:26:05Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 169,
+        "startChar": 26,
+        "endLine": 169,
+        "endChar": 83
+      },
+      "revId": "5712d9f79f8e1fbe71b0778a0af9199519165325",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_86803ec1",
+        "filename": "docs/testing/developer/devguide/index.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-12T14:26:05Z",
+      "side": 1,
+      "message": "you need to rename env-deployment.rst to 02-envdeployment.rst",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 17,
+        "endChar": 6
+      },
+      "revId": "5712d9f79f8e1fbe71b0778a0af9199519165325",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
