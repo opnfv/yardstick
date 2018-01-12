@@ -22,6 +22,30 @@
       "revId": "2db2e618637de5fff51aacdc2222e4ad5a42272e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e6e5cadc",
+        "filename": "docker/Dockerfile.aarch64.patch",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5267
+      },
+      "writtenOn": "2018-01-12T13:13:56Z",
+      "side": 1,
+      "message": "According to https://hub.docker.com/r/aarch64/ubuntu/ aarch64 is deprecated, this is why I switched to arm64v8. The arm yardstick image builds with both aarch64 and arm64v8, so I considered it is OK to switch to the current image org.",
+      "parentUuid": "9a3d3df0_a68aa218",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 13
+      },
+      "revId": "2db2e618637de5fff51aacdc2222e4ad5a42272e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
