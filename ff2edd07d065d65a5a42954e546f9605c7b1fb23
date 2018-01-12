@@ -34,6 +34,24 @@
       "revId": "ff2edd07d065d65a5a42954e546f9605c7b1fb23",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6601baae",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-12T11:43:46Z",
+      "side": 1,
+      "message": "Shade could retrieve the template from a file, a URL and an object.\n\nFile and URL are essentially the same.\n\nI could use the object parameter BUT the template generation function [1] called in [2] doesn\u0027t call the \"object_request\" parameter, which is needed to convert the object given in \"template_object\" in a json blob.\n\nYour proposal gives to the function the data stream, not the file or URL reference, what is needed for first two methods.\n\nWe need a reference to a file despite your concerns (which is share).\n\nThis file will be deleted once we close the context (L55-L60).\n\nAn alternative, a temp file in memory SpooledTemporaryFile, is not usable because it doesn\u0027t expose the file name.\n\n[1] https://github.com/openstack-infra/shade/blob/master/shade/_heat/template_utils.py#L28\n[2] https://github.com/openstack-infra/shade/blob/master/shade/openstackcloud.py#L1315-L1319",
+      "parentUuid": "9a3d3df0_a37614a2",
+      "revId": "ff2edd07d065d65a5a42954e546f9605c7b1fb23",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
