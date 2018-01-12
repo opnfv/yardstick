@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-civetweb_url: https://sourceforge.net/projects/civetweb/files/1.9/CivetWeb_V1.9.zip
+civetweb_url: https://iweb.dl.sourceforge.net/project/civetweb/1.9.1/CivetWeb_V1.9.1.zip
 civetweb_file: "{{ civetweb_url|basename }}"
 civetweb_dest: "{{ clone_dest }}/civetweb"
-civetweb_sha256s: "sha256:947a546bfccd733c79dff9565227fa74f4d17750650ff49312ef4b2d032fa8c8"
+civetweb_sha256s: "sha256:69a82f042eae0197fb50b09861a8e2c5fff2871c196a21edd122bb8ce34ca0f3"
