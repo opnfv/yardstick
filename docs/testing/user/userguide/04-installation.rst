@@ -301,12 +301,6 @@ Prerequisite preparation::
    sudo -EH pip install appdirs==1.4.0
    sudo -EH pip install virtualenv
 
-Create a virtual environment::
-
-   virtualenv ~/yardstick_venv
-   export YARDSTICK_VENV=~/yardstick_venv
-   source ~/yardstick_venv/bin/activate
-
 Download the source code and install Yardstick from it::
 
    git clone https://gerrit.opnfv.org/gerrit/yardstick
@@ -314,6 +308,10 @@ Download the source code and install Yardstick from it::
    cd ~/yardstick
    sudo -EH ./install.sh
 
+If the host is ever restarted, nginx and uwsgi need to be restarted::
+
+   service nginx restart
+   uwsgi -i /etc/yardstick/yardstick.ini
 
 Configure the Yardstick environment (**Todo**)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
