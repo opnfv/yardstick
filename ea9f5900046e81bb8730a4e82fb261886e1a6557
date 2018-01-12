@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_03e6e014",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2018-01-12T02:43:24Z",
+      "side": 1,
+      "message": "It seems you have change the line of SQLAlchemy, not remove. So can you change the commit message?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "ea9f5900046e81bb8730a4e82fb261886e1a6557",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
