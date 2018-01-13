@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_accd61b9",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-13T09:29:10Z",
+      "side": 1,
+      "message": "Why are you changing this value? Because the test is not passing?\n\nYou are matching vm_pci with vf_pci because the test wasn\u0027t passing. Please, be carefaul with this kind of changes because you are faking the result.\n\nThe problem is other: the test case is not executed correctly because of an error in the parameters.\n\nvf_pci should be vm_pci, and the function arguments should altered\n\n\n  vm_pci \u003d \u00270001:05:04.2\u0027\n  model.Libvirt.add_sriov_interfaces(\n    vm_pci, self.pci_address_str, self.mac, xml_input)\n\n\"add_sriov_interfaces\" takes first the VM PCI address and the the host PCI address (VF PCI address).",
+      "range": {
+        "startLine": 137,
+        "startChar": 21,
+        "endLine": 137,
+        "endChar": 35
+      },
+      "revId": "5b87da35d60961b42d0975c97be247503819a2be",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0cc60d9a",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-13T09:29:10Z",
+      "side": 1,
+      "message": "This should be now vm_pci",
+      "range": {
+        "startLine": 163,
+        "startChar": 36,
+        "endLine": 163,
+        "endChar": 42
+      },
+      "revId": "5b87da35d60961b42d0975c97be247503819a2be",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
