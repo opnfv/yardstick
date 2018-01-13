@@ -48,8 +48,8 @@ class OvsDpdkContext(Context):
     }
 
     DEFAULT_OVS = '2.6.0'
-    PKILL_TEMPLATE = "pkill %s %s"
     CMD_TIMEOUT = 30
+    DEFAULT_USER_PATH = '/usr/local'
 
     def __init__(self):
         self.file_path = None
@@ -91,34 +91,32 @@ class OvsDpdkContext(Context):
         LOG.debug("Networks: %r", self.networks)
 
     def setup_ovs(self):
-        vpath = self.ovs_properties.get("vpath", "/usr/local")
-        xargs_kill_cmd = self.PKILL_TEMPLATE % ('-9', 'ovs')
-
+        """Initialize OVS-DPDK"""
+        vpath = self.ovs_properties.get('vpath', self.DEFAULT_USER_PATH)
         create_from = os.path.join(vpath, 'etc/openvswitch/conf.db')
         create_to = os.path.join(vpath, 'share/openvswitch/vswitch.ovsschema')
 
         cmd_list = [
-            "chmod 0666 /dev/vfio/*",
-            "chmod a+x /dev/vfio",
-            "pkill -9 ovs",
-            xargs_kill_cmd,
-            "killall -r 'ovs*'",
-            "mkdir -p {0}/etc/openvswitch".format(vpath),
-            "mkdir -p {0}/var/run/openvswitch".format(vpath),
-            "rm {0}/etc/openvswitch/conf.db".format(vpath),
-            "ovsdb-tool create {0} {1}".format(create_from, create_to),
-            "modprobe vfio-pci",
-            "chmod a+x /dev/vfio",
-            "chmod 0666 /dev/vfio/*",
+            'killall -r "ovs.*" -q | true',
+            'mkdir -p {0}/etc/openvswitch'.format(vpath),
+            'mkdir -p {0}/var/run/openvswitch'.format(vpath),
+            'rm {0}/etc/openvswitch/conf.db | true'.format(vpath),
+            'ovsdb-tool create {0} {1}'.format(create_from, create_to),
+            'modprobe vfio-pci',
+            'chmod a+x /dev/vfio',
+            'chmod 0666 /dev/vfio/*',
         ]
-        for cmd in cmd_list:
-            self.connection.execute(cmd)
-        bind_cmd = "{dpdk_devbind} --force -b {driver} {port}"
-        phy_driver = "vfio-pci"
+
+        bind_cmd = '%s --force -b vfio-pci {port}' % self.dpdk_devbind
         for port in self.networks.values():
-            vpci = port.get("phy_port")
-            self.connection.execute(bind_cmd.format(
-                dpdk_devbind=self.dpdk_devbind, driver=phy_driver, port=vpci))
+            cmd_list.append(bind_cmd.format(port=port.get('phy_port')))
+
+        for cmd in cmd_list:
+            LOG.info(cmd)
+            exit_status, _, stderr = self.connection.execute(
+                cmd, timeout=self.CMD_TIMEOUT)
+            if exit_status:
+                raise exceptions.OVSSetupError(command=cmd, error=stderr)
 
     def start_ovs_serverswitch(self):
         vpath = self.ovs_properties.get("vpath")
