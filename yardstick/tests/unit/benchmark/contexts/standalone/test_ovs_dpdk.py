@@ -32,7 +32,6 @@ class OvsDpdkContextTestCase(unittest.TestCase):
     NODES_DUPLICATE_SAMPLE = "nodes_duplicate_sample.yaml"
 
     NETWORKS = {
-        'mgmt': {'cidr': '152.16.100.10/24'},
         'private_0': {
             'phy_port': "0000:05:00.0",
             'vpci': "0000:00:07.0",
@@ -87,15 +86,43 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.assertIsNone(self.ovs_dpdk.init(ATTRS))
 
     def test_setup_ovs(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "a", ""))
-            ssh.return_value = ssh_mock
-            self.ovs_dpdk.connection = ssh_mock
-            self.ovs_dpdk.networks = self.NETWORKS
-            self.ovs_dpdk.ovs_properties = {}
-            self.assertIsNone(self.ovs_dpdk.setup_ovs())
+        fake_path = '/fake_path'
+        fake_dpdk_nic_bind = 'dpdk_tool.py'
+        self.ovs_dpdk.ovs_properties = {'vpath': fake_path}
+        self.ovs_dpdk.dpdk_devbind = fake_dpdk_nic_bind
+        self.ovs_dpdk.networks = self.NETWORKS
+        self.ovs_dpdk.connection = mock.Mock()
+        self.ovs_dpdk.connection.execute = mock.Mock(return_value=(0, 0, 0))
+        create_from = fake_path + '/etc/openvswitch/conf.db'
+        create_to = fake_path + '/share/openvswitch/vswitch.ovsschema'
+        cmd_list = [
+            'killall -r "ovs.*" -q | true',
+            'mkdir -p {0}/etc/openvswitch'.format(fake_path),
+            'mkdir -p {0}/var/run/openvswitch'.format(fake_path),
+            'rm {0}/etc/openvswitch/conf.db | true'.format(fake_path),
+            'ovsdb-tool create {0} {1}'.format(create_from, create_to),
+            'modprobe vfio-pci',
+            'chmod a+x /dev/vfio',
+            'chmod 0666 /dev/vfio/*',
+            '{0} --force -b vfio-pci {1}'.format(fake_dpdk_nic_bind,
+                self.ovs_dpdk.networks['private_0']['phy_port']),
+            '{0} --force -b vfio-pci {1}'.format(fake_dpdk_nic_bind,
+                self.ovs_dpdk.networks['public_0']['phy_port'])
+        ]
+        calls = [mock.call(cmd, timeout=self.ovs_dpdk.CMD_TIMEOUT)
+                 for cmd in cmd_list]
+
+        self.ovs_dpdk.setup_ovs()
+        self.ovs_dpdk.connection.execute.assert_has_calls(calls,
+                                                          any_order=True)
+
+    def test_setup_ovs_exception(self):
+        self.ovs_dpdk.networks = self.NETWORKS
+        self.ovs_dpdk.connection = mock.Mock()
+        self.ovs_dpdk.connection.execute = mock.Mock(return_value=(1, 0, 0))
+
+        with self.assertRaises(exceptions.OVSSetupError):
+            self.ovs_dpdk.setup_ovs()
 
     def test_start_ovs_serverswitch(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
