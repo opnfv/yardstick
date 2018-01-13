@@ -29,41 +29,15 @@
         IMAGE_COMMAND: yardstick-img-modify
         IMAGE_OUTPUT: "/tmp/workspace/yardstick/yardstick-image.tar.gz"
 
-#    QCOW_IMAGE: "/tmp/workspace/yardstick/yardstick-image.img"
-#    RAW_IMAGE: "/tmp/workspace/yardstick/yardstick-image.tar.gz"
-#    IMAGE_COMMANDS:
-#      'lxd': yardstick-img-lxd-modify
-#      'default': yardstick-img-modify
-
-
   roles:
     - role: add_fuel_jumphost
       when: "INSTALLER_TYPE == 'fuel'"
     - role: detect_fuel_arch
       when: "INSTALLER_TYPE == 'fuel'"
 
-#  post_tasks:
-#
-#    - command: "{{ DEPLOY_VARS[DEPLOY_SCENARIO].IMAGE_COMMAND }}" "{{ IMAGE_MODIFY_SCRIPT }}"
-#      become: true
-#      register: image_modify_result
-#      retries: 2
-#      untils: image_modify_result|succeeded
-#
-#    - stat: path="{{ DEPLOY_VARS[DEPLOY_SCENARIO].IMAGE_OUTPUT }}"}
-#      register: output_stat
-#
-#    - fail: msg=""
-#      when: not output_stat
-
-
 - include: build_yardstick_image.yml
+  vars:
+    img_property: normal
 
 - include: image_uploaders/upload_yardstick_image.yml
-
-# upload cirros
-# upload vanilla ubuntu cloud_image
-
-# - include: create_flavors.yml
-
 
