@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_721970d6",
+        "filename": "tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:10:34Z",
+      "side": 1,
+      "message": "You can remove this",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "4879ae626cdf41bdaf77871aa5b2bd08f37056c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d20afc77",
+        "filename": "tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:10:34Z",
+      "side": 1,
+      "message": "import errno\n---\nimport mock\nimport unittest",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 11
+      },
+      "revId": "4879ae626cdf41bdaf77871aa5b2bd08f37056c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1228e4e0",
+        "filename": "tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:10:34Z",
+      "side": 1,
+      "message": "To be removed",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 19
+      },
+      "revId": "4879ae626cdf41bdaf77871aa5b2bd08f37056c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_321b68cb",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:10:34Z",
+      "side": 1,
+      "message": "from itertools import repeat, chain\nimport os\nimport socket\nimport time\n-----\nimport mock\nimport unittest",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 15
+      },
+      "revId": "4879ae626cdf41bdaf77871aa5b2bd08f37056c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f224600e",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:10:34Z",
+      "side": 1,
+      "message": "Add one empty line",
+      "revId": "4879ae626cdf41bdaf77871aa5b2bd08f37056c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_927b54f4",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_vpe_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:10:34Z",
+      "side": 1,
+      "message": "from multiprocessing import Process, Queue\nimport os\nimport time\n---\nimport mock\nimport six.moves.configparser as configparser\nimport unittest",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 15
+      },
+      "revId": "4879ae626cdf41bdaf77871aa5b2bd08f37056c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d2815cc4",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:10:34Z",
+      "side": 1,
+      "message": "To be removed",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 37
+      },
+      "revId": "4879ae626cdf41bdaf77871aa5b2bd08f37056c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b28658d9",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:10:34Z",
+      "side": 1,
+      "message": "Refactor imports",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 46
+      },
+      "revId": "4879ae626cdf41bdaf77871aa5b2bd08f37056c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9262343c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:10:34Z",
+      "side": 1,
+      "message": "To be removed",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "4879ae626cdf41bdaf77871aa5b2bd08f37056c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7267b04d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:10:34Z",
+      "side": 1,
+      "message": "Import order and sections",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 40
+      },
+      "revId": "4879ae626cdf41bdaf77871aa5b2bd08f37056c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
