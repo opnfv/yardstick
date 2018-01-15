@@ -16,15 +16,12 @@ from __future__ import absolute_import
 import os
 import logging
 import collections
-from collections import OrderedDict
 
 from yardstick import ssh
 from yardstick.network_services.utils import get_nsb_option
 from yardstick.network_services.utils import provision_tool
 from yardstick.benchmark.contexts.base import Context
-from yardstick.benchmark.contexts.standalone.model import Libvirt
-from yardstick.benchmark.contexts.standalone.model import StandaloneContextHelper
-from yardstick.benchmark.contexts.standalone.model import Server
+from yardstick.benchmark.contexts.standalone import model
 from yardstick.network_services.utils import PciAddress
 
 LOG = logging.getLogger(__name__)
@@ -49,8 +46,8 @@ class SriovContext(Context):
         self.attrs = {}
         self.vm_flavor = None
         self.servers = None
-        self.helper = StandaloneContextHelper()
-        self.vnf_node = Server()
+        self.helper = model.StandaloneContextHelper()
+        self.vnf_node = model.Server()
         self.drivers = []
         super(SriovContext, self).__init__()
 
@@ -87,15 +84,14 @@ class SriovContext(Context):
             os.path.join(get_nsb_option("bin_path"), "dpdk-devbind.py"))
 
         #    Todo: NFVi deploy (sriov, vswitch, ovs etc) based on the config.
-        StandaloneContextHelper.install_req_libs(self.connection)
-        self.networks = StandaloneContextHelper.get_nic_details(
+        model.StandaloneContextHelper.install_req_libs(self.connection)
+        self.networks = model.StandaloneContextHelper.get_nic_details(
             self.connection, self.networks, self.dpdk_devbind)
         self.nodes = self.setup_sriov_context()
 
         LOG.debug("Waiting for VM to come up...")
-        self.nodes = StandaloneContextHelper.wait_for_vnfs_to_start(self.connection,
-                                                                    self.servers,
-                                                                    self.nodes)
+        self.nodes = model.StandaloneContextHelper.wait_for_vnfs_to_start(
+            self.connection, self.servers, self.nodes)
 
     def undeploy(self):
         """don't need to undeploy"""
@@ -105,7 +101,7 @@ class SriovContext(Context):
 
         # Todo: NFVi undeploy (sriov, vswitch, ovs etc) based on the config.
         for vm in self.vm_names:
-            Libvirt.check_if_vm_exists_and_delete(vm, self.connection)
+            model.Libvirt.check_if_vm_exists_and_delete(vm, self.connection)
 
         # Bind nics back to kernel
         for ports in self.networks.values():
@@ -136,8 +132,8 @@ class SriovContext(Context):
         except StopIteration:
             pass
         else:
-            raise ValueError("Duplicate nodes!!! Nodes: %s %s" %
-                             (node, duplicate))
+            raise ValueError("Duplicate nodes!!! Nodes: %s %s"
+                             % (node, duplicate))
 
         node["name"] = attr_name
         return node
@@ -179,7 +175,7 @@ class SriovContext(Context):
             self.connection.execute(build_vfs.format(ports.get('phy_port')))
 
             # configure VFs...
-            mac = StandaloneContextHelper.get_mac_address()
+            mac = model.StandaloneContextHelper.get_mac_address()
             interface = ports.get('interface')
             if interface is not None:
                 self.connection.execute(vf_cmd.format(interface, mac))
@@ -201,7 +197,7 @@ class SriovContext(Context):
         slot = index + idx + 10
         vf['vpci'] = \
             "{}:{}:{:02x}.{}".format(vpci.domain, vpci.bus, slot, vpci.function)
-        Libvirt.add_sriov_interfaces(
+        model.Libvirt.add_sriov_interfaces(
             vf['vpci'], vf['vf_pci']['vf_pci'], vf['mac'], str(cfg))
         self.connection.execute("ifconfig %s up" % vf['interface'])
         self.connection.execute(vf_spoofchk.format(vf['interface']))
@@ -212,34 +208,37 @@ class SriovContext(Context):
         #   1 : modprobe host_driver with num_vfs
         self.configure_nics_for_sriov()
 
-        for index, (key, vnf) in enumerate(OrderedDict(self.servers).items()):
+        for index, (key, vnf) in enumerate(collections.OrderedDict(
+                self.servers).items()):
             cfg = '/tmp/vm_sriov_%s.xml' % str(index)
             vm_name = "vm_%s" % str(index)
 
             # 1. Check and delete VM if already exists
-            Libvirt.check_if_vm_exists_and_delete(vm_name, self.connection)
+            model.Libvirt.check_if_vm_exists_and_delete(vm_name,
+                                                        self.connection)
+            xml_str, mac = model.Libvirt.build_vm_xml(
+                self.connection, self.vm_flavor, vm_name, index)
 
-            _, mac = Libvirt.build_vm_xml(self.connection, self.vm_flavor, cfg, vm_name, index)
             # 2: Cleanup already available VMs
-            for idx, (vkey, vfs) in enumerate(OrderedDict(vnf["network_ports"]).items()):
-                if vkey == "mgmt":
-                    continue
+            network_ports = collections.OrderedDict(
+                {k: v for k, v in vnf["network_ports"].items() if k != 'mgmt'})
+            for idx, vfs in enumerate(network_ports.values()):
                 self._enable_interfaces(index, idx, vfs, cfg)
 
             # copy xml to target...
+            model.Libvirt.write_file(cfg, xml_str)
             self.connection.put(cfg, cfg)
 
             # NOTE: launch through libvirt
             LOG.info("virsh create ...")
-            Libvirt.virsh_create_vm(self.connection, cfg)
+            model.Libvirt.virsh_create_vm(self.connection, cfg)
 
             self.vm_names.append(vm_name)
 
             # build vnf node details
-            nodes.append(self.vnf_node.generate_vnf_instance(self.vm_flavor,
-                                                             self.networks,
-                                                             self.host_mgmt.get('ip'),
-                                                             key, vnf, mac))
+            nodes.append(self.vnf_node.generate_vnf_instance(
+                self.vm_flavor, self.networks, self.host_mgmt.get('ip'),
+                key, vnf, mac))
 
         return nodes
 
@@ -248,7 +247,8 @@ class SriovContext(Context):
             "mac": vfmac,
             "pf_if": pfif
         }
-        vfs = StandaloneContextHelper.get_virtual_devices(self.connection, value)
+        vfs = model.StandaloneContextHelper.get_virtual_devices(
+            self.connection, value)
         for k, v in vfs.items():
             m = PciAddress(k.strip())
             m1 = PciAddress(value.strip())
