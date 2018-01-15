@@ -359,7 +359,7 @@ class OvsDpdkContext(Context):
         self.networks = portlist
         LOG.info("Ports %s", self.networks)
 
-    def _enable_interfaces(self, index, vfs, cfg):
+    def _enable_interfaces(self, index, vfs, xml_str):
         vpath = self.ovs_properties.get("vpath", "/usr/local")
         vf = self.networks[vfs[0]]
         port_num = vf.get('port_num', 0)
@@ -368,8 +368,8 @@ class OvsDpdkContext(Context):
         slot = index + port_num + 10
         vf['vpci'] = \
             "{}:{}:{:02x}.{}".format(vpci.domain, vpci.bus, slot, vpci.function)
-        model.Libvirt.add_ovs_interface(
-            vpath, port_num, vf['vpci'], vf['mac'], str(cfg))
+        return model.Libvirt.add_ovs_interface(
+            vpath, port_num, vf['vpci'], vf['mac'], xml_str)
 
     def setup_ovs_dpdk_context(self):
         nodes = []
@@ -384,17 +384,16 @@ class OvsDpdkContext(Context):
             # 1. Check and delete VM if already exists
             model.Libvirt.check_if_vm_exists_and_delete(vm_name,
                                                         self.connection)
+            xml_str, mac = model.Libvirt.build_vm_xml(
+                self.connection, self.vm_flavor, vm_name, index)
 
-            _, mac = model.Libvirt.build_vm_xml(
-                self.connection, self.vm_flavor, cfg, vm_name, index)
             # 2: Cleanup already available VMs
-            for vkey, vfs in collections.OrderedDict(
-                    vnf["network_ports"]).items():
-                if vkey == "mgmt":
-                    continue
-                self._enable_interfaces(index, vfs, cfg)
+            for vfs in [vfs for vfs_name, vfs in vnf["network_ports"].items()
+                        if vfs_name != 'mgmt']:
+                xml_str = self._enable_interfaces(index, vfs, xml_str)
 
             # copy xml to target...
+            model.Libvirt.write_file(cfg, xml_str)
             self.connection.put(cfg, cfg)
 
             # NOTE: launch through libvirt
