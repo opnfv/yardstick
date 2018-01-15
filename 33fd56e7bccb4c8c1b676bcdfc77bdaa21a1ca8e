@@ -1,0 +1,504 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_1256245c",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_ovs_dpdk.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 38
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3249a8b7",
+        "filename": "tests/unit/benchmark/scenarios/availability/test_monitor_command.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d2cf9c27",
+        "filename": "tests/unit/benchmark/scenarios/availability/test_serviceha.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "Put a note here, to finish this test",
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f27580cb",
+        "filename": "tests/unit/benchmark/scenarios/lib/test_check_numa_info.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 10
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_92651420",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_nstat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 38
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_726a10ef",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_nstat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "in the same block",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 11
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b27018dd",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_nstat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 10
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_52a8ac1f",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_pktgen.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 38
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_32a52847",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_pktgen.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 754,
+        "startChar": 0,
+        "endLine": 760,
+        "endChar": 10
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d2b4bc83",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 38
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b2b9387b",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to rmeove",
+      "range": {
+        "startLine": 187,
+        "startChar": 1,
+        "endLine": 192,
+        "endChar": 10
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_72c330ed",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk_throughput.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 38
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_328ec8d0",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk_throughput.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 10
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_128bc4c3",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_vsperf_dpdk.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 38
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f28740b3",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_vsperf_dpdk.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 10
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b2a2d848",
+        "filename": "tests/unit/benchmark/scenarios/parser/test_parser.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove\n\nWe don\u0027t need a description: the test file name it\u0027s enough",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 38
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_32f7e85a",
+        "filename": "tests/unit/benchmark/scenarios/parser/test_parser.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 10
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b2ebf876",
+        "filename": "tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_52fa6c43",
+        "filename": "tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "import errno\n---\nimport mock\nimport unittest",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 11
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_32e08895",
+        "filename": "tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 19
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b2d498bd",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_ping.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f2d900f4",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_ping.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T09:20:06Z",
+      "side": 1,
+      "message": "import order and sections",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 22
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
