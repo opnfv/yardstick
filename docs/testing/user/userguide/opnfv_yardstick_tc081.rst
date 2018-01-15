@@ -4,7 +4,7 @@
 .. (c) OPNFV, Huawei Technologies Co.,Ltd and others.
 
 *************************************
-Yardstick Test Case Description TC080
+Yardstick Test Case Description TC081
 *************************************
 
 .. _cirros-image: https://download.cirros-cloud.net
@@ -21,7 +21,7 @@ Yardstick Test Case Description TC080
 |metric        | RTT (Round Trip Time)                                        |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|test purpose  | The purpose of TC080 is to do a basic verification that      |
+|test purpose  | The purpose of TC081 is to do a basic verification that      |
 |              | network latency is within acceptable boundaries when packets |
 |              | travel between a containers and a VM.                        |
 |              |                                                              |
