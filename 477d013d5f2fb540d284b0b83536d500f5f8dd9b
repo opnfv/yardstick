@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_124104a9",
+        "filename": "yardstick/tests/unit/orchestrator/test_heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T08:57:40Z",
+      "side": 1,
+      "message": "This should be:\n\nfrom contextlib import contextmanager\nfrom itertools import count\nfrom tempfile import NamedTemporaryFile\nimport time\nimport uuid\n------\nimport mock\nimport unittest",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 11
+      },
+      "revId": "477d013d5f2fb540d284b0b83536d500f5f8dd9b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d2331c60",
+        "filename": "yardstick/tests/unit/orchestrator/test_kubernetes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-15T08:57:40Z",
+      "side": 1,
+      "message": "We can delete this.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 10
+      },
+      "revId": "477d013d5f2fb540d284b0b83536d500f5f8dd9b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
