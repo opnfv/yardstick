@@ -14,8 +14,9 @@
 
 import copy
 import os
-import unittest
 import mock
+import unittest
+import uuid
 
 from xml.etree import ElementTree
 
@@ -45,19 +46,9 @@ XML_SAMPLE_INTERFACE = """<?xml version="1.0"?>
 class ModelLibvirtTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.xml = ElementTree.ElementTree(
-            element=ElementTree.fromstring(XML_SAMPLE))
         self.pci_address_str = '0001:04:03.2'
         self.pci_address = utils.PciAddress(self.pci_address_str)
         self.mac = '00:00:00:00:00:01'
-        self._mock_write_xml = mock.patch.object(ElementTree.ElementTree,
-                                                 'write')
-        self.mock_write_xml = self._mock_write_xml.start()
-
-        self.addCleanup(self._cleanup)
-
-    def _cleanup(self):
-        self._mock_write_xml.stop()
 
     # TODO: Remove mocking of yardstick.ssh.SSH (here and elsewhere)
     # In this case, we are mocking a param to be passed into other methods
@@ -102,72 +93,65 @@ class ModelLibvirtTestCase(unittest.TestCase):
                          result.get('function'))
 
     def test_add_ovs_interfaces(self):
-        xml_input = mock.Mock()
-        with mock.patch.object(ElementTree, 'parse', return_value=self.xml) \
-                as mock_parse:
-            xml = copy.deepcopy(self.xml)
-            mock_parse.return_value = xml
-            model.Libvirt.add_ovs_interface(
-                '/usr/local', 0, self.pci_address_str, self.mac, xml_input)
-            mock_parse.assert_called_once_with(xml_input)
-            self.mock_write_xml.assert_called_once_with(xml_input)
-            interface = xml.find('devices').find('interface')
-            self.assertEqual('vhostuser', interface.get('type'))
-            mac = interface.find('mac')
-            self.assertEqual(self.mac, mac.get('address'))
-            source = interface.find('source')
-            self.assertEqual('unix', source.get('type'))
-            self.assertEqual('/usr/local/var/run/openvswitch/dpdkvhostuser0',
-                             source.get('path'))
-            self.assertEqual('client', source.get('mode'))
-            _model = interface.find('model')
-            self.assertEqual('virtio', _model.get('type'))
-            driver = interface.find('driver')
-            self.assertEqual('4', driver.get('queues'))
-            host = driver.find('host')
-            self.assertEqual('off', host.get('mrg_rxbuf'))
-            self.assertIsNotNone(interface.find('address'))
+        xml_input = copy.deepcopy(XML_SAMPLE)
+        xml_output = model.Libvirt.add_ovs_interface(
+            '/usr/local', 0, self.pci_address_str, self.mac, xml_input)
+
+        root = ElementTree.fromstring(xml_output)
+        et_out = ElementTree.ElementTree(element=root)
+        interface = et_out.find('devices').find('interface')
+        self.assertEqual('vhostuser', interface.get('type'))
+        mac = interface.find('mac')
+        self.assertEqual(self.mac, mac.get('address'))
+        source = interface.find('source')
+        self.assertEqual('unix', source.get('type'))
+        self.assertEqual('/usr/local/var/run/openvswitch/dpdkvhostuser0',
+                         source.get('path'))
+        self.assertEqual('client', source.get('mode'))
+        _model = interface.find('model')
+        self.assertEqual('virtio', _model.get('type'))
+        driver = interface.find('driver')
+        self.assertEqual('4', driver.get('queues'))
+        host = driver.find('host')
+        self.assertEqual('off', host.get('mrg_rxbuf'))
+        self.assertIsNotNone(interface.find('address'))
 
     def test_add_sriov_interfaces(self):
-        xml_input = mock.Mock()
-        with mock.patch.object(ElementTree, 'parse', return_value=self.xml) \
-                as mock_parse:
-            xml = copy.deepcopy(self.xml)
-            mock_parse.return_value = xml
-            vm_pci = '0001:05:04.2'
-            model.Libvirt.add_sriov_interfaces(
-                vm_pci, self.pci_address_str, self.mac, xml_input)
-            mock_parse.assert_called_once_with(xml_input)
-            self.mock_write_xml.assert_called_once_with(xml_input)
-            interface = xml.find('devices').find('interface')
-            self.assertEqual('yes', interface.get('managed'))
-            self.assertEqual('hostdev', interface.get('type'))
-            mac = interface.find('mac')
-            self.assertEqual(self.mac, mac.get('address'))
-            source = interface.find('source')
-            source_address = source.find('address')
-            self.assertIsNotNone(source.find('address'))
+        xml_input = copy.deepcopy(XML_SAMPLE)
+        vm_pci = '0001:05:04.2'
+        xml_output = model.Libvirt.add_sriov_interfaces(
+            vm_pci, self.pci_address_str, self.mac, xml_input)
+        root = ElementTree.fromstring(xml_output)
+        et_out = ElementTree.ElementTree(element=root)
+        interface = et_out.find('devices').find('interface')
+        self.assertEqual('yes', interface.get('managed'))
+        self.assertEqual('hostdev', interface.get('type'))
+        mac = interface.find('mac')
+        self.assertEqual(self.mac, mac.get('address'))
+        source = interface.find('source')
+        source_address = source.find('address')
+        self.assertIsNotNone(source.find('address'))
 
-            self.assertEqual('pci', source_address.get('type'))
-            self.assertEqual('0x' + self.pci_address_str.split(':')[0],
-                             source_address.get('domain'))
-            self.assertEqual('0x' + self.pci_address_str.split(':')[1],
-                             source_address.get('bus'))
-            self.assertEqual('0x' + self.pci_address_str.split(':')[2].split('.')[0],
-                             source_address.get('slot'))
-            self.assertEqual('0x' + self.pci_address_str.split(':')[2].split('.')[1],
-                             source_address.get('function'))
+        self.assertEqual('pci', source_address.get('type'))
+        self.assertEqual('0x' + self.pci_address_str.split(':')[0],
+                         source_address.get('domain'))
+        self.assertEqual('0x' + self.pci_address_str.split(':')[1],
+                         source_address.get('bus'))
+        self.assertEqual('0x' + self.pci_address_str.split(':')[2].split('.')[0],
+                         source_address.get('slot'))
+        self.assertEqual('0x' + self.pci_address_str.split(':')[2].split('.')[1],
+                         source_address.get('function'))
 
-            interface_address = interface.find('address')
-            self.assertEqual('pci', interface_address.get('type'))
-            self.assertEqual('0x' + vm_pci.split(':')[0],
-                             interface_address.get('domain'))
-            self.assertEqual('0x' + vm_pci.split(':')[1],
-                             interface_address.get('bus'))
-            self.assertEqual('0x' + vm_pci.split(':')[2].split('.')[0],
-                             interface_address.get('slot'))
-            self.assertEqual('0x' + vm_pci.split(':')[2].split('.')[1],
-                             interface_address.get('function'))
+        interface_address = interface.find('address')
+        self.assertEqual('pci', interface_address.get('type'))
+        self.assertEqual('0x' + vm_pci.split(':')[0],
+                         interface_address.get('domain'))
+        self.assertEqual('0x' + vm_pci.split(':')[1],
+                         interface_address.get('bus'))
+        self.assertEqual('0x' + vm_pci.split(':')[2].split('.')[0],
+                         interface_address.get('slot'))
+        self.assertEqual('0x' + vm_pci.split(':')[2].split('.')[1],
+                         interface_address.get('function'))
 
     def test_create_snapshot_qemu(self):
         result = "/var/lib/libvirt/images/0.qcow2"
@@ -179,24 +163,38 @@ class ModelLibvirtTestCase(unittest.TestCase):
         image = model.Libvirt.create_snapshot_qemu(ssh_mock, "0", "ubuntu.img")
         self.assertEqual(image, result)
 
-    @mock.patch.object(model.Libvirt, 'pin_vcpu_for_perf')
-    @mock.patch.object(model.Libvirt, 'create_snapshot_qemu')
+    @mock.patch.object(model.Libvirt, 'pin_vcpu_for_perf', return_value='4,5')
+    @mock.patch.object(model.Libvirt, 'create_snapshot_qemu',
+                       return_value='qemu_image')
     def test_build_vm_xml(self, mock_create_snapshot_qemu,
-                          *args):
-        # NOTE(ralonsoh): this test doesn't cover function execution. This test
-        # should also check mocked function calls.
-        cfg_file = 'test_config_file.cfg'
-        self.addCleanup(os.remove, cfg_file)
-        result = [4]
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "a", ""))
-            ssh.return_value = ssh_mock
-        mock_create_snapshot_qemu.return_value = "0.img"
+                          mock_pin_vcpu_for_perf):
+        extra_specs = {'hw:cpu_cores': '4',
+                       'hw:cpu_sockets': '3',
+                       'hw:cpu_threads': '2',
+                       'cputune': 'cool'}
+        flavor = {'ram': '1024',
+                  'extra_specs': extra_specs,
+                  'hw_socket': '1',
+                  'images': 'images'}
+        mac = model.StandaloneContextHelper.get_mac_address(0x00)
+        _uuid = uuid.uuid4()
+        connection = mock.Mock()
+        with mock.patch.object(model.StandaloneContextHelper,
+                               'get_mac_address', return_value=mac) as \
+                mock_get_mac_address, \
+                mock.patch.object(uuid, 'uuid4', return_value=_uuid):
+            xml_out, mac = model.Libvirt.build_vm_xml(
+                connection, flavor, 'vm_name', 100)
 
-        status = model.Libvirt.build_vm_xml(ssh_mock, {}, cfg_file, 'vm_0', 0)
-        self.assertEqual(status[0], result[0])
+        xml_ref = model.VM_TEMPLATE.format(vm_name='vm_name',
+            random_uuid=_uuid, mac_addr=mac, memory='1024', vcpu='8', cpu='4',
+            numa_cpus='0-7', socket='3', threads='2',
+            vm_image='qemu_image', cpuset='4,5', cputune='cool')
+        self.assertEqual(xml_ref, xml_out)
+        mock_get_mac_address.assert_called_once_with(0x00)
+        mock_create_snapshot_qemu.assert_called_once_with(
+            connection, 100, 'images')
+        mock_pin_vcpu_for_perf.assert_called_once_with(connection, '1')
 
     # TODO: Edit this test to test state instead of output
     # update_interrupts_hugepages_perf does not return anything
