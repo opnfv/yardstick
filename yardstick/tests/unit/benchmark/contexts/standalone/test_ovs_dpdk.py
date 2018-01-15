@@ -365,20 +365,14 @@ class OvsDpdkContextTestCase(unittest.TestCase):
             'fake_path', 0, self.NETWORKS['private_0']['vpci'],
             self.NETWORKS['private_0']['mac'], 'test')
 
+    @mock.patch.object(model.Libvirt, 'write_file')
     @mock.patch.object(model.Libvirt, 'build_vm_xml')
     @mock.patch.object(model.Libvirt, 'check_if_vm_exists_and_delete')
     @mock.patch.object(model.Libvirt, 'virsh_create_vm')
     def test_setup_ovs_dpdk_context(self, mock_create_vm, mock_check_if_exists,
-                                    mock_build_xml):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "a", ""))
-            ssh_mock.put = \
-                mock.Mock(return_value=(0, "a", ""))
-            ssh.return_value = ssh_mock
+                                    mock_build_xml, mock_write_file):
         self.ovs_dpdk.vm_deploy = True
-        self.ovs_dpdk.connection = ssh_mock
+        self.ovs_dpdk.connection = mock.Mock()
         self.ovs_dpdk.vm_names = ['vm_0', 'vm_1']
         self.ovs_dpdk.drivers = []
         self.ovs_dpdk.servers = {
@@ -394,8 +388,9 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk.host_mgmt = {}
         self.ovs_dpdk.flavor = {}
         self.ovs_dpdk.configure_nics_for_ovs_dpdk = mock.Mock(return_value="")
-        mock_build_xml.return_value = [6, "00:00:00:00:00:01"]
-        self.ovs_dpdk._enable_interfaces = mock.Mock(return_value="")
+        xml_str = mock.Mock()
+        mock_build_xml.return_value = (xml_str, '00:00:00:00:00:01')
+        self.ovs_dpdk._enable_interfaces = mock.Mock(return_value=xml_str)
         vnf_instance = mock.Mock()
         self.ovs_dpdk.vnf_node.generate_vnf_instance = mock.Mock(
             return_value=vnf_instance)
@@ -407,8 +402,8 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         mock_check_if_exists.assert_called_once_with(
             'vm_0', self.ovs_dpdk.connection)
         mock_build_xml.assert_called_once_with(
-            self.ovs_dpdk.connection, self.ovs_dpdk.vm_flavor,
-            '/tmp/vm_ovs_0.xml', 'vm_0', 0)
+            self.ovs_dpdk.connection, self.ovs_dpdk.vm_flavor, 'vm_0', 0)
+        mock_write_file.assert_called_once_with('/tmp/vm_ovs_0.xml', xml_str)
 
     @mock.patch.object(io, 'BytesIO')
     def test__check_hugepages(self, mock_bytesio):
