@@ -29,7 +29,7 @@ from yardstick.common import exceptions
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.utils import PciAddress
 from yardstick.network_services.helpers.cpu import CpuSysCores
-from yardstick.common.utils import write_file
+
 
 LOG = logging.getLogger(__name__)
 
@@ -132,7 +132,7 @@ class Libvirt(object):
         return vm_pci
 
     @classmethod
-    def add_ovs_interface(cls, vpath, port_num, vpci, vports_mac, xml):
+    def add_ovs_interface(cls, vpath, port_num, vpci, vports_mac, xml_str):
         """Add a DPDK OVS 'interface' XML node in 'devices' node
 
         <devices>
@@ -156,7 +156,7 @@ class Libvirt(object):
 
         vhost_path = ('{0}/var/run/openvswitch/dpdkvhostuser{1}'.
                       format(vpath, port_num))
-        root = ET.parse(xml)
+        root = ET.fromstring(xml_str)
         pci_address = PciAddress(vpci.strip())
         device = root.find('devices')
 
@@ -181,10 +181,10 @@ class Libvirt(object):
 
         cls._add_interface_address(interface, pci_address)
 
-        root.write(xml)
+        return ET.tostring(root)
 
     @classmethod
-    def add_sriov_interfaces(cls, vm_pci, vf_pci, vf_mac, xml):
+    def add_sriov_interfaces(cls, vm_pci, vf_pci, vf_mac, xml_str):
         """Add a SR-IOV 'interface' XML node in 'devices' node
 
         <devices>
@@ -207,7 +207,7 @@ class Libvirt(object):
             -sr_iov-how_sr_iov_libvirt_works
         """
 
-        root = ET.parse(xml)
+        root = ET.fromstring(xml_str)
         device = root.find('devices')
 
         interface = ET.SubElement(device, 'interface')
@@ -224,7 +224,7 @@ class Libvirt(object):
         pci_vm_address = PciAddress(vm_pci.strip())
         cls._add_interface_address(interface, pci_vm_address)
 
-        root.write(xml)
+        return ET.tostring(root)
 
     @staticmethod
     def create_snapshot_qemu(connection, index, vm_image):
@@ -237,7 +237,8 @@ class Libvirt(object):
         return image
 
     @classmethod
-    def build_vm_xml(cls, connection, flavor, cfg, vm_name, index):
+    def build_vm_xml(cls, connection, flavor, vm_name, index):
+        """Build the XML from the configuration parameters"""
         memory = flavor.get('ram', '4096')
         extra_spec = flavor.get('extra_specs', {})
         cpu = extra_spec.get('hw:cpu_cores', '2')
@@ -261,9 +262,7 @@ class Libvirt(object):
             socket=socket, threads=threads,
             vm_image=image, cpuset=cpuset, cputune=cputune)
 
-        write_file(cfg, vm_xml)
-
-        return [vcpu, mac]
+        return vm_xml, mac
 
     @staticmethod
     def update_interrupts_hugepages_perf(connection):
@@ -282,6 +281,13 @@ class Libvirt(object):
             threads = "%s-%s" % (soc_cpu[socket][sys_cpu], soc_cpu[socket][-1])
         cpuset = "%s,%s" % (cores, threads)
         return cpuset
+
+    @classmethod
+    def write_file(cls, file_name, xml_str):
+        """Dump a XML string to a file"""
+        root = ET.fromstring(xml_str)
+        et = ET.ElementTree(element=root)
+        et.write(file_name, encoding='utf-8', method='xml')
 
 
 class StandaloneContextHelper(object):
