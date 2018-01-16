@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5c9c3e0f",
+        "filename": "etc/yardstick/nodes/fuel_baremetal/pod.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-16T14:57:18Z",
+      "side": 1,
+      "message": "Are these changes because of changes made to fuel upstream?\n\nOr are these values going to vary from deployment to deployment?\n\nIf it\u0027s likely these will change, introduce two variables instead: ``username`` and ``key_file``\n\nInstead of hardcoding the username and filename, they are passed in as variables when you are using pod.yaml\n\n\nThis also ensures that someone using an older versions of fuel will also be able to use this pod.yaml.",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 16
+      },
+      "revId": "68f827cdffa186e154b554829f0ceae371ddfbd4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
