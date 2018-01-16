@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_5f5430fe",
+        "filename": "ansible/check_rs.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-16T18:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_869dd9be",
+      "revId": "74f0bb87788dd9322c386af935824a7ce7b135cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_66a255fe",
         "filename": "ansible/check_rs.yml",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-01-15T10:44:08Z",
       "side": 1,
       "message": "This file should be under ./ansible/roles/infra_check_requirements/.....",
+      "revId": "74f0bb87788dd9322c386af935824a7ce7b135cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bf557cfb",
+        "filename": "ansible/check_rs.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-16T18:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_66a255fe",
       "revId": "74f0bb87788dd9322c386af935824a7ce7b135cb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_7f4f746b",
+        "filename": "ansible/file1",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-16T18:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_265ded15",
+      "revId": "74f0bb87788dd9322c386af935824a7ce7b135cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_4660f1ce",
         "filename": "ansible/virt_ci_hosts.ini",
         "patchSetId": 1
@@ -64,6 +118,30 @@
       "writtenOn": "2018-01-15T10:44:08Z",
       "side": 1,
       "message": "add this info to ./ansible/inventory.ini",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 35
+      },
+      "revId": "74f0bb87788dd9322c386af935824a7ce7b135cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7f281486",
+        "filename": "ansible/virt_ci_hosts.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-16T18:05:57Z",
+      "side": 1,
+      "message": "Removed as it is duplicated.",
+      "parentUuid": "9a3d3df0_4660f1ce",
       "range": {
         "startLine": 1,
         "startChar": 0,
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9c9c065f",
+        "filename": "tools/virt_ci_rampup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-16T18:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_06438942",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 41
+      },
+      "revId": "74f0bb87788dd9322c386af935824a7ce7b135cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_a65a9d27",
         "filename": "tools/virt_ci_rampup.sh",
         "patchSetId": 1
@@ -110,6 +212,30 @@
       "writtenOn": "2018-01-15T10:44:08Z",
       "side": 1,
       "message": "Make this more generic:\n\nANSIBLE_SCRIPTS\u003d\"${0%/*}/../../ansible\"\n\nor better:\n\nANSIBLE_SCRIPTS\u003d\"$(dirname $0)/../ansible\"",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 28
+      },
+      "revId": "74f0bb87788dd9322c386af935824a7ce7b135cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5f06f01d",
+        "filename": "tools/virt_ci_rampup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-16T18:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_a65a9d27",
       "range": {
         "startLine": 18,
         "startChar": 0,
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9f0cf83c",
+        "filename": "tools/virt_ci_rampup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-16T18:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_667b758c",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 16
+      },
+      "revId": "74f0bb87788dd9322c386af935824a7ce7b135cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_c66c01d3",
         "filename": "tools/virt_ci_rampup.sh",
         "patchSetId": 1
@@ -156,6 +306,30 @@
       "writtenOn": "2018-01-15T10:44:08Z",
       "side": 1,
       "message": "This file is in ANSIBLE_SCRIPTS and in L21 you went to this directory.\n\nYou only need to write the file name",
+      "range": {
+        "startLine": 23,
+        "startChar": 12,
+        "endLine": 23,
+        "endChar": 53
+      },
+      "revId": "74f0bb87788dd9322c386af935824a7ce7b135cb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_df116053",
+        "filename": "tools/virt_ci_rampup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-16T18:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_c66c01d3",
       "range": {
         "startLine": 23,
         "startChar": 12,
