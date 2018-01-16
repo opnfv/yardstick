@@ -77,6 +77,7 @@ class YardstickNSCli(object):
         group = parser.add_argument_group('test selection options')
         group.add_argument('--vnf', help='vnf to use')
         group.add_argument('--test', help='test in use')
+        group.add_argument('--taskargs', help='task args')
 
         args = vars(parser.parse_args())
 
@@ -103,7 +104,7 @@ class YardstickNSCli(object):
                 for key, value in nfvi_kpi.items():
                     print(json.dumps({key: value}, indent=2))
 
-    def generate_final_report(self, test_case):
+    def generate_final_report(self, test_case, task_args=''):
         """ Function will check if partial test results are available
         and generates final report in rst format.
         """
@@ -114,6 +115,9 @@ class YardstickNSCli(object):
             'Performance report for', tc_name.upper(),
             '================================================================')
         print(report_caption)
+        if task_args:
+            print(json.dumps(task_args, indent=2, separators=(',', ': ')))
+
         if os.path.isfile("/tmp/yardstick.out"):
             lines = []
             with open("/tmp/yardstick.out") as infile:
@@ -184,6 +188,7 @@ class YardstickNSCli(object):
         try:
             vnf = args.get("vnf", "")
             test = args.get("test", "")
+            task_args = args.get("taskargs", "")
 
             vnf_dir = test_path + os.sep + vnf
             if not os.path.exists(vnf_dir):
@@ -196,9 +201,15 @@ class YardstickNSCli(object):
 
             os.chdir(vnf_dir)
             # fixme: Use REST APIs to initiate testcases
+            task_args_cmd = ""
+            if task_args is not None:
+                task_args_cmd = '--task-args'
+
             subprocess.check_output(["yardstick", "--debug",
-                                     "task", "start", test])
-            self.generate_final_report(test)
+                                     "task", "start", test, task_args_cmd,
+                                     task_args])
+
+            self.generate_final_report(test, task_args)
         except (IOError, ValueError):
             print("Value/I/O error...")
         except BaseException:
