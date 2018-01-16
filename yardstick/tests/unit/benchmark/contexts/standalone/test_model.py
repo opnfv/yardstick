@@ -13,11 +13,11 @@
 # limitations under the License.
 
 import copy
-import mock
 import os
-import unittest
 import uuid
 
+import mock
+import unittest
 from xml.etree import ElementTree
 
 from yardstick import ssh
@@ -172,14 +172,70 @@ class ModelLibvirtTestCase(unittest.TestCase):
                          interface_address.get('function'))
 
     def test_create_snapshot_qemu(self):
-        result = "/var/lib/libvirt/images/0.qcow2"
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = \
-                mock.Mock(return_value=(0, "a", ""))
-            ssh.return_value = ssh_mock
-        image = model.Libvirt.create_snapshot_qemu(ssh_mock, "0", "ubuntu.img")
-        self.assertEqual(image, result)
+        self.mock_ssh.execute = mock.Mock(return_value=(0, 0, 0))
+        index = 1
+        vm_image = '/var/lib/libvirt/images/%s.qcow2' % index
+        base_image = '/tmp/base_image'
+
+        model.Libvirt.create_snapshot_qemu(self.mock_ssh, index, base_image)
+        self.mock_ssh.execute.assert_has_calls([
+            mock.call('rm -- "%s"' % vm_image),
+            mock.call('test -r %s' % base_image),
+            mock.call('qemu-img create -f qcow2 -o backing_file=%s %s' %
+                      (base_image, vm_image))
+        ])
+
+    @mock.patch.object(os.path, 'basename', return_value='base_image')
+    @mock.patch.object(os.path, 'normpath')
+    @mock.patch.object(os, 'access', return_value=True)
+    def test_create_snapshot_qemu_no_image_remote(self,
+            mock_os_access, mock_normpath, mock_basename):
+        self.mock_ssh.execute = mock.Mock(
+            side_effect=[(0, 0, 0), (1, 0, 0), (0, 0, 0), (0, 0, 0)])
+        index = 1
+        vm_image = '/var/lib/libvirt/images/%s.qcow2' % index
+        base_image = '/tmp/base_image'
+        mock_normpath.return_value = base_image
+
+        model.Libvirt.create_snapshot_qemu(self.mock_ssh, index, base_image)
+        self.mock_ssh.execute.assert_has_calls([
+            mock.call('rm -- "%s"' % vm_image),
+            mock.call('test -r %s' % base_image),
+            mock.call('mv -- "/tmp/%s" "%s"' % ('base_image', base_image)),
+            mock.call('qemu-img create -f qcow2 -o backing_file=%s %s' %
+                      (base_image, vm_image))
+        ])
+        mock_os_access.assert_called_once_with(base_image, os.R_OK)
+        mock_normpath.assert_called_once_with(base_image)
+        mock_basename.assert_has_calls([mock.call(base_image)])
+        self.mock_ssh.put_file.assert_called_once_with(base_image,
+                                                       '/tmp/base_image')
+
+    @mock.patch.object(os, 'access', return_value=False)
+    def test_create_snapshot_qemu_no_image_local(self, mock_os_access):
+        self.mock_ssh.execute = mock.Mock(side_effect=[(0, 0, 0), (1, 0, 0)])
+        base_image = '/tmp/base_image'
+
+        with self.assertRaises(exceptions.LibvirtQemuImageBaseImageNotPresent):
+            model.Libvirt.create_snapshot_qemu(self.mock_ssh, 3, base_image)
+        mock_os_access.assert_called_once_with(base_image, os.R_OK)
+
+    def test_create_snapshot_qemu_error_qemuimg_command(self):
+        self.mock_ssh.execute = mock.Mock(
+            side_effect=[(0, 0, 0), (0, 0, 0), (1, 0, 0)])
+        index = 1
+        vm_image = '/var/lib/libvirt/images/%s.qcow2' % index
+        base_image = '/tmp/base_image'
+
+        with self.assertRaises(exceptions.LibvirtQemuImageCreateError):
+            model.Libvirt.create_snapshot_qemu(self.mock_ssh, index,
+                                               base_image)
+        self.mock_ssh.execute.assert_has_calls([
+            mock.call('rm -- "%s"' % vm_image),
+            mock.call('test -r %s' % base_image),
+            mock.call('qemu-img create -f qcow2 -o backing_file=%s %s' %
+                      (base_image, vm_image))
+        ])
 
     @mock.patch.object(model.Libvirt, 'pin_vcpu_for_perf', return_value='4,5')
     @mock.patch.object(model.Libvirt, 'create_snapshot_qemu',
