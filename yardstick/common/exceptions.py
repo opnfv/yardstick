@@ -108,6 +108,10 @@ class OVSSetupError(YardstickException):
     message = 'OVS setup error. Command: %(command)s. Error: %(error)s.'
 
 
+class LibvirtCreateError(YardstickException):
+    message = 'Error creating the virtual machine. Error: %(error)s.'
+
+
 class ScenarioConfigContextNameNotFound(YardstickException):
     message = 'Context name "%(context_name)s" not found'
 

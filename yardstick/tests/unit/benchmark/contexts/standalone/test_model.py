@@ -22,6 +22,7 @@ from xml.etree import ElementTree
 
 from yardstick import ssh
 from yardstick.benchmark.contexts.standalone import model
+from yardstick.common import exceptions
 from yardstick import constants
 from yardstick.network_services import utils
 
@@ -49,6 +50,12 @@ class ModelLibvirtTestCase(unittest.TestCase):
         self.pci_address_str = '0001:04:03.2'
         self.pci_address = utils.PciAddress(self.pci_address_str)
         self.mac = '00:00:00:00:00:01'
+        self._mock_ssh = mock.Mock()
+        self.mock_ssh = self._mock_ssh.start()
+        self.addCleanup(self._cleanup)
+
+    def _cleanup(self):
+        self._mock_ssh.stop()
 
     # TODO: Remove mocking of yardstick.ssh.SSH (here and elsewhere)
     # In this case, we are mocking a param to be passed into other methods
@@ -62,12 +69,17 @@ class ModelLibvirtTestCase(unittest.TestCase):
         model.Libvirt.check_if_vm_exists_and_delete("vm_0", ssh_mock)
 
     def test_virsh_create_vm(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = mock.Mock(return_value=(0, "a", ""))
-            ssh.return_value = ssh_mock
-        # NOTE(ralonsoh): this test doesn't cover function execution.
-        model.Libvirt.virsh_create_vm(ssh_mock, "vm_0")
+        self.mock_ssh.execute = mock.Mock(return_value=(0, 0, 0))
+        model.Libvirt.virsh_create_vm(self.mock_ssh, 'vm_0')
+        self.mock_ssh.execute.assert_called_once_with('virsh create vm_0')
+
+    def test_virsh_create_vm_error(self):
+        self.mock_ssh.execute = mock.Mock(return_value=(1, 0, 'error_create'))
+        with self.assertRaises(exceptions.LibvirtCreateError) as exc:
+            model.Libvirt.virsh_create_vm(self.mock_ssh, 'vm_0')
+        self.assertEqual('Error creating the virtual machine. Error: '
+                         'error_create.', str(exc.exception))
+        self.mock_ssh.execute.assert_called_once_with('virsh create vm_0')
 
     def test_virsh_destroy_vm(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
