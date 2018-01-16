@@ -106,8 +106,10 @@ class Libvirt(object):
 
     @staticmethod
     def virsh_create_vm(connection, cfg):
-        err = connection.execute("virsh create %s" % cfg)[0]
-        LOG.info("VM create status: %s", err)
+        LOG.info('VM create, XML config: %s', cfg)
+        status, _, error = connection.execute('virsh create %s' % cfg)
+        if status:
+            raise exceptions.LibvirtCreateError(error=error)
 
     @staticmethod
     def virsh_destroy_vm(vm_name, connection):
