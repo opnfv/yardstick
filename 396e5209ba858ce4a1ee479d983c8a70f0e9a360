@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_1ffe28ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T18:41:18Z",
+      "side": 1,
+      "message": "Reduce this description to a paragraph or two describing the feature. There is no need to describe each file itself, just the feature.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 55
+      },
+      "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3f016caf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T18:41:18Z",
+      "side": 1,
+      "message": "There is no need to update the message for every patch, unless needed",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 43
+      },
+      "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5f3390aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T18:41:18Z",
+      "side": 1,
+      "message": "Take a look at this: https://wiki.opnfv.org/display/DEV/Contribution+Guidelines#ContributionGuidelines-Gitcommitmessagestyle\n\nThis should be:\nJIRA: YARDSTICK-945\n\nDoing this, gerrit will parse the issue and will create the link",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_df1e800b",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T18:41:18Z",
+      "side": 1,
+      "message": "Actually this part should be done during the network configuration. This is my fault in the Jira DOD definition.\n\nPlease, remove this section and move it to the next patch.\n\nBTW, with ansible_all_ipv4_addresses you will have the same without the localhost IP",
+      "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9f299839",
+        "filename": "tools/virt_ci_rampup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T18:41:18Z",
+      "side": 1,
+      "message": "This file should have execution permissions",
+      "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bf245c60",
+        "filename": "tools/virt_ci_rampup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T18:41:18Z",
+      "side": 1,
+      "message": "Do not point to the sample file. This should be infra_deploy.conf\n\nThe user must create his/her own file",
+      "range": {
+        "startLine": 20,
+        "startChar": 34,
+        "endLine": 20,
+        "endChar": 58
+      },
+      "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
