@@ -14,6 +14,8 @@
 : ${INSTALLER_TYPE:='unknown'}
 : ${NODE_NAME:='unknown'}
 : ${EXTERNAL_NETWORK:='admin_floating_net'}
+: ${USER_NAME:='ubuntu'}
+: ${SSH_KEY:='/root/.ssh/id_rsa'}
 
 # Extract network name from EXTERNAL_NETWORK
 #  e.g. EXTERNAL_NETWORK='ext-net;flat;192.168.0.2;192.168.0.253;192.168.0.1;192.168.0.0/24'
@@ -96,6 +98,9 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     pod_yaml="./etc/yardstick/nodes/fuel_baremetal/pod.yaml"
     node_line_num=($(grep -n node[1-5] $pod_yaml | awk -F: '{print $1}'))
     node_ID=0;
+
+    # update 'user' and 'key_filename' according to CI env
+    sed -i "s|node_username|${USER_NAME}|;s|node_keyfile|${SSH_KEY}|" $pod_yaml;
 
     if [[ ${controller_ips[0]} ]]; then
         sed -i "${node_line_num[0]}s/node1/node$((++node_ID))/;s/ip1/${controller_ips[0]}/" $pod_yaml;
