@@ -113,7 +113,10 @@ class Libvirt(object):
 
     @staticmethod
     def virsh_destroy_vm(vm_name, connection):
-        connection.execute("virsh destroy %s" % vm_name)
+        LOG.info('VM destroy, VM name: %s', vm_name)
+        status, _, error = connection.execute('virsh destroy %s' % vm_name)
+        if status:
+            LOG.warning('Error destroying VM %s. Error: %s', vm_name, error)
 
     @staticmethod
     def _add_interface_address(interface, pci_address):
