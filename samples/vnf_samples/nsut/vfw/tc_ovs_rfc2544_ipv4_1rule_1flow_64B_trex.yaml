@@ -71,7 +71,7 @@ contexts:
        vnf__0:
          network_ports:
            mgmt:
-             cidr: '1.1.1.7/24'
+             cidr: '10.237.222.0/23'
            xe0:
              - uplink_0
            xe1:
