@@ -1,0 +1,728 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_bf073c17",
+        "filename": "yardstick/network_services/traffic_profile/http_ixload.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "Delete this, please",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 37
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1f18e873",
+        "filename": "yardstick/tests/unit/network_services/collector/test_publisher.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "Please, delete this",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5f2d5094",
+        "filename": "yardstick/tests/unit/network_services/collector/test_subscriber.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "Please, delete this",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bf1e1c5d",
+        "filename": "yardstick/tests/unit/network_services/helpers/test_dpdkbindnic_helper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "add an empty line",
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ff3b84ce",
+        "filename": "yardstick/tests/unit/network_services/helpers/test_iniparser.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "delete this, please",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_df3840d5",
+        "filename": "yardstick/tests/unit/network_services/helpers/test_samplevnf_helper.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "DO we need this?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 31
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1f2f4889",
+        "filename": "yardstick/tests/unit/network_services/libs/ixia_libs/test_IxNet.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "delete this, please",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9f5a3828",
+        "filename": "yardstick/tests/unit/network_services/nfvi/test_collectd.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5f7b908b",
+        "filename": "yardstick/tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1f46284f",
+        "filename": "yardstick/tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "import errno\n\n---\nimport mock\nimport unittest",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 11
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ff42643c",
+        "filename": "yardstick/tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "delete this, please",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 19
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9f7198aa",
+        "filename": "yardstick/tests/unit/network_services/test_yang_model.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_df6680ec",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_base.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3f604cce",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_fixed.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1f5d8815",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_http.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7f9db4bb",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_http_ixload.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9fa878dc",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_ixia_rfc2544.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "do we need this?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 31
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ffb0a444",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_ixia_rfc2544.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 663,
+        "startChar": 0,
+        "endLine": 665,
+        "endChar": 19
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_dfade0ea",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_prox_acl.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3fb7ac3b",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_prox_binsearch.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1fb46833",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_prox_profile.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5f89d073",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_prox_ramp.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9f7fd865",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_rfc2544.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 31
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bf7a9c74",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_rfc2544.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 19
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ff97048e",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_traffic_profile.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3f8e8c79",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/test_vnfdgen.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7febf412",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_cgnapt_vnf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "add empty line",
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bff1fc02",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "reorder and add sections",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 15
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9ff6b8f7",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_router_vnf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ffdee46b",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_ixload.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_dfdb207a",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_vfw_vnf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 254,
+        "startChar": 9,
+        "endLine": 254,
+        "endChar": 10
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3fe5ec37",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_vfw_vnf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 256,
+        "startChar": 9,
+        "endLine": 256,
+        "endChar": 10
+      },
+      "revId": "0410691a26cce5e1a1b1b84d15e78daf24786875",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

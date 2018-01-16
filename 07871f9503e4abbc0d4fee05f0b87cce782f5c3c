@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_1c011606",
+        "filename": "tests/unit/network_services/traffic_profile/test_traffic_profile.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 0,
+      "message": "Please, git mv these file, to compare here the differences",
+      "revId": "07871f9503e4abbc0d4fee05f0b87cce782f5c3c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7f013404",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_ixload.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T17:04:41Z",
+      "side": 0,
+      "message": "Please, git mv these file, to compare here the differences",
+      "revId": "07871f9503e4abbc0d4fee05f0b87cce782f5c3c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
