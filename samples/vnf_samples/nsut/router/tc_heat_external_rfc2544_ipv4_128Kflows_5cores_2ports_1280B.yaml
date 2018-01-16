@@ -44,6 +44,7 @@ scenarios:
       queues_per_port: 7
     vnf__0:
       nfvi_enable: True
+      password: password
   runner:
     type: Iteration
     iterations: 10
@@ -61,7 +62,7 @@ contexts:
      image: vrouter_affinity_2c2p
      flavor:
       vcpus: 5
-      ram: 20480
+      ram: 4096
       disk: 10
       extra_specs:
         hw:cpu_sockets: 1
@@ -73,9 +74,8 @@ contexts:
         hw:numa_nodes: 1
         hw:numa_mempolicy: preffered
         hw:numa_cpus.0: 0,1,2,3,4
-        hw:numa_mem.0: 20480
+        hw:numa_mem.0: 4096
      user: "root"
-     password: "password"
      placement_groups:
        pgrp1:
          policy: "availability"
