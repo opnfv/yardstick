@@ -232,14 +232,40 @@ class Libvirt(object):
         return ET.tostring(root)
 
     @staticmethod
-    def create_snapshot_qemu(connection, index, vm_image):
-        # build snapshot image
-        image = "/var/lib/libvirt/images/%s.qcow2" % index
-        connection.execute("rm %s" % image)
-        qemu_template = "qemu-img create -f qcow2 -o backing_file=%s %s"
-        connection.execute(qemu_template % (vm_image, image))
+    def create_snapshot_qemu(connection, index, base_image):
+        """Create the snapshot image for a VM using a base image
 
-        return image
+        :param connection: SSH connection to the remote host
+        :param index: index of the VM to be spawn
+        :param base_image: path of the VM base image in the remote host
+        :return: snapshot image path
+        """
+        vm_image = '/var/lib/libvirt/images/%s.qcow2' % index
+        connection.execute('rm -- "%s"' % vm_image)
+        status, _, _ = connection.execute('test -r %s' % base_image)
+        if status:
+            if not os.access(base_image, os.R_OK):
+                raise exceptions.LibvirtQemuImageBaseImageNotPresent(
+                    vm_image=vm_image, base_image=base_image)
+            # NOTE(ralonsoh): done in two steps to avoid root permission
+            # issues.
+            LOG.info('Copy %s from execution host to remote host', base_image)
+            file_name = os.path.basename(os.path.normpath(base_image))
+            connection.put_file(base_image, '/tmp/%s' % file_name)
+            status, _, error = connection.execute(
+                'mv -- "/tmp/%s" "%s"' % (file_name, base_image))
+            if status:
+                raise exceptions.LibvirtQemuImageCreateError(
+                    vm_image=vm_image, base_image=base_image, error=error)
+
+        LOG.info('Convert image %s to %s', base_image, vm_image)
+        qemu_cmd = ('qemu-img create -f qcow2 -o backing_file=%s %s' %
+                    (base_image, vm_image))
+        status, _, error = connection.execute(qemu_cmd)
+        if status:
+            raise exceptions.LibvirtQemuImageCreateError(
+                vm_image=vm_image, base_image=base_image, error=error)
+        return vm_image
 
     @classmethod
     def build_vm_xml(cls, connection, flavor, vm_name, index):
