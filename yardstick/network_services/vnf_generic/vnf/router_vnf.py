@@ -37,18 +37,24 @@ class RouterVNF(SampleVNF):
     def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
         if setup_env_helper_type is None:
             setup_env_helper_type = DpdkVnfSetupEnvHelper
-
-        # For heat test cases
-        vnfd['mgmt-interface'].pop("pkey", "")
-        vnfd['mgmt-interface']['password'] = 'password'
-
         super(RouterVNF, self).__init__(name, vnfd, setup_env_helper_type, resource_helper_type)
 
     def instantiate(self, scenario_cfg, context_cfg):
         self.scenario_helper.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
         self.nfvi_context = Context.get_context_from_server(self.scenario_helper.nodes[self.name])
-        self.configure_routes(self.name, scenario_cfg, context_cfg)
+
+        in_heat_context = False
+        # Use password defined in scenario when testing OpenStack test case.
+        # Password defined in test case context works only in standalone and baremetal context
+        vnf_password = self.context_cfg["nodes"][self.name].get("password")
+
+        # if in OpenStack context, wait for the VNF to start
+        if not vnf_password:
+            self.ssh_helper.password = scenario_cfg['options'][self.name]['password']
+            self.ssh_helper.wait()
+
+        self.configure_routes(scenario_cfg)
 
     def wait_for_instantiate(self):
         time.sleep(self.WAIT_TIME)
@@ -120,7 +126,7 @@ class RouterVNF(SampleVNF):
 
     INTERFACE_WAIT = 2
 
-    def configure_routes(self, node_name, scenario_cfg, context_cfg):
+    def configure_routes(self, scenario_cfg):
         # Configure IP of dataplane ports and add static ARP entries
         #
         # This function should be modified to configure a 3rd party/commercial VNF.
@@ -137,8 +143,9 @@ class RouterVNF(SampleVNF):
         ip_cmd_up = '/sbin/ip link set %s up'
         ip_cmd_flush = '/sbin/ip address flush dev %s'
 
-        # Get VNF IPs from test case file
-        for value in context_cfg['nodes'][node_name]['interfaces'].values():
+        for port_name in self.vnfd_helper.port_pairs.all_ports:
+            interface = self.vnfd_helper.find_interface(name=port_name)
+            value = interface['virtual-interface']
             dst_macs.append(value['dst_mac'])
 
             # Get the network interface name using local_mac
@@ -183,3 +190,5 @@ class RouterVNF(SampleVNF):
 
         arp_status = self.ssh_helper.execute("arp -a -n")
         LOG.debug('arp %s', arp_status)
+        enable_forwarding = self.ssh_helper.execute("sysctl net.ipv4.ip_forward=1")
+        LOG.debug('IPv4 forwarding %s', enable_forwarding)
