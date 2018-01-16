@@ -14,7 +14,11 @@
 
 ---
 schema: yardstick:task:0.1
+
+{% set user_name = user_name or 'ubuntu' %}
+{% set pkt_size = pkt_size or '64B' %}
 scenarios:
+{% if pkt_size in ['64B', '128B', '256B', '512B', '1024B', '1280B', '1518B'] %}
 - type: NSPerf
   traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
   topology: router-tg-topology.yaml
@@ -25,8 +29,8 @@ scenarios:
     cpt__0: compute_0.compute_nodes
   options:
     framesize:
-      uplink: {64B: 100}
-      downlink: {64B: 100}
+      uplink: { {{pkt_size}}: 100}
+      downlink: { {{pkt_size}}: 100}
     flow:
       src_ip:
         - '10.0.2.26-10.0.2.105'
@@ -48,6 +52,9 @@ scenarios:
     type: Iteration
     iterations: 10
     interval: 35
+{% else %}
+   ERROR - pkt_size should be one of '64B', '128B', '256B', '512B', '1024B', '1280B', '1518B'
+{% endif %}
 contexts:
    - name: compute_nodes
      type: Node
@@ -55,10 +62,10 @@ contexts:
 
    - name: baremetal
      type: Node
-     file: /etc/yardstick/nodes/pod.yaml
+     file: trex-baremetal.yml
 
    - name: yardstick
-     image: vrouter_affinity_2c2p
+     image: yardstick-samplevnfs
      flavor:
       vcpus: 5
       ram: 20480
@@ -73,9 +80,8 @@ contexts:
         hw:numa_nodes: 1
         hw:numa_mempolicy: preffered
         hw:numa_cpus.0: 0,1,2,3,4
-        hw:numa_mem.0: 20480
-     user: "root"
-     password: "password"
+        hw:numa_mem.0: 4096
+     user: {{ user_name }}
      placement_groups:
        pgrp1:
          policy: "availability"
@@ -90,13 +96,13 @@ contexts:
          cidr: '10.0.2.0/24'
          gateway_ip: 'null'
          provider: true
-         physical_network: phystenant2
-         port_security_enabled: False 
+         physical_network: phystenant1
+         port_security_enabled: False
          enable_dhcp: 'false'
        xe1:
          cidr: '10.0.3.0/24'
          gateway_ip: 'null'
          provider: true
-         physical_network: phystenant3
+         physical_network: phystenant2
          port_security_enabled: False
          enable_dhcp: 'false'
