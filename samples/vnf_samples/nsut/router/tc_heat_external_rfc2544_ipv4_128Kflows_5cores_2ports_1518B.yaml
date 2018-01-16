@@ -44,6 +44,7 @@ scenarios:
       queues_per_port: 7
     vnf__0:
       nfvi_enable: True
+      pass: password
   runner:
     type: Iteration
     iterations: 2
@@ -75,7 +76,6 @@ contexts:
         hw:numa_cpus.0: 0,1,2,3,4
         hw:numa_mem.0: 20480
      user: "root"
-     password: "password"
      placement_groups:
        pgrp1:
          policy: "availability"
