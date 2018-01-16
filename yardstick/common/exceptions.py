@@ -146,3 +146,7 @@ class OVSDeployError(YardstickException):
 
 class OVSSetupError(YardstickException):
     message = 'OVS setup error. Command: %(command)s. Error: %(error)s.'
+
+
+class LibvirtCreateError(YardstickException):
+    message = 'Error creating the virtual machine. Error: %(error)s.'
