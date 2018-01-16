@@ -150,3 +150,14 @@ class OVSSetupError(YardstickException):
 
 class LibvirtCreateError(YardstickException):
     message = 'Error creating the virtual machine. Error: %(error)s.'
+
+
+class LibvirtQemuImageBaseImageNotPresent(YardstickException):
+    message = ('Error creating the qemu image for %(vm_image)s. Base image: '
+               '%(base_image)s. Base image not present in execution host or '
+               'remote host.')
+
+
+class LibvirtQemuImageCreateError(YardstickException):
+    message = ('Error creating the qemu image for %(vm_image)s. Base image: '
+               '%(base_image)s. Error: %(error)s.')
