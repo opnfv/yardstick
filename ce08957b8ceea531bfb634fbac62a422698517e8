@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_7c9782ec",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T14:58:31Z",
+      "side": 1,
+      "message": "I will. Everything under a mock object (methods, members) are mocked too.",
+      "parentUuid": "9a3d3df0_7c7b02f5",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 79
+      },
+      "revId": "ce08957b8ceea531bfb634fbac62a422698517e8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_1c1bd6ca",
         "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-01-16T13:29:13Z",
       "side": 1,
       "message": "nit: Could you use a decorator here to do this mocking?",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 60
+      },
+      "revId": "ce08957b8ceea531bfb634fbac62a422698517e8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9ca24649",
+        "filename": "tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-16T14:58:31Z",
+      "side": 1,
+      "message": "I don\u0027t see any specific reason to do this.",
+      "parentUuid": "9a3d3df0_1c1bd6ca",
       "range": {
         "startLine": 91,
         "startChar": 8,
