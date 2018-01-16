@@ -46,6 +46,9 @@ scenarios:
       queues_per_port: 7
     vnf__0:
       nfvi_enable: True
+#     Uncomment and set the password for VNFs that doesn't allow
+#     user (set in context user variable) to execute sudo commands
+#      password: password
   runner:
     type: Iteration
     iterations: 10
@@ -57,10 +60,10 @@ contexts:
 
    - name: baremetal
      type: Node
-     file: /etc/yardstick/nodes/pod_4p.yaml
+     file: trex-baremetal.yml
 
    - name: yardstick
-     image: vrouter_affinity_2c4p
+     image: yardstick-samplevnfs
      flavor:
       vcpus: 9
       ram: 8192
@@ -78,8 +81,7 @@ contexts:
         hw:numa_cpus.1: 5,6,7,8
         hw:numa_mem.0: 4096
         hw:numa_mem.1: 4096
-     user: "root"
-     password: "password"
+     user: ubuntu
      placement_groups:
        pgrp1:
          policy: "availability"
@@ -94,27 +96,27 @@ contexts:
          cidr: '10.0.2.0/24'
          gateway_ip: 'null'
          provider: true
-         physical_network: phystenant2
+         physical_network: phystenant1
          port_security_enabled: False 
          enable_dhcp: 'false'
        xe1:
          cidr: '10.0.3.0/24'
          gateway_ip: 'null'
          provider: true
-         physical_network: phystenant3
+         physical_network: phystenant2
          port_security_enabled: False
          enable_dhcp: 'false'
        xe2:
          cidr: '10.0.4.0/24'
          gateway_ip: 'null'
          provider: true
-         physical_network: phystenant4
+         physical_network: phystenant3
          port_security_enabled: False
          enable_dhcp: 'false'
        xe3:
          cidr: '10.0.5.0/24'
          gateway_ip: 'null'
          provider: true
-         physical_network: phystenant5
+         physical_network: phystenant4
          port_security_enabled: False
          enable_dhcp: 'false'
