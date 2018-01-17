@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_7a14a29f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-17T11:39:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_1ffe28ae",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 55
+      },
+      "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_3f016caf",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-01-16T18:41:18Z",
       "side": 1,
       "message": "There is no need to update the message for every patch, unless needed",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 43
+      },
+      "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1a4476b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-17T11:39:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_3f016caf",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_3a47babd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-17T11:39:12Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "9a3d3df0_5f3390aa",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_df1e800b",
         "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
         "patchSetId": 2
@@ -82,6 +154,24 @@
       "writtenOn": "2018-01-16T18:41:18Z",
       "side": 1,
       "message": "Actually this part should be done during the network configuration. This is my fault in the Jira DOD definition.\n\nPlease, remove this section and move it to the next patch.\n\nBTW, with ansible_all_ipv4_addresses you will have the same without the localhost IP",
+      "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3af05a90",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-17T11:39:12Z",
+      "side": 1,
+      "message": "Removed from here. Can be used ansible_all_ipv4_addresses variable from facts in the network configuration.",
+      "parentUuid": "9a3d3df0_df1e800b",
       "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_fa40b2a6",
+        "filename": "tools/virt_ci_rampup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-17T11:39:12Z",
+      "side": 1,
+      "message": "Bash file already has execution permissions.",
+      "parentUuid": "9a3d3df0_9f299839",
+      "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_bf245c60",
         "filename": "tools/virt_ci_rampup.sh",
         "patchSetId": 2
@@ -116,6 +224,30 @@
       "writtenOn": "2018-01-16T18:41:18Z",
       "side": 1,
       "message": "Do not point to the sample file. This should be infra_deploy.conf\n\nThe user must create his/her own file",
+      "range": {
+        "startLine": 20,
+        "startChar": 34,
+        "endLine": 20,
+        "endChar": 58
+      },
+      "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_da3dee2c",
+        "filename": "tools/virt_ci_rampup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-17T11:39:12Z",
+      "side": 1,
+      "message": "Corrected to \"infra_deploy.conf\".",
+      "parentUuid": "9a3d3df0_bf245c60",
       "range": {
         "startLine": 20,
         "startChar": 34,
