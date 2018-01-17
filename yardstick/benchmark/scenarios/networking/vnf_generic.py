@@ -215,17 +215,18 @@ class NetworkServiceTestCase(base.Scenario):
             return infile.read()
 
     def _fill_traffic_profile(self):
-        traffic_mapping = self._get_traffic_profile()
-        traffic_map_data = {
+        tprofile = self._get_traffic_profile()
+        tprofile_args = self.scenario_cfg.get('traffic_profile_args', {})
+        tprofile_data = {
             'flow': self._get_traffic_flow(),
             'imix': self._get_traffic_imix(),
             TrafficProfile.UPLINK: {},
             TrafficProfile.DOWNLINK: {},
+            'args': tprofile_args
         }
 
-        traffic_vnfd = vnfdgen.generate_vnfd(traffic_mapping, traffic_map_data)
+        traffic_vnfd = vnfdgen.generate_vnfd(tprofile, tprofile_data)
         self.traffic_profile = TrafficProfile.get(traffic_vnfd)
-        return self.traffic_profile
 
     def _find_vnf_name_from_id(self, vnf_id):
         return next((vnfd["vnfd-id-ref"]
@@ -451,12 +452,13 @@ class NetworkServiceTestCase(base.Scenario):
         self._resolve_topology()
         self._update_context_with_topology()
 
-    FIND_NETDEVICE_STRING = r"""find /sys/devices/pci* -type d -name net -exec sh -c '{ grep -sH ^ \
+    FIND_NETDEVICE_STRING = (
+        r"""find /sys/devices/pci* -type d -name net -exec sh -c '{ grep -sH ^ \
 $1/ifindex $1/address $1/operstate $1/device/vendor $1/device/device \
 $1/device/subsystem_vendor $1/device/subsystem_device ; \
 printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
 ' sh  \{\}/* \;
-"""
+""")
     BASE_ADAPTER_RE = re.compile(
         '^/sys/devices/(.*)/net/([^/]*)/([^:]*):(.*)$', re.M)
 
