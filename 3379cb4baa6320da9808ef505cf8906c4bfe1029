@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_7ac94225",
+        "filename": "ansible/install_tom.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-17T12:02:32Z",
+      "side": 1,
+      "message": "We have plenty of ansible scripts. We should have:\n- Or a manual reference to execute this ansible script\n- or a /tool/script to execute this ansible script\n\nNo ansible script should be executed manually",
+      "parentUuid": "9a3d3df0_daadeeea",
+      "revId": "3379cb4baa6320da9808ef505cf8906c4bfe1029",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_fc5f123f",
         "filename": "ansible/roles/install_r_package/tasks/main.yaml",
         "patchSetId": 6
@@ -176,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_dad96ef4",
+        "filename": "yardstick/resources/TOM/examples/test_opnfv_yardstick_tc012.csv",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-17T12:02:32Z",
+      "side": 1,
+      "message": "32Kbytes for an example? No way.\n\nIf this is an example of input, then it should be generic.\n\nIs this really a manually generated file? I don\u0027t think so. If this file is not generated manually and is just a output of another program, there is no need to add it",
+      "parentUuid": "9a3d3df0_3ab7ba3b",
+      "revId": "3379cb4baa6320da9808ef505cf8906c4bfe1029",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_bc390af4",
         "filename": "yardstick/resources/TOM/examples/test_opnfv_yardstick_tc055.csv",
         "patchSetId": 6
@@ -222,6 +258,24 @@
       "side": 1,
       "message": "these two files are now used manually. These functions will be implemented in TOM tool in the future.",
       "parentUuid": "9a3d3df0_9c3ec6d8",
+      "revId": "3379cb4baa6320da9808ef505cf8906c4bfe1029",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bacf4a28",
+        "filename": "yardstick/resources/TOM/generate_boxplot.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-17T12:02:32Z",
+      "side": 1,
+      "message": "If this code is not going to be usable in this patch, it should be here now.\n\nHow this code is used?\n\nWhy is not integrated in the CLI?\n\nWhy there are no UTs for this code?",
+      "parentUuid": "9a3d3df0_1ab47633",
       "revId": "3379cb4baa6320da9808ef505cf8906c4bfe1029",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
