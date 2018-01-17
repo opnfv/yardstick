@@ -22,6 +22,30 @@
       "revId": "68f827cdffa186e154b554829f0ceae371ddfbd4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_156729b8",
+        "filename": "etc/yardstick/nodes/fuel_baremetal/pod.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2018-01-17T18:05:10Z",
+      "side": 1,
+      "message": "These are caused by upstream changes.\nUp to and including the D release, Fuel@OPNFV was built on top of Fuel@Openstack, which used an in-house solution to build Ubuntu images and write them on the nodes, hardcoding the \u0027root\u0027/\u0027r00tme\u0027 user/pass combination in the process.\nStarting with the E release, Fuel@OPNFV relies on Salt to handle the deployment, which leverages MaaS baremetal provisioner and configures node access on the default user created by MaaS (\u0027ubuntu\u0027) using a keypair (mcp.rsa below).\nThe user \u0027ubuntu\u0027 won\u0027t change from deployment to deployment. The key path can be anything really, as long as we properly document this, and let the end-users know where the key is located and how it is named.\nI agree a `username`/`key_file` implementation would be better and allow more flexibility.",
+      "parentUuid": "9a3d3df0_5c9c3e0f",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 16
+      },
+      "revId": "68f827cdffa186e154b554829f0ceae371ddfbd4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
