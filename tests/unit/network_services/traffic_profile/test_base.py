@@ -22,7 +22,7 @@ import unittest
 from yardstick.common import exceptions
 from yardstick.network_services import traffic_profile as tprofile_package
 from yardstick.network_services.traffic_profile import base
-from yardstick.tests import unit as unit_test
+from yardstick import tests as y_tests
 
 
 class TestTrafficProfile(unittest.TestCase):
@@ -56,7 +56,7 @@ class TestTrafficProfile(unittest.TestCase):
             'RFC2544Profile', 'FixedProfile', 'TrafficProfileGenericHTTP',
             'IXIARFC2544Profile', 'ProxACLProfile', 'ProxBinSearchProfile',
             'ProxProfile', 'ProxRampProfile']
-        with mock.patch.dict(sys.modules, unit_test.STL_MOCKS):
+        with mock.patch.dict(sys.modules, y_tests.STL_MOCKS):
             tprofile_package.register_modules()
 
             for tp in traffic_profile_list:
