@@ -671,6 +671,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_95297939",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_vsperf_dpdk.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-17T20:38:40Z",
+      "side": 1,
+      "message": "It\u0027s in another WIP patch: \n    https://gerrit.opnfv.org/gerrit/#/c/47677/\nI believe I pointed this out in many other changes, and then I got tired of looking up the reference.\n\n#47677 needs to be rebased, but I\u0027m going to wait until the majority of these renaming patches are moved, to avoid having to resolve the same conflicts over and over again.",
+      "parentUuid": "9a3d3df0_9aeb6677",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 10
+      },
+      "revId": "33fd56e7bccb4c8c1b676bcdfc77bdaa21a1ca8e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_b2a2d848",
         "filename": "tests/unit/benchmark/scenarios/parser/test_parser.py",
         "patchSetId": 3
