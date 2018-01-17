@@ -52,6 +52,24 @@
       "revId": "1fb1e684edf5e302de2c831d646b643c2a46cc1b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1aec76f2",
+        "filename": "tests/unit/orchestrator/test_heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-17T10:07:52Z",
+      "side": 0,
+      "message": "You can use the ``git follow`` command, if it doesn\u0027t appear as a rename.\n\nI can\u0027t control whether a particular instance of git/gerrit tracks a move.",
+      "parentUuid": "9a3d3df0_068b89c3",
+      "revId": "1fb1e684edf5e302de2c831d646b643c2a46cc1b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
