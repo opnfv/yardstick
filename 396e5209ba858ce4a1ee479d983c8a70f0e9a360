@@ -213,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9a5d267c",
+        "filename": "tools/virt_ci_rampup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-17T11:53:00Z",
+      "side": 1,
+      "message": "No, take a look at the left window: new file mode 100644\n\nThis should be 100774",
+      "parentUuid": "9a3d3df0_fa40b2a6",
+      "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_bf245c60",
         "filename": "tools/virt_ci_rampup.sh",
         "patchSetId": 2
