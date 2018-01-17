@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_9ad406be",
+        "filename": "ansible/roles/install_r_package/tasks/main.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-17T12:02:32Z",
+      "side": 1,
+      "message": "xenial",
+      "range": {
+        "startLine": 20,
+        "startChar": 16,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "0e7a88b0c7296398acf358a0d2a071ffe5b50f22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
