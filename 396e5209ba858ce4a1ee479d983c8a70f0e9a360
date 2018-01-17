@@ -231,6 +231,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b5075d17",
+        "filename": "tools/virt_ci_rampup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-17T13:53:03Z",
+      "side": 1,
+      "message": "It seems I can do only 100755.",
+      "parentUuid": "9a3d3df0_9a5d267c",
+      "revId": "396e5209ba858ce4a1ee479d983c8a70f0e9a360",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_bf245c60",
         "filename": "tools/virt_ci_rampup.sh",
         "patchSetId": 2
