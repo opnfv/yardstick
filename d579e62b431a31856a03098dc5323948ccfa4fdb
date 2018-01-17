@@ -16,6 +16,24 @@
       "revId": "d579e62b431a31856a03098dc5323948ccfa4fdb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9ab7e6f4",
+        "filename": "tests/unit/orchestrator/test_heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-17T10:16:07Z",
+      "side": 0,
+      "message": "Out of my control.",
+      "parentUuid": "9a3d3df0_72321060",
+      "revId": "d579e62b431a31856a03098dc5323948ccfa4fdb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
