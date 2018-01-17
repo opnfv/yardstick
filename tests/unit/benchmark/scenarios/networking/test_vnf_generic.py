@@ -11,22 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 from copy import deepcopy
 import errno
 import mock
 import os
 import sys
-import unittest
 
 import six
+import unittest
 
 from yardstick.common import utils
 from tests import unit as unit_test
 from yardstick.benchmark.scenarios.networking import vnf_generic
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.traffic_profile import base
+from yardstick.network_services.vnf_generic import vnfdgen
 from yardstick.network_services.vnf_generic.vnf.base import \
     GenericTrafficGen, GenericVNF
 
@@ -309,6 +309,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             'task_id': 'a70bdf4a-8e67-47a3-9dc1-273c14506eb7',
             'tc': 'tc_ipv4_1Mflow_64B_packetsize',
             'traffic_profile': 'ipv4_throughput_vpe.yaml',
+            'extra_args': {'arg1': 'value1', 'arg2': 'value2'},
             'type': 'ISB',
             'tc_options': {
                 'rfc2544': {
@@ -407,12 +408,10 @@ class TestNetworkServiceTestCase(unittest.TestCase):
               'public_ip': ['1.1.1.1'],
             },
         }
-
-        # NOTE(ralonsoh): this variable is not used in the test case and maybe
-        # it should.
-        #result = {'flow': {'dst_ip0': '152.16.40.2-152.16.40.254',
-        #                   'src_ip0': '152.16.100.2-152.16.100.254'}}
-
+        # NOTE(ralonsoh): check the expected output. This test could be
+        # incorrect
+        # result = {'flow': {'dst_ip0': '152.16.40.2-152.16.40.254',
+        #                    'src_ip0': '152.16.100.2-152.16.100.254'}}
         self.assertEqual({'flow': {}}, self.s._get_traffic_flow())
 
     def test___get_traffic_flow_error(self):
@@ -461,8 +460,10 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self.s.map_topology_to_infrastructure()
 
         nodes = self.context_cfg["nodes"]
-        self.assertEqual("../../vnf_descriptors/tg_rfc2544_tpl.yaml", nodes['tg__1']['VNF model'])
-        self.assertEqual("../../vnf_descriptors/vpe_vnf.yaml", nodes['vnf__1']['VNF model'])
+        self.assertEqual('../../vnf_descriptors/tg_rfc2544_tpl.yaml',
+                         nodes['tg__1']['VNF model'])
+        self.assertEqual('../../vnf_descriptors/vpe_vnf.yaml',
+                         nodes['vnf__1']['VNF model'])
 
     def test_map_topology_to_infrastructure_insufficient_nodes(self):
         del self.context_cfg['nodes']['vnf__1']
@@ -498,10 +499,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             for interface in self.tg__1['interfaces'].values():
                 del interface['local_mac']
 
-            with mock.patch(
-                "yardstick.benchmark.scenarios.networking.vnf_generic.LOG"):
-                with self.assertRaises(vnf_generic.IncorrectConfig) as raised:
-                    self.s._resolve_topology()
+            with self.assertRaises(vnf_generic.IncorrectConfig) as raised:
+                self.s._resolve_topology()
 
             self.assertIn('not found', str(raised.exception))
 
@@ -513,9 +512,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self.s.topology["vld"][0]['vnfd-connection-point-ref'].append(
                 self.s.topology["vld"][0]['vnfd-connection-point-ref'][0])
 
-            with mock.patch.object(vnf_generic, 'LOG'):
-                with self.assertRaises(vnf_generic.IncorrectConfig) as raised:
-                    self.s._resolve_topology()
+            with self.assertRaises(vnf_generic.IncorrectConfig) as raised:
+                self.s._resolve_topology()
 
             self.assertIn('wrong endpoint count', str(raised.exception))
 
@@ -523,9 +521,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self.s.topology["vld"][0]['vnfd-connection-point-ref'] = \
                 self.s.topology["vld"][0]['vnfd-connection-point-ref'][:1]
 
-            with mock.patch.object(vnf_generic, 'LOG'):
-                with self.assertRaises(vnf_generic.IncorrectConfig) as raised:
-                    self.s._resolve_topology()
+            with self.assertRaises(vnf_generic.IncorrectConfig) as raised:
+                self.s._resolve_topology()
 
             self.assertIn('wrong endpoint count', str(raised.exception))
 
@@ -616,17 +613,25 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         with mock.patch.dict(self.scenario_cfg["traffic_options"], {'imix': ''}):
             self.assertEqual({'imix': {'64B': 100}}, self.s._get_traffic_imix())
 
-    def test__fill_traffic_profile(self):
-        with mock.patch.object(base.TrafficProfile, 'get') as mock_get:
-            traffic_profile = mock.Mock()
-            mock_get.return_value = traffic_profile
-            self.scenario_cfg["traffic_profile"] = \
-                self._get_file_abspath("ipv4_throughput_vpe.yaml")
-            self.scenario_cfg["traffic_options"]["flow"] = \
-                self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
-            self.scenario_cfg["traffic_options"]["imix"] = \
-                self._get_file_abspath("imix_voice.yaml")
-            self.assertEqual(traffic_profile, self.s._fill_traffic_profile())
+    @mock.patch.object(base.TrafficProfile, 'get')
+    @mock.patch.object(vnfdgen, 'generate_vnfd')
+    def test__fill_traffic_profile(self, mock_generate, mock_tprofile_get):
+        fake_tprofile = mock.Mock()
+        fake_vnfd = mock.Mock()
+        with mock.patch.object(self.s, '_get_traffic_profile',
+                               return_value=fake_tprofile) as mock_get_tp:
+            mock_generate.return_value = fake_vnfd
+            self.s._fill_traffic_profile()
+            mock_get_tp.assert_called_once()
+            mock_generate.assert_called_once_with(
+                fake_tprofile,
+                {'downlink': {},
+                 'extra_args': {'arg1': 'value1', 'arg2': 'value2'},
+                 'flow': {'flow': {}},
+                 'imix': {'imix': {'64B': 100}},
+                 'uplink': {}}
+            )
+            mock_tprofile_get.assert_called_once_with(fake_vnfd)
 
     def test_teardown(self):
         vnf = mock.Mock(autospec=GenericVNF)
