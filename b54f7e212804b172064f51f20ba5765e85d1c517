@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_ab3ffe85",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-01-18T19:17:58Z",
+      "side": 1,
+      "message": "Suggested re-word of Test Case Title:\n\nVM High Availability when Hypervisor Node Failure Occurs",
+      "range": {
+        "startLine": 11,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 45
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8b44ba1b",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-01-18T19:17:58Z",
+      "side": 1,
+      "message": "Suggested re-word:\nVerify VM HA on Hypervisor Node Failure",
+      "range": {
+        "startLine": 13,
+        "startChar": 49,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_50337faa",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -41,6 +87,29 @@
         "startChar": 48,
         "endLine": 17,
         "endChar": 32
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_eb4c6644",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-01-18T19:17:58Z",
+      "side": 1,
+      "message": "Should the test purpose also include a measurement of outage on a benchmark system/hardware setup ?   Or at least some minimum outage requirement ?\n\nwhere outage could be measured by the VM under test doing simple L3 Routing for  a steady state bi-directional packet flow of (say) 1,000 packets / second, and simply record the number of packets lost across the failure and recovery.\n\nCorresponding changes would be required to the following test methods, if done.",
+      "range": {
+        "startLine": 19,
+        "startChar": 62,
+        "endLine": 19,
+        "endChar": 64
       },
       "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -127,6 +196,29 @@
         "startChar": 20,
         "endLine": 25,
         "endChar": 31
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cb49a232",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-01-18T19:17:58Z",
+      "side": 1,
+      "message": "Is this an executable for causing a kernel panic on a specified node ?\n\nIf so, \n- we should state that, and\n- why are we calling it \"node-pause\" rather than \"node-panic\" ?",
+      "range": {
+        "startLine": 27,
+        "startChar": 56,
+        "endLine": 27,
+        "endChar": 66
       },
       "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -467,6 +559,29 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_2b53eee2",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-01-18T19:17:58Z",
+      "side": 1,
+      "message": "Yeah i would say \n\n\"The Hypervisor Node is halted due to panic, and\n  because of the halted Hypervisor Node, the VM will no longer be running.\"",
+      "range": {
+        "startLine": 121,
+        "startChar": 48,
+        "endLine": 121,
+        "endChar": 49
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f0f9f380",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -501,6 +616,29 @@
       "writtenOn": "2018-01-18T12:37:24Z",
       "side": 1,
       "message": "empty line",
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0b50aad2",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-01-18T19:17:58Z",
+      "side": 1,
+      "message": "I think this is the first time you talked about SLA.\nYou should talk about this in the Test Purpose and define exactly what the SLA is and describe how you are measuring the SLA metric.",
+      "range": {
+        "startLine": 145,
+        "startChar": 31,
+        "endLine": 145,
+        "endChar": 34
+      },
       "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
