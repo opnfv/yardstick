@@ -49,6 +49,46 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_30751bfa",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc084.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-01-18T15:10:37Z",
+      "side": 1,
+      "message": "this doesn\u0027t have to be a L3VPN because this restricts this test to deployments which have this feature enabled.",
+      "range": {
+        "startLine": 100,
+        "startChar": 42,
+        "endLine": 100,
+        "endChar": 53
+      },
+      "revId": "9c020e853d8017b5293f0d8f2ec10169634f1b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_10729710",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc084.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-01-18T15:10:37Z",
+      "side": 1,
+      "message": "see above. We should not demand L3VPN functionality. Floating IP in general is ok.",
+      "revId": "9c020e853d8017b5293f0d8f2ec10169634f1b4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_d0a218fc",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc084.rst",
         "patchSetId": 2
