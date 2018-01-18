@@ -212,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_75df950d",
+        "filename": "yardstick/resources/TOM/examples/test_opnfv_yardstick_tc012.csv",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2018-01-18T01:05:27Z",
+      "side": 1,
+      "message": "The CSV file for TC012 comes with the TOM code, contributed by Orange. So I think it should be kept.\nThe file for TC055 was added by me, and will be removed if you thought it is redundant.\n\nThere are a lot of ways to prepare this input file. While currently, the files need to be generated manually. So I think an example is necessary.",
+      "parentUuid": "9a3d3df0_dad96ef4",
+      "revId": "3379cb4baa6320da9808ef505cf8906c4bfe1029",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_bc390af4",
         "filename": "yardstick/resources/TOM/examples/test_opnfv_yardstick_tc055.csv",
         "patchSetId": 6
@@ -276,6 +294,24 @@
       "side": 1,
       "message": "If this code is not going to be usable in this patch, it should be here now.\n\nHow this code is used?\n\nWhy is not integrated in the CLI?\n\nWhy there are no UTs for this code?",
       "parentUuid": "9a3d3df0_1ab47633",
+      "revId": "3379cb4baa6320da9808ef505cf8906c4bfe1029",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_55e411e0",
+        "filename": "yardstick/resources/TOM/generate_boxplot.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2018-01-18T01:05:27Z",
+      "side": 1,
+      "message": "the uasge of TOM will be described in the user guide.\nThe TOM is not a part of the Yardstick. So I think it is unnecessary to develop a CLI for it.",
+      "parentUuid": "9a3d3df0_bacf4a28",
       "revId": "3379cb4baa6320da9808ef505cf8906c4bfe1029",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
