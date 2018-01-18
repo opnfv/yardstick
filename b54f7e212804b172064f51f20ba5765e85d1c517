@@ -1,0 +1,348 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_50337faa",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "To be deleted",
+      "range": {
+        "startLine": 17,
+        "startChar": 79,
+        "endLine": 17,
+        "endChar": 110
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d0ccaf8b",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "All testcase descriptions leave an empty line at the end of the row.",
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_30efdbea",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "panic failure, observe whether....\n\nThis is not the last clause of the oordinating sentence",
+      "range": {
+        "startLine": 22,
+        "startChar": 17,
+        "endLine": 22,
+        "endChar": 43
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b0248b60",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "and observe",
+      "range": {
+        "startLine": 24,
+        "startChar": 53,
+        "endLine": 24,
+        "endChar": 55
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_10ec57f2",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "L2, L3 and L3VPN\n\nLeave spaces",
+      "range": {
+        "startLine": 25,
+        "startChar": 20,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_30c6bb68",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "To be deleted",
+      "range": {
+        "startLine": 32,
+        "startChar": 79,
+        "endLine": 32,
+        "endChar": 93
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_70bcc3dc",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "- fault_type\n\nLeave an space",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_10c3b757",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 22
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_90aea796",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "It\u0027s a bit confusing this kind or ordering. You are using\n1. and\n1)\n\nBecause you have only one parameter, you can use a hyphen:\n- monitor_type",
+      "range": {
+        "startLine": 43,
+        "startChar": 17,
+        "endLine": 43,
+        "endChar": 20
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f096134b",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "Empy line",
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_708a031c",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "Do we need an index here? We are talking about one node only.",
+      "range": {
+        "startLine": 61,
+        "startChar": 17,
+        "endLine": 61,
+        "endChar": 20
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b0800bf8",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "1) again?",
+      "range": {
+        "startLine": 77,
+        "startChar": 17,
+        "endLine": 77,
+        "endChar": 19
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d07aef22",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "empty line",
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_90850709",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "To be deleted",
+      "range": {
+        "startLine": 109,
+        "startChar": 79,
+        "endLine": 109,
+        "endChar": 96
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f07d731d",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "To be deleted",
+      "range": {
+        "startLine": 121,
+        "startChar": 79,
+        "endLine": 121,
+        "endChar": 97
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3074fb34",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-18T12:37:24Z",
+      "side": 1,
+      "message": "empty line",
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
