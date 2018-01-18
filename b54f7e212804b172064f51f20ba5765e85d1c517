@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_d0f66f8e",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-01-18T14:00:45Z",
+      "side": 1,
+      "message": "it is actually not HA of the hypervisor, but it verifies that the NFVI is capable of of restarting VMs on failed hypervisor nodes as mentioned in the following sentence.",
+      "range": {
+        "startLine": 16,
+        "startChar": 48,
+        "endLine": 17,
+        "endChar": 32
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_d0ccaf8b",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -203,6 +226,29 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_70068387",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-01-18T14:00:45Z",
+      "side": 1,
+      "message": "this section does not mention the L2, L3 connectivity checks mentioned above and below. Is this monitor supposed to check this, too? Similarly, the section \"test purpose\" mentions fencing, which is not mentioned down here. I am wondering if all this should be included right from the start. We could also start slowly and just verify the automatic rebuild of a VM (see also metrics below).",
+      "range": {
+        "startLine": 47,
+        "startChar": 25,
+        "endLine": 47,
+        "endChar": 35
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f096134b",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -214,6 +260,29 @@
       "writtenOn": "2018-01-18T12:37:24Z",
       "side": 1,
       "message": "Empy line",
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9038673e",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-01-18T14:00:45Z",
+      "side": 1,
+      "message": "I am not entirely sure I understand the difference between a monitor and a checker here. Both check whether or not the compute node have gone down, right? Can you explain this a bit?",
+      "range": {
+        "startLine": 60,
+        "startChar": 1,
+        "endLine": 60,
+        "endChar": 9
+      },
       "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -259,6 +328,52 @@
         "startChar": 17,
         "endLine": 77,
         "endChar": 19
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b033eb60",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-01-18T14:00:45Z",
+      "side": 1,
+      "message": "the checker is missing",
+      "range": {
+        "startLine": 89,
+        "startChar": 20,
+        "endLine": 89,
+        "endChar": 34
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_500b7f8d",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-01-18T14:00:45Z",
+      "side": 1,
+      "message": "I don\u0027t fully understand this sentence, sorry.",
+      "range": {
+        "startLine": 97,
+        "startChar": 17,
+        "endLine": 97,
+        "endChar": 70
       },
       "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -322,6 +437,52 @@
         "startChar": 79,
         "endLine": 121,
         "endChar": 97
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b0fc8b73",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-01-18T14:00:45Z",
+      "side": 1,
+      "message": "and the hypervisor node",
+      "range": {
+        "startLine": 121,
+        "startChar": 25,
+        "endLine": 121,
+        "endChar": 46
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f0f9f380",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-01-18T14:00:45Z",
+      "side": 1,
+      "message": "It seems this requires a 2nd VM on another host for sending traffic  to the new VM",
+      "range": {
+        "startLine": 126,
+        "startChar": 41,
+        "endLine": 127,
+        "endChar": 50
       },
       "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
