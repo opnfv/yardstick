@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_70f04367",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-01-18T15:58:17Z",
+      "side": 1,
+      "message": "why do you remove this?",
+      "revId": "6b84e4d30c31b7546376c6f3107cb4a642eb0340",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
