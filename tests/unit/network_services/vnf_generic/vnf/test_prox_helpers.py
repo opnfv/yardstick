@@ -24,6 +24,7 @@ import mock
 import unittest
 
 from tests.unit import STL_MOCKS
+from yardstick.common import utils
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 
 
@@ -962,7 +963,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = setup_helper.prox_config_data
         self.assertEqual(result, expected)
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
+    @mock.patch.object(utils, 'find_relative_file')
     def test_build_config_file_no_additional_file(self, mock_find_path):
         vnf1 = {
             'prox_args': {'-c': ""},
@@ -996,7 +997,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         self.assertEqual(helper._prox_config_data, '4')
         self.assertEqual(helper.remote_path, '5')
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
+    @mock.patch.object(utils, 'find_relative_file')
     def test_build_config_file_additional_file_string(self, mock_find_path):
         vnf1 = {
             'prox_args': {'-c': ""},
@@ -1028,7 +1029,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         helper.build_config_file()
         self.assertDictEqual(helper.additional_files, expected)
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
+    @mock.patch.object(utils, 'find_relative_file')
     def test_build_config_file_additional_file(self, mock_find_path):
         vnf1 = {
             'prox_args': {'-c': ""},
