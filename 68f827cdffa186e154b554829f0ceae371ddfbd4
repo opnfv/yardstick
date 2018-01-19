@@ -46,6 +46,30 @@
       "revId": "68f827cdffa186e154b554829f0ceae371ddfbd4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_27e7a2e5",
+        "filename": "etc/yardstick/nodes/fuel_baremetal/pod.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-19T11:11:28Z",
+      "side": 1,
+      "message": "If the key file location can vary between deployments (i.e. it\u0027s configurable), then we should not hard code it here.\n\nAdditionally, if this is configurable, we can use the same pod.yaml for other OPNFV installers, not just fuel.\n\nAlong with other, similar changes, this could contribute to the reduction in the size of the yardstick container running on a system.",
+      "parentUuid": "9a3d3df0_156729b8",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 16
+      },
+      "revId": "68f827cdffa186e154b554829f0ceae371ddfbd4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
