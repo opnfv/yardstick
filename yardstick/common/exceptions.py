@@ -57,3 +57,7 @@ class YardstickException(Exception):
 class FunctionNotImplemented(YardstickException):
     message = ('The function "%(function_name)s" is not implemented in '
                '"%(class_name)" class.')
+
+
+class TrafficProfileNotImplemented(YardstickException):
+    message = 'No implementation for traffic profile %(profile_class)s.'
