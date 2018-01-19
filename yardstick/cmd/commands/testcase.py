@@ -35,6 +35,16 @@ class TestcaseCommands(Commands):
         param = change_osloobj_to_paras(args)
         Testcase().show(param)
 
+    @cliargs("input_file", type=str, help="path to the extended test cases' tar file", nargs=1)
+    def do_enable(self, args):
+        """Enable extended test cases."""
+        param = change_osloobj_to_paras(args)
+        Testcase().enable(param)
+
+    def do_disable(self, *args):
+        """Disable extended test cases."""
+        Testcase().disable()
+
     def _format_print(self, testcase_list):
         """format output"""
         case_table = prettytable.PrettyTable(['Testcase Name', 'Description'])
