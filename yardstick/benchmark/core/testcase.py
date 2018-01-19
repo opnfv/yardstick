@@ -12,6 +12,8 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
+import tarfile
+import shutil
 import logging
 
 from yardstick.common.task_template import TaskTemplate
@@ -26,6 +28,8 @@ class Testcase(object):
 
        Set of commands to discover and display test cases.
     """
+    ANSIBLE_BACKUP = os.path.join(consts.EXTENDED_REPOS_DIR, 'ansible_bak/')
+    EXTENDED_SCENARIO_DIR = os.path.join(consts.YARDSTICK_ROOT_PATH, 'yardstick/benchmark/scenarios/extended/')
 
     def list_all(self, args):
         """List existing test cases"""
@@ -104,3 +108,68 @@ class Testcase(object):
 
             print(testcase_info)
         return True
+
+    def enable(self, args):
+        """Enable extended test cases"""
+        testcase_tar_file = args.input_file[0]
+
+        if not os.path.exists(testcase_tar_file):
+            LOG.info('Test case tar file not found!')
+        elif not testcase_tar_file.endswith('.tar'):
+            LOG.info('Test case tar file not in correct format!')
+        else:
+            testcase_tar = tarfile.open(testcase_tar_file, 'r')
+            LOG.info('Extracting test case tar file to %s ...', consts.EXTENDED_REPOS_DIR)
+            testcase_tar.extractall(consts.EXTENDED_REPOS_DIR)
+            testcase_tar.close()
+
+        # copy test case yaml and test suite yaml files to Yardstick repo
+        extended_testcase_src = os.path.join(consts.EXTENDED_REPOS_DIR, 'tests/opnfv/test_cases/')
+        LOG.info('Copying test case yaml files to Yardstick repo...')
+        shutil.copytree(extended_testcase_src, consts.EXTENDED_TESTCASE_DIR)
+        extended_testsuite_src = os.path.join(consts.EXTENDED_REPOS_DIR, 'tests/opnfv/test_suites/')
+        LOG.info('Copying test suite yaml files to Yardstick repo...')
+        shutil.copytree(extended_testsuite_src, consts.EXTENDED_TESTSUITE_DIR)
+
+        # copy scenario py files to Yardstick repo
+        extended_scenario_src = os.path.join(consts.EXTENDED_REPOS_DIR, 'yardstick/benchmark/scenarios/')
+        LOG.info('Copying scenario py files to Yardstick repo...')
+        shutil.copytree(extended_scenario_src, self.EXTENDED_SCENARIO_DIR)
+
+        # backup Yardstick repo's ansible folder first
+        # the copy ansible scripts to Yardstick repo
+        shutil.copytree(consts.ANSIBLE_DIR, self.ANSIBLE_BACKUP)
+        extended_ansible_src = os.path.join(consts.EXTENDED_REPOS_DIR, 'ansible/')
+        LOG.info('Copying ansible scripts to Yardstick repo...')
+        cmd = "cp -r %s %s" % (extended_ansible_src, consts.YARDSTICK_ROOT_PATH)
+        os.system(cmd)
+
+        # TODO:support extended test case docs to Yardstick repo
+
+        LOG.info('Complete!')
+
+    def disable(self):
+        """Disable extended test cases"""
+
+        # remove ansible scripts
+        LOG.info('Removing ansible scripts from Yardstick repo...')
+        shutil.rmtree(consts.ANSIBLE_DIR)
+        shutil.copytree(self.ANSIBLE_BACKUP, consts.ANSIBLE_DIR)
+
+        # remove consts.EXTENDED_TESTCASE_DIR
+        LOG.info('Removing test case yaml files from Yardstick repo...')
+        shutil.rmtree(consts.EXTENDED_TESTCASE_DIR)
+
+        # remove consts.EXTENDED_TESTSUITE_DIR
+        LOG.info('Removing test suite yaml files from Yardstick repo...')
+        shutil.rmtree(consts.EXTENDED_TESTSUITE_DIR)
+
+        # remove EXTENDED_SCENARIO_DIR
+        LOG.info('Removing scenario py files from Yardstick repo...')
+        shutil.rmtree(self.EXTENDED_SCENARIO_DIR)
+
+        # remove consts.EXTENDED_REPOS_DIR
+        LOG.info('Removing extended yardstick repo...')
+        shutil.rmtree(consts.EXTENDED_REPOS_DIR)
+
+        LOG.info('Complete!')
