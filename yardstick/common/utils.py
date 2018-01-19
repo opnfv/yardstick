@@ -64,7 +64,7 @@ def itersubclasses(cls, _seen=None):
                 yield sub
 
 
-def import_modules_from_package(package):
+def import_modules_from_package(package, raise_exception=False):
     """Import modules given a package name
 
     :param: package - Full package name. For example: rally.deploy.engines
@@ -85,7 +85,9 @@ def import_modules_from_package(package):
         for module_name in missing_modules:
             try:
                 importlib.import_module(module_name)
-            except (ImportError, SyntaxError):
+            except (ImportError, SyntaxError) as exc:
+                if raise_exception:
+                    raise exc
                 logger.exception('Unable to import module %s', module_name)
 
 
@@ -395,3 +397,31 @@ class Timer(object):
 
     def __getattr__(self, item):
         return getattr(self.delta, item)
+
+
+def find_relative_file(path, task_path):
+    """
+    Find file in one of places: in abs of path or relative to a directory path,
+    in this order.
+
+    :param path:
+    :param task_path:
+    :return str: full path to file
+    """
+    # fixme: create schema to validate all fields have been provided
+    for lookup in [os.path.abspath(path), os.path.join(task_path, path)]:
+        try:
+            with open(lookup):
+                return lookup
+        except IOError:
+            pass
+    raise IOError(errno.ENOENT, 'Unable to find {} file'.format(path))
+
+
+def open_relative_file(path, task_path):
+    try:
+        return open(path)
+    except IOError as e:
+        if e.errno == errno.ENOENT:
+            return open(os.path.join(task_path, path))
+        raise
