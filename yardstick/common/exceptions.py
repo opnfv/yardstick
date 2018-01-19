@@ -65,5 +65,9 @@ class HeatTemplateError(YardstickException):
                '"%(stack_name)"')
 
 
+class TrafficProfileNotImplemented(YardstickException):
+    message = 'No implementation for traffic profile %(profile_class)s.'
+
+
 class DPDKSetupDriverError(YardstickException):
     message = '"igb_uio" driver is not loaded'
