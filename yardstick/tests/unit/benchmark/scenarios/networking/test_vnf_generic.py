@@ -11,18 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
-
-import os
-import errno
-import unittest
-import mock
 
 from copy import deepcopy
+import errno
+import os
 
-from yardstick.benchmark.scenarios.networking.vnf_generic import \
-    SshManager, NetworkServiceTestCase, IncorrectConfig, \
-    open_relative_file
+import mock
+import six
+import unittest
+
+from yardstick.common import utils
+from yardstick.benchmark.scenarios.networking import vnf_generic
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic.vnf.base import \
     GenericTrafficGen, GenericVNF
@@ -334,7 +333,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             },
         }
 
-        self.s = NetworkServiceTestCase(self.scenario_cfg, self.context_cfg)
+        self.s = vnf_generic.NetworkServiceTestCase(self.scenario_cfg,
+                                                    self.context_cfg)
 
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
@@ -347,8 +347,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.from_node.return_value = ssh_mock
-            for _, node_dict in self.context_cfg["nodes"].items():
-                with SshManager(node_dict) as conn:
+            for node_dict in self.context_cfg["nodes"].values():
+                with vnf_generic.SshManager(node_dict) as conn:
                     self.assertIsNotNone(conn)
 
     def test___init__(self):
@@ -405,6 +405,10 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             },
         }
 
+        # NOTE(ralonsoh): this variable is not used in the test case and maybe
+        # it should.
+        #result = {'flow': {'dst_ip0': '152.16.40.2-152.16.40.254',
+        #                   'src_ip0': '152.16.100.2-152.16.100.254'}}
         self.assertEqual({'flow': {}}, self.s._get_traffic_flow())
 
     def test___get_traffic_flow_error(self):
@@ -416,7 +420,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         vnfd = COMPLETE_TREX_VNFD['vnfd:vnfd-catalog']['vnfd'][0]['class-name']
         self.assertIsNotNone(self.s.get_vnf_impl(vnfd))
 
-        with self.assertRaises(IncorrectConfig) as raised:
+        with self.assertRaises(vnf_generic.IncorrectConfig) as raised:
             self.s.get_vnf_impl('NonExistentClass')
 
         exc_str = str(raised.exception)
@@ -465,7 +469,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 mock.Mock(return_value=(1, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.from_node.return_value = ssh_mock
 
-            with self.assertRaises(IncorrectConfig):
+            with self.assertRaises(vnf_generic.IncorrectConfig):
                 self.s.map_topology_to_infrastructure()
 
     def test_map_topology_to_infrastructure_config_invalid(self):
@@ -477,7 +481,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
             ssh.from_node.return_value = ssh_mock
 
-            with self.assertRaises(IncorrectConfig):
+            with self.assertRaises(vnf_generic.IncorrectConfig):
                 self.s.map_topology_to_infrastructure()
 
     def test__resolve_topology_invalid_config(self):
@@ -492,8 +496,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 del interface['local_mac']
 
             with mock.patch(
-                    "yardstick.benchmark.scenarios.networking.vnf_generic.LOG"):
-                with self.assertRaises(IncorrectConfig) as raised:
+                "yardstick.benchmark.scenarios.networking.vnf_generic.LOG"):
+                with self.assertRaises(vnf_generic.IncorrectConfig) as raised:
                     self.s._resolve_topology()
 
             self.assertIn('not found', str(raised.exception))
@@ -506,9 +510,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self.s.topology["vld"][0]['vnfd-connection-point-ref'].append(
                 self.s.topology["vld"][0]['vnfd-connection-point-ref'][0])
 
-            with mock.patch(
-                    "yardstick.benchmark.scenarios.networking.vnf_generic.LOG"):
-                with self.assertRaises(IncorrectConfig) as raised:
+            with mock.patch.object(vnf_generic, 'LOG'):
+                with self.assertRaises(vnf_generic.IncorrectConfig) as raised:
                     self.s._resolve_topology()
 
             self.assertIn('wrong endpoint count', str(raised.exception))
@@ -517,9 +520,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self.s.topology["vld"][0]['vnfd-connection-point-ref'] = \
                 self.s.topology["vld"][0]['vnfd-connection-point-ref'][:1]
 
-            with mock.patch(
-                    "yardstick.benchmark.scenarios.networking.vnf_generic.LOG"):
-                with self.assertRaises(IncorrectConfig) as raised:
+            with mock.patch.object(vnf_generic, 'LOG'):
+                with self.assertRaises(vnf_generic.IncorrectConfig) as raised:
                     self.s._resolve_topology()
 
             self.assertIn('wrong endpoint count', str(raised.exception))
@@ -707,7 +709,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
 /sys/devices/pci0000:00/0000:00:19.0/net/lan/driver:e1000e
 /sys/devices/pci0000:00/0000:00:19.0/net/lan/pci_bus_id:0000:00:19.0
 """
-        res = NetworkServiceTestCase.parse_netdev_info(output)
+        res = vnf_generic.NetworkServiceTestCase.parse_netdev_info(output)
         assert res == self.SAMPLE_NETDEVS
 
     def test_parse_netdev_info_virtio(self):
@@ -719,67 +721,63 @@ class TestNetworkServiceTestCase(unittest.TestCase):
 /sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/device/device:0x0001
 /sys/devices/pci0000:00/0000:00:04.0/virtio1/net/eth1/driver:virtio_net
 """
-        res = NetworkServiceTestCase.parse_netdev_info(output)
+        res = vnf_generic.NetworkServiceTestCase.parse_netdev_info(output)
         assert res == self.SAMPLE_VM_NETDEVS
 
     def test_probe_missing_values(self):
         netdevs = self.SAMPLE_NETDEVS.copy()
         network = {'local_mac': '0a:de:ad:be:ef:f5'}
-        NetworkServiceTestCase._probe_missing_values(netdevs, network)
+        vnf_generic.NetworkServiceTestCase._probe_missing_values(netdevs,
+                                                                 network)
         assert network['vpci'] == '0000:0b:00.0'
 
         network = {'local_mac': '0a:de:ad:be:ef:f4'}
-        NetworkServiceTestCase._probe_missing_values(netdevs, network)
+        vnf_generic.NetworkServiceTestCase._probe_missing_values(netdevs,
+                                                                 network)
         assert network['vpci'] == '0000:00:19.0'
 
-    # TODO: Split this into several tests, for different IOError sub-types
-    def test_open_relative_path(self):
-        mock_open = mock.mock_open()
+    @mock.patch.object(six.moves.builtins, 'open')
+    def test_open_relative_path(self, mock_open):
+        # NOTE(ralonsoh): the mocked function is not properly used and tested.
         mock_open_result = mock_open()
         mock_open_call_count = 1  # initial call to get result
+        self.assertEqual(utils.open_relative_file('foo', 'bar'),
+                         mock_open_result)
 
-        module_name = \
-            'yardstick.benchmark.scenarios.networking.vnf_generic.open'
+        mock_open_call_count += 1  # one more call expected
+        self.assertEqual(mock_open.call_count, mock_open_call_count)
+        self.assertIn('foo', mock_open.call_args_list[-1][0][0])
+        self.assertNotIn('bar', mock_open.call_args_list[-1][0][0])
 
-        # test
-        with mock.patch(module_name, mock_open, create=True):
-            self.assertEqual(open_relative_file(
-                'foo', 'bar'), mock_open_result)
+        def open_effect(*args, **kwargs):
+            if kwargs.get('name', args[0]) == os.path.join('bar', 'foo'):
+                return mock_open_result
+            raise IOError(errno.ENOENT, 'not found')
 
-            mock_open_call_count += 1  # one more call expected
-            self.assertEqual(mock_open.call_count, mock_open_call_count)
-            self.assertIn('foo', mock_open.call_args_list[-1][0][0])
-            self.assertNotIn('bar', mock_open.call_args_list[-1][0][0])
+        mock_open.side_effect = open_effect
+        self.assertEqual(utils.open_relative_file('foo', 'bar'),
+                         mock_open_result)
 
-            def open_effect(*args, **kwargs):
-                if kwargs.get('name', args[0]) == os.path.join('bar', 'foo'):
-                    return mock_open_result
-                raise IOError(errno.ENOENT, 'not found')
+        mock_open_call_count += 2  # two more calls expected
+        self.assertEqual(mock_open.call_count, mock_open_call_count)
+        self.assertIn('foo', mock_open.call_args_list[-1][0][0])
+        self.assertIn('bar', mock_open.call_args_list[-1][0][0])
 
-            mock_open.side_effect = open_effect
-            self.assertEqual(open_relative_file(
-                'foo', 'bar'), mock_open_result)
+        # test an IOError of type ENOENT
+        mock_open.side_effect = IOError(errno.ENOENT, 'not found')
+        with self.assertRaises(IOError):
+            # the second call still raises
+            utils.open_relative_file('foo', 'bar')
 
-            mock_open_call_count += 2  # two more calls expected
-            self.assertEqual(mock_open.call_count, mock_open_call_count)
-            self.assertIn('foo', mock_open.call_args_list[-1][0][0])
-            self.assertIn('bar', mock_open.call_args_list[-1][0][0])
+        mock_open_call_count += 2  # two more calls expected
+        self.assertEqual(mock_open.call_count, mock_open_call_count)
+        self.assertIn('foo', mock_open.call_args_list[-1][0][0])
+        self.assertIn('bar', mock_open.call_args_list[-1][0][0])
 
-            # test an IOError of type ENOENT
-            mock_open.side_effect = IOError(errno.ENOENT, 'not found')
-            with self.assertRaises(IOError):
-                # the second call still raises
-                open_relative_file('foo', 'bar')
+        # test an IOError other than ENOENT
+        mock_open.side_effect = IOError(errno.EBUSY, 'busy')
+        with self.assertRaises(IOError):
+            utils.open_relative_file('foo', 'bar')
 
-            mock_open_call_count += 2  # two more calls expected
-            self.assertEqual(mock_open.call_count, mock_open_call_count)
-            self.assertIn('foo', mock_open.call_args_list[-1][0][0])
-            self.assertIn('bar', mock_open.call_args_list[-1][0][0])
-
-            # test an IOError other than ENOENT
-            mock_open.side_effect = IOError(errno.EBUSY, 'busy')
-            with self.assertRaises(IOError):
-                open_relative_file('foo', 'bar')
-
-            mock_open_call_count += 1  # one more call expected
-            self.assertEqual(mock_open.call_count, mock_open_call_count)
+        mock_open_call_count += 1  # one more call expected
+        self.assertEqual(mock_open.call_count, mock_open_call_count)

@@ -13,16 +13,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-# Unittest for yardstick.network_services.traffic_profile.test_base
+import sys
 
-from __future__ import absolute_import
-import unittest
 import mock
+import unittest
 
-from yardstick.network_services.traffic_profile.base import \
-    TrafficProfile, DummyProfile
+from yardstick.common import exceptions
+from yardstick.network_services import traffic_profile as tprofile_package
+from yardstick.network_services.traffic_profile import base
+from yardstick.tests import unit as unit_test
 
 
 class TestTrafficProfile(unittest.TestCase):
@@ -43,20 +43,33 @@ class TestTrafficProfile(unittest.TestCase):
             return _mock
 
     def test___init__(self):
-        traffic_profile = TrafficProfile(self.TRAFFIC_PROFILE)
+        traffic_profile = base.TrafficProfile(self.TRAFFIC_PROFILE)
         self.assertEqual(self.TRAFFIC_PROFILE, traffic_profile.params)
 
     def test_execute(self):
-        traffic_profile = TrafficProfile(self.TRAFFIC_PROFILE)
-        self.assertRaises(NotImplementedError, traffic_profile.execute_traffic, {})
+        traffic_profile = base.TrafficProfile(self.TRAFFIC_PROFILE)
+        self.assertRaises(NotImplementedError,
+                          traffic_profile.execute_traffic, {})
 
-    def test_get(self):
-        traffic_profile = TrafficProfile(self.TRAFFIC_PROFILE)
-        self.assertRaises(RuntimeError, traffic_profile.get,
-                          self.TRAFFIC_PROFILE)
+    def test_get_existing_traffic_profile(self):
+        traffic_profile_list = [
+            'RFC2544Profile', 'FixedProfile', 'TrafficProfileGenericHTTP',
+            'IXIARFC2544Profile', 'ProxACLProfile', 'ProxBinSearchProfile',
+            'ProxProfile', 'ProxRampProfile']
+        with mock.patch.dict(sys.modules, unit_test.STL_MOCKS):
+            tprofile_package.register_modules()
+
+            for tp in traffic_profile_list:
+                traffic_profile = base.TrafficProfile.get(
+                    {'traffic_profile': {'traffic_type': tp}})
+                self.assertEqual(tp, traffic_profile.__class__.__name__)
+
+    def test_get_non_existing_traffic_profile(self):
+        self.assertRaises(exceptions.TrafficProfileNotImplemented,
+                          base.TrafficProfile.get, self.TRAFFIC_PROFILE)
 
 
 class TestDummyProfile(unittest.TestCase):
     def test_execute(self):
-        dummy_profile = DummyProfile(TrafficProfile)
+        dummy_profile = base.DummyProfile(base.TrafficProfile)
         self.assertIsNone(dummy_profile.execute({}))
