@@ -21,6 +21,7 @@ class Arg(object):
 
     def __init__(self):
         self.casename = ('opnfv_yardstick_tc001',)
+        self.input_file = 'extended_testcases.tar'
 
 
 class TestcaseUT(unittest.TestCase):
@@ -36,6 +37,16 @@ class TestcaseUT(unittest.TestCase):
         result = t.show(casename)
         self.assertTrue(result)
 
+    def test_enable(self):
+        t = testcase.Testcase()
+        input_file = Arg()
+        result = t.enable(input_file)
+        self.assertTrue(result)
+
+    def test_disable(self):
+        t = testcase.Testcase()
+        result = t.disable()
+        self.assertTrue(result)
 
 def main():
     unittest.main()
