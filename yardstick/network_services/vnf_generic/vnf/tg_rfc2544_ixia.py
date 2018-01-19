@@ -19,11 +19,11 @@ import os
 import logging
 import sys
 
-from yardstick.common.utils import ErrorClass
+from yardstick.common import utils
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import Rfc2544ResourceHelper
-from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
+
 
 LOG = logging.getLogger(__name__)
 
@@ -36,7 +36,7 @@ sys.path.append(IXNET_LIB)
 try:
     from IxNet import IxNextgen
 except ImportError:
-    IxNextgen = ErrorClass
+    IxNextgen = utils.ErrorClass
 
 
 class IxiaRfc2544Helper(Rfc2544ResourceHelper):
@@ -122,8 +122,9 @@ class IxiaResourceHelper(ClientResourceHelper):
 
         # we don't know client_file_name until runtime as instantiate
         client_file_name = \
-            find_relative_file(self.scenario_helper.scenario_cfg['ixia_profile'],
-                               self.scenario_helper.scenario_cfg["task_path"])
+            utils.find_relative_file(
+                self.scenario_helper.scenario_cfg['ixia_profile'],
+                self.scenario_helper.scenario_cfg["task_path"])
         self.client.ix_load_config(client_file_name)
         time.sleep(WAIT_AFTER_CFG_LOAD)
 

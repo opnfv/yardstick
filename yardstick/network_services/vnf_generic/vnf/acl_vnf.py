@@ -12,11 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
-from __future__ import print_function
 import logging
 
-from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
+from yardstick.common import utils
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF, DpdkVnfSetupEnvHelper
 from yardstick.network_services.yang_model import YangModel
 
@@ -62,8 +60,9 @@ class AclApproxVnf(SampleVNF):
         self.acl_rules = None
 
     def _start_vnf(self):
-        yang_model_path = find_relative_file(self.scenario_helper.options['rules'],
-                                             self.scenario_helper.task_path)
+        yang_model_path = utils.find_relative_file(
+            self.scenario_helper.options['rules'],
+            self.scenario_helper.task_path)
         yang_model = YangModel(yang_model_path)
         self.acl_rules = yang_model.get_rules()
         super(AclApproxVnf, self)._start_vnf()
