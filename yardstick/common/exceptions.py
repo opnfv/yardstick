@@ -68,5 +68,10 @@ class HeatTemplateError(YardstickException):
 class IPv6RangeError(YardstickException):
     message = 'Start IP "%(start_ip)s" is greater than end IP "%(end_ip)s"'
 
+
+class TrafficProfileNotImplemented(YardstickException):
+    message = 'No implementation for traffic profile %(profile_class)s.'
+
+
 class DPDKSetupDriverError(YardstickException):
     message = '"igb_uio" driver is not loaded'

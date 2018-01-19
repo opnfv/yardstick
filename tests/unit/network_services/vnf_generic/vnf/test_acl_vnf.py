@@ -21,6 +21,7 @@ import os
 
 from tests.unit import STL_MOCKS
 from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+from yardstick.common import utils
 
 
 STLClient = mock.MagicMock()
@@ -312,7 +313,7 @@ class TestAclApproxVnf(unittest.TestCase):
         acl_approx_vnf.ssh_helper.run.assert_called_once()
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.YangModel")
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.find_relative_file")
+    @mock.patch.object(utils, 'find_relative_file')
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
     def test_instantiate(self, ssh, *args):
