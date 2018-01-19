@@ -13,7 +13,7 @@
 # limitations under the License.
 """ Trex Traffic Profile definitions """
 
-from __future__ import absolute_import
+#from __future__ import absolute_import
 import struct
 import socket
 import logging
@@ -21,7 +21,7 @@ from random import SystemRandom
 import six
 import ipaddress
 
-from yardstick.network_services.traffic_profile.base import TrafficProfile
+from yardstick.network_services.traffic_profile import base
 from trex_stl_lib.trex_stl_client import STLStream
 from trex_stl_lib.trex_stl_streams import STLFlowLatencyStats
 from trex_stl_lib.trex_stl_streams import STLTXCont
@@ -48,7 +48,7 @@ TYPE_OF_SERVICE = 'tos'
 LOG = logging.getLogger(__name__)
 
 
-class TrexProfile(TrafficProfile):
+class TrexProfile(base.TrafficProfile):
     """ This class handles Trex Traffic profile generation and execution """
 
     PROTO_MAP = {
@@ -70,6 +70,7 @@ class TrexProfile(TrafficProfile):
 
     def _ethernet_range_action_partial(self, direction, _):
         def partial(min_value, max_value, count):
+            # pylint: disable=unused-argument
             stl_vm_flow_var = STLVmFlowVar(name="mac_{}".format(direction),
                                            min_value=1,
                                            max_value=30,
@@ -83,6 +84,7 @@ class TrexProfile(TrafficProfile):
         return partial
 
     def _ip_range_action_partial(self, direction, count=1):
+        # pylint: disable=unused-argument
         def partial(min_value, max_value, count):
             ip1 = int(ipaddress.IPv4Address(min_value))
             ip2 = int(ipaddress.IPv4Address(max_value))
@@ -108,6 +110,7 @@ class TrexProfile(TrafficProfile):
 
     def _ip6_range_action_partial(self, direction, _):
         def partial(min_value, max_value, count):
+            # pylint: disable=unused-argument
             min_value, max_value = self._get_start_end_ipv6(min_value, max_value)
             stl_vm_flow_var = STLVmFlowVar(name="ip6_{}".format(direction),
                                            min_value=min_value,
@@ -122,8 +125,9 @@ class TrexProfile(TrafficProfile):
             self.vm_flow_vars.append(stl_vm_wr_flow_var)
         return partial
 
-    def _dscp_range_action_partial(self, *_):
+    def _dscp_range_action_partial(self, *args):
         def partial(min_value, max_value, count):
+            # pylint: disable=unused-argument
             stl_vm_flow_var = STLVmFlowVar(name="dscp",
                                            min_value=min_value,
                                            max_value=max_value,
@@ -134,8 +138,10 @@ class TrexProfile(TrafficProfile):
             stl_vm_wr_flow_var = STLVmWrFlowVar(fv_name='dscp',
                                                 pkt_offset='IP.tos')
             self.vm_flow_vars.append(stl_vm_wr_flow_var)
+        return partial
 
     def _udp_range_action_partial(self, field, count=1):
+        # pylint: disable=unused-argument
         def partial(min_value, max_value, count):
             actual_count = int(max_value) - int(min_value)
             if not actual_count:
