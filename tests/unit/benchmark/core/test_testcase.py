@@ -12,6 +12,7 @@
 # Unittest for yardstick.cmd.commands.testcase
 
 from __future__ import absolute_import
+import mock
 import unittest
 
 from yardstick.benchmark.core import testcase
@@ -21,6 +22,7 @@ class Arg(object):
 
     def __init__(self):
         self.casename = ('opnfv_yardstick_tc001',)
+        self.input_file = 'extended_testcases.tar'
 
 
 class TestcaseUT(unittest.TestCase):
@@ -36,6 +38,14 @@ class TestcaseUT(unittest.TestCase):
         result = t.show(casename)
         self.assertTrue(result)
 
+    @mock.patch('yardstick.benchmark.core.testcase.shutil.rmtree')
+    @mock.patch('yardstick.benchmark.core.testcase.shutil.copytree')
+    def test_disable(self, rmtree_mock, copytree_mock):
+        t = testcase.Testcase()
+        result = t.disable()
+        rmtree_mock.assert_called()
+        copytree_mock.assert_called()
+        self.assertTrue(result)
 
 def main():
     unittest.main()
