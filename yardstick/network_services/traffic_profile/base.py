@@ -11,10 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-""" Base class for the generic traffic profile implementation """
 
-from __future__ import absolute_import
-from yardstick.common.utils import import_modules_from_package, itersubclasses
+from yardstick.common import exceptions
+from yardstick.common import utils
 
 
 class TrafficProfile(object):
@@ -33,13 +32,12 @@ class TrafficProfile(object):
         :return:
         """
         profile_class = tp_config["traffic_profile"]["traffic_type"]
-        import_modules_from_package(
-            "yardstick.network_services.traffic_profile")
         try:
-            return next(c for c in itersubclasses(TrafficProfile)
+            return next(c for c in utils.itersubclasses(TrafficProfile)
                         if c.__name__ == profile_class)(tp_config)
         except StopIteration:
-            raise RuntimeError("No implementation for %s", profile_class)
+            raise exceptions.TrafficProfileNotImplemented(
+                profile_class=profile_class)
 
     def __init__(self, tp_config):
         # e.g. RFC2544 start_ip, stop_ip, drop_rate,

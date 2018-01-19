@@ -11,36 +11,34 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-""" NSPerf specific scenario definition """
 
-from __future__ import absolute_import
-
-import logging
-import errno
-
-import ipaddress
-
+from collections import defaultdict
 import copy
-import os
-import sys
-import re
+import logging
+import ipaddress
 from itertools import chain
+import os
+import re
+import sys
 
 import six
 import yaml
-from collections import defaultdict
 
-from yardstick.benchmark.scenarios import base
+from yardstick.benchmark.scenarios import base as scenario_base
 from yardstick.common.constants import LOG_DIR
 from yardstick.common.process import terminate_children
-from yardstick.common.utils import import_modules_from_package, itersubclasses
+from yardstick.common import utils
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic import vnfdgen
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
-from yardstick.network_services.traffic_profile.base import TrafficProfile
+from yardstick.network_services import traffic_profile
+from yardstick.network_services.traffic_profile import base as tprofile_base
 from yardstick.network_services.utils import get_nsb_option
 from yardstick import ssh
+
+
+traffic_profile.register_modules()
 
 
 LOG = logging.getLogger(__name__)
@@ -91,35 +89,7 @@ class SshManager(object):
             self.conn.close()
 
 
-def find_relative_file(path, task_path):
-    """
-    Find file in one of places: in abs of path or
-    relative to TC scenario file. In this order.
-
-    :param path:
-    :param task_path:
-    :return str: full path to file
-    """
-    # fixme: create schema to validate all fields have been provided
-    for lookup in [os.path.abspath(path), os.path.join(task_path, path)]:
-        try:
-            with open(lookup):
-                return lookup
-        except IOError:
-            pass
-    raise IOError(errno.ENOENT, 'Unable to find {} file'.format(path))
-
-
-def open_relative_file(path, task_path):
-    try:
-        return open(path)
-    except IOError as e:
-        if e.errno == errno.ENOENT:
-            return open(os.path.join(task_path, path))
-        raise
-
-
-class NetworkServiceTestCase(base.Scenario):
+class NetworkServiceTestCase(scenario_base.Scenario):
     """Class handles Generic framework to do pre-deployment VNF &
        Network service testing  """
 
@@ -131,8 +101,8 @@ class NetworkServiceTestCase(base.Scenario):
         self.context_cfg = context_cfg
 
         # fixme: create schema to validate all fields have been provided
-        with open_relative_file(scenario_cfg["topology"],
-                                scenario_cfg['task_path']) as stream:
+        with utils.open_relative_file(scenario_cfg["topology"],
+                                      scenario_cfg['task_path']) as stream:
             topology_yaml = yaml_load(stream)
 
         self.topology = topology_yaml["nsd:nsd-catalog"]["nsd"][0]
@@ -211,7 +181,7 @@ class NetworkServiceTestCase(base.Scenario):
     def _get_traffic_profile(self):
         profile = self.scenario_cfg["traffic_profile"]
         path = self.scenario_cfg["task_path"]
-        with open_relative_file(profile, path) as infile:
+        with utils.open_relative_file(profile, path) as infile:
             return infile.read()
 
     def _fill_traffic_profile(self):
@@ -219,12 +189,12 @@ class NetworkServiceTestCase(base.Scenario):
         traffic_map_data = {
             'flow': self._get_traffic_flow(),
             'imix': self._get_traffic_imix(),
-            TrafficProfile.UPLINK: {},
-            TrafficProfile.DOWNLINK: {},
+            tprofile_base.TrafficProfile.UPLINK: {},
+            tprofile_base.TrafficProfile.DOWNLINK: {},
         }
 
         traffic_vnfd = vnfdgen.generate_vnfd(traffic_mapping, traffic_map_data)
-        self.traffic_profile = TrafficProfile.get(traffic_vnfd)
+        self.traffic_profile = tprofile_base.TrafficProfile.get(traffic_vnfd)
         return self.traffic_profile
 
     def _find_vnf_name_from_id(self, vnf_id):
@@ -451,12 +421,13 @@ class NetworkServiceTestCase(base.Scenario):
         self._resolve_topology()
         self._update_context_with_topology()
 
-    FIND_NETDEVICE_STRING = r"""find /sys/devices/pci* -type d -name net -exec sh -c '{ grep -sH ^ \
-$1/ifindex $1/address $1/operstate $1/device/vendor $1/device/device \
-$1/device/subsystem_vendor $1/device/subsystem_device ; \
-printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
-' sh  \{\}/* \;
-"""
+    FIND_NETDEVICE_STRING = (
+        r"""find /sys/devices/pci* -type d -name net -exec sh -c '{ grep -sH ^ \
+        $1/ifindex $1/address $1/operstate $1/device/vendor $1/device/device \
+        $1/device/subsystem_vendor $1/device/subsystem_device ; \
+        printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
+        ' sh  \{\}/* \;
+        """)
     BASE_ADAPTER_RE = re.compile(
         '^/sys/devices/(.*)/net/([^/]*)/([^:]*):(.*)$', re.M)
 
@@ -488,13 +459,14 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
         :param vnf_model_id: parsed vnfd model ID field
         :return: subclass of GenericVNF
         """
-        import_modules_from_package(
+        utils.import_modules_from_package(
             "yardstick.network_services.vnf_generic.vnf")
         expected_name = vnf_model_id
         classes_found = []
 
         def impl():
-            for name, class_ in ((c.__name__, c) for c in itersubclasses(GenericVNF)):
+            for name, class_ in ((c.__name__, c) for c in
+                                 utils.itersubclasses(GenericVNF)):
                 if name == expected_name:
                     yield class_
                 classes_found.append(name)
@@ -556,7 +528,7 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
                 LOG.debug("no model for %s, skipping", node_name)
                 continue
             file_path = scenario_cfg['task_path']
-            with open_relative_file(file_name, file_path) as stream:
+            with utils.open_relative_file(file_name, file_path) as stream:
                 vnf_model = stream.read()
             vnfd = vnfdgen.generate_vnfd(vnf_model, node)
             # TODO: here add extra context_cfg["nodes"] regardless of template
