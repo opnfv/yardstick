@@ -13,12 +13,11 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-import unittest
-
 from yardstick.benchmark.scenarios import base
+from yardstick.tests.unit import base as ut_base
 
 
-class ScenarioTestCase(unittest.TestCase):
+class ScenarioTestCase(ut_base.BaseUnitTestCase):
 
     def test_get_scenario_type(self):
         scenario_type = 'dummy scenario'
@@ -87,7 +86,7 @@ class ScenarioTestCase(unittest.TestCase):
                          str(exc.exception))
 
 
-class IterScenarioClassesTestCase(unittest.TestCase):
+class IterScenarioClassesTestCase(ut_base.BaseUnitTestCase):
 
     def test_no_scenario_type_defined(self):
         some_existing_scenario_class_names = [
