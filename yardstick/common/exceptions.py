@@ -63,3 +63,8 @@ class HeatTemplateError(YardstickException):
     """Error in Heat during the stack deployment"""
     message = ('Error in Heat during the creation of the OpenStack stack '
                '"%(stack_name)"')
+
+
+class TrafficProfileNotImplemented(YardstickException):
+    message = 'No implementation for traffic profile %(profile_class)s.'
+
