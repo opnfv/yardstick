@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_105d7279",
+        "filename": "ansible/roles/virt_destroy_previous_configuration/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-22T09:42:25Z",
+      "side": 1,
+      "message": "i will remove this",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "cfe4944c994bb21a079d3075d087f09cbfc7c619",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
