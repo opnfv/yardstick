@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_3be8577b",
+        "filename": "ansible/roles/virt_create_vms/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-22T17:03:50Z",
+      "side": 1,
+      "message": "\"{{ rs_file }}\"",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 23
+      },
+      "revId": "e36f63523bb5525522bb500c76c9a22cb6680a5a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
