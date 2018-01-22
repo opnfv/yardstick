@@ -12,8 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- hosts: jumphost
+- name: Include
+  include_vars:
+    file: "{{rs_file}}"
+    name: infra_deploy_vars
 
-  roles:
-    - infra_check_requirements
-    - infra_create_network
+- name: Define the networks
+  virt_net:
+    command: define
+    name: "{{ item.name }}"
+    xml: "{{ lookup('template', '/tmp/'+item.name+'.xml') }}"
+  with_items: "{{ infra_deploy_vars.networks }}"
+
+- name: Set autostart to yes
+  virt_net:
+    autostart: yes
+    name: "{{ item.name }}"
+  with_items: "{{ infra_deploy_vars.networks }}"
+
+- name: Start the networks
+  virt_net:
+    command: start
+    name: "{{ item.name }}"
+  with_items: "{{ infra_deploy_vars.networks }}"
