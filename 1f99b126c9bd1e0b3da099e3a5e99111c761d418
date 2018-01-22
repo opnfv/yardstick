@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5b00bb33",
+        "filename": "ansible/roles/infra_create_network/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-22T17:05:45Z",
+      "side": 1,
+      "message": "\"{{ rs_file }}\"",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 23
+      },
+      "revId": "1f99b126c9bd1e0b3da099e3a5e99111c761d418",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
