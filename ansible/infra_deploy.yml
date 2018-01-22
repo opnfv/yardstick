@@ -16,3 +16,4 @@
 
   roles:
     - infra_check_requirements
+    - infra_create_network
