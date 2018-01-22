@@ -1,4 +1,4 @@
-# Copyright (c) 2018 Intel Corporation.
+# Copyright (c) 2017-2018 Intel Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,10 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- hosts: jumphost
+- name: Include
+  include_vars:
+    file: "{{ rs_file }}"
+    name: infra_deploy_vars
 
-  roles:
-    - infra_check_requirements
-    - infra_destroy_previous_configuration
-    - infra_create_network
-    - infra_create_vms
+- set_fact:
+    mac_address_counter: 0
+
+- name: Create XML file
+  include_tasks: configure_vm.yml
+  extra_vars: "{{ mac_address_counter }}"
+  loop_control:
+    loop_var: node_item
+  with_items: "{{ infra_deploy_vars.nodes }}"
