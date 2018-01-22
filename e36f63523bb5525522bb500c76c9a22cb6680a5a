@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_9bf6c35b",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-01-22T17:06:48Z",
+      "side": 1,
+      "message": "rename to infra_create_vms",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 21
+      },
+      "revId": "e36f63523bb5525522bb500c76c9a22cb6680a5a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_3be8577b",
         "filename": "ansible/roles/virt_create_vms/tasks/main.yml",
         "patchSetId": 1
