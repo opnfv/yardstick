@@ -16,3 +16,4 @@
 
   roles:
     - infra_check_requirements
+    - virt_destroy_previous_configuration
