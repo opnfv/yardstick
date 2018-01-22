@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_9b1403ea",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-22T14:23:20Z",
+      "side": 1,
+      "message": "For consistency, all roles in this script should be called \"infra_xxxx\"\n\nPlease, rename it to \"infra_destroy_previous_configuration\"",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 41
+      },
+      "revId": "10e48c1434a537a536901a752edec23d042227db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_db320ba6",
+        "filename": "ansible/roles/virt_destroy_previous_configuration/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-22T14:23:20Z",
+      "side": 1,
+      "message": "For consistency with the rest of the file:\ns/\"{{rs_file}}\"/\"{{ rs_file }}\"\n\nLeave spaces",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 23
+      },
+      "revId": "10e48c1434a537a536901a752edec23d042227db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3b269768",
+        "filename": "ansible/roles/virt_destroy_previous_configuration/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-22T14:23:20Z",
+      "side": 1,
+      "message": "List, with capital letter\n\nFor consistency",
+      "range": {
+        "startLine": 20,
+        "startChar": 8,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "10e48c1434a537a536901a752edec23d042227db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1b291337",
+        "filename": "ansible/roles/virt_destroy_previous_configuration/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-22T14:23:20Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 24,
+        "startChar": 8,
+        "endLine": 24,
+        "endChar": 12
+      },
+      "revId": "10e48c1434a537a536901a752edec23d042227db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7b23ff55",
+        "filename": "ansible/roles/virt_destroy_previous_configuration/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-22T14:23:20Z",
+      "side": 1,
+      "message": "Why this? In the previous step we have deleted the VMs. This is not needed",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 45
+      },
+      "revId": "10e48c1434a537a536901a752edec23d042227db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5b1efb0c",
+        "filename": "ansible/roles/virt_destroy_previous_configuration/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-22T14:23:20Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 48
+      },
+      "revId": "10e48c1434a537a536901a752edec23d042227db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
