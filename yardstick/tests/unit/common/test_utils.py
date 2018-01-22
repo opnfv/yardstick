@@ -7,12 +7,9 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.common.utils
-
-from __future__ import absolute_import
-
 from copy import deepcopy
 import errno
+import importlib
 import ipaddress
 from itertools import product, chain
 import mock
@@ -60,8 +57,8 @@ class ImportModulesFromPackageTestCase(unittest.TestCase):
         utils.import_modules_from_package('foo.bar')
 
     @mock.patch('yardstick.common.utils.os.walk')
-    @mock.patch('yardstick.common.utils.importutils')
-    def test_import_modules_from_package(self, mock_importutils, mock_walk):
+    @mock.patch.object(importlib, 'import_module')
+    def test_import_modules_from_package(self, mock_import_module, mock_walk):
 
         yardstick_root = os.path.dirname(os.path.dirname(yardstick.__file__))
         mock_walk.return_value = ([
@@ -69,7 +66,7 @@ class ImportModulesFromPackageTestCase(unittest.TestCase):
         ])
 
         utils.import_modules_from_package('foo.bar')
-        mock_importutils.import_module.assert_called_with('bar.baz')
+        mock_import_module.assert_called_once_with('bar.baz')
 
 
 class GetParaFromYaml(unittest.TestCase):

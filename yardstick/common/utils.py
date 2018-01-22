@@ -13,27 +13,22 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-# yardstick comment: this is a modified copy of rally/rally/common/utils.py
-
-from __future__ import absolute_import
-from __future__ import print_function
-
+import collections
+from contextlib import closing
 import datetime
 import errno
+import importlib
+import ipaddress
 import logging
 import os
+import random
+import socket
 import subprocess
 import sys
-import collections
-import socket
-import random
-import ipaddress
-from contextlib import closing
 
 import six
 from flask import jsonify
 from six.moves import configparser
-from oslo_utils import importutils
 from oslo_serialization import jsonutils
 
 import yardstick
@@ -70,27 +65,28 @@ def itersubclasses(cls, _seen=None):
 
 
 def import_modules_from_package(package):
-    """Import modules from package and append into sys.modules
+    """Import modules given a package name
 
     :param: package - Full package name. For example: rally.deploy.engines
     """
     yardstick_root = os.path.dirname(os.path.dirname(yardstick.__file__))
-    path = os.path.join(yardstick_root, *package.split("."))
+    path = os.path.join(yardstick_root, *package.split('.'))
     for root, _, files in os.walk(path):
-        matches = (filename for filename in files if filename.endswith(".py") and
-                   not filename.startswith("__"))
-        new_package = os.path.relpath(root, yardstick_root).replace(os.sep, ".")
+        matches = (filename for filename in files if filename.endswith('.py')
+                   and not filename.startswith('__'))
+        new_package = os.path.relpath(root, yardstick_root).replace(os.sep,
+                                                                    '.')
         module_names = set(
-            ("{}.{}".format(new_package, filename.rsplit(".py", 1)[0]) for filename in matches))
-        # find modules which haven't already been imported
+            '{}.{}'.format(new_package, filename.rsplit('.py', 1)[0])
+            for filename in matches)
+        # Find modules which haven't already been imported
         missing_modules = module_names.difference(sys.modules)
-        logger.debug("importing %s", missing_modules)
-        # we have already checked for already imported modules, so we don't need to check again
+        logger.debug('Importing modules: %s', missing_modules)
         for module_name in missing_modules:
             try:
-                sys.modules[module_name] = importutils.import_module(module_name)
+                importlib.import_module(module_name)
             except (ImportError, SyntaxError):
-                logger.exception("unable to import %s", module_name)
+                logger.exception('Unable to import module %s', module_name)
 
 
 def makedirs(d):
