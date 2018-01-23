@@ -21,7 +21,7 @@ ANSIBLE_SCRIPTS="${0%/*}/../../ansible"
 
 cd ${ANSIBLE_SCRIPTS} &&\
 ansible-playbook \
-         -e img_modify_playbook='ubuntu_server_cloudimg_modify.yml' \
+         -e img_property="normal" \
          -e target_os='Ubuntu' \
          -e YARD_IMG_ARCH='amd64' \
          -vvv -i inventory.ini load_images.yml
