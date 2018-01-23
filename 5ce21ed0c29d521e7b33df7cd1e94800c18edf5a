@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_c157be24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-01-23T15:26:18Z",
+      "side": 1,
+      "message": "I believe we should make this mechanics more generic. This will also be needed in topology template.\nfor instance:\n$ yardstick task start --task-args\u003d\u0027{\"mem\": 20480, \"vcpus\": 10}\u0027 test_case_definition.yaml\n\n$ cat test_case_definition.yaml\n{% set vcpus\u003d vports or 4 %}\n{% set mem \u003d mem or 2048 %}\n  scenarios:\n  - type: NSPerf\n    traffic_profile: traffic_profile.yml\n    extra_args:\n      { vports: {{ vports }},\n        mem: {{ mem }}\n      }",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 14
+      },
+      "revId": "5ce21ed0c29d521e7b33df7cd1e94800c18edf5a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
