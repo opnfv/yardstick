@@ -22,6 +22,30 @@
       "revId": "ec847e56d0a822291eea4c884428eec633071fbe",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7cd495eb",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-23T17:50:30Z",
+      "side": 1,
+      "message": "over we could do  \n\n  verbosity: 2 \n\nor something.\n\nActually probably better to change to fail message to indicate how much more space is needed?\n\n\n msg: \"Not enough space, {{ disk_int }} required, available {{ disk_avail }}\"\n\n\nor something",
+      "parentUuid": "9a3d3df0_bcc3bd36",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 19
+      },
+      "revId": "ec847e56d0a822291eea4c884428eec633071fbe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
