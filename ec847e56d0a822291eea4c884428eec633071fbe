@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_bcc3bd36",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-23T17:46:24Z",
+      "side": 1,
+      "message": "Actually we don\u0027t need to print any log",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 19
+      },
+      "revId": "ec847e56d0a822291eea4c884428eec633071fbe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
