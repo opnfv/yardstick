@@ -16,11 +16,25 @@
 # yardstick comment: this is a modified copy of
 # rally/rally/benchmark/scenarios/base.py
 
-""" Scenario base class
-"""
+from stevedore import extension
 
-from __future__ import absolute_import
 import yardstick.common.utils as utils
+
+
+def _iter_scenario_classes(scenario_type=None):
+    """Generator over all 'Scenario' subclasses
+
+    This function will iterate over all 'Scenario' subclasses defined in this
+    project and will load any class introduced by any installed plugin project,
+    defined in 'entry_points' section, under 'yardstick.scenarios' subsection.
+    """
+    extension.ExtensionManager(namespace='yardstick.scenarios',
+                               invoke_on_load=False)
+    for scenario in utils.itersubclasses(Scenario):
+        if not scenario_type:
+            yield scenario
+        elif getattr(scenario, '__scenario_type__', None) == scenario_type:
+            yield scenario
 
 
 class Scenario(object):
@@ -41,16 +55,15 @@ class Scenario(object):
     def get_types():
         """return a list of known runner type (class) names"""
         scenarios = []
-        for scenario in utils.itersubclasses(Scenario):
+        for scenario in _iter_scenario_classes():
             scenarios.append(scenario)
         return scenarios
 
     @staticmethod
     def get_cls(scenario_type):
         """return class of specified type"""
-        for scenario in utils.itersubclasses(Scenario):
-            if scenario_type == scenario.__scenario_type__:
-                return scenario
+        for scenario in _iter_scenario_classes(scenario_type):
+            return scenario
 
         raise RuntimeError("No such scenario type %s" % scenario_type)
 
@@ -58,11 +71,8 @@ class Scenario(object):
     def get(scenario_type):
         """Returns instance of a scenario runner for execution type.
         """
-        for scenario in utils.itersubclasses(Scenario):
-            if scenario_type == scenario.__scenario_type__:
-                return scenario.__module__ + "." + scenario.__name__
-
-        raise RuntimeError("No such scenario type %s" % scenario_type)
+        scenario = Scenario.get_cls(scenario_type)
+        return scenario.__module__ + "." + scenario.__name__
 
     @classmethod
     def get_scenario_type(cls):
