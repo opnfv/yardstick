@@ -16,6 +16,24 @@
       "revId": "76e2d0180753508d7c05b66262ad0de0b910bcaa",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9c8a3962",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-23T16:20:50Z",
+      "side": 1,
+      "message": "Right, done.",
+      "parentUuid": "9a3d3df0_bc4a9d52",
+      "revId": "76e2d0180753508d7c05b66262ad0de0b910bcaa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
