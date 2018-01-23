@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_01a526b5",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-23T15:20:50Z",
+      "side": 1,
+      "message": "Changed to \u00272018\u0027 for all added files.",
+      "parentUuid": "9a3d3df0_f6a446bb",
+      "revId": "c0e1d679dde8ba290d2e068833ee5e2ff56a65d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_36ab4e8a",
         "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2018-01-22T22:26:34Z",
       "side": 1,
       "message": "style-wise I prefer yaml dict form\n\n  fail:\n    msg: \"Failed not enough RAM\"",
+      "revId": "c0e1d679dde8ba290d2e068833ee5e2ff56a65d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c1f05ecb",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-23T15:20:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_36ab4e8a",
       "revId": "c0e1d679dde8ba290d2e068833ee5e2ff56a65d8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_a1eb9ada",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-23T15:20:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_d6a782bb",
+      "revId": "c0e1d679dde8ba290d2e068833ee5e2ff56a65d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_96c21a51",
         "filename": "etc/infra/infra_deploy.conf.sample",
         "patchSetId": 5
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_617a3225",
+        "filename": "etc/infra/infra_deploy.conf.sample",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-23T15:20:50Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right.",
+      "parentUuid": "9a3d3df0_96c21a51",
+      "revId": "c0e1d679dde8ba290d2e068833ee5e2ff56a65d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_16ae0a98",
         "filename": "tools/virt_ci_rampup.sh",
         "patchSetId": 5
@@ -81,6 +153,24 @@
       "writtenOn": "2018-01-22T22:26:34Z",
       "side": 1,
       "message": "in bash you can use parameter expansion for dirname/basename\n\n dirname \u003d\u003d ${0%/*}\n\n\n   ${parameter%word}\n   ${parameter%%word}\n\n\nRemove matching suffix pattern.  The word is expanded to produce a pattern just as in pathname expansion.  If the pattern matches a trailing portion of the expanded value of parameter, then the result of the expansion is the expanded value of parameter with  the  shortest  matching  pattern  (the ``%\u0027\u0027  case)  or the longest matching pattern (the ``%%\u0027\u0027 case) deleted.  If parameter is @ or *, the pattern removal operation is applied to each positional parameter in turn, and the expansion is the resultant list.  If parameter is an array variable subscripted with @ or *, the pattern removal operation is applied to each member of the array in turn, and the expansion is the resultant list.",
+      "revId": "c0e1d679dde8ba290d2e068833ee5e2ff56a65d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a17b9abc",
+        "filename": "tools/virt_ci_rampup.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-01-23T15:20:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_16ae0a98",
       "revId": "c0e1d679dde8ba290d2e068833ee5e2ff56a65d8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
