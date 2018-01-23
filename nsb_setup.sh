@@ -59,6 +59,6 @@ ANSIBLE_SCRIPTS="ansible"
 
 cd ${ANSIBLE_SCRIPTS} &&\
 ansible-playbook \
-         -e img_modify_playbook='ubuntu_server_cloudimg_modify_samplevnfs.yml' \
+         -e img_property="nsb" \
          -e YARD_IMG_ARCH='amd64' ${extra_args}\
          -i yardstick-install-inventory.ini nsb_setup.yml
