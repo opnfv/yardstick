@@ -53,6 +53,7 @@ setup(
             'yardstick=yardstick.main:main',
             'yardstick-plot=yardstick.plot.plotter:main [plot]'
         ],
+        'yardstick.scenario': []
     },
     scripts=[
         'tools/yardstick-img-modify',
