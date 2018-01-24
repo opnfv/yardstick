@@ -46,6 +46,30 @@
       "revId": "ec847e56d0a822291eea4c884428eec633071fbe",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f3057311",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-24T09:58:25Z",
+      "side": 1,
+      "message": "This could be useful for RAM (L29) and CPU (L34) too.",
+      "parentUuid": "9a3d3df0_7cd495eb",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 19
+      },
+      "revId": "ec847e56d0a822291eea4c884428eec633071fbe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
