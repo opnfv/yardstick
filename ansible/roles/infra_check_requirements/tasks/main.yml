@@ -1,0 +1,43 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Include
+  include_vars:
+    file: "{{rs_file}}"
+    name: infra_deploy_vars
+
+- name: Store total CPU, RAM, Disk requested resources
+  set_fact:
+    vcpu_t: "{{item.vcpus|int + vcpu_t|int}}"
+    vram_t: "{{item.ram|int + vram_t|int}}"
+    disk_t: "{{item.disk|int + disk_t|int}}"
+  with_items: "{{infra_deploy_vars.nodes}}"
+
+- name: Fail if not enough RAM
+  fail:
+    msg: "Failed, not enough RAM, required: {{ vram_t }}, available {{ ansible_memory_mb.nocache.free }}"
+  when: ansible_memory_mb.nocache.free < vram_t|int
+
+- name: Fail if not enough CPU
+  fail:
+    msg: "Failed, not enough CPU, required: {{ vcpu_t }}, available {{ ansible_processor_vcpus }}"
+  when: ansible_processor_vcpus < vcpu_t|int
+
+
+- name: Fail if not enough Disk space
+  set_fact:
+    disk_avail: "{% for mount in ansible_mounts if mount.mount == '/' %}{{ (mount.size_available/1024/1024)|int }}{% endfor %}"
+- fail:
+    msg: "Failed, not enough disk space, required {{ disk_t }}, available: {{ disk_avail }}"
+  when: disk_avail|int < disk_t|int
