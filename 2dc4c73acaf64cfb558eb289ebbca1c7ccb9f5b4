@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c6750f33",
+        "filename": "tools/cover.awk",
+        "patchSetId": 21
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-24T18:53:33Z",
+      "side": 1,
+      "message": "dunno, Mac was doing something to improve coverage reports.  I can extract",
+      "parentUuid": "9a3d3df0_73520368",
+      "revId": "2dc4c73acaf64cfb558eb289ebbca1c7ccb9f5b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_73d963f2",
         "filename": "tools/cover.sh",
         "patchSetId": 21
@@ -82,6 +100,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_269cbb5c",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-24T18:53:33Z",
+      "side": 1,
+      "message": "latest version uses a dict and then chains the dict.values() to recalculate the set of missing values.",
+      "parentUuid": "9a3d3df0_86fca7b9",
+      "range": {
+        "startLine": 141,
+        "startChar": 8,
+        "endLine": 141,
+        "endChar": 91
+      },
+      "revId": "2dc4c73acaf64cfb558eb289ebbca1c7ccb9f5b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e6a773bb",
         "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
         "patchSetId": 21
@@ -93,6 +135,30 @@
       "writtenOn": "2018-01-24T18:27:54Z",
       "side": 1,
       "message": "Do we need to do this in the SampleVNF image? Or just call /sbin/ip",
+      "range": {
+        "startLine": 148,
+        "startChar": 15,
+        "endLine": 148,
+        "endChar": 41
+      },
+      "revId": "2dc4c73acaf64cfb558eb289ebbca1c7ccb9f5b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_06937750",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-24T18:53:33Z",
+      "side": 1,
+      "message": "Dunno, this was probably a bug fix for something.\n\nFedora is saying both /sbin/ip and /usr/sbin/ip.\n\nNot sure about other distros.",
+      "parentUuid": "9a3d3df0_e6a773bb",
       "range": {
         "startLine": 148,
         "startChar": 15,
@@ -128,6 +194,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_a670cb40",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-24T18:53:33Z",
+      "side": 1,
+      "message": "this was wrong logically anyway,  updated in latest",
+      "parentUuid": "9a3d3df0_a6ebabda",
+      "range": {
+        "startLine": 178,
+        "startChar": 33,
+        "endLine": 178,
+        "endChar": 86
+      },
+      "revId": "2dc4c73acaf64cfb558eb289ebbca1c7ccb9f5b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_46829f00",
         "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
         "patchSetId": 21
@@ -139,6 +229,30 @@
       "writtenOn": "2018-01-24T18:27:54Z",
       "side": 1,
       "message": "About this section.\n\nI\u0027ve done this before doing this:\n  $ lshw -class network -json\n\nYou have a list of net devices. Each device is a dict. E.g.: \n\n      {\n    \"id\" : \"network:1\",\n    \"class\" : \"network\",\n    \"claimed\" : true,\n    \"handle\" : \"PCI:0000:00:04.0\",\n    \"description\" : \"Ethernet interface\",\n    \"product\" : \"Virtio network device\",\n    \"vendor\" : \"Red Hat, Inc\",\n    \"physid\" : \"4\",\n    \"businfo\" : \"pci@0000:00:04.0\",\n    \"logicalname\" : \"ens4\",\n    \"version\" : \"00\",\n    \"serial\" : \"52:54:00:c6:e5:58\",\n    \"width\" : 64,\n    \"clock\" : 33000000,\n    \"configuration\" : {\n      \"autonegotiation\" : \"off\",\n      \"broadcast\" : \"yes\",\n      \"driver\" : \"virtio_net\",\n      \"driverversion\" : \"1.0.0\",\n      \"ip\" : \"192.168.2.10\",\n      \"latency\" : \"0\",\n      \"link\" : \"yes\",\n      \"multicast\" : \"yes\"\n    },\n    \"capabilities\" : {\n      \"msix\" : \"MSI-X\",\n      \"bus_master\" : \"bus mastering\",\n      \"cap_list\" : \"PCI capabilities listing\",\n      \"rom\" : \"extension ROM\",\n      \"ethernet\" : true,\n      \"physical\" : \"Physical interface\"\n    }\n\nNo regex and no complex commands.\n\nNOTE: a filter is needed. Those ones disabled (will have \"disabled\" : true) must be removed from this list.",
+      "range": {
+        "startLine": 237,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 36
+      },
+      "revId": "2dc4c73acaf64cfb558eb289ebbca1c7ccb9f5b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e695b333",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-24T18:53:33Z",
+      "side": 1,
+      "message": "lshw is not installed by default, at least not on Fedora.\n\nwe also used to use subsystem_vendor to identify exact NIC model, e.g. X520, X540, variants, etc.\n\nThis is a generalize sysfs dump, it can be expanded as new kernel attributes are added.",
+      "parentUuid": "9a3d3df0_46829f00",
       "range": {
         "startLine": 237,
         "startChar": 0,
