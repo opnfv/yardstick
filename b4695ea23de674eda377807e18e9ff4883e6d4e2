@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_86de67db",
+        "filename": "tests/unit/benchmark/scenarios/parser/test_parser.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-24T19:19:01Z",
+      "side": 1,
+      "message": "Please, delete this",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 38
+      },
+      "revId": "b4695ea23de674eda377807e18e9ff4883e6d4e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_66d9a3f2",
+        "filename": "tests/unit/benchmark/scenarios/parser/test_parser.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-24T19:19:01Z",
+      "side": 1,
+      "message": "and this",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 10
+      },
+      "revId": "b4695ea23de674eda377807e18e9ff4883e6d4e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
