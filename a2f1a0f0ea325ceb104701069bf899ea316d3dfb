@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_530fffe0",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-01-24T13:23:51Z",
+      "side": 1,
+      "message": "resilience and high availability",
+      "range": {
+        "startLine": 14,
+        "startChar": 55,
+        "endLine": 14,
+        "endChar": 65
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b3fdabb3",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-01-24T13:23:51Z",
+      "side": 1,
+      "message": "failed\n\n(i.e. it is not a controlled shutdown that you are testing)",
+      "range": {
+        "startLine": 20,
+        "startChar": 44,
+        "endLine": 20,
+        "endChar": 52
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1330d79d",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-01-24T13:23:51Z",
+      "side": 1,
+      "message": "typo ...\n\"... is offline recovering ...\"",
+      "range": {
+        "startLine": 28,
+        "startChar": 32,
+        "endLine": 28,
+        "endChar": 51
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_30b351ea",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
         "patchSetId": 3
@@ -49,6 +118,75 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_f33293a5",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-01-24T13:23:51Z",
+      "side": 1,
+      "message": "fails",
+      "range": {
+        "startLine": 32,
+        "startChar": 21,
+        "endLine": 32,
+        "endChar": 31
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5326df68",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-01-24T13:23:51Z",
+      "side": 1,
+      "message": "and verifies that the system never loses the ability to execute new virtual network operations, even when failed SDN Controller is still recovering",
+      "range": {
+        "startLine": 39,
+        "startChar": 50,
+        "endLine": 41,
+        "endChar": 78
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_93234755",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-01-24T13:23:51Z",
+      "side": 1,
+      "message": "Can we describe this in more detail ?\n\nIs it a 2xNode SDN Controller Cluster or a 3xNode SDN Controller Cluster ?\n\nAt one time, ODL ONLY supported 3xNode Clusters.\n\nIf it is still ONLY 3xNode Clusters,\nwe should test\n      - single SDN Controller failure, and\n      - two SDN Controllers failing.\n\nIn past experience, I have seen ODL NEVER recover from 2 of 3 SDN Controllers in a cluster failing.",
+      "range": {
+        "startLine": 108,
+        "startChar": 21,
+        "endLine": 109,
+        "endChar": 60
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_90cdfd68",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
         "patchSetId": 3
@@ -89,6 +227,52 @@
         "startChar": 16,
         "endLine": 165,
         "endChar": 78
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b3ebebda",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-01-24T13:23:51Z",
+      "side": 1,
+      "message": "Should be done earlier ... before failed SDN Controller recovers.",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 79
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_33e07bf9",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-01-24T13:23:51Z",
+      "side": 1,
+      "message": "Would be good to specify target SLA within this test case.",
+      "range": {
+        "startLine": 193,
+        "startChar": 31,
+        "endLine": 193,
+        "endChar": 34
       },
       "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
