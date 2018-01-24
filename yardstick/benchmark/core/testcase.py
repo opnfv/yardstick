@@ -12,7 +12,10 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
+import shutil
+import tarfile
 import logging
+import subprocess
 
 from yardstick.common.task_template import TaskTemplate
 from yardstick.common import constants as consts
@@ -104,3 +107,40 @@ class Testcase(object):
 
             print(testcase_info)
         return True
+
+    def enable(self, args):
+        """Enable extended test cases"""
+        testcase_tar_file = args.input_file[0]
+
+        if not os.path.exists(testcase_tar_file):
+            LOG.info('Test case tar file not found!')
+        elif not testcase_tar_file.endswith('.tar'):
+            LOG.info('Test case tar file not in correct format!')
+        else:
+            testcase_tar = tarfile.open(testcase_tar_file, 'r')
+            testcase_dir = os.path.join(consts.PLUGIN_REPOS_DIR,
+                                        testcase_tar_file.split('/')[-1]+"_files")
+            LOG.info('Extracting test case tar file to %s ...',  testcase_dir)
+            os.mkdir(testcase_dir)
+            testcase_tar.extractall(testcase_dir)
+            testcase_tar.close()
+
+        # load new python modules
+        cmd = 'sudo -EH python setup.py install --record install.txt'
+        p = subprocess.Popen(cmd, shell=true, stdout=subprocess.PIPE, cwd=testcase_dir)
+
+        LOG.info('Complete!')
+
+    def disable(self, args):
+        """Disable extended test cases"""
+        testcase_tar_file = args.input_file[0]
+
+        # remove ansible scripts
+        testcase_dir = os.path.join(consts.PLUGIN_REPOS_DIR, testcase_tar_file.split('/')[-1]+"_files")
+        LOG.info('Removing extended test case repo ...')
+        # uninstall imported python modules
+        cmd = 'cat install.txt | xargs rm -rf'
+        p = subprocess.Popen(cmd, shell=true, stdout=subprocess.PIPE, cwd=testcase_dir)
+        shutil.rmtree(testcase_dir)
+
+        LOG.info('Complete!')

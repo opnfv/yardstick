@@ -33,7 +33,7 @@ from six import StringIO
 from chainmap import ChainMap
 
 from yardstick.common.utils import Timer
-
+from yardstick.common import constants as consts
 
 cgitb.enable(format="text")
 
@@ -435,6 +435,7 @@ class AnsibleCommon(object):
         ansible_dict = dict(os.environ, **{
             "ANSIBLE_LOG_PATH": os.path.join(directory, log_file),
             "ANSIBLE_LOG_BASE": directory,
+            "ANSIBLE_ROLES_PATH": consts.ANSIBLE_ROLES_PATH,
             # # required for SSH to work
             # "ANSIBLE_SSH_ARGS": "-o UserKnownHostsFile=/dev/null "
             #                     "-o GSSAPIAuthentication=no "

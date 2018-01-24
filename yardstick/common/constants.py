@@ -78,6 +78,7 @@ if not SERVER_IP:
 CONF_DIR = get_param('dir.conf', '/etc/yardstick')
 IMAGE_DIR = get_param('dir.images', '/home/opnfv/images/')
 REPOS_DIR = get_param('dir.repos', '/home/opnfv/repos/yardstick')
+PLUGIN_REPOS_DIR = get_param('dir.plugin_repos', '/home/opnfv/repos/')
 RELENG_DIR = get_param('dir.releng', '/home/opnfv/repos/releng')
 LOG_DIR = get_param('dir.log', '/tmp/yardstick/')
 YARDSTICK_ROOT_PATH = dirname(
@@ -85,6 +86,7 @@ YARDSTICK_ROOT_PATH = dirname(
 TASK_LOG_DIR = get_param('dir.tasklog', '/var/log/yardstick/')
 CONF_SAMPLE_DIR = join(REPOS_DIR, 'etc/yardstick/')
 ANSIBLE_DIR = join(REPOS_DIR, 'ansible')
+ANSIBLE_ROLES_PATH = join(REPOS_DIR, 'ansible/roles/')
 SAMPLE_CASE_DIR = join(REPOS_DIR, 'samples')
 TESTCASE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_cases/')
 TESTSUITE_DIR = join(YARDSTICK_ROOT_PATH, 'tests/opnfv/test_suites/')
