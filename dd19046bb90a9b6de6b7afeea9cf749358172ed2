@@ -46,6 +46,76 @@
       "revId": "dd19046bb90a9b6de6b7afeea9cf749358172ed2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1309f7dd",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-24T12:52:20Z",
+      "side": 1,
+      "message": "Ufff it took me a while to see this generator.\n\nI know SocketTopology.parse returns:\nsocket (physical_id) --\u003e core (core_id) --\u003e thread (processor)\n                                            thread\n                         core -- \u003e .....\n\nWhy don\u0027t we move this logic to SocketTopology? Doing this, this logic will be available for everyone using it and we can test is only once.",
+      "parentUuid": "9a3d3df0_6d97e03a",
+      "range": {
+        "startLine": 68,
+        "startChar": 20,
+        "endLine": 68,
+        "endChar": 85
+      },
+      "revId": "dd19046bb90a9b6de6b7afeea9cf749358172ed2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_93fce7b9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-24T12:52:20Z",
+      "side": 1,
+      "message": "According to [1], those threads (\"processor\") are not going to be assigned to any socket. So I think we need to remove them from the dual_if:threads list.\n\n[1] https://trex-tgn.cisco.com/trex/doc/trex_manual.html#_yaml_configuration_file_parameter_of_cfg_option",
+      "range": {
+        "startLine": 71,
+        "startChar": 11,
+        "endLine": 72,
+        "endChar": 35
+      },
+      "revId": "dd19046bb90a9b6de6b7afeea9cf749358172ed2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f30bb3d3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-24T12:52:20Z",
+      "side": 1,
+      "message": "Why don\u0027t remove L105 and put here:\n  \"platform\": self._set_platform_socket_threads()",
+      "range": {
+        "startLine": 112,
+        "startChar": 24,
+        "endLine": 112,
+        "endChar": 32
+      },
+      "revId": "dd19046bb90a9b6de6b7afeea9cf749358172ed2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
