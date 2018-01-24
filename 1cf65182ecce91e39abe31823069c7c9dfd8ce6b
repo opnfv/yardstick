@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_e6d6534e",
+        "filename": "tests/unit/benchmark/scenarios/parser/test_parser.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-24T17:42:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_bede2c6b",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 69
+      },
+      "revId": "1cf65182ecce91e39abe31823069c7c9dfd8ce6b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_361452f4",
         "filename": "tests/unit/benchmark/scenarios/parser/test_parser.py",
         "patchSetId": 1
@@ -177,6 +201,30 @@
       "writtenOn": "2017-11-24T14:37:17Z",
       "side": 1,
       "message": "nit: you can avoid this just assigning the value\n  expected_result \u003d {\"yangtotosca\": \"success\"}",
+      "range": {
+        "startLine": 49,
+        "startChar": 7,
+        "endLine": 50,
+        "endChar": 56
+      },
+      "revId": "1cf65182ecce91e39abe31823069c7c9dfd8ce6b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c6b86f2c",
+        "filename": "tests/unit/benchmark/scenarios/parser/test_parser.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-24T17:42:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_b6ffc2a9",
       "range": {
         "startLine": 49,
         "startChar": 7,
@@ -406,6 +454,24 @@
       "side": 1,
       "message": "This is a change I\u0027d consider to be unrelated",
       "parentUuid": "9a3d3df0_9621de4f",
+      "revId": "1cf65182ecce91e39abe31823069c7c9dfd8ce6b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_06d41746",
+        "filename": "yardstick/benchmark/scenarios/parser/parser.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-24T17:42:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_b6c0622b",
       "revId": "1cf65182ecce91e39abe31823069c7c9dfd8ce6b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
