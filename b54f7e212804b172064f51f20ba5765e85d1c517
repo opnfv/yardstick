@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_706679ee",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_ab3ffe85",
+      "range": {
+        "startLine": 11,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 45
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_8b44ba1b",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-01-18T19:17:58Z",
       "side": 1,
       "message": "Suggested re-word:\nVerify VM HA on Hypervisor Node Failure",
+      "range": {
+        "startLine": 13,
+        "startChar": 49,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d06145d4",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_8b44ba1b",
       "range": {
         "startLine": 13,
         "startChar": 49,
@@ -94,6 +142,54 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b05c811a",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_50337faa",
+      "range": {
+        "startLine": 17,
+        "startChar": 79,
+        "endLine": 17,
+        "endChar": 110
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_109f2db6",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_d0f66f8e",
+      "range": {
+        "startLine": 16,
+        "startChar": 48,
+        "endLine": 17,
+        "endChar": 32
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_eb4c6644",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2018-01-18T19:17:58Z",
       "side": 1,
       "message": "Should the test purpose also include a measurement of outage on a benchmark system/hardware setup ?   Or at least some minimum outage requirement ?\n\nwhere outage could be measured by the VM under test doing simple L3 Routing for  a steady state bi-directional packet flow of (say) 1,000 packets / second, and simply record the number of packets lost across the failure and recovery.\n\nCorresponding changes would be required to the following test methods, if done.",
+      "range": {
+        "startLine": 19,
+        "startChar": 62,
+        "endLine": 19,
+        "endChar": 64
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_50a53502",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "The suggestion makes sense to me. I think we may need to ask Jasper and Kanglin if this could be done with the current yardstick framework. If not, we may update this case after this feature is added to the framework.",
+      "parentUuid": "9a3d3df0_eb4c6644",
       "range": {
         "startLine": 19,
         "startChar": 62,
@@ -134,6 +254,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_90b21d4a",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_d0ccaf8b",
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_30efdbea",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -145,6 +283,30 @@
       "writtenOn": "2018-01-18T12:37:24Z",
       "side": 1,
       "message": "panic failure, observe whether....\n\nThis is not the last clause of the oordinating sentence",
+      "range": {
+        "startLine": 22,
+        "startChar": 17,
+        "endLine": 22,
+        "endChar": 43
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_70add9e8",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_30efdbea",
       "range": {
         "startLine": 22,
         "startChar": 17,
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_d0b8252c",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_b0248b60",
+      "range": {
+        "startLine": 24,
+        "startChar": 53,
+        "endLine": 24,
+        "endChar": 55
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_10ec57f2",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -191,6 +377,30 @@
       "writtenOn": "2018-01-18T12:37:24Z",
       "side": 1,
       "message": "L2, L3 and L3VPN\n\nLeave spaces",
+      "range": {
+        "startLine": 25,
+        "startChar": 20,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f0d6094e",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_10ec57f2",
       "range": {
         "startLine": 25,
         "startChar": 20,
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_90c7bd95",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_cb49a232",
+      "range": {
+        "startLine": 27,
+        "startChar": 56,
+        "endLine": 27,
+        "endChar": 66
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_30c6bb68",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -237,6 +471,30 @@
       "writtenOn": "2018-01-18T12:37:24Z",
       "side": 1,
       "message": "To be deleted",
+      "range": {
+        "startLine": 32,
+        "startChar": 79,
+        "endLine": 32,
+        "endChar": 93
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d0bdc503",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_30c6bb68",
       "range": {
         "startLine": 32,
         "startChar": 79,
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b0b80112",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_70bcc3dc",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_10c3b757",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -283,6 +565,30 @@
       "writtenOn": "2018-01-18T12:37:24Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 22
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_103bad9d",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_10c3b757",
       "range": {
         "startLine": 36,
         "startChar": 17,
@@ -318,6 +624,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_f03d6990",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_90aea796",
+      "range": {
+        "startLine": 43,
+        "startChar": 17,
+        "endLine": 43,
+        "endChar": 20
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_70068387",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -329,6 +659,30 @@
       "writtenOn": "2018-01-18T14:00:45Z",
       "side": 1,
       "message": "this section does not mention the L2, L3 connectivity checks mentioned above and below. Is this monitor supposed to check this, too? Similarly, the section \"test purpose\" mentions fencing, which is not mentioned down here. I am wondering if all this should be included right from the start. We could also start slowly and just verify the automatic rebuild of a VM (see also metrics below).",
+      "range": {
+        "startLine": 47,
+        "startChar": 25,
+        "endLine": 47,
+        "endChar": 35
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5041b509",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Agree. we may need to check with Jasper whether the current framework can check out these status. If so, we can add them",
+      "parentUuid": "9a3d3df0_70068387",
       "range": {
         "startLine": 47,
         "startChar": 25,
@@ -358,6 +712,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_3044f119",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_f096134b",
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_9038673e",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -381,6 +753,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b04f6133",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "This is some-how the design of the HA testcase framework. The framework includes parameters like monitor and checker. Monitor is used to monitor the features that we would like to follow. Checker is the result we expect after some operation done to the system. But you are right, we do miss operation here. So the total design is quite difficult to understand.we will modify this.",
+      "parentUuid": "9a3d3df0_9038673e",
+      "range": {
+        "startLine": 60,
+        "startChar": 1,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_708a031c",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -392,6 +788,30 @@
       "writtenOn": "2018-01-18T12:37:24Z",
       "side": 1,
       "message": "Do we need an index here? We are talking about one node only.",
+      "range": {
+        "startLine": 61,
+        "startChar": 17,
+        "endLine": 61,
+        "endChar": 20
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_10628dad",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_708a031c",
       "range": {
         "startLine": 61,
         "startChar": 17,
@@ -473,6 +893,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_90ea1dd9",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "By this, I mean you should first record the detailed configuration of the SUT, e.g. user name, password... since the HA tester should ssh into the hypervisor to do attack and monitor the status",
+      "parentUuid": "9a3d3df0_500b7f8d",
+      "range": {
+        "startLine": 97,
+        "startChar": 17,
+        "endLine": 97,
+        "endChar": 70
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_d07aef22",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -490,6 +934,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_70e5d907",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_d07aef22",
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_90850709",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -501,6 +963,30 @@
       "writtenOn": "2018-01-18T12:37:24Z",
       "side": 1,
       "message": "To be deleted",
+      "range": {
+        "startLine": 109,
+        "startChar": 79,
+        "endLine": 109,
+        "endChar": 96
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b0ebe1da",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_90850709",
       "range": {
         "startLine": 109,
         "startChar": 79,
@@ -582,6 +1068,54 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_10be0dd5",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_2b53eee2",
+      "range": {
+        "startLine": 121,
+        "startChar": 48,
+        "endLine": 121,
+        "endChar": 49
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d0f025cb",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_f07d731d",
+      "range": {
+        "startLine": 121,
+        "startChar": 79,
+        "endLine": 121,
+        "endChar": 97
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f0f9f380",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -593,6 +1127,30 @@
       "writtenOn": "2018-01-18T14:00:45Z",
       "side": 1,
       "message": "It seems this requires a 2nd VM on another host for sending traffic  to the new VM",
+      "range": {
+        "startLine": 126,
+        "startChar": 41,
+        "endLine": 127,
+        "endChar": 50
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f0c0c951",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "I should recheck with Jasper, From my understanding, we can use monitor to finish this. We will add a new monitor for such operation",
+      "parentUuid": "9a3d3df0_f0f9f380",
       "range": {
         "startLine": 126,
         "startChar": 41,
@@ -622,6 +1180,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_50b415f1",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_3074fb34",
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_0b50aad2",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 1
@@ -633,6 +1209,30 @@
       "writtenOn": "2018-01-18T19:17:58Z",
       "side": 1,
       "message": "I think this is the first time you talked about SLA.\nYou should talk about this in the Test Purpose and define exactly what the SLA is and describe how you are measuring the SLA metric.",
+      "range": {
+        "startLine": 145,
+        "startChar": 31,
+        "endLine": 145,
+        "endChar": 34
+      },
+      "revId": "b54f7e212804b172064f51f20ba5765e85d1c517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_30b7d1f6",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T03:37:00Z",
+      "side": 1,
+      "message": "SLA is mentioned in the test configuration file. and is actually the \"metric\" parameter in this file",
+      "parentUuid": "9a3d3df0_0b50aad2",
       "range": {
         "startLine": 145,
         "startChar": 31,
