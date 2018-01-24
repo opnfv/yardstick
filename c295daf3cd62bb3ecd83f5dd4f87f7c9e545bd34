@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_d0aca58e",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc059.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T04:23:22Z",
+      "side": 1,
+      "message": "TC059?\nI suppose there is a copy error here",
+      "range": {
+        "startLine": 89,
+        "startChar": 63,
+        "endLine": 89,
+        "endChar": 78
+      },
+      "revId": "c295daf3cd62bb3ecd83f5dd4f87f7c9e545bd34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b0a761a6",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc059.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-01-24T04:23:22Z",
+      "side": 1,
+      "message": "how do we figure out the SDN process is recovered? do we need another monitor here?",
+      "range": {
+        "startLine": 153,
+        "startChar": 16,
+        "endLine": 153,
+        "endChar": 78
+      },
+      "revId": "c295daf3cd62bb3ecd83f5dd4f87f7c9e545bd34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
