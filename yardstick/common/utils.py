@@ -105,13 +105,14 @@ def remove_file(path):
             raise
 
 
-def execute_command(cmd):
+def execute_command(cmd, **kwargs):
     exec_msg = "Executing command: '%s'" % cmd
     logger.debug(exec_msg)
 
-    output = subprocess.check_output(cmd.split()).split(os.linesep)
-
-    return output
+    output = subprocess.check_output(cmd.split(), **kwargs)
+    if not isinstance(output, six.string_types):
+        output = str(output.decode('utf-8'))
+    return output.split(os.linesep)
 
 
 def source_env(env_file):
