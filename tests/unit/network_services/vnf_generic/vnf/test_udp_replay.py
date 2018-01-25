@@ -473,4 +473,4 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         udp_replay_approx_vnf._vnf_process.terminate = mock.Mock()
         udp_replay_approx_vnf.used_drivers = {"01:01.0": "i40e", "01:01.1": "i40e"}
         udp_replay_approx_vnf.dpdk_nic_bind = "dpdk_nic_bind.py"
-        self.assertEqual(None, udp_replay_approx_vnf.terminate())
+        self.assertIsNone(udp_replay_approx_vnf.terminate())

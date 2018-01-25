@@ -91,17 +91,17 @@ class TestYardstickNSCli(unittest.TestCase):
         subprocess.check_output = mock.Mock(return_value=0)
         args = {"vnf": "vpe",
                 "test": "tc_baremetal_rfc2544_ipv4_1flow_1518B.yaml"}
-        self.assertEqual(None, yardstick_ns_cli.run_test(args, test_path))
+        self.assertIsNone(yardstick_ns_cli.run_test(args, test_path))
         os.chdir(cur_dir)
         args = {"vnf": "vpe1"}
-        self.assertEqual(None, yardstick_ns_cli.run_test(args, test_path))
+        self.assertIsNone(yardstick_ns_cli.run_test(args, test_path))
         os.chdir(cur_dir)
         args = {"vnf": "vpe",
                 "test": "tc_baremetal_rfc2544_ipv4_1flow_1518B.yaml."}
-        self.assertEqual(None, yardstick_ns_cli.run_test(args, test_path))
+        self.assertIsNone(yardstick_ns_cli.run_test(args, test_path))
         os.chdir(cur_dir)
         args = []
-        self.assertEqual(None, yardstick_ns_cli.run_test(args, test_path))
+        self.assertIsNone(yardstick_ns_cli.run_test(args, test_path))
         os.chdir(cur_dir)
 
     def test_terminate_if_less_options(self):

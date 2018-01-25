@@ -404,7 +404,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         cgnapt_approx_vnf.vnf_execute = mock.MagicMock()
         cgnapt_approx_vnf.dpdk_nic_bind = "dpdk_nic_bind.py"
         cgnapt_approx_vnf._resource_collect_stop = mock.Mock()
-        self.assertEqual(None, cgnapt_approx_vnf.terminate())
+        self.assertIsNone(cgnapt_approx_vnf.terminate())
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)

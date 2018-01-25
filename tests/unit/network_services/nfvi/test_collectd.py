@@ -34,7 +34,7 @@ class TestAmqpConsumer(unittest.TestCase):
         self.amqp_consumer._connection.add_on_close_callback = \
             mock.Mock(return_value=0)
         self.amqp_consumer._connection.channel = mock.Mock(return_value=0)
-        self.assertEqual(None, self.amqp_consumer.on_connection_open(10))
+        self.assertIsNone(self.amqp_consumer.on_connection_open(10))
 
     def test_on_connection_closed(self):
         self.amqp_consumer._connection = mock.Mock(autospec=AmqpConsumer)
@@ -56,7 +56,7 @@ class TestAmqpConsumer(unittest.TestCase):
         self.amqp_consumer._connection.ioloop.stop = mock.Mock(return_value=0)
         self.amqp_consumer.connect = mock.Mock(return_value=0)
         self.amqp_consumer._closing = True
-        self.assertEqual(None, self.amqp_consumer.reconnect())
+        self.assertIsNone(self.amqp_consumer.reconnect())
 
     def test_on_channel_open(self):
         self.amqp_consumer._connection = mock.Mock(autospec=AmqpConsumer)
@@ -89,33 +89,33 @@ class TestAmqpConsumer(unittest.TestCase):
 
     def test_ion_exchange_declareok(self):
         self.amqp_consumer.setup_queue = mock.Mock(return_value=0)
-        self.assertEqual(None, self.amqp_consumer.on_exchange_declareok(10))
+        self.assertIsNone(self.amqp_consumer.on_exchange_declareok(10))
 
     def test_setup_queue(self):
         self.amqp_consumer._channel = mock.Mock()
         self.amqp_consumer._channel.add_on_close_callback = mock.Mock()
-        self.assertEqual(None, self.amqp_consumer.setup_queue("collectd"))
+        self.assertIsNone(self.amqp_consumer.setup_queue("collectd"))
 
     def test_on_queue_declareok(self):
         self.amqp_consumer._channel = mock.Mock()
         self.amqp_consumer._channel.queue_bind = mock.Mock()
-        self.assertEqual(None, self.amqp_consumer.on_queue_declareok(10))
+        self.assertIsNone(self.amqp_consumer.on_queue_declareok(10))
 
     def test__on_bindok(self):
         self.amqp_consumer._channel = mock.Mock()
         self.amqp_consumer._channel.basic_consume = mock.Mock()
         self.amqp_consumer.add_on_cancel_callback = mock.Mock()
-        self.assertEqual(None, self.amqp_consumer._on_bindok(10))
+        self.assertIsNone(self.amqp_consumer._on_bindok(10))
 
     def test_add_on_cancel_callback(self):
         self.amqp_consumer._channel = mock.Mock()
         self.amqp_consumer._channel.add_on_cancel_callback = mock.Mock()
-        self.assertEqual(None, self.amqp_consumer.add_on_cancel_callback())
+        self.assertIsNone(self.amqp_consumer.add_on_cancel_callback())
 
     def test_on_consumer_cancelled(self):
         self.amqp_consumer._channel = mock.Mock()
         self.amqp_consumer._channel.close = mock.Mock()
-        self.assertEqual(None, self.amqp_consumer.on_consumer_cancelled(10))
+        self.assertIsNone(self.amqp_consumer.on_consumer_cancelled(10))
 
     def test_on_message(self):
         body = "msg {} cpu/cpu-0/ipc 101010:10"
@@ -130,18 +130,18 @@ class TestAmqpConsumer(unittest.TestCase):
     def test_ack_message(self):
         self.amqp_consumer._channel = mock.Mock()
         self.amqp_consumer._channel.basic_ack = mock.Mock()
-        self.assertEqual(None, self.amqp_consumer.ack_message(10))
+        self.assertIsNone(self.amqp_consumer.ack_message(10))
 
     def test_on_cancelok(self):
         self.amqp_consumer._channel = mock.Mock()
         self.amqp_consumer._channel.close = mock.Mock()
-        self.assertEqual(None, self.amqp_consumer.on_cancelok(10))
+        self.assertIsNone(self.amqp_consumer.on_cancelok(10))
 
     def test_run(self):
         self.amqp_consumer._connection = mock.Mock(autospec=AmqpConsumer)
         self.amqp_consumer.connect = mock.Mock()
         self.amqp_consumer._connection.ioloop.start = mock.Mock()
-        self.assertEqual(None, self.amqp_consumer.run())
+        self.assertIsNone(self.amqp_consumer.run())
 
     def test_stop(self):
         self.amqp_consumer._connection = mock.Mock(autospec=AmqpConsumer)
@@ -149,9 +149,9 @@ class TestAmqpConsumer(unittest.TestCase):
         self.amqp_consumer._connection.ioloop.start = mock.Mock()
         self.amqp_consumer._channel = mock.Mock()
         self.amqp_consumer._channel.basic_cancel = mock.Mock()
-        self.assertEqual(None, self.amqp_consumer.stop())
+        self.assertIsNone(self.amqp_consumer.stop())
 
     def test_close_connection(self):
         self.amqp_consumer._connection = mock.Mock(autospec=AmqpConsumer)
         self.amqp_consumer._connection.close = mock.Mock()
-        self.assertEqual(None, self.amqp_consumer.close_connection())
+        self.assertIsNone(self.amqp_consumer.close_connection())

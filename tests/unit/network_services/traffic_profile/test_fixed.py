@@ -119,4 +119,4 @@ class TestFixedProfile(unittest.TestCase):
         fixed_profile = FixedProfile(self.TRAFFIC_PROFILE)
         fixed_profile.params = self.TRAFFIC_PROFILE
         fixed_profile.first_run = True
-        self.assertEqual(None, fixed_profile.execute(traffic_generator))
+        self.assertIsNone(fixed_profile.execute(traffic_generator))

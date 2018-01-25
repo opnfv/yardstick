@@ -345,4 +345,4 @@ class TestAclApproxVnf(unittest.TestCase):
         acl_approx_vnf.vnf_execute = mock.MagicMock()
         acl_approx_vnf.dpdk_nic_bind = "dpdk_nic_bind.py"
         acl_approx_vnf._resource_collect_stop = mock.Mock()
-        self.assertEqual(None, acl_approx_vnf.terminate())
+        self.assertIsNone(acl_approx_vnf.terminate())

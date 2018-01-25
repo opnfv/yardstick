@@ -261,7 +261,7 @@ class TestRouterVNF(unittest.TestCase):
         router_vnf = RouterVNF(name, vnfd)
         router_vnf._vnf_process = mock.MagicMock()
         router_vnf._vnf_process.terminate = mock.Mock()
-        self.assertEqual(None, router_vnf.terminate())
+        self.assertIsNone(router_vnf.terminate())
 
 if __name__ == '__main__':
     unittest.main()

@@ -245,7 +245,7 @@ class TestResourceProfile(unittest.TestCase):
         self.resource_profile.run_collectd_amqp = \
             mock.Mock(return_value=0)
         res = self.resource_profile.amqp_process_for_nfvi_kpi()
-        self.assertEqual(None, res)
+        self.assertIsNone(res)
 
     def test_amqp_collect_nfvi_kpi(self):
         self.resource_profile.amqp_client = \

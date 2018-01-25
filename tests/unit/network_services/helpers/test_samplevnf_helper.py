@@ -193,7 +193,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.socket = 0
         opnfv_vnf.start_core = 0
         opnfv_vnf.update_write_parser = mock.MagicMock()
-        self.assertEqual(None, opnfv_vnf.update_timer())
+        self.assertIsNone(opnfv_vnf.update_timer())
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
@@ -719,14 +719,14 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.worker_config = '1t'
         opnfv_vnf.start_core = 0
         result = opnfv_vnf.generate_next_core_id()
-        self.assertEqual(None, result)
+        self.assertIsNone(result)
         opnfv_vnf.worker_config = '2t'
         opnfv_vnf.start_core = 'a'
         self.assertRaises(ValueError, opnfv_vnf.generate_next_core_id)
         opnfv_vnf.worker_config = '2t'
         opnfv_vnf.start_core = 1
         result = opnfv_vnf.generate_next_core_id()
-        self.assertEqual(None, result)
+        self.assertIsNone(result)
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.os')
@@ -757,7 +757,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf._port_pairs = PortPairs(vnfd_mock.interfaces)
         opnfv_vnf.port_pair_list = opnfv_vnf._port_pairs.port_pair_list
         result = opnfv_vnf.generate_lb_to_port_pair_mapping()
-        self.assertEqual(None, result)
+        self.assertIsNone(result)
         result = opnfv_vnf.set_priv_to_pub_mapping()
         self.assertEqual('(0,1)', result)
 
@@ -790,7 +790,7 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.start_core = 0
         opnfv_vnf.lb_count = 1
         result = opnfv_vnf.set_priv_que_handler()
-        self.assertEqual(None, result)
+        self.assertIsNone(result)
 
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.open')
     @mock.patch('yardstick.network_services.helpers.samplevnf_helper.ConfigParser')
