@@ -566,7 +566,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self.s.load_vnf_models = mock.Mock(return_value=self.s.vnfs)
             self.s._fill_traffic_profile = \
                 mock.Mock(return_value=TRAFFIC_PROFILE)
-            self.assertEqual(None, self.s.setup())
+            self.assertIsNone(self.s.setup())
 
     def test_setup_exception(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:

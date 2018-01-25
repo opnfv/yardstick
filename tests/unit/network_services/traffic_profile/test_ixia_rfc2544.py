@@ -474,7 +474,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         r_f_c2544_profile.get_multiplier = mock.Mock()
         r_f_c2544_profile._ixia_traffic_generate = mock.Mock()
         ixia_obj = mock.MagicMock()
-        self.assertEqual(None, r_f_c2544_profile.execute_traffic(traffic_generator, ixia_obj))
+        self.assertIsNone(r_f_c2544_profile.execute_traffic(traffic_generator, ixia_obj))
 
     def test_update_traffic_profile(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
@@ -609,8 +609,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
             mock.Mock(return_value={})
         r_f_c2544_profile.full_profile = {}
         r_f_c2544_profile._ixia_traffic_generate = mock.Mock()
-        self.assertEqual(
-            None,
+        self.assertIsNone(
             r_f_c2544_profile.start_ixia_latency(traffic_generator, ixia_obj))
 
 

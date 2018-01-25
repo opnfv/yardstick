@@ -57,7 +57,7 @@ class TaskTestCase(unittest.TestCase):
 
         mock_dispatcher.get = mock.MagicMock(return_value=[dispatcher1,
                                                            dispatcher2])
-        self.assertEqual(None, t._do_output(output_config, {}))
+        self.assertIsNone(t._do_output(output_config, {}))
 
     @mock.patch.object(task, 'Context')
     def test_parse_networks_from_nodes(self, mock_context):
