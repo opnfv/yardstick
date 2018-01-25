@@ -54,7 +54,7 @@ class GetNetworkIdTestCase(unittest.TestCase):
 
         output = openstack_utils.get_network_id(mock_shade_client,
                                                 'network_name')
-        self.assertEqual(None, output)
+        self.assertIsNone(output)
 
 
 class DeleteNeutronNetTestCase(unittest.TestCase):
