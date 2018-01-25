@@ -170,7 +170,7 @@ class TestIXIATrafficGen(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ixnet_traffic_gen = IxiaTrafficGen(NAME, vnfd)
-            self.assertEqual(None, ixnet_traffic_gen.listen_traffic({}))
+            self.assertIsNone(ixnet_traffic_gen.listen_traffic({}))
 
     def test_instantiate(self, *args):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -228,7 +228,7 @@ class TestIXIATrafficGen(unittest.TestCase):
             ixnet_traffic_gen._ixia_traffic_gen.ix_stop_traffic = mock.Mock()
             ixnet_traffic_gen._traffic_process = mock.MagicMock()
             ixnet_traffic_gen._traffic_process.terminate = mock.Mock()
-            self.assertEqual(None, ixnet_traffic_gen.terminate())
+            self.assertIsNone(ixnet_traffic_gen.terminate())
 
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))

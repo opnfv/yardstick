@@ -63,7 +63,7 @@ class TaskTestCase(unittest.TestCase):
         output_config = {"DEFAULT": {"dispatcher": "file, http"}}
         mock_dispatcher.get = mock.MagicMock(return_value=[mock.MagicMock(),
                                                            mock.MagicMock()])
-        self.assertEqual(None, t._do_output(output_config, {}))
+        self.assertIsNone(t._do_output(output_config, {}))
 
     @mock.patch('yardstick.benchmark.core.task.Context')
     def test_parse_networks_from_nodes(self, mock_context):

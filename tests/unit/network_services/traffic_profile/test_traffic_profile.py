@@ -152,11 +152,11 @@ class TestTrexProfile(unittest.TestCase):
 
         trex_profile = \
             TrexProfile(TrafficProfile)
-        self.assertEqual(None, trex_profile.set_qinq(qinq))
+        self.assertIsNone(trex_profile.set_qinq(qinq))
 
         qinq = {"S-VLAN": {"id": "128-130", "priority": 0, "cfi": 0},
                 "C-VLAN": {"id": "512-515", "priority": 0, "cfi": 0}}
-        self.assertEqual(None, trex_profile.set_qinq(qinq))
+        self.assertIsNone(trex_profile.set_qinq(qinq))
 
     def test__set_outer_l2_fields(self):
         trex_profile = \
@@ -165,14 +165,14 @@ class TestTrexProfile(unittest.TestCase):
                 "C-VLAN": {"id": 512, "priority": 0, "cfi": 0}}
         outer_l2 = self.PROFILE[TrafficProfile.UPLINK]['ipv4']['outer_l2']
         outer_l2['QinQ'] = qinq
-        self.assertEqual(None, trex_profile._set_outer_l2_fields(outer_l2))
+        self.assertIsNone(trex_profile._set_outer_l2_fields(outer_l2))
 
     def test__set_outer_l3v4_fields(self):
         trex_profile = \
             TrexProfile(TrafficProfile)
         outer_l3v4 = self.PROFILE[TrafficProfile.UPLINK]['ipv4']['outer_l3v4']
         outer_l3v4['proto'] = 'tcp'
-        self.assertEqual(None, trex_profile._set_outer_l3v4_fields(outer_l3v4))
+        self.assertIsNone(trex_profile._set_outer_l3v4_fields(outer_l3v4))
 
     def test__set_outer_l3v6_fields(self):
         trex_profile = \
@@ -181,13 +181,13 @@ class TestTrexProfile(unittest.TestCase):
         outer_l3v6['proto'] = 'tcp'
         outer_l3v6['tc'] = 1
         outer_l3v6['hlim'] = 10
-        self.assertEqual(None, trex_profile._set_outer_l3v6_fields(outer_l3v6))
+        self.assertIsNone(trex_profile._set_outer_l3v6_fields(outer_l3v6))
 
     def test__set_outer_l4_fields(self):
         trex_profile = \
             TrexProfile(TrafficProfile)
         outer_l4 = self.PROFILE[TrafficProfile.UPLINK]['ipv4']['outer_l4']
-        self.assertEqual(None, trex_profile._set_outer_l4_fields(outer_l4))
+        self.assertIsNone(trex_profile._set_outer_l4_fields(outer_l4))
 
     def test_get_streams(self):
         trex_profile = \
