@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5f0ffee0",
+        "filename": "tools/cover.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-25T21:54:27Z",
+      "side": 1,
+      "message": "You could put this before the if block, and remove L118 and L123",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 29
+      },
+      "revId": "4f38daf30bef64619c72a6dfcc751e323a59619a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9ffce6b9",
+        "filename": "tools/cover.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-25T21:54:27Z",
+      "side": 1,
+      "message": "nit: \"I believe you can get to 100% test coverage\"\n\n\nWhat\u0027s there is somewhat bulky",
+      "range": {
+        "startLine": 119,
+        "startChar": 14,
+        "endLine": 119,
+        "endChar": 72
+      },
+      "revId": "4f38daf30bef64619c72a6dfcc751e323a59619a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3f12fa08",
+        "filename": "tools/cover.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-25T21:54:27Z",
+      "side": 1,
+      "message": "Is there really a need for a separate block for \"added code\"?\n\n\nThis could be OR\u0027d with L116, so you don\u0027t need this block.",
+      "range": {
+        "startLine": 121,
+        "startChar": 4,
+        "endLine": 121,
+        "endChar": 39
+      },
+      "revId": "4f38daf30bef64619c72a6dfcc751e323a59619a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
