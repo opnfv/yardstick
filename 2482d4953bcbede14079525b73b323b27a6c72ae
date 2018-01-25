@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ff3252a5",
+        "filename": "ansible/roles/download_civetweb/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-25T22:12:07Z",
+      "side": 1,
+      "message": "Why use 1.9.1 and not 1.10?\n\nhttps://sourceforge.net/projects/civetweb/files/1.10/",
+      "range": {
+        "startLine": 15,
+        "startChar": 62,
+        "endLine": 15,
+        "endChar": 68
+      },
+      "revId": "2482d4953bcbede14079525b73b323b27a6c72ae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
