@@ -145,7 +145,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ixload_traffic_gen = IxLoadTrafficGen(NAME, vnfd)
-            self.assertEqual(None, ixload_traffic_gen.listen_traffic({}))
+            self.assertIsNone(ixload_traffic_gen.listen_traffic({}))
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.makedirs")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
@@ -255,7 +255,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
             ixload_traffic_gen = IxLoadTrafficGen(NAME, vnfd)
-            self.assertEqual(None, ixload_traffic_gen.terminate())
+            self.assertIsNone(ixload_traffic_gen.terminate())
 
     @mock.patch("yardstick.ssh.SSH")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")

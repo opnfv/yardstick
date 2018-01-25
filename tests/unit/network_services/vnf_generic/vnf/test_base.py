@@ -195,7 +195,7 @@ class TestQueueFileWrapper(unittest.TestCase):
     def test_close(self):
         queue_file_wrapper = \
             base.QueueFileWrapper(self.q_in, self.q_out, self.prompt)
-        self.assertEqual(None, queue_file_wrapper.close())
+        self.assertIsNone(queue_file_wrapper.close())
 
     def test_read(self):
         queue_file_wrapper = \

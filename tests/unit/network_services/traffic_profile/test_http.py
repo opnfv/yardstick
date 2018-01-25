@@ -33,13 +33,11 @@ class TestTrafficProfileGenericHTTP(unittest.TestCase):
         traffic_profile_generic_htt_p = \
                 TrafficProfileGenericHTTP(TrafficProfile)
         traffic_generator = {}
-        self.assertEqual(None,
-                         traffic_profile_generic_htt_p.execute(
-                             traffic_generator))
+        self.assertIsNone(
+            traffic_profile_generic_htt_p.execute(traffic_generator))
 
     def test__send_http_request(self):
         traffic_profile_generic_htt_p = \
                 TrafficProfileGenericHTTP(TrafficProfile)
-        self.assertEqual(None,
-                         traffic_profile_generic_htt_p._send_http_request(
+        self.assertIsNone(traffic_profile_generic_htt_p._send_http_request(
                              "10.1.1.1", "250", "/req"))

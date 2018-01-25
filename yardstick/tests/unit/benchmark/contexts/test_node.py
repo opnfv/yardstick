@@ -137,7 +137,7 @@ class NodeContextTestCase(unittest.TestCase):
 
     @mock.patch("{}.AnsibleCommon".format(PREFIX))
     def test__do_ansible_job(self, mock_ansible):
-        self.assertEqual(None, self.test_context._do_ansible_job('dummy'))
+        self.assertIsNone(self.test_context._do_ansible_job('dummy'))
 
     def test_successful_init(self):
 

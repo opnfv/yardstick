@@ -423,4 +423,4 @@ class TestProxTrafficGen(unittest.TestCase):
         prox_traffic_gen._vnf_wrapper.setup_helper = mock.MagicMock()
         prox_traffic_gen._vnf_wrapper._vnf_process = mock.MagicMock()
         prox_traffic_gen._vnf_wrapper.resource_helper = mock.MagicMock()
-        self.assertEqual(None, prox_traffic_gen.terminate())
+        self.assertIsNone(prox_traffic_gen.terminate())
