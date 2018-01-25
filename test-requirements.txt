@@ -4,6 +4,7 @@
 
 coverage==4.4.2             # Apache 2.0; OSI Approved  Apache Software License; http://www.apache.org/licenses/LICENSE-2.0; http://www.apache.org/licenses/LICENSE-2.0
 fixtures==3.0.0             # OSI Approved  BSD License; OSI Approved  Apache Software License
+oslotest===2.17.1           # OSI Approved  Apache Software License
 packaging==16.8.0           # BSD or Apache License, Version 2.0
 pyflakes==1.0.0             # MIT; OSI Approved  MIT License
 pylint==1.8.1               # GPLv2
