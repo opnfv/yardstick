@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_64b4fbf1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-01-25T14:51:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_843f7fb3",
+      "revId": "c339b4e74e919ae9c8862efaadbcf01f85800d94",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_04540ffd",
         "filename": "samples/vnf_samples/nsut/vfw/tc_heat_sriov_external_rfc2544_ipv4_1rule_1flow_64B_trex.yaml",
         "patchSetId": 2
