@@ -62,3 +62,5 @@
     - install_pmu_tools
     - download_collectd
     - install_collectd
+    - download_drivers
+    - install_drivers

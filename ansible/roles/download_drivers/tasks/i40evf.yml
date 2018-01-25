@@ -1,0 +1,36 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Directory to store i40evf driver
+  file:
+    path: "{{ i40evf_dest }}"
+    state: directory
+
+- name: Fetch i40evf driver
+  get_url:
+    url: "{{ i40evf_url }}"
+    dest: "{{ i40evf_dest }}/{{ i40evf_gzfile }}"
+    validate_certs: False
+    checksum: "{{ i40evf_checksum[i40evf_version] }}"
+
+- name: Unarchive the i40evf file
+  unarchive:
+    src: "{{ i40evf_dest }}/{{ i40evf_gzfile }}"
+    dest: "{{ i40evf_dest }}"
+    copy: no
+
+- name: Cleanup the archive to save space
+  file:
+      path: "{{ i40evf_dest }}/{{ i40evf_gzfile }}"
+      state: absent
