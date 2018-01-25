@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_3f295a37",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-25T22:24:48Z",
+      "side": 1,
+      "message": "nit: \"Building and installing DPDK libraries\"",
+      "revId": "a16c7e03443f0e58d66ce450af08d63dadeee098",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9f234655",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-25T22:24:48Z",
+      "side": 1,
+      "message": "Could add:\n\necho \"Done building DPDK libraries\"",
+      "revId": "a16c7e03443f0e58d66ce450af08d63dadeee098",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7f1e420d",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-25T22:24:48Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 62,
+        "startChar": 6,
+        "endLine": 62,
+        "endChar": 39
+      },
+      "revId": "a16c7e03443f0e58d66ce450af08d63dadeee098",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_df194e23",
+        "filename": "yardstick/resources/scripts/install/ovs_deploy.bash",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-25T22:24:48Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "a16c7e03443f0e58d66ce450af08d63dadeee098",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
