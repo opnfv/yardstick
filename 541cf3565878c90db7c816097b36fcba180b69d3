@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_9505e747",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T18:09:26Z",
+      "side": 1,
+      "message": "We should put this in a dictionaty style:\n  extra_args:\n    vports: {{ vports }}",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 41
+      },
+      "revId": "541cf3565878c90db7c816097b36fcba180b69d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b5f62b5b",
+        "filename": "samples/vnf_samples/nsut/vfw/vfw-tg-topology-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T18:09:26Z",
+      "side": 1,
+      "message": "the 3rd parameter of \"get\" is the default value.\n\nThis should be:\nget(extra_args, \u0027vports\u0027, 4)",
+      "range": {
+        "startLine": 15,
+        "startChar": 42,
+        "endLine": 15,
+        "endChar": 51
+      },
+      "revId": "541cf3565878c90db7c816097b36fcba180b69d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f59b9315",
+        "filename": "samples/vnf_samples/traffic_profiles/ipv4_throughput-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T18:09:26Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 54
+      },
+      "revId": "541cf3565878c90db7c816097b36fcba180b69d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1599d71f",
+        "filename": "samples/vnf_samples/traffic_profiles/ipv4_throughput-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T18:09:26Z",
+      "side": 1,
+      "message": "Remove this section.\n\nIn L48: count \u003d 0\nIn L53: {{ count + 1 }}\nIn L78: {{ count + 1 }}",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 27
+      },
+      "revId": "541cf3565878c90db7c816097b36fcba180b69d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_958cc7db",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T18:09:26Z",
+      "side": 1,
+      "message": "small nit: why this variable name? Why not \"topology\"?",
+      "range": {
+        "startLine": 232,
+        "startChar": 8,
+        "endLine": 232,
+        "endChar": 17
+      },
+      "revId": "541cf3565878c90db7c816097b36fcba180b69d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
