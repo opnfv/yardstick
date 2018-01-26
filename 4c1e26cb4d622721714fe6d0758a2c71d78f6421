@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_55d19fcb",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-26T17:43:30Z",
+      "side": 0,
+      "message": "Removing this method completely will break tests, and will need to be replaced where ever it is used, which could potentially result in a really large patchset and with updates to scenarios and unit tests.\n\nYou could ``return _get_shade_client()`` here instead.\nThen the aestethic rename could be done incrementally.\n\nIf you keep the get_neutron_client() method, then the \"aesthetic\" renames changes can be done incrementally.",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 75
+      },
+      "revId": "4c1e26cb4d622721714fe6d0758a2c71d78f6421",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

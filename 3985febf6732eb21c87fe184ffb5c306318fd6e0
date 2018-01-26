@@ -48,6 +48,52 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_35d4dbbb",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-26T17:43:30Z",
+      "side": 1,
+      "message": "get_shade_client should be defined up here, where the other client are defined, to maintain the same logical grouping.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 47
+      },
+      "revId": "3985febf6732eb21c87fe184ffb5c306318fd6e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b5df4bd5",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-26T17:43:30Z",
+      "side": 1,
+      "message": "nit: This could be NETWORKING instead, as this section does networking-related operations.",
+      "range": {
+        "startLine": 422,
+        "startChar": 4,
+        "endLine": 422,
+        "endChar": 11
+      },
+      "revId": "3985febf6732eb21c87fe184ffb5c306318fd6e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_ca49c961",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 2
@@ -65,6 +111,23 @@
         "endLine": 425,
         "endChar": 41
       },
+      "revId": "3985febf6732eb21c87fe184ffb5c306318fd6e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_95de87db",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-26T17:43:30Z",
+      "side": 1,
+      "message": "Keep the same function signature as before (i.e. get_network_id(xx_client, network_name)).\n\nInstead of neutron_client, you can use shade_client, as this is just the name given to the Client object that is passed in.",
       "revId": "3985febf6732eb21c87fe184ffb5c306318fd6e0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
