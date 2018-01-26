@@ -130,12 +130,7 @@ class NetworkServiceTestCase(base.Scenario):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
 
-        # fixme: create schema to validate all fields have been provided
-        with open_relative_file(scenario_cfg["topology"],
-                                scenario_cfg['task_path']) as stream:
-            topology_yaml = yaml_load(stream)
-
-        self.topology = topology_yaml["nsd:nsd-catalog"]["nsd"][0]
+        self._render_topology()
         self.vnfs = []
         self.collector = None
         self.traffic_profile = None
@@ -214,6 +209,12 @@ class NetworkServiceTestCase(base.Scenario):
         with open_relative_file(profile, path) as infile:
             return infile.read()
 
+    def _get_topology(self):
+        topology = self.scenario_cfg["topology"]
+        path = self.scenario_cfg["task_path"]
+        with open_relative_file(topology, path) as infile:
+            return infile.read()
+
     def _fill_traffic_profile(self):
         traffic_mapping = self._get_traffic_profile()
         traffic_map_data = {
@@ -226,6 +227,15 @@ class NetworkServiceTestCase(base.Scenario):
         traffic_vnfd = vnfdgen.generate_vnfd(traffic_mapping, traffic_map_data)
         self.traffic_profile = TrafficProfile.get(traffic_vnfd)
         return self.traffic_profile
+
+    def _render_topology(self):
+        topology = self._get_topology()
+        topology_args = self.scenario_cfg.get('extra_args', {})
+        topolgy_data = {
+            'extra_args': topology_args
+        }
+        topology_yaml = vnfdgen.generate_vnfd(topology, topolgy_data)
+        self.topology = topology_yaml["nsd:nsd-catalog"]["nsd"][0]
 
     def _find_vnf_name_from_id(self, vnf_id):
         return next((vnfd["vnfd-id-ref"]
