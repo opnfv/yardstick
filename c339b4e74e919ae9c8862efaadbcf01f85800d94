@@ -60,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_f5f4335c",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_sriov_external_rfc2544_ipv4_1rule_1flow_64B_trex.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T17:43:57Z",
+      "side": 1,
+      "message": "Currently, the method to we have to render the test case templates is to execute an ansible script, located in ./ansible.\n\nThe goal of this feature is to implement SRIOV in OpenStack and this test case is just an example of this feature working.\n\nWe should first improve the test case template render method.",
+      "parentUuid": "9a3d3df0_04540ffd",
+      "range": {
+        "startLine": 26,
+        "startChar": 15,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "c339b4e74e919ae9c8862efaadbcf01f85800d94",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_445a972a",
         "filename": "samples/vnf_samples/nsut/vfw/tc_heat_sriov_external_rfc2544_ipv4_1rule_1flow_64B_trex.yaml",
         "patchSetId": 2
