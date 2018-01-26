@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Unittest for yardstick.benchmark.contexts.standalone.model
-
 import copy
 import os
 import unittest
@@ -182,6 +180,8 @@ class ModelLibvirtTestCase(unittest.TestCase):
                           *args):
         # NOTE(ralonsoh): this test doesn't cover function execution. This test
         # should also check mocked function calls.
+        cfg_file = 'test_config_file.cfg'
+        self.addCleanup(os.remove, cfg_file)
         result = [4]
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -190,7 +190,7 @@ class ModelLibvirtTestCase(unittest.TestCase):
             ssh.return_value = ssh_mock
         mock_create_snapshot_qemu.return_value = "0.img"
 
-        status = model.Libvirt.build_vm_xml(ssh_mock, {}, "test", "vm_0", 0)
+        status = model.Libvirt.build_vm_xml(ssh_mock, {}, cfg_file, 'vm_0', 0)
         self.assertEqual(status[0], result[0])
 
     def test_update_interrupts_hugepages_perf(self):
