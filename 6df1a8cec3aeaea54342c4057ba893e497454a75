@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_393df5c4",
+        "filename": "ansible/roles/download_drivers/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-26T21:19:15Z",
+      "side": 1,
+      "message": "isn\u0027t md5 deprecated, or just plain insecure",
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_55a51f02",
         "filename": "ansible/roles/download_drivers/tasks/i40evf.yml",
         "patchSetId": 2
