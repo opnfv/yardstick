@@ -16,6 +16,24 @@
       "revId": "7becc3a1c61fedc2c1af1e4867302cf3f3804478",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_da6b1c83",
+        "filename": "requirements.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T08:39:21Z",
+      "side": 1,
+      "message": "Not now, because of the rebase.\n\nI\u0027ll abandond this patch. Is the problem of having a patch not reviewed for so long.",
+      "parentUuid": "9a3d3df0_5f99be6c",
+      "revId": "7becc3a1c61fedc2c1af1e4867302cf3f3804478",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
