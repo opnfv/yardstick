@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_f588b372",
+        "filename": "ansible/roles/download_drivers/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T15:58:38Z",
+      "side": 1,
+      "message": "Just a comment (nothing to do here now): we need to find a better source",
+      "range": {
+        "startLine": 17,
+        "startChar": 13,
+        "endLine": 17,
+        "endChar": 58
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_55a51f02",
+        "filename": "ansible/roles/download_drivers/tasks/i40evf.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T15:58:38Z",
+      "side": 1,
+      "message": "Can we delete this one? We have enough information in the next steps",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 16
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_35a85bda",
+        "filename": "ansible/roles/download_drivers/tasks/i40evf.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T15:58:38Z",
+      "side": 1,
+      "message": "Add a name: \"Directory to store driver xxxx\"",
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_75adc3e8",
+        "filename": "ansible/roles/download_drivers/tasks/i40evf.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T15:58:38Z",
+      "side": 1,
+      "message": "nit: can you use capital letters",
+      "range": {
+        "startLine": 23,
+        "startChar": 8,
+        "endLine": 23,
+        "endChar": 9
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d5b80f2c",
+        "filename": "ansible/roles/download_drivers/tasks/i40evf.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T15:58:38Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 9
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b5b3cb4b",
+        "filename": "ansible/roles/download_drivers/tasks/i40evf.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T15:58:38Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 9
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_152a777e",
+        "filename": "ansible/roles/download_drivers/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T15:58:38Z",
+      "side": 1,
+      "message": "We know this from the name of the role. I think we don\u0027t need it",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 18
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_959967c6",
+        "filename": "ansible/roles/install_drivers/tasks/i40evf.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T15:58:38Z",
+      "side": 1,
+      "message": "Without quotes, and initial capital letter",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b58aab61",
+        "filename": "ansible/roles/install_drivers/tasks/i40evf.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-26T15:58:38Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
