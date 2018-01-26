@@ -136,11 +136,12 @@ class TestResourceProfile(unittest.TestCase):
                 self.resource_profile._prepare_collectd_conf("/opt/nsb_bin"))
 
     def test__setup_ovs_stats(self):
+        # TODO(elfoley): This method doesn't actually return anything, the side
+        # effects should be checked
         self.assertIsNone(
             self.resource_profile._setup_ovs_stats(self.ssh_mock))
 
-    @mock.patch("yardstick.network_services.nfvi.resource.open")
-    def test__provide_config_file(self, *args):
+    def test__provide_config_file(self,):
         loadplugin = range(5)
         port_names = range(5)
         kwargs = {
@@ -151,14 +152,12 @@ class TestResourceProfile(unittest.TestCase):
         self.resource_profile._provide_config_file("/opt/nsb_bin", "collectd.conf", kwargs)
         self.ssh_mock.execute.assert_called_once()
 
-    @mock.patch("yardstick.network_services.nfvi.resource.open")
-    def test_initiate_systemagent(self, *args):
+    def test_initiate_systemagent(self):
         self.resource_profile._start_collectd = mock.Mock()
         self.assertIsNone(
             self.resource_profile.initiate_systemagent("/opt/nsb_bin"))
 
-    @mock.patch("yardstick.network_services.nfvi.resource.open")
-    def test_initiate_systemagent_raise(self, *args):
+    def test_initiate_systemagent_raise(self):
         self.resource_profile._start_collectd = mock.Mock(side_effect=RuntimeError)
         with self.assertRaises(RuntimeError):
             self.resource_profile.initiate_systemagent("/opt/nsb_bin")

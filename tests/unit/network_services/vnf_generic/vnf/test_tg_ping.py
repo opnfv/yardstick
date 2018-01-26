@@ -238,7 +238,7 @@ class TestPingTrafficGen(unittest.TestCase):
 
         self.assertIsInstance(ping_traffic_gen.setup_helper, PingSetupEnvHelper)
         self.assertIsInstance(ping_traffic_gen.resource_helper, PingResourceHelper)
-        self.assertEquals(ping_traffic_gen._result, {})
+        self.assertEqual(ping_traffic_gen._result, {})
 
     @mock.patch("yardstick.ssh.SSH")
     def test__bind_device_kernel_with_failure(self, ssh):
@@ -282,8 +282,7 @@ class TestPingTrafficGen(unittest.TestCase):
         self.assertEqual(self.CMD_KWARGS, ping_traffic_gen.resource_helper.cmd_kwargs)
         self.assertIsNotNone(ping_traffic_gen._result)
 
-    @mock.patch("yardstick.ssh.SSH")
-    def test_listen_traffic(self, *args):
+    def test_listen_traffic(self):
         ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0)
         self.assertIsNone(ping_traffic_gen.listen_traffic({}))
 

@@ -16,13 +16,14 @@ import unittest
 
 from yardstick.benchmark.scenarios.availability import util
 
+
 class ExecuteShellTestCase(unittest.TestCase):
 
     def setUp(self):
         self.param_config = {'serviceName': '@serviceName', 'value': 1}
         self.intermediate_variables = {'@serviceName': 'nova-api'}
         self.std_output = '| id       | 1                     |'
-        self.cmd_config = {'cmd':'ls', 'param':'-a'}
+        self.cmd_config = {'cmd': 'ls', 'param': '-a'}
 
         self._mock_subprocess = mock.patch.object(util, 'subprocess')
         self.mock_subprocess = self._mock_subprocess.start()
@@ -38,11 +39,11 @@ class ExecuteShellTestCase(unittest.TestCase):
 
     def test_read_stdout_item(self):
         result = util.read_stdout_item(self.std_output, 'id')
-        self.assertEquals('1', result)
+        self.assertEqual('1', result)
 
     def test_buildshellparams(self):
         result = util.buildshellparams(self.cmd_config, True)
-        self.assertEquals('/bin/bash -s {0} {1}', result)
+        self.assertEqual('/bin/bash -s {0} {1}', result)
 
     def test__fun_execute_shell_command_successful(self):
         cmd = "env"

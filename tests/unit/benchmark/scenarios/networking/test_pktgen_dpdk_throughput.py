@@ -20,7 +20,6 @@ from yardstick.benchmark.scenarios.networking import pktgen_dpdk_throughput
 
 
 @mock.patch('yardstick.benchmark.scenarios.networking.pktgen_dpdk_throughput.ssh')
-@mock.patch('yardstick.benchmark.scenarios.networking.pktgen_dpdk_throughput.time')
 class PktgenDPDKTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -37,7 +36,16 @@ class PktgenDPDKTestCase(unittest.TestCase):
             }
         }
 
-    def test_pktgen_dpdk_throughput_successful_setup(self, mock__time, mock_ssh):
+        self._mock_time = mock.patch(
+            'yardstick.benchmark.scenarios.networking.pktgen_dpdk_throughput.time')
+        self.mock_time = self._mock_time.start()
+
+        self.addCleanup(self._cleanup)
+
+    def _cleanup(self):
+        self._mock_time.stop()
+
+    def test_pktgen_dpdk_throughput_successful_setup(self, mock_ssh):
         args = {
             'options': {'packetsize': 60},
         }
@@ -49,7 +57,7 @@ class PktgenDPDKTestCase(unittest.TestCase):
         self.assertIsNotNone(p.client)
         self.assertEqual(p.setup_done, True)
 
-    def test_pktgen_dpdk_throughput_successful_no_sla(self, mock__time, mock_ssh):
+    def test_pktgen_dpdk_throughput_successful_no_sla(self, mock_ssh):
         args = {
             'options': {'packetsize': 60, 'number_of_ports': 10},
         }
@@ -75,7 +83,7 @@ class PktgenDPDKTestCase(unittest.TestCase):
         expected_result["packetsize"] = 60
         self.assertEqual(result, expected_result)
 
-    def test_pktgen_dpdk_throughput_successful_sla(self, mock__time, mock_ssh):
+    def test_pktgen_dpdk_throughput_successful_sla(self, mock_ssh):
         args = {
             'options': {'packetsize': 60, 'number_of_ports': 10},
             'sla': {'max_ppm': 10000}
@@ -101,7 +109,7 @@ class PktgenDPDKTestCase(unittest.TestCase):
         expected_result["packetsize"] = 60
         self.assertEqual(result, expected_result)
 
-    def test_pktgen_dpdk_throughput_unsuccessful_sla(self, mock__time, mock_ssh):
+    def test_pktgen_dpdk_throughput_unsuccessful_sla(self, mock_ssh):
         args = {
             'options': {'packetsize': 60, 'number_of_ports': 10},
             'sla': {'max_ppm': 1000}
@@ -122,7 +130,8 @@ class PktgenDPDKTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, p.run, result)
 
-    def test_pktgen_dpdk_throughput_unsuccessful_script_error(self, mock__time, mock_ssh):
+    def test_pktgen_dpdk_throughput_unsuccessful_script_error(
+            self, mock_ssh):
         args = {
             'options': {'packetsize': 60, 'number_of_ports': 10},
             'sla': {'max_ppm': 1000}
@@ -137,7 +146,7 @@ class PktgenDPDKTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p.run, result)
 
-    def test_pktgen_dpdk_throughput_is_dpdk_setup(self, mock__time, mock_ssh):
+    def test_pktgen_dpdk_throughput_is_dpdk_setup(self, mock_ssh):
         args = {
             'options': {'packetsize': 60},
         }
@@ -151,7 +160,7 @@ class PktgenDPDKTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.assert_called_with(
             "ip a | grep eth1 2>/dev/null")
 
-    def test_pktgen_dpdk_throughput_dpdk_setup(self, mock__time, mock_ssh):
+    def test_pktgen_dpdk_throughput_dpdk_setup(self, mock_ssh):
         args = {
             'options': {'packetsize': 60},
         }
@@ -165,7 +174,7 @@ class PktgenDPDKTestCase(unittest.TestCase):
 
         self.assertEqual(p.dpdk_setup_done, True)
 
-    def test_pktgen_dpdk_throughput_dpdk_get_result(self, mock__time, mock_ssh):
+    def test_pktgen_dpdk_throughput_dpdk_get_result(self, mock_ssh):
         args = {
             'options': {'packetsize': 60},
         }
@@ -180,8 +189,10 @@ class PktgenDPDKTestCase(unittest.TestCase):
         mock_ssh.SSH().execute.assert_called_with(
             "sudo /dpdk/destdir/bin/dpdk-procinfo -- --stats-reset > /dev/null 2>&1")
 
+
 def main():
     unittest.main()
+
 
 if __name__ == '__main__':
     main()
