@@ -40,7 +40,7 @@ class UnixbenchTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         self.assertIsNotNone(u.client)
-        self.assertEqual(u.setup_done, True)
+        self.assertTrue(u.setup_done)
 
     def test_unixbench_successful_no_sla(self, mock_ssh):
 
