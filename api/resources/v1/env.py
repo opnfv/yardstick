@@ -119,7 +119,7 @@ class V1Env(ApiResource):
             "isDefault": True,
         }
         try:
-            HttpClient().post(url, data, timeout=10)
+            HttpClient().post(url, data, timeout=60)
         except Exception:
             LOG.exception('Create datasources failed')
             raise
