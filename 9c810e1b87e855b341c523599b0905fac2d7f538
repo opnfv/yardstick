@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_196631ed",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2018-01-27T00:04:31Z",
+      "side": 1,
+      "message": "Clarification question: if the only action is taken is by logging into the VM and executing a reboot.  Would the KVM process restart - I don\u0027t think so.  If this test case is to detect recovery of a failed KVM process, then a different approach is needed.  Maybe I am misunderstanding the test case.",
+      "revId": "9c810e1b87e855b341c523599b0905fac2d7f538",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_396b35b8",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2018-01-27T00:04:31Z",
+      "side": 1,
+      "message": "I think above the SLA is defined as a pass/fail - either it works or it doesn\u0027t.  Are there recovery times that should be specified as part of this test case?",
+      "revId": "9c810e1b87e855b341c523599b0905fac2d7f538",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
