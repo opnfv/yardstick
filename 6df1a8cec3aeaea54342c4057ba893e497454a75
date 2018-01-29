@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_6df057c9",
+        "filename": "ansible/roles/download_drivers/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-29T23:26:49Z",
+      "side": 1,
+      "message": "Perfect. Thanks!",
+      "parentUuid": "9a3d3df0_edc907ad",
+      "range": {
+        "startLine": 17,
+        "startChar": 13,
+        "endLine": 17,
+        "endChar": 58
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_393df5c4",
         "filename": "ansible/roles/download_drivers/defaults/main.yml",
         "patchSetId": 2
